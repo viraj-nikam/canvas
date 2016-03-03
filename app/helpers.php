@@ -2,6 +2,10 @@
 
 /**
  * Return sizes readable by humans
+ *
+ * @param $bytes
+ * @param int $decimals
+ * @return string
  */
 function human_filesize($bytes, $decimals = 2)
 {
@@ -13,7 +17,10 @@ function human_filesize($bytes, $decimals = 2)
 }
 
 /**
- * Is the mime type an image
+ * Is the mime type an image?
+ *
+ * @param $mimeType
+ * @return bool
  */
 function is_image($mimeType)
 {
@@ -22,6 +29,9 @@ function is_image($mimeType)
 
 /**
  * Return "checked" if true
+ *
+ * @param $value
+ * @return string
  */
 function checked($value)
 {
@@ -30,6 +40,9 @@ function checked($value)
 
 /**
  * Return img url for headers
+ *
+ * @param null $value
+ * @return mixed|null|string
  */
 function page_image($value = null)
 {
