@@ -1,3 +1,13 @@
 ## Reminders
 
-Change ownership of /public/uploads to www-data
+```sh
+composer install
+```
+
+```sh
+sudo chmod o+w -R storage
+```
+
+```sh
+sudo chown -R www-data:www-data public/uploads
+```
