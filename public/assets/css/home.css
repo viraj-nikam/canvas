@@ -1,1 +1,27 @@
-@import url(//fonts.googleapis.com/css?family=Montserrat|Roboto:400,100,300,100italic,400italic,300italic,500,500italic,700,700italic,900,900italic|Roboto+Mono);@import url(//fonts.googleapis.com/css?family=Montserrat:400,700);p{font-size:14px;margin-top:15px}span{color:#fd6769;font-size:12px}h3{font-weight:400}h4,h5{font-weight:500}img.navbar-brand{padding-top:0!important;padding-bottom:0!important}
+@import "//fonts.googleapis.com/css?family=Source+Sans+Pro:400,200,200italic,300,300italic,400italic,600,600italic,700,900italic,900,700italic";
+body {
+  font-family: 'Source Sans Pro' !important;
+  text-rendering: optimizelegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  word-spacing: 1px;
+  letter-spacing: 1px;
+}
+
+li {
+  display: inline-block;
+  list-style-type: none;
+}
+
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+  color: #b5b5b5;
+}
+
+/* Tablets */
+
+/* Phones */
