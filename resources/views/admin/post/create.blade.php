@@ -1,7 +1,7 @@
 @extends('admin.layout')
 
 @section('title')
-    <title>Todd Austin | New Post</title>
+    <title>{{ config('blog.title') }} | New Post</title>
 @stop
 
 @section('styles')

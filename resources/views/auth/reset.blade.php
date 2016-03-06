@@ -1,7 +1,7 @@
 @extends('admin.layout')
 
 @section('title')
-    <title>Canvas | Reset Password</title>
+    <title>{{ config('blog.title') }} | Reset Password</title>
 @stop
 
 @section('content')

@@ -1,7 +1,7 @@
 @extends('admin.layout')
 
 @section('title')
-    <title>Todd Austin | Posts</title>
+    <title>{{ config('blog.title') }} | Posts</title>
 @stop
 
 @section('content')
@@ -9,7 +9,7 @@
         <div class="row page-title-row">
             <div class="col-md-12">
                 <h1 class="page-header">Posts
-                    <a href="/admin/post/create" class="btn btn-default btn-md btn-outline btn-sm"><i class="fa fa-fw fa-plus"></i> New Post</a>
+                    <a href="/admin/post/create" class="btn btn-success btn-md btn-outline btn-sm"><i class="fa fa-fw fa-plus"></i> New Post</a>
                 </h1>
             </div>
         </div>
@@ -34,8 +34,8 @@
                                 <td>{{ $post->title }}</td>
                                 <td>{{ $post->subtitle }}</td>
                                 <td>
-                                    <a href="/admin/post/{{ $post->id }}/edit" class="btn btn-xs btn-default btn-outline"><i class="fa fa-fw fa-edit"></i> Edit</a>
-                                    <a href="/blog/{{ $post->slug }}" target="_blank" class="btn btn-xs btn-default btn-outline"><i class="fa fa-fw fa-eye"></i> Preview</a>
+                                    <a href="/admin/post/{{ $post->id }}/edit" class="btn btn-xs btn-primary btn-outline"><i class="fa fa-fw fa-edit"></i> Edit</a>
+                                    <a href="/blog/{{ $post->slug }}" target="_blank" class="btn btn-xs btn-success btn-outline"><i class="fa fa-fw fa-eye"></i> Preview</a>
                                 </td>
                             </tr>
                         @endforeach

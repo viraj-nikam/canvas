@@ -1,7 +1,7 @@
 @extends('admin.layout')
 
 @section('title')
-    <title>Canvas | Login</title>
+    <title>{{ config('blog.title') }} | Login</title>
 @stop
 
 @section('styles')
@@ -22,7 +22,7 @@
             <div class="{{ $errors->has('email') ? 'has-error' : '' }}">
                 <input type="password" class="form-control simplebox" name="password" placeholder="Password">
             </div>
-            <input type="submit" class="btn btn-default btn-block" value="Sign in"/>
+            <input type="submit" class="btn btn-primary btn-outline btn-block" value="Sign in"/>
         </form>
     </div>
 @endsection

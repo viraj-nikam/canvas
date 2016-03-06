@@ -1,10 +1,10 @@
 <?php
 return [
-  'name' => null,
+  'name' => 'Canvas',
   'title' => 'Canvas',
-  'subtitle' => null,
-  'description' => null,
-  'author' => null,
+  'subtitle' => 'Minimal blog application for developers',
+  'description' => 'Blog',
+  'author' => 'Todd Austin',
   'posts_per_page' => 6,
   'rss_size' => 25,
   'uploads' => [

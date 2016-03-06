@@ -1,7 +1,7 @@
 @extends('admin.layout')
 
 @section('title')
-    <title>Canvas | Register</title>
+    <title>{{ config('blog.title') }} | Register</title>
 @stop
 
 @section('content')
