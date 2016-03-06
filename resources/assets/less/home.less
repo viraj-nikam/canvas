@@ -36,12 +36,44 @@ li {
     color: @gray-light;
 }
 
+.laptop {
+    float: right;
+    margin: 25px -15px 25px 0;
+}
+
+.title {
+    margin-top: 80px;
+    font-size: 72px;
+    font-weight: 300 !important;
+    color: @gray;
+}
+
 /* Tablets */
 @media only screen and (max-width: 992px) {
+    .laptop {
+        display: none !important;
+    }
 
+    .title {
+        margin: 0;
+    }
+
+    .feature-block {
+        margin-top: 25px;
+    }
 }
 
 /* Phones */
 @media only screen and (max-width: 768px) {
+    .laptop {
+        display: none !important;
+    }
 
+    .title {
+        margin: 0;
+    }
+
+    .feature-block {
+        margin-top: 25px;
+    }
 }
