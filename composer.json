@@ -1,7 +1,12 @@
 {
-    "name": "laravel/laravel",
-    "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    author": {
+        "name": "Todd Austin",
+        "email": "austin.todd.j@gmail.com",
+        "role": "Developer
+  },
+    "name": "austintoddj/canvas",
+    "description": "A minimal blog application for developers.",
+    "keywords": ["blog", "laravel", "canvas"],
     "license": "MIT",
     "type": "project",
     "require": {
