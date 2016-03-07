@@ -5,7 +5,7 @@
         "role": "Developer"
   },
     "name": "austintoddj/canvas",
-    "description": "A minimal blog application for developers.",
+    "description": "A minimal blogging application for developers.",
     "keywords": ["blog", "laravel", "canvas"],
     "license": "MIT",
     "type": "project",
