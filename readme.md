@@ -57,7 +57,7 @@ php artisan key:generate
 Run the database migrations and seed the tables with demo content:
 
 ```sh
-php artisan migrate:refresh --seed
+php artisan migrate --seed
 ```
 
 ### Credentials
