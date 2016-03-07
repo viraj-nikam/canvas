@@ -14,6 +14,7 @@
 
     <link rel="alternate" type="application/rss+xml" href="{{ url('rss') }}" title="RSS Feed {{ config('blog.title') }}">
     <link href="/assets/css/blog.css" rel="stylesheet">
+    <link rel="icon" href="{{ asset('images/logo.png') }}">
 
     @yield('styles')
 

@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta name="author" content="{{ config('blog.author') }}">
+    <link rel="icon" href="{{ asset('images/logo.png') }}">
     @yield('title')
     <link href="/assets/css/admin.css" rel="stylesheet">
     @yield('styles')
