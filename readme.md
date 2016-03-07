@@ -97,10 +97,6 @@ After you make any modifications to the files in `Canvas/resources/assets/less`,
 gulp
 ```
 
-By default, your theme files are located in `public/themes`.
-You can modify these themes or create your own using the default themes as a guide.
-The configuration for your themes is located in `app/config/packages/wardrobe/core/wardrobe.php` in the `theme` option.
-
 ## Disqus Comments
 
 To enable Disqus comments on your blog, you need to have a unique shortname. For more information, check out the [Official Documentation](https://help.disqus.com/customer/portal/articles/466208-what-s-a-shortname-).
