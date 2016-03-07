@@ -6,9 +6,9 @@ Canvas is a minimalistic blogging application for developers. Canvas attempts to
 
 ## Requirements
 
-Wardrobe has a few system requirements:
+Canvas has a few system requirements:
 
-- PHP >= 5.3.7
+- PHP >= 5.6.18
 - MCrypt PHP Extension
 - PDO compliant database (SQL, MySQL, PostgreSQL, SQLite)
 
