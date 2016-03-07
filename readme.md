@@ -2,6 +2,8 @@
 
 Canvas is a minimalistic blogging application for developers. Canvas attempts to make blogging simple and enjoyable by utilizing the latest technologies and keeping the administration as simple as possible with the primary focus on writing.
 
+![Canvas](https://raw.githubusercontent.com/austintoddj/Canvas/master/public/images/canvas-readme.jpg)
+
 ## Requirements
 
 Wardrobe has a few system requirements:
