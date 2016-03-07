@@ -4,6 +4,32 @@ Canvas is a minimalistic blogging application for developers. Canvas attempts to
 
 ![Canvas](https://raw.githubusercontent.com/austintoddj/Canvas/master/public/images/canvas-readme.jpg)
 
+## Features
+
+#### Markdown
+
+All content is stored as markdown so it's portable and easy to move in and out.
+
+#### Scheduled Posts
+
+Write posts and schedule the time and date you want them to appear.
+
+#### Tagging
+
+Canvas allows you to tag posts for categorization and for grouping.
+
+#### Uploading
+
+File management and configuration come full functional straight out of the box. Create folders and upload files or images.
+
+#### Theming
+
+Canvas utilizes custom LESS files so you can modify the theme to your own taste and preference.
+
+#### Simple Configuration
+
+A single configuration file holds all of the necessary global variables to set in order to get you up and running in no time.
+
 ## Requirements
 
 Canvas has a few system requirements:
