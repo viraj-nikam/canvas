@@ -31,7 +31,13 @@ Canvas has a few system requirements:
 
 ## Installing Canvas
 
-Getting a new instance of Canvas up and running is simple. Just follow these few steps.
+Getting a new instance of Canvas up and running is simple. You can choose either of the following options:
+
+Use Composer:
+
+```sh
+composer create-project austintoddj/canvas
+```
 
 Download the repository:
 
