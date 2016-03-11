@@ -57,7 +57,7 @@ Make sure to modify the permissions of the storage directory:
 sudo chmod o+w -R storage
 ```
 
-To enable uploads on the site, change the ownership of the uploads directory:
+To enable uploads on the site, give ownership of the uploads directory to the web server:
 
 ```sh
 sudo chown -R www-data:www-data public/uploads
