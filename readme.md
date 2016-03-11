@@ -15,7 +15,7 @@ Canvas is a minimalistic blogging application for developers. Canvas attempts to
 
 *Tagging* - Canvas allows you to tag posts for categorization and for grouping.
 
-*Uploading* - File management and configuration come full functional straight out of the box. Create folders and upload files or images.
+*Uploading* - File management and configuration come fully functional straight out of the box. Create folders and upload files or images.
 
 *Theming* - Canvas utilizes custom LESS files so you can modify the theme to your own taste and preference.
 
