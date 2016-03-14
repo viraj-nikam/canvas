@@ -1,6 +1,6 @@
 <?php
 
-class MarkdownerTest extends TestCase
+class MarkdownerTest extends PHPUnit_Framework_TestCase
 {
     protected $markdown;
 
