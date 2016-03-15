@@ -10,7 +10,7 @@ Canvas is a minimalistic blogging application for developers. Canvas attempts to
 
 ## Features
 
-*Markdown* - All content is stored as markdown so it's portable and easy to move in and out.
+*Markdown* - All blog content is stored as markdown so it's portable and easy to move in and out.
 
 *Scheduled Posts* - Write posts and schedule the time and date you want them to appear.
 
