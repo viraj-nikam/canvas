@@ -14,4 +14,6 @@ install:
 
 script:
 
+  - php artisan key:generate
+
   - vendor/bin/phpunit
