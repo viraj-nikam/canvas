@@ -34,19 +34,19 @@ Canvas has a few system requirements:
 
 Getting a new instance of Canvas up and running is simple. You can choose either of the following options:
 
-Use Composer:
+Option 1 - Use Composer:
 
 ```sh
 composer create-project austintoddj/canvas
 ```
 
-Download the repository:
+Option 2 - Download the repository:
 
 ```sh
 git clone https://github.com/austintoddj/Canvas.git
 ```
 
-Once the project has downloaded, run composer:
+If you chose option 1, skip this step. If you chose option 2, run `composer` in the project root:
 
 ```sh
 composer install
