@@ -26,7 +26,7 @@ Canvas is a minimalistic blogging application for developers. Canvas attempts to
 
 Canvas has a few system requirements:
 
-- PHP >= 5.6.18
+- PHP >= 5.5.9
 - MCrypt PHP Extension
 - PDO compliant database (SQL, MySQL, PostgreSQL, SQLite)
 
