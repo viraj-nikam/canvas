@@ -129,4 +129,4 @@ Once you have registered your site and have a shortname, replace `YOUR_UNIQUE_SH
 
 ## License
 
-Canvas is open-sourced software licensed under the <a href="https://opensource.org/licenses/MIT" target="_blank">MIT license</a>.
+Canvas is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
