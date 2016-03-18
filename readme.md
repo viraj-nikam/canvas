@@ -66,13 +66,13 @@ sudo chown -R www-data:www-data public/uploads
 
 ## Configuring Canvas
 
-You will need to create a new environment file and fill in the necessary credentials:
+You will need to create a new `.env` file and fill in the necessary global variables:
 
 ```sh
 cat .env.example > .env; vim .env;
 ```
 
-Generate a new key for your application:
+Generate a key for your application:
 
 ```sh
 php artisan key:generate
