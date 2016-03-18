@@ -46,7 +46,7 @@ Option 2 - Download the repository:
 git clone https://github.com/austintoddj/Canvas.git
 ```
 
-If you chose option 1, skip this step. If you chose option 2, run `composer` in the project root:
+If you chose Option 1, skip this step. If you chose Option 2, run `composer` in the project root:
 
 ```sh
 composer install
