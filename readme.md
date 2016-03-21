@@ -8,7 +8,7 @@ Canvas is a minimalistic blogging application for developers. Canvas attempts to
 
 ![Canvas](https://raw.githubusercontent.com/austintoddj/Canvas/master/public/images/canvas-readme.png)
 
-## Features
+#### Features
 
 *Markdown* - All blog content is stored as markdown so it's portable and easy to move in and out.
 
@@ -22,7 +22,7 @@ Canvas is a minimalistic blogging application for developers. Canvas attempts to
 
 *Simple Configuration* - A single configuration file holds all of the necessary global variables to set in order to get you up and running in no time.
 
-## Requirements
+#### Requirements
 
 Canvas has a few system requirements:
 
@@ -30,7 +30,7 @@ Canvas has a few system requirements:
 - MCrypt PHP Extension
 - PDO compliant database (SQL, MySQL, PostgreSQL, SQLite)
 
-## Installing Canvas
+#### Installing Canvas
 
 Getting a new instance of Canvas up and running is simple. You can choose either of the following options:
 
@@ -64,7 +64,7 @@ To enable uploads on the site, give ownership of the uploads directory to the we
 sudo chown -R www-data:www-data public/uploads
 ```
 
-## Configuring Canvas
+#### Configuring Canvas
 
 You will need to create a new `.env` file and fill in the necessary global variables:
 
@@ -84,7 +84,7 @@ Run the database migrations and seed the tables with demo content:
 php artisan migrate --seed
 ```
 
-### Credentials
+#### Credentials
 
 |Data Key|Value|
 |---|---|
@@ -99,7 +99,7 @@ php artisan migrate:refresh --seed
 
 Finally, you need to modify the file at `Canvas/config/blog.php` with your own site information.
 
-## Theming Canvas
+#### Theming Canvas
 
 Adding and modifying styles with Canvas is a breeze. None of this needs to be done out of the box, it simply works on its own. But if you're feeling a little creative and want to make it stand out more, follow these next steps.
 
@@ -121,12 +121,12 @@ After you make any modifications to the files in `Canvas/resources/assets/less`,
 gulp
 ```
 
-## Disqus Comments
+#### Disqus Comments
 
 To enable Disqus comments on your blog, you need to have a unique shortname. For more information, check out the [Official Documentation](https://help.disqus.com/customer/portal/articles/466208-what-s-a-shortname-).
 
 Once you have registered your site and have a shortname, replace `YOUR_UNIQUE_SHORTNAME` in `Canvas/resources/views/blog/partials/disqus.blade.php` with yours.
 
-## License
+#### License
 
 Canvas is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
