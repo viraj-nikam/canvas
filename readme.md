@@ -1,4 +1,4 @@
-# Canvas
+## Canvas
 
 [![Build Status](https://travis-ci.org/austintoddj/Canvas.svg?branch=master)](https://travis-ci.org/austintoddj/Canvas)
 [![Total Downloads](https://poser.pugx.org/austintoddj/canvas/downloads)](https://packagist.org/packages/austintoddj/canvas)
