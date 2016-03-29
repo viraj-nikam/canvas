@@ -9,9 +9,7 @@ php:
 before_install:
   - mv .env.example .env
 
-
 install:
-  - /home/travis/.phpenv/versions/5.5.9/bin/composer self-update
   - composer install
 
 script:
