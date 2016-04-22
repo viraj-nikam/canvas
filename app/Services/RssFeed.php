@@ -2,12 +2,12 @@
 
 namespace App\Services;
 
-use App\Post;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Cache;
-use Suin\RSSWriter\Channel;
+use App\Models\Post;
 use Suin\RSSWriter\Feed;
 use Suin\RSSWriter\Item;
+use Suin\RSSWriter\Channel;
+use Illuminate\Support\Facades\Cache;
 
 class RssFeed
 {

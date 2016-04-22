@@ -1,6 +1,6 @@
 <?php
 
-$factory->define(App\User::class, function ($faker) {
+$factory->define(App\Models\User::class, function ($faker) {
   return [
     'name' => $faker->name,
     'email' => $faker->email,
@@ -9,7 +9,7 @@ $factory->define(App\User::class, function ($faker) {
   ];
 });
 
-$factory->define(App\Post::class, function ($faker) {
+$factory->define(App\Models\Post::class, function ($faker) {
   $images = ['wood.jpg', 'geese.jpg', 'puddle.jpg'];
   $title = $faker->sentence();
   return [
@@ -23,7 +23,7 @@ $factory->define(App\Post::class, function ($faker) {
   ];
 });
 
-$factory->define(App\Tag::class, function ($faker) {
+$factory->define(App\Models\Tag::class, function ($faker) {
   $images = ['wood.jpg', 'geese.jpg', 'puddle.jpg'];
   $word = $faker->word;
   return [

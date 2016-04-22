@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Jobs\BlogIndexData;
 use App\Http\Requests;
-use App\Post;
-use App\Tag;
+use App\Models\Post;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 use App\Services\RssFeed;
 

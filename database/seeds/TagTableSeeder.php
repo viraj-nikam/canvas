@@ -1,6 +1,6 @@
 <?php
 
-use App\Tag;
+use App\Models\Tag;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 
@@ -15,7 +15,7 @@ class TagTableSeeder extends Seeder
 
         Tag::truncate();
 
-        factory(Tag::class, 5)->create();
+        factory(Tag::class, 15)->create();
 
     Model::reguard();
   }

@@ -1,9 +1,10 @@
 <?php
-namespace App;
 
+namespace App\Models;
+
+use Carbon\Carbon;
 use App\Services\Markdowner;
 use Illuminate\Database\Eloquent\Model;
-use Carbon\Carbon;
 
 class Post extends Model
 {
@@ -21,7 +22,7 @@ class Post extends Model
      */
     public function tags()
     {
-        return $this->belongsToMany('App\Tag', 'post_tag_pivot');
+        return $this->belongsToMany('App\Models\Tag', 'post_tag_pivot');
     }
 
     /**

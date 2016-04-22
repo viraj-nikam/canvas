@@ -1,7 +1,7 @@
 <?php
 
-use App\Tag;
-use App\Post;
+use App\Models\Tag;
+use App\Models\Post;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;

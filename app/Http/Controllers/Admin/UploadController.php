@@ -1,12 +1,12 @@
 <?php
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Services\UploadsManager;
 use Illuminate\Http\Request;
+use App\Services\UploadsManager;
+use Illuminate\Support\Facades\File;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\UploadFileRequest;
 use App\Http\Requests\UploadNewFolderRequest;
-use Illuminate\Support\Facades\File;
 
 class UploadController extends Controller
 {

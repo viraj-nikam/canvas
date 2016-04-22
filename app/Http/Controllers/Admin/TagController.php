@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
-
+use App\Models\Tag;
 use App\Http\Requests;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
-use App\Http\Requests\TagCreateRequest;
 use App\Http\Requests\TagUpdateRequest;
-use App\Tag;
+use App\Http\Requests\TagCreateRequest;
 
 class TagController extends Controller
 {
