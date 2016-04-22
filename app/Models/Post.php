@@ -16,7 +16,7 @@ class Post extends Model
   ];
 
     /**
-     * The many-to-many relationship between posts and tags.
+     * Get the tags relationship.
      *
      * @return BelongsToMany
      */

@@ -2,15 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Jobs\BlogIndexData;
-use App\Http\Requests;
-use App\Models\Post;
 use App\Models\Tag;
-use Illuminate\Http\Request;
+use App\Models\Post;
+use App\Http\Requests;
 use App\Services\RssFeed;
+use App\Jobs\BlogIndexData;
+use Illuminate\Http\Request;
 
 class BlogController extends Controller
 {
+  /**
+   * Display a listing of the resource.
+   *
+   * @return \Illuminate\Http\Response
+   */
   public function index(Request $request)
   {
     $tag = $request->get('tag');
@@ -20,6 +25,11 @@ class BlogController extends Controller
     return view($layout, $data);
   }
 
+  /**
+   * Display the specified resource.
+   *
+   * @return \Illuminate\Http\Response
+   */
   public function showPost($slug, Request $request)
   {
     $post = Post::with('tags')->whereSlug($slug)->firstOrFail();
@@ -33,11 +43,15 @@ class BlogController extends Controller
     return view($post->layout, compact('post', 'tag', 'slug', 'title'));
   }
 
+  /**
+   * Return the rss feed.
+   *
+   * @return \Illuminate\Http\Response
+   */
   public function rss(RssFeed $feed)
   {
     $rss = $feed->getRSS();
 
-    return response($rss)
-      ->header('Content-type', 'application/rss+xml');
+    return response($rss)->header('Content-type', 'application/rss+xml');
   }
 }
