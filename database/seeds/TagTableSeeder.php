@@ -2,6 +2,7 @@
 
 use App\Tag;
 use Illuminate\Database\Seeder;
+use Illuminate\Database\Eloquent\Model;
 
 class TagTableSeeder extends Seeder
 {
@@ -10,8 +11,12 @@ class TagTableSeeder extends Seeder
    */
   public function run()
   {
-    Tag::truncate();
+    Model::unguard();
 
-    factory(Tag::class, 5)->create();
+        Tag::truncate();
+
+        factory(Tag::class, 5)->create();
+
+    Model::reguard();
   }
 }

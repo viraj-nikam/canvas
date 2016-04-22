@@ -1,9 +1,10 @@
 <?php
 
-use App\Post;
 use App\Tag;
+use App\Post;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Model;
 
 class PostTableSeeder extends Seeder
 {
@@ -12,30 +13,35 @@ class PostTableSeeder extends Seeder
    */
   public function run()
   {
-    // Pull all the tag names from the file
-    $tags = Tag::lists('tag')->all();
+    Model::unguard();
 
-    Post::truncate();
+        // Pull all the tag names from the file
+        $tags = Tag::lists('tag')->all();
 
-    // Don't forget to truncate the pivot table
-    DB::table('post_tag_pivot')->truncate();
+        Post::truncate();
 
-    factory(Post::class, 20)->create()->each(function ($post) use ($tags) {
+        // Don't forget to truncate the pivot table
+        DB::table('post_tag_pivot')->truncate();
 
-      // 30% of the time don't assign a tag
-      if (mt_rand(1, 100) <= 30) {
-        return;
-      }
+        factory(Post::class, 20)->create()->each(function ($post) use ($tags) {
 
-      shuffle($tags);
-      $postTags = [$tags[0]];
+          // 30% of the time don't assign a tag
+          if (mt_rand(1, 100) <= 30) {
+            return;
+          }
 
-      // 30% of the time we're assigning tags, assign 2
-      if (mt_rand(1, 100) <= 30) {
-        $postTags[] = $tags[1];
-      }
+          shuffle($tags);
+          $postTags = [$tags[0]];
 
-      $post->syncTags($postTags);
-    });
+          // 30% of the time we're assigning tags, assign 2
+          if (mt_rand(1, 100) <= 30) {
+            $postTags[] = $tags[1];
+          }
+
+          $post->syncTags($postTags);
+        });
+
+    Model::reguard();
+
   }
 }

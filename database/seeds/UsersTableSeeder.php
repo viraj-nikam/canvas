@@ -1,6 +1,8 @@
 <?php
 
+use App\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Database\Eloquent\Model;
 
 class UsersTableSeeder extends Seeder
 {
@@ -11,10 +13,16 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('users')->insert([
-            'name' => 'Admin',
-            'email' => 'admin@gmail.com',
-            'password' => bcrypt('password'),
-        ]);
+        Model::unguard();
+
+            User::truncate();
+
+            DB::table('users')->insert([
+                'name' => 'Admin',
+                'email' => 'admin@gmail.com',
+                'password' => bcrypt('password'),
+            ]);
+
+        Model::reguard();
     }
 }

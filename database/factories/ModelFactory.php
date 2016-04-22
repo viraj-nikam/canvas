@@ -11,14 +11,14 @@ $factory->define(App\User::class, function ($faker) {
 
 $factory->define(App\Post::class, function ($faker) {
   $images = ['wood.jpg', 'geese.jpg', 'puddle.jpg'];
-  $title = $faker->sentence(mt_rand(2, 5));
+  $title = $faker->sentence();
   return [
     'title' => $title,
     'subtitle' => str_limit($faker->sentence(mt_rand(2, 3)), 252),
     'page_image' => $images[mt_rand(0, 2)],
     'content_raw' => join("\n\n", $faker->paragraphs(mt_rand(3, 6))),
     'published_at' => $faker->dateTimeBetween('-1 month', '+3 days'),
-    'meta_description' => "Meta for $title",
+    'meta_description' => $faker->sentence(),
     'is_draft' => false,
   ];
 });
