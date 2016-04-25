@@ -62,8 +62,7 @@ class TagController extends Controller
     }
     $tag->save();
 
-    return redirect('/admin/tag')
-        ->withSuccess("The tag '$tag->tag' was created.");
+    return redirect('/admin/tag')->withSuccess("The tag '$tag->tag' was created.");
     }
 
     /**

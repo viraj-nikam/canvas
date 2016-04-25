@@ -16,8 +16,7 @@ class PostController extends Controller
    */
   public function index()
   {
-    return view('admin.post.index')
-      ->withPosts(Post::all());
+    return view('admin.post.index')->withPosts(Post::all());
   }
 
   /**
@@ -40,9 +39,7 @@ class PostController extends Controller
     $post = Post::create($request->postFillData());
     $post->syncTags($request->get('tags', []));
 
-    return redirect()
-        ->route('admin.post.index')
-        ->withSuccess('New Post Successfully Created.');
+    return redirect()->route('admin.post.index')->withSuccess('New Post Successfully Created.');
   }
 
   /**
@@ -72,14 +69,10 @@ class PostController extends Controller
     $post->syncTags($request->get('tags', []));
 
     if ($request->action === 'continue') {
-      return redirect()
-          ->back()
-          ->withSuccess('Post saved.');
+      return redirect()->back()->withSuccess('Post saved.');
     }
 
-    return redirect()
-        ->route('admin.post.index')
-        ->withSuccess('Post saved.');
+    return redirect()->route('admin.post.index')->withSuccess('Post saved.');
   }
 
   /**
@@ -94,8 +87,6 @@ class PostController extends Controller
     $post->tags()->detach();
     $post->delete();
 
-    return redirect()
-        ->route('admin.post.index')
-        ->withSuccess('Post deleted.');
+    return redirect()->route('admin.post.index')->withSuccess('Post deleted.');
   }
 }
