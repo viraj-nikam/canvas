@@ -6,11 +6,21 @@ php:
   - 7.0
   - hhvm
 
+services:
+  - mysql
+
 before_install:
   - mv .env.example .env
 
 install:
+  - /home/travis/.phpenv/versions/5.5.9/bin/composer self-update
   - composer install
+
+before_script:
+  - mysql -e 'create database canvas;'
+  - export DB_DATABASE=canvas
+  - export DB_USERNAME=root
+  - export DB_PASSWORD=password
 
 script:
   - php artisan key:generate
