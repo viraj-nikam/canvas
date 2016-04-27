@@ -11,7 +11,7 @@ class Tag extends Model
     ];
 
     /**
-     * The many-to-many relationship between tags and posts.
+     * Get the posts relationship.
      *
      * @return BelongsToMany
      */
@@ -21,7 +21,7 @@ class Tag extends Model
     }
 
     /**
-     * Add any tags needed from the list
+     * Add tags from the list.
      *
      * @param array $tags List of tags to check/add
      */
@@ -44,7 +44,7 @@ class Tag extends Model
     }
 
     /**
-     * Return the index layout to use for a tag
+     * Return the index layout to use for a tag.
      *
      * @param string $tag
      * @param string $default

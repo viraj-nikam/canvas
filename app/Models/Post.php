@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Post extends Model
 {
     protected $dates = ['published_at'];
-    
+
     protected $fillable = [
         'title', 'subtitle', 'content_raw', 'page_image', 'meta_description',
         'layout', 'is_draft', 'published_at',
@@ -25,7 +25,7 @@ class Post extends Model
     }
 
     /**
-     * Set the title attribute and automatically the slug
+     * Set the title attribute and the slug.
      *
      * @param string $value
      */
@@ -38,7 +38,7 @@ class Post extends Model
     }
 
     /**
-     * Recursive routine to set a unique slug
+     * Recursive routine to set a unique slug.
      *
      * @param string $title
      * @param mixed $extra
@@ -54,7 +54,7 @@ class Post extends Model
     }
 
     /**
-     * Set the HTML content automatically when the raw content is set
+     * Set the HTML content automatically when the raw content is set.
      *
      * @param string $value
      */
@@ -66,7 +66,7 @@ class Post extends Model
     }
 
     /**
-     * Sync tag relation adding new tags as needed
+     * Sync tag relationships and add new tags as needed.
      *
      * @param array $tags
      */
@@ -83,7 +83,9 @@ class Post extends Model
     }
 
     /**
-     * Return the date portion of published_at
+     * Return the published_at date.
+     *
+     * @param $value
      */
     public function getPublishDateAttribute($value)
     {
@@ -91,7 +93,9 @@ class Post extends Model
     }
 
     /**
-     * Return the time portion of published_at
+     * Return the published_at time.
+     *
+     * @param $value
      */
     public function getPublishTimeAttribute($value)
     {
@@ -99,7 +103,9 @@ class Post extends Model
     }
 
     /**
-     * Alias for content_raw
+     * Get the raw content attribute.
+     *
+     * @param $value
      */
     public function getContentAttribute($value)
     {
@@ -107,7 +113,7 @@ class Post extends Model
     }
 
     /**
-     * Return URL to post
+     * Return URL to post.
      *
      * @param Tag $tag
      * @return string
@@ -122,7 +128,7 @@ class Post extends Model
     }
 
     /**
-     * Return array of tag links
+     * Return an array of tag links.
      *
      * @param string $base
      * @return array
@@ -139,7 +145,7 @@ class Post extends Model
     }
 
     /**
-     * Return next post after this one or null
+     * Return next post after this one or null.
      *
      * @param Tag $tag
      * @return Post
@@ -160,7 +166,7 @@ class Post extends Model
     }
 
     /**
-     * Return older post before this one or null
+     * Return older post before this one or null.
      *
      * @param Tag $tag
      * @return Post

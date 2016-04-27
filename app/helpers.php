@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Return sizes readable by humans
+ * Return sizes readable by humans.
  *
  * @param $bytes
  * @param int $decimals
@@ -12,12 +12,11 @@ function human_filesize($bytes, $decimals = 2)
   $size = ['B', 'kB', 'MB', 'GB', 'TB', 'PB'];
   $factor = floor((strlen($bytes) - 1) / 3);
 
-  return sprintf("%.{$decimals}f", $bytes / pow(1024, $factor)) .
-      @$size[$factor];
+  return sprintf("%.{$decimals}f", $bytes / pow(1024, $factor)) . @$size[$factor];
 }
 
 /**
- * Is the mime type an image?
+ * Check if the mime type is an image.
  *
  * @param $mimeType
  * @return bool
@@ -28,7 +27,7 @@ function is_image($mimeType)
 }
 
 /**
- * Return "checked" if true
+ * Return 'checked' if true.
  *
  * @param $value
  * @return string
@@ -39,7 +38,7 @@ function checked($value)
 }
 
 /**
- * Return img url for headers
+ * Return the img url for headers.
  *
  * @param null $value
  * @return mixed|null|string
