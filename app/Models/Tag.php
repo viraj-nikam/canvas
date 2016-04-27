@@ -5,6 +5,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Tag extends Model
 {
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
     protected $fillable = [
         'tag', 'title', 'subtitle', 'page_image', 'meta_description',
         'reverse_direction',
