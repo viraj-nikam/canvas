@@ -4,6 +4,9 @@
 Homestead.yaml
 Homestead.json
 .env
+
 .DS_Store
 .idea
+.project
+Thumbs.db
 composer.lock
