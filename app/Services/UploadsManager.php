@@ -47,13 +47,7 @@ class UploadsManager
         $files[] = $this->fileDetails($path);
     }
 
-    return compact(
-      'folder',
-      'folderName',
-      'breadcrumbs',
-      'subfolders',
-      'files'
-    );
+    return compact('folder', 'folderName', 'breadcrumbs', 'subfolders', 'files');
   }
 
   /**
@@ -87,7 +81,9 @@ class UploadsManager
   }
 
   /**
-   * Return an array of file details for a file
+   * Return an array of file details for a file.
+   *
+   * @return array
    */
   protected function fileDetails($path)
   {
@@ -104,7 +100,7 @@ class UploadsManager
   }
 
   /**
-   * Return the full web path to a file
+   * Return the full web path to a file.
    */
   public function fileWebpath($path)
   {
@@ -114,7 +110,7 @@ class UploadsManager
   }
 
   /**
-   * Return the mime type
+   * Return the mime type.
    */
   public function fileMimeType($path)
   {
@@ -124,7 +120,7 @@ class UploadsManager
   }
 
   /**
-   * Return the file size
+   * Return the file size.
    */
   public function fileSize($path)
   {
@@ -132,7 +128,7 @@ class UploadsManager
   }
 
   /**
-   * Return the last modified time
+   * Return the last modified time.
    */
   public function fileModified($path)
   {
@@ -142,7 +138,7 @@ class UploadsManager
   }
 
   /**
-   * Create a new directory
+   * Create a new directory.
    */
   public function createDirectory($folder)
   {
@@ -156,7 +152,7 @@ class UploadsManager
   }
 
   /**
-   * Delete a directory
+   * Delete a directory.
    */
   public function deleteDirectory($folder)
   {
@@ -174,7 +170,7 @@ class UploadsManager
   }
 
   /**
-   * Delete a file
+   * Delete a file.
    */
   public function deleteFile($path)
   {
@@ -188,7 +184,7 @@ class UploadsManager
   }
 
   /**
-   * Save a file
+   * Save a file.
    */
   public function saveFile($path, $content)
   {
