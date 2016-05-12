@@ -145,6 +145,9 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        /*
+         * Canvas Service Providers...
+         */
         Bestmomo\Scafold\ScafoldServiceProvider::class,
 
     ],
