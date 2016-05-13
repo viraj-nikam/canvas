@@ -8,8 +8,8 @@ return [
   |--------------------------------------------------------------------------
   |
   | Here you may define all of the blog meta tags for your application.
-  | The Twitter and GitHub accounts are linked to the header that
-  | appears on each page.
+  | These will be used for web scraping and open graph tags
+  | on sites such as Facebook and Twitter.
   |
   */
 
@@ -18,8 +18,29 @@ return [
   'subtitle'        => 'Minimal blog application for developers',
   'description'     => 'Blog',
   'author'          => 'Todd Austin',
-  'twitter'         => 'https://twitter.com/example',
-  'github'          => 'https://github.com/example',
+
+  /*
+  |--------------------------------------------------------------------------
+  | Social Media Configuration
+  |--------------------------------------------------------------------------
+  |
+  | You can include any of your social media channels here. They will be
+  | displayed directly under the title of your application on the
+  | blog index and post pages.
+  |
+  | Supported: "twitter", "github", "facebook", "linkedin",
+  |            "instagram", "bitbucket", "googleplus"
+  |
+  */
+
+  'twitter'         => 'https://twitter.com/user',
+  'github'          => 'https://github.com/user',
+  'facebook'        => 'https://facebook.com/user',
+  'linkedin'        => 'https://linkedin.com/user',
+  'instagram'       => 'https://instagram.com/user',
+  'bitbucket'       => 'https://bitbucket.com/user',
+  'googleplus'      => 'https://googleplus.com/user',
+
 
   /*
   |--------------------------------------------------------------------------

@@ -1,24 +1,25 @@
 var elixir = require('laravel-elixir');
 
-/**
- * Default gulp is to run this elixir stuff
+/*
+ |--------------------------------------------------------------------------
+ | Elixir Asset Management
+ |--------------------------------------------------------------------------
+ |
+ | Elixir provides a clean, fluent API for defining some basic Gulp tasks
+ | for your Laravel application. By default, we are compiling the Sass
+ | file for our application, as well as publishing vendor resources.
+ |
  */
+
 elixir(function(mix) {
 
-    mix.scripts([
-        'js/jquery.js',
-        'js/bootstrap.js',
-        'js/jquery.dataTables.js',
-        'js/dataTables.bootstrap.js'
-    ], 'public/assets/js/admin.js', 'resources//assets');
+    mix.less('landing.less')
+       .less('admin.less')
+       .less('blog.less')
+       .less('auth.less')
 
-    mix.scripts([
-        'js/jquery.js',
-        'js/bootstrap.js',
-        'js/blog.js'
-    ], 'public/assets/js/blog.js', 'resources//assets');
+       .scriptsIn('resources/assets/js')
+       .scriptsIn('resources/assets/vendor')
+       .version(['css/landing.css', 'css/auth.css', 'css/blog.css', 'js/all.js']);
 
-    mix.less('home.less', 'public/assets/css/home.css');
-    mix.less('admin.less', 'public/assets/css/admin.css');
-    mix.less('blog.less', 'public/assets/css/blog.css');
 });
