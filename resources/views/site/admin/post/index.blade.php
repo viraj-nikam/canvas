@@ -1,8 +1,12 @@
-@extends('admin.layout')
+@extends('admin')
 
 @section('title')
     <title>{{ config('blog.title') }} | Posts</title>
 @stop
+
+@section('styles')
+    <link href="{{ elixir('css/admin.css') }}" rel="stylesheet">
+@endsection
 
 @section('content')
     <div class="container">
@@ -15,8 +19,8 @@
         </div>
         <div class="row">
             <div class="col-sm-12">
-                @include('admin.partials.errors')
-                @include('admin.partials.success')
+                @include('shared.errors')
+                @include('shared.success')
                 <div class="table-responsive">
                     <table id="posts-table" class="table table-striped table-hover">
                         <thead>

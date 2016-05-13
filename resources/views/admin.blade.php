@@ -5,8 +5,6 @@
 
         @yield('title')
 
-        <link href="{{ elixir('css/auth.css') }}" rel="stylesheet">
-
         @yield('styles')
 
     </head>
@@ -17,11 +15,11 @@
 
         @else
 
-            @include('admin.partials.navbar')
+            @include('site.admin.partials.navbar')
 
             @yield('content')
 
-            @include('admin.partials.footer')
+            @include('site.admin.partials.footer')
 
         @endif
 

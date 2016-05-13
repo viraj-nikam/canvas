@@ -1,14 +1,10 @@
-<form class="form-signin" role="form" method="POST" action="{{ url('/auth/login') }}">
-    <br/>
-    <img src="{{ asset('images/logo.png') }}" class="login-img" width="115px">
-    <br/>
-    <p align="center"><span class="lead login-header">Please Sign In</span></p>
+<form role="form" method="POST" action="{{ url('/auth/login') }}">
     {!! csrf_field() !!}
-    <div class="{{ $errors->has('email') ? 'has-error' : '' }}">
-        <input type="text" class="form-control simplebox" name="email" value="{{ old('email') }}" placeholder="Email">
+    <div class="group">
+        <input type="text" name="email" value="{{ old('email') }}" placeholder="Email"><span class="highlight"></span><span class="bar"></span>
     </div>
-    <div class="{{ $errors->has('email') ? 'has-error' : '' }}">
-        <input type="password" class="form-control simplebox" name="password" placeholder="Password">
+    <div class="group">
+        <input type="password" name="password" placeholder="Password"><span class="highlight"></span><span class="bar"></span>
     </div>
-    <input type="submit" class="btn btn-primary btn-outline btn-block" value="Sign in"/>
+    <button type="submit" class="button buttonBlue">Sign In<div class="ripples buttonRipples"><span class="ripplesCircle"></span></div></button>
 </form>
