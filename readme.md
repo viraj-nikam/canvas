@@ -88,7 +88,7 @@ php artisan migrate --seed
 
 |Data Key|Value|
 |---|---|
-|Login Email|`admin@gmail.com`|
+|Login Email|`foo@bar.com`|
 |Login Password|`password`|
 
 To update these credentials, you need to modify the file at `Canvas/database/seeds/UsersTableSeeder.php`. Then re-run the migrations:
