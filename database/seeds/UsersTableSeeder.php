@@ -18,8 +18,8 @@ class UsersTableSeeder extends Seeder
             User::truncate();
 
             DB::table('users')->insert([
-                'name' => 'Admin',
-                'email' => 'admin@gmail.com',
+                'name' => 'Canvas Administrator',
+                'email' => 'foo@bar.com',
                 'password' => bcrypt('password'),
             ]);
 

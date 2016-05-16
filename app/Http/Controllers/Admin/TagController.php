@@ -30,7 +30,7 @@ class TagController extends Controller
     {
         $tags = Tag::all();
 
-        return view('admin.tag.index')->withTags($tags);
+        return view('site.admin.tag.index')->withTags($tags);
     }
 
     /**
@@ -45,7 +45,7 @@ class TagController extends Controller
             $data[$field] = old($field, $default);
         }
 
-        return view('admin.tag.create', $data);
+        return view('site.admin.tag.create', $data);
     }
 
     /**
@@ -79,7 +79,7 @@ class TagController extends Controller
                 $data[$field] = old($field, $tag->$field);
             }
 
-        return view('admin.tag.edit', $data);
+        return view('site.admin.tag.edit', $data);
     }
 
     /**
