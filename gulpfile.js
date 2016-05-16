@@ -20,19 +20,6 @@ elixir(function(mix) {
 
        .scriptsIn('resources/assets/js')
        .scriptsIn('resources/assets/vendor')
-       .version(['css/landing.css', 'css/auth.css', 'css/blog.css','css/admin.css', 'js/all.js']);
-
-
-// elixir(function(mix) {
-
-//     mix.less('landing.less')
-//        .less('admin.less')
-//        .less('blog.less')
-//        .less('auth.less')
-
-//        .scriptsIn('resources/assets/js')
-//        .scriptsIn('resources/assets/vendor')
-//        .version(['css/landing.css', 'css/admin.css', 'css/blog.css', 'css/auth.css', 'js/all.js']);
-
+       .version(['css/landing.css', 'css/admin.css', 'css/blog.css','css/auth.css', 'js/all.js']);
 
 });

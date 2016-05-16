@@ -3,6 +3,8 @@
     <head>
         @include('shared.meta')
 
+        @include('shared.fontawesome')
+
         <meta name="description" content="{{ $meta_description }}">
 
         @yield('title')
