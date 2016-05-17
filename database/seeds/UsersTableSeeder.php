@@ -18,9 +18,10 @@ class UsersTableSeeder extends Seeder
             User::truncate();
 
             DB::table('users')->insert([
-                'name' => 'Canvas Administrator',
-                'email' => 'foo@bar.com',
+                'name' => 'Admin',
+                'email' => 'admin@' . seoUrl(config('blog.title')) . '.com',
                 'password' => bcrypt('password'),
+                'created_at' => Carbon\Carbon::now()
             ]);
 
         Model::reguard();
