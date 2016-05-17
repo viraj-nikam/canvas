@@ -15,11 +15,11 @@
         @yield('styles')
     </head>
     <body>
-        @include('site.blog.partials.page-nav')
+        @include('site.blog.partials.header')
 
         @yield('content')
 
-        @include('site.blog.partials.page-footer')
+        @include('site.blog.partials.footer')
 
         <script type="text/javascript" src="{{ elixir('js/all.js') }}"></script>
 

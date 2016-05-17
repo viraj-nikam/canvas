@@ -17,7 +17,7 @@
 
         @else
 
-            @include('site.admin.partials.navbar')
+            @include('site.admin.partials.header')
 
             @yield('content')
 

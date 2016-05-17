@@ -14,7 +14,25 @@
                 @endif
                 {{-- The Posts --}}
                 @foreach ($posts as $post)
-                    <div class="post-preview">
+                    <div class="media">
+                        <div class="media-left">
+                            <img src="{{ asset('uploads/' . $post->page_image) }}" style="width: 100px">
+                        </div>
+                        <div class="media-body">
+                            <h4 class="media-heading"><a href="{{ $post->url($tag) }}">{{ $post->title }}</a></h4>
+                            <p>{{ $post->published_at->format('F j, Y') }}
+                                @if ($post->tags->count())
+                                    in
+                                    {!! join(', ', $post->tagLinks()) !!}
+                                @endif
+                            </p>
+                        </div>
+                    </div>
+
+                      <!--   <div class="post-preview">
+                        @if ($post->page_image)
+                            <img src="{{ asset('uploads/' . $post->page_image) }}" style="width: 100px; float: left; margin-top: 25px">
+                        @endif
                         <h2 class="post-title">
                             <a href="{{ $post->url($tag) }}">{{ $post->title }}</a>
                         </h2>
@@ -24,8 +42,10 @@
                                 in
                                 {!! join(', ', $post->tagLinks()) !!}
                             @endif
-                        </p>
-                    </div>
+                        </p> -->
+                    <!-- </div> -->
+
+
                     <hr>
                 @endforeach
                 {{-- The Pager --}}
