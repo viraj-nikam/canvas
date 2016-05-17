@@ -160,6 +160,7 @@ return [
          * Canvas Service Providers...
          */
         Bestmomo\Scafold\ScafoldServiceProvider::class,
+	Barryvdh\Debugbar\ServiceProvider::class,
 
     ],
 
