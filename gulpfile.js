@@ -13,10 +13,10 @@ var elixir = require('laravel-elixir');
 
 elixir(function(mix) {
 
-    mix.less('landing.less')
-       .less('admin.less')
-       .less('blog.less')
-       .less('auth.less')
+    mix.less('landing/landing.less')
+       .less('admin/admin.less')
+       .less('blog/blog.less')
+       .less('auth/auth.less')
 
        .scriptsIn('resources/assets/js')
        .scriptsIn('resources/assets/vendor')

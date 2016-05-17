@@ -14,15 +14,12 @@
         @yield('styles')
 
         @yield('scripts-upper')
-
     </head>
     <body>
-
         @yield('content')
 
         <script type="text/javascript" src="{{ elixir('js/all.js') }}"></script>
 
         @yield('scripts-lower')
-
     </body>
 </html>
