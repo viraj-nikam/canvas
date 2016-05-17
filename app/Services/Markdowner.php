@@ -2,12 +2,16 @@
 
 namespace App\Services;
 
-use Michelf\MarkdownExtra;
 use Michelf\SmartyPants;
+use Michelf\MarkdownExtra;
 
 class Markdowner
 {
-
+  /**
+   * Transform raw text to markdown.
+   *
+   * @return $text
+   */
   public function toHTML($text)
   {
     $text = $this->preTransformText($text);
