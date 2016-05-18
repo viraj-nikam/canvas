@@ -7,18 +7,29 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 class CanvasRoutesTest extends TestCase
 {
     /**
-     * Test the response code for the home page.
+     * Test the response code for the Landing page.
      *
      * @return void
      */
-    public function testHomePageResponseCode()
+    public function testLandingPageResponseCode()
     {
         $response = $this->call('GET', '/');
         $this->assertEquals(200, $response->status());
     }
 
     /**
-     * Test the response code for the login page.
+     * Test the response code for the Blog index.
+     *
+     * @return void
+     */
+    public function testBlogIndexPageResponseCode()
+    {
+        $response = $this->call('GET', '/blog');
+        $this->assertEquals(200, $response->status());
+    }
+
+    /**
+     * Test the response code for the Login page.
      *
      * @return void
      */
@@ -29,7 +40,7 @@ class CanvasRoutesTest extends TestCase
     }
 
     /**
-     * Test the response code for the 404 error page.
+     * Test the response code for a 404 Error.
      *
      * @return void
      */
