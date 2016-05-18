@@ -2,8 +2,8 @@
 
 namespace App\Services;
 
-use Michelf\SmartyPants;
-use Michelf\MarkdownExtra;
+use Michelf\SmartyPants as SmartyPants;
+use Michelf\MarkdownExtra as MarkdownExtra;
 
 class Markdowner
 {
