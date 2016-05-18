@@ -15,12 +15,11 @@
         "php": ">=5.5.9",
 	"laravel/framework": " 5.2.*",
         "bestmomo/scafold": "dev-master",
-        "michelf/php-markdown": "^1.6",
-        "michelf/php-smartypants": "1.6.0-beta1",
         "dflydev/apache-mime-types": "^1.0",
         "doctrine/dbal": "^2.5",
         "suin/php-rss-writer": "^1.3",
-        "barryvdh/laravel-debugbar": "^2.2"
+        "barryvdh/laravel-debugbar": "^2.2",
+        "erusev/parsedown": "^1.6"
     },
     "require-dev": {
         "symfony/dom-crawler": "~3.0",

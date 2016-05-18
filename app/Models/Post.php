@@ -2,7 +2,7 @@
 namespace App\Models;
 
 use Carbon\Carbon;
-use App\Services\Markdowner;
+use App\Services\Parsedowner;
 use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
@@ -65,7 +65,7 @@ class Post extends Model
      */
     public function setContentRawAttribute($value)
     {
-        $markdown = new Markdowner();
+        $markdown = new Parsedowner();
         $this->attributes['content_raw'] = $value;
         $this->attributes['content_html'] = $markdown->toHTML($value);
     }
