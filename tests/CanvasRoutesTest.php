@@ -40,13 +40,13 @@ class CanvasRoutesTest extends TestCase
     }
 
     /**
-     * Test the response code for a 404 Error.
+     * Test the response code for the 404 Error Page.
      *
      * @return void
      */
     public function test404ErrorPageResponseCode()
     {
         $response = $this->call('GET', '/404ErrorPage');
-        $this->assertEquals(302, $response->status());
+        $this->assertEquals(404, $response->status());
     }
 }
