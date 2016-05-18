@@ -66,7 +66,7 @@ sudo chown -R www-data:www-data public/uploads
 
 #### Configuring Canvas
 
-You will need to create a new `.env` file and fill in the necessary global variables:
+You will need to create a new `.env` file and fill in the necessary variables:
 
 ```sh
 cat .env.example > .env; vim .env;
@@ -78,26 +78,24 @@ Generate a key for your application:
 php artisan key:generate
 ```
 
-Run the database migrations and seed the tables with demo content:
+#### Credentials
+
+Open up `Canvas/config/blog.php` and define a few configurations for your new blog.
+
+> The 'title' of your blog is used as the domain to create the default user.
+
+|Data Key|Value|
+|---|---|
+|Login Email|`admin@canvas.com`(default)|
+|Login Password|`password`(default)|
+
+To change your password (Recommended), open up `Canvas/database/seeds/UsersTableSeeder.php` and update it. *Make sure to re-run migrations and seeds if you have already run them.*
+
+Run the database migrations and seed the tables with demo content and a default user:
 
 ```sh
 php artisan migrate --seed
 ```
-
-#### Credentials
-
-|Data Key|Value|
-|---|---|
-|Login Email|`foo@bar.com`|
-|Login Password|`password`|
-
-To update these credentials, you need to modify the file at `Canvas/database/seeds/UsersTableSeeder.php`. Then re-run the migrations:
-
-```sh
-php artisan migrate:refresh --seed
-```
-
-Finally, you need to modify the file at `Canvas/config/blog.php` with your own site information.
 
 #### Theming Canvas
 
