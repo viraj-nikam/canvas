@@ -1,7 +1,5 @@
 <?php
-
 return [
-
   /*
   |--------------------------------------------------------------------------
   | Blog Meta Configuration
@@ -12,13 +10,11 @@ return [
   | on sites such as Facebook and Twitter.
   |
   */
-
   'name'            => 'Canvas',
   'title'           => 'Canvas',
   'subtitle'        => 'Minimal blog application for developers',
   'description'     => 'Blog',
   'author'          => 'Todd Austin',
-
   /*
   |--------------------------------------------------------------------------
   | Social Media Configuration
@@ -26,13 +22,13 @@ return [
   |
   | You can include any of your social media channels here. They will be
   | displayed directly under the title of your application on the
-  | blog index and post pages.
+  | blog index and post pages. Simply leave an empty string
+  | for whatever options you do not want to display.
   |
   | Supported: "twitter", "github", "facebook", "linkedin",
   |            "instagram", "bitbucket", "googleplus"
   |
   */
-
   'twitter'         => 'https://twitter.com/user',
   'github'          => 'https://github.com/user',
   'facebook'        => 'https://facebook.com/user',
@@ -40,8 +36,6 @@ return [
   'instagram'       => 'https://instagram.com/user',
   'bitbucket'       => 'https://bitbucket.com/user',
   'googleplus'      => 'https://googleplus.com/user',
-
-
   /*
   |--------------------------------------------------------------------------
   | Blog Post Configuration
@@ -52,10 +46,8 @@ return [
   | via the rss feed.
   |
   */
-
   'posts_per_page'  => 6,
   'rss_size'        => 25,
-
   /*
   |--------------------------------------------------------------------------
   | Uploads Configuration
@@ -68,10 +60,8 @@ return [
   | Supported: "local"
   |
   */
-
   'uploads'         => [
     'storage'       => 'local',
     'webpath'       => '/uploads/',
   ],
-
 ];
