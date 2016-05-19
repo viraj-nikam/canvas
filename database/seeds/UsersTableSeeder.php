@@ -18,10 +18,11 @@ class UsersTableSeeder extends Seeder
             User::truncate();
 
             DB::table('users')->insert([
-                'name' => 'Admin',
-                'email' => 'admin@' . seoUrl(config('blog.title')) . '.com',
-                'password' => bcrypt('password'),
-                'created_at' => Carbon\Carbon::now()
+                'display_name'  => 'Admin',
+                'url'           => 'www.' . seoUrl(config('blog.title')) . '.com',
+                'email'         => 'admin@' . seoUrl(config('blog.title')) . '.com',
+                'password'      => bcrypt('password'),
+                'created_at'    => Carbon\Carbon::now()
             ]);
 
         Model::reguard();
