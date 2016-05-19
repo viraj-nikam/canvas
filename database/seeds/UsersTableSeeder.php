@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class UsersTableSeeder extends Seeder
 {
     /**
-     * Run the database seeds.
+     * Run the User model database seed.
      *
      * @return void
      */

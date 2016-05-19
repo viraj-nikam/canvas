@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class TagTableSeeder extends Seeder
 {
   /**
-   * Seed the tags table
+   * Seed the tags table with the Welcome tag.
    */
   public function run()
   {
@@ -15,7 +15,7 @@ class TagTableSeeder extends Seeder
 
         Tag::truncate();
 
-        factory(Tag::class, 15)->create();
+        factory(Tag::class, 1)->create();
 
     Model::reguard();
   }
