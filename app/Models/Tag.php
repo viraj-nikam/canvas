@@ -11,7 +11,7 @@ class Tag extends Model
      * @var array
      */
     protected $fillable = [
-        'tag', 'title', 'subtitle', 'page_image', 'meta_description',
+        'tag', 'title', 'subtitle', 'meta_description',
         'reverse_direction',
     ];
 
