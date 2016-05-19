@@ -21,6 +21,7 @@ before_script:
   - export DB_DATABASE=canvas
   - export DB_USERNAME=root
   - export DB_PASSWORD=password
+  - npm install
   - npm install gulp
 
 script:
