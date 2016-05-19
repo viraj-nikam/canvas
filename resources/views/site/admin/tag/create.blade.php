@@ -1,4 +1,4 @@
-@extends('admin.layout')
+@extends('admin')
 
 @section('title')
     <title>{{ config('blog.title') }} | Add Tag</title>
@@ -18,7 +18,7 @@
                         <h3 class="panel-title">New Tag Form</h3>
                     </div>
                     <div class="panel-body">
-                        @include('admin.partials.errors')
+                        @include('shared.errors')
                         <form class="form-horizontal" role="form" method="POST" action="/admin/tag">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                             <div class="form-group">
@@ -27,7 +27,7 @@
                                     <input type="text" class="form-control simplebox" name="tag" id="tag" value="{{ $tag }}" autofocus>
                                 </div>
                             </div>
-                            @include('admin.tag._form')
+                            @include('site.admin.tag.partials.form')
                             <div class="form-group">
                                 <div class="col-md-7 col-md-offset-3">
                                     <center>

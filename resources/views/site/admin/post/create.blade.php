@@ -1,4 +1,4 @@
-@extends('admin.layout')
+@extends('admin')
 
 @section('title')
     <title>{{ config('blog.title') }} | New Post</title>
@@ -26,10 +26,10 @@
                         <h3 class="panel-title">New Post Form</h3>
                     </div>
                     <div class="panel-body">
-                        @include('admin.partials.errors')
+                        @include('shared.errors')
                         <form class="form-horizontal" role="form" method="POST" action="{{ route('admin.post.store') }}">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                            @include('admin.post._form')
+                            @include('site.admin.post.partials.form')
                             <div class="col-md-8">
                                 <div class="form-group">
                                     <div class="col-md-10 col-md-offset-2">

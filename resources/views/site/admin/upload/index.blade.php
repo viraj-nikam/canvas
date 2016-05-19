@@ -1,4 +1,4 @@
-@extends('admin.layout')
+@extends('admin')
 
 @section('title')
     <title>{{ config('blog.title') }} | Uploads</title>
@@ -28,8 +28,8 @@
         </div>
         <div class="row">
             <div class="col-sm-12">
-                @include('admin.partials.errors')
-                @include('admin.partials.success')
+                @include('shared.errors')
+                @include('shared.success')
                 <div class="table-responsive">
                     <table id="uploads-table" class="table table-striped table-hover">
                         <thead>
@@ -93,7 +93,7 @@
             </div>
         </div>
     </div>
-    @include('admin.upload._modals')
+    @include('site.admin.upload.partials.modals')
 @stop
 
 @section('scripts')

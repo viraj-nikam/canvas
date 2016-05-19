@@ -1,4 +1,4 @@
-@extends('admin.layout')
+@extends('admin')
 
 @section('title')
     <title>{{ config('blog.title') }} | Tags</title>
@@ -15,9 +15,9 @@
         </div>
         <div class="row">
             <div class="col-sm-12">
-                @include('admin.partials.errors')
+                @include('shared.errors')
 
-                @include('admin.partials.success')
+                @include('shared.success')
                 <div class="table-responsive">
                     <table id="tags-table" class="table table-striped table-hover">
                         <thead>

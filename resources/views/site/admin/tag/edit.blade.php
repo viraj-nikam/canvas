@@ -1,4 +1,4 @@
-@extends('admin.layout')
+@extends('admin')
 
 @section('title')
     <title>{{ config('blog.title') }} | Edit Tag</title>
@@ -18,8 +18,8 @@
                         <h3 class="panel-title">Tag Edit Form</h3>
                     </div>
                     <div class="panel-body">
-                        @include('admin.partials.errors')
-                        @include('admin.partials.success')
+                        @include('shared.errors')
+                        @include('shared.success')
                         <form class="form-horizontal" role="form" method="POST" action="/admin/tag/{{ $id }}">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                             <input type="hidden" name="_method" value="PUT">
@@ -30,7 +30,7 @@
                                     <p class="form-control-static">{{ $tag }}</p>
                                 </div>
                             </div>
-                            @include('admin.tag._form')
+                            @include('site.admin.tag.partials.form')
                             <div class="form-group">
                                 <div class="col-md-7 col-md-offset-3">
                                     <center>
