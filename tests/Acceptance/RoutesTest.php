@@ -4,7 +4,7 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-class CanvasRoutesTest extends TestCase
+class RoutesTest extends TestCase
 {
     /**
      * Test the response code for the Landing page.
