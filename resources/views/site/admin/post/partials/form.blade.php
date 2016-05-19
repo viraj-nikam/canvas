@@ -58,6 +58,7 @@
             <label for="content" class="col-md-2 control-label">Content</label>
             <div class="col-md-10">
                 <textarea class="form-control simplebox" name="content" rows="14" id="content">{{ $content }}</textarea>
+                <p class="small">Supported content includes: Markdown, HTML5, CSS3</p>
             </div>
         </div>
     </div>
