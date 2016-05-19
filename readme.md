@@ -20,7 +20,7 @@ Canvas is a minimalistic blogging application for developers. Canvas attempts to
 
 *Theming* - Canvas utilizes custom LESS files so you can modify the theme to your own taste and preference.
 
-*Simple Configuration* - A single configuration file holds all of the necessary global variables to set in order to get you up and running in no time.
+*Simple Configuration* - A single configuration file holds all of the necessary variables to set in order to get you up and running in no time.
 
 #### Requirements
 
