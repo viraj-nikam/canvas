@@ -26,7 +26,7 @@ class PostController extends Controller
   {
     $data = $this->dispatch(new PostFormFields());
 
-    return view('admin.post.create', $data);
+    return view('site.admin.post.create', $data);
   }
 
   /**
@@ -52,7 +52,7 @@ class PostController extends Controller
   {
     $data = $this->dispatch(new PostFormFields($id));
 
-    return view('admin.post.edit', $data);
+    return view('site.admin.post.edit', $data);
   }
 
   /**

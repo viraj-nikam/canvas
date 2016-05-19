@@ -7,6 +7,8 @@
 
         @yield('title')
 
+        <link href="{{ elixir('css/admin.css') }}" rel="stylesheet">
+
         @yield('styles')
 
     </head>
