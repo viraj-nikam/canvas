@@ -18,18 +18,6 @@ class RoutesTest extends TestCase
     }
 
     /**
-     * Test the Blog Index Page.
-     *
-     * @return void
-     */
-    public function testBlogIndexPage()
-    {
-        // $response = $this->call('GET', '/blog');
-        // $this->assertEquals(200, $response->status());
-        $this->visit('/blog')->see(config('blog.title'));
-    }
-
-    /**
      * Test the response code for the Login page.
      *
      * @return void
