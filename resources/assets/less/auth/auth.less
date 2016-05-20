@@ -33,7 +33,7 @@ form {
 }
 
 input {
-  font-size: 18px;
+  font-size: 16px;
   padding: 10px 10px 10px 5px;
   -webkit-appearance: none;
   display: block;
@@ -52,7 +52,7 @@ input:focus { outline: none; }
 
 label {
   color: #999;
-  font-size: 18px;
+  font-size: 12px;
   font-weight: normal;
   position: absolute;
   pointer-events: none;
@@ -67,7 +67,6 @@ label {
 input:focus ~ label, input.used ~ label {
   top: -20px;
   transform: scale(.75); left: -2px;
-  /* font-size: 14px; */
   color: #4a89dc;
 }
 
@@ -82,7 +81,7 @@ input:focus ~ label, input.used ~ label {
 
 .bar:before, .bar:after {
   content: '';
-  height: 2px;
+  height: 1px;
   width: 0;
   bottom: 1px;
   position: absolute;
@@ -138,7 +137,8 @@ input:focus ~ .highlight {
   width: 100%;
   vertical-align: middle;
   color: #fff;
-  font-size: 16px;
+  font-size: 13px;
+  font-weight: bolder;
   line-height: 20px;
   -webkit-font-smoothing: antialiased;
   text-align: center;

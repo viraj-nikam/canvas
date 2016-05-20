@@ -14,11 +14,14 @@
 
 @section('content')
     <div class="container">
-        <div class="row page-title-row">
-            <div class="col-md-12">
-                <h1 class="page-header">New Post</h1>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="page-header">
+                  <h2 class="title">New Post</h2>
+                </div>
             </div>
         </div>
+
         <div class="row">
             <div class="col-sm-12">
                 <div class="panel panel-default">
@@ -46,7 +49,6 @@
                 </div>
             </div>
         </div>
-    </div>
 @stop
 
 @section('scripts')

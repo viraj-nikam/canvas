@@ -6,16 +6,24 @@
 
 @section('content')
     <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="page-header">
+                    <h2 class="title">
+                        Uploads
+                        <button type="button" class="btn btn-sm btn-success btn-outline" data-toggle="modal" data-target="#modal-folder-create">
+                            <i class="material-icons">create_new_folder</i>&nbsp;&nbsp;New Folder
+                        </button>
+                        <button type="button" class="btn btn-sm btn-primary btn-outline" data-toggle="modal" data-target="#modal-file-upload">
+                            <i class="material-icons">cloud_upload</i>&nbsp;&nbsp;Upload
+                        </button>
+                    </h2>
+                </div>
+            </div>
+        </div>
+
         <div class="row page-title-row">
             <div class="col-md-12">
-                <h1 class="page-header">Uploads
-                    <button type="button" class="btn btn-sm btn-success btn-outline" data-toggle="modal" data-target="#modal-folder-create">
-                        <i class="fa fa-fw fa-plus"></i> New Folder
-                    </button>
-                    <button type="button" class="btn btn-sm btn-primary btn-outline" data-toggle="modal" data-target="#modal-file-upload">
-                        <i class="fa fa-fw fa-upload"></i> Upload
-                    </button>
-                </h1>
                 <div class="pull-left">
                     <ul class="breadcrumb">
                         @foreach ($breadcrumbs as $path => $disp)
@@ -46,14 +54,14 @@
                         @foreach ($subfolders as $path => $name)
                             <tr>
                                 <td>
-                                    <a href="/admin/upload?folder={{ $path }}"><i class="fa fa-folder-o fa-fw"></i> {{ $name }}
+                                    <a href="/admin/upload?folder={{ $path }}"><i class="material-icons">folder_open</i>&nbsp;&nbsp;{{ $name }}
                                     </a></td>
                                 <td>Folder</td>
                                 <td>-</td>
                                 <td>-</td>
                                 <td>
                                     <button type="button" class="btn btn-xs btn-danger btn-outline" onclick="delete_folder('{{ $name }}')">
-                                        <i class="fa fa-times-circle fa-fw"></i>Delete
+                                        <i class="material-icons">delete</i>&nbsp;&nbsp;Delete
                                     </button>
                                 </td>
                             </tr>
@@ -65,9 +73,9 @@
                                 <td>
                                     <a href="{{ $file['webPath'] }}" target="_blank">
                                         @if (is_image($file['mimeType']))
-                                            <i class="fa fa-fw fa-file-image-o"></i>
+                                            <i class="material-icons">photo</i>&nbsp;&nbsp;
                                         @else
-                                            <i class="fa fa-fw fa-file-o"></i>
+                                            <i class="material-icons">insert_drive_file</i>&nbsp;&nbsp;
                                         @endif
                                         {{ $file['name'] }}
                                     </a>
@@ -77,11 +85,12 @@
                                 <td>{{ human_filesize($file['size']) }}</td>
                                 <td>
                                     <button type="button" class="btn btn-xs btn-danger btn-outline" onclick="delete_file('{{ $file['name'] }}')">
-                                        <i class="fa fa-fw fa-times-circle"></i> Delete
+                                        <i class="material-icons">delete</i>&nbsp;&nbsp;Delete
                                     </button>
                                     @if (is_image($file['mimeType']))
+                                        &nbsp;
                                         <button type="button" class="btn btn-xs btn-success btn-outline" onclick="preview_image('{{ $file['webPath'] }}')">
-                                            <i class="fa fa-eye fa-fw"></i> Preview
+                                            <i class="material-icons">pageview</i>&nbsp;&nbsp;Preview
                                         </button>
                                     @endif
                                 </td>
@@ -92,7 +101,6 @@
                 </div>
             </div>
         </div>
-    </div>
     @include('site.admin.upload.partials.modals')
 @stop
 

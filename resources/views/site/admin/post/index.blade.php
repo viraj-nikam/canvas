@@ -4,19 +4,16 @@
     <title>{{ config('blog.title') }} | Posts</title>
 @stop
 
-@section('styles')
-    <link href="{{ elixir('css/admin.css') }}" rel="stylesheet">
-@endsection
-
 @section('content')
     <div class="container">
-        <div class="row page-title-row">
-            <div class="col-md-12">
-                <h1 class="page-header">Posts
-                    <a href="/admin/post/create" class="btn btn-success btn-md btn-outline btn-sm"><i class="fa fa-fw fa-plus"></i> New Post</a>
-                </h1>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="page-header">
+                  <h2 class="title">Posts <a href="/admin/post/create" class="btn btn-success btn-sm"><i class="material-icons">add_circle</i>&nbsp;&nbsp;New Post</a></h2>
+                </div>
             </div>
         </div>
+
         <div class="row">
             <div class="col-sm-12">
                 @include('shared.errors')
@@ -38,8 +35,9 @@
                                 <td>{{ $post->title }}</td>
                                 <td>{{ $post->subtitle }}</td>
                                 <td>
-                                    <a href="/admin/post/{{ $post->id }}/edit" class="btn btn-xs btn-primary btn-outline"><i class="fa fa-fw fa-edit"></i> Edit</a>
-                                    <a href="/blog/{{ $post->slug }}" target="_blank" class="btn btn-xs btn-success btn-outline"><i class="fa fa-fw fa-eye"></i> Preview</a>
+                                    <a href="/admin/post/{{ $post->id }}/edit" class="btn btn-xs btn-primary"><i class="material-icons">mode_edit</i>&nbsp;&nbsp;Edit</a>
+                                    &nbsp;
+                                    <a href="/blog/{{ $post->slug }}" target="_blank" class="btn btn-xs btn-success"><i class="material-icons">pageview</i>&nbsp;&nbsp;Preview</a>
                                 </td>
                             </tr>
                         @endforeach
@@ -48,7 +46,6 @@
                 </div>
             </div>
         </div>
-    </div>
 @stop
 
 @section('scripts')
