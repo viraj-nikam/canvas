@@ -24,13 +24,13 @@
                         <th>Published</th>
                         <th>Title</th>
                         <th>Subtitle</th>
-                        <th data-sortable="false">Actions</th>
+                        <th>Actions</th>
                     </tr>
                     </thead>
                     <tbody>
                     @foreach ($posts as $post)
                         <tr>
-                            <td data-order="{{ $post->published_at->timestamp }}">{{ $post->published_at->format('j-M-y g:ia') }}</td>
+                            <td>{{ $post->published_at->format('j-M-y g:ia') }}</td>
                             <td>{{ $post->title }}</td>
                             <td>{{ $post->subtitle }}</td>
                             <td>
@@ -45,14 +45,4 @@
             </div>
         </div>
     </div>
-@stop
-
-@section('scripts')
-    <script>
-        $(function () {
-            $("#posts-table").DataTable({
-                "order": [[0, "desc"]]
-            });
-        });
-    </script>
 @stop

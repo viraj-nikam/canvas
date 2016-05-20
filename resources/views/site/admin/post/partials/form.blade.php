@@ -1,108 +1,110 @@
-<div class="row">
-    <div class="col-md-8">
-        <div class="form-group">
-            <label for="title" class="col-md-2 control-label">Title</label>
-            <div class="col-md-10">
-                <input type="text" class="form-control simplebox" name="title" autofocus id="title" value="{{ $title }}">
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="subtitle" class="col-md-2 control-label">Subtitle</label>
-            <div class="col-md-10">
-                <input type="text" class="form-control simplebox" name="subtitle" id="subtitle" value="{{ $subtitle }}">
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="page_image" class="col-md-2 control-label">Page Image</label>
-            <div class="col-md-10">
-                <div class="row">
-                    <div class="col-md-8">
-                        <input type="text" class="form-control simplebox" name="page_image" id="page_image" onchange="handle_image_change()" alt="Image thumbnail" value="{{ $page_image }}">
-                    </div>
-                    <script>
-                        function handle_image_change() {
-                            $("#page-image-preview").attr("src", function () {
-                                var value = $("#page_image").val();
-                                if (!value) {
-                                    value = {!! json_encode(config('blog.page_image')) !!};
-                                    if (value == null) {
-                                        value = '';
-                                    }
-                                }
-                                if (value.substr(0, 4) != 'http' &&
-                                        value.substr(0, 1) != '/') {
-                                    value = {!! json_encode(config('blog.uploads.webpath')) !!}
+<fieldset>
+  <legend>Legend</legend>
 
-                                                    +'/' + value;
-                                }
-                                return value;
-                            });
-                        }
-                    </script>
-                    <div class="visible-sm space-10"></div>
-                    <div class="col-md-4 text-right">
-                        @if (empty($page_image))
+  <div class="form-group">
+    <label for="inputTitle" class="col-lg-2 control-label">Title</label>
+    <div class="col-lg-10">
+      <input type="text" class="form-control" name="title" autofocus id="title" value="{{ $title }}">
+    </div>
+  </div>
 
-                            <span class="text-muted small">No Image Selected</span>
+  <div class="form-group">
+    <label for="inputSubtitle" class="col-lg-2 control-label">Subtitle</label>
+    <div class="col-lg-10">
+      <input type="text" class="form-control" name="subtitle" id="subtitle" value="{{ $subtitle }}">
+    </div>
+  </div>
 
-                        @else
+  <div class="form-group">
+    <label for="inputPageImage" class="col-lg-2 control-label">Page Image</label>
+    <div class="col-lg-10">
+      <input type="text" class="form-control" name="page_image" id="page_image" onchange="handle_image_change()" alt="Image thumbnail" value="{{ $page_image }}">
+    </div>
+    <script>
+        function handle_image_change() {
+            $("#page-image-preview").attr("src", function () {
+                var value = $("#page_image").val();
+                if (!value) {
+                    value = {!! json_encode(config('blog.page_image')) !!};
+                    if (value == null) {
+                        value = '';
+                    }
+                }
+                if (value.substr(0, 4) != 'http' &&
+                        value.substr(0, 1) != '/') {
+                    value = {!! json_encode(config('blog.uploads.webpath')) !!}
 
-                            <img src="{{ page_image($page_image) }}" class="img img_responsive" id="page-image-preview" style="max-height:40px">
+                                    +'/' + value;
+                }
+                return value;
+            });
+        }
+    </script>
+    <div class="visible-sm space-10"></div>
+    <div class="col-md-4 text-right">
+        @if (empty($page_image))
 
-                        @endif
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="content" class="col-md-2 control-label">Content</label>
-            <div class="col-md-10">
-                <textarea class="form-control simplebox" name="content" rows="14" id="content">{{ $content }}</textarea>
+            <span class="text-muted small">No Image Selected</span>
+
+        @else
+
+            <img src="{{ page_image($page_image) }}" class="img img_responsive" id="page-image-preview" style="max-height:40px">
+
+        @endif
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="inputContent" class="col-lg-2 control-label">Content</label>
+    <div class="col-lg-10">
+      <textarea class="form-control" name="content" rows="6" id="content" style="resize: vertical">{{ $content }}</textarea>
                 <p class="small"><strong>Supported content includes: Markdown, HTML5, CSS3</strong></p>
-            </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="inputPublishDate" class="col-lg-2 control-label">Publish Date</label>
+    <div class="col-lg-10">
+      <input class="form-control" name="publish_date" id="publish_date" type="text" value="{{ $publish_date }}">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="inputPublishTime" class="col-lg-2 control-label">Publish Time</label>
+    <div class="col-lg-10">
+      <input class="form-control" name="publish_time" id="publish_time" type="text" value="{{ $publish_time }}">
+    </div>
+  </div>
+
+    <div class="form-group">
+        <label for="inputDraft" class="col-lg-2 control-label">Draft</label>
+        <div class="col-lg-10">
+            <input {{ checked($is_draft) }} type="checkbox" name="is_draft">
         </div>
     </div>
-    <div class="col-md-4">
-        <div class="form-group">
-            <label for="publish_date" class="col-md-3 control-label">Publish Date</label>
-            <div class="col-md-8">
-                <input class="form-control simplebox" name="publish_date" id="publish_date" type="text" value="{{ $publish_date }}">
-            </div>
+
+    <div class="form-group">
+        <label for="inputTags" class="col-lg-2 control-label">Tags</label>
+        <div class="col-lg-10">
+          <select name="tags[]" id="tags" class="form-control" multiple>
+                @foreach ($allTags as $tag)
+                    <option @if (in_array($tag, $tags)) selected @endif value="{{ $tag }}">{{ $tag }}</option>
+                @endforeach
+            </select>
         </div>
-        <div class="form-group">
-            <label for="publish_time" class="col-md-3 control-label">Publish Time</label>
-            <div class="col-md-8">
-                <input class="form-control simplebox" name="publish_time" id="publish_time" type="text" value="{{ $publish_time }}">
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-md-8 col-md-offset-3">
-                <div class="checkbox">
-                    <label><input {{ checked($is_draft) }} type="checkbox" name="is_draft">Draft</label>
-                </div>
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="tags" class="col-md-3 control-label">Tags</label>
-            <div class="col-md-8">
-                <select name="tags[]" id="tags" class="form-control" multiple>
-                    @foreach ($allTags as $tag)
-                        <option @if (in_array($tag, $tags)) selected @endif value="{{ $tag }}">{{ $tag }}</option>
-                    @endforeach
-                </select>
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="layout" class="col-md-3 control-label">Layout</label>
-            <div class="col-md-8">
-                <input type="text" class="form-control simplebox" name="layout" id="layout" value="{{ $layout }}">
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="meta_description" class="col-md-3 control-label">Meta</label>
-            <div class="col-md-8">
-                <textarea class="form-control simplebox" name="meta_description" id="meta_description" rows="6">{{ $meta_description }}</textarea>
-            </div>
+      </div>
+
+    <div class="form-group">
+        <label for="inputLayout" class="col-lg-2 control-label">Layout</label>
+        <div class="col-lg-10">
+            <input type="text" class="form-control" name="layout" id="layout" value="{{ $layout }}">
         </div>
     </div>
-</div>
+
+    <div class="form-group">
+        <label for="inputMeta" class="col-lg-2 control-label">Meta</label>
+        <div class="col-lg-10">
+            <textarea class="form-control" name="meta_description" id="meta_description" rows="3" style="resize: vertical">{{ $meta_description }}</textarea>
+        </div>
+    </div>
+</fieldset>

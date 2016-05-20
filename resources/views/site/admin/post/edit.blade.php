@@ -33,23 +33,20 @@
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                             <input type="hidden" name="_method" value="PUT">
                             @include('site.admin.post.partials.form')
-                            <div class="col-md-8">
-                                <div class="form-group">
-                                    <div class="col-md-10 col-md-offset-2">
-                                        <center>
-                                            <button type="submit" class="btn btn-primary btn-outline" name="action" value="continue">
-                                                <i class="fa fa-fw fa-floppy-o"></i> Save - Continue
-                                            </button>
-                                            <button type="submit" class="btn btn-success btn-outline" name="action" value="finished">
-                                                <i class="fa fa-fw fa-floppy-o"></i> Save - Finished
-                                            </button>
-                                            <button type="button" class="btn btn-danger btn-outline" data-toggle="modal" data-target="#modal-delete">
+                            <div class="form-group">
+                                <div class="col-lg-10 col-lg-offset-2">
+                                  <button type="submit" class="btn btn-primary btn-outline" name="action" value="continue">
+                                    <i class="fa fa-fw fa-floppy-o"></i> Save - Continue
+                                </button>
+                                  <button type="submit" class="btn btn-success btn-outline" name="action" value="finished">
+                                        <i class="fa fa-fw fa-floppy-o"></i> Save - Finished
+                                    </button>
+                                    <button type="button" class="btn btn-danger btn-outline" data-toggle="modal" data-target="#modal-delete">
                                                 <i class="fa fa-fw fa-times-circle"></i> Delete
                                             </button>
-                                        </center>
-                                    </div>
                                 </div>
-                            </div>
+                              </div>
+
                         </form>
                     </div>
                 </div>

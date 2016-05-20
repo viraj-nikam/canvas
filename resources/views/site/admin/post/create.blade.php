@@ -23,29 +23,19 @@
         </div>
 
         <div class="row">
-            <div class="col-sm-12">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">New Post Form</h3>
-                    </div>
-                    <div class="panel-body">
+            <div class="col-lg-8 col-lg-offset-2">
+                <div class="well bs-component">
+                    <form class="form-horizontal" role="form" method="POST" action="{{ route('admin.post.store') }}">
                         @include('shared.errors')
-                        <form class="form-horizontal" role="form" method="POST" action="{{ route('admin.post.store') }}">
-                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                            @include('site.admin.post.partials.form')
-                            <div class="col-md-8">
-                                <div class="form-group">
-                                    <div class="col-md-10 col-md-offset-2">
-                                        <center>
-                                            <button type="submit" class="btn btn-primary btn-outline">
-                                                <i class="fa fa-fw fa-floppy-o"></i> Save New Post
-                                            </button>
-                                        </center>
-                                    </div>
-                                </div>
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                        @include('site.admin.post.partials.form')
+                        <div class="form-group">
+                            <div class="col-lg-10 col-lg-offset-2">
+                              <button type="submit" class="btn btn-primary">Save</button>
+                              <a href="/admin/post" class="btn btn-default">Cancel</a>
                             </div>
-                        </form>
-                    </div>
+                          </div>
+                    </form>
                 </div>
             </div>
         </div>
