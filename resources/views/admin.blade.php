@@ -20,9 +20,10 @@
 
             @include('site.admin.partials.header')
 
-            @yield('content')
-
-            @include('site.admin.partials.footer')
+            <div class="container">
+                @yield('content')
+                @include('site.admin.partials.footer')
+            </div>
 
         @endif
 

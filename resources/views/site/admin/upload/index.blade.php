@@ -61,7 +61,7 @@
                                 <td>-</td>
                                 <td>
                                     <button type="button" class="btn btn-xs btn-danger btn-outline" onclick="delete_folder('{{ $name }}')">
-                                        <i class="material-icons">delete</i>&nbsp;&nbsp;Delete
+                                        <i class="material-icons">delete_forever</i>&nbsp;&nbsp;Delete
                                     </button>
                                 </td>
                             </tr>
@@ -85,7 +85,7 @@
                                 <td>{{ human_filesize($file['size']) }}</td>
                                 <td>
                                     <button type="button" class="btn btn-xs btn-danger btn-outline" onclick="delete_file('{{ $file['name'] }}')">
-                                        <i class="material-icons">delete</i>&nbsp;&nbsp;Delete
+                                        <i class="material-icons">delete_forever</i>&nbsp;&nbsp;Delete
                                     </button>
                                     @if (is_image($file['mimeType']))
                                         &nbsp;
