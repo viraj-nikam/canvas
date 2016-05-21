@@ -14,11 +14,15 @@
 
 @section('content')
     <div class="container">
-        <div class="row page-title-row">
-            <div class="col-md-12">
-                <h1 class="page-header">Edit Post</h1>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="page-header">
+                  <h2 class="title">Edit Post</h2>
+                </div>
             </div>
         </div>
+
+
         <div class="row">
             <div class="col-sm-12">
                 <div class="panel panel-default">
@@ -36,14 +40,14 @@
                             <div class="form-group">
                                 <div class="col-lg-10 col-lg-offset-2">
                                   <button type="submit" class="btn btn-primary btn-outline" name="action" value="continue">
-                                    <i class="fa fa-fw fa-floppy-o"></i> Save - Continue
-                                </button>
+                                    <i class="material-icons">save</i>&nbsp;Save - Continue
+                                </button>&nbsp;
                                   <button type="submit" class="btn btn-success btn-outline" name="action" value="finished">
-                                        <i class="fa fa-fw fa-floppy-o"></i> Save - Finished
-                                    </button>
+                                        <i class="material-icons">save</i>&nbsp;Save - Finished
+                                    </button>&nbsp;
                                     <button type="button" class="btn btn-danger btn-outline" data-toggle="modal" data-target="#modal-delete">
-                                                <i class="fa fa-fw fa-times-circle"></i> Delete
-                                            </button>
+                                        <i class="material-icons">delete_forever</i>&nbsp;Delete
+                                    </button>
                                 </div>
                               </div>
 
@@ -69,7 +73,7 @@
                             <input type="hidden" name="_method" value="DELETE">
                             <button type="button" class="btn btn-default btn-outline" data-dismiss="modal">Cancel</button>
                             <button type="submit" class="btn btn-danger btn-outline">
-                                <i class="fa fa-fw fa-times-circle"></i> Delete Post
+                                <i class="material-icons">delete_forever</i>&nbsp;Delete Post
                             </button>
                         </form>
                     </div>

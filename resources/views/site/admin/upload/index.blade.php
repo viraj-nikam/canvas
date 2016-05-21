@@ -90,7 +90,7 @@
                                     @if (is_image($file['mimeType']))
                                         &nbsp;
                                         <button type="button" class="btn btn-xs btn-success btn-outline" onclick="preview_image('{{ $file['webPath'] }}')">
-                                            <i class="material-icons">pageview</i>&nbsp;&nbsp;Preview
+                                            <i class="material-icons">visibility</i>&nbsp;&nbsp;Preview
                                         </button>
                                     @endif
                                 </td>

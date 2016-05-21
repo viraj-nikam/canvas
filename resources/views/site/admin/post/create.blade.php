@@ -31,7 +31,7 @@
                         @include('site.admin.post.partials.form')
                         <div class="form-group">
                             <div class="col-lg-10 col-lg-offset-2">
-                              <button type="submit" class="btn btn-primary">Save</button>
+                              <button type="submit" class="btn btn-primary"><i class="material-icons">save</i>&nbsp;Save</button>&nbsp;
                               <a href="/admin/post" class="btn btn-default">Cancel</a>
                             </div>
                           </div>
