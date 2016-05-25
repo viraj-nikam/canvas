@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        @include('shared.meta')
-
-        @include('shared.fontawesome')
-
-        <meta name="description" content="{{ $meta_description }}">
+        <!-- Site Meta Tags -->
+        @include('shared.meta-tags')
 
         @yield('title')
 
+        @include('shared.font-awesome')
+
+        <meta name="description" content="{{ $meta_description }}">
+
         <link rel="alternate" type="application/rss+xml" href="{{ url('rss') }}" title="RSS Feed {{ config('blog.title') }}">
+
+        <!-- Blog Specific Stylesheet -->
         <link href="{{ elixir('css/blog.css') }}" rel="stylesheet">
 
         @yield('styles')
@@ -23,6 +26,7 @@
 
         <script type="text/javascript" src="{{ elixir('js/all.js') }}"></script>
 
+        <!-- Page Specific Scripts -->
         @yield('scripts')
     </body>
 </html>

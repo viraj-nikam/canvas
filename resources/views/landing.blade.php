@@ -1,25 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        @include('shared.meta')
+        <!-- Site Meta Tags -->
+        @include('shared.meta-tags')
 
         <title>{{ config('blog.title') }}</title>
 
         <link rel="alternate" type="application/rss+xml" href="{{ url('rss') }}" title="RSS Feed {{ config('blog.title') }}">
-        <link href="{{ elixir('css/landing.css') }}" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 
-        @include('shared.fontawesome')
+        <!-- Landing Page Specific Stylesheet -->
+        <link href="{{ elixir('css/landing.css') }}" rel="stylesheet">
+
+        <!-- Bootstrap Paper Stylesheet CDN -->
+        <link rel="stylesheet" type="text/css" href="http://bootswatch.com/paper/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="http://bootswatch.com/assets/css/custom.min.css">
+
+        @include('shared.font-awesome')
 
         @yield('styles')
-
-        @yield('scripts-upper')
     </head>
     <body>
         @yield('content')
 
-        <script type="text/javascript" src="{{ elixir('js/all.js') }}"></script>
-
-        @yield('scripts-lower')
+        <!-- Page Specific Scripts -->
+        @yield('scripts')
     </body>
 </html>

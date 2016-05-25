@@ -8,7 +8,11 @@
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12">
             <div class="page-header">
-              <h2 class="title">Posts <a href="/admin/post/create" class="btn btn-success btn-sm"><i class="material-icons">add_circle</i>&nbsp;&nbsp;New Post</a></h2>
+                <ul class="breadcrumb">
+                    <li><a href="/admin">Home</a></li>
+                    <li class="active">Posts</li>
+                </ul>
+                <a href="/admin/post/create" class="btn btn-success btn-sm"><i class="material-icons">add_circle</i>&nbsp;&nbsp;New Post</a>
             </div>
         </div>
     </div>

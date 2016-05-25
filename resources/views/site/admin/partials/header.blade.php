@@ -1,12 +1,16 @@
-<div class="navbar navbar-default navbar-fixed-top">
+<nav class="navbar navbar-default navbar-fixed-top">
   <div class="container">
     <div class="navbar-header">
-      <a href="/admin" class="navbar-brand"><img src="{{ asset('images/canvas.svg') }}" style="height: 50px; margin-top: -9px"></a>
       <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
+      <div class="navbar-brand navbar-brand-centered">
+        <a href="/admin" class="navbar-brand">
+          <img src="{{ asset('images/canvas.gif') }}" class="brand-logo">
+        </a>
+      </div>
     </div>
     <div class="navbar-collapse collapse" id="navbar-main">
       <ul class="nav navbar-nav">
@@ -28,4 +32,4 @@
       </ul>
     </div>
   </div>
-</div>
+</nav>
