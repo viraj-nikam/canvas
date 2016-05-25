@@ -41,7 +41,6 @@ class Tag extends Model
                 'tag' => $tag,
                 'title' => $tag,
                 'subtitle' => 'Subtitle for ' . $tag,
-                'page_image' => '',
                 'meta_description' => '',
                 'reverse_direction' => false,
             ]);
