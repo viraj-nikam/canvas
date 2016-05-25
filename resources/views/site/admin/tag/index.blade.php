@@ -5,33 +5,36 @@
 @stop
 
 @section('content')
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12">
-                <div class="page-header">
-                  <h2 class="title">Tags <a href="/admin/tag/create" class="btn btn-success btn-sm"><i class="material-icons">add_circle</i>&nbsp;&nbsp;New Tag</a></h2>
-                </div>
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="page-header">
+                <ul class="breadcrumb">
+                    <li><a href="/admin">Home</a></li>
+                    <li class="active">Tags</li>
+                </ul>
+                <a href="/admin/tag/create" class="btn btn-success btn-sm"><i class="material-icons">add_circle</i>&nbsp;&nbsp;New Tag</a>
             </div>
         </div>
+    </div>
 
-        <div class="row">
-            <div class="col-sm-12">
-                @include('shared.errors')
-                @include('shared.success')
-                <div class="table-responsive">
-                    <table id="tags-table" class="table table-striped table-hover">
-                        <thead>
-                        <tr>
-                            <th>Tag</th>
-                            <th>Title</th>
-                            <th class="hidden-sm">Subtitle</th>
-                            <th class="hidden-md">Meta Description</th>
-                            <th class="hidden-md">Layout</th>
-                            <th class="hidden-sm">Direction</th>
-                            <th data-sortable="false">Actions</th>
-                        </tr>
-                        </thead>
-                        <tbody>
+    <div class="row">
+        <div class="col-sm-12">
+            @include('shared.errors')
+            @include('shared.success')
+            <div class="table-responsive">
+                <table id="tags-table" class="table table-striped table-hover">
+                    <thead>
+                    <tr>
+                        <th>Tag</th>
+                        <th>Title</th>
+                        <th class="hidden-sm">Subtitle</th>
+                        <th class="hidden-md">Meta Description</th>
+                        <th class="hidden-md">Layout</th>
+                        <th class="hidden-sm">Direction</th>
+                        <th data-sortable="false">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
                         @foreach ($tags as $tag)
                             <tr>
                                 <td>{{ $tag->tag }}</td>
@@ -51,11 +54,11 @@
                                 </td>
                             </tr>
                         @endforeach
-                        </tbody>
-                    </table>
-                </div>
+                    </tbody>
+                </table>
             </div>
         </div>
+    </div>
 @stop
 
 @section('scripts')
