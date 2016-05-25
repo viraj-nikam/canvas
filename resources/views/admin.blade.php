@@ -15,6 +15,9 @@
 
         <!-- Google Material Icons -->
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+        <!-- Admin Specific Styles -->
+        @yield('styles')
     </head>
     <body>
         @if (Auth::guest())
