@@ -19,6 +19,8 @@ class UploadController extends Controller
 
   /**
    * Show page of files / subfolders
+   *
+   * @param Request $request
    */
   public function index(Request $request)
   {
@@ -30,6 +32,8 @@ class UploadController extends Controller
 
   /**
    * Create a new folder
+   *
+   * @param UploadNewFolderRequest $request
    */
   public function createFolder(UploadNewFolderRequest $request)
   {
@@ -48,6 +52,8 @@ class UploadController extends Controller
 
   /**
    * Delete a file
+   *
+   * @param Request $request
    */
   public function deleteFile(Request $request)
   {
@@ -66,6 +72,8 @@ class UploadController extends Controller
 
   /**
    * Delete a folder
+   *
+   * @param Request $request
    */
   public function deleteFolder(Request $request)
   {
@@ -84,6 +92,8 @@ class UploadController extends Controller
 
   /**
    * Upload new file
+   *
+   * @param UploadFileRequest $request
    */
   public function uploadFile(UploadFileRequest $request)
   {

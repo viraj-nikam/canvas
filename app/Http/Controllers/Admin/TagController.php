@@ -22,7 +22,7 @@ class TagController extends Controller
     ];
 
     /**
-     * Display a listing of the resource.
+     * Display a listing of the resource
      *
      * @return \Illuminate\Http\Response
      */
@@ -34,7 +34,7 @@ class TagController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new resource
      *
      * @return \Illuminate\Http\Response
      */
@@ -49,7 +49,7 @@ class TagController extends Controller
     }
 
     /**
-    * Store the newly created tag in the database.
+    * Store the newly created tag in the database
     *
     * @param TagCreateRequest $request
     * @return Response

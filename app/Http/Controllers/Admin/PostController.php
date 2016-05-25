@@ -12,7 +12,7 @@ use App\Http\Requests\PostUpdateRequest;
 class PostController extends Controller
 {
   /**
-   * Display a listing of the posts.
+   * Display a listing of the posts
    */
   public function index()
   {
