@@ -8,7 +8,7 @@
       </button>
       <div class="navbar-brand navbar-brand-centered">
         <a href="/admin" class="navbar-brand">
-          <img src="{{ asset('images/canvas.gif') }}" class="brand-logo">
+          <img src="{{ asset('images/canvas-logo.gif') }}" class="canvas-logo">
         </a>
       </div>
     </div>
