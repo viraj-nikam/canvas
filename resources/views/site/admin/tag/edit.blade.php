@@ -42,7 +42,7 @@
         </div>
     </div>
 
-    {{-- Confirm Delete --}}
+    <!-- Delete Confirmation Modal -->
     <div class="modal fade" id="modal-delete" tabIndex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
