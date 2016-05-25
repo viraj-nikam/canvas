@@ -24,7 +24,7 @@ $factory->define(App\Models\Post::class, function ($faker) {
     'title'             => 'Welcome to Canvas',
     'subtitle'          => 'Let\'s get you started!',
     'page_image'        => 'welcome.jpg',
-    'content_raw'       => view('site.admin.post.welcome'),
+    'content_raw'       => view('site.helpers.welcome'),
     'published_at'      => Carbon\Carbon::now(),
     'meta_description'  => 'Here is the meta description.',
     'is_draft'          => false,
