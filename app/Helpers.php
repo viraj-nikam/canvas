@@ -8,16 +8,16 @@
  */
 function seoUrl($string)
 {
-    //Lower case everything
+    // Make the string lowercase
     $string = strtolower($string);
 
-    //Make alphanumeric (removes all other characters)
+    // Make the string alphanumeric (removes all other characters)
     $string = preg_replace("/[^a-z0-9_\s-]/", "", $string);
 
-    //Clean up multiple dashes or whitespaces
+    // Clean up multiple dashes or whitespaces
     $string = preg_replace("/[\s-]+/", " ", $string);
 
-    //Convert whitespaces and underscore to dash
+    // Convert whitespaces and underscores to dashes
     $string = preg_replace("/[\s_]/", "-", $string);
 
     return $string;
