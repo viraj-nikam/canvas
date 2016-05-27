@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <!-- Site Meta Tags -->
-        @include('shared.meta-tags')
+        <meta charset="utf-8">
+        <meta property="og:type" content="blog">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="author" content="{{ config('blog.author') }}">
+        <meta name="viewport" content="user-scalable=no">
 
         <title>Canvas | Be right back</title>
 

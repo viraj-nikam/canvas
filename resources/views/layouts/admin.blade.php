@@ -22,6 +22,8 @@
 
                 @include('site.admin.partials.footer')
 
+                @yield('scripts')
+
             </div>
 
         @endif

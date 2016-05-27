@@ -18,6 +18,10 @@ elixir(function(mix) {
        mix.less('blog/blog.less');
        mix.less('auth/auth.less');
 
+       mix.scripts('admin.js');
+       mix.scripts('blog.js');
+       mix.scripts('login.js');
+
        mix.copy('resources/assets/images','public/images');
 
 });

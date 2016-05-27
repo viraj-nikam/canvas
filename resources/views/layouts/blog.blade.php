@@ -6,8 +6,6 @@
 
         @yield('title')
 
-        @include('shared.font-awesome')
-
         <meta name="description" content="{{ $meta_description }}">
 
         <link rel="alternate" type="application/rss+xml" href="{{ url('rss') }}" title="RSS Feed {{ config('blog.title') }}">
