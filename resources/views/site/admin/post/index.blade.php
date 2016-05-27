@@ -1,12 +1,7 @@
-@extends('admin')
+@extends('layouts.admin')
 
 @section('title')
     <title>{{ config('blog.title') }} | Posts</title>
-@stop
-
-@section('styles')
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.1.0/css/responsive.bootstrap.min.css">
 @stop
 
 @section('content')
@@ -52,18 +47,4 @@
             </table>
         </div>
     </div>
-@stop
-
-@section('scripts')
-    <script type="text/javascript" src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.1.0/js/dataTables.responsive.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.1.0/js/responsive.bootstrap.min.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('#posts-table').DataTable( {
-                responsive: true
-            });
-        } );
-    </script>
 @stop

@@ -1,4 +1,4 @@
-@extends('landing')
+@extends('layouts.landing')
 
 @section('content')
     <div class="container-fluid">

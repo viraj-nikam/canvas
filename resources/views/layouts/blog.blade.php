@@ -13,7 +13,7 @@
         <link rel="alternate" type="application/rss+xml" href="{{ url('rss') }}" title="RSS Feed {{ config('blog.title') }}">
 
         <!-- Blog Specific Stylesheet -->
-        <link href="{{ elixir('css/blog.css') }}" rel="stylesheet">
+        <link href="/css/blog.css" rel="stylesheet">
 
         @yield('styles')
     </head>
@@ -24,7 +24,7 @@
 
         @include('site.blog.partials.footer')
 
-        <script type="text/javascript" src="{{ elixir('js/all.js') }}"></script>
+        <script type="text/javascript" src="/js/all.js"></script>
 
         <!-- Page Specific Scripts -->
         @yield('scripts')

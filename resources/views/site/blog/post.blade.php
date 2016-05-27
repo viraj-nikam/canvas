@@ -1,4 +1,4 @@
-@extends('blog', [
+@extends('layouts.blog', [
   'title' => $post->title,
   'meta_description' => $post->meta_description ?: config('blog.description'),
 ])

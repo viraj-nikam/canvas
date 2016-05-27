@@ -1,11 +1,11 @@
-@extends('admin')
+@extends('layouts.admin')
 
 @section('title')
     <title>{{ config('blog.title') }} | Sign In</title>
 @stop
 
 @section('styles')
-    <link href="{{ elixir('css/auth.css') }}" rel="stylesheet">
+    <link href="/css/auth.css" rel="stylesheet">
 @endsection
 
 @section('login')

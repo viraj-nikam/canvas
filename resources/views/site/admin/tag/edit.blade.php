@@ -1,4 +1,4 @@
-@extends('admin')
+@extends('layouts.admin')
 
 @section('title')
     <title>{{ config('blog.title') }} | Edit Tag</title>
@@ -42,12 +42,11 @@
         </div>
     </div>
 
-    <!-- Delete Confirmation Modal -->
     <div class="modal fade" id="modal-delete" tabIndex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">×</button>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                     <h4 class="modal-title">Delete this tag?</h4>
                 </div>
                 <div class="modal-body">
@@ -57,8 +56,8 @@
                     <form method="POST" action="/admin/tag/{{ $id }}">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <input type="hidden" name="_method" value="DELETE">
-                        <button type="button" class="btn btn-default btn-outline" data-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-danger btn-outline">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-danger">
                             <i class="material-icons">delete_forever</i>&nbsp;Delete Tag
                         </button>
                     </form>

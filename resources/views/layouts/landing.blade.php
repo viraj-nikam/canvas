@@ -9,7 +9,7 @@
         <link rel="alternate" type="application/rss+xml" href="{{ url('rss') }}" title="RSS Feed {{ config('blog.title') }}">
 
         <!-- Landing Page Specific Stylesheet -->
-        <link href="{{ elixir('css/landing.css') }}" rel="stylesheet">
+        <link href="/css/landing.css" rel="stylesheet">
 
         <!-- Bootstrap Paper Stylesheet CDN -->
         <link rel="stylesheet" type="text/css" href="http://bootswatch.com/paper/bootstrap.min.css">
