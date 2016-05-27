@@ -15,8 +15,6 @@
         <link rel="stylesheet" type="text/css" href="http://bootswatch.com/paper/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="http://bootswatch.com/assets/css/custom.min.css">
 
-        @include('shared.font-awesome')
-
         @yield('styles')
     </head>
     <body>
