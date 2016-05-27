@@ -159,8 +159,8 @@ return [
         /*
          * Canvas Service Providers...
          */
+        Barryvdh\Debugbar\ServiceProvider::class,
         Bestmomo\Scafold\ScafoldServiceProvider::class,
-	Barryvdh\Debugbar\ServiceProvider::class,
 
     ],
 
