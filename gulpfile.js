@@ -13,17 +13,10 @@ var elixir = require('laravel-elixir');
 
 elixir(function(mix) {
 
-    mix.less('landing/landing.less')
-
-       .less('admin/admin.less')
-
-       .less('blog/blog.less')
-
-       .less('auth/auth.less')
-
-       .scriptsIn('resources/assets/js')
-       .scriptsIn('resources/assets/vendor')
-       .version(['css/landing.css', 'css/admin.css', 'css/blog.css','css/auth.css', 'js/all.js']);
+       mix.less('landing/landing.less');
+       mix.less('admin/admin.less');
+       mix.less('blog/blog.less');
+       mix.less('auth/auth.less');
 
        mix.copy('resources/assets/images','public/images');
 
