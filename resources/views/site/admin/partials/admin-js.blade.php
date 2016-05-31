@@ -1,28 +1,58 @@
-<script type="text/javascript" src="/js/admin.js"></script>
-<script src="https://code.jquery.com/jquery-2.2.3.min.js" integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="http://bootswatch.com/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/vendors/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="/vendors/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/vendors/bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src="/vendors/bower_components/Waves/dist/waves.min.js"></script>
+<script src="/vendors/bootstrap-growl/bootstrap-growl.min.js"></script>
+<script src="/vendors/bower_components/bootstrap-sweetalert/lib/sweet-alert.min.js"></script>
+<script src="/vendors/bower_components/lightgallery/light-gallery/js/lightGallery.min.js"></script>
+<script src="/vendors/bower_components/autosize/dist/autosize.min.js"></script>
+<script src="/vendors/bootgrid/jquery.bootgrid.updated.min.js"></script>
+<script src="/js/functions.js"></script>
+
+<!-- Data Table -->
 <script type="text/javascript">
-    $(function () {
-        $("#publish_date").pickadate({
-            format: "mmm-d-yyyy"
+    $(document).ready(function(){
+        //Basic Example
+        $("#data-table-basic").bootgrid({
+            css: {
+                icon: 'zmdi icon',
+                iconColumns: 'zmdi-view-module',
+                iconDown: 'zmdi-sort-amount-desc',
+                iconRefresh: 'zmdi-refresh',
+                iconUp: 'zmdi-sort-amount-asc'
+            },
         });
-        $("#publish_time").pickatime({
-            format: "h:i A"
+
+        //Selection
+        $("#data-table-selection").bootgrid({
+            css: {
+                icon: 'zmdi icon',
+                iconColumns: 'zmdi-view-module',
+                iconDown: 'zmdi-sort-amount-desc',
+                iconRefresh: 'zmdi-refresh',
+                iconUp: 'zmdi-sort-amount-asc'
+            },
+            selection: true,
+            multiSelect: true,
+            rowSelect: true,
+            keepSelection: true
         });
-        $("#tags").selectize({
-            create: true
+
+        //Command Buttons
+        $("#data-table-command").bootgrid({
+            css: {
+                icon: 'zmdi icon',
+                iconColumns: 'zmdi-view-module',
+                iconDown: 'zmdi-sort-amount-desc',
+                iconRefresh: 'zmdi-refresh',
+                iconUp: 'zmdi-sort-amount-asc'
+            },
+            formatters: {
+                "commands": function(column, row) {
+                    return "<button type=\"button\" class=\"btn btn-icon command-edit waves-effect waves-circle\" data-row-id=\"" + row.id + "\"><span class=\"zmdi zmdi-edit\"></span></button> " +
+                            "<button type=\"button\" class=\"btn btn-icon command-delete waves-effect waves-circle\" data-row-id=\"" + row.id + "\"><span class=\"zmdi zmdi-delete\"></span></button>";
+                }
+            }
         });
     });
-</script>
-
-<script type="text/javascript" src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/responsive/2.1.0/js/dataTables.responsive.min.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/responsive/2.1.0/js/responsive.bootstrap.min.js"></script>
-<script type="text/javascript">
-    $(document).ready(function() {
-        $('#posts-table').DataTable( {
-            responsive: true
-        });
-    } );
 </script>

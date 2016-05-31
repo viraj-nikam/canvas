@@ -1,35 +1,45 @@
-<nav class="navbar navbar-default navbar-fixed-top">
-  <div class="container">
-    <div class="navbar-header">
-      <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <div class="navbar-brand navbar-brand-centered">
-        <a href="/admin" class="navbar-brand">
-          <img src="{{ asset('images/canvas-logo.gif') }}" class="canvas-logo">
-        </a>
-      </div>
-    </div>
-    <div class="navbar-collapse collapse" id="navbar-main">
-      <ul class="nav navbar-nav">
-        <li @if (Request::is('admin/post*')) class="active" @endif><a href="/admin/post"><i class="material-icons">collections_bookmark</i>&nbsp;&nbsp;Posts</a></li>
-        <li @if (Request::is('admin/tag*')) class="active" @endif><a href="/admin/tag"><i class="material-icons">local_offer</i>&nbsp;&nbsp;Tags</a></li>
-        <li @if (Request::is('admin/upload*')) class="active" @endif><a href="/admin/upload"><i class="material-icons">cloud_upload</i>&nbsp;&nbsp;Uploads</a>
+<header id="header" class="clearfix" data-current-skin="blue">
+    <ul class="header-inner">
+        <li id="menu-trigger" data-trigger="#sidebar">
+            <div class="line-wrap">
+                <div class="line top"></div>
+                <div class="line center"></div>
+                <div class="line bottom"></div>
+            </div>
         </li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="material-icons">account_circle</i>&nbsp;&nbsp;{{ Auth::user()->display_name }} <span class="caret"></span></a>
-          <ul class="dropdown-menu" role="menu">
-            <li><a href="#">Profile</a></li>
-            <li><a href="#">Settings</a></li>
-            <li class="divider"></li>
-            <li><a href="/auth/logout">Logout</a></li>
-          </ul>
+        <li class="logo">
+            <a href="/admin"><img src="{{ asset('images/canvas-logo-white.gif') }}" class="canvas-logo" style="width: 100px"></a>
         </li>
-      </ul>
+        <li class="pull-right">
+            <ul class="top-menu">
+                <li id="top-search">
+                    <a href=""><i class="tm-icon zmdi zmdi-search"></i></a>
+                </li>
+                <li class="dropdown">
+                    <a data-toggle="dropdown" href=""><i class="tm-icon zmdi zmdi-more-vert"></i></a>
+                    <ul class="dropdown-menu dm-icon pull-right">
+                        <li class="hidden-xs">
+                            <a data-action="fullscreen" href=""><i class="zmdi zmdi-fullscreen"></i> Toggle Fullscreen</a>
+                        </li>
+                        <li>
+                            <a data-action="clear-localstorage" href=""><i class="zmdi zmdi-delete"></i> Clear Local Storage</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="/logout"><i class="zmdi zmdi-power"></i> Logout</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+    </ul>
+
+
+    <!-- Top Search Content -->
+    <div id="top-search-wrap">
+        <div class="tsw-inner">
+            <i id="top-search-close" class="zmdi zmdi-arrow-left"></i>
+            <input type="text" placeholder="Search NewsFeed Users">
+        </div>
     </div>
-  </div>
-</nav>
+</header>

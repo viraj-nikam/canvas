@@ -1,13 +1,9 @@
-<!-- Admin Stylesheet -->
-<link href="/css/admin.css" rel="stylesheet">
-
-<!-- Bootstrap Paper -->
-<link rel="stylesheet" type="text/css" href="http://bootswatch.com/paper/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="http://bootswatch.com/assets/css/custom.min.css">
-
-<!-- Google Material Icons -->
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
-<!-- DataTables -->
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.1.0/css/responsive.bootstrap.min.css">
+<link href="/vendors/bower_components/animate.css/animate.min.css" rel="stylesheet">
+<link href="/vendors/bower_components/bootstrap-sweetalert/lib/sweet-alert.css" rel="stylesheet">
+<link href="/vendors/bower_components/material-design-iconic-font/dist/css/material-design-iconic-font.min.css" rel="stylesheet">
+<link href="/vendors/bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css" rel="stylesheet">
+<link href="/vendors/bower_components/lightgallery/light-gallery/css/lightGallery.css" rel="stylesheet">
+<link href="/vendors/bootgrid/jquery.bootgrid.min.css" rel="stylesheet">
+<link href="/css/custom.css" rel="stylesheet">
+<link href="/css/app.min.1.css" rel="stylesheet">
+<link href="/css/app.min.2.css" rel="stylesheet">

@@ -16,17 +16,15 @@
 
             @include('site.admin.partials.header')
 
-            <div class="container">
+            @yield('content')
 
-                @yield('content')
+            @include('site.admin.partials.footer')
 
-                @include('site.admin.partials.footer')
-
-                @yield('scripts')
-
-            </div>
+            @yield('scripts')
 
         @endif
+
+        @include('shared.page-loader')
 
         @include('site.admin.partials.admin-js')
     </body>
