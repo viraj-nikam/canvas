@@ -55,21 +55,14 @@
         @include('site.admin.partials.sidebar-navigation')
 
         <section id="content">
-                <div class="container">
-                    <div class="block-header">
-                        <h2>Data Table</h2>
-
+            <div class="container">
+                <div class="card">
+                    <div class="card-header">
+                        <ol class="breadcrumb">
+                            <li><a href="/admin">Home</a></li>
+                            <li class="active">Posts</li>
+                        </ol>
                         <ul class="actions">
-                            <li>
-                                <a href="">
-                                    <i class="zmdi zmdi-trending-up"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="">
-                                    <i class="zmdi zmdi-check-all"></i>
-                                </a>
-                            </li>
                             <li class="dropdown">
                                 <a href="" data-toggle="dropdown">
                                     <i class="zmdi zmdi-more-vert"></i>
@@ -77,59 +70,39 @@
 
                                 <ul class="dropdown-menu dropdown-menu-right">
                                     <li>
-                                        <a href="">Refresh</a>
-                                    </li>
-                                    <li>
-                                        <a href="">Manage Widgets</a>
-                                    </li>
-                                    <li>
-                                        <a href="">Widgets Settings</a>
+                                        <a href="">Refresh Posts</a>
                                     </li>
                                 </ul>
                             </li>
                         </ul>
+                        <h2>Manage Posts
+                            <small>This page provides a drag-and-drop interface for assigning a block to a region, and for controlling the order of blocks within regions. Since not all themes implement the same regions, or display regions in the same way, blocks are positioned on a per-theme basis. Remember that your changes will not be saved until you click the Save blocks button at the bottom of the page. Click the configure link next to each block to configure its specific title and visibility settings.</small>
+                        </h2>
                     </div>
 
-                    <div class="card">
-                        <div class="card-header">
-                            <h2>Basic Example
-                                <small>It's just that simple. Turn your simple table into a sophisticated data table and
-                                    offer your users a nice experience and great features without any effort.
-                                </small>
-                            </h2>
-                        </div>
-
-                        <div class="table-responsive">
-                            <!-- <table id="data-table-basic" class="table table-striped">
-
-                            </table> -->
-                            <table id="data-table-basic" class="table table-striped">
-                                <thead>
+                    <div class="table-responsive">
+                        <table id="data-table-posts" class="table table-condensed table-vmiddle">
+                            <thead>
                                 <tr>
-                                    <th data-column-id="published" data-type="date" data-order="desc">Published</th>
-                                    <th data-column-id="title">Title</th>
-                                    <th data-column-id="subtitle">Subtitle</th>
-                                    <th data-column-id="actions">Actions</th>
+                                    <th data-column-id="id" data-type="date" data-order="desc">Published</th>
+                                    <th data-column-id="sender">Title</th>
+                                    <th data-column-id="received">Subtitle</th>
+                                    <th data-column-id="commands" data-formatter="commands" data-sortable="false">Actions</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($posts as $post)
                                         <tr>
-                                            <td>{{ $post->published_at->format('j-M-y g:ia') }}</td>
+                                            <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $post->published_at)->format('M d, Y') }}</td>
                                             <td>{{ $post->title }}</td>
                                             <td>{{ $post->subtitle }}</td>
-                                            <td>
-                                                <a href="/admin/post/{{ $post->id }}/edit" class="btn btn-xs btn-primary"><i class="material-icons">mode_edit</i>&nbsp;&nbsp;Edit</a>
-                                                &nbsp;
-                                                <a href="/blog/{{ $post->slug }}" target="_blank" class="btn btn-xs btn-success"><i class="material-icons">visibility</i>&nbsp;&nbsp;Preview</a>
-                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
-                            </table>
-                        </div>
+                        </table>
                     </div>
                 </div>
-            </section>
+            </div>
+        </section>
     </section>
 @stop

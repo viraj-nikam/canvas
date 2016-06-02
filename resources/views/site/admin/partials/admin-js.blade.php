@@ -39,7 +39,7 @@
         });
 
         //Command Buttons
-        $("#data-table-command").bootgrid({
+        $("#data-table-posts").bootgrid({
             css: {
                 icon: 'zmdi icon',
                 iconColumns: 'zmdi-view-module',
@@ -49,8 +49,8 @@
             },
             formatters: {
                 "commands": function(column, row) {
-                    return "<button type=\"button\" class=\"btn btn-icon command-edit waves-effect waves-circle\" data-row-id=\"" + row.id + "\"><span class=\"zmdi zmdi-edit\"></span></button> " +
-                            "<button type=\"button\" class=\"btn btn-icon command-delete waves-effect waves-circle\" data-row-id=\"" + row.id + "\"><span class=\"zmdi zmdi-delete\"></span></button>";
+                    return "<a href='/admin/post/{{ $post->id }}/edit'><button type=\"button\" class=\"btn btn-icon command-edit waves-effect waves-circle\" data-row-id=\"" + row.id + "\"><span class=\"zmdi zmdi-edit\"></span></button></a> " +
+                            " <a href='/blog/{{ $post->slug }}'><button type=\"button\" class=\"btn btn-icon command-delete waves-effect waves-circle\" data-row-id=\"" + row.id + "\"><span class=\"zmdi zmdi-search\"></span></button></a>";
                 }
             }
         });

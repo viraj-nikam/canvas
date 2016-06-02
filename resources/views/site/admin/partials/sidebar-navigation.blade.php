@@ -12,15 +12,9 @@
             </div>
         </a>
         <ul class="main-menu">
-            <li>
-                <a href="#"><i class="zmdi zmdi-account"></i> View Profile</a>
-            </li>
-            <li>
-                <a href="#"><i class="zmdi zmdi-settings"></i> Settings</a>
-            </li>
-            <li>
-                <a href="/logout"><i class="zmdi zmdi-time-restore"></i> Logout</a>
-            </li>
+            <li><a href="#"><i class="zmdi zmdi-account"></i> View Profile</a></li>
+            <li><a href="#"><i class="zmdi zmdi-settings"></i> Settings</a></li>
+            <li><a href="/logout"><i class="zmdi zmdi-time-restore"></i> Logout</a></li>
         </ul>
     </div>
 
@@ -29,7 +23,7 @@
             <a href="" data-ma-action="submenu-toggle"><i class="zmdi zmdi-view-compact"></i> Posts</a>
 
             <ul>
-                <li><a href="#">All Posts</a></li>
+                <li"><a href="#">All Posts</a></li>
                 <li><a href="#">Add Post</a></li>
             </ul>
         </li>
