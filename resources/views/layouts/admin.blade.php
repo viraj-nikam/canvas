@@ -22,10 +22,11 @@
 
             @yield('scripts')
 
+            @include('shared.page-loader')
+
+            @include('site.admin.partials.admin-js')
+
         @endif
 
-        @include('shared.page-loader')
-
-        @include('site.admin.partials.admin-js')
     </body>
 </html>
