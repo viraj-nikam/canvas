@@ -26,7 +26,7 @@
                         </li>
                         <li class="divider"></li>
                         <li>
-                            <a href="/logout"><i class="zmdi zmdi-power"></i> Logout</a>
+                            <a href="/auth/logout"><i class="zmdi zmdi-power"></i> Logout</a>
                         </li>
                     </ul>
                 </li>
@@ -39,7 +39,7 @@
     <div id="top-search-wrap">
         <div class="tsw-inner">
             <i id="top-search-close" class="zmdi zmdi-arrow-left"></i>
-            <input type="text" placeholder="Search NewsFeed Users">
+            <input type="text" placeholder="Search">
         </div>
     </div>
 </header>

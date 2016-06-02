@@ -89,16 +89,16 @@
                                     <th data-column-id="received">Subtitle</th>
                                     <th data-column-id="commands" data-formatter="commands" data-sortable="false">Actions</th>
                                 </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($posts as $post)
-                                        <tr>
-                                            <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $post->published_at)->format('M d, Y') }}</td>
-                                            <td>{{ $post->title }}</td>
-                                            <td>{{ $post->subtitle }}</td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
+                            </thead>
+                            <tbody>
+                                @foreach ($posts as $post)
+                                    <tr>
+                                        <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $post->published_at)->format('M d, Y') }}</td>
+                                        <td>{{ $post->title }}</td>
+                                        <td>{{ $post->subtitle }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
                         </table>
                     </div>
                 </div>

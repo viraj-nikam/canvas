@@ -23,7 +23,7 @@
             <a href="" data-ma-action="submenu-toggle"><i class="zmdi zmdi-view-compact"></i> Posts</a>
 
             <ul>
-                <li"><a href="#">All Posts</a></li>
+                <li><a href="#">All Posts</a></li>
                 <li><a href="#">Add Post</a></li>
             </ul>
         </li>
