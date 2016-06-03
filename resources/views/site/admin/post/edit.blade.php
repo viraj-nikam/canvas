@@ -81,14 +81,19 @@
                         <h2>Edit <em>{{ $title }}</em>
                             <small>This page provides a comprehensive overview of all current blog posts. Click the edit or preview links next to each post to modify specific details, publish a post or view any changes from the browser.</small>
                         </h2>
+                    </div>
+                    <div class="card-body card-padding">
 
                         @include('shared.errors')
 
                         @include('shared.success')
-                        <form class="form-horizontal" role="form" method="POST" action="{{ route('admin.post.update', $id) }}">
+
+                        <form role="form" method="POST" action="{{ route('admin.post.update', $id) }}">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                             <input type="hidden" name="_method" value="PUT">
+
                             @include('site.admin.post.partials.form')
+
                             <div class="form-group">
                                 <div class="col-lg-10 col-lg-offset-2">
                                     <button type="submit" class="btn btn-primary btn-outline" name="action" value="continue">
@@ -103,9 +108,6 @@
                                 </div>
                             </div>
                         </form>
-
-
-
 
                     </div>
                 </div>
@@ -137,4 +139,10 @@
             </div>
         </div>
     </div>
+@stop
+
+@section('unique-js')
+    <script type="text/javascript">
+        $('#editor').summernote();
+    </script>
 @stop
