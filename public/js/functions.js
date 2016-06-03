@@ -747,15 +747,16 @@ $(document).ready(function(){
 
             swal({
                 title: "Are you sure?",
-                text: "All your saved localStorage values will be removed",
+                text: "Local storage cache will be cleared.",
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
-                confirmButtonText: "Yes, delete it!",
-                closeOnConfirm: false
+                confirmButtonText: "Yes",
+                closeOnConfirm: false,
+                allowOutsideClick: true,
             }, function(){
                 localStorage.clear();
-                swal("Done!", "localStorage is cleared", "success");
+                swal("Success!", "Local storage cache is cleared.", "success");
             });
         });
     }

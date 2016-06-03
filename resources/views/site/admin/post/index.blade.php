@@ -5,55 +5,8 @@
 @stop
 
 @section('content')
-    <!-- <div class="row">
-        <div class="col-lg-12 col-md-12 col-sm-12">
-            <div class="page-header">
-                <ul class="breadcrumb">
-                    <li><a href="/admin">Home</a></li>
-                    <li class="active">Posts</li>
-                </ul>
-                <a href="/admin/post/create" class="btn btn-success btn-sm"><i class="material-icons">add_circle</i>&nbsp;&nbsp;New Post</a>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-sm-12">
-            @include('shared.errors')
-            @include('shared.success')
-            <table id="posts-table" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
-                <thead>
-                <tr>
-                    <th>Published</th>
-                    <th>Title</th>
-                    <th>Subtitle</th>
-                    <th>Actions</th>
-                </tr>
-                </thead>
-                <tbody>
-                    @foreach ($posts as $post)
-                        <tr>
-                            <td>{{ $post->published_at->format('j-M-y g:ia') }}</td>
-                            <td>{{ $post->title }}</td>
-                            <td>{{ $post->subtitle }}</td>
-                            <td>
-                                <a href="/admin/post/{{ $post->id }}/edit" class="btn btn-xs btn-primary"><i class="material-icons">mode_edit</i>&nbsp;&nbsp;Edit</a>
-                                &nbsp;
-                                <a href="/blog/{{ $post->slug }}" target="_blank" class="btn btn-xs btn-success"><i class="material-icons">visibility</i>&nbsp;&nbsp;Preview</a>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
-    </div> -->
-
-
-
     <section id="main">
-
         @include('site.admin.partials.sidebar-navigation')
-
         <section id="content">
             <div class="container">
                 <div class="card">
@@ -75,8 +28,8 @@
                                 </ul>
                             </li>
                         </ul>
-                        <h2>Manage Posts
-                            <small>This page provides a drag-and-drop interface for assigning a block to a region, and for controlling the order of blocks within regions. Since not all themes implement the same regions, or display regions in the same way, blocks are positioned on a per-theme basis. Remember that your changes will not be saved until you click the Save blocks button at the bottom of the page. Click the configure link next to each block to configure its specific title and visibility settings.</small>
+                        <h2>Manage Posts&nbsp;&nbsp;<a href="/admin/post/create" data-toggle="tooltip" data-placement="right" title="" data-original-title="Create a New Post"><i class="zmdi zmdi-plus-circle"></i></a>
+                            <small>This page provides a comprehensive overview of all current blog posts. Click the edit or preview links next to each post to modify specific details, publish a post or view any changes from the browser.</small>
                         </h2>
                     </div>
 
@@ -105,4 +58,26 @@
             </div>
         </section>
     </section>
+@stop
+
+@section('unique-js')
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $("#data-table-posts").bootgrid({
+                css: {
+                    icon: 'zmdi icon',
+                    iconColumns: 'zmdi-view-module',
+                    iconDown: 'zmdi-sort-amount-desc',
+                    iconRefresh: 'zmdi-refresh',
+                    iconUp: 'zmdi-sort-amount-asc'
+                },
+                formatters: {
+                    "commands": function(column, row) {
+                        return "<a href='/admin/post/{{ $post->id }}/edit'><button type=\"button\" class=\"btn btn-icon command-edit waves-effect waves-circle\" data-row-id=\"" + row.id + "\"><span class=\"zmdi zmdi-edit\"></span></button></a> " +
+                                " <a href='/blog/{{ $post->slug }}'><button type=\"button\" class=\"btn btn-icon command-delete waves-effect waves-circle\" data-row-id=\"" + row.id + "\"><span class=\"zmdi zmdi-search\"></span></button></a>";
+                    }
+                }
+            });
+        });
+    </script>
 @stop

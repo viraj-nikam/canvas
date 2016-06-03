@@ -26,6 +26,8 @@
 
             @include('site.admin.partials.admin-js')
 
+            @yield('unique-js')
+
         @endif
 
     </body>

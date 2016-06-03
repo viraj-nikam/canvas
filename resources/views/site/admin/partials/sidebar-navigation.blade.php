@@ -19,14 +19,7 @@
     </div>
 
     <ul class="main-menu">
-        <li class="sub-menu">
-            <a href="" data-ma-action="submenu-toggle"><i class="zmdi zmdi-view-compact"></i> Posts</a>
-
-            <ul>
-                <li><a href="#">All Posts</a></li>
-                <li><a href="#">Add Post</a></li>
-            </ul>
-        </li>
+        <li><a href="/admin/post"><i class="zmdi zmdi-view-compact"></i> Posts</a></li>
         <li><a href="#"><i class="zmdi zmdi-account"></i> Tags</a></li>
         <li><a href="#"><i class="zmdi zmdi-format-list-bulleted"></i> Uploads</a></li>
     </ul>
