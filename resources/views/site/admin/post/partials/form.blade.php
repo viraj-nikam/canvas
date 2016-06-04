@@ -62,221 +62,51 @@
     </div>
 </div>
 
-
-
-
-
-
-
-
-
-<hr>
-<hr>
-<hr>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<br>
 
 <div class="form-group">
     <div class="fg-line">
-        <input type="text" class="form-control" placeholder="Input Default">
-    </div>
-</div>
-
-<div class="form-group">
-    <div class="fg-line">
-        <input type="text" class="form-control input-lg" placeholder="Input Large">
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-sm-4">
-        <div class="form-group">
-            <div class="fg-line">
-                <input type="text" class="form-control" placeholder="col-sm-4">
-            </div>
-        </div>
-    </div>
-    <div class="col-sm-4">
-        <div class="form-group">
-            <div class="fg-line">
-                <input type="text" class="form-control" placeholder="col-sm-4">
-            </div>
-        </div>
-    </div>
-    <div class="col-sm-4">
-        <div class="form-group">
-            <div class="fg-line">
-                <input type="text" class="form-control" placeholder="col-sm-4">
-            </div>
-        </div>
-    </div>
-
-    <div class="col-sm-3">
-        <div class="form-group">
-            <div class="fg-line">
-                <input type="text" class="form-control" placeholder="col-sm-3">
-            </div>
-        </div>
-    </div>
-    <div class="col-sm-3">
-        <div class="form-group">
-            <div class="fg-line">
-                <input type="text" class="form-control" placeholder="col-sm-3">
-            </div>
-        </div>
-    </div>
-    <div class="col-sm-3">
-        <div class="form-group">
-            <div class="fg-line">
-                <input type="text" class="form-control" placeholder="col-sm-3">
-            </div>
-        </div>
-    </div>
-    <div class="col-sm-3">
-        <div class="form-group">
-            <div class="fg-line">
-                <input type="text" class="form-control" placeholder="col-sm-3">
-            </div>
-        </div>
-    </div>
-
-    <div class="col-sm-6">
-        <div class="form-group">
-            <div class="fg-line">
-                <input type="text" class="form-control" placeholder="col-sm-6">
-            </div>
-        </div>
-    </div>
-    <div class="col-sm-6">
-        <div class="form-group">
-            <div class="fg-line">
-                <input type="text" class="form-control" placeholder="col-sm-6">
-            </div>
-        </div>
-    </div>
-</div>
-
-<br/>
-<p class="m-b-25 m-t-25 c-black f-500">Floating Label - Floating animation for label when
-    Input feild is active.</p>
-
-<div class="form-group fg-float">
-    <div class="fg-line">
-        <input type="text" class="input-sm form-control fg-input">
-        <label class="fg-label">Input Small</label>
+      <label class="fg-label">Publish Date / Time</label>
+      <input class="form-control" name="published_at" id="published_at" type="text" value="{{ $published_at }}" placeholder="YYYY/MM/DD HH:MM:SS" data-mask="0000/00/00 00:00:00">
     </div>
 </div>
 
 <br>
 
-<div class="form-group fg-float">
+<div class="checkbox m-b-15">
+    <label>
+        <input {{ checked($is_draft) }} type="checkbox" name="is_draft">
+        <i class="input-helper"></i>
+        Draft?
+    </label>
+</div>
+
+<br>
+
+<div class="form-group">
     <div class="fg-line">
-        <input type="text" class="form-control fg-input">
-        <label class="fg-label">Input Default</label>
+      <label class="fg-label">Tags</label>
+      <select name="tags[]" id="tags" class="selectpicker" multiple>
+          @foreach ($allTags as $tag)
+              <option @if (in_array($tag, $tags)) selected @endif value="{{ $tag }}">{{ $tag }}</option>
+          @endforeach
+      </select>
     </div>
 </div>
 
 <br>
 
-<div class="form-group fg-float">
+<div class="form-group">
     <div class="fg-line">
-        <input type="text" class="input-lg form-control fg-input">
-        <label class="fg-label">Input Large</label>
+      <label class="fg-label">Layout</label>
+      <input type="text" class="form-control" name="layout" id="layout" value="{{ $layout }}" placeholder="Layout">
     </div>
 </div>
 
-<br/>
-<p class="m-b-25 m-t-25 c-black f-500">Input Status - Focused and Disabled</p>
+<br>
 
-<div class="row">
-    <div class="col-sm-6">
-        <div class="form-group">
-            <div class="fg-line fg-toggled">
-                <input type="text" class="form-control" value="This is Focused">
-            </div>
-        </div>
-    </div>
-    <div class="col-sm-6">
-        <div class="form-group">
-            <div class="fg-line disabled">
-                <input type="text" class="form-control" value="This is Disabled" disabled>
-            </div>
-        </div>
+<div class="form-group">
+    <div class="fg-line">
+        <textarea class="form-control" name="meta_description" id="meta_description" rows="3" style="resize: vertical" placeholder="Meta Description">{{ $meta_description }}</textarea>
     </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<fieldset>
-
-  <div class="form-group">
-    <div class="col-lg-10">
-      <input class="form-control" name="publish_date" id="publish_date" type="text" value="{{ $publish_date }}" placeholder="Publish Date">
-    </div>
-  </div>
-
-  <div class="form-group">
-    <div class="col-lg-10">
-      <input class="form-control" name="publish_time" id="publish_time" type="text" value="{{ $publish_time }}" placeholder="Publish Time">
-    </div>
-  </div>
-
-  <div class="form-group">
-      <label for="inputDraft" class="col-lg-2 control-label">Draft</label>
-      <div class="col-lg-10">
-          <input {{ checked($is_draft) }} type="checkbox" name="is_draft">
-      </div>
-  </div>
-
-  <div class="form-group">
-      <label for="inputTags" class="col-lg-2 control-label">Tags</label>
-      <div class="col-lg-10">
-        <select name="tags[]" id="tags" class="form-control" multiple>
-              @foreach ($allTags as $tag)
-                  <option @if (in_array($tag, $tags)) selected @endif value="{{ $tag }}">{{ $tag }}</option>
-              @endforeach
-          </select>
-      </div>
-    </div>
-
-  <div class="form-group">
-      <div class="col-lg-10">
-          <input type="text" class="form-control" name="layout" id="layout" value="{{ $layout }}" placeholder="Layout">
-      </div>
-  </div>
-
-  <div class="form-group">
-      <div class="col-lg-10">
-          <textarea class="form-control" name="meta_description" id="meta_description" rows="3" style="resize: vertical" placeholder="Meta Description">{{ $meta_description }}</textarea>
-      </div>
-  </div>
-</fieldset>

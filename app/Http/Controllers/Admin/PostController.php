@@ -64,6 +64,7 @@ class PostController extends Controller
   public function update(PostUpdateRequest $request, $id)
   {
     $post = Post::findOrFail($id);
+
     $post->fill($request->postFillData());
     $post->save();
     $post->syncTags($request->get('tags', []));

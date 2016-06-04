@@ -76,4 +76,8 @@ class AuthController extends Controller
     {
         return redirect('/');
     }
+
+    public function authenticated( \Illuminate\Http\Request $request, User $user ) {
+        return redirect()->intended($this->redirectPath())->withSuccess('New Post Successfully Created.');
+    }
 }

@@ -24,8 +24,7 @@ class PostCreateRequest extends Request
       'title' => 'required',
       'subtitle' => 'required',
       'content' => 'required',
-      'publish_date' => 'required',
-      'publish_time' => 'required',
+      'published_at' => 'required',
       'layout' => 'required',
     ];
   }
@@ -35,9 +34,6 @@ class PostCreateRequest extends Request
    */
   public function postFillData()
   {
-    $published_at = new Carbon(
-      $this->publish_date.' '.$this->publish_time
-    );
     return [
       'title' => $this->title,
       'subtitle' => $this->subtitle,
@@ -45,7 +41,7 @@ class PostCreateRequest extends Request
       'content_raw' => $this->get('content'),
       'meta_description' => $this->meta_description,
       'is_draft' => (bool)$this->is_draft,
-      'published_at' => $published_at,
+      'published_at' => $this->published_at,
       'layout' => $this->layout,
     ];
   }

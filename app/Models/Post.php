@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
-    protected $dates = ['published_at'];
+    // protected $dates = ['published_at'];
 
     /**
      * The attributes that are mass assignable.
@@ -85,26 +85,6 @@ class Post extends Model
             return;
         }
         $this->tags()->detach();
-    }
-
-    /**
-     * Return the published_at date.
-     *
-     * @param $value
-     */
-    public function getPublishDateAttribute($value)
-    {
-        return $this->published_at->format('M-j-Y');
-    }
-
-    /**
-     * Return the published_at time.
-     *
-     * @param $value
-     */
-    public function getPublishTimeAttribute($value)
-    {
-        return $this->published_at->format('g:i A');
     }
 
     /**
