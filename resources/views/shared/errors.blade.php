@@ -1,6 +1,6 @@
 @if (count($errors) > 0)
     <div class="alert alert-danger">
-        <strong><i class="material-icons">close</i>&nbsp;Whoops! </strong>There were some problems with your input.
+        <strong><i class="zmdi zmdi-close-circle"></i>&nbsp;Whoops! </strong>There were some problems with your input.
         <br><br>
         <ul>
             @foreach ($errors->all() as $error)
