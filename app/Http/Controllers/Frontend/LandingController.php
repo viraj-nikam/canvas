@@ -1,11 +1,12 @@
 <?php
-namespace App\Http\Controllers;
+
+namespace App\Http\Controllers\Frontend;
 
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class SiteController extends Controller
+class LandingController extends Controller
 {
     /**
      * Display the application landing page.
@@ -14,6 +15,6 @@ class SiteController extends Controller
      */
     public function index()
     {
-        return view('site.landing.index');
+        return view('frontend.landing.index');
     }
 }

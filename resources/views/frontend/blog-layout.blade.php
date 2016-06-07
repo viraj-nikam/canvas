@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <!-- Site Meta Tags -->
         @include('shared.meta-tags')
 
         @yield('title')
@@ -10,7 +9,6 @@
 
         <link rel="alternate" type="application/rss+xml" href="{{ url('rss') }}" title="RSS Feed {{ config('blog.title') }}">
 
-        <!-- Blog Specific Stylesheet -->
         <link href="/css/blog.css" rel="stylesheet">
 
         @yield('styles')
@@ -24,7 +22,6 @@
 
         <script type="text/javascript" src="/js/all.js"></script>
 
-        <!-- Page Specific Scripts -->
         @yield('scripts')
     </body>
 </html>

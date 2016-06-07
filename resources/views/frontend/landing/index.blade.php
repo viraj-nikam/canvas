@@ -1,4 +1,4 @@
-@extends('layouts.landing')
+@extends('frontend.landing-layout')
 
 @section('content')
     <div class="container-fluid">

@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('backend.layout')
 
 @section('title')
     <title>{{ config('blog.title') }} | Reset Password</title>

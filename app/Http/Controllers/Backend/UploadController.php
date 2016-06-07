@@ -1,5 +1,6 @@
 <?php
-namespace App\Http\Controllers\Admin;
+
+namespace App\Http\Controllers\Backend;
 
 use Illuminate\Http\Request;
 use App\Services\UploadsManager;

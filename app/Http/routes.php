@@ -6,7 +6,7 @@
 |--------------------------------------------------------------------------
 */
 
-Route::get('/', 'SiteController@index');
+Route::get('/', 'Frontend\LandingController@index');
 
 /*
 |--------------------------------------------------------------------------
@@ -14,8 +14,8 @@ Route::get('/', 'SiteController@index');
 |--------------------------------------------------------------------------
 */
 
-Route::get('blog', 'BlogController@index');
-Route::get('blog/{slug}', 'BlogController@showPost');
+Route::get('blog', 'Frontend\BlogController@index');
+Route::get('blog/{slug}', 'Frontend\BlogController@showPost');
 
 /*
 |--------------------------------------------------------------------------
@@ -28,7 +28,7 @@ Route::get('admin', function () {
 });
 
 $router->group([
-  'namespace' => 'Admin',
+  'namespace' => 'Backend',
   'middleware' => 'auth',
 ], function () {
   Route::resource('admin/post', 'PostController', ['except' => 'show']);
@@ -56,4 +56,4 @@ Route::get('/auth/logout', 'Auth\AuthController@getLogout');
 |--------------------------------------------------------------------------
 */
 
-Route::get('rss', 'BlogController@rss');
+Route::get('rss', 'Frontend\BlogController@rss');

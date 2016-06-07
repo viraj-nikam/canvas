@@ -5,7 +5,7 @@
 
         @yield('title')
 
-        @include('site.admin.partials.admin-css')
+        @include('backend.partials.backend-css')
     </head>
     <body>
         @if (Auth::guest())
@@ -14,17 +14,17 @@
 
         @else
 
-            @include('site.admin.partials.header')
+            @include('backend.partials.header')
 
             @yield('content')
 
-            @include('site.admin.partials.footer')
+            @include('backend.partials.footer')
 
             @yield('scripts')
 
             @include('shared.page-loader')
 
-            @include('site.admin.partials.admin-js')
+            @include('backend.partials.backend-js')
 
             @yield('unique-js')
 

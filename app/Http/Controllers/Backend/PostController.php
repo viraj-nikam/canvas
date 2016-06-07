@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Backend;
 
 use App\Models\Post;
 use App\Http\Requests;
@@ -16,7 +16,7 @@ class PostController extends Controller
    */
   public function index()
   {
-    return view('site.admin.post.index')->withPosts(Post::all());
+    return view('backend.post.index')->withPosts(Post::all());
   }
 
   /**
@@ -26,7 +26,7 @@ class PostController extends Controller
   {
     $data = $this->dispatch(new PostFormFields());
 
-    return view('site.admin.post.create', $data);
+    return view('backend.post.create', $data);
   }
 
   /**
@@ -52,7 +52,7 @@ class PostController extends Controller
   {
     $data = $this->dispatch(new PostFormFields($id));
 
-    return view('site.admin.post.edit', $data);
+    return view('backend.post.edit', $data);
   }
 
   /**
