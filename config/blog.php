@@ -5,11 +5,13 @@ return [
   | User Configuration
   |--------------------------------------------------------------------------
   |
-  | Here you may set the user options for the application administrator.
+  | Here you may set the user first name and last name for the application
+  | administrator.
   |
   */
   'first_name'      => 'Canvas',
   'last_name'       => 'Administrator',
+
   /*
   |--------------------------------------------------------------------------
   | Blog Meta Configuration
@@ -25,6 +27,7 @@ return [
   'subtitle'        => 'Minimal blog application for developers',
   'description'     => 'Blog',
   'author'          => 'Todd Austin',
+
   /*
   |--------------------------------------------------------------------------
   | Social Media Configuration
@@ -46,6 +49,7 @@ return [
   'instagram'       => 'https://instagram.com/user',
   'bitbucket'       => 'https://bitbucket.com/user',
   'googleplus'      => 'https://googleplus.com/user',
+
   /*
   |--------------------------------------------------------------------------
   | Blog Post Configuration
@@ -58,6 +62,7 @@ return [
   */
   'posts_per_page'  => 6,
   'rss_size'        => 25,
+
   /*
   |--------------------------------------------------------------------------
   | Uploads Configuration
