@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Session;
 use Validator;
 use App\Models\User;
 use App\Http\Controllers\Controller;
@@ -77,7 +78,11 @@ class AuthController extends Controller
         return redirect('/');
     }
 
-    public function authenticated( \Illuminate\Http\Request $request, User $user ) {
-        return redirect()->intended($this->redirectPath())->withSuccess('New Post Successfully Created.');
+    public function authenticated( \Illuminate\Http\Request $request, User $user )
+    {
+        // Set a login token in session for a 1 time notification
+        Session::set('login_token', true);
+
+        return redirect()->intended($this->redirectPath());
     }
 }

@@ -18,6 +18,8 @@ class UsersTableSeeder extends Seeder
             User::truncate();
 
             DB::table('users')->insert([
+                'first_name'    => config('blog.first_name'),
+                'last_name'     => config('blog.last_name'),
                 'display_name'  => 'Admin',
                 'url'           => 'www.' . seoUrl(config('blog.title')) . '.com',
                 'email'         => 'admin@' . seoUrl(config('blog.title')) . '.com',
