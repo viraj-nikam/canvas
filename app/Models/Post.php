@@ -7,8 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
-    // protected $dates = ['published_at'];
-
     /**
      * The attributes that are mass assignable.
      *
