@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('backend.layout')
 
 @section('title')
     <title>{{ config('blog.title') }} | Posts</title>
@@ -6,7 +6,7 @@
 
 @section('content')
     <section id="main">
-        @include('site.admin.partials.sidebar-navigation')
+        @include('backend.partials.sidebar-navigation')
         <section id="content">
             <div class="container">
                 <div class="card">
