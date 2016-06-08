@@ -65,68 +65,10 @@
 @stop
 
 @section('unique-js')
-
-    @if(Session::get('login_token'))
-        <div id="userName" data-field-id="{{ Auth::user()->first_name . ' ' . Auth::user()->last_name }}"></div>
-        <script type="text/javascript">
-            $(document).ready(function(){
-                // Login Message
-                $(window).load(function(){
-                    function notify(message, type){
-                        $.growl({
-                            message: message
-                        },{
-                            type: type,
-                            allow_dismiss: false,
-                            label: 'Cancel',
-                            className: 'btn-xs btn-inverse',
-                            placement: {
-                                from: 'bottom',
-                                align: 'left'
-                            },
-                            delay: 2500,
-                            animate: {
-                                enter: 'animated fadeInUp',
-                                exit: 'animated fadeOutDown'
-                            },
-                            offset: {
-                                x: 30,
-                                y: 30
-                            }
-                        });
-                    };
-
-                    setTimeout(function () {
-                        if (!$('.login-content')[0]) {
-                            var message = 'Welcome back ';
-                            var userName = $('#userName').data("field-id");
-                            notify(message.concat(userName), 'inverse');
-                        }
-                    }, 1000)
-                });
-            });
-        </script>
-        {{ \Session::forget('login_token') }}
+    @if(Session::get('_login'))
+        @include('backend.post.partials.login-notification')
+        {{ \Session::forget('_login') }}
     @endif
 
-    <script type="text/javascript">
-        $(document).ready(function(){
-            // Datatables
-            $("#data-table-posts").bootgrid({
-                css: {
-                    icon: 'zmdi icon',
-                    iconColumns: 'zmdi-view-module',
-                    iconDown: 'zmdi-sort-amount-desc',
-                    iconRefresh: 'zmdi-refresh',
-                    iconUp: 'zmdi-sort-amount-asc'
-                },
-                formatters: {
-                    "commands": function(column, row) {
-                        return "<a href='/admin/post/{{ $post->id }}/edit'><button type=\"button\" class=\"btn btn-icon command-edit waves-effect waves-circle\" data-row-id=\"" + row.id + "\"><span class=\"zmdi zmdi-edit\"></span></button></a> " +
-                                " <a href='/blog/{{ $post->slug }}'><button type=\"button\" class=\"btn btn-icon command-delete waves-effect waves-circle\" data-row-id=\"" + row.id + "\"><span class=\"zmdi zmdi-search\"></span></button></a>";
-                    }
-                }
-            });
-        });
-    </script>
+    @include('backend.post.partials.datatable')
 @stop

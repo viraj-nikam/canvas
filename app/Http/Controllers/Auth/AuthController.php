@@ -80,8 +80,7 @@ class AuthController extends Controller
 
     public function authenticated( \Illuminate\Http\Request $request, User $user )
     {
-        // Set a login token in session for a 1 time notification
-        Session::set('login_token', true);
+        Session::set('_login', env('LOGIN_TOKEN'));
 
         return redirect()->intended($this->redirectPath());
     }
