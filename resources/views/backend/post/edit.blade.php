@@ -6,7 +6,9 @@
 
 @section('content')
     <section id="main">
+
         @include('backend.partials.sidebar-navigation')
+
         <section id="content">
             <div class="container">
                 <div class="card">
@@ -21,7 +23,6 @@
                                 <a href="" data-toggle="dropdown">
                                     <i class="zmdi zmdi-more-vert"></i>
                                 </a>
-
                                 <ul class="dropdown-menu dropdown-menu-right">
                                     <li>
                                         <a href="">Refresh Post</a>
@@ -31,13 +32,13 @@
                         </ul>
 
                         @include('shared.errors')
+
                         @include('shared.success')
 
                         <h2>Edit <em>{{ $title }}</em>
                         </h2>
                     </div>
                     <div class="card-body card-padding">
-
                         <form role="form" method="POST" action="{{ route('admin.post.update', $id) }}">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                             <input type="hidden" name="_method" value="PUT">
@@ -63,40 +64,11 @@
         </section>
     </section>
 
-    {{-- Confirm Delete --}}
-    <div class="modal fade" id="modal-delete" tabIndex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">×</button>
-                    <h4 class="modal-title">Delete this post?</h4>
-                </div>
-                <div class="modal-body">
-                    <p>Are you sure you want to delete this post?</p>
-                </div>
-                <div class="modal-footer">
-                    <form method="POST" action="{{ route('admin.post.destroy', $id) }}">
-                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                        <input type="hidden" name="_method" value="DELETE">
-                        <button type="button" class="btn btn-default btn-outline" data-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-danger btn-outline">
-                            <i class="zmdi zmdi-delete"></i>&nbsp;&nbsp;Delete Post
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+    @include('backend.post.partials.delete-modal')
 @stop
 
 @section('unique-js')
-    <script type="text/javascript">
-        $(document).ready(function(){
-          $('.publish_date').mask('00/00/0000 00:00:00');
-        });
-        $('#editor').summernote({
-            placeholder: 'Content',
-            height: 300,
-        });
-    </script>
+
+    @include('backend.post.partials.summernote')
+
 @stop
