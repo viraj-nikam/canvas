@@ -15,7 +15,7 @@
                 <li id="top-search">
                     <a href=""><i class="tm-icon zmdi zmdi-search"></i></a>
                 </li>
-                <li class="dropdown">
+                <li class="dropdown hidden-xs">
                     <a data-toggle="dropdown" href=""><i class="tm-icon zmdi zmdi-more-vert"></i></a>
                     <ul class="dropdown-menu dm-icon pull-right">
                         <li class="hidden-xs">
