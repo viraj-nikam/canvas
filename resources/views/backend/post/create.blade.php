@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('backend.layout')
 
 @section('title')
     <title>{{ config('blog.title') }} | New Post</title>
@@ -23,10 +23,10 @@
                 <form id="postCreate" class="form-horizontal" role="form" method="POST" action="{{ route('admin.post.store') }}">
                     @include('shared.errors')
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                    @include('site.admin.post.partials.form')
+                    @include('backend.post.partials.form')
                     <div class="form-group">
                         <div class="col-lg-10 col-lg-offset-2">
-                          <button type="submit" class="btn btn-primary"><i class="material-icons">save</i>&nbsp;Save</button>&nbsp;
+                          <button type="submit" class="btn btn-primary"><i class="zmdi zmdi-floppy"></i>&nbsp;&nbsp;Save</button>&nbsp;
                           <a href="/admin/post" class="btn btn-default">Cancel</a>
                         </div>
                     </div>

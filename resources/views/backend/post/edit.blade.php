@@ -68,7 +68,5 @@
 @stop
 
 @section('unique-js')
-
     @include('backend.post.partials.summernote')
-
 @stop
