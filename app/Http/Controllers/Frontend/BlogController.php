@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Frontend;
 
 use App\Models\Tag;
@@ -19,10 +18,9 @@ class BlogController extends Controller
      */
     public function index(Request $request)
     {
-        $tag    = $request->get('tag');
-        $data   = $this->dispatch(new BlogIndexData($tag));
+        $tag = $request->get('tag');
+        $data = $this->dispatch(new BlogIndexData($tag));
         $layout = $tag ? Tag::layout($tag)->first() : 'site.blog.index';
-
         return view($layout, $data);
     }
 
@@ -33,14 +31,12 @@ class BlogController extends Controller
      */
     public function showPost($slug, Request $request)
     {
-        $post   = Post::with('tags')->whereSlug($slug)->firstOrFail();
-        $tag    = $request->get('tag');
-        $title  = $post->title;
-
+        $post = Post::with('tags')->whereSlug($slug)->firstOrFail();
+        $tag = $request->get('tag');
+        $title = $post->title;
         if ($tag) {
             $tag = Tag::whereTag($tag)->firstOrFail();
         }
-
         return view($post->layout, compact('post', 'tag', 'slug', 'title'));
     }
 
@@ -52,7 +48,6 @@ class BlogController extends Controller
     public function rss(RssFeed $feed)
     {
         $rss = $feed->getRSS();
-
         return response($rss)->header('Content-type', 'application/rss+xml');
     }
 }
