@@ -15,7 +15,7 @@
                     <div class="card-header">
                         <ol class="breadcrumb">
                             <li><a href="/admin">Home</a></li>
-                            <li class="active"><a href="/admin/post">Posts</a></li>
+                            <li><a href="/admin/post">Posts</a></li>
                             <li class="active">Edit Post</li>
                         </ol>
                         <ul class="actions">
@@ -35,8 +35,7 @@
 
                         @include('shared.success')
 
-                        <h2>Edit <em>{{ $title }}</em>
-                        </h2>
+                        <h2>Edit <em>{{ $title }}</em></h2>
                     </div>
                     <div class="card-body card-padding">
                         <form role="form" method="POST" action="{{ route('admin.post.update', $id) }}">
