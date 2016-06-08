@@ -23,7 +23,7 @@
 
                         @include('shared.success')
 
-                        <h2>Edit <em>{{ $title }}</em></h2>
+                        <h2>New Post</h2>
                     </div>
                     <div class="card-body card-padding">
                         <form role="form" method="POST" id="postCreate" action="{{ route('admin.post.store') }}">
@@ -36,7 +36,6 @@
                                 <a href="/admin/post" class="btn btn-default">Cancel</a>
                             </div>
                         </form>
-
                     </div>
                 </div>
             </div>
