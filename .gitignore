@@ -1,12 +1,13 @@
 /vendor
 /node_modules
 /public/storage
-Homestead.yaml
-Homestead.json
-.env
 
-.DS_Store
-.idea
-.project
 Thumbs.db
 composer.lock
+Homestead.yaml
+Homestead.json
+
+.env
+.idea
+.project
+.DS_Store
