@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('backend.layout')
 
 @section('title')
     <title>{{ config('blog.title') }} | Edit Post</title>
@@ -6,7 +6,7 @@
 
 @section('content')
     <section id="main">
-        @include('site.admin.partials.sidebar-navigation')
+        @include('backend.partials.sidebar-navigation')
         <section id="content">
             <div class="container">
                 <div class="card">
@@ -24,7 +24,7 @@
 
                                 <ul class="dropdown-menu dropdown-menu-right">
                                     <li>
-                                        <a href="">Refresh Posts</a>
+                                        <a href="">Refresh Post</a>
                                     </li>
                                 </ul>
                             </li>
@@ -42,7 +42,7 @@
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                             <input type="hidden" name="_method" value="PUT">
 
-                            @include('site.admin.post.partials.form')
+                            @include('backend.post.partials.form')
 
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary btn-outline" name="action" value="continue">

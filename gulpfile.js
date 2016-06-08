@@ -34,8 +34,8 @@ elixir(function(mix) {
        mix.copy('resources/assets/css/animate.min.css', 'public/css/animate.min.css');
        mix.copy('resources/assets/css/sweet-alert.min.css', 'public/css/sweet-alert.min.css');
        mix.copy('resources/assets/css/custom.css', 'public/css/custom.css');
-       mix.copy('resources/assets/css/app.min.1.css', 'public/css/app.min.1.css');
-       mix.copy('resources/assets/css/app.min.2.css', 'public/css/app.min.2.css');
+       mix.copy('resources/assets/css/app-1.css', 'public/css/app-1.css');
+       mix.copy('resources/assets/css/app-2.css', 'public/css/app-2.css');
 
        // Raw JS
        mix.copy('resources/assets/js/bootstrap-select.min.js', 'public/js/bootstrap-select.min.js');
@@ -59,5 +59,7 @@ elixir(function(mix) {
 
        // Fonts
        mix.copy('resources/assets/fonts/', 'public/fonts');
+       mix.copy('resources/assets/fonts/summernote.ttf', 'public/css/font/summernote.ttf');
+       mix.copy('resources/assets/fonts/summernote.woff', 'public/css/font/summernote.woff');
 
 });

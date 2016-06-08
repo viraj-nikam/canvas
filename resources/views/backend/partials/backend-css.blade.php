@@ -11,6 +11,6 @@
 
 <!-- Application Specific -->
 <link rel="stylesheet" type="text/css" href="/css/custom.css">
-<link rel="stylesheet" type="text/css" href="/css/app.min.1.css">
-<link rel="stylesheet" type="text/css" href="/css/app.min.2.css">
+<link rel="stylesheet" type="text/css" href="/css/app-1.css">
+<link rel="stylesheet" type="text/css" href="/css/app-2.css">
 <link rel="stylesheet" type="text/css" href="{{ asset('css/admin.css') }}">
