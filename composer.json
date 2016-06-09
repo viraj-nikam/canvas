@@ -18,7 +18,8 @@
         "dflydev/apache-mime-types": "^1.0",
         "doctrine/dbal": "^2.5",
         "suin/php-rss-writer": "^1.3",
-        "erusev/parsedown": "^1.6"
+        "erusev/parsedown": "^1.6",
+        "proengsoft/laravel-jsvalidation": "1.0.*"
     },
     "require-dev": {
         "symfony/dom-crawler": "~3.0",

@@ -23,6 +23,9 @@ elixir(function(mix) {
        mix.scripts('admin.js');
        mix.scripts('landing.js');
 
+       // Vendor Files
+       mix.copy('resources/assets/vendor/', 'public/vendor')
+
        // Fonts
        mix.copy('resources/assets/fonts/summernote.ttf', 'public/css/font/summernote.ttf');
        mix.copy('resources/assets/fonts/summernote.woff', 'public/css/font/summernote.woff');
@@ -42,7 +45,7 @@ elixir(function(mix) {
        mix.copy('resources/assets/css/app-2.css', 'public/css/app-2.css');
 
        // Raw JS
-       mix.copy('resources/assets/js/bootstrap-select.min.js', 'public/js/bootstrap-select.min.js');
+       mix.copy('resources/assets/js/bootstrap-select.js', 'public/js/bootstrap-select.js');
        mix.copy('resources/assets/js/jquery.mask.min.js', 'public/js/jquery.mask.min.js');
        mix.copy('resources/assets/js/chosen.jquery.min.js', 'public/js/chosen.jquery.min.js');
        mix.copy('resources/assets/js/moment.min.js', 'public/js/moment.min.js');
@@ -51,7 +54,7 @@ elixir(function(mix) {
        mix.copy('resources/assets/js/autosize.min.js', 'public/js/autosize.min.js');
        mix.copy('resources/assets/js/lightgallery.min.js', 'public/js/lightgallery.min.js');
        mix.copy('resources/assets/js/sweet-alert.min.js', 'public/js/sweet-alert.min.js');
-       mix.copy('resources/assets/js/waves.min.js', 'public/js/waves.min.js');
+       mix.copy('resources/assets/js/waves.js', 'public/js/waves.js');
        mix.copy('resources/assets/js/jquery.mCustomScrollbar.concat.min.js', 'public/js/jquery.mCustomScrollbar.concat.min.js');
        mix.copy('resources/assets/js/bootstrap.min.js', 'public/js/bootstrap.min.js');
        mix.copy('resources/assets/js/jquery.min.js', 'public/js/jquery.min.js');
