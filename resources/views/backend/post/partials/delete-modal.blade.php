@@ -13,8 +13,8 @@
                 <form method="POST" action="{{ route('admin.post.destroy', $id) }}">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <input type="hidden" name="_method" value="DELETE">
-                    <button type="button" class="btn btn-default btn-outline" data-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-danger btn-outline">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-danger btn-icon-text">
                         <i class="zmdi zmdi-delete"></i>&nbsp;&nbsp;Delete Post
                     </button>
                 </form>

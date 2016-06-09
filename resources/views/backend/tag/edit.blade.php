@@ -37,7 +37,13 @@
 
                         <h2>
                             Edit <em>{{ $title }}</em>
-                            <small>Last edited on {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $updated_at)->format('M d, Y') }}</small>
+                            <small>
+                                @if(isset($updated_at))
+                                    Last edited on {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $updated_at)->format('M d, Y') }}
+                                @else
+                                    Last edited on {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $created_at)->format('M d, Y') }}
+                                @endif
+                            </small>
                         </h2>
 
                     </div>
@@ -50,10 +56,10 @@
                             @include('backend.tag.partials.form')
 
                             <div class="form-group">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn btn-primary btn-icon-text">
                                     <i class="zmdi zmdi-floppy"></i> Save Changes
                                 </button>&nbsp;
-                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete">
+                                <button type="button" class="btn btn-danger btn-icon-text" data-toggle="modal" data-target="#modal-delete">
                                     <i class="zmdi zmdi-delete"></i> Delete
                                 </button>
                             </div>

@@ -17,6 +17,7 @@ class TagController extends Controller
         'meta_description' => '',
         'layout' => 'frontend.blog.index',
         'reverse_direction' => 0,
+        'created_at' => '',
         'updated_at' => '',
     ];
 
@@ -54,10 +55,9 @@ class TagController extends Controller
     public function store(TagCreateRequest $request)
     {
         $tag = new Tag();
-        foreach (array_keys($this->fields) as $field) {
-            $tag->$field = $request->get($field);
-        }
+        $tag->fill($request->toArray())->save();
         $tag->save();
+
         return redirect('/admin/tag')->withSuccess("The tag '$tag->tag' was created.");
     }
 
@@ -74,6 +74,7 @@ class TagController extends Controller
         foreach (array_keys($this->fields) as $field) {
             $data[$field] = old($field, $tag->$field);
         }
+
         return view('backend.tag.edit', $data);
     }
 
@@ -87,10 +88,9 @@ class TagController extends Controller
     public function update(TagUpdateRequest $request, $id)
     {
         $tag = Tag::findOrFail($id);
-        foreach (array_keys(array_except($this->fields, ['tag'])) as $field) {
-            $tag->$field = $request->get($field);
-        }
+        $tag->fill($request->toArray())->save();
         $tag->save();
+
         return redirect("/admin/tag/$id/edit")->withSuccess("Changes saved.");
     }
 

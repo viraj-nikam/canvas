@@ -49,15 +49,15 @@
                             @include('backend.post.partials.form')
 
                             <div class="form-group">
-                                <button type="submit" class="btn btn-primary" name="action" value="continue">
+                                <button type="submit" class="btn btn-primary btn-icon-text" name="action" value="continue">
                                     <i class="zmdi zmdi-floppy"></i> Save - Continue
                                 </button>
                                 &nbsp;
-                                <button type="submit" class="btn btn-success" name="action" value="finished">
+                                <button type="submit" class="btn btn-success btn-icon-text" name="action" value="finished">
                                     <i class="zmdi zmdi-floppy"></i> Save - Finished
                                 </button>
                                 &nbsp;
-                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete">
+                                <button type="button" class="btn btn-danger btn-icon-text" data-toggle="modal" data-target="#modal-delete">
                                     <i class="zmdi zmdi-delete"></i> Delete
                                 </button>
                             </div>

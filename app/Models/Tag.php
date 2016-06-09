@@ -12,7 +12,7 @@ class Tag extends Model
      */
     protected $fillable = [
         'tag', 'title', 'subtitle', 'meta_description',
-        'reverse_direction',
+        'reverse_direction', 'created_at', 'updated_at',
     ];
 
     /**

@@ -1,5 +1,16 @@
 <br>
 
+@if($tag == null)
+  <div class="form-group">
+      <div class="fg-line">
+        <label class="fg-label">Tag</label>
+        <input type="text" class="form-control" name="tag" id="tag" value="{{ $tag }}" placeholder="Tag">
+      </div>
+  </div>
+
+  <br>
+@endif
+
 <div class="form-group">
     <div class="fg-line">
       <label class="fg-label">Title</label>
