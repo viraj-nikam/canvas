@@ -27,7 +27,7 @@ class TagController extends Controller
     public function index()
     {
         $tags = Tag::all();
-        return view('site.admin.tag.index')->withTags($tags);
+        return view('backend.tag.index')->withTags($tags);
     }
 
     /**
@@ -41,7 +41,7 @@ class TagController extends Controller
         foreach ($this->fields as $field => $default) {
             $data[$field] = old($field, $default);
         }
-        return view('site.admin.tag.create', $data);
+        return view('backend.tag.create', $data);
     }
 
     /**
@@ -73,7 +73,7 @@ class TagController extends Controller
         foreach (array_keys($this->fields) as $field) {
             $data[$field] = old($field, $tag->$field);
         }
-        return view('site.admin.tag.edit', $data);
+        return view('backend.tag.edit', $data);
     }
 
     /**

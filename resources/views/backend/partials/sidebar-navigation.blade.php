@@ -17,7 +17,7 @@
     </div>
     <ul class="main-menu">
         <li><a href="/admin/post"><i class="zmdi zmdi-view-compact"></i> Posts</a></li>
-        <li><a href="#"><i class="zmdi zmdi-account"></i> Tags</a></li>
-        <li><a href="#"><i class="zmdi zmdi-format-list-bulleted"></i> Uploads</a></li>
+        <li><a href="/admin/tag"><i class="zmdi zmdi-tag"></i> Tags</a></li>
+        <li><a href="/admin/uploads"><i class="zmdi zmdi-cloud-upload"></i> Uploads</a></li>
     </ul>
 </aside>

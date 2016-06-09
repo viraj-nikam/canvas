@@ -20,8 +20,6 @@
 
             @include('backend.partials.footer')
 
-            @yield('scripts')
-
             @include('shared.page-loader')
 
             @include('backend.partials.backend-js')
