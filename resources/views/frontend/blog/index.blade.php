@@ -1,4 +1,4 @@
-@extends('layouts.blog')
+@extends('frontend.blog')
 
 @section('title')
     <title>{{ $tag->title or config('blog.title') }}</title>

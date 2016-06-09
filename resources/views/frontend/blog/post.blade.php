@@ -1,4 +1,4 @@
-@extends('layouts.blog', [
+@extends('frontend.blog-layout', [
   'title' => $post->title,
   'meta_description' => $post->meta_description ?: config('blog.description'),
 ])
@@ -33,7 +33,7 @@
                         </center>
                     @endif
                     <p class="post-page-meta">
-                        {{ $post->published_at->format('F j, Y') }}
+                        {{ \Carbon\Carbon::parse($post->published_at)->toFormattedDateString() }}
                         @if ($post->tags->count())
                             in
                             {!! join(', ', $post->tagLinks()) !!}

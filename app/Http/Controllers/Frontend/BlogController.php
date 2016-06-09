@@ -21,6 +21,7 @@ class BlogController extends Controller
         $tag = $request->get('tag');
         $data = $this->dispatch(new BlogIndexData($tag));
         $layout = $tag ? Tag::layout($tag)->first() : 'site.blog.index';
+
         return view($layout, $data);
     }
 
@@ -37,6 +38,7 @@ class BlogController extends Controller
         if ($tag) {
             $tag = Tag::whereTag($tag)->firstOrFail();
         }
+
         return view($post->layout, compact('post', 'tag', 'slug', 'title'));
     }
 
@@ -48,6 +50,7 @@ class BlogController extends Controller
     public function rss(RssFeed $feed)
     {
         $rss = $feed->getRSS();
+
         return response($rss)->header('Content-type', 'application/rss+xml');
     }
 }

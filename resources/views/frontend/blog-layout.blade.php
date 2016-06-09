@@ -14,11 +14,11 @@
         @yield('styles')
     </head>
     <body>
-        @include('site.blog.partials.header')
+        @include('frontend.blog.partials.header')
 
         @yield('content')
 
-        @include('site.blog.partials.footer')
+        @include('frontend.blog.partials.footer')
 
         <script type="text/javascript" src="/js/all.js"></script>
 
