@@ -32,7 +32,8 @@
                             @include('backend.post.partials.form')
 
                             <div class="form-group">
-                                <button type="submit" class="btn btn-primary"><i class="zmdi zmdi-floppy"></i>&nbsp;&nbsp;Save</button>&nbsp;
+                                <button type="submit" class="btn btn-primary"><i class="zmdi zmdi-floppy"></i> Save</button>
+                                &nbsp;
                                 <a href="/admin/post" class="btn btn-default">Cancel</a>
                             </div>
                         </form>

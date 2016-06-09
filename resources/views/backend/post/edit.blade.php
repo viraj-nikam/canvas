@@ -38,21 +38,23 @@
                         <h2>Edit <em>{{ $title }}</em></h2>
                     </div>
                     <div class="card-body card-padding">
-                        <form role="form" method="POST" action="{{ route('admin.post.update', $id) }}">
+                        <form role="form" method="POST" id="postUpdate" action="{{ route('admin.post.update', $id) }}">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                             <input type="hidden" name="_method" value="PUT">
 
                             @include('backend.post.partials.form')
 
                             <div class="form-group">
-                                <button type="submit" class="btn btn-primary btn-outline" name="action" value="continue">
-                                    <i class="zmdi zmdi-floppy"></i>&nbsp;&nbsp;Save - Continue
-                                </button>&nbsp;
-                                <button type="submit" class="btn btn-success btn-outline" name="action" value="finished">
-                                    <i class="zmdi zmdi-floppy"></i>&nbsp;&nbsp;Save - Finished
-                                </button>&nbsp;
-                                <button type="button" class="btn btn-danger btn-outline" data-toggle="modal" data-target="#modal-delete">
-                                    <i class="zmdi zmdi-delete"></i>&nbsp;&nbsp;Delete
+                                <button type="submit" class="btn btn-primary" name="action" value="continue">
+                                    <i class="zmdi zmdi-floppy"></i> Save - Continue
+                                </button>
+                                &nbsp;
+                                <button type="submit" class="btn btn-success" name="action" value="finished">
+                                    <i class="zmdi zmdi-floppy"></i> Save - Finished
+                                </button>
+                                &nbsp;
+                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete">
+                                    <i class="zmdi zmdi-delete"></i> Delete
                                 </button>
                             </div>
                         </form>
@@ -67,4 +69,5 @@
 
 @section('unique-js')
     @include('backend.post.partials.summernote')
+    {!! JsValidator::formRequest('App\Http\Requests\PostUpdateRequest', '#postUpdate'); !!}
 @stop
