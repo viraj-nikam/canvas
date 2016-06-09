@@ -35,7 +35,11 @@
 
                         @include('shared.success')
 
-                        <h2>Edit <em>{{ $title }}</em></h2>
+                        <h2>
+                            Edit <em>{{ $title }}</em>
+                            <small>Last edited on {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $published_at)->format('M d, Y') }}</small>
+                        </h2>
+
                     </div>
                     <div class="card-body card-padding">
                         <form role="form" method="POST" id="postUpdate" action="{{ route('admin.post.update', $id) }}">
