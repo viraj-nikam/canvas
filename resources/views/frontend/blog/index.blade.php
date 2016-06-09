@@ -1,4 +1,4 @@
-@extends('frontend.blog')
+@extends('frontend.blog-layout')
 
 @section('title')
     <title>{{ $tag->title or config('blog.title') }}</title>
@@ -20,7 +20,7 @@
                         </div>
                         <div class="media-body">
                             <h4 class="media-heading"><a href="{{ $post->url($tag) }}">{{ $post->title }}</a></h4>
-                            <p>{{ $post->published_at->format('F j, Y') }}
+                            <p>{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $post->published_at)->format('M d, Y') }}
                                 @if ($post->tags->count())
                                     in
                                     {!! join(', ', $post->tagLinks()) !!}

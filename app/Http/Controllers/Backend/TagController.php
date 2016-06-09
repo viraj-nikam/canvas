@@ -15,8 +15,9 @@ class TagController extends Controller
         'title' => '',
         'subtitle' => '',
         'meta_description' => '',
-        'layout' => 'blog.layouts.index',
+        'layout' => 'frontend.blog.index',
         'reverse_direction' => 0,
+        'updated_at' => '',
     ];
 
     /**

@@ -20,7 +20,7 @@ class BlogController extends Controller
     {
         $tag = $request->get('tag');
         $data = $this->dispatch(new BlogIndexData($tag));
-        $layout = $tag ? Tag::layout($tag)->first() : 'site.blog.index';
+        $layout = $tag ? Tag::layout($tag)->first() : 'frontend.blog.index';
 
         return view($layout, $data);
     }
