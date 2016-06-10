@@ -16,8 +16,8 @@
         </ul>
     </div>
     <ul class="main-menu">
-        <li><a href="/admin/post"><i class="zmdi zmdi-view-compact"></i> Posts</a></li>
-        <li><a href="/admin/tag"><i class="zmdi zmdi-tag"></i> Tags</a></li>
-        <li><a href="/admin/uploads"><i class="zmdi zmdi-cloud-upload"></i> Uploads</a></li>
+        <li @if (Request::is('admin/post*')) class="active" @endif><a href="/admin/post"><i class="zmdi zmdi-view-compact"></i> Posts</a></li>
+        <li @if (Request::is('admin/tag*')) class="active" @endif><a href="/admin/tag"><i class="zmdi zmdi-tag"></i> Tags</a></li>
+        <li @if (Request::is('admin/upload*')) class="active" @endif><a href="/admin/upload"><i class="zmdi zmdi-cloud-upload"></i> Uploads</a></li>
     </ul>
 </aside>

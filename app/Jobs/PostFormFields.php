@@ -29,6 +29,7 @@ class PostFormFields extends Job implements SelfHandling
         'publish_date' => '',
         'publish_time' => '',
         'published_at' => '',
+        'updated_at' => '',
         'layout' => 'frontend.blog.post',
         'tags' => [],
     ];

@@ -1,4 +1,3 @@
-{{-- Confirm Delete --}}
 <div class="modal fade" id="modal-delete" tabIndex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -13,9 +12,9 @@
                 <form method="POST" action="{{ route('admin.post.destroy', $id) }}">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <input type="hidden" name="_method" value="DELETE">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
                     <button type="submit" class="btn btn-danger btn-icon-text">
-                        <i class="zmdi zmdi-delete"></i>&nbsp;&nbsp;Delete Post
+                        <i class="zmdi zmdi-delete"></i> Delete Post
                     </button>
                 </form>
             </div>
