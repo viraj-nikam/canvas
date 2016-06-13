@@ -13,7 +13,7 @@
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <input type="hidden" name="_method" value="DELETE">
                     <button type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-danger btn-icon-text">
+                    <button type="submit" class="btn btn-link btn-icon-text">
                         <i class="zmdi zmdi-delete"></i> Delete Tag
                     </button>
                 </form>

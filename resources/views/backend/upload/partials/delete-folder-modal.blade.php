@@ -16,7 +16,7 @@
                     <input type="hidden" name="del_folder" id="delete-folder-name2">
                     <button type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
                     &nbsp;
-                    <button type="submit" class="btn btn-danger btn-icon-text">
+                    <button type="submit" class="btn btn-link btn-icon-text">
                         <i class="zmdi zmdi-delete"></i> Delete
                     </button>
                 </form>

@@ -57,7 +57,7 @@
 
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary btn-icon-text">
-                                    <i class="zmdi zmdi-floppy"></i> Save Changes
+                                    <i class="zmdi zmdi-floppy"></i> Save
                                 </button>&nbsp;
                                 <button type="button" class="btn btn-danger btn-icon-text" data-toggle="modal" data-target="#modal-delete">
                                     <i class="zmdi zmdi-delete"></i> Delete

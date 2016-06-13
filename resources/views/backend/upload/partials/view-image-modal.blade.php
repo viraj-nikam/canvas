@@ -1,4 +1,3 @@
-<!-- View Image Modal -->
 <div class="modal fade" id="modal-image-view">
     <div class="modal-dialog">
         <div class="modal-content">

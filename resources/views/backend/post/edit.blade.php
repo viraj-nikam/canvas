@@ -50,11 +50,7 @@
 
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary btn-icon-text" name="action" value="continue">
-                                    <i class="zmdi zmdi-floppy"></i> Save - Continue
-                                </button>
-                                &nbsp;
-                                <button type="submit" class="btn btn-success btn-icon-text" name="action" value="finished">
-                                    <i class="zmdi zmdi-floppy"></i> Save - Finished
+                                    <i class="zmdi zmdi-floppy"></i> Save
                                 </button>
                                 &nbsp;
                                 <button type="button" class="btn btn-danger btn-icon-text" data-toggle="modal" data-target="#modal-delete">

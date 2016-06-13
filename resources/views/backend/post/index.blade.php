@@ -33,39 +33,32 @@
                         @include('shared.success')
 
                         <h2>Manage Posts&nbsp;
-                            <a href="/admin/post/create" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Create a New Post"><i class="zmdi zmdi-plus-circle"></i></a>
+                            <a href="/admin/post/create" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Create a new post"><i class="zmdi zmdi-plus-circle"></i></a>
                             <small>This page provides a comprehensive overview of all current blog posts. Click the edit or preview links next to each post to modify specific details, publish a post or view any changes from the browser.</small>
                         </h2>
                     </div>
 
-                    @if(empty($posts))
-
-                        <p class="small">No posts yet.</p>
-
-                    @else
-
-                        <div class="table-responsive">
-                            <table id="data-table-posts" class="table table-condensed table-vmiddle">
-                                <thead>
+                    <div class="table-responsive">
+                        <table id="data-table-posts" class="table table-condensed table-vmiddle">
+                            <thead>
+                                <tr>
+                                    <th data-column-id="published" data-type="date" data-order="desc">Published</th>
+                                    <th data-column-id="title">Title</th>
+                                    <th data-column-id="subtitle">Subtitle</th>
+                                    <th data-column-id="commands" data-formatter="commands" data-sortable="false">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($posts as $post)
                                     <tr>
-                                        <th data-column-id="published" data-type="date" data-order="desc">Published</th>
-                                        <th data-column-id="title">Title</th>
-                                        <th data-column-id="subtitle">Subtitle</th>
-                                        <th data-column-id="commands" data-formatter="commands" data-sortable="false">Actions</th>
+                                        <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $post->published_at)->format('M d, Y') }}</td>
+                                        <td>{{ $post->title }}</td>
+                                        <td>{{ $post->subtitle }}</td>
                                     </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($posts as $post)
-                                        <tr>
-                                            <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $post->published_at)->format('M d, Y') }}</td>
-                                            <td>{{ $post->title }}</td>
-                                            <td>{{ $post->subtitle }}</td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    @endif
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </section>

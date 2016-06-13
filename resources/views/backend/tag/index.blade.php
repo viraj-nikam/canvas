@@ -33,8 +33,8 @@
                         @include('shared.success')
 
                         <h2>Manage Tags&nbsp;
-                            <a href="/admin/tag/create" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Create a New Tag"><i class="zmdi zmdi-plus-circle"></i></a>
-                            <small>This page provides a comprehensive overview of all current blog tags. Click the edit or preview links next to each tag to modify specific meta details or information.</small>
+                            <a href="/admin/tag/create" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Create a new tag"><i class="zmdi zmdi-plus-circle"></i></a>
+                            <small>This page provides a comprehensive overview of all current blog tags. Click the edit link next to each tag to modify specific meta details or information.</small>
                         </h2>
                     </div>
 

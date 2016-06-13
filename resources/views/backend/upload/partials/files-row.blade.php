@@ -14,11 +14,10 @@
         <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $file['modified'])->format('M d, Y') }}</td>
         <td>{{ human_filesize($file['size']) }}</td>
         <td>
-            <a><button type='button' class='btn btn-icon command-edit waves-effect waves-circle' onclick="delete_file('{{ $file['name'] }}')"><span class='zmdi zmdi-delete'></span></button></a>
             @if (is_image($file['mimeType']))
                 <a><button type='button' class='btn btn-icon command-edit waves-effect waves-circle' onclick="preview_image('{{ $file['webPath'] }}')"><span class='zmdi zmdi-search'></span></button></a>
             @endif
-
+            <a><button type='button' class='btn btn-icon command-edit waves-effect waves-circle' onclick="delete_file('{{ $file['name'] }}')"><span class='zmdi zmdi-delete'></span></button></a>
         </td>
     </tr>
 @endforeach
