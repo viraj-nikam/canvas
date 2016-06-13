@@ -22,9 +22,19 @@ class UsersTableSeeder extends Seeder
                 'last_name'     => config('blog.last_name'),
                 'display_name'  => 'Admin',
                 'url'           => 'www.' . seoUrl(config('blog.title')) . '.com',
+                'address'       => config('blog.address'),
+                'city'          => config('blog.city'),
+                'state'         => config('blog.state'),
+                'bio'           => config('blog.bio'),
+                'job'           => config('blog.job'),
+                'phone'         => config('blog.phone'),
+                'gender'        => config('blog.gender'),
+                'relationship'  => config('blog.relationship'),
+                'birthday'      => config('blog.birthday'),
                 'email'         => 'admin@' . seoUrl(config('blog.title')) . '.com',
                 'password'      => bcrypt('password'),
-                'created_at'    => Carbon\Carbon::now()
+                'created_at'    => Carbon\Carbon::now(),
+                'updated_at'    => Carbon\Carbon::now()
             ]);
 
         Model::reguard();

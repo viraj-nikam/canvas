@@ -5,12 +5,22 @@ return [
   | User Configuration
   |--------------------------------------------------------------------------
   |
-  | Here you may set the user first name and last name for the application
-  | administrator.
+  | Here you may set the user information details for the application
+  | administrator. Don't worry, you can always edit these
+  | details within the application.
   |
   */
   'first_name'      => 'Canvas',
   'last_name'       => 'Administrator',
+  'address'         => '1200 Canvas Way',
+  'city'            => 'Minneapolis',
+  'state'           => 'MN',
+  'bio'             => 'A short little bio is a great way to tell people who you are.',
+  'job'             => 'Web Developer',
+  'phone'           => '61212312345',
+  'gender'          => 'Male',
+  'relationship'    => 'Married',
+  'birthday'        => '1987-04-08',
 
   /*
   |--------------------------------------------------------------------------
