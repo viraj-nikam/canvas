@@ -20,6 +20,7 @@ before_script:
   - mysql -u root -e 'create database canvas;'
   - export DB_DATABASE=canvas
   - export DB_USERNAME=root
+  - export DB_PASSWORD=
 
 script:
   - php artisan key:generate
