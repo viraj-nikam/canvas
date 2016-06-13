@@ -20,7 +20,7 @@ class UsersTableSeeder extends Seeder
             DB::table('users')->insert([
                 'first_name'    => config('blog.first_name'),
                 'last_name'     => config('blog.last_name'),
-                'display_name'  => 'Admin',
+                'display_name'  => config('blog.display_name'),
                 'url'           => 'www.' . seoUrl(config('blog.title')) . '.com',
                 'address'       => config('blog.address'),
                 'city'          => config('blog.city'),

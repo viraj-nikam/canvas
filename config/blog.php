@@ -12,6 +12,7 @@ return [
   */
   'first_name'      => 'Canvas',
   'last_name'       => 'Administrator',
+  'display_name'    => 'Admin',
   'address'         => '1200 Canvas Way',
   'city'            => 'Minneapolis',
   'state'           => 'MN',
