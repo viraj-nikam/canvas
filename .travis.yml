@@ -17,9 +17,9 @@ install:
   - composer install
 
 before_script:
-  - mysql -e 'create database canvas;'
+  - mysql -u root -e 'create database canvas;'
   - export DB_DATABASE=canvas
-  - export DB_USERNAME=travis
+  - export DB_USERNAME=root
 
 script:
   - php artisan key:generate
