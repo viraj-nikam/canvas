@@ -33,6 +33,7 @@ $router->group([
     Route::delete('admin/upload/file', 'UploadController@deleteFile');
     Route::post('admin/upload/folder', 'UploadController@createFolder');
     Route::delete('admin/upload/folder', 'UploadController@deleteFolder');
+    Route::resource('admin/profile', 'ProfileController');
 });
 
 /*
