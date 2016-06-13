@@ -6,5 +6,5 @@
     <div class="group">
         <input type="password" name="password" placeholder="Password"><span class="bar"></span>
     </div>
-    <button type="submit" class="button buttonBlue">Sign In<div class="ripples buttonRipples"><span class="ripplesCircle"></span></div></button>
+    <button type="submit" class="button buttonBlue" name="submit">Sign In<div class="ripples buttonRipples"><span class="ripplesCircle"></span></div></button>
 </form>
