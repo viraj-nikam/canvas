@@ -6,7 +6,9 @@
 
 @section('content')
     <section id="main">
+
         @include('backend.partials.sidebar-navigation')
+
         <section id="content">
             <div class="container container-alt">
 

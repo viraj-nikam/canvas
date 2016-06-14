@@ -3,6 +3,7 @@ namespace App\Http\Controllers\Auth;
 
 use Session;
 use Validator;
+use JsValidator;
 use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
@@ -21,7 +22,9 @@ class AuthController extends Controller
     |
     */
     use AuthenticatesAndRegistersUsers, ThrottlesLogins;
+
     protected $redirectAfterLogout = '/auth/login';
+
     protected $redirectTo = '/admin/post';
 
     /**

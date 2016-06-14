@@ -18,15 +18,15 @@
 
             @yield('content')
 
-            @include('backend.partials.footer')
-
             @include('shared.page-loader')
 
-            @include('backend.partials.backend-js')
-
-            @yield('unique-js')
+            @include('backend.partials.footer')
 
         @endif
+
+        @include('backend.partials.backend-js')
+
+        @yield('unique-js')
 
     </body>
 </html>
