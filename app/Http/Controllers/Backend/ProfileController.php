@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests;
+use App\Models\User;
+use Auth;
 
 class ProfileController extends Controller
 {
@@ -13,7 +15,13 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        return view('backend.profile.index');
+        $userData = Auth::user()->toArray();
+        $blogData = config('blog');
+
+        $data = array_merge($userData, $blogData);
+        $data['phone'] = User::formatPhone($data['phone']);
+
+        return view('backend.profile.index', compact('data'));
     }
 
     /**

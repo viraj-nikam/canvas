@@ -33,4 +33,19 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      * @var array
      */
     protected $hidden = ['password', 'remember_token'];
+
+    /**
+     * Format the phone number to (XXX) XXX-XXXX.
+     *
+     * @param $number
+     *
+     * @return int
+     */
+    public static function formatPhone($number)
+    {
+        $cleaned = preg_replace('/[^[:digit:]]/', '', $number);
+        preg_match('/(\d{3})(\d{3})(\d{4})/', $cleaned, $matches);
+
+        return "({$matches[1]}) {$matches[2]}-{$matches[3]}";
+    }
 }
