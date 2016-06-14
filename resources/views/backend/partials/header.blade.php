@@ -22,9 +22,6 @@
                         <li class="hidden-xs">
                             <a data-action="fullscreen" href=""><i class="zmdi zmdi-fullscreen"></i> Toggle Fullscreen</a>
                         </li>
-                        <li>
-                            <a data-action="clear-localstorage" href=""><i class="zmdi zmdi-delete"></i> Clear Local Storage</a>
-                        </li>
                         <li class="divider"></li>
                         <li>
                             <a href="/auth/logout"><i class="zmdi zmdi-power"></i> Logout</a>

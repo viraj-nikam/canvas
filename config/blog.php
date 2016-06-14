@@ -49,17 +49,11 @@ return [
   | blog index and post pages. Simply leave an empty string
   | for whatever options you do not want to display.
   |
-  | Supported: "twitter", "github", "facebook", "linkedin",
-  |            "instagram", "bitbucket", "googleplus"
+  | Supported: "twitter", "facebook"
   |
   */
-  'twitter'         => 'https://twitter.com/user',
-  'github'          => 'https://github.com/user',
-  'facebook'        => 'https://facebook.com/user',
-  'linkedin'        => 'https://linkedin.com/user',
-  'instagram'       => 'https://instagram.com/user',
-  'bitbucket'       => 'https://bitbucket.com/user',
-  'googleplus'      => 'https://googleplus.com/user',
+  'twitter'         => 'username',      # Example: https://twitter.com/user
+  'facebook'        => 'username',      # Example: https://facebook.com/user
 
   /*
   |--------------------------------------------------------------------------

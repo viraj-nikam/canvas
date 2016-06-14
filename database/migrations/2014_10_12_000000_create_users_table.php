@@ -28,6 +28,7 @@ class CreateUsersTable extends Migration
             $table->string('relationship', 140)->nullable();
             $table->string('birthday', 140)->nullable();
             $table->string('email')->unique();
+            $table->string('header_image');
             $table->string('password', 60);
             $table->rememberToken();
             $table->timestamps();
