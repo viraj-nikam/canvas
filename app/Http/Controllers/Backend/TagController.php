@@ -28,8 +28,9 @@ class TagController extends Controller
      */
     public function index()
     {
-        $tags = Tag::all();
-        return view('backend.tag.index')->withTags($tags);
+        $data = Tag::all();
+
+        return view('backend.tag.index', compact('data'));
     }
 
     /**
@@ -40,10 +41,12 @@ class TagController extends Controller
     public function create()
     {
         $data = [];
+
         foreach ($this->fields as $field => $default) {
             $data[$field] = old($field, $default);
         }
-        return view('backend.tag.create', $data);
+
+        return view('backend.tag.create', compact('data'));
     }
 
     /**

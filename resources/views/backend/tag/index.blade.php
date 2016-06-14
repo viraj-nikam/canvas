@@ -50,20 +50,26 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($tags as $tag)
+                                @if(count($data) >= 1)
+                                    @foreach ($data as $tag)
+                                        <tr>
+                                            <td>{{ $tag->title }}</td>
+                                            <td class="hidden-sm">{{ $tag->subtitle }}</td>
+                                            <td class="hidden-md">{{ $tag->layout }}</td>
+                                            <td class="hidden-sm">
+                                                @if ($tag->reverse_direction)
+                                                    Reverse
+                                                @else
+                                                    Normal
+                                                @endif
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @else
                                     <tr>
-                                        <td>{{ $tag->title }}</td>
-                                        <td class="hidden-sm">{{ $tag->subtitle }}</td>
-                                        <td class="hidden-md">{{ $tag->layout }}</td>
-                                        <td class="hidden-sm">
-                                            @if ($tag->reverse_direction)
-                                                Reverse
-                                            @else
-                                                Normal
-                                            @endif
-                                        </td>
+                                        <td>No tags yet.</td>
                                     </tr>
-                                @endforeach
+                                @endif
                             </tbody>
                         </table>
                     </div>
@@ -74,5 +80,7 @@
 @stop
 
 @section('unique-js')
-    @include('backend.tag.partials.datatable')
+    @if(count($data) >= 1)
+        @include('backend.tag.partials.datatable')
+    @endif
 @stop

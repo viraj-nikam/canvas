@@ -15,7 +15,9 @@ class PostController extends Controller
      */
     public function index()
     {
-        return view('backend.post.index')->withPosts(Post::all());
+        $data = Post::all();
+
+        return view('backend.post.index', compact('data'));
     }
 
     /**

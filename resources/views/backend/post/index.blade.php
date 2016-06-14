@@ -49,13 +49,19 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($posts as $post)
+                                @if(count($data) >= 1)
+                                    @foreach ($data as $post)
+                                        <tr>
+                                            <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $post->published_at)->format('M d, Y') }}</td>
+                                            <td>{{ $post->title }}</td>
+                                            <td>{{ $post->subtitle }}</td>
+                                        </tr>
+                                    @endforeach
+                                @else
                                     <tr>
-                                        <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $post->published_at)->format('M d, Y') }}</td>
-                                        <td>{{ $post->title }}</td>
-                                        <td>{{ $post->subtitle }}</td>
+                                        <td>No posts yet.</td>
                                     </tr>
-                                @endforeach
+                                @endif
                             </tbody>
                         </table>
                     </div>
@@ -71,5 +77,7 @@
         {{ \Session::forget('_login') }}
     @endif
 
-    @include('backend.post.partials.datatable')
+    @if(count($data) >= 1)
+        @include('backend.post.partials.datatable')
+    @endif
 @stop
