@@ -26,6 +26,8 @@ class ProfileController extends Controller
 
     /**
      * Display the user profile edit page
+     *
+     * @param $id
      */
     public function edit($id)
     {
