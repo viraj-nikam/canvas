@@ -36,22 +36,22 @@
                         @include('shared.success')
 
                         <h2>
-                            Edit <em>{{ $title }}</em>
+                            Edit <em>{{ $data['title'] }}</em>
                             <small>
                                 @if(isset($updated_at))
-                                    Last edited on {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $updated_at)->format('M d, Y') }}
+                                    Last edited on {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data['$updated_at'])->format('M d, Y') }}
                                 @else
-                                    Last edited on {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $created_at)->format('M d, Y') }}
+                                    Last edited on {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data['created_at'])->format('M d, Y') }}
                                 @endif
                             </small>
                         </h2>
 
                     </div>
                     <div class="card-body card-padding">
-                        <form role="form" method="POST" id="tagUpdate" action="/admin/tag/{{ $id }}">
+                        <form role="form" method="POST" id="tagUpdate" action="/admin/tag/{{ $data['id'] }}">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                             <input type="hidden" name="_method" value="PUT">
-                            <input type="hidden" name="id" value="{{ $id }}">
+                            <input type="hidden" name="id" value="{{ $data['id'] }}">
 
                             @include('backend.tag.partials.form')
 

@@ -47,7 +47,7 @@
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary btn-icon-text"><i class="zmdi zmdi-floppy"></i> Save</button>
                                 &nbsp;
-                                <a href="/admin/tag" class="btn btn-default">Cancel</a>
+                                <a href="/admin/tag"><button type="button" class="btn btn-link">Cancel</button></a>
                             </div>
                         </form>
                     </div>

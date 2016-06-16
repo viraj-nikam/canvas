@@ -78,7 +78,7 @@ class TagController extends Controller
             $data[$field] = old($field, $tag->$field);
         }
 
-        return view('backend.tag.edit', $data);
+        return view('backend.tag.edit', compact('data'));
     }
 
     /**
