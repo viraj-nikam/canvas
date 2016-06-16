@@ -1,6 +1,4 @@
-Hey! I'm your first post in **Canvas** demonstrating Markdown integration. Don't delete me, I'm very helpful! I can be recovered however though, just check the <a href="#">documentation</a> on how to do it.
-
-----------
+Welcome to Canvas! I'm your first post demonstrating Markdown integration. Don't delete me, I'm very helpful! I can be recovered however though, just grab me from `resources/views/shared/helpers/welcome.blade.php`.
 
 Typography
 --------------------
@@ -14,7 +12,7 @@ Markdown Extra
 
 Canvas supports **Markdown Extra**, which extends **Markdown** syntax with some nice features.
 
-> **Note:** You can find more information about **Markdown** syntax [here][2] and **Markdown Extra** extension [here][3].
+> **Note:** You can find more information about **Markdown** syntax [here](https://daringfireball.net/projects/markdown/syntax) and **Markdown Extra** extension [here](https://michelf.ca/projects/php-markdown/extra/).
 
 
 ### Tables
@@ -377,6 +375,6 @@ I offer auto-completion and other functions to ease your editing experience. If 
 
 ## Hack On
 
-That’s about it. Thanks for listening. I’ll be quiet from now on (unless there’s an update about the app—I’ll remind you for that!).
+That’s about it. Thanks for listening. I’ll be quiet from now on (unless there’s an update about the app — I’ll remind you for that!).
 
 Happy writing!
