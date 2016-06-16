@@ -18,7 +18,7 @@ return [
   'state'           => 'MN',
   'bio'             => 'A short little bio is a great way to tell people who you are.',
   'job'             => 'Web Developer',
-  'phone'           => '61212312345',
+  'phone'           => '0001110000',
   'gender'          => 'Male',
   'relationship'    => 'Married',
   'birthday'        => '1987-04-08',
