@@ -7,16 +7,14 @@
 @section('login')
     <section id="main">
         <section id="content">
-            <div class="col-md-4 col-md-offset-2">
-                <div class="card">
-                    <div class="card-header">
-                        <center><img src="{{ asset('images/canvas-logo.gif') }}" style="width: 120px"></center>
-                    </div>
-                    <div class="card-body card-padding">
+            <div class="card">
+                <div class="card-header">
+                    <center><img src="{{ asset('images/canvas-logo.gif') }}" style="width: 120px"></center>
+                </div>
+                <div class="card-body card-padding">
 
-                        @include('auth.partials.login-form')
+                    @include('auth.partials.login-form')
 
-                    </div>
                 </div>
             </div>
         </section>

@@ -20,9 +20,9 @@
 
             @include('shared.page-loader')
 
-            @include('backend.partials.footer')
-
         @endif
+
+        @include('backend.partials.footer')
 
         @include('backend.partials.backend-js')
 
