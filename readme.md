@@ -6,8 +6,6 @@
 
 Canvas is a minimalistic blogging application for developers. Canvas attempts to make blogging simple and enjoyable by utilizing the latest technologies and keeping the administration as simple as possible with the primary focus on writing.
 
-![Canvas](https://raw.githubusercontent.com/austintoddj/Canvas/master/public/images/canvas-readme.png)
-
 #### Features
 
 *Markdown* - All blog content is stored as markdown so it's portable and easy to move in and out.
