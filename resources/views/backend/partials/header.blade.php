@@ -24,7 +24,7 @@
                         </li>
                         <li class="divider"></li>
                         <li>
-                            <a href="/auth/logout"><i class="zmdi zmdi-power"></i> Logout</a>
+                            <a href="/auth/logout"><i class="zmdi zmdi-power"></i> Sign out</a>
                         </li>
                     </ul>
                 </li>

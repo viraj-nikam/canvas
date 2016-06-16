@@ -7,15 +7,21 @@
 @section('login')
     <section id="main">
         <section id="content">
-            <div class="card">
-                <div class="card-header">
-                    <center><img src="{{ asset('images/canvas-logo.gif') }}" style="width: 120px"></center>
-                </div>
-                <div class="card-body card-padding">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="card">
+                    <br>
+                    <div class="card-header">
+                        <center><img src="{{ asset('images/canvas-logo.gif') }}" style="width: 120px"></center>
+                    </div>
 
-                    @include('auth.partials.login-form')
+                    <div class="card-body card-padding" id="login-ch">
+                        <p class="lead text-center">Please sign in to continue</p>
 
+                        @include('auth.partials.login-form')
+                        <br>
+                    </div>
                 </div>
+                <p class="text-center"><a href="/"><i class="zmdi zmdi-long-arrow-return"></i> Go back home</a></p>
             </div>
         </section>
     </section>

@@ -12,7 +12,7 @@
         <ul class="main-menu">
             <li><a href="/admin/profile"><i class="zmdi zmdi-account"></i> Profile</a></li>
             <li><a href="/admin/profile/{{ Auth::user()->id }}/edit"><i class="zmdi zmdi-settings"></i> Settings</a></li>
-            <li><a href="/auth/logout" name="logout"><i class="zmdi zmdi-time-restore"></i> Sign out</a></li>
+            <li><a href="/auth/logout" name="logout"><i class="zmdi zmdi-power"></i> Sign out</a></li>
         </ul>
     </div>
     <ul class="main-menu">

@@ -9,5 +9,15 @@
                placeholder="Password">
     </div>
 
+    <div class="form-group fg-line">
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" name="remember">
+                <i class="input-helper"></i>
+                Remember me
+            </label>
+        </div>
+    </div>
+
     <button type="submit" name="submit" class="btn btn-primary btn-block m-t-10">Sign in</button>
 </form>
