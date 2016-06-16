@@ -1,10 +1,11 @@
 <?php
 
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
-
-class RoutesTest extends TestCase
+/**
+ * Class PublicRoutesTest
+ *
+ * Test the response code for each publicly accessible route.
+ */
+class PublicRoutesTest extends TestCase
 {
     /**
      * Test the response code for the Landing page.

@@ -1,9 +1,10 @@
 <?php
 
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
-
+/**
+ * Class AuthenticationTest
+ *
+ * Test the login and logout functionality of the application.
+ */
 class AuthenticationTest extends TestCase
 {
     /**
