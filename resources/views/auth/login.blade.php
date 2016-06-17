@@ -15,7 +15,7 @@
                     </div>
 
                     <div class="card-body card-padding" id="login-ch">
-                        <p class="lead text-center">Please sign in to continue</p>
+                        <p class="f-20 f-300 text-center">Please sign in to continue</p>
 
                         @include('auth.partials.login-form')
                         <br>
