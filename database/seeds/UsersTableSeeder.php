@@ -32,7 +32,6 @@ class UsersTableSeeder extends Seeder
                 'relationship'  => 'Married',
                 'birthday'      => '2016-06-17',
                 'email'         => 'admin@' . seoUrl(config('blog.title')) . '.com',
-                'header_image'  => '4.png',
                 'password'      => bcrypt('password'),
                 'created_at'    => Carbon\Carbon::now(),
                 'updated_at'    => Carbon\Carbon::now()

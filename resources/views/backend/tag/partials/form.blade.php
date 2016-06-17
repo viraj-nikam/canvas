@@ -31,7 +31,7 @@
 
 <div class="form-group">
     <div class="fg-line">
-      <textarea class="form-control" id="meta_description" name="meta_description" rows="3" placeholder="Meta Description">{{ $data['meta_description'] }}</textarea>
+      <textarea class="form-control auto-size" id="meta_description" name="meta_description" placeholder="Meta Description">{{ $data['meta_description'] }}</textarea>
     </div>
 </div>
 

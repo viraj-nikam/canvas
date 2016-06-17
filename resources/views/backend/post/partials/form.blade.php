@@ -107,6 +107,6 @@
 
 <div class="form-group">
     <div class="fg-line">
-        <textarea class="form-control" name="meta_description" id="meta_description" rows="3" style="resize: vertical" placeholder="Meta Description">{{ $meta_description }}</textarea>
+        <textarea class="form-control auto-size" name="meta_description" id="meta_description" style="resize: vertical" placeholder="Meta Description">{{ $meta_description }}</textarea>
     </div>
 </div>

@@ -1,6 +1,6 @@
 <aside id="sidebar" class="sidebar c-overflow">
     <div class="profile-menu">
-        <a href="" style="background-image: url('/images/headers/{{ Auth::user()->header_image }}')">
+        <a href="">
             <div class="profile-pic">
                 <img src="//www.gravatar.com/avatar/{{ md5(Auth::user()->email) }}?d=identicon">
             </div>
