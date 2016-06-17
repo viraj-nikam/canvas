@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\Http\Requests\ProfileUpdateRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests;
@@ -17,9 +18,8 @@ class ProfileController extends Controller
     {
         $userData = Auth::user()->toArray();
         $blogData = config('blog');
-
         $data = array_merge($userData, $blogData);
-        $data['phone'] = User::formatPhone($data['phone']);
+        !empty($data['phone']) ? $data['phone'] = User::formatPhone($data['phone']) : '';
 
         return view('backend.profile.index', compact('data'));
     }
@@ -31,6 +31,29 @@ class ProfileController extends Controller
      */
     public function edit($id)
     {
-        return view('backend.profile.edit');
+        $userData = User::where('id', $id)->firstOrFail()->toArray();
+        $blogData = config('blog');
+        $data = array_merge($userData, $blogData);
+        isset($data['phone']) ? $data['phone'] = User::formatPhone($data['phone']) : '';
+
+        return view('backend.profile.edit', compact('data'));
+    }
+
+    /**
+     * Update the user profile information.
+     *
+     * @param $id
+     */
+    public function update(ProfileUpdateRequest $request, $id)
+    {
+        if(isset($request->phone)) {
+            $phone = $request->phone;
+            $request['phone'] = preg_replace('/\D+/', '', $phone);
+        }
+        $user = User::findOrFail($id);
+        $user->fill($request->toArray())->save();
+        $user->save();
+
+        return redirect()->route('admin.profile.edit', $id)->withSuccess('Profile has been updated.');
     }
 }

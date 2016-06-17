@@ -13,15 +13,6 @@ return [
   'first_name'      => 'Canvas',
   'last_name'       => 'Administrator',
   'display_name'    => 'Admin',
-  'address'         => '1200 Canvas Way',
-  'city'            => 'Minneapolis',
-  'state'           => 'MN',
-  'bio'             => 'A short little bio is a great way to tell people who you are.',
-  'job'             => 'Web Developer',
-  'phone'           => '0001110000',
-  'gender'          => 'Male',
-  'relationship'    => 'Married',
-  'birthday'        => '1987-04-08',
 
   /*
   |--------------------------------------------------------------------------

@@ -17,46 +17,7 @@
                 </div>
 
                 <div class="card" id="profile-main">
-                    <div class="pm-overview c-overflow">
-
-                        <div class="pmo-pic">
-                            <div class="p-relative">
-
-                                <img class="img-responsive" src="//www.gravatar.com/avatar/{{ md5($data['email']) }}?d=identicon&s=500">
-
-                                <div class="dropdown pmop-message">
-                                    <a href="mailto:{{ $data['email'] }}" target="_blank" class="btn bgm-white btn-float z-depth-1">
-                                        <i class="zmdi zmdi-email"></i>
-                                    </a>
-                                </div>
-                            </div>
-
-
-                            <div class="pmo-stat">
-                                <h2 class="m-0 c-white">{{ $data['first_name'] }}</h2>
-                                Member since {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data['created_at'])->format('M d, Y') }}
-                            </div>
-                        </div>
-
-                        <div class="pmo-block pmo-contact hidden-xs">
-                            <h2>Contact</h2>
-
-                            <ul>
-                                <li><i class="zmdi zmdi-phone"></i> {{ $data['phone'] }}</li>
-                                <li><i class="zmdi zmdi-email"></i> {{ $data['email'] }}</li>
-                                <li><i class="zmdi zmdi-twitter"></i> {{ '@' . $data['twitter'] }}</li>
-                                <li><i class="zmdi zmdi-facebook-box"></i> facebook.com/{{ $data['facebook'] }} </li>
-                                <li>
-                                    <i class="zmdi zmdi-pin"></i>
-                                    <address class="m-b-0 ng-binding">
-                                        {{ $data['address'] }},<br>
-                                        {{ $data['city'] }},<br>
-                                        {{ $data['state'] }}
-                                    </address>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+                    @include('backend.profile.partials.sidebar')
 
                     <div class="pm-body clearfix">
                         <ul class="tab-nav tn-justified">
@@ -101,7 +62,7 @@
                                     @endif
                                     @if(isset($data['relationship']))
                                         <dl class="dl-horizontal">
-                                            <dt>Martial Status</dt>
+                                            <dt>Relationship Status</dt>
                                             <dd>{{ $data['relationship'] }}</dd>
                                         </dl>
                                     @endif
