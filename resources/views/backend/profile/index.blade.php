@@ -89,13 +89,13 @@
                                     @if(isset($data['twitter']))
                                         <dl class="dl-horizontal">
                                             <dt>Twitter</dt>
-                                            <dd>{{ '@' . $data['twitter'] }}</dd>
+                                            <dd><a href="http://twitter.com/{{ $data['twitter'] }}" target="_blank">{{ '@' . $data['twitter'] }}</a></dd>
                                         </dl>
                                     @endif
                                     @if(isset($data['facebook']))
                                         <dl class="dl-horizontal">
                                             <dt>Facebook</dt>
-                                            <dd>{{ $data['facebook'] }}</dd>
+                                            <dd><a href="http://facebook.com/{{ $data['facebook'] }}" target="_blank">{{ $data['facebook'] }}</a></dd>
                                         </dl>
                                     @endif
                                     @if(isset($data['address']))
