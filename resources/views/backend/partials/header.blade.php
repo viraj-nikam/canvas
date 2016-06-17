@@ -34,10 +34,13 @@
 
 
     <!-- Top Search Content -->
-    <div id="top-search-wrap">
-        <div class="tsw-inner">
-            <i id="top-search-close" class="zmdi zmdi-arrow-left"></i>
-            <input type="text" placeholder="Search">
+    <form role="form" method="GET" id="search" name="search" action="{{ route('admin.search.index') }}">
+        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+        <div id="top-search-wrap">
+            <div class="tsw-inner">
+                <i id="top-search-close" class="zmdi zmdi-arrow-left"></i>
+                <input type="text" placeholder="Search" name="search">
+            </div>
         </div>
-    </div>
+    </form>
 </header>

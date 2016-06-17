@@ -34,6 +34,7 @@ $router->group([
     Route::post('admin/upload/folder', 'UploadController@createFolder');
     Route::delete('admin/upload/folder', 'UploadController@deleteFolder');
     Route::resource('admin/profile', 'ProfileController');
+    Route::resource('admin/search', 'SearchController');
 });
 
 /*

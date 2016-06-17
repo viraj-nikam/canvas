@@ -26,6 +26,8 @@
 
         @include('backend.partials.backend-js')
 
+        @include('backend.partials.search-js')
+
         @yield('unique-js')
 
     </body>
