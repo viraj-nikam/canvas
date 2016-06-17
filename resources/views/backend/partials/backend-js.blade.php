@@ -13,6 +13,7 @@
 <script type="text/javascript" src="/js/jquery.mask.min.js"></script>
 <script type="text/javascript" src="/vendor/jsvalidation/js/jsvalidation.min.js"></script>
 <script type="text/javascript" src="/js/bootstrap-select.js"></script>
+<script type="text/javascript" src="/js/fileinput.min.js"></script>
 
 <!-- Application Specific -->
 <script type="text/javascript" src="/js/functions.js"></script>

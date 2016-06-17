@@ -12,17 +12,17 @@
                     label: 'Cancel',
                     className: 'btn-xs btn-inverse',
                     placement: {
-                        from: 'bottom',
-                        align: 'left'
+                        from: 'top',
+                        align: 'right'
                     },
                     delay: 2500,
                     animate: {
-                        enter: 'animated fadeInUp',
-                        exit: 'animated fadeOutDown'
+                        enter: 'animated fadeInDown',
+                        exit: 'animated fadeOutUp'
                     },
                     offset: {
-                        x: 30,
-                        y: 30
+                        x: 20,
+                        y: 85
                     }
                 });
             };

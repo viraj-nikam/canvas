@@ -9,7 +9,22 @@
                     <div class="modal-body">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <input type="hidden" name="folder" value="{{ $folder }}">
-                        <input type="file" id="name" name="file">
+
+                        <p class="f-500 c-black m-b-20">Preview</p>
+
+                        <div class="fileinput fileinput-new" data-provides="fileinput">
+                            <div class="fileinput-preview thumbnail" data-trigger="fileinput"></div>
+                            <div>
+                                <span class="btn btn-primary btn-file">
+                                    <span class="fileinput-new">Select file</span>
+                                    <span class="fileinput-exists">Change</span>
+                                    <input type="file" id="name" name="file">
+                                </span>
+                                <a href="#" class="btn btn-link fileinput-exists"
+                                   data-dismiss="fileinput">Remove</a>
+                            </div>
+                        </div>
+
                         <div class="clearfix"><br></div>
                         <div class="fg-line">
                             <input type="text" id="file_name" name="file_name" class="form-control" placeholder="Filename (Optional)">

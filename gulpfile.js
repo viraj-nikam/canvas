@@ -60,5 +60,6 @@ elixir(function(mix) {
        mix.copy('resources/assets/js/jquery.min.js', 'public/js/jquery.min.js');
        mix.copy('resources/assets/js/functions.js', 'public/js/functions.js');
        mix.copy('resources/assets/js/bootstrap-growl.min.js', 'public/js/bootstrap-growl.min.js');
+       mix.copy('resources/assets/js/fileinput.min.js', 'public/js/fileinput.min.js');
 
 });
