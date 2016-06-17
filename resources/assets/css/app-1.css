@@ -13899,9 +13899,9 @@ html:not(.ie9) .select.fg-line:before {
   top: 3px;
 }
 
-/*
- * Input Feilds
- */
+/*-------------------------
+    Input Fields
+--------------------------*/
 
 .fg-line {
   position: relative;
@@ -13925,8 +13925,12 @@ html:not(.ie9) .select.fg-line:before {
   bottom: 0;
   left: 0;
   height: 2px;
-  width: 0;
+  width: 100%;
   content: "";
+  -webkit-transform: scale(0);
+  -ms-transform: scale(0);
+  -o-transform: scale(0);
+  transform: scale(0);
   -webkit-transition: all;
   -o-transition: all;
   transition: all;
@@ -13935,7 +13939,7 @@ html:not(.ie9) .select.fg-line:before {
 }
 
 .fg-line:not([class*=has-]):after {
-  background: #2196f3;
+  background: #2196F3;
 }
 
 .fg-line.readonly .form-control {
@@ -13944,7 +13948,10 @@ html:not(.ie9) .select.fg-line:before {
 }
 
 .fg-line.fg-toggled:after {
-  width: 100%;
+  -webkit-transform: scale(1);
+  -ms-transform: scale(1);
+  -o-transform: scale(1);
+  transform: scale(1);
 }
 
 .fg-float {
@@ -13959,16 +13966,16 @@ html:not(.ie9) .select.fg-line:before {
 }
 
 .fg-float .form-control::-moz-placeholder {
-  color: #ffffff;
+  color: #fff;
   opacity: 1;
 }
 
 .fg-float .form-control:-ms-input-placeholder {
-  color: #ffffff;
+  color: #fff;
 }
 
 .fg-float .form-control::-webkit-input-placeholder {
-  color: #ffffff;
+  color: #fff;
 }
 
 .fg-float .fg-label {
