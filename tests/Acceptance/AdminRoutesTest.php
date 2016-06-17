@@ -54,4 +54,16 @@ class AdminRoutesTest extends TestCase
         $response = $this->call('GET', '/admin/upload');
         $this->assertEquals(200, $response->status());
     }
+
+    /**
+     * Test the response code for the Profile page.
+     *
+     * @return void
+     */
+    public function testProfilePageResponseCode()
+    {
+        $this->userLogin();
+        $response = $this->call('GET', '/admin/profile');
+        $this->assertEquals(200, $response->status());
+    }
 }
