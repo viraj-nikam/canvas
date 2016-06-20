@@ -86,7 +86,7 @@
     {!! JsValidator::formRequest('App\Http\Requests\ProfileUpdateRequest', '#profileUpdate'); !!}
 
     @if(Session::get('_profile'))
-        @include('backend.profile.partials.profile-updated-notification')
+        @include('backend.profile.partials.notifications.update-profile')
         {{ \Session::forget('_profile') }}
     @endif
 @stop

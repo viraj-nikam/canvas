@@ -73,17 +73,17 @@
 
 @section('unique-js')
     @if(Session::get('_login'))
-        @include('backend.post.partials.login-notification')
+        @include('backend.post.partials.notifications.login')
         {{ \Session::forget('_login') }}
     @endif
 
     @if(Session::get('_new-post'))
-        @include('backend.post.partials.new-post-notification')
+        @include('backend.post.partials.notifications.create-post')
         {{ \Session::forget('_new-post') }}
     @endif
 
     @if(Session::get('_delete-post'))
-        @include('backend.post.partials.delete-post-notification')
+        @include('backend.post.partials.notifications.delete-post')
         {{ \Session::forget('_delete-post') }}
     @endif
 

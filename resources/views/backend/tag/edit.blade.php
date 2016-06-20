@@ -70,14 +70,14 @@
         </section>
     </section>
 
-    @include('backend.tag.partials.delete-modal')
+    @include('backend.tag.partials.modals.delete')
 @stop
 
 @section('unique-js')
     {!! JsValidator::formRequest('App\Http\Requests\TagUpdateRequest', '#tagUpdate'); !!}
 
     @if(Session::get('_update-tag'))
-        @include('backend.tag.partials.update-tag-notification')
+        @include('backend.tag.partials.notifications.update')
         {{ \Session::forget('_update-tag') }}
     @endif
 @stop

@@ -85,12 +85,12 @@
     @endif
 
     @if(Session::get('_new-tag'))
-        @include('backend.tag.partials.new-tag-notification')
+        @include('backend.tag.partials.notifications.create')
         {{ \Session::forget('_new-tag') }}
     @endif
 
     @if(Session::get('_delete-tag'))
-        @include('backend.tag.partials.delete-tag-notification')
+        @include('backend.tag.partials.notifications.delete')
         {{ \Session::forget('_delete-tag') }}
     @endif
 @stop

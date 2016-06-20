@@ -73,11 +73,11 @@
             </div>
         </section>
     </section>
-    @include('backend.upload.partials.view-image-modal')
-    @include('backend.upload.partials.upload-file-modal')
-    @include('backend.upload.partials.delete-file-modal')
-    @include('backend.upload.partials.delete-folder-modal')
-    @include('backend.upload.partials.create-folder-modal')
+    @include('backend.upload.partials.modals.folders.create')
+    @include('backend.upload.partials.modals.folders.delete')
+    @include('backend.upload.partials.modals.files.preview')
+    @include('backend.upload.partials.modals.files.create')
+    @include('backend.upload.partials.modals.files.delete')
 @stop
 
 @section('unique-js')
@@ -103,22 +103,22 @@
     {!! JsValidator::formRequest('App\Http\Requests\UploadFileRequest', '#fileCreate'); !!}
 
     @if(Session::get('_new-folder'))
-        @include('backend.upload.partials.new-folder-notification')
+        @include('backend.upload.partials.notifications.folders.create')
         {{ \Session::forget('_new-folder') }}
     @endif
 
     @if(Session::get('_delete-folder'))
-        @include('backend.upload.partials.delete-folder-notification')
+        @include('backend.upload.partials.notifications.folders.delete')
         {{ \Session::forget('_delete-folder') }}
     @endif
 
     @if(Session::get('_new-file'))
-        @include('backend.upload.partials.new-file-notification')
+        @include('backend.upload.partials.notifications.files.create')
         {{ \Session::forget('_new-file') }}
     @endif
 
     @if(Session::get('_delete-file'))
-        @include('backend.upload.partials.delete-file-notification')
+        @include('backend.upload.partials.notifications.files.delete')
         {{ \Session::forget('_delete-file') }}
     @endif
 @stop

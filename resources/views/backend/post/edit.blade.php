@@ -64,7 +64,7 @@
         </section>
     </section>
 
-    @include('backend.post.partials.delete-modal')
+    @include('backend.post.partials.modals.delete')
 @stop
 
 @section('unique-js')
@@ -72,7 +72,7 @@
     {!! JsValidator::formRequest('App\Http\Requests\PostUpdateRequest', '#postUpdate'); !!}
 
     @if(Session::get('_update-post'))
-        @include('backend.post.partials.update-post-notification')
+        @include('backend.post.partials.notifications.update-post')
         {{ \Session::forget('_update-post') }}
     @endif
 @stop
