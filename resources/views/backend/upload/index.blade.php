@@ -101,4 +101,24 @@
     </script>
     {!! JsValidator::formRequest('App\Http\Requests\UploadNewFolderRequest', '#folderCreate'); !!}
     {!! JsValidator::formRequest('App\Http\Requests\UploadFileRequest', '#fileCreate'); !!}
+
+    @if(Session::get('_new-folder'))
+        @include('backend.upload.partials.new-folder-notification')
+        {{ \Session::forget('_new-folder') }}
+    @endif
+
+    @if(Session::get('_delete-folder'))
+        @include('backend.upload.partials.delete-folder-notification')
+        {{ \Session::forget('_delete-folder') }}
+    @endif
+
+    @if(Session::get('_new-file'))
+        @include('backend.upload.partials.new-file-notification')
+        {{ \Session::forget('_new-file') }}
+    @endif
+
+    @if(Session::get('_delete-file'))
+        @include('backend.upload.partials.delete-file-notification')
+        {{ \Session::forget('_delete-file') }}
+    @endif
 @stop

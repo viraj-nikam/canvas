@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers\Backend;
 
+use Session;
 use App\Models\Tag;
 use App\Http\Requests;
 use Illuminate\Http\Request;
@@ -61,7 +62,8 @@ class TagController extends Controller
         $tag->fill($request->toArray())->save();
         $tag->save();
 
-        return redirect('/admin/tag')->withSuccess("The tag '$tag->tag' was created.");
+        Session::set('_new-tag', 'New tag has been created.');
+        return redirect('/admin/tag');
     }
 
     /**
@@ -94,7 +96,8 @@ class TagController extends Controller
         $tag->fill($request->toArray())->save();
         $tag->save();
 
-        return redirect("/admin/tag/$id/edit")->withSuccess("Changes saved.");
+        Session::set('_update-tag', 'Tag has been updated.');
+        return redirect("/admin/tag/$id/edit");
     }
 
     /**
@@ -107,6 +110,8 @@ class TagController extends Controller
     {
         $tag = Tag::findOrFail($id);
         $tag->delete();
-        return redirect('/admin/tag')->withSuccess("The '$tag->tag' tag has been deleted.");
+
+        Session::set('_delete-tag', 'Tag has been deleted.');
+        return redirect('/admin/tag');
     }
 }

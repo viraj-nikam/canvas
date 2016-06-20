@@ -70,4 +70,9 @@
 @section('unique-js')
     @include('backend.post.partials.summernote')
     {!! JsValidator::formRequest('App\Http\Requests\PostUpdateRequest', '#postUpdate'); !!}
+
+    @if(Session::get('_update-post'))
+        @include('backend.post.partials.update-post-notification')
+        {{ \Session::forget('_update-post') }}
+    @endif
 @stop

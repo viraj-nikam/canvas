@@ -77,6 +77,16 @@
         {{ \Session::forget('_login') }}
     @endif
 
+    @if(Session::get('_new-post'))
+        @include('backend.post.partials.new-post-notification')
+        {{ \Session::forget('_new-post') }}
+    @endif
+
+    @if(Session::get('_delete-post'))
+        @include('backend.post.partials.delete-post-notification')
+        {{ \Session::forget('_delete-post') }}
+    @endif
+
     @if(count($data) >= 1)
         @include('backend.post.partials.datatable')
     @endif

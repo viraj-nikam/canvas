@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers\Backend;
 
+use Session;
 use App\Models\Post;
 use App\Http\Requests;
 use App\Jobs\PostFormFields;
@@ -38,7 +39,9 @@ class PostController extends Controller
     {
         $post = Post::create($request->postFillData());
         $post->syncTags($request->get('tags', []));
-        return redirect()->route('admin.post.index')->withSuccess('New Post Successfully Created.');
+
+        Session::set('_new-post', 'New post has been created.');
+        return redirect()->route('admin.post.index');
     }
 
     /**
@@ -65,10 +68,9 @@ class PostController extends Controller
         $post->fill($request->postFillData());
         $post->save();
         $post->syncTags($request->get('tags', []));
-        if ($request->action === 'continue') {
-            return redirect()->back()->withSuccess('Post has been updated.');
-        }
-        return redirect()->route('admin.post.index')->withSuccess('Post has been updated.');
+
+        Session::set('_update-post', 'Post has been updated.');
+        return redirect("/admin/post/$id/edit");
     }
 
     /**
@@ -82,6 +84,8 @@ class PostController extends Controller
         $post = Post::findOrFail($id);
         $post->tags()->detach();
         $post->delete();
-        return redirect()->route('admin.post.index')->withSuccess('Post deleted.');
+
+        Session::set('_delete-post', 'Post has been deleted.');
+        return redirect()->route('admin.post.index');
     }
 }
