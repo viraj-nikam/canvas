@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Http\Requests\ProfileUpdateRequest;
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Http\Requests;
-use App\Models\User;
 use Auth;
+use Session;
+use App\Models\User;
+use App\Http\Requests;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\ProfileUpdateRequest;
 
 class ProfileController extends Controller
 {
@@ -54,6 +55,7 @@ class ProfileController extends Controller
         $user->fill($request->toArray())->save();
         $user->save();
 
-        return redirect()->route('admin.profile.edit', $id)->withSuccess('Profile has been updated.');
+        Session::set('_profile', 'Profile has been updated.');
+        return redirect()->route('admin.profile.edit', $id);
     }
 }

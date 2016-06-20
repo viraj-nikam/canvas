@@ -1,7 +1,5 @@
-<div id="userName" data-field-id="{{ Auth::user()->first_name . ' ' . Auth::user()->last_name }}"></div>
 <script type="text/javascript">
     $(document).ready(function(){
-        // Login Message
         $(window).load(function(){
             function notify(message, type){
                 $.growl({
@@ -28,11 +26,8 @@
             };
 
             setTimeout(function () {
-                if (!$('.login-content')[0]) {
-                    var message = 'Welcome back ';
-                    var userName = $('#userName').data("field-id");
-                    notify(message.concat(userName), 'inverse');
-                }
+                var message = 'Success! Profile information updated. ';
+                notify(message, 'inverse');
             }, 150)
         });
     });

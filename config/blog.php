@@ -2,20 +2,6 @@
 return [
   /*
   |--------------------------------------------------------------------------
-  | User Configuration
-  |--------------------------------------------------------------------------
-  |
-  | Here you may set the user information details for the application
-  | administrator. Don't worry, you can always edit these
-  | details within the application.
-  |
-  */
-  'first_name'      => 'Canvas',
-  'last_name'       => 'Administrator',
-  'display_name'    => 'Admin',
-
-  /*
-  |--------------------------------------------------------------------------
   | Blog Meta Configuration
   |--------------------------------------------------------------------------
   |
@@ -29,22 +15,6 @@ return [
   'subtitle'        => 'Minimal blog application for developers',
   'description'     => 'Blog',
   'author'          => 'Todd Austin',
-
-  /*
-  |--------------------------------------------------------------------------
-  | Social Media Configuration
-  |--------------------------------------------------------------------------
-  |
-  | You can include any of your social media channels here. They will be
-  | displayed directly under the title of your application on the
-  | blog index and post pages. Simply leave an empty string
-  | for whatever options you do not want to display.
-  |
-  | Supported: "twitter", "facebook"
-  |
-  */
-  'twitter'         => 'username',      # Example: https://twitter.com/user
-  'facebook'        => 'username',      # Example: https://facebook.com/user
 
   /*
   |--------------------------------------------------------------------------

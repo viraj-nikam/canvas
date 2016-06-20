@@ -84,4 +84,9 @@
 
 @section('unique-js')
     {!! JsValidator::formRequest('App\Http\Requests\ProfileUpdateRequest', '#profileUpdate'); !!}
+
+    @if(Session::get('_profile'))
+        @include('backend.profile.partials.profile-updated-notification')
+        {{ \Session::forget('_profile') }}
+    @endif
 @stop
