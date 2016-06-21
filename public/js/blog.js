@@ -1,1 +1,0 @@
-jQuery&&!function(n,u){"use strict";function t(){}n(function(){t()})}(jQuery);

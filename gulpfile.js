@@ -17,10 +17,6 @@ elixir(function(mix) {
        mix.less('auth/auth.less');
        mix.less('admin/admin.less');
 
-       mix.scripts('blog.js');
-       mix.scripts('login.js');
-       mix.scripts('admin.js');
-
        // Vendor Files
        mix.copy('resources/assets/vendor/', 'public/vendor')
 
@@ -28,7 +24,7 @@ elixir(function(mix) {
        mix.copy('resources/assets/fonts/summernote.ttf', 'public/css/font/summernote.ttf');
        mix.copy('resources/assets/fonts/summernote.woff', 'public/css/font/summernote.woff');
 
-       // Raw CSS
+       // Raw CSS Files
        mix.copy('resources/assets/css/chosen.min.css', 'public/css/chosen.min.css');
        mix.copy('resources/assets/css/summernote.css', 'public/css/summernote.css');
        mix.copy('resources/assets/css/jquery.bootgrid.min.css', 'public/css/jquery.bootgrid.min.css');
@@ -43,7 +39,7 @@ elixir(function(mix) {
        mix.copy('resources/assets/css/app-2.css', 'public/css/app-2.css');
        mix.copy('resources/assets/css/frontend.css', 'public/css/frontend.css');
 
-       // Raw JS
+       // Raw JS Files
        mix.copy('resources/assets/js/bootstrap-select.js', 'public/js/bootstrap-select.js');
        mix.copy('resources/assets/js/jquery.mask.min.js', 'public/js/jquery.mask.min.js');
        mix.copy('resources/assets/js/chosen.jquery.min.js', 'public/js/chosen.jquery.min.js');
