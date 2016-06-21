@@ -37,7 +37,6 @@ elixir(function(mix) {
        mix.copy('resources/assets/css/custom.css', 'public/css/custom.css');
        mix.copy('resources/assets/css/app-1.css', 'public/css/app-1.css');
        mix.copy('resources/assets/css/app-2.css', 'public/css/app-2.css');
-       mix.copy('resources/assets/css/frontend.css', 'public/css/frontend.css');
 
        // Raw JS Files
        mix.copy('resources/assets/js/bootstrap-select.js', 'public/js/bootstrap-select.js');

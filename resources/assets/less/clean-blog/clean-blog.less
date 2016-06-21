@@ -5,20 +5,19 @@
 
 body {
   .sans-serif;
-  font-size: 14px;
+  font-size: 15px;
   color: @gray;
   text-rendering: optimizelegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   word-spacing: 1px;
   letter-spacing: 1px;
-  webkit-tap-highlight-color: @brand-primary;
 }
 
 // -- Typography
 
 p {
-  line-height: 1.5;
+  line-height: 24px;
   margin: 30px 0;
   a {
     text-decoration: none !important;
@@ -47,16 +46,6 @@ p {
     -webkit-transform: scaleX(1);
     transform: scaleX(1);
   }
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  .sans-serif;
-  font-weight: 800;
 }
 
 a {
@@ -321,14 +310,14 @@ hr.small {
     font-weight: 500;
     font-size: 20px;
     text-transform: uppercase;
-    font-family: 'Montserrat', sans-serif !important;
+    font-family: 'Source Sans Pro', sans-serif !important;
   }
   > .post-meta {
     color: @white-faded;
     font-size: 13px;
     margin-top: 0;
     text-transform: uppercase;
-    font-family: 'Montserrat', sans-serif !important;
+    font-family: 'Source Sans Pro', sans-serif !important;
     > a {
       text-decoration: none;
       color: @gray-dark;
@@ -349,17 +338,16 @@ hr.small {
 }
 
 .post-page-title {
-  font-size: 32px;
-  text-transform: uppercase;
-  font-weight: 100 !important;
-  font-family: 'Montserrat', sans-serif !important;
+  font-size: 48px;
+  font-weight: 200 !important;
+  font-family: 'Source Sans Pro', sans-serif !important;
 }
 
 .post-page-meta {
   color: @white-faded;
   font-size: 13px;
   text-transform: uppercase;
-  font-family: 'Montserrat', sans-serif !important;
+  font-family: 'Source Sans Pro', sans-serif !important;
 }
 
 // Sections
@@ -372,7 +360,7 @@ hr.small {
 
 .caption {
   text-align: center;
-  font-size: 14px;
+  font-size: 15px;
   padding: 10px;
   font-style: italic;
   margin: 0;
@@ -386,7 +374,7 @@ hr.small {
 .btn {
   .sans-serif;
   text-transform: uppercase;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 800;
   letter-spacing: 1px;
   border-radius: 0;
@@ -446,20 +434,6 @@ hr.small {
   }
 }
 
-// -- Highlight Color Customization
-
-::-moz-selection {
-  color: white;
-  text-shadow: none;
-  background: @brand-primary;
-}
-
-::selection {
-  color: white;
-  text-shadow: none;
-  background: @brand-primary;
-}
-
 img::selection {
   color: white;
   background: transparent;
@@ -476,4 +450,8 @@ ul.pager {
       padding: 0px !important;
     }
   }
+}
+
+.section-divider {
+  margin-top: 55px !important;
 }

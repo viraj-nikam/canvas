@@ -1,158 +1,32 @@
-Welcome to Canvas! I'm your first post demonstrating Markdown integration. Don't delete me, I'm very helpful! I can be recovered however though, just grab me from `resources/views/shared/helpers/welcome.blade.php`.
+Welcome to Canvas! I'm your first post demonstrating Markdown integration. Don't delete me, I'm very helpful! If you do delete me though, I can be recovered. Just grab me from:
 
-Typography
---------------------
+```
+resources/views/shared/helpers/welcome.blade.php
+```
+
+<div class="section-divider"></div>
+
+## The Basics
+---
+
+Before I tell you about all the extra syntaxes and capabilities you have available to you, I'll introduce you to the basics of standard markdown. If you already know markdown, and want to jump straight to learning about the fancier things I can do, feel free to skip this section. Lets jump right in!
+
+Markdown is a plain text formatting syntax created by John Gruber, aiming to provide a easy-to-read and feasible markup. The original Markdown syntax specification can be found [here](http://daringfireball.net/projects/markdown/syntax).
+
+<div class="section-divider"></div>
+
+## Typography
+---
+
 # Header 1
 ## Header 2
 ### Header 3
 #### Header 4
-
-Markdown Extra
---------------------
-
-Canvas supports **Markdown Extra**, which extends **Markdown** syntax with some nice features.
-
-> **Note:** You can find more information about **Markdown** syntax [here](https://daringfireball.net/projects/markdown/syntax) and **Markdown Extra** extension [here](https://michelf.ca/projects/php-markdown/extra/).
-
-
-### Tables
-
-**Markdown Extra** has a special syntax for tables:
-
-Item     | Value
--------- | ---
-Computer | $1600
-Phone    | $12
-Pipe     | $1
-
-Key     | Value
--------- | ---
-Database User    | `root`
-Database Password     | `root`
-Database Host     | `127.0.0.1`
-SSH Host     | `192.168.33.10`
-SSH User     | `vagrant`
-SSH Password     | `vagrant`
-
-You can specify column alignment with one or two colons:
-
-| Item     | Value | Qty   |
-| :------- | ----: | :---: |
-| Computer | $1600 |  5    |
-| Phone    | $12   |  12   |
-| Pipe     | $1    |  234  |
-
-
-### Definition Lists
-
-**Markdown Extra** has a special syntax for definition lists too:
-
-Term 1
-Term 2
-:   Definition A
-:   Definition B
-
-Term 3
-
-:   Definition C
-
-:   Definition D
-
-  > part of definition D
-
-### Fenced code blocks
-
-GitHub's fenced code blocks are also supported with **Highlight.js** syntax highlighting:
-
-```
-// Foo
-var bar = 0;
-```
-
-> **Tip:** To use **Prettify** instead of **Highlight.js**, just configure the **Markdown Extra** extension in the <i class="icon-cog"></i> **Settings** dialog.
-
-> **Note:** You can find more information:
-
-> - about **Prettify** syntax highlighting [here][5],
-> - about **Highlight.js** syntax highlighting [here][6].
-
-### Footnotes
-
-You can create footnotes like this[^footnote].
-
-  [^footnote]: Here is the *text* of the **footnote**.
-
-
-### SmartyPants
-
-SmartyPants converts ASCII punctuation characters into "smart" typographic punctuation HTML entities. For example:
-
-|                  | ASCII                        | HTML              |
- ----------------- | ---------------------------- | ------------------
-| Single backticks | `'Isn't this fun?'`            | 'Isn't this fun?' |
-| Quotes           | `"Isn't this fun?"`            | "Isn't this fun?" |
-| Dashes           | `-- is en-dash, --- is em-dash` | -- is en-dash, --- is em-dash |
-
-
-### Table of contents
-
-You can insert a table of contents using the marker `[TOC]`:
-
-[TOC]
-
-# MacDown
-
-Hello there! I’m **MacDown**, the open source Markdown editor for OS X.
-
-Let me introduce myself.
-
-## Markdown and I
-
-**Markdown** is a plain text formatting syntax created by John Gruber, aiming to provide a easy-to-read and feasible markup. The original Markdown syntax specification can be found [here](http://daringfireball.net/projects/markdown/syntax).
-
-**MacDown** is created as a simple-to-use editor for Markdown documents. I render your Markdown contents real-time into HTML, and display them in a preview panel.
-
-I support all the original Markdown syntaxes. But I can do so much more! Various popular but non-standard syntaxes can be turned on/off from the [**Markdown** preference pane](#markdown-pane).
-
-You can specify extra HTML rendering options through the [**Rendering** preference pane](#rendering-pane).
-
-You can customize the editor window to you liking in the [**Editor** preferences pane](#editor-pane):
-
-You can configure various application (that's me!) behaviors in the [**General** preference pane](#general-pane).
-
-## The Basics
-Before I tell you about all the extra syntaxes and capabilities I have, I'll introduce you to the basics of standard markdown. If you already know markdown, and want to jump straight to learning about the fancier things I can do, I suggest you skip to the [**Markdown** preference pane](#markdown-pane). Lets jump right in.
-
-### Line Breaks
-To force a line break, put two spaces and a newline (return) at the end of the line.
-
-  These lines
-  won't break
-
-  These lines
-  will break
-
-### Strong and Emphasize
+##### Header 5
+###### Header 6
 
 **Strong**: `**Strong**` or `__Strong__` (Command-B)
 *Emphasize*: `*Emphasize*` or `_Emphasize_`[^emphasize] (Command-I)
-
-### Headers (like this one!)
-
-  Header 1
-  ========
-
-  Header 2
-  --------
-
-or
-
-  # Header 1
-  ## Header 2
-  ### Header 3
-  #### Header 4
-  ##### Header 5
-  ###### Header 6
 
 ### Links and Email
 #### Inline
@@ -177,28 +51,114 @@ If the link text itself would make a good id, you can link [like this][] `[like 
 [arbitrary_id]: http://macdown.uranusjr.com "Title"
 [like this]: http://macdown.uranusjr.com
 
-### Lists
+Option name         | Markup           | Result if enabled     |
+--------------------|------------------|-----------------------|
+Intra-word emphasis | So A\*maz\*ing   | So A<em>maz</em>ing   |
+Strikethrough       | \~~Much wow\~~   | <del>Much wow</del>   |
+Underline [^under]  | \_So doge\_      | <u>So doge</u>        |
+Quote [^quote]      | \"Such editor\"  | <q>Such editor</q>    |
+Highlight           | \==So good\==    | <mark>So good</mark>  |
+Superscript         | hoge\^(fuga)     | hoge<sup>fuga</sup>   |
+Autolink            | http://t.co      | <http://t.co>         |
+Footnotes           | [\^4] and [\^4]: | [^4] and footnote 4   |
+
+<div class="section-divider"></div>
+
+## Markdown Extra
+---
+
+Canvas supports **Markdown Extra**, which extends traditional **Markdown** syntax with some nice features. If you need some help or just need a refresher, read more about [Markdown syntax](https://daringfireball.net/projects/markdown/syntax) and [Markdown Extra](https://michelf.ca/projects/php-markdown/extra/).
+
+<div class="section-divider"></div>
+
+## Tables
+---
+
+**Markdown Extra** has a special syntax for tables:
+##### This input:
+```
+Key | Value
+--- | ---
+SSH Host | `example.com`
+SSH User | `username`
+SSH Password | `secret`
+Database Host | `127.0.0.1`
+Database User | `username`
+Database Password | `secret`
+```
+
+<div class="section-divider"></div>
+
+##### Becomes this output:
+Key                 | Value
+------------------- | ---
+SSH Host            | `example.com`
+SSH User            | `username`
+SSH Password        | `secret`
+Database Host       | `127.0.0.1`
+Database User       | `username`
+Database Password   | `secret`
+
+<div class="section-divider"></div>
+
+## Code Blocks
+---
+
+`Inline code` is indicated by surrounding it with backticks:
+`` `Inline code` ``
+
+If your ``code has `backticks` `` that need to be displayed, you can use double backticks:
+```` ``Code with `backticks` `` ````  (mind the spaces preceding the final set of backticks)
+
+GitHub's fenced code blocks are supported in Canvas:
+
+```
+namespace App;
+
+class Blog extends Canvas
+{
+
+    /**
+    * Dreaming of something more?
+    *
+    * @with Canvas
+    */
+    public function create()
+    {
+        // Make something awesome...
+    }
+}
+```
+
+You can also use waves (`~`) instead of back ticks (`` ` ``):
+
+~~~
+print('Hello world!')
+~~~
+
+<div class="section-divider"></div>
+
+## Lists
+---
 
 * Lists must be preceded by a blank line (or block element)
 * Unordered lists start each item with a `*`
-- `-` works too
+- `-` Works too
   * Indent a level to make a nested list
     1. Ordered lists are supported.
-    2. Start each item (number-period-space) like `1. `
-    42. It doesn't matter what number you use, I will render them sequentially
-    1. So you might want to start each line with `1.` and let me sort it out
+    2. Start each item (number-period-space) like `1`
+    3. It doesn't matter what number you use, it will render sequentially
 
 Here is the code:
 
 ```
 * Lists must be preceded by a blank line (or block element)
 * Unordered lists start each item with a `*`
-- `-` works too
+- `-` Works too
   * Indent a level to make a nested list
     1. Ordered lists are supported.
-    2. Start each item (number-period-space) like `1. `
-    42. It doesn't matter what number you use, I will render them sequentially
-    1. So you might want to start each line with `1.` and let me sort it out
+    2. Start each item (number-period-space) like `1.`
+    42. It doesn't matter what number you use, it will render sequentially
 ```
 
 ### Block Quote
@@ -233,24 +193,6 @@ there are no empty lines between paragraphs.
 > * Etc.
 ```
 
-### Inline Code
-`Inline code` is indicated by surrounding it with backticks:
-`` `Inline code` ``
-
-If your ``code has `backticks` `` that need to be displayed, you can use double backticks:
-```` ``Code with `backticks` `` ````  (mind the spaces preceding the final set of backticks)
-
-
-### Block Code
-If you indent at least four spaces or one tab, I'll display a code block.
-
-  print('This is a code block')
-  print('The block must be preceded by a blank line')
-  print('Then indent at least 4 spaces or 1 tab')
-    print('Nesting does nothing. Your code is displayed Literally')
-
-I also know how to do something called [Fenced Code Blocks](#fenced-code-block) which I will tell you about later.
-
 ### Horizontal Rules
 If you type three asterisks `***` or three dashes `---` on a line, I'll display a horizontal rule:
 
@@ -280,100 +222,20 @@ You can align cell contents with syntax like this:
 
 The left- and right-most pipes (`|`) are only aesthetic, and can be omitted. The spaces don’t matter, either. Alignment depends solely on `:` marks.
 
-#### <a name="fenced-code-block">Fenced Code Block</a>
-
-This is a fenced code block:
-
-```
-print('Hello world!')
-```
-
-You can also use waves (`~`) instead of back ticks (`` ` ``):
-
-~~~
-print('Hello world!')
-~~~
-
 You can add an optional language ID at the end of the first line. The language ID will only be used to highlight the code inside if you tick the ***Enable highlighting in code blocks*** option. This is what happens if you enable it:
 
 I support many popular languages as well as some generic syntax descriptions that can be used if your language of choice is not supported. See [relevant sections on the official site](http://macdown.uranusjr.com/features/) for a full list of supported syntaxes.
 
-### Inline Formatting
-
-The following is a list of optional inline markups supported:
-
-Option name         | Markup           | Result if enabled     |
---------------------|------------------|-----------------------|
-Intra-word emphasis | So A\*maz\*ing   | So A<em>maz</em>ing   |
-Strikethrough       | \~~Much wow\~~   | <del>Much wow</del>   |
-Underline [^under]  | \_So doge\_      | <u>So doge</u>        |
-Quote [^quote]      | \"Such editor\"  | <q>Such editor</q>    |
-Highlight           | \==So good\==    | <mark>So good</mark>  |
-Superscript         | hoge\^(fuga)     | hoge<sup>fuga</sup>   |
-Autolink            | http://t.co      | <http://t.co>         |
-Footnotes           | [\^4] and [\^4]: | [^4] and footnote 4   |
-
-[^4]: You don't have to use a number. Arbitrary things like `[^footy note4]` and `[^footy note4]:` will also work. But they will *render* as numbered footnotes. Also, no need to keep your footnotes in order, I will sort out the order for you so they appear in the same order they were referenced in the text body. You can even keep some footnotes near where you referenced them, and collect others at the bottom of the file in the traditional place for footnotes.
-
-## <a name="rendering-pane"></a>The Rendering Preference Pane
-This is where I keep preferences relating to how I render and style the parsed markdown in the preview window.
-
-### CSS
-You can choose different css files for me to use to render your html. You can even customize or add your own custom css files.
-
-### Syntax Highlighting
-You have already seen how I can syntax highlight your fenced code blocks. See the [Fenced Code Block](#fenced-code-block) section if you haven’t! You can also choose different themes for syntax highlighting.
-
-### TeX-like Math Syntax
-I can also render TeX-like math syntaxes, if you allow me to.[^math] I can do inline math like this: \\( 1 + 1 \\) or this (in MathML): <math><mn>1</mn><mo>+</mo><mn>1</mn></math>, and block math:
-
-\\[
-    A^T_S = B
-\\]
-
-or (in MathML)
-
-<math display="block">
-    <msubsup><mi>A</mi> <mi>S</mi> <mi>T</mi></msubsup>
-    <mo>=</mo>
-    <mi>B</mi>
-</math>
-
 ### Task List Syntax
-1. [x] I can render checkbox list syntax
-  * [x] I support nesting
-  * [x] I support ordered *and* unordered lists
-2. [ ] I don't support clicking checkboxes directly in the html window
+1. [x] Support for rendering checkbox list syntax
+  * [x] Support for nesting
+  * [x] Support for ordered *and* unordered lists
+2. [ ] No support for clicking checkboxes directly in the html window
 
-
-### Jekyll front-matter
-If you like, I can display Jekyll front-matter in a nice table. Just make sure you put the front-matter at the very beginning of the file, and fence it with `---`. For example:
-
-```
----
-title: "Macdown is my friend"
-date: 2014-06-06 20:00:00
----
-```
-
-### Render newline literally
-Normally I require you to put two spaces and a newline (aka return) at the end of a line in order to create a line break. If you like, I can render a newline any time you end a line with a newline. However, if you enable this, markdown that looks lovely when I render it might look pretty funky when you let some *other* program render it.
-
-## <a name="general-pane"></a>The General Preferences Pane
-
-This is where I keep preferences related to application behavior.
-
-The General Preferences Pane allows you to tell me how you want me to behave. For example, do you want me to make sure there is a document open when I launch? You can also tell me if I should constantly update the preview window as you type, or wait for you to hit `command-R` instead. Maybe you prefer your editor window on the right? Or to see the word-count as you type. This is also the place to tell me if you are interested in pre-releases of me, or just want to stick to better-tested official releases.
-
-### Styling
-
-My editor provides syntax highlighting. You can edit the base font and the coloring/sizing theme. I provided some default themes (courtesy of [Mou](http://mouapp.com)’s creator, Chen Luo) if you don’t know where to start.
-
-You can also edit, or even add new themes if you want to! Just click the ***Reveal*** button, and start moving things around. Remember to use the correct file extension (`.styles`), though. I’m picky about that.
-
-I offer auto-completion and other functions to ease your editing experience. If you don’t like it, however, you can turn them off.
+<div class="section-divider"></div>
 
 ## Hack On
+---
 
 That’s about it. Thanks for listening. I’ll be quiet from now on (unless there’s an update about the app — I’ll remind you for that!).
 
