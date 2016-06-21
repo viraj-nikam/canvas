@@ -16,12 +16,10 @@ elixir(function(mix) {
        mix.less('blog/blog.less');
        mix.less('auth/auth.less');
        mix.less('admin/admin.less');
-       mix.less('landing/landing.less');
 
        mix.scripts('blog.js');
        mix.scripts('login.js');
        mix.scripts('admin.js');
-       mix.scripts('landing.js');
 
        // Vendor Files
        mix.copy('resources/assets/vendor/', 'public/vendor')
@@ -43,6 +41,7 @@ elixir(function(mix) {
        mix.copy('resources/assets/css/custom.css', 'public/css/custom.css');
        mix.copy('resources/assets/css/app-1.css', 'public/css/app-1.css');
        mix.copy('resources/assets/css/app-2.css', 'public/css/app-2.css');
+       mix.copy('resources/assets/css/frontend.css', 'public/css/frontend.css');
 
        // Raw JS
        mix.copy('resources/assets/js/bootstrap-select.js', 'public/js/bootstrap-select.js');

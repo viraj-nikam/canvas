@@ -11,8 +11,8 @@
             </a>
         </td>
         <td>{{ $file['mimeType'] or 'Unknown' }}</td>
-        <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $file['modified'])->format('M d, Y') }}</td>
         <td>{{ human_filesize($file['size']) }}</td>
+        <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $file['modified'])->format('M d, Y') }}</td>
         <td>
             @if (is_image($file['mimeType']))
                 <a><button type='button' class='btn btn-icon command-edit waves-effect waves-circle' onclick="preview_image('{{ $file['webPath'] }}')"><span class='zmdi zmdi-search'></span></button></a>

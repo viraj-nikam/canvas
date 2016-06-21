@@ -18,6 +18,10 @@ class PostController extends Controller
     {
         $data = Post::all();
 
+        foreach ($data as $post) {
+            $post->subtitle = mb_strimwidth($post->subtitle, 0, 40, "...");
+        }
+
         return view('backend.post.index', compact('data'));
     }
 

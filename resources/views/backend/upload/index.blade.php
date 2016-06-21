@@ -54,8 +54,8 @@
                                 <tr>
                                     <th>Name</th>
                                     <th>Type</th>
-                                    <th>Date</th>
                                     <th>Size</th>
+                                    <th>Date</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>

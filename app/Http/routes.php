@@ -1,16 +1,10 @@
 <?php
 /*
 |--------------------------------------------------------------------------
-| Application Landing Page
-|--------------------------------------------------------------------------
-*/
-Route::get('/', 'Frontend\LandingController@index');
-
-/*
-|--------------------------------------------------------------------------
 | Blog Routes
 |--------------------------------------------------------------------------
 */
+Route::get('/', 'Frontend\BlogController@index');
 Route::get('blog', 'Frontend\BlogController@index');
 Route::get('blog/{slug}', 'Frontend\BlogController@showPost');
 

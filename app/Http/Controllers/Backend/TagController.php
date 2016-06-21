@@ -31,6 +31,10 @@ class TagController extends Controller
     {
         $data = Tag::all();
 
+        foreach ($data as $tag) {
+            $tag->subtitle = mb_strimwidth($tag->subtitle, 0, 40, "...");
+        }
+
         return view('backend.tag.index', compact('data'));
     }
 

@@ -42,26 +42,24 @@
                         <table id="data-table-posts" class="table table-condensed table-vmiddle">
                             <thead>
                                 <tr>
-                                    <th data-column-id="published" data-type="date" data-order="desc">Published</th>
+                                    <th data-column-id="id" data-type="numeric" data-sortable="false">Id</th>
                                     <th data-column-id="title">Title</th>
                                     <th data-column-id="subtitle">Subtitle</th>
+                                    <th data-column-id="slug">Slug</th>
+                                    <th data-column-id="published" data-type="date" data-order="desc">Published</th>
                                     <th data-column-id="commands" data-formatter="commands" data-sortable="false">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @if(count($data) >= 1)
-                                    @foreach ($data as $post)
-                                        <tr>
-                                            <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $post->published_at)->format('M d, Y') }}</td>
-                                            <td>{{ $post->title }}</td>
-                                            <td>{{ $post->subtitle }}</td>
-                                        </tr>
-                                    @endforeach
-                                @else
+                                @foreach ($data as $post)
                                     <tr>
-                                        <td>No posts yet.</td>
+                                        <td>{{ $post->id }}</td>
+                                        <td>{{ $post->title }}</td>
+                                        <td>{{ $post->subtitle }}</td>
+                                        <td>{{ $post->slug }}</td>
+                                        <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $post->published_at)->format('M d, Y') }}</td>
                                     </tr>
-                                @endif
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -87,7 +85,5 @@
         {{ \Session::forget('_delete-post') }}
     @endif
 
-    @if(count($data) >= 1)
-        @include('backend.post.partials.datatable')
-    @endif
+    @include('backend.post.partials.datatable')
 @stop

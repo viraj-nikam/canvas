@@ -9,19 +9,11 @@
 
         <link rel="alternate" type="application/rss+xml" href="{{ url('rss') }}" title="RSS Feed {{ config('blog.title') }}">
 
-        <link href="/css/blog.css" rel="stylesheet">
-
-        @yield('styles')
+        @include('frontend.partials.css')
     </head>
     <body>
-        @include('frontend.blog.partials.header')
-
         @yield('content')
 
-        @include('frontend.blog.partials.footer')
-
-        <script type="text/javascript" src="/js/all.js"></script>
-
-        @yield('scripts')
+        @yield('unique-js')
     </body>
 </html>

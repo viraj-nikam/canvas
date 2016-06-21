@@ -4,18 +4,17 @@
             @include('frontend.blog.partials.disqus')
         </div>
     </div>
-    <center>
-        <div class="links">
-            @if(null != config('blog.twitter')) <a href="{{ config('blog.twitter') }}" target="_blank"><i class="fa fa-fw fa-twitter"></i></a> @endif
-            @if(null != config('blog.github')) <a href="{{ config('blog.github') }}" target="_blank"><i class="fa fa-fw fa-github"></i></a> @endif
-            @if(null != config('blog.facebook')) <a href="{{ config('blog.facebook') }}" target="_blank"><i class="fa fa-fw fa-facebook"></i></a> @endif
-            @if(null != config('blog.linkedin')) <a href="{{ config('blog.linkedin') }}" target="_blank"><i class="fa fa-fw fa-linkedin"></i></a> @endif
-            @if(null != config('blog.instagram')) <a href="{{ config('blog.instagram') }}" target="_blank"><i class="fa fa-fw fa-instagram"></i></a> @endif
-            @if(null != config('blog.bitbucket')) <a href="{{ config('blog.bitbucket') }}" target="_blank"><i class="fa fa-fw fa-bitbucket"></i></a> @endif
-            @if(null != config('blog.googleplus')) <a href="{{ config('blog.googleplus') }}" target="_blank"><i class="fa fa-fw fa-google-plus"></i></a> @endif
-            <a href="/rss" target="_blank"><i class="fa fa-fw fa-rss"></i></a>
-        </div>
-    </center>
-    <br>
-    <p align="center">&copy; {{ \Carbon\Carbon::today()->format('Y') }} {{ config('blog.title') }}. All Rights Reserved</p>
 </div>
+<br />
+<footer id="footer">
+    &copy; {{ \Carbon\Carbon::today()->format('Y') }} {{ config('blog.title') }}. Code released under the <a href="https://opensource.org/licenses/MIT" target="_blank">MIT License</a>
+
+    <ul class="f-menu">
+        <li><a href="/admin/profile">Profile</a></li>
+        <li><a href="/admin/post">Posts</a></li>
+        <li><a href="/admin/tag">Tags</a></li>
+        <li><a href="/admin/upload">Uploads</a></li>
+        <li><a href="https://austintoddj.github.io/Canvas">Support</a></li>
+        <li><a href="mailto:austin.todd.j@gmail.com">Contact</a></li>
+    </ul>
+</footer>

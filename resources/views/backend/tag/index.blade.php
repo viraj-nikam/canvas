@@ -42,6 +42,7 @@
                         <table id="data-table-tags" class="table table-condensed table-vmiddle">
                             <thead>
                                 <tr>
+                                    <th data-column-id="id" data-type="numeric" data-sortable="false">Id</th>
                                     <th data-column-id="title" data-order="desc">Title</th>
                                     <th data-column-id="subtitle">Subtitle</th>
                                     <th data-column-id="layout">Layout</th>
@@ -50,26 +51,21 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @if(count($data) >= 1)
-                                    @foreach ($data as $tag)
-                                        <tr>
-                                            <td>{{ $tag->title }}</td>
-                                            <td class="hidden-sm">{{ $tag->subtitle }}</td>
-                                            <td class="hidden-md">{{ $tag->layout }}</td>
-                                            <td class="hidden-sm">
-                                                @if ($tag->reverse_direction)
-                                                    Reverse
-                                                @else
-                                                    Normal
-                                                @endif
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                @else
+                                @foreach ($data as $tag)
                                     <tr>
-                                        <td>No tags yet.</td>
+                                        <td>{{ $tag->id }}</td>
+                                        <td>{{ $tag->title }}</td>
+                                        <td class="hidden-sm">{{ $tag->subtitle }}</td>
+                                        <td class="hidden-md">{{ $tag->layout }}</td>
+                                        <td class="hidden-sm">
+                                            @if ($tag->reverse_direction)
+                                                Reverse
+                                            @else
+                                                Normal
+                                            @endif
+                                        </td>
                                     </tr>
-                                @endif
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -80,9 +76,7 @@
 @stop
 
 @section('unique-js')
-    @if(count($data) >= 1)
-        @include('backend.tag.partials.datatable')
-    @endif
+    @include('backend.tag.partials.datatable')
 
     @if(Session::get('_new-tag'))
         @include('backend.tag.partials.notifications.create')

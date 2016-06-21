@@ -8,11 +8,11 @@
 class PublicRoutesTest extends TestCase
 {
     /**
-     * Test the response code for the Landing page.
+     * Test the response code for the Blog page.
      *
      * @return void
      */
-    public function testLandingPageResponseCode()
+    public function testBlogPageResponseCode()
     {
         $response = $this->call('GET', '/');
         $this->assertEquals(200, $response->status());

@@ -1,6 +1,9 @@
 <script type="text/javascript">
     $(document).ready(function(){
         $("#data-table-tags").bootgrid({
+            labels: {
+                noResults: "No tags yet."
+            },
             css: {
                 icon: 'zmdi icon',
                 iconColumns: 'zmdi-view-module',
@@ -10,7 +13,7 @@
             },
             formatters: {
                 "commands": function(column, row) {
-                    return "<a href='/admin/tag/{{ $tag->id }}/edit'><button type='button' class='btn btn-icon command-edit waves-effect waves-circle' data-row-id='" + row.id + "'><span class='zmdi zmdi-edit'></span></button></a> ";
+                    return "<a href='/admin/tag/" + row.id + "/edit'><button type='button' class='btn btn-icon command-edit waves-effect waves-circle'><span class='zmdi zmdi-edit'></span></button></a> ";
                 }
             }
         });
