@@ -28,7 +28,7 @@
             setTimeout(function () {
                 var message = 'Success! File has been deleted.';
                 notify(message, 'inverse');
-            }, 150)
+            }, 300)
         });
     });
 </script>

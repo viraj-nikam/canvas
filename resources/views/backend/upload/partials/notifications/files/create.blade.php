@@ -28,7 +28,7 @@
             setTimeout(function () {
                 var message = 'Success! New file has been uploaded.';
                 notify(message, 'inverse');
-            }, 150)
+            }, 300)
         });
     });
 </script>

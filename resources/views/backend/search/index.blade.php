@@ -36,8 +36,9 @@
                                 <thead>
                                     <tr>
                                         <th>Type</th>
-                                        <th>Name</th>
+                                        <th>Title</th>
                                         <th>Created</th>
+                                        <th>Last Updated</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -53,6 +54,7 @@
                                                 <td>Post</td>
                                                 <td><a href="/admin/post/{{ $post->id }}/edit">{{ $post->title }}</a></td>
                                                 <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $post->created_at)->format('M d, Y') }}</td>
+                                                <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $post->updated_at)->format('M d, Y') }}</td>
                                             </tr>
                                         @endforeach
 
@@ -61,6 +63,7 @@
                                                 <td>Tag</td>
                                                 <td><a href="/admin/tag/{{ $tag->id }}/edit">{{ $tag->title }}</a></td>
                                                 <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $tag->created_at)->format('M d, Y') }}</td>
+                                                <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $tag->updated_at)->format('M d, Y') }}</td>
                                             </tr>
                                         @endforeach
                                     @endif

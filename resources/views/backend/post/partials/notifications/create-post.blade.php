@@ -28,7 +28,7 @@
             setTimeout(function () {
                 var message = 'Success! New post has been created.';
                 notify(message, 'inverse');
-            }, 150)
+            }, 300)
         });
     });
 </script>

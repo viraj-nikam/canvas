@@ -28,7 +28,7 @@
             setTimeout(function () {
                 var message = 'Success! Tag has been updated.';
                 notify(message, 'inverse');
-            }, 150)
+            }, 300)
         });
     });
 </script>

@@ -28,7 +28,7 @@
             setTimeout(function () {
                 var message = 'Success! Post has been updated.';
                 notify(message, 'inverse');
-            }, 150)
+            }, 300)
         });
     });
 </script>

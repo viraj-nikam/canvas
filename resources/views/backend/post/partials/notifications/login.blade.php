@@ -30,7 +30,7 @@
                 var message = 'Welcome back ';
                 var userName = $('#userName').data("field-id");
                 notify(message.concat(userName), 'inverse');
-            }, 150)
+            }, 300)
         });
     });
 </script>

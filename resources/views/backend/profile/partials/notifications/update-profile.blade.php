@@ -28,7 +28,7 @@
             setTimeout(function () {
                 var message = 'Success! Profile information updated. ';
                 notify(message, 'inverse');
-            }, 150)
+            }, 300)
         });
     });
 </script>
