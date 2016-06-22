@@ -37,7 +37,7 @@
 
                         <h2>
                             Edit <em>{{ $title }}</em>
-                            <small>Last edited on {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $updated_at)->format('M d, Y') }}</small>
+                            <small>Last edited on {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $updated_at)->format('M d, Y') }} at {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $updated_at)->format('g:i A') }}</small>
                         </h2>
 
                     </div>

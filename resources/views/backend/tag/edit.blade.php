@@ -39,9 +39,9 @@
                             Edit <em>{{ $data['title'] }}</em>
                             <small>
                                 @if(isset($updated_at))
-                                    Last edited on {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data['$updated_at'])->format('M d, Y') }}
+                                    Last edited on {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data['$updated_at'])->format('M d, Y') }} at {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data['$updated_at'])->format('g:i A') }}
                                 @else
-                                    Last edited on {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data['created_at'])->format('M d, Y') }}
+                                    Last edited on {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data['created_at'])->format('M d, Y') }} at {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data['created_at'])->format('g:i A') }}
                                 @endif
                             </small>
                         </h2>
