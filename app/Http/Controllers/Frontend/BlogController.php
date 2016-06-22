@@ -34,6 +34,7 @@ class BlogController extends Controller
      */
     public function showPost($slug, Request $request)
     {
+        $user = User::findOrFail(1);
         $post = Post::with('tags')->whereSlug($slug)->firstOrFail();
         $tag = $request->get('tag');
         $title = $post->title;
@@ -41,7 +42,7 @@ class BlogController extends Controller
             $tag = Tag::whereTag($tag)->firstOrFail();
         }
 
-        return view($post->layout, compact('post', 'tag', 'slug', 'title'));
+        return view($post->layout, compact('post', 'tag', 'slug', 'title', 'user'));
     }
 
     /**
