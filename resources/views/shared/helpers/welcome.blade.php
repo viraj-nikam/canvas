@@ -15,13 +15,6 @@ Markdown is a plain text formatting syntax created by John Gruber, aiming to pro
 
 <div class="section-divider"></div>
 
-## Markdown Extra
----
-
-Canvas supports **Markdown Extra**, which extends traditional **Markdown** syntax with some nice features. If you need some help or just need a refresher, read more about [Markdown syntax](https://daringfireball.net/projects/markdown/syntax) and [Markdown Extra](https://michelf.ca/projects/php-markdown/extra/).
-
-<div class="section-divider"></div>
-
 ## Typography
 ---
 
@@ -54,20 +47,20 @@ Option name         | Markup           | Result                  |
 --------------------|------------------|-------------------------|
 Intra-word emphasis | `Intra-word em\*pha\*sis`   | Intra-word em<em>pha</em>sis   |
 Strikethrough       | `\~~Strikethrough\~~`   | <del>Strikethrough</del>   |
-Underline [^under]  | `\_Underline\_`      | <u>Underline</u>        |
-Quote [^quote]      | `\"Quote\"`  | <q>Quote</q>    |
+Underline  | `\_Underline\_`      | <u>Underline</u>        |
+Quote      | `\"Quote\"`  | <q>Quote</q>    |
 Highlight           | `\==Highlight\==`    | <mark>Highlight</mark>  |
 Superscript         | `Some\^(superscript)`     | Some<sup>superscript</sup>   |
 Italics            | `**Italics**`      | <em>Italics</em>        |
 Bold | `*Bold text*`   | <strong>Bold text</strong>   |
+HTML Entities | `&copy;` `&#402;` `&#8482;` `&reg;` | © ƒ ™ ®
 
 <div class="section-divider"></div>
 
 ## Tables
 ---
 
-**Markdown Extra** has a special syntax for tables:
-##### This input:
+##### **Markup**:
 ```
 Key | Value
 --- | ---
@@ -81,7 +74,7 @@ Database Password | `secret`
 
 <div class="section-divider"></div>
 
-##### Becomes this output:
+##### **Result**:
 Key                 | Value
 ------------------- | ---
 SSH Host            | `example.com`
@@ -133,16 +126,7 @@ print('Hello world!')
 ## Lists
 ---
 
-* Lists must be preceded by a blank line (or block element)
-* Unordered lists start each item with a `*`
-- `-` Works too
-  * Indent a level to make a nested list
-    1. Ordered lists are supported.
-    2. Start each item (number-period-space) like `1`
-    3. It doesn't matter what number you use, it will render sequentially
-
-Here is the code:
-
+##### **Markup**:
 ```
 * Lists must be preceded by a blank line (or block element)
 * Unordered lists start each item with a `*`
@@ -155,20 +139,21 @@ Here is the code:
 
 <div class="section-divider"></div>
 
+##### **Result**:
+* Lists must be preceded by a blank line (or block element)
+* Unordered lists start each item with a `*`
+- `-` Works too
+  * Indent a level to make a nested list
+    1. Ordered lists are supported.
+    2. Start each item (number-period-space) like `1`
+    3. It doesn't matter what number you use, it will render sequentially
+
+<div class="section-divider"></div>
+
 ## Block Quotes
 ---
 
-> Angle brackets `>` are used for block quotes.
-Technically not every line needs to start with a `>` as long as
-there are no empty lines between paragraphs.
-> Looks kinda ugly though.
-> > Block quotes can be nested.
-> > > Multiple Levels
->
-> Most markdown syntaxes work inside block quotes.
-
-Here is the code:
-
+##### **Markup**:
 ```
 > Angle brackets `>` are used for block quotes.
 Technically not every line needs to start with a `>` as long as
@@ -182,16 +167,22 @@ there are no empty lines between paragraphs.
 
 <div class="section-divider"></div>
 
+##### **Result**:
+> Angle brackets `>` are used for block quotes.
+Technically not every line needs to start with a `>` as long as
+there are no empty lines between paragraphs.
+> Looks kinda ugly though.
+> > Block quotes can be nested.
+> > > Multiple Levels
+>
+> Most markdown syntaxes work inside block quotes.
+
+<div class="section-divider"></div>
+
 ## Horizontal Rules
 ---
 
-If you type three asterisks `***`, you will get a horizontal rule:
-
-***
-
-Three dashes `---` will also make the same horizontal rule:
-
----
+If you type three asterisks `***`, you will get a horizontal rule. Three dashes `---` will make the same rule.
 
 <div class="section-divider"></div>
 
@@ -202,6 +193,13 @@ Three dashes `---` will also make the same horizontal rule:
   * [x] Support for nesting
   * [x] Support for ordered *and* unordered lists
 2. [ ] No support for clicking checkboxes directly in the HTML window
+
+<div class="section-divider"></div>
+
+## Markdown Extra
+---
+
+Canvas supports **Markdown Extra**, which extends traditional **Markdown** syntax with some nice features. If you need some help or just want a refresher, read more about [Markdown syntax](https://daringfireball.net/projects/markdown/syntax) and [Markdown Extra](https://michelf.ca/projects/php-markdown/extra/).
 
 <div class="section-divider"></div>
 
