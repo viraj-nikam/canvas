@@ -15,6 +15,13 @@ Markdown is a plain text formatting syntax created by John Gruber, aiming to pro
 
 <div class="section-divider"></div>
 
+## Markdown Extra
+---
+
+Canvas supports **Markdown Extra**, which extends traditional **Markdown** syntax with some nice features. If you need some help or just need a refresher, read more about [Markdown syntax](https://daringfireball.net/projects/markdown/syntax) and [Markdown Extra](https://michelf.ca/projects/php-markdown/extra/).
+
+<div class="section-divider"></div>
+
 ## Typography
 ---
 
@@ -25,49 +32,34 @@ Markdown is a plain text formatting syntax created by John Gruber, aiming to pro
 ##### Header 5
 ###### Header 6
 
-**Strong**: `**Strong**` or `__Strong__` (Command-B)
-*Emphasize*: `*Emphasize*` or `_Emphasize_`[^emphasize] (Command-I)
+Just put angle brackets around an email and it becomes clickable: <example.com>
+`<user@example.com>`
 
-### Links and Email
-#### Inline
-Just put angle brackets around an email and it becomes clickable: <uranusjr@gmail.com>
-`<uranusjr@gmail.com>`
+Same thing with urls: <http://example.com>
+` <http://example.com>`
 
-Same thing with urls: <http://macdown.uranusjr.com>
-` <http://macdown.uranusjr.com>`
-
-Perhaps you want to some link text like this: [Macdown Website](http://macdown.uranusjr.com "Title")
-`[Macdown Website](http://macdown.uranusjr.com "Title")` (The title is optional)
-
-#### Reference style
-Sometimes it looks too messy to include big long urls inline, or you want to keep all your urls together.
+Perhaps you want to some link text like this: [Example Website](http://example.com "Title")
+`[Example Website](http://example.com "Title")` (The title is optional)
 
 Make [a link][arbitrary_id] `[a link][arbitrary_id]` then on it's own line anywhere else in the file:
-`[arbitrary_id]: http://macdown.uranusjr.com "Title"`
+`[arbitrary_id]: http://example.com "Title"`
 
 If the link text itself would make a good id, you can link [like this][] `[like this][]`, then on it's own line anywhere else in the file:
-`[like this]: http://macdown.uranusjr.com`
+`[like this]: http://example.com`
 
-[arbitrary_id]: http://macdown.uranusjr.com "Title"
-[like this]: http://macdown.uranusjr.com
+[arbitrary_id]: http://example.com "Title"
+[like this]: http://example.com
 
-Option name         | Markup           | Result if enabled     |
---------------------|------------------|-----------------------|
-Intra-word emphasis | So A\*maz\*ing   | So A<em>maz</em>ing   |
-Strikethrough       | \~~Much wow\~~   | <del>Much wow</del>   |
-Underline [^under]  | \_So doge\_      | <u>So doge</u>        |
-Quote [^quote]      | \"Such editor\"  | <q>Such editor</q>    |
-Highlight           | \==So good\==    | <mark>So good</mark>  |
-Superscript         | hoge\^(fuga)     | hoge<sup>fuga</sup>   |
-Autolink            | http://t.co      | <http://t.co>         |
-Footnotes           | [\^4] and [\^4]: | [^4] and footnote 4   |
-
-<div class="section-divider"></div>
-
-## Markdown Extra
----
-
-Canvas supports **Markdown Extra**, which extends traditional **Markdown** syntax with some nice features. If you need some help or just need a refresher, read more about [Markdown syntax](https://daringfireball.net/projects/markdown/syntax) and [Markdown Extra](https://michelf.ca/projects/php-markdown/extra/).
+Option name         | Markup           | Result                  |
+--------------------|------------------|-------------------------|
+Intra-word emphasis | `Intra-word em\*pha\*sis`   | Intra-word em<em>pha</em>sis   |
+Strikethrough       | `\~~Strikethrough\~~`   | <del>Strikethrough</del>   |
+Underline [^under]  | `\_Underline\_`      | <u>Underline</u>        |
+Quote [^quote]      | `\"Quote\"`  | <q>Quote</q>    |
+Highlight           | `\==Highlight\==`    | <mark>Highlight</mark>  |
+Superscript         | `Some\^(superscript)`     | Some<sup>superscript</sup>   |
+Italics            | `**Italics**`      | <em>Italics</em>        |
+Bold | `*Bold text*`   | <strong>Bold text</strong>   |
 
 <div class="section-divider"></div>
 
@@ -161,7 +153,10 @@ Here is the code:
     42. It doesn't matter what number you use, it will render sequentially
 ```
 
-### Block Quote
+<div class="section-divider"></div>
+
+## Block Quotes
+---
 
 > Angle brackets `>` are used for block quotes.
 Technically not every line needs to start with a `>` as long as
@@ -171,10 +166,6 @@ there are no empty lines between paragraphs.
 > > > Multiple Levels
 >
 > Most markdown syntaxes work inside block quotes.
->
-> * Lists
-> * [Links][arbitrary_id]
-> * Etc.
 
 Here is the code:
 
@@ -187,56 +178,34 @@ there are no empty lines between paragraphs.
 > > > Multiple Levels
 >
 > Most markdown syntaxes work inside block quotes.
->
-> * Lists
-> * [Links][arbitrary_id]
-> * Etc.
 ```
 
-### Horizontal Rules
-If you type three asterisks `***` or three dashes `---` on a line, I'll display a horizontal rule:
+<div class="section-divider"></div>
+
+## Horizontal Rules
+---
+
+If you type three asterisks `***`, you will get a horizontal rule:
 
 ***
 
-### Document Formatting
-The ***Smartypants*** extension automatically transforms straight quotes (`"` and `'`) in your text into typographer’s quotes (`“`, `”`, `‘`, and `’`) according to the context. Very useful if you’re a typography freak like I am. Quote and Smartypants are syntactically incompatible. If both are enabled, Quote takes precedence.
+Three dashes `---` will also make the same horizontal rule:
 
-### Block Formatting
+---
 
-#### Table
+<div class="section-divider"></div>
 
-This is a table:
+## Task List Syntax
+---
 
-First Header  | Second Header
-------------- | -------------
-Content Cell  | Content Cell
-Content Cell  | Content Cell
-
-You can align cell contents with syntax like this:
-
-| Left Aligned  | Center Aligned  | Right Aligned |
-|:------------- |:---------------:| -------------:|
-| col 3 is      | some wordy text |         $1600 |
-| col 2 is      | centered        |           $12 |
-| zebra stripes | are neat        |            $1 |
-
-The left- and right-most pipes (`|`) are only aesthetic, and can be omitted. The spaces don’t matter, either. Alignment depends solely on `:` marks.
-
-You can add an optional language ID at the end of the first line. The language ID will only be used to highlight the code inside if you tick the ***Enable highlighting in code blocks*** option. This is what happens if you enable it:
-
-I support many popular languages as well as some generic syntax descriptions that can be used if your language of choice is not supported. See [relevant sections on the official site](http://macdown.uranusjr.com/features/) for a full list of supported syntaxes.
-
-### Task List Syntax
 1. [x] Support for rendering checkbox list syntax
   * [x] Support for nesting
   * [x] Support for ordered *and* unordered lists
-2. [ ] No support for clicking checkboxes directly in the html window
+2. [ ] No support for clicking checkboxes directly in the HTML window
 
 <div class="section-divider"></div>
 
 ## Hack On
 ---
 
-That’s about it. Thanks for listening. I’ll be quiet from now on (unless there’s an update about the app — I’ll remind you for that!).
-
-Happy writing!
+That’s about it. The best way to be proficient in anything is to know what tools you have available to you. You're one step ahead of the game now. Happy coding!
