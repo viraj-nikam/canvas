@@ -185,28 +185,6 @@ hr.small {
   }
 }
 
-// Header
-
-.page-header {
-  text-align: center;
-  font-size: 15px;
-  font-weight: 500;
-  border: none;
-  margin-bottom: -5px;
-
-  > a {
-    color: @gray-dark;
-  }
-}
-
-.links {
-  margin-top: 15px;
-
-  > a {
-    color: @white-faded;
-  }
-}
-
 .post-hero {
   max-width: 100%;
   margin: 10px 0 0 0;
@@ -334,8 +312,14 @@ hr.small {
 }
 
 .post-page-title {
-  font-size: 48px;
-  font-weight: 200 !important;
+  color: rgb(82, 82, 82);
+  font-size: 30px;
+  font-weight: 500;
+  height: 33px;
+  line-height: 33px;
+  margin-bottom: 10px;
+  margin-top: 20px;
+  text-rendering: optimizelegibility;
   font-family: 'Source Sans Pro', sans-serif !important;
 }
 
@@ -344,6 +328,8 @@ hr.small {
   font-size: 13px;
   text-transform: uppercase;
   font-family: 'Source Sans Pro', sans-serif !important;
+  margin-top: 15px !important;
+  margin-bottom: -15px !important;
 }
 
 // Sections
@@ -468,4 +454,27 @@ th {
 td {
   padding: 5px;
   border: 1px solid rgb(222, 224, 223);
+}
+
+#head-c {
+  text-align: center;
+  margin-top: 25px;
+  margin-bottom: 40px;
+
+  h1 {
+    font-weight: 200;
+    font-size: 55px;
+  }
+
+  #social {
+    color: grey !important;
+    font-size: 16px;
+  }
+}
+
+#subtitle {
+  font-family: 'Unthrift First Personal' !important;
+  font-size: 32px;
+  color: @gray;
+  text-align: center;
 }

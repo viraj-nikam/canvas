@@ -22,7 +22,6 @@
 @stop
 
 @section('content')
-    {{-- The Post --}}
     <article>
         <div class="container">
             <div class="row">
@@ -40,13 +39,13 @@
                         @endif
                     </p>
                     <h1 class="post-page-title">{{ $post->title }}</h1>
+                    <hr>
                     {!! $post->content_html !!}
                 </div>
             </div>
         </div>
     </article>
 
-    {{-- The Pager --}}
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">

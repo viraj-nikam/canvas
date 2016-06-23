@@ -12,7 +12,7 @@ return [
   */
   'name'            => 'Canvas',
   'title'           => 'Canvas',
-  'subtitle'        => 'Minimal blog application for developers',
+  'subtitle'        => 'Minimal Blogging App',
   'description'     => 'Blog',
   'author'          => 'Todd Austin',
 

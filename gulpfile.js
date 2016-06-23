@@ -20,10 +20,6 @@ elixir(function(mix) {
        // Vendor Files
        mix.copy('resources/assets/vendor/', 'public/vendor')
 
-       // Fonts
-       mix.copy('resources/assets/fonts/summernote.ttf', 'public/css/font/summernote.ttf');
-       mix.copy('resources/assets/fonts/summernote.woff', 'public/css/font/summernote.woff');
-
        // Raw CSS Files
        mix.copy('resources/assets/css/chosen.min.css', 'public/css/chosen.min.css');
        mix.copy('resources/assets/css/summernote.css', 'public/css/summernote.css');
