@@ -25,11 +25,9 @@ Markdown is a plain text formatting syntax created by John Gruber, aiming to pro
 ##### Header 5
 ###### Header 6
 
-Just put angle brackets around an email and it becomes clickable: <example.com>
-`<user@example.com>`
+Just put angle brackets around an email and it becomes clickable: <user@example.com> `<user@example.com>`
 
-Same thing with urls: <http://example.com>
-` <http://example.com>`
+Same thing with urls: <http://example.com> `<http://example.com>`
 
 Perhaps you want to some link text like this: [Example Website](http://example.com "Title")
 `[Example Website](http://example.com "Title")` (The title is optional)
