@@ -1,5 +1,7 @@
 <?php
+
 return [
+
   /*
   |--------------------------------------------------------------------------
   | Blog Meta Configuration
@@ -22,12 +24,10 @@ return [
   |--------------------------------------------------------------------------
   |
   | Pretty self-explanatory here. Indicate how many posts you would
-  | like to appear on each page and how many posts to display
-  | via the rss feed.
+  | like to appear on each page.
   |
   */
   'posts_per_page'  => 6,
-  'rss_size'        => 25,
 
   /*
   |--------------------------------------------------------------------------
@@ -45,4 +45,5 @@ return [
     'storage'       => 'local',
     'webpath'       => '/uploads/',
   ],
+
 ];
