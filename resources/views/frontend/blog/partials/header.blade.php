@@ -4,13 +4,13 @@
             <h1><a href="/">{{ config('blog.title') }}</a></h1>
 
             @if(isset($user->twitter))
-                <a href="http://twitter.com/{{ $user->twitter }}j" target="_blank" id="social"><i class="fa fa-fw fa-twitter"></i> </a>
+                <a href="http://twitter.com/{{ $user->twitter }}j" target="_blank" id="social"><i class="fa fa-fw fa-twitter"></i></a>
             @endif
             @if(isset($user->facebook))
-                <a href="http://facebook.com/{{ $user->facebook }}" target="_blank" id="social"><i class="fa fa-fw fa-facebook"></i> </a>
+                <a href="http://facebook.com/{{ $user->facebook }}" target="_blank" id="social"><i class="fa fa-fw fa-facebook"></i></a>
             @endif
             @if(isset($user->github))
-                <a href="http://facebook.com/{{ $user->github }}" target="_blank" id="social"><i class="fa fa-fw fa-github"></i> </a>
+                <a href="http://facebook.com/{{ $user->github }}" target="_blank" id="social"><i class="fa fa-fw fa-github"></i></a>
             @endif
         </div>
     </div>
