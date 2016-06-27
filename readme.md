@@ -83,7 +83,7 @@ php artisan migrate --seed
 
 Adding or modifying styles with Canvas is a breeze. None of this needs to be done out of the box, it simply works on its own. But if you're feeling a little creative and want to make it stand out more, follow these steps:
 
-Install the `node_modules` directory:
+Install the project dependencies via `npm`:
 
 ```sh
 sudo npm install
