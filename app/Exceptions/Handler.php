@@ -2,6 +2,7 @@
 
 namespace App\Exceptions;
 
+use Auth;
 use Exception;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Auth\Access\AuthorizationException;
@@ -45,6 +46,18 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $e)
     {
-        return parent::render($request, $e);
+        switch ($e) {
+            case $e instanceof \Symfony\Component\HttpKernel\Exception\NotFoundHttpException:
+                return response(view('errors.404'), 404);
+                break;
+
+            case $e instanceof \Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException:
+                return response(view('errors.404'), 404);
+                break;
+
+            default:
+                return parent::render($request, $e);
+                break;
+        }
     }
 }
