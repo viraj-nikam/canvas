@@ -107,6 +107,10 @@ To enable Disqus comments on your blog, you need to have a unique shortname. For
 
 Once you have registered your site and have a shortname, replace `YOUR_UNIQUE_SHORTNAME` in `Canvas/resources/views/frontend/blog/partials/disqus.blade.php` with yours.
 
+#### Changelog
+
+Detailed changes for each release are documented in the [release notes](https://github.com/austintoddj/Canvas/releases).
+
 #### License
 
 Canvas is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
