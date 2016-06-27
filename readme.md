@@ -64,7 +64,7 @@ php artisan key:generate
 
 Open up `Canvas/config/blog.php` and define the few configurations options for your blog.
 
->Note:  The 'title' of your blog is used as the domain to create the default user.
+>Note:  The 'title' of your blog is used as the domain to create the default user email.
 
 |Data Key|Value|
 |---|---|
