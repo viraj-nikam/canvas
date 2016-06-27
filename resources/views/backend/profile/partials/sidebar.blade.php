@@ -21,10 +21,13 @@
             @endif
             <li><i class="zmdi zmdi-email"></i> <a href="mailto:{{ $data['email'] }}" target="_blank">{{ $data['email'] }}</a></li>
             @if(isset($data['twitter']))
-                <li><i class="zmdi zmdi-twitter"></i> <a href="http://twitter.com/{{ $data['twitter'] }}" target="_blank">{{'@'.$data['twitter'] }}</a></li>
+                <li><i class="zmdi zmdi-twitter-box"></i> <a href="http://twitter.com/{{ $data['twitter'] }}" target="_blank">{{'@'.$data['twitter'] }}</a></li>
             @endif
             @if(isset($data['facebook']))
                 <li><i class="zmdi zmdi-facebook-box"></i> <a href="http://facebook.com/{{ $data['facebook'] }}" target="_blank">{{ $data['facebook'] }}</a></li>
+            @endif
+            @if(isset($data['github']))
+                <li><i class="zmdi zmdi-github-box"></i> <a href="http://github.com/{{ $data['facebook'] }}" target="_blank">{{ $data['github'] }}</a></li>
             @endif
             <li>
                 @if(isset($data['address']) || isset($data['city']) || isset($data['state']))

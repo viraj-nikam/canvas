@@ -5,7 +5,6 @@ use App\Models\Tag;
 use App\Models\User;
 use App\Models\Post;
 use App\Http\Requests;
-use App\Services\RssFeed;
 use App\Jobs\BlogIndexData;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -43,17 +42,5 @@ class BlogController extends Controller
         }
 
         return view($post->layout, compact('post', 'tag', 'slug', 'title', 'user'));
-    }
-
-    /**
-     * Return the rss feed.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function rss(RssFeed $feed)
-    {
-        $rss = $feed->getRSS();
-
-        return response($rss)->header('Content-type', 'application/rss+xml');
     }
 }

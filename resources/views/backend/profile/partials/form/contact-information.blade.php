@@ -38,6 +38,15 @@
 
 <div class="form-group">
     <div class="fg-line">
+      <label class="fg-label">GitHub</label>
+      <input type="text" class="form-control" name="github" id="github" value="{{ $data['github'] }}" placeholder="GitHub Username">
+    </div>
+</div>
+
+<br>
+
+<div class="form-group">
+    <div class="fg-line">
       <label class="fg-label">Address</label>
       <input type="text" class="form-control" name="address" id="address" value="{{ $data['address'] }}" placeholder="Address">
     </div>

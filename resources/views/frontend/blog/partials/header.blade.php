@@ -9,7 +9,9 @@
             @if(isset($user->facebook))
                 <a href="http://facebook.com/{{ $user->facebook }}" target="_blank" id="social"><i class="fa fa-fw fa-facebook"></i> </a>
             @endif
-            <a href="/rss" target="_blank" id="social"><i class="fa fa-fw fa-rss"></i></a>
+            @if(isset($user->github))
+                <a href="http://facebook.com/{{ $user->github }}" target="_blank" id="social"><i class="fa fa-fw fa-github"></i> </a>
+            @endif
         </div>
     </div>
 </div>
