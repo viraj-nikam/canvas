@@ -10,6 +10,11 @@ use App\Http\Controllers\Controller;
 
 class SearchController extends Controller
 {
+    /**
+     * Display search result.
+     *
+     * @return \Illuminate\View\View
+     */
     public function index()
     {
         $params = \Request::get('search');

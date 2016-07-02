@@ -11,15 +11,20 @@ use App\Http\Requests\PostUpdateRequest;
 
 class PostController extends Controller
 {
+    const TRIM_WIDTH = 40;
+    const TRIM_MARKER = "...";
+
     /**
      * Display a listing of the posts
+     *
+     * @return \Illuminate\View\View
      */
     public function index()
     {
         $data = Post::all();
 
         foreach ($data as $post) {
-            $post->subtitle = mb_strimwidth($post->subtitle, 0, 40, "...");
+            $post->subtitle = mb_strimwidth($post->subtitle, 0, self::TRIM_WIDTH, self::TRIM_MARKER);
         }
 
         return view('backend.post.index', compact('data'));
@@ -27,6 +32,8 @@ class PostController extends Controller
 
     /**
      * Show the new post form
+     *
+     * @return \Illuminate\View\View
      */
     public function create()
     {
@@ -38,13 +45,15 @@ class PostController extends Controller
      * Store a newly created Post
      *
      * @param PostCreateRequest $request
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(PostCreateRequest $request)
     {
         $post = Post::create($request->postFillData());
         $post->syncTags($request->get('tags', []));
 
-        Session::set('_new-post', 'New post has been created.');
+        Session::set('_new-post', trans('messages.create_success', ['entity' => 'post']));
         return redirect()->route('admin.post.index');
     }
 
@@ -52,7 +61,8 @@ class PostController extends Controller
      * Show the post edit form
      *
      * @param  int $id
-     * @return Response
+     *
+     * @return \Illuminate\View\View
      */
     public function edit($id)
     {
@@ -65,6 +75,8 @@ class PostController extends Controller
      *
      * @param PostUpdateRequest $request
      * @param int $id
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(PostUpdateRequest $request, $id)
     {
@@ -73,7 +85,7 @@ class PostController extends Controller
         $post->save();
         $post->syncTags($request->get('tags', []));
 
-        Session::set('_update-post', 'Post has been updated.');
+        Session::set('_update-post', trans('messages.update_success', ['entity' => 'Post']));
         return redirect("/admin/post/$id/edit");
     }
 
@@ -81,7 +93,8 @@ class PostController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int $id
-     * @return Response
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
     {
@@ -89,7 +102,7 @@ class PostController extends Controller
         $post->tags()->detach();
         $post->delete();
 
-        Session::set('_delete-post', 'Post has been deleted.');
+        Session::set('_delete-post', trans('messages.post.delete_success', ['entity' => 'Post']));
         return redirect()->route('admin.post.index');
     }
 }
