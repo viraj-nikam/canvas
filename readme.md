@@ -105,7 +105,7 @@ gulp
 
 To enable Disqus comments on your blog, you need to have a unique shortname. For more information, check out the [Official Documentation](https://help.disqus.com/customer/portal/articles/466208-what-s-a-shortname-).
 
-Once you have registered your site and have a shortname, replace `YOUR_UNIQUE_SHORTNAME` in `Canvas/resources/views/frontend/blog/partials/disqus.blade.php` with yours.
+Once you have registered your site and have a shortname, use it to set the `DISQUS_NAME` key in your `.env` file.
 
 #### Changelog
 
