@@ -23,11 +23,13 @@ return [
   | Blog Post Configuration
   |--------------------------------------------------------------------------
   |
-  | Pretty self-explanatory here. Indicate how many posts you would
-  | like to appear on each page.
+  | Pretty self-explanatory here. Indicate how many posts you would like
+  | to appear on each page. If you are using Disqus, provide the
+  | identifier here or in your .env
   |
   */
   'posts_per_page'  => 6,
+  'disqus_name' => env('DISQUS_NAME', 'YOUR_UNIQUE_SHORTNAME'),
 
   /*
   |--------------------------------------------------------------------------
