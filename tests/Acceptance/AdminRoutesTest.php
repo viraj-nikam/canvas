@@ -1,5 +1,8 @@
 <?php
 
+use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
+
 /**
  * Class AdminRoutesTest
  *
@@ -7,11 +10,14 @@
  */
 class AdminRoutesTest extends TestCase
 {
+    use DatabaseMigrations, DatabaseTransactions;
+
     /**
      * Authenticate a user and log them in for further tests.
      */
     private function userLogin()
     {
+        $this->seed(UsersTableSeeder::class);
         $this->visit('/auth/login')
             ->type('admin@canvas.com', 'email')
             ->type('password', 'password')
