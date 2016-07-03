@@ -11,12 +11,8 @@ class TagTableSeeder extends Seeder
    */
   public function run()
   {
-    Model::unguard();
+    Tag::truncate();
 
-        Tag::truncate();
-
-        factory(Tag::class, 1)->create();
-
-    Model::reguard();
+    factory(Tag::class, 1)->create();
   }
 }

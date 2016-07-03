@@ -15,13 +15,8 @@ class PostTableSeeder extends Seeder
    */
   public function run()
   {
-    Model::unguard();
+    Post::truncate();
 
-      Post::truncate();
-
-        factory(Post::class, 1)->create();
-
-    Model::reguard();
-
+    factory(Post::class, 1)->create();
   }
 }
