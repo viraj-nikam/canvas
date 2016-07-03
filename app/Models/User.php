@@ -43,9 +43,14 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      */
     public static function formatPhone($number)
     {
-        $cleaned = preg_replace('/[^[:digit:]]/', '', $number);
+        $phoneNumber = '';
+        $cleaned     = preg_replace('/[^[:digit:]]/', '', $number);
         preg_match('/(\d{3})(\d{3})(\d{4})/', $cleaned, $matches);
 
-        return "({$matches[1]}) {$matches[2]}-{$matches[3]}";
+        if (isset($matches[1])) {
+            $phoneNumber = "({$matches[1]}) {$matches[2]}-{$matches[3]}";
+        }
+
+        return $phoneNumber;
     }
 }
