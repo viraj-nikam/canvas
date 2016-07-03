@@ -6,17 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class TagTableSeeder extends Seeder
 {
-  /**
-   * Seed the tags table with the Welcome tag.
-   */
-  public function run()
-  {
-    Model::unguard();
-
+    /**
+    * Seed the tags table with the Welcome tag.
+    */
+    public function run()
+    {
         Tag::truncate();
 
         factory(Tag::class, 1)->create();
-
-    Model::reguard();
-  }
+    }
 }
