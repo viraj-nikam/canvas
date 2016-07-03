@@ -11,6 +11,9 @@ use App\Http\Requests\TagCreateRequest;
 
 class TagController extends Controller
 {
+    const TRIM_WIDTH = 40;
+    const TRIM_MARKER = "...";
+
     protected $fields = [
         'tag' => '',
         'title' => '',
@@ -25,14 +28,14 @@ class TagController extends Controller
     /**
      * Display a listing of the resource
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function index()
     {
         $data = Tag::all();
 
         foreach ($data as $tag) {
-            $tag->subtitle = mb_strimwidth($tag->subtitle, 0, 40, "...");
+            $tag->subtitle = mb_strimwidth($tag->subtitle, 0, self::TRIM_WIDTH, self::TRIM_MARKER);
         }
 
         return view('backend.tag.index', compact('data'));
@@ -41,7 +44,7 @@ class TagController extends Controller
     /**
      * Show the form for creating a new resource
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function create()
     {
@@ -58,7 +61,8 @@ class TagController extends Controller
      * Store the newly created tag in the database
      *
      * @param TagCreateRequest $request
-     * @return Response
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(TagCreateRequest $request)
     {
@@ -66,7 +70,7 @@ class TagController extends Controller
         $tag->fill($request->toArray())->save();
         $tag->save();
 
-        Session::set('_new-tag', 'New tag has been created.');
+        Session::set('_new-tag', trans('messages.create_success', ['entity' => 'tag']));
         return redirect('/admin/tag');
     }
 
@@ -74,7 +78,8 @@ class TagController extends Controller
      * Show the form for editing a tag
      *
      * @param  int $id
-     * @return Response
+     *
+     * @return \Illuminate\View\View
      */
     public function edit($id)
     {
@@ -92,7 +97,8 @@ class TagController extends Controller
      *
      * @param TagUpdateRequest $request
      * @param int $id
-     * @return Response
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(TagUpdateRequest $request, $id)
     {
@@ -100,7 +106,7 @@ class TagController extends Controller
         $tag->fill($request->toArray())->save();
         $tag->save();
 
-        Session::set('_update-tag', 'Tag has been updated.');
+        Session::set('_update-tag', trans('messages.update_success', ['entity' => 'Tag']));
         return redirect("/admin/tag/$id/edit");
     }
 
@@ -108,14 +114,15 @@ class TagController extends Controller
      * Delete the tag
      *
      * @param  int $id
-     * @return Response
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
     {
         $tag = Tag::findOrFail($id);
         $tag->delete();
 
-        Session::set('_delete-tag', 'Tag has been deleted.');
+        Session::set('_delete-tag', trans('messages.delete_success', ['entity' => 'Tag']));
         return redirect('/admin/tag');
     }
 }

@@ -22,6 +22,8 @@ class UploadController extends Controller
      * Show page of files / subfolders
      *
      * @param Request $request
+     *
+     * @return \Illuminate\View\View
      */
     public function index(Request $request)
     {
@@ -35,6 +37,8 @@ class UploadController extends Controller
      * Create a new folder
      *
      * @param UploadNewFolderRequest $request
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function createFolder(UploadNewFolderRequest $request)
     {
@@ -43,10 +47,10 @@ class UploadController extends Controller
         $result = $this->manager->createDirectory($folder);
 
         if ($result === true) {
-            Session::set('_new-folder', 'New folder has been created.');
+            Session::set('_new-folder', trans('messages.create_success', ['entity' => 'folder']));
             return redirect()->back();
         } else {
-            $error = $result ?: "An error occurred creating directory.";
+            $error = $result ?: trans('messages.create_error', ['entity' => 'directory']);
             return redirect()->back()->withErrors([$error]);
         }
     }
@@ -55,6 +59,8 @@ class UploadController extends Controller
      * Delete a folder
      *
      * @param Request $request
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function deleteFolder(Request $request)
     {
@@ -63,10 +69,10 @@ class UploadController extends Controller
         $result = $this->manager->deleteDirectory($folder);
 
         if ($result === true) {
-            Session::set('_delete-folder', 'Folder has been deleted.');
+            Session::set('_delete-folder', trans('messages.delete_success', ['entity' => 'Folder']));
             return redirect()->back();
         } else {
-            $error = $result ?: "An error occurred deleting directory.";
+            $error = $result ?: trans('messages.delete_error', ['entity' => 'directory']);
             return redirect()->back()->withErrors([$error]);
         }
     }
@@ -75,6 +81,8 @@ class UploadController extends Controller
      * Upload new file
      *
      * @param UploadFileRequest $request
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function uploadFile(UploadFileRequest $request)
     {
@@ -86,10 +94,10 @@ class UploadController extends Controller
         $result = $this->manager->saveFile($path, $content);
 
         if ($result === true) {
-            Session::set('_new-file', 'New file has been uploaded.');
+            Session::set('_new-file', trans('messages.upload_success', ['entity' => 'file']));
             return redirect()->back();
         } else {
-            $error = $result ?: "An error occurred uploading file.";
+            $error = $result ?: trans('messages.upload_error', ['entity' => 'file']);
             return redirect()->back()->withErrors([$error]);
         }
     }
@@ -98,6 +106,8 @@ class UploadController extends Controller
      * Delete a file
      *
      * @param Request $request
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function deleteFile(Request $request)
     {
@@ -106,10 +116,10 @@ class UploadController extends Controller
         $result = $this->manager->deleteFile($path);
 
         if ($result === true) {
-            Session::set('_delete-file', 'File has been deleted.');
+            Session::set('_delete-file', trans('messages.delete_success', ['entity' => 'File']));
             return redirect()->back();
         } else {
-            $error = $result ?: "An error occurred deleting file.";
+            $error = $result ?: trans('messages.delete_error', ['entity' => 'file']);
             return redirect()->back()->withErrors([$error]);
         }
     }

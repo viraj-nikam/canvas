@@ -89,6 +89,8 @@ class Post extends Model
      * Get the raw content attribute.
      *
      * @param $value
+     *
+     * @return Carbon|\Illuminate\Support\Collection|int|mixed|static
      */
     public function getContentAttribute($value)
     {
