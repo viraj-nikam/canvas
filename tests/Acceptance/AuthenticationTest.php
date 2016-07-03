@@ -1,5 +1,8 @@
 <?php
 
+use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
+
 /**
  * Class AuthenticationTest
  *
@@ -7,6 +10,9 @@
  */
 class AuthenticationTest extends TestCase
 {
+
+    use DatabaseMigrations, DatabaseTransactions;
+
     /**
      * Test the ability for a user to log into the application.
      *
@@ -14,6 +20,7 @@ class AuthenticationTest extends TestCase
      */
     public function testApplicationLogin()
     {
+        $this->seed(UsersTableSeeder::class);
         $this->visit('/auth/login')
              ->type('admin@canvas.com', 'email')
              ->type('password', 'password')
@@ -28,6 +35,7 @@ class AuthenticationTest extends TestCase
      */
     public function testApplicationLogout()
     {
+        $this->seed(UsersTableSeeder::class);
         $this->visit('/auth/login')
              ->type('admin@canvas.com', 'email')
              ->type('password', 'password')
