@@ -20,7 +20,7 @@
 
 <div class="form-group">
     <div class="fg-line">
-        <label class="fg-label">Dispaly Name</label>
+        <label class="fg-label">Display Name</label>
         <input type="text" class="form-control" name="display_name" id="display_name" value="{{ $data['display_name'] }}" placeholder="Display Name">
     </div>
 </div>
