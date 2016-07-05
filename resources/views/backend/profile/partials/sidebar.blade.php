@@ -27,7 +27,7 @@
                 <li><i class="zmdi zmdi-facebook-box"></i> <a href="http://facebook.com/{{ $data['facebook'] }}" target="_blank">{{ $data['facebook'] }}</a></li>
             @endif
             @if(isset($data['github']) && strlen($data['github']))
-                <li><i class="zmdi zmdi-github-box"></i> <a href="http://github.com/{{ $data['facebook'] }}" target="_blank">{{ $data['github'] }}</a></li>
+                <li><i class="zmdi zmdi-github-box"></i> <a href="http://github.com/{{ $data['github'] }}" target="_blank">{{ $data['github'] }}</a></li>
             @endif
             <li>
                 @if(isset($data['address']) || isset($data['city']) || isset($data['state']))
