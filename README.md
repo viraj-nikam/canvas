@@ -1,7 +1,7 @@
 <p align="center"><a href="http:austintoddj.github.io/Canvas" target="_blank"><img width="250"src="https://raw.githubusercontent.com/austintoddj/Canvas/gh-pages/img/canvas-logo.gif"></a></p>
 
 <p align="center">
-  <a href="https://travis-ci.org/austintoddj/Canvas.svg?branch=master"><img src="https://travis-ci.org/austintoddj/Canvas.svg?branch=master" alt="Build Status"></a>
+  <a href="https://travis-ci.org/austintoddj/Canvas"><img src="https://travis-ci.org/austintoddj/Canvas.svg?branch=master" alt="Build Status"></a>
   
   <a href="https://github.com/austintoddj/Canvas/issues"><img src="https://img.shields.io/github/issues/austintoddj/Canvas.svg" alt="GitHub Issues"></a>
   
