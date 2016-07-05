@@ -112,4 +112,4 @@ Detailed changes for each release are documented in the [release notes](https://
 
 #### License
 
-Canvas is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Canvas is open-sourced software licensed under the [MIT license](https://github.com/austintoddj/Canvas/blob/master/LICENSE).
