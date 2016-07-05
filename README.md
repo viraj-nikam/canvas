@@ -1,8 +1,8 @@
 <p align="center"><a href="http:austintoddj.github.io/Canvas" target="_blank"><img width="250"src="https://raw.githubusercontent.com/austintoddj/Canvas/gh-pages/img/canvas-logo.gif"></a></p>
 
-<p align="center">
+<center>
   [![Build Status](https://travis-ci.org/austintoddj/Canvas.svg?branch=master)](https://travis-ci.org/austintoddj/Canvas) [![GitHub issues](https://img.shields.io/github/issues/austintoddj/Canvas.svg)](https://github.com/austintoddj/Canvas/issues) [![Total Downloads](https://poser.pugx.org/austintoddj/canvas/downloads)](https://packagist.org/packages/austintoddj/canvas) [![GitHub stars](https://img.shields.io/github/stars/austintoddj/Canvas.svg)](https://github.com/austintoddj/Canvas/stargazers) [![GitHub forks](https://img.shields.io/github/forks/austintoddj/Canvas.svg)](https://github.com/austintoddj/Canvas/network) [![Latest Stable Version](https://poser.pugx.org/austintoddj/canvas/v/stable)](https://packagist.org/packages/austintoddj/canvas) [![License](https://poser.pugx.org/austintoddj/canvas/license)](https://packagist.org/packages/austintoddj/canvas)
-</p>
+</center>
 
 Canvas is a minimal blogging application for developers. It attempts to make blogging simple and enjoyable by utilizing the latest technologies and keeping the administration as simple as possible with the primary focus on writing.
 
