@@ -1,8 +1,20 @@
 <p align="center"><a href="http:austintoddj.github.io/Canvas" target="_blank"><img width="250"src="https://raw.githubusercontent.com/austintoddj/Canvas/gh-pages/img/canvas-logo.gif"></a></p>
 
-<center>
-  [![Build Status](https://travis-ci.org/austintoddj/Canvas.svg?branch=master)](https://travis-ci.org/austintoddj/Canvas) [![GitHub issues](https://img.shields.io/github/issues/austintoddj/Canvas.svg)](https://github.com/austintoddj/Canvas/issues) [![Total Downloads](https://poser.pugx.org/austintoddj/canvas/downloads)](https://packagist.org/packages/austintoddj/canvas) [![GitHub stars](https://img.shields.io/github/stars/austintoddj/Canvas.svg)](https://github.com/austintoddj/Canvas/stargazers) [![GitHub forks](https://img.shields.io/github/forks/austintoddj/Canvas.svg)](https://github.com/austintoddj/Canvas/network) [![Latest Stable Version](https://poser.pugx.org/austintoddj/canvas/v/stable)](https://packagist.org/packages/austintoddj/canvas) [![License](https://poser.pugx.org/austintoddj/canvas/license)](https://packagist.org/packages/austintoddj/canvas)
-</center>
+<p align="center">
+  <a href="https://travis-ci.org/austintoddj/Canvas.svg?branch=master"><img src="https://travis-ci.org/austintoddj/Canvas.svg?branch=master" alt="Build Status"></a>
+  
+  <a href="https://github.com/austintoddj/Canvas/issues"><img src="https://img.shields.io/github/issues/austintoddj/Canvas.svg" alt="GitHub Issues"></a>
+  
+  <a href="https://packagist.org/packages/austintoddj/canvas"><img src="https://poser.pugx.org/austintoddj/canvas/downloads" alt="Total Downloads"></a>
+  
+  <a href="https://github.com/austintoddj/Canvas/stargazers"><img src="https://img.shields.io/github/stars/austintoddj/Canvas.svg" alt="Stars"></a>
+  
+  <a href="https://github.com/austintoddj/Canvas/network"><img src="https://img.shields.io/github/forks/austintoddj/Canvas.svg" alt="GitHub Forks"></a>
+  
+  <a href="https://packagist.org/packages/austintoddj/canvas"><img src="https://poser.pugx.org/austintoddj/canvas/v/stable" alt="Latest Stable Version"></a>
+  
+  <a href="https://packagist.org/packages/austintoddj/canvas"><img src="https://poser.pugx.org/austintoddj/canvas/license" alt="License"></a>
+</p>
 
 Canvas is a minimal blogging application for developers. It attempts to make blogging simple and enjoyable by utilizing the latest technologies and keeping the administration as simple as possible with the primary focus on writing.
 
