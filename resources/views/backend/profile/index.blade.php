@@ -76,7 +76,7 @@
                             </div>
                             <div class="pmbb-body p-l-30">
                                 <div class="pmbb-view">
-                                    @if(isset($data['phone']))
+                                    @if(isset($data['phone']) && strlen($data['phone']))
                                         <dl class="dl-horizontal">
                                             <dt>Mobile Phone</dt>
                                             <dd>{{ $data['phone'] }}</dd>
@@ -86,19 +86,19 @@
                                         <dt>Email Address</dt>
                                         <dd>{{ $data['email'] }}</dd>
                                     </dl>
-                                    @if(isset($data['twitter']))
+                                    @if(isset($data['twitter']) && strlen($data['twitter']))
                                         <dl class="dl-horizontal">
                                             <dt>Twitter</dt>
                                             <dd><a href="http://twitter.com/{{ $data['twitter'] }}" target="_blank">{{ '@' . $data['twitter'] }}</a></dd>
                                         </dl>
                                     @endif
-                                    @if(isset($data['facebook']))
+                                    @if(isset($data['facebook']) && strlen($data['facebook']))
                                         <dl class="dl-horizontal">
                                             <dt>Facebook</dt>
                                             <dd><a href="http://facebook.com/{{ $data['facebook'] }}" target="_blank">{{ $data['facebook'] }}</a></dd>
                                         </dl>
                                     @endif
-                                    @if(isset($data['github']))
+                                    @if(isset($data['github']) && strlen($data['github']))
                                         <dl class="dl-horizontal">
                                             <dt>GitHub</dt>
                                             <dd><a href="http://github.com/{{ $data['github'] }}" target="_blank">{{ $data['github'] }}</a></dd>
