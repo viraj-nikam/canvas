@@ -14,18 +14,22 @@
   <a href="https://packagist.org/packages/austintoddj/canvas"><img src="https://poser.pugx.org/austintoddj/canvas/v/stable" alt="Latest Stable Version"></a>
   
   <a href="https://github.com/austintoddj/Canvas/blob/master/LICENSE"><img src="https://poser.pugx.org/austintoddj/canvas/license" alt="License"></a>
+  
+  <br>
+
+  Canvas is a minimal blogging application for developers. It attempts to make blogging simple and enjoyable by utilizing the latest technologies and keeping the administration as simple as possible with the primary focus on writing.
 </p>
 
-Canvas is a minimal blogging application for developers. It attempts to make blogging simple and enjoyable by utilizing the latest technologies and keeping the administration as simple as possible with the primary focus on writing.
 
-#### Requirements
+## Requirements
+
 
 Canvas has a few system requirements:
 
 - PHP >= 5.5.9
 - PDO compliant database (SQL, MySQL, PostgreSQL, SQLite)
 
-#### Installation
+## Installation
 
 Getting Canvas up and running is simple. You can choose either of the following installation options:
 
@@ -59,7 +63,7 @@ To enable uploads on the site, give ownership of the uploads directory to the we
 sudo chown -R www-data:www-data public/uploads
 ```
 
-#### Configuring Canvas
+## Configuring Canvas
 
 You will need to create a new `.env` file and fill in the necessary variables:
 
@@ -73,7 +77,7 @@ Generate a key for your application:
 php artisan key:generate
 ```
 
-#### Settings
+## Settings
 
 Open up `Canvas/config/blog.php` and define a few configuration options for your blog.
 
@@ -92,7 +96,7 @@ Run the database migrations:
 php artisan migrate --seed
 ```
 
-#### Theming Canvas
+## Theming Canvas
 
 Adding or modifying styles with Canvas is a breeze. None of this needs to be done out of the box, it simply works on its own. But if you're feeling a little creative and want to make it stand out more, follow these steps:
 
@@ -114,16 +118,16 @@ After you make any modifications to the files in `Canvas/resources/assets/less/`
 gulp
 ```
 
-#### Disqus Comments
+## Disqus Comments
 
 To enable Disqus comments on your blog, you need to have a unique shortname. For more information, check out the [Official Documentation](https://help.disqus.com/customer/portal/articles/466208-what-s-a-shortname-).
 
 Once you have registered your site and have a shortname, use it to set the `DISQUS_NAME` key in your `.env` file.
 
-#### Changelog
+## Changelog
 
 Detailed changes for each release are documented in the [release notes](https://github.com/austintoddj/Canvas/releases).
 
-#### License
+## License
 
 Canvas is open-sourced software licensed under the [MIT license](https://github.com/austintoddj/Canvas/blob/master/LICENSE).
