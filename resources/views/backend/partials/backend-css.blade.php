@@ -1,4 +1,5 @@
 <!-- Vendor Specific -->
+<link rel="stylesheet" type="text/css" href="/css/bootstrap-datetimepicker.min.css">
 <link rel="stylesheet" type="text/css" href="/css/animate.min.css">
 <link rel="stylesheet" type="text/css" href="/css/sweet-alert.min.css">
 <link rel="stylesheet" type="text/css" href="/css/material-design-iconic-font.min.css">

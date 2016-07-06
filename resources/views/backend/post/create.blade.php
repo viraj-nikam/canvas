@@ -47,4 +47,12 @@
 @section('unique-js')
     @include('backend.post.partials.summernote')
     {!! JsValidator::formRequest('App\Http\Requests\PostCreateRequest', '#postCreate'); !!}
+
+    <script>
+        $(function () {
+            $('.datetime-picker').datetimepicker({
+                format: 'YYYY/MM/DD HH:mm:ss'
+            });
+        });
+    </script>
 @stop

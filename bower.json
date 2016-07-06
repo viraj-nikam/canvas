@@ -16,6 +16,7 @@
     "datatables-plugins": "~1.10.10",
     "selectize": "~0.12.1",
     "pickadate": "~3.5.6",
-    "clean-blog": "~1.0.1"
+    "clean-blog": "~1.0.1",
+    "eonasdan-bootstrap-datetimepicker": "~4.17.37"
   }
 }
