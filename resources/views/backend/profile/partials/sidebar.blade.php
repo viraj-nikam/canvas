@@ -34,15 +34,16 @@
                     <i class="zmdi zmdi-pin"></i>
                 @endif
                 <address class="m-b-0 ng-binding">
-                    @if(isset($data['address']))
+                    @if(isset($data['address']) && !empty($data['address']) )
                         {{ $data['address'] }},<br>
                     @endif
-                    @if(isset($data['city']))
+                    @if(isset($data['city']) && !empty($data['city']))
                         {{ $data['city'] }},<br>
                     @endif
-                    @if(isset($data['state']))
+                    @if(isset($data['state']) && !empty($data['state']))
                         {{ $data['state'] }}
                     @endif
+
                 </address>
             </li>
         </ul>
