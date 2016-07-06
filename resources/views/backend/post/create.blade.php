@@ -26,7 +26,7 @@
                         <h2>Create a New Post</h2>
                     </div>
                     <div class="card-body card-padding">
-                        <form role="form" method="POST" id="postCreate" action="{{ route('admin.post.store') }}">
+                        <form class="keyboard-save" role="form" method="POST" id="postCreate" action="{{ route('admin.post.store') }}">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
                             @include('backend.post.partials.form')

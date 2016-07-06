@@ -378,7 +378,7 @@ $(document).ready(function(){
     });
 
     /*
-     * Text Feild
+     * Text Field
      */
 
     //Add blue animated border and remove with condition when focus and blur
@@ -895,6 +895,20 @@ $(document).ready(function(){
 
         $('[data-current-skin]').attr('data-current-skin', skin)
 
+    });
+
+
+    /*
+     * Find all forms on a page with an keyboard save class on a page
+     * when the control + s combo is pressed and a form element is focused make that form automatically submit
+     */
+    $('form.keyboard-save').keypress(function (event) {
+        if (!(event.which == 115 && event.ctrlKey) && !(event.which == 19)) {
+            return true;
+        }
+        this.submit();
+        event.preventDefault();
+        return false;
     });
 
 });
