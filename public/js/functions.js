@@ -900,12 +900,24 @@ $(document).ready(function(){
 
     /*
      * Find all forms on a page with an keyboard save class on a page
-     * when the control + s combo is pressed and a form element is focused make that form automatically submit
+     * when the (control/cmd) + s combo is pressed and a form element is focused make that form automatically submit
      */
     $('form.keyboard-save').keypress(function (event) {
-        if (!(event.which == 115 && event.ctrlKey) && !(event.which == 19)) {
+
+        var isMac = (navigator.appVersion.indexOf("Mac")!=-1);
+
+        //only listen to cmd+s combo on mac don't listen for control+s
+        if( isMac )
+        {
+            if( !(event.which == 115 && (event.metaKey && ! event.ctrlKey)) && !(event.which == 19) )
+            {
+                return true;
+            }
+
+        }else if ( !(event.which == 115 && event.ctrlKey) && !(event.which == 19)) {
             return true;
         }
+        
         this.submit();
         event.preventDefault();
         return false;
