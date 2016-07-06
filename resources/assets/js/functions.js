@@ -378,7 +378,7 @@ $(document).ready(function(){
     });
 
     /*
-     * Text Feild
+     * Text Field
      */
 
     //Add blue animated border and remove with condition when focus and blur
