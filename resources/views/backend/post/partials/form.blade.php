@@ -67,7 +67,7 @@
 <div class="form-group">
     <div class="fg-line">
       <label class="fg-label">Publish Date / Time</label>
-      <input class="form-control" name="published_at" id="published_at" type="text" value="{{ $published_at }}" placeholder="YYYY/MM/DD HH:MM:SS" data-mask="0000/00/00 00:00:00">
+      <input class="form-control datetime-picker" name="published_at" id="published_at" type="text" value="{{ $published_at }}" placeholder="YYYY/MM/DD HH:MM:SS" data-mask="0000/00/00 00:00:00">
     </div>
 </div>
 

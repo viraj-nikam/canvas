@@ -1,4 +1,5 @@
 <!-- Vendor Specific -->
+<link rel="stylesheet" type="text/css" href="{{asset('css/bootstrap-datetimepicker.min.css')}}">
 <link rel="stylesheet" type="text/css" href="{{asset('css/animate.min.css')}}">
 <link rel="stylesheet" type="text/css" href="{{asset('css/sweet-alert.min.css')}}">
 <link rel="stylesheet" type="text/css" href="{{asset('css/material-design-iconic-font.min.css')}}">
