@@ -28,7 +28,7 @@
                             <li class="active"><a href="/admin/profile/{{ Auth::user()->id }}/edit">Settings</a></li>
                         </ul>
 
-                        <form role="form" method="POST" id="profileUpdate" action="{{ route('admin.profile.update', Auth::user()->id) }}">
+                        <form class="keyboard-save" role="form" method="POST" id="profileUpdate" action="{{ route('admin.profile.update', Auth::user()->id) }}">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                             <input type="hidden" name="_method" value="PUT">
 
