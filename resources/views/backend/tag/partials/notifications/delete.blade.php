@@ -1,3 +1,5 @@
+<div id="_delete-tag" data-field-id="{{ Session::get('_delete-tag') }}"></div>
+
 <script type="text/javascript">
     $(document).ready(function(){
         $(window).load(function(){
@@ -26,7 +28,7 @@
             };
 
             setTimeout(function () {
-                var message = 'Success! Tag has been deleted.';
+                var message = $('#_delete-tag').data("field-id");
                 notify(message, 'inverse');
             }, 300)
         });

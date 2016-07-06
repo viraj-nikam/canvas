@@ -1,3 +1,5 @@
+<div id="_update-post" data-field-id="{{ Session::get('_update-post') }}"></div>
+
 <script type="text/javascript">
     $(document).ready(function(){
         $(window).load(function(){
@@ -26,7 +28,7 @@
             };
 
             setTimeout(function () {
-                var message = 'Success! Post has been updated.';
+                var message = $('#_update-post').data("field-id");
                 notify(message, 'inverse');
             }, 300)
         });
