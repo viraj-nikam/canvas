@@ -124,7 +124,7 @@ class Post extends Model
         $return = [];
         foreach ($tags as $tag) {
             $url = str_replace('%TAG%', urlencode($tag), $base);
-            $return[] = '<a href="' . $url . '">' . e($tag) . '</a>';
+            $return[] = '<a href="' . url($url) . '">' . e($tag) . '</a>';
         }
         return $return;
     }
