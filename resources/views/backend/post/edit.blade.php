@@ -42,7 +42,7 @@
 
                     </div>
                     <div class="card-body card-padding">
-                        <form role="form" method="POST" id="postUpdate" action="{{ route('admin.post.update', $id) }}">
+                        <form class="keyboard-save" role="form" method="POST" id="postUpdate" action="{{ route('admin.post.update', $id) }}">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                             <input type="hidden" name="_method" value="PUT">
 
@@ -75,4 +75,5 @@
         @include('backend.post.partials.notifications.update-post')
         {{ \Session::forget('_update-post') }}
     @endif
+
 @stop
