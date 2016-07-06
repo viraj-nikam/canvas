@@ -1,3 +1,5 @@
+<div id="_new-file" data-field-id="{{ Session::get('_new-file') }}"></div>
+
 <script type="text/javascript">
     $(document).ready(function(){
         $(window).load(function(){
@@ -26,7 +28,7 @@
             };
 
             setTimeout(function () {
-                var message = 'Success! New file has been uploaded.';
+                var message = $('#_new-file').data("field-id");
                 notify(message, 'inverse');
             }, 300)
         });

@@ -1,4 +1,5 @@
-<div id="userName" data-field-id="{{ Auth::user()->first_name . ' ' . Auth::user()->last_name }}"></div>
+<div id="_login" data-field-id="{{ Session::get('_login') }}"></div>
+
 <script type="text/javascript">
     $(document).ready(function(){
         $(window).load(function(){
@@ -27,9 +28,8 @@
             };
 
             setTimeout(function () {
-                var message = 'Welcome back ';
-                var userName = $('#userName').data("field-id");
-                notify(message.concat(userName), 'inverse');
+                var message = $('#_login').data("field-id");
+                notify(message, 'inverse');
             }, 300)
         });
     });
