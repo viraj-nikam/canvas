@@ -1,8 +1,5 @@
 <?php
 
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
-
 /**
  * Class PublicRoutesTest
  *
@@ -11,7 +8,7 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 class PublicRoutesTest extends TestCase
 {
 
-    use DatabaseMigrations, DatabaseTransactions;
+    use InteractsWithDatabase;
 
     /**
      * Test the response code for the Blog page.
@@ -20,7 +17,8 @@ class PublicRoutesTest extends TestCase
      */
     public function testBlogPageResponseCode()
     {
-        $this->seed(DatabaseSeeder::class);
+
+        factory(App\Models\User::class)->create();
         $response = $this->call('GET', '/');
         $this->assertEquals(200, $response->status());
     }
