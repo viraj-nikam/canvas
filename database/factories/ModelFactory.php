@@ -49,3 +49,36 @@ $factory->define(App\Models\Tag::class, function ($faker) {
     'created_at'        => Carbon\Carbon::now(),
   ];
 });
+
+/*
+|--------------------------------------------------------------------------
+| User Model Factory
+|--------------------------------------------------------------------------
+|
+| Create a user model in the database.
+|
+*/
+$factory->define(App\Models\User::class, function(Faker\Generator $faker) {
+
+    return [
+        'bio'           => $faker->sentences(1, true),
+        'first_name'    => $faker->firstName,
+        'last_name'     => $faker->lastName,
+        'display_name'  => $faker->userName,
+        'job'           => $faker->jobTitle,
+        'gender'        => 'Male',
+        'birthday'      => $faker->date('Y-m-d'),
+        'relationship'  => 'Married',
+        'phone'         => $faker->phoneNumber,
+        'email'         => $faker->safeEmail,
+        'twitter'       => 'canvas',
+        'facebook'      => 'canvas',
+        'github'        => 'canvas',
+        'address'       => $faker->streetAddress,
+        'city'          => $faker->city,
+        'state'         => 'MN',
+        'url'           => $faker->url,
+        'password'      => bcrypt('password'),
+
+    ];
+});
