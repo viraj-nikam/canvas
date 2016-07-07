@@ -13,12 +13,12 @@ class RestructurePostsTable extends Migration
     public function up()
     {
         Schema::table('posts', function (Blueprint $table) {
-            $table->string('subtitle')->after('title');
+            $table->string('subtitle')->after('title')->default('');
             $table->renameColumn('content', 'content_raw');
-            $table->text('content_html')->after('content');
-            $table->string('page_image')->after('content_html');
-            $table->string('meta_description')->after('page_image');
-            $table->boolean('is_draft')->after('meta_description');
+            $table->text('content_html')->after('content')->default('');
+            $table->string('page_image')->after('content_html')->default('');
+            $table->string('meta_description')->after('page_image')->default('');
+            $table->boolean('is_draft')->after('meta_description')->default(false);
             $table->string('layout')->after('is_draft')->default('frontend.blog.post');
         });
     }
