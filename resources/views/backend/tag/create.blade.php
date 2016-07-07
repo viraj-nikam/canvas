@@ -59,4 +59,6 @@
 
 @section('unique-js')
     {!! JsValidator::formRequest('App\Http\Requests\TagCreateRequest', '#tagUpdate'); !!}
+
+    @include('backend.shared.notifications.protip')
 @stop
