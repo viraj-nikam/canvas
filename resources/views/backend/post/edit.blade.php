@@ -80,8 +80,7 @@
     <script>
         $(function () {
             $('.datetime-picker').datetimepicker({
-                format: 'YYYY/MM/DD HH:mm:ss',
-                debug:true
+                format: 'YYYY/MM/DD HH:mm:ss'
             });
         });
     </script>
