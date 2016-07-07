@@ -8,7 +8,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                @if (!empty($tag->title))
+                @if (isset($tag->title))
                     <p class="tag-link">Explore <a href="#">{{ $tag->title or '' }}</a></p>
                     <p class="tag-subtitle">- {{ $tag->subtitle }} -</p>
                 @endif
@@ -19,11 +19,10 @@
                             <a href="{{ $post->url($tag) }}">{{ $post->title }}</a>
                         </h2>
                         <p class="post-meta">
-                            {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $post->published_at)->diffForHumans() }}
-                            @if ($post->tags->count())
-                                in
-                                {!! join(', ', $post->tagLinks()) !!}
-                            @endif
+                            {{ $post->published_at->diffForHumans() }}
+                            @unless ($post->tags->isEmpty())
+                                in {!! implode(', ', $post->tagLinks()) !!}
+                            @endunless
                         </p>
                     </div>
                     <hr>
