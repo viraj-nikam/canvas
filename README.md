@@ -2,19 +2,19 @@
 
 <p align="center">
   <a href="https://travis-ci.org/austintoddj/Canvas"><img src="https://travis-ci.org/austintoddj/Canvas.svg?branch=master" alt="Build Status"></a>
-  
+
   <a href="https://github.com/austintoddj/Canvas/issues"><img src="https://img.shields.io/github/issues/austintoddj/Canvas.svg" alt="GitHub Issues"></a>
-  
+
   <a href="https://packagist.org/packages/austintoddj/canvas"><img src="https://poser.pugx.org/austintoddj/canvas/downloads" alt="Total Downloads"></a>
-  
+
   <a href="https://github.com/austintoddj/Canvas/stargazers"><img src="https://img.shields.io/github/stars/austintoddj/Canvas.svg" alt="Stars"></a>
-  
+
   <a href="https://github.com/austintoddj/Canvas/network"><img src="https://img.shields.io/github/forks/austintoddj/Canvas.svg" alt="GitHub Forks"></a>
-  
+
   <a href="https://packagist.org/packages/austintoddj/canvas"><img src="https://poser.pugx.org/austintoddj/canvas/v/stable" alt="Latest Stable Version"></a>
-  
+
   <a href="https://github.com/austintoddj/Canvas/blob/master/LICENSE"><img src="https://poser.pugx.org/austintoddj/canvas/license" alt="License"></a>
-  
+
   <br><br>
 
   Canvas is a minimal blogging application for developers. It attempts to make blogging simple and enjoyable by utilizing the latest technologies and keeping the administration as simple as possible with the primary focus on writing.
@@ -121,6 +121,10 @@ After you make any modifications to the files in `Canvas/resources/assets/less/`
 ```sh
 gulp
 ```
+
+## Unit Testing
+
+This section is optional. If you do not want to run unit tests on your application and just want to get straight to blogging, that's completely up to you. If you do choose to utilize the test suite bundled with Canvas, you will need to create a test database called, `canvas_testing`. After you've created it, you can safely test your application without affecting real data.
 
 ## Disqus Comments
 
