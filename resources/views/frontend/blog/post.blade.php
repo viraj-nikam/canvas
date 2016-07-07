@@ -27,9 +27,9 @@
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     @if ($post->page_image)
-                        <center>
+                        <div class="text-center">
                             <img src="{{ asset('uploads/' . $post->page_image) }}" class="post-hero">
-                        </center>
+                        </div>
                     @endif
                     <p class="post-page-meta">
                         {{ \Carbon\Carbon::parse($post->published_at)->toFormattedDateString() }}
