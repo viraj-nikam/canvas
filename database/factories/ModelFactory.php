@@ -61,15 +61,11 @@ $factory->define(App\Models\Tag::class, function ($faker) {
 $factory->define(App\Models\User::class, function(Faker\Generator $faker) {
 
     return [
-        'bio'           => $faker->sentences(1, true),
-        'first_name'    => $faker->firstName,
-        'last_name'     => $faker->lastName,
-        'display_name'  => $faker->userName,
+        'first_name'    => $first = $faker->firstName,
+        'last_name'     => $last = $faker->lastName,
+        'display_name'  => $first . ' ' . $last,
         'job'           => $faker->jobTitle,
-        'gender'        => 'Male',
         'birthday'      => $faker->date('Y-m-d'),
-        'relationship'  => 'Married',
-        'phone'         => $faker->phoneNumber,
         'email'         => $faker->safeEmail,
         'twitter'       => 'canvas',
         'facebook'      => 'canvas',
