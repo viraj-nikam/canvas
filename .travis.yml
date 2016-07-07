@@ -16,8 +16,8 @@ install:
   - composer install
 
 before_script:
-  - mysql -u root -e 'create database canvas;'
-  - export DB_DATABASE=canvas
+  - mysql -u root -e 'create database canvas_testing;'
+  - export DB_DATABASE=canvas_testing
   - export DB_USERNAME=root
   - export DB_PASSWORD=
 

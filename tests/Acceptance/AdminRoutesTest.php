@@ -10,19 +10,26 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
  */
 class AdminRoutesTest extends TestCase
 {
-    use DatabaseMigrations, DatabaseTransactions;
+    use InteractsWithDatabase;
 
     /**
-     * Authenticate a user and log them in for further tests.
+     * The user model.
+     * 
+     * @var App\Models\User
      */
-    private function userLogin()
+    private $user;
+
+    /**
+     * Create the user model test subject.
+     *
+     * @before
+     * @return void
+     */
+    public function createUser()
     {
-        $this->seed(UsersTableSeeder::class);
-        $this->visit('/auth/login')
-            ->type('admin@canvas.com', 'email')
-            ->type('password', 'password')
-            ->press('submit')
-            ->seePageIs('/admin/post');
+
+        $this->user = factory(App\Models\User::class)->create();
+
     }
 
     /**
@@ -32,8 +39,7 @@ class AdminRoutesTest extends TestCase
      */
     public function testPostsPageResponseCode()
     {
-        $this->userLogin();
-        $response = $this->call('GET', '/admin/post');
+        $response = $this->actingAs($this->user)->call('GET', '/admin/post');
         $this->assertEquals(200, $response->status());
     }
 
@@ -44,8 +50,7 @@ class AdminRoutesTest extends TestCase
      */
     public function testTagsPageResponseCode()
     {
-        $this->userLogin();
-        $response = $this->call('GET', '/admin/tag');
+        $response = $this->actingAs($this->user)->call('GET', '/admin/tag');
         $this->assertEquals(200, $response->status());
     }
 
@@ -56,8 +61,8 @@ class AdminRoutesTest extends TestCase
      */
     public function testUploadsPageResponseCode()
     {
-        $this->userLogin();
-        $response = $this->call('GET', '/admin/upload');
+
+        $response = $this->actingAs($this->user)->call('GET', '/admin/upload');
         $this->assertEquals(200, $response->status());
     }
 
@@ -68,8 +73,7 @@ class AdminRoutesTest extends TestCase
      */
     public function testProfilePageResponseCode()
     {
-        $this->userLogin();
-        $response = $this->call('GET', '/admin/profile');
+        $response = $this->actingAs($this->user)->call('GET', '/admin/profile');
         $this->assertEquals(200, $response->status());
     }
 }

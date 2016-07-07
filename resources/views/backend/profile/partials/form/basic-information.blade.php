@@ -66,13 +66,13 @@
             <option @if ($data['relationship'] === 'In a relationship') selected @endif value="In a relationship">In a relationship</option>
             <option @if ($data['relationship'] === 'Engaged') selected @endif value="Engaged">Engaged</option>
             <option @if ($data['relationship'] === 'Married') selected @endif value="Married">Married</option>
-            <option @if ($data['relationship'] === 'It\'s complicated') selected @endif value="It\'s complicated">It's complicated</option>
+            <option @if ($data['relationship'] === 'It\'s complicated') selected @endif value="It's complicated">It's complicated</option>
             <option @if ($data['relationship'] === 'In an open relationship') selected @endif value="In an open relationship">In an open relationship</option>
             <option @if ($data['relationship'] === 'Widowed') selected @endif value="Widowed">Widowed</option>
             <option @if ($data['relationship'] === 'Separated') selected @endif value="Separated">Separated</option>
             <option @if ($data['relationship'] === 'Divorced') selected @endif value="Divorced">Divorced</option>
             <option @if ($data['relationship'] === 'In a civil union') selected @endif value="In a civil union">In a civil union</option>
-            <option @if ($data['relationship'] === 'In a domestic partnership') selected @endif value="In a domestice partnership">In a domestic partnership</option>
+            <option @if ($data['relationship'] === 'In a domestic partnership') selected @endif value="In a domestic partnership">In a domestic partnership</option>
         </select>
     </div>
 </div>
