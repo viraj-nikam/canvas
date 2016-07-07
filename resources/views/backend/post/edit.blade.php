@@ -76,7 +76,6 @@
         {{ \Session::forget('_update-post') }}
     @endif
 
-
     <script>
         $(function () {
             $('.datetime-picker').datetimepicker({

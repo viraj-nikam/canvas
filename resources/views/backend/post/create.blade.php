@@ -48,6 +48,8 @@
     @include('backend.post.partials.summernote')
     {!! JsValidator::formRequest('App\Http\Requests\PostCreateRequest', '#postCreate'); !!}
 
+    @include('backend.shared.notifications.protip')
+
     <script>
         $(function () {
             $('.datetime-picker').datetimepicker({
