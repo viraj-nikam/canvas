@@ -1,8 +1,5 @@
 <?php
 
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
-
 /**
  * Class AuthenticationTest
  *
@@ -11,7 +8,27 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 class AuthenticationTest extends TestCase
 {
 
-    use DatabaseMigrations, DatabaseTransactions;
+    use InteractsWithDatabase;
+
+    /**
+     * The user model.
+     *
+     * @var App\Users\User
+     */
+    private $user;
+
+    /**
+     * Create the user model test subject.
+     * 
+     * @before
+     * @return void
+     */
+    public function createUser()
+    {
+
+        $this->user = factory(App\Models\User::class)->create();
+
+    }
 
     /**
      * Test the ability for a user to log into the application.
@@ -20,11 +37,12 @@ class AuthenticationTest extends TestCase
      */
     public function testApplicationLogin()
     {
-        $this->seed(UsersTableSeeder::class);
+
         $this->visit('/auth/login')
-             ->type('admin@canvas.com', 'email')
+             ->type($this->user->email, 'email')
              ->type('password', 'password')
              ->press('submit')
+             ->seeIsAuthenticatedAs($this->user)
              ->seePageIs('/admin/post');
     }
 
@@ -35,13 +53,12 @@ class AuthenticationTest extends TestCase
      */
     public function testApplicationLogout()
     {
-        $this->seed(UsersTableSeeder::class);
-        $this->visit('/auth/login')
-             ->type('admin@canvas.com', 'email')
-             ->type('password', 'password')
-             ->press('submit')
-             ->seePageIs('/admin/post')
+
+        $this->actingAs($this->user)
+             ->visit('/admin/post')
              ->click('logout')
-             ->seePageis('/auth/login');
+             ->seePageis('/auth/login')
+             ->dontSeeIsAuthenticated();
     }
+
 }
