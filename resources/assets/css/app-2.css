@@ -1192,16 +1192,16 @@ html.ismobile .page-loader {
 }
 
 [data-current-skin="teal"] {
-  background-color: #009688;
+  background-color: #2196F3;
 }
 
 [data-current-skin="teal"] .ss-icon {
-  color: #009688;
+  color: #2196F3;
 }
 
 @media (max-width: 767px) {
   [data-current-skin="teal"] .ha-menu {
-    background: #009688;
+    background: #2196F3;
   }
 }
 
@@ -1288,7 +1288,7 @@ html.ismobile .page-loader {
 }
 
 .preloader.pls-teal .plc-path {
-  stroke: #009688;
+  stroke: #2196F3;
 }
 
 .preloader.pls-gray .plc-path {
@@ -1578,7 +1578,7 @@ html.ismobile .page-loader {
 }
 
 #calendar-widget .fc-toolbar {
-  background: #009688;
+  background: #2196F3;
 }
 
 #calendar-widget .fc-day-header {
@@ -1699,7 +1699,7 @@ html.ismobile .page-loader {
 
 .fc-toolbar .ui-button:hover {
   background: #fff;
-  color: #009688;
+  color: #2196F3;
 }
 
 .fc-toolbar .ui-button > span {
@@ -2401,19 +2401,19 @@ select.chosen {
 .input-slider:not([data-is-color]) .noUi-connect,
 .input-slider-range:not([data-is-color]) .noUi-connect,
 .input-slider-values:not([data-is-color]) .noUi-connect {
-  background: #009688 !important;
+  background: #2196F3 !important;
 }
 
 .input-slider:not([data-is-color]) .is-tooltip,
 .input-slider-range:not([data-is-color]) .is-tooltip,
 .input-slider-values:not([data-is-color]) .is-tooltip {
-  background: #009688;
+  background: #2196F3;
 }
 
 .input-slider:not([data-is-color]) .is-tooltip:after,
 .input-slider-range:not([data-is-color]) .is-tooltip:after,
 .input-slider-values:not([data-is-color]) .is-tooltip:after {
-  border-color: #009688 transparent transparent transparent;
+  border-color: #2196F3 transparent transparent transparent;
 }
 
 .input-slider[data-is-color=red] .noUi-handle,
@@ -2466,7 +2466,7 @@ select.chosen {
 }
 
 .input-slider:not([data-is-color]) .noUi-base {
-  background: #009688 !important;
+  background: #2196F3 !important;
 }
 
 .input-slider[data-is-color=red] .noUi-base {
@@ -2814,7 +2814,7 @@ select.chosen {
 }
 
 .bootstrap-datetimepicker-widget a[data-action] {
-  color: #009688;
+  color: #2196F3;
 }
 
 .timepicker-picker .btn {
@@ -2822,7 +2822,7 @@ select.chosen {
 }
 
 .timepicker-picker table tbody tr + tr:not(:last-child) {
-  background: #009688;
+  background: #2196F3;
   color: #fff;
 }
 
@@ -2860,12 +2860,12 @@ select.chosen {
 }
 
 .datepicker table thead tr:first-child th {
-  background: #009688;
+  background: #2196F3;
   padding: 20px 0;
 }
 
 .datepicker table thead tr:first-child th:hover {
-  background: #009688;
+  background: #2196F3;
 }
 
 .datepicker table thead tr:first-child th.picker-switch {
@@ -2889,7 +2889,7 @@ select.chosen {
 }
 
 .datepicker table thead tr:last-child:not(:only-child) {
-  background: #00877a;
+  background: #1d7dcc;
 }
 
 .datepicker table tbody tr:last-child td {
@@ -2952,7 +2952,7 @@ select.chosen {
 }
 
 .datepicker table td.active:before {
-  background-color: #009688;
+  background-color: #2196F3;
 }
 
 .datepicker-months .month,
@@ -2973,7 +2973,7 @@ select.chosen {
 .datepicker-years .year.active,
 .timepicker-minutes .minute.active,
 .timepicker-hours .hour.active {
-  background: #009688;
+  background: #2196F3;
 }
 
 .timepicker-minutes .minute,

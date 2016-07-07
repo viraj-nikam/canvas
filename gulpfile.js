@@ -17,11 +17,15 @@ elixir(function(mix) {
        mix.less('auth/auth.less');
        mix.less('admin/admin.less');
 
+        mix.sass([
+           'bootstrap-datetimepicker-build.scss'
+        ]);
+
        // Vendor Files
        mix.copy('resources/assets/vendor/', 'public/vendor')
 
        // Raw CSS Files
-       mix.copy('resources/assets/css/bootstrap-datetimepicker.min.css', 'public/css/bootstrap-datetimepicker.min.css');
+       mix.copy('resources/assets/css/bootstrap-datetimepicker.css', 'public/css/bootstrap-datetimepicker.min.css');
        mix.copy('resources/assets/css/chosen.min.css', 'public/css/chosen.min.css');
        mix.copy('resources/assets/css/summernote.css', 'public/css/summernote.css');
        mix.copy('resources/assets/css/jquery.bootgrid.min.css', 'public/css/jquery.bootgrid.min.css');
