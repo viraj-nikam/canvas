@@ -1,5 +1,5 @@
 <footer id="footer">
-    &copy; {{ \Carbon\Carbon::today()->format('Y') }} {{ config('blog.title') }}. Code released under the <a href="https://opensource.org/licenses/MIT" target="_blank">MIT License</a>
+    &copy; {{ \Carbon\Carbon::today()->format('Y') }} {{ config('blog.title') }}. Code released under the <a href="https://github.com/austintoddj/Canvas/blob/master/LICENSE" target="_blank">MIT License</a>
 
     <ul class="f-menu">
         <li><a href="{{url('admin/profile')}}">Profile</a></li>
