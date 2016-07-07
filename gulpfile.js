@@ -17,10 +17,6 @@ elixir(function(mix) {
        mix.less('auth/auth.less');
        mix.less('admin/admin.less');
 
-        mix.sass([
-           'bootstrap-datetimepicker-build.scss'
-        ]);
-
        // Vendor Files
        mix.copy('resources/assets/vendor/', 'public/vendor')
 
