@@ -7,28 +7,28 @@
 
         @include('backend.partials.backend-css')
     </head>
-    <body>
-        @if (Auth::guest())
 
-            @yield('login')
+    @if (Auth::guest())
+        <body>
 
-        @else
+        @yield('login')
+    @else
+        <body class="toggled sw-toggled">
 
-            @include('backend.partials.header')
+        @include('backend.partials.header')
 
-            @yield('content')
+        @yield('content')
 
-            @include('shared.page-loader')
+        @include('shared.page-loader')
+    @endif
 
-        @endif
+    @include('backend.partials.footer')
 
-        @include('backend.partials.footer')
+    @include('backend.partials.backend-js')
 
-        @include('backend.partials.backend-js')
+    @include('backend.partials.search-js')
 
-        @include('backend.partials.search-js')
-
-        @yield('unique-js')
+    @yield('unique-js')
 
     </body>
 </html>
