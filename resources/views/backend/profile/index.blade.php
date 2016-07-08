@@ -12,7 +12,7 @@
 
                 <div class="block-header">
                     <h2>{{ $data['display_name'] }}
-                        <small>{{ $data['job'] }}, {{ $data['city'] }}, {{ $data['state'] }}</small>
+                        <small>{{ $data['job'] }}, {{ $data['city'] }}, {{ $data['country'] }}</small>
                     </h2>
                 </div>
 
@@ -116,10 +116,10 @@
                                             <dd>{{ $data['city'] }}</dd>
                                         </dl>
                                     @endif
-                                    @if(isset($data['state']) && !empty($data['state']))
+                                    @if(isset($data['country']) && !empty($data['country']))
                                         <dl class="dl-horizontal">
-                                            <dt>State</dt>
-                                            <dd>{{ $data['state'] }}</dd>
+                                            <dt>Country</dt>
+                                            <dd>{{ $data['country'] }}</dd>
                                         </dl>
                                     @endif
                                 </div>

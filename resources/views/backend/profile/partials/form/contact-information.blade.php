@@ -3,7 +3,7 @@
 <div class="form-group">
     <div class="fg-line">
       <label class="fg-label">Mobile Phone</label>
-      <input type="text" class="form-control" name="phone" id="phone" value="{{ $data['phone'] }}" placeholder="Mobile Phone" data-mask="(000) 000-0000">
+      <input type="text" class="form-control" name="phone" id="phone" value="{{ $data['phone'] }}" placeholder="Mobile Phone">
     </div>
 </div>
 
@@ -65,7 +65,7 @@
 
 <div class="form-group">
     <div class="fg-line">
-      <label class="fg-label">State</label>
-      <input type="text" class="form-control" name="state" id="state" value="{{ $data['state'] }}" placeholder="State" data-mask="AA">
+      <label class="fg-label">Country</label>
+      <input type="text" class="form-control" name="country" id="country" value="{{ $data['country'] }}" placeholder="Country">
     </div>
 </div>

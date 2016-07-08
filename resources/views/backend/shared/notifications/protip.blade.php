@@ -26,7 +26,7 @@
             };
 
             setTimeout(function () {
-                var message = '<strong>ProTip!</strong> Use &#8984;+s to save a form on a Mac, CTL+s on a PC.';
+                var message = '<strong>ProTip!</strong> Use &#8984;+s or CTL+s as keyboard shortcuts to save a form.';
                 notify(message, 'inverse');
             }, 300)
         });

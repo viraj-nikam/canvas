@@ -14,7 +14,7 @@
 
                 <div class="block-header">
                     <h2>{{ Auth::user()->display_name }}
-                        <small>{{ Auth::user()->job }}, {{ Auth::user()->city }}, {{ Auth::user()->state }}</small>
+                        <small>{{ Auth::user()->job }}, {{ Auth::user()->city }}, {{ Auth::user()->country }}</small>
                     </h2>
                 </div>
 
