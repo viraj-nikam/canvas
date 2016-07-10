@@ -1,7 +1,7 @@
 @foreach ($subfolders as $path => $name)
     <tr>
         <td>
-            <a href="/admin/upload?folder={{ $path }}"><i class="zmdi zmdi-folder-outline"></i> {{ $name }}
+            <a href="{{route('admin/upload', ['folder' => $path])}}"><i class="zmdi zmdi-folder-outline"></i> {{ $name }}
             </a>
         </td>
         <td>Folder</td>

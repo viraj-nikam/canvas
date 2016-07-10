@@ -21,8 +21,8 @@
 
                     <div class="pm-body clearfix">
                         <ul class="tab-nav tn-justified">
-                            <li class="active"><a href="/admin/profile">Profile</a></li>
-                            <li><a href="/admin/profile/{{ $data['id'] }}/edit">Settings</a></li>
+                            <li class="active"><a href="{{url('admin/profile')}}">Profile</a></li>
+                            <li><a href="{{route('admin.profile.edit', $data['id'])}}">Settings</a></li>
                         </ul>
 
                         @if(isset($data['bio']))
