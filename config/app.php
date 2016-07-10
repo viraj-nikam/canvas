@@ -159,7 +159,6 @@ return [
         /*
          * Canvas Service Providers...
          */
-        Bestmomo\Scafold\ScafoldServiceProvider::class,
         Proengsoft\JsValidation\JsValidationServiceProvider::class,
 
     ],
