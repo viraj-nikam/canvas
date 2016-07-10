@@ -1,3 +1,5 @@
+<div id="_update-tag" data-field-id="{{ Session::get('_update-tag') }}"></div>
+
 <script type="text/javascript">
     $(document).ready(function(){
         $(window).load(function(){
@@ -26,7 +28,7 @@
             };
 
             setTimeout(function () {
-                var message = 'Success! Tag has been updated.';
+                var message = $('#_update-tag').data("field-id");
                 notify(message, 'inverse');
             }, 300)
         });

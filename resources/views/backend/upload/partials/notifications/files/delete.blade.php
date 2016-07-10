@@ -1,3 +1,5 @@
+<div id="_delete-file" data-field-id="{{ Session::get('_delete-file') }}"></div>
+
 <script type="text/javascript">
     $(document).ready(function(){
         $(window).load(function(){
@@ -26,7 +28,7 @@
             };
 
             setTimeout(function () {
-                var message = 'Success! File has been deleted.';
+                var message = $('#_delete-file').data("field-id");
                 notify(message, 'inverse');
             }, 300)
         });

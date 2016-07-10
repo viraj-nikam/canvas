@@ -79,7 +79,7 @@ class AuthController extends Controller
 
     public function authenticated(\Illuminate\Http\Request $request, User $user)
     {
-        Session::set('_login', env('LOGIN_TOKEN'));
+        Session::set('_login', trans('messages.login', ['first_name' => $user->first_name, 'last_name' => $user->last_name]));
         return redirect()->intended($this->redirectPath());
     }
 }

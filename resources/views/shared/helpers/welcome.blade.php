@@ -51,7 +51,7 @@ Highlight           | `\==Highlight\==`    | <mark>Highlight</mark>  |
 Superscript         | `Some\^(superscript)`     | Some<sup>superscript</sup>   |
 Italics            | `**Italics**`      | <em>Italics</em>        |
 Bold | `*Bold text*`   | <strong>Bold text</strong>   |
-HTML Entities | `&copy;` `&#402;` `&#8482;` `&reg;` | © ƒ ™ ®
+HTML Entities | ``&copy;`` ``&#402;`` ``&#8482;`` ``&reg;`` | © ƒ ™ ®
 
 <div class="section-divider"></div>
 

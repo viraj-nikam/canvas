@@ -39,7 +39,7 @@
 
                     </div>
                     <div class="card-body card-padding">
-                        <form role="form" method="POST" id="tagUpdate" action="{{url('admin/tag')}}">
+                        <form class="keyboard-save" role="form" method="POST" id="tagUpdate" action="{{url('admin/tag')}}">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
                             @include('backend.tag.partials.form')
@@ -59,4 +59,6 @@
 
 @section('unique-js')
     {!! JsValidator::formRequest('App\Http\Requests\TagCreateRequest', '#tagUpdate'); !!}
+
+    @include('backend.shared.notifications.protip')
 @stop

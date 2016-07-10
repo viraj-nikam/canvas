@@ -14,7 +14,7 @@
 
                 <div class="block-header">
                     <h2>{{ Auth::user()->display_name }}
-                        <small>{{ Auth::user()->job }}, {{ Auth::user()->city }}, {{ Auth::user()->state }}</small>
+                        <small>{{ Auth::user()->job }}, {{ Auth::user()->city }}, {{ Auth::user()->country }}</small>
                     </h2>
                 </div>
 
@@ -28,7 +28,7 @@
                             <li class="active"><a href="/admin/profile/{{ Auth::user()->id }}/edit">Settings</a></li>
                         </ul>
 
-                        <form role="form" method="POST" id="profileUpdate" action="{{ route('admin.profile.update', Auth::user()->id) }}">
+                        <form class="keyboard-save" role="form" method="POST" id="profileUpdate" action="{{ route('admin.profile.update', Auth::user()->id) }}">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                             <input type="hidden" name="_method" value="PUT">
 

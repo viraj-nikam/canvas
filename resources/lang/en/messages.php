@@ -1,12 +1,14 @@
 <?php
 
 return [
-    'create_success' => 'New :entity has been created.',
-    'update_success' => ':entity has been updated.',
-    'delete_success' => ':entity has been deleted.',
-    'upload_success' => 'New :entity has been uploaded.',
+    'login'             => 'Welcome back :first_name :last_name',
 
-    'create_error' => 'An error occurred creating :entity.',
-    'delete_error' => 'An error occurred deleting :entity',
-    'upload_error' => 'An error occurred uploading file.'
+    'create_success'    => 'Success! New :entity has been created.',
+    'update_success'    => 'Success! :entity has been updated.',
+    'delete_success'    => 'Success! :entity has been deleted.',
+    'upload_success'    => 'Success! New :entity has been uploaded.',
+
+    'create_error'      => 'Sorry! An error occurred creating :entity.',
+    'delete_error'      => 'Sorry! An error occurred deleting :entity',
+    'upload_error'      => 'Sorry! An error occurred uploading file.'
 ];

@@ -1,5 +1,3 @@
-<div id="_new-file" data-field-id="{{ Session::get('_new-file') }}"></div>
-
 <script type="text/javascript">
     $(document).ready(function(){
         $(window).load(function(){
@@ -15,7 +13,7 @@
                         from: 'top',
                         align: 'right'
                     },
-                    delay: 2500,
+                    delay: 4000,
                     animate: {
                         enter: 'animated fadeInDown',
                         exit: 'animated fadeOutUp'
@@ -28,7 +26,7 @@
             };
 
             setTimeout(function () {
-                var message = $('#_new-file').data("field-id");
+                var message = '<strong>ProTip!</strong> Use &#8984;+s or CTL+s as keyboard shortcuts to save a form.';
                 notify(message, 'inverse');
             }, 300)
         });

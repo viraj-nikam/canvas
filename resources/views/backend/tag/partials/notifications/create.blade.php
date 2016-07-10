@@ -1,3 +1,5 @@
+<div id="_new-tag" data-field-id="{{ Session::get('_new-tag') }}"></div>
+
 <script type="text/javascript">
     $(document).ready(function(){
         $(window).load(function(){
@@ -26,7 +28,7 @@
             };
 
             setTimeout(function () {
-                var message = 'Success! New tag has been created.';
+                var message = $('#_new-tag').data("field-id");
                 notify(message, 'inverse');
             }, 300)
         });

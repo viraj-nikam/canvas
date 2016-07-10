@@ -28,7 +28,7 @@ class ProfileUpdateRequest extends Request
             'email' => 'required',
             'job' => 'required',
             'city' => 'required',
-            'state' => 'required',
+            'country' => 'required',
         ];
     }
 }

@@ -12,7 +12,7 @@
 
                 <div class="block-header">
                     <h2>{{ $data['display_name'] }}
-                        <small>{{ $data['job'] }}, {{ $data['city'] }}, {{ $data['state'] }}</small>
+                        <small>{{ $data['job'] }}, {{ $data['city'] }}, {{ $data['country'] }}</small>
                     </h2>
                 </div>
 
@@ -25,7 +25,7 @@
                             <li><a href="{{route('admin.profile.edit', $data['id'])}}">Settings</a></li>
                         </ul>
 
-                        @if(isset($data['bio']))
+                        @if(isset($data['bio']) && !empty($data['bio']))
                             <div class="pmb-block">
                                 <div class="pmbb-header">
                                     <h2><i class="zmdi zmdi-equalizer m-r-10"></i> Summary</h2>
@@ -48,19 +48,19 @@
                                         <dt>Full Name</dt>
                                         <dd>{{ $data['first_name'] . ' ' . $data['last_name']}}</dd>
                                     </dl>
-                                    @if(isset($data['gender']))
+                                    @if(isset($data['gender']) && !empty($data['gender']))
                                         <dl class="dl-horizontal">
                                             <dt>Gender</dt>
                                             <dd>{{ $data['gender'] }}</dd>
                                         </dl>
                                     @endif
-                                    @if(isset($data['birthday']))
+                                    @if(isset($data['birthday']) && !empty($data['birthday']))
                                         <dl class="dl-horizontal">
                                             <dt>Birthday</dt>
                                             <dd>{{ \Carbon\Carbon::createFromFormat('Y-m-d', $data['birthday'])->format('M d, Y') }}</dd>
                                         </dl>
                                     @endif
-                                    @if(isset($data['relationship']))
+                                    @if(isset($data['relationship']) && !empty($data['relationship']) )
                                         <dl class="dl-horizontal">
                                             <dt>Relationship Status</dt>
                                             <dd>{{ $data['relationship'] }}</dd>
@@ -104,22 +104,22 @@
                                             <dd><a href="http://github.com/{{ $data['github'] }}" target="_blank">{{ $data['github'] }}</a></dd>
                                         </dl>
                                     @endif
-                                    @if(isset($data['address']))
+                                    @if(isset($data['address']) && !empty($data['address']))
                                         <dl class="dl-horizontal">
                                             <dt>Address</dt>
                                             <dd>{{ $data['address'] }}</dd>
                                         </dl>
                                     @endif
-                                    @if(isset($data['city']))
+                                    @if(isset($data['city']) && !empty($data['city']))
                                         <dl class="dl-horizontal">
                                             <dt>City</dt>
                                             <dd>{{ $data['city'] }}</dd>
                                         </dl>
                                     @endif
-                                    @if(isset($data['state']))
+                                    @if(isset($data['country']) && !empty($data['country']))
                                         <dl class="dl-horizontal">
-                                            <dt>State</dt>
-                                            <dd>{{ $data['state'] }}</dd>
+                                            <dt>Country</dt>
+                                            <dd>{{ $data['country'] }}</dd>
                                         </dl>
                                     @endif
                                 </div>

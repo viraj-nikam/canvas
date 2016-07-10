@@ -1,3 +1,5 @@
+<div id="_new-post" data-field-id="{{ Session::get('_new-post') }}"></div>
+
 <script type="text/javascript">
     $(document).ready(function(){
         $(window).load(function(){
@@ -26,7 +28,7 @@
             };
 
             setTimeout(function () {
-                var message = 'Success! New post has been created.';
+                var message = $('#_new-post').data("field-id");
                 notify(message, 'inverse');
             }, 300)
         });

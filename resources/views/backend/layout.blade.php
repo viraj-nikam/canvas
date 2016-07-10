@@ -7,7 +7,7 @@
 
         @include('backend.partials.backend-css')
     </head>
-    <body>
+    <body @if(Auth::check()) class="toggled sw-toggled" @endif>
         @if (Auth::guest())
 
             @yield('login')

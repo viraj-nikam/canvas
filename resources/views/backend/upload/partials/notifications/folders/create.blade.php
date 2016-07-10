@@ -1,3 +1,5 @@
+<div id="_new-folder" data-field-id="{{ Session::get('_new-folder') }}"></div>
+
 <script type="text/javascript">
     $(document).ready(function(){
         $(window).load(function(){
@@ -26,7 +28,7 @@
             };
 
             setTimeout(function () {
-                var message = 'Success! New folder has been created.';
+                var message = $('#_new-folder').data("field-id");
                 notify(message, 'inverse');
             }, 300)
         });

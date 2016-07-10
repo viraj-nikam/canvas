@@ -22,7 +22,6 @@ class ProfileController extends Controller
         $userData = Auth::user()->toArray();
         $blogData = config('blog');
         $data = array_merge($userData, $blogData);
-        !empty($data['phone']) ? $data['phone'] = User::formatPhone($data['phone']) : '';
 
         return view('backend.profile.index', compact('data'));
     }
@@ -39,7 +38,6 @@ class ProfileController extends Controller
         $userData = User::where('id', $id)->firstOrFail()->toArray();
         $blogData = config('blog');
         $data = array_merge($userData, $blogData);
-        isset($data['phone']) ? $data['phone'] = User::formatPhone($data['phone']) : '';
 
         return view('backend.profile.edit', compact('data'));
     }
@@ -54,10 +52,6 @@ class ProfileController extends Controller
      */
     public function update(ProfileUpdateRequest $request, $id)
     {
-        if(isset($request->phone)) {
-            $phone = $request->phone;
-            $request['phone'] = preg_replace('/\D+/', '', $phone);
-        }
         $user = User::findOrFail($id);
         $user->fill($request->toArray())->save();
         $user->save();

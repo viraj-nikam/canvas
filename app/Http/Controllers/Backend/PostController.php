@@ -102,7 +102,7 @@ class PostController extends Controller
         $post->tags()->detach();
         $post->delete();
 
-        Session::set('_delete-post', trans('messages.post.delete_success', ['entity' => 'Post']));
+        Session::set('_delete-post', trans('messages.delete_success', ['entity' => 'Post']));
         return redirect()->route('admin.post.index');
     }
 }

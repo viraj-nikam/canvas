@@ -1,3 +1,5 @@
+<div id="_profile" data-field-id="{{ Session::get('_profile') }}"></div>
+
 <script type="text/javascript">
     $(document).ready(function(){
         $(window).load(function(){
@@ -26,7 +28,7 @@
             };
 
             setTimeout(function () {
-                var message = 'Success! Profile information updated. ';
+                var message = $('#_profile').data("field-id");
                 notify(message, 'inverse');
             }, 300)
         });
