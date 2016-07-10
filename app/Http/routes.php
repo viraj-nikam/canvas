@@ -22,7 +22,7 @@ $router->group([
 ], function () {
     Route::resource('admin/post', 'PostController', ['except' => 'show']);
     Route::resource('admin/tag', 'TagController', ['except' => 'show']);
-    Route::get('admin/upload', 'UploadController@index');
+    Route::get('admin/upload', 'UploadController@index')->name('admin/upload');
     Route::post('admin/upload/file', 'UploadController@uploadFile');
     Route::delete('admin/upload/file', 'UploadController@deleteFile');
     Route::post('admin/upload/folder', 'UploadController@createFolder');
