@@ -51,14 +51,14 @@ class UsersTableSeeder extends Seeder
             | Contact Information
             |--------------------------------------------------------------------------
             */
-            'phone'         => '0001110000',
+            'phone'         => '(000) 111-0000',
             'email'         => 'admin@' . seoUrl(config('blog.title')) . '.com',
             'twitter'       => 'canvas',      # Example: https://twitter.com/user
             'facebook'      => 'canvas',      # Example: https://facebook.com/user
             'github'        => 'canvas',      # Example: https://github.com/user
             'address'       => '1200 Canvas Way',
             'city'          => 'Minneapolis',
-            'state'         => 'MN',
+            'country'       => 'USA',
 
             /*
             |--------------------------------------------------------------------------

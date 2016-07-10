@@ -23,7 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('github')->nullable();
             $table->string('address')->nullable();
             $table->string('city')->nullable();
-            $table->string('state')->nullable();
+            $table->string('country')->nullable();
             $table->text('bio')->nullable();
             $table->string('job')->nullable();
             $table->string('phone')->nullable();

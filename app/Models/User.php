@@ -25,7 +25,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      *
      * @var array
      */
-    protected $fillable = ['first_name', 'last_name', 'display_name', 'url', 'twitter', 'facebook', 'github', 'address', 'city', 'state', 'bio', 'job', 'phone', 'gender', 'relationship', 'birthday', 'email', 'password'];
+    protected $fillable = ['first_name', 'last_name', 'display_name', 'url', 'twitter', 'facebook', 'github', 'address', 'city', 'country', 'bio', 'job', 'phone', 'gender', 'relationship', 'birthday', 'email', 'password'];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -34,23 +34,4 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      */
     protected $hidden = ['password', 'remember_token'];
 
-    /**
-     * Format the phone number to (XXX) XXX-XXXX.
-     *
-     * @param $number
-     *
-     * @return int
-     */
-    public static function formatPhone($number)
-    {
-        $phoneNumber = '';
-        $cleaned     = preg_replace('/[^[:digit:]]/', '', $number);
-        preg_match('/(\d{3})(\d{3})(\d{4})/', $cleaned, $matches);
-
-        if (isset($matches[1])) {
-            $phoneNumber = "({$matches[1]}) {$matches[2]}-{$matches[3]}";
-        }
-
-        return $phoneNumber;
-    }
 }

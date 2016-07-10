@@ -35,7 +35,7 @@
                 <li><i class="zmdi zmdi-github-box"></i> <a href="http://github.com/{{ $data['github'] }}" target="_blank">{{ $data['github'] }}</a></li>
             @endif
             <li>
-                @if(isset($data['address']) || isset($data['city']) || isset($data['state']))
+                @if(isset($data['address']) || isset($data['city']) || isset($data['country']))
                     <i class="zmdi zmdi-pin"></i>
                 @endif
                 <address class="m-b-0 ng-binding">
@@ -45,8 +45,8 @@
                     @if(isset($data['city']) && !empty($data['city']))
                         {{ $data['city'] }},<br>
                     @endif
-                    @if(isset($data['state']) && !empty($data['state']))
-                        {{ $data['state'] }}
+                    @if(isset($data['country']) && !empty($data['country']))
+                        {{ $data['country'] }}
                     @endif
 
                 </address>
