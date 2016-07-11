@@ -26,7 +26,7 @@ class PasswordController extends Controller
             'new_password' => 'required|confirmed|min:6'
         ]);
 
-        $guard = Auth::guard($this->getGuard());
+        $guard = Auth::guard();
 
         if (!$guard->validate($request->only('password'))) {
             return back()->withErrors(trans('auth.failed'));
