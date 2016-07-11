@@ -36,6 +36,11 @@ $router->group([
 | Logging In/Out Routes
 |--------------------------------------------------------------------------
 */
-Route::get('/auth/login', 'Auth\AuthController@getLogin');
-Route::post('/auth/login', 'Auth\AuthController@postLogin');
-Route::get('/auth/logout', 'Auth\AuthController@getLogout');
+$router->group([
+    'namespace' => 'Auth',
+    'prefix' => 'auth',
+], function(){
+    Route::get('login', 'AuthController@getLogin');
+    Route::post('login', 'AuthController@postLogin');
+    Route::get('logout', 'AuthController@getLogout');
+});
