@@ -17,7 +17,7 @@ Route::get('admin', function () {
     return redirect('/admin/post');
 });
 $router->group([
-    'namespace' => 'Backend',
+    'namespace'  => 'Backend',
     'middleware' => 'auth',
 ], function () {
     Route::resource('admin/post', 'PostController', ['except' => 'show']);
@@ -38,9 +38,10 @@ $router->group([
 */
 $router->group([
     'namespace' => 'Auth',
-    'prefix' => 'auth',
-], function(){
+    'prefix'    => 'auth',
+], function () {
     Route::get('login', 'AuthController@getLogin');
     Route::post('login', 'AuthController@postLogin');
     Route::get('logout', 'AuthController@getLogout');
+    Route::post('password', 'PasswordController@updatePassword');
 });

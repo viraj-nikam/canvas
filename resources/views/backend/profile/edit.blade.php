@@ -28,16 +28,31 @@
                             <li class="active"><a href="/admin/profile/{{ Auth::user()->id }}/edit">Settings</a></li>
                         </ul>
 
+                        @if(Session::has('errors') || Session::has('success'))
+                            <div class="pmb-block">
+                                <div class="pmbb-header">
+                                    @include('shared.errors')
+                                    @include('shared.success')
+                                </div>
+                            </div>
+                        @endif
+
+                        <div class="pmb-block">
+                            <div class="pmbb-header">
+                                <h2><i class="zmdi zmdi-shield-security m-r-10"></i> Change Password</h2>
+                            </div>
+
+                            <div class="pmbb-body p-l-30">
+                                @include('backend.profile.partials.form.password')
+                            </div>
+                        </div>
+
                         <form class="keyboard-save" role="form" method="POST" id="profileUpdate" action="{{ route('admin.profile.update', Auth::user()->id) }}">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                             <input type="hidden" name="_method" value="PUT">
 
                             <div class="pmb-block">
                                 <div class="pmbb-header">
-
-                                    @include('shared.errors')
-
-                                    @include('shared.success')
 
                                     <h2><i class="zmdi zmdi-equalizer m-r-10"></i> Summary</h2>
                                 </div>
