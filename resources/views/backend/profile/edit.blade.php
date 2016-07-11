@@ -6,15 +6,6 @@
 
 @section('profile-content')
     @parent
-    <div class="pmb-block">
-        <div class="pmbb-header">
-            <h2><i class="zmdi zmdi-shield-security m-r-10"></i> Change Password</h2>
-        </div>
-
-        <div class="pmbb-body p-l-30">
-            @include('backend.profile.partials.form.password')
-        </div>
-    </div>
 
     <form class="keyboard-save" role="form" method="POST" id="profileUpdate" action="{{ route('admin.profile.update', Auth::user()->id) }}">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
