@@ -42,6 +42,11 @@ class ProfileController extends Controller
         return view('backend.profile.edit', compact('data'));
     }
 
+    /**
+     * Display the user profile privacy page
+     *
+     * @return \Illuminate\View\View
+     */
     public function editPrivacy()
     {
         return view('backend.profile.privacy', [
@@ -50,7 +55,7 @@ class ProfileController extends Controller
     }
 
     /**
-     * Update the user profile information.
+     * Update the user profile information
      *
      * @param ProfileUpdateRequest $request
      * @param $id
