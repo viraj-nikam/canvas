@@ -122,6 +122,10 @@ After you make any modifications to the files in `Canvas/resources/assets/less/`
 gulp
 ```
 
+## Unit Testing
+
+This section is optional. If you do not want to run unit tests on your application and just want to get straight to blogging, that's completely up to you. If you do choose to utilize the test suite bundled with Canvas, you will need to have the PHP extension [SQLite](http://php.net/manual/en/book.sqlite3.php) installed on your server. The unit tests are run against memory so you can safely test your application without affecting real data.
+
 ## Disqus Comments
 
 To enable Disqus comments on your blog, you need to have a unique shortname. For more information, check out the [Official Documentation](https://help.disqus.com/customer/portal/articles/466208-what-s-a-shortname-).

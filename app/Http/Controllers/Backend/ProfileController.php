@@ -43,7 +43,19 @@ class ProfileController extends Controller
     }
 
     /**
-     * Update the user profile information.
+     * Display the user profile privacy page
+     *
+     * @return \Illuminate\View\View
+     */
+    public function editPrivacy()
+    {
+        return view('backend.profile.privacy', [
+            "data" => array_merge(Auth::user()->toArray(), config('blog'))
+        ]);
+    }
+
+    /**
+     * Update the user profile information
      *
      * @param ProfileUpdateRequest $request
      * @param $id

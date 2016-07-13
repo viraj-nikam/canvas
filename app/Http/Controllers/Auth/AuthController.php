@@ -7,7 +7,7 @@ use JsValidator;
 use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
-use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class AuthController extends Controller
 {
@@ -21,11 +21,11 @@ class AuthController extends Controller
     | a simple trait to add these behaviors. Why don't you explore it?
     |
     */
-    use AuthenticatesAndRegistersUsers, ThrottlesLogins;
+    use AuthenticatesUsers, ThrottlesLogins;
 
-    protected $redirectAfterLogout = '/auth/login';
+    protected $redirectAfterLogout = 'auth/login';
 
-    protected $redirectTo = '/admin/post';
+    protected $redirectTo = 'admin/post';
 
     /**
      * Create a new authentication controller instance.
@@ -65,16 +65,6 @@ class AuthController extends Controller
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
-    }
-
-    public function getRegister()
-    {
-        return redirect('/');
-    }
-
-    public function postRegister()
-    {
-        return redirect('/');
     }
 
     public function authenticated(\Illuminate\Http\Request $request, User $user)

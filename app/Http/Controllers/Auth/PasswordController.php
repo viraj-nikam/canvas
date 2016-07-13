@@ -1,23 +1,14 @@
 <?php
+
 namespace App\Http\Controllers\Auth;
 
+use Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
+use Illuminate\Http\Request;
 
 class PasswordController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Password Reset Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller is responsible for handling password reset requests
-    | and uses a simple trait to include this behavior. You're free to
-    | explore this trait and override any methods you wish to tweak.
-    |
-    */
-    use ResetsPasswords;
-
     /**
      * Create a new password controller instance.
      *
@@ -25,26 +16,26 @@ class PasswordController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+        $this->middleware('auth');
     }
 
-    public function getEmail()
+    public function updatePassword(Request $request)
     {
-        return redirect('/');
-    }
+        $this->validate($request, [
+            'password'     => 'required',
+            'new_password' => 'required|confirmed|min:6'
+        ]);
 
-    public function postEmail()
-    {
-        return redirect('/');
-    }
+        $guard = Auth::guard();
 
-    public function getReset()
-    {
-        return redirect('/');
-    }
+        if (!$guard->validate($request->only('password'))) {
+            return back()->withErrors(trans('auth.failed'));
+        }
+        
+        $user = $guard->user();
+        $user->password = bcrypt($request->input('new_password'));
+        $user->save();
 
-    public function postReset()
-    {
-        return redirect('/');
+        return back()->with('success', 'Password Updated!');
     }
 }

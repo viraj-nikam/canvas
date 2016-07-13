@@ -17,16 +17,17 @@ Route::get('admin', function () {
     return redirect('/admin/post');
 });
 $router->group([
-    'namespace' => 'Backend',
+    'namespace'  => 'Backend',
     'middleware' => 'auth',
 ], function () {
     Route::resource('admin/post', 'PostController', ['except' => 'show']);
     Route::resource('admin/tag', 'TagController', ['except' => 'show']);
-    Route::get('admin/upload', 'UploadController@index');
+    Route::get('admin/upload', 'UploadController@index')->name('admin/upload');
     Route::post('admin/upload/file', 'UploadController@uploadFile');
     Route::delete('admin/upload/file', 'UploadController@deleteFile');
     Route::post('admin/upload/folder', 'UploadController@createFolder');
     Route::delete('admin/upload/folder', 'UploadController@deleteFolder');
+    Route::get('admin/profile/privacy', 'ProfileController@editPrivacy')->name('admin.profile.privacy');
     Route::resource('admin/profile', 'ProfileController');
     Route::resource('admin/search', 'SearchController');
 });
@@ -36,6 +37,12 @@ $router->group([
 | Logging In/Out Routes
 |--------------------------------------------------------------------------
 */
-Route::get('/auth/login', 'Auth\AuthController@getLogin');
-Route::post('/auth/login', 'Auth\AuthController@postLogin');
-Route::get('/auth/logout', 'Auth\AuthController@getLogout');
+$router->group([
+    'namespace' => 'Auth',
+    'prefix'    => 'auth',
+], function () {
+    Route::get('login', 'AuthController@getLogin');
+    Route::post('login', 'AuthController@postLogin');
+    Route::get('logout', 'AuthController@getLogout');
+    Route::post('password', 'PasswordController@updatePassword');
+});
