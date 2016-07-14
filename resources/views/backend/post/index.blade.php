@@ -56,9 +56,9 @@
                                     <tr>
                                         <td>{{ $post->id }}</td>
                                         <td>{{ $post->title }}</td>
-                                        <td>{{ $post->subtitle }}</td>
+                                        <td>{{ str_limit($post->subtitle, config('blog.trim_width')) }}</td>
                                         <td>{{ $post->slug }}</td>
-                                        <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $post->published_at)->format('M d, Y') }}</td>
+                                        <td>{{ $post->published_at->format('M d, Y') }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>

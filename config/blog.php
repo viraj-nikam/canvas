@@ -48,4 +48,5 @@ return [
     'webpath'       => '/uploads/',
   ],
 
+  'trim_width'  => 40,
 ];

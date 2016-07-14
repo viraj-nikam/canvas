@@ -11,8 +11,6 @@ use App\Http\Requests\PostUpdateRequest;
 
 class PostController extends Controller
 {
-    const TRIM_WIDTH = 40;
-    const TRIM_MARKER = "...";
 
     /**
      * Display a listing of the posts
@@ -22,10 +20,6 @@ class PostController extends Controller
     public function index()
     {
         $data = Post::all();
-
-        foreach ($data as $post) {
-            $post->subtitle = mb_strimwidth($post->subtitle, 0, self::TRIM_WIDTH, self::TRIM_MARKER);
-        }
 
         return view('backend.post.index', compact('data'));
     }
