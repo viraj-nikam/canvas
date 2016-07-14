@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use Auth;
+use Session;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Http\Request;
@@ -31,11 +32,12 @@ class PasswordController extends Controller
         if (!$guard->validate($request->only('password'))) {
             return back()->withErrors(trans('auth.failed'));
         }
-        
+
         $user = $guard->user();
         $user->password = bcrypt($request->input('new_password'));
         $user->save();
 
-        return back()->with('success', 'Password Updated!');
+        Session::set('_passwordUpdate', trans('messages.update_success', ['entity' => 'Your password']));
+        return back();
     }
 }

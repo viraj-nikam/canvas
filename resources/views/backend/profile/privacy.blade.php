@@ -17,3 +17,12 @@
       </div>
   </div>
 @stop
+
+@section('unique-js')
+    {!! JsValidator::formRequest('App\Http\Requests\PasswordUpdateRequest', '#passwordUpdate'); !!}
+
+    @if(Session::get('_passwordUpdate'))
+        @include('backend.profile.partials.notifications.update-password')
+        {{ \Session::forget('_passwordUpdate') }}
+    @endif
+@stop
