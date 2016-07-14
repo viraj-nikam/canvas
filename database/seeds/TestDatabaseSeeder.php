@@ -14,5 +14,7 @@ class TestDatabaseSeeder extends Seeder
         $this->call('PostTableSeeder');
         $this->call('TagTableSeeder');
         $this->call('PostTagPivotTableSeeder');
+
+        Artisan::call('index:posts');
     }
 }
