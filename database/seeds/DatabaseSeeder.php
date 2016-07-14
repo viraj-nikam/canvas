@@ -12,6 +12,7 @@ class DatabaseSeeder extends Seeder
     */
     public function run()
     {
+        Artisan::call('index:posts');
         $this->call('UsersTableSeeder');
         $this->call('PostTableSeeder');
         $this->call('TagTableSeeder');
