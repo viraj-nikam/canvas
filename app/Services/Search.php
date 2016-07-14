@@ -19,14 +19,25 @@ class Search
     {
         $this->tnt->selectIndex("posts.index");
         $res = $this->tnt->search(request('search'), 12);
-        return Post::whereIn('id', $res['ids'])->get();
+        $items = Post::whereIn('id', $res['ids'])->get();
+        return $this->orderByRelevance($items, $res['ids']);
     }
 
     public function tags()
     {
         $this->tnt->selectIndex("tags.index");
         $res = $this->tnt->search(request('search'), 12);
-        return Tag::whereIn('id', $res['ids'])->get();
+        $items = Tag::whereIn('id', $res['ids'])->get();
+        return $this->orderByRelevance($items, $res['ids']);
+    }
+
+    public function orderByRelevance($items, $order)
+    {
+        return $items->sort(function ($a, $b) use ($order) {
+          $pos_a = array_search($a->id, $order);
+          $pos_b = array_search($b->id, $order);
+          return $pos_a - $pos_b;
+        });
     }
 
 }

@@ -4,6 +4,7 @@ namespace App\Models;
 use Carbon\Carbon;
 use App\Services\Parsedowner;
 use Illuminate\Database\Eloquent\Model;
+use TeamTNT\TNTSearch\TNTSearch;
 
 class Post extends Model
 {
@@ -175,5 +176,39 @@ class Post extends Model
             });
         }
         return $query->first();
+    }
+
+    public static function insertToIndex($model)
+    {
+        $tnt = new TNTSearch;
+        $tnt->loadConfig(config('services.tntsearch'));
+        $tnt->selectIndex("posts.index");
+        $index = $tnt->getIndex();
+        $index->insert($model->toArray());
+    }
+
+    public static function deleteFromIndex($model)
+    {
+        $tnt = new TNTSearch;
+        $tnt->loadConfig(config('services.tntsearch'));
+        $tnt->selectIndex("posts.index");
+        $index = $tnt->getIndex();
+        $index->delete($model->id);
+    }
+
+    public static function updateIndex($model)
+    {
+        $tnt = new TNTSearch;
+        $tnt->loadConfig(config('services.tntsearch'));
+        $tnt->selectIndex("posts.index");
+        $index = $tnt->getIndex();
+        $index->update($model->id, $model->toArray());
+    }
+
+    public static function boot()
+    {
+        self::created([__CLASS__, 'insertToIndex']);
+        self::updated([__CLASS__, 'updateIndex']);
+        self::deleted([__CLASS__, 'deleteFromIndex']);
     }
 }
