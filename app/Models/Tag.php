@@ -39,10 +39,10 @@ class Tag extends Model
         $found = static::whereIn('tag', $tags)->lists('tag')->all();
         foreach (array_diff($tags, $found) as $tag) {
             static::create([
-                'tag' => $tag,
-                'title' => $tag,
-                'subtitle' => 'Subtitle for ' . $tag,
-                'meta_description' => '',
+                'tag'               => $tag,
+                'title'             => $tag,
+                'subtitle'          => 'Subtitle for ' . $tag,
+                'meta_description'  => '',
                 'reverse_direction' => false,
             ]);
         }
@@ -90,8 +90,10 @@ class Tag extends Model
 
     public static function boot()
     {
-        self::created([__CLASS__, 'insertToIndex']);
-        self::updated([__CLASS__, 'updateIndex']);
-        self::deleted([__CLASS__, 'deleteFromIndex']);
+        if (config('services.tntsearch.storage') . '/tags.index') {
+            self::created([__CLASS__, 'insertToIndex']);
+            self::updated([__CLASS__, 'updateIndex']);
+            self::deleted([__CLASS__, 'deleteFromIndex']);
+        }
     }
 }

@@ -207,8 +207,10 @@ class Post extends Model
 
     public static function boot()
     {
-        self::created([__CLASS__, 'insertToIndex']);
-        self::updated([__CLASS__, 'updateIndex']);
-        self::deleted([__CLASS__, 'deleteFromIndex']);
+        if(config('services.tntsearch.storage').'/posts.index') {
+            self::created([__CLASS__, 'insertToIndex']);
+            self::updated([__CLASS__, 'updateIndex']);
+            self::deleted([__CLASS__, 'deleteFromIndex']);
+        }
     }
 }
