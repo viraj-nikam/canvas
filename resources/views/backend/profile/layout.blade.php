@@ -26,13 +26,13 @@
                         @section('profile-content')
                             <ul class="tab-nav tn-justified">
                                 <li class="{{Route::is('admin.profile.index') ? 'active' : ''}}">
-                                    <a href="/admin/profile">Profile</a>
+                                    <a href="{{url('admin/profile')}}">Profile</a>
                                 </li>
                                 <li class="{{Route::is('admin.profile.edit') ? 'active' : ''}}">
-                                    <a href="/admin/profile/{{ Auth::id() }}/edit">Settings</a>
+                                    <a href="{{url('/admin/profile')}}/{{ Auth::id() }}/edit">Settings</a>
                                 </li>
                                 <li class="{{Route::is('admin.profile.privacy') ? 'active' : ''}}">
-                                    <a href="/admin/profile/privacy">Privacy</a>
+                                    <a href="{{url('admin/profile/privacy')}}">Privacy</a>
                                 </li>
                             </ul>
 
