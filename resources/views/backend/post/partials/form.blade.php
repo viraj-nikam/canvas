@@ -21,7 +21,7 @@
 <div class="form-group">
     <div class="fg-line">
       <label class="fg-label">Page Image</label>
-      <input type="text" class="form-control" name="page_image" id="page_image" onchange="handle_image_change()" alt="Image thumbnail" value="{{ $page_image }}" placeholder="Page Image">
+      <input type="text" class="form-control" name="page_image" id="page_image" onchange="handle_image_change()" alt="Image thumbnail" value="{{ $page_image }}" placeholder="Example: placeholder.png">
     </div>
 </div>
 
