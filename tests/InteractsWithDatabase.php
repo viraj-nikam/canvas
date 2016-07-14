@@ -19,7 +19,7 @@ trait InteractsWithDatabase
         $this->runDatabaseMigrations();
 
         $this->seed(TestDatabaseSeeder::class);
-
+        Artisan::call('index:posts');
     }
 
     /**
