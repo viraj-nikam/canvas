@@ -1,1 +1,6 @@
 
+* text=auto
+*.css linguist-vendored
+*.less linguist-vendored
+*.js linguist-vendored
+*.blade linguistic-language=PHP
