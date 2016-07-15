@@ -2,5 +2,4 @@
 *.css linguist-vendored
 *.less linguist-vendored
 *.js linguist-vendored
-*.blade linguistic-language=PHP
-*.php linguistic-language=PHP
+*.blade.php linguistic-language=PHP
