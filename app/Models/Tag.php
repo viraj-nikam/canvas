@@ -2,7 +2,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use TeamTNT\TNTSearch\TNTSearch;
 
 class Tag extends Model
 {
@@ -39,10 +38,10 @@ class Tag extends Model
         $found = static::whereIn('tag', $tags)->lists('tag')->all();
         foreach (array_diff($tags, $found) as $tag) {
             static::create([
-                'tag'               => $tag,
-                'title'             => $tag,
-                'subtitle'          => 'Subtitle for ' . $tag,
-                'meta_description'  => '',
+                'tag' => $tag,
+                'title' => $tag,
+                'subtitle' => 'Subtitle for ' . $tag,
+                'meta_description' => '',
                 'reverse_direction' => false,
             ]);
         }
@@ -59,41 +58,5 @@ class Tag extends Model
     {
         $layout = static::whereTag($tag)->pluck('layout');
         return $layout ?: $default;
-    }
-
-    public static function insertToIndex($model)
-    {
-        $tnt = new TNTSearch;
-        $tnt->loadConfig(config('services.tntsearch'));
-        $tnt->selectIndex("tags.index");
-        $index = $tnt->getIndex();
-        $index->insert($model->toArray());
-    }
-
-    public static function deleteFromIndex($model)
-    {
-        $tnt = new TNTSearch;
-        $tnt->loadConfig(config('services.tntsearch'));
-        $tnt->selectIndex("tags.index");
-        $index = $tnt->getIndex();
-        $index->delete($model->id);
-    }
-
-    public static function updateIndex($model)
-    {
-        $tnt = new TNTSearch;
-        $tnt->loadConfig(config('services.tntsearch'));
-        $tnt->selectIndex("tags.index");
-        $index = $tnt->getIndex();
-        $index->update($model->id, $model->toArray());
-    }
-
-    public static function boot()
-    {
-        if (file_exists(config('services.tntsearch.storage') . '/tags.index')) {
-            self::created([__CLASS__, 'insertToIndex']);
-            self::updated([__CLASS__, 'updateIndex']);
-            self::deleted([__CLASS__, 'deleteFromIndex']);
-        }
     }
 }

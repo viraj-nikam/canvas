@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\Models\Tag;
+use App\Models\Post;
+use App\Http\Requests;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Services\Search;
 
 class SearchController extends Controller
 {
@@ -12,11 +15,12 @@ class SearchController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function index(Search $search)
+    public function index()
     {
-        $posts = $search->posts();
-        $tags  = $search->tags();
+        $params = \Request::get('search');
+        $posts = Post::where('title', 'LIKE', '%'.$params.'%')->get();
+        $tags = Tag::where('title', 'LIKE', '%'.$params.'%')->get();
 
-        return view('backend.search.index', compact('posts', 'tags'));
+        return view('backend.search.index', compact('params', 'posts', 'tags'));
     }
 }
