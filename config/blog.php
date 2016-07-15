@@ -12,7 +12,6 @@ return [
   | on sites such as Facebook and Twitter.
   |
   */
-  'name'            => 'Canvas',
   'title'           => 'Canvas',
   'subtitle'        => 'Minimal Blogging App',
   'description'     => 'Blog',
@@ -29,7 +28,7 @@ return [
   |
   */
   'posts_per_page'  => 6,
-  'disqus_name' => env('DISQUS_NAME', 'YOUR_UNIQUE_SHORTNAME'),
+  'disqus_name' => env('DISQUS_NAME', null),
 
   /*
   |--------------------------------------------------------------------------
