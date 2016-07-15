@@ -75,6 +75,12 @@ class Install extends Command
         $this->progress(5);
         $this->info(PHP_EOL . 'Success! The admin user has been created.');
 
+        // Application Key Generation
+        $this->comment(PHP_EOL . 'Creating a unique application key...');
+        $exitCode = Artisan::call('key:generate');
+        $this->progress(5);
+        $this->info(PHP_EOL . 'Success! A unique application key has been generated.');
+
         $this->comment(PHP_EOL . 'Finishing up the installation...');
         $this->progress(5);
 

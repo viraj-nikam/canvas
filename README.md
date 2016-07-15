@@ -75,12 +75,6 @@ You will need to create a new `.env` file and fill in the necessary variables:
 cat .env.example > .env; vim .env;
 ```
 
-Generate a key for your application:
-
-```sh
-php artisan key:generate
-```
-
 ## Admin User Setup
 
 |Data Key|Value|
