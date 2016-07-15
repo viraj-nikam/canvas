@@ -90,7 +90,8 @@ class Tag extends Model
 
     public static function boot()
     {
-        if (file_exists(config('services.tntsearch.storage') . '/tags.index')) {
+        if (file_exists(config('services.tntsearch.storage') . '/tags.index')
+            && app('env') != 'testing') {
             self::created([__CLASS__, 'insertToIndex']);
             self::updated([__CLASS__, 'updateIndex']);
             self::deleted([__CLASS__, 'deleteFromIndex']);
