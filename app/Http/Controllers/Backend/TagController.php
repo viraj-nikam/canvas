@@ -11,8 +11,6 @@ use App\Http\Requests\TagCreateRequest;
 
 class TagController extends Controller
 {
-    const TRIM_WIDTH = 40;
-    const TRIM_MARKER = "...";
 
     protected $fields = [
         'tag' => '',
@@ -33,10 +31,6 @@ class TagController extends Controller
     public function index()
     {
         $data = Tag::all();
-
-        foreach ($data as $tag) {
-            $tag->subtitle = mb_strimwidth($tag->subtitle, 0, self::TRIM_WIDTH, self::TRIM_MARKER);
-        }
 
         return view('backend.tag.index', compact('data'));
     }

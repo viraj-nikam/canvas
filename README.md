@@ -2,19 +2,19 @@
 
 <p align="center">
   <a href="https://travis-ci.org/austintoddj/Canvas"><img src="https://travis-ci.org/austintoddj/Canvas.svg?branch=master" alt="Build Status"></a>
-  
+
   <a href="https://github.com/austintoddj/Canvas/issues"><img src="https://img.shields.io/github/issues/austintoddj/Canvas.svg" alt="GitHub Issues"></a>
-  
+
   <a href="https://packagist.org/packages/austintoddj/canvas"><img src="https://poser.pugx.org/austintoddj/canvas/downloads" alt="Total Downloads"></a>
-  
+
   <a href="https://github.com/austintoddj/Canvas/stargazers"><img src="https://img.shields.io/github/stars/austintoddj/Canvas.svg" alt="Stars"></a>
-  
+
   <a href="https://github.com/austintoddj/Canvas/network"><img src="https://img.shields.io/github/forks/austintoddj/Canvas.svg" alt="GitHub Forks"></a>
-  
+
   <a href="https://packagist.org/packages/austintoddj/canvas"><img src="https://poser.pugx.org/austintoddj/canvas/v/stable" alt="Latest Stable Version"></a>
-  
+
   <a href="https://github.com/austintoddj/Canvas/blob/master/LICENSE"><img src="https://poser.pugx.org/austintoddj/canvas/license" alt="License"></a>
-  
+
   <br><br>
 
   Canvas is a minimal blogging application for developers. It attempts to make blogging simple and enjoyable by utilizing the latest technologies and keeping the administration as simple as possible with the primary focus on writing.
@@ -33,17 +33,17 @@ Since Canvas is built on Laravel 5.2, there are a few system requirements:
 - Mbstring PHP Extension
 - Tokenizer PHP Extension
 
-## Installation
+## Download
 
-Getting Canvas up and running is simple. You can choose either of the following installation options:
+Getting Canvas up and running is simple. You can choose either of the following download options:
 
-Option 1 - Use Composer:
+Option 1 - Use Packagist:
 
 ```sh
 composer create-project austintoddj/canvas
 ```
 
-Option 2 - Download the repository:
+Option 2 - Use GitHub:
 
 ```sh
 git clone https://github.com/austintoddj/canvas.git
@@ -75,30 +75,18 @@ You will need to create a new `.env` file and fill in the necessary variables:
 cat .env.example > .env; vim .env;
 ```
 
-Generate a key for your application:
-
-```sh
-php artisan key:generate
-```
-
-## Settings
-
-Open up `Canvas/config/blog.php` and define a few configuration options for your blog.
-
->Note:  The 'title' of your blog is used as the domain to create the default user email.
+## Admin User Setup
 
 |Data Key|Value|
 |---|---|
 |Login Email|`admin@canvas.com`(default)|
 |Login Password|`password`(default)|
 
-When you first set up Canvas, you may want to change the default user information right away. To update user information including setting a new password (Recommended), edit the file `Canvas/database/seeds/UsersTableSeeder.php` and save it. *Make sure to re-run migrations and seeds if you have already run them.*
+When you download Canvas, you may want to change the default admin user credentials. To update admin user information including setting a new password (Recommended), edit the file `Canvas/database/seeds/UsersTableSeeder.php` and save it. Don't worry, you can always change this information within the application after the install process.
 
-Run the database migrations:
+## The 30 Second Canvas Installation
 
-```sh
-php artisan migrate --seed
-```
+Installing Canvas is really simple. Just run `php artisan canvas:install` and follow the on-screen prompts.
 
 ## Theming Canvas
 
