@@ -18,6 +18,7 @@
         "doctrine/dbal": "^2.5",
         "erusev/parsedown": "^1.6",
         "proengsoft/laravel-jsvalidation": "1.0.*",
+        "teamtnt/tntsearch": "^0.7.0",
         "larapack/config-writer": "^1.0"
     },
     "require-dev": {
