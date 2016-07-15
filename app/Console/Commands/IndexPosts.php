@@ -13,7 +13,7 @@ class IndexPosts extends Command
      *
      * @var string
      */
-    protected $signature = 'index:posts';
+    protected $signature = 'canvas:indexer';
 
     /**
      * The console command description.
@@ -38,7 +38,7 @@ class IndexPosts extends Command
 
     public function createPostsIndex()
     { 
-        $this->info("Creating posts.index");
+        $this->info("Indexing posts table and saving it to posts.index");
         $indexer = $this->tnt->createIndex('posts.index');
         $indexer->query('SELECT id, title, subtitle, content_raw, meta_description FROM posts;');
         $indexer->run();
@@ -46,7 +46,7 @@ class IndexPosts extends Command
 
     public function createTagsIndex()
     {
-        $this->info("Creating tags.index");
+        $this->info("Indexing tags table and saving it to tags.index");
         $indexer = $this->tnt->createIndex('tags.index');
         $indexer->query('SELECT id, tag, title, subtitle, meta_description FROM tags;');
         $indexer->run();

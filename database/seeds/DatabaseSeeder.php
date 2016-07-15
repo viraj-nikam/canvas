@@ -17,6 +17,6 @@ class DatabaseSeeder extends Seeder
         $this->call('TagTableSeeder');
         $this->call('PostTagPivotTableSeeder');
 
-        Artisan::call('index:posts');
+        Artisan::call('canvas:indexer');
     }
 }
