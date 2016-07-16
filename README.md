@@ -87,6 +87,7 @@ When you download Canvas, you may want to change the default admin user credenti
 ## The 30 Second Canvas Installation
 
 Installing Canvas is really simple. Just run `php artisan canvas:install` and follow the on-screen prompts.
+**Congratulations!** Your new blog is set up and ready to go. Feeling adventurous? Continue on with the advanced options below to get even more out of Canvas.
 
 # Advanced Options
 
