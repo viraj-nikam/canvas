@@ -11,6 +11,15 @@
 
 <div class="form-group">
     <div class="fg-line">
+      <label class="fg-label">Slug</label>
+      <input type="text" class="form-control" name="slug" id="slug" value="{{ $slug }}" placeholder="Post Slug">
+    </div>
+</div>
+
+<br>
+
+<div class="form-group">
+    <div class="fg-line">
       <label class="fg-label">Subtitle</label>
       <input type="text" class="form-control" name="subtitle" id="subtitle" value="{{ $subtitle }}" placeholder="Subtitle">
     </div>
