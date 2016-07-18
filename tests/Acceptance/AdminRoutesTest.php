@@ -14,7 +14,7 @@ class AdminRoutesTest extends TestCase
 
     /**
      * The user model.
-     * 
+     *
      * @var App\Models\User
      */
     private $user;
@@ -27,9 +27,7 @@ class AdminRoutesTest extends TestCase
      */
     public function createUser()
     {
-
         $this->user = factory(App\Models\User::class)->create();
-
     }
 
     /**
