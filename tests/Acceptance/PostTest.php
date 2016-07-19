@@ -1,10 +1,13 @@
 <?php
 
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-
+/**
+ * Class PostTest
+ *
+ * Test the application's post CRUD.
+ */
 class PostTest extends TestCase
 {
-    use DatabaseMigrations;
+    use InteractsWithDatabase;
 
     /**
      * The user model.

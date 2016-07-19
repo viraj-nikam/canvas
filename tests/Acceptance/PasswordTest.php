@@ -1,10 +1,13 @@
 <?php
 
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-
+/**
+ * Class PasswordTest
+ *
+ * Test the application's ability to update and validate a password.
+ */
 class PasswordTest extends TestCase
 {
-    use DatabaseMigrations;
+    use InteractsWithDatabase;
 
     /**
      * The user model.
