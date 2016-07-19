@@ -18,12 +18,12 @@
 
 <script>
         (function(){
-            $('{!! $inputs !!}').parent().append('<button class="show-password">Show content</button>');
+            $('{!! $inputs !!}').parent().append('<button class="show-password">Show password</button>');
 
             $('.show-password').click(function (e) {
                 var password_field = $(this).siblings('input');
                 var new_type = (password_field.attr('type') === 'password') ? 'text' : 'password';
-                var new_text = ($(this).html() === 'Show content') ? 'Hide' : 'Show';
+                var new_text = ($(this).html() === 'Show password') ? 'Hide' : 'Show';
                 password_field.attr('type', new_type).focus();
                 $(this).html(new_text + ' content');
             });
