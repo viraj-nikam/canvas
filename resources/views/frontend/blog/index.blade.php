@@ -24,6 +24,9 @@
                                 in {!! implode(', ', $post->tagLinks()) !!}
                             @endunless
                         </p>
+                        <p id="postSubtitle">
+                            {{ $post->subtitle }}
+                        </p>
                     </div>
                     <hr>
                 @endforeach

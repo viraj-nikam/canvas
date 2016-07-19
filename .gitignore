@@ -11,3 +11,4 @@ Homestead.json
 .idea
 .project
 .DS_Store
+npm-debug.log
