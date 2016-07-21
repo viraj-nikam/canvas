@@ -1,18 +1,38 @@
 <?php
 
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-
+/**
+ * Class PasswordTest
+ *
+ * Test the application's ability to update and validate a password.
+ */
 class PasswordTest extends TestCase
 {
-    use DatabaseMigrations;
+    use InteractsWithDatabase;
+
+    /**
+     * The user model.
+     *
+     * @var App\Models\User
+     */
+    private $user;
+
+    /**
+     * Create the user model test subject.
+     *
+     * @before
+     * @return void
+     */
+    public function createUser()
+    {
+        $this->user = factory(App\Models\User::class)->create([
+            'email'     => 'foo@bar.com',
+            'password'  => bcrypt('password')
+        ]);
+    }
 
     public function testItUpdatesPassword()
     {
-        $user = factory(App\Models\User::class)->create([
-            'password' => bcrypt('password')
-        ]);
-
-        $this->actingAs($user)->post('auth/password', [
+        $this->actingAs($this->user)->post('auth/password', [
             'password'                  => 'password',
             'new_password'              => 'newPass',
             'new_password_confirmation' => 'newPass'
@@ -20,19 +40,15 @@ class PasswordTest extends TestCase
 
         $this->assertSessionMissing('errors');
         $this->assertTrue(Auth::validate([
-            'email'    => $user->email,
+            'email'    => $this->user->email,
             'password' => 'newPass'
         ]));
     }
 
     public function testItValidatesCurrentPassword()
     {
-        $user = factory(App\Models\User::class)->create([
-            'password' => bcrypt('password')
-        ]);
-
-        $this->actingAs($user)->post('auth/password', [
-            'password'                  => 'wronge_password',
+        $this->actingAs($this->user)->post('auth/password', [
+            'password'                  => 'wrongPass',
             'new_password'              => 'newPass',
             'new_password_confirmation' => 'newPass'
         ]);

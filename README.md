@@ -20,9 +20,9 @@
   Canvas is a minimal blogging application for developers. It attempts to make blogging simple and enjoyable by utilizing the latest technologies and keeping the administration as simple as possible with the primary focus on writing.
 </p>
 
+# Basic Setup
 
 ## Requirements
-
 
 Since Canvas is built on Laravel 5.2, there are a few system requirements:
 
@@ -67,7 +67,7 @@ To enable uploads on the site, give ownership of the uploads directory to the we
 sudo chown -R www-data:www-data public/uploads
 ```
 
-## Configuring Canvas
+## Application Configuration
 
 You will need to create a new `.env` file and fill in the necessary variables:
 
@@ -75,7 +75,7 @@ You will need to create a new `.env` file and fill in the necessary variables:
 cat .env.example > .env; vim .env;
 ```
 
-## Admin User Setup
+## User Configuration
 
 |Data Key|Value|
 |---|---|
@@ -87,6 +87,9 @@ When you download Canvas, you may want to change the default admin user credenti
 ## The 30 Second Canvas Installation
 
 Installing Canvas is really simple. Just run `php artisan canvas:install` and follow the on-screen prompts.
+**Congratulations!** Your new blog is set up and ready to go. Feeling adventurous? Continue on with the advanced options below to get even more out of Canvas.
+
+# Advanced Options
 
 ## Theming Canvas
 

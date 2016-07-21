@@ -29,4 +29,5 @@
 
 @section('unique-js')
     {!! JsValidator::formRequest('App\Http\Requests\LoginRequest', '#login'); !!}
+    @include('backend.shared.components.show-password', ['inputs' => 'input[name="password"]'])
 @stop

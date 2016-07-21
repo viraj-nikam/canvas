@@ -4,7 +4,6 @@ namespace App\Models;
 use App\Services\Parsedowner;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
-use TeamTNT\TNTSearch\TNTSearch;
 
 class Post extends Model
 {
@@ -22,7 +21,7 @@ class Post extends Model
      */
     protected $fillable = [
         'title', 'subtitle', 'content_raw', 'page_image', 'meta_description',
-        'layout', 'is_draft', 'published_at',
+        'layout', 'is_draft', 'published_at', 'slug',
     ];
 
     /**
@@ -33,35 +32,6 @@ class Post extends Model
     public function tags()
     {
         return $this->belongsToMany('App\Models\Tag', 'post_tag_pivot');
-    }
-
-    /**
-     * Set the title attribute and the slug.
-     *
-     * @param string $value
-     */
-    public function setTitleAttribute($value)
-    {
-        $this->attributes['title'] = $value;
-        if (!$this->exists) {
-            $this->setUniqueSlug($value, '');
-        }
-    }
-
-    /**
-     * Recursive routine to set a unique slug.
-     *
-     * @param string $title
-     * @param mixed $extra
-     */
-    protected function setUniqueSlug($title, $extra)
-    {
-        $slug = str_slug($title . '-' . $extra);
-        if (static::whereSlug($slug)->exists()) {
-            $this->setUniqueSlug($title, $extra + 1);
-            return;
-        }
-        $this->attributes['slug'] = $slug;
     }
 
     /**

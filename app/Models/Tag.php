@@ -2,7 +2,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use TeamTNT\TNTSearch\TNTSearch;
 
 class Tag extends Model
 {
@@ -39,10 +38,10 @@ class Tag extends Model
         $found = static::whereIn('tag', $tags)->lists('tag')->all();
         foreach (array_diff($tags, $found) as $tag) {
             static::create([
-                'tag'               => $tag,
-                'title'             => $tag,
-                'subtitle'          => 'Subtitle for ' . $tag,
-                'meta_description'  => '',
+                'tag' => $tag,
+                'title' => $tag,
+                'subtitle' => 'Subtitle for ' . $tag,
+                'meta_description' => '',
                 'reverse_direction' => false,
             ]);
         }

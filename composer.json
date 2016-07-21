@@ -1,7 +1,7 @@
 {
     "name": "austintoddj/canvas",
     "description": "Minimal blogging application for developers.",
-    "keywords": ["blog", "laravel", "canvas", "markdown", "developers", "minimal"],
+    "keywords": ["minimal", "blog", "application", "developers", "laravel", "canvas", "markdown", "material"],
     "license": "MIT",
     "type": "project",
     "authors": [

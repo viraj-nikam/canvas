@@ -2,14 +2,32 @@
 
 /*
 |--------------------------------------------------------------------------
-| Model Factories
+| User Model Factory
 |--------------------------------------------------------------------------
 |
-| Here you may define all of your model factories. Model factories give
-| you a convenient way to create models for testing and seeding your
-| database. Just tell the factory how a default model should look.
+| Create a user model in the database.
 |
 */
+$factory->define(App\Models\User::class, function(Faker\Generator $faker) {
+
+    return [
+        'first_name'    => $first = $faker->firstName,
+        'last_name'     => $last = $faker->lastName,
+        'display_name'  => $first . ' ' . $last,
+        'job'           => $faker->jobTitle,
+        'birthday'      => $faker->date('Y-m-d'),
+        'email'         => $faker->safeEmail,
+        'twitter'       => $faker->userName,
+        'facebook'      => $faker->userName,
+        'github'        => $faker->userName,
+        'address'       => $faker->streetAddress,
+        'city'          => $faker->city,
+        'country'       => $faker->countryCode,
+        'url'           => $faker->url,
+        'password'      => bcrypt('password'),
+
+    ];
+});
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +40,7 @@
 $factory->define(App\Models\Post::class, function ($faker) {
   return [
     'title'             => 'Hello world',
+    'slug'              => 'hello-world',
     'subtitle'          => 'Canvas is a minimal blogging application for developers. Canvas attempts to make blogging simple and enjoyable by utilizing the latest technologies and keeping the administration as simple as possible with the primary focus on writing.',
     'page_image'        => 'placeholder.png',
     'content_raw'       => view('shared.helpers.welcome'),
@@ -48,33 +67,4 @@ $factory->define(App\Models\Tag::class, function ($faker) {
     'reverse_direction' => false,
     'created_at'        => Carbon\Carbon::now(),
   ];
-});
-
-/*
-|--------------------------------------------------------------------------
-| User Model Factory
-|--------------------------------------------------------------------------
-|
-| Create a user model in the database.
-|
-*/
-$factory->define(App\Models\User::class, function(Faker\Generator $faker) {
-
-    return [
-        'first_name'    => $first = $faker->firstName,
-        'last_name'     => $last = $faker->lastName,
-        'display_name'  => $first . ' ' . $last,
-        'job'           => $faker->jobTitle,
-        'birthday'      => $faker->date('Y-m-d'),
-        'email'         => $faker->safeEmail,
-        'twitter'       => $faker->userName,
-        'facebook'      => $faker->userName,
-        'github'        => $faker->userName,
-        'address'       => $faker->streetAddress,
-        'city'          => $faker->city,
-        'country'       => $faker->countryCode,
-        'url'           => $faker->url,
-        'password'      => bcrypt('password'),
-
-    ];
 });
