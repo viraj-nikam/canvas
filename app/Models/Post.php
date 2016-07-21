@@ -1,8 +1,8 @@
 <?php
 namespace App\Models;
 
-use Carbon\Carbon;
 use App\Services\Parsedowner;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
@@ -13,7 +13,7 @@ class Post extends Model
      * @var array
      */
     protected $dates = ['published_at'];
-    
+
     /**
      * The attributes that are mass assignable.
      *
@@ -41,8 +41,8 @@ class Post extends Model
      */
     public function setContentRawAttribute($value)
     {
-        $markdown = new Parsedowner();
-        $this->attributes['content_raw'] = $value;
+        $markdown                         = new Parsedowner();
+        $this->attributes['content_raw']  = $value;
         $this->attributes['content_html'] = $markdown->toHTML($value);
     }
 
@@ -98,10 +98,10 @@ class Post extends Model
      */
     public function tagLinks($base = '/blog?tag=%TAG%')
     {
-        $tags = $this->tags()->lists('tag');
+        $tags   = $this->tags()->lists('tag');
         $return = [];
         foreach ($tags as $tag) {
-            $url = str_replace('%TAG%', urlencode($tag), $base);
+            $url      = str_replace('%TAG%', urlencode($tag), $base);
             $return[] = '<a href="' . url($url) . '">' . e($tag) . '</a>';
         }
         return $return;
@@ -116,10 +116,10 @@ class Post extends Model
     public function newerPost(Tag $tag = null)
     {
         $query =
-            static::where('published_at', '>', $this->published_at)
-                ->where('published_at', '<=', Carbon::now())
-                ->where('is_draft', 0)
-                ->orderBy('published_at', 'asc');
+        static::where('published_at', '>', $this->published_at)
+            ->where('published_at', '<=', Carbon::now())
+            ->where('is_draft', 0)
+            ->orderBy('published_at', 'asc');
         if ($tag) {
             $query = $query->whereHas('tags', function ($q) use ($tag) {
                 $q->where('tag', '=', $tag->tag);
@@ -137,14 +137,51 @@ class Post extends Model
     public function olderPost(Tag $tag = null)
     {
         $query =
-            static::where('published_at', '<', $this->published_at)
-                ->where('is_draft', 0)
-                ->orderBy('published_at', 'desc');
+        static::where('published_at', '<', $this->published_at)
+            ->where('is_draft', 0)
+            ->orderBy('published_at', 'desc');
         if ($tag) {
             $query = $query->whereHas('tags', function ($q) use ($tag) {
                 $q->where('tag', '=', $tag->tag);
             });
         }
         return $query->first();
+    }
+
+    public static function insertToIndex($model)
+    {
+        $tnt = new TNTSearch;
+        $tnt->loadConfig(config('services.tntsearch'));
+        $tnt->selectIndex("posts.index");
+        $index = $tnt->getIndex();
+        $index->insert($model->toArray());
+    }
+
+    public static function deleteFromIndex($model)
+    {
+        $tnt = new TNTSearch;
+        $tnt->loadConfig(config('services.tntsearch'));
+        $tnt->selectIndex("posts.index");
+        $index = $tnt->getIndex();
+        $index->delete($model->id);
+    }
+
+    public static function updateIndex($model)
+    {
+        $tnt = new TNTSearch;
+        $tnt->loadConfig(config('services.tntsearch'));
+        $tnt->selectIndex("posts.index");
+        $index = $tnt->getIndex();
+        $index->update($model->id, $model->toArray());
+    }
+
+    public static function boot()
+    {
+        if (file_exists(config('services.tntsearch.storage') . '/posts.index')
+            && app('env') != 'testing') {
+            self::created([__CLASS__, 'insertToIndex']);
+            self::updated([__CLASS__, 'updateIndex']);
+            self::deleted([__CLASS__, 'deleteFromIndex']);
+        }
     }
 }

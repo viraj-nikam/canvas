@@ -59,4 +59,41 @@ class Tag extends Model
         $layout = static::whereTag($tag)->pluck('layout');
         return $layout ?: $default;
     }
+
+    public static function insertToIndex($model)
+    {
+        $tnt = new TNTSearch;
+        $tnt->loadConfig(config('services.tntsearch'));
+        $tnt->selectIndex("tags.index");
+        $index = $tnt->getIndex();
+        $index->insert($model->toArray());
+    }
+
+    public static function deleteFromIndex($model)
+    {
+        $tnt = new TNTSearch;
+        $tnt->loadConfig(config('services.tntsearch'));
+        $tnt->selectIndex("tags.index");
+        $index = $tnt->getIndex();
+        $index->delete($model->id);
+    }
+
+    public static function updateIndex($model)
+    {
+        $tnt = new TNTSearch;
+        $tnt->loadConfig(config('services.tntsearch'));
+        $tnt->selectIndex("tags.index");
+        $index = $tnt->getIndex();
+        $index->update($model->id, $model->toArray());
+    }
+
+    public static function boot()
+    {
+        if (file_exists(config('services.tntsearch.storage') . '/tags.index')
+            && app('env') != 'testing') {
+            self::created([__CLASS__, 'insertToIndex']);
+            self::updated([__CLASS__, 'updateIndex']);
+            self::deleted([__CLASS__, 'deleteFromIndex']);
+        }
+    }
 }
