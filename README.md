@@ -84,13 +84,16 @@ Installing Canvas is really simple. Just run `php artisan canvas:install` and fo
 
 ## Search Indexing
 
-Search functionality in Canvas is provided by [TNTSearch](https://github.com/teamtnt/tntsearch). Before you run the initial index, you need to set the permissions of the storage directory:
+Search functionality in Canvas is provided by [TNTSearch](https://github.com/teamtnt/tntsearch).
+
+To build the index, simply run `php artisan canvas:index`.
+
+After you run the command, you just need to set the permissions of the storage directory:
 
 ```sh
 sudo chmod o+w -R storage
 ```
 
-Now, simply run `php artisan canvas:index`.
 **Congratulations!** Your new blog is set up and ready to go. Feeling adventurous? Continue on with the advanced options below to get even more out of Canvas.
 
 # Advanced Options
