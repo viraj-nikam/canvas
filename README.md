@@ -55,12 +55,6 @@ If you chose Option 1, skip this step. If you chose Option 2, run the following 
 composer install
 ```
 
-Make sure to modify the permissions of the storage directory:
-
-```sh
-sudo chmod o+w -R storage
-```
-
 To enable uploads on the site, give ownership of the uploads directory to the web server:
 
 ```sh
@@ -87,6 +81,16 @@ When you download Canvas, you may want to change the default admin user credenti
 ## The 30 Second Canvas Installation
 
 Installing Canvas is really simple. Just run `php artisan canvas:install` and follow the on-screen prompts.
+
+## Search Indexing
+
+Search functionality in Canvas is provided by [TNTSearch](https://github.com/teamtnt/tntsearch). Before you run the initial index, you need to set the permissions of the storage directory:
+
+```sh
+sudo chmod o+w -R storage
+```
+
+Now, simply run `php artisan canvas:index`.
 **Congratulations!** Your new blog is set up and ready to go. Feeling adventurous? Continue on with the advanced options below to get even more out of Canvas.
 
 # Advanced Options
