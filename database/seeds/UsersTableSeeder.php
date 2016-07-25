@@ -44,7 +44,7 @@ class UsersTableSeeder extends Seeder
             'job'           => 'Web Developer',
             'gender'        => 'Male',
             'birthday'      => '2016-06-17',
-            'relationship'  => 'Married',
+            'relationship'  => 'Single',
 
             /*
             |--------------------------------------------------------------------------
@@ -52,11 +52,11 @@ class UsersTableSeeder extends Seeder
             |--------------------------------------------------------------------------
             */
             'phone'         => '(000) 111-0000',
-            'email'         => 'admin@' . seoUrl(config('blog.title')) . '.com',
-            'twitter'       => 'canvas',      # Example: https://twitter.com/user
-            'facebook'      => 'canvas',      # Example: https://facebook.com/user
-            'github'        => 'canvas',      # Example: https://github.com/user
-            'address'       => '1200 Canvas Way',
+            'email'         => 'admin@canvas.com',
+            'twitter'       => 'username',      # Example: https://twitter.com/username
+            'facebook'      => 'username',      # Example: https://facebook.com/username
+            'github'        => 'username',      # Example: https://github.com/username
+            'address'       => '1200 Main Street',
             'city'          => 'Minneapolis',
             'country'       => 'USA',
 
@@ -65,7 +65,7 @@ class UsersTableSeeder extends Seeder
             | Misc Information
             |--------------------------------------------------------------------------
             */
-            'url'           => 'www.' . seoUrl(config('blog.title')) . '.com',
+            'url'           => 'www.canvas.com',
             'password'      => bcrypt('password'),
 
             /*

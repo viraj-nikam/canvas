@@ -14,8 +14,8 @@
                 <div class="card">
                     <div class="card-header">
                         <ol class="breadcrumb">
-                            <li><a href="/admin">Home</a></li>
-                            <li><a href="/admin/post">Posts</a></li>
+                            <li><a href="{{url('admin')}}">Home</a></li>
+                            <li><a href="{{url('admin/post')}}">Posts</a></li>
                             <li class="active">New Post</li>
                         </ol>
 
@@ -23,7 +23,10 @@
 
                         @include('shared.success')
 
-                        <h2>Create a New Post</h2>
+                        <h2>Create a New Post
+                            <br>
+                            <small>Set a page image to feature at the top of your blog post by specifying the image path relative to the uploads directory.</small>
+                        </h2>
                     </div>
                     <div class="card-body card-padding">
                         <form class="keyboard-save" role="form" method="POST" id="postCreate" action="{{ route('admin.post.store') }}">
@@ -34,7 +37,7 @@
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary btn-icon-text"><i class="zmdi zmdi-floppy"></i> Save</button>
                                 &nbsp;
-                                <a href="/admin/post"><button type="button" class="btn btn-link">Cancel</button></a>
+                                <a href="{{url('admin/post')}}"><button type="button" class="btn btn-link">Cancel</button></a>
                             </div>
                         </form>
                     </div>
@@ -57,6 +60,20 @@
                 format: 'YYYY-MM-DD HH:mm:ss',
                 defaultDate: Date.now()
             });
+
+            $('input[name="title"]').keyup(function(){
+                $('input[name="slug"]').val(slugify($(this).val()));
+            });
+
+            function slugify(text) // https://gist.github.com/mathewbyrne/1280286
+            {
+                return text.toString().toLowerCase()
+                .replace(/\s+/g, '-')           // Replace spaces with -
+                .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
+                .replace(/\-\-+/g, '-')         // Replace multiple - with single -
+                .replace(/^-+/, '')             // Trim - from start of text
+                .replace(/-+$/, '');            // Trim - from end of text
+            }
         });
     </script>
 @stop

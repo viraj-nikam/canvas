@@ -14,8 +14,8 @@
                 <div class="card">
                     <div class="card-header">
                         <ol class="breadcrumb">
-                            <li><a href="/admin">Home</a></li>
-                            <li><a href="/admin/tag">Tags</a></li>
+                            <li><a href="{{url('admin')}}">Home</a></li>
+                            <li><a href="{{url('admin/tag')}}">Tags</a></li>
                             <li class="active">Edit Tag</li>
                         </ol>
                         <ul class="actions">
@@ -38,17 +38,17 @@
                         <h2>
                             Edit <em>{{ $data['title'] }}</em>
                             <small>
-                                @if(isset($updated_at))
-                                    Last edited on {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data['$updated_at'])->format('M d, Y') }} at {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data['$updated_at'])->format('g:i A') }}
+                                @if(isset($data['updated_at']))
+                                    Last edited on {{$data['updated_at']->format('M d, Y') }} at {{ $data['updated_at']->format('g:i A') }}
                                 @else
-                                    Last edited on {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data['created_at'])->format('M d, Y') }} at {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data['created_at'])->format('g:i A') }}
+                                    Last edited on {{ $data['created_at']->format('M d, Y') }} at {{ $data['created_at']->format('g:i A') }}
                                 @endif
                             </small>
                         </h2>
 
                     </div>
                     <div class="card-body card-padding">
-                        <form class="keyboard-save" role="form" method="POST" id="tagUpdate" action="/admin/tag/{{ $data['id'] }}">
+                        <form class="keyboard-save" role="form" method="POST" id="tagUpdate" action="{{url('admin/tag/' . $data['id'])}}">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                             <input type="hidden" name="_method" value="PUT">
                             <input type="hidden" name="id" value="{{ $data['id'] }}">

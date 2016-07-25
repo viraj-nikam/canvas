@@ -14,8 +14,8 @@
                 <div class="card">
                     <div class="card-header">
                         <ol class="breadcrumb">
-                            <li><a href="/admin">Home</a></li>
-                            <li><a href="/admin/post">Posts</a></li>
+                            <li><a href="{{url('admin')}}">Home</a></li>
+                            <li><a href="{{url('admin/post')}}">Posts</a></li>
                             <li class="active">Edit Post</li>
                         </ol>
                         <ul class="actions">
@@ -37,7 +37,7 @@
 
                         <h2>
                             Edit <em>{{ $title }}</em>
-                            <small>Last edited on {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $updated_at)->format('M d, Y') }} at {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $updated_at)->format('g:i A') }}</small>
+                            <small>Last edited on {{ $updated_at->format('M d, Y') }} at {{ $updated_at->format('g:i A') }}</small>
                         </h2>
 
                     </div>
