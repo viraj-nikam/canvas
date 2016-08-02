@@ -1,21 +1,25 @@
 <?php
 /**
- * Process a url and make it SEO compliant.
+ * Process a URL and make it SEO compliant.
  *
- * @param $string
+ * @param $url
  * @return string
  */
-function seoUrl($string)
+function seoUrl($url)
 {
-    // Make the string lowercase
-    $string = strtolower($string);
+    // Make the URL lowercase
+    $url = strtolower($url);
+
     // Make the string alphanumeric (removes all other characters)
-    $string = preg_replace("/[^a-z0-9_\s-]/", "", $string);
+    $url = preg_replace("/[^a-z0-9_\s-]/", '', $url);
+
     // Clean up multiple dashes or whitespaces
-    $string = preg_replace("/[\s-]+/", " ", $string);
+    $url = preg_replace("/[\s-]+/", ' ', $url);
+
     // Convert whitespaces and underscores to dashes
-    $string = preg_replace("/[\s_]/", "-", $string);
-    return $string;
+    $url = preg_replace("/[\s_]/", '-', $url);
+
+    return $url;
 }
 
 /**
@@ -29,7 +33,8 @@ function human_filesize($bytes, $decimals = 2)
 {
     $size = ['B', 'kB', 'MB', 'GB', 'TB', 'PB'];
     $factor = floor((strlen($bytes) - 1) / 3);
-    return sprintf("%.{$decimals}f", $bytes / pow(1024, $factor)) . @$size[$factor];
+
+    return sprintf("%.{$decimals}f", $bytes / pow(1024, $factor)).@$size[$factor];
 }
 
 /**
@@ -65,8 +70,9 @@ function page_image($value = null)
     if (empty($value)) {
         $value = config('blog.page_image');
     }
-    if (!starts_with($value, 'http') && $value[0] !== '/') {
-        $value = config('blog.uploads.webpath') . '/' . $value;
+    if (! starts_with($value, 'http') && $value[0] !== '/') {
+        $value = config('blog.uploads.webpath').'/'.$value;
     }
+
     return $value;
 }

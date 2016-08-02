@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Class PostTest
+ * Class PostTest.
  *
  * Test the application's post CRUD.
  */
@@ -29,13 +29,15 @@ class PostTest extends TestCase
 
     public function testItCreatesPost()
     {
+        $date = Carbon\Carbon::now();
+
         $this->actingAs($this->user)->post('admin/post', [
             'title'         => 'example',
             'slug'          => 'foo',
             'subtitle'      => 'bar',
             'content'       => 'FooBar',
-            'published_at'  => Carbon\Carbon::now(),
-            'layout'        => 'frontend.blog.post'
+            'published_at'  => $date,
+            'layout'        => 'frontend.blog.post',
         ]);
 
         $this->seeInDatabase('posts', [
@@ -44,8 +46,8 @@ class PostTest extends TestCase
             'subtitle'      => 'bar',
             'content_raw'   => 'FooBar',
             'content_html'  => '<p>FooBar</p>',
-            'published_at'  => Carbon\Carbon::now(),
-            'layout'        => 'frontend.blog.post'
+            'published_at'  => $date,
+            'layout'        => 'frontend.blog.post',
         ]);
 
         $this->assertSessionHas('_new-post', trans('messages.create_success', ['entity' => 'post']));
