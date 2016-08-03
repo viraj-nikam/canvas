@@ -1,13 +1,13 @@
-#Canvas
+# Canvas
 
-<a href="https://travis-ci.org/austintoddj/Canvas" target="_blank"><img src="https://travis-ci.org/austintoddj/Canvas.svg?branch=master" alt="Build Status"></a> 
+<a href="https://travis-ci.org/austintoddj/canvas" target="_blank"><img src="https://travis-ci.org/austintoddj/canvas.svg?branch=master" alt="Build Status"></a> 
 <a href="https://styleci.io/repos/52815899" target="_blank"><img src="https://styleci.io/repos/52815899/shield?style=flat" alt="StyleCI"></a>
-<a href="https://github.com/austintoddj/Canvas/issues"><img src="https://img.shields.io/github/issues/austintoddj/Canvas.svg" alt="GitHub Issues"></a>
+<a href="https://github.com/austintoddj/canvas/issues"><img src="https://img.shields.io/github/issues/austintoddj/canvas.svg" alt="GitHub Issues"></a>
 <a href="https://packagist.org/packages/austintoddj/canvas" target="_blank"><img src="https://poser.pugx.org/austintoddj/canvas/downloads" alt="Total Downloads"></a>
-<a href="https://github.com/austintoddj/Canvas/stargazers"><img src="https://img.shields.io/github/stars/austintoddj/Canvas.svg" alt="Stars"></a>
-<a href="https://github.com/austintoddj/Canvas/network"><img src="https://img.shields.io/github/forks/austintoddj/Canvas.svg" alt="GitHub Forks"></a>
+<a href="https://github.com/austintoddj/canvas/stargazers"><img src="https://img.shields.io/github/stars/austintoddj/canvas.svg" alt="Stars"></a>
+<a href="https://github.com/austintoddj/canvas/network"><img src="https://img.shields.io/github/forks/austintoddj/canvas.svg" alt="GitHub Forks"></a>
 <a href="https://packagist.org/packages/austintoddj/canvas" target="_blank"><img src="https://poser.pugx.org/austintoddj/canvas/v/stable" alt="Latest Stable Version"></a>
-<a href="https://github.com/austintoddj/Canvas/blob/master/LICENSE"><img src="https://poser.pugx.org/austintoddj/canvas/license" alt="License"></a>
+<a href="https://github.com/austintoddj/canvas/blob/master/LICENSE"><img src="https://poser.pugx.org/austintoddj/canvas/license" alt="License"></a>
 
 <a href="http://canvas.toddaustin.io">Canvas</a> is a minimal blogging application for developers. It attempts to make blogging simple and enjoyable by utilizing the latest technologies and keeping the administration as simple as possible with the primary focus on writing.
 
@@ -118,6 +118,10 @@ This section is optional. If you do not want to run unit tests on your applicati
 To enable Disqus comments on your blog, you need to have a unique shortname. For more information, check out the [Official Documentation](https://help.disqus.com/customer/portal/articles/466208-what-s-a-shortname-).
 
 Once you have registered your site and have a shortname, use it to set the `DISQUS_NAME` key in your `.env` file.
+
+## Contributing
+
+Thank you for considering contributing to Canvas! The contribution guide can be found [here](https://github.com/austintoddj/Canvas/blob/master/CONTRIBUTING.md) and also has details about joining the official [HipChat group](https://canvas-blog.hipchat.com/home) for those who want to be a part of Canvas' future development.
 
 ## Changelog
 
