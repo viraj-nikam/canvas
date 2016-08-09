@@ -108,7 +108,7 @@ class PostTest extends EloquentTestCase
      */
     public function testItValidatesPostCreation()
     {
-        $this->callRouteAsUser('admin.post.store', null,  ['title' => 'example'])
+        $this->callRouteAsUser('admin.post.store', null, ['title' => 'example'])
              ->assertSessionHasErrors();
     }
 

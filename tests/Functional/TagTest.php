@@ -12,7 +12,7 @@ class TagTest extends EloquentTestCase
 {
     /**
      * The tag model's full namespace.
-     * 
+     *
      * @var string
      */
     protected $model = 'App\Models\Tag';
@@ -66,8 +66,8 @@ class TagTest extends EloquentTestCase
 
     /**
      * Test creating a tag.
-     * 
-     * @return void [description]
+     *
+     * @return void
      */
     public function testItCreatesTag()
     {
