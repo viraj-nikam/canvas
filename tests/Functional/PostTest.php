@@ -11,7 +11,7 @@ use EGALL\EloquentPHPUnit\EloquentTestCase;
 class PostTest extends EloquentTestCase
 {
     /**
-     * The model to be tested full namesapce.
+     * The post model's full namesapce.
      * 
      * @var string
      */
