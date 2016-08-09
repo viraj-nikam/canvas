@@ -48,8 +48,8 @@ class PostTest extends EloquentTestCase
         $this->table->column('content_raw')->text()->notNullable();
         $this->table->column('page_image')->string()->nullable();
         $this->table->column('meta_description')->string()->nullable();
-        $this->table->column('is_draft')->boolean()->default(0);
-        $this->table->column('layout')->string()->default('frontend.blog.post');
+        $this->table->column('is_draft')->boolean()->defaults(0);
+        $this->table->column('layout')->string()->defaults('frontend.blog.post');
         $this->table->column('published_at')->dateTime()->index();
         $this->table->hasTimestamps();
     }

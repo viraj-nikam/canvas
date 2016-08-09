@@ -36,7 +36,7 @@ class TagTest extends EloquentTestCase
         $this->table->column('title')->string()->notNullable();
         $this->table->column('subtitle')->string()->notNullable();
         $this->table->column('meta_description')->string();
-        $this->table->column('layout')->string()->default('frontend.blog.index');
+        $this->table->column('layout')->string()->defaults('frontend.blog.index');
         $this->table->column('reverse_direction')->boolean();
         $this->table->hasTimestamps();
     }
