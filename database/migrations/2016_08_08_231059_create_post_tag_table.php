@@ -26,7 +26,7 @@ class CreatePostTagTable extends Migration
 
         // This is here to migrate any data someone might have into the new post-tag table.
         collect(DB::table('post_tag_pivot')->get())->each(function ($item) {
-           DB::table('post_tag')->insert([
+            DB::table('post_tag')->insert([
                 'post_id' => $item->post_id,
                 'tag_id' => $item->tag_id,
                 'created_at' => $now,

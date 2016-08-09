@@ -12,7 +12,7 @@ class PostTest extends EloquentTestCase
 {
     /**
      * The post model's full namesapce.
-     * 
+     *
      * @var string
      */
     protected $model = 'App\Models\Post';
@@ -81,7 +81,7 @@ class PostTest extends EloquentTestCase
 
     /**
      * Test creating a new post.
-     * 
+     *
      * @return void
      */
     public function testItCreatesPost()
@@ -103,7 +103,7 @@ class PostTest extends EloquentTestCase
 
     /**
      * Test creating a post that fails validation.
-     * 
+     *
      * @return void
      */
     public function testItValidatesPostCreation()
@@ -114,7 +114,7 @@ class PostTest extends EloquentTestCase
 
     /**
      * Test editing a post model.
-     * 
+     *
      * @return void
      */
     public function testPostsCanBeEdited()
@@ -128,7 +128,7 @@ class PostTest extends EloquentTestCase
 
     /**
      * Test previewing a post model.
-     * 
+     *
      * @return void
      */
     public function testPostsCanBePreviewed()
@@ -140,7 +140,7 @@ class PostTest extends EloquentTestCase
 
     /**
      * Test deleting a post model from the database.
-     * 
+     *
      * @return void
      */
     public function testPostsCanBeDeleted()
@@ -155,7 +155,7 @@ class PostTest extends EloquentTestCase
 
     /**
      * Get or post to a route as a user.
-     * 
+     *
      * @param  string           $route       The route's name.
      * @param  array|int|null   $routeData   The route's parameters.
      * @param  array|null       $requestData The data that should be posted to the server.
@@ -174,7 +174,7 @@ class PostTest extends EloquentTestCase
 
     /**
      * Assert that a post model is not in the database by id.
-     * 
+     *
      * @param  int $id
      * @return $this
      */
@@ -185,7 +185,7 @@ class PostTest extends EloquentTestCase
 
     /**
      * Get the post deletion success message.
-     * 
+     *
      * @return string
      */
     protected function getDeleteMessage()
@@ -195,7 +195,7 @@ class PostTest extends EloquentTestCase
 
     /**
      * Assert that data can be found in the posts table.
-     * 
+     *
      * @param  array   $data
      * @param  bool $negate Should the assertion be negated (dontSeeInDatabase)
      * @return $this

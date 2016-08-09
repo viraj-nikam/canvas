@@ -16,7 +16,7 @@ class UserTest extends EloquentTestCase
 
     /**
      * Disable database seeding.
-     * 
+     *
      * @var bool
      */
     protected $seedDatabase = false;
