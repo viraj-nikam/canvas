@@ -4,8 +4,6 @@ use EGALL\EloquentPHPUnit\EloquentTestCase;
 
 /**
  * User model test.
- * 
- * @author Erik Galloway <erik@mybarnapp.com>
  */
 class UserTest extends EloquentTestCase
 {
