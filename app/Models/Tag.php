@@ -8,6 +8,13 @@ use TeamTNT\TNTSearch\TNTSearch;
 class Tag extends Model
 {
     /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = ['reverse_direction' => 'boolean'];
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array
