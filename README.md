@@ -28,11 +28,11 @@ Before you proceed make sure your server meets the following requirements:
     * Use [Packagist](https://packagist.org): `composer create-project austintoddj/canvas`
     
 2. From the command line in the project root, run `composer install`
-3. Give the `Uploads` directory write-access by the web server: `sudo chown -R www-data:www-data public/uploads`
+3. Give the `Uploads` directory write-access by the web server: `sudo chown -R www-data:www-data public/uploads/`
 4. Copy the contents of `.env.example` and create a new file called `.env` in the project root. Set your application variables in the new file.
 5. Run `php artisan canvas:install` and follow the on-screen prompts.
 6. To build the search index, run `php artisan canvas:index`.
-7. Change the permissions of the `storage` directory: `sudo chmod o+w -R storage`
+7. Change the permissions of the `storage` directory: `sudo chmod -R 777 storage/`
 8. Sign in to the application at `http://SITE_NAME/admin`
     * Email: `admin@canvas.com`
     * Password: `password`
@@ -49,7 +49,7 @@ Before you proceed make sure your server meets the following requirements:
 2. Google Analytics
     * Set up a web property on [Google Analytics](https://www.google.com/analytics/#?modal_active=none).
     * Enter your `GA_ID`(*tracking ID*) into the `.env` file.
-    * Enable Google Analytics in the `.env` file by setting `GA_ENABLE` to `true`.
+    * Enable Google Analytics in the `.env` file by setting `GA_ENABLE` to `true`
     
 3. Disqus Integration
     * Generate a unique shortname from [Official Documentation](https://help.disqus.com/customer/portal/articles/466208-what-s-a-shortname-).
