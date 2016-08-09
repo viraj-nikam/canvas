@@ -95,7 +95,7 @@ If your ``code has `backticks` `` that need to be displayed, you can use double 
 
 GitHub's fenced code blocks are supported in Canvas:
 
-```
+```php
 namespace App;
 
 class Blog extends Canvas
@@ -115,7 +115,7 @@ class Blog extends Canvas
 
 You can also use waves (`~`) instead of back ticks (`` ` ``):
 
-~~~
+~~~php
 print('Hello world!')
 ~~~
 
