@@ -1,13 +1,21 @@
 <?php
 
+use App\Models\Post;
+use EGALL\EloquentPHPUnit\EloquentTestCase;
+
 /**
- * Class TagTest.
+ * Tag model test.
  *
  * Test the application's tag CRUD.
  */
-class TagTest extends TestCase
+class TagTest extends EloquentTestCase
 {
-    use InteractsWithDatabase;
+    /**
+     * The tag model's full namespace.
+     * 
+     * @var string
+     */
+    protected $model = 'App\Models\Tag';
 
     /**
      * The user model.
@@ -15,6 +23,35 @@ class TagTest extends TestCase
      * @var App\Models\User
      */
     private $user;
+
+    /**
+     * Test the database table.
+     *
+     * @return void
+     */
+    public function testDatabaseTable()
+    {
+        $this->table->column('id')->integer()->increments();
+        $this->table->column('tag')->string()->unique();
+        $this->table->column('title')->string()->notNullable();
+        $this->table->column('subtitle')->string()->notNullable();
+        $this->table->column('meta_description')->string();
+        $this->table->column('layout')->string()->default('frontend.blog.index');
+        $this->table->column('reverse_direction')->boolean();
+        $this->table->hasTimestamps();
+    }
+
+    /**
+     * Test the tag model's properties.
+     *
+     * @return void
+     */
+    public function testModelProperties()
+    {
+        $this->belongsToMany(Post::class)
+             ->hasCasts(['reverse_direction' => 'boolean'])
+             ->hasFillable('tag', 'title', 'subtitle', 'meta_description', 'reverse_direction', 'created_at', 'updated_at');
+    }
 
     /**
      * Create the user model test subject.
