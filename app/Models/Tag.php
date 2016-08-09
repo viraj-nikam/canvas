@@ -24,7 +24,7 @@ class Tag extends Model
      */
     public function posts()
     {
-        return $this->belongsToMany('App\Post', 'post_tag_pivot');
+        return $this->belongsToMany(Post::class)->withTimestamps();
     }
 
     /**
