@@ -55,6 +55,19 @@ class PostTest extends EloquentTestCase
     }
 
     /**
+     * Test the post-tag join table.
+     *
+     * @return void
+     */
+    public function testPostTagJoinTable()
+    {
+        $this->resetTable('post_tag');
+        $this->table->column('tag_id')->integer()->primary();
+        $this->table->column('post_id')->integer()->primary();
+        $this->table->hasTimestamps();
+    }
+
+    /**
      * Test the model's properties & relationships.
      *
      * @return void
