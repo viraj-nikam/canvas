@@ -17,11 +17,7 @@ Before you proceed make sure your server meets the following requirements:
 
 - [Composer](https://getcomposer.org/)
 - [PHP](https://php.net/) >= 5.5.9
-- [PDO](http://php.net/manual/en/book.pdo.php) PHP Extension
-- [SQLite](http://php.net/manual/en/book.sqlite.php) PHP Extension
-- [OpenSSL](http://php.net/manual/en/book.openssl.php) PHP Extension
-- [Mbstring](http://php.net/manual/en/book.mbstring.php) PHP Extension
-- [Tokenizer](http://php.net/manual/en/book.tokenizer.php) PHP Extension
+- PHP Extensions ([PDO](http://php.net/manual/en/book.pdo.php), [SQLite](http://php.net/manual/en/book.sqlite.php), [OpenSSL](http://php.net/manual/en/book.openssl.php), [Mbstring](http://php.net/manual/en/book.mbstring.php), [Tokenizer](http://php.net/manual/en/book.tokenizer.php))
 - PDO compliant database (SQL, MySQL, PostgreSQL, SQLite)
 
 ## Installation
