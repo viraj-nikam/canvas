@@ -64,6 +64,11 @@ class TagTest extends EloquentTestCase
         $this->user = factory(App\Models\User::class)->create();
     }
 
+    /**
+     * Test creating a tag.
+     * 
+     * @return void [description]
+     */
     public function testItCreatesTag()
     {
         $this->actingAs($this->user)->post('admin/tag', [
