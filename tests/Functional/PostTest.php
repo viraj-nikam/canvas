@@ -6,7 +6,7 @@ use EGALL\EloquentPHPUnit\EloquentTestCase;
 /**
  * Post model test.
  *
- * Test the application's post CRUD.
+ * Test the application's post model and CRUD.
  */
 class PostTest extends EloquentTestCase
 {
