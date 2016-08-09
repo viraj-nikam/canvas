@@ -1,6 +1,6 @@
 Welcome to Canvas! I'm your first post demonstrating Markdown integration. Don't delete me, I'm very helpful! If you do delete me though, I can be recovered. Just grab me from:
 
-```
+```language-markup
 resources/views/shared/helpers/welcome.blade.php
 ```
 
@@ -59,7 +59,7 @@ HTML Entities | ``&copy;`` ``&#402;`` ``&#8482;`` ``&reg;`` | © ƒ ™ ®
 ---
 
 ##### **Markup**:
-```
+```language-markup
 Key | Value
 --- | ---
 SSH Host | `example.com`
@@ -125,7 +125,7 @@ print('Hello world!')
 ---
 
 ##### **Markup**:
-```
+```language-markup
 * Lists must be preceded by a blank line (or block element)
 * Unordered lists start each item with a `*`
 - `-` Works too
@@ -152,7 +152,7 @@ print('Hello world!')
 ---
 
 ##### **Markup**:
-```
+```language-markup
 > Angle brackets `>` are used for block quotes.
 Technically not every line needs to start with a `>` as long as
 there are no empty lines between paragraphs.
