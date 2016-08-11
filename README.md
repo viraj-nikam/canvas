@@ -48,12 +48,12 @@ Before you proceed make sure your server meets the following requirements:
     
 2. Google Analytics
     * Set up a web property on [Google Analytics](https://www.google.com/analytics/#?modal_active=none).
-    * Enter your `GA_ID`(*tracking ID*) into the `.env` file.
+    * Enter your *tracking ID* (`GA_ID`) into the `.env` file.
     * Enable Google Analytics in the `.env` file by setting `GA_ENABLE` to `true`
     
 3. Disqus Integration
     * Generate a unique shortname from [Official Documentation](https://help.disqus.com/customer/portal/articles/466208-what-s-a-shortname-).
-    * Enter your `DISQUS_NAME`(*shortname*) into the `.env` file.
+    * Enter your *shortname* (`DISQUS_NAME`) into the `.env` file.
 
 ## Contributing
 
