@@ -200,6 +200,7 @@ class ToolsController extends Controller
     {
         $exitCode = Artisan::call('down');
         if ($exitCode === 0) {
+            Session::set('admin_ip', request()->ip());
             Session::set('_enable-maintenance-mode', trans('messages.enable_maintenance_mode_success'));
         } else {
             Session::set('_enable-maintenance-mode', trans('messages.enable_maintenance_mode_error'));

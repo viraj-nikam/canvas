@@ -3,9 +3,10 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Routing\Route;
-use Symfony\Component\HttpKernel\Exception\HttpException;
 use Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode as Original;
+use Illuminate\Routing\Route;
+use Session;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class CheckForMaintenanceMode extends Original
 {
@@ -44,7 +45,7 @@ class CheckForMaintenanceMode extends Original
         if ($this->app->isDownForMaintenance()) {
             $response = $next($request);
 
-            if (in_array($request->ip(), $this->excludedIPs)) {
+            if (in_array($request->ip(), $this->excludedIPs + $this->getExcludedIPs())) {
                 return $response;
             }
 
@@ -64,5 +65,10 @@ class CheckForMaintenanceMode extends Original
         }
 
         return $next($request);
+    }
+
+    public function getExcludedIPs()
+    {
+        return (array) Session::get('admin_ip', []);
     }
 }
