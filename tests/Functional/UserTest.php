@@ -58,8 +58,7 @@ class UserTest extends EloquentTestCase
      */
     public function testModelProperties()
     {
-        $this->hasHidden('password', 'remember_token')
-             ->hasFillable([
+        $this->hasFillable([
                 'first_name', 'last_name', 'display_name', 'url', 'twitter', 'facebook',
                 'github', 'address', 'city', 'country', 'bio', 'job', 'phone', 'gender',
                 'relationship', 'birthday', 'email', 'password',
