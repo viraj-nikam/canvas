@@ -9,12 +9,13 @@
                 <p>Depending on the number of blog posts and tags on the site, this could take a significant amount of time to run.</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
-                <a href="{{ url('admin/tools/reset_index') }}">
+                <form class="form-inline" action="{{ url('admin/tools/reset_index') }}" method="POST">
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
                     <button class="btn btn-link btn-icon-text">
                         <i class="zmdi zmdi-refresh-alt"></i> Reset Index
                     </button>
-                </a>
+                </form>
             </div>
         </div>
     </div>
