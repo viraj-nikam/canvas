@@ -50,11 +50,11 @@
 @section('unique-js')
     @include('backend.post.partials.editor')
 
-    {!! JsValidator::formRequest('App\Http\Requests\PostCreateRequest', '#postCreate'); !!}
+    {!! JsValidator::formRequest('App\Http\Requests\PostCreateRequest', '#postCreate') !!}
 
     @include('backend.shared.notifications.protip')
 
-    <script>
+    <script type="text/javascript">
         $(function () {
             $('.datetime-picker').datetimepicker({
                 format: 'YYYY-MM-DD HH:mm:ss',

@@ -100,7 +100,7 @@
                         <h2>Application Cache
                             <small>Caching data improves performance, but may cause problems while troubleshooting new
                                 features or theme styles if outdated information has been cached. To refresh all cached
-                                data on your site, click the button below. <em>Warning: high-traffic sites will
+                                data on your site, click the button below. <em><strong>Warning</strong>: high-traffic sites will
                                     experience performance slowdowns
                                     while cached data is rebuilt.</em>
                             </small>
