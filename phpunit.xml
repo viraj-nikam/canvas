@@ -26,8 +26,5 @@
         <env name="CACHE_DRIVER" value="array"/>
         <env name="SESSION_DRIVER" value="array"/>
         <env name="QUEUE_DRIVER" value="sync"/>
-        <server name='HTTP_HOST' value='http://localhost' />
-        <server name='REMOTE_ADDR' value='000.000.00.00' />
-        <server name='APP_TIMEZONE' value='America/Chicago' />
     </php>
 </phpunit>

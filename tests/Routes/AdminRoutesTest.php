@@ -70,15 +70,4 @@ class AdminRoutesTest extends TestCase
         $response = $this->actingAs($this->user)->call('GET', '/admin/profile');
         $this->assertEquals(200, $response->status());
     }
-
-    /**
-     * Test the response code for the Tools page.
-     *
-     * @return void
-     */
-    public function testToolsPageResponseCode()
-    {
-        $response = $this->actingAs($this->user)->call('GET', '/admin/tools');
-        $this->assertEquals(200, $response->status());
-    }
 }
