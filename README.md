@@ -23,7 +23,7 @@ Before you proceed make sure your server meets the following requirements:
 ## Installation
 
 1. There are 3 ways of downloading the application:
-    * Use [GitHub](https://github.com): simply click the `Clone or download` button at the top right of this page and choose `Download ZIP`.
+    * Use [GitHub](https://github.com): simply click the `Clone or download` button at the top right of this page and choose `Download ZIP`
     * Use [Git](https://git-scm.com): `git clone https://github.com/austintoddj/canvas.git`
     * Use [Packagist](https://packagist.org): `composer create-project austintoddj/canvas`
     
