@@ -1,10 +1,10 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $(window).load(function () {
-            function notify(message, type) {
+            function notify(message, type){
                 $.growl({
                     message: message
-                }, {
+                },{
                     type: type,
                     allow_dismiss: false,
                     label: 'Cancel',
@@ -13,17 +13,17 @@
                         from: 'top',
                         align: 'right'
                     },
-                    delay: 4000,
+                    delay: 3200,
                     animate: {
-                        enter: 'animated fadeInDown',
-                        exit: 'animated fadeOutUp'
+                        enter: 'animated fadeInRight',
+                        exit: 'animated fadeOutRight'
                     },
                     offset: {
                         x: 20,
                         y: 85
                     }
                 });
-            };
+            }
             setTimeout(function () {
                 var message1 = '<strong>ProTip!</strong> Use &#8984;+s or CTL+s as keyboard shortcuts to save a form.';
                 var message2 = '<strong>ProTip!</strong> Use &#8984;+\' to toggle blockquotes in the markdown editor.';

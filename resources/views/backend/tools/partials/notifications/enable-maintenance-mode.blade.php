@@ -15,17 +15,17 @@
                         from: 'top',
                         align: 'right'
                     },
-                    delay: 2500,
+                    delay: 3200,
                     animate: {
-                        enter: 'animated fadeInDown',
-                        exit: 'animated fadeOutUp'
+                        enter: 'animated fadeInRight',
+                        exit: 'animated fadeOutRight'
                     },
                     offset: {
                         x: 20,
                         y: 85
                     }
                 });
-            };
+            }
 
             setTimeout(function () {
                 var message = $('#_enable-maintenance-mode').data("field-id");
