@@ -29,100 +29,13 @@
                         </li>
                     </ul>
                 </div>
-                <div class="card">
-                    <div class="card-header">
-                        <h2>Maintenance Mode
-                            <small>Enable or disable maintenance mode for your site. Once activated, all public traffic
-                                will see a <em>Be Back Soon</em> page. As an logged in user, you will
-                                still have full access the administrative area of the blog. Once your changes have been made,
-                                make the site active again by disabling maintenance mode.
-                            </small>
-                        </h2>
-                    </div>
-                    <div class="card-body card-padding">
-                        @if($data['status'] === 'Active')
-                            <form class="form-inline" action="{{ url('admin/tools/enable_maintenance_mode') }}" method="POST">
-                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                <button class="btn btn-primary btn-icon-text">
-                                    <i class="zmdi zmdi-alert-octagon"></i> Enable Maintenance Mode
-                                </button>
-                            </form>
-                        @else
-                            <form class="form-inline" action="{{ url('admin/tools/disable_maintenance_mode') }}" method="POST">
-                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                <button class="btn btn-warning btn-icon-text">
-                                    <i class="zmdi zmdi-alert-octagon"></i> Disable Maintenance Mode
-                                </button>
-                            </form>
-                        @endif
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header">
-                        <h2>Export Data
-                            <small>When you click the button below Canvas will create a directory of CSV files for you
-                                to save to your
-                                computer. This archive will contain all the posts, tags, user information and relations
-                                in the system.
-                                Once the download has completed, you can use it to easily import into another Canvas
-                                installation.
-                            </small>
-                        </h2>
-                    </div>
-                    <div class="card-body card-padding">
-                        <form class="form-inline" action="{{ url('admin/tools/download_archive') }}" method="POST">
-                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                            <button class="btn btn-primary btn-icon-text">
-                                <i class="zmdi zmdi-archive"></i> Download Archive
-                            </button>
-                        </form>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header">
-                        <h2>Search Index
-                        @if ($data['indexModified'])
-                            <small>Last run on {{ date('M d, Y', $data['indexModified']) }} at {{ date('g:i A', $data['indexModified']) }}</small>
-                        @endif
-                            <div>
-                                <small>Here you can manually run a full index of the posts and tags currently in the system.</small>
-                            </div>
-                        </h2>
-                        <div class="alert alert-danger" style="margin: 1em 0;">
-                            This will trigger an overwrite of the existing index, replacing the data and forcing the system to rebuild.
-                        </div>
-                    </div>
-                    <div class="card-body card-padding">
-                        <a>
-                            <button class="btn btn-primary btn-icon-text" data-toggle="modal" data-target="#reset-index">
-                                <i class="zmdi zmdi-refresh-alt"></i> Reset Index
-                            </button>
-                        </a>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header">
-                        <h2>Application Cache
-                            <small>Caching data improves performance, but may cause problems while troubleshooting new
-                                features or theme styles if outdated information has been cached. To refresh all cached
-                                data on your site, click the button below. <em><strong>Warning</strong>: high-traffic sites will
-                                    experience performance slowdowns
-                                    while cached data is rebuilt.</em>
-                            </small>
-                        </h2>
-                    </div>
-                    <div class="card-body card-padding">
-                        <a>
-                            <button class="btn btn-primary btn-icon-text" data-toggle="modal" data-target="#cache-clear">
-                                <i class="zmdi zmdi-delete"></i> Clear Cache
-                            </button>
-                        </a>
-                    </div>
-                </div>
+                @include('backend.tools.sections.maintenance-mode')
+                @include('backend.tools.sections.export-data')
+                @include('backend.tools.sections.reset-index')
+                @include('backend.tools.sections.clear-cache')
             </div>
         </section>
     </section>
-
     @include('backend.tools.partials.modals.reset-index')
     @include('backend.tools.partials.modals.cache-clear')
 @stop
