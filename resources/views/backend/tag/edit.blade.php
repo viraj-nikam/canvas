@@ -77,7 +77,7 @@
     {!! JsValidator::formRequest('App\Http\Requests\TagUpdateRequest', '#tagUpdate'); !!}
 
     @if(Session::get('_update-tag'))
-        @include('backend.tag.partials.notifications.update')
+        @include('backend.partials.notify', ['section' => '_update-tag'])
         {{ \Session::forget('_update-tag') }}
     @endif
 @stop

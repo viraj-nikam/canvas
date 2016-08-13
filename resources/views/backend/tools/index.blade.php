@@ -42,22 +42,22 @@
 
 @section('unique-js')
     @if(Session::get('_reset-index'))
-        @include('backend.tools.partials.notifications.reset-index')
+        @include('backend.partials.notify', ['section' => '_reset-index'])
         {{ \Session::forget('_reset-index') }}
     @endif
 
     @if(Session::get('_cache-clear'))
-        @include('backend.tools.partials.notifications.cache-clear')
+        @include('backend.partials.notify', ['section' => '_cache-clear'])
         {{ \Session::forget('_cache-clear') }}
     @endif
 
     @if(Session::get('_enable-maintenance-mode'))
-        @include('backend.tools.partials.notifications.enable-maintenance-mode')
+        @include('backend.partials.notify', ['section' => '_enable-maintenance-mode'])
         {{ \Session::forget('_enable-maintenance-mode') }}
     @endif
 
     @if(Session::get('_disable-maintenance-mode'))
-        @include('backend.tools.partials.notifications.disable-maintenance-mode')
+        @include('backend.partials.notify', ['section' => '_disable-maintenance-mode'])
         {{ \Session::forget('_disable-maintenance-mode') }}
     @endif
 @stop
