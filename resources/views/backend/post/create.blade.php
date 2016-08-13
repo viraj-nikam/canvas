@@ -50,8 +50,6 @@
 @section('unique-js')
     @include('backend.post.partials.editor')
 
-    {!! JsValidator::formRequest('App\Http\Requests\PostCreateRequest', '#postCreate') !!}
-
     @include('backend.shared.notifications.protip')
 
     <script type="text/javascript">
@@ -76,4 +74,6 @@
             }
         });
     </script>
+
+    {!! JsValidator::formRequest('App\Http\Requests\PostCreateRequest', '#postCreate') !!}
 @stop

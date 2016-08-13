@@ -10,7 +10,7 @@
     .editor-preview-side, .CodeMirror-fullscreen {
         top: 120px;
     }
-    
+
     .CodeMirror {
         height: 500px;
     }
@@ -19,11 +19,13 @@
 @include('backend.post.partials.modals.help')
 
 <script type="text/javascript">
+    var simplemde;
+
     $(document).ready(function () {
         var toggleGuide = function () {
             $('#guide').modal('show');
         }
-        var simplemde = new SimpleMDE({
+        simplemde = new SimpleMDE({
             element: document.getElementById("editor"),
             toolbar: [
                 "bold", "italic", "heading", "|",
