@@ -77,7 +77,7 @@
     {!! JsValidator::formRequest('App\Http\Requests\PostUpdateRequest', '#postUpdate'); !!}
 
     @if(Session::get('_update-post'))
-        @include('backend.post.partials.notifications.update-post')
+        @include('backend.post.partials.notify', ['section' => '_update-post'])
         {{ \Session::forget('_update-post') }}
     @endif
 
