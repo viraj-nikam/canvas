@@ -25,7 +25,7 @@ class ToolsController extends Controller
         $status = App::isDownForMaintenance() ? 'Maintenance Mode' : 'Active';
 
         $data = [
-            'indexModified'     => filemtime(storage_path('posts.index')),
+            'indexModified'     => file_exists(storage_path('posts.index')) ? filemtime(storage_path('posts.index')) : false,
             'host'              => $_SERVER['HTTP_HOST'],
             'ip'                => $_SERVER['REMOTE_ADDR'],
             'timezone'          => $_SERVER['APP_TIMEZONE'],
