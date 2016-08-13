@@ -104,22 +104,22 @@
     {!! JsValidator::formRequest('App\Http\Requests\UploadFileRequest', '#fileCreate'); !!}
 
     @if(Session::get('_new-folder'))
-        @include('backend.upload.partials.notifications.folders.create')
+        @include('backend.partials.notify', ['section' => '_new-folder'])
         {{ \Session::forget('_new-folder') }}
     @endif
 
     @if(Session::get('_delete-folder'))
-        @include('backend.upload.partials.notifications.folders.delete')
+        @include('backend.partials.notify', ['section' => '_delete-folder'])
         {{ \Session::forget('_delete-folder') }}
     @endif
 
     @if(Session::get('_new-file'))
-        @include('backend.upload.partials.notifications.files.create')
+        @include('backend.partials.notify', ['section' => '_new-file'])
         {{ \Session::forget('_new-file') }}
     @endif
 
     @if(Session::get('_delete-file'))
-        @include('backend.upload.partials.notifications.files.delete')
+        @include('backend.partials.notify', ['section' => '_delete-file'])
         {{ \Session::forget('_delete-file') }}
     @endif
 @stop
