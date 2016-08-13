@@ -32,10 +32,10 @@ $router->group([
     Route::resource('admin/search', 'SearchController');
     Route::get('admin/tools', 'ToolsController@index');
     Route::post('admin/tools/reset_index', 'ToolsController@resetIndex');
-    Route::get('admin/tools/cache_clear', 'ToolsController@clearCache');
-    Route::get('admin/tools/download_archive', 'ToolsController@handleDownload');
-    Route::get('admin/tools/enable_maintenance_mode', 'ToolsController@enableMaintenanceMode');
-    Route::get('admin/tools/disable_maintenance_mode', 'ToolsController@disableMaintenanceMode');
+    Route::post('admin/tools/cache_clear', 'ToolsController@clearCache');
+    Route::post('admin/tools/download_archive', 'ToolsController@handleDownload');
+    Route::post('admin/tools/enable_maintenance_mode', 'ToolsController@enableMaintenanceMode');
+    Route::post('admin/tools/disable_maintenance_mode', 'ToolsController@disableMaintenanceMode');
 });
 
 /*

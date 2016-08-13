@@ -9,12 +9,13 @@
                 <p>This will clear the current application cache as well as optimize the site for speed and performance.</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
-                <a href="{{ url('admin/tools/cache_clear') }}">
+                <form class="form-inline" action="{{ url('admin/tools/cache_clear') }}" method="POST">
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
                     <button class="btn btn-link btn-icon-text">
                         <i class="zmdi zmdi-delete"></i> Clear Cache
                     </button>
-                </a>
+                </form>
             </div>
         </div>
     </div>

@@ -41,17 +41,19 @@
                     </div>
                     <div class="card-body card-padding">
                         @if($data['status'] === 'Active')
-                            <a href="{{ url('admin/tools/enable_maintenance_mode') }}">
+                            <form class="form-inline" action="{{ url('admin/tools/enable_maintenance_mode') }}" method="POST">
+                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                 <button class="btn btn-primary btn-icon-text">
                                     <i class="zmdi zmdi-alert-octagon"></i> Enable Maintenance Mode
                                 </button>
-                            </a>
+                            </form>
                         @else
-                            <a href="{{ url('admin/tools/disable_maintenance_mode') }}">
+                            <form class="form-inline" action="{{ url('admin/tools/disable_maintenance_mode') }}" method="POST">
+                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                 <button class="btn btn-warning btn-icon-text">
                                     <i class="zmdi zmdi-alert-octagon"></i> Disable Maintenance Mode
                                 </button>
-                            </a>
+                            </form>
                         @endif
                     </div>
                 </div>
@@ -68,11 +70,12 @@
                         </h2>
                     </div>
                     <div class="card-body card-padding">
-                        <a href="{{ url('admin/tools/download_archive') }}">
+                        <form class="form-inline" action="{{ url('admin/tools/download_archive') }}" method="POST">
+                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
                             <button class="btn btn-primary btn-icon-text">
                                 <i class="zmdi zmdi-archive"></i> Download Archive
                             </button>
-                        </a>
+                        </form>
                     </div>
                 </div>
                 <div class="card">
