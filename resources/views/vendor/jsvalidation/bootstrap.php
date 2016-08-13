@@ -14,6 +14,13 @@
             errorClass: 'help-block help-block-error', // default input error message class
             focusInvalid: false, // do not focus the last invalid input
             ignore: "",  // validate all fields including form hidden input
+            invalidHandler: function(event, validator) {
+              var first_error = validator.errorList[0].element;
+
+              (first_error.type == 'textarea')
+                  ? simplemde.codemirror.focus()
+                  : $(first_error).focus();
+            },
             errorPlacement: function(error, element) {
                 if (element.attr("type") == "radio") {
                     error.insertAfter(element.parents('div').find('.radio-list'));
