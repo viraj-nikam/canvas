@@ -31,7 +31,7 @@ $router->group([
     Route::resource('admin/profile', 'ProfileController');
     Route::resource('admin/search', 'SearchController');
     Route::get('admin/tools', 'ToolsController@index');
-    Route::get('admin/tools/reset_index', 'ToolsController@resetIndex');
+    Route::post('admin/tools/reset_index', 'ToolsController@resetIndex');
     Route::get('admin/tools/cache_clear', 'ToolsController@clearCache');
     Route::get('admin/tools/download_archive', 'ToolsController@handleDownload');
     Route::get('admin/tools/enable_maintenance_mode', 'ToolsController@enableMaintenanceMode');
