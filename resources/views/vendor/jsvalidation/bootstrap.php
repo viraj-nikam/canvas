@@ -15,11 +15,11 @@
             focusInvalid: false, // do not focus the last invalid input
             ignore: "",  // validate all fields including form hidden input
             invalidHandler: function(event, validator) {
-              var first_error = validator.errorList[0].element;
+              var first_error = $(validator.errorList[0].element);
 
-              (first_error.type == 'textarea')
-                  ? simplemde.codemirror.focus()
-                  : $(first_error).focus();
+              $('html, body').animate({scrollTop: first_error.offset().top - 120}, 1000, function() {
+                  first_error.focus();
+              });
             },
             errorPlacement: function(error, element) {
                 if (element.attr("type") == "radio") {
