@@ -1,4 +1,4 @@
-<div id="_update-post" data-field-id="{{ Session::get('_update-post') }}"></div>
+<div id="{{ $section }}" data-field-message="{{ Session::get($section) }}"></div>
 
 <script type="text/javascript">
     $(document).ready(function(){
@@ -28,7 +28,7 @@
             }
 
             setTimeout(function () {
-                var message = $('#_update-post').data("field-id");
+                var message = $("#{{ $section }}").data("field-message");
                 notify(message, 'inverse');
             }, 300)
         });
