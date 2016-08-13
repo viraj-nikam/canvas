@@ -78,14 +78,16 @@
                 <div class="card">
                     <div class="card-header">
                         <h2>Search Index
-                            <small>Last run on {{ date('M d, Y', $data['indexModified']) }}
-                                at {{ date('g:i A', $data['indexModified']) }}</small>
-                            <small>Here you can manually re-run a full index of the posts and tags currently in the
-                                system.
-                                This will trigger an overwrite of the existing index, replacing the data and forcing the
-                                system to rebuild.
-                            </small>
+                        @if ($data['indexModified'])
+                            <small>Last run on {{ date('M d, Y', $data['indexModified']) }} at {{ date('g:i A', $data['indexModified']) }}</small>
+                        @endif
+                            <div>
+                                <small>Here you can manually run a full index of the posts and tags currently in the system.</small>
+                            </div>
                         </h2>
+                        <div class="alert alert-danger" style="margin: 1em 0;">
+                            This will trigger an overwrite of the existing index, replacing the data and forcing the system to rebuild.
+                        </div>
                     </div>
                     <div class="card-body card-padding">
                         <a>
