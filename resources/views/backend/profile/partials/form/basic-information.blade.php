@@ -51,7 +51,7 @@
 <div class="form-group">
     <div class="fg-line">
       <label class="fg-label">Birthday</label>
-      <input type="text" class="form-control" name="birthday" id="birthday" value="{{ $data['birthday'] }}" placeholder="YYYY-MM-DD" data-mask="0000-00-00">
+      <input type="text" class="form-control datetime-picker" name="birthday" id="birthday" value="{{ $data['birthday'] }}" placeholder="YYYY-MM-DD" data-mask="0000-00-00">
     </div>
 </div>
 

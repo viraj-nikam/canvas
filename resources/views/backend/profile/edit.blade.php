@@ -54,6 +54,7 @@
 
 @section('unique-js')
     {!! JsValidator::formRequest('App\Http\Requests\ProfileUpdateRequest', '#profileUpdate'); !!}
+    @include('backend.shared.components.datetime-picker', ['format' => 'YYYY-MM-DD'])
 
     @if(Session::get('_profile'))
         @include('backend.partials.notify', ['section' => '_profile'])
