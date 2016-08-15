@@ -1,7 +1,7 @@
 <!-- Vendor Specific -->
 <link rel="stylesheet" type="text/css" href="{{ asset('css/vendor.css') }}">
 
-{{--<!-- Application Specific -->--}}
+{{-- Application Specific --}}
 <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('css/admin.css') }}">
 

@@ -73,20 +73,13 @@
 
 @section('unique-js')
     @include('backend.post.partials.editor')
+    @include('backend.shared.components.datetime-picker')
 
     {!! JsValidator::formRequest('App\Http\Requests\PostUpdateRequest', '#postUpdate'); !!}
 
     @if(Session::get('_update-post'))
-        @include('backend.post.partials.notifications.update-post')
+        @include('backend.partials.notify', ['section' => '_update-post'])
         {{ \Session::forget('_update-post') }}
     @endif
-
-    <script>
-        $(function () {
-            $('.datetime-picker').datetimepicker({
-                format: 'YYYY-MM-DD HH:mm:ss'
-            });
-        });
-    </script>
 
 @stop

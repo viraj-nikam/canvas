@@ -41,6 +41,9 @@
                     <h1 class="post-page-title">{{ $post->title }}</h1>
                     <hr>
                     {!! $post->content_html !!}
+
+                    @include('frontend.blog.partials.author')
+
                 </div>
             </div>
         </div>

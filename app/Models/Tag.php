@@ -8,6 +8,13 @@ use TeamTNT\TNTSearch\TNTSearch;
 class Tag extends Model
 {
     /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = ['reverse_direction' => 'boolean'];
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array
@@ -24,7 +31,7 @@ class Tag extends Model
      */
     public function posts()
     {
-        return $this->belongsToMany('App\Post', 'post_tag_pivot');
+        return $this->belongsToMany(Post::class)->withTimestamps();
     }
 
     /**

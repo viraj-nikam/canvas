@@ -38,7 +38,7 @@ class ParsedownerTest extends PHPUnit_Framework_TestCase
             ['[Canvas](http://austintoddj.github.io/Canvas "Canvas")', '<p><a href="http://austintoddj.github.io/Canvas" title="Canvas">Canvas</a></p>'],
             ['Intra-word *emp*hasis', '<p>Intra-word <em>emp</em>hasis</p>'],
             ['~~Strikethrough~~', '<p><del>Strikethrough</del></p>'],
-            ['![Canvas Logo](http://austintoddj.github.io/Canvas/img/canvas-logo.gif)', '<p><img src="http://austintoddj.github.io/Canvas/img/canvas-logo.gif" alt="Canvas Logo" /></p>'],
+            ['![Canvas Logo](http://canvas.toddaustin.io/img/canvas-logo.gif)', '<p><img src="http://canvas.toddaustin.io/img/canvas-logo.gif" alt="Canvas Logo" /></p>'],
             ['- List Item', "<ul>\n<li>List Item</li>\n</ul>"],
             ['1. List Item', "<ol>\n<li>List Item</li>\n</ol>"],
         ];

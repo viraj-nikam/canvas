@@ -19,7 +19,8 @@
         "erusev/parsedown": "^1.6",
         "proengsoft/laravel-jsvalidation": "1.0.*",
         "teamtnt/tntsearch": "^0.8.0",
-        "larapack/config-writer": "^1.0"
+        "larapack/config-writer": "^1.0",
+        "maatwebsite/excel": "~2.1.0"
     },
     "require-dev": {
         "symfony/dom-crawler": "~3.0",
@@ -27,7 +28,8 @@
         "fzaninotto/faker": "~1.4",
         "mockery/mockery": "0.9.*",
         "phpunit/phpunit": "~4.0",
-        "phpspec/phpspec": "~2.1"
+        "phpspec/phpspec": "~2.1",
+        "erikgall/eloquent-phpunit": "dev-master"
     },
     "autoload": {
         "classmap": [

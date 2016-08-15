@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
-use App\Services\Parsedowner;
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Model;
+use App\Services\Parsedowner;
 use TeamTNT\TNTSearch\TNTSearch;
+use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
@@ -33,7 +33,7 @@ class Post extends Model
      */
     public function tags()
     {
-        return $this->belongsToMany('App\Models\Tag', 'post_tag_pivot');
+        return $this->belongsToMany(Tag::class)->withTimestamps();
     }
 
     /**

@@ -23,7 +23,6 @@ class PostCreateRequest extends Request
             'title' => 'required',
             'slug' => 'required',
             'subtitle' => 'required',
-            'content' => 'required',
             'published_at' => 'required',
             'layout' => 'required',
         ];

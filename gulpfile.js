@@ -29,14 +29,14 @@ elixir(function (mix) {
         'jquery.mCustomScrollbar.min.css',
         'material-design-iconic-font.min.css',
         'animate.min.css',
-        'sweet-alert.min.css',
+        'sweet-alert.min.css'
     ], 'public/css/vendor.css');
 
     // Application CSS Files
     mix.styles([
         'custom.css',
         'app-1.css',
-        'app-2.css',
+        'app-2.css'
     ], 'public/css/app.css');
 
     // Vendor JS Files
@@ -62,7 +62,7 @@ elixir(function (mix) {
     // Application JS Files
     mix.scripts([
         'functions.js',
-        'bootstrap-growl.min.js',
+        'bootstrap-growl.min.js'
     ], 'public/js/app.js');
 
 });

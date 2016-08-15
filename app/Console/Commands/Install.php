@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use Artisan;
 use ConfigWriter;
+use App\Models\User;
 use Illuminate\Console\Command;
 
 class Install extends Command
@@ -69,9 +70,12 @@ class Install extends Command
 
         // Admin User Creation
         $this->comment(PHP_EOL.'Creating the admin user...');
-        $exitCode = Artisan::call('migrate', [
-            '--seed' => true,
-        ]);
+        $user = User::findOrFail(1);
+        if (empty($user)) {
+            $exitCode = Artisan::call('migrate', [
+                '--seed' => true,
+            ]);
+        }
         $this->progress(5);
         $this->line(PHP_EOL.'<info>✔</info> Success! The admin user has been created.');
 

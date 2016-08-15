@@ -160,6 +160,7 @@ return [
          * Canvas Service Providers...
          */
         Proengsoft\JsValidation\JsValidationServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
 
     ],
 
@@ -213,8 +214,9 @@ return [
         /*
          * Canvas Aliases...
          */
-        'JsValidator' => Proengsoft\JsValidation\Facades\JsValidatorFacade::class,
-        'ConfigWriter' => Larapack\ConfigWriter\Repository::class,
+        'JsValidator'   => Proengsoft\JsValidation\Facades\JsValidatorFacade::class,
+        'ConfigWriter'  => Larapack\ConfigWriter\Repository::class,
+        'Excel'         => Maatwebsite\Excel\Facades\Excel::class,
 
     ],
 

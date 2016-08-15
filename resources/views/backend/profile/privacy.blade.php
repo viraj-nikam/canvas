@@ -23,7 +23,7 @@
     @include('backend.shared.components.show-password', ['inputs' => 'input[name="password"], input[name="new_password"], input[name="new_password_confirmation"]'])
 
     @if(Session::get('_passwordUpdate'))
-        @include('backend.profile.partials.notifications.update-password')
+        @include('backend.partials.notify', ['section' => '_passwordUpdate'])
         {{ \Session::forget('_passwordUpdate') }}
     @endif
 @stop

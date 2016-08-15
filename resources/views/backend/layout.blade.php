@@ -13,7 +13,6 @@
             @yield('login')
 
         @else
-
             @include('backend.partials.header')
 
             @yield('content')

@@ -50,17 +50,11 @@
 @section('unique-js')
     @include('backend.post.partials.editor')
 
-    {!! JsValidator::formRequest('App\Http\Requests\PostCreateRequest', '#postCreate'); !!}
-
     @include('backend.shared.notifications.protip')
+    @include('backend.shared.components.datetime-picker')
 
-    <script>
+    <script type="text/javascript">
         $(function () {
-            $('.datetime-picker').datetimepicker({
-                format: 'YYYY-MM-DD HH:mm:ss',
-                defaultDate: Date.now()
-            });
-
             $('input[name="title"]').keyup(function(){
                 $('input[name="slug"]').val(slugify($(this).val()));
             });
@@ -76,4 +70,6 @@
             }
         });
     </script>
+
+    {!! JsValidator::formRequest('App\Http\Requests\PostCreateRequest', '#postCreate') !!}
 @stop
