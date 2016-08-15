@@ -16,8 +16,9 @@
         </ul>
     </div>
     <ul class="main-menu main-ul">
-        <li @if (Request::is('admin/post*')) class="active" @endif><a href="{{ url('admin/post') }}"><i class="zmdi zmdi-view-compact"></i> Posts <span class="label label-default label-totals">{{ App\Models\Post::count() }}</span></a></li>
-        <li @if (Request::is('admin/tag*')) class="active" @endif><a href="{{ url('admin/tag') }}"><i class="zmdi zmdi-tag"></i> Tags <span class="label label-default label-totals">{{ App\Models\Tag::count() }}</span></a></li>
+        <li @if (Request::is('admin')) class="active" @endif><a href="{{ url('admin') }}"><i class="zmdi zmdi-home"></i> Home</a></li>
+        <li @if (Request::is('admin/post*')) class="active" @endif><a href="{{ url('admin/post') }}"><i class="zmdi zmdi-collection-bookmark"></i> Posts <span class="label label-default label-totals">{{ App\Models\Post::count() }}</span></a></li>
+        <li @if (Request::is('admin/tag*')) class="active" @endif><a href="{{ url('admin/tag') }}"><i class="zmdi zmdi-labels"></i> Tags <span class="label label-default label-totals">{{ App\Models\Tag::count() }}</span></a></li>
         <li @if (Request::is('admin/upload*')) class="active" @endif><a href="{{ url('admin/upload') }}"><i class="zmdi zmdi-cloud-upload"></i> Uploads</a></li>
         <li @if (Request::is('admin/tools*')) class="active" @endif><a href="{{ url('admin/tools') }}"><i class="zmdi zmdi-wrench"></i> Tools</a></li>
     </ul>

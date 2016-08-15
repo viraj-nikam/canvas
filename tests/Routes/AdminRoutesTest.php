@@ -28,6 +28,17 @@ class AdminRoutesTest extends TestCase
     }
 
     /**
+     * Test the response code for the Home page.
+     *
+     * @return void
+     */
+    public function testHomePageResponseCode()
+    {
+        $response = $this->actingAs($this->user)->call('GET', '/admin');
+        $this->assertEquals(200, $response->status());
+    }
+
+    /**
      * Test the response code for the Posts page.
      *
      * @return void
