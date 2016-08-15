@@ -30,17 +30,17 @@
                 </div>
             </div>
             <div class="panel panel-collapse">
-                <div class="panel-heading" role="tab" id="headingOne">
+                <div class="panel-heading" role="tab" id="headingTwo">
                     <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne"
-                                aria-expanded="true" aria-controls="collapseOne">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"
+                                aria-expanded="true" aria-controls="collapseTwo">
                             <span class="c-blue">Canvas Update v2.1.2</span>
                             <small>August 12, 2016</small>
                         </a>
                     </h4>
                 </div>
-                <div id="collapseOne" class="collapse" role="tabpanel"
-                        aria-labelledby="headingOne">
+                <div id="collapseTwo" class="collapse" role="tabpanel"
+                        aria-labelledby="headingTwo">
                     <div class="panel-body">
                         V2.1.2 introduces the Admin Tools section. This update features the ability to bring your site
                         up or down with Maintenance Mode, export all your blog data in a downloadable archive and more.
@@ -51,16 +51,16 @@
                 </div>
             </div>
             <div class="panel panel-collapse">
-                <div class="panel-heading" role="tab" id="headingTwo">
+                <div class="panel-heading" role="tab" id="headingThree">
                     <h4 class="panel-title">
                         <a class="collapsed" data-toggle="collapse" data-parent="#accordion"
-                                href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                             <span class="c-blue">Atlassian HipChat Sponsorship</span>
                             <small>August 3, 2016</small>
                         </a>
                     </h4>
                 </div>
-                <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
+                <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree">
                     <div class="panel-body">
                         We're proud to welcome HipChat to our growing team of sponsors! HipChat is a Web service for
                         internal/private chat and instant messaging. As well as one-on-one
@@ -73,18 +73,18 @@
                 </div>
             </div>
             <div class="panel panel-collapse">
-                <div class="panel-heading" role="tab" id="headingThree">
+                <div class="panel-heading" role="tab" id="headingFour">
                     <h4 class="panel-title">
                         <a class="collapsed" data-toggle="collapse" data-parent="#accordion"
-                                href="#collapseThree" aria-expanded="false"
-                                aria-controls="collapseThree">
+                                href="#collapseFour" aria-expanded="false"
+                                aria-controls="collapseFour">
                             <span class="c-blue">Canvas: July in Review</span>
                             <small>July 29, 2016</small>
                         </a>
                     </h4>
                 </div>
-                <div id="collapseThree" class="collapse" role="tabpanel"
-                        aria-labelledby="headingThree">
+                <div id="collapseFour" class="collapse" role="tabpanel"
+                        aria-labelledby="headingFour">
                     <div class="panel-body">
                         July has been a crazy month for
                         <a href="http://canvas.toddaustin.io" target="_blank">Canvas</a>. The
