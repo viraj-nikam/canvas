@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers\Backend;
 
 use Excel;
@@ -36,6 +37,7 @@ class ToolsController extends Controller
             'timezone' => $_SERVER['APP_TIMEZONE'],
             'status' => $status,
         ];
+
         return view('backend.tools.index', compact('data'));
     }
 
@@ -52,6 +54,7 @@ class ToolsController extends Controller
         } else {
             Session::set('_reset-index', trans('messages.reset_index_error'));
         }
+
         return redirect(url('admin/tools'));
     }
 
@@ -70,6 +73,7 @@ class ToolsController extends Controller
         } else {
             Session::set('_cache-clear', trans('messages.cache_clear_error'));
         }
+
         return redirect(url('admin/tools'));
     }
 
@@ -87,7 +91,7 @@ class ToolsController extends Controller
         $this->storeMigrations();
         $this->storeUploads();
         $date = date('Y-m-d');
-        $path = storage_path($date . '-canvas-archive');
+        $path = storage_path($date.'-canvas-archive');
         $filename = sprintf('%s.zip', $path);
         $zip = new \ZipArchive();
         $zip->open($filename, \ZipArchive::CREATE);
@@ -96,15 +100,16 @@ class ToolsController extends Controller
             \RecursiveIteratorIterator::LEAVES_ONLY
         );
         foreach ($files as $name => $file) {
-            if (!$file->isDir()) {
+            if (! $file->isDir()) {
                 $filePath = $file->getRealPath();
                 $relativePath = substr($filePath, strlen($path) + 1);
                 $zip->addFile($filePath, $relativePath);
             }
         }
         $zip->close();
-        \File::deleteDirectory(storage_path($date . '-canvas-archive'));
-        return response()->download(storage_path($date . '-canvas-archive.zip'))->deleteFileAfterSend(true);
+        \File::deleteDirectory(storage_path($date.'-canvas-archive'));
+
+        return response()->download(storage_path($date.'-canvas-archive.zip'))->deleteFileAfterSend(true);
     }
 
     protected function storeUsers()
@@ -117,7 +122,7 @@ class ToolsController extends Controller
                     $sheet->appendRow($user);
                 }
             });
-        })->store('csv', storage_path($this->date . '-canvas-archive'), true);
+        })->store('csv', storage_path($this->date.'-canvas-archive'), true);
     }
 
     protected function storePosts()
@@ -132,7 +137,7 @@ class ToolsController extends Controller
                         $sheet->appendRow($post);
                     }
                 });
-            })->store('csv', storage_path($this->date . '-canvas-archive'), true);
+            })->store('csv', storage_path($this->date.'-canvas-archive'), true);
         }
     }
 
@@ -148,7 +153,7 @@ class ToolsController extends Controller
                         $sheet->appendRow($tag);
                     }
                 });
-            })->store('csv', storage_path($this->date . '-canvas-archive'), true);
+            })->store('csv', storage_path($this->date.'-canvas-archive'), true);
         }
     }
 
@@ -164,7 +169,7 @@ class ToolsController extends Controller
                         $sheet->appendRow($pt);
                     }
                 });
-            })->store('csv', storage_path($this->date . '-canvas-archive'), true);
+            })->store('csv', storage_path($this->date.'-canvas-archive'), true);
         }
     }
 
@@ -178,13 +183,14 @@ class ToolsController extends Controller
                     $sheet->appendRow($migration);
                 }
             });
-        })->store('csv', storage_path($this->date . '-canvas-archive'), true);
+        })->store('csv', storage_path($this->date.'-canvas-archive'), true);
     }
 
     protected function storeUploads()
     {
-        $source = public_path() . '/uploads/';
-        $destination = storage_path($this->date . '-canvas-archive/uploads/');
+        $source = public_path().'/uploads/';
+        $destination = storage_path($this->date.'-canvas-archive/uploads/');
+
         return \File::copyDirectory($source, $destination);
     }
 
@@ -202,6 +208,7 @@ class ToolsController extends Controller
         } else {
             Session::set('_enable-maintenance-mode', trans('messages.enable_maintenance_mode_error'));
         }
+
         return redirect(url('admin/tools'));
     }
 
@@ -218,6 +225,7 @@ class ToolsController extends Controller
         } else {
             Session::set('_disable-maintenance-mode', trans('messages.disable_maintenance_mode_error'));
         }
+
         return redirect(url('admin/tools'));
     }
 }
