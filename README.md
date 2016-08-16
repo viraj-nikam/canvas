@@ -1,7 +1,6 @@
 <p align="center">
 <img src="http://canvas.toddaustin.io/img/canvas-logo.gif" width="120">
 <br>
-<br>
 <img src="https://raw.githubusercontent.com/austintoddj/canvas/gh-pages/img/readme.jpg" alt="Canvas Screens">
 </p>
 
