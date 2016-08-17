@@ -36,6 +36,7 @@ class AdminRoutesTest extends TestCase
     {
         $response = $this->actingAs($this->user)->call('GET', '/admin');
         $this->assertEquals(200, $response->status());
+        $this->assertViewHasAll(['data']);
     }
 
     /**
@@ -47,6 +48,7 @@ class AdminRoutesTest extends TestCase
     {
         $response = $this->actingAs($this->user)->call('GET', '/admin/post');
         $this->assertEquals(200, $response->status());
+        $this->assertViewHasAll(['data']);
     }
 
     /**
@@ -58,6 +60,7 @@ class AdminRoutesTest extends TestCase
     {
         $response = $this->actingAs($this->user)->call('GET', '/admin/tag');
         $this->assertEquals(200, $response->status());
+        $this->assertViewHasAll(['data']);
     }
 
     /**
@@ -80,5 +83,30 @@ class AdminRoutesTest extends TestCase
     {
         $response = $this->actingAs($this->user)->call('GET', '/admin/profile');
         $this->assertEquals(200, $response->status());
+        $this->assertViewHasAll(['data']);
+    }
+
+    /**
+     * Test the response code for the Profile Settings page.
+     *
+     * @return void
+     */
+    public function testProfileSettingsPageResponseCode()
+    {
+        $response = $this->actingAs($this->user)->call('GET', '/admin/profile/' . $this->user['id'] . '/edit');
+        $this->assertEquals(200, $response->status());
+        $this->assertViewHasAll(['data']);
+    }
+
+    /**
+     * Test the response code for the Profile Privacy page.
+     *
+     * @return void
+     */
+    public function testProfilePrivacyPageResponseCode()
+    {
+        $response = $this->actingAs($this->user)->call('GET', '/admin/profile/privacy');
+        $this->assertEquals(200, $response->status());
+        $this->assertViewHasAll(['data']);
     }
 }
