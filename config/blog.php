@@ -16,6 +16,7 @@ return [
   'subtitle'        => 'Minimal Blogging App',
   'description'     => 'Blog',
   'author'          => 'Todd Austin',
+  'seo'             => 'minimal,blogging,app',
 
   /*
   |--------------------------------------------------------------------------

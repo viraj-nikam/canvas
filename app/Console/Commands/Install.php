@@ -54,17 +54,22 @@ class Install extends Command
         $this->line(PHP_EOL.'<info>✔</info> Success! The blog subtitle has been saved.');
 
         // Blog Description
-        $blogDescription = $this->ask('Step 3: Description of your blog (og:type Meta Tag)');
+        $blogDescription = $this->ask('Step 3: Description of your blog');
         $this->description($blogDescription, $config);
         $this->line(PHP_EOL.'<info>✔</info> Success! The blog description has been saved.');
 
+        // Blog SEO
+        $blogSEO = $this->ask('Step 4: Blog SEO Keywords (minimal,blogging,app)');
+        $this->seo($blogSEO, $config);
+        $this->line(PHP_EOL.'<info>✔</info> Success! The blog SEO keywords have been saved.');
+
         // Blog Author
-        $blogAuthor = $this->ask('Step 4: Author of your blog');
+        $blogAuthor = $this->ask('Step 5: Author of your blog');
         $this->author($blogAuthor, $config);
         $this->line(PHP_EOL.'<info>✔</info> Success! The author name has been saved.');
 
         // Posts Per Page
-        $postsPerPage = $this->ask('Step 5: Number of posts to display per page');
+        $postsPerPage = $this->ask('Step 6: Number of posts to display per page');
         $this->postsPerPage($postsPerPage, $config);
         $this->line(PHP_EOL.'<info>✔</info> Success! The number of posts per page has been saved.');
 
@@ -123,6 +128,13 @@ class Install extends Command
     {
         $config->set('description', $blogDescription);
         $this->comment('Saving blog description...');
+        $this->progress(1);
+    }
+
+    private function seo($blogSeo, $config)
+    {
+        $config->set('seo', $blogSeo);
+        $this->comment('Saving blog SEO keywords...');
         $this->progress(1);
     }
 
