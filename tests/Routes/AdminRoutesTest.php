@@ -93,7 +93,7 @@ class AdminRoutesTest extends TestCase
      */
     public function testProfileSettingsPageResponseCode()
     {
-        $response = $this->actingAs($this->user)->call('GET', '/admin/profile/' . $this->user['id'] . '/edit');
+        $response = $this->actingAs($this->user)->call('GET', '/admin/profile/'.$this->user['id'].'/edit');
         $this->assertEquals(200, $response->status());
         $this->assertViewHasAll(['data']);
     }
