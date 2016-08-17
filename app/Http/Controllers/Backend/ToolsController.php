@@ -29,13 +29,12 @@ class ToolsController extends Controller
      */
     public function index()
     {
-        $status = App::isDownForMaintenance() ? 'Maintenance Mode' : 'Active';
         $data = [
             'indexModified' => file_exists(storage_path('posts.index')) ? filemtime(storage_path('posts.index')) : false,
             'host' => $_SERVER['HTTP_HOST'],
             'ip' => $_SERVER['REMOTE_ADDR'],
             'timezone' => $_SERVER['APP_TIMEZONE'],
-            'status' => $status,
+            'status' => App::isDownForMaintenance() ? 0 : 1,
         ];
 
         return view('backend.tools.index', compact('data'));

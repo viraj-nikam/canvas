@@ -17,12 +17,12 @@ class HomeController extends Controller
     public function index()
     {
         $data = [
-            'status' => App::isDownForMaintenance() ? 0 : 1,
             'posts' => Post::all(),
             'recentPosts' => Post::orderBy('created_at', 'desc')->take(4)->get(),
             'tags' => Tag::all(),
             'disqus' => config('blog.disqus_name') == null ? 0 : 1,
             'analytics' => config('analytics.google') == false ? 0 : 1,
+            'status' => App::isDownForMaintenance() ? 0 : 1,
         ];
 
         return view('backend.home.index', compact('data'));

@@ -12,8 +12,15 @@
                 <div class="block-header">
                     <h2>Site Details
                         <small>
-                            <i class="zmdi zmdi-dns"></i>&nbsp;&nbsp;{{ strtoupper($data['host']) }} ({{ $data['ip'] }})&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="zmdi zmdi-time"></i>&nbsp;&nbsp;{{ strtoupper($data['timezone']) }}
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="zmdi zmdi-circle" @if($data['status'] === 'Active') style="color: #4CAF50" @else style="color: #FF9800;" @endif></i>&nbsp;&nbsp;{{ strtoupper($data['status']) }}
+                            <i class="zmdi zmdi-dns"></i>&nbsp;&nbsp;{{ strtoupper($data['host']) }} ({{ $data['ip'] }})
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <i class="zmdi zmdi-time"></i>&nbsp;&nbsp;{{ strtoupper($data['timezone']) }}
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            @if($data['status'] === 1)
+                                <i class="zmdi zmdi-globe-alt"></i>&nbsp;&nbsp;<span class="label label-success">Status: {{ strtoupper('Active') }}</span>
+                            @else
+                                <i class="zmdi zmdi-globe-alt"></i>&nbsp;&nbsp;<span class="label label-warning">Status: {{ strtoupper('Maintenance Mode') }}</span>
+                            @endif
                         </small>
                     </h2>
                     <ul class="actions">
