@@ -1,7 +1,7 @@
 <div class="card">
     <div class="card-header">
         <h2>Welcome to Canvas!
-            <small>Here are some links we've gathered to help get you started:
+            <small>Here are some helpful links we've gathered to get you started:
             </small>
         </h2>
     </div>
