@@ -13,10 +13,10 @@ var elixir = require('laravel-elixir');
 
 elixir(function (mix) {
 
-    // LESS Files
-    mix.less('blog/blog.less');
-    mix.less('auth/auth.less');
-    mix.less('admin/admin.less');
+    // SaSS Files
+    mix.sass('blog/blog.scss');
+    mix.sass('auth/auth.scss');
+    mix.sass('admin/admin.scss');
 
     // Vendor CSS Files
     mix.styles([
