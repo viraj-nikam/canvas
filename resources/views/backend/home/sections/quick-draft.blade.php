@@ -4,6 +4,8 @@
             <small>Save a quick draft post:</small>
         </h2>
 
+        <br>
+
         @include('shared.errors')
 
         @include('shared.success')
