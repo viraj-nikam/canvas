@@ -49,8 +49,9 @@ Before you proceed make sure your server meets the following requirements:
 
 1. Theming Canvas
     * Run `npm install` from the project root
-    * Run `npm install --global gulp-cli`
-    * After you make any modifications to the files in `canvas/resources/assets/less/`, run `gulp`
+    * Run `npm install gulp`
+    * Child-Theme files are already waiting for you at `resources/assets/sass/`
+    * After any changes in these files, run `gulp`
     
 2. Google Analytics
     * Set up a web property on [Google Analytics](https://www.google.com/analytics/#?modal_active=none).
