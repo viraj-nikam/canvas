@@ -1,7 +1,7 @@
 <?php
 /*
 |--------------------------------------------------------------------------
-| Blog Routes
+| Canvas Application Routes : Frontend
 |--------------------------------------------------------------------------
 */
 Route::get('/', 'Frontend\BlogController@index');
@@ -10,7 +10,7 @@ Route::get('blog/{slug}', 'Frontend\BlogController@showPost');
 
 /*
 |--------------------------------------------------------------------------
-| Admin Routes
+| Canvas Application Routes : Backend
 |--------------------------------------------------------------------------
 */
 $router->group([
@@ -38,7 +38,7 @@ $router->group([
 
 /*
 |--------------------------------------------------------------------------
-| Logging In/Out Routes
+| Canvas Application Routes : Authentication
 |--------------------------------------------------------------------------
 */
 $router->group([

@@ -4,12 +4,12 @@ return [
 
   /*
   |--------------------------------------------------------------------------
-  | Blog Meta Configuration
+  | Canvas Configuration : SEO
   |--------------------------------------------------------------------------
   |
-  | Here you may define all of the blog meta tags for your application.
-  | These will be used for web scraping and open graph tags
-  | on sites such as Facebook and Twitter.
+  | Here you may define all of the blog meta tags and SEO for your
+  | application. These will be used for web scraping and open
+  | graph tags on sites such as Facebook and Twitter.
   |
   */
   'title'           => 'Canvas',
@@ -20,12 +20,12 @@ return [
 
   /*
   |--------------------------------------------------------------------------
-  | Blog Post Configuration
+  | Canvas Configuration : Blog Posts
   |--------------------------------------------------------------------------
   |
   | Pretty self-explanatory here. Indicate how many posts you would like
-  | to appear on each page. If you are using Disqus, provide the
-  | identifier here or in your .env
+  | to appear on each page. If you are using Disqus, specify the
+  | identifier in your .env file.
   |
   */
   'posts_per_page'  => 6,
@@ -33,7 +33,7 @@ return [
 
   /*
   |--------------------------------------------------------------------------
-  | Uploads Configuration
+  | Canvas Configuration : Media Uploads
   |--------------------------------------------------------------------------
   |
   | Specify what type of storage you would like for your application. Just
