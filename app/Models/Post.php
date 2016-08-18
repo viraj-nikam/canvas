@@ -58,7 +58,7 @@ class Post extends Model
         Tag::addNeededTags($tags);
         if (count($tags)) {
             $this->tags()->sync(
-                Tag::whereIn('tag', $tags)->lists('id')->all()
+                Tag::whereIn('tag', $tags)->pluck('id')->all()
             );
 
             return;
@@ -102,7 +102,7 @@ class Post extends Model
      */
     public function tagLinks($base = '/blog?tag=%TAG%')
     {
-        $tags = $this->tags()->lists('tag');
+        $tags = $this->tags()->pluck('tag');
         $return = [];
         foreach ($tags as $tag) {
             $url = str_replace('%TAG%', urlencode($tag), $base);

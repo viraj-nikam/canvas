@@ -67,7 +67,7 @@ class PostFormFields extends Job implements SelfHandling
 
         return array_merge(
             $fields,
-            ['allTags' => Tag::lists('tag')->all()]
+            ['allTags' => Tag::pluck('tag')->all()]
         );
     }
 
@@ -86,7 +86,7 @@ class PostFormFields extends Job implements SelfHandling
         foreach ($fieldNames as $field) {
             $fields[$field] = $post->{$field};
         }
-        $fields['tags'] = $post->tags()->lists('tag')->all();
+        $fields['tags'] = $post->tags()->pluck('tag')->all();
 
         return $fields;
     }
