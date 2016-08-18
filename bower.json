@@ -1,6 +1,6 @@
 {
-  "name": "toddaustin",
-  "description": "Todd Austin Blog",
+  "name": "austintoddj/canvas",
+  "description": "Minimal blogging application for developers.",
   "ignore": [
     "**/.*",
     "node_modules",
