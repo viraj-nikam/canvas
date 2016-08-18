@@ -3,15 +3,15 @@
   'meta_description' => $post->meta_description ?: config('blog.description'),
 ])
 
-@if ($post->page_image)
-    @section('og-image')
-        <meta property="og:image" content="{{ $post->page_image }}">
-    @stop
-@endif
-
 @section('og-title')
     <meta property="og:title" content="{{ $post->title }}"/>
 @stop
+
+@if ($post->page_image)
+    @section('og-image')
+        <meta property="og:image" content="{{ url('/uploads/' . $post->page_image) }}">
+    @stop
+@endif
 
 @section('og-description')
     <meta property="og:description" content="{{ $post->meta_description }}"/>

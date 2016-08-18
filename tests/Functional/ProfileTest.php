@@ -37,7 +37,7 @@ class ProfileTest extends TestCase
         $this->actingAs($user)->visit('/admin/profile');
         array_map([$this, 'see'], $this->optionalFields);
 
-        // now set them all null and make sure we dont see them
+        // now set them all null and make sure we do not see them
         $user->update(array_fill_keys(array_keys($this->optionalFields), null));
         $this->actingAs($user)->visit('/admin/profile');
         array_map([$this, 'dontSee'], $this->optionalFields);
@@ -48,14 +48,14 @@ class ProfileTest extends TestCase
         $this->actingAs(factory(App\Models\User::class)->create())
             ->visit('/admin/profile/1/edit');
 
-        // fill in all require fields with an emtpy string
+        // fill in all require fields with an empty string
         foreach ($this->requiredFields as $name) {
             $this->type('', $name);
         }
 
         $this->press('Save');
 
-        // assert reponse contains error message for each field
+        // assert response contains error message for each field
         foreach ($this->requiredFields as $name) {
             $this->see('The '.str_replace('_', ' ', $name).' field is required.');
         }

@@ -2,15 +2,16 @@
     <div class="card-header">
         <h2>Search Index
             @if ($data['indexModified'])
-                <small>Last run on {{ date('M d, Y', $data['indexModified']) }} at {{ date('g:i A', $data['indexModified']) }}</small>
+                <small>Last run on {{ date('M d, Y', $data['indexModified']) }}
+                    at {{ date('g:i A', $data['indexModified']) }}</small>
             @endif
             <div>
-                <small>Here you can manually run a full index of the posts and tags currently in the system.</small>
+                <small>Here you can manually run a full index of the posts and tags currently in the system.
+                    <hr><em><strong class="text-danger"><i class="zmdi zmdi-alert-circle"></i> Warning</strong>: This
+                        will trigger an overwrite of the existing
+                        index, replacing the data and forcing the system to rebuild.</em></small>
             </div>
         </h2>
-        <div class="alert alert-danger" style="margin: 1em 0;">
-            This will trigger an overwrite of the existing index, replacing the data and forcing the system to rebuild.
-        </div>
     </div>
     <div class="card-body card-padding">
         <a>

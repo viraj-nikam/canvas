@@ -13,13 +13,11 @@ Route::get('blog/{slug}', 'Frontend\BlogController@showPost');
 | Admin Routes
 |--------------------------------------------------------------------------
 */
-Route::get('admin', function () {
-    return redirect('/admin/post');
-});
 $router->group([
     'namespace'  => 'Backend',
     'middleware' => 'auth',
 ], function () {
+    Route::get('admin', 'HomeController@index');
     Route::resource('admin/post', 'PostController', ['except' => 'show']);
     Route::resource('admin/tag', 'TagController', ['except' => 'show']);
     Route::get('admin/upload', 'UploadController@index')->name('admin/upload');
