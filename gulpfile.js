@@ -14,30 +14,8 @@ var elixir = require('laravel-elixir');
 elixir(function (mix) {
 
     // SaSS Files
-    mix.sass('blog/blog.scss');
-    mix.sass('auth/auth.scss');
-    mix.sass('admin/admin.scss');
-
-    // Vendor CSS Files
-    mix.styles([
-        'bootstrap-datetimepicker.css',
-        'chosen.min.css',
-        'simplemde.min.css',
-        'jquery.bootgrid.min.css',
-        'lightgallery.css',
-        'bootstrap-select.min.css',
-        'jquery.mCustomScrollbar.min.css',
-        'material-design-iconic-font.min.css',
-        'animate.min.css',
-        'sweet-alert.min.css'
-    ], 'public/css/vendor.css');
-
-    // Application CSS Files
-    mix.styles([
-        'custom.css',
-        'app-1.css',
-        'app-2.css'
-    ], 'public/css/app.css');
+    mix.sass('frontend.scss');
+    mix.sass('backend.scss');
 
     // Vendor JS Files
     mix.scripts([
