@@ -97,6 +97,7 @@
 
         function preview_image(path) {
             $("#preview-image").attr("src", path);
+            $("#path").html(path);
             $("#modal-image-view").modal("show");
         }
     </script>

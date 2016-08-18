@@ -29,12 +29,12 @@
 
 <div class="form-group">
     <div class="fg-line">
-      <label class="fg-label">Page Image</label>
+      <label class="fg-label">Page Image <a href="" data-toggle="modal" data-target="#image-help"><i class="zmdi zmdi-help" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Page Image Help"></i></a></label>
       <input type="text" class="form-control" name="page_image" id="page_image" onchange="handle_image_change()" alt="Image thumbnail" value="{{ $page_image }}" placeholder="Example: placeholder.png">
     </div>
 </div>
 
-<script>
+<script type="text/javascript">
   function handle_image_change() {
       $("#page-image-preview").attr("src", function () {
           var value = $("#page_image").val();
@@ -53,13 +53,9 @@
 </script>
 <div class="visible-sm space-10"></div>
 @if (empty($page_image))
-
     <span class="text-muted small">No Image Selected</span>
-
 @else
-
     <img src="{{ page_image($page_image) }}" class="img img_responsive" id="page-image-preview" style="max-height:40px">
-
 @endif
 
 <br>

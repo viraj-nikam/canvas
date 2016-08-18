@@ -45,6 +45,8 @@
             </div>
         </section>
     </section>
+
+    @include('backend.post.partials.modals.image-help')
 @stop
 
 @section('unique-js')
