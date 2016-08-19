@@ -1,8 +1,7 @@
+# Blade Views
+resources/views/* linguist-vendored
 
-
-
-
-# Node dependencies
+# Node Dependencies
 - node_modules/
 
 # Minified JavaScript and CSS
@@ -11,7 +10,7 @@
 # Stylesheets imported from packages
 - ([^\s]*)import\.(css|less|scss|styl)$
 
-# Bootstrap css and js
+# Bootstrap CSS and JS
 - (^|/)bootstrap([^.]*)\.(js|css|less|scss|styl)$
 - (^|/)custom\.bootstrap([^\s]*)(js|css|less|scss|styl)$
 
