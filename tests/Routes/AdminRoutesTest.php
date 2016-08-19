@@ -109,4 +109,16 @@ class AdminRoutesTest extends TestCase
         $this->assertEquals(200, $response->status());
         $this->assertViewHasAll(['data']);
     }
+
+    /**
+     * Test the response code for the Tools page.
+     *
+     * @return void
+     */
+    public function testToolsPageResponseCode()
+    {
+        $response = $this->actingAs($this->user)->call('GET', '/admin/tools');
+        $this->assertEquals(200, $response->status());
+        $this->assertViewHasAll(['data']);
+    }
 }
