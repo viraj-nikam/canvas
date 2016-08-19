@@ -47,10 +47,10 @@ Before you proceed make sure your server meets the following requirements:
 
 ## Advanced Options
 
-1. Theming Canvas
+1. Child Themes
     * Run `npm install` from the project root
     * Run `npm install gulp`
-    * Child-Theme files are already waiting for you at `resources/assets/sass/`
+    * Child theme files are already waiting for you at `resources/assets/sass/`
     * After any changes in these files, run `gulp`
     
 2. Google Analytics

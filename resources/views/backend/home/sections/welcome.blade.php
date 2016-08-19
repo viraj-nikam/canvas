@@ -18,6 +18,7 @@
             <div class="col-sm-4">
                 <h5>Next Steps</h5>
                 <ul class="getting-started">
+                    <li><i class="zmdi zmdi-invert-colors"></i> <a href="https://github.com/austintoddj/canvas#advanced-options" target="_blank">Child Themes</a></li>
                     <li><i class="zmdi zmdi-disqus"></i> <a href="https://github.com/austintoddj/canvas#advanced-options" target="_blank">Disqus Integration</a></li>
                     <li><i class="zmdi zmdi-trending-up"></i> <a href="https://github.com/austintoddj/canvas#advanced-options" target="_blank">Google Analytics Setup</a></li>
                     <li><i class="zmdi zmdi-wrench"></i> <a href="{{ url('admin/tools') }}">More Tools</a></li>
