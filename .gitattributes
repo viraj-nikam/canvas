@@ -1,4 +1,10 @@
-# Blade Views
+# Catch-All
+* text=auto
+*.css linguist-vendored
+*.scss linguist-vendored
+*.js linguist-vendored
+
+# Blade Templates
 resources/views/* linguist-vendored
 
 # Node Dependencies
@@ -17,7 +23,7 @@ resources/views/* linguist-vendored
 # Font Awesome
 - (^|/)font-awesome\.(css|less|scss|styl)$
 
-# git config files
+# Git Config Files
 - gitattributes$
 - gitignore$
 - gitmodules$
