@@ -74,7 +74,7 @@ class Install extends Command
         $this->line(PHP_EOL.'<info>✔</info> Success! The number of posts per page has been saved.');
 
         // Admin User Creation
-        $this->comment(PHP_EOL.'Creating the admin user...');
+        $this->comment(PHP_EOL.'Creating your user profile...');
         $user = User::findOrFail(1);
         if (empty($user)) {
             $exitCode = Artisan::call('migrate', [
@@ -82,7 +82,7 @@ class Install extends Command
             ]);
         }
         $this->progress(5);
-        $this->line(PHP_EOL.'<info>✔</info> Success! The admin user has been created.');
+        $this->line(PHP_EOL.'<info>✔</info> Success! Your user profile has been created.');
 
         // Application Key Generation
         $this->comment(PHP_EOL.'Creating a unique application key...');
