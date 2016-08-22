@@ -1,6 +1,16 @@
 <br>
 
 <div class="form-group">
+    <div class="toggle-switch toggle-switch-demo" data-ts-color="blue">
+        <label for="is_draft" class="ts-label">Draft?</label>
+        <input {{ checked($is_draft) }} type="checkbox" name="is_draft">
+        <label for="is_draft" class="ts-helper"></label>
+    </div>
+</div>
+
+<br>
+
+<div class="form-group">
     <div class="fg-line">
       <label class="fg-label">Title</label>
       <input type="text" class="form-control" name="title" id="title" value="{{ $title }}" placeholder="Title">
@@ -78,16 +88,6 @@
 
 <br>
 
-<div class="checkbox m-b-15">
-    <label>
-        <input {{ checked($is_draft) }} type="checkbox" name="is_draft">
-        <i class="input-helper"></i>
-        Draft?
-    </label>
-</div>
-
-<br>
-
 <div class="form-group">
     <div class="fg-line">
       <label class="fg-label">Tags</label>
@@ -115,3 +115,5 @@
         <textarea class="form-control auto-size" name="meta_description" id="meta_description" style="resize: vertical" placeholder="Meta Description">{{ $meta_description }}</textarea>
     </div>
 </div>
+
+<br>

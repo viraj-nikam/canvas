@@ -32,12 +32,12 @@
                         @include('shared.errors')
                         @include('shared.success')
 
-                        <h2>Manage Uploads&nbsp;
+                        <h2>Uploads&nbsp;
                             <a href="" data-toggle="modal" data-target="#modal-file-upload"><i class="zmdi zmdi-file-plus" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Upload file"></i></a>
                             &nbsp;
                             <a href="" data-toggle="modal" data-target="#modal-folder-create"><i class="zmdi zmdi-folder" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="New folder"></i></a>
 
-                            <small>This page provides a comprehensive overview of all media uploads. Click the preview icon next to an image to view it or click the delete icon to remove it from the library.</small>
+                            <small>This page provides a comprehensive overview of your media library. Click the <span class="zmdi zmdi-search text-primary"></span> icon next to each file to preview it or click the <span class="zmdi zmdi-delete text-primary"></span> icon to remove it from the library.</small>
                         </h2>
 
                         <br>

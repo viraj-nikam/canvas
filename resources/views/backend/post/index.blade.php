@@ -32,33 +32,35 @@
                         @include('shared.errors')
                         @include('shared.success')
 
-                        <h2>Manage Posts&nbsp;
+                        <h2>Posts&nbsp;
                             <a href="{{ url('admin/post/create') }}"><i class="zmdi zmdi-plus-circle" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Create a new post"></i></a>
 
-                            <small>This page provides a comprehensive overview of all current blog posts. Click the edit or preview links next to each post to modify specific details, publish a post or view any changes from the browser.</small>
+                            <small>This page provides a comprehensive overview of all your blog posts. Click the <span class="zmdi zmdi-edit text-primary"></span> icon next to each post to update its contents or the <span class="zmdi zmdi-search text-primary"></span> icon to see what it looks like to your readers.</small>
                         </h2>
                     </div>
 
                     <div class="table-responsive">
-                        <table id="data-table-posts" class="table table-condensed table-vmiddle">
+                        <table id="posts" class="table table-condensed table-vmiddle">
                             <thead>
                                 <tr>
-                                    <th data-column-id="id" data-type="numeric" data-order="desc">Id</th>
                                     <th data-column-id="title">Title</th>
                                     <th data-column-id="subtitle">Subtitle</th>
                                     <th data-column-id="slug">Slug</th>
-                                    <th data-column-id="published" data-type="date">Published</th>
+                                    <th data-column-id="published" data-type="date">Status</th>
+                                    <th data-column-id="created" data-type="date" data-order="desc">Created</th>
+                                    <th data-column-id="updated" data-type="date">Updated</th>
                                     <th data-column-id="commands" data-formatter="commands" data-sortable="false">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($data as $post)
                                     <tr>
-                                        <td>{{ $post->id }}</td>
                                         <td>{{ $post->title }}</td>
                                         <td>{{ str_limit($post->subtitle, config('blog.trim_width')) }}</td>
                                         <td>{{ $post->slug }}</td>
-                                        <td>{{ $post->published_at->format('M d, Y') }}</td>
+                                        <td>{{ $post->is_draft === 1 ? '<span class="label label-primary">Draft</span>' : '<span class="label label-success">Published</span>' }}</td>
+                                        <td>{{ $post->created_at->format('M d, Y') }}</td>
+                                        <td>{{ $post->updated_at->format('M d, Y') }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>

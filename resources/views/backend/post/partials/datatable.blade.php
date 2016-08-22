@@ -1,6 +1,6 @@
 <script type="text/javascript">
     $(document).ready(function(){
-        $("#data-table-posts").bootgrid({
+        $("#posts").bootgrid({
             labels: {
                 noResults: "No posts yet."
             },
@@ -9,7 +9,7 @@
                 iconColumns: 'zmdi-view-module',
                 iconDown: 'zmdi-sort-amount-desc',
                 iconRefresh: 'zmdi-refresh',
-                iconUp: 'zmdi-sort-amount-asc',
+                iconUp: 'zmdi-sort-amount-asc'
             },
             formatters: {
                 "commands": function(column, row) {

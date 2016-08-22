@@ -32,15 +32,15 @@
                         @include('shared.errors')
                         @include('shared.success')
 
-                        <h2>Manage Tags&nbsp;
+                        <h2>Tags&nbsp;
                             <a href="{{ url('admin/tag/create') }}"><i class="zmdi zmdi-plus-circle" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Create a new tag"></i></a>
 
-                            <small>This page provides a comprehensive overview of all current blog tags. Click the edit link next to each tag to modify specific meta details or information.</small>
+                            <small>This page provides a comprehensive overview of all your blog tags. Click the <span class="zmdi zmdi-edit text-primary"></span> icon next to each tag to update its contents.</small>
                         </h2>
                     </div>
 
                     <div class="table-responsive">
-                        <table id="data-table-tags" class="table table-condensed table-vmiddle">
+                        <table id="tags" class="table table-condensed table-vmiddle">
                             <thead>
                                 <tr>
                                     <th data-column-id="id" data-type="numeric" data-sortable="false">Id</th>
@@ -48,6 +48,7 @@
                                     <th data-column-id="subtitle">Subtitle</th>
                                     <th data-column-id="layout">Layout</th>
                                     <th data-column-id="direction">Direction</th>
+                                    <th data-column-id="created" data-type="date">Created</th>
                                     <th data-column-id="commands" data-formatter="commands" data-sortable="false">Actions</th>
                                 </tr>
                             </thead>
@@ -65,6 +66,7 @@
                                                 Normal
                                             @endif
                                         </td>
+                                        <td>{{ $tag->created_at->format('M d, Y') }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>

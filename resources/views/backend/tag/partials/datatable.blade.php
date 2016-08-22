@@ -1,6 +1,6 @@
 <script type="text/javascript">
     $(document).ready(function(){
-        $("#data-table-tags").bootgrid({
+        $("#tags").bootgrid({
             labels: {
                 noResults: "No tags yet."
             },

@@ -18,6 +18,7 @@
                             <li><a href="{{ url('admin/post') }}">Posts</a></li>
                             <li class="active">Edit Post</li>
                         </ol>
+
                         <ul class="actions">
                             <li class="dropdown">
                                 <a href="" data-toggle="dropdown">
