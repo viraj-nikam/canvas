@@ -43,6 +43,7 @@
                         <table id="posts" class="table table-condensed table-vmiddle">
                             <thead>
                                 <tr>
+                                    <th data-column-id="id">ID</th>
                                     <th data-column-id="title">Title</th>
                                     <th data-column-id="subtitle">Subtitle</th>
                                     <th data-column-id="slug">Slug</th>
@@ -55,6 +56,7 @@
                             <tbody>
                                 @foreach ($data as $post)
                                     <tr>
+                                        <td>{{ $post->id }}</td>
                                         <td>{{ $post->title }}</td>
                                         <td>{{ str_limit($post->subtitle, config('blog.trim_width')) }}</td>
                                         <td>{{ $post->slug }}</td>
