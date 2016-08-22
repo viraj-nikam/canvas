@@ -1,51 +1,27 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta property="og:type" content="blog">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="author" content="{{ config('blog.author') }}">
-        <meta name="viewport" content="user-scalable=no">
+@extends('backend.layout')
 
-        <title>Canvas | Page not found</title>
+@section('title')
+    <title>Canvas | Page not found</title>
+@stop
 
-        <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
+@section('login')
+    <section id="main">
+        <section id="content">
+            <div class="col-lg-4 col-lg-offset-4 col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-12">
+                <div class="card">
+                    <br>
+                    <div class="card-header" style="text-align: center">
+                        <img src="{{ asset('images/favicon.png') }}" style="width: 85px">
+                    </div>
 
-        <style>
-            html, body {
-                height: 100%;
-            }
-
-            body {
-                margin: 0;
-                padding: 0;
-                width: 100%;
-                display: table;
-                font-weight: 100;
-                font-family: 'Lato';
-            }
-
-            .container {
-                text-align: center;
-                display: table-cell;
-                vertical-align: middle;
-            }
-
-            .content {
-                text-align: center;
-                display: inline-block;
-            }
-
-            .title {
-                font-size: 96px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <div class="content">
-                <div class="title">Page not found.</div>
+                    <div class="card-body card-padding" id="login-ch">
+                        <p class="f-20 f-300 text-center">404 - Page Not Found</p>
+                        <p class="text-muted text-center">Sorry, but nothing exists here.</p>
+                    </div>
+                </div>
+                <p class="text-center"><a href="/"><i class="zmdi zmdi-long-arrow-return"></i> Back to the blog</a></p>
             </div>
-        </div>
-    </body>
-</html>
+        </section>
+    </section>
+@stop
+
