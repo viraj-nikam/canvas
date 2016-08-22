@@ -75,7 +75,7 @@ class Install extends Command
 
         // Admin User Creation
         $this->comment(PHP_EOL.'Creating your user profile...');
-        $user = User::findOrFail(1);
+        $user = User::find(1);
         if (empty($user)) {
             $exitCode = Artisan::call('migrate', [
                 '--seed' => true,
