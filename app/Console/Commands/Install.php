@@ -21,7 +21,7 @@ class Install extends Command
      *
      * @var string
      */
-    protected $description = 'The 30 second Canvas installation';
+    protected $description = 'Install and configure Canvas';
 
     /**
      * Create a new command instance.
@@ -54,7 +54,7 @@ class Install extends Command
         $this->line(PHP_EOL.'<info>✔</info> Success! The blog subtitle has been saved.');
 
         // Blog Description
-        $blogDescription = $this->ask('Step 3: Description of your blog');
+        $blogDescription = $this->ask('Step 3: Description of your blog (Open Graph Meta Information)');
         $this->description($blogDescription, $config);
         $this->line(PHP_EOL.'<info>✔</info> Success! The blog description has been saved.');
 
@@ -73,16 +73,13 @@ class Install extends Command
         $this->postsPerPage($postsPerPage, $config);
         $this->line(PHP_EOL.'<info>✔</info> Success! The number of posts per page has been saved.');
 
-        // Admin User Creation
-        $this->comment(PHP_EOL.'Creating your user profile...');
-        $user = User::find(1);
-        if (empty($user)) {
-            $exitCode = Artisan::call('migrate', [
+        // Database Setup
+        $this->comment(PHP_EOL.'Setting up your database...');
+        $exitCode = Artisan::call('migrate', [
                 '--seed' => true,
             ]);
-        }
         $this->progress(5);
-        $this->line(PHP_EOL.'<info>✔</info> Success! Your user profile has been created.');
+        $this->line(PHP_EOL.'<info>✔</info> Success! Your database is set up and configured.');
 
         // Application Key Generation
         $this->comment(PHP_EOL.'Creating a unique application key...');
