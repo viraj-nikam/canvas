@@ -81,6 +81,12 @@ class Install extends Command
         $this->progress(5);
         $this->line(PHP_EOL.'<info>✔</info> Success! Your database is set up and configured.');
 
+        // Search Index
+        $this->comment(PHP_EOL.'Building the search index...');
+        $exitCode = Artisan::call('canvas:index');
+        $this->progress(5);
+        $this->line(PHP_EOL.'<info>✔</info> Success! The application search index has been built.');
+
         // Application Key Generation
         $this->comment(PHP_EOL.'Creating a unique application key...');
         $exitCode = Artisan::call('key:generate');
