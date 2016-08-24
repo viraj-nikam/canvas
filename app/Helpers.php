@@ -23,7 +23,7 @@ function seoUrl($url)
 }
 
 /**
- * Return sizes readable by humans.
+ * Return sizes that are readable by humans.
  *
  * @param $bytes
  * @param int $decimals
@@ -38,7 +38,7 @@ function human_filesize($bytes, $decimals = 2)
 }
 
 /**
- * Check if the mime type is an image.
+ * Check if the MIME type is an image.
  *
  * @param $mimeType
  * @return bool
