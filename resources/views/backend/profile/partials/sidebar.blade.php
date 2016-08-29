@@ -34,6 +34,9 @@
             @if(isset($data['github']) && strlen($data['github']))
                 <li><i class="zmdi zmdi-github-box"></i> <a href="http://github.com/{{ $data['github'] }}" target="_blank">{{ $data['github'] }}</a></li>
             @endif
+            @if(isset($data['linkedin']) && strlen($data['linkedin']))
+                <li><i class="zmdi zmdi-linkedin-box"></i> <a href="http://linkedin.com/{{ $data['linkedin'] }}" target="_blank">{{ $data['linkedin'] }}</a></li>
+            @endif
             <li>
                 @if(isset($data['address']) || isset($data['city']) || isset($data['country']))
                     <i class="zmdi zmdi-pin"></i>

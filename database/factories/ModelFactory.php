@@ -19,6 +19,7 @@ $factory->define(App\Models\User::class, function (Faker\Generator $faker) {
         'twitter' => $faker->userName,
         'facebook' => $faker->userName,
         'github' => $faker->userName,
+        'linkedin' => $faker->userName,
         'address' => $faker->streetAddress,
         'city' => $faker->city,
         'country' => $faker->countryCode,

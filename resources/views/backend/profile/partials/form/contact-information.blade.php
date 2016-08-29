@@ -47,6 +47,15 @@
 
 <div class="form-group">
     <div class="fg-line">
+      <label class="fg-label">LinkedIn</label>
+      <input type="text" class="form-control" name="linkedin" id="linkedin" value="{{ $data['linkedin'] }}" placeholder="LinkedIn Username">
+    </div>
+</div>
+
+<br>
+
+<div class="form-group">
+    <div class="fg-line">
       <label class="fg-label">Address</label>
       <input type="text" class="form-control" name="address" id="address" value="{{ $data['address'] }}" placeholder="Address">
     </div>

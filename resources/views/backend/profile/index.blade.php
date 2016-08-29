@@ -81,6 +81,12 @@
                         <dd><a href="http://github.com/{{ $data['github'] }}" target="_blank">{{ $data['github'] }}</a></dd>
                     </dl>
                 @endif
+                @if(isset($data['linkedin']) && strlen($data['linkedin']))
+                    <dl class="dl-horizontal">
+                        <dt>LinkedIn</dt>
+                        <dd><a href="http://linkedin.com/{{ $data['linkedin'] }}" target="_blank">{{ $data['linkedin'] }}</a></dd>
+                    </dl>
+                @endif
                 @if(isset($data['address']) && !empty($data['address']))
                     <dl class="dl-horizontal">
                         <dt>Address</dt>

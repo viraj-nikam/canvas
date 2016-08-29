@@ -36,6 +36,7 @@ class UserTest extends EloquentTestCase
         $this->table->column('twitter')->string()->nullable();
         $this->table->column('facebook')->string()->nullable();
         $this->table->column('github')->string()->nullable();
+        $this->table->column('linkedin')->string()->nullable();
         $this->table->column('address')->string()->nullable();
         $this->table->column('city')->string()->nullable();
         $this->table->column('country')->string()->nullable();
@@ -60,7 +61,7 @@ class UserTest extends EloquentTestCase
     {
         $this->hasFillable([
                 'first_name', 'last_name', 'display_name', 'url', 'twitter', 'facebook',
-                'github', 'address', 'city', 'country', 'bio', 'job', 'phone', 'gender',
+                'github', 'linkedin', 'address', 'city', 'country', 'bio', 'job', 'phone', 'gender',
                 'relationship', 'birthday', 'email', 'password',
              ]);
     }
