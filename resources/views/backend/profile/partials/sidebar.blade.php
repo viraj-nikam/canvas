@@ -35,7 +35,10 @@
                 <li><i class="zmdi zmdi-github-box"></i> <a href="http://github.com/{{ $data['github'] }}" target="_blank">{{ $data['github'] }}</a></li>
             @endif
             @if(isset($data['linkedin']) && strlen($data['linkedin']))
-                <li><i class="zmdi zmdi-linkedin-box"></i> <a href="http://linkedin.com/{{ $data['linkedin'] }}" target="_blank">{{ $data['linkedin'] }}</a></li>
+                <li><i class="zmdi zmdi-linkedin-box"></i> <a href="http://linkedin.com/in/{{ $data['linkedin'] }}" target="_blank">{{ $data['linkedin'] }}</a></li>
+            @endif
+            @if(isset($data['cv']) && strlen($data['cv']))
+                <li><i class="zmdi zmdi-collection-pdf"></i> <a href="{{ url('uploads', $data['cv']) }}" target="_blank">{{ $data['cv'] }}</a></li>
             @endif
             <li>
                 @if(isset($data['address']) || isset($data['city']) || isset($data['country']))

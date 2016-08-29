@@ -84,7 +84,13 @@
                 @if(isset($data['linkedin']) && strlen($data['linkedin']))
                     <dl class="dl-horizontal">
                         <dt>LinkedIn</dt>
-                        <dd><a href="http://linkedin.com/{{ $data['linkedin'] }}" target="_blank">{{ $data['linkedin'] }}</a></dd>
+                        <dd><a href="http://linkedin.com/in/{{ $data['linkedin'] }}" target="_blank">{{ $data['linkedin'] }}</a></dd>
+                    </dl>
+                @endif
+                @if(isset($data['cv']) && strlen($data['cv']))
+                    <dl class="dl-horizontal">
+                        <dt>CV</dt>
+                        <dd><a href="{{ url('uploads', $data['cv']) }}" target="_blank">{{ $data['cv'] }}</a></dd>
                     </dl>
                 @endif
                 @if(isset($data['address']) && !empty($data['address']))
