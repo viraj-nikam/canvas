@@ -1,8 +1,8 @@
 <?php
-
+use Illuminate\Foundation\Http\FormRequest;
 namespace App\Http\Requests;
 
-class UploadNewFolderRequest extends Request
+class UploadNewFolderRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
