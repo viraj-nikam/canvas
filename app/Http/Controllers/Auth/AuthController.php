@@ -23,7 +23,7 @@ class AuthController extends Controller
     */
     use AuthenticatesUsers, ThrottlesLogins;
 
-    protected $redirectAfterLogout = 'auth/login';
+    protected $redirectAfterLogout = 'admin';
 
     protected $redirectTo = 'admin';
 
