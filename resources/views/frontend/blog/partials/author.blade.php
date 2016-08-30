@@ -1,4 +1,4 @@
-@if(!empty($user->github) || !empty($user->twitter) || !empty($user->facebook) || !empty($user->linkedin) || !empty($user->cv))
+@if(!empty($user->github) || !empty($user->twitter) || !empty($user->facebook) || !empty($user->linkedin) || !empty($user->resume_cv))
     <div class="author">
         <p>lol</p>
         <img class="img-responsive img-circle author-img" src="//www.gravatar.com/avatar/{{ md5($user->email) }}?d=identicon&s=150">
@@ -24,9 +24,9 @@
                 &nbsp;
                 <a href="http://linkedin.com/in/{{ $user->linkedin }}" target="_blank"><i class="fa fa-fw fa-linkedin author-social"></i></a>
             @endif
-            @if(isset($user->cv) && strlen($user->cv))
+            @if(isset($user->resume_cv) && strlen($user->resume_cv))
                 @if(!empty($user->github) || !empty($user->twitter) || !empty($user->facebook) || !empty($user->linkedin))<span class="author-social">&nbsp;-&nbsp;</span>@endif
-                <a href="{{ url('uploads', $user->cv) }}" class="author-social" target="_blank"><i class="fa fa-fw fa-file-pdf-o"></i> CV</a>
+                <a href="{{ url('uploads', $user->resume_cv) }}" class="author-social" target="_blank"><i class="fa fa-fw fa-file-pdf-o"></i> Resume/CV</a>
             @endif
         </h5>
     </div>

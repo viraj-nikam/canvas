@@ -37,8 +37,8 @@
             @if(isset($data['linkedin']) && strlen($data['linkedin']))
                 <li><i class="zmdi zmdi-linkedin-box"></i> <a href="http://linkedin.com/in/{{ $data['linkedin'] }}" target="_blank">{{ $data['linkedin'] }}</a></li>
             @endif
-            @if(isset($data['cv']) && strlen($data['cv']))
-                <li><i class="zmdi zmdi-collection-pdf"></i> <a href="{{ url('uploads', $data['cv']) }}" target="_blank">{{ $data['cv'] }}</a></li>
+            @if(isset($data['resume_cv']) && strlen($data['resume_cv']))
+                <li><i class="zmdi zmdi-collection-pdf"></i> <a href="{{ url('uploads', $data['resume_cv']) }}" target="_blank">{{ $data['resume_cv'] }}</a></li>
             @endif
             <li>
                 @if(isset($data['address']) || isset($data['city']) || isset($data['country']))

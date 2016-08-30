@@ -12,7 +12,7 @@ class AddCvColumnToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function ($table) {
-            $table->string('cv')->after('linkedin')->nullable();
+            $table->string('resume_cv')->after('linkedin')->nullable();
         });
     }
 
@@ -24,7 +24,7 @@ class AddCvColumnToUsersTable extends Migration
     public function down()
     {
         Schema::table('users', function ($table) {
-            $table->dropColumn('cv');
+            $table->dropColumn('resume_cv');
         });
     }
 }
