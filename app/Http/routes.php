@@ -61,7 +61,6 @@ $router->group([
     'prefix'    => 'auth',
 ], function () {
     // Login
-    Route::get('login', 'AuthController@getLogin');
     Route::post('login', 'AuthController@postLogin');
 
     // Logout
