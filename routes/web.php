@@ -32,7 +32,7 @@ Route::group([
             'edit' => 'admin.post.edit',
             'update' => 'admin.post.update',
             'destroy' => 'admin.post.destroy',
-        ]
+        ],
     ]);
 
     // Tags Page
@@ -45,7 +45,7 @@ Route::group([
             'edit' => 'admin.tag.edit',
             'update' => 'admin.tag.update',
             'destroy' => 'admin.tag.destroy',
-        ]
+        ],
     ]);
 
     // Uploads Page
@@ -62,16 +62,16 @@ Route::group([
         'names' => [
             'index' => 'admin.profile.index',
             'edit' => 'admin.profile.edit',
-            'update' => 'admin.profile.update'
-        ]
+            'update' => 'admin.profile.update',
+        ],
     ]);
 
     // Search Page
     Route::resource('admin/search', 'SearchController', [
         'only' => ['index'],
         'names' => [
-            'index' => 'admin.search.index'
-        ]
+            'index' => 'admin.search.index',
+        ],
     ]);
 
     // Tools Page

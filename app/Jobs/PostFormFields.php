@@ -8,8 +8,7 @@ use Carbon\Carbon;
 use Illuminate\Queue\SerializesModels;
 
 /**
- * Class PostFormField
- * @package App\Jobs
+ * Class PostFormField.
  */
 class PostFormFields
 {

@@ -8,8 +8,7 @@ use Carbon\Carbon;
 use Illuminate\Queue\SerializesModels;
 
 /**
- * Class BlogIndexData
- * @package App\Jobs
+ * Class BlogIndexData.
  */
 class BlogIndexData
 {
@@ -51,7 +50,7 @@ class BlogIndexData
     {
         $tag = Tag::where('tag', $tag)->firstOrFail();
 
-        $reverse_direction = (bool)$tag->reverse_direction;
+        $reverse_direction = (bool) $tag->reverse_direction;
 
         $posts = Post::where('published_at', '<=', Carbon::now())
             ->whereHas('tags', function ($q) use ($tag) {

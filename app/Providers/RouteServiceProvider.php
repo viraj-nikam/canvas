@@ -53,6 +53,7 @@ class RouteServiceProvider extends ServiceProvider
             require base_path('routes/web.php');
         });
     }
+
     /**
      * Define the "api" routes for the application.
      *
