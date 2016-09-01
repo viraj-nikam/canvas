@@ -13,11 +13,7 @@
                 <a href="http://github.com/{{ $user->github }}" target="_blank" id="social"><i class="fa fa-fw fa-github"></i></a>
             @endif
             @if(isset($user->linkedin) && strlen($user->linkedin))
-                <a href="http://linkedin.com/in/{{ $user->linkedin }}" target="_blank" id="social"><i class="fa fa-fw fa-linkedin"></i></a>
-            @endif
-            @if(isset($user->cv) && strlen($user->cv))
-                @if(!empty($user->github) || !empty($user->twitter) || !empty($user->facebook) || !empty($user->linkedin))<span id="social">-</span>@endif
-                <a href="{{ url('uploads', $user->cv) }}" target="_blank" id="social"><i class="fa fa-fw fa-file-pdf-o"></i> CV</a>
+                <a href="http://linkedin.com/{{ $user->linkedin }}" target="_blank" id="social"><i class="fa fa-fw fa-linkedin"></i></a>
             @endif
         </div>
     </div>

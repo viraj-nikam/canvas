@@ -56,15 +56,6 @@
 
 <div class="form-group">
     <div class="fg-line">
-        <label class="fg-label">CV <a href="" data-toggle="modal" data-target="#cv-help"><i class="zmdi zmdi-help" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="CV Help"></i></a></label>
-        <input type="text" class="form-control" name="cv" id="cv" value="{{ $data['cv'] }}" placeholder="Example: my_cv.pdf">
-    </div>
-</div>
-
-<br>
-
-<div class="form-group">
-    <div class="fg-line">
       <label class="fg-label">Address</label>
       <input type="text" class="form-control" name="address" id="address" value="{{ $data['address'] }}" placeholder="Address">
     </div>
@@ -87,5 +78,3 @@
       <input type="text" class="form-control" name="country" id="country" value="{{ $data['country'] }}" placeholder="Country">
     </div>
 </div>
-
-@include('backend.profile.partials.modals.cv-help')
