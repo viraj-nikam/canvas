@@ -58,6 +58,7 @@ class Handler extends ExceptionHandler
                 break;
         }
     }
+
     /**
      * Convert an authentication exception into an unauthenticated response.
      *
