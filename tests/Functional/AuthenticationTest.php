@@ -12,7 +12,7 @@ class AuthenticationTest extends TestCase
     /**
      * The user model.
      *
-     * @var App\Users\User
+     * @var App\Models\User
      */
     private $user;
 
