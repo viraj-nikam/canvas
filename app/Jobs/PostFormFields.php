@@ -2,13 +2,19 @@
 
 namespace App\Jobs;
 
-use Carbon\Carbon;
-use App\Models\Tag;
 use App\Models\Post;
-use Illuminate\Contracts\Bus\SelfHandling;
+use App\Models\Tag;
+use Carbon\Carbon;
+use Illuminate\Queue\SerializesModels;
 
-class PostFormFields extends Job implements SelfHandling
+/**
+ * Class PostFormField
+ * @package App\Jobs
+ */
+class PostFormFields
 {
+    use SerializesModels;
+
     /**
      * The id (if any) of the Post row.
      *

@@ -15,7 +15,7 @@ Route::get('blog/{slug}', 'Frontend\BlogController@showPost');
 | Canvas Application Routes : Backend
 |--------------------------------------------------------------------------
 */
-$router->group([
+Route::group([
     'namespace'  => 'Backend',
     'middleware' => 'auth',
 ], function () {
@@ -23,10 +23,30 @@ $router->group([
     Route::get('admin', 'HomeController@index');
 
     // Posts Page
-    Route::resource('admin/post', 'PostController', ['except' => 'show']);
+    Route::resource('admin/post', 'PostController', [
+        'except' => 'show',
+        'names' => [
+            'index' => 'admin.post.index',
+            'create' => 'admin.post.create',
+            'store' => 'admin.post.store',
+            'edit' => 'admin.post.edit',
+            'update' => 'admin.post.update',
+            'destroy' => 'admin.post.destroy',
+        ]
+    ]);
 
     // Tags Page
-    Route::resource('admin/tag', 'TagController', ['except' => 'show']);
+    Route::resource('admin/tag', 'TagController', [
+        'except' => 'show',
+        'names' => [
+            'index' => 'admin.tag.index',
+            'create' => 'admin.tag.create',
+            'store' => 'admin.tag.store',
+            'edit' => 'admin.tag.edit',
+            'update' => 'admin.tag.update',
+            'destroy' => 'admin.tag.destroy',
+        ]
+    ]);
 
     // Uploads Page
     Route::get('admin/upload', 'UploadController@index')->name('admin/upload');
@@ -37,10 +57,22 @@ $router->group([
 
     // Profile Pages
     Route::get('admin/profile/privacy', 'ProfileController@editPrivacy')->name('admin.profile.privacy');
-    Route::resource('admin/profile', 'ProfileController');
+    Route::resource('admin/profile', 'ProfileController', [
+        'only' => ['index', 'edit', 'update'],
+        'names' => [
+            'index' => 'admin.profile.index',
+            'edit' => 'admin.profile.edit',
+            'update' => 'admin.profile.update'
+        ]
+    ]);
 
     // Search Page
-    Route::resource('admin/search', 'SearchController');
+    Route::resource('admin/search', 'SearchController', [
+        'only' => ['index'],
+        'names' => [
+            'index' => 'admin.search.index'
+        ]
+    ]);
 
     // Tools Page
     Route::get('admin/tools', 'ToolsController@index');
@@ -56,16 +88,16 @@ $router->group([
 | Canvas Application Routes : Authentication
 |--------------------------------------------------------------------------
 */
-$router->group([
+Route::group([
     'namespace' => 'Auth',
     'prefix'    => 'auth',
 ], function () {
     // Login
-    Route::get('login', 'AuthController@getLogin');
-    Route::post('login', 'AuthController@postLogin');
+    Route::get('login', 'AuthController@showLoginForm');
+    Route::post('login', 'AuthController@login');
 
     // Logout
-    Route::get('logout', 'AuthController@getLogout');
+    Route::get('logout', 'AuthController@logout');
 
     // Passwords
     Route::post('password', 'PasswordController@updatePassword');

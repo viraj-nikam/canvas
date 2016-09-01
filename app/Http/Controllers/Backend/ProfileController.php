@@ -33,7 +33,7 @@ class ProfileController extends Controller
      */
     public function edit($id)
     {
-        $userData = User::whereStrict('id', $id)->firstOrFail()->toArray();
+        $userData = User::where('id', $id)->firstOrFail()->toArray();
         $blogData = config('blog');
         $data = array_merge($userData, $blogData);
 
