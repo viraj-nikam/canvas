@@ -46,7 +46,7 @@ class PublicRoutesTest extends TestCase
      */
     public function testLoginPageResponseCode()
     {
-        $response = $this->call('GET', '/admin');
+        $response = $this->call('GET', '/auth/login');
         $this->assertEquals(200, $response->status());
     }
 

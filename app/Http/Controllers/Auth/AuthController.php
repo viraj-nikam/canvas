@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\Http\Request;
 use Session;
 use Validator;
 use App\Models\User;
 use App\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class AuthController extends Controller
@@ -21,20 +21,41 @@ class AuthController extends Controller
     | a simple trait to add these behaviors. Why don't you explore it?
     |
     */
-    use AuthenticatesUsers, ThrottlesLogins;
+    use AuthenticatesUsers;
 
-    protected $redirectAfterLogout = 'admin';
+    /**
+     * @var string
+     */
+    protected $redirectAfterLogout = 'auth/login';
 
+    /**
+     * @var string
+     */
     protected $redirectTo = 'admin';
 
     /**
      * Create a new authentication controller instance.
-     *
-     * @return void
      */
     public function __construct()
     {
-        $this->middleware('guest', ['except' => 'getLogout']);
+        $this->middleware('guest', ['except' => 'logout']);
+    }
+
+    /**
+     * Log the user out of the application.
+     *
+     * @param  Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function logout(Request $request)
+    {
+        $this->guard()->logout();
+
+        $request->session()->flush();
+
+        $request->session()->regenerate();
+
+        return redirect('/auth/login');
     }
 
     /**
@@ -67,6 +88,11 @@ class AuthController extends Controller
         ]);
     }
 
+    /**
+     * @param \Illuminate\Http\Request $request
+     * @param User $user
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function authenticated(\Illuminate\Http\Request $request, User $user)
     {
         Session::set('_login', trans('messages.login', ['first_name' => $user->first_name, 'last_name' => $user->last_name]));
