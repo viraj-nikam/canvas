@@ -35,7 +35,7 @@ Before you proceed make sure your server meets the following requirements:
 5. Run `php artisan canvas:install` and follow the on-screen prompts.
 6. To build the search index, run `php artisan canvas:index`
 7. Change the permissions of the `storage/` directory: `chmod -R 777 storage/`
-8. Sign in to the application at `http://YOUR_DOMAIN/auth/login`
+8. Sign in to the application at `http://YOUR_DOMAIN/admin`
     * Email: `admin@canvas.com`
     * Password: `password`
 
