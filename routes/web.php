@@ -90,7 +90,7 @@ Route::group([
 */
 Route::group([
     'namespace' => 'Auth',
-    'prefix' => 'auth'
+    'prefix' => 'auth',
 ], function () {
     // Login
     Route::get('login', 'LoginController@showLoginForm')->name('auth.login');
