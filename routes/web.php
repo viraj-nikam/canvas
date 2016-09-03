@@ -91,7 +91,7 @@ Route::group([
 Route::group([
     'namespace' => 'Auth',
 ], function () {
-    Route::group(['prefix' => 'auth'], function() {
+    Route::group(['prefix' => 'auth'], function () {
         // Login
         Route::get('login', 'LoginController@showLoginForm')->name('auth.login');
         Route::post('login', 'LoginController@login')->name('auth.login.store');
@@ -103,7 +103,7 @@ Route::group([
         Route::post('password', 'PasswordController@updatePassword');
     });
 
-    Route::group(['prefix' => 'password'], function() {
+    Route::group(['prefix' => 'password'], function () {
         // Forgot password
         Route::get('forgot', 'ForgotPasswordController@showLinkRequestForm')->name('auth.password.forgot');
         Route::post('forgot', 'ForgotPasswordController@sendResetLinkEmail')->name('auth.password.forgot.store');
