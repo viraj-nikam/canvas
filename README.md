@@ -33,7 +33,7 @@ Before you proceed make sure your server meets the following requirements:
 3. Give the `uploads/` directory write-access by the web server: `chown -R www-data:www-data public/uploads/`
 4. Copy the contents of `.env.example` and create a new file called `.env` in the project root. Set your application variables in the new file.
 5. Run `php artisan canvas:install` and follow the on-screen prompts.
-6. To build the search index, run `php artisan canvas:index`
+6. To build the initial search index, run `php artisan canvas:index`
 7. Change the permissions of the `storage/` directory: `chmod -R 777 storage/`
 8. Sign in to the application at `http://YOUR_DOMAIN/admin`
     * Email: `admin@canvas.com`
