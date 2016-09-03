@@ -52,7 +52,7 @@ class AuthenticationTest extends TestCase
         $this->actingAs($this->user)
              ->visit('/admin')
              ->click('logout')
-             ->seePageis('/auth/login')
+             ->seePageis('/admin')
              ->dontSeeIsAuthenticated();
     }
 }

@@ -90,14 +90,14 @@ Route::group([
 */
 Route::group([
     'namespace' => 'Auth',
-    'prefix'    => 'auth',
+    'prefix' => 'auth'
 ], function () {
     // Login
-    Route::get('login', 'AuthController@showLoginForm');
-    Route::post('login', 'AuthController@login');
+    Route::get('login', 'LoginController@showLoginForm')->name('auth.login');
+    Route::post('login', 'LoginController@login')->name('auth.login.store');
 
     // Logout
-    Route::get('logout', 'AuthController@logout');
+    Route::get('logout', 'LoginController@logout')->name('auth.logout');
 
     // Passwords
     Route::post('password', 'PasswordController@updatePassword');
