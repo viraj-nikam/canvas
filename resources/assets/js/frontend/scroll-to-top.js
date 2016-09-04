@@ -2,7 +2,7 @@
     // Link
     document.getElementsByTagName('body')[0]
         .insertAdjacentHTML('afterend',
-                            '<a href="#!" id="scrollToTop">Back To Top</a>');
+                            '<a href="#!" id="scrollToTop">SCROLL TO TOP</a>');
     // Events
     document.getElementById('scrollToTop').onclick = function () {
         scrollTo(document.body, 0, 200);
