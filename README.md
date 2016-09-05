@@ -46,7 +46,7 @@ Before you proceed make sure your server meets the following requirements:
 1. Child Themes
     * Run `npm install` from the project root
     * Run `npm install gulp`
-    * Child theme files are already waiting for you at `resources/assets/sass/`
+    * A child theme file is already waiting for you at `resources/assets/sass/frontend.scss`
     * After any changes in these files, run `gulp`
 
 2. Google Analytics
