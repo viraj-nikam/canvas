@@ -13,9 +13,9 @@ var elixir = require('laravel-elixir');
 
 elixir(function (mix) {
 
-    // SaSS Files
+    // Sass Files
     mix.sass('frontend.scss');
-    mix.sass('backend.scss');
+    mix.sass('backend/backend.scss');
 
     // Frontend JS Files
     mix.scripts([
