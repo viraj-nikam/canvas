@@ -46,8 +46,8 @@ Before you proceed make sure your server meets the following requirements:
 1. Child Themes
     * Run `npm install` from the project root
     * Run `npm install gulp`
-    * A child theme file is already waiting for you at `resources/assets/sass/frontend.scss`
-    * After any changes in these files, run `gulp`
+    * Create your own theme with the stylesheet at `resources/assets/sass/theme/styles.scss`
+    * After any changes to this file, run `gulp`
 
 2. Google Analytics
     * Set up a web property on [Google Analytics](https://www.google.com/analytics/#?modal_active=none).
