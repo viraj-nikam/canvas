@@ -12,7 +12,7 @@
         <p id="postSubtitle">
             {{ $post->subtitle }}
         </p>
-        <p class="text-muted small"><a href="{{ $post->url($tag) }}">READ MORE...</a></p>
+        <p><a href="{{ $post->url($tag) }}">READ MORE...</a></p>
     </div>
     <hr>
 @endforeach
