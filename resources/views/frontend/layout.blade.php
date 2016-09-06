@@ -2,20 +2,14 @@
 <html lang="en">
     <head>
         @include('shared.meta-tags')
-
         @yield('title')
-
         <meta name="description" content="{{ $meta_description }}">
-
-        @include('frontend.partials.css')
+        @include('frontend.partials.frontend-css')
     </head>
     <body>
-        @include('frontend.blog.partials.header')
-
+        @include('frontend.partials.header')
         @yield('content')
-
         @yield('unique-js')
-
-        @include('frontend.blog.partials.footer')
+        @include('frontend.partials.footer')
     </body>
 </html>

@@ -1,1 +1,1 @@
-{!! JsValidator::formRequest('App\Http\Requests\SearchRequest', '#search'); !!}
+{!! JsValidator::formRequest('App\Http\Requests\SearchRequest', '#search') !!}
