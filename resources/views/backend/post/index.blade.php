@@ -58,7 +58,7 @@
                                     <tr>
                                         <td>{{ $post->id }}</td>
                                         <td>{{ $post->title }}</td>
-                                        <td>{{ str_limit($post->subtitle, config('blog.trim_width')) }}</td>
+                                        <td>{{ str_limit($post->subtitle, config('blog.backend_trim_width')) }}</td>
                                         <td>{{ $post->slug }}</td>
                                         <td>{{ $post->is_draft === 1 ? '<span class="label label-primary">Draft</span>' : '<span class="label label-success">Published</span>' }}</td>
                                         <td>{{ $post->created_at->format('M d, Y') }}</td>

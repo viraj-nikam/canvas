@@ -10,7 +10,7 @@
             @endunless
         </p>
         <p id="postSubtitle">
-            {{ $post->subtitle }}
+            {{ str_limit($post->subtitle, config('blog.frontend_trim_width')) }}
         </p>
         <p><a href="{{ $post->url($tag) }}">READ MORE...</a></p>
     </div>

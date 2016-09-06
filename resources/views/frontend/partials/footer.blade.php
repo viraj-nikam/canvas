@@ -7,7 +7,7 @@
         </div>
         <br>
     @endif
-    <center>
+    <div style="text-align: center">
         <hr width="50%">
         <span id="subtitle">{{ config('blog.subtitle') }}</span>
         <div class="row">
@@ -18,7 +18,7 @@
                 </p>
             </div>
         </div>
-    </center>
+    </div>
 </div>
 
 @if (Config::get('analytics.google'))
