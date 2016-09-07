@@ -43,8 +43,7 @@
                         @endif
                     </p>
                     <h1 class="post-page-title">{{ $post->title }}</h1>
-                    <div class="clearfix"></div>
-                    <hr>
+
                     {!! $post->content_html !!}
 
                     <p style="text-align: center"><span style="padding: 10px">&#183;</span><span style="padding: 10px">&#183;</span><span style="padding: 10px">&#183;</span></p>
