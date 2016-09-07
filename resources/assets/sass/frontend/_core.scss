@@ -46,7 +46,7 @@ p {
 }
 
 a {
-    color: $white-faded;
+    color: $gray-dark;
     &:hover,
     &:focus {
         color: $brand-primary;
@@ -461,7 +461,7 @@ td {
     margin-bottom: 40px;
 
     h1 {
-        font-weight: 300;
+        font-weight: 200;
         font-size: 45px;
     }
 
