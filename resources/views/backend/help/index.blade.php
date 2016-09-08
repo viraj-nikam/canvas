@@ -34,7 +34,9 @@
                         </ul>
                     </div>
                     <div class="card-body card-padding">
+                        @include('backend.help.partials.overview')
                         @include('backend.help.partials.topics')
+                        @include('backend.help.partials.items')
                     </div>
                 </div>
             </div>
