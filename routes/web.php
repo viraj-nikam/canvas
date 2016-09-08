@@ -87,6 +87,9 @@ Route::group([
     // Settings Page
     Route::get('admin/settings', 'SettingsController@index');
     Route::post('admin/settings', 'SettingsController@store');
+
+    // Help Page
+    Route::get('admin/help', 'HelpController@index');
 });
 
 /*

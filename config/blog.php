@@ -4,7 +4,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Canvas Configuration : Blog Index
+    | Canvas Configuration : Blog Index Page
     |--------------------------------------------------------------------------
     |
     | Pretty self-explanatory here. Indicate how many posts you would like
@@ -12,8 +12,7 @@ return [
     | identifier in your .env file.
     |
     */
-    'posts_per_page' => 5,
-    'disqus_name' => env('DISQUS_NAME', null),
+    'posts_per_page' => 6,
 
     /*
     |--------------------------------------------------------------------------
