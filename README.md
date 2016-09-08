@@ -55,7 +55,7 @@ Before you proceed make sure your server meets the following requirements:
     * Enable Google Analytics in the `.env` file by setting `GA_ENABLE` to `true`
 
 3. Disqus Integration
-    * Generate a unique shortname from [Official Documentation](https://help.disqus.com/customer/portal/articles/466208-what-s-a-shortname-).
+    * Generate a unique shortname from [Disqus](https://help.disqus.com/customer/portal/articles/466208-what-s-a-shortname-).
     * Enter your shortname (`DISQUS_NAME`) into the `.env` file.
 
 ## Contributing
