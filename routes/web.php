@@ -1,4 +1,5 @@
 <?php
+
 /*
 |--------------------------------------------------------------------------
 | Canvas Application Routes : Frontend
@@ -10,6 +11,7 @@ Route::get('blog', 'Frontend\BlogController@index');
 
 // Blog Post Page
 Route::get('blog/{slug}', 'Frontend\BlogController@showPost');
+
 /*
 |--------------------------------------------------------------------------
 | Canvas Application Routes : Backend
