@@ -34,7 +34,7 @@ class Settings extends Model
      */
     public static function blogTitle()
     {
-        return $blogTitle = Settings::where('setting_name', 'blog_title')->pluck('setting_value')->first();
+        return $blogTitle = self::where('setting_name', 'blog_title')->pluck('setting_value')->first();
     }
 
     /**
@@ -44,7 +44,7 @@ class Settings extends Model
      */
     public static function blogSubTitle()
     {
-        return $blogSubTitle = Settings::where('setting_name', 'blog_subtitle')->pluck('setting_value')->first();
+        return $blogSubTitle = self::where('setting_name', 'blog_subtitle')->pluck('setting_value')->first();
     }
 
     /**
@@ -54,7 +54,7 @@ class Settings extends Model
      */
     public static function blogDescription()
     {
-        return $blogDescription = Settings::where('setting_name', 'blog_description')->pluck('setting_value')->first();
+        return $blogDescription = self::where('setting_name', 'blog_description')->pluck('setting_value')->first();
     }
 
     /**
@@ -64,7 +64,7 @@ class Settings extends Model
      */
     public static function blogSeo()
     {
-        return $blogSeo = Settings::where('setting_name', 'blog_seo')->pluck('setting_value')->first();
+        return $blogSeo = self::where('setting_name', 'blog_seo')->pluck('setting_value')->first();
     }
 
     /**
@@ -74,7 +74,7 @@ class Settings extends Model
      */
     public static function blogAuthor()
     {
-        return $blogAuthor = Settings::where('setting_name', 'blog_author')->pluck('setting_value')->first();
+        return $blogAuthor = self::where('setting_name', 'blog_author')->pluck('setting_value')->first();
     }
 
     /**
@@ -84,7 +84,7 @@ class Settings extends Model
      */
     public static function disqus()
     {
-        return $disqusName = Settings::where('setting_name', 'disqus_name')->pluck('setting_value')->first();
+        return $disqusName = self::where('setting_name', 'disqus_name')->pluck('setting_value')->first();
     }
 
     /**
@@ -94,6 +94,6 @@ class Settings extends Model
      */
     public static function gaId()
     {
-        return $disqusName = Settings::where('setting_name', 'ga_id')->pluck('setting_value')->first();
+        return $disqusName = self::where('setting_name', 'ga_id')->pluck('setting_value')->first();
     }
 }
