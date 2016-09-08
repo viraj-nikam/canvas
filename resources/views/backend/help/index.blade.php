@@ -17,7 +17,7 @@
                         </ol>
 
                         <h2>Help Topics
-                            <small>Help is available on the following topics:</small>
+                            <small>Help is available for all of the following topics:</small>
                         </h2>
 
                         <ul class="actions">
@@ -35,6 +35,7 @@
                     </div>
                     <div class="card-body card-padding">
                         @include('backend.help.partials.overview')
+                        <hr>
                         @include('backend.help.partials.topics')
                         @include('backend.help.partials.items')
                     </div>
