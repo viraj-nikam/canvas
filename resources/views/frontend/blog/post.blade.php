@@ -1,6 +1,6 @@
 @extends('frontend.layout', [
   'title' => $post->title,
-  'meta_description' => $post->meta_description ?: config('blog.description'),
+  'meta_description' => $post->meta_description ?: Settings::blogDescription(),
 ])
 
 @section('og-title')
@@ -18,7 +18,7 @@
 @stop
 
 @section('title')
-    <title>{{ $title or config('blog.title') }}</title>
+    <title>{{ $title or Settings::blogTitle() }}</title>
 @stop
 
 @section('unique-js')

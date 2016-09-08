@@ -1,7 +1,7 @@
 @extends('backend.layout')
 
 @section('title')
-    <title>{{ config('blog.title') }} | Tags</title>
+    <title>{{ Settings::blogTitle() }} | Tags</title>
 @stop
 
 @section('content')

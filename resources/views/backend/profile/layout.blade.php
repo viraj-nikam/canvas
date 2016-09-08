@@ -1,7 +1,7 @@
 @extends('backend.layout')
 
 @section('title')
-    <title>{{ config('blog.title') }} | Profile</title>
+    <title>{{ Settings::blogTitle() }} | Profile</title>
 @stop
 
 @section('content')
@@ -29,7 +29,7 @@
                                     <a href="{{ url('admin/profile') }}">Profile</a>
                                 </li>
                                 <li class="{{ Route::is('admin.profile.edit') ? 'active' : '' }}">
-                                    <a href="{{ url('/admin/profile') }}/{{ Auth::id() }}/edit">Settings</a>
+                                    <a href="{{ url('/admin/profile') }}/{{ Auth::id() }}/edit">Edit</a>
                                 </li>
                                 <li class="{{ Route::is('admin.profile.privacy') ? 'active' : '' }}">
                                     <a href="{{ url('admin/profile/privacy') }}">Privacy</a>

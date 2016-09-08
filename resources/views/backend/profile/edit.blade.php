@@ -1,7 +1,7 @@
 @extends('backend.profile.layout')
 
 @section('title')
-    <title>{{ config('blog.title') }} | Edit Profile</title>
+    <title>{{ Settings::blogTitle() }} | Edit Profile</title>
 @stop
 
 @section('profile-content')
