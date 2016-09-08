@@ -1,5 +1,10 @@
 <div class="card">
     <div class="card-header">
+        <ol class="breadcrumb">
+            <li><a href="{{ url('admin') }}">Home</a></li>
+            <li class="active">Settings</li>
+        </ol>
+
         <h2>General Settings
             <small>Overview of configuration options for your site.</small>
         </h2>
