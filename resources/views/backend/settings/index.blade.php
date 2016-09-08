@@ -11,7 +11,7 @@
             <div class="container">
                 <div class="block-header">
                     <h2>Settings
-                        <small>Site Configuration</small>
+                        <small>General configuration options for your blog.</small>
                     </h2>
                     <ul class="actions">
                         <li class="dropdown">
