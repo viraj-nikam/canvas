@@ -81,6 +81,9 @@ Route::group([
     Route::post('admin/tools/download_archive', 'ToolsController@handleDownload');
     Route::post('admin/tools/enable_maintenance_mode', 'ToolsController@enableMaintenanceMode');
     Route::post('admin/tools/disable_maintenance_mode', 'ToolsController@disableMaintenanceMode');
+
+    // Settings Page
+    Route::get('admin/settings', 'SettingsController@index');
 });
 
 /*
