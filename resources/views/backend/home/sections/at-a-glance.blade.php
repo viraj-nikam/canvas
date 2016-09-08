@@ -19,17 +19,17 @@
                 @endif
             </li>
             <li>
-                @if(isset($data['disqus']))
-                    <i class="zmdi zmdi-disqus"></i> <a href="{{ url('https://github.com/austintoddj/canvas#advanced-options') }}" target="_blank"><span class="label label-success">Disqus: {{ strtoupper('Enabled') }}</span></a>
+                @if(isset($data['disqus']) && strlen($data['disqus']))
+                    <i class="zmdi zmdi-disqus"></i> <a href="{{ url('admin/settings') }}"><span class="label label-success">Disqus: {{ strtoupper('Enabled') }}</span></a>
                 @else
-                    <i class="zmdi zmdi-disqus"></i> <a href="{{ url('https://github.com/austintoddj/canvas#advanced-options') }}" target="_blank"><span class="label label-danger">Disqus: {{ strtoupper('Disabled') }}</span></a>
+                    <i class="zmdi zmdi-disqus"></i> <a href="{{ url('admin/settings') }}"><span class="label label-danger">Disqus: {{ strtoupper('Disabled') }}</span></a>
                 @endif
             </li>
             <li>
-                @if(isset($data['analytics']))
-                    <i class="zmdi zmdi-trending-up"></i> <a href="{{ url('https://github.com/austintoddj/canvas#advanced-options') }}" target="_blank"><span class="label label-success">Google Analytics: {{ strtoupper('Enabled') }}</span></a>
+                @if(isset($data['analytics']) && strlen($data['analytics']))
+                    <i class="zmdi zmdi-trending-up"></i> <a href="{{ url('admin/settings') }}"><span class="label label-success">Google Analytics: {{ strtoupper('Enabled') }}</span></a>
                 @else
-                    <i class="zmdi zmdi-trending-up"></i> <a href="{{ url('https://github.com/austintoddj/canvas#advanced-options') }}" target="_blank"><span class="label label-danger">Google Analytics: {{ strtoupper('Disabled') }}</span></a>
+                    <i class="zmdi zmdi-trending-up"></i> <a href="{{ url('admin/settings') }}"><span class="label label-danger">Google Analytics: {{ strtoupper('Disabled') }}</span></a>
                 @endif
             </li>
         </ul>

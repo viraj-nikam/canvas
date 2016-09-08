@@ -11,6 +11,7 @@ return [
     'cache_clear_success'               => 'Success! The application cache has been cleared.',
     'enable_maintenance_mode_success'   => 'Success! The application is now in maintenance mode.',
     'disable_maintenance_mode_success'  => 'Success! The application is now in active mode.',
+    'save_settings_success'             => 'Success! The blog settings have been saved.',
 
     'create_error'                      => 'Sorry! An error occurred creating :entity.',
     'delete_error'                      => 'Sorry! An error occurred deleting :entity.',
