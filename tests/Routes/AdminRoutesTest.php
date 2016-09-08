@@ -131,5 +131,6 @@ class AdminRoutesTest extends TestCase
     {
         $response = $this->actingAs($this->user)->call('GET', '/admin/settings');
         $this->assertEquals(200, $response->status());
+        $this->assertViewHasAll(['data']);
     }
 }

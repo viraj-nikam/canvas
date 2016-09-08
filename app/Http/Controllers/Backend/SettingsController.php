@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Settings;
+use Hamcrest\Core\Set;
 
 class SettingsController extends Controller
 {
@@ -13,6 +15,16 @@ class SettingsController extends Controller
      */
     public function index()
     {
-        return view('backend.settings.index');
+        $data = [
+            'blogTitle' => Settings::blogTitle(),
+            'blogSubtitle' => Settings::blogSubTitle(),
+            'blogDescription' => Settings::blogDescription(),
+            'blogSeo' => Settings::blogSeo(),
+            'blogAuthor' => Settings::blogAuthor(),
+            'disqus' => Settings::disqus(),
+            'analytics' => Settings::gaId(),
+        ];
+
+        return view('backend.settings.index', compact('data'));
     }
 }
