@@ -38,12 +38,12 @@ class UsersTableSeeder extends Seeder
             | Basic Information
             |--------------------------------------------------------------------------
             */
-            'first_name'    => 'Canvas',
-            'last_name'     => 'Administrator',
-            'display_name'  => 'Admin',
+            'first_name'    => 'John',
+            'last_name'     => 'Doe',
+            'display_name'  => 'Administrator',
             'job'           => 'Web Developer',
             'gender'        => 'Male',
-            'birthday'      => '2016-02-29',
+            'birthday'      => '1980-02-29',
             'relationship'  => 'Single',
 
             /*
@@ -51,14 +51,14 @@ class UsersTableSeeder extends Seeder
             | Contact Information
             |--------------------------------------------------------------------------
             */
-            'phone'         => '(000) 111-0000',
+            'phone'         => '(123) 123-1234',
             'email'         => 'admin@canvas.com',
             'twitter'       => 'username',      // Example: https://twitter.com/username
             'facebook'      => 'username',      // Example: https://facebook.com/username
             'github'        => 'username',      // Example: https://github.com/username
             'linkedin'      => 'username',      // Example: https://linkedin.com/username
-            'address'       => '1200 Main Street',
-            'city'          => 'Minneapolis',
+            'address'       => '5479 Main Street',
+            'city'          => 'New York',
             'country'       => 'USA',
 
             /*
@@ -66,7 +66,7 @@ class UsersTableSeeder extends Seeder
             | Misc Information
             |--------------------------------------------------------------------------
             */
-            'url'           => 'www.canvas.com',
+            'url'           => 'www.john-doe.io',
             'password'      => bcrypt('password'),
 
             /*
