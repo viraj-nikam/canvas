@@ -33,7 +33,6 @@ Before you proceed make sure your server meets the following requirements:
 3. Give the `uploads/` directory write-access by the web server: `chown -R www-data:www-data public/uploads/`
 4. Copy the contents of `.env.example` and create a new file called `.env` in the project root. Set your application variables in the new file.
 5. Run `php artisan canvas:install` and follow the on-screen prompts.
-6. To build the initial search index, run `php artisan canvas:index`
 7. Change the permissions of the `storage/` directory: `chmod -R 777 storage/`
 8. Sign in to the application at `http://YOUR_DOMAIN/admin`
     * Email: `admin@canvas.com`
@@ -51,12 +50,11 @@ Before you proceed make sure your server meets the following requirements:
 
 2. Google Analytics
     * Set up a web property on [Google Analytics](https://www.google.com/analytics/#?modal_active=none).
-    * Enter your tracking ID (`GA_ID`) into the `.env` file.
-    * Enable Google Analytics in the `.env` file by setting `GA_ENABLE` to `true`
+    * Enter your tracking ID on the `Settings` page.
 
 3. Disqus Integration
     * Generate a unique shortname from [Disqus](https://help.disqus.com/customer/portal/articles/466208-what-s-a-shortname-).
-    * Enter your shortname (`DISQUS_NAME`) into the `.env` file.
+    * Enter your shortname on the `Settings` page.
 
 ## Contributing
 
