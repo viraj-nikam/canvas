@@ -56,6 +56,9 @@ Before you proceed make sure your server meets the following requirements:
     * Generate a unique shortname from [Disqus](https://help.disqus.com/customer/portal/articles/466208-what-s-a-shortname-).
     * Enter your shortname on the `Settings` page.
 
+4. Emails
+    * To enable the `Forgot My Password` feature on the `Login` page, make sure you set the appropriate `MAIL` variables in your `.env` file.
+
 ## Contributing
 
 Thank you for considering contributing to Canvas! The [contribution guide](https://github.com/austintoddj/Canvas/blob/master/CONTRIBUTING.md) provides instructions on how to [submit an issue](https://github.com/austintoddj/canvas/issues), [create pull requests](https://github.com/austintoddj/canvas/pulls) and more. It also has details about joining the official [HipChat group](https://canvas-blog.hipchat.com/home) for those who want to be a part of Canvas' future development.
