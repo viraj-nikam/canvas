@@ -56,7 +56,7 @@ class UsersTableSeeder extends Seeder
             'twitter'       => 'username',      // Example: https://twitter.com/username
             'facebook'      => 'username',      // Example: https://facebook.com/username
             'github'        => 'username',      // Example: https://github.com/username
-            'linkedin'      => 'username',      // Example: https://linkedin.com/username
+            'linkedin'      => 'username',      // Example: https://linkedin.com/in/username
             'address'       => '5479 Main Street',
             'city'          => 'New York',
             'country'       => 'USA',
