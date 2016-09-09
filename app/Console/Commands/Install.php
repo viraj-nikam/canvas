@@ -67,7 +67,7 @@ class Install extends Command
         $this->line(PHP_EOL.'<info>✔</info> Success! The blog description has been saved.');
 
         // Blog SEO
-        $blogSEO = $this->ask('Step 4: Blog SEO Keywords (minimal,blogging,app)');
+        $blogSEO = $this->ask('Step 4: Blog SEO Keywords (minimal,blogging,platform)');
         $this->seo($blogSEO);
         $this->line(PHP_EOL.'<info>✔</info> Success! The blog SEO keywords have been saved.');
 
