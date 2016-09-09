@@ -1,10 +1,10 @@
 <div class="card">
     <div class="card-header">
         <h2>Maintenance Mode
-            <small>Enable or disable maintenance mode for your site. Once activated, all public traffic
-                will see a <em>Be Back Soon</em> page. As an logged in user, you will
-                still have full access the administrative area of the blog. Once your changes have been made,
-                make the site active again by disabling maintenance mode.
+            <small>Take the site offline for maintenance or bring it back online. Once activated, all public traffic
+                   will see a <em>503 - Be Back Soon</em> page. As an administrator, you will
+                   have full access to both the backend and frontend of the blog. Once you are ready to go live,
+                   make the site active again by disabling maintenance mode.
             </small>
         </h2>
     </div>

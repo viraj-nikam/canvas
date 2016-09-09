@@ -1,7 +1,7 @@
 @extends('backend.layout')
 
 @section('title')
-    <title>{{ config('blog.title') }} | Sign In</title>
+    <title>{{ Settings::blogTitle() }} | Sign In</title>
 @stop
 
 @section('login')

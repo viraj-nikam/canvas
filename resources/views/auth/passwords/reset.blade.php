@@ -1,7 +1,7 @@
 @extends('backend.layout')
 
 @section('title')
-    <title>{{ config('blog.title') }} | Reset Password</title>
+    <title>{{ Settings::blogTitle() }} | Reset Password</title>
 @stop
 
 @section('login')

@@ -1,7 +1,7 @@
 @extends('frontend.layout')
 
 @section('title')
-    <title>{{ $tag->title or config('blog.title') }}</title>
+    <title>{{ $tag->title or Settings::blogTitle() }} | Blog</title>
 @stop
 
 @section('content')

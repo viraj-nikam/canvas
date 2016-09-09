@@ -1,7 +1,7 @@
 @extends('backend.layout')
 
 @section('title')
-    <title>{{ config('blog.title') }} | Profile</title>
+    <title>{{ Settings::blogTitle() }} | Profile</title>
 @stop
 
 @section('content')
@@ -16,6 +16,19 @@
                     <h2>{{ Auth::user()->display_name }}
                         <small>{{ Auth::user()->job }}, {{ Auth::user()->city }}, {{ Auth::user()->country }}</small>
                     </h2>
+
+                    <ul class="actions">
+                        <li class="dropdown">
+                            <a href="" data-toggle="dropdown">
+                                <i class="zmdi zmdi-more-vert"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <li>
+                                    <a href="">Refresh Profile</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
                 </div>
 
                 <div class="card" id="profile-main">
@@ -29,7 +42,7 @@
                                     <a href="{{ url('admin/profile') }}">Profile</a>
                                 </li>
                                 <li class="{{ Route::is('admin.profile.edit') ? 'active' : '' }}">
-                                    <a href="{{ url('/admin/profile') }}/{{ Auth::id() }}/edit">Settings</a>
+                                    <a href="{{ url('/admin/profile') }}/{{ Auth::id() }}/edit">Edit</a>
                                 </li>
                                 <li class="{{ Route::is('admin.profile.privacy') ? 'active' : '' }}">
                                     <a href="{{ url('admin/profile/privacy') }}">Privacy</a>

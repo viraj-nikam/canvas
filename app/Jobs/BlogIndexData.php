@@ -2,9 +2,10 @@
 
 namespace App\Jobs;
 
-use App\Models\Post;
-use App\Models\Tag;
 use Carbon\Carbon;
+use App\Models\Tag;
+use App\Models\Post;
+use App\Models\Settings;
 use Illuminate\Queue\SerializesModels;
 
 /**
@@ -72,7 +73,7 @@ class BlogIndexData
             'tag' => $tag,
             'reverse_direction' => $reverse_direction,
             'meta_description' => $tag->meta_description ?: \
-                config('blog.description'),
+            Settings::where('setting_name', 'blog_description')->find(1),
         ];
     }
 
@@ -90,11 +91,11 @@ class BlogIndexData
             ->simplePaginate(config('blog.posts_per_page'));
 
         return [
-            'title' => config('blog.title'),
-            'subtitle' => config('blog.subtitle'),
+            'title' => Settings::where('setting_name', 'blog_title')->find(1),
+            'subtitle' => Settings::where('setting_name', 'blog_subtitle')->find(1),
             'posts' => $posts,
             'page_image' => config('blog.page_image'),
-            'meta_description' => config('blog.description'),
+            'meta_description' => Settings::where('setting_name', 'blog_description')->find(1),
             'reverse_direction' => false,
             'tag' => null,
         ];

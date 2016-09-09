@@ -1,7 +1,7 @@
 @extends('backend.layout')
 
 @section('title')
-    <title>{{ config('blog.title') }} | Uploads</title>
+    <title>{{ Settings::blogTitle() }} | Media</title>
 @stop
 
 @section('content')
@@ -13,7 +13,7 @@
                     <div class="card-header">
                         <ol class="breadcrumb">
                             <li><a href="{{ url('admin') }}">Home</a></li>
-                            <li class="active">Uploads</li>
+                            <li class="active">Media</li>
                         </ol>
                         <ul class="actions">
                             <li class="dropdown">
@@ -23,7 +23,7 @@
 
                                 <ul class="dropdown-menu dropdown-menu-right">
                                     <li>
-                                        <a href="">Refresh Uploads</a>
+                                        <a href="">Refresh Media Library</a>
                                     </li>
                                 </ul>
                             </li>
@@ -32,7 +32,7 @@
                         @include('shared.errors')
                         @include('shared.success')
 
-                        <h2>Uploads&nbsp;
+                        <h2>Media Library&nbsp;
                             <a href="" data-toggle="modal" data-target="#modal-file-upload"><i class="zmdi zmdi-file-plus" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Upload file"></i></a>
                             &nbsp;
                             <a href="" data-toggle="modal" data-target="#modal-folder-create"><i class="zmdi zmdi-folder" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="New folder"></i></a>

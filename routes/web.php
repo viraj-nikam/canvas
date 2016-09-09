@@ -1,4 +1,5 @@
 <?php
+
 /*
 |--------------------------------------------------------------------------
 | Canvas Application Routes : Frontend
@@ -10,6 +11,7 @@ Route::get('blog', 'Frontend\BlogController@index');
 
 // Blog Post Page
 Route::get('blog/{slug}', 'Frontend\BlogController@showPost');
+
 /*
 |--------------------------------------------------------------------------
 | Canvas Application Routes : Backend
@@ -81,6 +83,13 @@ Route::group([
     Route::post('admin/tools/download_archive', 'ToolsController@handleDownload');
     Route::post('admin/tools/enable_maintenance_mode', 'ToolsController@enableMaintenanceMode');
     Route::post('admin/tools/disable_maintenance_mode', 'ToolsController@disableMaintenanceMode');
+
+    // Settings Page
+    Route::get('admin/settings', 'SettingsController@index');
+    Route::post('admin/settings', 'SettingsController@store');
+
+    // Help Page
+    Route::get('admin/help', 'HelpController@index');
 });
 
 /*
@@ -93,7 +102,6 @@ Route::group([
 ], function () {
     Route::group(['prefix' => 'auth'], function () {
         // Login
-//        Route::get('login', 'LoginController@showLoginForm')->name('auth.login');
         Route::post('login', 'LoginController@login')->name('auth.login.store');
 
         // Logout

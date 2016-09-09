@@ -4,23 +4,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Canvas Configuration : SEO
-    |--------------------------------------------------------------------------
-    |
-    | Here you may define all of the blog meta tags and SEO for your
-    | application. These will be used for web scraping and open
-    | graph tags on sites such as Facebook and Twitter.
-    |
-    */
-    'title' => 'Canvas',
-    'subtitle' => 'Minimal Blogging Platform',
-    'description' => 'Blog',
-    'author' => 'Todd Austin',
-    'seo' => 'minimal,blogging,platform',
-
-    /*
-    |--------------------------------------------------------------------------
-    | Canvas Configuration : Blog Posts
+    | Canvas Configuration : Blog Index Page
     |--------------------------------------------------------------------------
     |
     | Pretty self-explanatory here. Indicate how many posts you would like
@@ -29,11 +13,10 @@ return [
     |
     */
     'posts_per_page' => 6,
-    'disqus_name' => env('DISQUS_NAME', null),
 
     /*
     |--------------------------------------------------------------------------
-    | Canvas Configuration : Media Uploads
+    | Canvas Configuration : Storage
     |--------------------------------------------------------------------------
     |
     | Specify what type of storage you would like for your application. Just
