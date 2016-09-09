@@ -37,6 +37,7 @@
                         @include('backend.help.partials.overview')
                         <hr>
                         @include('backend.help.partials.topics')
+                        <hr>
                         @include('backend.help.partials.items')
                     </div>
                 </div>
