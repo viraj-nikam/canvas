@@ -44,3 +44,7 @@
         </section>
     </section>
 @stop
+
+@section('unique-js')
+    @include('backend.shared.components.smooth-scroll')
+@endsection
