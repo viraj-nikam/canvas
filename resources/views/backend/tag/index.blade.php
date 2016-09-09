@@ -57,7 +57,7 @@
                                     <tr>
                                         <td>{{ $tag->id }}</td>
                                         <td>{{ $tag->title }}</td>
-                                        <td class="hidden-sm">{{ str_limit($tag->subtitle, config('blog.trim_width')) }}</td>
+                                        <td class="hidden-sm">{{ str_limit($tag->subtitle, config('blog.backend_trim_width')) }}</td>
                                         <td class="hidden-md">{{ $tag->layout }}</td>
                                         <td class="hidden-sm">
                                             @if ($tag->reverse_direction)

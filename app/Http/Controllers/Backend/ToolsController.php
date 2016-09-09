@@ -8,7 +8,9 @@ use App\Models\Tag;
 use App\Models\User;
 use App\Models\Post;
 use App\Models\PostTag;
+use App\Models\Settings;
 use App\Models\Migrations;
+use App\Models\PasswordResets;
 use Illuminate\Support\Facades\App;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Artisan;
@@ -89,6 +91,8 @@ class ToolsController extends Controller
         $this->storePostTag();
         $this->storeMigrations();
         $this->storeUploads();
+        $this->storePasswordResets();
+        $this->storeSettings();
         $date = date('Y-m-d');
         $path = storage_path($date.'-canvas-archive');
         $filename = sprintf('%s.zip', $path);
@@ -180,6 +184,34 @@ class ToolsController extends Controller
                 $sheet->appendRow(array_keys($migrations[0]));
                 foreach ($migrations as $migration) {
                     $sheet->appendRow($migration);
+                }
+            });
+        })->store('csv', storage_path($this->date.'-canvas-archive'), true);
+    }
+
+    protected function storePasswordResets()
+    {
+        $password_resets = PasswordResets::get()->toArray();
+        if ($password_resets != []) {
+            Excel::create('password_resets', function ($excel) {
+                $excel->sheet('PasswordResets', function ($sheet) {
+                    $sheet->appendRow(array_keys($password_resets[0]));
+                    foreach ($password_resets as $password_reset) {
+                        $sheet->appendRow($password_reset);
+                    }
+                });
+            })->store('csv', storage_path($this->date . '-canvas-archive'), true);
+        }
+    }
+
+    protected function storeSettings()
+    {
+        Excel::create('settings', function ($excel) {
+            $excel->sheet('Settings', function ($sheet) {
+                $settings = Settings::get()->toArray();
+                $sheet->appendRow(array_keys($settings[0]));
+                foreach ($settings as $setting) {
+                    $sheet->appendRow($setting);
                 }
             });
         })->store('csv', storage_path($this->date.'-canvas-archive'), true);
