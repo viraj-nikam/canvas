@@ -42,7 +42,7 @@ Before you proceed make sure your server meets the following requirements:
 
 ## Advanced Options
 
-1. Child Themes
+1. Themes
     * Run `npm install` from the project root
     * Run `npm install gulp`
     * Create your own theme with the stylesheet at `resources/assets/sass/theme/styles.scss`
@@ -57,7 +57,7 @@ Before you proceed make sure your server meets the following requirements:
     * Enter your shortname on the `Settings` page.
 
 4. Emails
-    * To enable the `Forgot My Password` feature on the `Login` page, make sure you set the appropriate `MAIL` variables in your `.env` file.
+    * To enable the `Forgot My Password` feature on the `/login` page, make sure you set the appropriate mail driver variables in your `.env` file.
 
 ## Contributing
 
