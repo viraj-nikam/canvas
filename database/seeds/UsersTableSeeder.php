@@ -66,7 +66,7 @@ class UsersTableSeeder extends Seeder
             | Misc Information
             |--------------------------------------------------------------------------
             */
-            'url'           => 'www.john-doe.io',
+            'url'           => 'john-doe.io',
             'password'      => bcrypt('password'),
 
             /*

@@ -85,7 +85,7 @@
         </div>
     </div>
 
-    @if(isset($data['twitter']) && strlen($data['twitter']) || isset($data['facebook']) && strlen($data['facebook']) || isset($data['github']) && strlen($data['github']) || isset($data['linkedin']) && strlen($data['linkedin']) || isset($data['resume_cv']) && strlen($data['resume_cv']))
+    @if(isset($data['twitter']) && strlen($data['twitter']) || isset($data['facebook']) && strlen($data['facebook']) || isset($data['github']) && strlen($data['github']) || isset($data['linkedin']) && strlen($data['linkedin']) || isset($data['resume_cv']) && strlen($data['resume_cv']) || isset($data['url']) && strlen($data['url']))
         <div class="pmb-block">
             <div class="pmbb-header">
                 <h2><i class="zmdi zmdi-accounts m-r-10"></i> Social Networks</h2>
@@ -120,6 +120,12 @@
                         <dl class="dl-horizontal">
                             <dt>Resume/CV</dt>
                             <dd><a href="{{ url('uploads', $data['resume_cv']) }}" target="_blank">{{ $data['resume_cv'] }}</a></dd>
+                        </dl>
+                    @endif
+                    @if(isset($data['url']) && strlen($data['url']))
+                        <dl class="dl-horizontal">
+                            <dt>Website</dt>
+                            <dd><a href="http://www.{{ $data['url'] }}" target="_blank">{{ $data['url'] }}</a></dd>
                         </dl>
                     @endif
                 </div>
