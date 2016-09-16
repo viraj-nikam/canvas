@@ -1,16 +1,17 @@
 {
     "name": "austintoddj/canvas",
-    "description": "Minimal blogging platform for developers.",
+    "description": "Simple, Powerful Blog Publishing Platform",
     "keywords": [
-        "minimal",
-        "blogging",
+        "simple",
+        "powerful",
+        "blog",
+        "publishing",
         "platform",
-        "developers",
         "laravel",
         "canvas",
         "markdown",
         "material",
-        "blog"
+        "developers"
     ],
     "license": "MIT",
     "type": "project",
