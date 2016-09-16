@@ -59,7 +59,7 @@ Before you proceed make sure your server meets the following requirements:
     * Enter your shortname on the `Settings` page.
 
 4. Email Notifications
-    * To enable the `Forgot My Password` feature on the `/login` page, make sure you set the appropriate mail driver variables in your `.env` file.
+    * To enable the **Forgot My Password** feature on the login page, make sure you set the appropriate mail driver variables in your `.env` file.
 
 ## Contributing
 
