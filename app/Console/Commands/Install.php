@@ -46,7 +46,7 @@ class Install extends Command
 
         // Database Setup
         $migrations = Migrations::all()->first();
-        if(empty($migrations)) {
+        if (empty($migrations)) {
             $this->comment(PHP_EOL.'Creating your database...');
             $exitCode = Artisan::call('migrate', [
                 '--seed' => true,
