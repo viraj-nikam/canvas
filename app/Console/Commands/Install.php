@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Migrations;
 use Artisan;
 use ConfigWriter;
 use App\Models\Settings;
@@ -44,12 +45,15 @@ class Install extends Command
         $config = new ConfigWriter('blog');
 
         // Database Setup
-        $this->comment(PHP_EOL.'Creating your database...');
-        $exitCode = Artisan::call('migrate', [
-            '--seed' => true,
-        ]);
-        $this->progress(5);
-        $this->line(PHP_EOL.'<info>✔</info> Success! Your database is set up and configured.');
+        $migrations = Migrations::all()->first();
+        if(empty($migrations)) {
+            $this->comment(PHP_EOL.'Creating your database...');
+            $exitCode = Artisan::call('migrate', [
+                '--seed' => true,
+            ]);
+            $this->progress(5);
+            $this->line(PHP_EOL.'<info>✔</info> Success! Your database is set up and configured.');
+        }
 
         // Blog Title
         $blogTitle = $this->ask('Step 1: Title of your blog');
