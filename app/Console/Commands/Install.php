@@ -46,8 +46,7 @@ class Install extends Command
         $config = new ConfigWriter('blog');
 
         // Database Setup
-        if (!Schema::hasTable('migrations'))
-        {
+        if (! Schema::hasTable('migrations')) {
             $this->comment(PHP_EOL.'Creating your database...');
             $exitCode = Artisan::call('migrate', [
                 '--seed' => true,
