@@ -9,7 +9,7 @@
 // Homepage
 Route::get('/', 'Frontend\BlogController@index')->name('home');
 
-Route::group(['prefix' => 'blog'], function() {
+Route::group(['prefix' => 'blog'], function () {
     // Blog Index Page
     Route::get('/', 'Frontend\BlogController@index')->name('blog.post.index');
     // Blog Post Page
