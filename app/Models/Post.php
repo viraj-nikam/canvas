@@ -96,15 +96,14 @@ class Post extends Model
     /**
      * Return an array of tag links.
      *
-     * @param string $base
      * @return array
      */
-    public function tagLinks($base = '/blog?tag=%TAG%')
+    public function tagLinks()
     {
         $tags = $this->tags()->pluck('tag');
         $return = [];
         foreach ($tags as $tag) {
-            $url = str_replace('%TAG%', urlencode($tag), $base);
+            $url = route('blog.post.index', ['tag' => $tag]);
             $return[] = '<a href="'.url($url).'">'.e($tag).'</a>';
         }
 
