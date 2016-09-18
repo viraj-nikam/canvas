@@ -86,12 +86,11 @@ class Post extends Model
      */
     public function url(Tag $tag = null)
     {
-        $url = url('blog/'.$this->slug);
-        if ($tag) {
-            $url .= '?tag='.urlencode($tag->tag);
-        }
+        $params = [];
+        $params['slug'] = $this->slug;
+        $params['tag'] = $tag ? $tag->tag : null;
 
-        return $url;
+        return route('blog.post.show', array_filter($params));
     }
 
     /**
