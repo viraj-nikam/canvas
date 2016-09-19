@@ -1,5 +1,5 @@
 <div class="container">
-    @if(Config::get('blog.disqus_name'))
+    @if(!empty(Settings::disqus()))
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 @include('frontend.blog.partials.disqus')
@@ -19,6 +19,6 @@
     </div>
 </div>
 
-@if (Config::get('analytics.google'))
+@if (!empty(Settings::gaId()))
     @include('frontend.blog.partials.analytics')
 @endif
