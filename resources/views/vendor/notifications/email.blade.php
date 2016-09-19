@@ -60,7 +60,7 @@ $style = [
 ];
 ?>
 
-<?php $fontFamily = 'font-family: Arial, \'Helvetica Neue\', Helvetica, sans-serif;'; ?>
+<?php $fontFamily = 'font-family: \'Helvetica Neue\', Helvetica, sans-serif;'; ?>
 
 <body style="{{ $style['body'] }}">
     <table width="100%" cellpadding="0" cellspacing="0">
@@ -83,7 +83,7 @@ $style = [
                                                     Whoops!
                                                 @else
                                                     <img src="{{ asset('images/favicon.png') }}" width="50" style="float: left; margin-right: 20px;">
-                                                    <h3 style="font-size: 26px; color: rgb(32,151,244); font-weight: lighter; margin-top: 0">Canvas</h3>
+                                                    <h3 style="font-size: 26px; color: rgb(32,151,244); font-weight: 200; margin-top: 0">Canvas</h3>
                                                     <div style="border-bottom: 1px solid #EDEFF2"></div><br>
                                                     <span style="color: #74787E; font-size: 16px; line-height: 1.5em">Hello,</span>
                                                 @endif
