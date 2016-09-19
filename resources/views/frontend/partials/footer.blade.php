@@ -11,9 +11,8 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <hr>
-                <p class="small">&copy; {{ \Carbon\Carbon::today()->format('Y') }} {{ Settings::blogTitle() }}. Code
-                    released under the
-                    <a href="https://github.com/austintoddj/Canvas/blob/master/LICENSE" target="_blank">MIT License</a>
+                <p class="small">&copy; {{ \Carbon\Carbon::today()->format('Y') }} {{ Settings::blogTitle() }}. Proudly powered by
+                    <a href="http://canvas.toddaustin.io" target="_blank">Canvas</a>
                 </p>
             </div>
         </div>
