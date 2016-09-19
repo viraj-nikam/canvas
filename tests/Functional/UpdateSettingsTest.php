@@ -2,7 +2,7 @@
 
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
-class SettingsUpdateTest extends TestCase
+class UpdateSettingsTest extends TestCase
 {
     use DatabaseMigrations;
 

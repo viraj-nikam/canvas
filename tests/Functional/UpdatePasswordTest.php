@@ -5,7 +5,7 @@
  *
  * Test the application's ability to update and validate a password.
  */
-class PasswordTest extends TestCase
+class UpdatePasswordTest extends TestCase
 {
     use InteractsWithDatabase;
 
