@@ -77,6 +77,16 @@ class PublicRoutesTest extends TestCase
     }
 
     /**
+     * Test the response code for the Forgot Password page.
+     *
+     * @return void
+     */
+    public function testForgotPasswordPageResponseCode()
+    {
+        $this->visit('admin')->click('Forgot my password')->seePageIs('password/forgot');
+    }
+
+    /**
      * Test the response code for the 404 Error Page.
      *
      * @return void
