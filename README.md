@@ -4,10 +4,8 @@
 
 <a href="https://travis-ci.org/austintoddj/canvas" target="_blank"><img src="https://travis-ci.org/austintoddj/canvas.svg?branch=master" alt="Build Status"></a>
 <a href="https://styleci.io/repos/52815899" target="_blank"><img src="https://styleci.io/repos/52815899/shield?style=flat" alt="StyleCI"></a>
-<a href="https://github.com/austintoddj/canvas/issues"><img src="https://img.shields.io/github/issues/austintoddj/canvas.svg" alt="GitHub Issues"></a>
+<a href="https://www.versioneye.com/user/projects/57dff0d579806f0043346a68" target="_blank"><img src="https://www.versioneye.com/user/projects/57dff0d579806f0043346a68/badge.svg?style=flat" alt="Dependency Status" /></a>
 <a href="https://packagist.org/packages/austintoddj/canvas" target="_blank"><img src="https://poser.pugx.org/austintoddj/canvas/downloads" alt="Total Downloads"></a>
-<a href="https://github.com/austintoddj/canvas/stargazers"><img src="https://img.shields.io/github/stars/austintoddj/canvas.svg" alt="Stars"></a>
-<a href="https://github.com/austintoddj/canvas/network"><img src="https://img.shields.io/github/forks/austintoddj/canvas.svg" alt="GitHub Forks"></a>
 <a href="https://packagist.org/packages/austintoddj/canvas" target="_blank"><img src="https://poser.pugx.org/austintoddj/canvas/v/stable" alt="Latest Stable Version"></a>
 <a href="https://github.com/austintoddj/canvas/blob/master/LICENSE"><img src="https://poser.pugx.org/austintoddj/canvas/license" alt="License"></a>
 
