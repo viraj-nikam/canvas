@@ -31,7 +31,8 @@
 
 <div class="form-group">
     <div class="fg-line">
-      <textarea class="form-control auto-size" id="meta_description" name="meta_description" placeholder="Meta Description">{{ $data['meta_description'] }}</textarea>
+        <label class="fg-label">Meta Description</label>
+        <textarea class="form-control auto-size" id="meta_description" name="meta_description" placeholder="Meta Description">{{ $data['meta_description'] }}</textarea>
     </div>
 </div>
 
@@ -39,8 +40,8 @@
 
 <div class="form-group">
     <div class="fg-line">
-      <label class="fg-label">Layout</label>
-      <input type="text" class="form-control" name="layout" id="layout" value="{{ $data['layout'] }}" placeholder="Layout" disabled>
+        <label class="fg-label">Layout</label>
+        <input type="text" class="form-control" name="layout" id="layout" value="{{ $data['layout'] }}" placeholder="Layout" disabled>
     </div>
 </div>
 
