@@ -8,6 +8,6 @@
     "font-awesome": "^4.6.3",
     "gulp-notify": "~2.2.0",
     "gulp-rename": "~1.2.2",
-    "laravel-elixir": "^3.0.0"
+    "laravel-elixir": "^6.0.0-9"
   }
 }
