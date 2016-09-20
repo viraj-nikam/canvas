@@ -28,5 +28,6 @@
         <env name="QUEUE_DRIVER" value="sync"/>
         <server name="HTTP_HOST" value="localhost.dev"/>
         <server name="REMOTE_ADDR" value="127.0.0.1"/>
+        <server name="SERVER_SOFTWARE" value="nginx/1.6.2"/>
     </php>
 </phpunit>

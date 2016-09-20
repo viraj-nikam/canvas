@@ -24,6 +24,15 @@ class SettingsController extends Controller
             'blogAuthor' => Settings::blogAuthor(),
             'disqus' => Settings::disqus(),
             'analytics' => Settings::gaId(),
+            'url' => $_SERVER['HTTP_HOST'],
+            'ip' => $_SERVER['REMOTE_ADDR'],
+            'timezone' => env('APP_TIMEZONE'),
+            'php_version' => phpversion(),
+            'php_memory_limit' => ini_get('memory_limit'),
+            'php_time_limit' => ini_get('max_execution_time'),
+            'db_connection' => strtoupper(env('DB_CONNECTION')),
+            'web_server' => $_SERVER['SERVER_SOFTWARE'],
+            'last_index' => date('Y-m-d H:i:s', file_exists(storage_path('posts.index')) ? filemtime(storage_path('posts.index')) : false),
         ];
 
         return view('backend.settings.index', compact('data'));
