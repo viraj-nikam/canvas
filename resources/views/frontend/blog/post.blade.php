@@ -17,6 +17,18 @@
     <meta property="og:description" content="{{ $post->meta_description }}"/>
 @stop
 
+@section('twitter-card')
+    @if ($post->title != '')
+        <meta name="twitter:title" content="{{ $post->title }}" />
+    @endif
+    @if ($post->meta_description != '')
+        <meta name="twitter:description" content="{{ $post->meta_description }}" />
+    @endif
+    @if ($post->page_image != '')
+        <meta name="twitter:image" content="{{ url('/uploads/' . $post->page_image) }}" />
+    @endif
+@stop
+
 @section('title')
     <title>{{ $title or Settings::blogTitle() }}</title>
 @stop

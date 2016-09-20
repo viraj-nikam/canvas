@@ -6,6 +6,13 @@
 @yield('og-title')
 @yield('og-image')
 @yield('og-description')
+<!-- Twitter Cards -->
+<meta name="twitter:card" content="{{ Settings::twitterCardType() }}" />
+<meta name="twitter:site" content="{{ $user->twitter or ''}}" />
+<meta name="twitter:title" content="{{ Settings::blogTitle() }}" />
+<meta name="twitter:description" content="{{ Settings::blogDescription() }}" />
+<meta name="twitter:image" content="{{ url('/images/favicon.png') }}" />
+@yield('twitter-card')
 
 <!-- SEO Tags -->
 <meta name="keywords" content="{{ Settings::blogSeo() }}">
