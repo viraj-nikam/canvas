@@ -40,6 +40,7 @@ class AuthenticationTest extends TestCase
              ->press('submit')
              ->seeIsAuthenticatedAs($this->user)
              ->seePageIs('/admin');
+        $this->see('Welcome back');
     }
 
     /**
