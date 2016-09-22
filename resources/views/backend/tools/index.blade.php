@@ -10,19 +10,7 @@
         <section id="content">
             <div class="container">
                 <div class="block-header">
-                    <h2>Site Details
-                        <small>
-                            <i class="zmdi zmdi-dns"></i>&nbsp;&nbsp;{{ strtoupper($data['host']) }} ({{ $data['ip'] }})
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <i class="zmdi zmdi-time"></i>&nbsp;&nbsp;{{ strtoupper($data['timezone']) }}
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            @if($data['status'] === 1)
-                                <i class="zmdi zmdi-globe-alt"></i>&nbsp;&nbsp;<span class="label label-success">Status: {{ strtoupper('Active') }}</span>
-                            @else
-                                <i class="zmdi zmdi-globe-alt"></i>&nbsp;&nbsp;<span class="label label-warning">Status: {{ strtoupper('Maintenance Mode') }}</span>
-                            @endif
-                        </small>
-                    </h2>
+                    <h2>Tools</h2>
                     <ul class="actions">
                         <li class="dropdown">
                             <a href="" data-toggle="dropdown">
