@@ -7,7 +7,6 @@ use App\Http\Controllers\Controller;
 
 class UploadController extends Controller
 {
-
     /**
      * Show page of files / subfolders.
      *
