@@ -9,7 +9,7 @@
 
 @if ($post->page_image)
     @section('og-image')
-        <meta property="og:image" content="{{ url('/uploads/' . $post->page_image) }}">
+        <meta property="og:image" content="{{ url( $post->page_image) }}">
     @stop
 @endif
 

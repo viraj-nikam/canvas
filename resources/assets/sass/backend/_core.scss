@@ -82,3 +82,20 @@ input#layout:disabled {
     color: black !important;
     background-color: rgb(255, 255, 255) !important;
 }
+
+// Full Screen Editor Changes...
+.editor-toolbar.fullscreen, .editor-preview-side, .CodeMirror-fullscreen {
+  z-index: 12;
+}
+
+.editor-toolbar.fullscreen {
+  top: 70px;
+}
+
+.editor-preview-side, .CodeMirror-fullscreen {
+  top: 120px;
+}
+
+.CodeMirror {
+  height: 500px;
+}

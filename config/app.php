@@ -174,6 +174,7 @@ return [
          */
         Proengsoft\JsValidation\JsValidationServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
+        TalvBansal\MediaManager\Providers\MediaManagerServiceProvider::class,
 
     ],
 

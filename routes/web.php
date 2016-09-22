@@ -56,10 +56,9 @@ Route::group([
 
     // Uploads Page
     Route::get('admin/upload', 'UploadController@index')->name('admin/upload');
-    Route::post('admin/upload/file', 'UploadController@uploadFile');
-    Route::delete('admin/upload/file', 'UploadController@deleteFile');
-    Route::post('admin/upload/folder', 'UploadController@createFolder');
-    Route::delete('admin/upload/folder', 'UploadController@deleteFolder');
+
+    // Media Manager Routes
+    TalvBansal\MediaManager\Http\Routes::mediaBrowser();
 
     // Profile Pages
     Route::get('admin/profile/privacy', 'ProfileController@editPrivacy')->name('admin.profile.privacy');
