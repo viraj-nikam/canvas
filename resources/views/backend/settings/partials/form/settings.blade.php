@@ -76,9 +76,9 @@
         <div class="fg-line">
             <label class="fg-label">Twitter Card Type</label>
             <select name="twitter_card_type" id="twitter_card_type" class="selectpicker">
-                <option @if (Settings::twitterCardType() == "none") selected @endif value="none">No card</option>
-                <option @if (Settings::twitterCardType() == "summary") selected @endif value="summary">Summary card</option>
-                <option @if (Settings::twitterCardType() == "summary_image_large") selected @endif value="summary_image_large">Summary card with large image</option>
+                <option @if ($data['twitterCardType'] == "none") selected @endif value="none">No card</option>
+                <option @if ($data['twitterCardType'] == "summary") selected @endif value="summary">Summary card</option>
+                <option @if ($data['twitterCardType'] == "summary_image_large") selected @endif value="summary_image_large">Summary card with large image</option>
             </select>
         </div>
         <small>Configure the way links to your blog are displayed on Twitter or <a href="https://cards-dev.twitter.com/validator">approve Twitter cards for your domain</a>.</small>

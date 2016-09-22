@@ -24,6 +24,7 @@ class SettingsController extends Controller
             'blogAuthor' => Settings::blogAuthor(),
             'disqus' => Settings::disqus(),
             'analytics' => Settings::gaId(),
+            'twitterCardType' => Settings::twitterCardType(),
         ];
 
         return view('backend.settings.index', compact('data'));
