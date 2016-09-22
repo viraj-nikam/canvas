@@ -75,6 +75,12 @@ class SettingsController extends Controller
         $gaId->setting_value = $request->toArray()['ga_id'];
         $gaId->update();
 
+        $twitterCardType = Settings::where('setting_name', 'twitter_card_type')->first();
+        $twitterCardType->setting_name = 'twitter_card_type';
+        $twitterCardType->setting_value = $request->toArray()['twitter_card_type'];
+        $twitterCardType->update();
+
+
         Session::set('_update-settings', trans('messages.save_settings_success'));
 
         return redirect('admin/settings');
