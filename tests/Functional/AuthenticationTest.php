@@ -40,6 +40,23 @@ class AuthenticationTest extends TestCase
              ->press('submit')
              ->seeIsAuthenticatedAs($this->user)
              ->seePageIs('/admin');
+        $this->see('Welcome back');
+    }
+
+    /**
+     * Test the login form is validated.
+     *
+     * @return void
+     */
+    public function testLoginValidation()
+    {
+        $this->visit('/admin')
+            ->type('foo@bar.com', 'email')
+            ->type('secret', 'password')
+            ->press('submit')
+            ->dontSeeIsAuthenticated()
+            ->seePageIs('/admin');
+        $this->see('These credentials do not match our records.');
     }
 
     /**

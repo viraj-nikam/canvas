@@ -71,7 +71,7 @@ class Install extends Command
         $this->line(PHP_EOL.'<info>✔</info> Success! The blog description has been saved.');
 
         // Blog SEO
-        $blogSEO = $this->ask('Step 4: Blog SEO Keywords (minimal,blogging,platform)');
+        $blogSEO = $this->ask('Step 4: Blog SEO Keywords (simple,powerful,blog,publishing,platform)');
         $this->seo($blogSEO);
         $this->line(PHP_EOL.'<info>✔</info> Success! The blog SEO keywords have been saved.');
 
@@ -97,7 +97,7 @@ class Install extends Command
         $this->progress(5);
         $this->line(PHP_EOL.'<info>✔</info> Success! A unique application key has been generated.');
 
-        // Advanced Options Initial Setup
+        // Additional Settings
         $this->comment(PHP_EOL.'Finishing up the installation...');
         $this->disqus();
         $this->googleAnalytics();
