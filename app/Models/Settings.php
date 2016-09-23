@@ -107,4 +107,16 @@ class Settings extends Model
     {
         return self::where('setting_name', $settingName)->pluck('setting_value')->first();
     }
+
+    /**
+     * Get the Twitter card type.
+     *
+     * May be either of 'summary', 'summary_large_image' or 'none'
+     *
+     * return @string
+     */
+    public static function twitterCardType()
+    {
+        return $twitterCardType = self::where('setting_name', 'twitter_card_type')->pluck('setting_value')->first();
+    }
 }

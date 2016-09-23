@@ -24,6 +24,7 @@ class SettingsController extends Controller
             'blogAuthor' => Settings::blogAuthor(),
             'disqus' => Settings::disqus(),
             'analytics' => Settings::gaId(),
+            'twitterCardType' => Settings::twitterCardType(),
             'url' => $_SERVER['HTTP_HOST'],
             'ip' => $_SERVER['REMOTE_ADDR'],
             'timezone' => env('APP_TIMEZONE'),
@@ -83,6 +84,12 @@ class SettingsController extends Controller
         $gaId->setting_name = 'ga_id';
         $gaId->setting_value = $request->toArray()['ga_id'];
         $gaId->update();
+
+        $twitterCardType = Settings::where('setting_name', 'twitter_card_type')->first();
+        $twitterCardType->setting_name = 'twitter_card_type';
+        $twitterCardType->setting_value = $request->toArray()['twitter_card_type'];
+        $twitterCardType->update();
+
 
         Session::set('_update-settings', trans('messages.save_settings_success'));
 
