@@ -81,7 +81,7 @@
                 <option @if ($data['twitterCardType'] == "summary_image_large") selected @endif value="summary_image_large">Summary card with large image</option>
             </select>
         </div>
-        <small>Configure the way links to your blog are displayed on Twitter or <a href="https://cards-dev.twitter.com/validator">approve Twitter cards for your domain</a>.</small>
+        <small>Configure the way Twitter <a href="https://cards-dev.twitter.com/validator" target="_blank">displays links to your blog</a> or <a href="https://dev.twitter.com/cards/overview" target="_blank">learn more about this option</a>.</small>
     </div>
 
     <br>
