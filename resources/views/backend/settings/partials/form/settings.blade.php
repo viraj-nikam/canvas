@@ -54,7 +54,7 @@
 
     <div class="form-group">
         <div class="fg-line">
-            <label class="fg-label">Disqus</label>
+            <label class="fg-label"><i class="zmdi zmdi-disqus"></i> Disqus</label>
             <input type="text" class="form-control" name="disqus_name" id="disqus_name" value="{{ $data['disqus'] }}" placeholder="Disqus Shortname">
         </div>
         <small>Enter your Disqus shortname to enable comments in your blog posts or <a href="https://github.com/austintoddj/canvas#advanced-options" target="_blank">learn more about this option</a>.</small>
@@ -64,7 +64,7 @@
 
     <div class="form-group">
         <div class="fg-line">
-            <label class="fg-label">Google Analytics</label>
+            <label class="fg-label"><i class="zmdi zmdi-trending-up"></i> Google Analytics</label>
             <input type="text" class="form-control" name="ga_id" id="ga_id" value="{{ $data['analytics'] }}" placeholder="Google Analytics Tracking ID">
         </div>
         <small>Enter your Google Analytics Tracking ID or <a href="https://github.com/austintoddj/canvas#advanced-options" target="_blank">learn more about this option</a>.</small>
@@ -74,7 +74,7 @@
 
     <div class="form-group">
         <div class="fg-line">
-            <label class="fg-label">Twitter Card Type</label>
+            <label class="fg-label"><i class="zmdi zmdi-twitter-box"></i> Twitter Card Type</label>
             <select name="twitter_card_type" id="twitter_card_type" class="selectpicker">
                 <option @if ($data['twitterCardType'] == "none") selected @endif value="none">No card</option>
                 <option @if ($data['twitterCardType'] == "summary") selected @endif value="summary">Summary card</option>
