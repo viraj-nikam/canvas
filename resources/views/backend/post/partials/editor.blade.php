@@ -17,9 +17,7 @@
                 pageImage: null,
                 selectedEventName: null,
                 showMediaManager: false,
-                simpleMde: null,
-                slug: null,
-                title: null
+                simpleMde: null
             },
 
             ready: function () {
