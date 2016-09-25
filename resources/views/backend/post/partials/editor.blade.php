@@ -73,7 +73,7 @@
                     $.growl({
                         message: message
                     },{
-                        type: type,
+                        type: 'inverse',
                         allow_dismiss: false,
                         label: 'Cancel',
                         className: 'btn-xs btn-inverse',

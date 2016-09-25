@@ -45,7 +45,6 @@
         <span class="input-group-btn">
             <button type="button" class="btn btn-primary waves-effect" @click="openFromPageImage">Select Image</button>
         </span>
-
       </div>
 </div>
 

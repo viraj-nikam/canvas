@@ -29,7 +29,7 @@
 }
 
 .folder-paths li {
-    color: rgb(10, 110, 189) !important;
+    color: $brand-primary !important;
 }
 
 .breadcrumb {
@@ -98,4 +98,22 @@ input#layout:disabled {
 
 .CodeMirror {
   height: 500px;
+}
+
+// Alter the highlight colour for the tables with 'active' rows
+.table {
+  tbody {
+    tr {
+      &.active {
+        td {
+          background-color: $brand-primary !important;
+          color: #fff;
+          a {
+            color: #fff;
+          }
+
+        }
+      }
+    }
+  }
 }
