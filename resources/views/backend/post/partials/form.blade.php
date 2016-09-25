@@ -38,7 +38,7 @@
 <br>
 
 <div class="form-group">
-    <span class="fg-line">
+    <div class="fg-line">
       <label class="fg-label">Page Image</label>
       <div class="input-group">
         <input type="text" class="form-control" name="page_image" id="page_image" alt="Image thumbnail" value="{{ $page_image }}" placeholder="Example: placeholder.png" v-model="pageImage">

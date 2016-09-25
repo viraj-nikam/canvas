@@ -100,6 +100,11 @@ input#layout:disabled {
   height: 500px;
 }
 
+// Override media manager loading spinner colour
+.spinner {
+  color: $brand-primary !important;
+}
+
 // Alter the highlight colour for the tables with 'active' rows
 .table {
   tbody {
@@ -111,7 +116,6 @@ input#layout:disabled {
           a {
             color: #fff;
           }
-
         }
       }
     }
