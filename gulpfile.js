@@ -43,7 +43,7 @@ elixir(function (mix) {
         'jquery.mCustomScrollbar.concat.min.js',
         'fileinput.min.js',
         'bootstrap-datetimepicker.min.js',
-        '../talvbansal/media-manager/js/media-manager.js',
+        '../talvbansal/media-manager/js/media-manager.js'
     ], 'public/js/vendor.js');
 
     // Application JS Files
