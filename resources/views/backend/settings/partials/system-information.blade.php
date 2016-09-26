@@ -9,7 +9,7 @@
             <code>
 ### Begin System Info ###
 
-## Please include this information when posting support requests ##
+## Please include this information when requesting technical support ##
 
 SITE_URL:                   {{ $data['url'] }}
 SITE_IP:                    {{ $data['ip'] }}
