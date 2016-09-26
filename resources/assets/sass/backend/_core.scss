@@ -90,10 +90,14 @@ input#layout:disabled {
 
 .editor-toolbar.fullscreen {
   top: 70px;
+
 }
 
 .editor-preview-side, .CodeMirror-fullscreen {
   top: 120px;
+  img {
+    @extend .img-responsive;
+  }
 }
 
 .CodeMirror {
