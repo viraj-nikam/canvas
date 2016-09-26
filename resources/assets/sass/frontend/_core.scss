@@ -609,7 +609,13 @@ code {
     position: fixed;
     bottom: 18px;
     right: 10px;
+
+    @media only screen and (max-width: 680px) {
+      right: calc(50% - 4em);
+    }
+
   }
+
 }
 
 #auth-name {
