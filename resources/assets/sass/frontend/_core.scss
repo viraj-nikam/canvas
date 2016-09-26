@@ -585,32 +585,37 @@ code {
   }
 }
 
-#scrollToTop {
-  background-color: #2196f3 !important;
-  border-radius: 2em;
-  font-size: 12px !important;
-  bottom: 10px;
-  color: #fff;
-  opacity: 0;
-  padding: .5em 1em;
-  position: fixed;
-  right: 10px;
-  text-shadow: 1px 1px #888;
-  transition: .5s all linear;
+// Scroll to top...
+#top-link-block {
 
-  &.visible {
-    opacity: .8;
+  #scroll-to-top {
+    background-color: #2196f3 !important;
+    border-radius: 2em;
+    font-size: 12px !important;
+    color: #fff;
+    padding: .5em 1em;
+    text-shadow: 1px 1px #888;
     transition: .5s all linear;
+
+  }
+
+  &.affix-top {
+    position: absolute;
+    bottom: -82px;
+    right: 10px;
+  }
+
+  &.affix {
+    position: fixed;
+    bottom: 18px;
+    right: 10px;
 
     @media only screen and (max-width: 680px) {
       right: calc(50% - 4em);
     }
 
-    &:hover {
-      opacity: 1;
-      transition: .5s all linear;
-    }
   }
+
 }
 
 #auth-name {
