@@ -46,7 +46,7 @@ $factory->define(App\Models\Post::class, function ($faker) {
     'title' => 'Hello World',
     'slug' => 'hello-world',
     'subtitle' => 'Canvas is a simple, powerful blog publishing platform that lets you to share your stories with the world. Its beautifully designed interface and completely customizable framework allows you to create and publish your own blog, giving you tools that make it easy and even fun to do.',
-    'page_image' => 'placeholder.png',
+    'page_image' => 'images/mocha.jpg',
     'content_raw' => view('shared.helpers.welcome'),
     'published_at' => Carbon\Carbon::now(),
     'meta_description' => 'Let\'s get you up and running with Canvas!',
