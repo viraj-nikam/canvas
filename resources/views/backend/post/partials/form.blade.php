@@ -42,8 +42,8 @@
       <label class="fg-label">Page Image</label>
       <div class="input-group">
         <input type="text" class="form-control" name="page_image" id="page_image" alt="Image thumbnail" value="{{ $page_image }}" placeholder="Example: /storage/placeholder.png" v-model="pageImage">
-        <span class="input-group-btn">
-            <button type="button" class="btn btn-primary waves-effect" @click="openFromPageImage()">Select Image</button>
+        <span class="input-group-btn" style="margin-bottom: 11px">
+            <button style="margin-bottom: -5px" type="button" class="btn btn-primary waves-effect" @click="openFromPageImage()">Select Image</button>
         </span>
       </div>
 </div>
@@ -51,7 +51,7 @@
 <div class="visible-sm space-10"></div>
 
 <div>
-    <img v-if="pageImage" class="img img-responsive" id="page-image-preview" style="max-height:100px;" :src="pageImage">
+    <img v-if="pageImage" class="img img-responsive" id="page-image-preview" style="margin-top: 3px; max-height:100px;" :src="pageImage">
     <span v-else class="text-muted small">No Image Selected</span>
 </div>
 
