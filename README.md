@@ -34,7 +34,8 @@ Before you proceed make sure your server meets the following requirements:
 4. Copy the contents of `.env.example` and create a new file called `.env` in the project root. Set your application variables in the new file.
 5. Run `php artisan canvas:install` and follow the on-screen prompts.
 7. Change the permissions of the `storage/` directory: `chmod -R 777 storage/`
-8. Sign in to the application at `http://YOUR_DOMAIN/admin`
+8. From the command line in the project root, run `npm install`
+9. Sign in to the application at `http://YOUR_DOMAIN/admin`
     * Email: `admin@canvas.com`
     * Password: `password`
 
@@ -43,8 +44,7 @@ Before you proceed make sure your server meets the following requirements:
 ## Advanced Options
 
 1. Themes
-    * Run `npm install` from the project root.
-    * Run `npm install gulp`
+    * From the command line in the project root, run `npm install gulp`
     * Create your own theme by editing the stylesheet at `resources/assets/sass/theme/styles.scss` or grab an [Official Canvas Theme](https://github.com/austintoddj/palette), fresh off the palette.
     * After any changes to this file, run `gulp`
 
