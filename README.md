@@ -29,13 +29,13 @@ Before you proceed make sure your server meets the following requirements:
     * Use [Git](https://git-scm.com): `git clone https://github.com/austintoddj/canvas.git`
     * Use [Packagist](https://packagist.org): `composer create-project austintoddj/canvas`
 
-2. From the command line in the project root, run `composer install`
-3. Link the `storage/app/public` folder to `public/storage` using `php artisan storage:link` 
+2. Run `composer install` from the command line in the project root.
+3. Run `php artisan storage:link` to link the `storage/app/public` folder to `public/storage` 
 4. Copy the contents of `.env.example` and create a new file called `.env` in the project root. Set your application variables in the new file.
 5. Run `php artisan canvas:install` and follow the on-screen prompts.
-7. Change the permissions of the `storage/` directory: `chmod -R 777 storage/`
-8. From the command line in the project root, run `npm install`
-9. Sign in to the application at `http://YOUR_DOMAIN/admin`
+7. Run `chmod -R 777 storage/` to change the permissions of the `storage/` directory.
+8. Run `npm install` from the command line in the project root.
+9. Sign in to your new blog at `http://MY_NEW_BLOG.com/admin`
     * Email: `admin@canvas.com`
     * Password: `password`
 
