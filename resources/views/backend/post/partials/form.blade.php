@@ -39,34 +39,21 @@
 
 <div class="form-group">
     <div class="fg-line">
-      <label class="fg-label">Page Image <a href="" data-toggle="modal" data-target="#image-help"><i class="zmdi zmdi-help" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Page Image Help"></i></a></label>
-      <input type="text" class="form-control" name="page_image" id="page_image" onchange="handle_image_change()" alt="Image thumbnail" value="{{ $page_image }}" placeholder="Example: placeholder.png">
-    </div>
+      <label class="fg-label">Page Image</label>
+      <div class="input-group">
+        <input type="text" class="form-control" name="page_image" id="page_image" alt="Image thumbnail" value="{{ $page_image }}" placeholder="Example: /storage/placeholder.png" v-model="pageImage">
+        <span class="input-group-btn">
+            <button type="button" class="btn btn-primary waves-effect" @click="openFromPageImage()">Select Image</button>
+        </span>
+      </div>
 </div>
 
-<script type="text/javascript">
-  function handle_image_change() {
-      $("#page-image-preview").attr("src", function () {
-          var value = $("#page_image").val();
-          if (!value) {
-              value = {!! json_encode(config('blog.page_image')) !!};
-              if (value == null) {
-                  value = '';
-              }
-          }
-          if (value.substr(0, 4) != 'http' && value.substr(0, 1) != '/') {
-              value = {!! json_encode(config('blog.uploads.webpath')) !!} +'/' + value;
-          }
-          return value;
-      });
-  }
-</script>
 <div class="visible-sm space-10"></div>
-@if (empty($page_image))
-    <span class="text-muted small">No Image Selected</span>
-@else
-    <img src="{{ page_image($page_image) }}" class="img img_responsive" id="page-image-preview" style="max-height:40px">
-@endif
+
+<div>
+    <img v-if="pageImage" class="img img-responsive" id="page-image-preview" style="max-height:100px;" :src="pageImage">
+    <span v-else class="text-muted small">No Image Selected</span>
+</div>
 
 <br>
 <br>

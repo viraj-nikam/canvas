@@ -9,7 +9,7 @@
 
 @if ($post->page_image)
     @section('og-image')
-        <meta property="og:image" content="{{ url('/uploads/' . $post->page_image) }}">
+        <meta property="og:image" content="{{ url( $post->page_image ) }}">
     @stop
 @endif
 
@@ -44,7 +44,7 @@
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     @if ($post->page_image)
                         <div class="text-center">
-                            <img src="{{ asset('uploads/' . $post->page_image) }}" class="post-hero">
+                            <img src="{{ asset($post->page_image) }}" class="post-hero">
                         </div>
                     @endif
                     <p class="post-page-meta">

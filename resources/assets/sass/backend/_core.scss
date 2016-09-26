@@ -29,7 +29,7 @@
 }
 
 .folder-paths li {
-    color: rgb(10, 110, 189) !important;
+    color: $brand-primary !important;
 }
 
 .breadcrumb {
@@ -81,4 +81,46 @@
 input#layout:disabled {
     color: black !important;
     background-color: rgb(255, 255, 255) !important;
+}
+
+// Full Screen Editor Changes...
+.editor-toolbar.fullscreen, .editor-preview-side, .CodeMirror-fullscreen {
+  z-index: 12;
+}
+
+.editor-toolbar.fullscreen {
+  top: 70px;
+}
+
+.editor-preview-side, .CodeMirror-fullscreen {
+  top: 120px;
+  img {
+    @extend .img-responsive;
+  }
+}
+
+.CodeMirror {
+  height: 500px;
+}
+
+// Override media manager loading spinner colour
+.spinner {
+  color: $brand-primary !important;
+}
+
+// Alter the highlight colour for the tables with 'active' rows
+.table {
+  tbody {
+    tr {
+      &.active {
+        td {
+          background-color: $brand-primary !important;
+          color: #fff;
+          a {
+            color: #fff;
+          }
+        }
+      }
+    }
+  }
 }
