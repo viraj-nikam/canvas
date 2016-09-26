@@ -19,6 +19,11 @@
     </div>
 </div>
 
+<!-- scroll to top button -->
+<span id="top-link-block" class="hidden hover-button">
+    <a id="scroll-to-top" href="#top">Back to Top</a>
+</span>
+
 @if (!empty(Settings::gaId()))
     @include('frontend.blog.partials.analytics')
 @endif

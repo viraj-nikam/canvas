@@ -20,6 +20,8 @@ elixir(function (mix) {
 
     // Frontend JS Files
     mix.scripts([
+        'jquery.min.js',
+        'bootstrap.min.js',
         'frontend/**/*.js'
     ], 'public/js/frontend.js');
 
