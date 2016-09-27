@@ -591,17 +591,17 @@ code {
   #scroll-to-top {
     background-color: #2196f3 !important;
     border-radius: 2em;
-    font-size: 12px !important;
+    font-size: 15px !important;
     color: #fff;
     padding: .5em 1em;
     text-shadow: 1px 1px #888;
-    transition: .5s all linear;
+    transition: 1s all linear;
 
   }
 
   &.affix-top {
     position: absolute;
-    bottom: -82px;
+    bottom: -122px;
     right: 10px;
   }
 
