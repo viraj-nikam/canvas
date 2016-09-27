@@ -1,6 +1,6 @@
 ## Canvas
 
-<img src="https://raw.githubusercontent.com/austintoddj/canvas/gh-pages/img/readme.jpg" alt="Canvas Screens">
+[![Canvas Screenshots](https://raw.githubusercontent.com/austintoddj/canvas/gh-pages/img/readme.jpg)](https://canvas.toddaustin.io)
 
 [![Build Status](https://travis-ci.org/austintoddj/canvas.svg?branch=master)](https://travis-ci.org/austintoddj/canvas)
 [![StyleCI](https://styleci.io/repos/52815899/shield?style=flat&branch=master)](https://styleci.io/repos/52815899)
