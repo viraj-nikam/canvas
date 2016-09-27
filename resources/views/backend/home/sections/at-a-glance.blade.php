@@ -34,6 +34,6 @@
             </li>
         </ul>
         <hr>
-        <small>Canvas v2.1.6 is currently running <a href="https://laravel.com/docs/5.3" target="_blank">Laravel 5.3</a>.</small>
+        <small>Canvas v2.1.7 is currently running <a href="https://laravel.com/docs/5.3" target="_blank">Laravel 5.3</a>.</small>
     </div>
 </div>
