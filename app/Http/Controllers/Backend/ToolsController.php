@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use Excel;
+use League\Flysystem\File;
 use Session;
 use App\Models\Tag;
 use App\Models\User;
@@ -216,7 +217,7 @@ class ToolsController extends Controller
 
     protected function storeUploads()
     {
-        $source = public_path().'/uploads/';
+        $source = storage_path('app/public');
         $destination = storage_path($this->date.'-canvas-archive/uploads/');
 
         return \File::copyDirectory($source, $destination);
