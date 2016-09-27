@@ -3,7 +3,7 @@
 <img src="https://raw.githubusercontent.com/austintoddj/canvas/gh-pages/img/readme.jpg" alt="Canvas Screens">
 
 [![Build Status](http://travis-ci.org/austintoddj/canvas.svg?branch=master)](http://travis-ci.org/austintoddj/canvas)
-[![StyleCI](http://styleci.io/repos/52815899/shield?branch=master?style=flat)](http://styleci.io/repos/52815899)
+[![StyleCI](http://styleci.io/repos/52815899/shield?style=flat&branch=master)](http://styleci.io/repos/52815899)
 [![Dependency Status](http://www.versioneye.com/user/projects/57dff0d579806f0043346a68/badge.svg?style=flat)](http://www.versioneye.com/user/projects/57dff0d579806f0043346a68)
 [![Total Downloads](http://poser.pugx.org/austintoddj/canvas/downloads)](http://packagist.org/packages/austintoddj/canvas)
 [![Latest Stable Version](http://poser.pugx.org/austintoddj/canvas/v/stable)](http://packagist.org/packages/austintoddj/canvas)
