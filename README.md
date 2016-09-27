@@ -46,7 +46,7 @@ Before you proceed make sure your server meets the following requirements:
 1. Themes
     * Run `npm install gulp` from the command line in the project root.
     * Create your own theme by editing the stylesheet at `resources/assets/sass/theme/styles.scss` or grab an [Official Canvas Theme](https://github.com/austintoddj/palette), fresh off the palette.
-    * Run `gulp` after any changes to this file.
+    * Run `gulp` after any changes to `resources/assets/sass/theme/styles.scss`
 
 2. Google Analytics
     * Set up a web property on [Google Analytics](https://www.google.com/analytics/#?modal_active=none).
