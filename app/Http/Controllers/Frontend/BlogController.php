@@ -42,6 +42,10 @@ class BlogController extends Controller
             $tag = Tag::whereTag($tag)->firstOrFail();
         }
 
+        if ($post->is_draft && !Auth::check()) {
+            return redirect('/blog');
+        }
+
         return view($post->layout, compact('post', 'tag', 'slug', 'title', 'user'));
     }
 }
