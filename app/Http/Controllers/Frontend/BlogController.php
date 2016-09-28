@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use Auth;
 use App\Models\Tag;
 use App\Models\User;
 use App\Models\Post;
