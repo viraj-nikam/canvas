@@ -52,6 +52,18 @@ class AdminRoutesTest extends TestCase
     }
 
     /**
+     * Test the response code for the Edit Posts page.
+     *
+     * @return void
+     */
+    public function testEditPostsPageResponseCode()
+    {
+        $response = $this->actingAs($this->user)->call('GET', '/admin/post/1/edit');
+        $this->assertEquals(200, $response->status());
+        $this->assertViewHas(['id','title','slug','subtitle','page_image','content','meta_description','is_draft','publish_date','publish_time','published_at','updated_at','layout','tags','allTags']);
+    }
+
+    /**
      * Test the response code for the Tags page.
      *
      * @return void
@@ -64,11 +76,23 @@ class AdminRoutesTest extends TestCase
     }
 
     /**
-     * Test the response code for the Uploads page.
+     * Test the response code for the Edit Tags page.
      *
      * @return void
      */
-    public function testUploadsPageResponseCode()
+    public function testEditTagsPageResponseCode()
+    {
+        $response = $this->actingAs($this->user)->call('GET', '/admin/tag/1/edit');
+        $this->assertEquals(200, $response->status());
+        $this->assertViewHasAll(['data']);
+    }
+
+    /**
+     * Test the response code for the Media Library page.
+     *
+     * @return void
+     */
+    public function testMediaLibraryPageResponseCode()
     {
         $response = $this->actingAs($this->user)->call('GET', '/admin/upload');
         $this->assertEquals(200, $response->status());
