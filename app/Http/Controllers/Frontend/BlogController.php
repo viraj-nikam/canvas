@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use Auth;
 use App\Models\Tag;
 use App\Models\User;
 use App\Models\Post;
@@ -40,6 +41,10 @@ class BlogController extends Controller
         $title = $post->title;
         if ($tag) {
             $tag = Tag::whereTag($tag)->firstOrFail();
+        }
+
+        if ($post->is_draft && ! Auth::check()) {
+            return redirect('/blog');
         }
 
         return view($post->layout, compact('post', 'tag', 'slug', 'title', 'user'));
