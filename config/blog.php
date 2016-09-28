@@ -46,4 +46,16 @@ return [
     */
     'backend_trim_width' => 40,
     'frontend_trim_width' => 225,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Canvas Configuration : Post Layout
+    |--------------------------------------------------------------------------
+    |
+    | The post layout is only specified here and in App\Jobs\PostFormFields.php.
+    | If you need to update the layout, just change it in these
+    | two locations.
+    |
+    */
+    'post_layout' => 'frontend.blog.post',
 ];

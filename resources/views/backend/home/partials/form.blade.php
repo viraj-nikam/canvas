@@ -38,6 +38,6 @@
 
 <div class="form-group hidden">
     <div class="fg-line">
-        <input type="text" class="form-control" name="layout" id="layout" value="frontend.blog.post" placeholder="Layout">
+        <input type="text" class="form-control" name="layout" id="layout" value="{{ config('blog.post_layout') }}" placeholder="Layout">
     </div>
 </div>

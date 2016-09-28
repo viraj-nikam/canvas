@@ -26,7 +26,6 @@ class PostCreateRequest extends FormRequest
             'slug' => 'required',
             'subtitle' => 'required',
             'published_at' => 'required',
-            'layout' => 'required',
         ];
     }
 
@@ -44,7 +43,7 @@ class PostCreateRequest extends FormRequest
             'meta_description' => $this->meta_description,
             'is_draft' => (bool) $this->is_draft,
             'published_at' => $this->published_at,
-            'layout' => $this->layout,
+            'layout' => config('blog.post_layout'),
         ];
     }
 }

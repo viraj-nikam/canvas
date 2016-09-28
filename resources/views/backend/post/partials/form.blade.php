@@ -92,7 +92,7 @@
 <div class="form-group">
     <div class="fg-line">
       <label class="fg-label">Layout</label>
-      <input type="text" class="form-control" name="layout" id="layout" value="{{ $layout }}" placeholder="Layout">
+      <input type="text" class="form-control" name="layout" id="layout" value="{{ $layout }}" placeholder="Layout" disabled>
     </div>
 </div>
 

@@ -49,7 +49,7 @@ class PostTest extends EloquentTestCase
         $this->table->column('page_image')->string()->nullable();
         $this->table->column('meta_description')->string()->nullable();
         $this->table->column('is_draft')->boolean()->defaults(0);
-        $this->table->column('layout')->string()->defaults('frontend.blog.post');
+        $this->table->column('layout')->string()->defaults(config('blog.post_layout'));
         $this->table->column('published_at')->dateTime()->index();
         $this->table->hasTimestamps();
     }
@@ -92,7 +92,7 @@ class PostTest extends EloquentTestCase
             'subtitle'      => 'bar',
             'content'       => 'FooBar',
             'published_at'  =>  Carbon\Carbon::now(),
-            'layout'        => 'frontend.blog.post',
+            'layout'        => config('blog.post_layout'),
         ];
 
         $this->callRouteAsUser('admin.post.store', null, $data)
