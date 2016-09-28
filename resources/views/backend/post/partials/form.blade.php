@@ -46,6 +46,7 @@
             <button style="margin-bottom: -5px" type="button" class="btn btn-primary waves-effect" @click="openFromPageImage()">Select Image</button>
         </span>
       </div>
+    </div>
 </div>
 
 <div class="visible-sm space-10"></div>
