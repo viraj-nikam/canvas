@@ -32,15 +32,10 @@ class UploadsManager
     public function folderInfo($folder)
     {
         $folder = $this->cleanFolder($folder);
-
         $breadcrumbs = $this->breadcrumbs($folder);
-
         $slice = array_slice($breadcrumbs, -1);
-
         $folderName = current($slice);
-
         $breadcrumbs = array_slice($breadcrumbs, 0, -1);
-
         $subfolders = [];
 
         foreach (array_unique($this->disk->directories($folder)) as $subfolder) {
@@ -71,11 +66,14 @@ class UploadsManager
     {
         $folder = trim($folder, '/');
         $crumbs = ['/' => 'Root'];
+
         if (empty($folder)) {
             return $crumbs;
         }
+
         $folders = explode('/', $folder);
         $build = '';
+
         foreach ($folders as $folder) {
             $build .= '/'.$folder;
             $crumbs[$build] = $folder;
@@ -149,7 +147,7 @@ class UploadsManager
     {
         $folder = $this->cleanFolder($folder);
         if ($this->disk->exists($folder)) {
-            return "Folder '$folder' aleady exists.";
+            return "Sorry! Folder <code>$folder</code> already exists.";
         }
 
         return $this->disk->makeDirectory($folder);
@@ -166,7 +164,7 @@ class UploadsManager
             $this->disk->files($folder)
         );
         if (! empty($filesFolders)) {
-            return 'Directory must be empty to delete it.';
+            return 'Sorry! The directory must be empty to delete it.';
         }
 
         return $this->disk->deleteDirectory($folder);
@@ -179,7 +177,7 @@ class UploadsManager
     {
         $path = $this->cleanFolder($path);
         if (! $this->disk->exists($path)) {
-            return 'File does not exist.';
+            return 'Sorry! That file does not exist.';
         }
 
         return $this->disk->delete($path);
@@ -192,7 +190,7 @@ class UploadsManager
     {
         $path = $this->cleanFolder($path);
         if ($this->disk->exists($path)) {
-            return 'File already exists.';
+            return 'Sorry! That file already exists.';
         }
 
         return $this->disk->put($path, $content);
