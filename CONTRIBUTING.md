@@ -42,14 +42,8 @@ Canvas has an official [HipChat group](https://canvas-blog.hipchat.com/home) to 
 
 Canvas follows the [PSR-2](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md) coding standard and the [PSR-4](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-4-autoloader.md) autoloading standard.
 
-### TravisCI
+## Continuous Integration
 
-Integration with [TravisCI](https://travis-ci.org) is crucial. Pull requests must pass this test before being reviewed to merge into the project.
-
-### StyleCI
-
-Don't worry if your code styling isn't perfect! [StyleCI](https://styleci.io/) will take care of any style inconsistencies after pull requests are merged. This allows us to focus on the content of the contribution and not the code style.
-
-### VersionEye
-
-Pull requests can still be merged if the [VersionEye](https://www.versioneye.com) check fails. This just helps us keep a closer eye on staying up to date with dependencies.
+- Integration with [TravisCI](https://travis-ci.org) is crucial. Pull requests must pass this test before being reviewed to merge into the project.
+- Don't worry if your code styling isn't perfect! [StyleCI](https://styleci.io/) will take care of any style inconsistencies after pull requests are merged. This allows us to focus on the content of the contribution and not the code style.
+- Pull requests can still be merged if the [VersionEye](https://www.versioneye.com) check fails. This just helps us keep a closer eye on staying up to date with dependencies.
