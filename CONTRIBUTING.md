@@ -1,4 +1,4 @@
-# Canvas Contributing Guide
+# Canvas Contribution Guide
 
 Hi! I’m really excited that you are interested in contributing to Canvas. Before submitting your contribution though, please make sure to take a moment and read through the following guidelines.
 
@@ -38,14 +38,18 @@ Canvas has an official [HipChat group](https://canvas-blog.hipchat.com/home) to 
     - Provide detailed description of the bug in the pull request.
     - Add appropriate test coverage if applicable.
 
-## Code Style
+## Coding Style
 
-- 4 spaces indentation.
+- Canvas follows the [PSR-2](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md) coding standard and the [PSR-4](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-4-autoloader.md) autoloading standard.
 
-- 1 space between blade template braces `{{ $post->title }}`.
+#### TravisCI
 
-- Verbose comment DocBlocks are **required** for PHP functions.
+Integration with [TravisCI](https://travis-ci.org) is crucial. Pull requests must pass this test before being reviewed to merge into the project.
 
-- When in doubt, read the source code.
+#### StyleCI
 
-*If anyone has a code style they would like to see adhered to in this project, [send me a message](mailto:austin.todd.j@gmail.com) and we can look into adding it.*
+Don't worry if your code styling isn't perfect! [StyleCI](https://styleci.io/) will take care of any style inconsistencies after pull requests are merged. This allows us to focus on the content of the contribution and not the code style.
+
+#### VersionEye
+
+Pull requests can still be merged if the [VersionEye](https://www.versioneye.com) check fails. This just helps us keep a closer eye on staying up to date with dependencies.
