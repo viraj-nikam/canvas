@@ -26,7 +26,7 @@ Canvas has an official [HipChat group](https://canvas-blog.hipchat.com/home) to 
     - Bad commit message: `refactor`
     - Good commit message: `Refactor store method in PostController #63`
 
-- Follow the [code style](#code-style).
+- Follow the [coding style](#coding-style).
 
 - Make sure `phpunit` tests pass.
 
