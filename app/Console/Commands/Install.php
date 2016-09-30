@@ -102,6 +102,7 @@ class Install extends Command
         $this->disqus();
         $this->googleAnalytics();
         $this->twitterCardType();
+        $this->canvasVersion();
         $this->progress(5);
 
         $this->line(PHP_EOL.'<info>✔</info> Canvas has been successfully installed! Happy blogging!'.PHP_EOL);
@@ -199,6 +200,13 @@ class Install extends Command
         $settings = new Settings();
         $settings->setting_name = 'twitter_card_type';
         $settings->setting_value = 'none';
+        $settings->save();
+    }
+
+    private function canvasVersion() {
+        $settings = new Settings();
+        $settings->setting_name = 'canvas_version';
+        $settings->setting_value = '2.1.7';
         $settings->save();
     }
 }

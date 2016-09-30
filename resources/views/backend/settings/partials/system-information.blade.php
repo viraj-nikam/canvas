@@ -11,6 +11,8 @@
 
 ## Please include this information when requesting technical support ##
 
+CANVAS_VERSION:             {{ $data['version'] }}
+
 SITE_URL:                   {{ $data['url'] }}
 SITE_IP:                    {{ $data['ip'] }}
 SITE_TIMEZONE:              {{ $data['timezone'] }}
