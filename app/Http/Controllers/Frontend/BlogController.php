@@ -13,7 +13,7 @@ use App\Http\Controllers\Controller;
 class BlogController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display the blog index page.
      *
      * @param Request $request
      * @return \Illuminate\Http\Response
@@ -23,14 +23,16 @@ class BlogController extends Controller
         $user = User::findOrFail(1);
         $tag = $request->get('tag');
         $data = $this->dispatch(new BlogIndexData($tag));
-        $layout = $tag ? Tag::layout($tag)->first() : 'frontend.blog.index';
+        $layout = $tag ? Tag::layout($tag)->first() : config('blog.tag_layout');
 
         return view($layout, $data)->with(compact('user'));
     }
 
     /**
-     * Display the specified resource.
+     * Display a blog post page.
      *
+     * @param $slug
+     * @param Request $request
      * @return \Illuminate\Http\Response
      */
     public function showPost($slug, Request $request)

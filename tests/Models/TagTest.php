@@ -36,7 +36,7 @@ class TagTest extends EloquentTestCase
         $this->table->column('title')->string()->notNullable();
         $this->table->column('subtitle')->string()->notNullable();
         $this->table->column('meta_description')->string();
-        $this->table->column('layout')->string()->defaults('frontend.blog.index');
+        $this->table->column('layout')->string()->defaults(config('blog.tag_layout'));
         $this->table->column('reverse_direction')->boolean();
         $this->table->hasTimestamps();
     }
@@ -76,7 +76,7 @@ class TagTest extends EloquentTestCase
             'title'             => 'foo',
             'subtitle'          => 'bar',
             'meta_description'  => 'FooBar',
-            'layout'            => 'frontend.blog.index',
+            'layout'            => config('blog.tag_layout'),
             'reverse_direction' => 0,
         ]);
 
@@ -85,7 +85,7 @@ class TagTest extends EloquentTestCase
             'title'             => 'foo',
             'subtitle'          => 'bar',
             'meta_description'  => 'FooBar',
-            'layout'            => 'frontend.blog.index',
+            'layout'            => config('blog.tag_layout'),
             'reverse_direction' => 0,
         ]);
 

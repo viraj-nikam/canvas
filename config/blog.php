@@ -58,4 +58,16 @@ return [
     |
     */
     'post_layout' => 'frontend.blog.post',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Canvas Configuration : Tag Layout
+    |--------------------------------------------------------------------------
+    |
+    | The tag layout is specified here, in App\Http\Controllers\Backend\TagController.php
+    | and in App\Models\Tag.php. If you need to update the layout, just change it
+    | in these three locations.
+    |
+    */
+    'tag_layout' => 'frontend.blog.index',
 ];
