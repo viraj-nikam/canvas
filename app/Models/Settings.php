@@ -77,12 +77,13 @@ class Settings extends Model
         return self::getByName('blog_author');
     }
 
-    /**
-     * Get the current canvas application version
-     *
-     * return @string
-     */
-     public static function canvasVersion() {
+     /**
+      * Get the current canvas application version.
+      *
+      * return @string
+      */
+     public static function canvasVersion()
+     {
          return self::getByName('canvas_version');
      }
 
