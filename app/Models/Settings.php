@@ -78,6 +78,15 @@ class Settings extends Model
     }
 
     /**
+     * Get the current canvas application version
+     *
+     * return @string
+     */
+     public static function canvasVersion() {
+         return self::getByName('canvas_version');
+     }
+
+    /**
      * Get the value of the Disqus shortname.
      *
      * return @string
