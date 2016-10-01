@@ -203,7 +203,8 @@ class Install extends Command
         $settings->save();
     }
 
-    private function canvasVersion() {
+    private function canvasVersion()
+    {
         $settings = new Settings();
         $settings->setting_name = 'canvas_version';
         $settings->setting_value = '2.1.7';
