@@ -8,6 +8,7 @@
             @unless ($post->tags->isEmpty())
                 in {!! implode(', ', $post->tagLinks()) !!}
             @endunless
+            &#183; {{ $post->readingTime() }} MIN READ
         </p>
         <p id="postSubtitle">
             {{ str_limit($post->subtitle, config('blog.frontend_trim_width')) }}
