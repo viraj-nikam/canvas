@@ -153,6 +153,16 @@ class Post extends Model
         return $query->first();
     }
 
+    /**
+     * Return an approximate reading time for the post. Based on reading time of 275 WPM.
+     *
+     * @return Integer
+     */
+    public function readingTime()
+    {
+        return round(str_word_count($this->content_raw) / 275);
+    }
+
     public static function insertToIndex($model)
     {
         $tnt = new TNTSearch;
