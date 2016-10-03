@@ -53,6 +53,7 @@
                             in
                             {!! join(', ', $post->tagLinks()) !!}
                         @endif
+                        &#183; {{ $post->readingTime() }} MIN READ
                     </p>
                     <h1 class="post-page-title">{{ $post->title }}</h1>
 
