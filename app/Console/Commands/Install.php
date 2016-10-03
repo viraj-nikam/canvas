@@ -87,7 +87,7 @@ class Install extends Command
         $this->line(PHP_EOL.'<info>✔</info> Success! The number of posts per page has been saved.');
 
         // User
-        $this->comment(PHP_EOL . 'Step 7: Create admin user');
+        $this->comment(PHP_EOL.'Step 7: Create admin user');
         $email = $this->ask('Admin email address');
         $password = $this->secret('Admin password');
         $this->createUser($email, $password, $blogAuthor);
