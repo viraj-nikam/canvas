@@ -207,7 +207,7 @@ class Install extends Command
     {
         $settings = new Settings();
         $settings->setting_name = 'canvas_version';
-        $settings->setting_value = '2.1.7';
+        $settings->setting_value = 'v2.1.7';
         $settings->save();
     }
 }

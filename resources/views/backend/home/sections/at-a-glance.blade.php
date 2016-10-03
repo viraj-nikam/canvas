@@ -33,7 +33,9 @@
                 @endif
             </li>
         </ul>
-        <hr>
-        <small>Canvas v2.1.7 is currently running <a href="https://laravel.com/docs/5.3" target="_blank">Laravel 5.3</a>.</small>
+        @if($data['canvasVersion'] !== 'v2.1.7')
+            <hr>
+            <a href="{{ url('https://github.com/austintoddj/canvas/releases/tag/v2.1.7') }}" target="_blank"><small>Canvas <span id="tag_name"></span></a> is available! <a href="https://github.com/austintoddj/canvas/UPGRADE.md">Please update now.</a></small>
+        @endif
     </div>
 </div>

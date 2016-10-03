@@ -24,6 +24,7 @@ class HomeController extends Controller
             'disqus' => Settings::disqus(),
             'analytics' => Settings::gaId(),
             'status' => App::isDownForMaintenance() ? 0 : 1,
+            'canvasVersion' => Settings::canvasVersion(),
         ];
 
         return view('backend.home.index', compact('data'));
