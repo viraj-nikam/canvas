@@ -156,7 +156,7 @@ class Post extends Model
     /**
      * Return an approximate reading time for the post. Based on reading time of 275 WPM.
      *
-     * @return Integer
+     * @return int
      */
     public function readingTime()
     {
