@@ -35,7 +35,6 @@ Before you proceed make sure your server meets the following requirements:
 5. Run `php artisan canvas:install` and follow the on-screen prompts.
 7. Run `chmod -R 777 storage/` to change the permissions of the `storage/` directory.
 8. Run `npm install` from the command line in the project root.
-9. Open `.env` again, and change the value of `APP_ENV` to `production`.
 9. Sign in to your new blog at `http://MY_NEW_BLOG.com/admin`
     * Email: `admin@canvas.com`
     * Password: `password`
