@@ -4,11 +4,15 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use App\Services\Parsedowner;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Laravel\Scout\Searchable;
 use TeamTNT\TNTSearch\TNTSearch;
 use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
+    use Searchable;
+
     /**
      * The attributes that should be mutated to dates.
      *
@@ -25,6 +29,13 @@ class Post extends Model
         'title', 'subtitle', 'content_raw', 'page_image', 'meta_description',
         'layout', 'is_draft', 'published_at', 'slug',
     ];
+
+    /**
+     * Searchable items.
+     *
+     * @var array
+     */
+    public $searchable = ['title', 'subtitle', 'content_raw', 'meta_description'];
 
     /**
      * Get the tags relationship.
@@ -161,42 +172,5 @@ class Post extends Model
     public function readingTime()
     {
         return round(str_word_count($this->content_raw) / 275);
-    }
-
-    public static function insertToIndex($model)
-    {
-        $tnt = new TNTSearch;
-        $tnt->loadConfig(config('services.tntsearch'));
-        $tnt->selectIndex('posts.index');
-        $index = $tnt->getIndex();
-        $index->insert($model->toArray());
-    }
-
-    public static function deleteFromIndex($model)
-    {
-        $tnt = new TNTSearch;
-        $tnt->loadConfig(config('services.tntsearch'));
-        $tnt->selectIndex('posts.index');
-        $index = $tnt->getIndex();
-        $index->delete($model->id);
-    }
-
-    public static function updateIndex($model)
-    {
-        $tnt = new TNTSearch;
-        $tnt->loadConfig(config('services.tntsearch'));
-        $tnt->selectIndex('posts.index');
-        $index = $tnt->getIndex();
-        $index->update($model->id, $model->toArray());
-    }
-
-    public static function boot()
-    {
-        if (file_exists(config('services.tntsearch.storage').'/posts.index')
-            && app('env') != 'testing') {
-            self::created([__CLASS__, 'insertToIndex']);
-            self::updated([__CLASS__, 'updateIndex']);
-            self::deleted([__CLASS__, 'deleteFromIndex']);
-        }
     }
 }

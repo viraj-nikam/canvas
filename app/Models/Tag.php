@@ -3,10 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Scout\Searchable;
 use TeamTNT\TNTSearch\TNTSearch;
 
 class Tag extends Model
 {
+    use Searchable;
+
     /**
      * The attributes that should be cast to native types.
      *
@@ -23,6 +26,13 @@ class Tag extends Model
         'tag', 'title', 'subtitle', 'meta_description',
         'reverse_direction', 'created_at', 'updated_at',
     ];
+
+    /**
+     * Searchable items.
+     *
+     * @var array
+     */
+    public $searchable = ['tag', 'title', 'subtitle', 'meta_description'];
 
     /**
      * Get the posts relationship.
@@ -68,42 +78,5 @@ class Tag extends Model
         $layout = static::whereTag($tag)->pluck('layout');
 
         return $layout ?: $default;
-    }
-
-    public static function insertToIndex($model)
-    {
-        $tnt = new TNTSearch;
-        $tnt->loadConfig(config('services.tntsearch'));
-        $tnt->selectIndex('tags.index');
-        $index = $tnt->getIndex();
-        $index->insert($model->toArray());
-    }
-
-    public static function deleteFromIndex($model)
-    {
-        $tnt = new TNTSearch;
-        $tnt->loadConfig(config('services.tntsearch'));
-        $tnt->selectIndex('tags.index');
-        $index = $tnt->getIndex();
-        $index->delete($model->id);
-    }
-
-    public static function updateIndex($model)
-    {
-        $tnt = new TNTSearch;
-        $tnt->loadConfig(config('services.tntsearch'));
-        $tnt->selectIndex('tags.index');
-        $index = $tnt->getIndex();
-        $index->update($model->id, $model->toArray());
-    }
-
-    public static function boot()
-    {
-        if (file_exists(config('services.tntsearch.storage').'/tags.index')
-            && app('env') != 'testing') {
-            self::created([__CLASS__, 'insertToIndex']);
-            self::updated([__CLASS__, 'updateIndex']);
-            self::deleted([__CLASS__, 'deleteFromIndex']);
-        }
     }
 }

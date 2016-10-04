@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Artisan;
 use TeamTNT\TNTSearch\TNTSearch;
 
 class Index extends Command
@@ -29,9 +30,6 @@ class Index extends Command
      */
     public function handle()
     {
-        $this->tnt = new TNTSearch;
-        $this->tnt->loadConfig(config('services.tntsearch'));
-
         $this->createPostsIndex();
         $this->line('<info>✔</info> Success! The posts index has been completed.');
 
@@ -42,16 +40,12 @@ class Index extends Command
     public function createPostsIndex()
     {
         $this->comment(PHP_EOL.'Indexing posts table and saving it to /storage/posts.index...');
-        $indexer = $this->tnt->createIndex('posts.index');
-        $indexer->query('SELECT id, title, subtitle, content_raw, meta_description FROM posts;');
-        $indexer->run();
+        \Artisan::call('scout:import', ['model' => 'App\\Models\\Post']);
     }
 
     public function createTagsIndex()
     {
         $this->comment(PHP_EOL.'Indexing tags table and saving it to /storage/tags.index...');
-        $indexer = $this->tnt->createIndex('tags.index');
-        $indexer->query('SELECT id, tag, title, subtitle, meta_description FROM tags;');
-        $indexer->run();
+        \Artisan::call('scout:import', ['model' => 'App\\Models\\Tag']);
     }
 }
