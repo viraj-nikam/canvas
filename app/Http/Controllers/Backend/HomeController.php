@@ -17,18 +17,18 @@ class HomeController extends Controller
      */
     public function index()
     {
-        //        $opts = [
-//            'http' => [
-//                'method' => 'GET',
-//                'header' => [
-//                    'User-Agent: PHP',
-//                ],
-//            ],
-//        ];
-//
-//        $context = stream_context_create($opts);
-//        $stream = file_get_contents('https://api.github.com/repos/austintoddj/canvas/releases/latest', false, $context);
-//        $release = json_decode($stream);
+        $opts = [
+            'http' => [
+                'method' => 'GET',
+                'header' => [
+                    'User-Agent: PHP',
+                ],
+            ],
+        ];
+
+        $context = stream_context_create($opts);
+        $stream = file_get_contents('https://api.github.com/repos/austintoddj/canvas/releases/latest', false, $context);
+        $release = json_decode($stream);
 
         $data = [
             'posts' => Post::all(),
@@ -38,7 +38,7 @@ class HomeController extends Controller
             'analytics' => Settings::gaId(),
             'status' => App::isDownForMaintenance() ? 0 : 1,
             'canvasVersion' => Settings::canvasVersion(),
-            'latestRelease' => 'v2.1.7',
+            'latestRelease' => $release,
         ];
 
         return view('backend.home.index', compact('data'));
