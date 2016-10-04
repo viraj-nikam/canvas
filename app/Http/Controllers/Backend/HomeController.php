@@ -21,9 +21,9 @@ class HomeController extends Controller
             'http' => [
                 'method' => 'GET',
                 'header' => [
-                    'User-Agent: PHP'
-                ]
-            ]
+                    'User-Agent: PHP',
+                ],
+            ],
         ];
 
         $context = stream_context_create($opts);
