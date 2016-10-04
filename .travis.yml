@@ -10,7 +10,6 @@ before_install:
 
 install:
   - /home/travis/.phpenv/versions/5.5.9/bin/composer self-update
-  - composer config github-oauth.github.com ${GH_TOKEN}
   - composer install
 
 script:
