@@ -14,4 +14,4 @@ Remove the blog project directory and delete the database.
 Follow the [7 step installation process](https://github.com/austintoddj/canvas#installation).
 
 #### Step 4: Re-import your data
-After you've completed the installation, you can re-import your data and uploads from the archive you downloaded Step 1.
+After you've completed the installation, you can re-import your data and uploads from the archive you downloaded from [step 1](https://github.com/austintoddj/canvas/blob/master/UPGRADE.md#step-1-download-your-data).
