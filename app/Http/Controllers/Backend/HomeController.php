@@ -27,7 +27,7 @@ class HomeController extends Controller
         ];
 
         $context = stream_context_create($opts);
-        $stream = file_get_contents('http://api.github.com/repos/austintoddj/canvas/releases/latest', false, $context);
+        $stream = file_get_contents('https://api.github.com/repos/austintoddj/canvas/releases/latest', false, $context);
         $release = json_decode($stream);
 
         $data = [
