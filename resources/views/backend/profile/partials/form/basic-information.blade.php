@@ -40,6 +40,7 @@
     <div class="fg-line">
         <label class="fg-label">Gender</label>
         <select name="gender" id="gender" class="selectpicker">
+            <option @if($data['gender'] == null) selected @endif value="">Please select one</option>
             <option @if ($data['gender'] === 'Male') selected @endif value="Male">Male</option>
             <option @if ($data['gender'] === 'Female') selected @endif value="Female">Female</option>
         </select>

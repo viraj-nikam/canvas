@@ -28,9 +28,6 @@ class UpdateProfileTest extends TestCase
         'last_name',
         'display_name',
         'email',
-        'job',
-        'city',
-        'country',
     ];
 
     public function testItDoesntHidesOptionalFieldsIfEmpty()

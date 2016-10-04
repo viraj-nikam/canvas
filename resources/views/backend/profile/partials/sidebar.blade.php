@@ -26,7 +26,7 @@
             @endif
             <li><i class="zmdi zmdi-email"></i> <a href="mailto:{{ $data['email'] }}" target="_blank">{{ $data['email'] }}</a></li>
             <li>
-                @if(isset($data['address']) || isset($data['city']) || isset($data['country']))
+                @if(isset($data['address']) && strlen($data['address']) || isset($data['city']) && strlen($data['city']) || isset($data['country']) && strlen($data['country']))
                     <i class="zmdi zmdi-pin"></i>
                 @endif
                 <address class="m-b-0 ng-binding">
