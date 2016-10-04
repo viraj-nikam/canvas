@@ -57,11 +57,11 @@ class Install extends Command
         }
 
         // Admin User
-        $this->comment(PHP_EOL . 'Step 1/6: Creating the admin user');
+        $this->comment(PHP_EOL.'Step 1/6: Creating the admin user');
         $email = $this->ask('Admin email address');
         $rules = ['email' => 'unique:users,email'];
         $validator = Validator::make(['email' => $email], $rules);
-        if($validator->fails()) {
+        if ($validator->fails()) {
             $this->error('Sorry! That email already exists in the system.');
             $this->comment('Please run the installer again.');
             die();
@@ -225,7 +225,7 @@ class Install extends Command
         $user->password = bcrypt($password);
         $user->first_name = $firstName;
         $user->last_name = $lastName;
-        $user->display_name = $firstName . ' ' . $lastName;
+        $user->display_name = $firstName.' '.$lastName;
         $user->save();
 
         $this->author($user->display_name);
