@@ -17,7 +17,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-//        $opts = [
+        //        $opts = [
 //            'http' => [
 //                'method' => 'GET',
 //                'header' => [
