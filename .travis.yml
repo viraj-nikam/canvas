@@ -15,7 +15,3 @@ install:
 script:
   - php artisan key:generate
   - vendor/bin/phpunit
-
-matrix:
-  allow_failures:
-    - php: 7.1
