@@ -5,8 +5,7 @@
 You should always update Canvas to the latest version. When a new version of Canvas is available you will see an update message on your Canvas admin home page. To begin the update process, click the link in this message.
 
 #### Step 1: Download your data
-In your blog, navigate to `/admin/tools` and click **DOWNLOAD ARCHIVE**. This will gather all the data you have created/uploaded and will save it to a 
-`.zip` on your computer. 
+In your blog, navigate to `/admin/tools` and click **DOWNLOAD ARCHIVE**. This will gather all the data you have created or uploaded and save it to a `.zip` file on your computer. 
 
 #### Step 2: Remove the current installation
 Remove the blog project directory and delete the database.
