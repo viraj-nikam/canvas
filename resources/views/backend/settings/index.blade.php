@@ -27,6 +27,7 @@
 
                 @include('backend.settings.partials.settings')
                 @include('backend.settings.partials.system-information')
+                @include('backend.settings.partials.about')
 
             </div>
         </section>
@@ -40,4 +41,6 @@
         @include('backend.partials.notify', ['section' => '_update-settings'])
         {{ \Session::forget('_update-settings') }}
     @endif
+
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
 @stop
