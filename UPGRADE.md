@@ -1,7 +1,8 @@
 ## Upgrade Guide
 
-The following upgrades assume that you have not tampered with the core of Canvas. If you have, you might want to make a backup or copy of your blog before
-making these changes, since it will erase anything not part of the official release.
+> **WARNING:** The upgrade process will affect all files and folders included in the main Canvas installation. This includes all the core files used to run Canvas. If you have made any modifications to those files, your changes will be lost.
+
+You should always update Canvas to the latest version. When a new version of Canvas is available you will see an update message on your Canvas admin home page. To begin the update process, click the link in this message.
 
 #### Step 1: Download your data
 In your blog, navigate to `/admin/tools` and click **DOWNLOAD ARCHIVE**. This will gather all the data you have created/uploaded and will save it to a 
