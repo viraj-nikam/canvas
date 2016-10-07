@@ -33,9 +33,9 @@
                 @endif
             </li>
         </ul>
-        @if($data['canvasVersion'] !== 'v2.1.7')
+        @if($data['canvasVersion'] !== $data['latestRelease'])
             <hr>
-            <a href="{{ url('https://github.com/austintoddj/canvas/releases/tag/v2.1.7') }}" target="_blank"><small>Canvas <span id="tag_name"></span></a> is available! <a href="https://github.com/austintoddj/canvas/UPGRADE.md">Please update now.</a></small>
+            <a href="{{ url('http://github.com/austintoddj/canvas/releases/tag/') . $data['latestRelease'] }}" target="_blank"><small>Canvas {{ $data['latestRelease'] }}</a> is available! <a href="http://github.com/austintoddj/canvas/blob/master/UPGRADE.md" target="_blank">Please update now.</a></small>
         @endif
     </div>
 </div>

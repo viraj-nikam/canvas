@@ -13,9 +13,7 @@
             <div class="container container-alt">
 
                 <div class="block-header">
-                    <h2>{{ Auth::user()->display_name }}
-                        <small>{{ Auth::user()->job }}, {{ Auth::user()->city }}, {{ Auth::user()->country }}</small>
-                    </h2>
+                    <h2>Profile</h2>
 
                     <ul class="actions">
                         <li class="dropdown">

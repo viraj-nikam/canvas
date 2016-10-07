@@ -56,5 +56,4 @@
 
     {!! JsValidator::formRequest('App\Http\Requests\PostCreateRequest', '#postCreate') !!}
 
-    @include('backend.home.partials.latest-release')
 @stop

@@ -4,11 +4,11 @@ namespace App\Console\Commands;
 
 use Artisan;
 use ConfigWriter;
-use App\Models\Settings;
-use App\Models\Migrations;
 use App\Models\User;
+use App\Models\Settings;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Validator;
 
 class Install extends Command
 {
@@ -56,42 +56,46 @@ class Install extends Command
             $this->line(PHP_EOL.'<info>✔</info> Success! Your database is set up and configured.');
         }
 
+        // Admin User
+        $this->comment(PHP_EOL.'Step 1/6: Creating the admin user');
+        $email = $this->ask('Admin email address');
+        $rules = ['email' => 'unique:users,email'];
+        $validator = Validator::make(['email' => $email], $rules);
+        if ($validator->fails()) {
+            $this->error('Sorry! That email already exists in the system.');
+            $this->comment('Please run the installer again.');
+            die();
+        }
+        $password = $this->ask('Admin password');
+        $firstName = $this->ask('Admin first name');
+        $lastName = $this->ask('Admin last name');
+        $this->createUser($email, $password, $firstName, $lastName);
+        $this->line(PHP_EOL.'<info>✔</info> Success! Admin user has been created.');
+
         // Blog Title
-        $blogTitle = $this->ask('Step 1: Title of your blog');
+        $blogTitle = $this->ask('Step 2/6: Title of your blog');
         $this->title($blogTitle);
-        $this->line(PHP_EOL.'<info>✔</info> Success! The blog title has been saved.');
+        $this->line(PHP_EOL.'<info>✔</info> Success! The title of the blog has been saved.');
 
         // Blog Subtitle
-        $blogSubtitle = $this->ask('Step 2: Subtitle of your blog');
+        $blogSubtitle = $this->ask('Step 3/6: Subtitle of your blog');
         $this->subtitle($blogSubtitle);
-        $this->line(PHP_EOL.'<info>✔</info> Success! The blog subtitle has been saved.');
+        $this->line(PHP_EOL.'<info>✔</info> Success! The subtitle of the blog has been saved.');
 
         // Blog Description
-        $blogDescription = $this->ask('Step 3: Description of your blog (Open Graph Meta Information)');
+        $blogDescription = $this->ask('Step 4/6: Description of your blog');
         $this->description($blogDescription);
-        $this->line(PHP_EOL.'<info>✔</info> Success! The blog description has been saved.');
+        $this->line(PHP_EOL.'<info>✔</info> Success! The description of the blog has been saved.');
 
         // Blog SEO
-        $blogSEO = $this->ask('Step 4: Blog SEO Keywords (simple,powerful,blog,publishing,platform)');
+        $blogSEO = $this->ask('Step 5/6: Blog SEO keywords (simple,powerful,blog,publishing,platform)');
         $this->seo($blogSEO);
         $this->line(PHP_EOL.'<info>✔</info> Success! The blog SEO keywords have been saved.');
 
-        // Blog Author
-        $blogAuthor = $this->ask('Step 5: Author of your blog');
-        $this->author($blogAuthor);
-        $this->line(PHP_EOL.'<info>✔</info> Success! The author name has been saved.');
-
         // Posts Per Page
-        $postsPerPage = $this->ask('Step 6: Number of posts to display per page');
+        $postsPerPage = $this->ask('Step 6/6: Number of posts to display per page');
         $this->postsPerPage($postsPerPage, $config);
         $this->line(PHP_EOL.'<info>✔</info> Success! The number of posts per page has been saved.');
-
-        // User
-        $this->comment(PHP_EOL.'Step 7: Create admin user');
-        $email = $this->ask('Admin email address');
-        $password = $this->secret('Admin password');
-        $this->createUser($email, $password, $blogAuthor);
-        $this->line('<info>✔</info> Success! Admin user has been created.');
 
         // Search Index
         $this->comment(PHP_EOL.'Building the search index...');
@@ -113,7 +117,12 @@ class Install extends Command
         $this->canvasVersion();
         $this->progress(5);
 
-        $this->line(PHP_EOL.'<info>✔</info> Canvas has been successfully installed! Happy blogging!'.PHP_EOL);
+        $this->line(PHP_EOL.'<info>✔</info> Canvas has been installed. Pretty easy huh?'.PHP_EOL);
+
+        $headers = ['Login Email', 'Login Password'];
+        $data = User::select('email', 'password')->get()->toArray();
+        $data[0]['password'] = 'Your chosen password.';
+        $this->table($headers, $data);
 
         $config->save();
     }
@@ -170,16 +179,6 @@ class Install extends Command
         $this->progress(1);
     }
 
-    private function author($blogAuthor)
-    {
-        $settings = new Settings();
-        $settings->setting_name = 'blog_author';
-        $settings->setting_value = $blogAuthor;
-        $settings->save();
-        $this->comment('Saving author name...');
-        $this->progress(1);
-    }
-
     private function postsPerPage($postsPerPage, $config)
     {
         $config->set('posts_per_page', intval($postsPerPage));
@@ -215,16 +214,30 @@ class Install extends Command
     {
         $settings = new Settings();
         $settings->setting_name = 'canvas_version';
-        $settings->setting_value = 'v2.1.7';
+        $settings->setting_value = config('blog.version');
         $settings->save();
     }
 
-    private function createUser($email, $password, $blogAuthor)
+    private function createUser($email, $password, $firstName, $lastName)
     {
         $user = new User();
         $user->email = $email;
         $user->password = bcrypt($password);
-        $user->display_name = $blogAuthor;
+        $user->first_name = $firstName;
+        $user->last_name = $lastName;
+        $user->display_name = $firstName.' '.$lastName;
         $user->save();
+
+        $this->author($user->display_name);
+        $this->comment('Saving admin information...');
+        $this->progress(1);
+    }
+
+    private function author($blogAuthor)
+    {
+        $settings = new Settings();
+        $settings->setting_name = 'blog_author';
+        $settings->setting_value = $blogAuthor;
+        $settings->save();
     }
 }
