@@ -1,12 +1,15 @@
 <div class="card">
     <div class="card-header">
-        <h2>About
-            <small>Canvas was born out of a desire for an elegant, well-architectured personal publishing platform built on <a href="https://laravel.com/" target="_blank">Laravel</a> that would be
-                   attractive to developers and non-developers alike.</small>
+        <h2>About Canvas
+            <small>General information and credits</small>
         </h2>
     </div>
     <div class="card-body card-padding">
         <br>
+        <p>Canvas was born out of a desire for an elegant, well-architectured personal publishing platform built on <a href="https://laravel.com/" target="_blank">Laravel</a> that would be
+           attractive to developers and non-developers alike.</p>
+        <p>Canvas is a simple, powerful blog publishing platform that lets you to share your stories with the world. Its beautifully designed interface and completely customizable framework allows you to create and publish your own blog, giving you tools that make it easy and even fun to do.</p>
+        <hr>
         <div id="about">
             <p id="social">
                 <a class="github-button" href="https://github.com/austintoddj/canvas" data-count-href="/austintoddj/canvas/stargazers" data-count-api="/repos/austintoddj/canvas#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star austintoddj/canvas on GitHub">Star</a>
