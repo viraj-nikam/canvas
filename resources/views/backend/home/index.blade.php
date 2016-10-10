@@ -51,9 +51,6 @@
         @include('backend.partials.notify', ['section' => '_login'])
         {{ \Session::forget('_login') }}
     @endif
-
     @include('backend.shared.components.slugify')
-
     {!! JsValidator::formRequest('App\Http\Requests\PostCreateRequest', '#postCreate') !!}
-
 @stop

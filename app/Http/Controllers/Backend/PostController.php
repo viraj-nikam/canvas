@@ -83,7 +83,11 @@ class PostController extends Controller
 
         Session::set('_update-post', trans('messages.update_success', ['entity' => 'Post']));
 
-        return redirect("/admin/post/$id/edit");
+        if ($request->action === 'continue') {
+            return redirect("/admin/post/$id/edit");
+        } else {
+            return redirect("/admin/post");
+        }
     }
 
     /**

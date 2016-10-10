@@ -1,7 +1,7 @@
 @if(Request::is('admin/post/create'))
-<form class="keyboard-save" role="form" method="POST" id="postCreate" action="{{ route('admin.post.store') }}">
+    <form class="keyboard-save" role="form" method="POST" id="postCreate" action="{{ route('admin.post.store') }}">
 @else
-<form class="keyboard-save" role="form" method="POST" id="postUpdate" action="{{ route('admin.post.update', $id) }}">
+    <form class="keyboard-save" role="form" method="POST" id="postUpdate" action="{{ route('admin.post.update', $id) }}">
     <input type="hidden" name="_method" value="PUT">
 @endif
     <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -13,55 +13,47 @@
                     @include('shared.errors')
                     @include('shared.success')
 
-                    <h2>Create a New Post
-                        <br>
-                        @if(Request::is('admin/post/create'))
-                            <small>Set a page image to feature at the top of your blog post by specifying the image path relative to the uploads directory.</small>
-                        @else
+                    @if(Request::is('admin/post/create'))
+                        <h2>Create a New Post</h2>
+                    @else
+                        <h2>
+                            Edit <em>{{ $title }}</em>
                             <small>Last edited on {{ $updated_at->format('M d, Y') }} at {{ $updated_at->format('g:i A') }}</small>
-                        @endif
-                    </h2>
+                        </h2>
+                    @endif
                 </div>
                 <div class="card-body card-padding">
                     <br>
-
                     <div class="form-group">
                         <div class="fg-line">
                             <input type="text" class="form-control" name="title" id="title" value="{{ $title }}" placeholder="Title">
                         </div>
                     </div>
-
                     <br>
-
                     <div class="form-group">
                         <div class="fg-line">
                             <input type="text" class="form-control" name="slug" id="slug" value="{{ $slug }}" placeholder="URL Slug">
                         </div>
                     </div>
-
                     <br>
-
                     <div class="form-group">
                         <div class="fg-line">
                             <input type="text" class="form-control" name="subtitle" id="subtitle" value="{{ $subtitle }}" placeholder="Subtitle">
                         </div>
                     </div>
-
                     <br>
-
                     <div class="form-group">
                         <div class="fg-line">
                             <textarea id="editor" name="content" placeholder="Content">{{ $content }}</textarea>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
         <div class="col-md-4">
             <div class="card">
                 <div class="card-header">
-                    <h2>Publish</h2>
+                    <h2>Publishing</h2>
                 </div>
                 <div class="card-body card-padding">
                     <div class="form-group">
@@ -71,36 +63,43 @@
                             <label for="is_draft" class="ts-helper"></label>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <div class="fg-line">
-                            <a type="button" class="btn btn-primary btn-icon-text btn-sm" href="{{ url('blog/' . $slug) }}" target="_blank">
-                                <i class="zmdi zmdi-search"></i> Preview Changes
+                    @if(!Request::is('admin/post/create'))
+                        <br>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-success btn-icon-text" name="action" value="continue">
+                                <i class="zmdi zmdi-floppy"></i> Save & Continue
+                            </button>
+                            <a type="button" class="btn btn-default btn-icon-text" href="{{ url('blog/' . $slug) }}" target="_blank">
+                                <i class="zmdi zmdi-search"></i> Preview
                             </a>
                         </div>
-                    </div>
+                    @endif
+                    <br>
                     <div class="form-group">
                         <div class="fg-line">
                             <label>Published at</label>
                             <input class="form-control datetime-picker" name="published_at" id="published_at" type="text" value="{{ $published_at }}" placeholder="YYYY/MM/DD HH:MM:SS" data-mask="0000/00/00 00:00:00">
                         </div>
                     </div>
+                    <br>
                     <div class="form-group">
                         <div class="fg-line">
                             <label class="fg-label">Layout</label>
                             <input type="text" class="form-control" name="layout" id="layout" value="{{ $layout }}" placeholder="Layout" disabled>
                         </div>
                     </div>
+                    <br>
                     <div class="form-group">
                         @if(Request::is('admin/post/create'))
                             <button type="submit" class="btn btn-primary btn-icon-text"><i class="zmdi zmdi-floppy"></i> Publish</button>
                             &nbsp;
                             <a href="{{ url('admin/post') }}"><button type="button" class="btn btn-link">Cancel</button></a>
                         @else
-                            <button type="submit" class="btn btn-primary btn-icon-text" name="action" value="continue">
-                                <i class="zmdi zmdi-floppy"></i> Save
+                            <button type="submit" class="btn btn-primary btn-icon-text" name="action" value="finished">
+                                <i class="zmdi zmdi-floppy"></i> Update
                             </button>
                             &nbsp;
-                            <button type="button" class="btn btn-danger btn-icon-text" data-toggle="modal" data-target="#modal-delete">
+                            <button type="button" class="btn btn-danger btn-icon-text" data-toggle="modal" data-target="#modal-delete" id="confirmDelete">
                                 <i class="zmdi zmdi-delete"></i> Delete
                             </button>
                         @endif
@@ -140,9 +139,7 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="visible-sm space-10"></div>
-
                     <div>
                         <img v-if="pageImage" class="img img-responsive" id="page-image-preview" style="margin-top: 3px; max-height:100px;" :src="pageImage">
                         <span v-else class="text-muted small">No Image Selected</span>
@@ -152,8 +149,10 @@
 
             <div class="card">
                 <div class="card-header">
-                    <h2>SEO</h2>
-                    <small>Meta descriptions are HTML attributes that provide concise explanations of the contents of web pages.</small>
+                    <h2>
+                        SEO
+                        <small>Meta descriptions are HTML attributes that provide concise explanations of the contents of web pages.</small>
+                    </h2>
                 </div>
                 <div class="card-body card-padding">
                     <div class="form-group">

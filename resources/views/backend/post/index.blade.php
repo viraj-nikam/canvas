@@ -75,20 +75,17 @@
 @stop
 
 @section('unique-js')
-    @if(Session::get('_login'))
-        @include('backend.partials.notify', ['section' => '_login'])
-        {{ \Session::forget('_login') }}
-    @endif
-
     @if(Session::get('_new-post'))
         @include('backend.partials.notify', ['section' => '_new-post'])
         {{ \Session::forget('_new-post') }}
     @endif
-
     @if(Session::get('_delete-post'))
         @include('backend.partials.notify', ['section' => '_delete-post'])
         {{ \Session::forget('_delete-post') }}
     @endif
-
+    @if(Session::get('_update-post'))
+        @include('backend.partials.notify', ['section' => '_update-post'])
+        {{ \Session::forget('_update-post') }}
+    @endif
     @include('backend.post.partials.datatable')
 @stop
