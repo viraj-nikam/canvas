@@ -9,25 +9,14 @@
         @include('backend.partials.sidebar-navigation')
         <section id="content">
             <div class="container">
+                <div class="block-header" id="pageTop">
+                    <ol class="breadcrumb">
+                        <li><a href="{{ url('admin') }}">Home</a></li>
+                        <li class="active">Posts</li>
+                    </ol>
+                </div>
                 <div class="card">
                     <div class="card-header">
-                        <ol class="breadcrumb">
-                            <li><a href="{{ url('admin') }}">Home</a></li>
-                            <li class="active">Posts</li>
-                        </ol>
-                        <ul class="actions">
-                            <li class="dropdown">
-                                <a href="" data-toggle="dropdown">
-                                    <i class="zmdi zmdi-more-vert"></i>
-                                </a>
-
-                                <ul class="dropdown-menu dropdown-menu-right">
-                                    <li>
-                                        <a href="">Refresh Posts</a>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
 
                         @include('shared.errors')
                         @include('shared.success')
@@ -75,20 +64,17 @@
 @stop
 
 @section('unique-js')
-    @if(Session::get('_login'))
-        @include('backend.partials.notify', ['section' => '_login'])
-        {{ \Session::forget('_login') }}
-    @endif
-
     @if(Session::get('_new-post'))
         @include('backend.partials.notify', ['section' => '_new-post'])
         {{ \Session::forget('_new-post') }}
     @endif
-
     @if(Session::get('_delete-post'))
         @include('backend.partials.notify', ['section' => '_delete-post'])
         {{ \Session::forget('_delete-post') }}
     @endif
-
+    @if(Session::get('_update-post'))
+        @include('backend.partials.notify', ['section' => '_update-post'])
+        {{ \Session::forget('_update-post') }}
+    @endif
     @include('backend.post.partials.datatable')
 @stop
