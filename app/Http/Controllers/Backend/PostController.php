@@ -86,7 +86,7 @@ class PostController extends Controller
         if ($request->action === 'continue') {
             return redirect("/admin/post/$id/edit");
         } else {
-            return redirect("/admin/post");
+            return redirect('/admin/post');
         }
     }
 
