@@ -145,10 +145,10 @@ class PostTest extends EloquentTestCase
      */
     public function testPostsCanBeDeleted()
     {
-       $this->callRouteAsUser('admin.post.edit', 1)
-           ->press('Delete Post')
-           ->see($this->getDeleteMessage())
-           ->dontSeePostInDatabase(1);
+        $this->callRouteAsUser('admin.post.edit', 1)
+             ->press('Delete Post')
+             ->see($this->getDeleteMessage())
+             ->dontSeePostInDatabase(1);
     }
 
     /**
