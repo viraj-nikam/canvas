@@ -98,7 +98,8 @@ class PostTest extends EloquentTestCase
         $this->callRouteAsUser('admin.post.store', null, $data)
               ->seePostInDatabase(['title' => 'example', 'content_raw' => 'FooBar', 'content_html' => '<p>FooBar</p>'])
               ->seeInSession('_new-post', trans('messages.create_success', ['entity' => 'post']))
-              ->assertRedirectedTo('admin/post');
+              ->assertRedirectedTo('admin/post')
+              ->assertSessionMissing('errors');
     }
 
     /**
@@ -135,7 +136,8 @@ class PostTest extends EloquentTestCase
     {
         $this->callRouteAsUser('admin.post.edit', 1)
              ->click('permalink')
-             ->seePageIs('blog/hello-world');
+             ->seePageIs('blog/hello-world')
+             ->assertSessionMissing('errors');
     }
 
     /**
@@ -148,7 +150,8 @@ class PostTest extends EloquentTestCase
         $this->callRouteAsUser('admin.post.edit', 1)
              ->press('Delete Post')
              ->see($this->getDeleteMessage())
-             ->dontSeePostInDatabase(1);
+             ->dontSeePostInDatabase(1)
+             ->assertSessionMissing('errors');
     }
 
     /**
