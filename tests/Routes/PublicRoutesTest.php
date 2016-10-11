@@ -10,6 +10,7 @@ class PublicRoutesTest extends TestCase
      * @var App\Models\User
      */
     private $user;
+
     /**
      * Create the user model test subject.
      *
