@@ -4,7 +4,7 @@
     menu item in the sidebar, and then clicking the <span class="zmdi zmdi-plus-circle text-primary"></span> icon on the <a href="{{ url('admin/posts') }}">Posts</a> page. If you get interrupted and want to save your work for later, just toggle the
     <code>Draft?</code> button and click
     <span class="label label-primary"><span class="zmdi zmdi-floppy"></span> PUBLISH</span> to make
-    sure that the post is not published on your blog yet.
+    sure that the post is not visible on your blog yet.
 </p>
 <p>
     The fastest and easiest way to write in Canvas is to utilize Markdown. The split-screen editor allows you full-screen flexibility and live formatting to make your writing experience smooth and effortless. For a little bit of a beginner's primer or to just brush up on your skills, take a look at the <a href="{{ url('/blog/hello-world') }}">Hello World</a> post.
