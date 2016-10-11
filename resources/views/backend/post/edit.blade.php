@@ -9,13 +9,6 @@
         @include('backend.partials.sidebar-navigation')
         <section id="content">
             <div class="container">
-                <div class="block-header" id="pageTop">
-                    <ol class="breadcrumb">
-                        <li><a href="{{ url('admin') }}">Home</a></li>
-                        <li><a href="{{ url('admin/post') }}">Posts</a></li>
-                        <li class="active">Edit Post</li>
-                    </ol>
-                </div>
                 @include('backend.post.partials.form')
             </div>
         </section>

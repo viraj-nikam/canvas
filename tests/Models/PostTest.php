@@ -120,7 +120,7 @@ class PostTest extends EloquentTestCase
     public function testPostsCanBeEdited()
     {
         $this->callRouteAsUser('admin.post.edit', 1)
-            ->submitForm('Save', ['title' => 'Foo'])
+            ->submitForm('Update', ['title' => 'Foo'])
             ->see('Success! Post has been updated')
             ->see('Foo')
             ->seePostInDatabase();
@@ -134,7 +134,7 @@ class PostTest extends EloquentTestCase
     public function testPostsCanBePreviewed()
     {
         $this->callRouteAsUser('admin.post.edit', 1)
-             ->click('Preview')
+             ->click('permalink')
              ->seePageIs('blog/hello-world');
     }
 
