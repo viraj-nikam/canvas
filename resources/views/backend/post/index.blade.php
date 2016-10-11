@@ -32,9 +32,9 @@
                                     <th data-column-id="title">Title</th>
                                     <th data-column-id="subtitle">Subtitle</th>
                                     <th data-column-id="slug">Slug</th>
-                                    <th data-column-id="published" data-type="date">Status</th>
-                                    <th data-column-id="created" data-type="date" data-order="desc">Created</th>
-                                    <th data-column-id="updated" data-type="date">Updated</th>
+                                    <th data-column-id="published">Status</th>
+                                    <th data-column-id="created" data-type="date" data-formatter="humandate" data-order="desc">Created</th>
+                                    <th data-column-id="updated" data-type="date" data-formatter="humandate">Updated</th>
                                     <th data-column-id="commands" data-formatter="commands" data-sortable="false">Actions</th>
                                 </tr>
                             </thead>
@@ -46,8 +46,8 @@
                                         <td>{{ str_limit($post->subtitle, config('blog.backend_trim_width')) }}</td>
                                         <td>{{ $post->slug }}</td>
                                         <td>{{ $post->is_draft === 1 ? '<span class="label label-primary">Draft</span>' : '<span class="label label-success">Published</span>' }}</td>
-                                        <td>{{ $post->created_at->format('M d, Y') }}</td>
-                                        <td>{{ $post->updated_at->format('M d, Y') }}</td>
+                                        <td>{{ $post->created_at->format('Y-m-d') }}</td>
+                                        <td>{{ $post->updated_at->format('Y-m-d') }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>
