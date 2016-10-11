@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Class AuthenticationTest.
- *
- * Test the login and logout functionality of the application.
- */
 class AuthenticationTest extends TestCase
 {
     use InteractsWithDatabase;
@@ -27,28 +22,8 @@ class AuthenticationTest extends TestCase
         $this->user = factory(App\Models\User::class)->create();
     }
 
-    /**
-     * Test the ability for a user to log into the application.
-     *
-     * @return void
-     */
-    public function testApplicationLogin()
-    {
-        $this->visit('/admin')
-             ->type($this->user->email, 'email')
-             ->type('password', 'password')
-             ->press('submit')
-             ->seeIsAuthenticatedAs($this->user)
-             ->seePageIs('/admin');
-        $this->see('Welcome back');
-    }
-
-    /**
-     * Test the login form is validated.
-     *
-     * @return void
-     */
-    public function testLoginValidation()
+    /** @test */
+    public function it_validates_the_login_form()
     {
         $this->visit('/admin')
             ->type('foo@bar.com', 'email')
@@ -59,12 +34,20 @@ class AuthenticationTest extends TestCase
         $this->see('These credentials do not match our records.');
     }
 
-    /**
-     * Test the ability for a user to log out of the application.
-     *
-     * @return void
-     */
-    public function testApplicationLogout()
+    /** @test */
+    public function it_can_login_to_the_application()
+    {
+        $this->visit('/admin')
+             ->type($this->user->email, 'email')
+             ->type('password', 'password')
+             ->press('submit')
+             ->seeIsAuthenticatedAs($this->user)
+             ->seePageIs('/admin');
+        $this->see('Welcome back');
+    }
+
+    /** @test */
+    public function it_can_logout_of_the_application()
     {
         $this->actingAs($this->user)
              ->visit('/admin')

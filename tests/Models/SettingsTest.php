@@ -2,9 +2,6 @@
 
 use EGALL\EloquentPHPUnit\EloquentTestCase;
 
-/**
- * Migrations model test.
- */
 class SettingsTest extends EloquentTestCase
 {
     /**
@@ -21,12 +18,8 @@ class SettingsTest extends EloquentTestCase
      */
     protected $seedDatabase = false;
 
-    /**
-     * Test the model's properties.
-     *
-     * @return void
-     */
-    public function testModelProperties()
+    /** @test */
+    public function it_has_the_correct_model_properties()
     {
         $this->hasFillable(['setting_name', 'setting_value']);
     }

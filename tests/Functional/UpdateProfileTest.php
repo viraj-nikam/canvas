@@ -30,32 +30,34 @@ class UpdateProfileTest extends TestCase
         'email',
     ];
 
-    public function testItDoesntHidesOptionalFieldsIfEmpty()
+    /** @test */
+    public function it_doesnt_hide_optional_fields_if_empty()
     {
-        // first make sure we can see all the elements
+        // First, make sure we can see all the elements
         $user = factory(App\Models\User::class)->create();
         $this->actingAs($user)->visit('/admin/profile');
         array_map([$this, 'see'], $this->optionalFields);
 
-        // now set them all null and make sure we do not see them
+        // Now, set them all to NULL and make sure we do not see them
         $user->update(array_fill_keys(array_keys($this->optionalFields), null));
         $this->actingAs($user)->visit('/admin/profile');
         array_map([$this, 'dontSee'], $this->optionalFields);
     }
 
-    public function testItShowsErrorMessagesForRequiredFields()
+    /** @test */
+    public function it_shows_error_messages_for_required_fields()
     {
         $this->actingAs(factory(App\Models\User::class)->create())
             ->visit('/admin/profile/1/edit');
 
-        // fill in all require fields with an empty string
+        // Fill in all of the required fields with an empty string
         foreach ($this->requiredFields as $name) {
             $this->type('', $name);
         }
 
         $this->press('Save');
 
-        // assert response contains error message for each field
+        // Assert response contains an error message for each field
         foreach ($this->requiredFields as $name) {
             $this->see('The '.str_replace('_', ' ', $name).' field is required.');
         }

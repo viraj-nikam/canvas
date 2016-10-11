@@ -3,11 +3,6 @@
 use App\Models\Tag;
 use EGALL\EloquentPHPUnit\EloquentTestCase;
 
-/**
- * Post model test.
- *
- * Test the application's post model.
- */
 class PostTest extends EloquentTestCase
 {
     /**
@@ -35,12 +30,8 @@ class PostTest extends EloquentTestCase
         $this->user = factory(App\Models\User::class)->create();
     }
 
-    /**
-     * Test the database table.
-     *
-     * @return void
-     */
-    public function testDatabaseTable()
+    /** @test */
+    public function the_database_table_has_all_of_the_correct_columns()
     {
         $this->table->column('id')->integer()->increments();
         $this->table->column('title')->string()->notNullable();
@@ -54,12 +45,8 @@ class PostTest extends EloquentTestCase
         $this->table->hasTimestamps();
     }
 
-    /**
-     * Test the post-tag join table.
-     *
-     * @return void
-     */
-    public function testPostTagJoinTable()
+    /** @test */
+    public function the_post_tag_table_relationship()
     {
         $this->resetTable('post_tag');
         $this->table->column('tag_id')->integer()->primary();
@@ -67,24 +54,23 @@ class PostTest extends EloquentTestCase
         $this->table->hasTimestamps();
     }
 
-    /**
-     * Test the model's properties & relationships.
-     *
-     * @return void
-     */
-    public function testModelProperties()
+    /** @test */
+    public function it_has_the_correct_model_properties()
     {
         $this->hasFillable('title', 'subtitle', 'content_raw', 'page_image', 'meta_description', 'layout', 'is_draft', 'published_at', 'slug')
              ->hasDates('published_at')
              ->belongsToMany(Tag::class);
     }
 
-    /**
-     * Test creating a new post.
-     *
-     * @return void
-     */
-    public function testItCreatesPost()
+    /** @test */
+    public function it_validates_the_post_create_form()
+    {
+        $this->callRouteAsUser('admin.post.store', null, ['title' => 'example'])
+            ->assertSessionHasErrors();
+    }
+
+    /** @test */
+    public function it_can_create_a_post_and_save_it_to_the_database()
     {
         $data = [
             'title'         => 'example',
@@ -102,23 +88,8 @@ class PostTest extends EloquentTestCase
               ->assertSessionMissing('errors');
     }
 
-    /**
-     * Test creating a post that fails validation.
-     *
-     * @return void
-     */
-    public function testItValidatesPostCreation()
-    {
-        $this->callRouteAsUser('admin.post.store', null, ['title' => 'example'])
-             ->assertSessionHasErrors();
-    }
-
-    /**
-     * Test editing a post model.
-     *
-     * @return void
-     */
-    public function testPostsCanBeEdited()
+    /** @test */
+    public function it_can_edit_posts()
     {
         $this->callRouteAsUser('admin.post.edit', 1)
             ->submitForm('Update', ['title' => 'Foo'])
@@ -127,12 +98,8 @@ class PostTest extends EloquentTestCase
             ->seePostInDatabase();
     }
 
-    /**
-     * Test previewing a post model.
-     *
-     * @return void
-     */
-    public function testPostsCanBePreviewed()
+    /** @test */
+    public function it_can_preview_a_post()
     {
         $this->callRouteAsUser('admin.post.edit', 1)
              ->click('permalink')
@@ -140,12 +107,8 @@ class PostTest extends EloquentTestCase
              ->assertSessionMissing('errors');
     }
 
-    /**
-     * Test deleting a post model from the database.
-     *
-     * @return void
-     */
-    public function testPostsCanBeDeleted()
+    /** @test */
+    public function it_can_delete_a_post_from_the_database()
     {
         $this->callRouteAsUser('admin.post.edit', 1)
              ->press('Delete Post')
