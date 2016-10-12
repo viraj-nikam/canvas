@@ -21,9 +21,9 @@ class PostTagTest extends EloquentTestCase
     /** @test */
     public function the_database_table_has_all_of_the_correct_columns()
     {
-        //        $this->table->column('post_id')->integer()->primary()->foreign('post_id', 'id', $onUpdate = 'cascade', $onDelete = 'cascade');
-//        $this->table->column('tag_id')->integer()->primary()->foreign('tag_id', 'id', $onUpdate = 'cascade', $onDelete = 'cascade');
-//        $this->table->hasTimestamps();
+        $this->table->column('post_id')->integer()->primary();
+        $this->table->column('tag_id')->integer()->primary();
+        $this->table->hasTimestamps();
     }
 
     /** @test */
