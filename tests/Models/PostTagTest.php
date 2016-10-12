@@ -19,6 +19,14 @@ class PostTagTest extends EloquentTestCase
     protected $seedDatabase = false;
 
     /** @test */
+    public function the_database_table_has_all_of_the_correct_columns()
+    {
+//        $this->table->column('post_id')->integer()->primary()->foreign('post_id', 'id', $onUpdate = 'cascade', $onDelete = 'cascade');
+//        $this->table->column('tag_id')->integer()->primary()->foreign('tag_id', 'id', $onUpdate = 'cascade', $onDelete = 'cascade');
+//        $this->table->hasTimestamps();
+    }
+
+    /** @test */
     public function it_has_the_correct_model_properties()
     {
         $this->hasFillable(['post_id', 'tag_id', 'created_at', 'updated_at']);
