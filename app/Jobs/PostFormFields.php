@@ -20,6 +20,14 @@ class PostFormFields
      * @var int
      */
     protected $id;
+
+    /**
+     * The default layout for creating new posts.
+     *
+     * @var string
+     */
+    public static $blogLayout = 'frontend.blog.post';
+
     /**
      * List of fields and default value for each field.
      *
@@ -37,7 +45,7 @@ class PostFormFields
         'publish_time' => '',
         'published_at' => '',
         'updated_at' => '',
-        'layout' => 'frontend.blog.post',
+        'layout' => '',
         'tags' => [],
     ];
 
@@ -49,6 +57,7 @@ class PostFormFields
     public function __construct($id = null)
     {
         $this->id = $id;
+        $this->fieldList['layout'] = self::$blogLayout;
     }
 
     /**
