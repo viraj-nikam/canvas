@@ -63,12 +63,11 @@ return [
     | Canvas Configuration : Post Layout
     |--------------------------------------------------------------------------
     |
-    | The post layout is only specified here and in App\Jobs\PostFormFields.php.
-    | If you need to update the layout, just change it in these
-    | two locations.
+    | The post layout is only specified in App\Jobs\PostFormFields.php.
+    | If you need to update the layout, just change it there.
     |
     */
-    'post_layout' => 'frontend.blog.post',
+    'post_layout' => \App\Jobs\PostFormFields::$blogLayout,
 
     /*
     |--------------------------------------------------------------------------

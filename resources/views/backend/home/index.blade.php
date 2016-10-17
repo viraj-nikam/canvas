@@ -9,11 +9,6 @@
         @include('backend.partials.sidebar-navigation')
         <section id="content">
             <div class="container">
-                <div class="block-header" id="pageTop">
-                    <ol class="breadcrumb">
-                        <li class="active">Home</li>
-                    </ol>
-                </div>
                 @include('backend.home.sections.welcome')
                 <div class="row">
                     <div class="col-sm-6 col-md-6">

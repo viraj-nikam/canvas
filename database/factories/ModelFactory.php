@@ -41,11 +41,11 @@ $factory->define(App\Models\User::class, function (Faker\Generator $faker) {
 | Create the Welcome post in the database.
 |
 */
-$factory->define(App\Models\Post::class, function ($faker) {
+$factory->define(App\Models\Post::class, function () {
     return [
     'title' => 'Hello World',
     'slug' => 'hello-world',
-    'subtitle' => 'Canvas is a simple, powerful blog publishing platform that lets you to share your stories with the world. Its beautifully designed interface and completely customizable framework allows you to create and publish your own blog, giving you tools that make it easy and even fun to do.',
+    'subtitle' => 'Canvas is a simple, powerful blog publishing platform that lets you to share your stories with the world. Its beautifully designed interface allows you to create and publish your own blog, giving you tools that make it easy and even fun to do.',
     'page_image' => '/images/mocha.jpg',
     'content_raw' => view('frontend.blog.partials.welcome'),
     'published_at' => Carbon\Carbon::now(),
@@ -62,7 +62,7 @@ $factory->define(App\Models\Post::class, function ($faker) {
 | Create tags for the Welcome post in the database.
 |
 */
-$factory->define(App\Models\Tag::class, function ($faker) {
+$factory->define(App\Models\Tag::class, function () {
     return [
     'tag' => 'Getting Started',
     'title' => 'Getting Started',

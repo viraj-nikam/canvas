@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Class PublicRoutesTest.
- *
- * Test the response code for each publicly accessible route.
- */
 class PublicRoutesTest extends TestCase
 {
     use InteractsWithDatabase;
@@ -27,71 +22,44 @@ class PublicRoutesTest extends TestCase
         $this->user = factory(App\Models\User::class)->create();
     }
 
-    /**
-     * Test the response code for the Blog Index page.
-     *
-     * @return void
-     */
-    public function testBlogIndexPageResponseCode()
+    /** @test */
+    public function it_can_access_the_blog_index_page()
     {
         $response = $this->call('GET', '/');
         $this->assertEquals(200, $response->status());
-        $this->assertViewHas('user');
     }
 
-    /**
-     * Test the response code for the Blog Post page.
-     *
-     * @return void
-     */
-    public function testBlogPostPageResponseCode()
+    /** @test */
+    public function it_can_access_a_blog_post_page()
     {
         $response = $this->call('GET', '/blog/hello-world');
         $this->assertEquals(200, $response->status());
         $this->see('Hello World');
-        $this->assertViewHas('user');
     }
 
-    /**
-     * Test the response code for a Blog Tag Page.
-     *
-     * @return void
-     */
-    public function testBlogTagPageResponseCode()
+    /** @test */
+    public function it_can_access_a_blog_tag_page()
     {
         $response = $this->call('GET', '/blog?tag=Getting+Started');
         $this->assertEquals(200, $response->status());
         $this->see('GETTING STARTED WITH CANVAS');
-        $this->assertViewHas('user');
     }
 
-    /**
-     * Test the response code for the Login page.
-     *
-     * @return void
-     */
-    public function testLoginPageResponseCode()
+    /** @test */
+    public function it_can_access_the_login_page()
     {
         $response = $this->call('GET', '/admin');
         $this->assertEquals(200, $response->status());
     }
 
-    /**
-     * Test the response code for the Forgot Password page.
-     *
-     * @return void
-     */
-    public function testForgotPasswordPageResponseCode()
+    /** @test */
+    public function it_can_access_the_forgot_password_page()
     {
         $this->visit('admin')->click('Forgot my password')->seePageIs('password/forgot');
     }
 
-    /**
-     * Test the response code for the 404 Error Page.
-     *
-     * @return void
-     */
-    public function test404ErrorPageResponseCode()
+    /** @test */
+    public function it_will_receive_a_404_error_if_a_page_is_not_found()
     {
         $response = $this->call('GET', '/404ErrorPage');
         $this->assertEquals(404, $response->status());

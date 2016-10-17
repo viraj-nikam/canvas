@@ -2,9 +2,6 @@
 
 use EGALL\EloquentPHPUnit\EloquentTestCase;
 
-/**
- * PostTag model test.
- */
 class PostTagTest extends EloquentTestCase
 {
     /**
@@ -21,12 +18,16 @@ class PostTagTest extends EloquentTestCase
      */
     protected $seedDatabase = false;
 
-    /**
-     * Test the model's properties.
-     *
-     * @return void
-     */
-    public function testModelProperties()
+    /** @test */
+    public function the_database_table_has_all_of_the_correct_columns()
+    {
+        $this->table->column('post_id')->integer()->primary();
+        $this->table->column('tag_id')->integer()->primary();
+        $this->table->hasTimestamps();
+    }
+
+    /** @test */
+    public function it_has_the_correct_model_properties()
     {
         $this->hasFillable(['post_id', 'tag_id', 'created_at', 'updated_at']);
     }

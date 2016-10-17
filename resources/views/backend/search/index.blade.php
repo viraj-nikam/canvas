@@ -9,14 +9,12 @@
         @include('backend.partials.sidebar-navigation')
         <section id="content">
             <div class="container">
-                <div class="block-header" id="pageTop">
-                    <ol class="breadcrumb">
-                        <li><a href="{{ url('admin') }}">Home</a></li>
-                        <li class="active">Search</li>
-                    </ol>
-                </div>
                 <div class="card">
                     <div class="card-header">
+                        <ol class="breadcrumb">
+                            <li><a href="{{ url('admin') }}">Home</a></li>
+                            <li class="active">Search</li>
+                        </ol>
                         <h2><i class="zmdi zmdi-search"></i> Search Results for <em>{{ request('search') }}</em></h2>
                         <br>
                         <div class="table-responsive">

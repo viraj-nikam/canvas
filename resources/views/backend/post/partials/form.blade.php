@@ -14,8 +14,18 @@
                     @include('shared.success')
 
                     @if(Request::is('admin/post/create'))
+                        <ol class="breadcrumb">
+                            <li><a href="{{ url('admin') }}">Home</a></li>
+                            <li><a href="{{ url('admin/post') }}">Posts</a></li>
+                            <li class="active">New Post</li>
+                        </ol>
                         <h2>Create a New Post</h2>
                     @else
+                        <ol class="breadcrumb">
+                            <li><a href="{{ url('admin') }}">Home</a></li>
+                            <li><a href="{{ url('admin/post') }}">Posts</a></li>
+                            <li class="active">Edit Post</li>
+                        </ol>
                         <h2>
                             Edit <em>{{ $title }}</em>
                             <small>Last edited on {{ $updated_at->format('M d, Y') }} at {{ $updated_at->format('g:i A') }}</small>
@@ -54,6 +64,7 @@
             <div class="card">
                 <div class="card-header">
                     <h2>Publishing</h2>
+                    <hr>
                 </div>
                 <div class="card-body card-padding">
                     <div class="form-group">
@@ -63,39 +74,37 @@
                             <label for="is_draft" class="ts-helper"></label>
                         </div>
                     </div>
-                    @if(!Request::is('admin/post/create'))
-                        <br>
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-success btn-icon-text" name="action" value="continue">
-                                <i class="zmdi zmdi-floppy"></i> Save & Continue
-                            </button>
-                            <a type="button" class="btn btn-default btn-icon-text" href="{{ url('blog/' . $slug) }}" target="_blank">
-                                <i class="zmdi zmdi-search"></i> Preview
-                            </a>
-                        </div>
-                    @endif
                     <br>
                     <div class="form-group">
                         <div class="fg-line">
-                            <label>Published at</label>
+                            <label><i class="zmdi zmdi-calendar"></i>&nbsp;&nbsp;Published at</label>
                             <input class="form-control datetime-picker" name="published_at" id="published_at" type="text" value="{{ $published_at }}" placeholder="YYYY/MM/DD HH:MM:SS" data-mask="0000/00/00 00:00:00">
                         </div>
                     </div>
                     <br>
                     <div class="form-group">
                         <div class="fg-line">
-                            <label class="fg-label">Layout</label>
+                            <label class="fg-label"><i class="zmdi zmdi-view-web"></i>&nbsp;&nbsp;Layout</label>
                             <input type="text" class="form-control" name="layout" id="layout" value="{{ $layout }}" placeholder="Layout" disabled>
                         </div>
                     </div>
                     <br>
+                    @if(!Request::is('admin/post/create'))
+                        <div class="form-group">
+                            <div class="fg-line">
+                                <label class="fg-label"><i class="zmdi zmdi-link"></i>&nbsp;&nbsp;Permalink</label><br>
+                                <a href="{{ url('blog/' . $slug) }}" target="_blank" name="permalink">{{ url('blog/' . $slug) }}</a>
+                            </div>
+                        </div>
+                        <br>
+                    @endif
                     <div class="form-group">
                         @if(Request::is('admin/post/create'))
                             <button type="submit" class="btn btn-primary btn-icon-text"><i class="zmdi zmdi-floppy"></i> Publish</button>
                             &nbsp;
                             <a href="{{ url('admin/post') }}"><button type="button" class="btn btn-link">Cancel</button></a>
                         @else
-                            <button type="submit" class="btn btn-primary btn-icon-text" name="action" value="finished">
+                            <button type="submit" class="btn btn-primary btn-icon-text" name="action" value="continue">
                                 <i class="zmdi zmdi-floppy"></i> Update
                             </button>
                             &nbsp;
@@ -110,6 +119,7 @@
             <div class="card">
                 <div class="card-header">
                     <h2>Tags</h2>
+                    <hr>
                 </div>
                 <div class="card-body card-padding">
                     <div class="form-group">
@@ -127,6 +137,7 @@
             <div class="card">
                 <div class="card-header">
                     <h2>Featured Image</h2>
+                    <hr>
                 </div>
                 <div class="card-body card-padding">
                     <div class="form-group">
@@ -149,10 +160,8 @@
 
             <div class="card">
                 <div class="card-header">
-                    <h2>
-                        SEO
-                        <small>Meta descriptions are HTML attributes that provide concise explanations of the contents of web pages.</small>
-                    </h2>
+                    <h2>SEO Description</h2>
+                    <hr>
                 </div>
                 <div class="card-body card-padding">
                     <div class="form-group">

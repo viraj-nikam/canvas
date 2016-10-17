@@ -4,7 +4,7 @@ use App\Services\Parsedowner;
 
 class ParsedownerTest extends PHPUnit_Framework_TestCase
 {
-    protected $parsedowner;
+    private $parsedowner;
 
     public function setup()
     {
@@ -12,9 +12,10 @@ class ParsedownerTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * @test
      * @dataProvider conversionsProvider
      */
-    public function testConversions($value, $expected)
+    public function it_converts_markdown_to_html($value, $expected)
     {
         $this->assertEquals($expected, $this->parsedowner->toHTML($value));
     }
