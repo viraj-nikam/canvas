@@ -10,7 +10,7 @@
             @endunless
             &#183; {{ $post->readingTime() }} MIN READ
         </p>
-        <p id="postSubtitle">
+        <p class="postSubtitle">
             {{ str_limit($post->subtitle, config('blog.frontend_trim_width')) }}
         </p>
         <p style="font-size: 13px"><a href="{{ $post->url($tag) }}">READ MORE...</a></p>
