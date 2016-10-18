@@ -118,24 +118,6 @@
 
             <div class="card">
                 <div class="card-header">
-                    <h2>Tags</h2>
-                    <hr>
-                </div>
-                <div class="card-body card-padding">
-                    <div class="form-group">
-                        <div class="fg-line">
-                            <select name="tags[]" id="tags" class="selectpicker" multiple>
-                                @foreach ($allTags as $tag)
-                                    <option @if (in_array($tag, $tags)) selected @endif value="{{ $tag }}">{{ $tag }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-header">
                     <h2>Featured Image</h2>
                     <hr>
                 </div>
@@ -154,6 +136,24 @@
                     <div>
                         <img v-if="pageImage" class="img img-responsive" id="page-image-preview" style="margin-top: 3px; max-height:100px;" :src="pageImage">
                         <span v-else class="text-muted small">No Image Selected</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2>Tags</h2>
+                    <hr>
+                </div>
+                <div class="card-body card-padding">
+                    <div class="form-group">
+                        <div class="fg-line">
+                            <select name="tags[]" id="tags" class="selectpicker" multiple>
+                                @foreach ($allTags as $tag)
+                                    <option @if (in_array($tag, $tags)) selected @endif value="{{ $tag }}">{{ $tag }}</option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
                 </div>
             </div>
