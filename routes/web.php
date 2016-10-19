@@ -58,7 +58,7 @@ Route::group([
     Route::get('admin/upload', 'UploadController@index')->name('admin/upload');
 
     // Media Manager Routes
-    TalvBansal\MediaManager\Http\Routes::mediaBrowser();
+    \TalvBansal\MediaManager\Routes\MediaRoutes::get();
 
     // Profile Pages
     Route::get('admin/profile/privacy', 'ProfileController@editPrivacy')->name('admin.profile.privacy');

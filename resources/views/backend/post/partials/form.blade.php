@@ -174,3 +174,11 @@
         </div>
     </div>
 </form>
+
+<media-modal v-if="showMediaManager" @close="showMediaManager = false">
+    <media-manager
+            :is-modal="true"
+            :selected-event-name="selectedEventName"
+            @close="showMediaManager = false"
+    >
+</media-manager>

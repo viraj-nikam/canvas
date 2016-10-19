@@ -13,8 +13,7 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Model implements AuthenticatableContract, AuthorizableContract, CanResetPasswordContract
 {
-    use Notifiable;
-    use Authenticatable, Authorizable, CanResetPassword;
+    use Authenticatable, Authorizable, CanResetPassword, Notifiable;
 
     /**
      * The database table used by the model.

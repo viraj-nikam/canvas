@@ -28,7 +28,9 @@
                             </li>
                         </ul>
                         <h2>Media Library
-                            <small>All the files you’ve uploaded are listed alphabetically in the Media Library. Double-click a folder name to see its contents.</small>
+                            <small>All the files you’ve uploaded are listed alphabetically in the Media Library. Double-click a folder name to
+                                see its contents.
+                            </small>
                         </h2>
                     </div>
 
@@ -42,13 +44,12 @@
 @section('unique-js')
     <script>
         new Vue({
-            el: 'body',
-            events:{
-                'media-manager-notification' : function(message, type, time)
-                {
+            el: '#main',
+            created: function () {
+                window.eventHub.$on('media-manager-notification', function (message, type, time) {
                     $.growl({
                         message: message
-                    },{
+                    }, {
                         type: 'inverse',
                         allow_dismiss: false,
                         label: 'Cancel',
@@ -67,7 +68,7 @@
                             y: 85
                         }
                     });
-                }
+                });
             }
         });
     </script>
