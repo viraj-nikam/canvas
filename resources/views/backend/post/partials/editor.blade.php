@@ -7,7 +7,7 @@
         new Vue({
             el: '#main',
             data: {
-                pageImage: null,
+                pageImage: '{{ $page_image }}',
                 selectedEventName: null,
                 showMediaManager: false,
                 simpleMde: null

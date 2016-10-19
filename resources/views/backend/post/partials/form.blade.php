@@ -125,7 +125,7 @@
                     <div class="form-group">
                         <div class="fg-line">
                             <div class="input-group">
-                                <input type="text" class="form-control" name="page_image" id="page_image" alt="Image thumbnail" value="{{ $page_image }}" placeholder="Page Image" v-model="pageImage">
+                                <input type="text" class="form-control" name="page_image" id="page_image" alt="Image thumbnail" placeholder="Page Image" v-model="pageImage">
                                 <span class="input-group-btn" style="margin-bottom: 11px">
                                     <button style="margin-bottom: -5px" type="button" class="btn btn-primary waves-effect" @click="openFromPageImage()">Select Image</button>
                                 </span>
