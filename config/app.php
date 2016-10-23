@@ -173,8 +173,10 @@ return [
          * Canvas Service Providers...
          */
         Proengsoft\JsValidation\JsValidationServiceProvider::class,
+        Laravel\Scout\ScoutServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
         TalvBansal\MediaManager\Providers\MediaManagerServiceProvider::class,
+        TeamTNT\Scout\TNTSearchScoutServiceProvider::class,
 
     ],
 

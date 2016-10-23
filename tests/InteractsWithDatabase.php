@@ -15,6 +15,10 @@ trait InteractsWithDatabase
     {
         parent::setUp();
 
+        // Disable searchable trait to speed up tests...
+        \App\Models\Post::disableSearchSyncing();
+        \App\Models\Tag::disableSearchSyncing();
+
         $this->runDatabaseMigrations();
 
         $this->seed(TestDatabaseSeeder::class);

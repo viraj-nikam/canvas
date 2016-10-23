@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Services\Search;
+use App\Models\Post;
+use App\Models\Tag;
 use App\Http\Controllers\Controller;
 
 class SearchController extends Controller
@@ -12,10 +13,11 @@ class SearchController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function index(Search $search)
+    public function index()
     {
-        $posts = $search->posts();
-        $tags = $search->tags();
+        $params = request('search');
+        $posts = Post::search($params)->get();
+        $tags = Tag::search($params)->get();
 
         return view('backend.search.index', compact('posts', 'tags'));
     }

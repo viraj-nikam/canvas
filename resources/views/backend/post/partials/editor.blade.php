@@ -1,26 +1,18 @@
-<media-modal :show.sync="showMediaManager">
-    <media-manager
-            :is-modal="true"
-            :selected-event-name.sync="selectedEventName"
-            :show.sync="showMediaManager"
-    >
-    </media-manager>
-</media-modal>
+
 
 @include('backend.post.partials.modals.help')
 
 <script type="text/javascript">
-    $(document).ready(function () {
         new Vue({
-            el: 'body',
+            el: '#main',
             data: {
-                pageImage: null,
+                pageImage: '{{ $page_image }}',
                 selectedEventName: null,
                 showMediaManager: false,
                 simpleMde: null
             },
 
-            ready: function () {
+            mounted: function () {
                 this.simpleMde = new SimpleMDE({
                     element: document.getElementById("editor"),
                     toolbar: [
@@ -50,13 +42,26 @@
                 });
             },
 
-            events: {
-                'media-manager-selected-page-image': function (file) {
-                    this.pageImage = file.relativePath;
-                    this.showMediaManager = false;
+            methods: {
+                openFromEditor: function () {
+                    this.showMediaManager = true;
+                    this.selectedEventName = 'editor';
                 },
 
-                'media-manager-selected-editor': function (file) {
+                openFromPageImage: function()
+                {
+                    this.showMediaManager = true;
+                    this.selectedEventName = 'page-image';
+                }
+            },
+
+            created: function(){
+                window.eventHub.$on('media-manager-selected-page-image', function (file) {
+                    this.pageImage = file.relativePath;
+                    this.showMediaManager = false;
+                }.bind(this));
+
+                window.eventHub.$on('media-manager-selected-editor', function (file) {
                     var cm = this.simpleMde.codemirror;
                     var output = '[' + file.name + '](' + file.relativePath + ')';
 
@@ -66,10 +71,9 @@
 
                     cm.replaceSelection(output);
                     this.showMediaManager = false;
-                },
+                }.bind(this));
 
-                'media-manager-notification' : function(message, type, time)
-                {
+                window.eventHub.$on('media-manager-notification', function (message, type, time) {
                     $.growl({
                         message: message
                     },{
@@ -92,22 +96,7 @@
                             y: 85
                         }
                     });
-                }
-
-            },
-
-            methods: {
-                openFromEditor: function () {
-                    this.showMediaManager = true;
-                    this.selectedEventName = 'editor';
-                },
-
-                openFromPageImage: function()
-                {
-                    this.showMediaManager = true;
-                    this.selectedEventName = 'page-image';
-                }
+                });
             }
         });
-    });
 </script>
