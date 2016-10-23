@@ -30,7 +30,7 @@ Before you proceed make sure your server meets the following requirements:
     * Use [Packagist](https://packagist.org): `composer create-project austintoddj/canvas`
 
 2. Run `composer install` from the command line in the project root.
-3. Run `npm install` from the command line in the project root.
+3. Run `yarn` from the command line in the project root [what is yarn?](https://yarnpkg.com/).
 4. Run `php artisan storage:link` to link the `storage/app/public` folder to `public/storage` 
 5. Copy the contents of `.env.example` and create a new file called `.env` in the project root. Set your application variables in the new file. Be sure to keep the value of `APP_ENV` set to `local` for the duration of the install.
 6. Run `php artisan canvas:install` and follow the on-screen prompts.
@@ -41,7 +41,7 @@ Before you proceed make sure your server meets the following requirements:
 ## Advanced Options
 
 1. Themes
-    * Run `npm install gulp` from the command line in the project root.
+    * Run `yarn add gulp` from the command line in the project root.
     * Create your own theme by editing the stylesheet at `resources/assets/sass/theme/styles.scss` or grab an [Official Canvas Theme](https://github.com/austintoddj/palette), fresh off the palette.
     * Run `gulp` after any changes to `resources/assets/sass/theme/styles.scss`
 

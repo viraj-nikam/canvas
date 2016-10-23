@@ -6,6 +6,7 @@
 
 Thumbs.db
 composer.lock
+yarn.lock
 Homestead.yaml
 Homestead.json
 phpunit.xml
