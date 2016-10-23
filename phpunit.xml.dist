@@ -19,6 +19,11 @@
             <directory suffix=".php">app/</directory>
         </whitelist>
     </filter>
+    <logging>
+        <log type="coverage-html" target="report" lowUpperBound="35" highLowerBound="70"/>
+        <log type="testdox-html" target="report/testdox.html"/>
+        <log type="testdox-text" target="report/testdox.txt"/>
+    </logging>
     <php>
         <env name="APP_ENV" value="testing"/>
         <env name="DB_CONNECTION" value="sqlite"/>
