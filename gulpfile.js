@@ -16,9 +16,17 @@ require('laravel-elixir-vue-2');
 elixir(function (mix) {
 
     // Sass Files
-    mix.sass('frontend/frontend.scss');
-    mix.sass('backend/backend.scss');
-    mix.sass('../talvbansal/media-manager/css/media-manager.css');
+    // Sass Files
+    mix.sass([
+            'frontend/frontend.scss',
+            'backend/backend.scss',
+            '../talvbansal/media-manager/css/media-manager.css'
+        ])
+        .version([
+            'css/frontend.css',
+            'css/backend.css',
+            'css/media-manager.css'
+        ])
 
     // Frontend JS Files
     mix.scripts([
@@ -55,6 +63,6 @@ elixir(function (mix) {
     ], 'public/js/app.js');
 
     // Copy Media Manager SVG images into the public directory
-    mix.copy( 'resources/assets/talvbansal/media-manager/fonts', 'public/fonts' );
-
+    mix.copy( 'resources/assets/talvbansal/media-manager/fonts', 'public/fonts' )
+        .version('public/fonts');
 });
