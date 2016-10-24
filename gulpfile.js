@@ -57,4 +57,6 @@ elixir(function (mix) {
     // Copy Media Manager SVG images into the public directory
     mix.copy( 'resources/assets/talvbansal/media-manager/fonts', 'public/fonts' );
 
+    // Run unit tests on code base
+    mix.phpUnit();
 });
