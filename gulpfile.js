@@ -22,10 +22,13 @@ elixir(function (mix) {
             'backend/backend.scss',
             '../talvbansal/media-manager/css/media-manager.css'
         ])
+        // Copy Media Manager SVG images into the public directory
+        .copy( 'resources/assets/talvbansal/media-manager/fonts', 'public/fonts' )
         .version([
             'css/frontend.css',
             'css/backend.css',
-            'css/media-manager.css'
+            'css/media-manager.css',
+            'public/fonts'
         ])
 
     // Frontend JS Files
@@ -61,8 +64,4 @@ elixir(function (mix) {
         'functions.js',
         'bootstrap-growl.min.js'
     ], 'public/js/app.js');
-
-    // Copy Media Manager SVG images into the public directory
-    mix.copy( 'resources/assets/talvbansal/media-manager/fonts', 'public/fonts' )
-        .version('public/fonts');
 });
