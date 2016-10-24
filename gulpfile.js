@@ -13,19 +13,21 @@ require('laravel-elixir-vue-2');
  |
  */
 
+var assetsPath = 'public/assets/';
+
 elixir(function (mix) {
 
     // Sass Files
-    mix.sass('frontend/frontend.scss');
-    mix.sass('backend/backend.scss');
-    mix.sass('../talvbansal/media-manager/css/media-manager.css');
+    mix.sass('frontend/frontend.scss', assetsPath + 'css/');
+    mix.sass('backend/backend.scss', assetsPath + 'css/');
+    mix.sass('../talvbansal/media-manager/css/media-manager.css', assetsPath + 'css/');
 
     // Frontend JS Files
     mix.scripts([
         'jquery.min.js',
         'bootstrap.min.js',
         'frontend/**/*.js'
-    ], 'public/js/frontend.js');
+    ], assetsPath + 'js/frontend.js');
 
     // Vendor JS Files
     mix.scripts([
@@ -46,30 +48,36 @@ elixir(function (mix) {
         'fileinput.min.js',
         'bootstrap-datetimepicker.min.js',
         '../talvbansal/media-manager/js/media-manager.js'
-    ], 'public/js/vendor.js');
+    ], assetsPath + 'js/vendor.js');
 
     // Application JS Files
     mix.scripts([
         'functions.js',
         'bootstrap-growl.min.js'
-    ], 'public/js/app.js');
+    ], assetsPath + 'js/app.js');
 
     // Copy Media Manager SVG images into the public directory
-    mix.copy( 'resources/assets/talvbansal/media-manager/fonts', 'public/fonts' )
+    mix.copy('resources/assets/talvbansal/media-manager/fonts/', assetsPath + 'fonts' )
+
+    // copy Favicon
+    mix.copy('resources/assets/favicon.ico', assetsPath);
+
+    // copy Images
+    mix.copy('resources/assets/images', assetsPath + 'images');
 
     // versioning css files
     mix.version([
             // css files
-            'css/frontend.css',
-            'css/backend.css',
-            'css/media-manager.css',
+            assetsPath + 'css/frontend.css',
+            assetsPath + 'css/backend.css',
+            assetsPath + 'css/media-manager.css',
 
             // fonts
-            'public/fonts',
+            assetsPath + 'fonts',
 
             // js
-            'js/frontend.js',
-            'js/vendor.js',
-            'js/app.js'
+            assetsPath + 'js/frontend.js',
+            assetsPath + 'js/vendor.js',
+            assetsPath + 'js/app.js'
         ]);
 });
