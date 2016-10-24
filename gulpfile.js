@@ -59,9 +59,17 @@ elixir(function (mix) {
 
     // versioning css files
     mix.version([
+            // css files
             'css/frontend.css',
             'css/backend.css',
             'css/media-manager.css',
-            'public/fonts'
+
+            // fonts
+            'public/fonts',
+
+            // js
+            'js/frontend.js',
+            'js/vendor.js',
+            'js/app.js'
         ]);
 });

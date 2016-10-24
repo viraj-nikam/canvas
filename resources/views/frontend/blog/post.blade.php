@@ -34,7 +34,7 @@
 @stop
 
 @section('unique-js')
-    <script src="{{ asset('js/frontend.js') }}" charset="utf-8"></script>
+    <script src="{{ elixir('js/frontend.js') }}" charset="utf-8"></script>
 @endsection
 
 @section('content')
