@@ -11,7 +11,7 @@
 
 [Canvas](http://canvas.toddaustin.io) is a simple, powerful blog publishing platform that lets you to share your stories with the world. Its beautifully designed interface and completely customizable framework allows you to create and publish your own blog, giving you tools that make it easy and even fun to do.
 
-Features [Google Material Design](https://material.google.com), [SimpleMDE](https://simplemde.com) for Markdown publishing with syntax highlighting by [PrismJS](http://prismjs.com), full-site searching by [TNTSearch](https://github.com/teamtnt/tntsearch), native [Google Analytics](https://www.google.com/analytics/#?modal_active=none) integration and more, all powered by [Laravel](https://laravel.com)!
+Features [Google Material Design](https://material.google.com), [SimpleMDE](https://simplemde.com) for Markdown publishing with syntax highlighting by [PrismJS](http://prismjs.com), full-site searching by [TNTSearch](https://github.com/teamtnt/laravel-scout-tntsearch-driver), native [Google Analytics](https://www.google.com/analytics/#?modal_active=none) integration and more, all powered by [Laravel](https://laravel.com)!
 
 ## Requirements
 
