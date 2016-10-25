@@ -1,4 +1,4 @@
 * text=auto
 
-public/css/frontend.css linguist-vendored=true
-public/css/media-manager.css linguist-vendored=true
+public/css/frontend.css linguist-vendored
+public/css/media-manager.css linguist-vendored
