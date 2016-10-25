@@ -71,9 +71,6 @@ elixir(function (mix) {
             assetsPath + 'css/frontend.css',
             assetsPath + 'css/backend.css',
 
-            // fonts
-            assetsPath + 'fonts',
-
             // js
             assetsPath + 'js/frontend.js',
             assetsPath + 'js/vendor.js',
