@@ -34,7 +34,7 @@
 @stop
 
 @section('unique-js')
-    <script src="{{ asset('js/frontend.js') }}" charset="utf-8"></script>
+    <script src="{{ elixir('assets/js/frontend.js') }}" charset="utf-8"></script>
 @endsection
 
 @section('content')
@@ -44,7 +44,7 @@
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     @if ($post->page_image)
                         <div class="text-center">
-                            <img src="{{ asset($post->page_image) }}" class="post-hero">
+                            <img src="{{ asset('assets/' . $post->page_image) }}" class="post-hero">
                         </div>
                     @endif
                     <p class="post-page-meta">
