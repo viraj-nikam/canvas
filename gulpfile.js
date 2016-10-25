@@ -56,17 +56,14 @@ elixir(function (mix) {
         'bootstrap-growl.min.js'
     ], assetsPath + 'js/app.js');
 
-    // Run unit tests on code base
-    mix.phpUnit();
-
-    // Copy Media Manager SVG images into the public directory
-    mix.copy('resources/assets/talvbansal/media-manager/fonts/', assetsPath + 'fonts' )
-
     // copy Favicon
     mix.copy('resources/assets/favicon.ico', assetsPath);
 
     // copy Images
     mix.copy('resources/assets/images', assetsPath + 'images');
+
+    // copy Fonts
+    mix.copy(['resources/assets/fonts', 'resources/assets/talvbansal/media-manager/fonts'], assetsPath + 'fonts');
 
     // versioning css files
     mix.version([
@@ -83,4 +80,9 @@ elixir(function (mix) {
             assetsPath + 'js/vendor.js',
             assetsPath + 'js/app.js'
         ]);
+
+    // Run unit tests on code base if in production mode
+    if (elixir.config.production) {
+        mix.phpUnit();
+    }
 });
