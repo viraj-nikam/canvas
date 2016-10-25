@@ -2,7 +2,7 @@
 /node_modules
 /storage/*.index
 /public/storage
-/report
+/tests/report
 
 Thumbs.db
 composer.lock
