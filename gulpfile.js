@@ -63,14 +63,13 @@ elixir(function (mix) {
     mix.copy('resources/assets/images', assetsPath + 'images');
 
     // copy Fonts
-    mix.copy(['resources/assets/fonts', 'resources/assets/talvbansal/media-manager/fonts'], assetsPath + 'fonts');
+    mix.copy(['resources/assets/fonts', 'resources/assets/talvbansal/media-manager/fonts'], assetsPath + '/fonts');
 
     // versioning css files
     mix.version([
             // css files
             assetsPath + 'css/frontend.css',
             assetsPath + 'css/backend.css',
-            assetsPath + 'css/media-manager.css',
 
             // fonts
             assetsPath + 'fonts',
