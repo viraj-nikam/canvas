@@ -1,4 +1,4 @@
-@extends('backend.layout')
+@extends('errors.layout')
 
 @section('title')
     <title>Canvas | Page not found</title>
