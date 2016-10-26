@@ -98,18 +98,22 @@ function getLatestRelease()
 //    $int = floatval($str);
 //    dd($int);
 
-    $opts = [
-        'http' => [
-            'method' => 'GET',
-            'header' => [
-                'User-Agent: PHP',
+    if (\Illuminate\Support\Facades\App::environment('travisci')) {
+        return '0.0.0.0';
+    } else {
+        $opts = [
+            'http' => [
+                'method' => 'GET',
+                'header' => [
+                    'User-Agent: PHP',
+                ],
             ],
-        ],
-    ];
+        ];
 
-    $context = stream_context_create($opts);
-    $stream = file_get_contents('https://api.github.com/repos/austintoddj/canvas/releases/latest', false, $context);
-    $release = json_decode($stream);
+        $context = stream_context_create($opts);
+        $stream = file_get_contents('https://api.github.com/repos/austintoddj/canvas/releases/latest', false, $context);
+        $release = json_decode($stream);
 
-    return $release->name;
+        return $release->name;
+    }
 }
