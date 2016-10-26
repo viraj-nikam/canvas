@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Process a URL and make it SEO compliant.
  *
@@ -75,4 +76,40 @@ function page_image($value = null)
     }
 
     return $value;
+}
+
+function getLatestRelease()
+{
+//    // Get the Packagist API
+//    $api = file_get_contents('https://packagist.org/p/austintoddj/canvas.json');
+//    // Decode it to a better format
+//    $stream = json_decode($api, true);
+//    // Drill down into the array
+//    $packages = end($stream);
+//    $project = end($packages);
+//
+//    // Find the newest version via the latest timestamp
+//    $versionArray = [];
+//    foreach ($project as $version) {
+//        $versionArray[] = $version['version'];
+//    }
+//    $latest = max($versionArray);
+//    $str = substr($latest, 1);
+//    $int = floatval($str);
+//    dd($int);
+
+    $opts = [
+        'http' => [
+            'method' => 'GET',
+            'header' => [
+                'User-Agent: PHP',
+            ],
+        ],
+    ];
+
+    $context = stream_context_create($opts);
+    $stream = file_get_contents('https://api.github.com/repos/austintoddj/canvas/releases/latest', false, $context);
+    $release = json_decode($stream);
+
+    return $release->name;
 }
