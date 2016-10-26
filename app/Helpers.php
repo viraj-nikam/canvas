@@ -78,26 +78,16 @@ function page_image($value = null)
     return $value;
 }
 
+/**
+ * Get the latest release of Canvas.
+ * Since the GitHub API requires specific headers to be set, TravisCI will error
+ * with a 403 Forbidden. As a workaround, we just return a hardcoded
+ * string if the APP_ENV is set to travisci.
+ *
+ * @return string
+ */
 function getLatestRelease()
 {
-    //    // Get the Packagist API
-//    $api = file_get_contents('https://packagist.org/p/austintoddj/canvas.json');
-//    // Decode it to a better format
-//    $stream = json_decode($api, true);
-//    // Drill down into the array
-//    $packages = end($stream);
-//    $project = end($packages);
-//
-//    // Find the newest version via the latest timestamp
-//    $versionArray = [];
-//    foreach ($project as $version) {
-//        $versionArray[] = $version['version'];
-//    }
-//    $latest = max($versionArray);
-//    $str = substr($latest, 1);
-//    $int = floatval($str);
-//    dd($int);
-
     if (App::environment('travisci')) {
         return '0.0.0.0';
     } else {
@@ -109,7 +99,6 @@ function getLatestRelease()
                 ],
             ],
         ];
-
         $context = stream_context_create($opts);
         $stream = file_get_contents('https://api.github.com/repos/austintoddj/canvas/releases/latest', false, $context);
         $release = json_decode($stream);
