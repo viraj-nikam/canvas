@@ -98,7 +98,7 @@ function getLatestRelease()
 //    $int = floatval($str);
 //    dd($int);
 
-    if (\Illuminate\Support\Facades\App::environment('travisci')) {
+    if (App::environment('travisci')) {
         return '0.0.0.0';
     } else {
         $opts = [

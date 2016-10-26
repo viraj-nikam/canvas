@@ -56,9 +56,6 @@ elixir(function (mix) {
         'bootstrap-growl.min.js'
     ], assetsPath + 'js/app.js');
 
-    // copy Favicon
-    mix.copy('resources/assets/favicon.ico', assetsPath);
-
     // copy Images
     mix.copy('resources/assets/images', assetsPath + 'images');
 
