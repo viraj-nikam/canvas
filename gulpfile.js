@@ -78,7 +78,5 @@ elixir(function (mix) {
         ]);
 
     // Run unit tests on code base if in production mode
-    if (elixir.config.production) {
-        mix.phpUnit();
-    }
+    // mix.phpUnit();
 });
