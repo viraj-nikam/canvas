@@ -1,5 +1,8 @@
 language: php
 
+env:
+  - APP_ENV=travisci
+
 php:
   - 5.6
   - 7.0
