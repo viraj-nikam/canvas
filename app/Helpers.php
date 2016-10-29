@@ -88,7 +88,7 @@ function page_image($value = null)
  */
 function getLatestRelease()
 {
-    if (App::environment('travisci')) {
+    if (env('APP_ENV') === 'travisci') {
         return '0.0.0.0';
     } else {
         $opts = [
