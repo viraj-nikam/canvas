@@ -17,6 +17,7 @@ class HomeController extends Controller
      */
     public function index()
     {
+        dd(env('APP_ENV'));
         $data = [
             'posts' => Post::all(),
             'recentPosts' => Post::orderBy('created_at', 'desc')->take(4)->get(),
