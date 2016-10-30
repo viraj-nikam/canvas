@@ -18,8 +18,9 @@ Features [Google Material Design](https://material.google.com), [SimpleMDE](http
 Before you proceed make sure your server meets the following requirements:
 
 - [Composer](https://getcomposer.org/)
+- [Yarn](https://yarnpkg.com/)
 - [PHP](https://php.net/) >= 5.6.4
-- PHP Extensions ([PDO](http://php.net/manual/en/book.pdo.php), [SQLite](http://php.net/manual/en/book.sqlite.php), [OpenSSL](http://php.net/manual/en/book.openssl.php), [Mbstring](http://php.net/manual/en/book.mbstring.php), [Tokenizer](http://php.net/manual/en/book.tokenizer.php))
+- PHP Extensions ([PDO](http://php.net/manual/en/book.pdo.php), [SQLite](http://php.net/manual/en/book.sqlite.php), [OpenSSL](http://php.net/manual/en/book.openssl.php), [Mbstring](http://php.net/manual/en/book.mbstring.php), [Tokenizer](http://php.net/manual/en/book.tokenizer.php), [Zip](http://php.net/manual/en/book.zip.php))
 - PDO compliant database (SQL, MySQL, PostgreSQL, SQLite)
 
 ## Installation
@@ -30,7 +31,7 @@ Before you proceed make sure your server meets the following requirements:
     * Use [Packagist](https://packagist.org): `composer create-project austintoddj/canvas`
 
 2. Run `composer install` from the command line in the project root.
-3. Run `yarn` from the command line in the project root. [What is Yarn?](https://yarnpkg.com/)
+3. Run `yarn` from the command line in the project root.
 4. Run `php artisan storage:link` to link the `storage/app/public` folder to `public/storage` 
 5. Copy the contents of `.env.example` and create a new file called `.env` in the project root. Set your application variables in the new file. Be sure to keep the value of `APP_ENV` set to `local` for the duration of the install.
 6. Run `php artisan canvas:install` and follow the on-screen prompts.
