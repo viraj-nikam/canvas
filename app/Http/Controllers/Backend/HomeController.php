@@ -25,7 +25,7 @@ class HomeController extends Controller
             'analytics' => Settings::gaId(),
             'status' => App::isDownForMaintenance() ? 0 : 1,
             'canvasVersion' => Settings::canvasVersion(),
-            'latestRelease' => getLatestRelease(),
+            'latestRelease' => Settings::latestRelease(),
         ];
 
         return view('backend.home.index', compact('data'));
