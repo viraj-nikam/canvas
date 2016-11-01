@@ -17,7 +17,11 @@
                             " <a href='{{ url('blog') }}/" + row.slug + "' target='_blank'><button type='button' class='btn btn-icon command-delete waves-effect waves-circle'><span class='zmdi zmdi-search'></span></button></a>";
                 },
                 "humandate": function(row, column) {
-                    return moment(row.created).format("MMMM, Do YYYY");
+                    if(row.id == 'created') {
+                        return moment(column.created).format("MMMM, Do YYYY");
+                    } else {
+                        return moment(column.updated).format("MMMM, Do YYYY");
+                    }
                 }
             }
         });
