@@ -38,6 +38,5 @@ class PostIndexTest extends TestCase
             ->press('Save');
         $this->assertSessionMissing('errors');
         $this->see('<td>&lt;span class="label label-primary"&gt;Draft&lt;/span&gt;</td>');
-
     }
 }
