@@ -37,6 +37,7 @@ class PostIndexTest extends TestCase
             ->check('is_draft')
             ->press('Save');
         $this->assertSessionMissing('errors');
-        $this->see('<td>&lt;span class="label label-primary"&gt;Draft&lt;/span&gt;</td>');
+        $this->visit('admin/post')
+            ->see('<td>&lt;span class="label label-primary"&gt;Draft&lt;/span&gt;</td>');
     }
 }

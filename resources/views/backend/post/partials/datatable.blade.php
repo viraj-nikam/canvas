@@ -15,13 +15,6 @@
                 "commands": function(column, row) {
                     return "<a href='{{ url('admin/post') }}/" + row.id + "/edit'><button type='button' class='btn btn-icon command-edit waves-effect waves-circle'><span class='zmdi zmdi-edit'></span></button></a> " +
                             " <a href='{{ url('blog') }}/" + row.slug + "' target='_blank'><button type='button' class='btn btn-icon command-delete waves-effect waves-circle'><span class='zmdi zmdi-search'></span></button></a>";
-                },
-                "humandate": function(row, column) {
-                    if(row.id == 'created') {
-                        return moment(column.created).format("MMMM, Do YYYY");
-                    } else {
-                        return moment(column.updated).format("MMMM, Do YYYY");
-                    }
                 }
             }
         });
