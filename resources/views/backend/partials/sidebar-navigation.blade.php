@@ -17,8 +17,20 @@
     </div>
     <ul class="main-menu main-ul">
         <li @if (Request::is('admin')) class="active" @endif><a href="{{ url('admin') }}"><i class="zmdi zmdi-home"></i> Home</a></li>
-        <li @if (Request::is('admin/post*')) class="active" @endif><a href="{{ url('admin/post') }}"><i class="zmdi zmdi-collection-bookmark"></i> Posts <span class="label label-default label-totals">{{ App\Models\Post::count() }}</span></a></li>
-        <li @if (Request::is('admin/tag*')) class="active" @endif><a href="{{ url('admin/tag') }}"><i class="zmdi zmdi-labels"></i> Tags <span class="label label-default label-totals">{{ App\Models\Tag::count() }}</span></a></li>
+        <li class="sub-menu @if (Request::is('admin/post*')) active toggled @endif">
+            <a href="" data-ma-action="submenu-toggle"><i class="zmdi zmdi-collection-bookmark"></i> Posts</a>
+            <ul>
+                <li><a href="{{ url('admin/post') }}" @if (Request::is('admin/post')) class="active" @endif>All Posts <span class="label label-default label-totals">{{ App\Models\Post::count() }}</span></a></li>
+                <li><a href="{{ url('admin/post/create') }}" @if (Request::is('admin/post/create')) class="active" @endif>Add New</a></li>
+            </ul>
+        </li>
+        <li class="sub-menu @if (Request::is('admin/tag*')) active toggled @endif">
+            <a href="" data-ma-action="submenu-toggle"><i class="zmdi zmdi-labels"></i> Tags</a>
+            <ul>
+                <li><a href="{{ url('admin/tag') }}" @if (Request::is('admin/tag')) class="active" @endif>All Tags <span class="label label-default label-totals">{{ App\Models\Tag::count() }}</span></a></li>
+                <li><a href="{{ url('admin/tag/create') }}" @if (Request::is('admin/tag/create')) class="active" @endif>Add New</a></li>
+            </ul>
+        </li>
         <li @if (Request::is('admin/upload*')) class="active" @endif><a href="{{ url('admin/upload') }}"><i class="zmdi zmdi-collection-folder-image"></i> Media</a></li>
         <li @if (Request::is('admin/tools*')) class="active" @endif><a href="{{ url('admin/tools') }}"><i class="zmdi zmdi-wrench"></i> Tools</a></li>
         <li @if (Request::is('admin/settings*')) class="active" @endif><a href="{{ url('admin/settings') }}"><i class="zmdi zmdi-settings"></i> Settings</a></li>
