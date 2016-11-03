@@ -63,10 +63,9 @@ Route::group([
     // Profile Pages
     Route::get('admin/profile/privacy', 'ProfileController@editPrivacy')->name('admin.profile.privacy');
     Route::resource('admin/profile', 'ProfileController', [
-        'only' => ['index', 'edit', 'update'],
+        'only' => ['index', 'update'],
         'names' => [
             'index' => 'admin.profile.index',
-            'edit' => 'admin.profile.edit',
             'update' => 'admin.profile.update',
         ],
     ]);

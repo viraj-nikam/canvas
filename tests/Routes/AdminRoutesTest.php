@@ -78,14 +78,6 @@ class AdminRoutesTest extends TestCase
     }
 
     /** @test */
-    public function it_can_access_the_edit_profile_page()
-    {
-        $response = $this->actingAs($this->user)->call('GET', '/admin/profile/'.$this->user['id'].'/edit');
-        $this->assertEquals(200, $response->status());
-        $this->assertViewHasAll(['data']);
-    }
-
-    /** @test */
     public function it_can_access_the_profile_privacy_page()
     {
         $response = $this->actingAs($this->user)->call('GET', '/admin/profile/privacy');

@@ -31,24 +31,10 @@ class UpdateProfileTest extends TestCase
     ];
 
     /** @test */
-    public function it_doesnt_hide_optional_fields_if_empty()
-    {
-        // First, make sure we can see all the elements
-        $user = factory(App\Models\User::class)->create();
-        $this->actingAs($user)->visit('/admin/profile');
-        array_map([$this, 'see'], $this->optionalFields);
-
-        // Now, set them all to NULL and make sure we do not see them
-        $user->update(array_fill_keys(array_keys($this->optionalFields), null));
-        $this->actingAs($user)->visit('/admin/profile');
-        array_map([$this, 'dontSee'], $this->optionalFields);
-    }
-
-    /** @test */
     public function it_shows_error_messages_for_required_fields()
     {
         $this->actingAs(factory(App\Models\User::class)->create())
-            ->visit('/admin/profile/1/edit');
+            ->visit('/admin/profile');
 
         // Fill in all of the required fields with an empty string
         foreach ($this->requiredFields as $name) {

@@ -22,7 +22,7 @@
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-right">
                                     <li>
-                                        <a href="{{ url('admin/tag') }}">Refresh Tags</a>
+                                        <a href="{{ url('admin/tag') }}"><i class="zmdi zmdi-refresh-alt pd-r-5"></i> Refresh Tags</a>
                                     </li>
                                 </ul>
                             </li>

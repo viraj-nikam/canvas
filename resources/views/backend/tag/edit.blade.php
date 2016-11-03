@@ -40,7 +40,7 @@
 
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary btn-icon-text">
-                                    <i class="zmdi zmdi-floppy"></i> Save
+                                    <i class="zmdi zmdi-floppy"></i> Save Changes
                                 </button>&nbsp;
                                 <button type="button" class="btn btn-danger btn-icon-text" data-toggle="modal" data-target="#modal-delete">
                                     <i class="zmdi zmdi-delete"></i> Delete
@@ -56,7 +56,7 @@
 @stop
 
 @section('unique-js')
-    {!! JsValidator::formRequest('App\Http\Requests\TagUpdateRequest', '#tagUpdate'); !!}
+    {!! JsValidator::formRequest('App\Http\Requests\TagUpdateRequest', '#tagUpdate') !!}
     @if(Session::get('_update-tag'))
         @include('backend.partials.notify', ['section' => '_update-tag'])
         {{ \Session::forget('_update-tag') }}
