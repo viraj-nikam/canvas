@@ -31,6 +31,7 @@
             </ul>
         </li>
         <li @if (Request::is('admin/upload*')) class="active" @endif><a href="{{ url('admin/upload') }}"><i class="zmdi zmdi-collection-folder-image"></i> Media</a></li>
+        <li @if (Request::is('admin/users*')) class="active" @endif><a href="{{ url('admin/users') }}"><i class="zmdi zmdi-accounts-alt"></i> Users</a></li>
         <li @if (Request::is('admin/tools*')) class="active" @endif><a href="{{ url('admin/tools') }}"><i class="zmdi zmdi-wrench"></i> Tools</a></li>
         <li @if (Request::is('admin/settings*')) class="active" @endif><a href="{{ url('admin/settings') }}"><i class="zmdi zmdi-settings"></i> Settings</a></li>
         <li @if (Request::is('admin/help')) class="active" @endif><a href="{{ url('admin/help') }}"><i class="zmdi zmdi-help"></i> Help</a></li>

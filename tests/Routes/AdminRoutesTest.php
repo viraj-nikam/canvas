@@ -107,4 +107,11 @@ class AdminRoutesTest extends TestCase
         $response = $this->actingAs($this->user)->call('GET', '/admin/help');
         $this->assertEquals(200, $response->status());
     }
+
+    /** @test */
+    public function it_can_access_the_users_index_page()
+    {
+        $response = $this->actingAs($this->user)->call('GET', '/admin/users');
+        $this->assertEquals(200, $response->status());
+    }
 }

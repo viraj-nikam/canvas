@@ -60,6 +60,9 @@ Route::group([
     // Media Manager Routes
     \TalvBansal\MediaManager\Routes\MediaRoutes::get();
 
+    // Users Pages
+    Route::get('admin/users', 'UsersController@index');
+
     // Profile Pages
     Route::get('admin/profile/privacy', 'ProfileController@editPrivacy')->name('admin.profile.privacy');
     Route::resource('admin/profile', 'ProfileController', [

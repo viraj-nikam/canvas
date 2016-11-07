@@ -25,7 +25,7 @@ class ToolsController extends Controller
     }
 
     /**
-     * Display a listing of the posts.
+     * Display the tools page.
      *
      * @return \Illuminate\View\View
      */
