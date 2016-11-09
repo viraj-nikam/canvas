@@ -46,14 +46,14 @@
                 @include('backend.profile.partials.form.social-networks')
             </div>
             <div class="form-group m-l-30">
-                <button type="submit" class="btn btn-primary btn-icon-text"><i class="zmdi zmdi-floppy"></i> Save Changes</button>
+                <button type="submit" class="btn btn-primary btn-icon-text"><i class="zmdi zmdi-floppy"></i> Save</button>
             </div>
         </div>
     </form>
 @stop
 
 @section('unique-js')
-    {!! JsValidator::formRequest('App\Http\Requests\ProfileUpdateRequest', '#profileUpdate'); !!}
+    {!! JsValidator::formRequest('App\Http\Requests\ProfileUpdateRequest', '#profileUpdate') !!}
     @include('backend.shared.components.profile-datetime-picker', ['format' => 'YYYY-MM-DD'])
 
     @if(Session::get('_profile'))

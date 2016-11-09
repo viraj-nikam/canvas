@@ -3,10 +3,12 @@
 namespace App\Models;
 
 use Carbon\Carbon;
-use App\Services\Parsedowner;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use App\Models\User;
 use Laravel\Scout\Searchable;
+use App\Services\Parsedowner;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Post extends Model
 {
@@ -26,7 +28,7 @@ class Post extends Model
      */
     protected $fillable = [
         'title', 'subtitle', 'content_raw', 'page_image', 'meta_description',
-        'layout', 'is_draft', 'published_at', 'slug',
+        'layout', 'is_draft', 'published_at', 'slug', 'user_id',
     ];
 
     /**
@@ -44,6 +46,16 @@ class Post extends Model
     public function tags()
     {
         return $this->belongsToMany(Tag::class)->withTimestamps();
+    }
+
+    /**
+     * Get the user relationship.
+     *
+     * @return BelongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 
     /**
@@ -171,5 +183,17 @@ class Post extends Model
     public function readingTime()
     {
         return round(str_word_count($this->content_raw) / 275);
+    }
+
+    /**
+     * Return the name of whoever created the post.
+     *
+     * @param $userId
+     *
+     * @return string
+     */
+    public function getAuthor($userId)
+    {
+        return User::where('id', $userId)->pluck('display_name')->first();
     }
 }

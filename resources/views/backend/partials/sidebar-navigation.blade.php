@@ -31,9 +31,17 @@
             </ul>
         </li>
         <li @if (Request::is('admin/upload*')) class="active" @endif><a href="{{ url('admin/upload') }}"><i class="zmdi zmdi-collection-folder-image"></i> Media</a></li>
-        <li @if (Request::is('admin/users*')) class="active" @endif><a href="{{ url('admin/users') }}"><i class="zmdi zmdi-accounts-alt"></i> Users</a></li>
-        <li @if (Request::is('admin/tools*')) class="active" @endif><a href="{{ url('admin/tools') }}"><i class="zmdi zmdi-wrench"></i> Tools</a></li>
-        <li @if (Request::is('admin/settings*')) class="active" @endif><a href="{{ url('admin/settings') }}"><i class="zmdi zmdi-settings"></i> Settings</a></li>
+        @if(\App\Models\User::isAdmin(Auth::user()->role))
+            <li class="sub-menu @if (Request::is('admin/user*')) active toggled @endif">
+                <a href="" data-ma-action="submenu-toggle"><i class="zmdi zmdi-accounts-alt"></i> Users</a>
+                <ul>
+                    <li><a href="{{ url('admin/user') }}" @if (Request::is('admin/user')) class="active" @endif>All Users <span class="label label-default label-totals">{{ App\Models\User::count() }}</span></a></li>
+                    <li><a href="{{ url('admin/user/create') }}" @if (Request::is('admin/users/create')) class="active" @endif>Add New</a></li>
+                </ul>
+            </li>
+            <li @if (Request::is('admin/tools*')) class="active" @endif><a href="{{ url('admin/tools') }}"><i class="zmdi zmdi-wrench"></i> Tools</a></li>
+            <li @if (Request::is('admin/settings*')) class="active" @endif><a href="{{ url('admin/settings') }}"><i class="zmdi zmdi-settings"></i> Settings</a></li>
+        @endif
         <li @if (Request::is('admin/help')) class="active" @endif><a href="{{ url('admin/help') }}"><i class="zmdi zmdi-help"></i> Help</a></li>
     </ul>
 </aside>

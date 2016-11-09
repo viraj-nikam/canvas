@@ -5,6 +5,7 @@
     <input type="hidden" name="_method" value="PUT">
 @endif
     <input type="hidden" name="_token" value="{{ csrf_token() }}">
+    <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
     <div class="row">
         <div class="col-md-8">
             <div class="card">

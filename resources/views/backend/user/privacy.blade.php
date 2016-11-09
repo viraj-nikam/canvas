@@ -1,21 +1,21 @@
-@extends('backend.profile.layout')
+@extends('backend.layout')
 
 @section('title')
-    <title>{{ Settings::blogTitle() }} | Edit Privacy</title>
+    <title>{{ Settings::blogTitle() }} | Edit User Privacy</title>
 @stop
 
 @section('profile-content')
-  @parent
+    @parent
 
-  <div class="pmb-block">
-      <div class="pmbb-header">
-          <h2><i class="zmdi zmdi-shield-security m-r-10"></i> Change Password</h2>
-      </div>
+    <div class="pmb-block">
+        <div class="pmbb-header">
+            <h2><i class="zmdi zmdi-shield-security m-r-10"></i> Change Password</h2>
+        </div>
 
-      <div class="pmbb-body p-l-30">
-          @include('backend.profile.partials.form.password')
-      </div>
-  </div>
+        <div class="pmbb-body p-l-30">
+            @include('backend.user.partials.form.password')
+        </div>
+    </div>
 @stop
 
 @section('unique-js')

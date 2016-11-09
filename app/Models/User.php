@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Auth\Passwords\CanResetPassword;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
@@ -27,5 +28,39 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      *
      * @var array
      */
-    protected $fillable = ['first_name', 'last_name', 'display_name', 'url', 'twitter', 'facebook', 'github', 'linkedin', 'resume_cv', 'address', 'city', 'country', 'bio', 'job', 'phone', 'gender', 'relationship', 'birthday', 'email', 'password'];
+    protected $fillable = ['first_name', 'last_name', 'display_name', 'url', 'twitter', 'facebook', 'github', 'linkedin', 'resume_cv', 'address', 'city', 'country', 'bio', 'job', 'phone', 'gender', 'relationship', 'birthday', 'email', 'password', 'role'];
+
+    /**
+     * Get the posts relationship.
+     *
+     * @return HasMany
+     */
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
+
+    /**
+     * Return TRUE if the user is an administrator.
+     *
+     * @param $roleId
+     *
+     * @return boolean
+     */
+    public static function isAdmin($roleId)
+    {
+        return $roleId === 1 ? true : false;
+    }
+
+    /**
+     * Get the number of posts by a user.
+     *
+     * @param $userId
+     *
+     * @return boolean
+     */
+    public static function postCount($userId)
+    {
+        return Post::where('user_id', $userId)->get()->count();
+    }
 }

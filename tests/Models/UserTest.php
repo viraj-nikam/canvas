@@ -52,10 +52,6 @@ class UserTest extends EloquentTestCase
     /** @test */
     public function it_has_the_correct_model_properties()
     {
-        $this->hasFillable([
-                'first_name', 'last_name', 'display_name', 'url', 'twitter', 'facebook',
-                'github', 'linkedin', 'resume_cv', 'address', 'city', 'country', 'bio', 'job', 'phone', 'gender',
-                'relationship', 'birthday', 'email', 'password',
-             ]);
+        $this->hasFillable('first_name', 'last_name', 'display_name', 'url', 'twitter', 'facebook', 'github', 'linkedin', 'resume_cv', 'address', 'city', 'country', 'bio', 'job', 'phone', 'gender', 'relationship', 'birthday', 'email', 'password', 'role');
     }
 }

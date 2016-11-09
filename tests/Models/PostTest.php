@@ -1,12 +1,13 @@
 <?php
 
 use App\Models\Tag;
+use App\Models\User;
 use EGALL\EloquentPHPUnit\EloquentTestCase;
 
 class PostTest extends EloquentTestCase
 {
     /**
-     * The post model's full namesapce.
+     * The post model's full namespace.
      *
      * @var string
      */
@@ -34,6 +35,7 @@ class PostTest extends EloquentTestCase
     public function the_database_table_has_all_of_the_correct_columns()
     {
         $this->table->column('id')->integer()->increments();
+        $this->table->column('user_id')->integer()->defaults(1)->index();
         $this->table->column('title')->string()->notNullable();
         $this->table->column('subtitle')->string()->notNullable();
         $this->table->column('content_raw')->text()->notNullable();
@@ -57,9 +59,10 @@ class PostTest extends EloquentTestCase
     /** @test */
     public function it_has_the_correct_model_properties()
     {
-        $this->hasFillable('title', 'subtitle', 'content_raw', 'page_image', 'meta_description', 'layout', 'is_draft', 'published_at', 'slug')
-             ->hasDates('published_at')
-             ->belongsToMany(Tag::class);
+        $this->hasFillable('title', 'subtitle', 'content_raw', 'page_image', 'meta_description', 'layout', 'is_draft', 'published_at', 'slug', 'user_id')
+            ->hasDates('published_at')
+            ->belongsToMany(Tag::class)
+            ->belongsTo(User::class);
     }
 
     /** @test */
