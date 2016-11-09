@@ -71,7 +71,7 @@ Route::group([
     Route::get('admin/help', 'HelpController@index');
 
     // Routes only accessible if the user is an Administrator.
-    Route::group(['middleware' => 'App\Http\Middleware\CheckifAdmin'], function () {
+    Route::group(['middleware' => 'checkIfAdmin'], function () {
         Route::resource('admin/user', 'UserController', [
             'except' => 'show',
             'names' => [
