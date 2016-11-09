@@ -45,7 +45,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      *
      * @param $roleId
      *
-     * @return boolean
+     * @return bool
      */
     public static function isAdmin($roleId)
     {
@@ -57,7 +57,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      *
      * @param $userId
      *
-     * @return boolean
+     * @return bool
      */
     public static function postCount($userId)
     {

@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Post;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Migrations\Migration;
 

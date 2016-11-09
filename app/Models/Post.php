@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Carbon\Carbon;
-use App\Models\User;
 use Laravel\Scout\Searchable;
 use App\Services\Parsedowner;
 use Illuminate\Database\Eloquent\Model;
