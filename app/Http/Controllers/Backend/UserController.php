@@ -61,6 +61,7 @@ class UserController extends Controller
     public function edit($id)
     {
         $data = User::findOrFail($id);
+
         return view('backend.user.edit', compact('data'));
     }
 
@@ -93,6 +94,7 @@ class UserController extends Controller
     public function privacy($id)
     {
         $data = User::findOrFail($id);
+
         return view('backend.user.privacy', compact('data'));
     }
 }
