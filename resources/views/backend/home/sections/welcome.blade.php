@@ -13,7 +13,7 @@
                 <a href="https://github.com/austintoddj/canvas#advanced-options" target="_blank" class="btn btn-primary btn-icon-text"><i class="zmdi zmdi-invert-colors"></i> Create a Theme</a>
                 <br>
                 <br>
-                <a href="{{ url('admin/profile/' . Auth::user()->id . '/edit') }}" class="btn btn-primary btn-icon-text"><i class="zmdi zmdi-account"></i> Update your Profile</a>
+                <a href="{{ url('admin/profile') }}" class="btn btn-primary btn-icon-text"><i class="zmdi zmdi-account"></i> Update your Profile</a>
                 <br>
                 <br>
             </div>
