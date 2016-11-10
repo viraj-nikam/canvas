@@ -15,5 +15,6 @@ class TestDatabaseSeeder extends Seeder
         $this->call('TagTableSeeder');
         $this->call('PostTagTableSeeder');
         $this->call('RoleTableSeeder');
+        $this->call('UserTableSeeder');
     }
 }
