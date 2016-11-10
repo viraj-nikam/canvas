@@ -105,7 +105,7 @@ class UserTest extends EloquentTestCase
             'last_name'     => 'last',
             'display_name'  => 'display',
             'role'          => 1,
-            'email'         => 'email@example.com'
+            'email'         => 'email@example.com',
         ]);
 
         $this->seePageIs('admin/user');
