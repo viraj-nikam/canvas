@@ -1,11 +1,12 @@
 @if(Request::is('admin/post/create'))
     <form class="keyboard-save" role="form" method="POST" id="postCreate" action="{{ route('admin.post.store') }}">
+    <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
 @else
     <form class="keyboard-save" role="form" method="POST" id="postUpdate" action="{{ route('admin.post.update', $id) }}">
     <input type="hidden" name="_method" value="PUT">
+    <input type="hidden" name="user_id" value="{{ $user_id }}">
 @endif
     <input type="hidden" name="_token" value="{{ csrf_token() }}">
-    <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
     <div class="row">
         <div class="col-md-8">
             <div class="card">
