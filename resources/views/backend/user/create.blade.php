@@ -24,7 +24,7 @@
                         <form class="keyboard-save" role="form" method="POST" id="createUser" action="{{ url('admin/user') }}">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
-                            @include('backend.user.partials.create-form')
+                            @include('backend.user.partials.form.create')
 
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary btn-icon-text"><i class="zmdi zmdi-floppy"></i> Save</button>
