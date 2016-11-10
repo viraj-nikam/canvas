@@ -118,14 +118,14 @@ class AdminRoutesTest extends TestCase
     /** @test */
     public function it_can_access_the_edit_users_page()
     {
-        $response = $this->actingAs($this->user)->call('GET', '/admin/user/' . 2 . '/edit');
+        $response = $this->actingAs($this->user)->call('GET', '/admin/user/'. 2 .'/edit');
         $this->assertEquals(200, $response->status());
     }
 
     /** @test */
     public function it_can_access_the_edit_users_privacy_page()
     {
-        $response = $this->actingAs($this->user)->call('GET', '/admin/user/' . 2 . '/privacy');
+        $response = $this->actingAs($this->user)->call('GET', '/admin/user/'. 2 .'/privacy');
         $this->assertEquals(200, $response->status());
     }
 }
