@@ -114,7 +114,7 @@ class UserController extends Controller
 
         Session::set('_updatePassword', trans('messages.update_success', ['entity' => 'Password']));
 
-        return redirect('/admin/user/' . $id . '/edit');
+        return redirect('/admin/user/'.$id.'/edit');
     }
 
     /**
