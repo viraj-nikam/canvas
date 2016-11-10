@@ -8,7 +8,7 @@
     </tr>
     </thead>
     <tbody>
-    @if(empty($posts->toArray()) && empty($tags->toArray()))
+    @if(empty($posts->toArray()) && empty($tags->toArray()) && empty($users->toArray()))
         <tr>
             <td>No results found.</td>
             <td></td>
@@ -30,6 +30,15 @@
                 <td><a href="{{ url('admin/tag') }}/{{ $tag->id }}/edit">{{ $tag->title }}</a></td>
                 <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $tag->created_at)->format('M d, Y') }}</td>
                 <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $tag->updated_at)->format('M d, Y') }}</td>
+            </tr>
+        @endforeach
+
+        @foreach ($users as $user)
+            <tr>
+                <td><i class="zmdi zmdi-account"></i>&nbsp;&nbsp;User</td>
+                <td><a @if (Auth::user()->id === $user->id) href="{{ url('admin/profile') }}" @else href="{{ url('admin/user') }}/{{ $user->id }}/edit" @endif>{{ $user->display_name }}</a></td>
+                <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $user->created_at)->format('M d, Y') }}</td>
+                <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $user->updated_at)->format('M d, Y') }}</td>
             </tr>
         @endforeach
     @endif
