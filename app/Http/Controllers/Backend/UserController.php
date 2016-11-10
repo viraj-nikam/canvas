@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
 use App\Http\Requests\UserUpdateRequest;
 use App\Http\Requests\UserCreateRequest;
+use App\Http\Requests\PasswordUpdateRequest;
 
 class UserController extends Controller
 {
@@ -96,5 +98,46 @@ class UserController extends Controller
         $data = User::findOrFail($id);
 
         return view('backend.user.privacy', compact('data'));
+    }
+
+    /**
+     * Update the users password.
+     *
+     * @param PasswordUpdateRequest $request
+     * @param $id
+     *
+     * @return \Illuminate\View\View
+     */
+    public function updatePassword(PasswordUpdateRequest $request, $id)
+    {
+        User::where('id', $id)->update(['password' => bcrypt($request->new_password)]);
+
+        Session::set('_updatePassword', trans('messages.update_success', ['entity' => 'Password']));
+
+        return redirect('/admin/user/' . $id . '/edit');
+    }
+
+    /**
+     * Delete a user.
+     *
+     * @param  int $id
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function destroy($id)
+    {
+        // First, assign all the posts authored by this user to another existing user in the system.
+        $existingUser = User::where('id', '!=', $id)->first();
+        DB::table('posts')
+            ->where('user_id', $id)
+            ->update(['user_id' => $existingUser->id]);
+
+        // Now the user can be removed from the system.
+        $user = User::findOrFail($id);
+        $user->delete();
+
+        Session::set('_delete-user', trans('messages.delete_success', ['entity' => 'User']));
+
+        return redirect('/admin/user');
     }
 }

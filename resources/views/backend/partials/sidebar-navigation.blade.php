@@ -36,7 +36,7 @@
                 <a href="" data-ma-action="submenu-toggle"><i class="zmdi zmdi-accounts-alt"></i> Users</a>
                 <ul>
                     <li><a href="{{ url('admin/user') }}" @if (Request::is('admin/user')) class="active" @endif>All Users <span class="label label-default label-totals">{{ App\Models\User::count() }}</span></a></li>
-                    <li><a href="{{ url('admin/user/create') }}" @if (Request::is('admin/users/create')) class="active" @endif>Add New</a></li>
+                    <li><a href="{{ url('admin/user/create') }}" @if (Request::is('admin/user/create')) class="active" @endif>Add New</a></li>
                 </ul>
             </li>
             <li @if (Request::is('admin/tools*')) class="active" @endif><a href="{{ url('admin/tools') }}"><i class="zmdi zmdi-wrench"></i> Tools</a></li>

@@ -45,9 +45,6 @@ elixir(function (mix) {
         'bootstrap-growl.min.js'
     ], assetsPath + 'js/app.js');
 
-    // Copy images
-    mix.copy('resources/assets/images', assetsPath + 'images');
-
     // Copy fonts
     mix.copy(['resources/assets/fonts', 'resources/assets/talvbansal/media-manager/fonts'], assetsPath + '/fonts');
 

@@ -187,12 +187,12 @@ class Post extends Model
     /**
      * Return the name of whoever created the post.
      *
-     * @param $userId
+     * @param $id
      *
      * @return string
      */
-    public function getAuthor($userId)
+    public static function getAuthor($id)
     {
-        return User::where('id', $userId)->pluck('display_name')->first();
+        return User::where('id', $id)->pluck('display_name')->first();
     }
 }

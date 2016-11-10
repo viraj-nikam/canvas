@@ -80,10 +80,11 @@ Route::group([
                 'store' => 'admin.user.store',
                 'edit' => 'admin.user.edit',
                 'update' => 'admin.user.update',
-                'privacy' => 'admin.user.privacy',
                 'destroy' => 'admin.user.destroy',
             ],
         ]);
+        Route::get('admin/user/{id}/privacy', 'UserController@privacy')->name('admin.user.privacy');
+        Route::post('admin/user/{id}/privacy', 'UserController@updatePassword');
 
         Route::get('admin/tools', 'ToolsController@index');
         Route::post('admin/tools/reset_index', 'ToolsController@resetIndex');

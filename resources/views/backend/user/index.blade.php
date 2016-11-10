@@ -74,4 +74,9 @@
         @include('backend.partials.notify', ['section' => '_new-user'])
         {{ \Session::forget('_new-user') }}
     @endif
+
+    @if(Session::get('_delete-user'))
+        @include('backend.partials.notify', ['section' => '_delete-user'])
+        {{ \Session::forget('_delete-user') }}
+    @endif
 @stop

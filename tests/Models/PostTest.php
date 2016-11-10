@@ -77,6 +77,7 @@ class PostTest extends EloquentTestCase
     {
         $data = [
             'id'            => 2,
+            'user_id'       => 1,
             'title'         => 'example',
             'slug'          => 'foo',
             'subtitle'      => 'bar',

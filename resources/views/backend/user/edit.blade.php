@@ -32,7 +32,7 @@
                                 <a href="{{ url('admin/user/' . $data['id'] . '/edit') }}">Profile</a>
                             </li>
                             <li class="{{ Route::is('admin.user.privacy') ? 'active' : '' }}">
-                                <a href="{{ url('admin/user/privacy') }}">Privacy</a>
+                                <a href="{{ url('/admin/user/' . $data['id'] . '/privacy') }}">Privacy</a>
                             </li>
                         </ul>
                         @if(Session::has('errors') || Session::has('success'))
@@ -104,9 +104,12 @@
                                     @include('backend.user.partials.form.social-networks')
                                 </div>
                                 <div class="form-group m-l-30">
-                                    <button type="submit" class="btn btn-primary btn-icon-text"><i class="zmdi zmdi-floppy"></i> Save</button>
-
-                                    <a href="{{ url('admin/user') }}"><button type="button" class="btn btn-link">Cancel</button></a>
+                                    <button type="submit" class="btn btn-primary btn-icon-text">
+                                        <i class="zmdi zmdi-floppy"></i> Save
+                                    </button>&nbsp;
+                                    <button type="button" class="btn btn-danger btn-icon-text" data-toggle="modal" data-target="#modal-delete">
+                                        <i class="zmdi zmdi-delete"></i> Delete
+                                    </button>
                                 </div>
                             </div>
                         </form>
@@ -115,14 +118,20 @@
             </div>
         </section>
     </section>
+    @include('backend.user.partials.modals.delete')
 @stop
 
 @section('unique-js')
     {!! JsValidator::formRequest('App\Http\Requests\UserUpdateRequest', '#userUpdate') !!}
-    @include('backend.shared.components.show-password', ['inputs' => 'input[name="password"]'])
+    @include('backend.shared.components.profile-datetime-picker', ['format' => 'YYYY-MM-DD'])
 
     @if(Session::get('_updateUser'))
         @include('backend.partials.notify', ['section' => '_updateUser'])
         {{ \Session::forget('_updateUser') }}
+    @endif
+
+    @if(Session::get('_updatePassword'))
+        @include('backend.partials.notify', ['section' => '_updatePassword'])
+        {{ \Session::forget('_updatePassword') }}
     @endif
 @stop
