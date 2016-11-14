@@ -20,7 +20,7 @@ Before you proceed make sure your server meets the following requirements:
 - [Composer](https://getcomposer.org/)
 - [Yarn](https://yarnpkg.com/)
 - [PHP](https://php.net/) >= 5.6.4
-- PHP Extensions ([PDO](http://php.net/manual/en/book.pdo.php), [SQLite](http://php.net/manual/en/book.sqlite.php), [OpenSSL](http://php.net/manual/en/book.openssl.php), [Mbstring](http://php.net/manual/en/book.mbstring.php), [Tokenizer](http://php.net/manual/en/book.tokenizer.php), [Zip](http://php.net/manual/en/book.zip.php))
+- PHP extensions ([PDO](http://php.net/manual/en/book.pdo.php), [SQLite](http://php.net/manual/en/book.sqlite.php), [OpenSSL](http://php.net/manual/en/book.openssl.php), [Mbstring](http://php.net/manual/en/book.mbstring.php), [Tokenizer](http://php.net/manual/en/book.tokenizer.php), [Zip](http://php.net/manual/en/book.zip.php))
 - PDO compliant database (SQL, MySQL, PostgreSQL, SQLite)
 
 ## Installation
