@@ -8,6 +8,10 @@ class Helpers
     const ROLE_USER = 0;
     const ROLE_ADMINISTRATOR = 1;
 
+    // Maintenance Mode
+    const MAINTENANCE_MODE_ENABLED = 0;
+    const MAINTENANCE_MODE_DISABLED = 1;
+
     /**
      * Return 'checked' if true.
      *

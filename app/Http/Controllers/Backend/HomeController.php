@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\Helpers;
 use App\Models\Tag;
 use App\Models\Post;
 use App\Models\User;
@@ -25,7 +26,7 @@ class HomeController extends Controller
             'users' => User::all(),
             'disqus' => Settings::disqus(),
             'analytics' => Settings::gaId(),
-            'status' => App::isDownForMaintenance() ? 0 : 1,
+            'status' => App::isDownForMaintenance() ? Helpers::MAINTENANCE_MODE_ENABLED : Helpers::MAINTENANCE_MODE_DISABLED,
             'canvasVersion' => Settings::canvasVersion(),
             'latestRelease' => Settings::latestRelease(),
         ];
