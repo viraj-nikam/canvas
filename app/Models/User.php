@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Helpers;
 use Laravel\Scout\Searchable;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
@@ -44,13 +45,13 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     /**
      * Return TRUE if the user is an administrator.
      *
-     * @param $roleId
+     * @param $role
      *
      * @return bool
      */
-    public static function isAdmin($roleId)
+    public static function isAdmin($role)
     {
-        return $roleId === 1 ? true : false;
+        return $role === Helpers::ROLE_ADMINISTRATOR ? true : false;
     }
 
     /**

@@ -72,7 +72,7 @@
                     <div class="form-group">
                         <div class="toggle-switch toggle-switch-demo" data-ts-color="blue">
                             <label for="is_draft" class="ts-label">Draft?</label>
-                            <input {{ checked($is_draft) }} type="checkbox" name="is_draft">
+                            <input {{ \App\Helpers::checked($is_draft) }} type="checkbox" name="is_draft">
                             <label for="is_draft" class="ts-helper"></label>
                         </div>
                     </div>

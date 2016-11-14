@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use Artisan;
+use App\Helpers;
 use ConfigWriter;
 use App\Models\User;
 use App\Models\Settings;
@@ -228,7 +229,7 @@ class Install extends Command
         $user->first_name = $firstName;
         $user->last_name = $lastName;
         $user->display_name = $firstName.' '.$lastName;
-        $user->role = 1;
+        $user->role = Helpers::ROLE_ADMINISTRATOR;
         $user->save();
 
         $this->author($user->display_name);

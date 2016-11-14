@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use Session;
+use App\Helpers;
 use App\Models\User;
 use App\Models\Settings;
 use Illuminate\Http\Request;
@@ -101,7 +102,7 @@ class LoginController extends Controller
     public function authenticated(Request $request, User $user)
     {
         $col = Settings::getByName('latest_release');
-        empty($col) ? Settings::firstOrCreate(['setting_name' => 'latest_release', 'setting_value' => getLatestRelease()]) : Settings::where('setting_name', 'latest_release')->update(['setting_value' => getLatestRelease()]);
+        empty($col) ? Settings::firstOrCreate(['setting_name' => 'latest_release', 'setting_value' => Helpers::getLatestRelease()]) : Settings::where('setting_name', 'latest_release')->update(['setting_value' => Helpers::getLatestRelease()]);
         Session::set('_login', trans('messages.login', ['display_name' => $user->display_name]));
 
         return redirect()->intended($this->redirectPath());
