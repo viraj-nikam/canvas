@@ -27,23 +27,6 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Canvas Configuration : Storage
-    |--------------------------------------------------------------------------
-    |
-    | Specify what type of storage you would like for your application. Just
-    | as a reminder, your uploads directory MUST be writable by the
-    | web server for the uploading to function properly.
-    |
-    | Supported: "local"
-    |
-    */
-    'uploads' => [
-        'storage' => 'local',
-        'webpath' => '/uploads/',
-    ],
-
-    /*
-    |--------------------------------------------------------------------------
     | Canvas Configuration : Trim Width
     |--------------------------------------------------------------------------
     |
