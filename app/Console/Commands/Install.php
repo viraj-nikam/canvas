@@ -9,7 +9,6 @@ use App\Models\User;
 use App\Models\Settings;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class Install extends Command
