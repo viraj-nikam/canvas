@@ -4,7 +4,6 @@ namespace App;
 
 class Helpers
 {
-
     // Roles
     const ROLE_USER = 0;
     const ROLE_ADMINISTRATOR = 1;
