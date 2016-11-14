@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Models\Settings;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class Install extends Command
@@ -102,6 +103,15 @@ class Install extends Command
 
         // Search Index
         $this->comment(PHP_EOL.'Building the search index...');
+        if (file_exists(storage_path('posts.index'))) {
+            unlink(storage_path('posts.index'));
+        }
+        if (file_exists(storage_path('users.index'))) {
+            unlink(storage_path('users.index'));
+        }
+        if (file_exists(storage_path('tags.index'))) {
+            unlink(storage_path('tags.index'));
+        }
         $exitCode = Artisan::call('canvas:index');
         $this->progress(5);
         $this->line(PHP_EOL.'<info>✔</info> Success! The application search index has been built.');
