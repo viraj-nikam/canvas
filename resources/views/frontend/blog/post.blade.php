@@ -30,7 +30,7 @@
 @stop
 
 @section('title')
-    <title>{{ $title or Settings::blogTitle() }}</title>
+    <title>{{ $title or \App\Models\Settings::blogTitle() }}</title>
 @stop
 
 @section('unique-js')
