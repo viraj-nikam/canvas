@@ -24,9 +24,20 @@
                         </li>
                     </ul>
                 </div>
-                @include('backend.tools.sections.maintenance-mode')
-                @include('backend.tools.sections.export-data')
-                @include('backend.tools.sections.clear-cache')
+
+                <div class="row">
+                    <div class="col-sm-6 col-md-6">
+                        @include('backend.tools.sections.maintenance-mode')
+                    </div>
+                    <div class="col-sm-6 col-md-6">
+                        @include('backend.tools.sections.export-data')
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 col-md-6">
+                        @include('backend.tools.sections.clear-cache')
+                    </div>
+                </div>
             </div>
         </section>
     </section>
