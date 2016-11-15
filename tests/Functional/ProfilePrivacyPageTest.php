@@ -1,6 +1,6 @@
 <?php
 
-class UpdatePasswordTest extends TestCase
+class ProfilePrivacyPageTest extends TestCase
 {
     use InteractsWithDatabase;
 
@@ -23,6 +23,16 @@ class UpdatePasswordTest extends TestCase
             'email'     => 'foo@bar.com',
             'password'  => bcrypt('password'),
         ]);
+    }
+
+    /** @test */
+    public function it_can_refresh_the_profile_privacy_page()
+    {
+        $this->actingAs($this->user)
+            ->visit('/admin/profile/privacy')
+            ->click('Refresh Profile');
+        $this->assertSessionMissing('errors');
+        $this->seePageIs('/admin/profile');
     }
 
     /** @test */

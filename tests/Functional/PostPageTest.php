@@ -1,6 +1,6 @@
 <?php
 
-class PostIndexTest extends TestCase
+class PostPageTest extends TestCase
 {
     use InteractsWithDatabase;
 
@@ -20,6 +20,16 @@ class PostIndexTest extends TestCase
     public function createUser()
     {
         $this->user = factory(App\Models\User::class)->create();
+    }
+
+    /** @test */
+    public function it_can_refresh_the_post_page()
+    {
+        $this->actingAs($this->user)
+            ->visit('/admin/post')
+            ->click('Refresh Posts');
+        $this->assertSessionMissing('errors');
+        $this->seePageIs('/admin/post');
     }
 
     /** @test */

@@ -15,6 +15,18 @@
                             <li><a href="{{ url('admin') }}">Home</a></li>
                             <li class="active">Posts</li>
                         </ol>
+                        <ul class="actions">
+                            <li class="dropdown">
+                                <a href="" data-toggle="dropdown">
+                                    <i class="zmdi zmdi-more-vert"></i>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-right">
+                                    <li>
+                                        <a href="{{ url('admin/post') }}"><i class="zmdi zmdi-refresh-alt pd-r-5"></i> Refresh Posts</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
                         @include('shared.errors')
                         @include('shared.success')
                         <h2>Posts&nbsp;

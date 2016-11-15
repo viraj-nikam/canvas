@@ -1,6 +1,6 @@
 <?php
 
-class ToolsTest extends TestCase
+class TagCreatePageTest extends TestCase
 {
     use InteractsWithDatabase;
 
@@ -23,12 +23,12 @@ class ToolsTest extends TestCase
     }
 
     /** @test */
-    public function it_can_clear_the_application_cache()
+    public function it_can_press_cancel_to_return_to_the_tag_index_page()
     {
         $this->actingAs($this->user)
-            ->visit('/admin/tools')
-            ->click('Clear Cache');
+            ->visit('/admin/tag/create')
+            ->click('Cancel');
         $this->assertSessionMissing('errors');
-        $this->seePageIs('/admin/tools');
+        $this->seePageIs('/admin/tag');
     }
 }
