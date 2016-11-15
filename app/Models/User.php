@@ -31,6 +31,13 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      * @var array
      */
     protected $fillable = ['first_name', 'last_name', 'display_name', 'url', 'twitter', 'facebook', 'github', 'linkedin', 'resume_cv', 'address', 'city', 'country', 'bio', 'job', 'phone', 'gender', 'relationship', 'birthday', 'email', 'password', 'role'];
+    
+    /**
+     * Cast attributes to specific types
+     *
+     * @var array
+     */
+    protected $casts = ['role' => 'integer'];
 
     /**
      * Get the posts relationship.
