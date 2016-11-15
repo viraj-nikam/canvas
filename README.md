@@ -1,4 +1,4 @@
-<h2>Canvas - <small>Simple, Powerful Blog Publishing Platform</small></h2>
+## Canvas
 
 [![Build Status](https://travis-ci.org/austintoddj/canvas.svg?branch=master)](https://travis-ci.org/austintoddj/canvas)
 [![StyleCI](https://styleci.io/repos/52815899/shield?style=flat&branch=master)](https://styleci.io/repos/52815899)
