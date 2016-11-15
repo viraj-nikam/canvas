@@ -42,7 +42,6 @@ Before you proceed make sure your server meets the following requirements:
 ## Advanced Options
 
 1. Themes
-    * Run `yarn add gulp` from the command line in the project root.
     * Create your own theme by editing the stylesheet at `resources/assets/sass/theme/styles.scss` or grab an [Official Canvas Theme](https://github.com/austintoddj/palette), fresh off the palette.
     * Run `gulp` after any changes to `resources/assets/sass/theme/styles.scss`
 
