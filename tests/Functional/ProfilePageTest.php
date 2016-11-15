@@ -6,6 +6,27 @@ class ProfilePageTest extends TestCase
 {
     use DatabaseMigrations;
 
+    /**
+     * The user model.
+     *
+     * @var App\Models\User
+     */
+    private $user;
+
+    /**
+     * Create the user model test subject.
+     *
+     * @before
+     * @return void
+     */
+    public function createUser()
+    {
+        $this->user = factory(App\Models\User::class)->create([
+            'email'     => 'foo@bar.com',
+            'password'  => bcrypt('password'),
+        ]);
+    }
+
     protected $optionalFields = [
         'bio' => 'Summary',
         'gender' => '<dt>Gender</dt>',
@@ -30,6 +51,15 @@ class ProfilePageTest extends TestCase
         'email',
     ];
 
+    public function it_can_refresh_the_profile_page()
+    {
+        $this->actingAs($this->user)
+            ->visit('/admin/profile')
+            ->click('Refresh Profile');
+        $this->assertSessionMissing('errors');
+        $this->seePageIs('/admin/profile');
+    }
+
     /** @test */
     public function it_shows_error_messages_for_required_fields()
     {
@@ -47,5 +77,14 @@ class ProfilePageTest extends TestCase
         foreach ($this->requiredFields as $name) {
             $this->see('The '.str_replace('_', ' ', $name).' field is required.');
         }
+    }
+
+    /** @test */
+    public function it_can_update_the_authenticated_users_profile()
+    {
+        $this->actingAs($this->user)->visit('/admin/profile');
+        $this->type('Luke Skywalker', 'display_name')->press('Save')->see('Success! Profile has been updated.');
+        $this->assertSessionMissing('errors');
+        $this->seePageIs('admin/profile');
     }
 }
