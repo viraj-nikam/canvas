@@ -58,7 +58,7 @@ Before you proceed make sure your server meets the following requirements:
 
 ## Contributing
 
-Thank you for considering contributing to Canvas! The [contribution guide](https://github.com/austintoddj/Canvas/blob/master/CONTRIBUTING.md) provides instructions on how to [submit an issue](https://github.com/austintoddj/canvas/issues), [create pull requests](https://github.com/austintoddj/canvas/pulls) and more. It also has details about joining the official [HipChat group](https://canvas-blog.hipchat.com/home) for those who want to be a part of Canvas' future development.
+Thank you for considering contributing to Canvas! The [contribution guide](https://github.com/austintoddj/Canvas/blob/master/CONTRIBUTING.md) provides instructions on how to [submit an issue](https://github.com/austintoddj/canvas/issues), [create pull requests](https://github.com/austintoddj/canvas/pulls) and more. It also has details about joining the official [HipChat group](https://canvas-chat.hipchat.com) for those who want to be a part of Canvas' future development.
 
 ## Changelog
 
