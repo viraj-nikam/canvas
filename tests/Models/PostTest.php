@@ -6,30 +6,14 @@ use EGALL\EloquentPHPUnit\EloquentTestCase;
 
 class PostTest extends EloquentTestCase
 {
+    use CreatesUser;
+
     /**
      * The post model's full namespace.
      *
      * @var string
      */
     protected $model = 'App\Models\Post';
-
-    /**
-     * The user model.
-     *
-     * @var App\Models\User
-     */
-    private $user;
-
-    /**
-     * Create the user model test subject.
-     *
-     * @before
-     * @return void
-     */
-    public function createUser()
-    {
-        $this->user = factory(App\Models\User::class)->create();
-    }
 
     /** @test */
     public function the_database_table_has_all_of_the_correct_columns()

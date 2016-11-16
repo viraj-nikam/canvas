@@ -2,11 +2,10 @@
 
 use EGALL\EloquentPHPUnit\EloquentTestCase;
 
-/**
- * User model test.
- */
 class UserTest extends EloquentTestCase
 {
+    use CreatesUser;
+
     /**
      * The user model's full namespace.
      *
@@ -20,24 +19,6 @@ class UserTest extends EloquentTestCase
      * @var bool
      */
     protected $seedDatabase = false;
-
-    /**
-     * The user model.
-     *
-     * @var App\Models\User
-     */
-    private $user;
-
-    /**
-     * Create the user model test subject.
-     *
-     * @before
-     * @return void
-     */
-    public function createUser()
-    {
-        $this->user = factory(App\Models\User::class)->create();
-    }
 
     /** @test */
     public function the_database_table_has_all_of_the_correct_columns()
