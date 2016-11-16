@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\User;
+
 trait CreatesUser
 {
     /**
@@ -17,6 +19,6 @@ trait CreatesUser
      */
     public function createUser()
     {
-        $this->user = factory(App\Models\User::class)->create();
+        $this->user = factory(User::class)->create();
     }
 }
