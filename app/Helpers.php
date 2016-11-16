@@ -34,7 +34,7 @@ class Helpers
     public static function getLatestRelease()
     {
         if (env('APP_ENV') === 'testing') {
-            return '0.0.0.0';
+            return 'v0.0.0';
         } else {
             $opts = [
                 'http' => [
