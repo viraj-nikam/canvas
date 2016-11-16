@@ -7,7 +7,7 @@ trait InteractsWithDatabase
     use DatabaseTransactions;
 
     /**
-     * Setup the test environment.
+     * Set up the test environment.
      *
      * @return void
      */
@@ -15,9 +15,10 @@ trait InteractsWithDatabase
     {
         parent::setUp();
 
-        // Disable searchable trait to speed up tests...
+        // Disable searchable trait to speed up tests.
         \App\Models\Post::disableSearchSyncing();
         \App\Models\Tag::disableSearchSyncing();
+        \App\Models\User::disableSearchSyncing();
 
         $this->runDatabaseMigrations();
 
