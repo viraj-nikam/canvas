@@ -1,6 +1,6 @@
 <?php
 
-use App\Services\Parsedowner;
+use Canvas\Services\Parsedowner;
 
 class ParsedownerTest extends PHPUnit_Framework_TestCase
 {

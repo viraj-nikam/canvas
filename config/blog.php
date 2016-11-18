@@ -11,7 +11,7 @@ return [
     | process.
     |
     */
-    'version' => 'v2.1.14',
+    'version' => 'v2.1.15',
 
     /*
     |--------------------------------------------------------------------------
@@ -50,7 +50,7 @@ return [
     | If you need to update the layout, just change it there.
     |
     */
-    'post_layout' => \App\Jobs\PostFormFields::$blogLayout,
+    'post_layout' => \Canvas\Jobs\PostFormFields::$blogLayout,
 
     /*
     |--------------------------------------------------------------------------
@@ -58,9 +58,9 @@ return [
     |--------------------------------------------------------------------------
     |
     | The tag layout is specified here, in App\Http\Controllers\Backend\TagController.php
-    | and in App\Models\Tag.php. If you need to update the layout, just change it
+    | and in Canvas\Models\Tag.php. If you need to update the layout, just change it
     | in these three locations.
     |
     */
-    'tag_layout' => 'frontend.blog.index',
+    'tag_layout' => 'canvas::frontend.blog.index',
 ];

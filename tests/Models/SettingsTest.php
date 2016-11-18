@@ -9,7 +9,7 @@ class SettingsTest extends EloquentTestCase
      *
      * @var string
      */
-    protected $model = 'App\Models\Settings';
+    protected $model = 'Canvas\Models\Settings';
 
     /**
      * Disable database seeding.

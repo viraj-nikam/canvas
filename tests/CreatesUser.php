@@ -1,13 +1,13 @@
 <?php
 
-use App\Models\User;
+use Canvas\Models\User;
 
 trait CreatesUser
 {
     /**
      * The user model.
      *
-     * @var App\Models\User
+     * @var Canvas\Models\User
      */
     private $user;
 
