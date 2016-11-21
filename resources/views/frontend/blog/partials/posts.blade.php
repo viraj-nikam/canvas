@@ -4,11 +4,11 @@
             <a href="{{ $post->url($tag) }}">{{ $post->title }}</a>
         </h2>
         <p class="post-meta">
-            {{ $post->published_at->diffForHumans() }}
+            {{ $post->published_at->diffForHumans() }} &#183; {{ $post->readingTime() }} MIN READ
+            <br>
             @unless ($post->tags->isEmpty())
-                in {!! implode(', ', $post->tagLinks()) !!}
+                {!! implode(' ', $post->tagLinks()) !!}
             @endunless
-            &#183; {{ $post->readingTime() }} MIN READ
         </p>
         <p class="postSubtitle">
             {{ str_limit($post->subtitle, config('blog.frontend_trim_width')) }}
