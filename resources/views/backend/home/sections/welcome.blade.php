@@ -1,12 +1,5 @@
 <div class="card">
     <div class="card-header">
-        @if($data['canvasVersion'] !== $data['latestRelease'])
-            <div class="alert alert-info">
-                <a href="#" class="close" data-dismiss="alert" aria-label="close" style="color: white">&times;</a>
-                <a href="{{ url('http://github.com/austintoddj/canvas/releases/tag/') . $data['latestRelease'] }}" target="_blank" style="color: white"><strong>Canvas {{ $data['latestRelease'] }}</strong></a> is available! <a href="http://github.com/austintoddj/canvas/blob/master/UPGRADE.md" target="_blank" style="color: white"><strong>Please update now.</strong></a>
-            </div>
-        @endif
-
         <h2>Welcome to Canvas!
             <small>Here are some helpful links we've gathered to get you started:
             </small>
@@ -43,5 +36,13 @@
                 <br>
             </div>
         </div>
+
+        @if($data['canvasVersion'] !== $data['latestRelease'])
+            <hr>
+            <p class="small" style="margin-bottom: 0;">
+                <a href="{{ url('http://github.com/austintoddj/canvas/releases/tag/') . $data['latestRelease'] }}" target="_blank"><i class="zmdi zmdi-alert-circle"></i>&nbsp;<strong>Canvas {{ $data['latestRelease'] }}</strong></a> is available! <a href="http://github.com/austintoddj/canvas/blob/master/UPGRADE.md" target="_blank"><strong>Please update now.</strong></a>
+            </p>
+        @endif
+
     </div>
 </div>
