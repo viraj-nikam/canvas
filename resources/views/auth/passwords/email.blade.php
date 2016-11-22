@@ -5,7 +5,7 @@
 @stop
 
 @section('login')
-    <div class="container container-fluid login-container">
+    <div class="login-container">
         @include('shared.errors')
         @include('auth.passwords.partials.email-form')
     </div>
