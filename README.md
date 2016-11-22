@@ -1,4 +1,4 @@
-## Canvas
+## <img src="img/gh-brand.png" width="175">
 
 [![Build Status](https://travis-ci.org/austintoddj/canvas.svg?branch=master)](https://travis-ci.org/austintoddj/canvas)
 [![StyleCI](https://styleci.io/repos/52815899/shield?style=flat&branch=master)](https://styleci.io/repos/52815899)
@@ -7,7 +7,7 @@
 [![Latest Stable Version](https://poser.pugx.org/austintoddj/canvas/v/stable)](https://packagist.org/packages/austintoddj/canvas)
 [![License](https://poser.pugx.org/austintoddj/canvas/license)](https://packagist.org/packages/austintoddj/canvas)
 
-[![Canvas Screenshots](https://raw.githubusercontent.com/austintoddj/canvas/gh-pages/img/readme.jpg)](http://canvas.toddaustin.io)
+<a href="http://canvas.toddaustin.io"><img src="https://raw.githubusercontent.com/austintoddj/canvas/master/public/assets/images/gh-readme.png" width="175"></a>
 
 [Canvas](http://canvas.toddaustin.io) is a simple, powerful blog publishing platform that lets you to share your stories with the world. Its beautifully designed interface and completely customizable framework allows you to create and publish your own blog, giving you tools that make it easy and even fun to do.
 
