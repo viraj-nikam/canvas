@@ -7,7 +7,7 @@
 [![Latest Stable Version](https://poser.pugx.org/austintoddj/canvas/v/stable)](https://packagist.org/packages/austintoddj/canvas)
 [![License](https://poser.pugx.org/austintoddj/canvas/license)](https://packagist.org/packages/austintoddj/canvas)
 
-<a href="http://canvas.toddaustin.io"><img src="https://github.com/austintoddj/canvas/blob/master/public/assets/images/gh-readme.jpg?raw=true" width="175"></a>
+<a href="http://canvas.toddaustin.io"><img src="https://github.com/austintoddj/canvas/blob/master/public/assets/images/gh-readme.jpg?raw=true"></a>
 
 [Canvas](http://canvas.toddaustin.io) is a simple, powerful blog publishing platform that lets you to share your stories with the world. Its beautifully designed interface and completely customizable framework allows you to create and publish your own blog, giving you tools that make it easy and even fun to do.
 
