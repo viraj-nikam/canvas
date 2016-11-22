@@ -1,7 +1,10 @@
-.contain {
-  background-image: url('/assets/images/brushed.jpg');
-  #main {
-    min-height: 325px;
-    padding-top: 200px;
-  }
+input#password.form-control {background-color: transparent !important;}
+input#email.form-control {background-color: transparent !important;}
+.login-container{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  width: 300px;
 }

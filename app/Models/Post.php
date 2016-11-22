@@ -125,7 +125,7 @@ class Post extends Model
         $return = [];
         foreach ($tags as $tag) {
             $url = route('blog.post.index', ['tag' => $tag]);
-            $return[] = '<a href="'.url($url).'">'.e($tag).'</a>';
+            $return[] = '<a href="'.url($url).'">#'.e($tag).'</a>&nbsp;';
         }
 
         return $return;

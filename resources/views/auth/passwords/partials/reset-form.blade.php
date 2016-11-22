@@ -10,18 +10,15 @@
     <input type="hidden" name="token" value="{{ $token }}">
 
     <div class="form-group fg-line">
-        <input type="email" class="form-control"
-               name="email" value="{{ $email or old('email') }}" placeholder="Email">
+        <input type="email" id="email" class="form-control" name="email" value="{{ $email or old('email') }}" placeholder="Email">
     </div>
 
     <div class="form-group fg-line">
-        <input type="password" name="password" class="form-control"
-               placeholder="Password">
+        <input type="password" id="password" name="password" class="form-control" placeholder="Password">
     </div>
 
     <div class="form-group fg-line">
-        <input type="password" name="password_confirmation" class="form-control"
-               placeholder="Confirm Password">
+        <input type="password" id="password" name="password_confirmation" class="form-control" placeholder="Confirm Password">
     </div>
 
     <button type="submit" name="submit" class="btn btn-primary m-t-10">Reset my password</button>

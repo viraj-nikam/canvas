@@ -8,9 +8,10 @@
     @endif
 
     <div class="form-group fg-line">
-        <input type="email" class="form-control"
-               name="email" value="{{ old('email') }}" placeholder="Email">
+        <input type="email" id="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="Email">
     </div>
-    <br>
-    <button type="submit" name="submit" class="btn btn-primary m-t-10">Send Reset Link</button><a href="{{ url('admin') }}" class="btn btn-link m-t-10">Sign In</a>
+    <button type="submit" name="submit" class="btn btn-primary btn-block m-t-10">Send Reset Link</button>
+    <div style="text-align: center">
+        <a href="{{ url('admin') }}" class="btn btn-link m-t-10">Sign In</a><a href="{{ url('/') }}" class="btn btn-link m-t-10">Back to Blog</a>
+    </div>
 </form>

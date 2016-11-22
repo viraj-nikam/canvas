@@ -47,15 +47,14 @@
                             <img src="{{ asset($post->page_image) }}" class="post-hero">
                         </div>
                     @endif
-                    <p class="post-page-meta">
-                        {{ \Carbon\Carbon::parse($post->published_at)->diffForHumans() }}
-                        @if ($post->tags->count())
-                            in
-                            {!! join(', ', $post->tagLinks()) !!}
-                        @endif
-                        &#183; {{ $post->readingTime() }} MIN READ
-                    </p>
                     <h1 class="post-page-title">{{ $post->title }}</h1>
+                    <p class="post-page-meta">
+                        {{ \Carbon\Carbon::parse($post->published_at)->diffForHumans() }} &#183; {{ $post->readingTime() }} MIN READ
+                        @if ($post->tags->count())
+                            <br>
+                            {!! join(' ', $post->tagLinks()) !!}
+                        @endif
+                    </p>
 
                     {!! $post->content_html !!}
 

@@ -1,12 +1,10 @@
 <form role="form" id="login" method="POST" action="{{ route('auth.login.store') }}">
     {!! csrf_field() !!}
     <div class="form-group fg-line">
-        <input type="email" class="form-control"
-               name="email" value="{{ old('email') }}" placeholder="Email">
+        <input type="email" id="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="Email">
     </div>
     <div class="form-group fg-line">
-        <input type="password" name="password" class="form-control"
-               placeholder="Password">
+        <input type="password" id="password" name="password" class="form-control" placeholder="Password">
     </div>
 
     <div class="form-group fg-line">
@@ -18,6 +16,9 @@
             </label>
         </div>
     </div>
-    <br>
-    <button type="submit" name="submit" class="btn btn-primary m-t-10">Sign in</button><a href="{{ route('auth.password.forgot') }}" class="btn btn-link m-t-10">Forgot my password</a>
+    <button type="submit" name="submit" class="btn btn-block btn-primary m-t-10">Sign in</button>
+    <br><br>
+    <div style="text-align: center">
+        <a href="{{ route('auth.password.forgot') }}" class="btn btn-link m-t-10">Forgot password</a><a href="{{ url('/') }}" class="btn btn-link m-t-10">Back to Blog</a>
+    </div>
 </form>
