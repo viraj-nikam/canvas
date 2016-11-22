@@ -1,4 +1,4 @@
-## <img src="https://github.com/austintoddj/canvas/blob/master/public/assets/images/gh-brand.png?raw=true" width="175">
+## <img src="https://github.com/austintoddj/canvas/blob/master/public/assets/images/gh-brand.jpg?raw=true" width="175">
 
 [![Build Status](https://travis-ci.org/austintoddj/canvas.svg?branch=master)](https://travis-ci.org/austintoddj/canvas)
 [![StyleCI](https://styleci.io/repos/52815899/shield?style=flat&branch=master)](https://styleci.io/repos/52815899)
