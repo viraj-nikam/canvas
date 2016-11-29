@@ -1,13 +1,13 @@
 <a href="http://canvas.toddaustin.io"><img src="https://github.com/austintoddj/canvas/blob/master/public/assets/images/gh-readme.jpg?raw=true"></a>
 
-<div style="text-align: center">
-[![Build Status](https://travis-ci.org/austintoddj/canvas.svg?branch=master)](https://travis-ci.org/austintoddj/canvas)
-[![StyleCI](https://styleci.io/repos/52815899/shield?style=flat&branch=master)](https://styleci.io/repos/52815899)
-[![Dependency Status](https://www.versioneye.com/user/projects/57dff0d579806f0043346a68/badge.svg?style=flat)](https://www.versioneye.com/user/projects/57dff0d579806f0043346a68)
-[![Total Downloads](https://poser.pugx.org/austintoddj/canvas/downloads)](https://packagist.org/packages/austintoddj/canvas)
-[![Latest Stable Version](https://poser.pugx.org/austintoddj/canvas/v/stable)](https://packagist.org/packages/austintoddj/canvas)
-[![License](https://poser.pugx.org/austintoddj/canvas/license)](https://packagist.org/packages/austintoddj/canvas)
-</div>
+<p align="center">
+    <a href="https://travis-ci.org/austintoddj/canvas"><img src="https://travis-ci.org/austintoddj/canvas.svg?branch=master" alt="Build Status"></a>
+    <a href="https://styleci.io/repos/52815899"><img src="https://styleci.io/repos/52815899/shield?style=flat&branch=master" alt="StyleCI"></a>
+    <a href="https://www.versioneye.com/user/projects/57dff0d579806f0043346a68"><img src="https://www.versioneye.com/user/projects/57dff0d579806f0043346a68/badge.svg?style=flat" alt="Dependency Status"></a>
+    <a href="https://packagist.org/packages/austintoddj/canvas"><img src="https://poser.pugx.org/austintoddj/canvas/downloads" alt="Total Downloads"></a>
+    <a href="https://packagist.org/packages/austintoddj/canvas"><img src="https://poser.pugx.org/austintoddj/canvas/v/stable" alt="Latest Stable Version"></a>
+    <a href="https://packagist.org/packages/austintoddj/canvas"><img src="https://poser.pugx.org/austintoddj/canvas/license" alt="License"></a>
+</p>
 
 ## About Canvas
 
