@@ -1,13 +1,15 @@
-## <img src="https://github.com/austintoddj/canvas/blob/master/public/assets/images/gh-brand.jpg?raw=true" width="175">
+<a href="http://canvas.toddaustin.io"><img src="https://github.com/austintoddj/canvas/blob/master/public/assets/images/gh-readme.jpg?raw=true"></a>
 
+<center>
 [![Build Status](https://travis-ci.org/austintoddj/canvas.svg?branch=master)](https://travis-ci.org/austintoddj/canvas)
 [![StyleCI](https://styleci.io/repos/52815899/shield?style=flat&branch=master)](https://styleci.io/repos/52815899)
 [![Dependency Status](https://www.versioneye.com/user/projects/57dff0d579806f0043346a68/badge.svg?style=flat)](https://www.versioneye.com/user/projects/57dff0d579806f0043346a68)
 [![Total Downloads](https://poser.pugx.org/austintoddj/canvas/downloads)](https://packagist.org/packages/austintoddj/canvas)
 [![Latest Stable Version](https://poser.pugx.org/austintoddj/canvas/v/stable)](https://packagist.org/packages/austintoddj/canvas)
 [![License](https://poser.pugx.org/austintoddj/canvas/license)](https://packagist.org/packages/austintoddj/canvas)
+</center>
 
-<a href="http://canvas.toddaustin.io"><img src="https://github.com/austintoddj/canvas/blob/master/public/assets/images/gh-readme.jpg?raw=true"></a>
+## About Canvas
 
 [Canvas](http://canvas.toddaustin.io) is a simple, powerful blog publishing platform that lets you to share your stories with the world. Its beautifully designed interface and completely customizable framework allows you to create and publish your own blog, giving you tools that make it easy and even fun to do.
 
@@ -32,7 +34,7 @@ Before you proceed make sure your server meets the following requirements:
 
 2. Run `composer install` from the command line in the project root.
 3. Run `yarn` from the command line in the project root.
-4. Run `php artisan storage:link` to link the `storage/app/public` folder to `public/storage` 
+4. Run `php artisan storage:link` to link the `storage/app/public` folder to `public/storage`
 5. Copy the contents of `.env.example` and create a new file called `.env` in the project root. Set your application variables in the new file. Be sure to keep the value of `APP_ENV` set to `local` for the duration of the install.
 6. Run `php artisan canvas:install` and follow the on-screen prompts.
 7. Run `chmod -R 777 storage/` to change the permissions of the `storage/` directory.
@@ -58,12 +60,12 @@ Before you proceed make sure your server meets the following requirements:
 
 ## Contributing
 
-Thank you for considering contributing to Canvas! The [contribution guide](https://github.com/austintoddj/Canvas/blob/master/CONTRIBUTING.md) provides instructions on how to [submit an issue](https://github.com/austintoddj/canvas/issues), [create pull requests](https://github.com/austintoddj/canvas/pulls) and more. It also has details about joining the official [HipChat group](https://canvas-chat.hipchat.com) for those who want to be a part of Canvas' future development.
+Thank you for considering contributing to Canvas! The [contribution guide](https://github.com/austintoddj/canvas/blob/master/CONTRIBUTING.md) provides instructions on how to [submit an issue](https://github.com/austintoddj/canvas/issues), [create pull requests](https://github.com/austintoddj/canvas/pulls) and more. It also has details about joining the official [HipChat group](https://canvas-chat.hipchat.com) for those who want to be a part of Canvas' future development.
 
 ## Changelog
 
-Detailed changes for each release are documented in the [release notes](https://github.com/austintoddj/Canvas/releases).
+Detailed changes for each release are documented in the [release notes](https://github.com/austintoddj/canvas/releases).
 
 ## License
 
-Canvas is open-sourced software licensed under the [MIT license](https://github.com/austintoddj/Canvas/blob/master/LICENSE).
+Canvas is open-sourced software licensed under the [MIT license](https://github.com/austintoddj/canvas/blob/master/LICENSE).
