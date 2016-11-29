@@ -1,13 +1,13 @@
 <a href="http://canvas.toddaustin.io"><img src="https://github.com/austintoddj/canvas/blob/master/public/assets/images/gh-readme.jpg?raw=true"></a>
 
-<center>
+<div style="text-align: center">
 [![Build Status](https://travis-ci.org/austintoddj/canvas.svg?branch=master)](https://travis-ci.org/austintoddj/canvas)
 [![StyleCI](https://styleci.io/repos/52815899/shield?style=flat&branch=master)](https://styleci.io/repos/52815899)
 [![Dependency Status](https://www.versioneye.com/user/projects/57dff0d579806f0043346a68/badge.svg?style=flat)](https://www.versioneye.com/user/projects/57dff0d579806f0043346a68)
 [![Total Downloads](https://poser.pugx.org/austintoddj/canvas/downloads)](https://packagist.org/packages/austintoddj/canvas)
 [![Latest Stable Version](https://poser.pugx.org/austintoddj/canvas/v/stable)](https://packagist.org/packages/austintoddj/canvas)
 [![License](https://poser.pugx.org/austintoddj/canvas/license)](https://packagist.org/packages/austintoddj/canvas)
-</center>
+</div>
 
 ## About Canvas
 
