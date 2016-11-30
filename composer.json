@@ -1,5 +1,5 @@
 {
-    "name": "austintoddj/canvas",
+    "name": "cnvs/canvas",
     "description": "Simple, Powerful Blog Publishing Platform",
     "keywords": [
         "simple",
@@ -24,6 +24,7 @@
     "require": {
         "php": ">=5.6.4",
         "laravel/framework": "5.3.*",
+        "cnvs/easel": "dev-master",
         "laravel/scout": "^1.1",
         "doctrine/dbal": "^2.5",
         "erusev/parsedown": "^1.6",
@@ -47,8 +48,7 @@
             "../easel/database"
         ],
         "psr-4": {
-            "App\\": "app/",
-            "Canvas\\": "../easel/src/"
+            "App\\": "app/"
         }
     },
     "scripts": {
@@ -68,6 +68,7 @@
         ]
     },
     "config": {
-        "preferred-install": "dist"
+        "preferred-install": "dist",
+        "minimum-stability": "dev"
     }
 }
