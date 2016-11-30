@@ -46,11 +46,11 @@ class Handler extends ExceptionHandler
     {
         switch ($e) {
             case $e instanceof \Symfony\Component\HttpKernel\Exception\NotFoundHttpException:
-                return response(view('errors.404'), 404);
+                return response(view('canvas::errors.404'), 404);
                 break;
 
             case $e instanceof \Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException:
-                return response(view('errors.404'), 404);
+                return response(view('canvas::errors.404'), 404);
                 break;
 
             default:
@@ -71,7 +71,7 @@ class Handler extends ExceptionHandler
         if ($request->expectsJson()) {
             return response()->json(['error' => 'Unauthenticated.'], 401);
         } else {
-            return view('auth.login');
+            return view('canvas::auth.login');
         }
     }
 }

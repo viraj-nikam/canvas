@@ -9,7 +9,7 @@ class MigrationsTest extends EloquentTestCase
      *
      * @var string
      */
-    protected $model = 'App\Models\Migrations';
+    protected $model = 'Canvas\Models\Migrations';
 
     /**
      * Disable database seeding.

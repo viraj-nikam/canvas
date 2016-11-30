@@ -1,5 +1,5 @@
 {
-    "name": "austintoddj/canvas",
+    "name": "cnvs/canvas",
     "description": "Simple, Powerful Blog Publishing Platform",
     "keywords": [
         "simple",
@@ -23,14 +23,15 @@
     ],
     "require": {
         "php": ">=5.6.4",
-        "laravel/framework": "5.3.20",
+        "laravel/framework": "5.3.*",
+        "cnvs/easel": "dev-master",
         "laravel/scout": "^1.1",
         "doctrine/dbal": "^2.5",
         "erusev/parsedown": "^1.6",
         "maatwebsite/excel": "~2.1.0",
         "larapack/config-writer": "^1.0",
         "talvbansal/media-manager": "~2.0.0",
-        "proengsoft/laravel-jsvalidation": "~1.3.1",
+        "austintoddj/laravel-jsvalidation": "~1.0.0",
         "teamtnt/laravel-scout-tntsearch-driver": "^1.1"
     },
     "require-dev": {
@@ -43,18 +44,12 @@
     },
     "autoload": {
         "classmap": [
-            "database"
+            "database",
+            "../easel/database"
         ],
         "psr-4": {
             "App\\": "app/"
         }
-    },
-    "autoload-dev": {
-        "classmap": [
-            "tests/TestCase.php",
-            "tests/InteractsWithDatabase.php",
-            "tests/CreatesUser.php"
-        ]
     },
     "scripts": {
         "post-root-package-install": [
@@ -73,6 +68,7 @@
         ]
     },
     "config": {
-        "preferred-install": "dist"
+        "preferred-install": "dist",
+        "minimum-stability": "dev"
     }
 }

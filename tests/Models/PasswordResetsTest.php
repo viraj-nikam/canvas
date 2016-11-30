@@ -9,7 +9,7 @@ class PasswordResetsTest extends EloquentTestCase
      *
      * @var string
      */
-    protected $model = 'App\Models\PasswordResets';
+    protected $model = 'Canvas\Models\PasswordResets';
 
     /**
      * Disable database seeding.

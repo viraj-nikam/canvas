@@ -42,7 +42,7 @@ class ProfilePageTest extends TestCase
     /** @test */
     public function it_shows_error_messages_for_required_fields()
     {
-        $this->actingAs(factory(App\Models\User::class)->create())
+        $this->actingAs(factory(Canvas\Models\User::class)->create())
             ->visit('/admin/profile');
 
         // Fill in all of the required fields with an empty string

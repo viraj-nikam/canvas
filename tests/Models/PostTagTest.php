@@ -9,7 +9,7 @@ class PostTagTest extends EloquentTestCase
      *
      * @var string
      */
-    protected $model = 'App\Models\PostTag';
+    protected $model = 'Canvas\Models\PostTag';
 
     /**
      * Disable database seeding.
