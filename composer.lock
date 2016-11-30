@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "7d5914f09f1ffb6410c1205580e3c75e",
-    "content-hash": "886b10d242a5a52a2153250498cc98c1",
+    "hash": "b6f38884c1f97c1a9296d09ff1c29d6e",
+    "content-hash": "a4ac93472a0636659c0f4e921a6fdf71",
     "packages": [
         {
             "name": "austintoddj/laravel-jsvalidation",
@@ -118,16 +118,16 @@
         },
         {
             "name": "cnvs/easel",
-            "version": "dev-master",
+            "version": "v1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cnvs/easel.git",
-                "reference": "7d5cd2be15f579a9189355eed9889452b88a36b5"
+                "reference": "ef8747fcea0a4faf4aaa1a8e89e7710e47376fdc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cnvs/easel/zipball/7d5cd2be15f579a9189355eed9889452b88a36b5",
-                "reference": "7d5cd2be15f579a9189355eed9889452b88a36b5",
+                "url": "https://api.github.com/repos/cnvs/easel/zipball/ef8747fcea0a4faf4aaa1a8e89e7710e47376fdc",
+                "reference": "ef8747fcea0a4faf4aaa1a8e89e7710e47376fdc",
                 "shasum": ""
             },
             "require": {
@@ -171,7 +171,7 @@
                 "canvas",
                 "core"
             ],
-            "time": "2016-11-30 16:13:19"
+            "time": "2016-11-30 20:12:47"
         },
         {
             "name": "dflydev/apache-mime-types",
@@ -467,16 +467,16 @@
         },
         {
             "name": "doctrine/common",
-            "version": "v2.6.1",
+            "version": "v2.6.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/common.git",
-                "reference": "a579557bc689580c19fee4e27487a67fe60defc0"
+                "reference": "7bce00698899aa2c06fe7365c76e4d78ddb15fa3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/common/zipball/a579557bc689580c19fee4e27487a67fe60defc0",
-                "reference": "a579557bc689580c19fee4e27487a67fe60defc0",
+                "url": "https://api.github.com/repos/doctrine/common/zipball/7bce00698899aa2c06fe7365c76e4d78ddb15fa3",
+                "reference": "7bce00698899aa2c06fe7365c76e4d78ddb15fa3",
                 "shasum": ""
             },
             "require": {
@@ -536,7 +536,7 @@
                 "persistence",
                 "spl"
             ],
-            "time": "2015-12-25 13:18:31"
+            "time": "2016-11-30 16:50:46"
         },
         {
             "name": "doctrine/dbal",
@@ -4543,9 +4543,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "cnvs/easel": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
