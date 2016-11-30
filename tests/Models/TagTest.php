@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Post;
+use Canvas\Models\Post;
 use EGALL\EloquentPHPUnit\EloquentTestCase;
 
 class TagTest extends EloquentTestCase
@@ -12,7 +12,7 @@ class TagTest extends EloquentTestCase
      *
      * @var string
      */
-    protected $model = 'App\Models\Tag';
+    protected $model = 'Canvas\Models\Tag';
 
     /** @test */
     public function the_database_table_has_all_of_the_correct_columns()

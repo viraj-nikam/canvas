@@ -175,7 +175,7 @@ return [
         Maatwebsite\Excel\ExcelServiceProvider::class,
         TalvBansal\MediaManager\Providers\MediaManagerServiceProvider::class,
         TeamTNT\Scout\TNTSearchScoutServiceProvider::class,
-
+        Canvas\CanvasServiceProvider::class,
     ],
 
     /*
@@ -230,8 +230,8 @@ return [
         'JsValidator'   => Austintoddj\JsValidation\Facades\JsValidatorFacade::class,
         'ConfigWriter'  => Larapack\ConfigWriter\Repository::class,
         'Excel'         => Maatwebsite\Excel\Facades\Excel::class,
-        'Settings'      => \App\Models\Settings::class,
-        'Helpers'       => \App\Helpers::class,
+        'Settings'      => Canvas\Models\Settings::class,
+        'Helpers'       => Canvas\Helpers::class,
 
     ],
 

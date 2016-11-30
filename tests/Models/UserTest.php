@@ -11,7 +11,7 @@ class UserTest extends EloquentTestCase
      *
      * @var string
      */
-    protected $model = 'App\Models\User';
+    protected $model = 'Canvas\Models\User';
 
     /**
      * Disable database seeding.

@@ -1,8 +1,8 @@
 <?php
 
-use App\Models\Tag;
-use App\Models\Post;
-use App\Models\User;
+use Canvas\Models\Tag;
+use Canvas\Models\Post;
+use Canvas\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 trait InteractsWithDatabase
