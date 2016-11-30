@@ -49,7 +49,7 @@ Before you proceed make sure your server meets the following requirements:
 ## Advanced Options
 
 1. Themes
-    * Create your own theme by editing the stylesheet at `resources/assets/sass/theme/styles.scss` or grab an [Official Canvas Theme](https://github.com/austintoddj/palette), fresh off the palette.
+    * Create your own theme by editing the stylesheet at `resources/assets/sass/theme/styles.scss` or grab an [Official Canvas Theme](https://github.com/cnvs/palette), fresh off the palette.
     * Run `gulp` after any changes to `resources/assets/sass/theme/styles.scss`
 
 2. Google Analytics
@@ -65,12 +65,12 @@ Before you proceed make sure your server meets the following requirements:
 
 ## Contributing
 
-Thank you for considering contributing to Canvas! The [contribution guide](https://github.com/austintoddj/canvas/blob/master/CONTRIBUTING.md) provides instructions on how to [submit an issue](https://github.com/austintoddj/canvas/issues), [create pull requests](https://github.com/austintoddj/canvas/pulls) and more. It also has details about joining the official [HipChat group](https://canvas-chat.hipchat.com) for those who want to be a part of Canvas' future development.
+Thank you for considering contributing to Canvas! The [contribution guide](https://github.com/cnvs/canvas/blob/master/CONTRIBUTING.md) provides instructions on how to [submit an issue](https://github.com/cnvs/canvas/issues), [create pull requests](https://github.com/cnvs/canvas/pulls) and more. It also has details about joining the official [HipChat group](https://canvas-chat.hipchat.com) for those who want to be a part of Canvas' future development.
 
 ## Changelog
 
-Detailed changes for each release are documented in the [release notes](https://github.com/austintoddj/canvas/releases).
+Detailed changes for each release are documented in the [release notes](https://github.com/cnvs/canvas/releases).
 
 ## License
 
-Canvas is open-sourced software licensed under the [MIT license](https://github.com/austintoddj/canvas/blob/master/LICENSE).
+Canvas is open-sourced software licensed under the [MIT license](https://github.com/cnvs/canvas/blob/master/LICENSE).
