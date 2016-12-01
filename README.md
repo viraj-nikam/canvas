@@ -44,28 +44,11 @@ Before you proceed make sure your server meets the following requirements:
 6. Run `php artisan canvas:install` and follow the on-screen prompts.
 7. Run `chmod -R 777 storage/` to change the permissions of the `storage/` directory.
 
-**Congratulations!** Your new blog is set up and ready to go. Feeling adventurous? Continue on with the advanced options below to get even more out of Canvas.
-
-## Advanced Options
-
-1. Themes
-    * Create your own theme by editing the stylesheet at `resources/assets/sass/theme/styles.scss` or grab an [Official Canvas Theme](https://github.com/cnvs/palette), fresh off the palette.
-    * Run `gulp` after any changes to `resources/assets/sass/theme/styles.scss`
-
-2. Google Analytics
-    * Set up a web property on [Google Analytics](https://www.google.com/analytics/#?modal_active=none).
-    * Enter your tracking ID on the `Settings` page.
-
-3. Disqus Integration
-    * Generate a unique shortname from [Disqus](https://help.disqus.com/customer/portal/articles/466208-what-s-a-shortname-).
-    * Enter your shortname on the `Settings` page.
-
-4. Email Notifications
-    * To enable the **Forgot My Password** feature on the login page, make sure you set the appropriate mail driver variables in your `.env` file.
+**Congratulations!** Your new blog is set up and ready to go. Feeling adventurous? Check out some [advanced options](https://cnvs.readme.io/docs/advanced-options) to get even more out of Canvas.
 
 ## Contributing
 
-Thank you for considering contributing to Canvas! The [contribution guide](https://github.com/cnvs/canvas/blob/master/CONTRIBUTING.md) provides instructions on how to [submit an issue](https://github.com/cnvs/canvas/issues), [create pull requests](https://github.com/cnvs/canvas/pulls) and more. It also has details about joining the official [HipChat group](https://cnvs.hipchat.com) for those who want to be a part of Canvas' future development.
+Thank you for considering contributing to Canvas! The contribution guide can be found in the [Canvas documentation](https://cnvs.readme.io/docs/contributing).
 
 ## Changelog
 
