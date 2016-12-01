@@ -20,31 +20,9 @@
 * Native [Google Analytics](https://www.google.com/analytics/#?modal_active=none) integration.
 * Powered by [Laravel 5](https://laravel.com).
 
-## Requirements
-
-Before you proceed make sure your server meets the following requirements:
-
-- [Composer](https://getcomposer.org/)
-- [PHP](https://php.net/) >= 5.6.4
-- JavaScript package manager ([Yarn](https://yarnpkg.com/) / [NPM](https://www.npmjs.com))
-- PHP extensions ([PDO](http://php.net/manual/en/book.pdo.php), [SQLite](http://php.net/manual/en/book.sqlite.php), [OpenSSL](http://php.net/manual/en/book.openssl.php), [Mbstring](http://php.net/manual/en/book.mbstring.php), [Tokenizer](http://php.net/manual/en/book.tokenizer.php), [Zip](http://php.net/manual/en/book.zip.php))
-- PDO compliant database ([SQL](https://www.microsoft.com/en-us/sql-server/) / [MySQL](https://www.mysql.com) / [PostgreSQL](https://www.postgresql.org) / [SQLite](https://www.sqlite.org))
-
 ## Installation
 
-1. There are 3 ways of downloading the application:
-    * Use [GitHub](https://github.com): simply click the `Clone or download` button at the top right of this page and choose `Download ZIP`
-    * Use [Git](https://git-scm.com): `git clone https://github.com/cnvs/canvas.git`
-    * Use [Packagist](https://packagist.org): `composer create-project cnvs/canvas`
-
-2. Run `composer install` from the command line in the project root.
-3. Run `yarn` from the command line in the project root.
-4. Run `php artisan storage:link` to link the `storage/app/public` folder to `public/storage`
-5. Copy the contents of `.env.example` and create a new file called `.env` in the project root. Set your application variables in the new file. Be sure to keep the value of `APP_ENV` set to `local` for the duration of the install.
-6. Run `php artisan canvas:install` and follow the on-screen prompts.
-7. Run `chmod -R 777 storage/` to change the permissions of the `storage/` directory.
-
-**Congratulations!** Your new blog is set up and ready to go. Feeling adventurous? Check out some [advanced options](https://cnvs.readme.io/docs/advanced-options) to get even more out of Canvas.
+The simple, 7-step installation guide can be found in the [Canvas documentation](https://cnvs.readme.io/docs/installation).
 
 ## Contributing
 
