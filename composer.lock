@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b6f38884c1f97c1a9296d09ff1c29d6e",
-    "content-hash": "a4ac93472a0636659c0f4e921a6fdf71",
+    "hash": "68aeadf9c5d4075d7873b165834b0b83",
+    "content-hash": "62ff7c4daae97c51d614727d322bfce9",
     "packages": [
         {
             "name": "austintoddj/laravel-jsvalidation",
@@ -115,63 +115,6 @@
                 "preload"
             ],
             "time": "2015-11-09 22:51:51"
-        },
-        {
-            "name": "cnvs/easel",
-            "version": "v1.0.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/cnvs/easel.git",
-                "reference": "ef8747fcea0a4faf4aaa1a8e89e7710e47376fdc"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/cnvs/easel/zipball/ef8747fcea0a4faf4aaa1a8e89e7710e47376fdc",
-                "reference": "ef8747fcea0a4faf4aaa1a8e89e7710e47376fdc",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/support": "5.*",
-                "php": ">=5.6.4"
-            },
-            "require-dev": {
-                "erikgall/eloquent-phpunit": "~1.0",
-                "fzaninotto/faker": "~1.4",
-                "mockery/mockery": "0.9.*",
-                "phpunit/phpunit": "~5.0",
-                "symfony/css-selector": "~3.0",
-                "symfony/dom-crawler": "~3.0"
-            },
-            "type": "library",
-            "autoload": {
-                "classmap": [
-                    "database"
-                ],
-                "psr-4": {
-                    "Canvas\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Todd Austin",
-                    "email": "austin.todd.j@gmail.com"
-                },
-                {
-                    "name": "Patrick Reid",
-                    "email": "reliq@reliqarts.com"
-                }
-            ],
-            "description": "Core Framework for Canvas.",
-            "homepage": "https://canvas.toddaustin.io",
-            "keywords": [
-                "canvas",
-                "core"
-            ],
-            "time": "2016-11-30 20:12:47"
         },
         {
             "name": "dflydev/apache-mime-types",
