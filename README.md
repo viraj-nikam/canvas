@@ -22,11 +22,11 @@
 
 ## Installation
 
-The simple, 7-step installation guide can be found in the [Canvas documentation](https://cnvs.readme.io/docs/installation).
+The [Canvas installation guide](https://cnvs.readme.io/docs/installation) can be found in the official documentation.
 
 ## Contributing
 
-Thank you for considering contributing to Canvas! The contribution guide can be found in the [Canvas documentation](https://cnvs.readme.io/docs/contributing).
+Thank you for considering contributing to Canvas! The [Canvas contribution guide](https://cnvs.readme.io/docs/contributing) can be found in the official documentation.
 
 ## Changelog
 
