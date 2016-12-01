@@ -11,7 +11,7 @@ return [
     | process.
     |
     */
-    'version' => 'v2.2.0',
+    'version' => 'v2.2.x',
 
     /*
     |--------------------------------------------------------------------------
@@ -50,7 +50,7 @@ return [
     | If you need to update the layout, just change it there.
     |
     */
-    'post_layout' => \Canvas\Jobs\PostFormFields::$blogLayout,
+    'post_layout' => Canvas\Jobs\PostFormFields::$blogLayout,
 
     /*
     |--------------------------------------------------------------------------
