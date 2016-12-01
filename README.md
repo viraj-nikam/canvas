@@ -4,7 +4,7 @@
     <a href="https://travis-ci.org/austintoddj/canvas"><img src="https://travis-ci.org/austintoddj/canvas.svg?branch=master" alt="Build Status"></a>
     <a href="https://styleci.io/repos/52815899"><img src="https://styleci.io/repos/52815899/shield?style=flat&branch=master" alt="StyleCI"></a>
     <a href='https://www.versioneye.com/user/projects/583f066ec68b12000e89433a'><img src='https://www.versioneye.com/user/projects/583f066ec68b12000e89433a/badge.svg?style=flat' alt="Dependency Status" /></a>
-    <a href="https://packagist.org/packages/cnvs/canvas"><img src="https://poser.pugx.org/cnvs/canvas/downloads" alt="Total Downloads"></a> 
+    <a href="https://packagist.org/packages/austintoddj/canvas"><img src="https://poser.pugx.org/austintoddj/canvas/downloads" alt="Total Downloads"></a> 
     <a href="https://packagist.org/packages/cnvs/canvas"><img src="https://poser.pugx.org/cnvs/canvas/v/stable" alt="Latest Stable Version"></a>
     <a href="https://github.com/cnvs/canvas/blob/master/LICENSE"><img src="https://poser.pugx.org/cnvs/canvas/license" alt="License"></a>
 </p>
