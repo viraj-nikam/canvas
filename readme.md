@@ -6,7 +6,7 @@
     <a href='https://www.versioneye.com/user/projects/584041204d07fe000ef4301f'><img src='https://www.versioneye.com/user/projects/584041204d07fe000ef4301f/badge.svg?style=flat' alt="Dependency Status" /></a>
     <a href="https://packagist.org/packages/austintoddj/canvas"><img src="https://poser.pugx.org/austintoddj/canvas/downloads" alt="Total Downloads"></a> 
     <a href="https://packagist.org/packages/cnvs/canvas"><img src="https://poser.pugx.org/cnvs/canvas/v/stable" alt="Latest Stable Version"></a>
-    <a href="https://github.com/cnvs/canvas/blob/master/LICENSE"><img src="https://poser.pugx.org/cnvs/canvas/license" alt="License"></a>
+    <a href="https://github.com/cnvs/canvas/blob/master/license"><img src="https://poser.pugx.org/cnvs/canvas/license" alt="License"></a>
 </p>
 
 ## About Canvas
