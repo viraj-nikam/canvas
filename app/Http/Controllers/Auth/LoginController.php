@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Auth;
 
 use Session;
-use Canvas\Helpers;
 use Canvas\Models\User;
 use Canvas\Models\Settings;
 use Illuminate\Http\Request;
+use Canvas\Helpers\CanvasHelper;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
@@ -101,9 +101,8 @@ class LoginController extends Controller
      */
     public function authenticated(Request $request, User $user)
     {
-        $col = Settings::getByName('latest_release');
-        empty($col) ? Settings::firstOrCreate(['setting_name' => 'latest_release', 'setting_value' => Helpers::getLatestRelease()]) : Settings::where('setting_name', 'latest_release')->update(['setting_value' => Helpers::getLatestRelease()]);
-        Session::set('_login', trans('messages.login', ['display_name' => $user->display_name]));
+        // Let Canvas know the user has been authenticated.
+        CanvasHelper::authenticated($request, $user);
 
         return redirect()->intended($this->redirectPath());
     }
