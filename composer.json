@@ -18,7 +18,8 @@
     "authors": [
         {
             "name": "Todd Austin",
-            "email": "austin.todd.j@gmail.com"
+            "email": "austin.todd.j@gmail.com",
+            "role": "Creator"
         }
     ],
     "require": {
