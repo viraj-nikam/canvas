@@ -1,7 +1,7 @@
 <a href="http://canvas.toddaustin.io"><img src="https://github.com/austintoddj/canvas/blob/master/public/assets/images/gh-readme.jpg?raw=true"></a>
 
 <p align="center">
-    <a href="https://travis-ci.org/austintoddj/canvas"><img src="https://travis-ci.org/austintoddj/canvas.svg?branch=master" alt="Build Status"></a>
+    <a href="https://travis-ci.org/cnvs/easel"><img src="https://travis-ci.org/cnvs/easel.svg?branch=master" alt="Build Status"></a>
     <a href="https://styleci.io/repos/52815899"><img src="https://styleci.io/repos/52815899/shield?style=flat&branch=master" alt="StyleCI"></a>
     <a href='https://www.versioneye.com/user/projects/584041204d07fe000ef4301f'><img src='https://www.versioneye.com/user/projects/584041204d07fe000ef4301f/badge.svg?style=flat' alt="Dependency Status" /></a>
     <a href="https://packagist.org/packages/austintoddj/canvas"><img src="https://poser.pugx.org/austintoddj/canvas/downloads" alt="Total Downloads"></a> 
