@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "bcea34453f14179b55ec9b2bfd69adfd",
+    "hash": "6dff0a5c8d0d581a94df99cc67db1fde",
     "content-hash": "aafe87ea107fc624c4f72270ba06c4b9",
     "packages": [
         {
@@ -3112,16 +3112,16 @@
         },
         {
             "name": "teamtnt/laravel-scout-tntsearch-driver",
-            "version": "v1.1.5",
+            "version": "v1.1.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/teamtnt/laravel-scout-tntsearch-driver.git",
-                "reference": "6e2f76d8db827d94097c2dc872c4fc39c2367746"
+                "reference": "e0fcd7cf53f638e4c9e01f1ab38fbb2f4ab328e2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/teamtnt/laravel-scout-tntsearch-driver/zipball/6e2f76d8db827d94097c2dc872c4fc39c2367746",
-                "reference": "6e2f76d8db827d94097c2dc872c4fc39c2367746",
+                "url": "https://api.github.com/repos/teamtnt/laravel-scout-tntsearch-driver/zipball/e0fcd7cf53f638e4c9e01f1ab38fbb2f4ab328e2",
+                "reference": "e0fcd7cf53f638e4c9e01f1ab38fbb2f4ab328e2",
                 "shasum": ""
             },
             "require": {
@@ -3166,7 +3166,7 @@
                 "search",
                 "tntsearch"
             ],
-            "time": "2016-10-24 10:53:08"
+            "time": "2016-12-19 17:13:11"
         },
         {
             "name": "teamtnt/tntsearch",
