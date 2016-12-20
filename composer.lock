@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a9f8f37887114df034239965855f630a",
-    "content-hash": "1040227c959dec66a700b3e39ccb9149",
+    "hash": "e589573ccac54f6349ceea3b168d42a0",
+    "content-hash": "182f6a55466b27fb9a77ab3f713d625a",
     "packages": [
         {
             "name": "austintoddj/laravel-jsvalidation",
@@ -118,16 +118,16 @@
         },
         {
             "name": "cnvs/easel",
-            "version": "dev-feature/tests",
+            "version": "dev-develop",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cnvs/easel.git",
-                "reference": "6a7d8e53dcbde0d4082afa8ae4d17ebd778f3245"
+                "reference": "21d33ded5917da123a5003f014009202c62c4595"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cnvs/easel/zipball/6a7d8e53dcbde0d4082afa8ae4d17ebd778f3245",
-                "reference": "6a7d8e53dcbde0d4082afa8ae4d17ebd778f3245",
+                "url": "https://api.github.com/repos/cnvs/easel/zipball/21d33ded5917da123a5003f014009202c62c4595",
+                "reference": "21d33ded5917da123a5003f014009202c62c4595",
                 "shasum": ""
             },
             "require": {
@@ -186,7 +186,7 @@
                 "canvas",
                 "core"
             ],
-            "time": "2016-12-20 13:50:57"
+            "time": "2016-12-20 14:21:13"
         },
         {
             "name": "dflydev/apache-mime-types",
