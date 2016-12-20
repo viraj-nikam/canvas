@@ -170,11 +170,6 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         // Canvas Service Providers...
-        Austintoddj\JsValidation\JsValidationServiceProvider::class,
-        Laravel\Scout\ScoutServiceProvider::class,
-        Maatwebsite\Excel\ExcelServiceProvider::class,
-        TalvBansal\MediaManager\Providers\MediaManagerServiceProvider::class,
-        TeamTNT\Scout\TNTSearchScoutServiceProvider::class,
         Canvas\CanvasServiceProvider::class,
     ],
 

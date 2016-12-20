@@ -1,8 +1,10 @@
 /vendor
 /node_modules
-/storage/*.index
 /public/storage
+/public/vendor
+/storage/*.index
 /tests/report
+
 
 Thumbs.db
 Homestead.yaml

@@ -17,7 +17,7 @@ class ProfilePrivacyPageTest extends TestCase
     /** @test */
     public function it_validates_the_current_password()
     {
-        $this->actingAs($this->user)->post('auth/password', [
+        $this->actingAs($this->user)->post('/password', [
             'password'                  => 'wrongPass',
             'new_password'              => 'newPass',
             'new_password_confirmation' => 'newPass',
@@ -29,7 +29,7 @@ class ProfilePrivacyPageTest extends TestCase
     /** @test */
     public function it_can_update_the_password()
     {
-        $this->actingAs($this->user)->post('auth/password', [
+        $this->actingAs($this->user)->post('/password', [
             'password'                  => 'password',
             'new_password'              => 'newPass',
             'new_password_confirmation' => 'newPass',
