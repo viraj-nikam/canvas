@@ -122,12 +122,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/cnvs/easel.git",
-                "reference": "cfd07fd85adb5fc8fd29b65b9ef0d4bd61f07c5a"
+                "reference": "e187d25d283261b74cf181eec0b7bdc54486c3bd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cnvs/easel/zipball/cfd07fd85adb5fc8fd29b65b9ef0d4bd61f07c5a",
-                "reference": "cfd07fd85adb5fc8fd29b65b9ef0d4bd61f07c5a",
+                "url": "https://api.github.com/repos/cnvs/easel/zipball/e187d25d283261b74cf181eec0b7bdc54486c3bd",
+                "reference": "e187d25d283261b74cf181eec0b7bdc54486c3bd",
                 "shasum": ""
             },
             "require": {
@@ -186,7 +186,7 @@
                 "canvas",
                 "core"
             ],
-            "time": "2016-12-20 16:17:53"
+            "time": "2016-12-20 18:39:25"
         },
         {
             "name": "dflydev/apache-mime-types",
