@@ -122,12 +122,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/cnvs/easel.git",
-                "reference": "935183f44464e3aa7c006bc010f3ae43729593b9"
+                "reference": "cfd07fd85adb5fc8fd29b65b9ef0d4bd61f07c5a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cnvs/easel/zipball/935183f44464e3aa7c006bc010f3ae43729593b9",
-                "reference": "935183f44464e3aa7c006bc010f3ae43729593b9",
+                "url": "https://api.github.com/repos/cnvs/easel/zipball/cfd07fd85adb5fc8fd29b65b9ef0d4bd61f07c5a",
+                "reference": "cfd07fd85adb5fc8fd29b65b9ef0d4bd61f07c5a",
                 "shasum": ""
             },
             "require": {
@@ -135,7 +135,7 @@
                 "erusev/parsedown": "^1.6",
                 "illuminate/support": "5.*",
                 "larapack/config-writer": "^1.0",
-                "laravel/scout": "^1.1",
+                "laravel/scout": "2.*",
                 "maatwebsite/excel": "^2.1",
                 "orchestra/testbench": "^3.3",
                 "php": ">=5.6.4",
@@ -186,7 +186,7 @@
                 "canvas",
                 "core"
             ],
-            "time": "2016-12-20 15:29:23"
+            "time": "2016-12-20 16:17:53"
         },
         {
             "name": "dflydev/apache-mime-types",
@@ -1190,16 +1190,16 @@
         },
         {
             "name": "laravel/scout",
-            "version": "v1.1.12",
+            "version": "v2.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/scout.git",
-                "reference": "9efc1d7b6e51216bbff6430ccef137a08b78fc13"
+                "reference": "2400432a48ec5d87eb39c08ee78dfa1bcfadefe6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/scout/zipball/9efc1d7b6e51216bbff6430ccef137a08b78fc13",
-                "reference": "9efc1d7b6e51216bbff6430ccef137a08b78fc13",
+                "url": "https://api.github.com/repos/laravel/scout/zipball/2400432a48ec5d87eb39c08ee78dfa1bcfadefe6",
+                "reference": "2400432a48ec5d87eb39c08ee78dfa1bcfadefe6",
                 "shasum": ""
             },
             "require": {
@@ -1213,7 +1213,6 @@
             },
             "require-dev": {
                 "algolia/algoliasearch-client-php": "^1.10",
-                "elasticsearch/elasticsearch": "^2.2",
                 "mockery/mockery": "~0.9",
                 "phpunit/phpunit": "~5.0"
             },
@@ -1224,7 +1223,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.0-dev"
+                    "dev-master": "2.0-dev"
                 }
             },
             "autoload": {
@@ -1249,7 +1248,7 @@
                 "laravel",
                 "search"
             ],
-            "time": "2016-12-12 22:39:05"
+            "time": "2016-12-16 17:17:36"
         },
         {
             "name": "league/flysystem",
