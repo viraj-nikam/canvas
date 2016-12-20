@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "e589573ccac54f6349ceea3b168d42a0",
-    "content-hash": "182f6a55466b27fb9a77ab3f713d625a",
+    "hash": "bcea34453f14179b55ec9b2bfd69adfd",
+    "content-hash": "aafe87ea107fc624c4f72270ba06c4b9",
     "packages": [
         {
             "name": "austintoddj/laravel-jsvalidation",
@@ -118,16 +118,16 @@
         },
         {
             "name": "cnvs/easel",
-            "version": "dev-develop",
+            "version": "dev-feature/extensible",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cnvs/easel.git",
-                "reference": "cfd07fd85adb5fc8fd29b65b9ef0d4bd61f07c5a"
+                "reference": "fcd75fe1331bc0c57031d6dfd5f8f8dcf45a74c9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cnvs/easel/zipball/cfd07fd85adb5fc8fd29b65b9ef0d4bd61f07c5a",
-                "reference": "cfd07fd85adb5fc8fd29b65b9ef0d4bd61f07c5a",
+                "url": "https://api.github.com/repos/cnvs/easel/zipball/fcd75fe1331bc0c57031d6dfd5f8f8dcf45a74c9",
+                "reference": "fcd75fe1331bc0c57031d6dfd5f8f8dcf45a74c9",
                 "shasum": ""
             },
             "require": {
@@ -150,7 +150,7 @@
                 "symfony/css-selector": "~3.0",
                 "symfony/dom-crawler": "~3.0"
             },
-            "type": "library",
+            "type": "canvas-core",
             "autoload": {
                 "classmap": [
                     "database"
@@ -186,7 +186,7 @@
                 "canvas",
                 "core"
             ],
-            "time": "2016-12-20 16:17:53"
+            "time": "2016-12-20 18:16:45"
         },
         {
             "name": "dflydev/apache-mime-types",
