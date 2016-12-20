@@ -24,14 +24,14 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
     }
 
 
-    protected function disableExceptionHandling()
-    {
-        $this->app->instance(\Illuminate\Contracts\Debug\ExceptionHandler::class, new class extends \App\Exceptions\Handler{
-            public function __construct(){}
-            public function report( Exception $e ){}
-            public function render( $request, Exception $e ){
-                throw $e;
-            }
-        });
-    }
+//    protected function disableExceptionHandling()
+//    {
+//        $this->app->instance(\Illuminate\Contracts\Debug\ExceptionHandler::class, new class extends \App\Exceptions\Handler{
+//            public function __construct(){}
+//            public function report( Exception $e ){}
+//            public function render( $request, Exception $e ){
+//                throw $e;
+//            }
+//        });
+//    }
 }
