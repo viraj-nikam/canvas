@@ -33,17 +33,14 @@
         }
     ],
     "require": {
-        "php": ">=5.6.4",
         "laravel/framework": "5.3.*",
         "cnvs/easel": "dev-develop",
-        "doctrine/dbal": "^2.5"
+        "cnvs/canvas-theme-paper-dark": "*"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
         "mockery/mockery": "0.9.*",
-        "phpunit/phpunit": "~5.0",
-        "symfony/dom-crawler": "~3.0",
-        "symfony/css-selector": "~3.0"
+        "phpunit/phpunit": "~5.0"
     },
     "autoload": {
         "classmap": [

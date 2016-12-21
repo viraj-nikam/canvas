@@ -12,7 +12,6 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $middleware = [
-        \Canvas\Http\Middleware\CheckForMaintenanceMode::class,
         \App\Http\Middleware\EncryptCookies::class,
         \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
         \Illuminate\Session\Middleware\StartSession::class,
@@ -42,7 +41,6 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
-        'checkIfAdmin' => \Canvas\Http\Middleware\CheckIfAdmin::class,
         'auth' => \Illuminate\Auth\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
