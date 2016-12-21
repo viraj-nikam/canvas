@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "6dff0a5c8d0d581a94df99cc67db1fde",
-    "content-hash": "aafe87ea107fc624c4f72270ba06c4b9",
+    "hash": "642f88600943a06f63274e6370adbf86",
+    "content-hash": "182f6a55466b27fb9a77ab3f713d625a",
     "packages": [
         {
             "name": "austintoddj/laravel-jsvalidation",
@@ -118,16 +118,16 @@
         },
         {
             "name": "cnvs/easel",
-            "version": "dev-feature/extensible",
+            "version": "dev-develop",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cnvs/easel.git",
-                "reference": "fcd75fe1331bc0c57031d6dfd5f8f8dcf45a74c9"
+                "reference": "9aed907ce273094fa69ed5ddcebe3f2636e8a22a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cnvs/easel/zipball/fcd75fe1331bc0c57031d6dfd5f8f8dcf45a74c9",
-                "reference": "fcd75fe1331bc0c57031d6dfd5f8f8dcf45a74c9",
+                "url": "https://api.github.com/repos/cnvs/easel/zipball/9aed907ce273094fa69ed5ddcebe3f2636e8a22a",
+                "reference": "9aed907ce273094fa69ed5ddcebe3f2636e8a22a",
                 "shasum": ""
             },
             "require": {
@@ -135,7 +135,7 @@
                 "erusev/parsedown": "^1.6",
                 "illuminate/support": "5.*",
                 "larapack/config-writer": "^1.0",
-                "laravel/scout": "2.*",
+                "laravel/scout": "^1.1",
                 "maatwebsite/excel": "^2.1",
                 "orchestra/testbench": "^3.3",
                 "php": ">=5.6.4",
@@ -149,6 +149,9 @@
                 "phpunit/phpunit": "~5.0",
                 "symfony/css-selector": "~3.0",
                 "symfony/dom-crawler": "~3.0"
+            },
+            "suggest": {
+                "cnvs/canvas-theme-paper-dark": "Official dark theme for Canvas."
             },
             "type": "canvas-core",
             "autoload": {
@@ -186,7 +189,7 @@
                 "canvas",
                 "core"
             ],
-            "time": "2016-12-20 18:16:45"
+            "time": "2016-12-21 01:07:41"
         },
         {
             "name": "dflydev/apache-mime-types",
@@ -1190,16 +1193,16 @@
         },
         {
             "name": "laravel/scout",
-            "version": "v2.0.2",
+            "version": "v1.1.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/scout.git",
-                "reference": "2400432a48ec5d87eb39c08ee78dfa1bcfadefe6"
+                "reference": "9efc1d7b6e51216bbff6430ccef137a08b78fc13"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/scout/zipball/2400432a48ec5d87eb39c08ee78dfa1bcfadefe6",
-                "reference": "2400432a48ec5d87eb39c08ee78dfa1bcfadefe6",
+                "url": "https://api.github.com/repos/laravel/scout/zipball/9efc1d7b6e51216bbff6430ccef137a08b78fc13",
+                "reference": "9efc1d7b6e51216bbff6430ccef137a08b78fc13",
                 "shasum": ""
             },
             "require": {
@@ -1213,6 +1216,7 @@
             },
             "require-dev": {
                 "algolia/algoliasearch-client-php": "^1.10",
+                "elasticsearch/elasticsearch": "^2.2",
                 "mockery/mockery": "~0.9",
                 "phpunit/phpunit": "~5.0"
             },
@@ -1223,7 +1227,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.0-dev"
+                    "dev-master": "1.0-dev"
                 }
             },
             "autoload": {
@@ -1248,7 +1252,7 @@
                 "laravel",
                 "search"
             ],
-            "time": "2016-12-16 17:17:36"
+            "time": "2016-12-12 22:39:05"
         },
         {
             "name": "league/flysystem",
