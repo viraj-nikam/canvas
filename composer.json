@@ -75,5 +75,7 @@
             "Illuminate\\Foundation\\ComposerScripts::postUpdate",
             "php artisan optimize"
         ]
-    }
+    },
+    "minimum-stability": "beta",
+    "prefer-stable": true
 }
