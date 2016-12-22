@@ -17,6 +17,6 @@ phpunit.xml
 *.map
 
 composer.lock
-yarm.lock
+yarn.lock
 
 npm-debug.log
