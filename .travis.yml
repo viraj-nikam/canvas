@@ -14,5 +14,8 @@ install:
   - composer install
 
 script:
+  - php artisan canvas:publish:assets
+  - php artisan canvas:publish:config
+  - php artisan canvas:publish:views
   - php artisan key:generate
   - vendor/bin/phpunit
