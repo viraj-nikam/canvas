@@ -57,7 +57,8 @@
         "classmap": [
             "tests/TestCase.php",
             "tests/InteractsWithDatabase.php",
-            "tests/CreatesUser.php"
+            "tests/CreatesUser.php",
+            "tests/TestHelper.php"
         ]
     },
     "scripts": {
