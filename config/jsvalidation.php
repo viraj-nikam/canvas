@@ -5,7 +5,7 @@ return [
     /*
      * Default view used to render Javascript validation code
      */
-    'view' => 'jsvalidation::bootstrap',
+    'view' => 'canvas::backend.shared.components.jsvalidation',
 
 
     /*
