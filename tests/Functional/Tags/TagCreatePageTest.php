@@ -33,7 +33,7 @@ class TagCreatePageTest extends TestCase
             'reverse_direction' => 0,
         ]);
 
-        $this->seeInDatabase('tags', [
+        $this->seeInDatabase(CanvasHelper::TABLES['tags'], [
             'tag'               => 'example',
             'title'             => 'foo',
             'subtitle'          => 'bar',

@@ -1,5 +1,7 @@
 <?php
 
+use Canvas\Helpers\CanvasHelper;
+
 trait TestHelper
 {
     /**
@@ -32,7 +34,7 @@ trait TestHelper
     {
         $method = $negate ? 'dontSeeInDatabase' : 'seeInDatabase';
 
-        return $this->$method('posts', $data);
+        return $this->$method(CanvasHelper::TABLES['posts'], $data);
     }
     /**
      * Assert that data can be found in the tags table.
@@ -45,7 +47,7 @@ trait TestHelper
     {
         $method = $negate ? 'dontSeeInDatabase' : 'seeInDatabase';
 
-        return $this->$method('posts', $data);
+        return $this->$method(CanvasHelper::TABLES['tags'], $data);
     }
 
     /**

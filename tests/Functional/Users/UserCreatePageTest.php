@@ -1,5 +1,7 @@
 <?php
 
+use Canvas\Helpers\CanvasHelper;
+
 class UserCreatePageTest extends TestCase
 {
     use InteractsWithDatabase, CreatesUser;
@@ -24,7 +26,7 @@ class UserCreatePageTest extends TestCase
             ->type('notValidate', 'last_name')
             ->press('Save');
         $this->seePageIs('admin/user/create');
-        $this->dontSeeInDatabase('users', ['first_name' => 'will', 'last_name' => 'notValidate']);
+        $this->dontSeeInDatabase(CanvasHelper::TABLES['users'], ['first_name' => 'will', 'last_name' => 'notValidate']);
     }
 
     /** @test */
@@ -40,7 +42,7 @@ class UserCreatePageTest extends TestCase
             ->select(1, 'role')
             ->press('Save');
 
-        $this->seeInDatabase('users', [
+        $this->seeInDatabase(CanvasHelper::TABLES['users'], [
             'id'            => 4,
             'first_name'    => 'first',
             'last_name'     => 'last',

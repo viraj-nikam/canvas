@@ -1,5 +1,7 @@
 <?php
 
+use Canvas\Helpers\CanvasHelper;
+
 class UserEditPageTest extends TestCase
 {
     use InteractsWithDatabase, CreatesUser;
@@ -15,7 +17,7 @@ class UserEditPageTest extends TestCase
             ->press('Save')
             ->seePageIs('/admin/user/2/edit')
             ->see('Success! User has been updated.')
-            ->seeInDatabase('users', ['first_name' => 'New Name']);
+            ->seeInDatabase(CanvasHelper::TABLES['users'], ['first_name' => 'New Name']);
     }
 
     /** @test */
@@ -29,7 +31,7 @@ class UserEditPageTest extends TestCase
             ->dontSee('Success! User has been deleted.')
             ->press('Delete User')
             ->see('Success! User has been deleted.')
-            ->dontSeeInDatabase('users', ['first_name' => 'first']);
+            ->dontSeeInDatabase(CanvasHelper::TABLES['users'], ['first_name' => 'first']);
     }
 
     /** @test */
@@ -70,7 +72,7 @@ class UserEditPageTest extends TestCase
             ->select(1, 'role')
             ->press('Save');
 
-        $this->seeInDatabase('users', [
+        $this->seeInDatabase(CanvasHelper::TABLES['users'], [
             'id'            => 4,
             'first_name'    => 'first',
             'last_name'     => 'last',
