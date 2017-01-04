@@ -1,11 +1,11 @@
-<a href="http://canvas.toddaustin.io"><img src="https://github.com/austintoddj/canvas/blob/master/public/assets/images/gh-readme.jpg?raw=true"></a>
+<a href="http://canvas.toddaustin.io"><img src="https://raw.githubusercontent.com/cnvs/canvas/gh-pages/img/canvas/gh-readme.jpg"></a>
 
 ## About Canvas
 
 <a href="https://travis-ci.org/cnvs/canvas"><img src="https://travis-ci.org/cnvs/canvas.svg?branch=master" alt="Build Status"></a>
 <a href="https://styleci.io/repos/52815899"><img src="https://styleci.io/repos/52815899/shield?style=flat&branch=master" alt="StyleCI"></a>
 <a href='https://www.versioneye.com/user/projects/585ca44c126ede000efde67a'><img src='https://www.versioneye.com/user/projects/585ca44c126ede000efde67a/badge.svg?style=flat' alt="Dependency Status" /></a>
-<a href="https://packagist.org/packages/austintoddj/canvas"><img src="https://poser.pugx.org/austintoddj/canvas/downloads" alt="Total Downloads"></a> 
+<a href="https://packagist.org/packages/austintoddj/canvas"><img src="https://poser.pugx.org/austintoddj/canvas/downloads" alt="Total Downloads"></a>
 <a href="https://packagist.org/packages/cnvs/canvas"><img src="https://poser.pugx.org/cnvs/canvas/v/stable" alt="Latest Stable Version"></a>
 <a href="https://github.com/cnvs/canvas/blob/master/license"><img src="https://poser.pugx.org/cnvs/canvas/license" alt="License"></a>
 
