@@ -31,7 +31,7 @@
     ],
     "require": {
         "laravel/framework": "5.3.*",
-        "cnvs/easel": "dev-develop",
+        "cnvs/easel": "3.0.*",
         "cnvs/canvas-theme-paper-dark": "*",
         "doctrine/dbal": "^2.5"
     },
