@@ -1,7 +1,8 @@
 /vendor
 /node_modules
-/storage/*.index
 /public/storage
+/public/vendor
+/storage/*.index
 /tests/report
 
 Thumbs.db
@@ -14,4 +15,8 @@ phpunit.xml
 .project
 .DS_Store
 *.map
+
+composer.lock
+yarn.lock
+
 npm-debug.log

@@ -170,11 +170,6 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         // Canvas Service Providers...
-        Austintoddj\JsValidation\JsValidationServiceProvider::class,
-        Laravel\Scout\ScoutServiceProvider::class,
-        Maatwebsite\Excel\ExcelServiceProvider::class,
-        TalvBansal\MediaManager\Providers\MediaManagerServiceProvider::class,
-        TeamTNT\Scout\TNTSearchScoutServiceProvider::class,
         Canvas\CanvasServiceProvider::class,
     ],
 
@@ -227,7 +222,7 @@ return [
         'View'      => Illuminate\Support\Facades\View::class,
 
         // Canvas Aliases...
-        'JsValidator'   => Austintoddj\JsValidation\Facades\JsValidatorFacade::class,
+        'JsValidator'   => Proengsoft\JsValidation\Facades\JsValidatorFacade::class,
         'ConfigWriter'  => Larapack\ConfigWriter\Repository::class,
         'Excel'         => Maatwebsite\Excel\Facades\Excel::class,
         'Settings'      => Canvas\Models\Settings::class,

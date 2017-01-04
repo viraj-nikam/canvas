@@ -14,7 +14,7 @@ class PublicRoutesTest extends TestCase
     /** @test */
     public function it_can_access_a_blog_post_page()
     {
-        $response = $this->call('GET', '/blog/hello-world');
+        $response = $this->call('GET', '/blog/post/hello-world');
         $this->assertEquals(200, $response->status());
         $this->see('Hello World');
     }
@@ -37,7 +37,7 @@ class PublicRoutesTest extends TestCase
     /** @test */
     public function it_can_access_the_forgot_password_page()
     {
-        $this->visit('admin')->click('Forgot password')->seePageIs('password/forgot');
+        $this->visit('admin')->click('Forgot password')->seePageIs('auth/password/forgot');
     }
 
     /** @test */

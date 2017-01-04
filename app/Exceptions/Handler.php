@@ -53,6 +53,10 @@ class Handler extends ExceptionHandler
                 return response(view('canvas::errors.404'), 404);
                 break;
 
+            case $e instanceof \Symfony\Component\HttpKernel\Exception\HttpException:
+                return response(view('canvas::errors.503'), 503);
+                break;
+
             default:
                 return parent::render($request, $e);
                 break;

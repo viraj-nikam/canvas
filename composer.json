@@ -19,28 +19,28 @@
         {
             "name": "Todd Austin",
             "email": "austin.todd.j@gmail.com"
+        },
+        {
+            "name": "Patrick Reid",
+            "email": "reliq@reliqarts.com"
+        },
+        {
+            "name": "Talvinder Bansal",
+            "email": "talvbansal@hotmail.com"
         }
     ],
     "require": {
-        "php": ">=5.6.4",
         "laravel/framework": "5.3.*",
-        "cnvs/easel": "1.0.*",
-        "laravel/scout": "^1.1",
-        "doctrine/dbal": "^2.5",
-        "erusev/parsedown": "^1.6",
-        "maatwebsite/excel": "~2.1.0",
-        "larapack/config-writer": "^1.0",
-        "talvbansal/media-manager": "~2.0.0",
-        "austintoddj/laravel-jsvalidation": "1.0.*",
-        "teamtnt/laravel-scout-tntsearch-driver": "^1.1"
+        "cnvs/easel": "3.0.*",
+        "cnvs/canvas-theme-paper-dark": "*",
+        "doctrine/dbal": "^2.5"
     },
     "require-dev": {
-        "erikgall/eloquent-phpunit": "~1.0",
         "fzaninotto/faker": "~1.4",
         "mockery/mockery": "0.9.*",
         "phpunit/phpunit": "~5.0",
-        "symfony/dom-crawler": "~3.0",
-        "symfony/css-selector": "~3.0"
+        "symfony/css-selector": "~3.0",
+        "symfony/dom-crawler": "~3.0"
     },
     "autoload": {
         "classmap": [
@@ -49,6 +49,14 @@
         "psr-4": {
             "App\\": "app/"
         }
+    },
+    "autoload-dev": {
+        "classmap": [
+            "tests/TestCase.php",
+            "tests/InteractsWithDatabase.php",
+            "tests/CreatesUser.php",
+            "tests/TestHelper.php"
+        ]
     },
     "scripts": {
         "post-root-package-install": [
@@ -66,8 +74,6 @@
             "php artisan optimize"
         ]
     },
-    "config": {
-        "preferred-install": "dist",
-        "minimum-stability": "dev"
-    }
+    "minimum-stability": "beta",
+    "prefer-stable": true
 }
