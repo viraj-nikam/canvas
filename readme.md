@@ -1,4 +1,4 @@
-<a href="http://canvas.toddaustin.io"><img src="https://raw.githubusercontent.com/cnvs/canvas/gh-pages/img/canvas/gh-readme.jpg"></a>
+<a href="http://canvas.toddaustin.io"><img src="https://raw.githubusercontent.com/cnvs/assets/master/paper.jpg"></a>
 
 ## About Canvas
 
