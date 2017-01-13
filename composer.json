@@ -33,7 +33,7 @@
         "laravel/framework": "5.3.*",
         "cnvs/easel": "3.0.*",
         "cnvs/paper-dark": "*",
-        "doctrine/dbal": "^2.5"
+        "doctrine/dbal": "2.5.*"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
