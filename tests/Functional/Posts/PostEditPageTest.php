@@ -21,7 +21,7 @@ class PostEditPageTest extends TestCase
     /** @test */
     public function it_can_preview_a_post()
     {
-        $this->callRouteAsUser('admin.post.edit', 1)
+        $this->callRouteAsUser('canvas.admin.post.edit', 1)
             ->click('permalink')
             ->seePageIs('blog/post/hello-world')
             ->assertSessionMissing('errors');
@@ -30,7 +30,7 @@ class PostEditPageTest extends TestCase
     /** @test */
     public function it_can_delete_a_post_from_the_database()
     {
-        $this->callRouteAsUser('admin.post.edit', 1)
+        $this->callRouteAsUser('canvas.admin.post.edit', 1)
             ->press('Delete Post')
             ->see($this->getDeleteMessage())
             ->dontSeePostInDatabase(1)

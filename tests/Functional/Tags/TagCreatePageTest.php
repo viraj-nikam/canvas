@@ -42,7 +42,7 @@ class TagCreatePageTest extends TestCase
             'reverse_direction' => 0,
         ]);
 
-        $this->assertSessionHas('_new-tag', trans('messages.create_success', ['entity' => 'tag']));
+        $this->assertSessionHas('_new-tag', trans('canvas::messages.create_success', ['entity' => 'tag']));
         $this->assertRedirectedTo('admin/tag');
     }
 }

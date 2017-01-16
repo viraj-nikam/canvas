@@ -17,7 +17,7 @@ class PostCreatePageTest extends TestCase
     /** @test */
     public function it_validates_the_post_create_form()
     {
-        $this->callRouteAsUser('admin.post.store', null, ['title' => 'example'])
+        $this->callRouteAsUser('canvas.admin.post.store', null, ['title' => 'example'])
             ->assertSessionHasErrors();
     }
 
@@ -35,9 +35,9 @@ class PostCreatePageTest extends TestCase
             'layout'        => config('blog.post_layout'),
         ];
 
-        $this->callRouteAsUser('admin.post.store', null, $data)
+        $this->callRouteAsUser('canvas.admin.post.store', null, $data)
             ->seePostInDatabase(['title' => 'example', 'content_raw' => 'FooBar', 'content_html' => '<p>FooBar</p>'])
-            ->seeInSession('_new-post', trans('messages.create_success', ['entity' => 'post']))
+            ->seeInSession('_new-post', trans('canvas::messages.create_success', ['entity' => 'post']))
             ->assertRedirectedTo('admin/post/2/edit')
             ->assertSessionMissing('errors');
     }

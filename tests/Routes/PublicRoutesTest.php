@@ -37,7 +37,7 @@ class PublicRoutesTest extends TestCase
     /** @test */
     public function it_can_access_the_forgot_password_page()
     {
-        $this->visit('admin')->click('Forgot password')->seePageIs('auth/password/forgot');
+        $this->visit('admin')->click('Forgot password')->seePageIs('password/forgot');
     }
 
     /** @test */
