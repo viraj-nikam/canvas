@@ -4,6 +4,6 @@ You can join them in supporting Canvas development by [pledging on Patreon](http
 
 ---
 
-### Backer ($5/Month)
+### Backer ($5/month)
 
 - Brynn Mountain
