@@ -19,7 +19,7 @@ class TagEditPageTest extends TestCase
     /** @test */
     public function it_can_delete_a_tag_from_the_database()
     {
-        $this->callRouteAsUser('admin.tag.edit', 1)
+        $this->callRouteAsUser('canvas.admin.tag.edit', 1)
             ->press('Delete Tag')
             ->see('Success! Tag has been deleted.')
             ->dontSeeTagInDatabase('tags', ['id' => 1])

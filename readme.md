@@ -22,6 +22,10 @@
 
 The [Canvas installation guide](https://cnvs.readme.io/docs/installation) can be found in the official documentation.
 
+## Supporting
+
+Canvas is an MIT-licensed open source project. Its ongoing development is made possible thanks to the support by these awesome [backers](https://github.com/cnvs/canvas/blob/develop/backers.md). If you'd like to join them, check out [Canvas' Patreon campaign](https://www.patreon.com/canvas).
+
 ## Contributing
 
 Thank you for considering contributing to Canvas! The [Canvas contribution guide](https://cnvs.readme.io/docs/contributing) can be found in the official documentation.

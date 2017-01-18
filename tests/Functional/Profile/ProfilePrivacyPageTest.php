@@ -23,7 +23,7 @@ class ProfilePrivacyPageTest extends TestCase
 //            'new_password_confirmation' => 'newPass',
 //        ]);
 //
-//        $this->assertEquals(Session::get('errors')->first(), trans('auth.failed'));
+//        $this->assertEquals(Session::get('errors')->first(), trans('canvas::auth.failed'));
     }
 
     /** @test */
