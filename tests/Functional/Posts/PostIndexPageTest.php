@@ -15,6 +15,16 @@ class PostIndexPageTest extends TestCase
     }
 
     /** @test */
+    public function it_can_add_a_post_from_the_post_index_page()
+    {
+        $this->actingAs($this->user)
+            ->visit('/admin/post')
+            ->click('create-post');
+        $this->assertSessionMissing('errors');
+        $this->seePageIs('/admin/post/create');
+    }
+
+    /** @test */
     public function it_applies_a_draft_label_to_a_non_published_post()
     {
         $this->actingAs($this->user)
