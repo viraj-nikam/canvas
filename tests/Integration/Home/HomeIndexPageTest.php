@@ -7,18 +7,20 @@ class HomeIndexPageTest extends TestCase
     /** @test */
     public function it_can_preview_the_blog_from_the_home_page()
     {
+        Auth::guard('canvas')->login($this->user);
         $this->actingAs($this->user)
-            ->visit('/admin')
+            ->visit(route('canvas.admin'))
             ->click('View Site');
         $this->assertSessionMissing('errors');
-        $this->seePageIs('/');
+        $this->seePageIs(route('canvas.home'));
     }
 
     /** @test */
     public function it_displays_all_cards_if_user_is_an_admin()
     {
+        Auth::guard('canvas')->login($this->user);
         $this->actingAs($this->user)
-            ->visit('/admin')
+            ->visit(route('canvas.admin'))
             ->see('Welcome to Canvas!')
             ->see('At a Glance');
         $this->assertSessionMissing('errors');
@@ -27,9 +29,10 @@ class HomeIndexPageTest extends TestCase
     /** @test */
     public function it_does_not_display_all_cards_if_user_is_not_an_admin()
     {
+        Auth::guard('canvas')->login($this->user);
         $this->user['role'] = 0;
         $this->actingAs($this->user)
-            ->visit('/admin')
+            ->visit(route('canvas.admin'))
             ->dontSee('Welcome to Canvas!')
             ->dontSee('At a Glance');
         $this->assertSessionMissing('errors');

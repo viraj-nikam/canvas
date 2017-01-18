@@ -12,10 +12,10 @@ class UserEditPageTest extends TestCase
         $this->it_can_create_a_user_and_save_it_to_the_database();
 
         $this->actingAs($this->user)
-            ->visit('/admin/user/2/edit')
+            ->visit(route('canvas.admin.user.edit', 2))
             ->type('New Name', 'first_name')
             ->press('Save')
-            ->seePageIs('/admin/user/2/edit')
+            ->seePageIs(route('canvas.admin.user.edit', 2))
             ->see('Success! User has been updated.')
             ->seeInDatabase(CanvasHelper::TABLES['users'], ['first_name' => 'New Name']);
     }
@@ -26,7 +26,7 @@ class UserEditPageTest extends TestCase
         $this->it_can_create_a_user_and_save_it_to_the_database();
 
         $this->actingAs($this->user)
-            ->visit('/admin/user/4/edit')
+            ->visit(route('canvas.admin.user.edit', 4))
             ->press('Delete')
             ->dontSee('Success! User has been deleted.')
             ->press('Delete User')
@@ -40,10 +40,10 @@ class UserEditPageTest extends TestCase
         $this->it_can_create_a_user_and_save_it_to_the_database();
 
         $this->actingAs($this->user)
-            ->visit('/admin/user/2/privacy')
+            ->visit(route('canvas.admin.user.privacy', 2))
             ->type('secretpassword', 'new_password')
             ->press('Save')
-            ->seePageIs('admin/user/2/privacy');
+            ->seePageIs(route('canvas.admin.user.privacy', 2));
     }
 
     /** @test */
@@ -52,18 +52,19 @@ class UserEditPageTest extends TestCase
         $this->it_can_create_a_user_and_save_it_to_the_database();
 
         $this->actingAs($this->user)
-            ->visit('/admin/user/2/privacy')
+            ->visit(route('canvas.admin.user.privacy', 2))
             ->type('secretpassword', 'new_password')
             ->type('secretpassword', 'new_password_confirmation')
             ->press('Save')
-            ->seePageIs('admin/user/2/edit')
+            ->seePageIs(route('canvas.admin.user.edit', 2))
             ->see('Success! Password has been updated.');
     }
 
     protected function it_can_create_a_user_and_save_it_to_the_database()
     {
+        Auth::guard('canvas')->login($this->user);
         $this->actingAs($this->user)
-            ->visit('/admin/user/create')
+            ->visit(route('canvas.admin.user.create'))
             ->type('first', 'first_name')
             ->type('last', 'last_name')
             ->type('display', 'display_name')
@@ -81,7 +82,7 @@ class UserEditPageTest extends TestCase
             'email'         => 'email@example.com',
         ]);
 
-        $this->seePageIs('admin/user');
+        $this->seePageIs(route('canvas.admin.user.index'));
         $this->see('Success! New user has been created.');
         $this->assertSessionMissing('errors');
     }

@@ -4,7 +4,7 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class SettingsIndexPageTest extends TestCase
 {
-    use DatabaseMigrations, CreatesUser;
+    use InteractsWithDatabase, CreatesUser;
 
     protected $optionalFields = [
         'blog_description' => '<dt>Description</dt>',
@@ -22,8 +22,9 @@ class SettingsIndexPageTest extends TestCase
     /** @test */
     public function it_shows_error_messages_for_required_fields()
     {
+        Auth::guard('canvas')->login($this->user);
         $this->actingAs($this->user)
-            ->visit('/admin/settings');
+            ->visit(route('canvas.admin.settings'));
 
         // Fill in all of the required fields with an empty string
         foreach ($this->requiredFields as $name) {
@@ -41,18 +42,20 @@ class SettingsIndexPageTest extends TestCase
     /** @test */
     public function it_can_update_the_settings()
     {
-        $this->actingAs($this->user)->visit('/admin/settings');
+        Auth::guard('canvas')->login($this->user);
+        $this->actingAs($this->user)->visit(route('canvas.admin.settings'));
         $this->type('New and Updated Title', 'blog_title')->press('Save');
         $this->assertSessionMissing('errors');
-        $this->seePageIs('admin/settings');
+        $this->seePageIs(route('canvas.admin.settings'));
     }
 
     /** @test */
     public function it_cannot_access_the_settings_page_if_user_is_not_an_admin()
     {
+        Auth::guard('canvas')->login($this->user);
         $this->user['role'] = 0;
-        $this->actingAs($this->user)->visit('/admin/settings');
-        $this->seePageIs('/admin');
+        $this->actingAs($this->user)->visit(route('canvas.admin.settings'));
+        $this->seePageIs(route('canvas.admin'));
         $this->assertSessionMissing('errors');
     }
 }

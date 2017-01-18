@@ -7,11 +7,12 @@ class ProfilePrivacyPageTest extends TestCase
     /** @test */
     public function it_can_refresh_the_profile_privacy_page()
     {
+        Auth::guard('canvas')->login($this->user);
         $this->actingAs($this->user)
-            ->visit('/admin/profile/privacy')
+            ->visit(route('canvas.admin.profile.privacy'))
             ->click('Refresh Profile');
         $this->assertSessionMissing('errors');
-        $this->seePageIs('/admin/profile');
+        $this->seePageIs(route('canvas.admin.profile.index'));
     }
 
     /** @test */

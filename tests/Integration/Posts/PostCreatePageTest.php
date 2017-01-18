@@ -7,16 +7,18 @@ class PostCreatePageTest extends TestCase
     /** @test */
     public function it_can_press_cancel_to_return_to_the_post_index_page()
     {
+        Auth::guard('canvas')->login($this->user);
         $this->actingAs($this->user)
-            ->visit('/admin/post/create')
+            ->visit(route('canvas.admin.post.create'))
             ->click('Cancel');
         $this->assertSessionMissing('errors');
-        $this->seePageIs('/admin/post');
+        $this->seePageIs(route('canvas.admin.post.index'));
     }
 
     /** @test */
     public function it_validates_the_post_create_form()
     {
+        Auth::guard('canvas')->login($this->user);
         $this->callRouteAsUser('canvas.admin.post.store', null, ['title' => 'example'])
             ->assertSessionHasErrors();
     }
@@ -35,10 +37,11 @@ class PostCreatePageTest extends TestCase
             'layout'        => config('blog.post_layout'),
         ];
 
+        Auth::guard('canvas')->login($this->user);
         $this->callRouteAsUser('canvas.admin.post.store', null, $data)
             ->seePostInDatabase(['title' => 'example', 'content_raw' => 'FooBar', 'content_html' => '<p>FooBar</p>'])
             ->seeInSession('_new-post', trans('canvas::messages.create_success', ['entity' => 'post']))
-            ->assertRedirectedTo('admin/post/2/edit')
+            ->assertRedirectedTo(route('canvas.admin.post.edit', 2))
             ->assertSessionMissing('errors');
     }
 

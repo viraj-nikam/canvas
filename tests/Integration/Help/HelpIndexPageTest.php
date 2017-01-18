@@ -7,10 +7,11 @@ class HelpIndexPageTest extends TestCase
     /** @test */
     public function it_can_refresh_the_user_page()
     {
+        Auth::guard('canvas')->login($this->user);
         $this->actingAs($this->user)
-            ->visit('/admin/help')
+            ->visit(route('canvas.admin.help'))
             ->click('Refresh Help');
         $this->assertSessionMissing('errors');
-        $this->seePageIs('/admin/help');
+        $this->seePageIs(route('canvas.admin.help'));
     }
 }

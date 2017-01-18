@@ -21,19 +21,22 @@ class PostEditPageTest extends TestCase
     /** @test */
     public function it_can_preview_a_post()
     {
+        Auth::guard('canvas')->login($this->user);
         $this->callRouteAsUser('canvas.admin.post.edit', 1)
             ->click('permalink')
-            ->seePageIs('blog/post/hello-world')
+            ->seePageIs(route('canvas.blog.post.show', 'hello-world'))
             ->assertSessionMissing('errors');
     }
 
     /** @test */
     public function it_can_delete_a_post_from_the_database()
     {
+        Auth::guard('canvas')->login($this->user);
         $this->callRouteAsUser('canvas.admin.post.edit', 1)
             ->press('Delete Post')
             ->see($this->getDeleteMessage())
             ->dontSeePostInDatabase(1)
+            ->seePageIs(route('canvas.admin.post.index'))
             ->assertSessionMissing('errors');
     }
 

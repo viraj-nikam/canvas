@@ -7,28 +7,31 @@ class PostIndexPageTest extends TestCase
     /** @test */
     public function it_can_refresh_the_post_page()
     {
+        Auth::guard('canvas')->login($this->user);
         $this->actingAs($this->user)
-            ->visit('/admin/post')
+            ->visit(route('canvas.admin.post.index'))
             ->click('Refresh Posts');
         $this->assertSessionMissing('errors');
-        $this->seePageIs('/admin/post');
+        $this->seePageIs(route('canvas.admin.post.index'));
     }
 
     /** @test */
     public function it_can_add_a_post_from_the_post_index_page()
     {
+        Auth::guard('canvas')->login($this->user);
         $this->actingAs($this->user)
-            ->visit('/admin/post')
+            ->visit(route('canvas.admin.post.index'))
             ->click('create-post');
         $this->assertSessionMissing('errors');
-        $this->seePageIs('/admin/post/create');
+        $this->seePageIs(route('canvas.admin.post.create'));
     }
 
     /** @test */
     public function it_applies_a_draft_label_to_a_non_published_post()
     {
+        Auth::guard('canvas')->login($this->user);
         $this->actingAs($this->user)
-            ->visit('admin')
+            ->visit(route('canvas.admin'))
             ->type('example', 'title')
             ->type('foo', 'slug')
             ->type('bar', 'subtitle')
@@ -39,7 +42,7 @@ class PostIndexPageTest extends TestCase
             ->check('is_draft')
             ->press('Save');
         $this->assertSessionMissing('errors');
-        $this->visit('admin/post')
+        $this->visit(route('canvas.admin.post.index'))
             ->see('<td>&lt;span class="label label-primary"&gt;Draft&lt;/span&gt;</td>');
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class ProfileIndexPageTest extends TestCase
 {
-    use DatabaseMigrations, CreatesUser;
+    use InteractsWithDatabase, CreatesUser;
 
     protected $optionalFields = [
         'bio' => 'Summary',
@@ -30,20 +30,23 @@ class ProfileIndexPageTest extends TestCase
         'email',
     ];
 
+    /** @test */
     public function it_can_refresh_the_profile_page()
     {
+        Auth::guard('canvas')->login($this->user);
         $this->actingAs($this->user)
-            ->visit('/admin/profile')
+            ->visit(route('canvas.admin.profile.index'))
             ->click('Refresh Profile');
         $this->assertSessionMissing('errors');
-        $this->seePageIs('/admin/profile');
+        $this->seePageIs(route('canvas.admin.profile.index'));
     }
 
     /** @test */
     public function it_shows_error_messages_for_required_fields()
     {
+        Auth::guard('canvas')->login($this->user);
         $this->actingAs(factory(Canvas\Models\User::class)->create())
-            ->visit('/admin/profile');
+            ->visit(route('canvas.admin.profile.index'));
 
         // Fill in all of the required fields with an empty string
         foreach ($this->requiredFields as $name) {
@@ -61,9 +64,10 @@ class ProfileIndexPageTest extends TestCase
     /** @test */
     public function it_can_update_the_authenticated_users_profile()
     {
-        $this->actingAs($this->user)->visit('/admin/profile');
+        Auth::guard('canvas')->login($this->user);
+        $this->actingAs($this->user)->visit(route('canvas.admin.profile.index'));
         $this->type('Luke Skywalker', 'display_name')->press('Save')->see('Success! Profile has been updated.');
         $this->assertSessionMissing('errors');
-        $this->seePageIs('admin/profile');
+        $this->seePageIs(route('canvas.admin.profile.index'));
     }
 }
