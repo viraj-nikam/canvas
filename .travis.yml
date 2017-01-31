@@ -14,6 +14,7 @@ install:
   - composer install
 
 script:
+  - php artisan canvas:publish:views -y
   - php artisan canvas:publish:assets -y
   - php artisan canvas:publish:config -y
   - php artisan key:generate
