@@ -13,8 +13,11 @@ before_install:
 install:
   - composer install
 
-script:
+before_script:
   - php artisan canvas:publish:assets -y
   - php artisan canvas:publish:config -y
   - php artisan key:generate
+  - echo '1485524707' > storage/canvas_installed.lock
+
+script:
   - vendor/bin/phpunit
