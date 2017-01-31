@@ -13,9 +13,13 @@ before_install:
 install:
   - composer install
 
-script:
-  - php artisan canvas:publish:views -y
+before_script:
   - php artisan canvas:publish:assets -y
   - php artisan canvas:publish:config -y
   - php artisan key:generate
+  - php artisan canvas:install
+  - echo "austin.todd.j@gmail.com"
+  - echo "password"
+
+script:
   - vendor/bin/phpunit
