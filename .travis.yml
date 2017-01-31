@@ -18,8 +18,8 @@ before_script:
   - php artisan canvas:publish:config -y
   - php artisan key:generate
   - php artisan canvas:install
+
+after_script:
   - echo "austin.todd.j@gmail.com"
   - echo "password"
-
-script:
   - vendor/bin/phpunit
