@@ -224,7 +224,6 @@ return [
         'ConfigWriter'  => Larapack\ConfigWriter\Repository::class,
         'Excel'         => Maatwebsite\Excel\Facades\Excel::class,
         'Settings'      => Canvas\Models\Settings::class,
-        'Helpers'       => Canvas\Helpers::class,
 
     ],
 
