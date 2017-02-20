@@ -28,7 +28,7 @@ class AdminRoutesTest extends TestCase
         Auth::guard('canvas')->login($this->user);
         $response = $this->actingAs($this->user)->call('GET', route('canvas.admin.post.edit', 1));
         $this->assertEquals(200, $response->status());
-        $this->assertViewHas(['id', 'title', 'slug', 'subtitle', 'page_image', 'content', 'meta_description', 'is_draft', 'publish_date', 'publish_time', 'published_at', 'updated_at', 'layout', 'tags', 'allTags']);
+        $this->assertViewHas(['id', 'title', 'slug', 'subtitle', 'page_image', 'content', 'meta_description', 'is_published', 'publish_date', 'publish_time', 'published_at', 'updated_at', 'layout', 'tags', 'allTags']);
     }
 
     /** @test */
