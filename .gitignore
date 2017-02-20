@@ -17,6 +17,7 @@ phpunit.xml
 .DS_Store
 *.map
 
+config/blog.php
 composer.lock
 yarn.lock
 

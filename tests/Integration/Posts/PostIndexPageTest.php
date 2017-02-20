@@ -39,10 +39,10 @@ class PostIndexPageTest extends TestCase
             ->type('example', 'title')
             ->type(Carbon\Carbon::now(), 'published_at')
             ->type(config('blog.post_layout'), 'layout')
-            ->check('is_draft')
+            ->check('is_published')
             ->press('Save');
         $this->assertSessionMissing('errors');
         $this->visit(route('canvas.admin.post.index'))
-            ->see('<td>&lt;span class="label label-primary"&gt;Draft&lt;/span&gt;</td>');
+            ->see('<td>&lt;span class="label label-primary"&gt;Published&lt;/span&gt;</td>');
     }
 }
