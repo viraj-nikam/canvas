@@ -34,7 +34,7 @@ Thank you for considering contributing to Canvas! The [Canvas contribution guide
 
 ## Changelog
 
-Detailed changes for each release are documented in the [release notes](https://github.com/cnvs/canvas/releases).
+Detailed changes for each release are documented in the [release notes](https://github.com/cnvs/easel/releases).
 
 ## License
 
