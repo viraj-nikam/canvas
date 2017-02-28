@@ -41,7 +41,3 @@ You can join them in supporting Canvas development by [pledging on Patreon](http
 <a href="https://www.versioneye.com">
   <img width="200px" src="https://raw.githubusercontent.com/cnvs/assets/master/sponsors/versioneye.png">
 </a>
-
-### Backer ($5/month)
-
-- Brynn Mountain
