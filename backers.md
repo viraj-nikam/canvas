@@ -44,49 +44,49 @@ You can join them in supporting Canvas development by [pledging on Patreon](http
 
 ### Platinum Sponsor ($500/month)
 
-[Pledge](https://www.patreon.com/bePatron?rid=1295515&u=4872869)
+<p><a href="https://www.patreon.com/bePatron?rid=1295515&u=4872869" class="btn btn-primary" target="_blank">Pledge</a></p>
 
 No pledges yet.
 
 ### Premium Sponsor ($250/month)
 
-[Pledge](https://www.patreon.com/bePatron?rid=1295497&u=4872869)
+<p><a href="https://www.patreon.com/bePatron?rid=1295497&u=4872869" class="btn btn-primary" target="_blank">Pledge</a></p>
 
 No pledges yet.
 
 ### Sponsor ($100/month)
 
-[Pledge](https://www.patreon.com/bePatron?rid=1295498&u=4872869)
+<p><a href="https://www.patreon.com/bePatron?rid=1295498&u=4872869" class="btn btn-primary" target="_blank">Pledge</a></p>
 
 No pledges yet.
 
 ### Platinum Backer ($50/month)
 
-[Pledge](https://www.patreon.com/bePatron?rid=1294556&u=4872869)
+<p><a href="https://www.patreon.com/bePatron?rid=1294556&u=4872869" class="btn btn-primary" target="_blank">Pledge</a></p>
 
 No pledges yet.
 
 ### Premium Backer ($25/month)
 
-[Pledge](https://www.patreon.com/bePatron?rid=1294557&u=4872869)
+<p><a href="https://www.patreon.com/bePatron?rid=1294557&u=4872869" class="btn btn-primary" target="_blank">Pledge</a></p>
 
 No pledges yet.
 
 ### Generous Backer ($10/month)
 
-[Pledge](https://www.patreon.com/bePatron?rid=1294558&u=4872869)
+<p><a href="https://www.patreon.com/bePatron?rid=1294558&u=4872869" class="btn btn-primary" target="_blank">Pledge</a></p>
 
 No pledges yet.
 
 ### Backer ($5/month)
 
-[Pledge](https://www.patreon.com/bePatron?rid=1294541&u=4872869)
+<p><a href="https://www.patreon.com/bePatron?rid=1294541&u=4872869" class="btn btn-primary" target="_blank">Pledge</a></p>
 		
 * Becky Austin
 * Nick Basile ([@nickbasile](https://github.com/nickbasile))
 
 ### Contributor ($2/month)
 
-[Pledge](https://www.patreon.com/bePatron?rid=1295416&u=4872869)
+<p><a href="https://www.patreon.com/bePatron?rid=1295416&u=4872869" class="btn btn-primary" target="_blank">Pledge</a></p>
 		
 * Feud Nation ([@feudnation](https://twitter.com/feudnation))
