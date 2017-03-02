@@ -43,5 +43,6 @@ You can join them in supporting Canvas development by [pledging on Patreon](http
 </a>
 
 ### Backer ($5/month)
-
-- Brynn Mountain
+		
+Becky Austin
+Nick Basile
