@@ -90,3 +90,4 @@ You can join them in supporting Canvas development by [pledging on Patreon](http
 [Pledge](https://www.patreon.com/bePatron?rid=1295416&u=4872869)
 		
 * Feud Nation ([@feudnation](https://twitter.com/feudnation))
+* Daniel Nettleton ([@ddavidn](https://twitter.com/ddavidn))
