@@ -49,18 +49,18 @@ You can join them in supporting Canvas development by [pledging on Patreon](http
 
 [Pledge](https://www.patreon.com/bePatron?rid=1294558&u=4872869)
 
-*No pledges yet.*
+* Sebastian Fix ([@smartgateAG](https://www.facebook.com/smartgateAG/))
 
 ### Backer ($5/month)
 
 [Pledge](https://www.patreon.com/bePatron?rid=1294541&u=4872869)
-		
+
 * Becky Austin
 * Nick Basile ([@nickbasile](https://github.com/nickbasile))
 
 ### Contributor ($2/month)
 
 [Pledge](https://www.patreon.com/bePatron?rid=1295416&u=4872869)
-		
+
 * Feud Nation ([@feudnation](https://twitter.com/feudnation))
 * Daniel Nettleton ([@ddavidn](https://twitter.com/ddavidn))
