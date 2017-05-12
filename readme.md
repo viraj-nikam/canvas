@@ -20,9 +20,7 @@
 * Native [Google Analytics](https://www.google.com/analytics/#?modal_active=none) integration.
 * Powered by [Laravel 5](https://laravel.com).
 
-**Live demo:** [http://demo.cnvs.io](http://demo.cnvs.io)
-
-**Credentials:** `admin@cnvs.io`, `password`
+Not quite sure if Canvas is the right tool for you? That's no problem. We've got a live demo at [http://demo.cnvs.io](http://demo.cnvs.io) where you can experience it for yourself. Login credentials for the demo are `admin@cnvs.io` and `password`.
 
 ## Canvas Sponsors
 
