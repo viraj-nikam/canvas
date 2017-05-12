@@ -20,8 +20,9 @@
 * Native [Google Analytics](https://www.google.com/analytics/#?modal_active=none) integration.
 * Powered by [Laravel 5](https://laravel.com).
 
-**Live demo: **[http://demo.cnvs.io](http://demo.cnvs.io)
-**Credentials: **`admin@cnvs.io`, `password`
+**Live demo:** [http://demo.cnvs.io](http://demo.cnvs.io)
+
+**Credentials:** `admin@cnvs.io`, `password`
 
 ## Canvas Sponsors
 
