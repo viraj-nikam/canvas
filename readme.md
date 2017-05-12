@@ -12,6 +12,7 @@
 ## About Canvas
 
 Live demo: [http://demo.cnvs.io](http://demo.cnvs.io)
+
 Credentials: `admin@cnvs.io`, `password`
 
 [Canvas](https://cnvs.io) is a simple, powerful blog publishing platform that lets you to share your stories with the world. Its beautifully designed interface and completely customizable framework allows you to create and publish your own blog, giving you tools that make it easy and even fun to do. Canvas includes some of the most popular web packages today, such as:
