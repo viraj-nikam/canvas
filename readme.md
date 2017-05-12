@@ -8,9 +8,6 @@
     <a href="https://packagist.org/packages/cnvs/easel"><img src="https://poser.pugx.org/cnvs/easel/v/stable" alt="Latest Stable Version"></a>
     <a href="https://github.com/cnvs/canvas/blob/master/license"><img src="https://poser.pugx.org/cnvs/canvas/license" alt="License"></a>
 </p>
-<p align="center">
-    Live demo: <a href="http://demo.cnvs.io" target="_blank">http://demo.cnvs.io</a> · <code>cnvs@admin.io</code> <code>password</code>
-</p>
 
 ## About Canvas
 
@@ -22,6 +19,9 @@
 * Full-site searching by [TNTSearch](https://github.com/teamtnt/laravel-scout-tntsearch-driver).
 * Native [Google Analytics](https://www.google.com/analytics/#?modal_active=none) integration.
 * Powered by [Laravel 5](https://laravel.com).
+
+**Live demo: **[http://demo.cnvs.io](http://demo.cnvs.io)
+**Credentials: **`admin@cnvs.io`, `password`
 
 ## Canvas Sponsors
 
