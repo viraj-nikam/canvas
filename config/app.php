@@ -167,8 +167,11 @@ return [
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
         App\Providers\EventServiceProvider::class,
-        Canvas\CanvasServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+
+        // Canvas Service Providers...
+        Canvas\CanvasServiceProvider::class,
+        Barryvdh\Debugbar\ServiceProvider::class,
     ],
 
     /*
