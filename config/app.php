@@ -167,8 +167,11 @@ return [
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
         App\Providers\EventServiceProvider::class,
-        Canvas\CanvasServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+
+        // Canvas Service Providers...
+        Canvas\CanvasServiceProvider::class,
+        Barryvdh\Debugbar\ServiceProvider::class,
     ],
 
     /*
@@ -220,7 +223,6 @@ return [
         'View'      => Illuminate\Support\Facades\View::class,
 
         // Canvas Aliases...
-        'JsValidator'   => Proengsoft\JsValidation\Facades\JsValidatorFacade::class,
         'ConfigWriter'  => Larapack\ConfigWriter\Repository::class,
         'Excel'         => Maatwebsite\Excel\Facades\Excel::class,
         'Settings'      => Canvas\Models\Settings::class,
