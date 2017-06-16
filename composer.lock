@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "2d75bea6994f0aa6958d7e6f945e5785",
+    "content-hash": "8e1a9961164b91f872b62c4bb17686b5",
     "packages": [
         {
             "name": "barryvdh/laravel-debugbar",
@@ -128,12 +128,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/cnvs/easel.git",
-                "reference": "1a575281ecc3b5d2c5887214253380410fc9d2ff"
+                "reference": "9cc9cb6b18d4ba7e13ad63874b36798a33153136"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cnvs/easel/zipball/1a575281ecc3b5d2c5887214253380410fc9d2ff",
-                "reference": "1a575281ecc3b5d2c5887214253380410fc9d2ff",
+                "url": "https://api.github.com/repos/cnvs/easel/zipball/9cc9cb6b18d4ba7e13ad63874b36798a33153136",
+                "reference": "9cc9cb6b18d4ba7e13ad63874b36798a33153136",
                 "shasum": ""
             },
             "require": {
@@ -144,7 +144,7 @@
                 "laravel/scout": "2.*",
                 "maatwebsite/excel": "^2.1",
                 "php": ">=5.6.4",
-                "talvbansal/media-manager": "^2.0",
+                "talvbansal/media-manager": "^2.5",
                 "teamtnt/laravel-scout-tntsearch-driver": "2.*"
             },
             "require-dev": {
@@ -180,7 +180,7 @@
                 "canvas",
                 "framework"
             ],
-            "time": "2017-06-16 14:48:48"
+            "time": "2017-06-16 18:20:50"
         },
         {
             "name": "cnvs/paper-dark",
