@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "8e1a9961164b91f872b62c4bb17686b5",
+    "content-hash": "a59052a48d52de32bafdfe8ab313e715",
     "packages": [
         {
             "name": "barryvdh/laravel-debugbar",
@@ -246,16 +246,16 @@
         },
         {
             "name": "cnvs/easel",
-            "version": "dev-develop",
+            "version": "v3.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cnvs/easel.git",
-                "reference": "ab4502b225fe6a9245b38fcae12594c179116485"
+                "reference": "3cbbb04b1c4700d5ba73b6ea66278c7d5d09bae2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cnvs/easel/zipball/ab4502b225fe6a9245b38fcae12594c179116485",
-                "reference": "ab4502b225fe6a9245b38fcae12594c179116485",
+                "url": "https://api.github.com/repos/cnvs/easel/zipball/3cbbb04b1c4700d5ba73b6ea66278c7d5d09bae2",
+                "reference": "3cbbb04b1c4700d5ba73b6ea66278c7d5d09bae2",
                 "shasum": ""
             },
             "require": {
@@ -303,7 +303,7 @@
                 "canvas",
                 "framework"
             ],
-            "time": "2017-06-22 02:10:37"
+            "time": "2017-06-29T14:58:39+00:00"
         },
         {
             "name": "cnvs/paper-dark",
@@ -1765,16 +1765,16 @@
         },
         {
             "name": "nikic/php-parser",
-            "version": "v3.0.5",
+            "version": "v3.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nikic/PHP-Parser.git",
-                "reference": "2b9e2f71b722f7c53918ab0c25f7646c2013f17d"
+                "reference": "0808939f81c1347a3c8a82a5925385a08074b0f1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/2b9e2f71b722f7c53918ab0c25f7646c2013f17d",
-                "reference": "2b9e2f71b722f7c53918ab0c25f7646c2013f17d",
+                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/0808939f81c1347a3c8a82a5925385a08074b0f1",
+                "reference": "0808939f81c1347a3c8a82a5925385a08074b0f1",
                 "shasum": ""
             },
             "require": {
@@ -1812,7 +1812,7 @@
                 "parser",
                 "php"
             ],
-            "time": "2017-03-05T18:23:57+00:00"
+            "time": "2017-06-28T20:53:48+00:00"
         },
         {
             "name": "paragonie/random_compat",
@@ -4821,9 +4821,7 @@
     ],
     "aliases": [],
     "minimum-stability": "beta",
-    "stability-flags": {
-        "cnvs/easel": 20
-    },
+    "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": [],
