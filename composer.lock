@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "a59052a48d52de32bafdfe8ab313e715",
+    "content-hash": "8e1a9961164b91f872b62c4bb17686b5",
     "packages": [
         {
             "name": "barryvdh/laravel-debugbar",
@@ -246,16 +246,16 @@
         },
         {
             "name": "cnvs/easel",
-            "version": "v3.4.0",
+            "version": "dev-develop",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cnvs/easel.git",
-                "reference": "3cbbb04b1c4700d5ba73b6ea66278c7d5d09bae2"
+                "reference": "5b8c9bd0b29f2b6066d8094d5db06883699c9f44"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cnvs/easel/zipball/3cbbb04b1c4700d5ba73b6ea66278c7d5d09bae2",
-                "reference": "3cbbb04b1c4700d5ba73b6ea66278c7d5d09bae2",
+                "url": "https://api.github.com/repos/cnvs/easel/zipball/5b8c9bd0b29f2b6066d8094d5db06883699c9f44",
+                "reference": "5b8c9bd0b29f2b6066d8094d5db06883699c9f44",
                 "shasum": ""
             },
             "require": {
@@ -303,7 +303,7 @@
                 "canvas",
                 "framework"
             ],
-            "time": "2017-06-29T14:58:39+00:00"
+            "time": "2017-06-29 15:54:15"
         },
         {
             "name": "cnvs/paper-dark",
@@ -4821,7 +4821,9 @@
     ],
     "aliases": [],
     "minimum-stability": "beta",
-    "stability-flags": [],
+    "stability-flags": {
+        "cnvs/easel": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": [],
