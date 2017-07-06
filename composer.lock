@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "barryvdh/laravel-debugbar",
-            "version": "v2.4.0",
+            "version": "v2.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/barryvdh/laravel-debugbar.git",
-                "reference": "de15d00a74696db62e1b4782474c27ed0c4fc763"
+                "reference": "af98b3a4ccac9364f2145fae974ff3392ec402b1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/barryvdh/laravel-debugbar/zipball/de15d00a74696db62e1b4782474c27ed0c4fc763",
-                "reference": "de15d00a74696db62e1b4782474c27ed0c4fc763",
+                "url": "https://api.github.com/repos/barryvdh/laravel-debugbar/zipball/af98b3a4ccac9364f2145fae974ff3392ec402b1",
+                "reference": "af98b3a4ccac9364f2145fae974ff3392ec402b1",
                 "shasum": ""
             },
             "require": {
@@ -66,7 +66,7 @@
                 "profiler",
                 "webprofiler"
             ],
-            "time": "2017-06-01T17:46:08+00:00"
+            "time": "2017-06-14T07:44:44+00:00"
         },
         {
             "name": "barryvdh/laravel-ide-helper",
@@ -246,16 +246,16 @@
         },
         {
             "name": "cnvs/easel",
-            "version": "v3.4.0",
+            "version": "v3.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cnvs/easel.git",
-                "reference": "3cbbb04b1c4700d5ba73b6ea66278c7d5d09bae2"
+                "reference": "b82871edd624b5e9ad1b5550af0d32a872df5e4a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cnvs/easel/zipball/3cbbb04b1c4700d5ba73b6ea66278c7d5d09bae2",
-                "reference": "3cbbb04b1c4700d5ba73b6ea66278c7d5d09bae2",
+                "url": "https://api.github.com/repos/cnvs/easel/zipball/b82871edd624b5e9ad1b5550af0d32a872df5e4a",
+                "reference": "b82871edd624b5e9ad1b5550af0d32a872df5e4a",
                 "shasum": ""
             },
             "require": {
@@ -303,20 +303,20 @@
                 "canvas",
                 "framework"
             ],
-            "time": "2017-06-29T14:58:39+00:00"
+            "time": "2017-06-29T15:53:46+00:00"
         },
         {
             "name": "cnvs/paper-dark",
-            "version": "v1.0.3",
+            "version": "v1.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cnvs/paper-dark.git",
-                "reference": "de939fe233b7f4801ccc0c409bbf0c01d6eb8398"
+                "reference": "7fa4e5d5093025d1ab61e34b543f2dbc60c50550"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cnvs/paper-dark/zipball/de939fe233b7f4801ccc0c409bbf0c01d6eb8398",
-                "reference": "de939fe233b7f4801ccc0c409bbf0c01d6eb8398",
+                "url": "https://api.github.com/repos/cnvs/paper-dark/zipball/7fa4e5d5093025d1ab61e34b543f2dbc60c50550",
+                "reference": "7fa4e5d5093025d1ab61e34b543f2dbc60c50550",
                 "shasum": ""
             },
             "require": {
@@ -348,7 +348,7 @@
                 "dark",
                 "theme"
             ],
-            "time": "2017-02-23T21:02:35+00:00"
+            "time": "2017-07-06T01:31:33+00:00"
         },
         {
             "name": "dflydev/apache-mime-types",
@@ -910,16 +910,16 @@
         },
         {
             "name": "erusev/parsedown",
-            "version": "1.6.2",
+            "version": "1.6.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/erusev/parsedown.git",
-                "reference": "1bf24f7334fe16c88bf9d467863309ceaf285b01"
+                "reference": "728952b90a333b5c6f77f06ea9422b94b585878d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/erusev/parsedown/zipball/1bf24f7334fe16c88bf9d467863309ceaf285b01",
-                "reference": "1bf24f7334fe16c88bf9d467863309ceaf285b01",
+                "url": "https://api.github.com/repos/erusev/parsedown/zipball/728952b90a333b5c6f77f06ea9422b94b585878d",
+                "reference": "728952b90a333b5c6f77f06ea9422b94b585878d",
                 "shasum": ""
             },
             "require": {
@@ -948,7 +948,7 @@
                 "markdown",
                 "parser"
             ],
-            "time": "2017-03-29T16:04:15+00:00"
+            "time": "2017-05-14T14:47:48+00:00"
         },
         {
             "name": "fzaninotto/faker",
@@ -1451,16 +1451,16 @@
         },
         {
             "name": "maatwebsite/excel",
-            "version": "2.1.18",
+            "version": "2.1.19",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Maatwebsite/Laravel-Excel.git",
-                "reference": "a43db59e621e8e8d72321e885d1610509cc7b096"
+                "reference": "f4535ac21968f6086438e098cdf289b350aa993c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Maatwebsite/Laravel-Excel/zipball/a43db59e621e8e8d72321e885d1610509cc7b096",
-                "reference": "a43db59e621e8e8d72321e885d1610509cc7b096",
+                "url": "https://api.github.com/repos/Maatwebsite/Laravel-Excel/zipball/f4535ac21968f6086438e098cdf289b350aa993c",
+                "reference": "f4535ac21968f6086438e098cdf289b350aa993c",
                 "shasum": ""
             },
             "require": {
@@ -1525,7 +1525,7 @@
                 "import",
                 "laravel"
             ],
-            "time": "2017-06-21T20:39:34+00:00"
+            "time": "2017-07-02T07:00:56+00:00"
         },
         {
             "name": "maximebf/debugbar",
@@ -2177,7 +2177,7 @@
         },
         {
             "name": "symfony/class-loader",
-            "version": "v3.3.2",
+            "version": "v3.3.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/class-loader.git",
@@ -2294,7 +2294,7 @@
         },
         {
             "name": "symfony/css-selector",
-            "version": "v3.3.2",
+            "version": "v3.3.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/css-selector.git",
@@ -2404,16 +2404,16 @@
         },
         {
             "name": "symfony/event-dispatcher",
-            "version": "v3.3.2",
+            "version": "v3.3.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/event-dispatcher.git",
-                "reference": "4054a102470665451108f9b59305c79176ef98f0"
+                "reference": "67535f1e3fd662bdc68d7ba317c93eecd973617e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/4054a102470665451108f9b59305c79176ef98f0",
-                "reference": "4054a102470665451108f9b59305c79176ef98f0",
+                "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/67535f1e3fd662bdc68d7ba317c93eecd973617e",
+                "reference": "67535f1e3fd662bdc68d7ba317c93eecd973617e",
                 "shasum": ""
             },
             "require": {
@@ -2463,7 +2463,7 @@
             ],
             "description": "Symfony EventDispatcher Component",
             "homepage": "https://symfony.com",
-            "time": "2017-06-04T18:15:29+00:00"
+            "time": "2017-06-09T14:53:08+00:00"
         },
         {
             "name": "symfony/finder",
@@ -4087,16 +4087,16 @@
         },
         {
             "name": "phpunit/phpunit-mock-objects",
-            "version": "3.4.3",
+            "version": "3.4.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit-mock-objects.git",
-                "reference": "3ab72b65b39b491e0c011e2e09bb2206c2aa8e24"
+                "reference": "a23b761686d50a560cc56233b9ecf49597cc9118"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit-mock-objects/zipball/3ab72b65b39b491e0c011e2e09bb2206c2aa8e24",
-                "reference": "3ab72b65b39b491e0c011e2e09bb2206c2aa8e24",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit-mock-objects/zipball/a23b761686d50a560cc56233b9ecf49597cc9118",
+                "reference": "a23b761686d50a560cc56233b9ecf49597cc9118",
                 "shasum": ""
             },
             "require": {
@@ -4142,7 +4142,7 @@
                 "mock",
                 "xunit"
             ],
-            "time": "2016-12-08T20:27:08+00:00"
+            "time": "2017-06-30T09:13:00+00:00"
         },
         {
             "name": "sebastian/code-unit-reverse-lookup",
@@ -4659,7 +4659,7 @@
         },
         {
             "name": "symfony/dom-crawler",
-            "version": "v3.3.2",
+            "version": "v3.3.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/dom-crawler.git",
@@ -4715,16 +4715,16 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v3.3.2",
+            "version": "v3.3.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "9752a30000a8ca9f4b34b5227d15d0101b96b063"
+                "reference": "1f93a8d19b8241617f5074a123e282575b821df8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/9752a30000a8ca9f4b34b5227d15d0101b96b063",
-                "reference": "9752a30000a8ca9f4b34b5227d15d0101b96b063",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/1f93a8d19b8241617f5074a123e282575b821df8",
+                "reference": "1f93a8d19b8241617f5074a123e282575b821df8",
                 "shasum": ""
             },
             "require": {
@@ -4766,7 +4766,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2017-06-02T22:05:06+00:00"
+            "time": "2017-06-15T12:58:50+00:00"
         },
         {
             "name": "webmozart/assert",
