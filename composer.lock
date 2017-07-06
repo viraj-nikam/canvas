@@ -307,16 +307,16 @@
         },
         {
             "name": "cnvs/paper-dark",
-            "version": "v1.0.4",
+            "version": "v1.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cnvs/paper-dark.git",
-                "reference": "7fa4e5d5093025d1ab61e34b543f2dbc60c50550"
+                "reference": "5dc27f4eff7e104e03bdb9d9bbb0d93b6882b9fd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cnvs/paper-dark/zipball/7fa4e5d5093025d1ab61e34b543f2dbc60c50550",
-                "reference": "7fa4e5d5093025d1ab61e34b543f2dbc60c50550",
+                "url": "https://api.github.com/repos/cnvs/paper-dark/zipball/5dc27f4eff7e104e03bdb9d9bbb0d93b6882b9fd",
+                "reference": "5dc27f4eff7e104e03bdb9d9bbb0d93b6882b9fd",
                 "shasum": ""
             },
             "require": {
@@ -348,7 +348,7 @@
                 "dark",
                 "theme"
             ],
-            "time": "2017-07-06T01:31:33+00:00"
+            "time": "2017-07-06T02:04:26+00:00"
         },
         {
             "name": "dflydev/apache-mime-types",
