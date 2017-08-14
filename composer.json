@@ -9,7 +9,7 @@
             "email": "austin.todd.j@gmail.com"
         }
     ],
-		"repositories": [
+	"repositories": [
         {
             "type": "git",
             "url": "https://github.com/cnvs/easel"
@@ -35,13 +35,13 @@
         ],
         "psr-4": {
             "App\\": "app/",
-						"Tests\\": "tests/"
+            "Tests\\": "tests/"
         }
     },
     "autoload-dev": {
         "classmap": [
             "tests/TestCase.php",
-						"tests/BrowserKitTestCase.php",
+            "tests/BrowserKitTestCase.php",
             "tests/InteractsWithDatabase.php",
             "tests/CreatesUser.php",
             "tests/TestHelper.php"
@@ -62,6 +62,9 @@
             "Illuminate\\Foundation\\ComposerScripts::postUpdate",
             "php artisan optimize"
         ]
+    },
+    "config": {
+        "sort-packages": true
     },
     "minimum-stability": "beta",
     "prefer-stable": true
