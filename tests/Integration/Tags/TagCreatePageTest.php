@@ -1,6 +1,6 @@
 <?php
 
-class TagCreatePageTest extends TestCase
+class TagCreatePageTest extends BrowserKitTestCase
 {
     use InteractsWithDatabase, CreatesUser, TestHelper;
 

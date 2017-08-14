@@ -1,6 +1,6 @@
 <?php
 
-class PostEditPageTest extends TestCase
+class PostEditPageTest extends BrowserKitTestCase
 {
     use InteractsWithDatabase, CreatesUser, TestHelper;
 

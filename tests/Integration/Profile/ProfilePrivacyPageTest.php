@@ -1,6 +1,6 @@
 <?php
 
-class ProfilePrivacyPageTest extends TestCase
+class ProfilePrivacyPageTest extends BrowserKitTestCase
 {
     use InteractsWithDatabase, CreatesUser, TestHelper;
 

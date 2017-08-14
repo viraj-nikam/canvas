@@ -1,6 +1,6 @@
 <?php
 
-class PublicRoutesTest extends TestCase
+class PublicRoutesTest extends BrowserKitTestCase
 {
     use InteractsWithDatabase, CreatesUser;
 

@@ -2,7 +2,7 @@
 
 use Canvas\Helpers\CanvasHelper;
 
-class TagEditPageTest extends TestCase
+class TagEditPageTest extends BrowserKitTestCase
 {
     use InteractsWithDatabase, CreatesUser, TestHelper;
 

@@ -1,6 +1,6 @@
 <?php
 
-class MediaIndexPageTest extends TestCase
+class MediaIndexPageTest extends BrowserKitTestCase
 {
     use InteractsWithDatabase, CreatesUser;
 

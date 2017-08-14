@@ -1,6 +1,6 @@
 <?php
 
-class AuthenticationTest extends TestCase
+class AuthenticationTest extends BrowserKitTestCase
 {
     use InteractsWithDatabase, CreatesUser;
 

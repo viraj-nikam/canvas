@@ -1,6 +1,6 @@
 <?php
 
-class ToolsIndexPageTest extends TestCase
+class ToolsIndexPageTest extends BrowserKitTestCase
 {
     use InteractsWithDatabase, CreatesUser;
 

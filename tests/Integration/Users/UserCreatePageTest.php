@@ -2,7 +2,7 @@
 
 use Canvas\Helpers\CanvasHelper;
 
-class UserCreatePageTest extends TestCase
+class UserCreatePageTest extends BrowserKitTestCase
 {
     use InteractsWithDatabase, CreatesUser;
 

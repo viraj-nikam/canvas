@@ -2,7 +2,7 @@
 
 use Canvas\Services\Parsedowner;
 
-class ParsedownerTest extends TestCase
+class ParsedownerTest extends BrowserKitTestCase
 {
     private $parsedowner;
 
