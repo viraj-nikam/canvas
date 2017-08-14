@@ -9,11 +9,17 @@
             "email": "austin.todd.j@gmail.com"
         }
     ],
+		"repositories": [
+        {
+            "type": "git",
+            "url": "https://github.com/cnvs/easel"
+        }
+    ],
     "require": {
         "cnvs/paper-dark": "*",
         "doctrine/dbal": "2.5.*",
         "fzaninotto/faker": "~1.4",
-        "cnvs/easel": "3.4.*",
+        "cnvs/easel": "dev-feature/l5.4",
         "laravel/framework": "5.4.*",
         "barryvdh/laravel-debugbar": "^2.3"
     },
