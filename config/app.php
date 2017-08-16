@@ -169,9 +169,9 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
-        // Canvas Service Providers...
         Canvas\CanvasServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
+        Laravel\Dusk\DuskServiceProvider::class,
     ],
 
     /*
@@ -222,7 +222,6 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View'      => Illuminate\Support\Facades\View::class,
 
-        // Canvas Aliases...
         'ConfigWriter'  => Larapack\ConfigWriter\Repository::class,
         'Excel'         => Maatwebsite\Excel\Facades\Excel::class,
         'Settings'      => Canvas\Models\Settings::class,
