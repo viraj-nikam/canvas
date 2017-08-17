@@ -1,8 +1,11 @@
 <?php
 
+namespace Tests;
+
 use Canvas\Models\Tag;
 use Canvas\Models\Post;
 use Canvas\Models\User;
+use Canvas\TestDatabaseSeeder;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 trait InteractsWithDatabase
@@ -14,7 +17,7 @@ trait InteractsWithDatabase
      *
      * @return void
      */
-    protected function setUp()
+    public function setUp()
     {
         parent::setUp();
 
@@ -25,7 +28,7 @@ trait InteractsWithDatabase
 
         $this->runDatabaseMigrations();
 
-        $this->seed(\Canvas\TestDatabaseSeeder::class);
+        $this->seed(TestDatabaseSeeder::class);
     }
 
     /**
