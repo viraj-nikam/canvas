@@ -183,7 +183,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/cnvs/easel",
-                "reference": "5726c1dec371817d1c7cc16417a8c067c2bc7cc0"
+                "reference": "18c512086475061f13e72b46590a9462fb85e19e"
             },
             "require": {
                 "barryvdh/laravel-ide-helper": "^2.3",
@@ -229,7 +229,7 @@
                 "canvas",
                 "framework"
             ],
-            "time": "2017-08-17T19:37:20+00:00"
+            "time": "2017-08-17T20:25:30+00:00"
         },
         {
             "name": "cnvs/paper-dark",

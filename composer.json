@@ -65,6 +65,8 @@
     ]
   },
   "config": {
+    "php": "7.0.21",
+    "doctrine/annotations": "~1.0",
     "sort-packages": true
   },
   "minimum-stability": "beta",
