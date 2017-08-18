@@ -6,11 +6,11 @@ use Canvas\Models\Tag;
 use Canvas\Models\Post;
 use Canvas\Models\User;
 use Canvas\TestDatabaseSeeder;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 trait InteractsWithDatabase
 {
-    use DatabaseTransactions;
+    use DatabaseMigrations;
 
     /**
      * Set up the test environment.
