@@ -22,7 +22,7 @@ before_install:
   - mv .env.example .env
 
 install:
-  - composer install
+  - composer install --ignore-platform-reqs
 
 before_script:
   - php artisan canvas:publish:assets -y
