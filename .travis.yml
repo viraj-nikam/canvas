@@ -39,4 +39,4 @@ script:
   - php artisan dusk
 
 after_script:
-	- curl http://127.0.0.1:8000
+	- curl 'http://127.0.0.1:8000'
