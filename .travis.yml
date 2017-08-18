@@ -22,7 +22,7 @@ before_install:
   - mv .env.example .env
 
 install:
-  - travis_retry composer install --no-interaction
+  - composer install
 
 before_script:
   - php artisan canvas:publish:assets -y
