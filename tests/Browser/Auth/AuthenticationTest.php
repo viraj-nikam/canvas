@@ -14,6 +14,8 @@ class AuthenticationTest extends DuskTestCase
     /** @test */
     public function it_validates_the_login_form()
     {
+        dd($_ENV);
+
         // User entered nothing
         $this->browse(function ($browser) {
             $browser->visit(route('canvas.admin'))

@@ -5,7 +5,6 @@
 /storage/*.lock
 /storage/*.index
 /tests/report
-/database/dusk.sqlite
 
 Thumbs.db
 Homestead.yaml
