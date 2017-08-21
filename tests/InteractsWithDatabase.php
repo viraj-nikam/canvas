@@ -27,6 +27,7 @@ trait InteractsWithDatabase
         User::disableSearchSyncing();
 
         $this->runDatabaseMigrations();
+
         $this->seed(TestDatabaseSeeder::class);
     }
 

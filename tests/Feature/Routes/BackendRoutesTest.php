@@ -12,38 +12,46 @@ class BackendRoutesTest extends TestCase
     use InteractsWithDatabase, CreatesUser;
 
     /**
-    * Smoke test each URI and compare the response codes.
-    *
-    * @test
-    * @dataProvider backendUriWithResponseCodeProvider
+    * @return void
     **/
-    public function it_gets_proper_response_codes_from_backend_uris($uri, $id = null, $responseCode)
+    public function setUp()
     {
-        Auth::guard('canvas')->login($this->user);
-        $response = $this->actingAs(Auth::user())->call('GET', $uri, $id, $responseCode);
-        $this->assertEquals($responseCode, $response->status());
+        parent::setUp();
+        $this->runDatabaseMigrations();
+        $this->createApplication();
     }
 
     /**
-    * @return array
+    * Smoke test each URI and compare the response codes.
+    *
+    * @test
+    *
+    * @dataProvider backendUriWithResponseCodeProvider
     **/
-    public static function backendUriWithResponseCodeProvider()
+    public function it_gets_proper_response_codes_from_backend_uris($uri, $responseCode)
+    {
+        Auth::guard('canvas')->login($this->user);
+        $response = $this->actingAs(Auth::user())->call('GET', $uri, $responseCode);
+        $this->assertEquals($responseCode, $response->status());
+    }
+
+    public function backendUriWithResponseCodeProvider()
     {
         return [
-            ['/admin', null, 200],
-            ['/admin/post', null, 200],
-            ['/admin/post/edit', 1, 200],
-            ['/admin/tag', null, 200],
-            ['/admin/tag/edit', 1, 200],
-            ['/admin/upload', null, 200],
-            ['/admin/profile', null, 200],
-            ['/admin/profile/privacy', null, 200],
-            ['/admin/tools', null, 200],
-            ['/admin/settings', null, 200],
-            ['/admin/help', null, 200],
-            ['/admin/user', null, 200],
-            ['/admin/user/edit', 2, 200],
-            ['/admin/user/privacy', 2, 200]
+            ['/admin', 200],
+            ['/admin/post', 200],
+            [route('canvas.admin.post.edit', ['id' => 1]), 200],
+            ['/admin/tag', 200],
+            ['/admin/tag/edit/1', 200],
+            ['/admin/upload', 200],
+            ['/admin/profile', 200],
+            ['/admin/profile/privacy', 200],
+            ['/admin/tools', 200],
+            ['/admin/settings', 200],
+            ['/admin/help', 200],
+            ['/admin/user', 200],
+            ['/admin/user/edit/2', 200],
+            ['/admin/user/privacy/2', 200]
         ];
     }
 }
