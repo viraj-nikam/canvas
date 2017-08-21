@@ -28,7 +28,6 @@ trait InteractsWithDatabase
 
         $this->runDatabaseMigrations();
         $this->seed(TestDatabaseSeeder::class);
-        $this->refreshApplication();
     }
 
     /**
