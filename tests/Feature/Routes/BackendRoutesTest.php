@@ -25,7 +25,7 @@ class BackendRoutesTest extends TestCase
         $this->assertEquals($responseCode, $response->status());
     }
 
-    public function backendUriWithResponseCodeProvider()
+    public static function backendUriWithResponseCodeProvider()
     {
         return [
             [route('canvas.admin'), 200],

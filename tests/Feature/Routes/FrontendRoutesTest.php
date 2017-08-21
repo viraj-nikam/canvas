@@ -23,7 +23,7 @@ class FrontendRoutesTest extends TestCase
         $this->assertEquals($responseCode, $response->status());
     }
 
-    public function frontendUriWithResponseCodeProvider()
+    public static function frontendUriWithResponseCodeProvider()
     {
         return [
             ['/', 200],
