@@ -12,16 +12,6 @@ class BackendRoutesTest extends TestCase
     use InteractsWithDatabase, CreatesUser;
 
     /**
-    * @return void
-    **/
-    public function setUp()
-    {
-        parent::setUp();
-        $this->runDatabaseMigrations();
-        $this->createApplication();
-    }
-
-    /**
     * Smoke test each URI and compare the response codes.
     *
     * @test
