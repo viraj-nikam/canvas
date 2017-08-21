@@ -30,9 +30,9 @@ class AdminRoutesTest extends TestCase
         return [
             [route('canvas.admin'), 200],
             [route('canvas.admin.post.index'), 200],
-            [route('canvas.admin.post.edit', 1, 200],
+            [route('canvas.admin.post.edit', 1), 200],
             [route('canvas.admin.tag.index'), 200],
-            [route('canvas.admin.tag.edit', 1, 200],
+            [route('canvas.admin.tag.edit', 1), 200],
             [route('canvas.admin.upload'), 200],
             [route('canvas.admin.profile.index'), 200],
             [route('canvas.admin.profile.privacy'), 200],
@@ -40,7 +40,7 @@ class AdminRoutesTest extends TestCase
             [route('canvas.admin.settings'), 200],
             [route('canvas.admin.help'), 200],
             [route('canvas.admin.user.index'), 200],
-            [route('canvas.admin.user.edit', 2, 200],
+            [route('canvas.admin.user.edit', 2), 200],
             [route('canvas.admin.user.privacy', 2), 200],
         ];
     }
