@@ -12,6 +12,16 @@ class BackendRoutesTest extends TestCase
     use InteractsWithDatabase, CreatesUser;
 
     /**
+    * @return void
+    **/
+    public function setUp()
+    {
+        parent::setUp();
+
+        $this->refreshApplication();
+    }
+
+    /**
     * Smoke test each URI and compare the response codes.
     *
     * @test
@@ -27,8 +37,6 @@ class BackendRoutesTest extends TestCase
 
     public function backendUriWithResponseCodeProvider()
     {
-        $this->refreshApplication();
-
         return [
             ['/admin', 200],
             ['/admin/post', 200],
