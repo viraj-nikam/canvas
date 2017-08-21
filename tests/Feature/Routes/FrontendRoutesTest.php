@@ -17,9 +17,9 @@ class PublicRoutesTest extends TestCase
     *
     * @dataProvider uriWithResponseCodeProvider
     **/
-    public function testApplicationUriResponses($uri, $responseCode)
+    public function it_gets_proper_response_codes_from_frontend_uris($uri, $responseCode)
     {
-        print sprintf('checking URI : %s - to be %d - %s', $uri, $responseCode, PHP_EOL);
+        // print sprintf('Checking URI : %s - to be %d - %s', $uri, $responseCode, PHP_EOL);
         $response = $this->call('GET', $uri);
         $this->assertEquals($responseCode, $response->status());
     }
