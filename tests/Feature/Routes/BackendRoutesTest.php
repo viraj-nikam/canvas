@@ -18,10 +18,10 @@ class BackendRoutesTest extends TestCase
     *
     * @dataProvider backendUriWithResponseCodeProvider
     **/
-    public function it_gets_proper_response_codes_from_backend_uris($uri, $id = null, $responseCode)
+    public function it_gets_proper_response_codes_from_backend_uris($uri, $responseCode)
     {
         Auth::guard('canvas')->login($this->user);
-        $response = $this->actingAs(Auth::user())->call('GET', $uri, $id);
+        $response = $this->actingAs(Auth::user())->call('GET', $uri);
         $this->assertEquals($responseCode, $response->status());
     }
 
@@ -30,9 +30,9 @@ class BackendRoutesTest extends TestCase
         return [
             ['/admin', 200],
             ['/admin/post', 200],
-            ['/admin/post/edit', 1, 200],
+            ['/admin/post/edit/1', 200],
             ['/admin/tag', 200],
-            ['/admin/tag/edit', 1, 200],
+            ['/admin/tag/edit/1', 200],
             ['/admin/upload', 200],
             ['/admin/profile', 200],
             ['/admin/profile/privacy', 200],
@@ -40,8 +40,8 @@ class BackendRoutesTest extends TestCase
             ['/admin/settings', 200],
             ['/admin/help', 200],
             ['/admin/user', 200],
-            ['/admin/user/edit', 2, 200],
-            ['/admin/user/privacy', 2, 200],
+            ['/admin/user/edit/2', 200],
+            ['/admin/user/privacy/2' 200],
         ];
     }
 }
