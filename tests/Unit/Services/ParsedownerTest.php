@@ -28,10 +28,13 @@ class ParsedownerTest extends TestCase
         $this->assertEquals($expected, $this->parsedowner->toHTML($value));
     }
 
-    public function conversionsProvider()
+    /**
+    * @return array
+    **/
+    public static function conversionsProvider()
     {
         return [
-            ['text', '<p>text</p>'],
+            ['Paragraph', '<p>Paragraph</p>'],
             ["Header 1\n=======", '<h1>Header 1</h1>'],
             ['# Header 1', '<h1>Header 1</h1>'],
             ['## Header 2', '<h2>Header 2</h2>'],
@@ -40,14 +43,14 @@ class ParsedownerTest extends TestCase
             ['##### Header 5', '<h5>Header 5</h5>'],
             ['###### Header 6', '<h6>Header 6</h6>'],
             ['`hello_world`', '<p><code>hello_world</code></p>'],
-            ['``` <?php $var = "Php Code Blocks"; echo $var; ?> ```', '<p><code>&lt;?php $var = "Php Code Blocks"; echo $var; ?&gt;</code></p>'],
-            ['*italics text*', '<p><em>italics text</em></p>'],
-            ['_italics text_', '<p><em>italics text</em></p>'],
-            ['**bold text**', '<p><strong>bold text</strong></p>'],
-            ['__bold text__', '<p><strong>bold text</strong></p>'],
+            ['``` <?php $var = "PHP code blocks"; echo $var; ?> ```', '<p><code>&lt;?php $var = "PHP code blocks"; echo $var; ?&gt;</code></p>'],
+            ['*Italics text*', '<p><em>Italics text</em></p>'],
+            ['_Italics text_', '<p><em>Italics text</em></p>'],
+            ['**Bold text**', '<p><strong>Bold text</strong></p>'],
+            ['__Bold text__', '<p><strong>Bold text</strong></p>'],
             ['---', '<hr />'],
             ['***', '<hr />'],
-            ['>note', "<blockquote>\n<p>note</p>\n</blockquote>"],
+            ['>Note', "<blockquote>\n<p>Note</p>\n</blockquote>"],
             ['[Canvas](https://cnvs.io "Canvas")', '<p><a href="https://cnvs.io" title="Canvas">Canvas</a></p>'],
             ['Intra-word *emp*hasis', '<p>Intra-word <em>emp</em>hasis</p>'],
             ['~~Strikethrough~~', '<p><del>Strikethrough</del></p>'],
