@@ -17,7 +17,7 @@ class FrontendRoutesTest extends TestCase
     {
         parent::setUp();
 
-        $this->refreshApplication();
+        $this->createApplication();
     }
 
     /**

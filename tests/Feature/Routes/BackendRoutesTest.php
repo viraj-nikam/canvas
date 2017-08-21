@@ -18,7 +18,7 @@ class BackendRoutesTest extends TestCase
     {
         parent::setUp();
 
-        $this->refreshApplication();
+        $this->createApplication();
     }
 
     /**
