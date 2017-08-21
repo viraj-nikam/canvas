@@ -10,20 +10,7 @@ class FrontendRoutesTest extends TestCase
 {
     use InteractsWithDatabase, CreatesUser;
 
-    /**
-    * Smoke test each URI and compare the response codes.
-    *
-    * @test
-    *
-    * @dataProvider uriWithResponseCodeProvider
-    **/
-    public function it_gets_proper_response_codes_from_frontend_uris($uri, $responseCode)
-    {
-        $response = $this->call('GET', $uri);
-        $this->assertEquals($responseCode, $response->status());
-    }
-
-    public function frontendUriWithResponseCodeProvider()
+    protected function frontendUriWithResponseCodeProvider()
     {
         return [
             ['/', 200],
@@ -33,5 +20,18 @@ class FrontendRoutesTest extends TestCase
             ['/password/forgot', 200],
             ['/non-existing', 404],
         ];
+    }
+
+    /**
+    * Smoke test each URI and compare the response codes.
+    *
+    * @test
+    *
+    * @dataProvider frontendUriWithResponseCodeProvider
+    **/
+    public function it_gets_proper_response_codes_from_frontend_uris($uri, $responseCode)
+    {
+        $response = $this->call('GET', $uri);
+        $this->assertEquals($responseCode, $response->status());
     }
 }

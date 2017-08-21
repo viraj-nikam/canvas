@@ -11,21 +11,7 @@ class BackendRoutesTest extends TestCase
 {
     use InteractsWithDatabase, CreatesUser;
 
-    /**
-    * Smoke test each URI and compare the response codes.
-    *
-    * @test
-    *
-    * @dataProvider uriWithResponseCodeProvider
-    **/
-    public function it_gets_proper_response_codes_from_backend_uris($uri, $responseCode)
-    {
-        Auth::guard('canvas')->login($this->user);
-        $response = $this->actingAs(Auth::user())->call('GET', $uri);
-        $this->assertEquals($responseCode, $response->status());
-    }
-
-    public function backendUriWithResponseCodeProvider()
+    protected function backendUriWithResponseCodeProvider()
     {
         return [
             [route('canvas.admin'), 200],
@@ -43,5 +29,19 @@ class BackendRoutesTest extends TestCase
             [route('canvas.admin.user.edit', 2), 200],
             [route('canvas.admin.user.privacy', 2), 200],
         ];
+    }
+
+    /**
+    * Smoke test each URI and compare the response codes.
+    *
+    * @test
+    *
+    * @dataProvider backendUriWithResponseCodeProvider
+    **/
+    public function it_gets_proper_response_codes_from_backend_uris($uri, $responseCode)
+    {
+        Auth::guard('canvas')->login($this->user);
+        $response = $this->actingAs(Auth::user())->call('GET', $uri);
+        $this->assertEquals($responseCode, $response->status());
     }
 }
