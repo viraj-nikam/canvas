@@ -10,6 +10,13 @@ class FrontendRoutesTest extends TestCase
 {
     use InteractsWithDatabase, CreatesUser;
 
+    public function __construct($name = null, array $data = array(), $dataName = '')
+    {
+        parent::__construct($name, $data, $dataName);
+
+        $this->createApplication();
+    }
+
     /**
     * Smoke test each URI and compare the response codes.
     *
@@ -25,8 +32,6 @@ class FrontendRoutesTest extends TestCase
 
     public static function frontendUriWithResponseCodeProvider()
     {
-        $this->createApplication();
-
         return [
             ['/', 200],
             ['/blog/post/hello-world', 200],

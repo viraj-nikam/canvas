@@ -11,6 +11,13 @@ class BackendRoutesTest extends TestCase
 {
     use InteractsWithDatabase, CreatesUser;
 
+    public function __construct($name = null, array $data = array(), $dataName = '')
+    {
+        parent::__construct($name, $data, $dataName);
+
+        $this->createApplication();
+    }
+
     /**
     * Smoke test each URI and compare the response codes.
     *
@@ -27,8 +34,6 @@ class BackendRoutesTest extends TestCase
 
     public static function backendUriWithResponseCodeProvider()
     {
-        $this->createApplication();
-
         return [
             [route('canvas.admin'), 200],
             [route('canvas.admin.post.index'), 200],
