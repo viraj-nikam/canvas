@@ -30,18 +30,18 @@ class BackendRoutesTest extends TestCase
     public static function backendUriWithResponseCodeProvider()
     {
         return [
-            ['/admin', 200],
-            ['/admin/post', 200],
+            ['/admin', null, 200],
+            ['/admin/post', null, 200],
             ['/admin/post/edit', 1, 200],
-            ['/admin/tag', 200],
+            ['/admin/tag', null, 200],
             ['/admin/tag/edit', 1, 200],
-            ['/admin/upload', 200],
-            ['/admin/profile', 200],
-            ['/admin/profile/privacy', 200],
-            ['/admin/tools', 200],
-            ['/admin/settings', 200],
-            ['/admin/help', 200],
-            ['/admin/user', 200],
+            ['/admin/upload', null, 200],
+            ['/admin/profile', null, 200],
+            ['/admin/profile/privacy', null, 200],
+            ['/admin/tools', null, 200],
+            ['/admin/settings', null, 200],
+            ['/admin/help', null, 200],
+            ['/admin/user', null, 200],
             ['/admin/user/edit', 2, 200],
             ['/admin/user/privacy', 2, 200]
         ];
