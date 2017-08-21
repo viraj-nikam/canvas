@@ -178,7 +178,6 @@ return [
         App\Providers\RouteServiceProvider::class,
         Canvas\CanvasServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
-        Laravel\Dusk\DuskServiceProvider::class,
     ],
 
     /*
