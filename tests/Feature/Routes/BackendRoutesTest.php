@@ -18,7 +18,7 @@ class BackendRoutesTest extends TestCase
     *
     * @dataProvider backendUriWithResponseCodeProvider
     **/
-    public function it_gets_proper_response_codes_from_backend_uris($uri, $responseCode)
+    public function it_gets_proper_response_codes_from_backend_uris(string $uri, int $responseCode)
     {
         Auth::guard('canvas')->login($this->user);
         $response = $this->actingAs(Auth::user())->call('GET', $uri, $responseCode);
