@@ -7,7 +7,7 @@ use Tests\CreatesUser;
 use Tests\InteractsWithDatabase;
 use Illuminate\Support\Facades\Auth;
 
-class AdminRoutesTest extends TestCase
+class BackendRoutesTest extends TestCase
 {
     use InteractsWithDatabase, CreatesUser;
 
@@ -25,7 +25,7 @@ class AdminRoutesTest extends TestCase
         $this->assertEquals($responseCode, $response->status());
     }
 
-    public function uriWithResponseCodeProvider()
+    public function backendUriWithResponseCodeProvider()
     {
         return [
             [route('canvas.admin'), 200],

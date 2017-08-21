@@ -6,7 +6,7 @@ use Tests\TestCase;
 use Tests\CreatesUser;
 use Tests\InteractsWithDatabase;
 
-class PublicRoutesTest extends TestCase
+class FrontendRoutesTest extends TestCase
 {
     use InteractsWithDatabase, CreatesUser;
 
@@ -23,7 +23,7 @@ class PublicRoutesTest extends TestCase
         $this->assertEquals($responseCode, $response->status());
     }
 
-    public function uriWithResponseCodeProvider()
+    public function frontendUriWithResponseCodeProvider()
     {
         return [
             ['/', 200],
