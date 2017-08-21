@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Unit\Services;
 
 use Tests\TestCase;
 use Canvas\Services\Parsedowner;
@@ -15,7 +15,10 @@ class ParsedownerTest extends TestCase
     }
 
     /**
+     * Verify converted markdown content of Parsedowner.
+     *
      * @test
+     *
      * @dataProvider conversionsProvider
      */
     public function it_converts_markdown_to_html($value, $expected)

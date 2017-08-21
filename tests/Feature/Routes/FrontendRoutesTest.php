@@ -10,45 +10,29 @@ class PublicRoutesTest extends TestCase
 {
     use InteractsWithDatabase, CreatesUser;
 
-    /** @test */
-    public function it_can_access_the_blog_index_page()
+    /**
+    * Smoke test each URI and compare the response codes.
+    *
+    * @test
+    *
+    * @dataProvider uriWithResponseCodeProvider
+    **/
+    public function testApplicationUriResponses($uri, $responseCode)
     {
-        $response = $this->call('GET', '/');
-        $response->assertStatus(200);
+        print sprintf('checking URI : %s - to be %d - %s', $uri, $responseCode, PHP_EOL);
+        $response = $this->call('GET', $uri);
+        $this->assertEquals($responseCode, $response->status());
     }
 
-    /** @test */
-    public function it_can_access_a_blog_post_page()
+    public function uriWithResponseCodeProvider()
     {
-        $response = $this->call('GET', '/blog/post/hello-world');
-        $response->assertStatus(200);
-    }
-
-    /** @test */
-    public function it_can_access_a_blog_tag_page()
-    {
-        $response = $this->call('GET', '/blog?tag=Getting+Started');
-        $response->assertStatus(200);
-    }
-
-    /** @test */
-    public function it_can_access_the_login_page()
-    {
-        $response = $this->call('GET', '/admin');
-        $response->assertStatus(200);
-    }
-
-    /** @test */
-    public function it_can_access_the_forgot_password_page()
-    {
-        $response = $this->call('GET', '/password/forgot');
-        $response->assertStatus(200);
-    }
-
-    /** @test */
-    public function it_will_receive_a_404_error_if_a_page_is_not_found()
-    {
-        $response = $this->call('GET', '/404ErrorPage');
-        $response->assertStatus(404);
+        return [
+            ['/', 200],
+            ['/blog/post/hello-world', 200],
+            ['/blog?tag=Getting+Started', 200],
+            ['/admin', 200],
+            ['/password/forgot', 200],
+            ['/non-existing', 404],
+        ];
     }
 }

@@ -2,12 +2,12 @@
 
 namespace Tests\Feature\Auth;
 
+use Tests\TestCase;
 use Tests\CreatesUser;
-use Tests\DuskTestCase;
 use Tests\InteractsWithDatabase;
 use Illuminate\Support\Facades\Auth;
 
-class AuthenticationTest extends DuskTestCase
+class AuthenticationTest extends TestCase
 {
     use InteractsWithDatabase, CreatesUser;
 
