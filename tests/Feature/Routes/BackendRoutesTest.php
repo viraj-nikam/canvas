@@ -28,20 +28,20 @@ class BackendRoutesTest extends TestCase
     public static function backendUriWithResponseCodeProvider()
     {
         return [
-            [route('canvas.admin'), 200],
-            [route('canvas.admin.post.index'), 200],
-            [route('canvas.admin.post.edit'), 1, 200],
-            [route('canvas.admin.tag.index'), 200],
-            [route('canvas.admin.tag.edit'), 1, 200],
-            [route('canvas.admin.upload'), 200],
-            [route('canvas.admin.profile.index'), 200],
-            [route('canvas.admin.profile.privacy'), 200],
-            [route('canvas.admin.tools'), 200],
-            [route('canvas.admin.settings'), 200],
-            [route('canvas.admin.help'), 200],
-            [route('canvas.admin.user.index'), 200],
-            [route('canvas.admin.user.edit'), 2, 200],
-            [route('canvas.admin.user.privacy'), 2, 200],
+            ['/admin', 200],
+            ['/admin/post', 200],
+            ['/admin/post/edit', 1, 200],
+            ['/admin/tag', 200],
+            ['/admin/tag/edit', 1, 200],
+            ['/admin/upload', 200],
+            ['/admin/profile', 200],
+            ['/admin/profile/privacy', 200],
+            ['/admin/tools', 200],
+            ['/admin/settings', 200],
+            ['/admin/help', 200],
+            ['/admin/user', 200],
+            ['/admin/user/edit', 2, 200],
+            ['/admin/user/privacy', 2, 200],
         ];
     }
 }
