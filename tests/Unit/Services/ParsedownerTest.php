@@ -9,8 +9,10 @@ class ParsedownerTest extends TestCase
 {
     private $parsedowner;
 
-    public function setup()
+    public function setUp()
     {
+        parent::setUp();
+
         $this->parsedowner = new Parsedowner();
     }
 

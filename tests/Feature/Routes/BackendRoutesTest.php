@@ -11,9 +11,9 @@ class BackendRoutesTest extends TestCase
 {
     use InteractsWithDatabase, CreatesUser;
 
-    public function __construct($name = null, array $data = array(), $dataName = '')
+    public function setUp()
     {
-        parent::__construct($name, $data, $dataName);
+        parent::setUp();
 
         $this->createApplication();
     }
