@@ -25,7 +25,7 @@ class BackendRoutesTest extends TestCase
         $this->assertEquals($responseCode, $response->status());
     }
 
-    public static function backendUriWithResponseCodeProvider()
+    public function backendUriWithResponseCodeProvider()
     {
         $this->refreshApplication();
 
