@@ -14,7 +14,6 @@ class FrontendRoutesTest extends TestCase
     * Smoke test each URI and compare the response codes.
     *
     * @test
-    *
     * @dataProvider frontendUriWithResponseCodeProvider
     **/
     public function it_gets_proper_response_codes_from_frontend_uris($uri, $responseCode)

@@ -20,7 +20,6 @@ class ParsedownerTest extends TestCase
      * Verify converted markdown content of Parsedowner.
      *
      * @test
-     *
      * @dataProvider conversionsProvider
      */
     public function it_converts_markdown_to_html($value, $expected)
