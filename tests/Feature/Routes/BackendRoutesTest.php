@@ -43,7 +43,7 @@ class BackendRoutesTest extends TestCase
             ['/admin/help', 200],
             ['/admin/user', 200],
             ['/admin/user/edit/2', 200],
-            ['/admin/user/privacy/2' 200],
+            ['/admin/user/privacy/2', 200]
         ];
     }
 }

@@ -33,7 +33,7 @@ class FrontendRoutesTest extends TestCase
             ['/blog?tag=Getting+Started', 200],
             ['/admin', 200],
             ['/password/forgot', 200],
-            ['/non-existing', 404],
+            ['/non-existing', 404]
         ];
     }
 }
