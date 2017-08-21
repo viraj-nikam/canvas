@@ -27,10 +27,12 @@ class BackendRoutesTest extends TestCase
 
     public static function backendUriWithResponseCodeProvider()
     {
+        $this->refreshApplication();
+
         return [
             ['/admin', 200],
             ['/admin/post', 200],
-            ['/admin/post/edit/1', 200],
+            [route('admin.post.edit', 1), 200],
             ['/admin/tag', 200],
             ['/admin/tag/edit/1', 200],
             ['/admin/upload', 200],
