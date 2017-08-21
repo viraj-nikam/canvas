@@ -17,7 +17,7 @@ class BackendRoutesTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-
+        $this->runDatabaseMigrations();
         $this->createApplication();
     }
 
