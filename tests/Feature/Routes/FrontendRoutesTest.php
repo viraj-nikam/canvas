@@ -10,18 +10,6 @@ class FrontendRoutesTest extends TestCase
 {
     use InteractsWithDatabase, CreatesUser;
 
-    protected function frontendUriWithResponseCodeProvider()
-    {
-        return [
-            ['/', 200],
-            ['/blog/post/hello-world', 200],
-            ['/blog?tag=Getting+Started', 200],
-            ['/admin', 200],
-            ['/password/forgot', 200],
-            ['/non-existing', 404],
-        ];
-    }
-
     /**
     * Smoke test each URI and compare the response codes.
     *
@@ -33,5 +21,17 @@ class FrontendRoutesTest extends TestCase
     {
         $response = $this->call('GET', $uri);
         $this->assertEquals($responseCode, $response->status());
+    }
+
+    public function frontendUriWithResponseCodeProvider()
+    {
+        return [
+            ['/', 200],
+            ['/blog/post/hello-world', 200],
+            ['/blog?tag=Getting+Started', 200],
+            ['/admin', 200],
+            ['/password/forgot', 200],
+            ['/non-existing', 404],
+        ];
     }
 }
