@@ -18,10 +18,10 @@ class BackendRoutesTest extends TestCase
     *
     * @dataProvider backendUriWithResponseCodeProvider
     **/
-    public function it_gets_proper_response_codes_from_backend_uris($uri, $responseCode)
+    public function it_gets_proper_response_codes_from_backend_uris($uri, $id = null, $responseCode)
     {
         Auth::guard('canvas')->login($this->user);
-        $response = $this->actingAs(Auth::user())->call('GET', $uri);
+        $response = $this->actingAs(Auth::user())->call('GET', $uri, $id);
         $this->assertEquals($responseCode, $response->status());
     }
 
@@ -30,9 +30,9 @@ class BackendRoutesTest extends TestCase
         return [
             [route('canvas.admin'), 200],
             [route('canvas.admin.post.index'), 200],
-            [route('canvas.admin.post.edit', ['id' => 1]), 200],
+            [route('canvas.admin.post.edit'), 1, 200],
             [route('canvas.admin.tag.index'), 200],
-            [route('canvas.admin.tag.edit', ['id' => 1]), 200],
+            [route('canvas.admin.tag.edit'), 1, 200],
             [route('canvas.admin.upload'), 200],
             [route('canvas.admin.profile.index'), 200],
             [route('canvas.admin.profile.privacy'), 200],
@@ -40,8 +40,8 @@ class BackendRoutesTest extends TestCase
             [route('canvas.admin.settings'), 200],
             [route('canvas.admin.help'), 200],
             [route('canvas.admin.user.index'), 200],
-            [route('canvas.admin.user.edit', ['id' => 2]), 200],
-            [route('canvas.admin.user.privacy', ['id' => 2]), 200],
+            [route('canvas.admin.user.edit'), 2, 200],
+            [route('canvas.admin.user.privacy'), 2, 200],
         ];
     }
 }
