@@ -30,7 +30,7 @@ class BackendRoutesTest extends TestCase
         return [
             [route('canvas.admin'), 200],
             [route('canvas.admin.post.index'), 200],
-            [route('canvas.admin.post.edit', ['id' => 1]]), 200],
+            [route('canvas.admin.post.edit', ['id' => 1]), 200],
             [route('canvas.admin.tag.index'), 200],
             [route('canvas.admin.tag.edit', ['id' => 1]), 200],
             [route('canvas.admin.upload'), 200],
