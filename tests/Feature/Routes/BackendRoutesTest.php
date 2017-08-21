@@ -27,6 +27,8 @@ class BackendRoutesTest extends TestCase
 
     public static function backendUriWithResponseCodeProvider()
     {
+        $this->createApplication();
+
         return [
             [route('canvas.admin'), 200],
             [route('canvas.admin.post.index'), 200],

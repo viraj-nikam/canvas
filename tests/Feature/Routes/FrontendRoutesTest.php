@@ -25,6 +25,8 @@ class FrontendRoutesTest extends TestCase
 
     public static function frontendUriWithResponseCodeProvider()
     {
+        $this->createApplication();
+
         return [
             ['/', 200],
             ['/blog/post/hello-world', 200],
