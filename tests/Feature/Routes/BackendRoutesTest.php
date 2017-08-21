@@ -2,10 +2,10 @@
 
 namespace Tests\Feature\Routes;
 
+use Auth;
 use Tests\TestCase;
 use Tests\CreatesUser;
 use Tests\InteractsWithDatabase;
-use Illuminate\Support\Facades\Auth;
 
 class BackendRoutesTest extends TestCase
 {
@@ -30,9 +30,9 @@ class BackendRoutesTest extends TestCase
         return [
             [route('canvas.admin'), 200],
             [route('canvas.admin.post.index'), 200],
-            [route('canvas.admin.post.edit', 1), 200],
+            [route('canvas.admin.post.edit', ['id' => 1]]), 200],
             [route('canvas.admin.tag.index'), 200],
-            [route('canvas.admin.tag.edit', 1), 200],
+            [route('canvas.admin.tag.edit', ['id' => 1]), 200],
             [route('canvas.admin.upload'), 200],
             [route('canvas.admin.profile.index'), 200],
             [route('canvas.admin.profile.privacy'), 200],
@@ -40,8 +40,8 @@ class BackendRoutesTest extends TestCase
             [route('canvas.admin.settings'), 200],
             [route('canvas.admin.help'), 200],
             [route('canvas.admin.user.index'), 200],
-            [route('canvas.admin.user.edit', 2), 200],
-            [route('canvas.admin.user.privacy', 2), 200],
+            [route('canvas.admin.user.edit', ['id' => 2]), 200],
+            [route('canvas.admin.user.privacy', ['id' => 2]), 200],
         ];
     }
 }
