@@ -11,11 +11,6 @@ class BackendRoutesTest extends TestCase
 {
     use InteractsWithDatabase, CreatesUser;
 
-    public function setUp()
-    {
-        $this->refreshApplication();
-    }
-
     /**
     * Smoke test each URI and compare the response codes.
     *
