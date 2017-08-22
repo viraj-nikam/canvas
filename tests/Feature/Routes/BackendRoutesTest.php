@@ -12,22 +12,15 @@ class BackendRoutesTest extends TestCase
     use InteractsWithDatabase, CreatesUser;
 
     /**
-    * @return void
-    **/
-    public function setUp()
-    {
-        parent::setUp();
-        $this->runDatabaseMigrations();
-        $this->createApplication();
-    }
-
-    /**
-    * Smoke test each URI and compare the response codes.
-    *
-    * @test
-    *
-    * @dataProvider backendUriWithResponseCodeProvider
-    **/
+     * Smoke test each URI and compare the response codes.
+     *
+     * @test
+     *
+     * @param string $uri
+     * @param int $responseCode
+     *
+     * @dataProvider backendUriWithResponseCodeProvider
+     **/
     public function it_gets_proper_response_codes_from_backend_uris($uri, $responseCode)
     {
         Auth::guard('canvas')->login($this->user);
@@ -35,23 +28,26 @@ class BackendRoutesTest extends TestCase
         $this->assertEquals($responseCode, $response->status());
     }
 
+    /**
+     * @return array
+     */
     public function backendUriWithResponseCodeProvider()
     {
         return [
-            ['/admin', 200],
-            ['/admin/post', 200],
+            [route('canvas'), 200],
+            [route('canvas.admin.post'), 200],
             [route('canvas.admin.post.edit', ['id' => 1]), 200],
-            ['/admin/tag', 200],
-            ['/admin/tag/edit/1', 200],
-            ['/admin/upload', 200],
-            ['/admin/profile', 200],
-            ['/admin/profile/privacy', 200],
-            ['/admin/tools', 200],
-            ['/admin/settings', 200],
-            ['/admin/help', 200],
-            ['/admin/user', 200],
-            ['/admin/user/edit/2', 200],
-            ['/admin/user/privacy/2', 200]
+            [route('canvas.admin.tag'), 200],
+            [route('canvas.admin.tag.edit', ['id' => 1]), 200],
+            [route('canvas.admin.upload'), 200],
+            [route('canvas.admin.profile.index'), 200],
+            [route('canvas.admin.profile.privacy'), 200],
+            [route('canvas.admin.tools'), 200],
+            [route('canvas.admin.settings'), 200],
+            [route('canvas.admin.help'), 200],
+            [route('canvas.admin.user.index'), 200],
+            [route('canvas.admin.user.edit', ['id' => 2]), 200],
+            [route('canvas.admin.user.privacy', ['id' => 2]), 200]
         ];
     }
 }

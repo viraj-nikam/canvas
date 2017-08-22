@@ -11,11 +11,15 @@ class FrontendRoutesTest extends TestCase
     use InteractsWithDatabase, CreatesUser;
 
     /**
-    * Smoke test each URI and compare the response codes.
-    *
-    * @test
-    * @dataProvider frontendUriWithResponseCodeProvider
-    **/
+     * Smoke test each URI and compare the response codes.
+     *
+     * @test
+     *
+     * @param string $uri
+     * @param int $responseCode
+     *
+     * @dataProvider frontendUriWithResponseCodeProvider
+     */
     public function it_gets_proper_response_codes_from_frontend_uris($uri, $responseCode)
     {
         $response = $this->call('GET', $uri);
@@ -23,8 +27,8 @@ class FrontendRoutesTest extends TestCase
     }
 
     /**
-    * @return array
-    **/
+     * @return array
+     */
     public static function frontendUriWithResponseCodeProvider()
     {
         return [
