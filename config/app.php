@@ -226,8 +226,8 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-        'ConfigWriter'  => Larapack\ConfigWriter\Repository::class,
-        'Excel'         => Maatwebsite\Excel\Facades\Excel::class,
+        'ConfigWriter' => Larapack\ConfigWriter\Repository::class,
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
 
     ],
 
