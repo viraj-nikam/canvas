@@ -16,7 +16,6 @@
     <testsuites>
         <testsuite name="Feature">
             <directory suffix="Test.php">./tests/Feature/</directory>
-            <exclude>./tests/Feature/Auth/</exclude>
             <exclude>./tests/Feature/Help/</exclude>
             <exclude>./tests/Feature/Home/</exclude>
             <exclude>./tests/Feature/Media/</exclude>
