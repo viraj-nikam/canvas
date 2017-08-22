@@ -24,7 +24,8 @@ class AuthenticationTest extends TestCase
         $this->dontSeeIsAuthenticated()
             ->seePageIs(route('canvas.admin'))
             ->assertResponseOk()
-            ->assertHasOldInput()
+            ->assertHasOldInput('email')
+            ->assertHasOldInput('password')
             ->see('The email field is required.')
             ->see('The password field is required.');
     }
@@ -42,7 +43,8 @@ class AuthenticationTest extends TestCase
         $this->dontSeeIsAuthenticated()
             ->seePageIs(route('canvas.admin'))
             ->assertResponseOk()
-            ->assertHasOldInput()
+            ->assertHasOldInput('email')
+            ->assertHasOldInput('password')
             ->see('These credentials do not match our records.');
     }
 
@@ -57,7 +59,7 @@ class AuthenticationTest extends TestCase
         // Assertions
         $this->seePageIs(route('canvas.auth.password.forgot'))
             ->assertResponseOk()
-            ->assertHasOldInput()
+            ->assertHasOldInput('email')
             ->see('The email field is required.');
     }
 
@@ -72,7 +74,7 @@ class AuthenticationTest extends TestCase
         // Assertions
         $this->seePageIs(route('canvas.auth.password.forgot'))
             ->assertResponseOk()
-            ->assertHasOldInput()
+            ->assertHasOldInput('email')
             ->see('We can\'t find a user with that e-mail address.');
     }
 
