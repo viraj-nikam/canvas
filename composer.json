@@ -24,7 +24,7 @@
     "barryvdh/laravel-debugbar": "^2.3",
     "cnvs/easel": "dev-feature/l5.4",
     "cnvs/paper-dark": "*",
-    "doctrine/dbal": "2.5.*",
+    "doctrine/dbal": "2.6.*",
     "fzaninotto/faker": "~1.4",
     "laravel/framework": "5.4.*"
   },
