@@ -14,18 +14,6 @@
          verbose="true"
 >
     <testsuites>
-        <testsuite name="Feature">
-            <directory suffix="Test.php">./tests/Feature/</directory>
-            <exclude>./tests/Feature/Help/</exclude>
-            <exclude>./tests/Feature/Home/</exclude>
-            <exclude>./tests/Feature/Media/</exclude>
-            <exclude>./tests/Feature/Posts/</exclude>
-            <exclude>./tests/Feature/Profile/</exclude>
-            <exclude>./tests/Feature/Settings/</exclude>
-            <exclude>./tests/Feature/Tags/</exclude>
-            <exclude>./tests/Feature/Tools/</exclude>
-            <exclude>./tests/Feature/Users/</exclude>
-        </testsuite>
         <testsuite name="Unit">
             <directory suffix="Test.php">./tests/Unit/</directory>
         </testsuite>
@@ -37,7 +25,7 @@
     </filter>
     <php>
         <env name="APP_ENV" value="testing"/>
-        <env name="APP_URL" value="http://localhost"/>
+        <env name="APP_URL" value="http://canvas.dev"/>
         <env name="APP_KEY" value="AckfSECXIvnK5r28GVIWUAxmbBSjTsmF"/>
         <env name="DB_CONNECTION" value="sqlite"/>
         <env name="DB_DATABASE" value=":memory:"/>
@@ -45,7 +33,7 @@
         <env name="CACHE_DRIVER" value="array"/>
         <env name="SESSION_DRIVER" value="array"/>
         <server name="REMOTE_ADDR" value="127.0.0.1"/>
-        <server name="HTTP_HOST" value="localhost.dev"/>
+        <server name="HTTP_HOST" value="http://canvas.dev"/>
         <server name="SERVER_SOFTWARE" value="nginx/1.6.2"/>
         <server name="HTTP_USER_AGENT" value="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_1) AppleWebKit/602.2.14 (KHTML, like Gecko) Version/10.0.1 Safari/602.2.14"/>
     </php>

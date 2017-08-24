@@ -52,6 +52,12 @@ return [
             'prefix'   => '',
         ],
 
+        'sqlite_dusk' => [
+            'driver' => 'sqlite',
+            'database' => database_path('dusk.sqlite'),
+            'prefix' => '',
+        ],
+
         'mysql' => [
             'driver'    => 'mysql',
             'host'      => env('DB_HOST', 'localhost'),

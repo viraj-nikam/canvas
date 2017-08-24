@@ -19,8 +19,6 @@ trait InteractsWithDatabase
      */
     public function setUp()
     {
-        parent::setUp();
-
         // Disable searchable trait to speed up tests.
         Post::disableSearchSyncing();
         Tag::disableSearchSyncing();
@@ -36,12 +34,12 @@ trait InteractsWithDatabase
      *
      * @return void
      */
-    public function runDatabaseMigrations()
-    {
-        $this->artisan('migrate');
-
-        $this->beforeApplicationDestroyed(function () {
-            $this->artisan('migrate:reset');
-        });
-    }
+//    public function runDatabaseMigrations()
+//    {
+//        $this->artisan('migrate');
+//
+//        $this->beforeApplicationDestroyed(function () {
+//            $this->artisan('migrate:reset');
+//        });
+//    }
 }
