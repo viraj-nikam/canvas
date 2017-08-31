@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Auth;
 
-use Tests\CreatesUser;
+use Canvas\Models\User;
 use Tests\DuskTestCase;
 use Tests\InteractsWithDatabase;
 use Illuminate\Support\Facades\Auth;
@@ -10,11 +10,19 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class AuthenticationTest extends DuskTestCase
 {
-    use InteractsWithDatabase, CreatesUser, DatabaseTransactions;
+    use InteractsWithDatabase, DatabaseTransactions;
+
+    /**
+     * The User model.
+     *
+     * @var User
+     */
+    private $user;
 
     public function setUp()
     {
         parent::setUp();
+        $this->user = factory(User::class)->create();
     }
 
     /** @test */
@@ -78,7 +86,8 @@ class AuthenticationTest extends DuskTestCase
                         ->type('password', 'password')
                         ->press('submit');
                 });
-            $browser->assertSee('Welcome to Canvas');
+            $this->assertTrue(Auth::check(), true);
+            $browser->assertSee('Welcome to Canvas!');
         });
     }
 
