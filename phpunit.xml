@@ -14,8 +14,20 @@
          verbose="true"
 >
     <testsuites>
-        <testsuite name="Unit">
-            <directory suffix="Test.php">./tests/Unit/</directory>
+        <testsuite name="Authentication">
+            <directory suffix="Test.php">./tests/Unit/Auth/</directory>
+        </testsuite>
+        <testsuite name="Jobs">
+            <directory suffix="Test.php">./tests/Unit/Jobs/</directory>
+        </testsuite>
+        <testsuite name="Pages">
+            <directory suffix="Test.php">./tests/Unit/Pages/</directory>
+        </testsuite>
+        <testsuite name="Routes">
+            <directory suffix="Test.php">./tests/Unit/Routes/</directory>
+        </testsuite>
+        <testsuite name="Services">
+            <directory suffix="Test.php">./tests/Unit/Services/</directory>
         </testsuite>
     </testsuites>
     <filter>

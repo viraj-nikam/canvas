@@ -18,8 +18,6 @@ Homestead.json
 .php_cs
 *.map
 
-canvas
-canvas.dusk.bak
 config/blog.php
 
 npm-debug.log
