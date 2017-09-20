@@ -1,24 +1,23 @@
 <?php
 
-namespace Tests;
-
 use Canvas\Models\Tag;
 use Canvas\Models\Post;
 use Canvas\Models\User;
-use Canvas\TestDatabaseSeeder;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 trait InteractsWithDatabase
 {
-    use DatabaseMigrations;
+    use DatabaseTransactions;
 
     /**
      * Set up the test environment.
      *
      * @return void
      */
-    public function setUp()
+    protected function setUp()
     {
+        parent::setUp();
+
         // Disable searchable trait to speed up tests.
         Post::disableSearchSyncing();
         Tag::disableSearchSyncing();
@@ -26,7 +25,7 @@ trait InteractsWithDatabase
 
         $this->runDatabaseMigrations();
 
-        $this->seed(TestDatabaseSeeder::class);
+        $this->seed(\Canvas\TestDatabaseSeeder::class);
     }
 
     /**
@@ -34,12 +33,12 @@ trait InteractsWithDatabase
      *
      * @return void
      */
-//    public function runDatabaseMigrations()
-//    {
-//        $this->artisan('migrate');
-//
-//        $this->beforeApplicationDestroyed(function () {
-//            $this->artisan('migrate:reset');
-//        });
-//    }
+    public function runDatabaseMigrations()
+    {
+        $this->artisan('migrate');
+
+        $this->beforeApplicationDestroyed(function () {
+            $this->artisan('migrate:reset');
+        });
+    }
 }
