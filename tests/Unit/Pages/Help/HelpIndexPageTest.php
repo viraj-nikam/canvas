@@ -4,12 +4,11 @@ namespace Tests\Unit\Pages\Help;
 
 use Tests\TestCase;
 use Tests\CreatesUser;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Tests\InteractsWithDatabase;
 
 class HelpIndexPageTest extends TestCase
 {
-    use DatabaseMigrations, DatabaseTransactions, CreatesUser;
+    use InteractsWithDatabase, CreatesUser;
 
     /** @test */
     public function it_can_refresh_the_user_page()
