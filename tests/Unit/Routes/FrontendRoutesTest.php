@@ -3,12 +3,11 @@
 namespace Tests\Browser\Routes;
 
 use Tests\TestCase;
-use Tests\CreatesUser;
 use Tests\InteractsWithDatabase;
 
 class FrontendRoutesTest extends TestCase
 {
-    use InteractsWithDatabase, CreatesUser;
+    use InteractsWithDatabase;
 
     /**
      * Smoke test each URI and compare the response codes.
