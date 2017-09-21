@@ -4,13 +4,12 @@ namespace Tests\Feature\Auth;
 
 use Tests\TestCase;
 use Canvas\Models\User;
-use Tests\InteractsWithDatabase;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class AuthenticationTest extends TestCase
 {
-    use InteractsWithDatabase, DatabaseTransactions;
+    use DatabaseMigrations;
 
     /**
      * The User model.
@@ -22,7 +21,6 @@ class AuthenticationTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $this->user = factory(User::class)->create();
     }
 
     /** @test */
