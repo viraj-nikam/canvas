@@ -14,8 +14,7 @@ class UserCreatePageTest extends TestCase
     /** @test */
     public function it_can_press_cancel_to_return_to_the_user_index_page()
     {
-        Auth::guard('canvas')->login($this->user);
-        $this->actingAs($this->user)
+        $this->createUser()->actingAs($this->user)
             ->visit(route('canvas.admin.user.create'))
             ->click('Cancel');
         $this->assertSessionMissing('errors');
@@ -25,8 +24,7 @@ class UserCreatePageTest extends TestCase
     /** @test */
     public function it_validates_the_user_create_form()
     {
-        Auth::guard('canvas')->login($this->user);
-        $this->actingAs($this->user)->post(route('canvas.admin.user.store'), ['first_name' => 'foo']);
+        $this->createUser()->actingAs($this->user)->post(route('canvas.admin.user.store'), ['first_name' => 'foo']);
         $this->actingAs($this->user)
             ->visit(route('canvas.admin.user.create'))
             ->type('will', 'first_name')
@@ -39,8 +37,7 @@ class UserCreatePageTest extends TestCase
     /** @test */
     public function it_can_create_a_user_and_save_it_to_the_database()
     {
-        Auth::guard('canvas')->login($this->user);
-        $this->actingAs($this->user)
+        $this->createUser()->actingAs($this->user)
             ->visit(route('canvas.admin.user.create'))
             ->type('first', 'first_name')
             ->type('last', 'last_name')

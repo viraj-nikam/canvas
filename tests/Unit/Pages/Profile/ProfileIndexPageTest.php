@@ -37,8 +37,7 @@ class ProfileIndexPageTest extends TestCase
     /** @test */
     public function it_can_refresh_the_profile_page()
     {
-        Auth::guard('canvas')->login($this->user);
-        $this->actingAs($this->user)
+        $this->createUser()->actingAs($this->user)
             ->visit(route('canvas.admin.profile.index'))
             ->click('Refresh Profile');
         $this->assertSessionMissing('errors');
@@ -48,8 +47,7 @@ class ProfileIndexPageTest extends TestCase
     /** @test */
     public function it_shows_error_messages_for_required_fields()
     {
-        Auth::guard('canvas')->login($this->user);
-        $this->actingAs(factory(Canvas\Models\User::class)->create())
+        $this->createUser()->actingAs(factory(\Canvas\Models\User::class)->create())
             ->visit(route('canvas.admin.profile.index'));
 
         // Fill in all of the required fields with an empty string
@@ -68,8 +66,7 @@ class ProfileIndexPageTest extends TestCase
     /** @test */
     public function it_can_update_the_authenticated_users_profile()
     {
-        Auth::guard('canvas')->login($this->user);
-        $this->actingAs($this->user)->visit(route('canvas.admin.profile.index'));
+        $this->createUser()->actingAs($this->user)->visit(route('canvas.admin.profile.index'));
         $this->type('Luke Skywalker', 'display_name')->press('Save')->see('Success! Profile has been updated.');
         $this->assertSessionMissing('errors');
         $this->seePageIs(route('canvas.admin.profile.index'));

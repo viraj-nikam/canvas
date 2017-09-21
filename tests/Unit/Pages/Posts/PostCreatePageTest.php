@@ -9,13 +9,12 @@ use Tests\InteractsWithDatabase;
 
 class PostCreatePageTest extends TestCase
 {
-    use InteractsWithDatabase, CreatesUser, TestHelper;
+    use InteractsWithDatabase, TestHelper, CreatesUser;
 
     /** @test */
     public function it_can_press_cancel_to_return_to_the_post_index_page()
     {
-        Auth::guard('canvas')->login($this->user);
-        $this->actingAs($this->user)
+        $this->createUser()->actingAs($this->user)
             ->visit(route('canvas.admin.post.create'))
             ->click('Cancel');
         $this->assertSessionMissing('errors');
@@ -25,8 +24,7 @@ class PostCreatePageTest extends TestCase
     /** @test */
     public function it_validates_the_post_create_form()
     {
-        Auth::guard('canvas')->login($this->user);
-        $this->callRouteAsUser('canvas.admin.post.store', null, ['title' => 'example'])
+        $this->createUser()->callRouteAsUser('canvas.admin.post.store', null, ['title' => 'example'])
             ->assertSessionHasErrors();
     }
 
@@ -40,12 +38,11 @@ class PostCreatePageTest extends TestCase
             'slug'          => 'foo',
             'subtitle'      => 'bar',
             'content'       => 'FooBar',
-            'published_at'  =>  Carbon\Carbon::now(),
+            'published_at'  =>  \Carbon\Carbon::now(),
             'layout'        => config('blog.post_layout'),
         ];
 
-        Auth::guard('canvas')->login($this->user);
-        $this->callRouteAsUser('canvas.admin.post.store', null, $data)
+        $this->createUser()->callRouteAsUser('canvas.admin.post.store', null, $data)
             ->seePostInDatabase(['title' => 'example', 'content_raw' => 'FooBar', 'content_html' => '<p>FooBar</p>'])
             ->seeInSession('_new-post', trans('canvas::messages.create_success', ['entity' => 'post']))
             ->assertRedirectedTo(route('canvas.admin.post.edit', 2))

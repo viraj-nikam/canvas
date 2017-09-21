@@ -67,8 +67,7 @@ class UserEditPageTest extends TestCase
 
     protected function it_can_create_a_user_and_save_it_to_the_database()
     {
-        Auth::guard('canvas')->login($this->user);
-        $this->actingAs($this->user)
+        $this->createUser()->actingAs($this->user)
             ->visit(route('canvas.admin.user.create'))
             ->type('first', 'first_name')
             ->type('last', 'last_name')

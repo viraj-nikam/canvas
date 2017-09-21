@@ -16,11 +16,14 @@ trait CreatesUser
     /**
      * Create the User model test subject.
      *
-     * @before
-     * @return void
+     * @param array $data
+     *
+     * @return $this
      */
-    public function createUser()
+    public function createUser(array $data = [])
     {
-        $this->user = factory(User::class)->create();
+        $this->user = factory(User::class)->create($data);
+
+        return $this;
     }
 }

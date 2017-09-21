@@ -2,6 +2,7 @@
 
 namespace Tests\Unit\Pages\Tag;
 
+use Canvas\Helpers\CanvasHelper;
 use Tests\TestCase;
 use Tests\TestHelper;
 use Tests\CreatesUser;
@@ -14,8 +15,7 @@ class TagCreatePageTest extends TestCase
     /** @test */
     public function it_can_press_cancel_to_return_to_the_tag_index_page()
     {
-        Auth::guard('canvas')->login($this->user);
-        $this->actingAs($this->user)
+        $this->createUser()->actingAs($this->user)
             ->visit(route('canvas.admin.tag.create'))
             ->click('Cancel');
         $this->assertSessionMissing('errors');
@@ -25,16 +25,14 @@ class TagCreatePageTest extends TestCase
     /** @test */
     public function it_validates_the_tag_create_form()
     {
-        Auth::guard('canvas')->login($this->user);
-        $this->callRouteAsUser('canvas.admin.tag.store', null, ['title' => 'example'])
+        $this->createUser()->callRouteAsUser('canvas.admin.tag.store', null, ['title' => 'example'])
             ->assertSessionHasErrors();
     }
 
     /** @test */
     public function it_can_create_a_tag_and_save_it_to_the_database()
     {
-        Auth::guard('canvas')->login($this->user);
-        $this->actingAs($this->user)->post(route('canvas.admin.tag.store'), [
+        $this->createUser()->actingAs($this->user)->post(route('canvas.admin.tag.store'), [
             'tag'               => 'example',
             'title'             => 'foo',
             'subtitle'          => 'bar',
