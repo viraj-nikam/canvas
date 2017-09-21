@@ -28,7 +28,7 @@ class FrontendRoutesTest extends TestCase
     /**
      * @return array
      */
-    public static function frontendUriWithResponseCodeProvider()
+    public function frontendUriWithResponseCodeProvider()
     {
         return [
             ['/', 200],
