@@ -2,9 +2,11 @@
 
 namespace Tests\Unit\Pages\Posts;
 
+use Carbon\Carbon;
 use Tests\TestCase;
 use Tests\TestHelper;
 use Tests\CreatesUser;
+use Illuminate\Http\Response;
 use Tests\InteractsWithDatabase;
 
 class PostCreatePageTest extends TestCase
@@ -14,18 +16,26 @@ class PostCreatePageTest extends TestCase
     /** @test */
     public function it_can_press_cancel_to_return_to_the_post_index_page()
     {
+        // Actions
         $this->createUser()->actingAs($this->user)
             ->visit(route('canvas.admin.post.create'))
             ->click('Cancel');
+
+        // Assertions
+        $this->assertResponseStatus(Response::HTTP_OK)
+            ->seePageIs(route('canvas.admin.post.index'))
+            ->see(e('Posts'));
         $this->assertSessionMissing('errors');
-        $this->seePageIs(route('canvas.admin.post.index'));
     }
 
     /** @test */
     public function it_validates_the_post_create_form()
     {
-        $this->createUser()->callRouteAsUser('canvas.admin.post.store', null, ['title' => 'example'])
-            ->assertSessionHasErrors();
+        // Actions
+        $this->createUser()->callRouteAsUser('canvas.admin.post.store', null, ['title' => 'example']);
+
+        // Assertions
+        $this->assertSessionHasErrors();
     }
 
     /** @test */
@@ -38,24 +48,21 @@ class PostCreatePageTest extends TestCase
             'slug'          => 'foo',
             'subtitle'      => 'bar',
             'content'       => 'FooBar',
-            'published_at'  =>  \Carbon\Carbon::now(),
+            'published_at'  =>  Carbon::now(),
             'layout'        => config('blog.post_layout'),
         ];
 
+        // Actions
         $this->createUser()->callRouteAsUser('canvas.admin.post.store', null, $data)
-            ->seePostInDatabase(['title' => 'example', 'content_raw' => 'FooBar', 'content_html' => '<p>FooBar</p>'])
-            ->seeInSession('_new-post', trans('canvas::messages.create_success', ['entity' => 'post']))
-            ->assertRedirectedTo(route('canvas.admin.post.edit', 2))
-            ->assertSessionMissing('errors');
-    }
 
-    /**
-     * Get the post deletion success message.
-     *
-     * @return string
-     */
-    protected function getDeleteMessage()
-    {
-        return 'Success! Post has been deleted.';
+            // Assertions
+            ->seePostInDatabase([
+                'title' => 'example',
+                'content_raw' => 'FooBar',
+                'content_html' => '<p>FooBar</p>'
+            ])
+            ->assertRedirectedTo(route('canvas.admin.post.edit', 2))
+            ->seeInSession('_new-post', trans('canvas::messages.create_success', ['entity' => 'post']))
+            ->assertSessionMissing('errors');
     }
 }

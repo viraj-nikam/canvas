@@ -3,101 +3,98 @@
 namespace Tests\Feature\Auth;
 
 use Tests\TestCase;
-use Canvas\Models\User;
+use Tests\CreatesUser;
+use Illuminate\Http\Response;
+use Tests\InteractsWithDatabase;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class AuthenticationTest extends TestCase
 {
-    use DatabaseMigrations;
+    use InteractsWithDatabase, CreatesUser;
 
-    /**
-     * The User model.
-     *
-     * @var User
-     */
-    private $user;
-
-    public function setUp()
+    /** @test */
+    public function it_validates_the_login_form_when_user_enters_nothing()
     {
-        parent::setUp();
+        // Actions
+        $this->visit(route('canvas.admin'))
+        ->press('submit');
+
+        // Assertions
+        $this->assertResponseStatus(Response::HTTP_OK)
+            ->seePageIs(route('canvas.admin'))
+            ->see(e('The email field is required.'))
+            ->see(e('The password field is required.'));
     }
 
     /** @test */
-    public function it_validates_the_login_form()
+    public function it_validates_the_login_form_when_user_enters_wrong_email()
     {
-        // User entered nothing
-        $this->browse(function ($browser) {
-            $browser->visit(route('canvas.admin'))
-                ->with('#login', function ($form) {
-                    $form->type('email', '')
-                        ->type('password', '')
-                        ->press('submit');
-                });
-            $browser->assertTitleContains('Sign In')
-                ->assertSee('The email field is required.')
-                ->assertSee('The password field is required.');
+        // Actions
+        $this->visit(route('canvas.admin'))
+            ->type('foo@bar.com', 'email')
+            ->type('password', 'password')
+            ->press('submit');
 
-            // User entered wrong email
-            $browser->visit(route('canvas.admin'))
-                ->with('#login', function ($form) {
-                    $form->type('email', 'foo@bar.com')
-                        ->type('password', 'secret')
-                        ->press('submit');
-                });
-            $browser->assertTitleContains('Sign In')
-                ->assertSee('These credentials do not match our records.');
-        });
+        // Assertions
+        $this->assertResponseStatus(Response::HTTP_OK)
+            ->seePageIs(route('canvas.admin'))
+            ->see(e('These credentials do not match our records.'));
     }
 
     /** @test */
-    public function it_validates_the_forgot_password_form()
+    public function it_validates_the_forgot_password_form_when_user_enters_nothing()
     {
-        $this->browse(function ($browser) {
-            // User entered nothing
-            $browser->visit(route('canvas.auth.password.forgot'))
-                ->with('#forgot-password', function ($form) {
-                    $form->type('email', '')
-                        ->press('submit');
-                });
-            $browser->assertTitleContains('Forgot Password')
-                ->assertSee('The email field is required.');
+        // Actions
+        $this->visit(route('canvas.auth.password.forgot'))
+            ->press('submit');
 
-            // User entered wrong email
-            $browser->visit(route('canvas.auth.password.forgot'))
-                ->with('#forgot-password', function ($form) {
-                    $form->type('email', 'foo@bar.com')
-                        ->press('submit');
-                });
-            $browser->assertTitleContains('Forgot Password')
-                ->assertSee('We can\'t find a user with that e-mail address.');
-        });
+        // Assertions
+        $this->assertResponseStatus(Response::HTTP_OK)
+            ->seePageIs(route('canvas.auth.password.forgot'))
+            ->see(e('The email field is required.'));
+    }
+
+    /** @test */
+    public function it_validates_the_forgot_password_form_when_user_enters_wrong_email()
+    {
+        // Actions
+        $this->visit(route('canvas.auth.password.forgot'))
+            ->type('foo@bar.com', 'email')
+            ->press('submit');
+
+        // Assertions
+        $this->assertResponseStatus(Response::HTTP_OK)
+            ->seePageIs(route('canvas.auth.password.forgot'))
+            ->see('We can\'t find a user with that e-mail address.');
     }
 
     /** @test */
     public function it_can_login_to_the_application()
     {
-        $this->browse(function ($browser) {
-            $browser->visit(route('canvas.admin'))
-                ->with('#login', function ($form) {
-                    $form->type('email', $this->user->email)
-                        ->type('password', 'password')
-                        ->press('submit');
-                });
-            $this->assertTrue(Auth::check(), true);
-            $browser->assertSee('Welcome to Canvas!');
-        });
+        // Actions
+        $this->createUser()->visit(route('canvas.admin'))
+            ->type($this->user->email, 'email')
+            ->type('password', 'password')
+            ->press('submit');
+
+        // Assertions
+        $this->assertResponseStatus(Response::HTTP_OK)
+            ->seePageIs(route('canvas.admin'))
+            ->see(e('Welcome to Canvas!'))
+            ->see($this->user->display_name);
+        $this->assertTrue(Auth::check(), true);
     }
 
     /** @test */
     public function it_can_logout_of_the_application()
     {
-        Auth::guard('canvas')->login($this->user);
-        $this->browse(function ($browser) {
-            $browser->visit(route('canvas.admin'))
-                ->clickLink('Sign out');
+        // Actions
+        $this->createUser()->actingAs($this->user)->visit(route('canvas.admin'));
+        $this->click('Sign out');
 
-            $browser->assertTitleContains('Sign In');
-        });
+        // Assertions
+        $this->assertResponseStatus(Response::HTTP_OK)
+            ->seePageIs(route('canvas.admin'))
+            ->see(e('Sign In'));
     }
 }

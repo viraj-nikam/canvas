@@ -14,9 +14,9 @@
          verbose="true"
 >
     <testsuites>
-        <!--<testsuite name="Authentication">-->
-            <!--<directory suffix="Test.php">./tests/Unit/Auth/</directory>-->
-        <!--</testsuite>-->
+        <testsuite name="Authentication">
+            <directory suffix="Test.php">./tests/Unit/Auth/</directory>
+        </testsuite>
         <testsuite name="Jobs">
             <directory suffix="Test.php">./tests/Unit/Jobs/</directory>
         </testsuite>
