@@ -13,6 +13,16 @@ class PostEditPageTest extends TestCase
 {
     use InteractsWithDatabase, TestHelper, CreatesUser;
 
+    /**
+     * Get the successful delete message for a post.
+     *
+     * @return string
+     */
+    protected function getDeleteMessage()
+    {
+        return trans('canvas::messages.delete_success', ['entity' => 'post']);
+    }
+
     /** @test */
     public function it_can_edit_posts()
     {
@@ -54,15 +64,5 @@ class PostEditPageTest extends TestCase
             ->seePageIs(route('canvas.admin.post.index'))
             ->assertSessionMissing('errors');
         $this->assertResponseStatus(Response::HTTP_OK);
-    }
-
-    /**
-     * Get the successful delete message for a post.
-     *
-     * @return string
-     */
-    protected function getDeleteMessage()
-    {
-        return trans('canvas::messages.delete_success', ['entity' => 'post']);
     }
 }

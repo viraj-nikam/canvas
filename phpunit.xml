@@ -20,9 +20,9 @@
         <testsuite name="Jobs">
             <directory suffix="Test.php">./tests/Unit/Jobs/</directory>
         </testsuite>
-        <!--<testsuite name="Pages">-->
-            <!--<directory suffix="Test.php">./tests/Unit/Pages/</directory>-->
-        <!--</testsuite>-->
+        <testsuite name="Pages">
+            <directory suffix="Test.php">./tests/Unit/Pages/</directory>
+        </testsuite>
         <testsuite name="Routes">
             <directory suffix="Test.php">./tests/Unit/Routes/</directory>
         </testsuite>

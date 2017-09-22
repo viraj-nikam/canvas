@@ -13,6 +13,16 @@ class PostCreatePageTest extends TestCase
 {
     use InteractsWithDatabase, TestHelper, CreatesUser;
 
+    /**
+     * Get the successful create message for a post.
+     *
+     * @return string
+     */
+    protected function getCreateMessage()
+    {
+        return trans('canvas::messages.create_success', ['entity' => 'post']);
+    }
+
     /** @test */
     public function it_can_press_cancel_to_return_to_the_post_index_page()
     {
@@ -62,7 +72,7 @@ class PostCreatePageTest extends TestCase
                 'content_html' => '<p>FooBar</p>'
             ])
             ->assertRedirectedTo(route('canvas.admin.post.edit', 2))
-            ->seeInSession('_new-post', trans('canvas::messages.create_success', ['entity' => 'post']))
+            ->seeInSession('_new-post', self::getCreateMessage())
             ->assertSessionMissing('errors');
     }
 }

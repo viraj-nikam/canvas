@@ -4,6 +4,7 @@ namespace Tests\Unit\Pages\Settings;
 
 use Tests\TestCase;
 use Tests\CreatesUser;
+use Illuminate\Http\Response;
 use Tests\InteractsWithDatabase;
 
 class SettingsIndexPageTest extends TestCase
@@ -26,36 +27,49 @@ class SettingsIndexPageTest extends TestCase
     /** @test */
     public function it_shows_error_messages_for_required_fields()
     {
-        $this->createUser()->actingAs($this->user)
-            ->visit(route('canvas.admin.settings'));
-
-        // Fill in all of the required fields with an empty string
+        // Actions
+        $this->createUser()->actingAs($this->user)->visit(route('canvas.admin.settings'));
         foreach ($this->requiredFields as $name) {
             $this->type('', $name);
         }
-
         $this->press('Save');
 
-        // Assert the response contains an error message for each field
+        // Assertions
         foreach ($this->requiredFields as $name) {
             $this->see('The '.str_replace('_', ' ', $name).' field is required.');
         }
+        $this->assertResponseStatus(Response::HTTP_OK)
+            ->seePageIs(route('canvas.admin.settings'))
+            ->see(e('Settings'));
+        $this->assertSessionMissing('errors');
     }
 
     /** @test */
     public function it_can_update_the_settings()
     {
-        $this->createUser()->actingAs($this->user)->visit(route('canvas.admin.settings'));
-        $this->type('New and Updated Title', 'blog_title')->press('Save');
+        // Actions
+        $this->createUser()->actingAs($this->user)->visit(route('canvas.admin.settings'))
+            ->type('New and Updated Title', 'blog_title')
+            ->press('Save');
+
+        // Assertions
+        $this->assertResponseStatus(Response::HTTP_OK)
+            ->seePageIs(route('canvas.admin.settings'))
+            ->see(e('New and Updated Title'));
         $this->assertSessionMissing('errors');
-        $this->seePageIs(route('canvas.admin.settings'));
     }
 
     /** @test */
     public function it_cannot_access_the_settings_page_if_user_is_not_an_admin()
     {
-        $this->createUser(['role' => 0])->actingAs($this->user)->visit(route('canvas.admin.settings'));
-        $this->seePageIs(route('canvas.admin'));
+        // Actions
+        $this->createUser(['role' => 0])->actingAs($this->user)
+            ->visit(route('canvas.admin.settings'));
+
+        // Assertions
+        $this->assertResponseStatus(Response::HTTP_OK)
+            ->seePageIs(route('canvas.admin'))
+            ->see($this->user->display_name);
         $this->assertSessionMissing('errors');
     }
 }

@@ -2,10 +2,11 @@
 
 namespace Tests\Unit\Pages\Tag;
 
-use Canvas\Helpers\CanvasHelper;
 use Tests\TestCase;
 use Tests\TestHelper;
 use Tests\CreatesUser;
+use Illuminate\Http\Response;
+use Canvas\Helpers\CanvasHelper;
 use Tests\InteractsWithDatabase;
 
 class TagCreatePageTest extends TestCase
@@ -15,11 +16,16 @@ class TagCreatePageTest extends TestCase
     /** @test */
     public function it_can_press_cancel_to_return_to_the_tag_index_page()
     {
+        // Actions
         $this->createUser()->actingAs($this->user)
             ->visit(route('canvas.admin.tag.create'))
             ->click('Cancel');
+
+        // Assertions
+        $this->assertResponseStatus(Response::HTTP_OK)
+            ->seePageIs(route('canvas.admin.tag.index'))
+            ->see(e('Tags'));
         $this->assertSessionMissing('errors');
-        $this->seePageIs(route('canvas.admin.tag.index'));
     }
 
     /** @test */

@@ -4,6 +4,7 @@ namespace Tests\Unit\Pages\Profile;
 
 use Tests\TestCase;
 use Tests\CreatesUser;
+use Illuminate\Http\Response;
 use Tests\InteractsWithDatabase;
 
 class ProfileIndexPageTest extends TestCase
@@ -37,38 +38,51 @@ class ProfileIndexPageTest extends TestCase
     /** @test */
     public function it_can_refresh_the_profile_page()
     {
+        // Actions
         $this->createUser()->actingAs($this->user)
             ->visit(route('canvas.admin.profile.index'))
             ->click('Refresh Profile');
+
+        // Assertions
+        $this->assertResponseStatus(Response::HTTP_OK)
+            ->seePageIs(route('canvas.admin.profile.index'))
+            ->see(e('Profile'));
         $this->assertSessionMissing('errors');
-        $this->seePageIs(route('canvas.admin.profile.index'));
     }
 
     /** @test */
     public function it_shows_error_messages_for_required_fields()
     {
-        $this->createUser()->actingAs(factory(\Canvas\Models\User::class)->create())
+        // Actions
+        $this->createUser()->actingAs($this->user)
             ->visit(route('canvas.admin.profile.index'));
-
-        // Fill in all of the required fields with an empty string
         foreach ($this->requiredFields as $name) {
             $this->type('', $name);
         }
-
         $this->press('Save');
 
-        // Assert response contains an error message for each field
+        // Assertions
         foreach ($this->requiredFields as $name) {
             $this->see('The '.str_replace('_', ' ', $name).' field is required.');
         }
+        $this->assertResponseStatus(Response::HTTP_OK)
+            ->seePageIs(route('canvas.admin.profile.index'))
+            ->see(e('Profile'));
     }
 
     /** @test */
     public function it_can_update_the_authenticated_users_profile()
     {
-        $this->createUser()->actingAs($this->user)->visit(route('canvas.admin.profile.index'));
-        $this->type('Luke Skywalker', 'display_name')->press('Save')->see('Success! Profile has been updated.');
+        // Actions
+        $this->createUser()->actingAs($this->user)->visit(route('canvas.admin.profile.index'))
+            ->type('New Name', 'display_name')
+            ->press('Save');
+
+        // Assertions
+        $this->assertResponseStatus(Response::HTTP_OK)
+            ->seePageIs(route('canvas.admin.profile.index'))
+            ->see(trans('canvas::messages.update_success', ['entity' => 'profile']));
         $this->assertSessionMissing('errors');
-        $this->seePageIs(route('canvas.admin.profile.index'));
+
     }
 }
