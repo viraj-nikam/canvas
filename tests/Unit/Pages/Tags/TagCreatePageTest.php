@@ -13,6 +13,16 @@ class TagCreatePageTest extends TestCase
 {
     use InteractsWithDatabase, CreatesUser, TestHelper;
 
+    /**
+     * Get the successful create message for a tag.
+     *
+     * @return string
+     */
+    protected function getCreateMessage()
+    {
+        return trans('canvas::messages.create_success', ['entity' => 'tag']);
+    }
+
     /** @test */
     public function it_can_press_cancel_to_return_to_the_tag_index_page()
     {
@@ -31,13 +41,17 @@ class TagCreatePageTest extends TestCase
     /** @test */
     public function it_validates_the_tag_create_form()
     {
-        $this->createUser()->callRouteAsUser('canvas.admin.tag.store', null, ['title' => 'example'])
-            ->assertSessionHasErrors();
+        // Actions
+        $this->createUser()->callRouteAsUser('canvas.admin.tag.store', null, ['title' => 'example']);
+
+        // Assertions
+        $this->assertSessionHasErrors();
     }
 
     /** @test */
     public function it_can_create_a_tag_and_save_it_to_the_database()
     {
+        // Actions
         $this->createUser()->actingAs($this->user)->post(route('canvas.admin.tag.store'), [
             'tag'               => 'example',
             'title'             => 'foo',
@@ -47,6 +61,7 @@ class TagCreatePageTest extends TestCase
             'reverse_direction' => 0,
         ]);
 
+        // Assertions
         $this->seeInDatabase(CanvasHelper::TABLES['tags'], [
             'tag'               => 'example',
             'title'             => 'foo',
@@ -55,8 +70,7 @@ class TagCreatePageTest extends TestCase
             'layout'            => config('blog.tag_layout'),
             'reverse_direction' => 0,
         ]);
-
-        $this->assertSessionHas('_new-tag', trans('canvas::messages.create_success', ['entity' => 'tag']));
+        $this->assertSessionHas('_new-tag', self::getCreateMessage());
         $this->assertRedirectedTo(route('canvas.admin.tag.index'));
     }
 }
