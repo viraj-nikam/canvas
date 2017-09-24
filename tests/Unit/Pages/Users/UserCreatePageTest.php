@@ -2,62 +2,77 @@
 //
 //namespace Tests\Unit\Pages\Users;
 //
+//use Canvas\Models\User;
 //use Tests\TestCase;
+//use Tests\TestHelper;
 //use Tests\CreatesUser;
+//use Illuminate\Http\Response;
 //use Tests\InteractsWithDatabase;
 //use Canvas\Helpers\CanvasHelper;
 //
 //class UserCreatePageTest extends TestCase
 //{
-//    use InteractsWithDatabase, CreatesUser;
+//    use InteractsWithDatabase, TestHelper, CreatesUser;
+//
+//    /**
+//     * Get the successful create message for a user.
+//     *
+//     * @return string
+//     */
+//    protected function getCreateMessage()
+//    {
+//        return trans('canvas::messages.create_success', ['entity' => 'user']);
+//    }
 //
 //    /** @test */
 //    public function it_can_press_cancel_to_return_to_the_user_index_page()
 //    {
+//        // Actions
 //        $this->createUser()->actingAs($this->user)
 //            ->visit(route('canvas.admin.user.create'))
-//            ->click('Cancel');
+//            ->click('Cancel')
+//
+//            // Assertions
+//            ->assertResponseStatus(Response::HTTP_OK)
+//            ->seePageIs(route('canvas.admin.user.index'))
+//            ->see(e('Users'));
 //        $this->assertSessionMissing('errors');
-//        $this->seePageIs(route('canvas.admin.user.index'));
 //    }
 //
 //    /** @test */
 //    public function it_validates_the_user_create_form()
 //    {
-//        $this->createUser()->actingAs($this->user)->post(route('canvas.admin.user.store'), ['first_name' => 'foo']);
-//        $this->actingAs($this->user)
-//            ->visit(route('canvas.admin.user.create'))
-//            ->type('will', 'first_name')
-//            ->type('notValidate', 'last_name')
-//            ->press('Save');
-//        $this->seePageIs(route('canvas.admin.user.create'));
-//        $this->dontSeeInDatabase(CanvasHelper::TABLES['users'], ['first_name' => 'will', 'last_name' => 'notValidate']);
+//        // Actions
+//        $this->createUser()->callRouteAsUser('canvas.admin.user.store', null, ['first_name' => 'foo']);
+//
+//        // Assertions
+//        $this->assertSessionHasErrors();
 //    }
 //
 //    /** @test */
 //    public function it_can_create_a_user_and_save_it_to_the_database()
 //    {
+//        // Actions
 //        $this->createUser()->actingAs($this->user)
 //            ->visit(route('canvas.admin.user.create'))
-//            ->type('first', 'first_name')
-//            ->type('last', 'last_name')
-//            ->type('display', 'display_name')
-//            ->type('email@example.com', 'email')
-//            ->type('password', 'password')
+//            ->type('foo', 'first_name')
+//            ->type('bar', 'last_name')
+//            ->type('foo@bar.com', 'email')
 //            ->select(1, 'role')
-//            ->press('Save');
-//
-//        $this->seeInDatabase(CanvasHelper::TABLES['users'], [
-//            'id'            => 4,
-//            'first_name'    => 'first',
-//            'last_name'     => 'last',
-//            'display_name'  => 'display',
-//            'role'          => 1,
-//            'email'         => 'email@example.com',
-//        ]);
-//
-//        $this->seePageIs(route('canvas.admin.user.index'));
-//        $this->see('Success! New user has been created.');
-//        $this->assertSessionMissing('errors');
+//            ->press('Save')
+////dd(User::all());
+////             Assertions
+//           ->seeInDatabase(CanvasHelper::TABLES['users'], [
+//                'first_name'    => 'foo',
+//                'last_name'     => 'bar',
+////                'display_name'  => 'foo_bar',
+//                'email'         => 'foo@bar.com',
+//                'role'          => 1
+//            ]);
+////        dd(User::all());
+////            $this->seePageIs(route('canvas.admin.user.index'));
+////                $this->see('_new-post', self::getCreateMessage())
+////                ->see(e('Users'))
+////                ->assertSessionMissing('errors');
 //    }
 //}
