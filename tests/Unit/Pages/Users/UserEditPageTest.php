@@ -54,7 +54,7 @@ class UserEditPageTest extends TestCase
 
             // Assertions
             ->seePageIs(route('canvas.admin.user.edit', 2))
-            ->see(self::getUpdateMessage('user'))
+            ->see(self::getUpdateMessage('User'))
             ->seeInDatabase(CanvasHelper::TABLES['users'], ['first_name' => 'New Name']);
             $this->assertResponseStatus(Response::HTTP_OK);
     }
