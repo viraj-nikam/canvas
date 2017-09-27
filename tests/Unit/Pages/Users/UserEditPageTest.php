@@ -63,7 +63,7 @@ class UserEditPageTest extends TestCase
     {
         // Actions
         $this->createUser()->actingAs($this->user)
-            ->visit(route('canvas.admin.user.edit', 4))
+            ->visit(route('canvas.admin.user.edit', 3))
             ->press('Delete')
 
             // Assertions
