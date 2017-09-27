@@ -62,6 +62,7 @@ class UserCreatePageTest extends TestCase
             ->press('Save');
 
         // Assertions
+        $this->assertResponseStatus(Response::HTTP_OK);
         $this->seePageIs(route('canvas.admin.user.index'))
             ->see(e('foo_bar'))
             ->see(self::getCreateMessage())
