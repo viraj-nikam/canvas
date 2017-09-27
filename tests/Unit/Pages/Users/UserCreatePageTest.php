@@ -75,10 +75,17 @@ class UserCreatePageTest extends TestCase
         //         ->see(e('Users'))
         //         ->assertSessionMissing('errors');
 
+        // Actions
         $this->createUser()->actingAs($this->user)
             ->visit(route('canvas.admin.user.create'))
-            ->press('Save')
-            ->see('asdfasdf');
+            ->type('foo', 'first_name')
+            ->type('bar', 'last_name')
+            ->type('foo_bar', 'display_name')
+            ->type('foo@bar.com', 'email')
+            ->type('password', 'password')
+            ->press('Save');
 
+        $this->seePageIs(route('canvas.admin.user.index'));
+        $this->see(e('foo_bar'));
     }
 }
