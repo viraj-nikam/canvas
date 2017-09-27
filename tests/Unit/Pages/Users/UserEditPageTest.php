@@ -12,6 +12,36 @@ class UserEditPageTest extends TestCase
 {
     use InteractsWithDatabase, CreatesUser;
 
+    /**
+     * Get the successful create message for a user.
+     *
+     * @return string
+     */
+    protected function getCreateMessage()
+    {
+        return trans('canvas::messages.update_success', ['entity' => 'user']);
+    }
+
+    /**
+     * Get the successful update message for a user.
+     *
+     * @return string
+     */
+    protected function getUpdateMessage($entity)
+    {
+        return trans('canvas::messages.update_success', ['entity' => $entity]);
+    }
+
+    /**
+     * Get the successful delete message for a user.
+     *
+     * @return string
+     */
+    protected function getDeleteMessage()
+    {
+        return trans('canvas::messages.delete_success', ['entity' => 'user']);
+    }
+
     /** @test */
     public function it_can_edit_a_users_details()
     {
@@ -24,7 +54,7 @@ class UserEditPageTest extends TestCase
 
             // Assertions
             ->seePageIs(route('canvas.admin.user.edit', 2))
-            ->see(e('Success! User has been updated.'))
+            ->see(self::getUpdateMessage('user'))
             ->seeInDatabase(CanvasHelper::TABLES['users'], ['first_name' => 'New Name']);
             $this->assertResponseStatus(Response::HTTP_OK);
     }
@@ -39,9 +69,8 @@ class UserEditPageTest extends TestCase
             ->press('Delete')
 
             // Assertions
-            ->dontSee('Success! User has been deleted.')
             ->press('Delete User')
-            ->see(e('Success! User has been deleted.'))
+            ->see(self::getDeleteMessage())
             ->dontSeeInDatabase(CanvasHelper::TABLES['users'], ['first_name' => 'first']);
             $this->assertResponseStatus(Response::HTTP_OK);
     }
@@ -74,7 +103,7 @@ class UserEditPageTest extends TestCase
 
             // Assertions
             ->seePageIs(route('canvas.admin.user.edit', 2))
-            ->see(e('Success! Password has been updated.'));
+            ->see(self::getUpdateMessage('password'));
             $this->assertResponseStatus(Response::HTTP_OK);
     }
 
@@ -102,7 +131,7 @@ class UserEditPageTest extends TestCase
             'email'         => 'email@example.com',
         ]);
         $this->seePageIs(route('canvas.admin.user.index'));
-        $this->see(e('Success! New user has been created.'));
+        $this->see(self::getCreateMessage());
         $this->assertSessionMissing('errors');
     }
 }
