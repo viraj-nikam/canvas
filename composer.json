@@ -1,73 +1,69 @@
 {
-  "name": "cnvs/canvas",
-  "description": "Simple, Powerful Blog Publishing Platform",
-  "keywords": [
-    "php",
-    "laravel",
-    "blog",
-    "canvas"
-  ],
-  "license": "MIT",
-  "authors": [
-    {
-      "name": "Todd Austin",
-      "email": "austin.todd.j@gmail.com"
-    }
-  ],
-  "repositories": [
-    {
-      "type": "git",
-      "url": "https://github.com/cnvs/easel"
-    }
-  ],
-  "require": {
-    "barryvdh/laravel-debugbar": "^2.3",
-    "cnvs/easel": "dev-feature/l5.4",
-    "cnvs/paper-dark": "*",
-    "doctrine/dbal": "^2.5",
-    "fzaninotto/faker": "~1.4",
-    "laravel/framework": "5.4.*"
-  },
-  "require-dev": {
-    "laravel/browser-kit-testing": "^2.0",
-    "mockery/mockery": "0.9.*",
-    "phpunit/phpunit": "~6.0",
-    "symfony/css-selector": "~3.0",
-    "symfony/dom-crawler": "~3.0"
-  },
-  "autoload": {
-    "classmap": [
-      "database"
+    "name": "cnvs/canvas",
+    "description": "Simple, Powerful Blog Publishing Platform",
+    "keywords": ["php", "laravel", "blog", "canvas"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Todd Austin",
+            "email": "austin.todd.j@gmail.com"
+        }
     ],
-    "psr-4": {
-      "App\\": "app/",
-      "Canvas\\": "../easel/src/"
-    }
-  },
-  "autoload-dev": {
-    "psr-4": {
-      "Tests\\": "tests/"
-    }
-  },
-  "scripts": {
-    "post-root-package-install": [
-      "php -r \"copy('.env.example', '.env');\""
+    "repositories": [
+        {
+            "type": "git",
+            "url": "https://github.com/cnvs/easel"
+        }
     ],
-    "post-create-project-cmd": [
-      "php artisan key:generate"
-    ],
-    "post-install-cmd": [
-      "Illuminate\\Foundation\\ComposerScripts::postInstall",
-      "php artisan optimize"
-    ],
-    "post-update-cmd": [
-      "Illuminate\\Foundation\\ComposerScripts::postUpdate",
-      "php artisan optimize"
-    ]
-  },
-  "config": {
-    "sort-packages": true
-  },
-  "minimum-stability": "beta",
-  "prefer-stable": true
+    "require": {
+        "barryvdh/laravel-debugbar": "^2.3",
+        "cnvs/easel": "dev-feature/l5.4",
+        "cnvs/paper-dark": "*",
+        "doctrine/dbal": "^2.5",
+        "fzaninotto/faker": "~1.4",
+        "laravel/framework": "5.4.*"
+    },
+    "require-dev": {
+        "laravel/browser-kit-testing": "^2.0",
+        "mockery/mockery": "0.9.*",
+        "phpunit/phpunit": "~6.0",
+        "symfony/css-selector": "~3.0",
+        "symfony/dom-crawler": "~3.0"
+    },
+    "autoload": {
+        "classmap": [
+            "database"
+        ],
+        "psr-4": {
+            "App\\": "app/",
+            "Canvas\\": "../easel/src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "post-root-package-install": [
+            "php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+        ],
+        "post-create-project-cmd": [
+            "php artisan key:generate"
+        ],
+        "post-install-cmd": [
+            "Illuminate\\Foundation\\ComposerScripts::postInstall",
+            "php artisan optimize"
+        ],
+        "post-update-cmd": [
+            "Illuminate\\Foundation\\ComposerScripts::postUpdate",
+            "php artisan optimize"
+        ]
+    },
+    "config": {
+        "sort-packages": true,
+        "optimize-autoloader": true
+    },
+    "minimum-stability": "beta",
+    "prefer-stable": true
 }
