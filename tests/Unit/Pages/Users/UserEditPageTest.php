@@ -102,32 +102,4 @@ class UserEditPageTest extends TestCase
             ->see(self::getUpdateMessage('password'));
             $this->assertResponseStatus(Response::HTTP_OK);
     }
-
-    // protected function it_can_create_a_user_and_save_it_to_the_database()
-    // {
-    //     // Actions
-    //     $this->createUser()->actingAs($this->user)
-    //         ->visit(route('canvas.admin.user.create'))
-    //         ->type('first', 'first_name')
-    //         ->type('last', 'last_name')
-    //         ->type('display', 'display_name')
-    //         ->type('email@example.com', 'email')
-    //         ->type('password', 'password')
-    //         ->select(1, 'role')
-    //         ->press('Save');
-
-    //     // Assertions
-    //     $this->assertResponseStatus(Response::HTTP_OK);
-    //     $this->seeInDatabase(CanvasHelper::TABLES['users'], [
-    //         'id'            => 4,
-    //         'first_name'    => 'first',
-    //         'last_name'     => 'last',
-    //         'display_name'  => 'display',
-    //         'role'          => 1,
-    //         'email'         => 'email@example.com',
-    //     ]);
-    //     $this->seePageIs(route('canvas.admin.user.index'));
-    //     $this->see(self::getCreateMessage());
-    //     $this->assertSessionMissing('errors');
-    // }
 }
