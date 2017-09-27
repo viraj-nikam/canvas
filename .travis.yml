@@ -1,5 +1,5 @@
 notifications:
-    slack: cnvs-io:4TcmkF2B3kYyUkhfJmL8dImj
+  slack: cnvs-io:4TcmkF2B3kYyUkhfJmL8dImj
 
 dist: trusty
 
