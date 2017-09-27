@@ -77,7 +77,7 @@ class UserCreatePageTest extends TestCase
 
         $this->createUser()->actingAs($this->user)
             ->visit(route('canvas.admin.user.create'))
-            ->click('Save')
+            ->press('Save')
             ->see('asdfasdf');
 
     }
