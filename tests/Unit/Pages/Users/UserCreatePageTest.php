@@ -51,29 +51,34 @@ class UserCreatePageTest extends TestCase
     /** @test */
     public function it_can_create_a_user_and_save_it_to_the_database()
     {
+        // $data = [
+        //     'first_name'    => 'foo',
+        //     'last_name'     => 'bar',
+        //     'email'         => 'foo@bar.com',
+        //     'role'          => 1
+        // ];
 
-        $data = [
-            'first_name'            => 'foo',
-            'last_name'       => 'bar',
-            'email'         => 'foo@bar.com',
-            'role'          => 1
-        ];
+        // // Actions
+        // $this->createUser()->callRouteAsUser('canvas.admin.user.store', null, $data)
 
-        // Actions
-        $this->createUser()->callRouteAsUser('canvas.admin.user.store', null, $data)
+        //     // Assertions
+        //     ->seeInDatabase(CanvasHelper::TABLES['users'], [
+        //         'first_name'    => 'foo',
+        //         'last_name'     => 'bar',
+        //         'display_name'  => 'foo_bar',
+        //         'email'         => 'foo@bar.com',
+        //         'role'          => 1
+        //     ]);
 
-            // Assertions
-            ->seeInDatabase(CanvasHelper::TABLES['users'], [
-                'first_name'    => 'foo',
-                'last_name'     => 'bar',
-                'display_name'  => 'foo_bar',
-                'email'         => 'foo@bar.com',
-                'role'          => 1
-            ]);
+        //     $this->seePageIs(route('canvas.admin.user.index'));
+        //     $this->see('_new-post', self::getCreateMessage())
+        //         ->see(e('Users'))
+        //         ->assertSessionMissing('errors');
 
-            $this->seePageIs(route('canvas.admin.user.index'));
-            $this->see('_new-post', self::getCreateMessage())
-                ->see(e('Users'))
-                ->assertSessionMissing('errors');
+        $this->createUser()->actingAs($this->user)
+            ->visit(route('canvas.admin.user.create'))
+            ->click('Save')
+            ->see('asdfasdf');
+
     }
 }
