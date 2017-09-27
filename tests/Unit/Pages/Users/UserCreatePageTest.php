@@ -62,7 +62,7 @@ class UserCreatePageTest extends TestCase
             ->press('Save');
 
         // Assertions
-        $this->seePageIs(route('canvas.admin.user.index'));
+        $this->seePageIs(route('canvas.admin.user.index'))
             ->see(e('foo_bar'))
             ->see(self::getCreateMessage())
             ->assertSessionMissing('errors');
