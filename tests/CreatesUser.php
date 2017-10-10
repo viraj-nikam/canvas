@@ -1,24 +1,29 @@
 <?php
 
+namespace Tests;
+
 use Canvas\Models\User;
 
 trait CreatesUser
 {
     /**
-     * The user model.
+     * The User model.
      *
-     * @var Canvas\Models\User
+     * @var User
      */
     private $user;
 
     /**
-     * Create the user model test subject.
+     * Create the User model test subject.
      *
-     * @before
-     * @return void
+     * @param array $data
+     *
+     * @return $this
      */
-    public function createUser()
+    public function createUser(array $data = [])
     {
-        $this->user = factory(User::class)->create();
+        $this->user = factory(User::class)->create($data);
+
+        return $this;
     }
 }

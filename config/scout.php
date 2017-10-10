@@ -89,8 +89,9 @@ return [
     | which is an open source and local search engine.
     |
     */
+
     'tntsearch' => [
-        'storage'  => storage_path(), //place where the index files will be stored
+        'storage'  => storage_path(), // Place where the index files will be stored
         'fuzziness' => env('TNTSEARCH_FUZZINESS', false),
         'fuzzy' => [
             'prefix_length' => 2,

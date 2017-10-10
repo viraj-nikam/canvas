@@ -1,25 +1,27 @@
 <?php
 
-class TestCase extends Illuminate\Foundation\Testing\TestCase
+namespace Tests;
+
+use Canvas\Models\User;
+use App\Exceptions\Handler;
+use Exception;
+use Faker\Generator;
+use Illuminate\Contracts\Debug\ExceptionHandler;
+use Illuminate\Database\Eloquent\Factory as EloquentFactory;
+use Illuminate\Foundation\Application;
+use Laravel\BrowserKitTesting\TestCase as BaseTestCase;
+
+abstract class TestCase extends BaseTestCase
 {
-    /**
-     * The base URL to use while testing the application.
-     *
-     * @var string
-     */
-    protected $baseUrl = 'http://localhost';
+    use CreatesApplication;
 
-    /**
-     * Creates the application.
-     *
-     * @return \Illuminate\Foundation\Application
-     */
-    public function createApplication()
+    protected function setUp()
     {
-        $app = require __DIR__.'/../bootstrap/app.php';
+        parent::setUp();
 
-        $app->make(Illuminate\Contracts\Console\Kernel::class)->bootstrap();
+        $this->app->singleton(EloquentFactory::class, function () {
+            return EloquentFactory::construct(app(Generator::class), base_path().'/vendor/cnvs/easel/database/factories');
+        });
 
-        return $app;
     }
 }
