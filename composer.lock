@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "772c3799e4fd4114c69837d91652bcc4",
+    "content-hash": "4b06dcd1036aebadd8444fa295ed9977",
     "packages": [
         {
             "name": "barryvdh/laravel-debugbar",
@@ -179,11 +179,17 @@
         },
         {
             "name": "cnvs/easel",
-            "version": "dev-feature/l5.4",
+            "version": "dev-develop",
             "source": {
                 "type": "git",
-                "url": "https://github.com/cnvs/easel",
-                "reference": "a31323caaf787596c0d1e2f2f2381d59ec219742"
+                "url": "https://github.com/cnvs/easel.git",
+                "reference": "3b0addbe3a1dae4a2698a9d41be6057d132da240"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cnvs/easel/zipball/3b0addbe3a1dae4a2698a9d41be6057d132da240",
+                "reference": "3b0addbe3a1dae4a2698a9d41be6057d132da240",
+                "shasum": ""
             },
             "require": {
                 "barryvdh/laravel-ide-helper": "^2.3",
@@ -215,6 +221,7 @@
                     "Canvas\\": "src/"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -229,7 +236,7 @@
                 "canvas",
                 "framework"
             ],
-            "time": "2017-10-10T14:15:01+00:00"
+            "time": "2017-10-10T16:48:01+00:00"
         },
         {
             "name": "cnvs/paper-dark",
