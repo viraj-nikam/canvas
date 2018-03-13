@@ -14,7 +14,7 @@
         "doctrine/dbal": "2.6.2",
         "cnvs/easel": "dev-develop",
         "fzaninotto/faker": "1.7.1",
-        "laravel/framework": "5.4.36",
+        "laravel/framework": "5.4.*",
         "barryvdh/laravel-debugbar": "2.4.3"
     },
     "require-dev": {
