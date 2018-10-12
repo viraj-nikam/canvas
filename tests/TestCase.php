@@ -97,13 +97,7 @@ abstract class TestCase extends Orchestra
             $table->softDeletes();
         });
 
-        include_once __DIR__.'/../database/migrations/2018_10_12_000000_create_posts_table.php';
-        include_once __DIR__.'/../database/migrations/2018_10_12_000000_create_tags_table.php';
-        include_once __DIR__.'/../database/migrations/2018_10_13_000000_create_taggables_table.php';
-
-        (new \CreatePostsTable())->up();
-        (new \CreateTagsTable())->up();
-        (new \CreateTaggablesTable())->up();
+        $this->loadMigrationsFrom(__DIR__.'/database/migrations');
 
         User::create(['email' => 'test@user.com']);
         Post::create(['title' => 'post title', 'summary' => 'post summary', 'body' => 'post body', 'user_id' => 1]);
