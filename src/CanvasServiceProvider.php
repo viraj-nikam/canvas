@@ -16,6 +16,7 @@ class CanvasServiceProvider extends ServiceProvider
         $this->registerRoutes();
         $this->registerResources();
         $this->defineAssetPublishing();
+        $this->loadMigrations();
     }
 
     /**
