@@ -19,6 +19,7 @@ class PostTest extends TestCase
     public function it_is_retrievable_by_id()
     {
         $post_by_id = app(Post::class)->find($this->testPost->id);
+
         $this->assertEquals($this->testPost->id, $post_by_id->id);
     }
 }

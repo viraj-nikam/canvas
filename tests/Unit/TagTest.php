@@ -19,6 +19,7 @@ class TagTest extends TestCase
     public function it_is_retrievable_by_id()
     {
         $tag_by_id = app(Tag::class)->find($this->testTag->id);
+
         $this->assertEquals($this->testTag->id, $tag_by_id->id);
     }
 }
