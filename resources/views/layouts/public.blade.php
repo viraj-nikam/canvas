@@ -34,6 +34,14 @@
             position: relative;
         }
 
+        .content {
+            text-align: center;
+        }
+
+        .title {
+            font-size: 84px;
+        }
+
         .m-b-md {
             margin-bottom: 30px;
         }
