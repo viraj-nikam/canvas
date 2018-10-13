@@ -16,6 +16,14 @@ class TagTest extends TestCase
     }
 
     /** @test */
+    public function it_can_create_a_tag()
+    {
+        $tag = Tag::create(['name' => 'example']);
+
+        $this->assertNotNull(Tag::where('name', $tag->title));
+    }
+
+    /** @test */
     public function it_is_retrievable_by_id()
     {
         $tag_by_id = app(Tag::class)->find($this->testTag->id);

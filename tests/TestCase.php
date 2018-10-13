@@ -2,6 +2,7 @@
 
 namespace Canvas\Tests;
 
+use Canvas\InterfaceServiceProvider;
 use Dotenv\Dotenv;
 use Canvas\Entities\Tag;
 use Canvas\Entities\Post;
@@ -50,6 +51,7 @@ abstract class TestCase extends Orchestra
     {
         return [
             CanvasServiceProvider::class,
+            InterfaceServiceProvider::class,
         ];
     }
 
