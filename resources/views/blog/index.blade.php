@@ -1,4 +1,4 @@
-@extends('canvas::layouts.public')
+@extends('canvas::layouts.blog')
 
 @section('title', config('app.name', 'Laravel'))
 

@@ -11,5 +11,5 @@
     </div>
     <hr class="mt-3">
 
-    <p>Create your first post.</p>
+    <editor></editor>
 @endsection

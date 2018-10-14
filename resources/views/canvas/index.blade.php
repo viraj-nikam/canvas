@@ -1,4 +1,4 @@
-@extends('canvas::layouts.admin')
+@extends('canvas::layouts.canvas')
 
 @push('scripts')
     <script src="{{ mix('js/app.js', 'vendor/canvas') }}"></script>

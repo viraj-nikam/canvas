@@ -13,6 +13,8 @@
         @stack('styles')
     </head>
     <body>
-        @yield('body')
+        <div id="app">
+            @yield('body')
+        </div>
     </body>
 </html>
