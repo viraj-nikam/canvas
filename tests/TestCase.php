@@ -102,7 +102,7 @@ abstract class TestCase extends Orchestra
         $this->loadMigrationsFrom(__DIR__.'/database/migrations');
 
         User::create(['email' => 'test@user.com']);
-        Post::create(['title' => 'post title', 'summary' => 'post summary', 'body' => 'post body', 'user_id' => 1]);
+        Post::create(['title' => 'post title', 'summary' => 'post summary', 'body' => 'post body', 'user_id' => 1, 'published' => 1]);
         Tag::create(['name' => 'tag name']);
     }
 

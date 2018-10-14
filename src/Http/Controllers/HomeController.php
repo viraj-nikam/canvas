@@ -5,12 +5,12 @@ namespace Canvas\Http\Controllers;
 class HomeController extends Controller
 {
     /**
-     * Single page application catch-all route.
+     * Show the public-facing blog homepage.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        return view('canvas::public.index');
+        return view('canvas::blog.index');
     }
 }

@@ -11,13 +11,13 @@
 @endpush
 
 @section('body')
-    @include('canvas::admin.components.notifications.success')
-    @include('canvas::admin.components.notifications.error')
+    @include('canvas::canvas.components.notifications.success')
+    @include('canvas::canvas.components.notifications.error')
 
     <div class="container">
         <div class="row">
             <div class="col-md-3 sidebar">
-                @include('canvas::admin.components.nav.sidebar')
+                @include('canvas::canvas.components.nav.sidebar')
             </div>
             <div class="col-md-9 content">
                 @yield('content')

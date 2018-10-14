@@ -18,7 +18,7 @@ class PostTest extends TestCase
     /** @test */
     public function it_can_create_a_post()
     {
-        $post = Post::create(['title' => 'example', 'summary' => '', 'body' => '', 'user_id' => $this->testUser->id]);
+        $post = Post::create(['title' => 'example', 'summary' => '', 'body' => '', 'user_id' => $this->testUser->id, 'published' => 1]);
 
         $this->assertNotNull(Post::where('title', $post->title));
     }

@@ -1,4 +1,4 @@
-@extends('canvas::admin.index')
+@extends('canvas::canvas.index')
 
 @section('title', sprintf('%s - %s', config('app.name', 'Laravel'), 'Dashboard'))
 

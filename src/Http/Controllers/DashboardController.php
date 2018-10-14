@@ -11,6 +11,6 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view('canvas::admin.dashboard.index');
+        return view('canvas::canvas.dashboard.index');
     }
 }
