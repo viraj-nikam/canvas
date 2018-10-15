@@ -17,6 +17,7 @@
     "popper.js": "^1.12"
   },
   "dependencies": {
+    "animate.css": "^3.7.0",
     "bootstrap": "^4.0.0",
     "jquery": "^3.2",
     "tiptap": "^0.19.0",
