@@ -45,7 +45,7 @@ class PostController extends Controller
     public function index(): View
     {
         $data = [
-            'posts' => $this->paginate($this->postInterface->getByUserId(auth()->user()->id)->sortByDesc('created_at'), 1),
+            'posts' => $this->paginate($this->postInterface->getByUserId(auth()->user()->id)->sortByDesc('created_at'), 10),
         ];
 
         return view('canvas::canvas.posts.index', compact('data'));
