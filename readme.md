@@ -1,6 +1,6 @@
 ## Canvas
 
-A blogging package to extend your [Laravel](https://laravel.com) application. 
+A blogging package for [Laravel](https://laravel.com).
 
 [![Build Status](https://travis-ci.org/cnvs/canvas.svg?branch=master)](https://travis-ci.org/cnvs/canvas)
 [![StyleCI](https://styleci.io/repos/52815899/shield?style=flat&branch=master)](https://styleci.io/repos/52815899)

@@ -1,6 +1,6 @@
 {
 	"name": "cnvs/canvas",
-	"description": "A Laravel 5 package to add a blog to your application.",
+	"description": "A blogging package for Laravel..",
 	"keywords": ["cnvs", "canvas", "blog", "laravel"],
 	"license": "MIT",
 	"homepage": "https://cnvs.io",
