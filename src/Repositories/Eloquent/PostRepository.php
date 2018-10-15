@@ -4,6 +4,7 @@ namespace Canvas\Repositories\Eloquent;
 
 use Canvas\Entities\Post;
 use Canvas\Interfaces\PostInterface;
+use Illuminate\Support\Collection;
 
 class PostRepository extends EloquentAbstract implements PostInterface
 {
@@ -20,5 +21,14 @@ class PostRepository extends EloquentAbstract implements PostInterface
     public function __construct(Post $post)
     {
         $this->model = $post;
+    }
+
+    /**
+     * @param string $user_id
+     * @return Collection
+     */
+    public function getByUserId(string $user_id): Collection
+    {
+        return $this->model->where('user_id', $user_id)->get();
     }
 }

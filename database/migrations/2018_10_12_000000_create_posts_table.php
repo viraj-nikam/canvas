@@ -19,7 +19,7 @@ class CreatePostsTable extends Migration
             $table->string('summary');
             $table->text('body');
             $table->integer('user_id')->unsigned();
-            $table->tinyInteger('published')->unsigned();
+            $table->tinyInteger('published')->unsigned()->default(0);
             $table->timestamps();
             $table->softDeletes();
         });

@@ -11,5 +11,5 @@
     </div>
     <hr class="mt-3">
 
-    <editor></editor>
+    @include('canvas::canvas.components.forms.post.create')
 @endsection

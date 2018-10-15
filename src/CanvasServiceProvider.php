@@ -6,6 +6,8 @@ use Illuminate\Support\ServiceProvider;
 
 class CanvasServiceProvider extends ServiceProvider
 {
+    use ServiceBindings;
+
     /**
      * Perform post-registration booting of services.
      *
@@ -74,6 +76,7 @@ class CanvasServiceProvider extends ServiceProvider
 
         $this->configure();
         $this->offerPublishing();
+        $this->registerServices();
         $this->registerCommands();
     }
 
@@ -100,6 +103,20 @@ class CanvasServiceProvider extends ServiceProvider
             $this->publishes([
                 __DIR__.'/../config/canvas.php' => config_path('canvas.php'),
             ], 'canvas-config');
+        }
+    }
+
+    /**
+     * Register services in the container.
+     *
+     * @return void
+     */
+    protected function registerServices()
+    {
+        foreach ($this->serviceBindings as $key => $value) {
+            is_numeric($key)
+                ? $this->app->singleton($value)
+                : $this->app->singleton($key, $value);
         }
     }
 

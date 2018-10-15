@@ -7,7 +7,6 @@ use Canvas\Entities\Tag;
 use Canvas\Entities\Post;
 use Canvas\Tests\Unit\User;
 use Canvas\CanvasServiceProvider;
-use Canvas\InterfaceServiceProvider;
 use Illuminate\Database\Schema\Blueprint;
 use Orchestra\Testbench\TestCase as Orchestra;
 
@@ -51,7 +50,6 @@ abstract class TestCase extends Orchestra
     {
         return [
             CanvasServiceProvider::class,
-            InterfaceServiceProvider::class,
         ];
     }
 
