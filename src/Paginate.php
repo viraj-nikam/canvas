@@ -1,0 +1,37 @@
+<?php
+
+namespace Canvas;
+
+use Illuminate\Support\Collection;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Pagination\LengthAwarePaginator;
+
+trait Paginate
+{
+    /**
+     * Generates pagination on a Collection or an array.
+     *
+     * @param array|Collection $items
+     * @param int $perPage
+     * @param int $page
+     *
+     * @return LengthAwarePaginator
+     */
+    private function paginate($items, $perPage = 15, $page = null): LengthAwarePaginator
+    {
+        $pageName = 'page';
+        $page = $page ?: (Paginator::resolveCurrentPage($pageName) ?: 1);
+        $items = $items instanceof Collection ? $items : Collection::make($items);
+
+        return new LengthAwarePaginator(
+            $items->forPage($page, $perPage)->values(),
+            $items->count(),
+            $perPage,
+            $page,
+            [
+                'path'     => Paginator::resolveCurrentPath(),
+                'pageName' => $pageName,
+            ]
+        );
+    }
+}

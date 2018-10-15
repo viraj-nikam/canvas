@@ -3,6 +3,7 @@
 namespace Canvas\Http\Controllers;
 
 use Exception;
+use Canvas\Paginate;
 use Illuminate\View\View;
 use Canvas\Interfaces\TagInterface;
 use Canvas\Interfaces\PostInterface;
@@ -11,6 +12,8 @@ use Canvas\Http\Requests\Posts\CreateRequest;
 
 class PostController extends Controller
 {
+    use Paginate;
+
     /**
      * @var PostInterface
      */
@@ -42,7 +45,7 @@ class PostController extends Controller
     public function index(): View
     {
         $data = [
-            'posts' => $this->postInterface->getByUserId(auth()->user()->id)->sortByDesc('created_at'),
+            'posts' => $this->paginate($this->postInterface->getByUserId(auth()->user()->id)->sortByDesc('created_at'), 1),
         ];
 
         return view('canvas::canvas.posts.index', compact('data'));

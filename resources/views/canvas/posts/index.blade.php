@@ -49,6 +49,8 @@
                 </tbody>
             </table>
         </div>
+
+        {{ $data['posts']->links() }}
     @else
         <p>You haven't published any posts yet.</p>
     @endif
