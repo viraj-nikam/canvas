@@ -1,14 +1,3 @@
-<script type="text/ecmascript-6">
-    // Import the editor
-    import { Editor } from 'tiptap'
-
-    export default {
-        components: {
-            Editor,
-        }
-    }
-</script>
-
 <template>
     <editor>
         <!-- Add HTML to the scoped slot called `content` -->
@@ -17,3 +6,14 @@
         </div>
     </editor>
 </template>
+
+<script>
+    // Import the editor
+    import { Editor } from 'tiptap'
+
+    export default {
+        components: {
+            Editor,
+        },
+    }
+</script>

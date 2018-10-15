@@ -1,3 +1,4 @@
+import Vue from 'vue';
 
 /**
  * First we will load all of this project's JavaScript dependencies which
@@ -26,10 +27,8 @@ require('./custom/spinner');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-window.Vue = require('vue');
-
 Vue.component('editor', require('./components/Editor.vue'));
 
-const app = new Vue({
+new Vue({
     el: '#app'
 });
