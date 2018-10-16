@@ -8,7 +8,6 @@
 @push('styles')
     <link rel="stylesheet" type="text/css" href="{{ mix('css/app.css', 'vendor/canvas') }}">
     <link rel="stylesheet" href="{{ url('https://fonts.googleapis.com/css?family=Nunito') }}">
-    <link rel="stylesheet" href="{{ url('https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.min.css') }}">
 @endpush
 
 @section('body')
