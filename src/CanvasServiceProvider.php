@@ -19,6 +19,7 @@ class CanvasServiceProvider extends ServiceProvider
         $this->registerResources();
         $this->defineAssetPublishing();
         $this->loadMigrations();
+        $this->loadTranslations();
     }
 
     /**
@@ -49,6 +50,16 @@ class CanvasServiceProvider extends ServiceProvider
     protected function loadMigrations()
     {
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+    }
+
+    /**
+     * Load the translation files.
+     *
+     * @return void
+     */
+    protected function loadTranslations()
+    {
+        $this->loadTranslationsFrom(__DIR__.'/../resources/lang/', 'canvas');
     }
 
     /**
