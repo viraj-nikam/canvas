@@ -76,7 +76,11 @@ class PostController extends Controller
         try {
             $this->postInterface->create($request->all());
 
-            return redirect(route('canvas.posts.index'))->with('success', __('canvas::notifications.success', ['entity' => 'post', 'action' => 'created']));
+            return redirect(route('canvas.posts.index'))
+                ->with('success', __('canvas::notifications.success', [
+                    'entity' => 'post',
+                    'action' => 'created',
+                ]));
         } catch (Exception $e) {
             return back()->with('error', __('canvas::notifications.error'));
         }
@@ -112,9 +116,13 @@ class PostController extends Controller
         try {
             $post->update($request->all());
 
-            return back()->with('success', __('canvas::notifications.success', ['entity' => 'post', 'action' => 'updated']));
+            return back()
+                ->with('success', __('canvas::notifications.success', [
+                    'entity' => 'post',
+                    'action' => 'updated',
+                ]));
         } catch (Exception $e) {
-            return back()->withwith('error', __('canvas::notifications.error'));
+            return back()->with('error', __('canvas::notifications.error'));
         }
     }
 
@@ -131,7 +139,11 @@ class PostController extends Controller
         try {
             $post->delete();
 
-            return redirect(route('canvas.posts.index'))->with('success', __('canvas::notifications.success', ['entity' => 'post', 'action' => 'deleted']));
+            return redirect(route('canvas.posts.index'))
+                ->with('success', __('canvas::notifications.success', [
+                    'entity' => 'post',
+                    'action' => 'deleted',
+                ]));
         } catch (Exception $e) {
             return redirect(route('canvas.posts.index'))->with('error', __('canvas::notifications.error'));
         }
