@@ -5,7 +5,7 @@ namespace Canvas;
 trait ServiceBindings
 {
     /**
-     * All of the service bindings for Canvas.
+     * Here we define all of the service bindings for Canvas.
      *
      * @var array
      */

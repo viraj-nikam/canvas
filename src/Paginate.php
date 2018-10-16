@@ -17,7 +17,7 @@ trait Paginate
      *
      * @return LengthAwarePaginator
      */
-    private function paginate($items, $perPage = 15, $page = null): LengthAwarePaginator
+    protected function paginate($items, $perPage = 15, $page = null): LengthAwarePaginator
     {
         $pageName = 'page';
         $page = $page ?: (Paginator::resolveCurrentPage($pageName) ?: 1);

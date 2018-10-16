@@ -17,9 +17,9 @@ Route::namespace('Canvas\Http\Controllers')->group(function () {
             Route::get('/', 'PostController@index')->name('canvas.posts.index');
             Route::get('create', 'PostController@create')->name('canvas.posts.create');
             Route::post('/', 'PostController@store')->name('canvas.posts.store');
-            Route::get('/{id}/edit')->name(('canvas.posts.edit'));
-            Route::put('/{id}')->name('canvas.posts.update');
-            Route::delete('/{id}')->name('canvas.posts.destroy');
+            Route::get('/{id}/edit', 'PostController@edit')->name(('canvas.posts.edit'));
+            Route::put('/{id}', 'PostController@update')->name('canvas.posts.update');
+            Route::delete('/{id}', 'PostController@destroy')->name('canvas.posts.destroy');
         });
     });
 });
