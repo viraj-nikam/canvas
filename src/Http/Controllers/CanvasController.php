@@ -2,15 +2,15 @@
 
 namespace Canvas\Http\Controllers;
 
-class HomeController extends Controller
+class CanvasController extends Controller
 {
     /**
-     * Show the public-facing blog homepage.
+     * Show the application dashboard.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        return view('canvas::blog.index');
+        return view('canvas::canvas.dashboard.index');
     }
 }
