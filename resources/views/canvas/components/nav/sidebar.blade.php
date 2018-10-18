@@ -15,7 +15,7 @@
         <ul class="nav nav-pills nav-stacked flex-column">
             <li class="nav-header">Resources</li>
             <li class="nav-item">
-                <a class="nav-link {{ Route::is('canvas.posts*') ? 'active' : '' }}" href="{{ route('canvas.posts.index') }}">Posts</a>
+                <a class="nav-link {{ Route::is('canvas.post*') ? 'active' : '' }}" href="{{ route('canvas.post.index') }}">Posts</a>
             </li>
         </ul>
         <hr class="visible-xs mt-3">

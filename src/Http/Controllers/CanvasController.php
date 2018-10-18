@@ -2,14 +2,16 @@
 
 namespace Canvas\Http\Controllers;
 
+use Illuminate\View\View;
+
 class CanvasController extends Controller
 {
     /**
      * Show the application dashboard.
      *
-     * @return \Illuminate\Http\Response
+     * @return View
      */
-    public function index()
+    public function index(): View
     {
         return view('canvas::canvas.dashboard.index');
     }

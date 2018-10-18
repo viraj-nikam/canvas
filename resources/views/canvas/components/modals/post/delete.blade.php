@@ -16,7 +16,7 @@
                    onclick="event.preventDefault();document.getElementById('post-delete-{{ $post->id }}').submit();"
                    aria-label="Delete Post">Delete</a>
 
-                <form id="post-delete-{{ $post->id }}" action="{{ route('canvas.posts.destroy', $post->id) }}" method="POST" style="display: none">
+                <form id="post-delete-{{ $post->id }}" action="{{ route('canvas.post.destroy', $post->id) }}" method="POST" style="display: none">
                     @method('DELETE')
                     @csrf
                 </form>

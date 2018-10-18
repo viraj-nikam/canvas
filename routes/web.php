@@ -4,8 +4,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::namespace('Canvas\Http\Controllers')->group(function () {
     Route::middleware(['web'])->prefix('blog')->group(function () {
-        // Homepage Routes...
+        // Blog Routes...
         Route::get('/', 'BlogController@index')->name('blog.index');
+        Route::get('/{post}', 'BlogController@showPost')->name('blog.post.show');
+        Route::get('/tag/{tag}', 'BlogController@showTag')->name('blog.tag.show');
     });
 
     Route::middleware(['web', 'auth'])->prefix('canvas')->group(function () {
@@ -14,12 +16,12 @@ Route::namespace('Canvas\Http\Controllers')->group(function () {
 
         // Post Routes...
         Route::prefix('posts')->group(function () {
-            Route::get('/', 'PostController@index')->name('canvas.posts.index');
-            Route::get('create', 'PostController@create')->name('canvas.posts.create');
-            Route::post('/', 'PostController@store')->name('canvas.posts.store');
-            Route::get('/{id}/edit', 'PostController@edit')->name(('canvas.posts.edit'));
-            Route::put('/{id}', 'PostController@update')->name('canvas.posts.update');
-            Route::delete('/{id}', 'PostController@destroy')->name('canvas.posts.destroy');
+            Route::get('/', 'PostController@index')->name('canvas.post.index');
+            Route::get('create', 'PostController@create')->name('canvas.post.create');
+            Route::post('/', 'PostController@store')->name('canvas.post.store');
+            Route::get('/{id}/edit', 'PostController@edit')->name(('canvas.post.edit'));
+            Route::put('/{id}', 'PostController@update')->name('canvas.post.update');
+            Route::delete('/{id}', 'PostController@destroy')->name('canvas.post.destroy');
         });
     });
 });

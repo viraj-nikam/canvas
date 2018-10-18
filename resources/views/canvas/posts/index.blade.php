@@ -11,7 +11,7 @@
 
         <div class="btn-toolbar dashhead-toolbar">
             <div class="btn-toolbar-item">
-                <a href="{{ route('canvas.posts.create') }}" class="btn btn-outline-primary">New Post</a>
+                <a href="{{ route('canvas.post.create') }}" class="btn btn-outline-primary">New Post</a>
             </div>
         </div>
     </div>
@@ -41,7 +41,7 @@
                         </td>
                         <td>{{ \Carbon\Carbon::parse($post->updated_at)->diffForHumans() }}</td>
                         <td>
-                            <a href="{{ route('canvas.posts.edit', $post->id) }}" class="btn btn-link py-0"><i class="fas fa-fw fa-edit"></i></a>
+                            <a href="{{ route('canvas.post.edit', $post->id) }}" class="btn btn-link py-0"><i class="fas fa-fw fa-edit"></i></a>
                             <a href="#" class="btn btn-link py-0" data-toggle="modal" data-target="#modal-delete-{{ $post->id }}"><i class="fas fa-fw fa-trash"></i></a>
                         </td>
                     </tr>

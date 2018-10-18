@@ -74,9 +74,10 @@ class PostController extends Controller
     public function store(PostRequest $request): RedirectResponse
     {
         try {
-            $this->postInterface->create($request->all());
+            $post = $this->postInterface->create($request->all());
+            $post->tags()->sync($request->tags);
 
-            return redirect(route('canvas.posts.index'))
+            return redirect(route('canvas.post.index'))
                 ->with('success', __('canvas::notifications.success', [
                     'entity' => 'post',
                     'action' => 'created',
@@ -94,9 +95,11 @@ class PostController extends Controller
      */
     public function edit($id): View
     {
+        $post = $this->postInterface->find($id);
+
         $data = [
-            'post' => $this->postInterface->find($id),
-            'tags' => $this->tagInterface->all(),
+            'post' => $post,
+            'tags' => $post->tags,
         ];
 
         return view('canvas::canvas.posts.update', compact('data'));
@@ -139,13 +142,13 @@ class PostController extends Controller
         try {
             $post->delete();
 
-            return redirect(route('canvas.posts.index'))
+            return redirect(route('canvas.post.index'))
                 ->with('success', __('canvas::notifications.success', [
                     'entity' => 'post',
                     'action' => 'deleted',
                 ]));
         } catch (Exception $e) {
-            return redirect(route('canvas.posts.index'))->with('error', __('canvas::notifications.error'));
+            return redirect(route('canvas.post.index'))->with('error', __('canvas::notifications.error'));
         }
     }
 }
