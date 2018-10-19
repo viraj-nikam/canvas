@@ -52,6 +52,12 @@
                     </select>
                 </div>
             </div>
+            <div class="form-group row">
+                <label class="col-lg-4 col-form-label text-lg-left">Publish At</label>
+                <div class="col-lg-8">
+                    <input name="published_at" type="text" value="{{ now()->toDateString() }}" class="datepicker form-control" data-provide="datepicker">
+                </div>
+            </div>
         </div>
         <div class="card-footer text-right border-0">
             <a href="{{ route('canvas.post.index') }}" class="btn btn-link">Cancel</a>

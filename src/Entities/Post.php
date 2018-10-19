@@ -18,11 +18,11 @@ class Post extends BaseEntity
      * @var array
      */
     protected $fillable = [
+        'user_id',
         'title',
         'summary',
         'body',
-        'user_id',
-        'published',
+        'published_at',
     ];
 
     /**
@@ -41,5 +41,18 @@ class Post extends BaseEntity
     public function tags(): MorphToMany
     {
         return $this->morphToMany(Tag::class, 'taggable');
+    }
+
+    /**
+     * @param $value
+     * @return bool
+     */
+    public function getPublishedAttribute($value): bool
+    {
+        if ($this->published_at <= now()->toDateString()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

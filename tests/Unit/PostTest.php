@@ -19,7 +19,7 @@ class PostTest extends TestCase
     /** @test */
     public function it_can_create_a_post()
     {
-        $post = Post::create(['title' => 'example', 'summary' => '', 'body' => '', 'user_id' => $this->testUser->id, 'published' => 1]);
+        $post = Post::create(['user_id' => $this->testUser->id, 'title' => 'example', 'summary' => '', 'body' => '', 'published_at' => now()->toDateString()]);
 
         $this->assertNotNull(Post::where('title', $post->title));
     }
@@ -36,7 +36,7 @@ class PostTest extends TestCase
     public function is_can_retrieve_all_posts_for_a_user()
     {
         $this->refreshTestPost();
-        Post::create(['title' => 'User Post', 'summary' => '', 'body' => '', 'user_id' => $this->testUser->id, 'published' => 1]);
+        Post::create(['user_id' => $this->testUser->id, 'title' => 'User Post', 'summary' => '', 'body' => '', 'published_at' => now()->toDateString()]);
 
         $this->assertCount(2, app(PostInterface::class)->getByUserId($this->testUser->id));
     }

@@ -17,14 +17,14 @@
     </div>
     <hr class="mt-3">
 
-    @if($data['posts'])
+    @if(count($data['posts']))
         <div class="table-responsive">
             <table class="table table-borderless table-striped">
                 <thead>
                 <tr>
                     <th>Title</th>
                     <th>Status</th>
-                    <th>Last Updated</th>
+                    <th>Published</th>
                     <th></th>
                 </tr>
                 </thead>
@@ -39,7 +39,7 @@
                                 <span class="badge badge-success">Draft</span>
                             @endif
                         </td>
-                        <td>{{ \Carbon\Carbon::parse($post->updated_at)->diffForHumans() }}</td>
+                        <td>{{ \Carbon\Carbon::parse($post->published_at)->diffForHumans() }}</td>
                         <td>
                             <a href="{{ route('canvas.post.edit', $post->id) }}" class="btn btn-link py-0"><i class="fas fa-fw fa-edit"></i></a>
                             <a href="#" class="btn btn-link py-0" data-toggle="modal" data-target="#modal-delete-{{ $post->id }}"><i class="fas fa-fw fa-trash"></i></a>
