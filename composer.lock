@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2e3b69e0bd8d0bf267a4795ef607db1d",
+    "content-hash": "bdcb9dfd1c585371aa60a3a4bd29a364",
     "packages": [
         {
             "name": "barryvdh/laravel-debugbar",
@@ -179,12 +179,17 @@
         },
         {
             "name": "cnvs/easel",
-            "version": "3.4.4-beta.3",
+            "version": "v3.4.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cnvs/easel.git",
+                "reference": "bb2b564432155467944b4a2e719e474fd564b711"
+            },
             "dist": {
-                "type": "path",
-                "url": "../easel",
-                "reference": "69bb173ef3c874b840f357c8f2e019bf9268b5db",
-                "shasum": null
+                "type": "zip",
+                "url": "https://api.github.com/repos/cnvs/easel/zipball/bb2b564432155467944b4a2e719e474fd564b711",
+                "reference": "bb2b564432155467944b4a2e719e474fd564b711",
+                "shasum": ""
             },
             "require": {
                 "barryvdh/laravel-ide-helper": "^2.3",
@@ -216,6 +221,7 @@
                     "Canvas\\": "src/"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -229,7 +235,8 @@
             "keywords": [
                 "canvas",
                 "framework"
-            ]
+            ],
+            "time": "2018-10-20T23:17:07+00:00"
         },
         {
             "name": "cnvs/paper-dark",
@@ -5174,9 +5181,7 @@
     ],
     "aliases": [],
     "minimum-stability": "beta",
-    "stability-flags": {
-        "cnvs/easel": 10
-    },
+    "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": [],
