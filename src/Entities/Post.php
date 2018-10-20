@@ -55,4 +55,13 @@ class Post extends BaseEntity
             return false;
         }
     }
+
+    /**
+     * @param $value
+     * @return string
+     */
+    public function getSlugAttribute($value): string
+    {
+        return kebab_case($this->title);
+    }
 }
