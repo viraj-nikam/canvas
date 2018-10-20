@@ -1792,11 +1792,4 @@ import $ from 'jquery'
 		datepickerPlugin.call($('[data-provide="datepicker-inline"]'));
 	});
 
-    $(function() {
-        $('.datepicker').datepicker({
-            format: "yyyy-mm-dd",
-            todayHighlight: true
-        });
-    });
-
 }(window.jQuery));

@@ -55,7 +55,7 @@
             <div class="form-group row">
                 <label class="col-lg-4 col-form-label text-lg-left">Publish At</label>
                 <div class="col-lg-8">
-                    <input name="published_at" type="text" value="{{ now()->toDateString() }}" class="datepicker form-control" data-provide="datepicker">
+                    <input name="published_at" class="form-control{{ $errors->has('published_at') ? ' is-invalid' : '' }}" value="{{ now()->toDateTimeString() }}">
                 </div>
             </div>
         </div>

@@ -49,7 +49,7 @@ class Post extends BaseEntity
      */
     public function getPublishedAttribute($value): bool
     {
-        if ($this->published_at <= now()->toDateString()) {
+        if ($this->published_at <= now()->toDateTimeString()) {
             return true;
         } else {
             return false;
