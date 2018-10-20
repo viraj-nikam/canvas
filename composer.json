@@ -1,7 +1,12 @@
 {
     "name": "cnvs/canvas",
     "description": "Simple, Powerful Blog Publishing Platform",
-    "keywords": ["php", "laravel", "blog", "canvas"],
+    "keywords": [
+        "php",
+        "laravel",
+        "blog",
+        "canvas"
+    ],
     "license": "MIT",
     "authors": [
         {
@@ -12,7 +17,7 @@
     "require": {
         "cnvs/paper-dark": "*",
         "doctrine/dbal": "2.6.2",
-        "cnvs/easel": "dev-develop",
+        "cnvs/easel": "3.4.5",
         "fzaninotto/faker": "1.7.1",
         "laravel/framework": "5.4.*",
         "barryvdh/laravel-debugbar": "2.4.3"
