@@ -121,12 +121,12 @@ abstract class TestCase extends Orchestra
     protected function createTestPost(): Post
     {
         return Post::create([
-            'user_id'      => 1,
-            'title'        => 'post title',
-            'summary'      => 'post summary',
-            'body'         => 'post body',
+            'user_id'     => 1,
+            'title'       => 'post title',
+            'summary'     => 'post summary',
+            'body'        => 'post body',
             'slug'       => 'post-title',
-            'published_at' => now()->toDateTimeString(),
+            'published_at' => now()->toDateTimeString()
         ]);
     }
 
@@ -137,7 +137,7 @@ abstract class TestCase extends Orchestra
     {
         return Tag::create([
             'name' => 'tag name',
-            'slug' => 'tag-name',
+            'slug' => 'tag-name'
         ]);
     }
 }
