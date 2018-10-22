@@ -125,7 +125,7 @@ abstract class TestCase extends Orchestra
             'title'        => 'post title',
             'summary'      => 'post summary',
             'body'         => 'post body',
-            'slug'         => 'post-title',
+            'slug'       => 'post-title',
             'published_at' => now()->toDateTimeString(),
         ]);
     }
