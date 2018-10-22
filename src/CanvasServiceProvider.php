@@ -71,7 +71,7 @@ class CanvasServiceProvider extends ServiceProvider
     {
         $this->publishes([
             CANVAS_PATH.'/public' => public_path('vendor/canvas'),
-        ], 'canvas-assets');
+        ], 'assets');
     }
 
     /**
@@ -113,7 +113,11 @@ class CanvasServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->publishes([
                 __DIR__.'/../config/canvas.php' => config_path('canvas.php'),
-            ], 'canvas-config');
+            ], 'config');
+
+            $this->publishes([
+                __DIR__.'/../resources/views' => resource_path('views/vendor/canvas'),
+            ], 'views');
         }
     }
 
