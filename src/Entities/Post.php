@@ -22,6 +22,7 @@ class Post extends BaseEntity
         'title',
         'summary',
         'body',
+        'slug',
         'published_at',
     ];
 
@@ -36,11 +37,23 @@ class Post extends BaseEntity
     public $timestamps = true;
 
     /**
+     * A post can have many tags.
+     *
      * @return MorphToMany
      */
     public function tags(): MorphToMany
     {
         return $this->morphToMany(Tag::class, 'taggable');
+    }
+
+    /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
     }
 
     /**
@@ -54,14 +67,5 @@ class Post extends BaseEntity
         } else {
             return false;
         }
-    }
-
-    /**
-     * @param $value
-     * @return string
-     */
-    public function getSlugAttribute($value): string
-    {
-        return kebab_case($this->title);
     }
 }

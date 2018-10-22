@@ -2,7 +2,7 @@
     <div class="sidebar-header">
         <button class="nav-toggler nav-toggler-md sidebar-toggler" data-target="#nav-toggleable-md" data-toggle="collapse" type="button"><span class="sr-only">Toggle nav</span></button>
         <a class="sidebar-brand img-responsive" href="{{ route('canvas.index') }}">
-            <i class="fas fa-bolt fa-fw sidebar-brand-icon"></i>
+            <i class="far fa-newspaper fa-3x" data-fa-transform="shrink-6" data-fa-mask="fas fa-circle"></i>
         </a>
     </div>
     <div class="collapse nav-toggleable-md" id="nav-toggleable-md">

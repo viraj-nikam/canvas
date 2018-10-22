@@ -19,6 +19,7 @@ class Tag extends BaseEntity
      */
     protected $fillable = [
         'name',
+        'slug',
     ];
 
     /**
@@ -32,5 +33,15 @@ class Tag extends BaseEntity
     public function posts(): MorphToMany
     {
         return $this->morphedByMany(Post::class, 'taggable');
+    }
+
+    /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
     }
 }

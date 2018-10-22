@@ -2,7 +2,6 @@
     <div class="card mt-3 shadow-sm">
         <div class="card-body">
             @csrf
-            <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
 
             <div class="form-group row">
                 <label class="col-lg-4 col-form-label text-lg-left">Title</label>

@@ -3,6 +3,7 @@
 namespace Canvas\Http\Controllers;
 
 use Illuminate\View\View;
+use Canvas\Interfaces\PostInterface;
 
 class BlogController extends Controller
 {
@@ -13,14 +14,10 @@ class BlogController extends Controller
      */
     public function index(): View
     {
-        return view('canvas::blog.index');
-    }
+        $data = [
+            'posts' => app(PostInterface::class)->getPublished()
+        ];
 
-    public function showPost($id)
-    {
-    }
-
-    public function showTag($id)
-    {
+        return view('canvas::blog.index', compact('data'));
     }
 }

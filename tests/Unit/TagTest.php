@@ -18,7 +18,10 @@ class TagTest extends TestCase
     /** @test */
     public function it_can_create_a_tag()
     {
-        $tag = Tag::create(['name' => 'example']);
+        $tag = Tag::create([
+            'name' => 'example',
+            'slug' => 'example'
+        ]);
 
         $this->assertNotNull(Tag::where('name', $tag->title));
     }

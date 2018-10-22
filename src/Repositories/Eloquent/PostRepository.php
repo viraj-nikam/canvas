@@ -24,11 +24,28 @@ class PostRepository extends EloquentAbstract implements PostInterface
     }
 
     /**
-     * @param string $user_id
-     * @return Collection
+     * @return Collection|null
      */
-    public function getByUserId(string $user_id): Collection
+    public function getPublished(): ?Collection
+    {
+        return $this->model->where('published_at', '<=', now()->toDateTimeString())->get();
+    }
+
+    /**
+     * @param string $user_id
+     * @return Collection|null
+     */
+    public function getByUserId(string $user_id): ?Collection
     {
         return $this->model->where('user_id', $user_id)->get();
+    }
+
+    /**
+     * @param string $slug
+     * @return Post|null
+     */
+    public function findBySlug(string $slug): ?Post
+    {
+        return $this->model->where('slug', $slug)->firstOrFail();
     }
 }

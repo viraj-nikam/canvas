@@ -5,6 +5,7 @@ namespace Canvas\Http\Controllers;
 use Exception;
 use Canvas\Paginate;
 use Illuminate\View\View;
+use Canvas\Jobs\CreatePostJob;
 use Canvas\Interfaces\TagInterface;
 use Canvas\Interfaces\PostInterface;
 use Canvas\Http\Requests\PostRequest;
@@ -15,29 +16,6 @@ class PostController extends Controller
     use Paginate;
 
     /**
-     * @var PostInterface
-     */
-    protected $postInterface;
-
-    /**
-     * @var TagInterface
-     */
-    protected $tagInterface;
-
-    /**
-     * PostController constructor.
-     *
-     * @param PostInterface $postInterface
-     * @param TagInterface $tagInterface
-     */
-    public function __construct(PostInterface $postInterface, TagInterface $tagInterface)
-    {
-        parent::__construct();
-        $this->postInterface = $postInterface;
-        $this->tagInterface = $tagInterface;
-    }
-
-    /**
      * Display a listing of the resource.
      *
      * @return View
@@ -45,7 +23,7 @@ class PostController extends Controller
     public function index(): View
     {
         $data = [
-            'posts' => $this->paginate($this->postInterface->getByUserId(auth()->user()->id)->sortByDesc('created_at'), 10),
+            'posts' => $this->paginate(app(PostInterface::class)->getByUserId(auth()->user()->id)->sortByDesc('created_at'), 10),
         ];
 
         return view('canvas::canvas.posts.index', compact('data'));
@@ -59,7 +37,7 @@ class PostController extends Controller
     public function create(): View
     {
         $data = [
-            'tags' => $this->tagInterface->all(),
+            'tags' => app(TagInterface::class)->all(),
         ];
 
         return view('canvas::canvas.posts.create', compact('data'));
@@ -69,13 +47,13 @@ class PostController extends Controller
      * Store a newly created resource in storage.
      *
      * @param PostRequest $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
+     * @throws Exception
      */
     public function store(PostRequest $request): RedirectResponse
     {
         try {
-            $post = $this->postInterface->create($request->all());
-            $post->tags()->sync($request->tags);
+            app(CreatePostJob::class)->dispatch($request->all());
 
             return redirect(route('canvas.post.index'))
                 ->with('success', __('canvas::notifications.success', [
@@ -88,6 +66,19 @@ class PostController extends Controller
     }
 
     /**
+     * @param $slug
+     * @return View
+     */
+    public function show($slug): View
+    {
+        $data = [
+            'post' => app(PostInterface::class)->findBySlug($slug)
+        ];
+
+        return view('canvas::blog.show', compact('data'));
+    }
+
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  int $id
@@ -95,7 +86,7 @@ class PostController extends Controller
      */
     public function edit($id): View
     {
-        $post = $this->postInterface->find($id);
+        $post = app(PostInterface::class)->find($id);
 
         $data = [
             'post' => $post,
@@ -114,7 +105,7 @@ class PostController extends Controller
      */
     public function update(PostRequest $request, $id): RedirectResponse
     {
-        $post = $this->postInterface->find($id);
+        $post = app(PostInterface::class)->find($id);
 
         try {
             $post->update($request->all());
@@ -137,7 +128,7 @@ class PostController extends Controller
      */
     public function destroy($id): RedirectResponse
     {
-        $post = $this->postInterface->find($id);
+        $post = app(PostInterface::class)->find($id);
 
         try {
             $post->delete();

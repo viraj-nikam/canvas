@@ -21,4 +21,13 @@ class TagRepository extends EloquentAbstract implements TagInterface
     {
         $this->model = $tag;
     }
+
+    /**
+     * @param string $slug
+     * @return Tag|null
+     */
+    public function findBySlug(string $slug): ?Tag
+    {
+        return $this->model->where('slug', $slug)->firstOrFail();
+    }
 }

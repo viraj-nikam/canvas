@@ -3,9 +3,12 @@
 @section('title', config('app.name', 'Laravel'))
 
 @section('content')
-    <div class="content">
-        <div class="title m-b-md">
-            🚀
-        </div>
-    </div>
+    @foreach($data['posts'] as $post)
+        <h1><a href="{{ route('blog.post.show', $post->slug) }}">{{ $post->title }}</a></h1>
+        @if($post->tags->count() > 0)
+            @foreach($post->tags as $tag)
+                <p><a href="{{ route('blog.tag.show', $tag->slug) }}">#{{ $tag->name }}</a></p>
+            @endforeach
+        @endif
+    @endforeach
 @endsection

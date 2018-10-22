@@ -19,8 +19,8 @@ trait Paginate
      */
     protected function paginate($items, $perPage = 15, $page = null): LengthAwarePaginator
     {
-        $pageName = 'page';
-        $page = $page ?: (Paginator::resolveCurrentPage($pageName) ?: 1);
+        $descriptor = 'page';
+        $page = $page ?: (Paginator::resolveCurrentPage($descriptor) ?: 1);
         $items = $items instanceof Collection ? $items : Collection::make($items);
 
         return new LengthAwarePaginator(
@@ -30,7 +30,7 @@ trait Paginate
             $page,
             [
                 'path'     => Paginator::resolveCurrentPath(),
-                'pageName' => $pageName,
+                'pageName' => $descriptor,
             ]
         );
     }

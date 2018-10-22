@@ -6,8 +6,8 @@ Route::namespace('Canvas\Http\Controllers')->group(function () {
     Route::middleware(['web'])->prefix('blog')->group(function () {
         // Blog Routes...
         Route::get('/', 'BlogController@index')->name('blog.index');
-        Route::get('/{post}', 'BlogController@showPost')->name('blog.post.show');
-        Route::get('/tag/{tag}', 'BlogController@showTag')->name('blog.tag.show');
+        Route::get('/{post}', 'PostController@show')->name('blog.post.show');
+        Route::get('/tag/{tag}', 'TagController@show')->name('blog.tag.show');
     });
 
     Route::middleware(['web', 'auth'])->prefix('canvas')->group(function () {

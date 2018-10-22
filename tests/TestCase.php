@@ -57,13 +57,14 @@ abstract class TestCase extends Orchestra
      * Set up the environment.
      *
      * @param \Illuminate\Foundation\Application $app
+     * @return void
      */
     protected function getEnvironmentSetUp($app)
     {
         // If we're not in TravisCI, load our local .env file
         if (empty(getenv('CI'))) {
-            $envPath = realpath(__DIR__.'/..');
-            if (! file_exists($envPath)) {
+            $envPath = realpath(__DIR__ . '/..');
+            if (!file_exists($envPath)) {
                 $dotenv = new Dotenv($envPath);
                 $dotenv->load();
             }
@@ -76,7 +77,7 @@ abstract class TestCase extends Orchestra
             'prefix'   => '',
         ]);
 
-        $app['config']->set('view.paths', [__DIR__.'/resources/views']);
+        $app['config']->set('view.paths', [__DIR__ . '/resources/views']);
 
         // Use test User model for users provider
         $app['config']->set('auth.providers.users.model', User::class);
@@ -86,6 +87,7 @@ abstract class TestCase extends Orchestra
      * Set up the database.
      *
      * @param \Illuminate\Foundation\Application $app
+     * @return void
      */
     protected function setUpDatabase($app)
     {
@@ -97,34 +99,45 @@ abstract class TestCase extends Orchestra
             $table->softDeletes();
         });
 
-        $this->loadMigrationsFrom(__DIR__.'/database/migrations');
-
-        User::create(['email' => 'test@user.com']);
-        Post::create(['user_id' => 1, 'title' => 'post title', 'summary' => 'post summary', 'body' => 'post body', 'published_at' => now()->toDateTimeString()]);
-        Tag::create(['name' => 'tag name']);
+        $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
+        $this->createTestUser();
+        $this->createTestPost();
+        $this->createTestTag();
     }
 
     /**
-     * Refresh the testUser.
+     * @return User
      */
-    public function refreshTestUser()
+    protected function createTestUser(): User
     {
-        $this->testUser = $this->testUser->fresh();
+        return User::create([
+            'email' => 'test@user.com',
+        ]);
     }
 
     /**
-     * Refresh the testPost.
+     * @return Post
      */
-    public function refreshTestPost()
+    protected function createTestPost(): Post
     {
-        $this->testPost = $this->testPost->fresh();
+        return Post::create([
+            'user_id'      => 1,
+            'title'        => 'post title',
+            'summary'      => 'post summary',
+            'body'         => 'post body',
+            'slug'         => 'post-title',
+            'published_at' => now()->toDateTimeString(),
+        ]);
     }
 
     /**
-     * Refresh the testTag.
+     * @return Tag
      */
-    public function refreshTestTag()
+    protected function createTestTag(): Tag
     {
-        $this->testTag = $this->testTag->fresh();
+        return Tag::create([
+            'name' => 'tag name',
+            'slug' => 'tag-name',
+        ]);
     }
 }
