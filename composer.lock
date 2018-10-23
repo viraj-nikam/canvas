@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "67eb24856eb6a9693bff05a72149cfa6",
+    "content-hash": "906d7aa2c5284d827ed4b80eecfcdd12",
     "packages": [
         {
             "name": "doctrine/cache",
@@ -509,16 +509,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v5.7.9",
+            "version": "v5.7.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "172f69f86bb86e107fb9fafff293b4b01291cf05"
+                "reference": "7d748c33b8c409b9b0c96704d6493853de41754d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/172f69f86bb86e107fb9fafff293b4b01291cf05",
-                "reference": "172f69f86bb86e107fb9fafff293b4b01291cf05",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/7d748c33b8c409b9b0c96704d6493853de41754d",
+                "reference": "7d748c33b8c409b9b0c96704d6493853de41754d",
                 "shasum": ""
             },
             "require": {
@@ -600,6 +600,7 @@
                 "doctrine/dbal": "Required to rename columns and drop SQLite columns (^2.6).",
                 "ext-pcntl": "Required to use all features of the queue worker.",
                 "ext-posix": "Required to use all features of the queue worker.",
+                "filp/whoops": "Required for friendly error pages in development (^2.1.4).",
                 "fzaninotto/faker": "Required to use the eloquent factory builder (^1.4).",
                 "guzzlehttp/guzzle": "Required to use the Mailgun and Mandrill mail drivers and the ping methods on schedules (^6.0).",
                 "laravel/tinker": "Required to use the tinker console command (^1.0).",
@@ -647,7 +648,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2018-10-09T13:28:28+00:00"
+            "time": "2018-10-23T14:05:19+00:00"
         },
         {
             "name": "league/flysystem",
@@ -3922,7 +3923,8 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "^7.1.3"
+        "php": "^7.1.3",
+        "ext-json": "*"
     },
     "platform-dev": []
 }

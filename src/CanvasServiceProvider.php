@@ -9,17 +9,32 @@ class CanvasServiceProvider extends ServiceProvider
     use ServiceBindings;
 
     /**
-     * Perform post-registration booting of services.
+     * Bootstrap any package services.
      *
      * @return void
      */
     public function boot()
     {
         $this->registerRoutes();
-        $this->registerResources();
-        $this->defineAssetPublishing();
-        $this->loadMigrations();
-        $this->loadTranslations();
+        $this->registerMigrations();
+        $this->registerPublishing();
+        $this->loadViewsFrom(__DIR__.'/../resources/views', 'canvas');
+        $this->loadTranslationsFrom(__DIR__.'/../resources/lang/', 'canvas');
+    }
+
+    /**
+     * Register any package services.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        $this->mergeConfigFrom(__DIR__.'/../config/canvas.php', 'canvas');
+        $this->commands([
+            Console\InstallCommand::class,
+        ]);
+
+        $this->registerServices();
     }
 
     /**
@@ -43,85 +58,6 @@ class CanvasServiceProvider extends ServiceProvider
     }
 
     /**
-     * Load the migrations.
-     *
-     * @return void
-     */
-    protected function loadMigrations()
-    {
-        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
-    }
-
-    /**
-     * Load the translation files.
-     *
-     * @return void
-     */
-    protected function loadTranslations()
-    {
-        $this->loadTranslationsFrom(__DIR__.'/../resources/lang/', 'canvas');
-    }
-
-    /**
-     * Define the asset publishing configuration.
-     *
-     * @return void
-     */
-    public function defineAssetPublishing()
-    {
-        $this->publishes([
-            CANVAS_PATH.'/public' => public_path('vendor/canvas'),
-        ], 'assets');
-    }
-
-    /**
-     * Register any application services.
-     *
-     * @return void
-     */
-    public function register()
-    {
-        if (! defined('CANVAS_PATH')) {
-            define('CANVAS_PATH', realpath(__DIR__.'/../'));
-        }
-
-        $this->configure();
-        $this->offerPublishing();
-        $this->registerServices();
-        $this->registerCommands();
-    }
-
-    /**
-     * Setup the configuration.
-     *
-     * @return void
-     */
-    protected function configure()
-    {
-        $this->mergeConfigFrom(
-            __DIR__.'/../config/canvas.php', 'canvas'
-        );
-    }
-
-    /**
-     * Setup the resource publishing groups.
-     *
-     * @return void
-     */
-    protected function offerPublishing()
-    {
-        if ($this->app->runningInConsole()) {
-            $this->publishes([
-                __DIR__.'/../config/canvas.php' => config_path('canvas.php'),
-            ], 'config');
-
-            $this->publishes([
-                __DIR__.'/../resources/views' => resource_path('views/vendor/canvas'),
-            ], 'views');
-        }
-    }
-
-    /**
      * Register services in the container.
      *
      * @return void
@@ -136,16 +72,34 @@ class CanvasServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register the Artisan commands.
+     * Register the package's migrations.
      *
      * @return void
      */
-    protected function registerCommands()
+    private function registerMigrations()
     {
         if ($this->app->runningInConsole()) {
-            $this->commands([
-                //
-            ]);
+            $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+        }
+    }
+
+    /**
+     * Register the package's publishable resources.
+     *
+     * @return void
+     */
+    private function registerPublishing()
+    {
+        if ($this->app->runningInConsole()) {
+            $this->publishes([
+                __DIR__.'/../public' => public_path('vendor/canvas')
+            ], 'canvas-assets');
+            $this->publishes([
+                __DIR__.'/../config/canvas.php' => config_path('canvas.php')
+            ], 'canvas-config');
+            $this->publishes([
+                __DIR__.'/../resources/views' => resource_path('views/vendor/canvas'),
+            ], 'canvas-views');
         }
     }
 }

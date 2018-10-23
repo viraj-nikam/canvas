@@ -14,33 +14,19 @@ You can find the documentation for Canvas on [https://cnvs.io/docs](https://cnvs
 
 ## Installation
 
-You can install the package via composer:
+You can use composer to install Canvas into your Laravel project:
 
 ```bash
 composer require cnvs/canvas
 ```
 
-The package will automatically register itself.
-
-After installing, publish its assets using the `vendor:publish` Artisan command:
+Publish the assets using the `canvas:install` Artisan command:
 
 ```bash
-php artisan vendor:publish --provider="Canvas\CanvasServiceProvider" --tag="assets"
+php artisan canvas:install
 ```
 
-You can optionally publish the views with:
-
-```bash
-php artisan vendor:publish --provider="Canvas\CanvasServiceProvider" --tag="views"
-```
-
-You can optionally publish the config file with:
-
-```bash
-php artisan vendor:publish --provider="Canvas\CanvasServiceProvider" --tag="config"
-```
-
-The contents of the published config file:
+The installation will publish all public assets as well as the primary configuration file:
 
 ```php
 return [
@@ -59,6 +45,18 @@ return [
     'blog_url' => 'blog',
 
 ];
+```
+
+After installing, you should run the also run the `migrate` command:
+
+```bash
+php artisan migrate
+```
+
+You can optionally publish the views with:
+
+```bash
+php artisan vendor:publish --provider="Canvas\CanvasServiceProvider" --tag="canvas-views"
 ```
 
 ## Testing
