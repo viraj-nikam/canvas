@@ -1,4 +1,4 @@
-## Canvas
+## Introduction
 
 A blogging package for [Laravel](https://laravel.com).
 
@@ -14,7 +14,7 @@ You can find the documentation for Canvas on [https://cnvs.io/docs](https://cnvs
 
 ## Installation
 
-You can use composer to install Canvas into your Laravel project:
+You may use composer to install Canvas into your Laravel project:
 
 ```bash
 composer require cnvs/canvas
