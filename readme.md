@@ -25,7 +25,7 @@ The package will automatically register itself.
 After installing, publish its assets using the `vendor:publish` Artisan command:
 
 ```bash
-php artisan vendor:publish --provider="Canvas\CanvasServiceProvider" --tag="config" --tag="assets"
+php artisan vendor:publish --provider="Canvas\CanvasServiceProvider" --tag="assets"
 ```
 
 You can optionally publish the views with:
