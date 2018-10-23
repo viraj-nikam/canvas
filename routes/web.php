@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 Route::namespace('Canvas\Http\Controllers')->group(function () {
-    Route::middleware(['web'])->prefix('blog')->group(function () {
+    Route::middleware(['web'])->prefix(config('canvas.blog_url'))->group(function () {
         // Blog Routes...
         Route::get('/', 'BlogController@index')->name('blog.index');
         Route::get('/{post}', 'PostController@show')->name('blog.post.show');
