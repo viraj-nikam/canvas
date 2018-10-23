@@ -1209,14 +1209,14 @@ caniuse-api@^1.5.2:
     lodash.uniq "^4.5.0"
 
 caniuse-db@^1.0.30000529, caniuse-db@^1.0.30000634, caniuse-db@^1.0.30000639:
-  version "1.0.30000893"
-  resolved "https://registry.yarnpkg.com/caniuse-db/-/caniuse-db-1.0.30000893.tgz#2781b8d2ce50d8dd9d091425461b528ca4556c07"
-  integrity sha512-JfGWsX2JtyXnjGAAjXMHiv4OEGFZvArB5pxdd5oa5xCuEYYN1rhBMwogMIKnKoUBi6lKRyO4JQAPJwqchv20Yg==
+  version "1.0.30000898"
+  resolved "https://registry.yarnpkg.com/caniuse-db/-/caniuse-db-1.0.30000898.tgz#f6e8f87393631e3bec1d3ff401237cac73497ee9"
+  integrity sha512-i8WfgaYakyxHs5kmITs/XHjrdm7QsuuFmI5cE43I0pJ0NIJpe52t2Rz6mliG8yyu1NMXjNceC7udWdiQuA5hUA==
 
 caniuse-lite@^1.0.30000792, caniuse-lite@^1.0.30000805, caniuse-lite@^1.0.30000844:
-  version "1.0.30000893"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30000893.tgz#284b20932bd41b93e21626975f2050cb01561986"
-  integrity sha512-kOddHcTEef+NgN/fs0zmX2brHTNATVOWMEIhlZHCuwQRtXobjSw9pAECc44Op4bTBcavRjkLaPrGomknH7+Jvg==
+  version "1.0.30000898"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30000898.tgz#651306e690ca83caca5814da5afa3eb4de0f86c2"
+  integrity sha512-ytlTZqO4hYe4rNAJhMynUAIUI33jsP2Bb1two/9OVC39wZjPZ8exIO0eCLw5mqAtegOGiGF0kkTWTn3B02L+mw==
 
 caseless@~0.12.0:
   version "0.12.0"
@@ -4741,9 +4741,9 @@ popper.js@^1.12:
   integrity sha1-juwdj/AqWjoVLdQ0FKFce3n9abY=
 
 portfinder@^1.0.9:
-  version "1.0.18"
-  resolved "https://registry.yarnpkg.com/portfinder/-/portfinder-1.0.18.tgz#cf1106ff336fd4329b7ce32fda7d17d62c6bcf37"
-  integrity sha512-KanzLOERzKoX3En5yTiV8K/arnU1ykYVokmtEn0PgCzqKZG9489tqW8ifp9+v3/VJZ5YDjvDt/PAP5WaPgk7FA==
+  version "1.0.19"
+  resolved "https://registry.yarnpkg.com/portfinder/-/portfinder-1.0.19.tgz#07e87914a55242dcda5b833d42f018d6875b595f"
+  integrity sha512-23aeQKW9KgHe6citUrG3r9HjeX6vls0h713TAa+CwTKZwNIr/pD2ApaxYF4Um3ZZyq4ar+Siv3+fhoHaIwSOSw==
   dependencies:
     async "^1.5.2"
     debug "^2.2.0"
@@ -5171,9 +5171,9 @@ prosemirror-state@^1.0.0, prosemirror-state@^1.2.1:
     prosemirror-transform "^1.0.0"
 
 prosemirror-tables@^0.7.7:
-  version "0.7.8"
-  resolved "https://registry.yarnpkg.com/prosemirror-tables/-/prosemirror-tables-0.7.8.tgz#b0a3f9997f0d3c30439bede988490f2cc7b4bb97"
-  integrity sha512-S6rjXk9kgIOBI/4fz7crTokdoU0aqRsNv/j+9cX29/rptGUZSHFC5Ksb4rRjt2dF3rG1mSMWmbZrkwRdi4O4jg==
+  version "0.7.9"
+  resolved "https://registry.yarnpkg.com/prosemirror-tables/-/prosemirror-tables-0.7.9.tgz#fb82d1e5d8cc4661820fdb956b76f2192bcd2127"
+  integrity sha512-wCYnDdYMJPD3OdbBqn+Lv+lr4jL4scUTdP+ICSQpqLuvj7seFcTIRBw2o5yUW/ZaMQ5v9TqhFbicb8k/3wj8eg==
   dependencies:
     prosemirror-keymap "^1.0.0"
     prosemirror-model "^1.0.0"

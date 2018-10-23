@@ -2,11 +2,18 @@
 
 namespace Canvas\Http\Controllers;
 
+use Canvas\Paginate;
 use Illuminate\View\View;
 use Canvas\Interfaces\TagInterface;
 
 class TagController extends Controller
 {
+    use Paginate;
+
+    /**
+     * @param $slug
+     * @return View
+     */
     public function show($slug): View
     {
         $tag = app(TagInterface::class)->findBySlug($slug);
@@ -16,7 +23,7 @@ class TagController extends Controller
         });
 
         $data = [
-            'posts' => $posts,
+            'posts' => $this->paginate($posts->sortByDesc('created_at'), 5),
         ];
 
         return view('canvas::blog.index', compact('data'));

@@ -34,15 +34,17 @@
                         <td>{{ $post->title }}</td>
                         <td>
                             @if($post->published)
-                                <span class="badge badge-primary">Published</span>
+                                <span class="badge badge-pill badge-primary">Published</span>
                             @else
-                                <span class="badge badge-success">Draft</span>
+                                <span class="badge badge-pill badge-success">Draft</span>
                             @endif
                         </td>
                         <td>{{ \Carbon\Carbon::parse($post->published_at)->diffForHumans() }}</td>
                         <td>
-                            <a href="{{ route('canvas.post.edit', $post->id) }}" class="btn btn-link py-0"><i class="fas fa-fw fa-edit"></i></a>
-                            <a href="#" class="btn btn-link py-0" data-toggle="modal" data-target="#modal-delete-{{ $post->id }}"><i class="fas fa-fw fa-trash"></i></a>
+                            <a href="{{ route('canvas.post.edit', $post->id) }}" class="btn btn-link py-0"><i
+                                        class="fas fa-fw fa-edit"></i></a>
+                            <a href="#" class="btn btn-link py-0" data-toggle="modal"
+                               data-target="#modal-delete-{{ $post->id }}"><i class="fas fa-fw fa-trash"></i></a>
                         </td>
                     </tr>
 

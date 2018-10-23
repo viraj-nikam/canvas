@@ -53,6 +53,8 @@ class CreatePostJob implements ShouldQueue
             'published_at' => $this->request['published_at'],
         ]);
         $post->save();
-        $post->tags()->sync($this->request['tags']);
+        if (array_key_exists('tags', $this->request)) {
+            $post->tags()->sync($this->request['tags']);
+        }
     }
 }
