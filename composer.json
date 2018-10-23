@@ -1,6 +1,6 @@
 {
 	"name": "cnvs/canvas",
-	"description": "A blogging package for Laravel..",
+	"description": "A blogging package for Laravel.",
 	"keywords": ["cnvs", "canvas", "blog", "laravel"],
 	"license": "MIT",
 	"homepage": "https://cnvs.io",
@@ -36,17 +36,17 @@
 			"Canvas\\Tests\\": "tests"
 		}
 	},
+	"scripts": {
+		"test": "vendor/bin/phpunit"
+	},
+	"config": {
+		"sort-packages": true
+	},
 	"extra": {
 		"laravel": {
 			"providers": [
 				"Canvas\\CanvasServiceProvider"
 			]
 		}
-	},
-	"scripts": {
-		"test": "/vendor/bin/phpunit"
-	},
-	"config": {
-		"sort-packages": true
 	}
 }
