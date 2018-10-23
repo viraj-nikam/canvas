@@ -20,11 +20,11 @@ class PostTest extends TestCase
     public function it_can_create_a_published_post()
     {
         $post = Post::create([
-            'user_id' => $this->testUser->id,
-            'title' => 'example',
-            'summary' => '',
-            'body' => '',
-            'slug' => '',
+            'user_id'      => $this->testUser->id,
+            'title'        => 'example',
+            'summary'      => '',
+            'body'         => '',
+            'slug'         => '',
             'published_at' => now()->toDateTimeString(),
         ]);
 
@@ -44,11 +44,11 @@ class PostTest extends TestCase
     public function is_can_retrieve_all_posts_for_a_user()
     {
         Post::create([
-            'user_id' => $this->testUser->id,
-            'title' => 'User Post',
-            'summary' => '',
-            'body' => '',
-            'slug' => '',
+            'user_id'      => $this->testUser->id,
+            'title'        => 'User Post',
+            'summary'      => '',
+            'body'         => '',
+            'slug'         => '',
             'published_at' => now()->toDateTimeString(),
         ]);
 
