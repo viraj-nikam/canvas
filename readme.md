@@ -1,6 +1,6 @@
 ## Introduction
 
-A blogging package for [Laravel](https://laravel.com).
+Canvas is a blogging package for [Laravel](https://laravel.com).
 
 [![Build Status](https://travis-ci.org/cnvs/canvas.svg?branch=master)](https://travis-ci.org/cnvs/canvas)
 [![StyleCI](https://styleci.io/repos/52815899/shield?style=flat&branch=master)](https://styleci.io/repos/52815899)
@@ -56,7 +56,7 @@ php artisan migrate
 You can optionally publish the views with:
 
 ```bash
-php artisan vendor:publish --provider="Canvas\CanvasServiceProvider" --tag="canvas-views"
+php artisan vendor:publish --provider="Canvas\CanvasServiceProvider" --tag="views"
 ```
 
 ## Testing
