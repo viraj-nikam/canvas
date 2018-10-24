@@ -14,7 +14,7 @@ You can find the documentation for Canvas on [https://cnvs.io/docs](https://cnvs
 
 ## Installation
 
-> Note: Canvas requires you to have user authentication in place prior to installation. You may run the `make:auth` Artisan command to satisfy this requirement.
+> **Note:** Canvas requires you to have user authentication in place prior to installation. You may run the `make:auth` Artisan command to satisfy this requirement.
 
 You may use composer to install Canvas into your Laravel project:
 
