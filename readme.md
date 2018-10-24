@@ -8,10 +8,6 @@ Canvas is a blogging package for [Laravel](https://laravel.com).
 [![Total Downloads](https://poser.pugx.org/cnvs/canvas/downloads)](https://packagist.org/packages/cnvs/canvas)
 [![License](https://poser.pugx.org/cnvs/canvas/license)](https://packagist.org/packages/cnvs/canvas)
 
-## Documentation
-
-You can find the documentation for Canvas on [https://cnvs.io/docs](https://cnvs.io/docs). Along with the documentation, you'll find the changelog, upgrade guide, and more.
-
 ## Installation
 
 > **Note:** Canvas requires you to have user authentication in place prior to installation. You may run the `make:auth` Artisan command to satisfy this requirement.

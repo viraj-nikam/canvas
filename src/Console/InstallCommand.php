@@ -27,10 +27,10 @@ class InstallCommand extends Command
      */
     public function handle()
     {
-        $this->comment('Publishing Canvas Assets...');
+        $this->comment('Publishing Canvas assets...');
         $this->callSilent('vendor:publish', ['--tag' => 'assets']);
 
-        $this->comment('Publishing Canvas Configuration...');
+        $this->comment('Publishing Canvas configuration...');
         $this->callSilent('vendor:publish', ['--tag' => 'config']);
 
         $this->info('Canvas scaffolding installed successfully.');
