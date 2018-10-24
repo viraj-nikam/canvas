@@ -2,7 +2,9 @@
 
 namespace Canvas\Entities;
 
+use Illuminate\Foundation\Auth\User;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 class Post extends BaseEntity
@@ -44,6 +46,16 @@ class Post extends BaseEntity
     public function tags(): MorphToMany
     {
         return $this->morphToMany(Tag::class, 'taggable');
+    }
+
+    /**
+     * A post belongs to a user.
+     *
+     * @return BelongsTo
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 
     /**

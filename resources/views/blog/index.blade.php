@@ -7,7 +7,7 @@
         <div class="row justify-content-md-center">
             <div class="col col-lg-8">
                 @foreach($data['posts'] as $post)
-                    <h2><a href="{{ route('blog.post.show', $post->slug) }}">{{ $post->title }}</a></h2>
+                    <p class="lead"><a href="{{ route('blog.post.show', $post->slug) }}">{{ $post->title }}</a></p>
                     <p>{{ $post->summary }}</p>
                     @if($post->tags->count() > 0)
                         @foreach($post->tags as $tag)

@@ -11,6 +11,8 @@ class TagController extends Controller
     use Paginate;
 
     /**
+     * Display the specified resource.
+     *
      * @param $slug
      * @return View
      */

@@ -66,13 +66,18 @@ class PostController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     *
      * @param $slug
      * @return View
      */
     public function show($slug): View
     {
+        $post = app(PostInterface::class)->findBySlug($slug);
+
         $data = [
-            'post' => app(PostInterface::class)->findBySlug($slug),
+            'post' => $post,
+            'user' => $post->user,
         ];
 
         return view('canvas::blog.show', compact('data'));
