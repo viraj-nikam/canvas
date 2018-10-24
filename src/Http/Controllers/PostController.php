@@ -4,8 +4,8 @@ namespace Canvas\Http\Controllers;
 
 use Exception;
 use Canvas\Paginate;
+use Canvas\Jobs\PostJob;
 use Illuminate\View\View;
-use Canvas\Jobs\CreatePostJob;
 use Canvas\Interfaces\TagInterface;
 use Canvas\Interfaces\PostInterface;
 use Canvas\Http\Requests\PostRequest;
@@ -53,7 +53,7 @@ class PostController extends Controller
     public function store(PostRequest $request): RedirectResponse
     {
         try {
-            app(CreatePostJob::class)->dispatch($request->all());
+            app(PostJob::class)->dispatch($request->all());
 
             return redirect(route('canvas.post.index'))
                 ->with('success', __('canvas::notifications.success', [
@@ -113,7 +113,7 @@ class PostController extends Controller
         $post = app(PostInterface::class)->find($id);
 
         try {
-            $post->update($request->all());
+            app(PostJob::class)->dispatch($request->all(), $post);
 
             return back()
                 ->with('success', __('canvas::notifications.success', [
