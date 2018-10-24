@@ -7,7 +7,7 @@
         <div class="row justify-content-md-center">
             <div class="col col-lg-8">
                 <h1>{{ $data['post']->title }}</h1>
-                <p class="small text-muted">Published {{ \Carbon\Carbon::parse($data['post']->published_at)->format('M d, Y') }} by {{ $data['user']->name }}</p>
+                <p class="small text-muted">Published {{ \Carbon\Carbon::parse($data['post']->published_at)->format('M d, Y') }} by <strong>{{ $data['user']->name }}</strong></p>
                 @if($data['post']->tags->count() > 0)
                     @foreach($data['post']->tags as $tag)
                         <p><a href="{{ route('blog.tag.show', $tag->slug) }}" class="badge badge-pill badge-primary">{{ $tag->name }}</a></p>
