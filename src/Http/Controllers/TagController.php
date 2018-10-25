@@ -4,6 +4,7 @@ namespace Canvas\Http\Controllers;
 
 use Canvas\Paginate;
 use Illuminate\View\View;
+use Illuminate\Routing\Controller;
 use Canvas\Interfaces\TagInterface;
 
 class TagController extends Controller

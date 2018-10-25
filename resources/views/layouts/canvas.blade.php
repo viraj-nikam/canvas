@@ -8,8 +8,8 @@
 
     <title>@yield('title')</title>
 
-    @stack('scripts')
     @stack('styles')
+    @stack('scripts')
 </head>
 <body>
 <div id="app">

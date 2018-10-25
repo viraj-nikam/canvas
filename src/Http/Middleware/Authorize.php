@@ -4,7 +4,7 @@ namespace Canvas\Http\Middleware;
 
 use Canvas\Canvas;
 
-class Authenticate
+class Authorize
 {
     /**
      * Handle the incoming request.

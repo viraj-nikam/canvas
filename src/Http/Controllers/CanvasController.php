@@ -3,6 +3,7 @@
 namespace Canvas\Http\Controllers;
 
 use Illuminate\View\View;
+use Illuminate\Routing\Controller;
 
 class CanvasController extends Controller
 {

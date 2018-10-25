@@ -6,6 +6,7 @@ use Exception;
 use Canvas\Paginate;
 use Canvas\Jobs\PostJob;
 use Illuminate\View\View;
+use Illuminate\Routing\Controller;
 use Canvas\Interfaces\TagInterface;
 use Canvas\Interfaces\PostInterface;
 use Canvas\Http\Requests\PostRequest;

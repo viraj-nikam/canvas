@@ -1,18 +1,14 @@
 <?php
 
+use Canvas\Http\Middleware\Authorize;
+
 return [
 
-    /*
-    |--------------------------------------------------------------------------
-    | Blog URL
-    |--------------------------------------------------------------------------
-    |
-    | You are free to expose the public-facing blog to any route you wish.
-    | If no change is made then it will default to the /blog path of
-    | your application.
-    |
-    */
+    'public_path' => 'blog',
 
-    'blog_url' => 'blog',
+    'middleware' => [
+        'web',
+        Authorize::class
+    ],
 
 ];
