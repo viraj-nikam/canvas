@@ -3,8 +3,6 @@
 namespace Canvas\Tests;
 
 use Dotenv\Dotenv;
-use Canvas\Entities\Tag;
-use Canvas\Entities\Post;
 use Canvas\Tests\Unit\User;
 use Canvas\CanvasServiceProvider;
 use Illuminate\Database\Schema\Blueprint;
@@ -12,16 +10,6 @@ use Orchestra\Testbench\TestCase as Orchestra;
 
 abstract class TestCase extends Orchestra
 {
-    /**
-     * @var Post
-     */
-    protected $testPost;
-
-    /**
-     * @var Tag
-     */
-    protected $testTag;
-
     /**
      * @var User
      */
@@ -37,8 +25,6 @@ abstract class TestCase extends Orchestra
         $this->setUpDatabase($this->app);
 
         $this->testUser = User::first();
-        $this->testPost = app(Post::class)->find(1);
-        $this->testTag = app(Tag::class)->find(1);
     }
 
     /**
@@ -100,8 +86,6 @@ abstract class TestCase extends Orchestra
 
         $this->loadMigrationsFrom(__DIR__.'/database/migrations');
         $this->createTestUser();
-        $this->createTestPost();
-        $this->createTestTag();
     }
 
     /**
@@ -111,32 +95,6 @@ abstract class TestCase extends Orchestra
     {
         return User::create([
             'email' => 'test@user.com',
-        ]);
-    }
-
-    /**
-     * @return Post
-     */
-    protected function createTestPost(): Post
-    {
-        return Post::create([
-            'user_id'     => 1,
-            'title'       => 'post title',
-            'summary'     => 'post summary',
-            'body'        => 'post body',
-            'slug'       => 'post-title',
-            'published_at' => now()->toDateTimeString(),
-        ]);
-    }
-
-    /**
-     * @return Tag
-     */
-    protected function createTestTag(): Tag
-    {
-        return Tag::create([
-            'name' => 'tag name',
-            'slug' => 'tag-name',
         ]);
     }
 }

@@ -4,6 +4,7 @@ namespace Canvas\Tests\Unit;
 
 use Canvas\Entities\Tag;
 use Canvas\Tests\TestCase;
+use Faker\Factory as Faker;
 
 class TagTest extends TestCase
 {
@@ -18,19 +19,29 @@ class TagTest extends TestCase
     /** @test */
     public function it_can_create_a_tag()
     {
-        $tag = Tag::create([
-            'name' => 'example',
-            'slug' => 'example',
-        ]);
+        $tag = $this->createDefaultTag();
 
-        $this->assertNotNull(Tag::where('name', $tag->title));
+        $this->assertNotEmpty($tag->name);
+        $this->assertNotEmpty($tag->slug);
     }
 
     /** @test */
     public function it_is_retrievable_by_id()
     {
-        $tag_by_id = app(Tag::class)->find($this->testTag->id);
+        $tag = $this->createDefaultTag();
+        $tag_by_id = app(Tag::class)->find($tag->id);
 
-        $this->assertEquals($this->testTag->id, $tag_by_id->id);
+        $this->assertEquals($tag->id, $tag_by_id->id);
+    }
+
+    /**
+     * @return Tag
+     */
+    private function createDefaultTag(): Tag
+    {
+        return Tag::create([
+            'name' => Faker::create()->word,
+            'slug' => Faker::create()->slug
+        ]);
     }
 }

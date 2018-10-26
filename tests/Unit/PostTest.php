@@ -4,6 +4,7 @@ namespace Canvas\Tests\Unit;
 
 use Canvas\Entities\Post;
 use Canvas\Tests\TestCase;
+use Faker\Factory as Faker;
 use Canvas\Interfaces\PostInterface;
 
 class PostTest extends TestCase
@@ -19,39 +20,55 @@ class PostTest extends TestCase
     /** @test */
     public function it_can_create_a_published_post()
     {
-        $post = Post::create([
-            'user_id'      => $this->testUser->id,
-            'title'        => 'example',
-            'summary'      => '',
-            'body'         => '',
-            'slug'         => '',
-            'published_at' => now()->toDateTimeString(),
-        ]);
+        $post = $this->createDefaultPostForUser($this->testUser->id);
+        $post->published_at = now()->toDateTimeString();
 
         $this->assertNotNull(Post::where('title', $post->title));
-        $this->assertEquals(true, $post->published);
+        $this->assertTrue($post->published);
+    }
+
+    /** @test */
+    public function it_can_create_a_draft_post()
+    {
+        $post = $this->createDefaultPostForUser($this->testUser->id);
+        $post->published_at = now()->addDays(3)->toDateTimeString();
+
+        $this->assertNotNull(Post::where('title', $post->title));
+        $this->assertFalse($post->published);
     }
 
     /** @test */
     public function it_is_retrievable_by_id()
     {
-        $post_by_id = Post::find($this->testPost->id);
+        $post = $this->createDefaultPostForUser($this->testUser->id);
+        $post_by_id = Post::find($post->id);
 
-        $this->assertEquals($this->testPost->id, $post_by_id->id);
+        $this->assertEquals($post->id, $post_by_id->id);
     }
 
     /** @test */
     public function is_can_retrieve_all_posts_for_a_user()
     {
-        Post::create([
-            'user_id'      => $this->testUser->id,
-            'title'        => 'User Post',
-            'summary'      => '',
-            'body'         => '',
-            'slug'         => '',
+        $post_1 = $this->createDefaultPostForUser($this->testUser->id);
+        $post_2 = $this->createDefaultPostForUser($this->testUser->id);
+        $post_3 = $this->createDefaultPostForUser($this->testUser->id);
+
+        $this->assertCount(3, app(PostInterface::class)->getByUserId($this->testUser->id));
+    }
+
+    /**
+     * @param $id
+     * @return Post
+     */
+    private function createDefaultPostForUser($id): Post
+    {
+        return Post::create([
+            'user_id'      => $id,
+            'title'        => Faker::create()->sentence,
+            'summary'      => Faker::create()->sentence(),
+            'body'         => Faker::create()->text,
+            'slug'         => Faker::create()->slug,
             'published_at' => now()->toDateTimeString(),
         ]);
-
-        $this->assertCount(2, app(PostInterface::class)->getByUserId($this->testUser->id));
     }
 }
