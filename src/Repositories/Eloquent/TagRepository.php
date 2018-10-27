@@ -4,8 +4,9 @@ namespace Canvas\Repositories\Eloquent;
 
 use Canvas\Entities\Tag;
 use Canvas\Interfaces\TagInterface;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
-class TagRepository extends EloquentAbstract implements TagInterface
+class TagRepository extends RepositoryAbstract implements TagInterface
 {
     /**
      * @var Tag
@@ -24,9 +25,10 @@ class TagRepository extends EloquentAbstract implements TagInterface
 
     /**
      * @param string $slug
-     * @return Tag|null
+     * @throws ModelNotFoundException
+     * @return Tag
      */
-    public function findBySlug(string $slug): ?Tag
+    public function findBySlug(string $slug): Tag
     {
         return $this->model->where('slug', $slug)->firstOrFail();
     }
