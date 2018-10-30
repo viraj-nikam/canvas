@@ -33,7 +33,7 @@ class PostRepository extends RepositoryAbstract implements PostInterface
     }
 
     /**
-     * @param string $user_id
+     * @param string $userId
      * @return Collection
      */
     public function getByUserId(string $userId): Collection
