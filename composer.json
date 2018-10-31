@@ -25,7 +25,8 @@
 		"ext-json": "*",
 		"doctrine/dbal": "^2.6",
 		"illuminate/database": "^5.7",
-		"illuminate/support": "^5.7"
+		"illuminate/support": "^5.7",
+		"spatie/laravel-sluggable": "^2.1"
 	},
 	"require-dev": {
 		"mockery/mockery": "^1.1",

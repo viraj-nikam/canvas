@@ -3,10 +3,13 @@
 namespace Canvas\Http\Controllers;
 
 use Illuminate\View\View;
+use Canvas\Traits\Paginator;
 use Illuminate\Routing\Controller;
 
 class CanvasController extends Controller
 {
+    use Paginator;
+
     /**
      * Show the application dashboard.
      *

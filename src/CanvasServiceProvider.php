@@ -2,6 +2,7 @@
 
 namespace Canvas;
 
+use Canvas\Traits\ServiceBindings;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 

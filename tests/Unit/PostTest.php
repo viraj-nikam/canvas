@@ -56,19 +56,45 @@ class PostTest extends TestCase
         $this->assertCount(3, app(PostInterface::class)->getByUserId($this->testUser->id));
     }
 
+    /** @test **/
+    public function it_can_generate_its_own_reliable_slug()
+    {
+        $title        = 'My Strange Post Name 24-7';
+        $expectedSlug = str_slug($title);
+        $postData     = array_merge($this->getTestDataForUser($this->testUser->id), ['title' => $title]);
+        $post1        = Post::create($postData);
+        $post2        = Post::create($postData);
+        $post3        = Post::create($postData);
+
+        $this->assertSame($expectedSlug, $post1->slug);
+        $this->assertSame("$expectedSlug-1", $post2->slug);
+        $this->assertSame("$expectedSlug-2", $post3->slug);
+    }
+
     /**
-     * @param $id
+     * @param int $id
      * @return Post
      */
-    private function createDefaultPostForUser($id): Post
+    private function createDefaultPostForUser(int $id): Post
     {
-        return Post::create([
-            'user_id'      => $id,
+        return Post::create($this->getTestDataForUser($id));
+    }
+
+    /**
+     * Get test data to create post.
+     *
+     * @param int $userId User ID
+     *
+     * @return array
+     */
+    private function getTestDataForUser(int $userId): array
+    {
+        return [
+            'user_id'      => $userId,
             'title'        => Faker::create()->sentence,
             'summary'      => Faker::create()->sentence(),
             'body'         => Faker::create()->text,
-            'slug'         => Faker::create()->slug,
             'published_at' => now()->toDateTimeString(),
-        ]);
+        ];
     }
 }
