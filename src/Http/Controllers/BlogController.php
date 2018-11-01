@@ -3,13 +3,13 @@
 namespace Canvas\Http\Controllers;
 
 use Illuminate\View\View;
-use Canvas\Traits\Paginator;
+use Canvas\Traits\Paginate;
 use Illuminate\Routing\Controller;
 use Canvas\Interfaces\PostInterface;
 
 class BlogController extends Controller
 {
-    use Paginator;
+    use Paginate;
 
     const ITEMS_PER_PAGE = 10;
 

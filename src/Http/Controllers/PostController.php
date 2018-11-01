@@ -5,7 +5,7 @@ namespace Canvas\Http\Controllers;
 use Exception;
 use Canvas\Jobs\PostJob;
 use Illuminate\View\View;
-use Canvas\Traits\Paginator;
+use Canvas\Traits\Paginate;
 use Illuminate\Routing\Controller;
 use Canvas\Interfaces\TagInterface;
 use Canvas\Interfaces\PostInterface;
@@ -14,7 +14,7 @@ use Illuminate\Http\RedirectResponse;
 
 class PostController extends Controller
 {
-    use Paginator;
+    use Paginate;
 
     const ITEMS_PER_PAGE = 10;
 
