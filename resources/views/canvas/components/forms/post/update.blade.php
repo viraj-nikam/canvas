@@ -62,7 +62,7 @@
         </div>
         <div class="card-footer text-right border-0">
             <a href="{{ route('canvas.post.index') }}" class="btn btn-link">Cancel</a>
-            <button type="submit" class="btn btn-primary btn-spin">Save & Publish</button>
+            <button type="submit" class="btn btn-primary">Save & Publish</button>
         </div>
     </div>
 </form>
