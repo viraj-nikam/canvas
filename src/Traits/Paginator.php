@@ -3,7 +3,6 @@
 namespace Canvas\Traits;
 
 use Illuminate\Support\Collection;
-use Illuminate\Pagination\Paginator;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 trait Paginator
