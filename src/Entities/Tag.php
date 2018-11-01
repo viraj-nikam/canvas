@@ -14,7 +14,7 @@ class Tag extends BaseEntity
     /**
      * @var string
      */
-    protected $table = 'tags';
+    protected $table = 'canvas_tags';
 
     /**
      * @var array

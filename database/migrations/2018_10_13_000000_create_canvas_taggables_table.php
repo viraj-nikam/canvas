@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTaggablesTable extends Migration
+class CreateCanvasTaggablesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,14 @@ class CreateTaggablesTable extends Migration
      */
     public function up()
     {
-        Schema::create('taggables', function (Blueprint $table) {
+        Schema::create('canvas_taggables', function (Blueprint $table) {
             $table->unsignedInteger('tag_id');
             $table->unsignedInteger('taggable_id');
             $table->string('taggable_type');
 
             $table->foreign('tag_id')
                 ->references('id')
-                ->on('tags')
+                ->on('canvas_tags')
                 ->onDelete('cascade');
         });
     }
@@ -32,6 +32,6 @@ class CreateTaggablesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('taggables');
+        Schema::dropIfExists('canvas_taggables');
     }
 }

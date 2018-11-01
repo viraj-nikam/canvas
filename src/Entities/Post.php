@@ -16,7 +16,7 @@ class Post extends BaseEntity
     /**
      * @var string
      */
-    protected $table = 'posts';
+    protected $table = 'canvas_posts';
 
     /**
      * @var array
