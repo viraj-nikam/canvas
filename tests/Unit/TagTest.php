@@ -34,7 +34,7 @@ class TagTest extends TestCase
         $this->assertEquals($tag->id, $tag_by_id->id);
     }
 
-    /** @test **/
+    /** @test */
     public function it_can_generate_its_own_reliable_slug()
     {
         $name = 'My Tag';

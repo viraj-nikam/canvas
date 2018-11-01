@@ -56,7 +56,7 @@ class PostTest extends TestCase
         $this->assertCount(3, app(PostInterface::class)->getByUserId($this->testUser->id));
     }
 
-    /** @test **/
+    /** @test * */
     public function it_can_generate_its_own_reliable_slug()
     {
         $title = 'My Strange Post Name 24-7';

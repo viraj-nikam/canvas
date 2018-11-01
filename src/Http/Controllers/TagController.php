@@ -14,14 +14,14 @@ class TagController extends Controller
     const ITEMS_PER_PAGE = 5;
 
     /**
-     * Display the specified resource.
+     * Display a listing of the resource.
      *
      * @param TagInterface $tagRepository Tag Repository
-     * @param string       $slug          Slug
+     * @param string $slug Slug
      *
      * @return View
      */
-    public function show(TagInterface $tagRepository, string $slug): View
+    public function index(TagInterface $tagRepository, $slug): View
     {
         $tag = $tagRepository->findBySlug($slug);
         $posts = $tag->posts->filter(function ($post) {
@@ -29,6 +29,7 @@ class TagController extends Controller
         });
 
         $data = [
+            'tag'   => $tag->name,
             'posts' => $this->paginate(
                 $posts->sortByDesc('created_at'),
                 self::ITEMS_PER_PAGE
