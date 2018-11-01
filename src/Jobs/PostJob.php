@@ -47,10 +47,11 @@ class PostJob implements ShouldQueue
     /**
      * Execute the job.
      *
+     * @param PostInterface $posts
      * @return void
      * @throws Exception
      */
-    public function handle()
+    public function handle(PostInterface $postRepository)
     {
         if ($this->post) {
             $this->post->update($this->request);
@@ -58,12 +59,11 @@ class PostJob implements ShouldQueue
                 $this->post->tags()->sync($this->request['tags']);
             }
         } else {
-            $post = app(PostInterface::class)->create([
+            $post = $postRepository->create([
                 'user_id'      => auth()->user()->id,
                 'title'        => $this->request['title'],
                 'summary'      => $this->request['summary'],
                 'body'         => $this->request['body'],
-                'slug'         => str_slug($this->request['title']),
                 'published_at' => $this->request['published_at'],
             ]);
             $post->save();

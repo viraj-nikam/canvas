@@ -3,9 +3,9 @@
 namespace Canvas\Http\Controllers;
 
 use Exception;
-use Canvas\Paginate;
 use Canvas\Jobs\PostJob;
 use Illuminate\View\View;
+use Canvas\Traits\Paginator;
 use Illuminate\Routing\Controller;
 use Canvas\Interfaces\TagInterface;
 use Canvas\Interfaces\PostInterface;
@@ -14,17 +14,25 @@ use Illuminate\Http\RedirectResponse;
 
 class PostController extends Controller
 {
-    use Paginate;
+    use Paginator;
+
+    const ITEMS_PER_PAGE = 10;
 
     /**
      * Display a listing of the resource.
      *
+     * @param PostInterface $postRepository Post Repository
+     *
      * @return View
      */
-    public function index(): View
+    public function index(PostInterface $postRepository): View
     {
+        $user = auth()->user();
         $data = [
-            'posts' => $this->paginate(app(PostInterface::class)->getByUserId(auth()->user()->id)->sortByDesc('created_at'), 10),
+            'posts' => $this->paginate(
+                $postRepository->getByUserId($user->id)->sortByDesc('created_at'),
+                self::ITEMS_PER_PAGE
+            ),
         ];
 
         return view('canvas::canvas.posts.index', compact('data'));
@@ -33,12 +41,14 @@ class PostController extends Controller
     /**
      * Show the form for creating a new resource.
      *
+     * @param TagInterface $tagRepository tag Repository
+     *
      * @return View
      */
-    public function create(): View
+    public function create(TagInterface $tagRepository): View
     {
         $data = [
-            'tags' => app(TagInterface::class)->all(),
+            'tags' => $tagRepository->all(),
         ];
 
         return view('canvas::canvas.posts.create', compact('data'));
@@ -47,14 +57,17 @@ class PostController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param PostRequest $request
-     * @return RedirectResponse
+     * @param PostJob     $postJob Post Job
+     * @param PostRequest $request Post Request
+     *
      * @throws Exception
+     *
+     * @return RedirectResponse
      */
-    public function store(PostRequest $request): RedirectResponse
+    public function store(PostJob $postJob, PostRequest $request): RedirectResponse
     {
         try {
-            app(PostJob::class)->dispatch($request->all());
+            $postJob->dispatch($request->all());
 
             return redirect(route('canvas.post.index'))
                 ->with('success', __('canvas::notifications.success', [
@@ -69,13 +82,14 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param $slug
+     * @param PostInterface $postRepository Post Repository
+     * @param string        $slug           Slug
+     *
      * @return View
      */
-    public function show($slug): View
+    public function show(PostInterface $postRepository, string $slug): View
     {
-        $post = app(PostInterface::class)->findBySlug($slug);
-
+        $post = $postRepository->findBySlug($slug);
         $data = [
             'post' => $post,
             'user' => $post->user,
@@ -87,13 +101,14 @@ class PostController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int $id
+     * @param PostInterface $postRepository Post Repository
+     * @param int           $id             Post ID
+     *
      * @return View
      */
-    public function edit($id): View
+    public function edit(PostInterface $postRepository, int $id): View
     {
-        $post = app(PostInterface::class)->find($id);
-
+        $post = $postRepository->find($id);
         $data = [
             'post' => $post,
             'tags' => $post->tags,
@@ -105,16 +120,23 @@ class PostController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param PostRequest $request
-     * @param  int $id
+     * @param PostJob       $postJob        post creation job
+     * @param PostInterface $postRepository Post Repository
+     * @param PostRequest   $request        Post Request
+     * @param int           $id             Post ID
+     *
      * @return RedirectResponse
      */
-    public function update(PostRequest $request, $id): RedirectResponse
-    {
-        $post = app(PostInterface::class)->find($id);
+    public function update(
+        PostJob $postJob,
+        PostInterface $postRepository,
+        PostRequest $request,
+        int $id
+    ): RedirectResponse {
+        $post = $postRepository->find($id);
 
         try {
-            app(PostJob::class)->dispatch($request->all(), $post);
+            $postJob->dispatch($request->all(), $post);
 
             return back()
                 ->with('success', __('canvas::notifications.success', [
@@ -129,12 +151,14 @@ class PostController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int $id
+     * @param PostInterface $postRepository Post Repository
+     * @param int           $id             Post ID
+     *
      * @return RedirectResponse
      */
-    public function destroy($id): RedirectResponse
+    public function destroy(PostInterface $postRepository, $id): RedirectResponse
     {
-        $post = app(PostInterface::class)->find($id);
+        $post = $postRepository->find($id);
 
         try {
             $post->delete();
@@ -145,7 +169,8 @@ class PostController extends Controller
                     'action' => 'deleted',
                 ]));
         } catch (Exception $e) {
-            return redirect(route('canvas.post.index'))->with('error', __('canvas::notifications.error'));
+            return redirect(route('canvas.post.index'))
+                ->with('error', __('canvas::notifications.error'));
         }
     }
 }

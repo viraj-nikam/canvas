@@ -1,6 +1,9 @@
 <?php
 
-namespace Canvas;
+namespace Canvas\Traits;
+
+use Canvas\Interfaces;
+use Canvas\Repositories;
 
 trait ServiceBindings
 {

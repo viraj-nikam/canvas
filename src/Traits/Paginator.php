@@ -1,12 +1,12 @@
 <?php
 
-namespace Canvas;
+namespace Canvas\Traits;
 
 use Illuminate\Support\Collection;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Pagination\LengthAwarePaginator;
 
-trait Paginate
+trait Paginator
 {
     /**
      * Generates pagination on a Collection or an array.

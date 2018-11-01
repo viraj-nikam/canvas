@@ -2,6 +2,8 @@
 
 namespace Canvas\Entities;
 
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -9,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 class Post extends BaseEntity
 {
-    use SoftDeletes;
+    use HasSlug, SoftDeletes;
 
     /**
      * @var string
@@ -66,6 +68,18 @@ class Post extends BaseEntity
     public function getRouteKeyName(): string
     {
         return 'slug';
+    }
+
+    /**
+     * Get the options for generating the slug.
+     *
+     * @return SlugOptions
+     */
+    public function getSlugOptions(): SlugOptions
+    {
+        return SlugOptions::create()
+            ->generateSlugsFrom('title')
+            ->saveSlugsTo('slug');
     }
 
     /**
