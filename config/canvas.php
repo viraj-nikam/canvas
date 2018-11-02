@@ -1,7 +1,5 @@
 <?php
 
-use Canvas\Http\Middleware\Authorize;
-
 return [
 
     /*
@@ -30,7 +28,7 @@ return [
 
     'middleware' => [
         'web',
-        Authorize::class,
+        'auth',
     ],
 
 ];
