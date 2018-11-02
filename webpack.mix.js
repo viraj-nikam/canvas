@@ -25,5 +25,5 @@ mix
     .js('resources/js/app.js', 'public/js')
     .sass('resources/sass/app.scss', 'public/css')
     .sourceMaps()
-    .copy('public', '../app/public/vendor/canvas')
-    .version();
+    .version()
+    .copy('public', '../app/public/vendor/canvas');

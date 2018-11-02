@@ -15,10 +15,7 @@
                         <hr>
                     @endforeach
                 @else
-                    <div class="text-center">
-                        <p class="lead mt-5 mb-4">Nothing much to see here yet, but you can change that.</p>
-                        <a href="{{ route('canvas.post.create') }}" class="btn btn-outline-primary mx-auto">New Post</a>
-                    </div>
+                    <p class="lead">Nothing much to see here yet, but you can change that.</p>
                 @endif
             </div>
         </div>

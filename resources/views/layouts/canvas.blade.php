@@ -8,8 +8,8 @@
 
     <title>@yield('title')</title>
 
-    @stack('styles')
-    @stack('scripts')
+    <script src="{{ mix('js/app.js', 'vendor/canvas') }}"></script>
+    <link rel="stylesheet" type="text/css" href="{{ mix('css/app.css', 'vendor/canvas') }}">
 </head>
 <body>
 <div id="app">
