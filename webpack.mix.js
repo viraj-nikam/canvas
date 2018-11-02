@@ -22,6 +22,7 @@ mix
         }
     })
     .setPublicPath('public')
+    .mix.setResourceRoot('../')
     .js('resources/js/app.js', 'public/js')
     .sass('resources/sass/app.scss', 'public/css')
     .sourceMaps()
