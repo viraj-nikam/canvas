@@ -47,7 +47,7 @@ class CanvasServiceProvider extends ServiceProvider
     protected function registerRoutes()
     {
         Route::namespace('Canvas\Http\Controllers')->group(function () {
-            Route::group(['middleware' => 'web', 'prefix' => config('canvas.public_path')], function () {
+            Route::prefix(config('canvas.public_path'))->middleware(['web'])->group(function () {
                 $this->loadRoutesFrom(__DIR__.'/../routes/blog.php');
             });
 
