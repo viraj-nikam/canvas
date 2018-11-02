@@ -1,5 +1,5 @@
 <form role="form" method="POST" action="{{ route('canvas.post.update', $data['post']->id) }}">
-    <div class="card mt-3 shadow-sm">
+    <div class="card border-0">
         <div class="card-body">
             @method('PUT')
             @csrf

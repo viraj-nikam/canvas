@@ -6012,9 +6012,9 @@ spdx-license-ids@^3.0.0:
   integrity sha512-qky9CVt0lVIECkEsYbNILVnPvycuEBkXoMFLRWsREkomQLevYhtRKC+R91a5TOAQ3bCMjikRwhyaRqj1VYatYg==
 
 spdy-transport@^2.0.18:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/spdy-transport/-/spdy-transport-2.1.0.tgz#4bbb15aaffed0beefdd56ad61dbdc8ba3e2cb7a1"
-  integrity sha512-bpUeGpZcmZ692rrTiqf9/2EUakI6/kXX1Rpe0ib/DyOzbiexVfXkw6GnvI9hVGvIwVaUhkaBojjCZwLNRGQg1g==
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/spdy-transport/-/spdy-transport-2.1.1.tgz#c54815d73858aadd06ce63001e7d25fa6441623b"
+  integrity sha512-q7D8c148escoB3Z7ySCASadkegMmUZW8Wb/Q1u0/XBgDKMO880rLQDj8Twiew/tYi7ghemKUi/whSYOwE17f5Q==
   dependencies:
     debug "^2.6.8"
     detect-node "^2.0.3"

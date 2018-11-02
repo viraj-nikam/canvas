@@ -1,16 +1,8 @@
-@extends('canvas::layouts.canvas')
+@extends('canvas::layouts.app')
 
 @section('body')
-    <div class="container">
-        <div class="row">
-            <div class="col-md-3 sidebar">
-                @include('canvas::canvas.components.nav.sidebar')
-            </div>
-            <div class="col-md-9 content">
-                @include('canvas::canvas.components.notifications.success')
-                @include('canvas::canvas.components.notifications.error')
-                @yield('content')
-            </div>
-        </div>
-    </div>
+    @include('canvas::canvas.components.nav.navbar')
+    <main class="py-4">
+        @yield('content')
+    </main>
 @endsection
