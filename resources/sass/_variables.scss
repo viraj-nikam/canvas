@@ -19,6 +19,8 @@ $theme-colors: (
 @import '~bootstrap/scss/functions';
 @import '~bootstrap/scss/variables';
 
+$fa-font-path: "../fonts" !default;
+
 // deleted bs.4 vars
 $font-family-serif: Georgia, "Times New Roman", Times, serif !default;
 $font-size-xs:      .75rem !default;
