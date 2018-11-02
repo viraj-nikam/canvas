@@ -47,7 +47,7 @@ class Post extends BaseEntity
      */
     public function tags(): MorphToMany
     {
-        return $this->morphToMany(Tag::class, 'taggable');
+        return $this->morphToMany(Tag::class, 'taggable', 'canvas_taggables');
     }
 
     /**
