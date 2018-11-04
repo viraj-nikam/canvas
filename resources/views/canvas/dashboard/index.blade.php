@@ -1,6 +1,6 @@
 @extends('canvas::canvas.index')
 
-@section('title', sprintf('%s - %s', config('app.name', 'Laravel'), 'Dashboard'))
+@section('title', sprintf('%s - %s', 'Canvas', 'Dashboard'))
 
 @section('content')
     <div class="container">
