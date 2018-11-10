@@ -2,175 +2,182 @@
 
 namespace Canvas\Http\Controllers;
 
-use Exception;
-use Canvas\Jobs\PostJob;
+use Canvas\Tag;
+use Canvas\Post;
 use Illuminate\View\View;
-use Canvas\Traits\Paginate;
+use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 use Illuminate\Routing\Controller;
-use Canvas\Interfaces\TagInterface;
-use Canvas\Interfaces\PostInterface;
-use Canvas\Http\Requests\PostRequest;
 use Illuminate\Http\RedirectResponse;
 
 class PostController extends Controller
 {
-    use Paginate;
-
-    const ITEMS_PER_PAGE = 10;
-
     /**
-     * Display a listing of the resource.
-     *
-     * @param PostInterface $postRepository Post Repository
+     * Display a listing of posts.
      *
      * @return View
      */
-    public function index(PostInterface $postRepository): View
+    public function index(): View
     {
-        $user = auth()->user();
         $data = [
-            'posts' => $this->paginate(
-                $postRepository->getByUserId($user->id)->sortByDesc('created_at'),
-                self::ITEMS_PER_PAGE
-            ),
+            'posts' => Post::orderByDesc('created_at')->paginate(15),
         ];
 
         return view('canvas::canvas.posts.index', compact('data'));
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Display a single post.
      *
-     * @param TagInterface $tagRepository tag Repository
+     * @param string $id
+     * @return View
+     */
+    public function show(string $id): View
+    {
+        $data = [
+            'post' => Post::findOrFail($id),
+        ];
+
+        return view('canvas::canvas.blog.show', compact('data'));
+    }
+
+    /**
+     * Show the form for creating a post.
      *
      * @return View
      */
-    public function create(TagInterface $tagRepository): View
+    public function create(): View
     {
         $data = [
-            'tags' => $tagRepository->all(),
+            'id'   => Str::uuid(),
+            'tags' => Tag::all(),
         ];
 
         return view('canvas::canvas.posts.create', compact('data'));
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Show the form for editing a post.
      *
-     * @param PostJob     $postJob Post Job
-     * @param PostRequest $request Post Request
-     *
-     * @throws Exception
-     *
-     * @return RedirectResponse
-     */
-    public function store(PostJob $postJob, PostRequest $request): RedirectResponse
-    {
-        try {
-            $postJob->dispatch($request->all());
-
-            return redirect(route('canvas.post.index'))
-                ->with('success', __('canvas::notifications.success', [
-                    'entity' => 'post',
-                    'action' => 'created',
-                ]));
-        } catch (Exception $e) {
-            return back()->with('error', __('canvas::notifications.error'));
-        }
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param PostInterface $postRepository Post Repository
-     * @param string        $slug           Slug
-     *
+     * @param string $id
      * @return View
      */
-    public function show(PostInterface $postRepository, string $slug): View
+    public function edit(string $id): View
     {
-        $post = $postRepository->findBySlug($slug);
         $data = [
-            'post' => $post,
-            'user' => $post->user,
+            'post' => Post::findOrFail($id),
         ];
 
-        return view('canvas::blog.show', compact('data'));
+        return view('canvas::canvas.posts.edit', compact('data'));
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param PostInterface $postRepository Post Repository
-     * @param int           $id             Post ID
-     *
-     * @return View
-     */
-    public function edit(PostInterface $postRepository, int $id): View
-    {
-        $post = $postRepository->find($id);
-        $data = [
-            'post' => $post,
-            'tags' => $post->tags,
-        ];
-
-        return view('canvas::canvas.posts.update', compact('data'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param PostJob       $postJob        post creation job
-     * @param PostInterface $postRepository Post Repository
-     * @param PostRequest   $request        Post Request
-     * @param int           $id             Post ID
+     * Store a newly created post in storage.
      *
      * @return RedirectResponse
      */
-    public function update(
-        PostJob $postJob,
-        PostInterface $postRepository,
-        PostRequest $request,
-        int $id
-    ): RedirectResponse {
-        $post = $postRepository->find($id);
+    public function store(): RedirectResponse
+    {
+        $data = [
+            'id'           => request('id'),
+            'title'        => request('title', 'Post Title'),
+            'summary'      => request('summary', ''),
+            'slug'         => request('slug'),
+            'body'         => request('body', ''),
+            'user_id'      => auth()->user()->id,
+            'published_at' => request('published_at'),
+        ];
 
-        try {
-            $postJob->dispatch($request->all(), $post);
+        validator($data, [
+            'published_at' => 'required|date',
+            'user_id'      => 'required',
+            'title'        => 'required',
+            'slug'         => 'required|' . Rule::unique('canvas_posts', 'slug')->ignore(request('id')),
+        ])->validate();
 
-            return back()
-                ->with('success', __('canvas::notifications.success', [
-                    'entity' => 'post',
-                    'action' => 'updated',
-                ]));
-        } catch (Exception $e) {
-            return back()->with('error', __('canvas::notifications.error'));
-        }
+        $post = new Post(['id' => request('id')]);
+        $post->fill($data);
+        $post->save();
+        $post->tags()->sync(
+            $this->collectTags(request('tags') ?? [])
+        );
+
+        return redirect(route('canvas.post.index'))
+            ->with('success', 'The post has been created.');
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Store a newly created post in storage.
      *
-     * @param PostInterface $postRepository Post Repository
-     * @param int           $id             Post ID
-     *
+     * @param string $id
      * @return RedirectResponse
      */
-    public function destroy(PostInterface $postRepository, $id): RedirectResponse
+    public function update(string $id): RedirectResponse
     {
-        $post = $postRepository->find($id);
+        $post = Post::findOrFail($id);
 
-        try {
-            $post->delete();
+        $data = [
+            'title'        => request('title'),
+            'summary'      => request('summary'),
+            'slug'         => request('slug'),
+            'body'         => request('body'),
+            'user_id'      => $post->user_id,
+            'published_at' => request('published_at'),
+        ];
 
-            return redirect(route('canvas.post.index'))
-                ->with('success', __('canvas::notifications.success', [
-                    'entity' => 'post',
-                    'action' => 'deleted',
-                ]));
-        } catch (Exception $e) {
-            return redirect(route('canvas.post.index'))
-                ->with('error', __('canvas::notifications.error'));
-        }
+        validator($data, [
+            'published_at' => 'required',
+            'user_id'      => 'required',
+            'title'        => 'required',
+            'slug'         => 'required|' . Rule::unique('canvas_posts', 'slug')->ignore($id),
+        ])->validate();
+
+        $post->fill($data);
+        $post->save();
+        $post->tags()->sync(
+            $this->collectTags(request('tags') ?? [])
+        );
+
+        return redirect(route('canvas.post.index'))
+            ->with('success', 'The post has been updated.');
+    }
+
+    /**
+     * Soft delete a post in storage.
+     *
+     * @param string $id
+     * @return RedirectResponse
+     */
+    public function destroy(string $id): RedirectResponse
+    {
+        $post = Post::findOrFail($id);
+        $post->delete();
+
+        return redirect(route('canvas.post.index'))
+            ->with('success', 'The post has been deleted.');
+    }
+
+    /**
+     * Collect tags from the request.
+     *
+     * @param  array $incomingTags
+     * @return array
+     */
+    private function collectTags(array $incomingTags): array
+    {
+        $tags = Tag::all();
+
+        return collect($incomingTags)->map(function ($incomingTag) use ($tags) {
+            $tag = $tags->where('slug', Str::slug($incomingTag['name']))->first();
+            if (!$tag) {
+                $tag = Tag::create([
+                    'id'   => $id = Str::uuid(),
+                    'name' => $incomingTag['name'],
+                    'slug' => Str::slug($incomingTag['name']),
+                ]);
+            }
+
+            return (string)$tag->id;
+        })->toArray();
     }
 }

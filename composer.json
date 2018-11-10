@@ -1,12 +1,7 @@
 {
 	"name": "cnvs/canvas",
-	"description": "A blogging package for Laravel.",
-	"keywords": [
-		"cnvs",
-		"canvas",
-		"blog",
-		"laravel"
-	],
+	"description": "A Laravel publishing platform",
+	"keywords": ["cnvs", "canvas", "laravel", "publishing"],
 	"license": "MIT",
 	"homepage": "https://cnvs.io",
 	"support": {
@@ -22,16 +17,7 @@
 	],
 	"require": {
 		"php": "^7.1.3",
-		"ext-json": "*",
-		"doctrine/dbal": "^2.6",
-		"illuminate/database": "^5.7",
-		"illuminate/support": "^5.7",
-		"spatie/laravel-sluggable": "^2.1"
-	},
-	"require-dev": {
-		"mockery/mockery": "^1.1",
-		"orchestra/testbench": "~3.7.0",
-		"phpunit/phpunit": "^7.1"
+		"laravel/framework": "~5.7"
 	},
 	"autoload": {
 		"psr-4": {
@@ -55,5 +41,8 @@
 				"Canvas\\CanvasServiceProvider"
 			]
 		}
+	},
+	"require-dev": {
+		"phpunit/phpunit": "^7.4"
 	}
 }

@@ -2,31 +2,21 @@
 
 namespace Canvas\Http\Controllers;
 
+use Canvas\Post;
 use Illuminate\View\View;
-use Canvas\Traits\Paginate;
 use Illuminate\Routing\Controller;
-use Canvas\Interfaces\PostInterface;
 
 class BlogController extends Controller
 {
-    use Paginate;
-
-    const ITEMS_PER_PAGE = 10;
-
     /**
      * Show the public-facing blog homepage.
      *
-     * @param PostInterface $postRepository Post Repository
-     *
      * @return View
      */
-    public function index(PostInterface $postRepository): View
+    public function index(): View
     {
         $data = [
-            'posts' => $this->paginate(
-                $postRepository->getPublished()->sortByDesc('created_at'),
-                self::ITEMS_PER_PAGE
-            ),
+            'posts' => Post::published()->orderByDesc('published_at')->with('tags')->paginate(15),
         ];
 
         return view('canvas::blog.index', compact('data'));
