@@ -20,7 +20,7 @@ class PostController extends Controller
     public function index(): View
     {
         $data = [
-            'posts' => Post::orderByDesc('created_at')->paginate(15),
+            'posts' => Post::orderByDesc('created_at')->with('tags')->paginate(15),
         ];
 
         return view('canvas::canvas.posts.index', compact('data'));
@@ -118,9 +118,9 @@ class PostController extends Controller
 
         $data = [
             'title'        => request('title'),
-            'summary'      => request('summary'),
+            'summary'      => request('summary', ''),
             'slug'         => request('slug'),
-            'body'         => request('body'),
+            'body'         => request('body', ''),
             'user_id'      => $post->user_id,
             'published_at' => request('published_at'),
         ];

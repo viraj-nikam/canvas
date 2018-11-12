@@ -16,21 +16,28 @@
                         <div class="card-body p-0">
                             <div class="table-responsive">
                                 <table class="table table-borderless table-striped mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th>Post</th>
+                                            <th>Published</th>
+                                            <th>Created</th>
+                                        </tr>
+                                    </thead>
                                     <tbody>
                                     @foreach($data['posts'] as $post)
                                         <tr>
                                             <td>
                                                 <a href="{{ route('canvas.post.edit', $post->id) }}" class="font-weight-bold">{{ $post->title }}</a>
-                                                <br><small class="text-muted">Updated {{ \Carbon\Carbon::parse($post->updated_at)->diffForHumans() }}</small>
+                                                <br><small class="text-muted">Updated {{ \Carbon\Carbon::parse($post->updated_at)->diffForHumans() }} @if(count($post->tags)) — Tags: {{ implode(', ', $post->tags) }} @endif</small>
                                             </td>
-                                            <td class="align-middle text-right">
+                                            <td class="align-middle">
                                                 @if($post->published)
                                                     <i class="far fa-check-circle text-success fa-fw"></i>
                                                 @else
                                                     <i class="far fa-times-circle text-danger fa-fw"></i>
                                                 @endif
                                             </td>
-                                            <td class="text-right align-middle w-25">{{ \Carbon\Carbon::parse($post->created_at)->diffForHumans() }}</td>
+                                            <td class="align-middle w-25">{{ \Carbon\Carbon::parse($post->created_at)->diffForHumans() }}</td>
                                         </tr>
                                     @endforeach
                                     </tbody>
