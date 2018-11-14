@@ -45,6 +45,15 @@ class PostTest extends TestCase
         $this->assertEquals($post->id, $post_by_id->id);
     }
 
+    /** @test */
+    public function it_can_soft_delete_a_post()
+    {
+        $post = $this->createPostForUser($this->testUser->id);
+        $post->delete();
+
+        $this->assertSoftDeleted($post);
+    }
+
     /**
      * Get test data to create post.
      *
