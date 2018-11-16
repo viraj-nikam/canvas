@@ -21,7 +21,7 @@
                 <div class="col-lg-8">
                     <textarea class="form-control{{ $errors->has('body') ? ' is-invalid' : '' }}" name="body" id="body"
                               cols="30" rows="10" required placeholder="Tell your story..">{{ old('body') }}</textarea>
-                    @if ($errors->has('body'))
+                @if ($errors->has('body'))
                         <div class="invalid-feedback">
                             <strong>{{ $errors->first('body') }}</strong>
                         </div>
@@ -30,7 +30,7 @@
             </div>
         </div>
         <div class="card-footer text-right border-0">
-            <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#modal-create">Publish</a>
+            <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#modal-create">Ready to publish?</a>
         </div>
     </div>
     @include('canvas::canvas.components.modals.post.create.details')

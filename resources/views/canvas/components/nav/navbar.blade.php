@@ -1,8 +1,9 @@
 <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
-    <div class="container">
-        <a class="navbar-brand" href="{{ route('canvas.index') }}">
-            <strong>CNVS</strong>Canvas
+    <div class="container col-10">
+        <a class="navbar-brand p-0 logo" href="{{ route('canvas.index') }}">
+            <img src="{{ asset('vendor/canvas/images/logo.png') }}" class="rounded" alt="Canvas Logo">
         </a>
+
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -27,6 +28,9 @@
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="{{ route('canvas.post.index') }}">
                             Posts
+                        </a>
+                        <a class="dropdown-item" href="{{ route('canvas.tag.index') }}">
+                            Tags
                         </a>
                     </div>
                 </li>

@@ -2,7 +2,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Publishing</h5>
+                <h5 class="modal-title">New Post</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -21,7 +21,7 @@
                 <button class="btn btn-link text-muted" data-dismiss="modal">Cancel</button>
                 <a href="#" class="btn btn-primary"
                    onclick="event.preventDefault();document.getElementById('form-create').submit();"
-                   aria-label="Publish this post">Publish this post</a>
+                   aria-label="Publish this post">Publish</a>
             </div>
         </div>
     </div>

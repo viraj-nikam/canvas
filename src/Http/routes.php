@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Route;
 
 Route::prefix(config('canvas.path'))->middleware(['web'])->group(function () {
-
     // Blog Routes...
     Route::get('/', 'BlogController@index')->name('blog.index');
     Route::get('/{post}', 'PostController@show')->name('blog.post.show');
@@ -11,7 +10,6 @@ Route::prefix(config('canvas.path'))->middleware(['web'])->group(function () {
 });
 
 Route::prefix('canvas')->middleware(config('canvas.middleware'))->group(function () {
-
     // Dashboard Routes...
     Route::get('/', 'CanvasController@index')->name('canvas.index');
 
@@ -22,4 +20,7 @@ Route::prefix('canvas')->middleware(config('canvas.middleware'))->group(function
     Route::get('posts/{id}/edit', 'PostController@edit')->name(('canvas.post.edit'));
     Route::put('posts/{id}', 'PostController@update')->name('canvas.post.update');
     Route::delete('posts/{id}', 'PostController@destroy')->name('canvas.post.destroy');
+
+    // Tag Routes...
+    Route::get('tags', 'TagController@index')->name('canvas.tag.index');
 });

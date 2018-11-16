@@ -1,7 +1,5 @@
 @extends('canvas::canvas.index')
 
-@section('title', sprintf('%s - %s', 'Canvas', 'Posts'))
-
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
@@ -10,8 +8,6 @@
                 @include('canvas::canvas.components.notifications.error')
 
                 <div class="card">
-                    <div class="card-header">Posts</div>
-
                     @if(count($data['posts']))
                         <div class="card-body p-0">
                             <div class="table-responsive">

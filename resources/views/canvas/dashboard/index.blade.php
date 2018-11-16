@@ -1,7 +1,5 @@
 @extends('canvas::canvas.index')
 
-@section('title', sprintf('%s - %s', 'Canvas', 'Dashboard'))
-
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
