@@ -47,7 +47,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-link text-muted"data-dismiss="modal">Continue Editing</button>
+                <button class="btn btn-link text-muted"data-dismiss="modal">Done</button>
             </div>
         </div>
     </div>

@@ -23,4 +23,9 @@ Route::prefix('canvas')->middleware(config('canvas.middleware'))->group(function
 
     // Tag Routes...
     Route::get('tags', 'TagController@index')->name('canvas.tag.index');
+    Route::get('tags/create', 'TagController@create')->name('canvas.tag.create');
+    Route::post('tags', 'TagController@store')->name('canvas.tag.store');
+    Route::get('tags/{id}/edit', 'TagController@edit')->name(('canvas.tag.edit'));
+    Route::put('tags/{id}', 'TagController@update')->name('canvas.tag.update');
+    Route::delete('tags/{id}', 'TagController@destroy')->name('canvas.tag.destroy');
 });

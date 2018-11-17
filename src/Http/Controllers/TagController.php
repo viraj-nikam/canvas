@@ -2,6 +2,7 @@
 
 namespace Canvas\Http\Controllers;
 
+use Canvas\Tag;
 use Illuminate\View\View;
 use Illuminate\Routing\Controller;
 
@@ -14,12 +15,10 @@ class TagController extends Controller
      */
     public function index(): View
     {
-        dd('tag.index');
-
         $data = [
-            //
+            'tags' => Tag::orderByDesc('created_at')->with('posts')->paginate(15),
         ];
 
-        return view('canvas::blog.index', compact('data'));
+        return view('canvas::canvas.tags.index', compact('data'));
     }
 }

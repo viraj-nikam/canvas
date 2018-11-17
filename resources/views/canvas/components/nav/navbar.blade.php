@@ -1,7 +1,7 @@
-<nav class="navbar navbar-expand-md navbar-light navbar-laravel">
-    <div class="container col-10">
-        <a class="navbar-brand p-0 logo" href="{{ route('canvas.index') }}">
-            <img src="{{ asset('vendor/canvas/images/logo.png') }}" class="rounded" alt="Canvas Logo">
+<nav class="navbar navbar-expand-md navbar-light">
+    <div class="container">
+        <a class="navbar-brand logo mr-3 font-weight-bold" href="{{ route('canvas.index') }}">
+            <span>C</span>anvas
         </a>
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -10,18 +10,18 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
-            <ul class="navbar-nav mr-auto"></ul>
+            <ul class="navbar-nav mr-auto">
+                <li class="text-muted">
+                    @yield('status')
+                </li>
+            </ul>
 
             <!-- Right Side Of Navbar -->
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item my-auto">
-                    <a href="{{ route('canvas.post.create') }}" class="btn btn-sm btn-outline-primary mr-2">
-                        New Post
-                    </a>
-                </li>
+                @yield('actions')
 
                 <li class="nav-item dropdown">
-                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                    <a id="navbarDropdown" class="nav-link px-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                         {{ auth()->user()->name }}
                     </a>
 

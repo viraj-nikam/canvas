@@ -1,26 +1,30 @@
 @extends('canvas::canvas.index')
 
+@section('status', $data['post']->published ? 'Published' : 'Draft')
+
+@section('actions')
+    <a href="#" class="btn btn-sm btn-outline-primary my-auto" data-toggle="modal" data-target="#modal-edit">Update</a>
+
+    <li class="nav-item dropdown">
+        <a id="navbarDropdown" class="nav-link px-3" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+            <i class="fas fa-sliders-h fa-fw"></i>
+        </a>
+
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+            <a href="#" class="dropdown-item" data-toggle="modal" data-target="#modal-details">Post Details</a>
+            <a href="#" class="dropdown-item text-danger" data-toggle="modal" data-target="#modal-delete">Delete</a>
+        </div>
+    </li>
+@endsection
+
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
                 @include('canvas::canvas.components.notifications.success')
                 @include('canvas::canvas.components.notifications.error')
-
-                <div class="card">
-                    <div class="d-flex card-header justify-content-between">
-                        Update Post
-                        <div>
-                            <a href="#" class="btn btn-link py-0 text-muted" data-toggle="modal" data-target="#modal-details"><i class="fas fa-sliders-h fa-fw"></i></a>
-                            <a href="#" class="btn btn-link py-0 text-muted" data-toggle="modal" data-target="#modal-delete"><i class="fas fa-trash fa-fw"></i></a>
-                        </div>
-                    </div>
-
-                    <div class="card-body p-0">
-                        @include('canvas::canvas.components.forms.post.edit')
-                        @include('canvas::canvas.components.modals.post.delete')
-                    </div>
-                </div>
+                @include('canvas::canvas.components.forms.post.edit')
+                @include('canvas::canvas.components.modals.post.delete')
             </div>
         </div>
     </div>

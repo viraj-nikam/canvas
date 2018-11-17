@@ -9,7 +9,7 @@
             </div>
             <div class="modal-body">
                 <div class="form-group row">
-                    <label class="col-lg-4 col-form-label text-lg-left">Published At</label>
+                    <label class="col-lg-4 col-form-label text-lg-left">Publish At</label>
                     <div class="col-lg-8">
                         <input name="published_at"
                                class="form-control{{ $errors->has('published_at') ? ' is-invalid' : '' }}"
@@ -23,10 +23,10 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-link text-muted" data-dismiss="modal">Cancel</button>
                 <a href="#" class="btn btn-primary"
                    onclick="event.preventDefault();document.getElementById('form-edit').submit();"
-                   aria-label="Update this post">Update</a>
+                   aria-label="Update">Update</a>
+                <button class="btn btn-link text-muted" data-dismiss="modal">Cancel</button>
             </div>
         </div>
     </div>

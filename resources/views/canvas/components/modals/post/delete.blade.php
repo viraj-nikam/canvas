@@ -11,10 +11,10 @@
                 Deleted posts are gone forever. Are you sure?
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-link text-muted" data-dismiss="modal">Cancel</button>
                 <a href="#" class="btn btn-danger"
                    onclick="event.preventDefault();document.getElementById('form-delete').submit();"
                    aria-label="Delete Post">Delete</a>
+                <button type="button" class="btn btn-link text-muted" data-dismiss="modal">Cancel</button>
 
                 <form id="form-delete" action="{{ route('canvas.post.destroy', $data['post']->id) }}" method="POST" style="display: none">
                     @method('DELETE')
