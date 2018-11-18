@@ -20,6 +20,7 @@ class CreateCanvasTables extends Migration
             $table->text('summary');
             $table->text('body');
             $table->dateTime('published_at')->default('2018-10-12 00:00:00');
+            $table->string('featured_image')->nullable();
             $table->string('user_id')->index();
             $table->timestamps();
             $table->softDeletes();
@@ -31,11 +32,14 @@ class CreateCanvasTables extends Migration
             $table->string('name');
             $table->timestamps();
             $table->softDeletes();
+
+            $table->index('created_at');
         });
 
         Schema::create('canvas_posts_tags', function (Blueprint $table) {
             $table->uuid('post_id');
             $table->uuid('tag_id');
+
             $table->unique(['post_id', 'tag_id']);
         });
     }

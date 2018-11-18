@@ -33,9 +33,10 @@
                                                 <br>
                                                 <small class="text-muted">
                                                     Published {{ \Carbon\Carbon::parse($post->created_at)->diffForHumans() }}
-                                                    -
-                                                    Updated {{ \Carbon\Carbon::parse($post->updated_at)->diffForHumans() }} @if(count($post->tags))
-                                                        — Tags: {{ implode(', ', $post->tags) }} @endif</small></p>
+                                                    ― Updated {{ \Carbon\Carbon::parse($post->updated_at)->diffForHumans() }} @if(count($post->tags))
+                                                    ― Tags: {{ implode(', ', $post->tags) }} @endif
+                                                </small>
+                                            </p>
                                         </td>
                                         <td class="text-right align-middle">
                                             <a href="{{ route('canvas.post.edit', $post->id) }}">
