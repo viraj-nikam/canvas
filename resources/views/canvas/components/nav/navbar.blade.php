@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-light">
+<nav class="navbar navbar-expand-md navbar-light shadow-sm">
     <div class="container">
         <a class="navbar-brand logo mr-3 font-weight-bold" href="{{ route('canvas.index') }}">
             <span>C</span>anvas

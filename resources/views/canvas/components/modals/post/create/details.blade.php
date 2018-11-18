@@ -37,8 +37,7 @@
                 <div class="form-group row">
                     <label class="col-lg-4 col-form-label text-lg-left">Tags</label>
                     <div class="col-lg-8">
-                        <select name="tags" id="tags" class="form-control">
-                            <option value="" disabled selected>Add some tags..</option>
+                        <select class="form-control" name="tags" id="tags" multiple="multiple" style="width: 100%">
                             @foreach($data['tags'] as $tag)
                                 <option value="{{ $tag->id }}">{{ $tag->name }}</option>
                             @endforeach
