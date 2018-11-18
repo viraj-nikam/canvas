@@ -38,7 +38,9 @@
                                                         — Tags: {{ implode(', ', $post->tags) }} @endif</small></p>
                                         </td>
                                         <td class="text-right align-middle">
-                                            <i class="far fa-fw fa-image fa-2x text-muted align-middle"></i>
+                                            <a href="{{ route('canvas.post.edit', $post->id) }}">
+                                                <i class="far fa-fw fa-image fa-2x text-muted align-middle"></i>
+                                            </a>
                                         </td>
                                     </tr>
                                 @endforeach

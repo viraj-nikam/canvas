@@ -20,7 +20,7 @@ class PostController extends Controller
     public function index(): View
     {
         $data = [
-            'posts' => Post::orderByDesc('created_at')->with('tags')->paginate(15),
+            'posts' => Post::orderByDesc('created_at')->with('tags')->paginate(10),
         ];
 
         return view('canvas::canvas.posts.index', compact('data'));
@@ -107,7 +107,7 @@ class PostController extends Controller
     }
 
     /**
-     * Store a newly created post in storage.
+     * Update a post in storage.
      *
      * @param string $id
      * @return RedirectResponse

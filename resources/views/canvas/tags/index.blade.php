@@ -20,28 +20,22 @@
                         <div class="table-responsive">
                             <table class="table table-borderless mb-0 mt-4">
                                 <tbody>
-                                {{--@foreach($data['tags'] as $tag)--}}
-                                    {{--<tr class="border-top">--}}
-                                        {{--<td>--}}
-                                            {{--<p class="mb-0 py-2">--}}
-                                                {{--<a href="{{ route('canvas.post.edit', $post->id) }}"--}}
-                                                   {{--class="font-weight-bold lead">{{ $post->title }}</a>--}}
-                                                {{--@if($post->summary)--}}
-                                                    {{--<br>--}}
-                                                    {{--{{ $post->summary }}--}}
-                                                {{--@endif--}}
-                                                {{--<br>--}}
-                                                {{--<small class="text-muted">--}}
-                                                    {{--Published {{ \Carbon\Carbon::parse($post->created_at)->diffForHumans() }}--}}
-                                                    {{-----}}
-                                                    {{--Updated {{ \Carbon\Carbon::parse($post->updated_at)->diffForHumans() }} @if(count($post->tags))--}}
-                                                        {{--— Tags: {{ implode(', ', $post->tags) }} @endif</small></p>--}}
-                                        {{--</td>--}}
-                                        {{--<td class="text-right align-middle">--}}
-                                            {{--<i class="far fa-fw fa-image fa-2x text-muted align-middle"></i>--}}
-                                        {{--</td>--}}
-                                    {{--</tr>--}}
-                                {{--@endforeach--}}
+                                @foreach($data['tags'] as $tag)
+                                    <tr class="border-top">
+                                        <td>
+                                            <p class="mb-0 py-2">
+                                                <a href="{{ route('canvas.tag.edit', $tag->id) }}"
+                                                   class="font-weight-bold lead">{{ $tag->name }}</a>
+                                                <br>
+                                        </td>
+                                        <td class="text-right align-middle">
+                                            <p>
+                                                <span class="text-muted mr-3">{{ $tag->posts_count }} Post(s)</span>
+                                                Created {{ \Carbon\Carbon::parse($tag->created_at)->diffForHumans() }}
+                                            </p>
+                                        </td>
+                                    </tr>
+                                @endforeach
                                 </tbody>
                             </table>
                         </div>

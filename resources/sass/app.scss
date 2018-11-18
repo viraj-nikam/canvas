@@ -13,11 +13,6 @@
 // Bootstrap
 @import "~bootstrap/scss/bootstrap";
 
-.logo {
-  font-family: Merriweather, serif;
-  font-size: 28px;
-  span {
-    color: #9ba3aa;
-  }
-}
+// Globals
+@import "globals";
 

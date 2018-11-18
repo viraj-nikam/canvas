@@ -4,7 +4,7 @@
             @method('PUT')
             @csrf
 
-            <div class="form-group row">
+            <div class="form-group row mb-5">
                 <div class="col-lg-12">
                     <input type="text" class="form-control-lg form-control{{ $errors->has('title') ? ' is-invalid' : '' }} border-0" name="title"
                            title="Title" value="{{ $data['post']->title }}" required placeholder="Title">
@@ -31,4 +31,5 @@
     </div>
     @include('canvas::canvas.components.modals.post.edit.details')
     @include('canvas::canvas.components.modals.post.edit.publish')
+    @include('canvas::canvas.components.modals.post.edit.image')
 </form>

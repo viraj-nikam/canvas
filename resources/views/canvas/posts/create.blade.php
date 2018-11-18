@@ -11,7 +11,8 @@
         </a>
 
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-            <a href="#" class="dropdown-item" data-toggle="modal" data-target="#modal-details">Post Details</a>
+            <a href="#" class="dropdown-item" data-toggle="modal" data-target="#modal-details">Details</a>
+            <a href="#" class="dropdown-item" data-toggle="modal" data-target="#modal-image">Featured Image</a>
         </div>
     </li>
 @endsection
