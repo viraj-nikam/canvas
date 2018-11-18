@@ -4,6 +4,7 @@ namespace Canvas\Http\Controllers;
 
 use Canvas\Tag;
 use Canvas\Post;
+use Carbon\Carbon;
 use Illuminate\View\View;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
@@ -85,14 +86,14 @@ class PostController extends Controller
             'slug'         => request('slug'),
             'body'         => request('body', ''),
             'user_id'      => auth()->user()->id,
-            'published_at' => request('published_at'),
+            'published_at' => Carbon::parse(request('published_at'))->toDateTimeString(),
         ];
 
         validator($data, [
             'published_at' => 'required|date',
             'user_id'      => 'required',
             'title'        => 'required',
-            'slug'         => 'required|'.Rule::unique('canvas_posts', 'slug')->ignore(request('id')),
+            'slug'         => 'required|'.Rule::unique('canvas_posts', 'slug')->ignore(request('id')).'|regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/i',
         ])->validate();
 
         $post = new Post(['id' => request('id')]);
@@ -122,14 +123,14 @@ class PostController extends Controller
             'slug'         => request('slug'),
             'body'         => request('body', ''),
             'user_id'      => $post->user_id,
-            'published_at' => request('published_at'),
+            'published_at' => Carbon::parse(request('published_at'))->toDateTimeString(),
         ];
 
         validator($data, [
             'published_at' => 'required',
             'user_id'      => 'required',
             'title'        => 'required',
-            'slug'         => 'required|'.Rule::unique('canvas_posts', 'slug')->ignore($id),
+            'slug'         => 'required|'.Rule::unique('canvas_posts', 'slug')->ignore($id).'|regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/i',
         ])->validate();
 
         $post->fill($data);

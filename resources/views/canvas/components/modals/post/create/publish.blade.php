@@ -12,8 +12,9 @@
                     <label class="col-lg-4 col-form-label text-lg-left">Publish at</label>
                     <div class="col-lg-8">
                         <input name="published_at"
+                               type="datetime-local"
                                class="form-control{{ $errors->has('published_at') ? ' is-invalid' : '' }}"
-                               value="{{ now()->toDateTimeString() }}">
+                               value="{{ now()->format('Y-m-d\TH:i') }}">
                     </div>
                 </div>
             </div>

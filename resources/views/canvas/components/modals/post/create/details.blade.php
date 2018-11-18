@@ -37,7 +37,8 @@
                 <div class="form-group row">
                     <label class="col-lg-4 col-form-label text-lg-left">Tags</label>
                     <div class="col-lg-8">
-                        <select class="form-control" name="tags" id="tags" multiple="multiple" style="width: 100%">
+                        <select class="form-control" name="tags" id="tags">
+                            <option disabled selected>Select some tags..</option>
                             @foreach($data['tags'] as $tag)
                                 <option value="{{ $tag->id }}">{{ $tag->name }}</option>
                             @endforeach
@@ -46,7 +47,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-link text-muted"data-dismiss="modal">Done</button>
+                <button class="btn btn-link text-muted" data-dismiss="modal">Done</button>
             </div>
         </div>
     </div>

@@ -32,15 +32,24 @@
                                                 @endif
                                                 <br>
                                                 <small class="text-muted">
-                                                    Published {{ \Carbon\Carbon::parse($post->created_at)->diffForHumans() }}
-                                                    ― Updated {{ \Carbon\Carbon::parse($post->updated_at)->diffForHumans() }} @if(count($post->tags))
-                                                    ― Tags: {{ implode(', ', $post->tags) }} @endif
+                                                    @if($post->published)
+                                                        Published {{ \Carbon\Carbon::parse($post->published_at)->diffForHumans() }}
+                                                    @else
+                                                        <span class="text-danger">Draft</span>
+                                                    @endif
+                                                        ― Updated {{ \Carbon\Carbon::parse($post->updated_at)->diffForHumans() }}
+                                                    @if(count($post->tags))
+                                                        ― Tags: {{ implode(', ', $post->tags) }}
+                                                    @endif
                                                 </small>
                                             </p>
                                         </td>
                                         <td class="text-right align-middle">
                                             <a href="{{ route('canvas.post.edit', $post->id) }}">
-                                                <i class="far fa-fw fa-image fa-2x text-muted align-middle"></i>
+                                                <span class="fa-stack fa-2x align-middle">
+                                                    <i class="fas fa-circle fa-stack-2x text-black-50"></i>
+                                                    <i class="far fa-fw fa-stack-1x fa-image fa-inverse"></i>
+                                                </span>
                                             </a>
                                         </td>
                                     </tr>
