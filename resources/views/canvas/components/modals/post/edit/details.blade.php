@@ -25,8 +25,9 @@
                     <label class="col-lg-4 col-form-label text-lg-left">Tags</label>
                     <div class="col-lg-8">
                         <select class="form-control" name="tags" id="tags">
+                            <option disabled selected>Select some tags..</option>
                             @foreach($data['post']->tags as $tag)
-                                <option value="{{ $tag->id }}">{{ $tag->name }}</option>
+                                <option value="{{ $tag->id }}" selected>{{ $tag->name }}</option>
                             @endforeach
                         </select>
                     </div>
