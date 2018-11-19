@@ -1,4 +1,3 @@
-
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -16,8 +15,10 @@ window.Vue = require('vue');
  */
 
 const files = require.context('./', true, /\.vue$/i);
+
 files.keys().map(key => {
     const name = _.last(key.split('/')).split('.')[0];
+
     return Vue.component(name, files(key))
 });
 
