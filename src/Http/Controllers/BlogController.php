@@ -16,7 +16,7 @@ class BlogController extends Controller
     public function index(): View
     {
         $data = [
-            'posts' => Post::published()->orderByDesc('published_at')->with('tags')->paginate(15),
+            'posts' => Post::published()->orderByDesc('published_at')->with('tags')->paginate(10),
         ];
 
         return view('canvas::blog.index', compact('data'));

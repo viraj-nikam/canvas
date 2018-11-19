@@ -30,16 +30,16 @@ class PostController extends Controller
     /**
      * Display a single post.
      *
-     * @param string $id
+     * @param string $slug
      * @return View
      */
-    public function show(string $id): View
+    public function show(string $slug): View
     {
         $data = [
-            'post' => Post::findOrFail($id),
+            'post' => Post::with('tags', 'user')->where('slug', $slug)->first(),
         ];
 
-        return view('canvas::canvas.blog.show', compact('data'));
+        return view('canvas::blog.show', compact('data'));
     }
 
     /**

@@ -1,7 +1,18 @@
 
 // Globals
+.welcome {
+  font-family: $font-family-serif;
+  span {
+    color: #9ba3aa;
+  }
+}
+
+.serif {
+  font-family: $font-family-serif;
+}
+
 .logo {
-  font-family: 'Libre Baskerville', serif;
+  font-family: $font-family-serif;
   font-size: 24px;
   span {
     color: #9ba3aa;

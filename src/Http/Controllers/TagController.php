@@ -28,12 +28,16 @@ class TagController extends Controller
     /**
      * Display a single tag.
      *
-     * @param string $id
+     * @param string $slug
      * @return View
      */
-    public function show(string $id): View
+    public function show(string $slug): View
     {
-        //
+        $data = [
+            'tag' => Tag::with('posts')->where('slug', $slug)->first(),
+        ];
+
+        return view('canvas::blog.show', compact('data'));
     }
 
     /**
