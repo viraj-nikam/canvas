@@ -14,15 +14,6 @@
         @yield('body')
     </div>
     <script type="text/javascript" src="{{ mix('js/app.js', 'vendor/canvas') }}"></script>
-
-    {{--TODO: Refactor errors on modals--}}
-    @if (count($errors) > 0)
-        <script>
-            $( document ).ready(function() {
-                $('#modal-details').modal('show');
-            });
-        </script>
-    @endif
-
+    @stack('scripts')
 </body>
 </html>

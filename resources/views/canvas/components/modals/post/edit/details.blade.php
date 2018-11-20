@@ -36,7 +36,7 @@
                     <label class="col-lg-4 col-form-label text-lg-left">Summary</label>
                     <div class="col-lg-8">
                         <input type="text" class="form-control{{ $errors->has('summary') ? ' is-invalid' : '' }}"
-                               name="summary" title="Summary" value="{{ $data['post']->summary }}" required
+                               name="summary" title="Summary" value="{{ $data['post']->summary }}"
                                placeholder="A descriptive summary..">
                         @if ($errors->has('summary'))
                             <div class="invalid-feedback">

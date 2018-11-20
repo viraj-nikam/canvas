@@ -13,10 +13,10 @@
                     <div class="col-lg-8">
                         <input type="text" class="form-control{{ $errors->has('slug') ? ' is-invalid' : '' }}"
                                name="slug" title="Slug" value="{{ old('slug', 'post-'.$data['id']) }}" required
-                               placeholder="A unique slug..">
-                        @if ($errors->has('summary'))
+                               placeholder="a-unique-slug">
+                        @if ($errors->has('slug'))
                             <div class="invalid-feedback">
-                                <strong>{{ $errors->first('summary') }}</strong>
+                                <strong>{{ $errors->first('slug') }}</strong>
                             </div>
                         @endif
                     </div>
@@ -25,7 +25,7 @@
                     <label class="col-lg-4 col-form-label text-lg-left">Summary</label>
                     <div class="col-lg-8">
                         <input type="text" class="form-control{{ $errors->has('summary') ? ' is-invalid' : '' }}"
-                               name="summary" title="Summary" value="{{ old('summary') }}" required
+                               name="summary" title="Summary" value="{{ old('summary') }}"
                                placeholder="A descriptive summary..">
                         @if ($errors->has('summary'))
                             <div class="invalid-feedback">
