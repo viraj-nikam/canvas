@@ -6,11 +6,11 @@
     <li class="nav-item dropdown">
         <a id="navbarDropdown" class="nav-link px-3" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
            aria-expanded="false" v-pre>
-            <i class="fas fa-sliders-h fa-fw"></i>
+            <i class="fas fa-sliders-h fa-fw fa-rotate-270"></i>
         </a>
 
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-            <a href="#" class="dropdown-item" data-toggle="modal" data-target="#modal-details">Details</a>
+            <a href="#" class="dropdown-item" data-toggle="modal" data-target="#modal-details">Post Details</a>
             <a href="#" class="dropdown-item" data-toggle="modal" data-target="#modal-image">Featured Image</a>
         </div>
     </li>
