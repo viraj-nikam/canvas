@@ -21,6 +21,7 @@ class CreateCanvasTables extends Migration
             $table->text('body');
             $table->dateTime('published_at')->default('2018-10-12 00:00:00');
             $table->string('featured_image')->nullable();
+            $table->string('featured_image_caption');
             $table->string('user_id')->index();
             $table->timestamps();
             $table->softDeletes();
