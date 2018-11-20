@@ -3,8 +3,6 @@
 @section('status', $data['post']->published ? 'Published' : 'Draft')
 
 @section('actions')
-    <a href="#" class="btn btn-sm btn-outline-primary my-auto" data-toggle="modal" data-target="#modal-edit">Update</a>
-
     <li class="nav-item dropdown">
         <a id="navbarDropdown" class="nav-link px-3" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
            aria-expanded="false" v-pre>
@@ -17,6 +15,8 @@
             <a href="#" class="dropdown-item text-danger" data-toggle="modal" data-target="#modal-delete">Delete</a>
         </div>
     </li>
+
+    <a href="#" class="btn btn-sm btn-outline-primary my-auto mr-3" data-toggle="modal" data-target="#modal-edit">Update</a>
 @endsection
 
 @section('content')
