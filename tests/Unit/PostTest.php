@@ -64,13 +64,15 @@ class PostTest extends TestCase
     private function createPostForUser(int $userId): Post
     {
         return Post::create([
-            'id'           => Faker::create()->uuid,
-            'slug'         => sprintf('%s-%s', 'post', Faker::create()->uuid),
-            'title'        => Faker::create()->sentence,
-            'summary'      => Faker::create()->sentence(),
-            'body'         => Faker::create()->text,
-            'published_at' => now()->toDateTimeString(),
-            'user_id'      => $userId,
+            'id'                     => Faker::create()->uuid,
+            'slug'                   => sprintf('%s-%s', 'post', Faker::create()->uuid),
+            'title'                  => Faker::create()->sentence,
+            'summary'                => Faker::create()->sentence(),
+            'body'                   => Faker::create()->text,
+            'published_at'           => now()->toDateTimeString(),
+            'featured_image'         => Faker::create()->url,
+            'featured_image_caption' => Faker::create()->sentence,
+            'user_id'                => $userId,
         ]);
     }
 }

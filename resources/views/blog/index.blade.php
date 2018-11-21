@@ -7,20 +7,22 @@
         <div class="container mt-5">
             <div class="row justify-content-md-center">
                 <div class="col col-lg-8">
-                    <h2 class="mb-5">@isset($data['tag']) {{ $data['tag'] }} @else Blog @endisset</h2>
+                    <h2 class="mb-5 serif">@isset($data['tag']) {{ $data['tag'] }} @else Blog @endisset</h2>
                     @foreach($data['posts'] as $post)
-                        <div class="card shadow-sm mb-4">
+                        <div class="card mb-3">
                             <div class="card-body">
-                                <h5 class="card-title"><a href="{{ route('blog.post.show', $post->slug) }}">{{ $post->title }}</a></h5>
+                                <h2 class="card-title"><a href="{{ route('blog.post.show', $post->slug) }}">{{ $post->title }}</a></h2>
                                 <p class="card-text">{{ $post->summary }}</p>
-                                @if($post->tags->count() > 0)
-                                    @foreach($post->tags as $tag)
-                                        <a href="{{ route('blog.tag.show', $tag->slug) }}" class="badge badge-pill badge-primary">{{ $tag->name }}</a>
-                                    @endforeach
-                                @endif
-                            </div>
-                            <div class="card-footer">
-                                <small class="text-muted">Published on {{ \Carbon\Carbon::parse($post->published_at)->format('M d, Y') }}</small>
+
+                                <div class="d-flex justify-content-between">
+                                    <p class="small text-muted my-auto">Published on {{ \Carbon\Carbon::parse($post->published_at)->format('M d, Y') }}</p>
+                                    <a href="#" class="badge badge-light p-2 my-auto">Web Development</a>
+                                    @if($post->tags->count() > 0)
+                                        @foreach($post->tags as $tag)
+                                            <a href="{{ route('blog.tag.show', $tag->slug) }}" class="badge badge-pill badge-primary">{{ $tag->name }}</a>
+                                        @endforeach
+                                    @endif
+                                </div>
                             </div>
                         </div>
                     @endforeach
