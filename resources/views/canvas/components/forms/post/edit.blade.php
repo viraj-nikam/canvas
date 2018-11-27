@@ -28,7 +28,8 @@
             @endif
         </div>
     </div>
-    @include('canvas::canvas.components.modals.post.edit.details')
+    @include('canvas::canvas.components.modals.post.edit.settings')
     @include('canvas::canvas.components.modals.post.edit.publish')
     @include('canvas::canvas.components.modals.post.edit.image')
+    @include('canvas::canvas.components.modals.post.edit.seo')
 </form>

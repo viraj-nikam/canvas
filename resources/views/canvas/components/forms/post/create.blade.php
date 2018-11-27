@@ -24,7 +24,8 @@
             @endif
         </div>
     </div>
-    @include('canvas::canvas.components.modals.post.create.details')
+    @include('canvas::canvas.components.modals.post.create.settings')
     @include('canvas::canvas.components.modals.post.create.publish')
     @include('canvas::canvas.components.modals.post.create.image')
+    @include('canvas::canvas.components.modals.post.create.seo')
 </form>

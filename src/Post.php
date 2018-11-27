@@ -58,6 +58,15 @@ class Post extends Model
     ];
 
     /**
+     * The attributes that should be casted.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'meta' => 'array',
+    ];
+
+    /**
      * The tags the post belongs to.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany

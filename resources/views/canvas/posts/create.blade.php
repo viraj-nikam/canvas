@@ -3,6 +3,9 @@
 @section('status', 'Draft')
 
 @section('actions')
+    <a href="#" class="btn btn-sm btn-outline-primary my-auto mr-2" data-toggle="modal" data-target="#modal-create">Ready to
+        publish?</a>
+
     <li class="nav-item dropdown">
         <a id="navbarDropdown" class="nav-link px-3" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
            aria-expanded="false" v-pre>
@@ -10,13 +13,11 @@
         </a>
 
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-            <a href="#" class="dropdown-item" data-toggle="modal" data-target="#modal-details">Post Details</a>
+            <a href="#" class="dropdown-item" data-toggle="modal" data-target="#modal-details">General Settings</a>
             <a href="#" class="dropdown-item" data-toggle="modal" data-target="#modal-image">Featured Image</a>
+            <a href="#" class="dropdown-item" data-toggle="modal" data-target="#modal-seo">SEO & Social</a>
         </div>
     </li>
-
-    <a href="#" class="btn btn-sm btn-outline-primary my-auto mr-3" data-toggle="modal" data-target="#modal-create">Ready to
-        publish?</a>
 @endsection
 
 @section('content')
