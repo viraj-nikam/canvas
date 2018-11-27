@@ -32,6 +32,9 @@
                         <a class="dropdown-item" href="{{ route('canvas.tag.index') }}">
                             Tags
                         </a>
+                        <a class="dropdown-item" href="{{ route('canvas.index') }}">
+                            Stats
+                        </a>
                     </div>
                 </li>
             </ul>
