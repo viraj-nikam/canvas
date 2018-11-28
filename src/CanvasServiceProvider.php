@@ -2,11 +2,14 @@
 
 namespace Canvas;
 
+use Illuminate\Events\Dispatcher;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
 class CanvasServiceProvider extends ServiceProvider
 {
+    use EventMap;
+
     /**
      * Bootstrap any package services.
      *
@@ -14,6 +17,7 @@ class CanvasServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $this->registerEvents();
         $this->registerRoutes();
         $this->registerMigrations();
         $this->registerPublishing();
@@ -31,6 +35,22 @@ class CanvasServiceProvider extends ServiceProvider
         $this->commands([
             Console\InstallCommand::class,
         ]);
+    }
+
+    /**
+     * Register the events and listeners.
+     *
+     * @return void
+     */
+    private function registerEvents()
+    {
+        $events = $this->app->make(Dispatcher::class);
+
+        foreach ($this->events as $event => $listeners) {
+            foreach ($listeners as $listener) {
+                $events->listen($event, $listener);
+            }
+        }
     }
 
     /**

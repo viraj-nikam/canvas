@@ -2,6 +2,7 @@
 
 namespace Canvas\Http\Controllers;
 
+use Canvas\Events\PostViewed;
 use Canvas\Tag;
 use Canvas\Post;
 use Carbon\Carbon;
@@ -10,6 +11,7 @@ use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Event;
 
 class PostController extends Controller
 {
@@ -36,8 +38,10 @@ class PostController extends Controller
     public function show(string $slug): View
     {
         $data = [
-            'post' => Post::with('tags', 'user')->where('slug', $slug)->first(),
+            'post' => Post::with('tags')->where('slug', $slug)->first(),
         ];
+
+        event(new PostViewed($data['post']));
 
         return view('canvas::blog.show', compact('data'));
     }
