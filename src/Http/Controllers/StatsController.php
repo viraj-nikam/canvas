@@ -2,6 +2,7 @@
 
 namespace Canvas\Http\Controllers;
 
+use Canvas\Post;
 use Illuminate\View\View;
 use Illuminate\Routing\Controller;
 
@@ -14,6 +15,10 @@ class StatsController extends Controller
      */
     public function index(): View
     {
-        return view('canvas::canvas.stats.index');
+        $data = [
+            'posts' => Post::published()->get(),
+        ];
+
+        return view('canvas::canvas.stats.index', compact('data'));
     }
 }
