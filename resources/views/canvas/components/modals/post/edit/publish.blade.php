@@ -8,7 +8,7 @@
                         <input name="published_at"
                                type="datetime-local"
                                class="form-control{{ $errors->has('published_at') ? ' is-invalid' : '' }}"
-                               value="{{ now()->format('Y-m-d\TH:i') }}">
+                               value="{{ $data['post']->published_at->format('Y-m-d\TH:i') }}">
                     </div>
                 </div>
             </div>
