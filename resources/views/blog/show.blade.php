@@ -15,9 +15,9 @@
                         @endforeach
                     @endif
                 </p>
-                <p class="content-body serif">{{ $data['post']->body }}</p>
+                <div class="content-body serif">{!! $data['post']->body !!}</div>
 
-                <div class="border-top mt-5">
+                <div class="border-top my-5">
                     <p class="mt-5 text-center text-uppercase text-muted">Powered by <a href="{{ url('https://cnvs.io') }}" class="text-muted" target="_blank"><u>Canvas</u></a></p>
                 </div>
             </div>
