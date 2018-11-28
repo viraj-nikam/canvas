@@ -4,7 +4,7 @@
 
 @section('body')
     @if(count($data['posts']) > 0)
-        <div class="container mt-5">
+        <div class="container mt-4">
             <div class="row justify-content-md-center">
                 <div class="col col-lg-8">
                     <h2 class="mb-5 serif">@isset($data['tag']) {{ sprintf('Posts in:%s', $data['tag']) }} @endisset</h2>
