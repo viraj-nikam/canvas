@@ -9,6 +9,13 @@ use Illuminate\Http\Response;
 class ViewThrottle
 {
     /**
+     * Set the view to expire in 1 hour.
+     *
+     * @const int
+     */
+    const VIEW_EXPIRES = 3600;
+
+    /**
      * Handle the incoming request.
      *
      * @param $request
@@ -47,7 +54,7 @@ class ViewThrottle
     {
         $time = time();
 
-        $throttleTime = 3600;
+        $throttleTime = self::VIEW_EXPIRES;
 
         return array_filter($posts, function ($timestamp) use ($time, $throttleTime) {
             return ($timestamp + $throttleTime) > $time;
