@@ -102,8 +102,8 @@ composer test
 - [ ] Add support for image uploads.
 - [ ] Add a [QuillJS Vue component](https://pineco.de/wrapping-quill-editor-in-a-vue-component/) as the default text editor.
 - [ ] Add support for [multiple tags](https://vue-multiselect.js.org/#sub-multiple-select) on a single post.
+- [ ] Add post/tag filtering.
 - [ ] Add relevant statistics data for published posts.
-- [ ] Add post filtering.
 
 ## License
 

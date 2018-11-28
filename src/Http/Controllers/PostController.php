@@ -82,9 +82,9 @@ class PostController extends Controller
         $data = [
             'id'           => request('id'),
             'title'        => request('title', 'Post Title'),
-            'summary'      => request('summary', ''),
+            'summary'      => request('summary'),
             'slug'         => request('slug'),
-            'body'         => request('body', ''),
+            'body'         => request('body'),
             'user_id'      => auth()->user()->id,
             'published_at' => Carbon::parse(request('published_at'))->toDateTimeString(),
             'meta'         => request('meta', (object) []),
@@ -120,9 +120,9 @@ class PostController extends Controller
 
         $data = [
             'title'        => request('title'),
-            'summary'      => request('summary', ''),
+            'summary'      => request('summary'),
             'slug'         => request('slug'),
-            'body'         => request('body', ''),
+            'body'         => request('body'),
             'user_id'      => $post->user_id,
             'published_at' => Carbon::parse(request('published_at'))->toDateTimeString(),
         ];

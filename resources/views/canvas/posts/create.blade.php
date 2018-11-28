@@ -3,7 +3,7 @@
 @section('status', 'Draft')
 
 @section('actions')
-    <a href="#" class="btn btn-sm btn-outline-primary my-auto mr-2" data-toggle="modal" data-target="#modal-create">Ready to
+    <a href="#" class="btn btn-sm btn-outline-primary my-auto mr-2" data-toggle="modal" data-target="#modal-publish">Ready to
         publish?</a>
 
     <li class="nav-item dropdown">
@@ -13,7 +13,7 @@
         </a>
 
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-            <a href="#" class="dropdown-item" data-toggle="modal" data-target="#modal-details">General Settings</a>
+            <a href="#" class="dropdown-item" data-toggle="modal" data-target="#modal-settings">General Settings</a>
             <a href="#" class="dropdown-item" data-toggle="modal" data-target="#modal-image">Featured Image</a>
             <a href="#" class="dropdown-item" data-toggle="modal" data-target="#modal-seo">SEO & Social</a>
         </div>
@@ -36,7 +36,7 @@
     @if ($errors->has('slug'))
         <script type="text/javascript">
             $(document).ready(function () {
-                $('#modal-details').modal('show');
+                $('#modal-settings').modal('show');
             });
         </script>
     @endif

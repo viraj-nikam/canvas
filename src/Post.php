@@ -102,6 +102,20 @@ class Post extends Model
     }
 
     /**
+     * Get the human-friendly reading time of a post.
+     *
+     * @param $value
+     * @return string
+     */
+    public function getReadingTimeAttribute($value): string
+    {
+        $words = str_word_count(strip_tags($this->body));
+        $minutes = ceil($words / 200);
+
+        return sprintf('%s %s %s', $minutes, str_plural(' min', $minutes), ' read');
+    }
+
+    /**
      * Scope a query to only include published posts.
      *
      * @param Builder $query

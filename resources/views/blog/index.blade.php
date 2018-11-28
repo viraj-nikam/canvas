@@ -7,23 +7,15 @@
         <div class="container mt-5">
             <div class="row justify-content-md-center">
                 <div class="col col-lg-8">
-                    <h2 class="mb-5 serif">@isset($data['tag']) {{ $data['tag'] }} @else Blog @endisset</h2>
+                    <h2 class="mb-5 serif">@isset($data['tag']) {{ sprintf('Posts in:%s', $data['tag']) }} @endisset</h2>
                     @foreach($data['posts'] as $post)
-                        <div class="card mb-3">
-                            <div class="card-body">
-                                <h2 class="card-title"><a href="{{ route('blog.post.show', $post->slug) }}">{{ $post->title }}</a></h2>
-                                <p class="card-text">{{ $post->summary }}</p>
+                        <p class="small text-muted text-uppercase pt-5">Published on {{ \Carbon\Carbon::parse($post->published_at)->format('M d, Y') }}</p>
+                        <h2 class="serif my-3 content-title font-weight-bold"><a href="{{ route('blog.post.show', $post->slug) }}">{{ $post->title }}</a></h2>
+                        <p class="content-body serif">{{ str_limit($post->body, 200) }}</p>
 
-                                <div class="d-flex justify-content-between">
-                                    <p class="small text-muted my-auto">Published on {{ \Carbon\Carbon::parse($post->published_at)->format('M d, Y') }}</p>
-                                    <a href="#" class="badge badge-light p-2 my-auto">Web Development</a>
-                                    @if($post->tags->count() > 0)
-                                        @foreach($post->tags as $tag)
-                                            <a href="{{ route('blog.tag.show', $tag->slug) }}" class="badge badge-pill badge-primary">{{ $tag->name }}</a>
-                                        @endforeach
-                                    @endif
-                                </div>
-                            </div>
+                        <div class="d-flex justify-content-between mb-5">
+                            <p class="text-uppercase text-muted">{{ $post->readingTime }}</p>
+                            <a href="{{ route('blog.post.show', $post->slug) }}" class="text-muted text-uppercase">Read full post</a>
                         </div>
                     @endforeach
                 </div>

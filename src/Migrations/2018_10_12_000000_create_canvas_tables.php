@@ -17,11 +17,11 @@ class CreateCanvasTables extends Migration
             $table->uuid('id')->primary();
             $table->string('slug')->unique();
             $table->string('title');
-            $table->text('summary');
-            $table->text('body');
+            $table->text('summary')->nullable();
+            $table->text('body')->nullable();
             $table->dateTime('published_at')->default('2018-10-12 00:00:00');
             $table->string('featured_image')->nullable();
-            $table->string('featured_image_caption');
+            $table->string('featured_image_caption')->nullable();
             $table->string('user_id')->index();
             $table->text('meta')->nullable();
             $table->timestamps();
