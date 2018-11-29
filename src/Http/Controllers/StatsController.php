@@ -13,10 +13,16 @@ class StatsController extends Controller
      *
      * @return View
      */
-    public function index(): View
+    public function __invoke(): View
     {
+        $posts = Post::all();
+
         $data = [
-            'posts' => Post::published()->get(),
+            'posts' => [
+                'all'       => $posts,
+                'published' => $posts->where('published_at', '<=', now()->toDateTimeString()),
+                'drafts'    => $posts->where('published_at', '>', now()->toDateTimeString()),
+            ]
         ];
 
         return view('canvas::canvas.stats.index', compact('data'));
