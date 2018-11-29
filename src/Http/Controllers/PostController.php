@@ -91,9 +91,9 @@ class PostController extends Controller
         $data = [
             'id'           => request('id'),
             'title'        => request('title', 'Post Title'),
-            'summary'      => request('summary'),
+            'summary'      => request('summary', null),
             'slug'         => request('slug'),
-            'body'         => request('body'),
+            'body'         => request('body', null),
             'user_id'      => auth()->user()->id,
             'meta'         => [
                 'meta_description'    => request('meta_description', null),
