@@ -11,6 +11,7 @@ use Canvas\Events\PostViewed;
 use Illuminate\Validation\Rule;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -89,32 +90,35 @@ class PostController extends Controller
     public function store(): RedirectResponse
     {
         $data = [
-            'id'           => request('id'),
-            'title'        => request('title', 'Post Title'),
-            'summary'      => request('summary', null),
-            'slug'         => request('slug'),
-            'body'         => request('body', null),
-            'user_id'      => auth()->user()->id,
-            'meta'         => [
+            'id'                     => request('id'),
+            'slug'                   => request('slug'),
+            'title'                  => request('title', 'Post Title'),
+            'summary'                => request('summary', null),
+            'body'                   => request('body', null),
+            'published_at'           => Carbon::parse(request('published_at'))->toDateTimeString(),
+            'featured_image'         => request()->file('featured_image', null),
+            'featured_image_caption' => request('featured_image_caption', null),
+            'user_id'                => auth()->user()->id,
+            'meta'                   => [
                 'meta_description'    => request('meta_description', null),
                 'og_title'            => request('og_title', null),
                 'og_description'      => request('og_description', null),
                 'twitter_title'       => request('twitter_title', null),
                 'twitter_description' => request('twitter_description', null),
             ],
-            'published_at' => Carbon::parse(request('published_at'))->toDateTimeString(),
         ];
 
         validator($data, [
-            'published_at' => 'required|date',
-            'user_id'      => 'required',
-            'title'        => 'required',
-            'slug'         => 'required|'.Rule::unique('canvas_posts', 'slug')->ignore(request('id')).'|regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/i',
+            'title'          => 'required',
+            'slug'           => 'required|' . Rule::unique('canvas_posts', 'slug')->ignore(request('id')) . '|regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/i',
+            'published_at'   => 'required|date',
+            'user_id'        => 'required',
         ])->validate();
 
         $post = new Post(['id' => request('id')]);
         $post->fill($data);
         $post->meta = $data['meta'];
+        $post->featured_image = $this->uploadImage($data['featured_image']);
         $post->save();
         $post->tags()->sync(
             $this->collectTags(request('tags') ?? [])
@@ -135,26 +139,29 @@ class PostController extends Controller
         $post = Post::findOrFail($id);
 
         $data = [
-            'title'        => request('title'),
-            'summary'      => request('summary', null),
-            'slug'         => request('slug'),
-            'body'         => request('body', null),
-            'user_id'      => $post->user_id,
-            'meta'         => [
+            'id'                     => request('id'),
+            'slug'                   => request('slug'),
+            'title'                  => request('title', 'Post Title'),
+            'summary'                => request('summary', null),
+            'body'                   => request('body', null),
+            'published_at'           => Carbon::parse(request('published_at'))->toDateTimeString(),
+            'featured_image'         => request('featured_image', null),
+            'featured_image_caption' => request('featured_image_caption', null),
+            'user_id'                => $post->user->id,
+            'meta'                   => [
                 'meta_description'    => request('meta_description', null),
                 'og_title'            => request('og_title', null),
                 'og_description'      => request('og_description', null),
                 'twitter_title'       => request('twitter_title', null),
                 'twitter_description' => request('twitter_description', null),
             ],
-            'published_at' => Carbon::parse(request('published_at'))->toDateTimeString(),
         ];
 
         validator($data, [
+            'title'        => 'required',
+            'slug'         => 'required|' . Rule::unique('canvas_posts', 'slug')->ignore($id) . '|regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/i',
             'published_at' => 'required',
             'user_id'      => 'required',
-            'title'        => 'required',
-            'slug'         => 'required|'.Rule::unique('canvas_posts', 'slug')->ignore($id).'|regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/i',
         ])->validate();
 
         $post->fill($data);
@@ -195,7 +202,7 @@ class PostController extends Controller
 
         return collect($incomingTags)->map(function ($incomingTag) use ($tags) {
             $tag = $tags->where('slug', Str::slug($incomingTag['name']))->first();
-            if (! $tag) {
+            if (!$tag) {
                 $tag = Tag::create([
                     'id'   => $id = Str::uuid(),
                     'name' => $incomingTag['name'],
@@ -203,7 +210,24 @@ class PostController extends Controller
                 ]);
             }
 
-            return (string) $tag->id;
+            return (string)$tag->id;
         })->toArray();
+    }
+
+    /**
+     * Upload an image.
+     *
+     * @param $image|null
+     * @return string|null
+     */
+    private function uploadImage($image)
+    {
+        if (! is_null($image)) {
+            $path = $image->store(config('canvas.storage_path'), config('canvas.storage_disk'));
+
+            return Storage::disk(config('canvas.storage_disk'))->url($path);
+        } else {
+            return null;
+        }
     }
 }

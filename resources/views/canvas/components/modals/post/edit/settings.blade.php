@@ -29,14 +29,9 @@
                 <div class="form-group row">
                     <label class="col-lg-4 col-form-label text-lg-left">Summary</label>
                     <div class="col-lg-8">
-                        <input type="text" class="form-control{{ $errors->has('summary') ? ' is-invalid' : '' }}"
+                        <input type="text" class="form-control"
                                name="summary" title="Summary" value="{{ $data['post']->summary }}"
                                placeholder="A descriptive summary..">
-                        @if ($errors->has('summary'))
-                            <div class="invalid-feedback">
-                                <strong>{{ $errors->first('summary') }}</strong>
-                            </div>
-                        @endif
                     </div>
                 </div>
             </div>

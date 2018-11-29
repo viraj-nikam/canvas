@@ -10,53 +10,51 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-10">
-                <h1>Posts</h1>
+                <h1 class="mb-4 mt-1">Posts</h1>
 
                 @include('canvas::canvas.components.notifications.success')
                 @include('canvas::canvas.components.notifications.error')
 
                 @if(count($data['posts']))
-                    <div class="table-responsive">
-                        <table class="table table-borderless mb-0 mt-4">
-                            <tbody>
-                            @foreach($data['posts'] as $post)
-                                <tr class="border-top">
-                                    <td>
-                                        <p class="mb-0 py-2">
-                                            <a href="{{ route('canvas.post.edit', $post->id) }}"
-                                               class="font-weight-bold lead">{{ $post->title }}</a>
-                                            @if($post->summary)
-                                                <br>
-                                                {{ $post->summary }}
-                                            @endif
-                                            <br>
-                                            <small class="text-muted">
-                                                @if($post->published)
-                                                    Published {{ \Carbon\Carbon::parse($post->published_at)->diffForHumans() }}
-                                                @else
-                                                    <span class="text-danger">Draft</span>
-                                                @endif
-                                                ―
-                                                Updated {{ \Carbon\Carbon::parse($post->updated_at)->diffForHumans() }}
-                                                @if(count($post->tags))
-                                                    ― Tags: {{ implode(', ', $post->tags) }}
-                                                @endif
-                                            </small>
-                                        </p>
-                                    </td>
-                                    <td class="text-right align-middle">
-                                        <a href="{{ route('canvas.post.edit', $post->id) }}">
-                                                <span class="fa-stack fa-2x align-middle">
-                                                    <i class="fas fa-circle fa-stack-2x text-black-50"></i>
-                                                    <i class="far fa-fw fa-stack-1x fa-image fa-inverse"></i>
-                                                </span>
-                                        </a>
-                                    </td>
-                                </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
-                    </div>
+                    @foreach($data['posts'] as $post)
+                        <div class="d-flex border-top py-3 align-items-center">
+                            <div class="mr-auto">
+                                <p class="mb-0 py-2">
+                                    <a href="{{ route('canvas.post.edit', $post->id) }}"
+                                       class="font-weight-bold lead">{{ $post->title }}</a>
+                                    @if($post->summary)
+                                        <br>
+                                        {{ $post->summary }}
+                                    @endif
+                                    <br>
+                                    <small class="text-muted">
+                                        @if($post->published)
+                                            Published {{ \Carbon\Carbon::parse($post->published_at)->diffForHumans() }}
+                                        @else
+                                            <span class="text-danger">Draft</span>
+                                        @endif
+                                        ―
+                                        Updated {{ \Carbon\Carbon::parse($post->updated_at)->diffForHumans() }}
+                                        @if(count($post->tags))
+                                            ― Tags: {{ implode(', ', $post->tags) }}
+                                        @endif
+                                    </small>
+                                </p>
+                            </div>
+                            <div class="ml-auto d-none d-lg-block">
+                                <a href="{{ route('canvas.post.edit', $post->id) }}">
+                                    @isset($post->featured_image)
+                                        {{--<div style="background-size: cover;background-image: url({{ $post->featured_image }});width: 86px; height: 86px; -webkit-border-radius: 50%;-moz-border-radius: 50%;border-radius: 50%;"></div>--}}
+                                    @else
+                                        <span class="fa-stack fa-2x align-middle">
+                                            <i class="fas fa-circle fa-stack-2x text-black-50"></i>
+                                            <i class="far fa-fw fa-stack-1x fa-image fa-inverse"></i>
+                                        </span>
+                                    @endisset
+                                </a>
+                            </div>
+                        </div>
+                    @endforeach
 
                     {{ $data['posts']->links() }}
                 @else

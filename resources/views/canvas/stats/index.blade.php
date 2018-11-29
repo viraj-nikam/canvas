@@ -10,10 +10,10 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-10">
-                <h1>Stats</h1>
+                <h1 class="mt-1">Stats</h1>
 
                 @if($data['posts']['all']->isNotEmpty())
-                    <p class="my-4">Discover some valuable insights for you and your content.</p>
+                    <p class="mt-3 mb-4">Discover some valuable insights for you and your content.</p>
 
                     <div class="d-flex justify-content-between">
                         <div class="text-left">

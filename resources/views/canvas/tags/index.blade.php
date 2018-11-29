@@ -10,34 +10,27 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-10">
-                <h1>Tags</h1>
+                <h1 class="mb-4 mt-1">Tags</h1>
 
                 @include('canvas::canvas.components.notifications.success')
                 @include('canvas::canvas.components.notifications.error')
 
                 @if(count($data['tags']))
-                    <div class="table-responsive">
-                        <table class="table table-borderless mb-0 mt-4">
-                            <tbody>
-                            @foreach($data['tags'] as $tag)
-                                <tr class="border-top">
-                                    <td class="align-middle">
-                                        <p class="mb-0 py-2">
-                                            <a href="{{ route('canvas.tag.edit', $tag->id) }}"
-                                               class="font-weight-bold lead">{{ $tag->name }}</a>
-                                            <br>
-                                    </td>
-                                    <td class="text-right align-middle">
-                                        <p class="mb-0">
-                                            <span class="text-muted mr-3">{{ $tag->posts_count }} Post(s)</span>
-                                            Created {{ \Carbon\Carbon::parse($tag->created_at)->diffForHumans() }}
-                                        </p>
-                                    </td>
-                                </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
-                    </div>
+                    @foreach($data['tags'] as $tag)
+                        <div class="d-flex border-top py-3 align-items-center">
+                            <div class="mr-auto">
+                                <p class="mb-0 py-2">
+                                    <a href="{{ route('canvas.tag.edit', $tag->id) }}"
+                                       class="font-weight-bold lead">{{ $tag->name }}</a>
+                                    <br>
+                                </p>
+                            </div>
+                            <div class="ml-auto">
+                                <span class="text-muted mr-3">{{ $tag->posts_count }} Post(s)</span>
+                                Created {{ \Carbon\Carbon::parse($tag->created_at)->diffForHumans() }}
+                            </div>
+                        </div>
+                    @endforeach
 
                     {{ $data['tags']->links() }}
                 @else

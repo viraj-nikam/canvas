@@ -43,15 +43,6 @@ class Tag extends Model
     public $incrementing = false;
 
     /**
-     * The attributes that should be casted.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'meta' => 'array',
-    ];
-
-    /**
      * The posts that have the tag.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany

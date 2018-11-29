@@ -33,7 +33,6 @@ class CreateCanvasTables extends Migration
             $table->uuid('id')->primary();
             $table->string('slug')->unique();
             $table->string('name');
-            $table->json('meta')->nullable();
             $table->timestamps();
             $table->softDeletes();
 

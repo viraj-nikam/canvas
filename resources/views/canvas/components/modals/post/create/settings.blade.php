@@ -5,27 +5,17 @@
                 <div class="form-group row">
                     <label class="col-lg-4 col-form-label text-lg-left">Slug</label>
                     <div class="col-lg-8">
-                        <input type="text" class="form-control{{ $errors->has('slug') ? ' is-invalid' : '' }}"
+                        <input type="text" class="form-control"
                                name="slug" title="Slug" value="{{ old('slug', 'post-'.$data['id']) }}" required
                                placeholder="a-unique-slug">
-                        @if ($errors->has('slug'))
-                            <div class="invalid-feedback">
-                                <strong>{{ $errors->first('slug') }}</strong>
-                            </div>
-                        @endif
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-lg-4 col-form-label text-lg-left">Summary</label>
                     <div class="col-lg-8">
-                        <input type="text" class="form-control{{ $errors->has('summary') ? ' is-invalid' : '' }}"
+                        <input type="text" class="form-control"
                                name="summary" title="Summary" value="{{ old('summary') }}"
                                placeholder="A descriptive summary..">
-                        @if ($errors->has('summary'))
-                            <div class="invalid-feedback">
-                                <strong>{{ $errors->first('summary') }}</strong>
-                            </div>
-                        @endif
                     </div>
                 </div>
                 <div class="form-group row">

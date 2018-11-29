@@ -17,15 +17,11 @@
     </div>
     <div class="form-group row">
         <div class="col-lg-12">
-                    <textarea class="form-control-lg form-control{{ $errors->has('body') ? ' is-invalid' : '' }} border-0"
+                    <textarea
+                            class="form-control-lg form-control{{ $errors->has('body') ? ' is-invalid' : '' }} border-0"
                             name="body" id="body"
                             cols="30" rows="10"
                             placeholder="Tell your story..">{{ $data['post']->body }}</textarea>
-            @if ($errors->has('body'))
-                <div class="invalid-feedback">
-                    <strong>{{ $errors->first('body') }}</strong>
-                </div>
-            @endif
         </div>
     </div>
     @include('canvas::canvas.components.modals.post.edit.settings')
