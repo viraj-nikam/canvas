@@ -6,7 +6,7 @@
                     <label class="col-lg-4 col-form-label text-lg-left">Meta Description</label>
                     <div class="col-lg-8">
                         <input type="text" class="form-control{{ $errors->has('meta_description') ? ' is-invalid' : '' }}"
-                               name="meta_description" title="Meta Description" value="{{ $data['post']->meta_description }}"
+                               name="meta_description" title="Meta Description" value="{{ $data['meta']['meta_description'] }}"
                                placeholder="Meta Description">
                         @if ($errors->has('meta_description'))
                             <div class="invalid-feedback">
@@ -20,7 +20,7 @@
                     <div class="col-lg-8">
                         <input type="text"
                                class="form-control{{ $errors->has('og_title') ? ' is-invalid' : '' }}"
-                               name="og_title" title="Facebook Card Title" value="{{ $data['post']->og_title }}"
+                               name="og_title" title="Facebook Card Title" value="{{ $data['meta']['og_title'] }}"
                                placeholder="Facebook Card Title">
                         @if ($errors->has('og_title'))
                             <div class="invalid-feedback">
@@ -35,7 +35,7 @@
                         <input type="text"
                                class="form-control{{ $errors->has('og_description') ? ' is-invalid' : '' }}"
                                name="og_description" title="Facebook Card Description"
-                               value="{{ $data['post']->og_description }}"
+                               value="{{ $data['meta']['og_description'] }}"
                                placeholder="Facebook Card Description">
                         @if ($errors->has('og_description'))
                             <div class="invalid-feedback">
@@ -54,7 +54,7 @@
                     <label class="col-lg-4 col-form-label text-lg-left">Twitter Card Title</label>
                     <div class="col-lg-8">
                         <input type="text" class="form-control{{ $errors->has('twitter_title') ? ' is-invalid' : '' }}"
-                               name="twitter_title" title="Twitter Card Title" value="{{ $data['post']->twitter_title }}"
+                               name="twitter_title" title="Twitter Card Title" value="{{ $data['meta']['twitter_title'] }}"
                                placeholder="Twitter Card Title">
                         @if ($errors->has('twitter_title'))
                             <div class="invalid-feedback">
@@ -69,7 +69,7 @@
                         <input type="text"
                                class="form-control{{ $errors->has('twitter_description') ? ' is-invalid' : '' }}"
                                name="twitter_description" title="Twitter Card Description"
-                               value="{{ $data['post']->twitter_description }}"
+                               value="{{ $data['meta']['twitter_description'] }}"
                                placeholder="Twitter Card Description">
                         @if ($errors->has('twitter_description'))
                             <div class="invalid-feedback">

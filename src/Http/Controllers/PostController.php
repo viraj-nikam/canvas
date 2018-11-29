@@ -11,7 +11,6 @@ use Canvas\Events\PostViewed;
 use Illuminate\Validation\Rule;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Event;
 
 class PostController extends Controller
 {
@@ -37,8 +36,11 @@ class PostController extends Controller
      */
     public function show(string $slug): View
     {
+        $post = Post::with('tags')->where('slug', $slug)->first();
+
         $data = [
-            'post' => Post::with('tags')->where('slug', $slug)->first(),
+            'post' => $post,
+            'meta' => $post->meta,
         ];
 
         event(new PostViewed($data['post']));
@@ -69,8 +71,11 @@ class PostController extends Controller
      */
     public function edit(string $id): View
     {
+        $post = Post::findOrFail($id);
+
         $data = [
-            'post' => Post::findOrFail($id),
+            'post' => $post,
+            'meta' => $post->meta,
         ];
 
         return view('canvas::canvas.posts.edit', compact('data'));
@@ -90,19 +95,26 @@ class PostController extends Controller
             'slug'         => request('slug'),
             'body'         => request('body'),
             'user_id'      => auth()->user()->id,
+            'meta'         => [
+                'meta_description'    => request('meta_description', null),
+                'og_title'            => request('og_title', null),
+                'og_description'      => request('og_description', null),
+                'twitter_title'       => request('twitter_title', null),
+                'twitter_description' => request('twitter_description', null),
+            ],
             'published_at' => Carbon::parse(request('published_at'))->toDateTimeString(),
-            'meta'         => request('meta', (object) []),
         ];
 
         validator($data, [
             'published_at' => 'required|date',
             'user_id'      => 'required',
             'title'        => 'required',
-            'slug'         => 'required|'.Rule::unique('canvas_posts', 'slug')->ignore(request('id')).'|regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/i',
+            'slug'         => 'required|' . Rule::unique('canvas_posts', 'slug')->ignore(request('id')) . '|regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/i',
         ])->validate();
 
         $post = new Post(['id' => request('id')]);
         $post->fill($data);
+        $post->meta = $data['meta'];
         $post->save();
         $post->tags()->sync(
             $this->collectTags(request('tags') ?? [])
@@ -124,10 +136,17 @@ class PostController extends Controller
 
         $data = [
             'title'        => request('title'),
-            'summary'      => request('summary'),
+            'summary'      => request('summary', null),
             'slug'         => request('slug'),
-            'body'         => request('body'),
+            'body'         => request('body', null),
             'user_id'      => $post->user_id,
+            'meta'         => [
+                'meta_description'    => request('meta_description', null),
+                'og_title'            => request('og_title', null),
+                'og_description'      => request('og_description', null),
+                'twitter_title'       => request('twitter_title', null),
+                'twitter_description' => request('twitter_description', null),
+            ],
             'published_at' => Carbon::parse(request('published_at'))->toDateTimeString(),
         ];
 
@@ -135,10 +154,11 @@ class PostController extends Controller
             'published_at' => 'required',
             'user_id'      => 'required',
             'title'        => 'required',
-            'slug'         => 'required|'.Rule::unique('canvas_posts', 'slug')->ignore($id).'|regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/i',
+            'slug'         => 'required|' . Rule::unique('canvas_posts', 'slug')->ignore($id) . '|regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/i',
         ])->validate();
 
         $post->fill($data);
+        $post->meta = $data['meta'];
         $post->save();
         $post->tags()->sync(
             $this->collectTags(request('tags') ?? [])
@@ -175,7 +195,7 @@ class PostController extends Controller
 
         return collect($incomingTags)->map(function ($incomingTag) use ($tags) {
             $tag = $tags->where('slug', Str::slug($incomingTag['name']))->first();
-            if (! $tag) {
+            if (!$tag) {
                 $tag = Tag::create([
                     'id'   => $id = Str::uuid(),
                     'name' => $incomingTag['name'],
@@ -183,7 +203,7 @@ class PostController extends Controller
                 ]);
             }
 
-            return (string) $tag->id;
+            return (string)$tag->id;
         })->toArray();
     }
 }

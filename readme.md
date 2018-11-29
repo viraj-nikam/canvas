@@ -98,9 +98,10 @@ composer test
 
 ## Roadmap
 
-- [X] Add useful statistics data.
+- [X] Add useful statistics data. @austintoddj
+- [ ] Provide SEO and metadata. @austintoddj
 - [ ] Convert post/tag titles to slugs with a [simple Vue component](https://codepen.io/tatthien/pen/xVBxZQ).
-- [ ] Add support for image uploads. [@austintoddj](https://github.com/austintoddj)
+- [ ] Add support for image uploads. @austintoddj
 - [ ] Add a [QuillJS Vue component](https://pineco.de/wrapping-quill-editor-in-a-vue-component/) as the default text editor.
 - [ ] Add support for [multiple tags](https://vue-multiselect.js.org/#sub-multiple-select) on a single post.
 - [ ] Add post/tag filtering.
