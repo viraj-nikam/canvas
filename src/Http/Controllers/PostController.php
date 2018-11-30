@@ -127,7 +127,7 @@ class PostController extends Controller
             $this->collectTags(request('tags') ?? [])
         );
 
-        return redirect(route('canvas.post.edit', $post->id));
+        return redirect(route('canvas.post.edit', $post->id))->with('notify', 'Saved!');
     }
 
     /**
@@ -176,7 +176,7 @@ class PostController extends Controller
             $this->collectTags(request('tags') ?? [])
         );
 
-        return redirect(route('canvas.post.edit', $post->id));
+        return redirect(route('canvas.post.edit', $post->id))->with('notify', 'Saved!');
     }
 
     /**

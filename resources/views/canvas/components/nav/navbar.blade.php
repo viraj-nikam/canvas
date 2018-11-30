@@ -7,7 +7,7 @@
 
     <ul class="navbar-nav mr-auto flex-row float-right">
         <li class="text-muted font-weight-bold">
-            @yield('status')
+            @yield('status') @if (session('notify')) — <span class="text-success">{{ session('notify') }}</span>@endif
         </li>
     </ul>
 
