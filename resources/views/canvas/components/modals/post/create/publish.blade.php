@@ -15,7 +15,7 @@
             <div class="modal-footer">
                 <a href="#" class="btn btn-primary"
                    onclick="event.preventDefault();document.getElementById('form-create').submit();"
-                   aria-label="Publish this post">Schedule to publish</a>
+                   aria-label="Publish this post">Publish</a>
                 <button class="btn btn-link text-muted" data-dismiss="modal">Cancel</button>
             </div>
         </div>

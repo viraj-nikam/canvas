@@ -12,9 +12,6 @@
             <div class="col-md-10">
                 <h1 class="mb-4 mt-1">Posts</h1>
 
-                @include('canvas::canvas.components.notifications.success')
-                @include('canvas::canvas.components.notifications.error')
-
                 @if(count($data['posts']))
                     @foreach($data['posts'] as $post)
                         <div class="d-flex border-top py-3 align-items-center">

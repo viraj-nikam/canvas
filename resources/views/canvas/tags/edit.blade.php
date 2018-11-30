@@ -20,8 +20,6 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
-                @include('canvas::canvas.components.notifications.success')
-                @include('canvas::canvas.components.notifications.error')
                 @include('canvas::canvas.components.forms.tag.edit')
                 @include('canvas::canvas.components.modals.tag.delete')
             </div>

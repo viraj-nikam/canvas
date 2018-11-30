@@ -127,8 +127,7 @@ class PostController extends Controller
             $this->collectTags(request('tags') ?? [])
         );
 
-        return redirect(route('canvas.post.index'))
-            ->with('success', 'The post has been created.');
+        return redirect(route('canvas.post.edit', $post->id));
     }
 
     /**
@@ -177,8 +176,7 @@ class PostController extends Controller
             $this->collectTags(request('tags') ?? [])
         );
 
-        return redirect(route('canvas.post.index'))
-            ->with('success', 'The post has been updated.');
+        return redirect(route('canvas.post.edit', $post->id));
     }
 
     /**
@@ -192,8 +190,7 @@ class PostController extends Controller
         $post = Post::findOrFail($id);
         $post->delete();
 
-        return redirect(route('canvas.post.index'))
-            ->with('success', 'The post has been deleted.');
+        return redirect(route('canvas.post.index'));
     }
 
     /**

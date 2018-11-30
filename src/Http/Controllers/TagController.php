@@ -91,8 +91,7 @@ class TagController extends Controller
         $tag->fill($data);
         $tag->save();
 
-        return redirect(route('canvas.tag.index'))
-            ->with('success', 'The tag has been created.');
+        return redirect(route('canvas.tag.index'));
     }
 
     /**
@@ -119,8 +118,7 @@ class TagController extends Controller
         $tag->fill($data);
         $tag->save();
 
-        return redirect(route('canvas.tag.index'))
-            ->with('success', 'The tag has been updated.');
+        return redirect(route('canvas.tag.index'));
     }
 
     /**
@@ -134,7 +132,6 @@ class TagController extends Controller
         $tag = Tag::findOrFail($id);
         $tag->delete();
 
-        return redirect(route('canvas.tag.index'))
-            ->with('success', 'The tag has been deleted.');
+        return redirect(route('canvas.tag.index'));
     }
 }
