@@ -9,6 +9,7 @@ use Illuminate\View\View;
 use Illuminate\Support\Str;
 use Canvas\Events\PostViewed;
 use Illuminate\Validation\Rule;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
@@ -109,16 +110,18 @@ class PostController extends Controller
         ];
 
         validator($data, [
-            'title'          => 'required',
-            'slug'           => 'required|'.Rule::unique('canvas_posts', 'slug')->ignore(request('id')).'|regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/i',
-            'published_at'   => 'required|date',
-            'user_id'        => 'required',
+            'title'        => 'required',
+            'slug'         => 'required|' . Rule::unique('canvas_posts', 'slug')->ignore(request('id')) . '|regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/i',
+            'published_at' => 'required|date',
+            'user_id'      => 'required',
         ])->validate();
 
         $post = new Post(['id' => request('id')]);
         $post->fill($data);
+        if (!is_null($data['featured_image'])) {
+            $post->featured_image = $this->uploadImage($data['featured_image']);
+        }
         $post->meta = $data['meta'];
-        $post->featured_image = $this->uploadImage($data['featured_image']);
         $post->save();
         $post->tags()->sync(
             $this->collectTags(request('tags') ?? [])
@@ -145,7 +148,7 @@ class PostController extends Controller
             'summary'                => request('summary', null),
             'body'                   => request('body', null),
             'published_at'           => Carbon::parse(request('published_at'))->toDateTimeString(),
-            'featured_image'         => request('featured_image', null),
+            'featured_image'         => request('featured_image', $post->featured_image),
             'featured_image_caption' => request('featured_image_caption', null),
             'user_id'                => $post->user->id,
             'meta'                   => [
@@ -159,11 +162,14 @@ class PostController extends Controller
 
         validator($data, [
             'title'        => 'required',
-            'slug'         => 'required|'.Rule::unique('canvas_posts', 'slug')->ignore($id).'|regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/i',
+            'slug'         => 'required|' . Rule::unique('canvas_posts', 'slug')->ignore($id) . '|regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/i',
             'published_at' => 'required',
             'user_id'      => 'required',
         ])->validate();
 
+        if ($data['featured_image'] != $post->featured_image) {
+            $post->featured_image = $this->uploadImage($data['featured_image']);
+        }
         $post->fill($data);
         $post->meta = $data['meta'];
         $post->save();
@@ -202,7 +208,7 @@ class PostController extends Controller
 
         return collect($incomingTags)->map(function ($incomingTag) use ($tags) {
             $tag = $tags->where('slug', Str::slug($incomingTag['name']))->first();
-            if (! $tag) {
+            if (!$tag) {
                 $tag = Tag::create([
                     'id'   => $id = Str::uuid(),
                     'name' => $incomingTag['name'],
@@ -210,24 +216,20 @@ class PostController extends Controller
                 ]);
             }
 
-            return (string) $tag->id;
+            return (string)$tag->id;
         })->toArray();
     }
 
     /**
      * Upload an image.
      *
-     * @param $image|null
-     * @return string|null
+     * @param UploadedFile $image
+     * @return string
      */
-    private function uploadImage($image)
+    private function uploadImage(UploadedFile $image): string
     {
-        if (! is_null($image)) {
-            $path = $image->store(config('canvas.storage_path'), config('canvas.storage_disk'));
+        $path = $image->store(config('canvas.storage_path'), config('canvas.storage_disk'));
 
-            return Storage::disk(config('canvas.storage_disk'))->url($path);
-        } else {
-            return;
-        }
+        return Storage::disk(config('canvas.storage_disk'))->url($path);
     }
 }

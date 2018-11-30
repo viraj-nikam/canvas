@@ -1,4 +1,4 @@
-<form role="form" id="form-edit" method="POST" action="{{ route('canvas.post.update', $data['post']->id) }}">
+<form role="form" id="form-edit" method="POST" action="{{ route('canvas.post.update', $data['post']->id) }}" enctype="multipart/form-data">
     @method('PUT')
     @csrf
 
