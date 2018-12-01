@@ -147,7 +147,7 @@ class PostController extends Controller
             'summary'                => request('summary', null),
             'body'                   => request('body', null),
             'published_at'           => Carbon::parse(request('published_at'))->toDateTimeString(),
-            'featured_image'         => request('featured_image', $post->featured_image),
+            'featured_image'         => request()->file('featured_image', $post->featured_image),
             'featured_image_caption' => request('featured_image_caption', null),
             'user_id'                => $post->user->id,
             'meta'                   => [
@@ -167,7 +167,7 @@ class PostController extends Controller
         ])->validate();
 
         if ($data['featured_image'] != $post->featured_image) {
-            $post->featured_image = $this->uploadImage($data['featured_image']);
+            $data['featured_image'] = $this->uploadImage($data['featured_image']);
         }
         $post->fill($data);
         $post->meta = $data['meta'];
