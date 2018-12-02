@@ -3,60 +3,46 @@
         <div class="modal-content">
             <div class="modal-body">
                 <div class="form-group row">
-                    <label class="col-lg-4 col-form-label text-lg-left">Meta Description</label>
-                    <div class="col-lg-8">
+                    <div class="col-12">
+                        <label for="meta_description" class="font-weight-bold">Meta Description</label>
                         <input type="text" class="form-control"
                                name="meta_description" title="Meta Description" value="{{ $data['meta']['meta_description'] }}"
                                placeholder="Meta Description">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-lg-4 col-form-label text-lg-left">Facebook Card Title</label>
-                    <div class="col-lg-8">
+                    <div class="col-12">
+                        <label for="og_title" class="font-weight-bold">Facebook Card Title</label>
                         <input type="text"
                                class="form-control"
                                name="og_title" title="Facebook Card Title" value="{{ $data['meta']['og_title'] }}"
-                               placeholder="Facebook Card Title">
+                               placeholder="Title in Facebook Card">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-lg-4 col-form-label text-lg-left">Facebook Card Description</label>
-                    <div class="col-lg-8">
+                    <div class="col-12">
+                        <label for="og_description" class="font-weight-bold">Facebook Card Description</label>
                         <input type="text"
                                class="form-control"
                                name="og_description" title="Facebook Card Description"
                                value="{{ $data['meta']['og_description'] }}"
-                               placeholder="Facebook Card Description">
+                               placeholder="Description in Facebook card">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-lg-4 col-form-label text-lg-left">Facebook Card Image</label>
-                    <div class="col-lg-8">
-                        Please <a href="#">upload</a> an image.
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-lg-4 col-form-label text-lg-left">Twitter Card Title</label>
-                    <div class="col-lg-8">
+                    <div class="col-12">
+                        <label for="twitter_title" class="font-weight-bold">Twitter Card Title</label>
                         <input type="text" class="form-control"
                                name="twitter_title" title="Twitter Card Title" value="{{ $data['meta']['twitter_title'] }}"
-                               placeholder="Twitter Card Title">
+                               placeholder="Title in Twitter Card">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-lg-4 col-form-label text-lg-left">Twitter Card Description</label>
-                    <div class="col-lg-8">
-                        <input type="text"
-                               class="form-control"
-                               name="twitter_description" title="Twitter Card Description"
-                               value="{{ $data['meta']['twitter_description'] }}"
-                               placeholder="Twitter Card Description">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-lg-4 col-form-label text-lg-left">Twitter Card Image</label>
-                    <div class="col-lg-8">
-                        Please <a href="#">upload</a> an image.
+                    <div class="col-12">
+                        <label for="twitter_description" class="font-weight-bold">Twitter Card Description</label>
+                        <input type="text" class="form-control"
+                               name="twitter_description" title="Twitter Card Description" value="{{ $data['meta']['twitter_description'] }}"
+                               placeholder="Description in Twitter Card">
                     </div>
                 </div>
             </div>

@@ -3,8 +3,8 @@
         <div class="modal-content">
             <div class="modal-body">
                 <div class="form-group row">
-                    <label class="col-lg-4 col-form-label text-lg-left">Publish at</label>
-                    <div class="col-lg-8">
+                    <div class="col-12">
+                        <label for="published_at" class="font-weight-bold">Publish Date</label>
                         <input name="published_at"
                                type="datetime-local"
                                class="form-control{{ $errors->has('published_at') ? ' is-invalid' : '' }}"

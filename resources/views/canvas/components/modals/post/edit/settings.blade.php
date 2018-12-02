@@ -3,8 +3,8 @@
         <div class="modal-content">
             <div class="modal-body">
                 <div class="form-group row">
-                    <label class="col-lg-4 col-form-label text-lg-left">Slug</label>
-                    <div class="col-lg-8">
+                    <div class="col-12">
+                        <label for="published_at" class="font-weight-bold">Slug</label>
                         <input type="text" class="form-control{{ $errors->has('slug') ? ' is-invalid' : '' }}"
                                name="slug" title="Slug" value="{{ $data['post']->slug }}" required
                                placeholder="a-unique-slug">
@@ -16,9 +16,9 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-lg-4 col-form-label text-lg-left">Tags</label>
-                    <div class="col-lg-8">
-                        <select class="form-control" name="tags" id="tags">
+                    <div class="col-12">
+                        <label for="published_at" class="font-weight-bold">Tags</label>
+                        <select class="custom-select" name="tags" id="tags">
                             <option disabled selected>Select some tags..</option>
                             @foreach($data['post']->tags as $tag)
                                 <option value="{{ $tag->id }}">{{ $tag->name }}</option>
@@ -27,8 +27,8 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-lg-4 col-form-label text-lg-left">Summary</label>
-                    <div class="col-lg-8">
+                    <div class="col-12">
+                        <label for="published_at" class="font-weight-bold">Summary</label>
                         <input type="text" class="form-control"
                                name="summary" title="Summary" value="{{ $data['post']->summary }}"
                                placeholder="A descriptive summary..">
