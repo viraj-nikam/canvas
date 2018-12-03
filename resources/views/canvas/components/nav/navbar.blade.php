@@ -1,4 +1,4 @@
-<nav class="navbar navbar-light shadow-sm justify-content-between flex-nowrap flex-row">
+<nav class="navbar navbar-light border-bottom justify-content-between flex-nowrap flex-row">
     <!-- Left Side Of Navbar -->
     <a class="navbar-brand logo mr-4 font-weight-bold py-0 @hasSection('status') d-none d-md-block @endif"
        href="{{ route('canvas.index') }}">

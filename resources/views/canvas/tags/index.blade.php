@@ -14,7 +14,7 @@
 
                 @if(count($data['tags']))
                     @foreach($data['tags'] as $tag)
-                        <div class="d-flex border-top py-3 align-items-center">
+                        <div class="d-flex border-top py-2 align-items-center">
                             <div class="mr-auto">
                                 <p class="mb-0 py-2">
                                     <a href="{{ route('canvas.tag.edit', $tag->id) }}"
