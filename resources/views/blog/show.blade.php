@@ -21,20 +21,24 @@
                 <p class="text-uppercase text-muted my-4">
                     Published on {{ \Carbon\Carbon::parse($data['post']->published_at)->format('M d, Y') }}
                     @if($data['post']->tags->count() > 0) in
-                        @foreach($data['post']->tags as $tag)
-                            <a href="{{ route('blog.tag.index', $tag->slug) }}" class="text-muted"><u>{{ $tag->name }}</u></a>
-                        @endforeach
+                    @foreach($data['post']->tags as $tag)
+                        <a href="{{ route('blog.tag.index', $tag->slug) }}"
+                           class="text-muted"><u>{{ $tag->name }}</u></a>
+                    @endforeach
                     @endif
                 </p>
 
                 @isset($data['post']->featured_image)
-                    <img src="{{ $data['post']->featured_image }}" alt="" class="w-100">
+                    <img src="{{ $data['post']->featured_image }}" alt="{{ $data['post']->featured_image_caption }}"
+                         title="{{ $data['post']->featured_image_caption }}" class="w-100">
                     <p class="mt-3 text-muted text-center">{{ $data['post']->featured_image_caption }}</p>
                 @endisset
 
                 <div class="content-body serif">{!! $data['post']->body !!}</div>
                 <div class="border-top my-5">
-                    <p class="mt-5 text-center text-uppercase text-muted">Powered by <a href="{{ url('https://cnvs.io') }}" class="text-muted" target="_blank"><u>Canvas</u></a></p>
+                    <p class="mt-5 text-center text-uppercase text-muted">Powered by <a
+                                href="{{ url('https://cnvs.io') }}" class="text-muted" target="_blank"><u>Canvas</u></a>
+                    </p>
                 </div>
             </div>
         </div>
