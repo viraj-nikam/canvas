@@ -25,6 +25,9 @@ mix
     .mix.setResourceRoot('../')
     .js('resources/js/app.js', 'public/js')
     .sass('resources/sass/app.scss', 'public/css')
+    .options({
+        purifyCss: true
+    })
     .sourceMaps()
     .version()
     .copy('public', '../app/public/vendor/canvas');

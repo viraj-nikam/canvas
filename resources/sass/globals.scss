@@ -31,3 +31,8 @@
   font-size: 1.1rem;
   line-height: 2;
 }
+
+input, textarea, select {
+  box-shadow: none !important;
+  outline: none !important;
+}

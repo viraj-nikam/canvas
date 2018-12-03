@@ -7,7 +7,7 @@
                         <label for="published_at" class="font-weight-bold">Publish Date</label>
                         <input name="published_at"
                                type="datetime-local"
-                               class="form-control{{ $errors->has('published_at') ? ' is-invalid' : '' }}"
+                               class="form-control{{ $errors->has('published_at') ? ' is-invalid' : '' }} border-0 px-0"
                                value="{{ now()->format('Y-m-d\TH:i') }}">
                     </div>
                 </div>
@@ -15,7 +15,7 @@
             <div class="modal-footer">
                 <a href="#" class="btn btn-primary"
                    onclick="event.preventDefault();document.getElementById('form-create').submit();"
-                   aria-label="Publish this post">Publish</a>
+                   aria-label="Publish this post">Schedule to publish</a>
                 <button class="btn btn-link text-muted" data-dismiss="modal">Cancel</button>
             </div>
         </div>
