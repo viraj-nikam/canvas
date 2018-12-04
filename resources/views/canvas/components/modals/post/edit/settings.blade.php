@@ -7,7 +7,7 @@
                 <div class="form-group row">
                     <div class="col-12">
                         <label for="published_at" class="font-weight-bold">Slug</label>
-                        <input type="text" class="form-control{{ $errors->has('slug') ? ' is-invalid' : '' }} border-0 px-0"
+                        <input type="text" class="form-control border-0 px-0"
                                name="slug" title="Slug" value="{{ $data['post']->slug }}" required
                                placeholder="a-unique-slug">
                         @if ($errors->has('slug'))

@@ -7,7 +7,7 @@
                         <label for="published_at" class="font-weight-bold">Publish Date</label>
                         <input name="published_at"
                                type="datetime-local"
-                               class="form-control{{ $errors->has('published_at') ? ' is-invalid' : '' }} border-0 px-0"
+                               class="form-control border-0 px-0"
                                value="{{ $data['post']->published_at->format('Y-m-d\TH:i') }}">
                     </div>
                 </div>
