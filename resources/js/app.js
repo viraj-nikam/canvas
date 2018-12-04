@@ -22,24 +22,6 @@ files.keys().map(key => {
     return Vue.component(name, files(key))
 });
 
-const app = new Vue({
+new Vue({
     el: '#app',
-
-    // TODO: Refactor the following slug logic into a component and apply to Tag edits
-    data: {
-        name: '',
-    },
-    computed: {
-        slug: function() {
-            return this.sanitizeTitle(this.name);
-        }
-    },
-    methods: {
-        sanitizeTitle: function(text) {
-            return text.toString().toLowerCase()
-                .replace(/\s+/g, '-')
-                .replace(/[^\w\-]+/g, '')
-                .replace(/\-\-+/g, '-');
-        }
-    }
 });
