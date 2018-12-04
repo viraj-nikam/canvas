@@ -4,9 +4,9 @@
 
     <div class="form-group row my-5">
         <div class="col-lg-12">
-            <input type="text" v-model="name" name="name"
+            <input type="text" name="name" v-model="name" title="Name"
                    class="form-control-lg form-control{{ $errors->has('name') ? ' is-invalid' : '' }} border-0 px-0"
-                   title="Name" value="{{ old('name') }}" required placeholder="Give your tag a name">
+                   value="{{ old('name') }}" required placeholder="Give your tag a name">
             @if ($errors->has('name'))
                 <div class="invalid-feedback">
                     <strong>{{ $errors->first('name') }}</strong>
@@ -16,9 +16,8 @@
     </div>
     <div class="form-group row">
         <div class="col-lg-12">
-            <input type="text" name="slug"
-                   class="form-control-lg form-control{{ $errors->has('slug') ? ' is-invalid' : '' }} border-0 px-0"
-                   title="Slug" v-model="slug" required placeholder="now-add-a-slug">
+            <input type="text" name="slug" title="Slug" v-model="slug" required placeholder="now-add-a-slug"
+                   class="form-control-lg form-control{{ $errors->has('slug') ? ' is-invalid' : '' }} border-0 px-0">
             @if ($errors->has('slug'))
                 <div class="invalid-feedback">
                     <strong>{{ $errors->first('slug') }}</strong>
