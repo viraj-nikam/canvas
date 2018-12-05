@@ -20,6 +20,7 @@
                       placeholder="Tell your story..">{{ $data['post']->body }}</textarea>
         </div>
     </div>
+    @include('canvas::canvas.components.modals.post.edit.share')
     @include('canvas::canvas.components.modals.post.edit.settings')
     @include('canvas::canvas.components.modals.post.edit.publish')
     @include('canvas::canvas.components.modals.post.edit.image')
