@@ -10,8 +10,7 @@
 
                 <ul class="navbar-nav mr-auto flex-row float-right">
                     <li class="text-muted font-weight-bold">
-                        @yield('status') @if (session('notify')) — <span
-                                class="text-success">{{ session('notify') }}</span>@endif
+                        @yield('status') @if(session('notify'))@hasSection('status') — @endif<span class="text-success">{{ session('notify') }}</span>@endif
                     </li>
                 </ul>
 
