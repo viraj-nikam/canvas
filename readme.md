@@ -99,10 +99,10 @@ composer test
 ## Roadmap
 
 - [X] Add useful statistics data. @austintoddj
-- [ ] Provide SEO and metadata. @austintoddj
+- [X] Provide SEO and metadata. @austintoddj
 - [ ] Convert post/tag titles to slugs with a [simple Vue component](https://codepen.io/tatthien/pen/xVBxZQ). @austintoddj
 - [ ] Add support for image uploads. @austintoddj
-- [ ] Add a [TipTap Vue component](https://tiptap.scrumpy.io/) as the text editor.
+- [ ] Add [TipTap](https://tiptap.scrumpy.io/) as the default text editor.
 - [ ] Add support for [multiple tags](https://vue-multiselect.js.org/#sub-multiple-select) on a single post.
 - [ ] Add post/tag filtering.
 

@@ -55,7 +55,7 @@ class PostTest extends TestCase
     }
 
     /**
-     * Get test data to create post.
+     * Create a test post.
      *
      * @param int $userId User ID
      *
@@ -73,6 +73,8 @@ class PostTest extends TestCase
             'featured_image'         => Faker::create()->url,
             'featured_image_caption' => Faker::create()->sentence,
             'user_id'                => $userId,
+            'meta'                   => null,
+            'views'                  => 0,
         ]);
     }
 }
