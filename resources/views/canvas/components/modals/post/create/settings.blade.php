@@ -28,12 +28,8 @@
                 <div class="form-group row">
                     <div class="col-12">
                         <label for="tags" class="font-weight-bold">Tags</label>
-                        <select class="custom-select border-0 px-0" name="tags" id="tags">
-                            <option disabled selected>Select some tags..</option>
-                            @foreach($data['tags'] as $tag)
-                                <option value="{{ $tag->id }}">{{ $tag->name }}</option>
-                            @endforeach
-                        </select>
+
+                        <multi-select :tags="{{ $data['tags'] }}"></multi-select>
                     </div>
                 </div>
             </div>
