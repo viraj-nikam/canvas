@@ -2,8 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 
-// Base Stats Route...
-Route::get('/', 'StatsController')->name('canvas.index');
+// Stats Routes...
+Route::get('/', 'StatsController@index')->name('canvas.index');
+Route::get('stats/{id}', 'StatsController@show')->name('canvas.stats.show');
 
 // Post Routes...
 Route::get('posts', 'PostController@index')->name('canvas.post.index');

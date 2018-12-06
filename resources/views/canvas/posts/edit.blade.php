@@ -11,9 +11,11 @@
             <i class="fas fa-sliders-h fa-fw fa-rotate-270"></i>
         </a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-            <a href="#" class="dropdown-item" data-toggle="modal" data-target="#modal-share">Share Post</a>
-            <a href="#" class="dropdown-item">View Stats</a>
-            <div class="dropdown-divider"></div>
+            @if($data['post']->published)
+                <a href="#" class="dropdown-item" data-toggle="modal" data-target="#modal-share">Share Post</a>
+                <a href="{{ route('canvas.stats.show', $data['post']->id) }}" class="dropdown-item">View Stats</a>
+                <div class="dropdown-divider"></div>
+            @endif
             <a href="#" class="dropdown-item" data-toggle="modal" data-target="#modal-settings">General Settings</a>
             <a href="#" class="dropdown-item" data-toggle="modal" data-target="#modal-image">Featured Image</a>
             <a href="#" class="dropdown-item" data-toggle="modal" data-target="#modal-seo">SEO & Social</a>

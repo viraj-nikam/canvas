@@ -13,9 +13,9 @@ class StatsController extends Controller
      *
      * @return View
      */
-    public function __invoke(): View
+    public function index(): View
     {
-        $posts = Post::all();
+        $posts = Post::paginate(10);
 
         $data = [
             'posts' => [
@@ -26,5 +26,26 @@ class StatsController extends Controller
         ];
 
         return view('canvas::canvas.stats.index', compact('data'));
+    }
+
+    /**
+     * Display stats for a single post.
+     *
+     * @param string $id
+     * @return View
+     */
+    public function show(string $id): View
+    {
+        $post = Post::findOrFail($id);
+
+        if ($post->published) {
+            $data = [
+                'post' => $post
+            ];
+
+            return view('canvas::canvas.stats.show', compact('data'));
+        } else {
+            abort(404);
+        }
     }
 }
