@@ -11,7 +11,7 @@
                                name="slug" title="Slug" value="{{ old('slug', 'post-'.$data['id']) }}" required
                                placeholder="a-unique-slug">
                         @if ($errors->has('slug'))
-                            <div class="invalid-feedback">
+                            <div class="invalid-feedback d-block">
                                 <strong>{{ $errors->first('slug') }}</strong>
                             </div>
                         @endif

@@ -10,7 +10,7 @@
                            class="form-control-lg form-control border-0 px-0"
                            value="{{ old('name') }}" required placeholder="Give your tag a name">
                     @if ($errors->has('name'))
-                        <div class="invalid-feedback">
+                        <div class="invalid-feedback d-block">
                             <strong>{{ $errors->first('name') }}</strong>
                         </div>
                     @endif
@@ -21,7 +21,7 @@
                     <input type="text" name="slug" title="Slug" v-model="slug" required placeholder="now-add-a-slug"
                            class="form-control-lg form-control border-0 px-0">
                     @if ($errors->has('slug'))
-                        <div class="invalid-feedback">
+                        <div class="invalid-feedback d-block">
                             <strong>{{ $errors->first('slug') }}</strong>
                         </div>
                     @endif

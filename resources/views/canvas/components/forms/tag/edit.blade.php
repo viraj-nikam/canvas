@@ -10,7 +10,7 @@
                            class="form-control-lg form-control border-0 px-0"
                            title="Name" required placeholder="Give your tag a name">
                     @if ($errors->has('name'))
-                        <div class="invalid-feedback">
+                        <div class="invalid-feedback d-block">
                             <strong>{{ $errors->first('name') }}</strong>
                         </div>
                     @endif
@@ -22,7 +22,7 @@
                            class="form-control-lg form-control border-0 px-0"
                            title="Slug" required placeholder="now-add-a-slug">
                     @if ($errors->has('slug'))
-                        <div class="invalid-feedback">
+                        <div class="invalid-feedback d-block">
                             <strong>{{ $errors->first('slug') }}</strong>
                         </div>
                     @endif

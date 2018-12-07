@@ -8,7 +8,7 @@
             <input type="text" class="form-control-lg form-control border-0" name="title" title="Title"
                    value="{{ $data['post']->title }}" required placeholder="Post Title">
             @if ($errors->has('title'))
-                <div class="invalid-feedback">
+                <div class="invalid-feedback d-block">
                     <strong>{{ $errors->first('title') }}</strong>
                 </div>
             @endif
