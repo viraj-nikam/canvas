@@ -38,7 +38,7 @@
 @push('scripts')
     @if ($errors->has('slug'))
         <script type="text/javascript">
-            $(document).ready(function () {
+            $(function () {
                 $('#modal-settings').modal('show');
             });
         </script>

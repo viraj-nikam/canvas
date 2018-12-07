@@ -13,7 +13,7 @@
                 <h1 class="mt-1">Stats</h1>
 
                 @if($data['posts']['all']->isNotEmpty())
-                    <p class="mt-3 mb-4">Click a post to find more specific insight and metrics.</p>
+                    <p class="mt-3 mb-4">Click on a post to discover more specific insights.</p>
 
                     <div class="card-deck mb-5">
                         <div class="card">

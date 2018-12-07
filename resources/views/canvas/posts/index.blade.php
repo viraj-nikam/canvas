@@ -21,7 +21,7 @@
                                        class="font-weight-bold lead">{{ $post->title }}</a>
                                     @if($post->summary)
                                         <br>
-                                        {{ $post->summary }}
+                                        {{ str_limit($post->summary, 100) }}
                                     @endif
                                     <br>
                                     <small class="text-muted">
@@ -45,7 +45,7 @@
                                     @else
                                         <span class="fa-stack fa-2x align-middle">
                                             <i class="fas fa-circle fa-stack-2x text-black-50"></i>
-                                            <i class="far fa-fw fa-stack-1x fa-image fa-inverse"></i>
+                                            <i class="fas fa-fw fa-stack-1x fa-camera fa-inverse"></i>
                                         </span>
                                     @endisset
                                 </a>
