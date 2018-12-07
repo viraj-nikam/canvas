@@ -2,7 +2,7 @@
     import Multiselect from 'vue-multiselect'
 
     export default {
-        props: ['tags'],
+        props: ['tags', 'selected'],
 
         components: {
             Multiselect
