@@ -2,7 +2,7 @@
 
 @section('actions')
     <a href="{{ route('canvas.tag.create') }}" class="btn btn-sm btn-outline-primary mr-2 my-auto mx-3">
-        New Tag
+        New tag
     </a>
 @endsection
 

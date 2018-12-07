@@ -10,7 +10,8 @@
 
                 <ul class="navbar-nav mr-auto flex-row float-right">
                     <li class="text-muted font-weight-bold">
-                        @yield('status') @if(session('notify'))@hasSection('status') — @endif<span class="text-success">{{ session('notify') }}</span>@endif
+                        @yield('status') @if(session('notify'))@hasSection('status') — @endif<span
+                                class="text-success">{{ session('notify') }}</span>@endif
                     </li>
                 </ul>
 
@@ -30,8 +31,10 @@
                         <a class="dropdown-item" href="{{ route('canvas.tag.index') }}">
                             Tags
                         </a>
+                        <a class="dropdown-item" href="{{ route('canvas.index') }}">
+                            Stats
+                        </a>
                     </div>
-                </div>
             </nav>
         </div>
     </div>

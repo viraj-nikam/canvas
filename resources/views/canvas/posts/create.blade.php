@@ -10,8 +10,8 @@
             <i class="fas fa-sliders-h fa-fw fa-rotate-270"></i>
         </a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-            <a href="#" class="dropdown-item" data-toggle="modal" data-target="#modal-settings">General Settings</a>
-            <a href="#" class="dropdown-item" data-toggle="modal" data-target="#modal-image">Featured Image</a>
+            <a href="#" class="dropdown-item" data-toggle="modal" data-target="#modal-settings">General settings</a>
+            <a href="#" class="dropdown-item" data-toggle="modal" data-target="#modal-image">Featured image</a>
             <a href="#" class="dropdown-item" data-toggle="modal" data-target="#modal-seo">SEO & Social</a>
         </div>
     </div>

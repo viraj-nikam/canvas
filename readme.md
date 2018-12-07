@@ -103,8 +103,9 @@ composer test
 - [ ] Convert post/tag titles to slugs with a [simple Vue component](https://codepen.io/tatthien/pen/xVBxZQ). @austintoddj
 - [ ] Add support for image uploads. @austintoddj
 - [ ] Add [TipTap](https://tiptap.scrumpy.io/) as the default text editor.
-- [ ] Add support for [multiple tags](https://vue-multiselect.js.org/#sub-multiple-select) on a single post.
+- [ ] Add support for [multiple tags](https://vue-multiselect.js.org/#sub-multiple-select) on a single post. @austintoddj
 - [ ] Add post/tag filtering.
+- [ ] Add support for downloading a .zip of content
 
 ## License
 

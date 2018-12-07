@@ -2,7 +2,7 @@
 
 @section('actions')
     <a href="{{ route('canvas.post.create') }}" class="btn btn-sm btn-outline-primary mr-2 my-auto mx-3">
-        New Post
+        New post
     </a>
 @endsection
 
@@ -41,7 +41,7 @@
                             <div class="ml-auto d-none d-lg-block">
                                 <a href="{{ route('canvas.post.edit', $post->id) }}">
                                     @isset($post->featured_image)
-                                        {{--<div style="background-size: cover;background-image: url({{ $post->featured_image }});width: 86px; height: 86px; -webkit-border-radius: 50%;-moz-border-radius: 50%;border-radius: 50%;"></div>--}}
+                                        <div class="mr-2" style="background-size: cover;background-image: url({{ $post->featured_image }});width: 57px; height: 57px; -webkit-border-radius: 50%;-moz-border-radius: 50%;border-radius: 50%;"></div>
                                     @else
                                         <span class="fa-stack fa-2x align-middle">
                                             <i class="fas fa-circle fa-stack-2x text-black-50"></i>

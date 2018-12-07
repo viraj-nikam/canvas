@@ -12,12 +12,12 @@
         </a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
             @if($data['post']->published)
-                <a href="#" class="dropdown-item" data-toggle="modal" data-target="#modal-share">Share Post</a>
-                <a href="{{ route('canvas.stats.show', $data['post']->id) }}" class="dropdown-item">View Stats</a>
+                <a href="#" class="dropdown-item" data-toggle="modal" data-target="#modal-share">Share post</a>
+                <a href="{{ route('canvas.stats.show', $data['post']->id) }}" class="dropdown-item">View stats</a>
                 <div class="dropdown-divider"></div>
             @endif
-            <a href="#" class="dropdown-item" data-toggle="modal" data-target="#modal-settings">General Settings</a>
-            <a href="#" class="dropdown-item" data-toggle="modal" data-target="#modal-image">Featured Image</a>
+            <a href="#" class="dropdown-item" data-toggle="modal" data-target="#modal-settings">General settings</a>
+            <a href="#" class="dropdown-item" data-toggle="modal" data-target="#modal-image">Featured image</a>
             <a href="#" class="dropdown-item" data-toggle="modal" data-target="#modal-seo">SEO & Social</a>
             <a href="#" class="dropdown-item text-danger" data-toggle="modal" data-target="#modal-delete">Delete</a>
         </div>
