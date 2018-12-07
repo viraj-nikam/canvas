@@ -18,9 +18,8 @@
             </div>
             <div class="form-group row">
                 <div class="col-lg-12">
-                    <input type="text" name="slug" v-model="slug" value="{{ $data['tag']->slug }}"
-                           class="form-control-lg form-control border-0 px-0"
-                           title="Slug" required placeholder="now-add-a-slug">
+                    <p class="lead text-muted">{{ config('app.url') }}/tag/@{{ slug }}</p>
+                    <input type="hidden" name="slug" v-model="slug" readonly>
                     @if ($errors->has('slug'))
                         <div class="invalid-feedback d-block">
                             <strong>{{ $errors->first('slug') }}</strong>
