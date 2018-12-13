@@ -6,11 +6,11 @@
 
                 <p>
                     <a href="https://facebook.com/sharer/sharer.php?u={{ route('blog.post.show', $data['post']->slug) }}"
-                       class="text-muted" target="_blank"><i class="fab fa-facebook-f fa-fw"></i> Share on Facebook</a>
+                       class="text-muted" target="_blank"><i class="fab fa-facebook-f fa-fw pr-4"></i>Share on Facebook</a>
                 </p>
                 <p>
                     <a href="https://twitter.com/intent/tweet/?url={{ route('blog.post.show', $data['post']->slug) }}"
-                       class="text-muted" target="_blank"><i class="fab fa-twitter fa-fw"></i> Share on Twitter</a>
+                       class="text-muted" target="_blank"><i class="fab fa-twitter fa-fw pr-4"></i>Share on Twitter</a>
                 </p>
                 <div class="form-group row col-12">
                     <label for="published_at" class="font-weight-bold">Copy Link</label>
