@@ -18,7 +18,7 @@
             </div>
             <div class="form-group row">
                 <div class="col-lg-12">
-                    <p class="lead text-muted">{{ config('app.url') }}/tag/@{{ slug }}</p>
+                    <p class="lead text-muted" style="cursor: default">{{ config('app.url') }}/tag/<span class="text-primary">@{{ slug }}</span></p>
                     <input type="hidden" name="slug" v-model="slug" readonly>
                     @if ($errors->has('slug'))
                         <div class="invalid-feedback d-block">
