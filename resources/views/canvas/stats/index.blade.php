@@ -18,7 +18,7 @@
                     <div class="card-deck mb-5">
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title text-muted small text-uppercase font-weight-bold">Page Views</h5>
+                                <h5 class="card-title text-muted small text-uppercase font-weight-bold">Total Views</h5>
                                 <p class="card-text display-4">{{ number_format($data['posts']['published']->sum('views')) }}</p>
                             </div>
                         </div>
