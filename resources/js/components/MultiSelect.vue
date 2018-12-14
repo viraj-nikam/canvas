@@ -12,6 +12,7 @@
             return {
                 value: [],
                 options: [
+                    // TODO: Loop through the tags property for options
                     {name: 'Vue.js', slug: 'vu'},
                     {name: 'Javascript', slug: 'js'},
                     {name: 'Open Source', slug: 'os'}
@@ -33,7 +34,7 @@
                 return text.toString().toLowerCase()
                     .replace(/\s+/g, '-')
                     .replace(/[^\w\-]+/g, '')
-                    .replace(/\-\-+/g, '-');
+                    .replace(/\-\-+/g, '-')
             }
         }
     }
@@ -72,16 +73,14 @@
         border-top: 1px solid #e8e8e8;
     }
 
-    .multiselect, .multiselect__input, .multiselect__single {
+    .multiselect,
+    .multiselect__input,
+    .multiselect__single {
         font-size: 14px;
         padding: 0;
     }
 
-    .multiselect__input:focus::-webkit-input-placeholder {
-        color: #6c757d;
-        opacity: 1;
-    }
-
+    .multiselect__input:focus::-webkit-input-placeholder,
     .multiselect__input::-webkit-input-placeholder,
     .multiselect__placeholder {
         color: #6c757d;
