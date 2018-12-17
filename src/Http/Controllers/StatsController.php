@@ -16,6 +16,7 @@ class StatsController extends Controller
     public function index(): View
     {
         $posts = Post::with('views')->paginate(10);
+        $views = \Canvas\View::all();
 
         $data = [
             'posts' => [
@@ -24,7 +25,8 @@ class StatsController extends Controller
                 'drafts'    => $posts->where('published_at', '>', now()->toDateTimeString()),
             ],
             'views' => [
-                'all' => \Canvas\View::all()->count(),
+                'all' => $views->count(),
+                'trend' => json_encode(\Canvas\View::viewTrend($views)),
             ],
         ];
 

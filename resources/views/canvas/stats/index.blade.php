@@ -39,7 +39,7 @@
                         </div>
                     </div>
 
-                    <view-stats :views="{{ $data['views']['all'] }}"></view-stats>
+                    <view-stats :views="{{ $data['views']['trend'] }}"></view-stats>
 
                     @foreach($data['posts']['published'] as $post)
                         <div class="d-flex border-top py-2 align-items-center mt-4">
