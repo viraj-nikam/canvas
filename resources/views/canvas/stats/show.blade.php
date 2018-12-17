@@ -19,15 +19,15 @@
 
             <div class="col-md-5 mt-4">
                 <h5 class="card-title text-muted small text-uppercase font-weight-bold">Views by Traffic Source</h5>
-                @foreach($data['traffic'] as $referer)
+                @foreach($data['traffic'] as $host => $views)
                     <div class="d-flex border-top py-2 align-items-center">
                         <div class="mr-auto">
                             <p class="mb-0 py-2">
-                                {{ $referer->first()->referer ? parse_url($referer->first()->referer)['host'] : 'Other' }}
+                                {{ $host }}
                             </p>
                         </div>
                         <div class="ml-auto">
-                            {{ $referer->count() }} View(s)
+                            <span class="text-muted">{{ $views }} View(s)</span>
                         </div>
                     </div>
                 @endforeach
@@ -43,7 +43,7 @@
                             </p>
                         </div>
                         <div class="ml-auto">
-                            {{ sprintf('%s%s', $percentage, '%') }}
+                            <span class="text-muted">{{ sprintf('%s%s', $percentage, '%') }}</span>
                         </div>
                     </div>
                 @endforeach

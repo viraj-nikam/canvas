@@ -149,12 +149,33 @@ class Post extends Model
             $end_time = $start_time->copy()->addMinutes(60);
 
             $percentage = round($value / $data->count() * 100);
-
             $popular_reading_times->put(sprintf('%s - %s', $start_time->format('H:i A'), $end_time->format('H:i A')), $percentage);
         }
 
         $array = $popular_reading_times->toArray();
         $sorted = array_slice($array, 0, 5, true);
+        arsort($sorted);
+
+        return $sorted;
+    }
+
+    /**
+     * Return the top 10 referring websites for a post.
+     *
+     * @param $value
+     * @return array
+     */
+    public function getTopReferersAttribute($value): array
+    {
+        $data = $this->views;
+
+        $collection = collect();
+        $data->each(function ($item, $key) use ($collection) {
+            is_null($item->referer) ? $collection->push('Other') : $collection->push(parse_url($item->referer)['host']);
+        });
+
+        $array = array_count_values($collection->toArray());
+        $sorted = array_slice($array, 0, 10, true);
         arsort($sorted);
 
         return $sorted;

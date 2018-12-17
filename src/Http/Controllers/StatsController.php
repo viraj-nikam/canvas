@@ -44,7 +44,7 @@ class StatsController extends Controller
         if ($post->published) {
             $data = [
                 'post'                  => $post,
-                'traffic'               => $post->views->groupBy('referer'),
+                'traffic'               => $post->topReferers,
                 'popular_reading_times' => $post->popularReadingTimes,
                 'views'                 => $post->views,
             ];
