@@ -21,5 +21,8 @@
     "popper.js": "^1.12",
     "vue": "^2.5.7",
     "vue-multiselect": "^2.1.3"
+  },
+  "dependencies": {
+    "vue2-frappe": "^1.0.23"
   }
 }

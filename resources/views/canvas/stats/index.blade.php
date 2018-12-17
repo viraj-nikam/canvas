@@ -13,13 +13,13 @@
                 <h1 class="mt-1">Stats</h1>
 
                 @if($data['posts']['all']->isNotEmpty())
-                    <p class="mt-3 mb-4">Click on a post to discover more specific insights.</p>
+                    <p class="mt-3 mb-4">Click a post below to discover more specific insights.</p>
 
-                    <div class="card-deck mb-5">
+                    <div class="card-deck mb-4">
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title text-muted small text-uppercase font-weight-bold">Total Views</h5>
-                                <p class="card-text display-4">{{ number_format($data['posts']['published']->sum('views')) }}</p>
+                                <p class="card-text display-4">{{ number_format($data['views']['all']) }}</p>
                             </div>
                         </div>
                         <div class="card">
@@ -39,8 +39,10 @@
                         </div>
                     </div>
 
+                    <view-stats :views="{{ $data['views']['all'] }}"></view-stats>
+
                     @foreach($data['posts']['published'] as $post)
-                        <div class="d-flex border-top py-2 align-items-center">
+                        <div class="d-flex border-top py-2 align-items-center mt-4">
                             <div class="mr-auto">
                                 <p class="mb-0 py-2">
                                     <a href="{{ route('canvas.stats.show', $post->id) }}"
@@ -53,7 +55,7 @@
                                 </p>
                             </div>
                             <div class="ml-auto">
-                                <span class="text-muted mr-3">{{ $post->views }} View(s)</span>
+                                <span class="text-muted mr-3">{{ $post->views->count() }} View(s)</span>
                                 Created {{ \Carbon\Carbon::parse($post->created_at)->diffForHumans() }}
                             </div>
                         </div>

@@ -15,13 +15,16 @@ class StatsController extends Controller
      */
     public function index(): View
     {
-        $posts = Post::paginate(10);
+        $posts = Post::with('views')->paginate(10);
 
         $data = [
             'posts' => [
                 'all'       => $posts,
                 'published' => $posts->where('published_at', '<=', now()->toDateTimeString()),
                 'drafts'    => $posts->where('published_at', '>', now()->toDateTimeString()),
+            ],
+            'views' => [
+                'all' => \Canvas\View::all()->count(),
             ],
         ];
 
@@ -36,11 +39,14 @@ class StatsController extends Controller
      */
     public function show(string $id): View
     {
-        $post = Post::findOrFail($id);
+        $post = Post::with('views')->findOrFail($id);
 
         if ($post->published) {
             $data = [
-                'post' => $post,
+                'post'                  => $post,
+                'traffic'               => $post->views->groupBy('referer'),
+                'popular_reading_times' => $post->popularReadingTimes,
+                'views'                 => $post->views,
             ];
 
             return view('canvas::canvas.stats.show', compact('data'));

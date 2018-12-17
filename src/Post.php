@@ -2,10 +2,12 @@
 
 namespace Canvas;
 
+use Carbon\Carbon;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
@@ -87,6 +89,16 @@ class Post extends Model
     }
 
     /**
+     * The views belonging to the post.
+     *
+     * @return HasMany
+     */
+    public function views(): HasMany
+    {
+        return $this->hasMany(View::class);
+    }
+
+    /**
      * Check to see if the post is published.
      *
      * @param $value
@@ -113,6 +125,39 @@ class Post extends Model
         $minutes = ceil($words / 200);
 
         return sprintf('%s %s %s', $minutes, str_plural(' min', $minutes), ' read');
+    }
+
+    /**
+     * Return the top 5 most popular reading times rounded to the nearest 30 minutes.
+     *
+     * @param $value
+     * @return array
+     */
+    public function getPopularReadingTimesAttribute($value): array
+    {
+        $data = View::where('post_id', $this->id)->get();
+
+        $collection = collect();
+        $data->each(function ($item, $key) use ($collection) {
+            $collection->push($item->created_at->minute(0)->format('H:i A'));
+        });
+
+        $filtered = array_count_values($collection->toArray());
+        $popular_reading_times = collect();
+        foreach ($filtered as $key => $value) {
+            $start_time = Carbon::createFromTimeString($key);
+            $end_time = $start_time->copy()->addMinutes(60);
+
+            $percentage = round($value / $data->count() * 100);
+
+            $popular_reading_times->put(sprintf('%s - %s', $start_time->format('H:i A'), $end_time->format('H:i A')), $percentage);
+        }
+
+        $array = $popular_reading_times->toArray();
+        $sorted = array_slice($array, 0, 5, true);
+        arsort($sorted);
+
+        return $sorted;
     }
 
     /**

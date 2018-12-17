@@ -24,7 +24,6 @@ class CreateCanvasTables extends Migration
             $table->string('featured_image_caption')->nullable();
             $table->string('user_id')->index();
             $table->json('meta')->nullable();
-            $table->integer('views')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });
@@ -45,6 +44,14 @@ class CreateCanvasTables extends Migration
 
             $table->unique(['post_id', 'tag_id']);
         });
+
+        Schema::create('canvas_views', function (Blueprint $table) {
+            $table->increments('id');
+            $table->uuid('post_id');
+            $table->string('user_agent')->nullable();
+            $table->string('referer')->nullable();
+            $table->timestamps();
+        });
     }
 
     /**
@@ -57,5 +64,6 @@ class CreateCanvasTables extends Migration
         Schema::dropIfExists('canvas_posts');
         Schema::dropIfExists('canvas_tags');
         Schema::dropIfExists('canvas_posts_tags');
+        Schema::dropIfExists('canvas_views');
     }
 }

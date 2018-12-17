@@ -12,10 +12,14 @@
             return {
                 value: [],
                 options: [
+
                     // TODO: Loop through the tags property for options
-                    {name: 'Vue.js', slug: 'vu'},
+                    // TODO: Tag data is null when form is submitted
+
+                    {name: 'Vue.js', slug: 'vue'},
                     {name: 'Javascript', slug: 'js'},
-                    {name: 'Open Source', slug: 'os'}
+                    {name: 'Open Source', slug: 'os'},
+                    {name: 'Design', slug: 'des'}
                 ]
             }
         },
@@ -25,8 +29,8 @@
                 const tag = {
                     name: newTag,
                     slug: this.slugify(newTag)
-                }
-                this.options.push(tag)
+                };
+                this.options.push(tag);
                 this.value.push(tag)
             },
 
@@ -34,7 +38,7 @@
                 return text.toString().toLowerCase()
                     .replace(/\s+/g, '-')
                     .replace(/[^\w\-]+/g, '')
-                    .replace(/\-\-+/g, '-')
+                    .replace(/--+/g, '-')
             }
         }
     }
@@ -42,9 +46,18 @@
 
 <template>
     <div>
-        <multiselect v-model="value" tag-placeholder="Add a new tag" placeholder="Select some tags..."
-                     label="name" track-by="slug" :options="options" :multiple="true" :taggable="true"
-                     name="tags" @tag="addTag"></multiselect>
+        <multiselect
+                v-model="value"
+                tag-placeholder="Add a new tag"
+                placeholder="Select some tags..."
+                label="name"
+                track-by="slug"
+                :options="options"
+                :multiple="true"
+                :taggable="true"
+                name="tags"
+                @tag="addTag">
+        </multiselect>
     </div>
 </template>
 

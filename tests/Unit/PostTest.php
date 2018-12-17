@@ -74,7 +74,6 @@ class PostTest extends TestCase
             'featured_image_caption' => Faker::create()->sentence,
             'user_id'                => $userId,
             'meta'                   => null,
-            'views'                  => 0,
         ]);
     }
 }
