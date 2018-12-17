@@ -34,7 +34,7 @@
                 '12/09', '12/10', '12/11', '12/12',
                 '12/13', '12/14', '12/15', '12/16'
             ]"
-            title="Views (30 days)"
+            title="Views (Last 30 days)"
             type="line"
             :height="250"
             :colors="['#3490dc']"

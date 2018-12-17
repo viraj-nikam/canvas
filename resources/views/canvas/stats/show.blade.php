@@ -14,7 +14,7 @@
                 <p class="text-muted mb-4">Published
                     on {{ \Carbon\Carbon::parse($data['post']->published_at)->format('F d, Y') }}</p>
 
-                <view-stats :views="{{ $data['post']->views }}"></view-stats>
+                <view-stats :views="{{ $data['views'] }}"></view-stats>
             </div>
 
             <div class="col-md-5 mt-4">

@@ -182,6 +182,30 @@ class Post extends Model
     }
 
     /**
+     * Return the last 30 days with calculated view counts.
+     *
+     * @param $value
+     * @return array
+     */
+    public function getViewTrendAttribute($value): array
+    {
+        $data = $this->views;
+
+        $filtered = $data->filter(function ($value, $key) {
+            return $value->created_at >= now()->subDays(30);
+        });
+
+        $collection = collect();
+        $filtered->sortBy('created_at')->each(function ($item, $key) use ($collection) {
+            $collection->push($item->created_at->copy()->format('m/d'));
+        });
+
+        $array = array_count_values($collection->toArray());
+
+        return array_slice($array, 0, 30, true);
+    }
+
+    /**
      * Scope a query to only include published posts.
      *
      * @param Builder $query
