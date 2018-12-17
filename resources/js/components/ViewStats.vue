@@ -9,16 +9,11 @@
 
         data() {
             return {
-                data: [
-                    {
-                        name: "Thursday, December 1, 2018",
-                        tooltipOptions: {
-                            formatTooltipX: d => (d + ''),
-                            formatTooltipY: d => d + ' views',
-                        },
-                        chartType: 'line',
-                        values: [15, 20, 35, 33, 47, 32, 29, 34, 15, 20, 35, 33, 84, 32, 29, 34]
-                    }
+                points: [
+
+                    // TODO: TASK - Loop through the views property and grab values
+
+                    {values: [15, 20, 35, 33, 47, 32, 29, 34, 15, 20, 365, 33, 84, 32, 29, 34]}
                 ]
             }
         }
@@ -38,6 +33,6 @@
             type="line"
             :height="250"
             :colors="['#3490dc']"
-            :dataSets="this.data">
+            :dataSets="this.points">
     </vue-frappe>
 </template>

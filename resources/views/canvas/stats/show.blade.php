@@ -19,34 +19,44 @@
 
             <div class="col-md-5 mt-4">
                 <h5 class="card-title text-muted small text-uppercase font-weight-bold">Views by Traffic Source</h5>
-                @foreach($data['traffic'] as $host => $views)
-                    <div class="d-flex border-top py-2 align-items-center">
-                        <div class="mr-auto">
-                            <p class="mb-0 py-2">
-                                {{ $host }}
-                            </p>
+
+                @if($data['traffic'])
+                    @foreach($data['traffic'] as $host => $views)
+                        <div class="d-flex border-top py-2 align-items-center">
+                            <div class="mr-auto">
+                                <p class="mb-0 py-2">
+                                    {{ $host }}
+                                </p>
+                            </div>
+                            <div class="ml-auto">
+                                <span class="text-muted">{{ $views }} View(s)</span>
+                            </div>
                         </div>
-                        <div class="ml-auto">
-                            <span class="text-muted">{{ $views }} View(s)</span>
-                        </div>
-                    </div>
-                @endforeach
+                    @endforeach
+                @else
+                    <p class="py-4 border-top"><em>Waiting until your post has more views to show these insights.</em></p>
+                @endif
             </div>
 
             <div class="col-md-5 mt-4">
                 <h5 class="card-title text-muted small text-uppercase font-weight-bold">Popular Reading Times</h5>
-                @foreach($data['popular_reading_times'] as $time => $percentage)
-                    <div class="d-flex py-2 border-top align-items-center">
-                        <div class="mr-auto">
-                            <p class="mb-0 py-2">
-                                {{ $time }}
-                            </p>
+
+                @if($data['popular_reading_times'])
+                    @foreach($data['popular_reading_times'] as $range => $percentage)
+                        <div class="d-flex py-2 border-top align-items-center">
+                            <div class="mr-auto">
+                                <p class="mb-0 py-2">
+                                    {{ $range }}
+                                </p>
+                            </div>
+                            <div class="ml-auto">
+                                <span class="text-muted">{{ sprintf('%s%s', $percentage, '%') }}</span>
+                            </div>
                         </div>
-                        <div class="ml-auto">
-                            <span class="text-muted">{{ sprintf('%s%s', $percentage, '%') }}</span>
-                        </div>
-                    </div>
-                @endforeach
+                    @endforeach
+                @else
+                    <p class="py-4 border-top"><em>Waiting until your post has more views to show these insights.</em></p>
+                @endif
             </div>
         </div>
     </div>
