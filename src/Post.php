@@ -149,7 +149,7 @@ class Post extends Model
             $end_time = $start_time->copy()->addMinutes(60);
 
             $percentage = round($value / $data->count() * 100);
-            $popular_reading_times->put(sprintf('%s - %s', $start_time->format('H:i A'), $end_time->format('H:i A')), $percentage);
+            $popular_reading_times->put(sprintf('%s - %s', $start_time->format('g:i A'), $end_time->format('g:i A')), $percentage);
         }
 
         $array = $popular_reading_times->toArray();
