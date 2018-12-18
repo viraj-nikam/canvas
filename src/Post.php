@@ -139,7 +139,7 @@ class Post extends Model
 
         $collection = collect();
         $data->each(function ($item, $key) use ($collection) {
-            $collection->push($item->created_at->minute(0)->format('H:i A'));
+            $collection->push($item->created_at->minute(0)->format('H:i'));
         });
 
         $filtered = array_count_values($collection->toArray());
