@@ -15,7 +15,7 @@ class StatsController extends Controller
      */
     public function index(): View
     {
-        $posts = Post::with('views')->paginate(10);
+        $posts = Post::with('views')->orderByDesc('created_at')->paginate(10);
         $views = \Canvas\View::all();
 
         $data = [

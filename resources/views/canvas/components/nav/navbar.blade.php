@@ -1,7 +1,7 @@
 <div class="border-bottom">
     <div class="container d-flex justify-content-center px-0">
         <div class="col-md-10 px-0">
-            <nav class="navbar navbar-light justify-content-between flex-nowrap flex-row">
+            <nav class="navbar navbar-light justify-content-between flex-nowrap flex-row py-1">
                 <!-- Left Side Of Navbar -->
                 <a class="navbar-brand logo mr-4 font-weight-bold py-0 @hasSection('status') d-none d-md-block @endif"
                    href="{{ route('canvas.index') }}">
@@ -22,7 +22,11 @@
                     <a id="navbarDropdown" class="nav-link px-0 text-secondary" href="#" role="button"
                        data-toggle="dropdown"
                        aria-haspopup="true" aria-expanded="false" v-pre>
-                        {{ auth()->user()->name }}
+                        <img src="{{ sprintf('%s%s%s', 'https://secure.gravatar.com/avatar/', md5(strtolower(trim(auth()->user()->email))), '?s=200') }}"
+                             class="rounded-circle my-0"
+                             style="width: 32px"
+                             alt="{{ auth()->user()->name }}"
+                        >
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                         <a class="dropdown-item" href="{{ route('canvas.post.index') }}">

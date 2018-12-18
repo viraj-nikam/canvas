@@ -10,7 +10,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-10">
-                <h1 class="mt-1">{{ $data['post']->title }}</h1>
+                <h1 class="mt-3">{{ $data['post']->title }}</h1>
                 <p class="text-muted mb-4">Published
                     on {{ \Carbon\Carbon::parse($data['post']->published_at)->format('F d, Y') }}</p>
 
@@ -25,7 +25,11 @@
                         <div class="d-flex border-top py-2 align-items-center">
                             <div class="mr-auto">
                                 <p class="mb-0 py-2">
-                                    {{ $host }}
+                                    @unless($host == 'Other')
+                                        <a href="http://{{ $host }}" target="_blank">{{ $host }}</a>
+                                    @else
+                                        {{ $host }} <i class="far fa-fw fa-question-circle text-muted"></i>
+                                    @endunless
                                 </p>
                             </div>
                             <div class="ml-auto">

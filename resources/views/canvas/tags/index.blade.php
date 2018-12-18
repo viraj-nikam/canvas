@@ -10,7 +10,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-10">
-                <h1 class="mb-4 mt-1">Tags</h1>
+                <h1 class="mb-4 mt-2">Tags</h1>
 
                 @if(count($data['tags']))
                     @foreach($data['tags'] as $tag)
