@@ -27,4 +27,5 @@ mix
     .sass('resources/sass/app.scss', 'public/css')
     .sourceMaps()
     .version()
+    .copy('resources/favicon.png', 'public')
     .copy('public', '../app/public/vendor/canvas');
