@@ -25,7 +25,7 @@ mix
     .setResourceRoot('../')
     .js('resources/js/app.js', 'public/js')
     .sass('resources/sass/app.scss', 'public/css')
-    .sourceMaps()
-    .version()
     .copy('resources/favicon.png', 'public')
-    .copy('public', '../app/public/vendor/canvas');
+    .copy('public', '../app/public/vendor/canvas')
+    .sourceMaps()
+    .version();
