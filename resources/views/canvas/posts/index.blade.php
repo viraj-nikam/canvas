@@ -1,7 +1,7 @@
 @extends('canvas::canvas.index')
 
 @section('actions')
-    <a href="{{ route('canvas.post.create') }}" class="btn btn-sm btn-outline-primary mr-2 my-auto mx-3">
+    <a href="{{ route('canvas.post.create') }}" class="btn btn-sm btn-outline-primary my-auto mx-3">
         New post
     </a>
 @endsection

@@ -3,7 +3,7 @@
 @section('status', 'Draft')
 
 @section('actions')
-    <a href="#" class="btn btn-sm btn-outline-primary my-auto mr-2" data-toggle="modal" data-target="#modal-publish">Publish</a>
+    <a href="#" class="btn btn-sm btn-outline-primary my-auto" data-toggle="modal" data-target="#modal-publish">Save and publish</a>
 
     <div class="dropdown">
         <a id="navbarDropdown" class="nav-link px-3 text-secondary" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

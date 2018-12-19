@@ -1,7 +1,7 @@
 @extends('canvas::canvas.index')
 
 @section('actions')
-    <a href="#" class="btn btn-sm btn-outline-primary mr-2 my-auto mx-3"
+    <a href="#" class="btn btn-sm btn-outline-primary my-auto mx-3"
        onclick="event.preventDefault();document.getElementById('form-create').submit();"
        aria-label="Save">Save</a>
 @endsection
