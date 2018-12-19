@@ -105,7 +105,7 @@ composer test
 - [ ] Add [TipTap](https://tiptap.scrumpy.io/) as the default text editor.
 - [ ] Add support for [multiple tags](https://vue-multiselect.js.org/#sub-multiple-select) on a single post. @austintoddj
 - [ ] Add post/tag filtering.
-- [ ] Add support for downloading a .zip of content
+- [ ] Add support for downloading a formatted `.zip` of posts
 
 ## License
 

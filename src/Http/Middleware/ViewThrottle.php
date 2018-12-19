@@ -9,7 +9,7 @@ use Illuminate\Http\Response;
 class ViewThrottle
 {
     /**
-     * Set the view to expire in 1 hour.
+     * The seconds a view will be stored in session.
      *
      * @const int
      */
