@@ -12,3 +12,9 @@
         @yield('content')
     </main>
 @endsection
+
+@push('scripts')
+    <script type="text/javascript">
+        $(function () {$('[data-toggle="tooltip"]').tooltip()})
+    </script>
+@endpush

@@ -29,7 +29,10 @@
                                     @unless($host == 'Other')
                                         <a href="http://{{ $host }}" target="_blank">{{ $host }}</a>
                                     @else
-                                        {{ $host }} <i class="far fa-fw fa-question-circle text-muted"></i>
+                                        {{ $host }} <a data-toggle="tooltip" data-placement="right" style="cursor: pointer"
+                                                       title="Post views in this category could not reliably determine a referrer. e.g. Incognito mode">
+                                            <i class="far fa-fw fa-question-circle text-muted"></i>
+                                        </a>
                                     @endunless
                                 </p>
                             </div>
@@ -39,7 +42,8 @@
                         </div>
                     @endforeach
                 @else
-                    <p class="py-4 border-top"><em>Waiting until your post has more views to show these insights.</em></p>
+                    <p class="py-4 border-top"><em>Waiting until your post has more views to show these insights.</em>
+                    </p>
                 @endif
             </div>
 
@@ -60,7 +64,8 @@
                         </div>
                     @endforeach
                 @else
-                    <p class="py-4 border-top"><em>Waiting until your post has more views to show these insights.</em></p>
+                    <p class="py-4 border-top"><em>Waiting until your post has more views to show these insights.</em>
+                    </p>
                 @endif
             </div>
         </div>

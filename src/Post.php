@@ -128,7 +128,7 @@ class Post extends Model
     }
 
     /**
-     * Return the top 5 most popular reading times rounded to the nearest 30 minutes.
+     * Get the 5 most popular reading times rounded to the nearest 30 minutes.
      *
      * @param $value
      * @return array
@@ -160,7 +160,7 @@ class Post extends Model
     }
 
     /**
-     * Return the top 10 referring websites for a post.
+     * Get the top 10 referring websites for a post.
      *
      * @param $value
      * @return array
@@ -182,7 +182,7 @@ class Post extends Model
     }
 
     /**
-     * Return the last 30 days with calculated view counts.
+     * Get a view count for the last 30 days.
      *
      * @param $value
      * @return array
