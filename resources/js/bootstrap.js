@@ -11,6 +11,9 @@ try {
     window.Popper = require('popper.js').default;
     window.$ = window.jQuery = require('jquery');
 
+    // Opt-in to tooltip functionality
+    $(function () {$('[data-toggle="tooltip"]').tooltip()});
+
     require('bootstrap');
     require('@fortawesome/fontawesome-free');
 } catch (e) {}
