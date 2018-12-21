@@ -1,5 +1,13 @@
 
 // Globals
+body:not(.user-is-tabbing) a:focus,
+body:not(.user-is-tabbing) button:focus,
+body:not(.user-is-tabbing) input:focus,
+body:not(.user-is-tabbing) select:focus,
+body:not(.user-is-tabbing) textarea:focus {
+  outline: none;
+}
+
 .welcome {
   font-family: $font-family-serif;
   span {
@@ -9,6 +17,10 @@
 
 .serif {
   font-family: $font-family-serif;
+}
+
+.sans-serif {
+  font-family: $font-family-sans-serif;
 }
 
 .logo {

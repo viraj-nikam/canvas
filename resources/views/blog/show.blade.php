@@ -19,7 +19,21 @@
     <div class="container mt-4">
         <div class="row justify-content-md-center">
             <div class="col col-lg-8">
-                <h1 class="display-4 font-weight-bold mb-2 content-title serif pt-5">{{ $data['post']->title }}</h1>
+                <h1 class="display-4 font-weight-bold mb-2 content-title serif pt-5">
+                    {{ $data['post']->title }}
+                    @auth()
+                        <a id="navbarDropdown" href="#" style="font-size: 20px" role="button" data-toggle="dropdown"
+                           aria-haspopup="true" aria-expanded="false" v-pre>
+                            <i class="fas fa-cog text-muted"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                            <a href="{{ route('canvas.post.edit', $data['post']->id) }}"
+                               class="dropdown-item sans-serif">Edit post</a>
+                            <a href="{{ route('canvas.stats.show', $data['post']->id) }}"
+                               class="dropdown-item sans-serif">View stats</a>
+                        </div>
+                    @endauth
+                </h1>
                 <p class="text-uppercase text-muted my-4">
                     Published on {{ \Carbon\Carbon::parse($data['post']->published_at)->format('M d, Y') }}
                     @if($data['post']->tags->count() > 0) in
