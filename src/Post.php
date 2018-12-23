@@ -128,7 +128,7 @@ class Post extends Model
     }
 
     /**
-     * Get the 5 most popular reading times rounded to the nearest 30 minutes.
+     * Get the 10 most popular reading times rounded to the nearest 30 minutes.
      *
      * @param $value
      * @return array

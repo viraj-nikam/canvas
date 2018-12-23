@@ -27,11 +27,16 @@
                             <div class="mr-auto">
                                 <p class="mb-0 py-2">
                                     @unless($host == 'Other')
+                                        <img src="{{ sprintf('%s%s', 'https://favicons.githubusercontent.com/', $host) }}"
+                                             alt="{{ $host }}" style="width: 15px; height: 15px;" class="mr-1">
                                         <a href="http://{{ $host }}" target="_blank">{{ $host }}</a>
                                     @else
-                                        {{ $host }} <a data-toggle="tooltip" data-placement="right" style="cursor: pointer"
+                                        <img src="{{ sprintf('%s%s', 'https://favicons.githubusercontent.com/', $host) }}"
+                                             alt="{{ $host }}" style="width: 15px; height: 15px;" class="mr-1">
+                                        <a data-toggle="tooltip" data-placement="right"
+                                                       style="cursor: pointer"
                                                        title="Post views in this category could not reliably determine a referrer. e.g. Incognito mode">
-                                            <i class="far fa-fw fa-question-circle text-muted"></i>
+                                            {{ $host }} <i class="far fa-fw fa-question-circle text-muted"></i>
                                         </a>
                                     @endunless
                                 </p>

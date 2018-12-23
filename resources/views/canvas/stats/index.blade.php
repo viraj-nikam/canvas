@@ -41,27 +41,31 @@
 
                     <view-stats :views="{{ $data['views']['trend'] }}"></view-stats>
 
-                    @foreach($data['posts']['published'] as $post)
-                        <div class="d-flex border-top py-2 align-items-center mt-4">
-                            <div class="mr-auto">
-                                <p class="mb-0 py-2">
-                                    <a href="{{ route('canvas.stats.show', $post->id) }}"
-                                       class="font-weight-bold lead">{{ $post->title }}</a>
-                                    <br>
-                                    <small class="text-muted">
-                                        {{ $post->readingTime }} ― <a href="{{ route('blog.post.show', $post->slug) }}">View
-                                            Post</a> ― <a href="{{ route('canvas.stats.show', $post->id) }}">Details</a>
-                                    </small>
-                                </p>
+                    <div class="mt-4">
+                        @foreach($data['posts']['published'] as $post)
+                            <div class="d-flex border-top py-2 align-items-center">
+                                <div class="mr-auto">
+                                    <p class="mb-0 py-2">
+                                        <a href="{{ route('canvas.stats.show', $post->id) }}"
+                                           class="font-weight-bold lead">{{ $post->title }}</a>
+                                        <br>
+                                        <small class="text-muted">
+                                            {{ $post->readingTime }} ― <a
+                                                    href="{{ route('blog.post.show', $post->slug) }}">View
+                                                Post</a> ― <a
+                                                    href="{{ route('canvas.stats.show', $post->id) }}">Details</a>
+                                        </small>
+                                    </p>
+                                </div>
+                                <div class="ml-auto">
+                                    <span class="text-muted mr-3">{{ $post->views->count() }} View(s)</span>
+                                    Created {{ \Carbon\Carbon::parse($post->created_at)->diffForHumans() }}
+                                </div>
                             </div>
-                            <div class="ml-auto">
-                                <span class="text-muted mr-3">{{ $post->views->count() }} View(s)</span>
-                                Created {{ \Carbon\Carbon::parse($post->created_at)->diffForHumans() }}
-                            </div>
-                        </div>
-                    @endforeach
+                        @endforeach
 
-                    {{ $data['posts']['all']->links() }}
+                        {{ $data['posts']['all']->links() }}
+                    </div>
                 @else
                     <p class="mt-4">There are no published posts for which you can view stats.</p>
                 @endif

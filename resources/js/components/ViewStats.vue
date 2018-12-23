@@ -32,7 +32,7 @@
                 ]"
                 title="Views (Last 30 days)"
                 type="line"
-                :height="250"
+                :height="300"
                 :colors="['#3490dc']"
                 :dataSets="this.points">
         </vue-frappe>
