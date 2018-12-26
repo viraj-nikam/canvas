@@ -1,5 +1,4 @@
 
-// Globals
 body:not(.user-is-tabbing) a:focus,
 body:not(.user-is-tabbing) button:focus,
 body:not(.user-is-tabbing) input:focus,
@@ -47,4 +46,13 @@ body:not(.user-is-tabbing) textarea:focus {
 input, textarea, select {
   box-shadow: none !important;
   outline: none !important;
+}
+
+.fab {
+  &.fa-facebook-square {
+    color: $fa-facebook-square;
+  }
+  &.fa-twitter {
+    color: $fa-twitter;
+  }
 }

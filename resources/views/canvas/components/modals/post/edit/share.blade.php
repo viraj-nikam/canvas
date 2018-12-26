@@ -6,7 +6,7 @@
 
                 <p>
                     <a href="https://facebook.com/sharer/sharer.php?u={{ route('blog.post.show', $data['post']->slug) }}"
-                       class="text-muted" target="_blank"><i class="fab fa-facebook-f fa-fw pr-4"></i>Share on Facebook</a>
+                       class="text-muted" target="_blank"><i class="fab fa-facebook-square fa-fw pr-4"></i>Share on Facebook</a>
                 </p>
                 <p>
                     <a href="https://twitter.com/intent/tweet/?url={{ route('blog.post.show', $data['post']->slug) }}"

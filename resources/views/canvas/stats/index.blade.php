@@ -64,7 +64,9 @@
                             </div>
                         @endforeach
 
-                        {{ $data['posts']['all']->links() }}
+                        <div class="d-flex justify-content-center">
+                            {{ $data['posts']['all']->links() }}
+                        </div>
                     </div>
                 @else
                     <p class="mt-4">There are no published posts for which you can view stats.</p>

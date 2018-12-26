@@ -4,7 +4,7 @@
             <div class="modal-body">
                 <div class="form-group row">
                     <div class="col-12">
-                        <label for="published_at" class="font-weight-bold">Publish Date</label>
+                        <label for="published_at" class="font-weight-bold">Publish date</label>
                         <input name="published_at"
                                type="datetime-local"
                                class="form-control border-0 px-0"
@@ -15,7 +15,7 @@
             <div class="modal-footer">
                 <a href="#" class="btn btn-primary"
                    onclick="event.preventDefault();document.getElementById('form-edit').submit();"
-                   aria-label="Publish this post">Update Post</a>
+                   aria-label="Update post">Update post</a>
                 <button class="btn btn-link text-muted" data-dismiss="modal">Cancel</button>
             </div>
         </div>

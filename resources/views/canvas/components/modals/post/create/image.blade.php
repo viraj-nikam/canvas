@@ -2,7 +2,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-body">
-                <p class="font-weight-bold lead">Featured Image</p>
+                <p class="font-weight-bold lead">Featured image</p>
 
                 <div class="form-group row">
                     <div class="col-12">

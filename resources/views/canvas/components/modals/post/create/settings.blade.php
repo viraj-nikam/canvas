@@ -2,7 +2,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-body">
-                <p class="font-weight-bold lead">General Settings</p>
+                <p class="font-weight-bold lead">General settings</p>
 
                 <div class="form-group row">
                     <div class="col-12">

@@ -53,7 +53,9 @@
                         </div>
                     @endforeach
 
-                    {{ $data['posts']->links() }}
+                    <div class="d-flex justify-content-center">
+                        {{ $data['posts']->links() }}
+                    </div>
                 @else
                     <p class="mt-4">No posts were found, start by <a href="{{ route('canvas.post.create') }}">adding a
                             new post</a>.</p>

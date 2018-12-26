@@ -29,7 +29,9 @@
                         </div>
                     @endforeach
 
-                    {{ $data['tags']->links() }}
+                    <div class="d-flex justify-content-center">
+                        {{ $data['tags']->links() }}
+                    </div>
                 @else
                     <p class="mt-4">No tags were found, start by <a href="{{ route('canvas.tag.create') }}">adding a new
                             tag</a>.</p>

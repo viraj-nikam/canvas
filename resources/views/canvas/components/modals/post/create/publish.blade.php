@@ -4,7 +4,7 @@
             <div class="modal-body">
                 <div class="form-group row">
                     <div class="col-12">
-                        <label for="published_at" class="font-weight-bold">Publish Date</label>
+                        <label for="published_at" class="font-weight-bold">Publish date</label>
                         <input name="published_at"
                                type="datetime-local"
                                class="form-control border-0 px-0"
