@@ -23,9 +23,9 @@
 
                 @if($data['traffic'])
                     @foreach($data['traffic'] as $host => $views)
-                        <div class="d-flex border-top py-2 align-items-center">
+                        <div class="d-flex @if($loop->first) border-top @endif py-2 align-items-center">
                             <div class="mr-auto">
-                                <p class="mb-0 py-2">
+                                <p class="mb-0 py-1">
                                     @unless($host == 'Other')
                                         <img src="{{ sprintf('%s%s', 'https://favicons.githubusercontent.com/', $host) }}"
                                              alt="{{ $host }}" style="width: 15px; height: 15px;" class="mr-1">
@@ -57,9 +57,9 @@
 
                 @if($data['popular_reading_times'])
                     @foreach($data['popular_reading_times'] as $range => $percentage)
-                        <div class="d-flex py-2 border-top align-items-center">
+                        <div class="d-flex py-2 @if($loop->first) border-top @endif align-items-center">
                             <div class="mr-auto">
-                                <p class="mb-0 py-2">
+                                <p class="mb-0 py-1">
                                     {{ $range }}
                                 </p>
                             </div>
