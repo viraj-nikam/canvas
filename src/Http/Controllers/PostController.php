@@ -38,7 +38,7 @@ class PostController extends Controller
      */
     public function show(string $slug): View
     {
-        $post = Post::with('tags', 'views')->where('slug', $slug)->first();
+        $post = Post::with('tags', 'views')->where('slug', $slug)->firstOrFail();
 
         if ($post->published) {
             $data = [

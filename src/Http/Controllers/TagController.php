@@ -34,7 +34,7 @@ class TagController extends Controller
     public function show(string $slug): View
     {
         $data = [
-            'tag' => Tag::with('posts')->where('slug', $slug)->first(),
+            'tag' => Tag::with('posts')->where('slug', $slug)->firstOrFail(),
         ];
 
         return view('canvas::blog.show', compact('data'));
