@@ -13,5 +13,60 @@
 // Bootstrap
 @import "~bootstrap/scss/bootstrap";
 
-// Globals
-@import "globals";
+body:not(.user-is-tabbing) a:focus,
+body:not(.user-is-tabbing) button:focus,
+body:not(.user-is-tabbing) input:focus,
+body:not(.user-is-tabbing) select:focus,
+body:not(.user-is-tabbing) textarea:focus {
+  outline: none;
+}
+
+.welcome {
+  font-family: $font-family-serif;
+  span {
+    color: #9ba3aa;
+  }
+}
+
+.serif {
+  font-family: $font-family-serif;
+}
+
+.sans-serif {
+  font-family: $font-family-sans-serif;
+}
+
+.logo {
+  font-family: $font-family-serif;
+  font-size: 20px;
+  span {
+    color: #9ba3aa;
+  }
+}
+
+.content-title {
+  color: #444;
+  a {
+    color: #444;
+  }
+}
+
+.content-body {
+  color: #444;
+  font-size: 1.1rem;
+  line-height: 2;
+}
+
+input, textarea, select {
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+.fab {
+  &.fa-facebook-square {
+    color: $fa-facebook-square;
+  }
+  &.fa-twitter {
+    color: $fa-twitter;
+  }
+}
