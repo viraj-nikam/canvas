@@ -40,7 +40,8 @@ class PostController extends Controller
     {
         $posts = Post::with('tags')->published()->get();
         $post = $posts->firstWhere('slug', $slug);
-        $next = $posts->sortByDesc('published_at')->firstWhere('published_at', '>', optional($post)->published_at);
+        $next = $posts->sortBy('published_at')->firstWhere('published_at', '>', optional($post)->published_at);
+
         $filtered = $posts->filter(function ($value, $key) use ($slug, $next) {
             return $value->slug != $slug && $value->slug != optional($next)->slug;
         });
