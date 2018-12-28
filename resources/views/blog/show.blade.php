@@ -51,11 +51,29 @@
                 @endisset
 
                 <div class="content-body serif">{!! $data['post']->body !!}</div>
-                <div class="border-top my-5">
-                    <p class="mt-5 text-center text-uppercase text-muted">Powered by <a
-                                href="{{ url('https://cnvs.io') }}" class="text-muted" target="_blank"><u>Canvas</u></a>
-                    </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="read-more mt-5 container-fluid">
+        <div class="row">
+            @if($data['next'])
+                <div class="col-lg text-center px-lg-5 py-5 @if(!empty($data['next']->featured_image)) has-cover @endif"
+                     style="background: linear-gradient(rgba(0, 0, 0, 0.8),rgba(0, 0, 0, 0.8)),url({{ $data['next']->featured_image }}); background-size: cover">
+                    <a href="{{ route('blog.post.show', $data['next']->slug) }}"
+                       class="btn btn-sm @if(!empty($data['next']->featured_image)) btn-outline-light @endif text-uppercase font-weight-bold mt-3">Read
+                        this next</a>
+                    <h2 class="font-weight-bold serif my-3"><a href="{{ route('blog.post.show', $data['next']->slug) }}"
+                                                               class="title">{{ $data['next']->title }}</a></h2>
+                    <p class="serif body">{{ str_limit(strip_tags($data['next']->body), 140) }}</p>
                 </div>
+            @endif
+            <div class="col-lg bg-light text-center px-lg-5 py-5">
+                <a href="{{ route('blog.post.show', $data['random']->slug) }}"
+                   class="btn btn-sm btn-outline-secondary text-uppercase font-weight-bold mt-3">You might enjoy</a>
+                <h2 class="font-weight-bold serif my-3"><a href="{{ route('blog.post.show', $data['random']->slug) }}"
+                                                           class="title">{{ $data['random']->title }}</a></h2>
+                <p class="serif text-black-50 body">{{ str_limit(strip_tags($data['random']->body), 140) }}</p>
             </div>
         </div>
     </div>

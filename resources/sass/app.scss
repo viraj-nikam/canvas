@@ -70,3 +70,23 @@ input, textarea, select {
     color: $fa-twitter;
   }
 }
+
+.read-more {
+  a.title {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  p.body {
+    font-size: 1.1rem;
+  }
+  
+  .has-cover {
+    h2 {
+      color: white;
+    }
+    p {
+      color: rgba(255, 255, 255, 0.5);
+    }
+  }
+}
