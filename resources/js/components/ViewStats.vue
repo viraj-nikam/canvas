@@ -9,12 +9,11 @@
 
         data() {
             return {
-                points: [
-
-                    // TODO: TASK - Loop through the views property and grab values
-
-                    {values: [15, 20, 35, 33, 47, 32, 29, 34, 15, 20, 79, 82, 84, 78, 132, 205]},
-                ]
+                // TODO: TASK - Loop through the views property and grab values
+                data: [{
+                    name: "Yet Another", chartType: 'line',
+                    values: [15, 20, 35, 33, 47, 32, 29, 34, 15, 20, 79, 82, 84, 78, 132, 205]
+                }]
             }
         }
     }
@@ -34,7 +33,7 @@
                 type="line"
                 :height="300"
                 :colors="['#3490dc']"
-                :dataSets="this.points">
+                :dataSets="this.data">
         </vue-frappe>
     </div>
 </template>

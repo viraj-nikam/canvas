@@ -37,10 +37,10 @@
                 <p class="text-uppercase text-muted my-4">
                     Published on {{ \Carbon\Carbon::parse($data['post']->published_at)->format('M d, Y') }}
                     @if($data['post']->tags->count() > 0) in
-                    @foreach($data['post']->tags as $tag)
-                        <a href="{{ route('blog.tag.index', $tag->slug) }}"
-                           class="text-muted"><u>{{ $tag->name }}</u></a>
-                    @endforeach
+                        @foreach($data['post']->tags as $tag)
+                            <a href="{{ route('blog.tag.index', $tag->slug) }}"
+                               class="text-muted"><u>{{ $tag->name }}</u></a>
+                        @endforeach
                     @endif
                 </p>
 
@@ -58,22 +58,16 @@
     <div class="read-more mt-5 container-fluid">
         <div class="row">
             @if($data['next'])
-                <div class="col-lg text-center px-lg-5 py-5 @if(!empty($data['next']->featured_image)) has-cover @endif"
-                     style="background: linear-gradient(rgba(0, 0, 0, 0.8),rgba(0, 0, 0, 0.8)),url({{ $data['next']->featured_image }}); background-size: cover">
-                    <a href="{{ route('blog.post.show', $data['next']->slug) }}"
-                       class="btn btn-sm @if(!empty($data['next']->featured_image)) btn-outline-light @endif text-uppercase font-weight-bold mt-3">Read
-                        this next</a>
-                    <h2 class="font-weight-bold serif my-3"><a href="{{ route('blog.post.show', $data['next']->slug) }}"
-                                                               class="title">{{ $data['next']->title }}</a></h2>
-                    <p class="serif body">{{ str_limit(strip_tags($data['next']->body), 140) }}</p>
+                <div class="col-lg bg-light text-center px-lg-5 py-5" @if(!empty($data['next']->featured_image)) style="background: linear-gradient(rgba(0, 0, 0, 0.8),rgba(0, 0, 0, 0.8)),url({{ $data['next']->featured_image }}); background-size: cover" @endif>
+                    <a href="{{ route('blog.post.show', $data['next']->slug) }}" class="btn btn-sm @if(!empty($data['next']->featured_image)) btn-outline-light @else btn-outline-secondary @endif text-uppercase font-weight-bold mt-3">Read this next</a>
+                    <h2 class="font-weight-bold serif my-3 @if(!empty($data['next']->featured_image)) text-white @endif"><a href="{{ route('blog.post.show', $data['next']->slug) }}" class="title">{{ $data['next']->title }}</a></h2>
+                    <p class="serif body @if(!empty($data['next']->featured_image)) text-white-50 @else text-muted @endif">{{ str_limit(strip_tags($data['next']->body), 140) }}</p>
                 </div>
             @endif
-            <div class="col-lg bg-light text-center px-lg-5 py-5">
-                <a href="{{ route('blog.post.show', $data['random']->slug) }}"
-                   class="btn btn-sm btn-outline-secondary text-uppercase font-weight-bold mt-3">You might enjoy</a>
-                <h2 class="font-weight-bold serif my-3"><a href="{{ route('blog.post.show', $data['random']->slug) }}"
-                                                           class="title">{{ $data['random']->title }}</a></h2>
-                <p class="serif text-black-50 body">{{ str_limit(strip_tags($data['random']->body), 140) }}</p>
+            <div class="col-lg bg-light text-center px-lg-5 py-5" @if(!empty($data['random']->featured_image)) style="background: linear-gradient(rgba(0, 0, 0, 0.8),rgba(0, 0, 0, 0.8)),url({{ $data['random']->featured_image }}); background-size: cover" @endif>
+                <a href="{{ route('blog.post.show', $data['random']->slug) }}" class="btn btn-sm @if(!empty($data['random']->featured_image)) btn-outline-light @else btn-outline-secondary @endif text-uppercase font-weight-bold mt-3">You might enjoy</a>
+                <h2 class="font-weight-bold serif my-3 @if(!empty($data['random']->featured_image)) text-white @endif"><a href="{{ route('blog.post.show', $data['random']->slug) }}" class="title">{{ $data['random']->title }}</a></h2>
+                <p class="serif body @if(!empty($data['random']->featured_image)) text-white-50 @else text-muted @endif">{{ str_limit(strip_tags($data['random']->body), 140) }}</p>
             </div>
         </div>
     </div>
