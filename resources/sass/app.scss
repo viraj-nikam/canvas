@@ -1,7 +1,7 @@
 
 // Fonts
 @import url("https://fonts.googleapis.com/css?family=Nunito");
-@import url("https://fonts.googleapis.com/css?family=Libre+Baskerville");
+@import url("https://fonts.googleapis.com/css?family=Merriweather");
 @import "~@fortawesome/fontawesome-free/scss/brands";
 @import "~@fortawesome/fontawesome-free/scss/regular";
 @import "~@fortawesome/fontawesome-free/scss/solid";
@@ -79,14 +79,5 @@ input, textarea, select {
 
   p.body {
     font-size: 1.1rem;
-  }
-  
-  .has-cover {
-    h2 {
-      color: white;
-    }
-    p {
-      color: rgba(255, 255, 255, 0.5);
-    }
   }
 }
