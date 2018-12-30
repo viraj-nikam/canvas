@@ -3,10 +3,12 @@
 @section('status', 'Draft')
 
 @section('actions')
-    <a href="#" class="btn btn-sm btn-outline-primary my-auto" data-toggle="modal" data-target="#modal-publish">Save and publish</a>
+    <a href="#" class="btn btn-sm btn-outline-primary my-auto" data-toggle="modal" data-target="#modal-publish">Save and
+        publish</a>
 
     <div class="dropdown">
-        <a id="navbarDropdown" class="nav-link px-3 text-secondary" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+        <a id="navbarDropdown" class="nav-link px-3 text-secondary" href="#" role="button" data-toggle="dropdown"
+           aria-haspopup="true" aria-expanded="false" v-pre>
             <i class="fas fa-sliders-h fa-fw fa-rotate-270"></i>
         </a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">

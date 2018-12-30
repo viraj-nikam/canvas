@@ -2,14 +2,23 @@
 
 @section('title', sprintf('%s - %s', config('app.name', 'Laravel'), 'Blog'))
 
+@section('actions')
+    <a href="{{ route('canvas.post.create') }}" class="btn btn-sm btn-outline-primary my-auto mx-3">
+        New post
+    </a>
+@endsection
+
 @section('body')
+    @auth()
+        @include('canvas::canvas.components.nav.navbar')
+    @endauth
     @if(count($data['posts']) > 0)
-        <div class="container mt-4">
+        <div class="container">
             <div class="row justify-content-md-center">
                 <div class="col col-lg-8">
                     <h2 class="mb-5 serif">@isset($data['tag']) {{ sprintf('Posts in:%s', $data['tag']) }} @endisset</h2>
                     @foreach($data['posts'] as $post)
-                        <p class="small text-muted text-uppercase pt-5">Published on {{ \Carbon\Carbon::parse($post->published_at)->format('M d, Y') }}</p>
+                        <p class="small text-muted text-uppercase">Published on {{ \Carbon\Carbon::parse($post->published_at)->format('M d, Y') }}</p>
                         <h2 class="serif my-3 content-title font-weight-bold"><a href="{{ route('blog.post.show', $post->slug) }}">{{ $post->title }}</a></h2>
                         <p class="content-body serif">{{ str_limit(strip_tags($post->body), 200) }}</p>
 
