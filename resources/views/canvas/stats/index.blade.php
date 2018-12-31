@@ -39,7 +39,7 @@
                         </div>
                     </div>
 
-                    <view-stats :views="{{ $data['views']['trend'] }}"></view-stats>
+                    <line-chart :views="{{ $data['views']['trend'] }}"></line-chart>
 
                     <div class="mt-4">
                         @foreach($data['posts']['published'] as $post)

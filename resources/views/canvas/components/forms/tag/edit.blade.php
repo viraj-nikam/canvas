@@ -2,7 +2,7 @@
     @method('PUT')
     @csrf
 
-    <tag-inputs :tag="{{ $data['tag'] }}" inline-template>
+    <tags :tag="{{ $data['tag'] }}" inline-template>
         <div>
             <div class="form-group row my-5">
                 <div class="col-lg-12">
@@ -28,5 +28,5 @@
                 </div>
             </div>
         </div>
-    </tag-inputs>
+    </tags>
 </form>
