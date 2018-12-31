@@ -76,7 +76,7 @@ return [
 ];
 ```
 
-After installing, you should run the also run the `migrate` command:
+After installing, you should also run the `migrate` command:
 
 ```bash
 php artisan migrate
