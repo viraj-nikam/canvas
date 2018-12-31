@@ -105,7 +105,6 @@ composer test
 - [ ] Add [QuillJS](https://quilljs.com/guides/cloning-medium-with-parchment/) as the default editor.
 - [ ] Add support for [multiple tags](https://vue-multiselect.js.org/#sub-multiple-select) on a single post. @austintoddj
 - [ ] Add post/tag filtering.
-- [ ] Add support for downloading a formatted `.zip` of posts
 
 ## License
 
