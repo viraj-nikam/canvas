@@ -4,21 +4,21 @@ namespace Canvas\Console;
 
 use Illuminate\Console\Command;
 
-class InstallCommand extends Command
+class MigrateCommand extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'canvas:install';
+    protected $signature = 'canvas:migrate';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Install all of the Canvas resources';
+    protected $description = 'Run the database migrations for Canvas';
 
     /**
      * Execute the console command.
@@ -27,12 +27,6 @@ class InstallCommand extends Command
      */
     public function handle()
     {
-        $this->comment('Publishing Canvas assets...');
-        $this->callSilent('vendor:publish', ['--tag' => 'canvas-assets']);
-
-        $this->comment('Publishing Canvas configuration...');
-        $this->callSilent('vendor:publish', ['--tag' => 'canvas-config']);
-
         $this->comment('Running Canvas database migrations...');
         $this->callSilent('migrate');
 

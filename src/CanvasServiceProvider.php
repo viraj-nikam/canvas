@@ -3,6 +3,8 @@
 namespace Canvas;
 
 use Illuminate\Events\Dispatcher;
+use Canvas\Console\InstallCommand;
+use Canvas\Console\MigrateCommand;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
@@ -31,9 +33,10 @@ class CanvasServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__.'/../config/canvas.php', 'canvas');
+        $this->mergeConfigFrom(__DIR__ . '/../config/canvas.php', 'canvas');
         $this->commands([
-            Console\InstallCommand::class,
+            InstallCommand::class,
+            MigrateCommand::class,
         ]);
     }
 
@@ -62,11 +65,11 @@ class CanvasServiceProvider extends ServiceProvider
     {
         Route::namespace('Canvas\Http\Controllers')->group(function () {
             Route::prefix(config('canvas.public_path'))->middleware(['web'])->group(function () {
-                $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
+                $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
             });
 
             Route::prefix('canvas')->middleware(config('canvas.middleware'))->group(function () {
-                $this->loadRoutesFrom(__DIR__.'/../routes/canvas.php');
+                $this->loadRoutesFrom(__DIR__ . '/../routes/canvas.php');
             });
         });
     }
@@ -78,7 +81,7 @@ class CanvasServiceProvider extends ServiceProvider
      */
     private function registerResources()
     {
-        $this->loadViewsFrom(__DIR__.'/../resources/views', 'canvas');
+        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'canvas');
     }
 
     /**
@@ -89,7 +92,7 @@ class CanvasServiceProvider extends ServiceProvider
     private function registerMigrations()
     {
         if ($this->app->runningInConsole()) {
-            $this->loadMigrationsFrom(__DIR__.'/Migrations');
+            $this->loadMigrationsFrom(__DIR__ . '/Migrations');
         }
     }
 
@@ -102,14 +105,14 @@ class CanvasServiceProvider extends ServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__.'/../public' => public_path('vendor/canvas'),
-            ], 'assets');
+                __DIR__ . '/../public' => public_path('vendor/canvas'),
+            ], 'canvas-assets');
             $this->publishes([
-                __DIR__.'/../config/canvas.php' => config_path('canvas.php'),
-            ], 'config');
+                __DIR__ . '/../config/canvas.php' => config_path('canvas.php'),
+            ], 'canvas-config');
             $this->publishes([
-                __DIR__.'/../resources/views' => resource_path('views/vendor/canvas'),
-            ], 'views');
+                __DIR__ . '/../resources/views' => resource_path('views/vendor/canvas'),
+            ], 'canvas-views');
         }
     }
 }

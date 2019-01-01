@@ -20,7 +20,8 @@ class InstallCommandTest extends TestCase
         $this->artisan('canvas:install')
             ->expectsOutput('Publishing Canvas assets...')
             ->expectsOutput('Publishing Canvas configuration...')
-            ->expectsOutput('Canvas scaffolding installed successfully.')
+            ->expectsOutput('Running Canvas database migrations...')
+            ->expectsOutput('Canvas is ready for use. Enjoy!')
             ->assertExitCode(0);
         $this->assertFileExists(config_path('canvas.php'));
         $this->assertDirectoryExists(public_path('vendor/canvas'));

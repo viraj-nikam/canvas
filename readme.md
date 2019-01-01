@@ -76,16 +76,24 @@ return [
 ];
 ```
 
-After installing, you should also run the `migrate` command:
-
-```bash
-php artisan migrate
-```
-
 You can optionally publish the views with:
 
 ```bash
-php artisan vendor:publish --provider="Canvas\CanvasServiceProvider" --tag="views"
+php artisan vendor:publish --provider="Canvas\CanvasServiceProvider" --tag="canvas-views"
+```
+
+## Updates
+
+Add this command in your deployment script so that any new migrations are run:
+
+```bash
+php artisan canvas:migrate
+```
+
+You may also want to run this command to re-publish the assets:
+
+```bash
+php artisan vendor:publish --tag=canvas-assets --force
 ```
 
 ## Testing
