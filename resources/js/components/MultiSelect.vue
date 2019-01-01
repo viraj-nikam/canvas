@@ -13,8 +13,8 @@
                 value: [],
                 options: [
 
-                    // TODO: TASK - Loop through the tags property for options
-                    // TODO: BUG - Tag data is null when form is submitted
+                    // todo: [task] loop through the tags property for options
+                    // todo: [bug] tag data is null when form is submitted
 
                     {name: 'Vue.js', slug: 'vue'},
                     {name: 'Javascript', slug: 'js'},
