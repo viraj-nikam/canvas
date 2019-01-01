@@ -21,6 +21,10 @@ body:not(.user-is-tabbing) textarea:focus {
   outline: none;
 }
 
+a {
+  text-decoration: none !important;
+}
+
 .welcome {
   font-family: $font-family-serif;
   span {

@@ -15,27 +15,25 @@
                 @if(count($data['posts']))
                     @foreach($data['posts'] as $post)
                         <div class="d-flex border-top py-3 align-items-center">
-                            <div class="mr-auto">
-                                <p class="mb-0 py-2">
+                            <div class="mr-auto py-1">
+                                <p class="mb-1">
                                     <a href="{{ route('canvas.post.edit', $post->id) }}"
                                        class="font-weight-bold lead">{{ $post->title }}</a>
-                                    @if($post->summary)
-                                        <br>
-                                        {{ str_limit($post->summary, 100) }}
-                                    @endif
-                                    <br>
-                                    <small class="text-muted">
+                                </p>
+                                @if($post->summary)
+                                    <p class="mb-1">{{ str_limit($post->summary, 90) }}</p>
+                                @endif
+                                <p class="text-muted mb-0">
                                         @if($post->published)
-                                            Published {{ \Carbon\Carbon::parse($post->published_at)->diffForHumans() }}
-                                        @else
-                                            <span class="text-danger">Draft</span>
-                                        @endif
+                                        Published {{ \Carbon\Carbon::parse($post->published_at)->diffForHumans() }}
+                                    @else
+                                        <span class="text-danger">Draft</span>
+                                    @endif
                                         ―
                                         Updated {{ \Carbon\Carbon::parse($post->updated_at)->diffForHumans() }}
-                                        @if(count($post->tags))
-                                            ― Tags: {{ implode(', ', $post->tags) }}
-                                        @endif
-                                    </small>
+                                    @if(count($post->tags))
+                                        ― Tags: {{ implode(', ', $post->tags) }}
+                                    @endif
                                 </p>
                             </div>
                             <div class="ml-auto d-none d-lg-block">

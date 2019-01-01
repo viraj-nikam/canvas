@@ -45,19 +45,18 @@
                         @foreach($data['posts']['published'] as $post)
                             <div class="d-flex border-top py-3 align-items-center">
                                 <div class="mr-auto">
-                                    <p class="mb-0 py-2">
+                                    <p class="mb-1 mt-2">
                                         <a href="{{ route('canvas.stats.show', $post->id) }}"
                                            class="font-weight-bold lead">{{ $post->title }}</a>
-                                        <br>
-                                        <small class="text-muted">
-                                            {{ $post->readingTime }} ― <a
-                                                    href="{{ route('blog.post.show', $post->slug) }}">View
-                                                Post</a> ― <a
-                                                    href="{{ route('canvas.stats.show', $post->id) }}">Details</a>
-                                        </small>
                                     </p>
+                                    <p class="text-muted mb-2">
+                                            {{ $post->readingTime }} ― <a
+                                                href="{{ route('blog.post.show', $post->slug) }}">View
+                                                post</a> ― <a
+                                                href="{{ route('canvas.stats.show', $post->id) }}">Details</a>
+                                        </p>
                                 </div>
-                                <div class="ml-auto">
+                                <div class="ml-auto d-none d-lg-block">
                                     <span class="text-muted mr-3">{{ $post->views->count() }} View(s)</span>
                                     Created {{ \Carbon\Carbon::parse($post->created_at)->diffForHumans() }}
                                 </div>
