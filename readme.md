@@ -84,10 +84,16 @@ php artisan vendor:publish --provider="Canvas\CanvasServiceProvider" --tag="canv
 
 ## Updates
 
-Add this command in your deployment script so that any new migrations are run:
+You may use composer to update your current version of Canvas:
 
 ```bash
-php artisan canvas:migrate
+composer update
+```
+
+Run any new migrations using the `migrate` Artisan command:
+
+```bash
+php artisan migrate
 ```
 
 You may also want to run this command to re-publish the assets:

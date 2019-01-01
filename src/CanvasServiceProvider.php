@@ -4,7 +4,6 @@ namespace Canvas;
 
 use Illuminate\Events\Dispatcher;
 use Canvas\Console\InstallCommand;
-use Canvas\Console\MigrateCommand;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
@@ -36,7 +35,6 @@ class CanvasServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(__DIR__.'/../config/canvas.php', 'canvas');
         $this->commands([
             InstallCommand::class,
-            MigrateCommand::class,
         ]);
     }
 
