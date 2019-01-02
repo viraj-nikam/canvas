@@ -2,7 +2,7 @@
     @csrf
     <input type="hidden" name="id" hidden value="{{ $data['id'] }}">
 
-    <tags inline-template>
+    <tag inline-template>
         <div>
             <div class="form-group row my-5">
                 <div class="col-lg-12">
@@ -28,5 +28,5 @@
                 </div>
             </div>
         </div>
-    </tags>
+    </tag>
 </form>

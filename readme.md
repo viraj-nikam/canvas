@@ -84,7 +84,7 @@ php artisan vendor:publish --provider="Canvas\CanvasServiceProvider" --tag="canv
 
 ## Updates
 
-You may use composer to update your current version of Canvas:
+You may update your Canvas installation using composer:
 
 ```bash
 composer update
