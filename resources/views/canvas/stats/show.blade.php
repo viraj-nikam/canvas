@@ -15,7 +15,9 @@
                 </h5>
                 <h1 class="mb-4">{{ $data['post']->title }}</h1>
 
-                <line-chart :views="{{ $data['views'] }}"></line-chart>
+                @isset($data['views'])
+                    <line-chart :views="{{ $data['views'] }}"></line-chart>
+                @endisset
             </div>
 
             <div class="col-md-5 mt-4">

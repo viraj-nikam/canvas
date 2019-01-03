@@ -12,12 +12,10 @@
         data() {
             return {
                 points: [{
-                    values: [15, 20, 35, 33, 47, 32, 29, 34, 15, 20, 365, 33, 84, 32, 29, 35]
+                    values: Object.values(this.views)
                 }],
 
-                labels: [
-                    '12/01', '12/02', '12/03', '12/04', '12/05', '12/06', '12/07', '12/08', '12/09', '12/10', '12/11', '12/12', '12/13', '12/14', '12/15', '12/16'
-                ]
+                labels: Object.keys(this.views)
             }
         }
     }
@@ -37,7 +35,7 @@
                 :colors="['#3490dc']"
                 :dataSets="this.points"
                 :tooltipOptions="{
-                    formatTooltipX: d => moment(d).format('dddd, MMMM Do'),
+                    formatTooltipX: d => moment(d, 'YYYY-MM-DD').format('dddd, MMMM Do'),
                     formatTooltipY: d => d + ' views',
                 }">
         </vue-frappe>

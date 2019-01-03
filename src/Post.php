@@ -197,7 +197,7 @@ class Post extends Model
 
         $collection = collect();
         $filtered->sortBy('created_at')->each(function ($item, $key) use ($collection) {
-            $collection->push($item->created_at->copy()->format('m/d'));
+            $collection->push($item->created_at->toDateString());
         });
 
         $array = array_count_values($collection->toArray());

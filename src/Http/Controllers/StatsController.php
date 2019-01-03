@@ -25,8 +25,8 @@ class StatsController extends Controller
                 'drafts'    => $posts->where('published_at', '>', now()->toDateTimeString()),
             ],
             'views' => [
-                'all' => $views->count(),
-                'trend' => json_encode(\Canvas\View::viewTrend($views)),
+                'count' => $views->count(),
+                'trend' => $views->isNotEmpty() ? json_encode(\Canvas\View::viewTrend($views)) : null,
             ],
         ];
 
@@ -48,7 +48,7 @@ class StatsController extends Controller
                 'post'                  => $post,
                 'traffic'               => $post->topReferers,
                 'popular_reading_times' => $post->popularReadingTimes,
-                'views'                 => json_encode($post->viewTrend),
+                'views'                 => $post->views->isNotEmpty() ? json_encode($post->viewTrend) : null,
             ];
 
             return view('canvas::canvas.stats.show', compact('data'));

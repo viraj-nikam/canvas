@@ -19,7 +19,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title text-muted small text-uppercase font-weight-bold">Total Views</h5>
-                                <p class="card-text display-4">{{ number_format($data['views']['all']) }}</p>
+                                <p class="card-text display-4">{{ number_format($data['views']['count']) }}</p>
                             </div>
                         </div>
                         <div class="card">
@@ -39,7 +39,9 @@
                         </div>
                     </div>
 
-                    <line-chart :views="{{ $data['views']['trend'] }}"></line-chart>
+                    @isset($data['views']['trend'])
+                        <line-chart :views="{{ $data['views']['trend'] }}"></line-chart>
+                    @endisset
 
                     <div class="mt-4">
                         @foreach($data['posts']['published'] as $post)
