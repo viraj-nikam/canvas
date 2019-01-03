@@ -30,6 +30,9 @@
                 :labels="this.labels"
                 title="Views (Last 30 days)"
                 type="line"
+                :axisOptions="{
+                    xIsSeries: true,
+                }"
                 :height="250"
                 :colors="['#3490dc']"
                 :dataSets="this.points"
