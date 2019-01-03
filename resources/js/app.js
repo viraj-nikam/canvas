@@ -16,11 +16,7 @@ window.Vue = require('vue');
 
 const files = require.context('./', true, /\.vue$/i);
 
-files.keys().map(key => {
-    const name = _.last(key.split('/')).split('.')[0];
-
-    return Vue.component(name, files(key))
-});
+files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
 new Vue({
     el: '#app',
