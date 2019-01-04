@@ -145,6 +145,7 @@ class Post extends Model
 
         $filtered = array_count_values($collection->toArray());
         $popular_reading_times = collect();
+
         foreach ($filtered as $key => $value) {
             $start_time = Carbon::createFromTimeString($key);
             $end_time = $start_time->copy()->addMinutes(60);
