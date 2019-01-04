@@ -54,6 +54,7 @@
                 :options="options"
                 :multiple="true"
                 :taggable="true"
+                :value="value"
                 name="tags"
                 @tag="addTag">
         </multiselect>

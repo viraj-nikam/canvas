@@ -21,3 +21,7 @@ Route::post('tags', 'TagController@store')->name('canvas.tag.store');
 Route::get('tags/{id}/edit', 'TagController@edit')->name(('canvas.tag.edit'));
 Route::put('tags/{id}', 'TagController@update')->name('canvas.tag.update');
 Route::delete('tags/{id}', 'TagController@destroy')->name('canvas.tag.destroy');
+
+// General Routes...
+Route::get('settings', 'SettingsController@index')->name('canvas.settings.index');
+Route::get('help', 'HelpController')->name('canvas.help');

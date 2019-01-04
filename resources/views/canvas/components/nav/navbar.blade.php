@@ -38,6 +38,13 @@
                             Stats
                         </a>
                         <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{{ route('canvas.settings.index') }}">
+                            Settings
+                        </a>
+                        <a class="dropdown-item" href="{{ route('canvas.help') }}">
+                            Help
+                        </a>
+                        <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{{ route('logout') }}"
                            onclick="event.preventDefault();document.getElementById('logout-form').submit();">
                             {{ __('Sign out') }}
