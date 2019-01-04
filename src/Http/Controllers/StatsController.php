@@ -25,7 +25,7 @@ class StatsController extends Controller
                 'drafts'    => $posts->where('published_at', '>', now()->toDateTimeString()),
             ],
             'views' => [
-                'count' => $this->suffixed_number($views->count()),
+                'count' => $this->suffixedNumber($views->count()),
                 'trend' => json_encode(\Canvas\View::viewTrend($views)),
             ],
         ];
@@ -64,7 +64,7 @@ class StatsController extends Controller
      * @param int $precision
      * @return string
      */
-    private function suffixed_number(int $n, $precision = 1): string
+    private function suffixedNumber(int $n, $precision = 1): string
     {
         if ($n < 900) {
             $n_format = number_format($n, $precision);
