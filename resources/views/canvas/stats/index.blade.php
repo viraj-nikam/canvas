@@ -39,9 +39,7 @@
                         </div>
                     </div>
 
-                    @isset($data['views']['trend'])
-                        <line-chart :views="{{ $data['views']['trend'] }}"></line-chart>
-                    @endisset
+                    <line-chart :views="{{ $data['views']['trend'] }}"></line-chart>
 
                     <div class="mt-4">
                         @foreach($data['posts']['published'] as $post)
@@ -52,7 +50,7 @@
                                            class="font-weight-bold lead">{{ $post->title }}</a>
                                     </p>
                                     <p class="text-muted mb-2">
-                                            {{ $post->readingTime }} ― <a
+                                            {{ $post->readTime }} ― <a
                                                 href="{{ route('blog.post.show', $post->slug) }}">View
                                                 post</a> ― <a
                                                 href="{{ route('canvas.stats.show', $post->id) }}">Details</a>

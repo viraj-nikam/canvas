@@ -31,6 +31,10 @@
                 :axisOptions="{
                     xIsSeries: true,
                 }"
+                :lineOptions="{
+                    regionFill: 1,
+                    hideDots: 1
+                }"
                 :height="250"
                 :colors="['#3490dc']"
                 :dataSets="this.points"

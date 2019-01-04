@@ -23,7 +23,7 @@
                         <p class="content-body serif">{{ str_limit(strip_tags($post->body), 200) }}</p>
 
                         <div class="d-flex justify-content-between mb-5">
-                            <p class="text-uppercase text-muted">{{ $post->readingTime }}</p>
+                            <p class="text-uppercase text-muted">{{ $post->readTime }}</p>
                             <a href="{{ route('blog.post.show', $post->slug) }}" class="text-muted text-uppercase">Read full post</a>
                         </div>
                     @endforeach

@@ -3,6 +3,7 @@
 namespace Canvas;
 
 use Carbon\Carbon;
+use Carbon\CarbonPeriod;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
@@ -119,7 +120,7 @@ class Post extends Model
      * @param $value
      * @return string
      */
-    public function getReadingTimeAttribute($value): string
+    public function getReadTimeAttribute($value): string
     {
         $words = str_word_count(strip_tags($this->body));
         $minutes = ceil($words / 200);
@@ -182,7 +183,7 @@ class Post extends Model
     }
 
     /**
-     * Get a view count for the last 30 days.
+     * Return a view count for the last 30 days.
      *
      * @param $value
      * @return array
@@ -200,9 +201,25 @@ class Post extends Model
             $collection->push($item->created_at->toDateString());
         });
 
-        $array = array_count_values($collection->toArray());
+        $views = array_count_values($collection->toArray());
 
-        return array_slice($array, 0, 30, true);
+        $period = CarbonPeriod::create(now()->subDays(30)->toDateString(), 30)->excludeStartDate();
+
+        $range = collect();
+        foreach ($period as $key => $date) {
+            $range->push($date->toDateString());
+        }
+
+        $total = collect();
+        foreach ($range as $date) {
+            if (array_key_exists($date, $views)) {
+                $total->put($date, $views[$date]);
+            } else {
+                $total->put($date, 0);
+            }
+        }
+
+        return $total->toArray();
     }
 
     /**

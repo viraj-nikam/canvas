@@ -26,7 +26,7 @@ class StatsController extends Controller
             ],
             'views' => [
                 'count' => $views->count(),
-                'trend' => $views->isNotEmpty() ? json_encode(\Canvas\View::viewTrend($views)) : null,
+                'trend' => json_encode(\Canvas\View::viewTrend($views)),
             ],
         ];
 
@@ -48,7 +48,7 @@ class StatsController extends Controller
                 'post'                  => $post,
                 'traffic'               => $post->topReferers,
                 'popular_reading_times' => $post->popularReadingTimes,
-                'views'                 => $post->views->isNotEmpty() ? json_encode($post->viewTrend) : null,
+                'views'                 => json_encode($post->viewTrend),
             ];
 
             return view('canvas::canvas.stats.show', compact('data'));

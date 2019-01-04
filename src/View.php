@@ -2,6 +2,7 @@
 
 namespace Canvas;
 
+use Carbon\CarbonPeriod;
 use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -33,7 +34,7 @@ class View extends Model
     }
 
     /**
-     * Return the last 30 days with calculated view counts.
+     * Return a view count for the last 30 days.
      *
      * @param Collection $views
      * @return array
@@ -49,8 +50,24 @@ class View extends Model
             $collection->push($item->created_at->toDateString());
         });
 
-        $array = array_count_values($collection->toArray());
+        $views = array_count_values($collection->toArray());
 
-        return array_slice($array, 0, 30, true);
+        $period = CarbonPeriod::create(now()->subDays(30)->toDateString(), 30)->excludeStartDate();
+
+        $range = collect();
+        foreach ($period as $key => $date) {
+            $range->push($date->toDateString());
+        }
+
+        $total = collect();
+        foreach ($range as $date) {
+            if (array_key_exists($date, $views)) {
+                $total->put($date, $views[$date]);
+            } else {
+                $total->put($date, 0);
+            }
+        }
+
+        return $total->toArray();
     }
 }
