@@ -19,7 +19,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title text-muted small text-uppercase font-weight-bold">Total Views</h5>
-                                <p class="card-text display-4">{{ number_format($data['views']['count']) }}</p>
+                                <p class="card-text display-4">{{ $data['views']['count'] }}</p>
                             </div>
                         </div>
                         <div class="card">
@@ -57,7 +57,7 @@
                                         </p>
                                 </div>
                                 <div class="ml-auto d-none d-lg-block">
-                                    <span class="text-muted mr-3">{{ $post->views->count() }} View(s)</span>
+                                    <span class="text-muted mr-3">{{ number_format($post->views->count()) }} View(s)</span>
                                     Created {{ \Carbon\Carbon::parse($post->created_at)->diffForHumans() }}
                                 </div>
                             </div>

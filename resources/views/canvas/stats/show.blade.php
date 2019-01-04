@@ -42,7 +42,7 @@
                                 </p>
                             </div>
                             <div class="ml-auto">
-                                <span class="text-muted">{{ $views }} View(s)</span>
+                                <span class="text-muted">{{ number_format($views) }} View(s)</span>
                             </div>
                         </div>
                     @endforeach
