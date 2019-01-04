@@ -9,18 +9,17 @@
         },
 
         data() {
+            const options = this.tags.map(obj => {
+                let filtered = {};
+                filtered['name'] = obj.name;
+                filtered['slug'] = obj.slug;
+
+                return filtered;
+            });
+
             return {
                 value: [],
-                options: [
-
-                    // todo: [task] loop through the tags property for options
-                    // todo: [bug] tag data is null when form is submitted
-
-                    {name: 'Vue.js', slug: 'vue'},
-                    {name: 'Javascript', slug: 'js'},
-                    {name: 'Open Source', slug: 'os'},
-                    {name: 'Design', slug: 'des'}
-                ]
+                options: options
             }
         },
 
