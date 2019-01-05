@@ -21,7 +21,7 @@ body:not(.user-is-tabbing) textarea:focus {
   outline: none;
 }
 
-a {
+a, .btn-link {
   text-decoration: none !important;
 }
 

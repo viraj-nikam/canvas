@@ -29,12 +29,12 @@
                     <div class="col-12">
                         <label for="published_at" class="font-weight-bold">Tags</label>
 
-                        <multi-select :tags="{{ $data['tags'] }}" :selected="{{ $data['post']->tags }}"></multi-select>
+                        <multi-select :tags="{{ $data['tags'] }}" :tagged="{{ $data['post']->tags }}"></multi-select>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-link text-muted"data-dismiss="modal">Done</button>
+                <button class="btn btn-link text-muted" data-dismiss="modal">Done</button>
             </div>
         </div>
     </div>

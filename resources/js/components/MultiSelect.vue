@@ -2,10 +2,9 @@
     import Multiselect from 'vue-multiselect'
 
     // todo: work on saving tags to the request()
-    // todo: fix the placeholder jump
 
     export default {
-        props: ['tags', 'selected'],
+        props: ['tags', 'tagged'],
 
         components: {
             Multiselect
@@ -48,7 +47,7 @@
 
 <template>
     <div>
-        <!--<input type="hidden" name="tags" :value="this.value" readonly>-->
+        <input name="tags" type="hidden" v-model="value">
         <multiselect
                 v-model="value"
                 tag-placeholder="Add a new tag"
@@ -101,5 +100,13 @@
     .multiselect__placeholder {
         color: #6c757d;
         opacity: 1;
+    }
+
+    .multiselect__input {
+        padding-top: 3px !important;
+    }
+
+    .multiselect--active {
+        padding-bottom: 2px !important;
     }
 </style>
