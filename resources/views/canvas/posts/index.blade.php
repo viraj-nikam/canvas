@@ -31,9 +31,6 @@
                                     @endif
                                         ―
                                         Updated {{ \Carbon\Carbon::parse($post->updated_at)->diffForHumans() }}
-                                    @if(count($post->tags))
-                                        ― Tags: {{ implode(', ', $post->tags) }}
-                                    @endif
                                 </p>
                             </div>
                             <div class="ml-auto d-none d-lg-block">
