@@ -28,7 +28,7 @@ a, .btn-link {
 .welcome {
   font-family: $font-family-serif;
   span {
-    color: #9ba3aa;
+    color: $light-grey;
   }
 }
 
@@ -44,19 +44,19 @@ a, .btn-link {
   font-family: $font-family-serif;
   font-size: 20px;
   span {
-    color: #9ba3aa;
+    color: $light-grey;
   }
 }
 
 .content-title {
-  color: #444;
+  color: $dark-grey;
   a {
-    color: #444;
+    color: $dark-grey;
   }
 }
 
 .content-body {
-  color: #444;
+  color: $dark-grey;
   font-size: 1.1rem;
   line-height: 2;
 }
