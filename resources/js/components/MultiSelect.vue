@@ -1,8 +1,6 @@
 <script type="text/ecmascript-6">
     import Multiselect from 'vue-multiselect'
 
-    // todo: work on saving tags to the request()
-
     export default {
         props: ['tags', 'tagged'],
 
@@ -11,7 +9,7 @@
         },
 
         data() {
-            const options = this.tags.map(obj => {
+            const availableTags = this.tags.map(obj => {
                 let filtered = {};
                 filtered['name'] = obj.name;
                 filtered['slug'] = obj.slug;
@@ -20,8 +18,8 @@
             });
 
             return {
-                value: [],
-                options: options
+                value: this.tagged ? this.tagged : [],
+                options: availableTags
             }
         },
 
@@ -47,7 +45,8 @@
 
 <template>
     <div>
-        <input name="tags" type="hidden" v-model="value">
+        <!--todo: hidden input value currently always converts to a string [Option $option]-->
+        <input name="tags" type="hidden">
         <multiselect
                 v-model="value"
                 tag-placeholder="Add a new tag"
@@ -57,7 +56,6 @@
                 :options="options"
                 :multiple="true"
                 :taggable="true"
-                :value="value"
                 @tag="addTag">
         </multiselect>
     </div>
