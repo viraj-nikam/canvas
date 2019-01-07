@@ -37,10 +37,7 @@
     <div class="container">
         <div class="row justify-content-md-center">
             <div class="col col-lg-8">
-                <h1 class="display-4 font-weight-bold mb-2 content-title serif pt-5">
-                    {{ $data['post']->title }}
-                </h1>
-                <p class="text-uppercase text-muted my-4">
+                <p class="text-uppercase text-muted font-weight-bold mb-1 pt-5">
                     Published on {{ \Carbon\Carbon::parse($data['post']->published_at)->format('M d, Y') }}
                     @if($data['post']->tags->count() > 0) in
                     @foreach($data['post']->tags as $tag)
@@ -49,6 +46,10 @@
                     @endforeach
                     @endif
                 </p>
+
+                <h1 class="display-4 font-weight-bold content-title serif">
+                    {{ $data['post']->title }}
+                </h1>
 
                 @isset($data['post']->featured_image)
                     <img src="{{ $data['post']->featured_image }}" class="w-100"

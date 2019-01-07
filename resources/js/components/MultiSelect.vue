@@ -9,7 +9,7 @@
         },
 
         data() {
-            const availableTags = this.tags.map(obj => {
+            const allTags = this.tags.map(obj => {
                 let filtered = {};
                 filtered['name'] = obj.name;
                 filtered['slug'] = obj.slug;
@@ -19,7 +19,7 @@
 
             return {
                 value: this.tagged ? this.tagged : [],
-                options: availableTags
+                options: allTags
             }
         },
 
@@ -45,8 +45,7 @@
 
 <template>
     <div>
-        <!--todo: hidden input value currently always converts to a string [Option $option]-->
-        <input name="tags" type="hidden">
+        <!--<input name="tags" type="hidden" readonly>-->
         <multiselect
                 v-model="value"
                 tag-placeholder="Add a new tag"

@@ -131,14 +131,19 @@ class PostController extends Controller
 
         $post = new Post(['id' => request('id')]);
         $post->fill($data);
+
         if (! is_null($data['featured_image'])) {
             $post->featured_image = $this->uploadImage($data['featured_image']);
         }
+
         $post->meta = $data['meta'];
         $post->save();
-        $post->tags()->sync(
-            $this->collectTags(request('tags') ?? [])
-        );
+
+        if (! is_null(request('tags'))) {
+            $post->tags()->sync(
+                $this->collectTags(request('tags') ?? [])
+            );
+        }
 
         return redirect(route('canvas.post.edit', $post->id))->with('notify', 'Saved!');
     }
@@ -182,12 +187,16 @@ class PostController extends Controller
         if ($data['featured_image'] != $post->featured_image) {
             $data['featured_image'] = $this->uploadImage($data['featured_image']);
         }
+
         $post->fill($data);
         $post->meta = $data['meta'];
         $post->save();
-        $post->tags()->sync(
-            $this->collectTags(request('tags') ?? [])
-        );
+
+        if (! is_null(request('tags'))) {
+            $post->tags()->sync(
+                $this->collectTags(request('tags') ?? [])
+            );
+        }
 
         return redirect(route('canvas.post.edit', $post->id))->with('notify', 'Saved!');
     }

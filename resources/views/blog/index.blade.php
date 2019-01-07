@@ -19,7 +19,7 @@
                 <div class="col col-lg-8">
                     <h2 class="mb-5 serif">@isset($data['tag']) {{ sprintf('Posts in:%s', $data['tag']) }} @endisset</h2>
                     @foreach($data['posts'] as $post)
-                        <p class="small text-muted text-uppercase font-weight-bold">Published on {{ \Carbon\Carbon::parse($post->published_at)->format('M d, Y') }}</p>
+                        <p class="text-muted text-uppercase font-weight-bold">Published on {{ \Carbon\Carbon::parse($post->published_at)->format('M d, Y') }}</p>
                         <h2 class="serif my-3 content-title font-weight-bold"><a href="{{ route('blog.post.show', $post->slug) }}">{{ $post->title }}</a></h2>
                         <p class="content-body serif">{{ str_limit(strip_tags($post->body), 200) }}</p>
 
