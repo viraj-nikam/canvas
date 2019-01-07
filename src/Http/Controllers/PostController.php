@@ -40,18 +40,32 @@ class PostController extends Controller
     {
         $posts = Post::with('tags')->published()->get();
         $post = $posts->firstWhere('slug', $slug);
-        $next = $posts->sortBy('published_at')->firstWhere('published_at', '>', optional($post)->published_at);
-
-        $filtered = $posts->filter(function ($value, $key) use ($slug, $next) {
-            return $value->slug != $slug && $value->slug != optional($next)->slug;
-        });
 
         if (optional($post)->published) {
+            $next = $posts->sortBy('published_at')->firstWhere('published_at', '>', optional($post)->published_at);
+
+            $filtered = $posts->filter(function ($value, $key) use ($slug, $next) {
+                return $value->slug != $slug && $value->slug != optional($next)->slug;
+            });
+
+            if ($post->tags->isNotEmpty()) {
+                $related = Post::whereHas('tags', function ($query) use ($post, $next) {
+                    return $query->whereIn('name', $post->tags->pluck('slug'));
+                })
+                    ->where('id', '!=', $post->id)
+                    ->where('id', '!=', optional($next)->id)
+                    ->get();
+
+                $random = $related->isEmpty() ? $filtered->random() : $related->random();
+            } else {
+                $random = $filtered->random();
+            }
+
             $data = [
                 'post'   => $post,
                 'meta'   => $post->meta,
                 'next'   => $next,
-                'random' => $filtered->random(),
+                'random' => $random,
             ];
 
             event(new PostViewed($post));
@@ -124,7 +138,7 @@ class PostController extends Controller
 
         validator($data, [
             'title'        => 'required',
-            'slug'         => 'required|'.Rule::unique('canvas_posts', 'slug')->ignore(request('id')).'|regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/i',
+            'slug'         => 'required|' . Rule::unique('canvas_posts', 'slug')->ignore(request('id')) . '|regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/i',
             'published_at' => 'required|date',
             'user_id'      => 'required',
         ])->validate();
@@ -132,14 +146,14 @@ class PostController extends Controller
         $post = new Post(['id' => request('id')]);
         $post->fill($data);
 
-        if (! is_null($data['featured_image'])) {
+        if (!is_null($data['featured_image'])) {
             $post->featured_image = $this->uploadImage($data['featured_image']);
         }
 
         $post->meta = $data['meta'];
         $post->save();
 
-        if (! is_null(request('tags'))) {
+        if (!is_null(request('tags'))) {
             $post->tags()->sync(
                 $this->collectTags(request('tags') ?? [])
             );
@@ -179,7 +193,7 @@ class PostController extends Controller
 
         validator($data, [
             'title'        => 'required',
-            'slug'         => 'required|'.Rule::unique('canvas_posts', 'slug')->ignore($id).'|regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/i',
+            'slug'         => 'required|' . Rule::unique('canvas_posts', 'slug')->ignore($id) . '|regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/i',
             'published_at' => 'required',
             'user_id'      => 'required',
         ])->validate();
@@ -192,7 +206,7 @@ class PostController extends Controller
         $post->meta = $data['meta'];
         $post->save();
 
-        if (! is_null(request('tags'))) {
+        if (!is_null(request('tags'))) {
             $post->tags()->sync(
                 $this->collectTags(request('tags') ?? [])
             );
@@ -227,7 +241,7 @@ class PostController extends Controller
 
         return collect($incomingTags)->map(function ($incomingTag) use ($tags) {
             $tag = $tags->where('slug', Str::slug($incomingTag['name']))->first();
-            if (! $tag) {
+            if (!$tag) {
                 $tag = Tag::create([
                     'id'   => $id = Str::uuid(),
                     'name' => $incomingTag['name'],
@@ -235,7 +249,7 @@ class PostController extends Controller
                 ]);
             }
 
-            return (string) $tag->id;
+            return (string)$tag->id;
         })->toArray();
     }
 

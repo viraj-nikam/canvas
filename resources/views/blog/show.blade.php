@@ -40,10 +40,10 @@
                 <p class="text-uppercase text-muted font-weight-bold mb-1 pt-5">
                     Published on {{ \Carbon\Carbon::parse($data['post']->published_at)->format('M d, Y') }}
                     @if($data['post']->tags->count() > 0) in
-                    @foreach($data['post']->tags as $tag)
-                        <a href="{{ route('blog.tag.index', $tag->slug) }}"
-                           class="text-muted"><u>{{ $tag->name }}</u></a>
-                    @endforeach
+                        @foreach($data['post']->tags as $tag)
+                            <a href="{{ route('blog.tag.index', $tag->slug) }}"
+                               class="text-muted"><u>{{ $tag->name }}</u>@if(!$loop->last), @endif</a>
+                        @endforeach
                     @endif
                 </p>
 
