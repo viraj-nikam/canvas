@@ -3,6 +3,7 @@
 @section('title', 'Canvas')
 
 @push('meta')
+    <!-- Icon -->
     <link rel="icon" type="image/png" href="{{ mix('favicon.png', 'vendor/canvas') }}">
 @endpush
 
