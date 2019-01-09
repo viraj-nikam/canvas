@@ -14,6 +14,9 @@ Route::get('posts/{id}/edit', 'PostController@edit')->name(('canvas.post.edit'))
 Route::put('posts/{id}', 'PostController@update')->name('canvas.post.update');
 Route::delete('posts/{id}', 'PostController@destroy')->name('canvas.post.destroy');
 
+// Media Routes...
+Route::post('media/uploads', 'MediaController@store')->name('canvas.media.store');
+
 // Tag Routes...
 Route::get('tags', 'TagController@index')->name('canvas.tag.index');
 Route::get('tags/create', 'TagController@create')->name('canvas.tag.create');

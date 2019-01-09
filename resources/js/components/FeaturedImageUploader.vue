@@ -1,100 +1,50 @@
 <script type="text/ecmascript-6">
-    import _ from 'lodash';
-
     export default {
-        props: ['postId', 'currentImageUrl', 'currentCaption'],
+        props: ['post', 'url', 'caption'],
 
         data() {
             return {
                 imageUrl: '',
-                caption: '',
-                imagePickerKey: '',
-                uploadProgress: 0,
+                imageCaption: '',
                 uploading: false,
-
-                modalShown: false,
             }
         },
 
-
         mounted() {
-            this.$parent.$on('openingFeaturedImageUploader', data => {
-                this.imageUrl = this.currentImageUrl;
-                this.caption = this.currentCaption;
-
-                this.modalShown = true;
-            });
+            this.imageUrl = this.url;
+            this.imageCaption = this.caption;
         },
 
-
         methods: {
-            /**
-             * Save the image.
-             */
+            // Save the image
             saveImage() {
-                this.$emit('changed', {url: this.imageUrl, caption: this.caption});
+                this.$emit('changed', {url: this.imageUrl, caption: this.imageCaption});
 
                 this.close();
             },
 
-
-            /**
-             * Close the modal.
-             */
-            close() {
-                this.imagePickerKey = _.uniqueId();
-
-                this.modalShown = false;
-            },
-
-
-            /**
-             * Update the selected image.
-             */
+            // Update the selected image
             updateImage({url, caption}) {
-                this.imageUrl = url;
-                this.caption = caption;
-
-                this.uploading = false;
+                this.imageUrl = url.data;
+                this.imageCaption = caption;
             },
-
-
-            /**
-             * Update the upload progress.
-             */
-            updateProgress({progress}) {
-                this.uploadProgress = progress;
-            }
         }
     }
 </script>
 
 <template>
-    <modal v-if="modalShown" @close="close">
-        <h2 class="font-semibold mb-5">Featured Image</h2>
-
-        <preloader v-if="uploading"></preloader>
-
-        <div v-if="imageUrl && !uploading">
-            <img :src="imageUrl" class="max-w-full">
+    <div>
+        <div v-if="imageUrl">
+            <img :src="imageUrl" class="w-100">
 
             <div class="input-group">
-                <label class="input-label">Caption</label>
-                <textarea rows="2" v-model="caption" ref="caption" class="input" placeholder="Add caption to the image"></textarea>
+                <input type="text" class="form-control border-0 px-0"
+                       name="featured_image_caption" title="Featured Image Caption"
+                       v-model="imageCaption"
+                       placeholder="Add a caption for your image">
             </div>
         </div>
 
-        <image-picker :key="imagePickerKey"
-                      class="mt-5"
-                      @changed="updateImage"
-                      @progressing="updateProgress"
-                      @uploading="uploading = true"></image-picker>
-
-        <button class="btn-sm btn-primary mt-10" @click="saveImage">Save Image</button>
-        <button class="btn-sm btn-light mt-10" @click="close">Cancel</button>
-    </modal>
+        <image-picker @changed="updateImage" @uploading="uploading = true"></image-picker>
+    </div>
 </template>
-
-<style>
-
-</style>

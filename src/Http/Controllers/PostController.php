@@ -117,6 +117,8 @@ class PostController extends Controller
      */
     public function store(): RedirectResponse
     {
+        dd(request()->all());
+
         $data = [
             'id'                     => request('id'),
             'slug'                   => request('slug'),
@@ -170,6 +172,8 @@ class PostController extends Controller
      */
     public function update(string $id): RedirectResponse
     {
+        dd(request()->all());
+
         $post = Post::findOrFail($id);
 
         $data = [
@@ -251,21 +255,5 @@ class PostController extends Controller
 
             return (string) $tag->id;
         })->toArray();
-    }
-
-    /**
-     * Upload an image.
-     *
-     * @param UploadedFile $image
-     * @return string
-     */
-    private function uploadImage(UploadedFile $image): string
-    {
-        $path = $image->store(config('canvas.storage_path'), [
-            'disk'       => config('canvas.storage_disk'),
-            'visibility' => 'public',
-        ]);
-
-        return Storage::disk(config('canvas.storage_disk'))->url($path);
     }
 }
