@@ -171,7 +171,7 @@
 
 <template>
     <div style="position: relative">
-        <div id="sidebar-controls">
+        <div id="sidebar-controls" style="margin-top: -8px">
             <button id="show-controls" type="button" class="btn btn-outline-light btn-circle border"
                     @click="showSideControls" v-on:submit.prevent="onSubmit">
                 <i class="fas fa-fw fa-plus text-muted"></i>
@@ -182,10 +182,11 @@
                     <i class="far fa-fw fa-image text-muted"></i>
                 </button>
                 <button class="btn btn-outline-light btn-circle border mr-1" type="button"
-                        @click="$emit('openingHTMLEmbedder')">
+                        @click="$emit('openingHTMLEmbedder')" v-on:submit.prevent="onSubmit">
                     <i class="fas fa-fw fa-code text-muted"></i>
                 </button>
-                <button class="btn btn-outline-light btn-circle border" type="button" @click="addDivider">
+                <button class="btn btn-outline-light btn-circle border" type="button"
+                        @click="addDivider" v-on:submit.prevent="onSubmit">
                     <i class="fas fa-fw fa-ellipsis-h text-muted"></i>
                 </button>
             </div>
@@ -204,7 +205,6 @@
     .ql-container {
         box-sizing: border-box;
         font-family: "Merriweather", serif;
-        /*font-size: 13px;*/
         height: 100%;
         margin: 0;
         position: relative;
@@ -288,7 +288,6 @@
 
     .ql-editor.ql-blank::before {
         left: 0;
-        margin-top: 10px !important;
     }
 
     .ql-bubble .ql-editor a {
@@ -353,5 +352,11 @@
     .embedded_image p {
         text-align: center;
         margin-bottom: 0 !important;
+    }
+
+    @media (max-width: 767px) {
+        #sidebar-controls {
+            display: none !important;
+        }
     }
 </style>
