@@ -4,7 +4,10 @@
             <div class="modal-body">
                 <p class="font-weight-bold lead">Featured image</p>
 
-                <featured-image-uploader :post="'{{ $data['id']->toString() }}'" :caption="'{{ old('featured_image_caption') }}'"></featured-image-uploader>
+                <featured-image-uploader
+                        :post="'{{ $data['id']->toString() }}'"
+                        :caption="'{{ old('featured_image_caption') }}'">
+                </featured-image-uploader>
             </div>
             <div class="modal-footer">
                 <button class="btn btn-link text-muted" data-dismiss="modal">Done</button>

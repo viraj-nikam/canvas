@@ -7,27 +7,8 @@
                 <featured-image-uploader
                         :post="'{{ $data['post']->id }}'"
                         :url="'{{ $data['post']->featured_image }}'"
-                        :caption="'{{ $data['post']->featured_image_caption }}'"
-                ></featured-image-uploader>
-                {{--<img src="{{ $data['post']->featured_image }}" alt="" class="w-100 mb-2">--}}
-
-                {{--<div class="form-group row">--}}
-                    {{--<div class="col-12">--}}
-                        {{--<div class="custom-file">--}}
-                            {{--<input type="file" class="custom-file-input" id="featured_image" name="featured_image" hidden>--}}
-                            {{--<label for="featured_image">Please <span style="cursor: pointer"><u>upload</u></span> an image</label>--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-
-                {{--<div class="form-group row">--}}
-                    {{--<div class="col-12">--}}
-                        {{--<label for="featured_image_caption" class="font-weight-bold">Caption</label>--}}
-                        {{--<input type="text" class="form-control border-0 px-0"--}}
-                               {{--name="featured_image_caption" title="Featured Image Caption" value="{{ $data['post']->featured_image_caption  }}"--}}
-                               {{--placeholder="Add a caption for your image">--}}
-                    {{--</div>--}}
-                {{--</div>--}}
+                        :caption="'{{ $data['post']->featured_image_caption }}'">
+                </featured-image-uploader>
             </div>
             <div class="modal-footer">
                 <button class="btn btn-link text-muted"data-dismiss="modal">Done</button>

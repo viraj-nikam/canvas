@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Storage;
 class MediaController extends Controller
 {
     /**
-     * Upload an image to a specified directory.
+     * Process an image upload.
      *
      * @return string
      */
