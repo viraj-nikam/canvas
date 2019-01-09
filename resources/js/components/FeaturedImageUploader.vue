@@ -37,7 +37,7 @@
         <div v-if="imageUrl">
             <img :src="imageUrl" class="w-100">
 
-            <div class="input-group">
+            <div class="input-group py-2">
                 <input type="text" class="form-control border-0 px-0"
                        name="featured_image_caption" title="Featured Image Caption"
                        v-model="imageCaption"

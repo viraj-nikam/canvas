@@ -1,3 +1,6 @@
+<!-- todo: when creating a post, featured_image has an instance of UploadedFile instead of the image url -->
+<!-- todo: when updating a post, featured_image is no longer present in the request() -->
+
 <script type="text/ecmascript-6">
     import axios from 'axios';
 
@@ -32,8 +35,6 @@
 
 <template>
     <div>
-        <!-- todo: when creating a post, featured_image has an instance of UploadedFile instead of the image url -->
-        <!-- todo: when updating a post, featured_image is no longer present in the request() -->
         <input type="file" class="custom-file-input" id="featured_image" name="featured_image" hidden
                :id="'imageUpload'+_uid" accept="image/*" v-on:change="uploadSelectedImage">
         <div class="mb-0">

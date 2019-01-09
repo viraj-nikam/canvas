@@ -1,3 +1,5 @@
+<!-- todo: tags are always null in the request() -->
+
 <script type="text/ecmascript-6">
     import Multiselect from 'vue-multiselect'
 
@@ -45,7 +47,6 @@
 
 <template>
     <div>
-        <!--<input name="tags" type="hidden" readonly>-->
         <multiselect
                 v-model="value"
                 tag-placeholder="Add a new tag"
