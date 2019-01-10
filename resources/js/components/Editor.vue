@@ -39,9 +39,7 @@
         },
 
         methods: {
-            /**
-             * Create an instance of the editor.
-             */
+            // Create an instance of the editor
             createEditor() {
                 Quill.register(ImageBlot, true);
                 Quill.register(DividerBlot, true);
@@ -56,7 +54,6 @@
                             [{'header': '2'}, {'header': '3'}],
                             [{'list': 'ordered'}, {'list': 'bullet'}, 'link'],
                             ['blockquote', 'code-block'],
-//                        [{'direction': 'rtl'}],
                         ]
                     },
                     theme: 'bubble',
@@ -65,9 +62,7 @@
                 });
             },
 
-            /**
-             * Handle the editor value.
-             */
+            // Handle the editor value
             handleEditorValue() {
                 this.editor.root.innerHTML = this.value;
                 this.editor.on('text-change', () => {
@@ -75,23 +70,19 @@
                 });
             },
 
-            /**
-             * Handle click events inside the editor.
-             */
+            // Handle click events inside the editor
             handleClicksInsideEditor() {
                 this.editor.root.addEventListener('click', (ev) => {
                     let blot = Parchment.find(ev.target, true);
                     if (blot instanceof ImageBlot) {
-                        var values = blot.value(blot.domNode)['captioned-image'];
+                        let values = blot.value(blot.domNode)['captioned-image'];
                         values.existingBlot = blot;
                         this.openImageUploader(values);
                     }
                 });
             },
 
-            /**
-             * Init the side controls.
-             */
+            // Initialize the side controls
             initSideControls() {
                 let Block = Quill.import('blots/block');
                 this.editor.on(Quill.events.EDITOR_CHANGE, (eventType, range) => {
@@ -117,9 +108,7 @@
                 });
             },
 
-            /**
-             * Show the side controls.
-             */
+            // Show the side controls
             showSideControls() {
                 document.getElementById('sidebar-controls').classList.toggle('active');
                 this.editor.focus();
@@ -128,9 +117,7 @@
                 this.$emit('openingImageUploader', data);
             },
 
-            /**
-             * Add a new captioned image to the content.
-             */
+            // Add a new captioned image to the content
             applyImage({url, caption, existingBlot, layout}) {
                 let values = {
                     url: url,
@@ -145,9 +132,7 @@
                 this.editor.setSelection(range.index + 1, Quill.sources.SILENT);
             },
 
-            /**
-             * Add a divider to the content.
-             */
+            // Add a divider to the content
             addDivider() {
                 let range = this.editor.getSelection(true);
                 this.editor.insertText(range.index, '\n', Quill.sources.USER);
@@ -155,9 +140,7 @@
                 this.editor.setSelection(range.index + 2, Quill.sources.SILENT);
             },
 
-            /**
-             * Add a new HTML blot to the content.
-             */
+            //  Add a new HTML blot to the content
             addHTML({content}) {
                 let range = this.editor.getSelection(true);
                 this.editor.insertEmbed(range.index, 'html', {
@@ -177,7 +160,7 @@
                 <i class="fas fa-fw fa-plus text-muted"></i>
             </button>
 
-            <div class="controls pl-4 bg-white d-none">
+            <div class="controls pl-3 bg-white d-none">
                 <button class="btn btn-outline-light btn-circle border mr-1" type="button" @click="openImageUploader()">
                     <i class="far fa-fw fa-image text-muted"></i>
                 </button>
@@ -263,11 +246,11 @@
     }
 
     .ql-bubble .ql-editor pre.ql-syntax {
-        background: rgba(238, 238, 238, 0.35);
-        border: solid 2px rgba(0, 0, 0, 0.05);
+        background-color: rgba(0, 0, 0, 0.05);
+        border: none;
         color: #000;
         overflow-x: auto;
-        padding: 0.5em;
+        padding: 1em;
     }
 
     .ql-editor h1,
@@ -288,6 +271,7 @@
 
     .ql-editor.ql-blank::before {
         left: 0;
+        font-style: normal;
     }
 
     .ql-bubble .ql-editor a {

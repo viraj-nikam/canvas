@@ -37,19 +37,18 @@
     <div class="container">
         <div class="row justify-content-md-center">
             <div class="col col-lg-8">
-                <p class="text-uppercase text-muted font-weight-bold mb-1 pt-5">
-                    Published on {{ \Carbon\Carbon::parse($data['post']->published_at)->format('M d, Y') }}
-                    @if($data['post']->tags->count() > 0) in
-                        @foreach($data['post']->tags as $tag)
-                            <a href="{{ route('blog.tag.index', $tag->slug) }}"
-                               class="text-muted"><u>{{ $tag->name }}</u>@if(!$loop->last), @endif</a>
-                        @endforeach
-                    @endif
-                </p>
+                <h1 class="content-title serif mb-4 pt-5">{{ $data['post']->title }}</h1>
 
-                <h1 class="display-4 font-weight-bold content-title serif">
-                    {{ $data['post']->title }}
-                </h1>
+                <div class="media py-1">
+                    <img src="{{ sprintf('%s%s%s', 'https://secure.gravatar.com/avatar/', md5(strtolower(trim(auth()->user()->email))), '?s=200') }}"
+                         class="mr-3 rounded-circle"
+                         style="width: 50px"
+                         alt="{{ auth()->user()->name }}">
+                    <div class="media-body">
+                        <p class="mt-0 mb-1 font-weight-bold">{{ auth()->user()->name }}</p>
+                        <span class="text-muted">{{ \Carbon\Carbon::parse($data['post']->published_at)->format('M d, Y') }} — {{ $data['post']->readTime }}</span>
+                    </div>
+                </div>
 
                 @isset($data['post']->featured_image)
                     <img src="{{ $data['post']->featured_image }}" class="w-100"
@@ -60,7 +59,16 @@
                     @endisset
                 @endisset
 
-                <div class="content-body serif mt-5">{!! $data['post']->body !!}</div>
+                <div class="content-body serif mt-4 pb-3">{!! $data['post']->body !!}</div>
+
+                @if($data['post']->tags->count() > 0)
+                    <h5>
+                        @foreach($data['post']->tags as $tag)
+                            <span><a href="{{ route('blog.tag.index', $tag->slug) }}"
+                                   class="badge badge-light p-2">{{ $tag->name }}</a></span>
+                        @endforeach
+                    </h5>
+                @endif
             </div>
         </div>
     </div>

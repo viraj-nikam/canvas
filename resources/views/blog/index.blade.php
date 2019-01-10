@@ -17,11 +17,10 @@
         <div class="container">
             <div class="row justify-content-md-center">
                 <div class="col col-lg-8">
-                    <h2 class="mb-5 serif">@isset($data['tag']) {{ sprintf('Posts in:%s', $data['tag']) }} @endisset</h2>
                     @foreach($data['posts'] as $post)
-                        <p class="text-muted text-uppercase font-weight-bold">Published on {{ \Carbon\Carbon::parse($post->published_at)->format('M d, Y') }}</p>
-                        <h2 class="serif my-3 content-title font-weight-bold"><a href="{{ route('blog.post.show', $post->slug) }}">{{ $post->title }}</a></h2>
-                        <p class="content-body serif">{{ str_limit(strip_tags($post->body), 200) }}</p>
+                        <p class="mt-5 mb-2 text-muted text-uppercase font-weight-bold">Published on {{ \Carbon\Carbon::parse($post->published_at)->format('M d, Y') }}</p>
+                        <h1 class="serif my-2 content-title"><a href="{{ route('blog.post.show', $post->slug) }}">{{ $post->title }}</a></h1>
+                        <p class="content-body serif mb-2">{{ str_limit(strip_tags($post->body), 200) }}</p>
 
                         <div class="d-flex justify-content-between mb-5">
                             <p class="text-uppercase text-muted">{{ $post->readTime }}</p>
