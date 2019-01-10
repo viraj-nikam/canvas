@@ -1,25 +1,18 @@
 <form role="form" id="form-edit" method="POST" action="{{ route('canvas.post.update', $data['post']->id) }}"
       enctype="multipart/form-data">
-    @method('PUT')
     @csrf
+    @method('PUT')
 
-    <div class="form-group row my-5">
+    <div class="form-group row my-3">
         <div class="col-lg-12">
-            <input type="text" class="form-control-lg form-control border-0" name="title" title="Title"
-                   value="{{ $data['post']->title }}" required placeholder="Post Title">
-            @if ($errors->has('title'))
-                <div class="invalid-feedback d-block">
-                    <strong>{{ $errors->first('title') }}</strong>
-                </div>
-            @endif
+            <input type="text" class="form-control-lg form-control border-0 pl-0 serif py-5" style="font-size: 42px;"
+                   name="title" title="Title" value="{{ $data['post']->title }}" placeholder="Post Title">
         </div>
     </div>
-    <div class="form-group row">
-        <div class="col-lg-12">
-            <textarea class="form-control-lg form-control border-0" name="body" id="body" cols="30" rows="10"
-                      placeholder="Tell your story..">{{ $data['post']->body }}</textarea>
-        </div>
-    </div>
+
+    {{-- todo: reason for double quotes here? --}}
+    <editor :post="'{{ $data['post']->id }}'" value="{{ $data['post']->body }}"></editor>
+
     @include('canvas::canvas.components.modals.post.edit.share')
     @include('canvas::canvas.components.modals.post.edit.settings')
     @include('canvas::canvas.components.modals.post.edit.publish')

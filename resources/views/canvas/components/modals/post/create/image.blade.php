@@ -4,6 +4,7 @@
             <div class="modal-body">
                 <p class="font-weight-bold lead">Featured image</p>
 
+                {{-- todo: reason for double quotes here? --}}
                 <featured-image-uploader
                         :post="'{{ $data['id']->toString() }}'"
                         :caption="'{{ old('featured_image_caption') }}'">

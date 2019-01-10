@@ -21,7 +21,7 @@
                                        class="font-weight-bold lead">{{ $post->title }}</a>
                                 </p>
                                 @if($post->summary)
-                                    <p class="mb-1">{{ str_limit($post->summary, 90) }}</p>
+                                    <p class="mb-1">{!! str_limit(strip_tags($post->body), 90) !!}</p>
                                 @endif
                                 <p class="text-muted mb-0">
                                         @if($post->published)
