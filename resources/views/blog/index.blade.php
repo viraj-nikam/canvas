@@ -1,6 +1,6 @@
 @extends('canvas::layouts.app')
 
-@section('title', sprintf('%s - %s', config('app.name', 'Laravel'), 'Blog'))
+@section('title', sprintf('%s — %s', config('app.name', 'Laravel'), 'Blog'))
 
 @section('actions')
     <a href="{{ route('canvas.post.create') }}" class="btn btn-sm btn-outline-primary my-auto mx-3">
