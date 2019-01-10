@@ -1,12 +1,12 @@
 <script type="text/ecmascript-6">
     import _ from 'lodash';
     import Quill from 'quill';
+    import Parchment from 'parchment';
     import ImageUploader from './editorComponents/ImageUploader.vue';
     import HTMLEmbedder from './editorComponents/HTMLEmbedder.vue';
     import ImageBlot from './editorComponents/ImageBlot.js';
     import DividerBlot from './editorComponents/DividerBlot.js';
     import HTMLBlot from './editorComponents/HTMLBlot.js';
-    import Parchment from 'parchment';
 
     export default {
         components: {
@@ -44,8 +44,10 @@
                 Quill.register(ImageBlot, true);
                 Quill.register(DividerBlot, true);
                 Quill.register(HTMLBlot, true);
+
                 const icons = Quill.import('ui/icons');
                 icons.header[3] = require('!html-loader!quill/assets/icons/header-3.svg');
+
                 return new Quill(this.$refs.editor, {
                     modules: {
                         syntax: true,
@@ -65,6 +67,7 @@
             // Handle the editor value
             handleEditorValue() {
                 this.editor.root.innerHTML = this.value;
+
                 this.editor.on('text-change', () => {
                     this.$emit('input', this.editor.getText() ? this.editor.root.innerHTML : '');
                 });
@@ -74,9 +77,12 @@
             handleClicksInsideEditor() {
                 this.editor.root.addEventListener('click', (ev) => {
                     let blot = Parchment.find(ev.target, true);
+
                     if (blot instanceof ImageBlot) {
                         let values = blot.value(blot.domNode)['captioned-image'];
+
                         values.existingBlot = blot;
+
                         this.openImageUploader(values);
                     }
                 });
@@ -85,24 +91,34 @@
             // Initialize the side controls
             initSideControls() {
                 let Block = Quill.import('blots/block');
+
                 this.editor.on(Quill.events.EDITOR_CHANGE, (eventType, range) => {
                     let sidebarControls = document.getElementById('sidebar-controls');
+
                     if (eventType !== Quill.events.SELECTION_CHANGE) return;
+
                     if (range == null) return;
+
                     if (range.length === 0) {
                         let [block, offset] = this.editor.scroll.descendant(Block, range.index);
+
                         if (block != null && block.domNode.firstChild instanceof HTMLBRElement) {
                             let lineBounds = this.editor.getBounds(range);
+
                             sidebarControls.classList.remove('active');
+
                             sidebarControls.style.display = 'block';
+
                             sidebarControls.style.left = (lineBounds.left - 50) + 'px';
                             sidebarControls.style.top = (lineBounds.top - 2) + 'px';
                         } else {
                             sidebarControls.style.display = 'none';
+
                             sidebarControls.classList.remove('active');
                         }
                     } else {
                         sidebarControls.style.display = 'none';
+
                         sidebarControls.classList.remove('active');
                     }
                 });
@@ -111,6 +127,7 @@
             // Show the side controls
             showSideControls() {
                 document.getElementById('sidebar-controls').classList.toggle('active');
+
                 this.editor.focus();
             },
             openImageUploader(data = null) {
@@ -124,17 +141,22 @@
                     caption: caption,
                     layout: layout,
                 };
+
                 if (existingBlot) {
                     return existingBlot.replaceWith('captioned-image', values);
                 }
+
                 let range = this.editor.getSelection(true);
+
                 this.editor.insertEmbed(range.index, 'captioned-image', values, Quill.sources.USER);
+
                 this.editor.setSelection(range.index + 1, Quill.sources.SILENT);
             },
 
             // Add a divider to the content
             addDivider() {
                 let range = this.editor.getSelection(true);
+
                 this.editor.insertText(range.index, '\n', Quill.sources.USER);
                 this.editor.insertEmbed(range.index + 1, 'divider', true, Quill.sources.USER);
                 this.editor.setSelection(range.index + 2, Quill.sources.SILENT);
@@ -143,9 +165,11 @@
             //  Add a new HTML blot to the content
             addHTML({content}) {
                 let range = this.editor.getSelection(true);
+
                 this.editor.insertEmbed(range.index, 'html', {
                     content: content,
                 }, Quill.sources.USER);
+
                 this.editor.setSelection(range.index + 1, Quill.sources.SILENT);
             },
         }
