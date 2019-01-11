@@ -11,7 +11,7 @@
     </div>
 
     {{-- todo: reason for double quotes here? --}}
-    <editor :post="'{{ $data['post']->id }}'" value="{{ $data['post']->body }}"></editor>
+    <editor value="{{ $data['post']->body }}"></editor>
 
     @include('canvas::canvas.components.modals.post.edit.share')
     @include('canvas::canvas.components.modals.post.edit.settings')

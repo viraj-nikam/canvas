@@ -1,7 +1,5 @@
 <script type="text/ecmascript-6">
     export default {
-        props: ['postId'],
-
         data() {
             return {
                 content: '',
@@ -9,7 +7,6 @@
                 modalShown: false,
             }
         },
-
 
         mounted() {
             this.$parent.$on('openingHTMLEmbedder', data => {
@@ -19,17 +16,8 @@
             });
         },
 
-
         methods: {
-            // Close the modal
-            close() {
-                this.modalShown = false;
-            },
-
-
             addHTML() {
-                this.close();
-
                 this.$emit('adding', {
                     content: this.content,
                 });

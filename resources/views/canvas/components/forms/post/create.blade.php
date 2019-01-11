@@ -10,8 +10,7 @@
         </div>
     </div>
 
-    {{-- todo: reason for double quotes here? --}}
-    <editor :post="'{{ $data['id'] }}'"></editor>
+    <editor></editor>
 
     @include('canvas::canvas.components.modals.post.create.settings')
     @include('canvas::canvas.components.modals.post.create.publish')

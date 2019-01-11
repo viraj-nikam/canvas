@@ -1,24 +1,15 @@
 <script type="text/ecmascript-6">
     export default {
-        props: ['postId'],
-
         data() {
             return {
                 existingBlot: null,
                 imageUrl: null,
                 layout: 'default',
                 caption: '',
-                imagePickerKey: '',
-                uploadProgress: 0,
-                uploading: false,
-
-                modalShown: false,
             }
         },
 
         mounted() {
-            this.layouts = [{id: 'test', name: 'Test'}];
-
             this.$parent.$on('openingImageUploader', data => {
                 if (data) {
                     this.caption = data.caption;
@@ -26,42 +17,31 @@
                     this.layout = data.layout || 'default';
                     this.existingBlot = data.existingBlot;
                 }
-
-                this.modalShown = true;
             });
         },
 
 
         methods: {
-            // Close the modal
-            close() {
-                this.modalShown = false;
-
-                this.imagePickerKey = _.uniqueId();
-
+            // Clear the image data
+            clear() {
                 this.existingBlot = null;
-
                 this.imageUrl = null;
-
                 this.layout = 'default';
-
                 this.caption = '';
             },
 
 
             // Update the selected image
             updateImage({url, caption}) {
-                this.imageUrl = url;
+                this.imageUrl = url.data;
                 this.caption = caption;
-
-                this.uploading = false;
             },
 
 
             // Add the image to the editor
             applyImage() {
                 if (!this.imageUrl) {
-                    return this.alertError('Please select an image.');
+                    return;
                 }
 
                 this.$emit('updated', {
@@ -71,52 +51,44 @@
                     layout: this.layout,
                 });
 
-                this.close();
-            },
-
-
-            // Update the upload progress
-            updateProgress({progress}) {
-                this.uploadProgress = progress;
+                this.clear();
             }
         }
     }
 </script>
 
 <template>
-    <modal v-if="modalShown" @close="close">
-        <h2 class="font-semibold mb-5">Add Image</h2>
+    <div class="modal fade" id="image-upload" tabindex="-1" role="dialog" data-backdrop="static">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <p class="font-weight-bold lead">Add image</p>
+                    <div class="form-group row">
+                        <div class="col-lg-12">
+                            <div v-if="imageUrl">
+                                <img :src="imageUrl" class="w-100">
 
-        <preloader v-if="uploading"></preloader>
+                                <div class="input-group py-2">
+                                    <input type="text" class="form-control border-0 px-0" v-model="caption"
+                                           placeholder="Add a caption for your image" ref="caption">
+                                </div>
 
-        <div v-if="imageUrl && !uploading">
-            <img :src="imageUrl" class="max-w-full">
+                                <div class="input-group py-2">
+                                    <select class="custom-select border-0 px-0" v-model="layout">
+                                        <option value="default">Default layout</option>
+                                        <option value="wide">Wide image</option>
+                                    </select>
+                                </div>
+                            </div>
 
-            <div class="input-group">
-                <label class="input-label">Caption</label>
-                <textarea rows="2" v-model="caption" ref="caption" class="input" placeholder="Add caption to the image"></textarea>
-            </div>
-
-            <div class="input-group">
-                <label class="input-label">Layout</label>
-                <select class="input" v-model="layout">
-                    <option value="default">Default</option>
-                    <option value="wide">Wide Image</option>
-                </select>
+                            <image-picker v-if="!imageUrl" @changed="updateImage"></image-picker>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-link text-muted" data-dismiss="modal" @click="applyImage">Done</button>
+                </div>
             </div>
         </div>
-
-        <image-picker v-if="!imageUrl" :key="imagePickerKey"
-                      class="mt-5"
-                      @changed="updateImage"
-                      @progressing="updateProgress"
-                      @uploading="uploading = true"></image-picker>
-
-        <button class="btn-sm btn-primary mt-10" @click="applyImage">Apply</button>
-        <button class="btn-sm btn-light mt-10" @click="close">Cancel</button>
-    </modal>
+    </div>
 </template>
-
-<style>
-
-</style>

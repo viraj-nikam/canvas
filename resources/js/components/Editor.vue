@@ -18,9 +18,6 @@
             value: {
                 type: String,
                 default: ''
-            },
-            post: {
-                type: String
             }
         },
 
@@ -130,6 +127,7 @@
 
                 this.editor.focus();
             },
+
             openImageUploader(data = null) {
                 this.$emit('openingImageUploader', data);
             },
@@ -185,7 +183,8 @@
             </button>
 
             <div class="controls pl-3 bg-white d-none">
-                <button class="btn btn-outline-light btn-circle border mr-1" type="button" @click="openImageUploader()">
+                <button class="btn btn-outline-light btn-circle border mr-1" type="button" @click="openImageUploader()"
+                        data-toggle="modal" data-target="#image-upload">
                     <i class="far fa-fw fa-image text-muted"></i>
                 </button>
                 <button class="btn btn-outline-light btn-circle border mr-1" type="button"
@@ -202,8 +201,8 @@
 
         <div ref="editor"></div>
 
-        <image-uploader post-id="postId" @updated="applyImage"></image-uploader>
-        <html-embedder post-id="postId" @adding="addHTML"></html-embedder>
+        <image-uploader @updated="applyImage"></image-uploader>
+        <html-embedder @adding="addHTML"></html-embedder>
     </div>
 </template>
 
