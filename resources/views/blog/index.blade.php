@@ -10,9 +10,7 @@
 
 @section('body')
     @if(count($data['posts']) > 0)
-        @auth()
-            @include('canvas::canvas.components.nav.navbar')
-        @endauth
+        @include('canvas::canvas.components.nav.navbar')
 
         <div class="container">
             <div class="row justify-content-md-center">

@@ -38,6 +38,7 @@ class TagController extends Controller
 
         if ($tag) {
             $data = [
+                'topic' => $tag,
                 'posts' => Post::whereHas('tags', function ($query) use ($slug) {
                     $query->where('slug', $slug);
                 })->published()->orderByDesc('published_at')->simplePaginate(10),
@@ -93,7 +94,7 @@ class TagController extends Controller
 
         validator($data, [
             'name' => 'required',
-            'slug' => 'required|'.Rule::unique('canvas_tags', 'slug')->ignore(request('id')).'|regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/i',
+            'slug' => 'required|' . Rule::unique('canvas_tags', 'slug')->ignore(request('id')) . '|regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/i',
         ])->validate();
 
         $tag = new Tag(['id' => request('id')]);
@@ -121,7 +122,7 @@ class TagController extends Controller
 
         validator($data, [
             'name' => 'required',
-            'slug' => 'required|'.Rule::unique('canvas_tags', 'slug')->ignore(request('id')).'|regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/i',
+            'slug' => 'required|' . Rule::unique('canvas_tags', 'slug')->ignore(request('id')) . '|regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/i',
         ])->validate();
 
         $tag->fill($data);

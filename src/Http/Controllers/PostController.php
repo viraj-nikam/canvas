@@ -11,7 +11,6 @@ use Canvas\Events\PostViewed;
 use Illuminate\Validation\Rule;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {

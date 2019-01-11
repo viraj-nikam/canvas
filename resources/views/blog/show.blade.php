@@ -31,9 +31,8 @@
 @endsection
 
 @section('body')
-    @auth()
-        @include('canvas::canvas.components.nav.navbar')
-    @endauth
+    @include('canvas::canvas.components.nav.navbar')
+
     <div class="container">
         <div class="row justify-content-md-center">
             <div class="col col-lg-8">
