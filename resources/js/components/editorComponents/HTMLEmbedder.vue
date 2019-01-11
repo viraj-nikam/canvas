@@ -21,9 +21,7 @@
 
 
         methods: {
-            /**
-             * Close the modal.
-             */
+            // Close the modal
             close() {
                 this.modalShown = false;
             },
@@ -43,18 +41,22 @@
 </script>
 
 <template>
-    <modal v-if="modalShown" @close="close">
-        <h2 class="font-semibold mb-5">Embed HTML</h2>
-
-        <textarea ref="content" cols="30" rows="10" class="input"
-                  placeholder="Paste your HTML here"
-                  v-model="content"></textarea>
-
-        <button class="btn-sm btn-primary mt-10" @click="addHTML">Add HTML</button>
-        <button class="btn-sm btn-light mt-10" @click="close">Cancel</button>
-    </modal>
+    <div class="modal fade" id="embed-html" tabindex="-1" role="dialog" data-backdrop="static">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <p class="font-weight-bold lead">Embed HTML</p>
+                    <div class="form-group row">
+                        <div class="col-lg-12 mx-0 px-0">
+                            <textarea ref="content" cols="30" rows="10" class="form-control-lg form-control border-0"
+                              placeholder="Paste your HTML here" style="resize: none" v-model="content"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-link text-muted" data-dismiss="modal" @click="addHTML">Done</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </template>
-
-<style>
-
-</style>

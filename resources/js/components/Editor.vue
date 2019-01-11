@@ -189,7 +189,8 @@
                     <i class="far fa-fw fa-image text-muted"></i>
                 </button>
                 <button class="btn btn-outline-light btn-circle border mr-1" type="button"
-                        @click="$emit('openingHTMLEmbedder')" v-on:submit.prevent="onSubmit">
+                        @click="$emit('openingHTMLEmbedder')" v-on:submit.prevent="onSubmit"
+                        data-toggle="modal" data-target="#embed-html">
                     <i class="fas fa-fw fa-code text-muted"></i>
                 </button>
                 <button class="btn btn-outline-light btn-circle border" type="button"
@@ -330,7 +331,10 @@
     }
 
     #sidebar-controls button:focus {
-        outline: none;
+        -webkit-box-shadow: none !important;
+        -moz-box-shadow: none !important;
+        box-shadow: none !important;
+        outline: none !important;
     }
 
     #sidebar-controls.active .controls {
