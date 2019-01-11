@@ -1,4 +1,6 @@
 <script type="text/ecmascript-6">
+    import $ from 'jquery';
+
     export default {
         data() {
             return {
@@ -12,6 +14,7 @@
         mounted() {
             this.$parent.$on('openingImageUploader', data => {
                 if (data) {
+                    this.toggleModal();
                     this.caption = data.caption;
                     this.imageUrl = data.url;
                     this.layout = data.layout || 'default';
@@ -22,6 +25,11 @@
 
 
         methods: {
+            // Show/hide the modal
+            toggleModal() {
+                $('#image-upload').modal('show');
+            },
+
             // Clear the image data
             clear() {
                 this.existingBlot = null;
@@ -34,7 +42,7 @@
             // Update the selected image
             updateImage({url, caption}) {
                 this.imageUrl = url.data;
-                this.caption = caption;
+                this.caption = caption ? caption : '';
             },
 
 
