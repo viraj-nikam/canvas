@@ -24,7 +24,7 @@
         data() {
             return {
                 editor: null,
-                editorBody: this.body
+                editorBody: this.value
             }
         },
 
@@ -357,10 +357,14 @@
     }
 
     .embedded_image:hover img {
+        cursor: pointer;
         box-shadow: 0 0 0 3px #3490dc;
     }
 
     .embedded_image p {
+        font-size: smaller;
+        color: #c3c3c3;
+        padding-top: 5px;
         text-align: center;
         margin-bottom: 0 !important;
     }
