@@ -40,12 +40,12 @@
                 <h1 class="content-title serif mb-4 pt-5">{{ $data['post']->title }}</h1>
 
                 <div class="media py-1">
-                    <img src="{{ sprintf('%s%s%s', 'https://secure.gravatar.com/avatar/', md5(strtolower(trim(auth()->user()->email))), '?s=200') }}"
+                    <img src="{{ sprintf('%s%s%s', 'https://secure.gravatar.com/avatar/', md5(strtolower(trim($data['author']->email))), '?s=200') }}"
                          class="mr-3 rounded-circle"
                          style="width: 50px"
-                         alt="{{ auth()->user()->name }}">
+                         alt="{{ $data['author']->name }}">
                     <div class="media-body">
-                        <p class="mt-0 mb-1 font-weight-bold">{{ auth()->user()->name }}</p>
+                        <p class="mt-0 mb-1 font-weight-bold">{{ $data['author']->name }}</p>
                         <span class="text-muted">{{ \Carbon\Carbon::parse($data['post']->published_at)->format('M d, Y') }} — {{ $data['post']->readTime }}</span>
                     </div>
                 </div>

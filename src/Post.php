@@ -100,6 +100,17 @@ class Post extends Model
     }
 
     /**
+     * Get the user who authored the post.
+     *
+     * @param $value
+     * @return User
+     */
+    public function getAuthorAttribute($value): User
+    {
+        return User::find($this->user_id);
+    }
+
+    /**
      * Check to see if the post is published.
      *
      * @param $value
