@@ -49,9 +49,8 @@
                     modules: {
                         syntax: true,
                         toolbar: [
-                            ['bold', 'italic', 'underline', 'strike', 'code'],
+                            ['bold', 'italic', 'code', 'link'],
                             [{'header': '2'}, {'header': '3'}],
-                            [{'list': 'ordered'}, {'list': 'bullet'}, 'link'],
                             ['blockquote', 'code-block'],
                         ]
                     },
@@ -269,6 +268,10 @@
         margin-bottom: 33px !important;
     }
 
+    .ql-editor blockquote {
+        font-style: italic !important;
+    }
+
     .ql-bubble .ql-editor pre.ql-syntax {
         background-color: rgba(0, 0, 0, 0.05);
         border: none;
@@ -327,6 +330,7 @@
         display: none;
         position: absolute;
         z-index: 10;
+        left: -60px !important;
     }
 
     #sidebar-controls button:focus {
