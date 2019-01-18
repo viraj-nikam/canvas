@@ -2,6 +2,8 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-body">
+                <p class="font-weight-bold lead">Delete</p>
+
                 Deleted tags are gone forever. Are you sure?
             </div>
             <div class="modal-footer">
