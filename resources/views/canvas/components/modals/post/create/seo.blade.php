@@ -7,9 +7,9 @@
                 <div class="form-group row">
                     <div class="col-12">
                         <label for="meta_description" class="font-weight-bold">Meta Description</label>
-                        <input type="text" class="form-control border-0 px-0"
-                               name="meta_description" title="Meta Description" value="{{ old('meta_description') }}"
-                               placeholder="Meta Description">
+                        <textarea name="meta_description" class="form-control border-0 px-0" rows="1"
+                                  placeholder="Meta Description"
+                                  title="Meta Description">{{ old('meta_description') }}</textarea>
                     </div>
                 </div>
                 <div class="form-group row">
@@ -24,11 +24,9 @@
                 <div class="form-group row">
                     <div class="col-12">
                         <label for="og_description" class="font-weight-bold">Facebook Card Description</label>
-                        <input type="text"
-                               class="form-control border-0 px-0"
-                               name="og_description" title="Facebook Card Description"
-                               value="{{ old('og_description') }}"
-                               placeholder="Description in Facebook Card">
+                        <textarea name="og_description" class="form-control border-0 px-0" rows="1"
+                                  placeholder="Description in Facebook Card"
+                                  title="Facebook Card Description">{{ old('og_description') }}</textarea>
                     </div>
                 </div>
                 <div class="form-group row">
@@ -42,11 +40,9 @@
                 <div class="form-group row">
                     <div class="col-12">
                         <label for="twitter_description" class="font-weight-bold">Twitter Card Description</label>
-                        <input type="text"
-                               class="form-control border-0 px-0"
-                               name="twitter_description" title="Twitter Card Description"
-                               value="{{ old('twitter_description') }}"
-                               placeholder="Description in Twitter Card">
+                        <textarea name="twitter_description" class="form-control border-0 px-0" rows="1"
+                                  placeholder="Description in Twitter Card"
+                                  title="Twitter Card Description">{{ old('twitter_description') }}</textarea>
                     </div>
                 </div>
             </div>

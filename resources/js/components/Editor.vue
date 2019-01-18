@@ -362,8 +362,8 @@
     }
 
     .embedded_image p {
-        font-size: smaller;
-        color: #c3c3c3;
+        font-size: 16px;
+        color: rgba(0,0,0,.68);
         padding-top: 5px;
         text-align: center;
         margin-bottom: 0 !important;
