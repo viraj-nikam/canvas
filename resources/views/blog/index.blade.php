@@ -9,7 +9,7 @@
 @endsection
 
 @section('body')
-    @if(count($data['posts']) > 0)
+    @if(count($data['posts']) > 0 or $data['topic'])
         @include('canvas::canvas.components.nav.navbar')
 
         <div class="container">
