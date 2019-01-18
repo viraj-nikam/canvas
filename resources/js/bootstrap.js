@@ -10,6 +10,10 @@ window._ = require('lodash');
 try {
     window.Popper = require('popper.js').default;
     window.$ = window.jQuery = require('jquery');
+    window.autosize = window.autosize ? window.autosize : require('autosize');
+
+    // Apply auto-sizing to textarea inputs
+    $(function () {autosize($('textarea'))});
 
     // Opt-in to tooltip functionality
     $(function () {$('[data-toggle="tooltip"]').tooltip()});

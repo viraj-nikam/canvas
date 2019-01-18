@@ -20,9 +20,8 @@
                 <div class="form-group row">
                     <div class="col-12">
                         <label for="summary" class="font-weight-bold">Summary</label>
-                        <input type="text" class="form-control border-0 px-0"
-                               name="summary" title="Summary" value="{{ old('summary') }}"
-                               placeholder="A descriptive summary..">
+                        <textarea name="summary" class="form-control border-0 px-0" rows="1"
+                                  placeholder="A descriptive summary.." title="Summary">{{ old('summary') }}</textarea>
                     </div>
                 </div>
                 <div class="form-group row">
