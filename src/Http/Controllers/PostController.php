@@ -76,7 +76,7 @@ class PostController extends Controller
     }
 
     /**
-     * Show the form for creating a post.
+     * Show the form for creating a new post.
      *
      * @return View
      */
@@ -91,7 +91,7 @@ class PostController extends Controller
     }
 
     /**
-     * Show the form for editing a post.
+     * Show the form for editing an existing post.
      *
      * @param string $id
      * @return View

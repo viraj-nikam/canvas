@@ -37,6 +37,6 @@ class InstallCommand extends Command
         $this->callSilent('migrate');
 
         $this->line('');
-        $this->line('Canvas is ready for use. Enjoy!');
+        $this->line('Canvas is ready to use. Enjoy!');
     }
 }

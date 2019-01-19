@@ -21,7 +21,7 @@ class InstallCommandTest extends TestCase
             ->expectsOutput('Publishing Canvas assets...')
             ->expectsOutput('Publishing Canvas configuration...')
             ->expectsOutput('Running Canvas database migrations...')
-            ->expectsOutput('Canvas is ready for use. Enjoy!')
+            ->expectsOutput('Canvas is ready to use. Enjoy!')
             ->assertExitCode(0);
         $this->assertFileExists(config_path('canvas.php'));
         $this->assertDirectoryExists(public_path('vendor/canvas'));
