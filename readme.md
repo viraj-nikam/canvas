@@ -1,12 +1,11 @@
 ## Introduction
 
-A [Laravel](https://laravel.com) publishing platform.
-
 [![Build Status](https://travis-ci.org/cnvs/canvas.svg?branch=master)](https://travis-ci.org/cnvs/canvas)
-[![StyleCI](https://styleci.io/repos/52815899/shield?style=flat&branch=master)](https://styleci.io/repos/52815899)
-[![Latest Stable Version](https://poser.pugx.org/cnvs/canvas/v/stable)](https://packagist.org/packages/cnvs/canvas)
 [![Total Downloads](https://poser.pugx.org/cnvs/canvas/downloads)](https://packagist.org/packages/cnvs/canvas)
+[![Latest Stable Version](https://poser.pugx.org/cnvs/canvas/v/stable)](https://packagist.org/packages/cnvs/canvas)
 [![License](https://poser.pugx.org/cnvs/canvas/license)](https://packagist.org/packages/cnvs/canvas)
+
+A [Laravel](https://laravel.com) publishing platform.  
 
 ## Installation
 
@@ -109,16 +108,6 @@ Run the tests with:
 ```bash
 composer test
 ```
-
-## Roadmap
-
-- [X] Add useful statistics data. @austintoddj
-- [X] Provide SEO and metadata. @austintoddj
-- [X] Convert post/tag titles to slugs with a [simple Vue component](https://codepen.io/tatthien/pen/xVBxZQ). @austintoddj
-- [ ] Add support for image uploads. @austintoddj
-- [ ] Add [QuillJS](https://quilljs.com/guides/cloning-medium-with-parchment/) as the default editor.
-- [ ] Add support for [multiple tags](https://vue-multiselect.js.org/#sub-multiple-select) on a single post. @austintoddj
-- [ ] Add post/tag filtering.
 
 ## License
 
