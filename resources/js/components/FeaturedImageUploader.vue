@@ -45,6 +45,8 @@
             </div>
         </div>
 
+        <input hidden type="hidden" name="featured_image" v-model="imageUrl">
+
         <image-picker @changed="updateImage" @uploading="uploading = true"></image-picker>
     </div>
 </template>

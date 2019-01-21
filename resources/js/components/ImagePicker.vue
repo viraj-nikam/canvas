@@ -35,8 +35,8 @@
 
 <template>
     <div>
-        <input type="file" class="custom-file-input" id="featured_image" name="featured_image" hidden
-               :id="'imageUpload'+_uid" accept="image/*" v-on:change="uploadSelectedImage">
+        <input hidden type="file" class="custom-file-input" :id="'imageUpload'+_uid"
+               accept="image/*" v-on:change="uploadSelectedImage">
         <div class="mb-0">
             Please <label :for="'imageUpload'+_uid" class="text-primary" style="cursor:pointer;">upload</label> an image
         </div>

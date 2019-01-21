@@ -50,7 +50,7 @@
                 </div>
 
                 @isset($data['post']->featured_image)
-                    <img src="{{ $data['post']->featured_image }}" class="w-100"
+                    <img src="{{ $data['post']->featured_image }}" class="w-100 pt-4"
                          @isset($data['post']->featured_image_caption) alt="{{ $data['post']->featured_image_caption }}"
                          title="{{ $data['post']->featured_image_caption }}" @endisset>
                     @isset($data['post']->featured_image_caption)

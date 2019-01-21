@@ -125,7 +125,7 @@ class PostController extends Controller
             'summary'                => request('summary', null),
             'body'                   => request('body', null),
             'published_at'           => Carbon::parse(request('published_at'))->toDateTimeString(),
-            'featured_image'         => request()->file('featured_image', null),
+            'featured_image'         => request('featured_image', null),
             'featured_image_caption' => request('featured_image_caption', null),
             'user_id'                => auth()->user()->id,
             'meta'                   => [
@@ -146,19 +146,14 @@ class PostController extends Controller
 
         $post = new Post(['id' => request('id')]);
         $post->fill($data);
-
-        if (! is_null($data['featured_image'])) {
-            $post->featured_image = $this->uploadImage($data['featured_image']);
-        }
-
         $post->meta = $data['meta'];
         $post->save();
 
-        if (! is_null(request('tags'))) {
-            $post->tags()->sync(
-                $this->collectTags(request('tags') ?? [])
-            );
-        }
+//        if (! is_null(request('tags'))) {
+//            $post->tags()->sync(
+//                $this->collectTags(request('tags') ?? [])
+//            );
+//        }
 
         return redirect(route('canvas.post.edit', $post->id))->with('notify', 'Saved!');
     }
@@ -182,7 +177,7 @@ class PostController extends Controller
             'summary'                => request('summary', null),
             'body'                   => request('body', null),
             'published_at'           => Carbon::parse(request('published_at'))->toDateTimeString(),
-            'featured_image'         => request()->file('featured_image', $post->featured_image),
+            'featured_image'         => request('featured_image', $post->featured_image),
             'featured_image_caption' => request('featured_image_caption', null),
             'user_id'                => $post->user->id,
             'meta'                   => [
@@ -201,19 +196,15 @@ class PostController extends Controller
             'user_id'      => 'required',
         ])->validate();
 
-        if ($data['featured_image'] != $post->featured_image) {
-            $data['featured_image'] = $this->uploadImage($data['featured_image']);
-        }
-
         $post->fill($data);
         $post->meta = $data['meta'];
         $post->save();
 
-        if (! is_null(request('tags'))) {
-            $post->tags()->sync(
-                $this->collectTags(request('tags') ?? [])
-            );
-        }
+//        if (! is_null(request('tags'))) {
+//            $post->tags()->sync(
+//                $this->collectTags(request('tags') ?? [])
+//            );
+//        }
 
         return redirect(route('canvas.post.edit', $post->id))->with('notify', 'Saved!');
     }
