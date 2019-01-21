@@ -58,11 +58,12 @@
                 :taggable="true"
                 @tag="addTag">
         </multiselect>
+
+        <input hidden type="hidden" name="tags" v-model="value">
     </div>
 </template>
 
 <style rel="stylesheet" type="text/css" src="vue-multiselect/dist/vue-multiselect.min.css"></style>
-
 <style type="text/css">
     .multiselect__select {
         display: none;

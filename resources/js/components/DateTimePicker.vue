@@ -59,35 +59,31 @@
             <select class="input pr-2"
                     v-model="dateComponents.month">
                 <option v-for="value in Array.from({length: 12}, (_, i) => String(i + 1).padStart(2, '0'))"
-                        :value="value">{{value}}
+                        :value="value">{{ value }}
                 </option>
             </select>
-            <span class="px-1">/</span>
-            <select class="input px-2"
-                    v-model="dateComponents.day">
+            <span class="px-1"> /</span>
+            <select class="input px-2" v-model="dateComponents.day">
                 <option v-for="value in Array.from({length: 31}, (_, i) => String(i + 1).padStart(2, '0'))"
-                        :value="value">{{value}}
+                        :value="value">{{ value }}
                 </option>
             </select>
-            <span class="px-1">/</span>
-            <select class="input px-2"
-                    v-model="dateComponents.year">
+            <span class="px-1"> /</span>
+            <select class="input px-2" v-model="dateComponents.year">
                 <option v-for="value in Array.from({length: 15}, (_, i) => i + (new Date()).getFullYear() - 10)"
-                        :value="value">{{value}}
+                        :value="value">{{ value }}
                 </option>
             </select>
             <span class="pl-3"> </span>
-            <select class="input px-2"
-                    v-model="dateComponents.hour">
+            <select class="input px-2" v-model="dateComponents.hour">
                 <option v-for="value in Array.from({length: 24}, (_, i) => String(i).padStart(2, '0'))" :value="value">
-                    {{value}}
+                    {{ value }}
                 </option>
             </select>
-            <span class="px-1">:</span>
-            <select class="input pl-2"
-                    v-model="dateComponents.minute">
+            <span class="px-1"> :</span>
+            <select class="input pl-2" v-model="dateComponents.minute">
                 <option v-for="value in Array.from({length: 60}, (_, i) => String(i).padStart(2, '0'))" :value="value">
-                    {{value}}
+                    {{ value }}
                 </option>
             </select>
         </div>
