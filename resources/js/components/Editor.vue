@@ -126,6 +126,7 @@
                 this.editor.focus();
             },
 
+            // Open the image upload modal
             openImageUploader(data = null) {
                 this.$emit('openingImageUploader', data);
             },
@@ -158,7 +159,7 @@
                 this.editor.setSelection(range.index + 2, Quill.sources.SILENT);
             },
 
-            //  Add a new HTML blot to the content
+            // Add a new HTML blot to the content
             addHTML({content}) {
                 let range = this.editor.getSelection(true);
 
@@ -177,7 +178,7 @@
         <div id="sidebar-controls" style="margin-top: -8px">
             <button id="show-controls" type="button" class="btn btn-outline-light btn-circle border"
                     @click="showSideControls" v-on:submit.prevent="onSubmit">
-                <i class="fas fa-fw fa-plus text-muted"></i>
+                <i class="fas fa-plus fa-fw text-muted"></i>
             </button>
 
             <div class="controls pl-3 bg-white d-none">
