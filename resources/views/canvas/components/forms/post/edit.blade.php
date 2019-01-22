@@ -10,7 +10,6 @@
         </div>
     </div>
 
-    {{-- todo: reason for double quotes here? --}}
     <editor value="{{ $data['post']->body }}"></editor>
 
     @include('canvas::canvas.components.modals.post.edit.share')

@@ -116,7 +116,7 @@ class PostController extends Controller
      */
     public function store(): RedirectResponse
     {
-        dd(request()->all());
+//        dd(request()->all());
 
         $data = [
             'id'                     => request('id'),
@@ -166,7 +166,7 @@ class PostController extends Controller
      */
     public function update(string $id): RedirectResponse
     {
-        dd(request()->all());
+//        dd(request()->all());
 
         $post = Post::findOrFail($id);
 

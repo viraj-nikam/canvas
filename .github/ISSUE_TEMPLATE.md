@@ -1,4 +1,4 @@
-- Canvas Version: #.#.#
+- Canvas Version: ##.##.##
 - PHP Version:
 
 ### Description:

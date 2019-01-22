@@ -1,5 +1,3 @@
-<!-- todo: tags are always null in the request() -->
-
 <script type="text/ecmascript-6">
     import Multiselect from 'vue-multiselect'
 

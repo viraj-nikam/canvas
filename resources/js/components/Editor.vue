@@ -1,5 +1,4 @@
 <script type="text/ecmascript-6">
-    import _ from 'lodash';
     import Quill from 'quill';
     import Parchment from 'parchment';
     import ImageUploader from './editorComponents/ImageUploader.vue';

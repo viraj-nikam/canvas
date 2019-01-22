@@ -4,7 +4,6 @@
             <div class="modal-body">
                 <p class="font-weight-bold lead">Featured image</p>
 
-                {{-- todo: reason for double quotes here? --}}
                 <featured-image-uploader
                         :post="'{{ $data['post']->id }}'"
                         :url="'{{ $data['post']->featured_image }}'"
@@ -12,7 +11,7 @@
                 </featured-image-uploader>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-link text-muted"data-dismiss="modal">Done</button>
+                <button class="btn btn-link text-muted" data-dismiss="modal">Done</button>
             </div>
         </div>
     </div>
