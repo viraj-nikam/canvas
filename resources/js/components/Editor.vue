@@ -191,7 +191,7 @@
                         data-toggle="modal" data-target="#embed-html">
                     <i class="fas fa-fw fa-code text-muted"></i>
                 </button>
-                <button class="btn btn-outline-light btn-circle border" type="button"
+                <button class="btn btn-outline-light btn-circle border mr-2" type="button"
                         @click="addDivider" v-on:submit.prevent="onSubmit">
                     <i class="fas fa-fw fa-ellipsis-h text-muted"></i>
                 </button>
