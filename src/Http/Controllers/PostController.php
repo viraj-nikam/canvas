@@ -149,11 +149,11 @@ class PostController extends Controller
         $post->meta = $data['meta'];
         $post->save();
 
-//        if (! is_null(request('tags'))) {
-//            $post->tags()->sync(
-//                $this->collectTags(request('tags') ?? [])
-//            );
-//        }
+        if (! is_null(request('tags'))) {
+            $post->tags()->sync(
+                $this->collectTags(request('tags') ?? [])
+            );
+        }
 
         return redirect(route('canvas.post.edit', $post->id))->with('notify', 'Saved!');
     }
@@ -200,11 +200,11 @@ class PostController extends Controller
         $post->meta = $data['meta'];
         $post->save();
 
-//        if (! is_null(request('tags'))) {
-//            $post->tags()->sync(
-//                $this->collectTags(request('tags') ?? [])
-//            );
-//        }
+        if (! is_null(request('tags'))) {
+            $post->tags()->sync(
+                $this->collectTags(request('tags') ?? [])
+            );
+        }
 
         return redirect(route('canvas.post.edit', $post->id))->with('notify', 'Saved!');
     }

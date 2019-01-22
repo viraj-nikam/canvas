@@ -36,7 +36,10 @@
     <div class="container">
         <div class="row justify-content-md-center">
             <div class="col col-lg-8">
-                <h1 class="content-title serif mb-4 pt-5">{{ $data['post']->title }}</h1>
+                <h1 class="content-title serif pt-5 @unless($data['post']->summary) mb-4 @endif">{{ $data['post']->title }}</h1>
+                @if($data['post']->summary)
+                    <h4 class="text-muted mb-4">{{ $data['post']->summary }}</h4>
+                @endif
 
                 <div class="media py-1">
                     <img src="{{ sprintf('%s%s%s', 'https://secure.gravatar.com/avatar/', md5(strtolower(trim($data['author']->email))), '?s=200') }}"
