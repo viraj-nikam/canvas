@@ -64,7 +64,9 @@
                 this.editor.root.innerHTML = this.value;
 
                 this.editor.on('text-change', () => {
-                    this.$emit('input', this.editor.getText() ? this.editor.root.innerHTML : '');
+                    let body = this.editor.getText() ? this.editor.root.innerHTML : '';
+                    this.$refs['body'].value = body;
+                    this.$emit('input', body);
                 });
             },
 
@@ -199,6 +201,7 @@
         </div>
 
         <div ref="editor"></div>
+        <input type="hidden" name="body" ref="body" />
 
         <image-uploader @updated="applyImage"></image-uploader>
         <html-embedder @adding="addHTML"></html-embedder>
