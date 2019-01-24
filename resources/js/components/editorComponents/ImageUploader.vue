@@ -78,7 +78,7 @@
 
                                 <div class="input-group py-2">
                                     <input type="text" class="form-control border-0 px-0" v-model="caption"
-                                           placeholder="Add a caption for your image" ref="caption">
+                                           placeholder="Type caption for image (optional)" ref="caption">
                                 </div>
 
                                 <div class="input-group py-2">
