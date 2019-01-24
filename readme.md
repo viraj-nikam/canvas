@@ -5,7 +5,7 @@
 [![Latest Stable Version](https://poser.pugx.org/cnvs/canvas/v/stable)](https://packagist.org/packages/cnvs/canvas)
 [![License](https://poser.pugx.org/cnvs/canvas/license)](https://packagist.org/packages/cnvs/canvas)
 
-A [Laravel](https://laravel.com) publishing platform.  
+A [Laravel](https://laravel.com) publishing platform.
 
 ## Installation
 
