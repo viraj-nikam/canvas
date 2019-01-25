@@ -1,11 +1,19 @@
+<p style="text-align: center">
+    <img src="https://github.com/cnvs/art/blob/master/github-header.png?raw=true" width="425">
+</p>
+
+<p style="text-align: center">
+	<a href="https://travis-ci.org/cnvs/canvas"><img src="https://travis-ci.org/cnvs/canvas.svg?branch=master"></a>
+	<a href="https://packagist.org/packages/cnvs/canvas"><img src="https://poser.pugx.org/cnvs/canvas/downloads"></a>
+	<a href="https://packagist.org/packages/cnvs/canvas"><img src="https://poser.pugx.org/cnvs/canvas/v/stable"></a>
+	<a href="https://packagist.org/packages/cnvs/canvas"><img src="https://poser.pugx.org/cnvs/canvas/license"></a>
+</p>
+
 ## Introduction
 
-[![Build Status](https://travis-ci.org/cnvs/canvas.svg?branch=master)](https://travis-ci.org/cnvs/canvas)
-[![Total Downloads](https://poser.pugx.org/cnvs/canvas/downloads)](https://packagist.org/packages/cnvs/canvas)
-[![Latest Stable Version](https://poser.pugx.org/cnvs/canvas/v/stable)](https://packagist.org/packages/cnvs/canvas)
-[![License](https://poser.pugx.org/cnvs/canvas/license)](https://packagist.org/packages/cnvs/canvas)
+A [Laravel](https://laravel.com) publishing platform. Canvas is a fully open source package to extend your application and get you up-and-running with a blog in a matter of minutes. In addition to a distraction-free writing experience, you can view monthly trends on your content, get insights into reader traffic and more!
 
-A [Laravel](https://laravel.com) publishing platform.
+<img src="https://github.com/cnvs/cnvs.io/blob/develop/resources/img/zDTOCfMeOf2pr1sHax9KqNzWsnF8KOa55CPPyppc.png?raw=true">
 
 ## Installation
 
