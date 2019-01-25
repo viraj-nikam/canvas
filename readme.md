@@ -1,8 +1,8 @@
-<p style="text-align: center">
+<p style="align: center">
     <img src="https://github.com/cnvs/art/blob/master/github-header.png?raw=true" width="425">
 </p>
 
-<p style="text-align: center">
+<p style="align: center">
 	<a href="https://travis-ci.org/cnvs/canvas"><img src="https://travis-ci.org/cnvs/canvas.svg?branch=master"></a>
 	<a href="https://packagist.org/packages/cnvs/canvas"><img src="https://poser.pugx.org/cnvs/canvas/downloads"></a>
 	<a href="https://packagist.org/packages/cnvs/canvas"><img src="https://poser.pugx.org/cnvs/canvas/v/stable"></a>
