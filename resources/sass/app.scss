@@ -66,6 +66,57 @@ a, .btn-link {
   color: $dark-grey;
   font-size: 1.1rem;
   line-height: 2;
+  position:  relative !important;
+  -webkit-box-align: center !important;
+  -ms-flex-align: center !important;
+  align-items: center !important;
+  overflow-y: visible !important;
+}
+
+.content-body .embedded_image img {
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+  display: block;
+}
+
+.content-body .embedded_image[data-layout="wide"] img {
+  max-width: 1024px;
+}
+
+div.content-body.serif.mt-4.pb-3 > div.embedded_image {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  margin-left: -50vw;
+}
+
+@media screen and (max-width: 1024px) {
+  .content-body .embedded_image[data-layout=wide] img {
+    max-width:100%
+  }
+}
+
+.content-body .embedded_image:hover img {
+  -webkit-box-shadow: none !important;
+  -moz-box-shadow: none !important;
+  box-shadow: none !important;
+  cursor: default !important;
+}
+
+.content-body hr {
+  border: none;
+  color: #111;
+  letter-spacing: 1em;
+  text-align: center;
+}
+
+.content-body hr:before {
+  content: '...';
+}
+
+.content-body a {
+  text-decoration: underline !important;
 }
 
 input, textarea, select {

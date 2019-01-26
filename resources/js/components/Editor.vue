@@ -299,6 +299,10 @@
         margin-bottom: 20px;
     }
 
+    .ql-editor a {
+        text-decoration: underline !important;
+    }
+
     .ql-editor.ql-blank::before {
         left: 0;
         font-style: normal;
@@ -364,8 +368,8 @@
     }
 
     .embedded_image:hover img {
-        cursor: pointer;
-        box-shadow: 0 0 0 3px #3490dc;
+        cursor: pointer !important;
+        box-shadow: 0 0 0 3px #3490dc !important;
     }
 
     .embedded_image p {
