@@ -29,65 +29,13 @@ You may use composer to install Canvas into your Laravel project:
 composer require cnvs/canvas
 ```
 
-Publish the assets using the `canvas:install` Artisan command:
+Publish the assets and primary configuration file using the `canvas:install` Artisan command:
 
 ```bash
 php artisan canvas:install
 ```
 
-The installation will publish all public assets as well as the primary configuration file:
-
-```php
-return [
-
-    /*
-    |--------------------------------------------------------------------------
-    | Public Path
-    |--------------------------------------------------------------------------
-    |
-    | You are free to expose the public-facing blog to any route you wish.
-    | If no change is made then it will default to the /blog path of
-    | your application.
-    |
-    */
-
-    'public_path' => env('CANVAS_PUBLIC_PATH', 'blog'),
-
-    /*
-    |--------------------------------------------------------------------------
-    | Route Middleware
-    |--------------------------------------------------------------------------
-    |
-    | You may assign any custom middleware that you choose to the /canvas
-    | routes in your application. They will be protected by basic
-    | user authentication by default.
-    |
-    */
-
-    'middleware' => [
-        'web',
-        'auth',
-    ],
-
-    /*
-    |--------------------------------------------------------------------------
-    | Uploads Disk
-    |--------------------------------------------------------------------------
-    |
-    | This is the storage disk Canvas will use to put file uploads, you can use
-    | any of the disks defined in your config/filesystems.php file. You may
-    | also configure the path where the files should be stored.
-    |
-    */
-
-    'storage_disk' => env('CANVAS_STORAGE_DISK', 'local'),
-
-    'storage_path' => env('CANVAS_STORAGE_PATH', 'public/canvas/images'),
-
-];
-```
-
-You can optionally publish the views with:
+If you choose to design your own theme instead of the default, you can publish the views with:
 
 ```bash
 php artisan vendor:publish --provider="Canvas\CanvasServiceProvider" --tag="canvas-views"
