@@ -35,6 +35,12 @@ Publish the assets and primary configuration file using the `canvas:install` Art
 php artisan canvas:install
 ```
 
+Create a symbolic link to ensure file uploads are publicly accessible from the web using the `storage:link` Artisan command:
+
+```bash
+php artisan storage:link
+```
+
 If you choose to design your own theme instead of the default, you can publish the views with:
 
 ```bash
