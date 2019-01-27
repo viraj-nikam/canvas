@@ -54,9 +54,16 @@ class PostController extends Controller
                     ->where('id', '!=', optional($next)->id)
                     ->get();
 
-                $random = $related->isEmpty() ? $filtered->random() : $related->random();
+                if ($related->isEmpty()) {
+                    $random = $filtered->count() > 1 ? $filtered->random() : null;
+                } else {
+                    $random = $related->random();
+                }
             } else {
-                $random = $filtered->random();
+                if ($filtered->isNotEmpty()) {
+                    $filtered->random();
+                }
+                $random = null;
             }
 
             $data = [

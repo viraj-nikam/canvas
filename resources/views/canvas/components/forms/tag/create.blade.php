@@ -20,11 +20,6 @@
                 <div class="col-lg-12">
                     <p class="lead text-muted" style="cursor: default">{{ sprintf('%s/%s', config('app.url'), config('canvas.public_path')) }}/tag/<span class="text-primary">@{{ slug }}</span></p>
                     <input type="hidden" name="slug" v-model="slug" readonly>
-                    @if ($errors->has('slug'))
-                        <div class="invalid-feedback d-block">
-                            <strong>{{ $errors->first('slug') }}</strong>
-                        </div>
-                    @endif
                 </div>
             </div>
         </div>
