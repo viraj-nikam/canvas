@@ -6,7 +6,8 @@
 
                 <featured-image-uploader
                         :post="'{{ $data['id']->toString() }}'"
-                        :caption="'{{ old('featured_image_caption') }}'">
+                        :caption="'{{ old('featured_image_caption') }}'"
+                        :unsplash="'{{ config('canvas.unsplash.access_key') }}'">
                 </featured-image-uploader>
             </div>
             <div class="modal-footer">

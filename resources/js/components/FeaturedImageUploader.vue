@@ -1,6 +1,6 @@
 <script type="text/ecmascript-6">
     export default {
-        props: ['post', 'url', 'caption'],
+        props: ['post', 'url', 'caption', 'unsplash'],
 
         data() {
             return {
@@ -47,6 +47,6 @@
 
         <input hidden type="hidden" name="featured_image" v-model="imageUrl">
 
-        <image-picker @changed="updateImage" @uploading="uploading = true"></image-picker>
+        <image-picker @changed="updateImage" @uploading="uploading = true" :unsplash="this.unsplash"></image-picker>
     </div>
 </template>
