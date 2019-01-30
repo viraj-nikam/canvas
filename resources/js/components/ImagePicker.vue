@@ -45,7 +45,7 @@
 
             // Open the Unsplash modal
             openUnsplashModal() {
-                document.querySelector('#test').classList.add('modal-lg');
+                document.querySelector('#unsplash-modal').classList.add('modal-lg');
                 this.unsplashSearchTerm = 'city';
                 this.unsplashModalShown = true;
                 this.$nextTick(() => {
@@ -64,7 +64,7 @@
 
             // Close unsplash modal
             closeUnsplashModal() {
-                document.querySelector('#test').classList.remove('modal-lg');
+                document.querySelector('#unsplash-modal').classList.remove('modal-lg');
                 this.unsplashSearchTerm = '';
                 this.unsplashModalShown = false;
                 this.selectedUnsplashImage = null;
@@ -100,31 +100,38 @@
         <div class="mb-0">
             Please <label :for="'imageUpload'+_uid" class="text-primary" style="cursor:pointer;">upload</label> an image
             <span v-if="this.unsplash">or</span>
-            <a v-if="this.unsplash" href="#" @click.prevent="openUnsplashModal" class="text-text-color">search
-                Unsplash</a>
+            <a v-if="this.unsplash" href="#" @click.prevent="openUnsplashModal" class="text-text-color">
+                search Unsplash
+            </a>
         </div>
 
         <div v-if="unsplashModalShown">
             <div class="bg-contrast z-50 fixed pin overflow-y-scroll">
                 <div class="container py-20">
                     <div class="flex items-center">
-                        <h2 class="mr-auto">Search Unsplash</h2>
-
-                        <button class="btn-primary mr-4" v-on:submit.prevent="onSubmit" v-if="selectedUnsplashImage"
-                                @click="closeUnsplashModalAndInsertImage">Choose Selected Image
+                        <button class="btn-primary mr-4"
+                                v-on:submit.prevent
+                                v-if="selectedUnsplashImage"
+                                @click="closeUnsplashModalAndInsertImage">
+                            Choose Selected Image
                         </button>
-                        <button class="btn-light" v-on:submit.prevent="onSubmit" @click="closeUnsplashModal">Cancel
+                        <button class="btn-light"
+                                v-on:submit.prevent
+                                @click="closeUnsplashModal">
+                            Cancel
                         </button>
                     </div>
 
-                    <input type="text" class="my-10 border-b border-very-light focus:outline-none w-full"
+                    <input type="text"
+                           class="my-10 border-b border-very-light focus:outline-none w-full"
                            v-if="this.unsplash"
                            v-model="unsplashSearchTerm"
                            ref="unsplashSearch"
                            placeholder="search Unsplash">
 
                     <div v-if="!searchingUnsplash && unsplashImages.length" class="flex flex-wrap mt-5">
-                        <div class="w-1/4 p-1 cursor-pointer" v-for="image in unsplashImages"
+                        <div class="w-1/4 p-1 cursor-pointer"
+                             v-for="image in unsplashImages"
                              @click="selectedUnsplashImage = image">
                             <div class="h-48 w-full bg-cover border-primary"
                                  :class="{'border-4': selectedUnsplashImage && selectedUnsplashImage.id == image.id}"

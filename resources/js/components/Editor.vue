@@ -178,23 +178,34 @@
 <template>
     <div style="position: relative">
         <div id="sidebar-controls" style="margin-top: -8px">
-            <button id="show-controls" type="button" class="btn btn-outline-light btn-circle border"
-                    @click="showSideControls" v-on:submit.prevent="onSubmit">
+            <button id="show-controls"
+                    type="button"
+                    class="btn btn-outline-light btn-circle border"
+                    @click="showSideControls"
+                    v-on:submit.prevent="onSubmit">
                 <i class="fas fa-plus fa-fw text-muted"></i>
             </button>
 
             <div class="controls pl-3 bg-white d-none">
-                <button class="btn btn-outline-light btn-circle border mr-1" type="button" @click="openImageUploader()"
-                        data-toggle="modal" data-target="#image-upload">
+                <button class="btn btn-outline-light btn-circle border mr-1"
+                        type="button"
+                        @click="openImageUploader()"
+                        data-toggle="modal"
+                        data-target="#image-upload">
                     <i class="far fa-fw fa-image text-muted"></i>
                 </button>
-                <button class="btn btn-outline-light btn-circle border mr-1" type="button"
-                        @click="$emit('openingHTMLEmbedder')" v-on:submit.prevent="onSubmit"
-                        data-toggle="modal" data-target="#embed-html">
+                <button class="btn btn-outline-light btn-circle border mr-1"
+                        type="button"
+                        @click="$emit('openingHTMLEmbedder')"
+                        v-on:submit.prevent="onSubmit"
+                        data-toggle="modal"
+                        data-target="#embed-html">
                     <i class="fas fa-fw fa-code text-muted"></i>
                 </button>
-                <button class="btn btn-outline-light btn-circle border mr-2" type="button"
-                        @click="addDivider" v-on:submit.prevent="onSubmit">
+                <button class="btn btn-outline-light btn-circle border mr-2"
+                        type="button"
+                        @click="addDivider"
+                        v-on:submit.prevent="onSubmit">
                     <i class="fas fa-fw fa-ellipsis-h text-muted"></i>
                 </button>
             </div>
@@ -356,15 +367,22 @@
         cursor: default;
     }
 
-    .embedded_image[data-layout="wide"] img {
-        max-width: 1024px;
-    }
-
     .embedded_image img {
         max-width: 100%;
         height: auto;
         margin: 0 auto;
         display: block;
+    }
+
+    div.ql-container.ql-bubble > div.ql-editor > div {
+        width: 100vw;
+        position: relative;
+        left: 50%;
+        margin-left: -50vw;
+    }
+
+    .embedded_image[data-layout="wide"] img {
+        max-width: 1024px;
     }
 
     .embedded_image:hover img {
