@@ -84,11 +84,20 @@ a, .btn-link {
   max-width: 1024px;
 }
 
-div.content-body.serif.mt-4.pb-3 > div.embedded_image {
+div.content-body.serif.mt-4.pb-3 > div.embedded_image[data-layout=wide] {
   width: 100vw;
   position: relative;
   left: 50%;
   margin-left: -50vw;
+}
+
+div.embedded_image p {
+  color: #6c757d !important;
+  padding-top: 1rem !important;
+  font-size: 0.9rem !important;
+  line-height: 1.6 !important;
+  font-weight: 400 !important;
+  font-family: "Nunito", sans-serif;
 }
 
 @media screen and (max-width: 1024px) {
