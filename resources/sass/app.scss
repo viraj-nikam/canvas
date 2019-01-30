@@ -128,7 +128,8 @@ div.embedded_image p {
   text-decoration: underline !important;
 }
 
-.content-body code {
+.content-body p code {
+  background-color: rgba(0, 0, 0, 0.05) !important;
   padding: 2px 4px !important;
   -webkit-border-radius: 3px !important;
   -moz-border-radius: 3px !important;
