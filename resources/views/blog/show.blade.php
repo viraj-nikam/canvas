@@ -2,6 +2,10 @@
 
 @section('title', $data['post']->title)
 
+@push('styles')
+    @include('canvas::blog.partials.styles')
+@endpush
+
 @push('meta')
     <meta name="description" content="{{ $data['meta']['meta_description'] }}">
     <meta name="og:title" content="{{ $data['meta']['og_description'] }}">

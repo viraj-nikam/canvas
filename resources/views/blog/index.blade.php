@@ -1,6 +1,10 @@
 @extends('canvas::layouts.app')
 
-@section('title', sprintf('%s — %s', config('app.name', 'Laravel'), 'Blog'))
+@section('title', sprintf('%s — %s', config('app.name'), 'Blog'))
+
+@push('styles')
+    @include('canvas::blog.partials.styles')
+@endpush
 
 @section('actions')
     <a href="{{ route('canvas.post.create') }}" class="btn btn-sm btn-outline-primary my-auto mx-3">
@@ -16,13 +20,16 @@
             <div class="row justify-content-md-center">
                 <div class="col col-lg-8">
                     @foreach($data['posts'] as $post)
-                        <p class="mt-5 mb-2 text-muted text-uppercase font-weight-bold">Published on {{ \Carbon\Carbon::parse($post->published_at)->format('M d, Y') }}</p>
-                        <h1 class="serif my-2 content-title"><a href="{{ route('blog.post.show', $post->slug) }}">{{ $post->title }}</a></h1>
+                        <p class="mt-5 mb-2 text-muted text-uppercase font-weight-bold">Published
+                            on {{ \Carbon\Carbon::parse($post->published_at)->format('M d, Y') }}</p>
+                        <h1 class="serif my-2 content-title"><a
+                                    href="{{ route('blog.post.show', $post->slug) }}">{{ $post->title }}</a></h1>
                         <p class="content-body serif mb-2">{{ str_limit(strip_tags($post->body), 200) }}</p>
 
                         <div class="d-flex justify-content-between mb-5">
                             <p class="text-uppercase text-muted">{{ $post->readTime }}</p>
-                            <a href="{{ route('blog.post.show', $post->slug) }}" class="text-muted text-uppercase">Read full post</a>
+                            <a href="{{ route('blog.post.show', $post->slug) }}" class="text-muted text-uppercase">Read
+                                full post</a>
                         </div>
                     @endforeach
                 </div>
