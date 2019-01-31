@@ -373,11 +373,13 @@
     }
 
     .embedded_image p {
-        font-size: 16px;
-        color: rgba(0,0,0,.68);
-        padding-top: 5px;
+        color: #6c757d;
+        padding-top: 1rem;
+        font-size: 0.9rem;
+        line-height: 1.6;
+        font-weight: 400;
         text-align: center;
-        margin-bottom: 0 !important;
+        font-family: "Nunito", sans-serif;
     }
 
     @media (max-width: 767px) {

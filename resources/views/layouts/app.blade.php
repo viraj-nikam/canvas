@@ -19,6 +19,9 @@
 
     <!-- Style sheets -->
     <link rel="stylesheet" type="text/css" href="{{ mix('css/app.css', 'vendor/canvas') }}">
+
+    <!-- Additional style sheets -->
+    @stack('styles')
 </head>
 <body>
     <div id="app">
