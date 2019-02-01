@@ -1,38 +1,79 @@
 <p align="center">
-    <img src="https://raw.githubusercontent.com/cnvs/assets/master/logo.png" width="240">
+    <br>
+    <img src="https://raw.githubusercontent.com/cnvs/art/master/github-header.png" width="500">
 </p>
+
 <p align="center">
-    <a href="https://travis-ci.org/cnvs/canvas"><img src="https://travis-ci.org/cnvs/canvas.svg?branch=master" alt="Build Status"></a>
-    <a href="https://styleci.io/repos/52815899"><img src="https://styleci.io/repos/52815899/shield?style=flat&branch=master" alt="StyleCI"></a>
-    <a href="https://packagist.org/packages/cnvs/easel"><img src="https://poser.pugx.org/cnvs/easel/downloads" alt="Total Downloads"></a>
-    <a href="https://packagist.org/packages/cnvs/easel"><img src="https://poser.pugx.org/cnvs/easel/v/stable" alt="Latest Stable Version"></a>
-    <a href="https://github.com/cnvs/canvas/blob/master/license"><img src="https://poser.pugx.org/cnvs/canvas/license" alt="License"></a>
+	<a href="https://travis-ci.org/cnvs/canvas"><img src="https://travis-ci.org/cnvs/canvas.svg?branch=master"></a>
+	<a href="https://packagist.org/packages/cnvs/canvas"><img src="https://poser.pugx.org/cnvs/canvas/downloads"></a>
+	<a href="https://packagist.org/packages/cnvs/canvas"><img src="https://poser.pugx.org/cnvs/canvas/v/stable"></a>
+	<a href="https://packagist.org/packages/cnvs/canvas"><img src="https://poser.pugx.org/cnvs/canvas/license"></a>
+    <br>
 </p>
 
-## About Canvas
+## Introduction
 
-[Canvas](https://cnvs.io) is a simple, powerful blog publishing platform that lets you to share your stories with the world. Its beautifully designed interface and completely customizable framework allows you to create and publish your own blog, giving you tools that make it easy and even fun to do. Canvas includes some of the most popular web packages today, such as:
+A [Laravel](https://laravel.com) publishing platform. Canvas is a fully open source package to extend your 
+application and get you up-and-running with a blog in just a few minutes. In addition to a distraction-free 
+writing experience, you can view monthly trends on your content, get insights into reader traffic and more!
 
-* [Google Material Design](https://material.google.com).
-* [SimpleMDE](https://simplemde.com) for markdown publishing.
-* Syntax highlighting by [PrismJS](http://prismjs.com).
-* Full-site searching by [TNTSearch](https://github.com/teamtnt/laravel-scout-tntsearch-driver).
-* Native [Google Analytics](https://www.google.com/analytics/#?modal_active=none) integration.
-* Powered by [Laravel 5](https://laravel.com).
+<img src="https://cnvs.io/img/zDTOCfMeOf2pr1sHax9KqNzWsnF8KOa55CPPyppc.png">
 
-Not quite sure if Canvas is the right tool for you? That's no problem. We've got a live demo at [http://demo.cnvs.io](http://demo.cnvs.io) where you can experience it for yourself. Login credentials for the demo are `admin@cnvs.io` and `password`.
+## Installation
 
-## Canvas Sponsors
+> **Note:** Canvas requires you to have user authentication in place prior to installation. You may run the `make:auth` Artisan command to satisfy this requirement.
 
-Canvas is an MIT-licensed open source project. Its ongoing development is made possible thanks to the support by these awesome [backers](https://github.com/cnvs/canvas/blob/develop/backers.md). If you are interested in becoming a sponsor, please visit the [Canvas Patreon page](https://www.patreon.com/canvas).
+You may use composer to install Canvas into your Laravel project:
 
-## Contributing
+```bash
+composer require cnvs/canvas
+```
 
-Thank you for considering contributing to Canvas! The contribution guide can be found in the [Canvas documentation](https://cnvs.readme.io/docs/contributing).
+Publish the assets and primary configuration file using the `canvas:install` Artisan command:
 
-## Changelog
+```bash
+php artisan canvas:install
+```
 
-Detailed changes for each release are documented in the [changelog](https://cnvs.readme.io/docs/changelog).
+Create a symbolic link to ensure file uploads are publicly accessible from the web using the `storage:link` Artisan command:
+
+```bash
+php artisan storage:link
+```
+
+If you choose to design your own theme instead of the default, you can publish the views with:
+
+```bash
+php artisan vendor:publish --provider="Canvas\CanvasServiceProvider" --tag="canvas-views"
+```
+
+## Updates
+
+You may update your Canvas installation using composer:
+
+```bash
+composer update
+```
+
+Run any new migrations using the `migrate` Artisan command:
+
+```bash
+php artisan migrate
+```
+
+You may also want to run this command to re-publish the assets:
+
+```bash
+php artisan vendor:publish --tag=canvas-assets --force
+```
+
+## Testing
+
+Run the tests with:
+
+```bash
+composer test
+```
 
 ## License
 

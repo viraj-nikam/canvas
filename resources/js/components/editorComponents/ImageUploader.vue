@@ -1,0 +1,102 @@
+<script type="text/ecmascript-6">
+    import $ from 'jquery';
+
+    export default {
+        data() {
+            return {
+                existingBlot: null,
+                imageUrl: null,
+                layout: 'default',
+                caption: '',
+            }
+        },
+
+        mounted() {
+            this.$parent.$on('openingImageUploader', data => {
+                if (data) {
+                    this.toggleModal();
+                    this.caption = data.caption;
+                    this.imageUrl = data.url;
+                    this.layout = data.layout || 'default';
+                    this.existingBlot = data.existingBlot;
+                }
+            });
+        },
+
+
+        methods: {
+            // Show/hide the modal
+            toggleModal() {
+                $('#image-upload').modal('show');
+            },
+
+            // Clear the image data
+            clear() {
+                this.existingBlot = null;
+                this.imageUrl = null;
+                this.layout = 'default';
+                this.caption = '';
+            },
+
+
+            // Update the selected image
+            updateImage({url, caption}) {
+                this.imageUrl = url.data;
+                this.caption = caption ? caption : '';
+            },
+
+
+            // Add the image to the editor
+            applyImage() {
+                if (!this.imageUrl) {
+                    return;
+                }
+
+                this.$emit('updated', {
+                    url: this.imageUrl,
+                    caption: this.caption,
+                    existingBlot: this.existingBlot,
+                    layout: this.layout,
+                });
+
+                this.clear();
+            }
+        }
+    }
+</script>
+
+<template>
+    <div class="modal fade" id="image-upload" tabindex="-1" role="dialog" data-backdrop="static">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <p class="font-weight-bold lead">Add image</p>
+                    <div class="form-group row">
+                        <div class="col-lg-12">
+                            <div v-if="imageUrl">
+                                <img :src="imageUrl" class="w-100">
+
+                                <div class="input-group py-2">
+                                    <input type="text" class="form-control border-0 px-0" v-model="caption"
+                                           placeholder="Type caption for image (optional)" ref="caption">
+                                </div>
+
+                                <div class="input-group py-2">
+                                    <select class="custom-select border-0 px-0" v-model="layout">
+                                        <option value="default">Default layout</option>
+                                        <option value="wide">Wide image</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <image-picker v-if="!imageUrl" @changed="updateImage"></image-picker>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-link text-muted" data-dismiss="modal" @click="applyImage">Done</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
