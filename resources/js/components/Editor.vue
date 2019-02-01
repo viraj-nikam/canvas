@@ -372,6 +372,13 @@
         box-shadow: 0 0 0 3px #3490dc !important;
     }
 
+    div.embedded_image[data-laout="wide"] {
+        width: 100vw !important;
+        position: relative !important;
+        left: 50% !important;
+        margin-left: -50vw !important;
+    }
+
     .embedded_image p {
         color: #6c757d;
         padding-top: 1rem;
@@ -380,6 +387,12 @@
         font-weight: 400;
         text-align: center;
         font-family: "Nunito", sans-serif;
+    }
+
+    @media screen and (max-width: 1024px) {
+        .embedded_image[data-layout="wide"] img {
+            max-width: 100%
+        }
     }
 
     @media (max-width: 767px) {
