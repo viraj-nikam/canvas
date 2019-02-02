@@ -31,7 +31,7 @@
                 this.unsplashPage = page;
                 this.searchingUnsplash = true;
                 axios.get('https://api.unsplash.com/search/photos?client_id=' + this.unsplash +
-                    '&orientation=landscape&per_page=5' +
+                    '&orientation=landscape&per_page=12' +
                     '&query=' + this.unsplashSearchTerm +
                     '&page=' + page
                 ).then(response => {
@@ -46,7 +46,8 @@
             // Open the Unsplash modal
             openUnsplashModal() {
                 document.querySelector('#unsplash-modal').classList.add('modal-lg');
-                this.unsplashSearchTerm = 'city';
+                document.querySelector('#current-image').classList.add('d-none');
+                this.unsplashSearchTerm = 'work';
                 this.unsplashModalShown = true;
                 this.$nextTick(() => {
                     this.$refs.unsplashSearch.focus();
@@ -65,6 +66,7 @@
             // Close unsplash modal
             closeUnsplashModal() {
                 document.querySelector('#unsplash-modal').classList.remove('modal-lg');
+                document.querySelector('#current-image').classList.remove('d-none');
                 this.unsplashSearchTerm = '';
                 this.unsplashModalShown = false;
                 this.selectedUnsplashImage = null;
@@ -100,56 +102,53 @@
         <div class="mb-0">
             Please <label :for="'imageUpload'+_uid" class="text-primary" style="cursor:pointer;">upload</label> an image
             <span v-if="this.unsplash">or</span>
-            <a v-if="this.unsplash" href="#" @click.prevent="openUnsplashModal" class="text-text-color">
+            <a v-if="this.unsplash"
+               href="#"
+               @click.prevent="openUnsplashModal"
+               class="text-primary">
                 search Unsplash
             </a>
         </div>
 
         <div v-if="unsplashModalShown">
-            <div class="bg-contrast z-50 fixed pin overflow-y-scroll">
-                <div class="container py-20">
-                    <div class="flex items-center">
-                        <button class="btn-primary mr-4"
-                                v-on:submit.prevent
-                                v-if="selectedUnsplashImage"
-                                @click="closeUnsplashModalAndInsertImage">
-                            Choose Selected Image
-                        </button>
-                        <button class="btn-light"
-                                v-on:submit.prevent
-                                @click="closeUnsplashModal">
+            <div class="container p-0">
+                <input type="text"
+                       class="form-control-lg form-control border-0 px-0"
+                       v-if="this.unsplash"
+                       v-model="unsplashSearchTerm"
+                       ref="unsplashSearch"
+                       placeholder="search Unsplash">
+
+                <div v-if="!searchingUnsplash && unsplashImages.length">
+                    <div class="card-columns">
+                        <div class="card"
+                             v-for="image in unsplashImages">
+                            <img v-bind:src="image.urls.small"
+                                 class="card-img"
+                                 style="cursor: pointer"
+                                 @click="selectedUnsplashImage = image">
+                        </div>
+                    </div>
+
+                    <div class="text-center">
+                        <button class="btn btn-link text-muted"
+                                type="button"
+                                @click="closeUnsplashModal"
+                                v-on:submit.prevent="onSubmit">
                             Cancel
                         </button>
+                        <button class="btn btn-sm btn-outline-primary"
+                                type="button"
+                                @click="getImagesFromUnsplash(unsplashPage + 1)"
+                                v-if="unsplashImages.length == 12"
+                                v-on:submit.prevent="onSubmit">
+                            Next page
+                        </button>
                     </div>
+                </div>
 
-                    <input type="text"
-                           class="my-10 border-b border-very-light focus:outline-none w-full"
-                           v-if="this.unsplash"
-                           v-model="unsplashSearchTerm"
-                           ref="unsplashSearch"
-                           placeholder="search Unsplash">
-
-                    <div v-if="!searchingUnsplash && unsplashImages.length" class="flex flex-wrap mt-5">
-                        <div class="w-1/4 p-1 cursor-pointer"
-                             v-for="image in unsplashImages"
-                             @click="selectedUnsplashImage = image">
-                            <div class="h-48 w-full bg-cover border-primary"
-                                 :class="{'border-4': selectedUnsplashImage && selectedUnsplashImage.id == image.id}"
-                                 :style="{ backgroundImage: 'url(' + image.urls.thumb + ')' }"></div>
-                        </div>
-
-                        <div class="w-1/4 p-1" v-if="unsplashImages.length == 5">
-                            <div class="bg-primary text-center flex items-center justify-center h-full">
-                                <button class="text-contrast hover:underline"
-                                        @click="getImagesFromUnsplash(unsplashPage + 1)">More >>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div v-if="!searchingUnsplash && !unsplashImages.length">
-                        <h4 class="text-center">We couldn't find any matches.</h4>
-                    </div>
+                <div v-if="!searchingUnsplash && !unsplashImages.length">
+                    <h4 class="text-center">We couldn't find any matches.</h4>
                 </div>
             </div>
         </div>
