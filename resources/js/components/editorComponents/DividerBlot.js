@@ -1,3 +1,9 @@
+/**
+ * Create the divider blot.
+ *
+ * src: https://github.com/writingink/wink
+ */
+
 import Quill from 'quill';
 
 let BlockEmbed = Quill.import('blots/block/embed');

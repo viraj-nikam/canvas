@@ -1,4 +1,10 @@
 <script type="text/ecmascript-6">
+
+    /**
+     * Upload a featured image.
+     *
+     * src: https://github.com/writingink/wink
+     */
     export default {
         props: ['post', 'url', 'caption', 'unsplash'],
 
@@ -6,8 +12,6 @@
             return {
                 imageUrl: '',
                 imageCaption: '',
-                imagePickerKey: '',
-                uploadProgress: 0,
                 uploading: false,
             }
         },
@@ -27,30 +31,23 @@
 
             // Close the modal
             close() {
-                this.imagePickerKey = _.uniqueId();
-
                 this.modalShown = false;
             },
 
             // Update the selected image
             updateImage({url, caption}) {
-                this.imageUrl = url.data;
+                this.imageUrl = url;
                 this.imageCaption = caption;
 
                 this.uploading = false;
             },
-
-            // Update the upload progress
-            updateProgress({progress}) {
-                this.uploadProgress = progress;
-            }
         }
     }
 </script>
 
 <template>
     <div>
-        <div v-if="imageUrl" id="current-image">
+        <div v-if="imageUrl" class="current-image">
             <img :src="imageUrl" class="w-100">
 
             <div class="input-group py-2">
@@ -66,7 +63,6 @@
 
         <image-picker
                 @changed="updateImage"
-                @progressing="updateProgress"
                 @uploading="uploading = true"
                 :unsplash="this.unsplash">
         </image-picker>

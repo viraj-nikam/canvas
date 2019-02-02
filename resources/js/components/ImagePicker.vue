@@ -1,6 +1,11 @@
 <script type="text/ecmascript-6">
     import axios from 'axios';
 
+    /**
+     * Create the default image picker.
+     *
+     * src: https://github.com/writingink/wink
+     */
     export default {
         props: ['unsplash'],
 
@@ -45,8 +50,8 @@
 
             // Open the Unsplash modal
             openUnsplashModal() {
-                document.querySelector('#unsplash-modal').classList.add('modal-lg');
-                document.querySelector('#current-image').classList.add('d-none');
+                document.querySelector('.unsplash-modal').classList.add('modal-lg');
+                document.querySelector('.current-image').classList.add('d-none');
                 this.unsplashSearchTerm = 'work';
                 this.unsplashModalShown = true;
                 this.$nextTick(() => {
@@ -55,18 +60,21 @@
             },
 
             // Select an Unsplash image
-            closeUnsplashModalAndInsertImage() {
+            closeUnsplashModalAndInsertImage(image) {
+                this.selectedUnsplashImage = image;
+
                 this.$emit('changed', {
                     url: this.selectedUnsplashImage.urls.regular,
                     caption: 'Photo by <a href="' + this.selectedUnsplashImage.user.links.html + '">' + this.selectedUnsplashImage.user.name + '</a> on <a href="https://unsplash.com">Unsplash</a>',
                 });
+
                 this.closeUnsplashModal();
             },
 
             // Close unsplash modal
             closeUnsplashModal() {
-                document.querySelector('#unsplash-modal').classList.remove('modal-lg');
-                document.querySelector('#current-image').classList.remove('d-none');
+                document.querySelector('.unsplash-modal').classList.remove('modal-lg');
+                document.querySelector('.current-image').classList.remove('d-none');
                 this.unsplashSearchTerm = '';
                 this.unsplashModalShown = false;
                 this.selectedUnsplashImage = null;
@@ -82,7 +90,7 @@
                 this.$emit('uploading');
 
                 axios.post('/canvas/media/uploads', formData).then(response => {
-                    this.$emit('changed', {url: response});
+                    this.$emit('changed', {url: response.data});
                 }).catch(error => {
                     console.log(error);
                 });
@@ -121,12 +129,12 @@
 
                 <div v-if="!searchingUnsplash && unsplashImages.length">
                     <div class="card-columns">
-                        <div class="card"
+                        <div class="card border-0"
                              v-for="image in unsplashImages">
                             <img v-bind:src="image.urls.small"
                                  class="card-img"
                                  style="cursor: pointer"
-                                 @click="selectedUnsplashImage = image">
+                                 @click="closeUnsplashModalAndInsertImage(image)">
                         </div>
                     </div>
 

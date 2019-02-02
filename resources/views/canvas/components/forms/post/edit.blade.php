@@ -10,7 +10,7 @@
         </div>
     </div>
 
-    <editor value="{{ $data['post']->body }}"></editor>
+    <editor value="{{ $data['post']->body }}" :unsplash="'{{ config('canvas.unsplash.access_key') }}'"></editor>
 
     @include('canvas::canvas.components.modals.post.edit.share')
     @include('canvas::canvas.components.modals.post.edit.settings')
