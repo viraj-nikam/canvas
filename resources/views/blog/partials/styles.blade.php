@@ -46,6 +46,10 @@
         font-family: "Nunito", sans-serif;
     }
 
+    div.embedded_image a {
+        text-decoration: none !important;
+    }
+
     .content-body .embedded_image:hover img {
         -webkit-box-shadow: none !important;
         -moz-box-shadow: none !important;
