@@ -47,7 +47,7 @@
 
 <template>
     <div>
-        <div v-if="imageUrl" class="current-image">
+        <div v-if="imageUrl" id="current-image">
             <img :src="imageUrl" class="w-100">
 
             <div class="input-group py-2">

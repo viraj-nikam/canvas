@@ -50,8 +50,15 @@
 
             // Open the Unsplash modal
             openUnsplashModal() {
-                document.querySelector('.unsplash-modal').classList.add('modal-lg');
-                document.querySelector('.current-image').classList.add('d-none');
+                if (document.querySelector('#featured-image-unsplash-modal')) {
+                    document.querySelector('#featured-image-unsplash-modal').classList.add('modal-lg');
+                }
+                if (document.querySelector('#unsplash-modal')) {
+                    document.querySelector('#unsplash-modal').classList.add('modal-lg');
+                }
+                if (document.querySelector('#current-image')) {
+                    document.querySelector('#current-image').classList.add('d-none');
+                }
                 this.unsplashSearchTerm = 'work';
                 this.unsplashModalShown = true;
                 this.$nextTick(() => {
@@ -73,8 +80,15 @@
 
             // Close unsplash modal
             closeUnsplashModal() {
-                document.querySelector('.unsplash-modal').classList.remove('modal-lg');
-                document.querySelector('.current-image').classList.remove('d-none');
+                if (document.querySelector('#featured-image-unsplash-modal')) {
+                    document.querySelector('#featured-image-unsplash-modal').classList.remove('modal-lg');
+                }
+                if (document.querySelector('#unsplash-modal')) {
+                    document.querySelector('#unsplash-modal').classList.remove('modal-lg');
+                }
+                if (document.querySelector('#current-image')) {
+                    document.querySelector('#current-image').classList.remove('d-none');
+                }
                 this.unsplashSearchTerm = '';
                 this.unsplashModalShown = false;
                 this.selectedUnsplashImage = null;

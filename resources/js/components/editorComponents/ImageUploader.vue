@@ -46,7 +46,7 @@
 
             // Update the selected image
             updateImage({url, caption}) {
-                this.imageUrl = url.data;
+                this.imageUrl = url;
                 this.caption = caption ? caption : '';
             },
 
@@ -55,7 +55,6 @@
                 if (!this.imageUrl) {
                     return;
                 }
-
                 this.$emit('updated', {
                     url: this.imageUrl,
                     caption: this.caption,
