@@ -4,7 +4,7 @@
     /**
      * Create the default date/time picker.
      *
-     * src: https://github.com/writingink/wink
+     * @source https://github.com/writingink/wink
      */
     export default {
         props: ['value'],

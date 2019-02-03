@@ -10,7 +10,7 @@
     /**
      * Create an instance of the QuillJS editor.
      *
-     * src: https://github.com/writingink/wink
+     * @source https://github.com/writingink/wink
      */
     export default {
         components: {

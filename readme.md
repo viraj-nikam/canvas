@@ -47,6 +47,14 @@ If you choose to design your own theme instead of the default, you can publish t
 php artisan vendor:publish --provider="Canvas\CanvasServiceProvider" --tag="canvas-views"
 ```
 
+If you want to use Unsplash images in your posts, you'll need to set up a new application at [https://unsplash.com/oauth/applications](https://unsplash.com/oauth/applications). Grab your access key and update `config/canvas.php`:
+
+```php
+'unsplash' => [
+    'access_key' => env('CANVAS_UNSPLASH_ACCESS_KEY'),
+],
+```
+
 ## Updates
 
 You may update your Canvas installation using composer:

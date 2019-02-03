@@ -1,7 +1,7 @@
 /**
  * Create the divider blot.
  *
- * src: https://github.com/writingink/wink
+ * @source https://github.com/writingink/wink
  */
 
 import Quill from 'quill';

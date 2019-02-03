@@ -3,7 +3,7 @@
     /**
      * Upload a featured image.
      *
-     * src: https://github.com/writingink/wink
+     * @source https://github.com/writingink/wink
      */
     export default {
         props: ['post', 'url', 'caption', 'unsplash'],

@@ -36,7 +36,7 @@
             /**
              * Convert a string to a slug.
              *
-             * src: https://gist.github.com/mathewbyrne/1280286
+             * @source https://gist.github.com/mathewbyrne/1280286
              */
             slugify(text) {
                 return text.toString().toLowerCase()
