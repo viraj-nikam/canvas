@@ -1,7 +1,14 @@
 <script type="text/ecmascript-6">
     import $ from 'jquery';
 
+    /**
+     * Upload an image from the editor.
+     *
+     * src: https://github.com/writingink/wink
+     */
     export default {
+        props: ['unsplash'],
+
         data() {
             return {
                 existingBlot: null,
@@ -23,7 +30,6 @@
             });
         },
 
-
         methods: {
             // Show/hide the modal
             toggleModal() {
@@ -38,20 +44,17 @@
                 this.caption = '';
             },
 
-
             // Update the selected image
             updateImage({url, caption}) {
-                this.imageUrl = url.data;
+                this.imageUrl = url;
                 this.caption = caption ? caption : '';
             },
-
 
             // Add the image to the editor
             applyImage() {
                 if (!this.imageUrl) {
                     return;
                 }
-
                 this.$emit('updated', {
                     url: this.imageUrl,
                     caption: this.caption,
@@ -67,13 +70,13 @@
 
 <template>
     <div class="modal fade" id="image-upload" tabindex="-1" role="dialog" data-backdrop="static">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog" id="unsplash-modal" role="document">
             <div class="modal-content">
                 <div class="modal-body">
                     <p class="font-weight-bold lead">Add image</p>
                     <div class="form-group row">
                         <div class="col-lg-12">
-                            <div v-if="imageUrl">
+                            <div v-if="imageUrl" id="current-image">
                                 <img :src="imageUrl" class="w-100">
 
                                 <div class="input-group py-2">
@@ -89,7 +92,11 @@
                                 </div>
                             </div>
 
-                            <image-picker v-if="!imageUrl" @changed="updateImage"></image-picker>
+                            <image-picker
+                                    v-if="!imageUrl"
+                                    @changed="updateImage"
+                                    :unsplash="this.unsplash">
+                            </image-picker>
                         </div>
                     </div>
                 </div>

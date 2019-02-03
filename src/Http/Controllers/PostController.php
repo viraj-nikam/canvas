@@ -231,6 +231,8 @@ class PostController extends Controller
      *
      * @param  array $incomingTags
      * @return array
+     *
+     * @source https://gihtub.com/writingink/wink
      */
     private function collectTags(array $incomingTags): array
     {
