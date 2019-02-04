@@ -52,7 +52,7 @@ If you publish your own views, review the API specifications below to see availa
 <details>
 <summary><b>API Specifications</b></summary>
 <ul>
-<li><code>GET /blog</code> Returns a simple-paginated index of posts</li>
+<li><b>GET </b><code>/blog</code> Returns a simple-paginated index of posts</li>
 
 <br>
 
@@ -62,7 +62,7 @@ If you publish your own views, review the API specifications below to see availa
 ]
 ```
 
-<li><code>GET /blog/{slug}</code> Returns a single blog post</li>
+<li><b>GET </b><code>/blog/{slug}</code> Returns a single blog post</li>
 
 <br>
 
@@ -70,19 +70,19 @@ If you publish your own views, review the API specifications below to see availa
 "data": [
     "author": "App\User",
     "post": "App\Canvas\Post",
-    "meta": {
+    "meta": [
         "og_title": "string"
         "twitter_title": "string"
         "og_description": "string"
         "meta_description": "string"
         "twitter_description": "string"
-	},
+	],
     "next": "App\Canvas\Post",
     "random": "App\Canvas\Post"
 ]
 ```
 
-<li><code>GET /blog/tag/{slug}</code> Returns a simple-paginated index of posts for a single tag</li>
+<li><b>GET </b><code>/blog/tag/{slug}</code> Returns a simple-paginated index of posts for a single tag</li>
 
 <br>
 
