@@ -58,7 +58,7 @@ If you publish your own views, review the API specifications below to see availa
 
 ```php
 "data": [
-  "posts": "Illuminate\Pagination\Paginator"
+    "posts": "Illuminate\Pagination\Paginator"
 ]
 ```
 
@@ -68,17 +68,17 @@ If you publish your own views, review the API specifications below to see availa
 
 ```php
 "data": [
-  "author": "App\User",
-  "post": "App\Canvas\Post",
-  "meta": {
-    "og_title": "string"
-    "twitter_title": "string"
-    "og_description": "string"
-    "meta_description": "string"
-    "twitter_description": "string"
+    "author": "App\User",
+    "post": "App\Canvas\Post",
+    "meta": {
+        "og_title": "string"
+        "twitter_title": "string"
+        "og_description": "string"
+        "meta_description": "string"
+        "twitter_description": "string"
 	},
-  "next": "App\Canvas\Post",
-  "random": "App\Canvas\Post"
+    "next": "App\Canvas\Post",
+    "random": "App\Canvas\Post"
 ]
 ```
 
@@ -88,8 +88,8 @@ If you publish your own views, review the API specifications below to see availa
 
 ```php
 "data": [
-  "topic": "Canvas/Tag",
-  "posts": "Illuminate\Pagination\Paginator"
+    "topic": "Canvas/Tag",
+    "posts": "Illuminate\Pagination\Paginator"
 ]
 ```
 </ul>
