@@ -60,7 +60,7 @@ If you publish your own views, review the API specifications below to see availa
 ]
 ```
 
-<li><code>GET /blog/{slug}<code> Returns a single blog post</li>
+<li><code>GET /blog/{slug}</code> Returns a single blog post</li>
 
 ```php
 "data": [
