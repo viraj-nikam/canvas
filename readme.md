@@ -47,6 +47,48 @@ If you choose to design your own theme instead of the default, you can publish t
 php artisan vendor:publish --provider="Canvas\CanvasServiceProvider" --tag="canvas-views"
 ```
 
+If you publish your own views, review the API specifications below to see available data for the public-facing endpoints:
+
+<details>
+<summary>**API Specifications**</summary>
+<ul>
+<li>`GET /blog` Returns a simple-paginated index of posts</li>
+
+```php
+"data": [
+	"posts": "Illuminate\Pagination\Paginator"
+]
+```
+
+<li>`GET /blog/{slug}` Returns a single blog post</li>
+
+```php
+"data": [
+	"author": "App\User",
+	"post": "App\Canvas\Post",
+	"meta": {
+		"og_title": "string"
+		"twitter_title": "string"
+		"og_description": "string"
+		"meta_description": "string"
+		"twitter_description": "string"
+	},
+	"next": "App\Canvas\Post",
+	"random": "App\Canvas\Post"
+]
+```
+
+<li>`GET /blog/tag/{slug}` Returns a simple-paginated index of posts for a single tag</li>
+
+```php
+"data": [
+	"topic": "Canvas/Tag",
+	"posts": "Illuminate\Pagination\Paginator"
+]
+```
+</ul>
+</details>
+
 If you want to use Unsplash images in your posts, you'll need to set up a new application at [https://unsplash.com/oauth/applications](https://unsplash.com/oauth/applications). Grab your access key and update `config/canvas.php`:
 
 ```php
