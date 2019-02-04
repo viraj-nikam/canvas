@@ -18,7 +18,7 @@
             /**
              * Convert a string to a slug.
              *
-             * @source https://github.com/writingink/wink
+             * @source https://gist.github.com/mathewbyrne/1280286
              */
             slugify(text) {
                 return text.toString().toLowerCase()
