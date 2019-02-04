@@ -61,7 +61,7 @@
                          @isset($data['post']->featured_image_caption) alt="{{ $data['post']->featured_image_caption }}"
                          title="{{ $data['post']->featured_image_caption }}" @endisset>
                     @isset($data['post']->featured_image_caption)
-                        <p class="text-muted text-center pt-3">{{ $data['post']->featured_image_caption }}</p>
+                        <p class="text-muted text-center pt-3">{!! $data['post']->featured_image_caption !!}</p>
                     @endisset
                 @endisset
 

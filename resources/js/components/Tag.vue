@@ -15,6 +15,11 @@
         },
 
         methods: {
+            /**
+             * Convert a string to a slug.
+             *
+             * @source https://github.com/writingink/wink
+             */
             slugify(text) {
                 return text.toString().toLowerCase()
                     .replace(/\s+/g, '-')

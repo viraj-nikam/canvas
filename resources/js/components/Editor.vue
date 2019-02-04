@@ -7,6 +7,11 @@
     import DividerBlot from './editorComponents/DividerBlot.js';
     import HTMLBlot from './editorComponents/HTMLBlot.js';
 
+    /**
+     * Create an instance of the QuillJS editor.
+     *
+     * @source https://github.com/writingink/wink
+     */
     export default {
         components: {
             'image-uploader': ImageUploader,
@@ -14,6 +19,10 @@
         },
 
         props: {
+            unsplash: {
+                type: String,
+                default: ''
+            },
             value: {
                 type: String,
                 default: ''
@@ -35,7 +44,7 @@
         },
 
         methods: {
-            // Create an instance of the editor
+            // Create the editor
             createEditor() {
                 Quill.register(ImageBlot, true);
                 Quill.register(DividerBlot, true);
@@ -203,7 +212,7 @@
         <div ref="editor"></div>
         <input type="hidden" name="body" ref="body" />
 
-        <image-uploader @updated="applyImage"></image-uploader>
+        <image-uploader @updated="applyImage" :unsplash="this.unsplash"></image-uploader>
         <html-embedder @adding="addHTML"></html-embedder>
     </div>
 </template>

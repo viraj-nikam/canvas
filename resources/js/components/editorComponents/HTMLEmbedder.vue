@@ -1,4 +1,9 @@
 <script type="text/ecmascript-6">
+    /**
+     * Embed a block of HTML.
+     *
+     * @source https://github.com/writingink/wink
+     */
     export default {
         data() {
             return {

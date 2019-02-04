@@ -46,4 +46,18 @@ return [
 
     'storage_path' => env('CANVAS_STORAGE_PATH', 'public/canvas/images'),
 
+    /*
+    |--------------------------------------------------------------------------
+    | Unsplash Integration
+    |--------------------------------------------------------------------------
+    |
+    | Visit https://unsplash.com/oauth/applications to create a new unsplash
+    | app. Use the Access Key to integrate with the Unsplash API
+    |
+    */
+
+    'unsplash' => [
+        'access_key' => env('CANVAS_UNSPLASH_ACCESS_KEY'),
+    ],
+
 ];
