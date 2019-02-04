@@ -50,9 +50,9 @@ php artisan vendor:publish --provider="Canvas\CanvasServiceProvider" --tag="canv
 If you publish your own views, review the API specifications below to see available data for the public-facing endpoints:
 
 <details>
-<summary>**API Specifications**</summary>
+<summary><b>API Specifications</b></summary>
 <ul>
-<li>`GET /blog` Returns a simple-paginated index of posts</li>
+<li><code>GET /blog</code> Returns a simple-paginated index of posts</li>
 
 ```php
 "data": [
@@ -60,7 +60,7 @@ If you publish your own views, review the API specifications below to see availa
 ]
 ```
 
-<li>`GET /blog/{slug}` Returns a single blog post</li>
+<li><code>GET /blog/{slug}<code> Returns a single blog post</li>
 
 ```php
 "data": [
@@ -78,7 +78,7 @@ If you publish your own views, review the API specifications below to see availa
 ]
 ```
 
-<li>`GET /blog/tag/{slug}` Returns a simple-paginated index of posts for a single tag</li>
+<li><code>GET /blog/tag/{slug}</code> Returns a simple-paginated index of posts for a single tag</li>
 
 ```php
 "data": [
