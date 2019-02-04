@@ -54,6 +54,8 @@ If you publish your own views, review the API specifications below to see availa
 <ul>
 <li><code>GET /blog</code> Returns a simple-paginated index of posts</li>
 
+<br>
+
 ```php
 "data": [
 	"posts": "Illuminate\Pagination\Paginator"
@@ -61,6 +63,8 @@ If you publish your own views, review the API specifications below to see availa
 ```
 
 <li><code>GET /blog/{slug}</code> Returns a single blog post</li>
+
+<br>
 
 ```php
 "data": [
@@ -80,6 +84,8 @@ If you publish your own views, review the API specifications below to see availa
 
 <li><code>GET /blog/tag/{slug}</code> Returns a simple-paginated index of posts for a single tag</li>
 
+<br>
+
 ```php
 "data": [
 	"topic": "Canvas/Tag",
@@ -88,6 +94,8 @@ If you publish your own views, review the API specifications below to see availa
 ```
 </ul>
 </details>
+
+<br>
 
 If you want to use Unsplash images in your posts, you'll need to set up a new application at [https://unsplash.com/oauth/applications](https://unsplash.com/oauth/applications). Grab your access key and update `config/canvas.php`:
 
