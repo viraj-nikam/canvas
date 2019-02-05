@@ -52,7 +52,7 @@ If you publish your own views, review the API specifications below to see availa
 <details>
 <summary><b>API Specifications</b></summary>
 <ul>
-<li><b>GET </b><code>/blog</code> Returns a simple-paginated index of posts</li>
+<li><b>GET </b><code>/blog</code> Returns a paginated index of posts</li>
 
 <br>
 
@@ -82,7 +82,7 @@ If you publish your own views, review the API specifications below to see availa
 ]
 ```
 
-<li><b>GET </b><code>/blog/tag/{slug}</code> Returns a simple-paginated index of posts for a single tag</li>
+<li><b>GET </b><code>/blog/tag/{slug}</code> Returns a paginated index of posts for a single tag</li>
 
 <br>
 
@@ -97,7 +97,7 @@ If you publish your own views, review the API specifications below to see availa
 
 <br>
 
-If you want to use Unsplash images in your posts, you'll need to set up a new application at [https://unsplash.com/oauth/applications](https://unsplash.com/oauth/applications). Grab your access key and update `config/canvas.php`:
+If you want to integrate Unsplash images into your content, set up a new application at [https://unsplash.com/oauth/applications](https://unsplash.com/oauth/applications). Grab your access key and update `config/canvas.php`:
 
 ```php
 'unsplash' => [
