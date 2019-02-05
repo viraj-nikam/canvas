@@ -88,7 +88,7 @@ If you publish your own views, review the API specifications below to see availa
 
 ```php
 "data": [
-    "topic": "Canvas/Tag",
+    "topic": "Canvas\Tag",
     "posts": "Illuminate\Pagination\Paginator"
 ]
 ```
