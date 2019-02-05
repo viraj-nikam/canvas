@@ -9,7 +9,7 @@ use Illuminate\Routing\Controller;
 class BlogController extends Controller
 {
     /**
-     * Show the public-facing blog homepage.
+     * Show the blog homepage with a paginated list of posts.
      *
      * @return View
      */

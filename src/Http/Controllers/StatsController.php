@@ -9,7 +9,7 @@ use Illuminate\Routing\Controller;
 class StatsController extends Controller
 {
     /**
-     * Show the overall stats dashboard.
+     * Show the statistics dashboard.
      *
      * @return View
      */
@@ -34,7 +34,7 @@ class StatsController extends Controller
     }
 
     /**
-     * Display stats for a single post.
+     * Show analytics for a single post.
      *
      * @param string $id
      * @return View

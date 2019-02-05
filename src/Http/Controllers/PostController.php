@@ -15,7 +15,7 @@ use Illuminate\Http\RedirectResponse;
 class PostController extends Controller
 {
     /**
-     * Display a listing of posts.
+     * Show a paginated list of posts.
      *
      * @return View
      */
@@ -29,7 +29,7 @@ class PostController extends Controller
     }
 
     /**
-     * Display a single post.
+     * Show a single post.
      *
      * @param string $slug
      * @return View
