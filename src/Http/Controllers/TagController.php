@@ -13,7 +13,7 @@ use Illuminate\Http\RedirectResponse;
 class TagController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Show a paginated list of tags.
      *
      * @return View
      */
@@ -27,7 +27,7 @@ class TagController extends Controller
     }
 
     /**
-     * Display a single tag.
+     * Show all posts related to a given tag.
      *
      * @param string $slug
      * @return View
@@ -51,7 +51,7 @@ class TagController extends Controller
     }
 
     /**
-     * Show the form for creating a tag.
+     * Show the form for creating a new tag.
      *
      * @return View
      */
@@ -80,7 +80,7 @@ class TagController extends Controller
     }
 
     /**
-     * Store a newly created post in storage.
+     * Store a newly created tag in storage.
      *
      * @return RedirectResponse
      */

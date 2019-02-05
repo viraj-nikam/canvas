@@ -109,7 +109,7 @@ class CanvasServiceProvider extends ServiceProvider
                 __DIR__.'/../config/canvas.php' => config_path('canvas.php'),
             ], 'canvas-config');
             $this->publishes([
-                __DIR__.'/../resources/views' => resource_path('views/vendor/canvas'),
+                __DIR__.'/../resources/views/blog' => resource_path('views/vendor/canvas/blog'),
             ], 'canvas-views');
         }
     }
