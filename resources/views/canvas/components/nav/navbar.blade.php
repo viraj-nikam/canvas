@@ -4,7 +4,7 @@
             <nav class="navbar navbar-light justify-content-between flex-nowrap flex-row py-1">
                 <!-- Left Side Of Navbar -->
                 <a class="navbar-brand logo mr-4 font-weight-bold py-0 @hasSection('status') d-none d-md-block @endif"
-                   href="{{ route('blog.index') }}"><span>C</span>anvas</a>
+                   href="{{ route('canvas.stats') }}"><span>C</span>anvas</a>
 
                 <ul class="navbar-nav mr-auto flex-row float-right">
                     <li class="text-muted font-weight-bold">
