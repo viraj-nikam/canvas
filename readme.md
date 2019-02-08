@@ -43,9 +43,9 @@ php artisan storage:link
 
 ## Configuration
 
-> **Note:** You are not required to complete the following steps. You have complete design freedom when integrating the content into your application.
+> **Note:** You are not required to complete the following steps. You have total design freedom when integrating blog content into your application.
 
-Generate a default controller, blog routes and views to get up and running as quickly as possible:
+Generate a default blog controller with routes and views to get up and running as quickly as possible:
 
 ```bash
 php artisan canvas:setup
