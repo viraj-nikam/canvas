@@ -43,13 +43,15 @@ php artisan storage:link
 
 ## Configuration
 
-Generate a default controller with blog views and routes using the `canvas:setup` Artisan command:
+> **Note:** You are not required to complete the following steps. You have complete design freedom when integrating the content into your application.
+
+Generate a default controller, blog routes and views to get up and running as quickly as possible:
 
 ```bash
 php artisan canvas:setup
 ```
 
-If you want to include [Unsplash](https://unsplash.com) images in your content, set up a new application at [https://unsplash.com/oauth/applications](https://unsplash.com/oauth/applications). Grab your access key and update `config/canvas.php`:
+If you want to include [Unsplash](https://unsplash.com) images in your posts, set up a new application at [https://unsplash.com/oauth/applications](https://unsplash.com/oauth/applications). Grab your access key and update `config/canvas.php`:
 
 ```php
 'unsplash' => [
