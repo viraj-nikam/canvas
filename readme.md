@@ -41,63 +41,15 @@ Create a symbolic link to ensure file uploads are publicly accessible from the w
 php artisan storage:link
 ```
 
-If you choose to design your own theme instead of the default, you can publish the views with:
+## Configuration
+
+Generate a default controller with blog views and routes using the `canvas:setup` Artisan command:
 
 ```bash
-php artisan vendor:publish --provider="Canvas\CanvasServiceProvider" --tag="canvas-views"
+php artisan canvas:setup
 ```
 
-If you publish your own views, review the API specifications below to see available data for the public-facing endpoints:
-
-<details>
-<summary><b>API Specifications</b></summary>
-<ul>
-<li><b>GET </b><code>/blog</code> Returns a paginated index of posts</li>
-
-<br>
-
-```php
-"data": [
-    "posts": "Illuminate\Pagination\Paginator"
-]
-```
-
-<li><b>GET </b><code>/blog/{slug}</code> Returns a single blog post</li>
-
-<br>
-
-```php
-"data": [
-    "author": "App\User",
-    "post": "App\Canvas\Post",
-    "meta": [
-        "og_title": "string"
-        "twitter_title": "string"
-        "og_description": "string"
-        "meta_description": "string"
-        "twitter_description": "string"
-	],
-    "next": "App\Canvas\Post",
-    "random": "App\Canvas\Post"
-]
-```
-
-<li><b>GET </b><code>/blog/tag/{slug}</code> Returns a paginated index of posts for a single tag</li>
-
-<br>
-
-```php
-"data": [
-    "topic": "Canvas\Tag",
-    "posts": "Illuminate\Pagination\Paginator"
-]
-```
-</ul>
-</details>
-
-<br>
-
-If you want to integrate Unsplash images into your content, set up a new application at [https://unsplash.com/oauth/applications](https://unsplash.com/oauth/applications). Grab your access key and update `config/canvas.php`:
+If you want to include [Unsplash](https://unsplash.com) images in your content, set up a new application at [https://unsplash.com/oauth/applications](https://unsplash.com/oauth/applications). Grab your access key and update `config/canvas.php`:
 
 ```php
 'unsplash' => [
