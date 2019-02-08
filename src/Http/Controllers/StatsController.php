@@ -30,7 +30,7 @@ class StatsController extends Controller
             ],
         ];
 
-        return view('canvas::canvas.stats.index', compact('data'));
+        return view('canvas::stats.index', compact('data'));
     }
 
     /**
@@ -51,7 +51,7 @@ class StatsController extends Controller
                 'views'                 => json_encode($post->viewTrend),
             ];
 
-            return view('canvas::canvas.stats.show', compact('data'));
+            return view('canvas::stats.show', compact('data'));
         } else {
             abort(404);
         }

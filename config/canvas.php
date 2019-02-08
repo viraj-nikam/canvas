@@ -4,23 +4,10 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Public Path
-    |--------------------------------------------------------------------------
-    |
-    | You are free to expose the public-facing blog to any route you wish.
-    | If no change is made then it will default to the /blog path of
-    | your application.
-    |
-    */
-
-    'public_path' => env('CANVAS_PUBLIC_PATH', 'blog'),
-
-    /*
-    |--------------------------------------------------------------------------
     | Route Middleware
     |--------------------------------------------------------------------------
     |
-    | You may assign any custom middleware that you choose to the /canvas
+    | You may assign any custom middleware that you choose to the Canvas
     | routes in your application. They will be protected by basic
     | user authentication by default.
     |

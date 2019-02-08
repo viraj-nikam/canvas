@@ -25,61 +25,7 @@ class PostController extends Controller
             'posts' => Post::orderByDesc('created_at')->with('tags')->paginate(10),
         ];
 
-        return view('canvas::canvas.posts.index', compact('data'));
-    }
-
-    /**
-     * Show a single post.
-     *
-     * @param string $slug
-     * @return View
-     */
-    public function show(string $slug): View
-    {
-        $posts = Post::with('tags')->published()->get();
-        $post = $posts->firstWhere('slug', $slug);
-
-        if (optional($post)->published) {
-            $next = $posts->sortBy('published_at')->firstWhere('published_at', '>', optional($post)->published_at);
-
-            $filtered = $posts->filter(function ($value, $key) use ($slug, $next) {
-                return $value->slug != $slug && $value->slug != optional($next)->slug;
-            });
-
-            if ($post->tags->isNotEmpty()) {
-                $related = Post::whereHas('tags', function ($query) use ($post, $next) {
-                    return $query->whereIn('name', $post->tags->pluck('slug'));
-                })
-                    ->where('id', '!=', $post->id)
-                    ->where('id', '!=', optional($next)->id)
-                    ->get();
-
-                if ($related->isEmpty()) {
-                    $random = $filtered->count() > 1 ? $filtered->random() : null;
-                } else {
-                    $random = $related->random();
-                }
-            } else {
-                if ($filtered->isNotEmpty()) {
-                    $filtered->random();
-                }
-                $random = null;
-            }
-
-            $data = [
-                'author' => $post->author,
-                'post'   => $post,
-                'meta'   => $post->meta,
-                'next'   => $next,
-                'random' => $random,
-            ];
-
-            event(new PostViewed($post));
-
-            return view('canvas::blog.show', compact('data'));
-        } else {
-            abort(404);
-        }
+        return view('canvas::posts.index', compact('data'));
     }
 
     /**
@@ -94,7 +40,7 @@ class PostController extends Controller
             'tags' => Tag::all(),
         ];
 
-        return view('canvas::canvas.posts.create', compact('data'));
+        return view('canvas::posts.create', compact('data'));
     }
 
     /**
@@ -113,7 +59,7 @@ class PostController extends Controller
             'tags' => Tag::all(),
         ];
 
-        return view('canvas::canvas.posts.edit', compact('data'));
+        return view('canvas::posts.edit', compact('data'));
     }
 
     /**
