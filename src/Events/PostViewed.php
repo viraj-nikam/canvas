@@ -7,7 +7,7 @@ use Canvas\Post;
 class PostViewed
 {
     /**
-     * The post instance.
+     * The post that was viewed.
      *
      * @var Post
      */

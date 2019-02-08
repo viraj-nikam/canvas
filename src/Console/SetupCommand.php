@@ -21,7 +21,7 @@ class SetupCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Scaffold a default controller with blog views and routes';
+    protected $description = 'Generate a default controller with blog views and routes';
 
     /**
      * The views that need to be exported.
@@ -43,21 +43,27 @@ class SetupCommand extends Command
      */
     public function handle()
     {
+        $this->comment('Creating the view directories...');
         $this->createDirectories();
+
+        $this->comment('Building the views...');
         $this->exportViews();
 
+        $this->comment('Compiling the controller...');
         file_put_contents(
             app_path('Http/Controllers/BlogController.php'),
             $this->compileControllerStub()
         );
 
+        $this->comment('Writing the routes...');
         file_put_contents(
             base_path('routes/web.php'),
             file_get_contents(dirname(__DIR__, 2).'/stubs/routes.stub'),
             FILE_APPEND
         );
 
-        $this->info('Good to go!');
+        $this->line('');
+        $this->line('<info>[✔]</info> Canvas is setup and ready to use. Enjoy! Head over to ' . route('blog.index') . ' to get started.');
     }
 
     /**

@@ -9,7 +9,7 @@ use Illuminate\Http\Response;
 class ViewThrottle
 {
     /**
-     * The seconds a view will be stored in session.
+     * The number of seconds a view will be kept in session.
      *
      * @const int
      */
@@ -35,7 +35,7 @@ class ViewThrottle
     }
 
     /**
-     * Get the viewed posts stored in the current session.
+     * Get the viewed posts currently in session.
      *
      * @return array|null
      */

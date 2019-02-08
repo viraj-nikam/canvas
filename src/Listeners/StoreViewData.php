@@ -5,7 +5,7 @@ namespace Canvas\Listeners;
 use Canvas\Post;
 use Canvas\Events\PostViewed;
 
-class LogView
+class StoreViewData
 {
     /**
      * Handle the event.
@@ -15,11 +15,12 @@ class LogView
      */
     public function handle(PostViewed $event)
     {
-        if (! $this->wasRecentlyViewed($event->post)) {
+        if (!$this->wasRecentlyViewed($event->post)) {
             $view_data = [
-                'post_id'    => $event->post->id,
-                'user_agent' => request()->header('user_agent'),
-                'referer'    => request()->header('referer'),
+                'post_id' => $event->post->id,
+                'ip'      => request()->getClientIp(),
+                'agent'   => request()->header('user_agent'),
+                'referer' => request()->header('referer'),
             ];
 
             $event->post->views()->create($view_data);
@@ -49,7 +50,7 @@ class LogView
      */
     private function storeInSession(Post $post)
     {
-        $key = 'viewed_posts.'.$post->id;
+        $key = 'viewed_posts.' . $post->id;
         session()->put($key, time());
     }
 }

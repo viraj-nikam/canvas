@@ -36,14 +36,7 @@ class InstallCommand extends Command
         $this->comment('Running the database migrations...');
         $this->callSilent('migrate');
 
-        if ($this->confirm('Do you want to generate a default setup for the frontend? (controller, routes, views)')) {
-            $this->comment('Scaffolding a default controller with blog views and routes...');
-            $this->callSilent('canvas:setup');
-        } else {
-            $this->comment('Skipping the default setup...');
-        }
-
         $this->line('');
-        $this->line('Canvas is installed and ready to use. Enjoy!');
+        $this->line('<info>[✔]</info> Canvas is installed and ready to use. Enjoy!');
     }
 }
