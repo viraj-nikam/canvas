@@ -23,9 +23,7 @@ mix
     })
     .setPublicPath('public')
     .setResourceRoot('../')
-    .js('resources/js/app.js', 'public/js')
-    .sass('resources/sass/app.scss', 'public/css')
+    .js('resources/js/app.js', 'public')
+    .sass('resources/sass/app.scss', 'public')
     .copy('resources/favicon.png', 'public')
-    .copy('public', '../app/public/vendor/canvas')
-    .sourceMaps()
     .version();
