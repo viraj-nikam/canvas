@@ -11,7 +11,7 @@ trait EventMap
      */
     protected $events = [
         Events\PostViewed::class => [
-            Listeners\LogView::class,
+            Listeners\StoreViewData::class,
         ],
     ];
 }

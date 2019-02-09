@@ -34,21 +34,20 @@ class CreateCanvasTables extends Migration
             $table->string('name');
             $table->timestamps();
             $table->softDeletes();
-
             $table->index('created_at');
         });
 
         Schema::create('canvas_posts_tags', function (Blueprint $table) {
             $table->uuid('post_id');
             $table->uuid('tag_id');
-
             $table->unique(['post_id', 'tag_id']);
         });
 
         Schema::create('canvas_views', function (Blueprint $table) {
             $table->increments('id');
             $table->uuid('post_id');
-            $table->string('user_agent')->nullable();
+            $table->string('ip')->nullable();
+            $table->string('agent')->nullable();
             $table->string('referer')->nullable();
             $table->timestamps();
         });

@@ -139,7 +139,7 @@
                        v-if="this.unsplash"
                        v-model="unsplashSearchTerm"
                        ref="unsplashSearch"
-                       placeholder="search Unsplash">
+                       placeholder="Search free high-resolution photos">
 
                 <div v-if="!searchingUnsplash && unsplashImages.length">
                     <div class="card-columns">
@@ -170,7 +170,7 @@
                 </div>
 
                 <div v-if="!searchingUnsplash && !unsplashImages.length">
-                    <h4 class="text-center">We couldn't find any matches.</h4>
+                    <h4 class="text-center py-4">We couldn't find any matches.</h4>
                 </div>
             </div>
         </div>

@@ -35,6 +35,6 @@ class SuffixedNumber
             $n_format = str_replace($dot_zero, '', $n_format);
         }
 
-        return $n_format.$suffix;
+        return sprintf('%s%s', $n_format, $suffix);
     }
 }

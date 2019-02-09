@@ -2,6 +2,7 @@
 
 namespace Canvas;
 
+use Canvas\Console\SetupCommand;
 use Illuminate\Events\Dispatcher;
 use Canvas\Console\InstallCommand;
 use Illuminate\Support\Facades\Route;
@@ -35,6 +36,7 @@ class CanvasServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(__DIR__.'/../config/canvas.php', 'canvas');
         $this->commands([
             InstallCommand::class,
+            SetupCommand::class,
         ]);
     }
 
@@ -62,10 +64,6 @@ class CanvasServiceProvider extends ServiceProvider
     private function registerRoutes()
     {
         Route::namespace('Canvas\Http\Controllers')->group(function () {
-            Route::prefix(config('canvas.public_path'))->middleware(['web'])->group(function () {
-                $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
-            });
-
             Route::prefix('canvas')->middleware(config('canvas.middleware'))->group(function () {
                 $this->loadRoutesFrom(__DIR__.'/../routes/canvas.php');
             });
@@ -108,9 +106,6 @@ class CanvasServiceProvider extends ServiceProvider
             $this->publishes([
                 __DIR__.'/../config/canvas.php' => config_path('canvas.php'),
             ], 'canvas-config');
-            $this->publishes([
-                __DIR__.'/../resources/views/blog' => resource_path('views/vendor/canvas/blog'),
-            ], 'canvas-views');
         }
     }
 }
