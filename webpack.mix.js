@@ -22,7 +22,6 @@ mix
         }
     })
     .setPublicPath('public')
-    .setResourceRoot('../')
     .js('resources/js/app.js', 'public')
     .sass('resources/sass/app.scss', 'public')
     .copy('resources/favicon.png', 'public')
