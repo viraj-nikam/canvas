@@ -195,11 +195,26 @@
     }
 
     .welcome {
+        font-weight: 400;
         font-family: "Merriweather", serif;
     }
 
     .welcome span {
         color: #9ba3aa;
+    }
+
+    .btn-primary {
+        color: #fff;
+        background-color: #3490dc;
+        border-color: #3490dc;
+        padding: .375rem .75rem;
+        font-size: .9rem;
+        line-height: 1.6;
+    }
+
+    .btn-primary:hover {
+        background-color: #227dc7;
+        border-color: #2176bd;
     }
 
     @media screen and (max-width: 1024px) {
