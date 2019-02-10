@@ -308,10 +308,6 @@
         margin-bottom: 20px;
     }
 
-    .ql-editor a {
-        text-decoration: underline !important;
-    }
-
     .ql-editor.ql-blank::before {
         left: 0;
         font-style: normal;
@@ -319,7 +315,7 @@
 
     .ql-bubble .ql-editor a {
         color: #3490dc;
-        text-decoration: none;
+        text-decoration: none !important;
     }
 
     .ql-container hr {

@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="{{ url('https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.13.1/build/styles/github.min.css') }}">
 
     <!-- Style sheets -->
-    <link rel="stylesheet" type="text/css" href="{{ mix('css/app.css', 'vendor/canvas') }}">
+    <link rel="stylesheet" type="text/css" href="{{ mix('app.css', 'vendor/canvas') }}">
 
     <!-- Additional style sheets -->
     @stack('styles')
@@ -29,7 +29,7 @@
     </div>
 
     <!-- Application scripts -->
-    <script type="text/javascript" src="{{ mix('js/app.js', 'vendor/canvas') }}"></script>
+    <script type="text/javascript" src="{{ mix('app.js', 'vendor/canvas') }}"></script>
 
     <!-- Additional scripts -->
     @stack('scripts')

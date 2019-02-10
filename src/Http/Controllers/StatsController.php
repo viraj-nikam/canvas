@@ -9,7 +9,7 @@ use Illuminate\Routing\Controller;
 class StatsController extends Controller
 {
     /**
-     * Show the statistics dashboard.
+     * Show the overall statistics for all posts.
      *
      * @return View
      */
@@ -30,11 +30,11 @@ class StatsController extends Controller
             ],
         ];
 
-        return view('canvas::canvas.stats.index', compact('data'));
+        return view('canvas::stats.index', compact('data'));
     }
 
     /**
-     * Show analytics for a single post.
+     * Show data analytics for a single post.
      *
      * @param string $id
      * @return View
@@ -51,7 +51,7 @@ class StatsController extends Controller
                 'views'                 => json_encode($post->viewTrend),
             ];
 
-            return view('canvas::canvas.stats.show', compact('data'));
+            return view('canvas::stats.show', compact('data'));
         } else {
             abort(404);
         }

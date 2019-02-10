@@ -1,7 +1,6 @@
 
 // Fonts
 @import url("https://fonts.googleapis.com/css?family=Nunito|Merriweather:300,400,700");
-@import "~@fortawesome/fontawesome-free/scss/brands";
 @import "~@fortawesome/fontawesome-free/scss/regular";
 @import "~@fortawesome/fontawesome-free/scss/solid";
 @import "~@fortawesome/fontawesome-free/scss/fontawesome";
@@ -50,13 +49,4 @@ a, .btn-link {
 input, textarea, select {
   box-shadow: none !important;
   outline: none !important;
-}
-
-.fab {
-  &.fa-facebook-square {
-    color: $fa-facebook-square;
-  }
-  &.fa-twitter {
-    color: $fa-twitter;
-  }
 }

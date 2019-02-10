@@ -3,7 +3,6 @@
 namespace Canvas\Http\Controllers;
 
 use Canvas\Tag;
-use Canvas\Post;
 use Illuminate\View\View;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
@@ -23,31 +22,7 @@ class TagController extends Controller
             'tags' => Tag::orderByDesc('created_at')->withCount('posts')->paginate(15),
         ];
 
-        return view('canvas::canvas.tags.index', compact('data'));
-    }
-
-    /**
-     * Show all posts related to a given tag.
-     *
-     * @param string $slug
-     * @return View
-     */
-    public function show(string $slug): View
-    {
-        $tag = Tag::with('posts')->where('slug', $slug)->first();
-
-        if ($tag) {
-            $data = [
-                'topic' => $tag,
-                'posts' => Post::whereHas('tags', function ($query) use ($slug) {
-                    $query->where('slug', $slug);
-                })->published()->orderByDesc('published_at')->simplePaginate(10),
-            ];
-
-            return view('canvas::blog.index', compact('data'));
-        } else {
-            abort(404);
-        }
+        return view('canvas::tags.index', compact('data'));
     }
 
     /**
@@ -61,7 +36,7 @@ class TagController extends Controller
             'id' => Str::uuid(),
         ];
 
-        return view('canvas::canvas.tags.create', compact('data'));
+        return view('canvas::tags.create', compact('data'));
     }
 
     /**
@@ -76,7 +51,7 @@ class TagController extends Controller
             'tag' => Tag::findOrFail($id),
         ];
 
-        return view('canvas::canvas.tags.edit', compact('data'));
+        return view('canvas::tags.edit', compact('data'));
     }
 
     /**
