@@ -54,8 +54,8 @@
     }
 
     a, .btn-link {
-      color: #3490dc;
-      text-decoration: none !important;
+        color: #3490dc;
+        text-decoration: none !important;
     }
 
     .btn-outline-primary {
@@ -75,16 +75,16 @@
     }
 
     .serif {
-      font-family: "Merriweather", serif;
+        font-family: "Merriweather", serif;
     }
 
     .sans-serif {
-      font-family: "Nunito", sans-serif;
+        font-family: "Nunito", sans-serif;
     }
 
     .logo {
-      font-family: "Merriweather", serif;
-      font-size: 20px;
+        font-family: "Merriweather", serif;
+        font-size: 20px;
     }
 
     .logo span {
@@ -212,7 +212,7 @@
         line-height: 1.6;
     }
 
-    .btn-primary:hover {
+    .btn-primary:hover, .btn-outline-primary:hover {
         background-color: #227dc7;
         border-color: #2176bd;
     }
