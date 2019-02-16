@@ -26,6 +26,13 @@
                 </div>
                 <div class="form-group row">
                     <div class="col-12">
+                        <label for="topic" class="font-weight-bold">Topic</label>
+
+                        <single-select :topics="{{ $data['topics'] }}"></single-select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-12">
                         <label for="tags" class="font-weight-bold">Tags</label>
 
                         <multi-select :tags="{{ $data['tags'] }}"></multi-select>

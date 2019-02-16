@@ -26,7 +26,7 @@ class View extends Model
     protected $table = 'canvas_views';
 
     /**
-     * The post a view belongs to.
+     * Get the post relationship.
      *
      * @return BelongsTo
      */

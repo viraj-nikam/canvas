@@ -70,7 +70,7 @@ class Post extends Model
     ];
 
     /**
-     * The tags the post belongs to.
+     * Get the tags relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
@@ -80,7 +80,17 @@ class Post extends Model
     }
 
     /**
-     * The user who published the post.
+     * Get the topics relationship.
+     *
+     * @return belongsToMany
+     */
+    public function topic(): belongsToMany
+    {
+        return $this->belongsToMany(Topic::class, 'canvas_posts_topics', 'post_id', 'topic_id');
+    }
+
+    /**
+     * Get the user relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -90,7 +100,7 @@ class Post extends Model
     }
 
     /**
-     * The views belonging to the post.
+     * Get the views relationship.
      *
      * @return HasMany
      */

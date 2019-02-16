@@ -9,9 +9,6 @@
                 <ul class="navbar-nav mr-auto flex-row float-right">
                     <li class="text-muted font-weight-bold">
                         @yield('status')
-                        @isset($data['topic'])
-                            <a href="{{ route('blog.tag.index', $data['topic']->slug)  }}" class="text-muted">{{ $data['topic']->name }}</a>
-                        @endisset
                         @if(session('notify'))
                             @hasSection('status') — @endif
                             <span class="text-success">{{ session('notify') }}</span>
@@ -35,6 +32,7 @@
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                             <a class="dropdown-item" href="{{ route('canvas.post.index') }}">Posts</a>
                             <a class="dropdown-item" href="{{ route('canvas.tag.index') }}">Tags</a>
+                            <a class="dropdown-item" href="{{ route('canvas.topic.index') }}">Topics</a>
                             <a class="dropdown-item" href="{{ route('canvas.index') }}">Stats</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="{{ route('logout') }}"
