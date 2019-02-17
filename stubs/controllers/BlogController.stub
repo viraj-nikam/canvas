@@ -1,9 +1,10 @@
 <?php
 
-namespace {{namespace}}Http\Controllers;
+namespace App\Http\Controllers;
 
 use Canvas\Tag;
 use Canvas\Post;
+use Canvas\Topic;
 use Illuminate\View\View;
 use Canvas\Events\PostViewed;
 use Illuminate\Routing\Controller;
@@ -79,7 +80,7 @@ class BlogController extends Controller
     }
 
     /**
-     * Show all posts related to a given tag.
+     * Show all posts with a given tag.
      *
      * @param string $slug
      * @return View
@@ -90,8 +91,32 @@ class BlogController extends Controller
 
         if ($tag) {
             $data = [
-                'topic' => $tag,
+                'tag'   => $tag,
                 'posts' => Post::whereHas('tags', function ($query) use ($slug) {
+                    $query->where('slug', $slug);
+                })->published()->orderByDesc('published_at')->simplePaginate(10),
+            ];
+
+            return view('blog.index', compact('data'));
+        } else {
+            abort(404);
+        }
+    }
+
+    /**
+     * Show all posts under a given topic.
+     *
+     * @param string $slug
+     * @return View
+     */
+    public function topic(string $slug): View
+    {
+        $topic = Topic::with('posts')->where('slug', $slug)->first();
+
+        if ($topic) {
+            $data = [
+                'topic' => $topic,
+                'posts' => Post::whereHas('topic', function ($query) use ($slug) {
                     $query->where('slug', $slug);
                 })->published()->orderByDesc('published_at')->simplePaginate(10),
             ];
