@@ -108,12 +108,4 @@
         color: #6c757d;
         opacity: 1;
     }
-
-    .multiselect__input {
-        padding-top: 3px !important;
-    }
-
-    .multiselect--active {
-        padding-bottom: 2px !important;
-    }
 </style>
