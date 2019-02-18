@@ -25,6 +25,7 @@
 
         methods: {
             addTag(newTag) {
+
                 const tag = {
                     name: newTag,
                     slug: this.slugify(newTag)

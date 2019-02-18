@@ -29,6 +29,7 @@
                     name: newTopic,
                     slug: this.slugify(newTopic)
                 };
+
                 this.options.push(topic);
                 this.value.push(topic);
             },

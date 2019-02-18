@@ -29,14 +29,14 @@
                     <div class="col-12">
                         <label for="topic" class="font-weight-bold">Topic</label>
 
-                        <single-select :topics="{{ $data['topics'] }}" :assigned="{{ $data['post']->topic }}"></single-select>
+                        <topic-select :topics="{{ $data['topics'] }}" :assigned="{{ $data['post']->topic }}"></topic-select>
                     </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-12">
                         <label for="published_at" class="font-weight-bold">Tags</label>
 
-                        <multi-select :tags="{{ $data['tags'] }}" :tagged="{{ $data['post']->tags }}"></multi-select>
+                        <tag-select :tags="{{ $data['tags'] }}" :tagged="{{ $data['post']->tags }}"></tag-select>
                     </div>
                 </div>
             </div>
