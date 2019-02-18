@@ -29,6 +29,7 @@
                     name: newTag,
                     slug: this.slugify(newTag)
                 };
+
                 this.options.push(tag);
                 this.value.push(tag)
             },
@@ -52,8 +53,8 @@
     <div>
         <multiselect
                 v-model="value"
-                tag-placeholder="Add a new tag"
                 placeholder="Select some tags..."
+                tag-placeholder="Add a new tag"
                 label="name"
                 track-by="slug"
                 :options="options"
@@ -96,6 +97,7 @@
     .multiselect__single {
         font-size: 14px;
         padding: 0;
+        border-radius: 0;
     }
 
     .multiselect__input:focus::-webkit-input-placeholder,

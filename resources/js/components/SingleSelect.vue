@@ -2,7 +2,7 @@
     import Multiselect from 'vue-multiselect'
 
     export default {
-        props: ['topics', 'topic'],
+        props: ['topics', 'assigned'],
 
         components: {
             Multiselect
@@ -18,7 +18,7 @@
             });
 
             return {
-                value: this.topic ? this.topic : [],
+                value: this.assigned ? this.assigned : [],
                 options: allTopics
             }
         },
@@ -63,7 +63,7 @@
 
         <!--todo: assign 1 topic with a name/slug to the following inputs-->
         <div class="topics">
-            <template v-for="topic, index in value">
+            <template v-for="(assigned, index) in value">
                 <input hidden type="hidden" :name="`topic[${index}][name]`" :value="value.name">
                 <input hidden type="hidden" :name="`topic[${index}][slug]`" :value="value.slug">
             </template>

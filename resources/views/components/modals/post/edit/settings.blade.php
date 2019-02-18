@@ -29,7 +29,7 @@
                     <div class="col-12">
                         <label for="topic" class="font-weight-bold">Topic</label>
 
-                        <single-select :topics="{{ $data['topics'] }}" :topic="{{ $data['post']->topic }}"></single-select>
+                        <single-select :topics="{{ $data['topics'] }}" :assigned="{{ $data['post']->topic }}"></single-select>
                     </div>
                 </div>
                 <div class="form-group row">
