@@ -91,10 +91,6 @@
         background: #3490dc;
     }
 
-    .multiselect__content-wrapper {
-        border-top: 1px solid #e8e8e8;
-    }
-
     .multiselect,
     .multiselect__input,
     .multiselect__single {

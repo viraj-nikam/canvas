@@ -3,14 +3,14 @@
         <div class="col-md-10 px-0">
             <nav class="navbar navbar-light justify-content-between flex-nowrap flex-row py-1">
                 <!-- Left Side Of Navbar -->
-                <a class="navbar-brand logo mr-4 font-weight-bold py-0 @hasSection('status') d-none d-md-block @endif"
+                <a class="navbar-brand logo mr-4 font-weight-bold py-0 @hasSection('context') d-none d-md-block @endif"
                    href="{{ route('canvas.index') }}"><span>C</span>anvas</a>
 
                 <ul class="navbar-nav mr-auto flex-row float-right">
                     <li class="text-muted font-weight-bold">
-                        @yield('status')
+                        @yield('context')
                         @if(session('notify'))
-                            @hasSection('status') — @endif
+                            @hasSection('context') — @endif
                             <span class="text-success">{{ session('notify') }}</span>
                         @endif
                     </li>
