@@ -63,7 +63,7 @@
         </multiselect>
 
         <div class="tags">
-            <template v-for="tags,index in value">
+            <template v-for="(tags, index) in value">
                 <input hidden type="hidden" :name="`tags[${index}][name]`" :value="tags.name">
                 <input hidden type="hidden" :name="`tags[${index}][slug]`" :value="tags.slug">
             </template>
