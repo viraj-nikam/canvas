@@ -106,5 +106,15 @@
     .multiselect__placeholder {
         color: #6c757d;
         opacity: 1;
+        padding-top: 0;
+        line-height: 1;
+    }
+
+    .multiselect__input {
+        line-height: 1;
+    }
+
+    .multiselect__tag {
+        padding-bottom: 2px;
     }
 </style>
