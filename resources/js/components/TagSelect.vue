@@ -101,7 +101,9 @@
         border-radius: 0;
     }
 
+    .multiselect__input:focus::placeholder,
     .multiselect__input:focus::-webkit-input-placeholder,
+    .multiselect__input::placeholder,
     .multiselect__input::-webkit-input-placeholder,
     .multiselect__placeholder {
         color: #6c757d;
