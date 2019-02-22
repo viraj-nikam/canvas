@@ -19,6 +19,14 @@
         <div class="container">
             <div class="row justify-content-md-center">
                 <div class="col col-lg-8">
+                    @isset($data['tag'])
+                        <p class="text-uppercase text-muted mt-5 mb-1 small font-weight-bold">Tagged in</p>
+                        <h2 class="serif">
+                            {{ $data['tag']->name }}
+                        </h2>
+                        <hr>
+                    @endisset
+
                     @foreach($data['posts'] as $post)
                         <p class="mt-5 mb-2 text-muted text-uppercase font-weight-bold">Published
                             on {{ \Carbon\Carbon::parse($post->published_at)->format('M d, Y') }}</p>

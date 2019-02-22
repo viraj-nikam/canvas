@@ -7,7 +7,6 @@ use Canvas\Post;
 use Canvas\Topic;
 use Illuminate\View\View;
 use Canvas\Events\PostViewed;
-use Illuminate\Routing\Controller;
 
 class BlogController extends Controller
 {
@@ -33,7 +32,7 @@ class BlogController extends Controller
      */
     public function post(string $slug): View
     {
-        $posts = Post::with('tags')->published()->get();
+        $posts = Post::with('tags', 'topic')->published()->get();
         $post = $posts->firstWhere('slug', $slug);
 
         if (optional($post)->published) {
@@ -69,6 +68,7 @@ class BlogController extends Controller
                 'meta'   => $post->meta,
                 'next'   => $next,
                 'random' => $random,
+                'topic'  => $post->topic->first() ?? null,
             ];
 
             event(new PostViewed($post));
