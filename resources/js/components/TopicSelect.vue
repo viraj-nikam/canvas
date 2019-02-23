@@ -44,6 +44,11 @@
                     .replace(/\s+/g, '-')
                     .replace(/[^\w\-]+/g, '')
                     .replace(/--+/g, '-')
+            },
+
+            removeOption(option) {
+                // todo: set the return data value to an empty array instead of null
+                this.value = [];
             }
         }
     }
@@ -59,7 +64,8 @@
                 track-by="slug"
                 :options="options"
                 :taggable="true"
-                @tag="addTopic">
+                @tag="addTopic"
+                @remove="removeOption">
         </multiselect>
 
         <!--todo: assign 1 topic with a name/slug to the following inputs-->
