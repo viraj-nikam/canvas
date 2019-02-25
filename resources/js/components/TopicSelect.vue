@@ -11,6 +11,7 @@
         data() {
             const allTopics = this.topics.map(obj => {
                 let filtered = {};
+
                 filtered['name'] = obj.name;
                 filtered['slug'] = obj.slug;
 
@@ -48,7 +49,6 @@
 
             removeOption(option) {
                 // todo: set the return data value to an empty array instead of null
-                this.value = [];
             }
         }
     }
