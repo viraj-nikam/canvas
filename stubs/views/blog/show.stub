@@ -58,7 +58,7 @@
                          @isset($data['post']->featured_image_caption) alt="{{ $data['post']->featured_image_caption }}"
                          title="{{ $data['post']->featured_image_caption }}" @endisset>
                     @isset($data['post']->featured_image_caption)
-                        <p class="text-muted text-center pt-3">{!! $data['post']->featured_image_caption !!}</p>
+                        <p class="text-muted text-center pt-3" style="font-size: 0.9rem">{!! $data['post']->featured_image_caption !!}</p>
                     @endisset
                 @endisset
 
@@ -105,3 +105,11 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    <script type="text/javascript">
+        $(function() {
+            mediumZoom('.embedded_image img');
+        });
+    </script>
+@endpush
