@@ -26,7 +26,7 @@
             </div>
         @endif
 
-        @if(count($data['posts']) > 0 or isset($data['tag']) or isset($data['topic']))
+        @if(count($data['posts']) > 0)
             @foreach($data['posts'] as $post)
                 @if($loop->first)
                     <div class="jumbotron p-4 p-md-5 text-white rounded @if(empty($post->featured_image)) bg-dark @endif"
@@ -52,18 +52,22 @@
                 <h3 class="pb-4 mb-4 font-italic border-bottom">
                     Recent posts
                 </h3>
+                @if(count($data['posts']) > 0)
+                    @foreach($data['posts'] as $post)
+                        @if(!$loop->first)
+                            <div class="blog-post">
+                                <h2 class="blog-post-title"><a href="{{ route('blog.post', $post->slug) }}" class="text-dark text-decoration-none">{{ $post->title }}</a></h2>
+                                <p class="blog-post-meta small">{{ $post->published_at->format('M d') }} — {{ $post->readTime }}</p>
+                                <p><a href="{{ route('blog.post', $post->slug) }}" class="text-dark text-decoration-none">{{ $post->summary }}</a></p>
+                            </div>
+                        @endif
+                    @endforeach
 
-                @foreach($data['posts'] as $post)
-                    @if(!$loop->first)
-                        <div class="blog-post">
-                            <h2 class="blog-post-title"><a href="{{ route('blog.post', $post->slug) }}" class="text-dark text-decoration-none">{{ $post->title }}</a></h2>
-                            <p class="blog-post-meta small">{{ $post->published_at->format('M d') }} — {{ $post->readTime }}</p>
-                            <p><a href="{{ route('blog.post', $post->slug) }}" class="text-dark text-decoration-none">{{ $post->summary }}</a></p>
-                        </div>
-                    @endif
-                @endforeach
-
-                {{ $data['posts']->links() }}
+                    {{ $data['posts']->links() }}
+                @else
+                    <p class="mt-4">No posts were found, start by <a href="{{ route('canvas.post.create') }}">adding a
+                            new post</a>.</p>
+                @endif
             </div>
 
             <aside class="col-md-4 blog-sidebar">

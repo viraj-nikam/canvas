@@ -6,9 +6,8 @@ use Dotenv\Dotenv;
 use Canvas\Tests\Unit\User;
 use Canvas\CanvasServiceProvider;
 use Illuminate\Database\Schema\Blueprint;
-use Orchestra\Testbench\TestCase as Orchestra;
 
-abstract class TestCase extends Orchestra
+abstract class TestCase extends \Orchestra\Testbench\TestCase
 {
     /**
      * @var User
@@ -18,7 +17,7 @@ abstract class TestCase extends Orchestra
     /**
      * @return void
      */
-    public function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
