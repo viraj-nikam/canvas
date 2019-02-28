@@ -319,6 +319,7 @@
     }
 
     .ql-container hr {
+        margin-top: 0;
         border: none;
         color: #111;
         letter-spacing: 1em;
@@ -385,6 +386,7 @@
     }
 
     .embedded_image p {
+        margin-bottom: 0 !important;
         color: #6c757d;
         padding-top: 1rem;
         font-size: 0.9rem;
