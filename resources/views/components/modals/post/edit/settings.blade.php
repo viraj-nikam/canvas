@@ -29,7 +29,7 @@
                     <div class="col-12">
                         <label for="topic" class="font-weight-bold">Topic</label>
 
-                        <topic-select :topics="{{ $data['topics'] }}" :assigned="{{ $data['post']->topic }}"></topic-select>
+                        <topic-select :topics="{{ $data['topics'] }}" :assigned="{{ json_encode(optional($data['post']->topic->first())->only(['name', 'slug'])) }}"></topic-select>
                     </div>
                 </div>
                 <div class="form-group row">

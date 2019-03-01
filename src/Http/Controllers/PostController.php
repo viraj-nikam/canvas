@@ -165,7 +165,7 @@ class PostController extends Controller
 
         if (! is_null(request('topic'))) {
             $post->topic()->sync(
-                $this->assignTopics(request('topic') ?? [])
+                $this->assignTopics([request('topic')] ?? [])
             );
         }
 

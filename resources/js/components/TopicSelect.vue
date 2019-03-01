@@ -25,10 +25,16 @@
         },
 
         methods: {
-            addTopic(newTopic) {
+            onChange(value, id) {
+                if (this.value == null) {
+                    this.value = [];
+                }
+            },
+
+            addTopic(searchQuery, id) {
                 const topic = {
-                    name: newTopic,
-                    slug: this.slugify(newTopic)
+                    name: searchQuery,
+                    slug: this.slugify(searchQuery)
                 };
 
                 this.options.push(topic);
@@ -60,6 +66,7 @@
                 track-by="slug"
                 :options="options"
                 :taggable="true"
+                @input="onChange"
                 @tag="addTopic">
         </multiselect>
 
