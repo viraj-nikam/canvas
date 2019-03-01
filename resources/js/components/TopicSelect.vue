@@ -31,14 +31,18 @@
                 }
             },
 
-            addTopic(searchQuery, id) {
+            addTopic(searchQuery) {
                 const topic = {
                     name: searchQuery,
                     slug: this.slugify(searchQuery)
                 };
 
                 this.options.push(topic);
-                this.value.push(topic);
+
+                this.value = {
+                    name: topic.name,
+                    slug: topic.slug
+                };
             },
 
             /**
