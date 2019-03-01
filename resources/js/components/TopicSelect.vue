@@ -45,10 +45,6 @@
                     .replace(/\s+/g, '-')
                     .replace(/[^\w\-]+/g, '')
                     .replace(/--+/g, '-')
-            },
-
-            removeOption(option) {
-                // todo: set the return data value to an empty array instead of null
             }
         }
     }
@@ -64,15 +60,13 @@
                 track-by="slug"
                 :options="options"
                 :taggable="true"
-                @tag="addTopic"
-                @remove="removeOption">
+                @tag="addTopic">
         </multiselect>
 
-        <!--todo: assign 1 topic with a name/slug to the following inputs-->
         <div class="topics">
-            <template v-for="(assigned, index) in value">
-                <input hidden type="hidden" :name="`topic[${index}][name]`" :value="value.name">
-                <input hidden type="hidden" :name="`topic[${index}][slug]`" :value="value.slug">
+            <template v-if="value.length != 0">
+                <input hidden type="hidden" :name="`topic[name]`" :value="value.name">
+                <input hidden type="hidden" :name="`topic[slug]`" :value="value.slug">
             </template>
         </div>
     </div>

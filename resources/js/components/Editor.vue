@@ -230,6 +230,8 @@
 
     .ql-editor {
         font-family: "Merriweather", serif;
+        font-weight: 300;
+        color: hsla(0,0%,0%,0.9);
         font-size: 1.1rem;
         line-height: 1.9;
         padding: 0;
