@@ -4,74 +4,131 @@
         line-height: 1.6;
     }
 
-    body {
-        margin: 0;
-        font-size: .9rem;
+    a, .btn-link, .page-link {
+        color: #3490dc;
+    }
+
+    a:hover {
+        color: #1d68a7;
+    }
+
+    .blog-header {
+        line-height: 1;
+        border-bottom: 1px solid #e5e5e5;
+    }
+
+    .blog-header-logo {
+        font-family: "Merriweather", Georgia, "Times New Roman", serif;
+        font-weight: bolder;
+        font-size: 2.25rem;
+    }
+
+    .blog-header-logo:hover {
+        text-decoration: none;
+    }
+
+    .blog-sidebar li {
+        padding: 5px 0;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        font-family: "Merriweather", Georgia, "Times New Roman", serif;
+    }
+
+    .display-4 {
+        font-size: 2.5rem;
+    }
+
+    @media (min-width: 768px) {
+        .display-4 {
+            font-size: 3rem;
+        }
+    }
+
+    .nav-scroller {
+        position: relative;
+        z-index: 2;
+        height: 2.75rem;
+        overflow-y: hidden;
+    }
+
+    .nav-scroller .nav {
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-wrap: nowrap;
+        flex-wrap: nowrap;
+        padding-bottom: 1rem;
+        margin-top: -1px;
+        overflow-x: auto;
+        text-align: center;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .nav-scroller .nav-link {
+        padding-top: .75rem;
+        padding-bottom: .75rem;
+        font-size: .875rem;
+    }
+
+    .dropdown-item {
+        font-size: 0.9rem;
+        padding: 0.55rem 1.5rem;
+    }
+
+    .card-img-right {
+        height: 100%;
+        border-radius: 0 3px 3px 0;
+    }
+
+    .flex-auto {
+        -ms-flex: 0 0 auto;
+        flex: 0 0 auto;
+    }
+
+    .h-250 {
+        height: 250px;
+    }
+
+    @media (min-width: 768px) {
+        .h-md-250 {
+            height: 250px;
+        }
+    }
+
+    .blog-title {
+        margin-bottom: 0;
+        font-size: 2rem;
         font-weight: 400;
-        color: #212529;
-        text-align: left;
-        background-color: #fff;
     }
 
-    body:not(.user-is-tabbing) a:focus,
-    body:not(.user-is-tabbing) button:focus,
-    body:not(.user-is-tabbing) input:focus,
-    body:not(.user-is-tabbing) select:focus,
-    body:not(.user-is-tabbing) textarea:focus {
-        outline: none;
+    .blog-description {
+        font-size: 1.1rem;
+        color: #999;
     }
 
-    .h1,.h2,.h3,.h4,.h5,.h6,h1,h2,h3,h4,h5,h6 {
-        margin-bottom: .5rem;
-        font-family: inherit;
-        font-weight: 500;
-        line-height: 1.2;
-        color: inherit
+    @media (min-width: 40em) {
+        .blog-title {
+            font-size: 3.5rem;
+        }
     }
 
-    .h1,h1 {
-        font-size: 2.25rem
+    .blog-post {
+        margin-bottom: 4rem;
     }
 
-    .h2,h2 {
-        font-size: 1.8rem
+    .blog-post-title {
+        margin-bottom: .25rem;
+        font-size: 1.75rem;
     }
 
-    .h3,h3 {
-        font-size: 1.575rem
+    .blog-post-meta {
+        margin-bottom: 1.25rem;
+        color: #999;
     }
 
-    .h4,h4 {
-        font-size: 1.35rem
-    }
-
-    .h5,h5 {
-        font-size: 1.125rem
-    }
-
-    .h6,h6 {
-        font-size: .9rem
-    }
-
-    a, .btn-link {
-        color: #3490dc;
-        text-decoration: none !important;
-    }
-
-    .btn-outline-primary {
-        color: #3490dc;
-        border-color: #3490dc
-    }
-
-    .btn-sm {
-        padding: .25rem .5rem;
-        font-size: .7875rem;
-        line-height: 1.5;
-        border-radius: .2rem
-    }
-
-    .dropdown-menu {
-        font-size: .9rem;
+    .tag {
+        font-family: Nunito, sans-serif;
     }
 
     .serif {
@@ -82,27 +139,19 @@
         font-family: "Nunito", sans-serif;
     }
 
-    .logo {
-        font-family: "Merriweather", serif;
-        font-size: 20px;
-    }
-
-    .logo span {
-        color: #9ba3aa;
-    }
-
     .content-title {
-        color: #444;
-        font-size: 42px;
+    color: #444;
+    font-size: 36px;
     }
 
     .content-title a {
-        color: #444;
+    color: #444;
     }
 
     .content-body {
         font-family: "Merriweather", serif;
-        color: #444;
+        font-weight: 300;
+        color: hsla(0,0%,0%,0.9);
         font-size: 1.1rem;
         line-height: 2;
         position: relative !important;
@@ -142,13 +191,6 @@
 
     div.embedded_image a {
         text-decoration: none !important;
-    }
-
-    .content-body .embedded_image:hover img {
-        -webkit-box-shadow: none !important;
-        -moz-box-shadow: none !important;
-        box-shadow: none !important;
-        cursor: default !important;
     }
 
     .content-body hr {
@@ -192,29 +234,6 @@
 
     .read-more p.body {
         font-size: 1.1rem;
-    }
-
-    .welcome {
-        font-weight: 400;
-        font-family: "Merriweather", serif;
-    }
-
-    .welcome span {
-        color: #9ba3aa;
-    }
-
-    .btn-primary {
-        color: #fff;
-        background-color: #3490dc;
-        border-color: #3490dc;
-        padding: .375rem .75rem;
-        font-size: .9rem;
-        line-height: 1.6;
-    }
-
-    .btn-primary:hover, .btn-outline-primary:hover {
-        background-color: #227dc7;
-        border-color: #2176bd;
     }
 
     @media screen and (max-width: 1024px) {

@@ -1,6 +1,6 @@
 @extends('canvas::index')
 
-@section('status', 'Draft')
+@section('context', 'Draft')
 
 @section('actions')
     <a href="#" class="btn btn-sm btn-outline-primary my-auto" data-toggle="modal" data-target="#modal-publish">Save and

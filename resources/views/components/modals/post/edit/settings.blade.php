@@ -27,9 +27,16 @@
                 </div>
                 <div class="form-group row">
                     <div class="col-12">
+                        <label for="topic" class="font-weight-bold">Topic</label>
+
+                        <topic-select :topics="{{ $data['topics'] }}" :assigned="{{ json_encode(optional($data['post']->topic->first())->only(['name', 'slug'])) }}"></topic-select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-12">
                         <label for="published_at" class="font-weight-bold">Tags</label>
 
-                        <multi-select :tags="{{ $data['tags'] }}" :tagged="{{ $data['post']->tags }}"></multi-select>
+                        <tag-select :tags="{{ $data['tags'] }}" :tagged="{{ $data['post']->tags }}"></tag-select>
                     </div>
                 </div>
             </div>

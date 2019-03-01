@@ -3,17 +3,14 @@
         <div class="col-md-10 px-0">
             <nav class="navbar navbar-light justify-content-between flex-nowrap flex-row py-1">
                 <!-- Left Side Of Navbar -->
-                <a class="navbar-brand logo mr-4 font-weight-bold py-0 @hasSection('status') d-none d-md-block @endif"
+                <a class="navbar-brand logo mr-4 font-weight-bold py-0 @hasSection('context') d-none d-md-block @endif"
                    href="{{ route('canvas.index') }}"><span>C</span>anvas</a>
 
                 <ul class="navbar-nav mr-auto flex-row float-right">
                     <li class="text-muted font-weight-bold">
-                        @yield('status')
-                        @isset($data['topic'])
-                            <a href="{{ route('blog.tag.index', $data['topic']->slug)  }}" class="text-muted">{{ $data['topic']->name }}</a>
-                        @endisset
+                        @yield('context')
                         @if(session('notify'))
-                            @hasSection('status') — @endif
+                            @hasSection('context') — @endif
                             <span class="text-success">{{ session('notify') }}</span>
                         @endif
                     </li>
@@ -35,6 +32,7 @@
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                             <a class="dropdown-item" href="{{ route('canvas.post.index') }}">Posts</a>
                             <a class="dropdown-item" href="{{ route('canvas.tag.index') }}">Tags</a>
+                            <a class="dropdown-item" href="{{ route('canvas.topic.index') }}">Topics</a>
                             <a class="dropdown-item" href="{{ route('canvas.index') }}">Stats</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="{{ route('logout') }}"

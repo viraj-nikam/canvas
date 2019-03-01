@@ -13,8 +13,12 @@
          verbose="true"
 >
     <testsuites>
-        <testsuite name="Unit">
+        <testsuite name="Canvas Unit Test Suite">
             <directory suffix="Test.php">./tests/Unit</directory>
+        </testsuite>
+
+        <testsuite name="Canvas Integration Test Suite">
+            <directory suffix="Test.php">./tests/Integration</directory>
         </testsuite>
     </testsuites>
     <filter>

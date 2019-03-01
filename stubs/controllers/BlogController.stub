@@ -1,12 +1,12 @@
 <?php
 
-namespace {{namespace}}Http\Controllers;
+namespace App\Http\Controllers;
 
 use Canvas\Tag;
 use Canvas\Post;
+use Canvas\Topic;
 use Illuminate\View\View;
 use Canvas\Events\PostViewed;
-use Illuminate\Routing\Controller;
 
 class BlogController extends Controller
 {
@@ -18,7 +18,9 @@ class BlogController extends Controller
     public function index(): View
     {
         $data = [
-            'posts' => Post::published()->orderByDesc('published_at')->simplePaginate(10),
+            'posts'  => Post::published()->orderByDesc('published_at')->simplePaginate(10),
+            'topics' => Topic::all(),
+            'tags'   => Tag::all(),
         ];
 
         return view('blog.index', compact('data'));
@@ -32,7 +34,7 @@ class BlogController extends Controller
      */
     public function post(string $slug): View
     {
-        $posts = Post::with('tags')->published()->get();
+        $posts = Post::with('tags', 'topic')->published()->get();
         $post = $posts->firstWhere('slug', $slug);
 
         if (optional($post)->published) {
@@ -68,6 +70,7 @@ class BlogController extends Controller
                 'meta'   => $post->meta,
                 'next'   => $next,
                 'random' => $random,
+                'topic'  => $post->topic->first() ?? null,
             ];
 
             event(new PostViewed($post));
@@ -79,7 +82,7 @@ class BlogController extends Controller
     }
 
     /**
-     * Show all posts related to a given tag.
+     * Show all posts with a given tag.
      *
      * @param string $slug
      * @return View
@@ -90,8 +93,36 @@ class BlogController extends Controller
 
         if ($tag) {
             $data = [
-                'topic' => $tag,
-                'posts' => Post::whereHas('tags', function ($query) use ($slug) {
+                'tag'    => $tag,
+                'tags'   => Tag::all(),
+                'topics' => Topic::all(),
+                'posts'  => Post::whereHas('tags', function ($query) use ($slug) {
+                    $query->where('slug', $slug);
+                })->published()->orderByDesc('published_at')->simplePaginate(10),
+            ];
+
+            return view('blog.index', compact('data'));
+        } else {
+            abort(404);
+        }
+    }
+
+    /**
+     * Show all posts under a given topic.
+     *
+     * @param string $slug
+     * @return View
+     */
+    public function topic(string $slug): View
+    {
+        $topic = Topic::with('posts')->where('slug', $slug)->first();
+
+        if ($topic) {
+            $data = [
+                'tags'   => Tag::all(),
+                'topics' => Topic::all(),
+                'topic'  => $topic,
+                'posts'  => Post::whereHas('topic', function ($query) use ($slug) {
                     $query->where('slug', $slug);
                 })->published()->orderByDesc('published_at')->simplePaginate(10),
             ];

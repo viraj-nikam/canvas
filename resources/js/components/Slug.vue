@@ -1,10 +1,10 @@
 <script type="text/ecmascript-6">
     export default {
-        props: ['tag'],
+        props: ['entity'],
 
         data() {
             return {
-                name: this.tag ? this.tag.name : ''
+                name: this.entity ? this.entity.name : ''
             }
         },
 

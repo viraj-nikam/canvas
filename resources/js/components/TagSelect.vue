@@ -25,10 +25,12 @@
 
         methods: {
             addTag(newTag) {
+
                 const tag = {
                     name: newTag,
                     slug: this.slugify(newTag)
                 };
+
                 this.options.push(tag);
                 this.value.push(tag)
             },
@@ -52,8 +54,8 @@
     <div>
         <multiselect
                 v-model="value"
-                tag-placeholder="Add a new tag"
                 placeholder="Select some tags..."
+                tag-placeholder="Add a new tag"
                 label="name"
                 track-by="slug"
                 :options="options"
@@ -63,7 +65,7 @@
         </multiselect>
 
         <div class="tags">
-            <template v-for="tags,index in value">
+            <template v-for="(tags, index) in value">
                 <input hidden type="hidden" :name="`tags[${index}][name]`" :value="tags.name">
                 <input hidden type="hidden" :name="`tags[${index}][slug]`" :value="tags.slug">
             </template>
@@ -91,29 +93,30 @@
         background: #3490dc;
     }
 
-    .multiselect__content-wrapper {
-        border-top: 1px solid #e8e8e8;
-    }
-
     .multiselect,
     .multiselect__input,
     .multiselect__single {
         font-size: 14px;
         padding: 0;
+        border-radius: 0;
     }
 
+    .multiselect__input:focus::placeholder,
     .multiselect__input:focus::-webkit-input-placeholder,
+    .multiselect__input::placeholder,
     .multiselect__input::-webkit-input-placeholder,
     .multiselect__placeholder {
         color: #6c757d;
         opacity: 1;
+        padding-top: 0;
+        line-height: 1;
     }
 
     .multiselect__input {
-        padding-top: 3px !important;
+        line-height: 1;
     }
 
-    .multiselect--active {
-        padding-bottom: 2px !important;
+    .multiselect__tag {
+        padding-bottom: 2px;
     }
 </style>

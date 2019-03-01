@@ -4,9 +4,9 @@ namespace Canvas;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
-class Tag extends Model
+class Topic extends Model
 {
     use SoftDeletes;
 
@@ -22,7 +22,7 @@ class Tag extends Model
      *
      * @var string
      */
-    protected $table = 'canvas_tags';
+    protected $table = 'canvas_topics';
 
     /**
      * The primary key for the model.
@@ -46,12 +46,19 @@ class Tag extends Model
     public $incrementing = false;
 
     /**
-     * The posts that have the tag.
+     * Get the posts relationship.
      *
-     * @return BelongsToMany
+     * @return HasManyThrough
      */
-    public function posts(): BelongsToMany
+    public function posts(): HasManyThrough
     {
-        return $this->belongsToMany(Post::class, 'canvas_posts_tags', 'tag_id', 'post_id');
+        return $this->HasManyThrough(
+            Post::class,
+            PostsTopics::class,
+            'topic_id', // Foreign key on canvas_posts_topics table...
+            'id', // Foreign key on canvas_posts table...
+            'id', // Local key on canvas_topics table...
+            'post_id' // Local key on canvas_posts_topics table...
+        );
     }
 }

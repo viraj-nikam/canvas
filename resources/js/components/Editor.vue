@@ -230,6 +230,8 @@
 
     .ql-editor {
         font-family: "Merriweather", serif;
+        font-weight: 300;
+        color: hsla(0,0%,0%,0.9);
         font-size: 1.1rem;
         line-height: 1.9;
         padding: 0;
@@ -319,6 +321,7 @@
     }
 
     .ql-container hr {
+        margin-top: 0;
         border: none;
         color: #111;
         letter-spacing: 1em;
@@ -385,6 +388,7 @@
     }
 
     .embedded_image p {
+        margin-bottom: 0 !important;
         color: #6c757d;
         padding-top: 1rem;
         font-size: 0.9rem;

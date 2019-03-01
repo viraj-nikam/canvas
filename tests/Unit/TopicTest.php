@@ -2,11 +2,11 @@
 
 namespace Canvas\Tests\Unit;
 
-use Canvas\Tag;
+use Canvas\Topic;
 use Canvas\Tests\TestCase;
 use Faker\Factory as Faker;
 
-class TagTest extends TestCase
+class TopicTest extends TestCase
 {
     /**
      * @return void
@@ -19,27 +19,27 @@ class TagTest extends TestCase
     /** @test */
     public function it_can_create_a_tag()
     {
-        $tag = $this->createDefaultTag();
+        $topic = $this->createDefaultTopic();
 
-        $this->assertNotEmpty($tag->name);
-        $this->assertNotEmpty($tag->slug);
+        $this->assertNotEmpty($topic->name);
+        $this->assertNotEmpty($topic->slug);
     }
 
     /** @test */
     public function it_is_retrievable_by_id()
     {
-        $tag = $this->createDefaultTag();
-        $tag_by_id = app(Tag::class)->find($tag->id);
+        $topic = $this->createDefaultTopic();
+        $topic_by_id = app(Topic::class)->find($topic->id);
 
-        $this->assertEquals($tag->id, $tag_by_id->id);
+        $this->assertEquals($topic->id, $topic_by_id->id);
     }
 
     /**
-     * @return Tag
+     * @return Topic
      */
-    private function createDefaultTag(): Tag
+    private function createDefaultTopic(): Topic
     {
-        return Tag::create([
+        return Topic::create([
             'id'   => Faker::create()->uuid,
             'slug' => Faker::create()->uuid,
             'name' => Faker::create()->word,

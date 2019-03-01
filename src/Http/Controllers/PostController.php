@@ -4,6 +4,7 @@ namespace Canvas\Http\Controllers;
 
 use Canvas\Tag;
 use Canvas\Post;
+use Canvas\Topic;
 use Carbon\Carbon;
 use Illuminate\View\View;
 use Illuminate\Support\Str;
@@ -35,8 +36,9 @@ class PostController extends Controller
     public function create(): View
     {
         $data = [
-            'id'   => Str::uuid(),
-            'tags' => Tag::all(),
+            'id'     => Str::uuid(),
+            'tags'   => Tag::all(),
+            'topics' => Topic::all(),
         ];
 
         return view('canvas::posts.create', compact('data'));
@@ -53,9 +55,10 @@ class PostController extends Controller
         $post = Post::findOrFail($id);
 
         $data = [
-            'post' => $post,
-            'meta' => $post->meta,
-            'tags' => Tag::all(),
+            'post'   => $post,
+            'meta'   => $post->meta,
+            'tags'   => Tag::all(),
+            'topics' => Topic::all(),
         ];
 
         return view('canvas::posts.edit', compact('data'));
@@ -102,6 +105,12 @@ class PostController extends Controller
         if (! is_null(request('tags'))) {
             $post->tags()->sync(
                 $this->collectTags(request('tags') ?? [])
+            );
+        }
+
+        if (! is_null(request('topic'))) {
+            $post->topic()->sync(
+                $this->assignTopics(request('topic') ?? [])
             );
         }
 
@@ -154,6 +163,12 @@ class PostController extends Controller
             );
         }
 
+        if (! is_null(request('topic'))) {
+            $post->topic()->sync(
+                $this->assignTopics([request('topic')] ?? [])
+            );
+        }
+
         return redirect(route('canvas.post.edit', $post->id))->with('notify', 'Saved!');
     }
 
@@ -184,16 +199,44 @@ class PostController extends Controller
         $tags = Tag::all();
 
         return collect($incomingTags)->map(function ($incomingTag) use ($tags) {
-            $tag = $tags->where('slug', Str::slug($incomingTag['name']))->first();
+            $tag = $tags->where('slug', $incomingTag['slug'])->first();
+
             if (! $tag) {
                 $tag = Tag::create([
                     'id'   => $id = Str::uuid(),
                     'name' => $incomingTag['name'],
-                    'slug' => Str::slug($incomingTag['name']),
+                    'slug' => $incomingTag['slug'],
                 ]);
             }
 
             return (string) $tag->id;
+        })->toArray();
+    }
+
+    /**
+     * Assign a post to a selected topic.
+     *
+     * @param array $incomingTopics
+     * @return array
+     *
+     * @source https://gihtub.com/writingink/wink
+     */
+    private function assignTopics(array $incomingTopics): array
+    {
+        $topics = Topic::all();
+
+        return collect($incomingTopics)->map(function ($incomingTopic) use ($topics) {
+            $topic = $topics->where('slug', $incomingTopic['slug'])->first();
+
+            if (! $topic) {
+                $topic = Topic::create([
+                    'id'   => $id = Str::uuid(),
+                    'name' => $incomingTopic['name'],
+                    'slug' => $incomingTopic['slug'],
+                ]);
+            }
+
+            return (string) $topic->id;
         })->toArray();
     }
 }
