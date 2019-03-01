@@ -161,10 +161,68 @@
         overflow-y: visible !important;
     }
 
+    .content-body .h1,
+    .content-body .h2,
+    .content-body .h3,
+    .content-body .h4,
+    .content-body .h5,
+    .content-body .h6,
+    .content-body h1,
+    .content-body h2,
+    .content-body h3,
+    .content-body h4,
+    .content-body h5,
+    .content-body h6 {
+        margin-top: 2.75rem;
+        margin-bottom: 1rem;
+        font-family: inherit;
+        font-weight: 500;
+        line-height: 1.2;
+        color: inherit
+    }
+
+    .content-body .h1,
+    .content-body h1 {
+        font-size: 2.25rem
+    }
+
+    .content-body .h2,
+    .content-body h2 {
+        font-size: 1.8rem
+    }
+
+    .content-body .h3,
+    .content-body h3 {
+        font-size: 1.575rem
+    }
+
+    .content-body .h4,
+    .content-body h4 {
+        font-size: 1.35rem
+    }
+
+    .content-body .h5,
+    .content-body h5 {
+        font-size: 1.125rem
+    }
+
+    .content-body .h6,
+    .content-body h6 {
+        font-size: .9rem
+    }
+
+    .content-body blockquote {
+        margin-top: 2em;
+        margin-bottom: 2em;
+        font-style: italic;
+        border-left: 4px solid #ccc;
+        padding-left: 16px;
+    }
+
     .content-body .embedded_image img {
         max-width: 100%;
         height: auto;
-        margin: 0 auto;
+        margin-bottom: 30px;
         display: block;
     }
 
