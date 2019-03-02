@@ -43,31 +43,31 @@ class View extends Model
      */
     public static function viewTrend(Collection $views): array
     {
-        // Get all the views for the last [X] days
+        // Filter views to only include the last [X] days
         $filtered = $views->filter(function ($value, $key) {
             return $value->created_at >= now()->subDays(self::DAYS_PRIOR);
         });
 
-        // Sort the collection by created dates
+        // Filter the view data to only include created_at time strings
         $collection = collect();
         $filtered->sortBy('created_at')->each(function ($item, $key) use ($collection) {
             $collection->push($item->created_at->toDateString());
         });
 
-        // Count the views and assign the key/value pairs
+        // Count the unique values and assign to their respective keys
         $views = array_count_values($collection->toArray());
 
-        // Create a [X] day period
+        // Create a [X] day range to hold the default date values
         $period = CarbonPeriod::create(now()->subDays(self::DAYS_PRIOR)->toDateString(), self::DAYS_PRIOR)->excludeStartDate();
 
-        // Build a collection of dates for each day in the period
+        // Prep the array to perform a comparison with the actual view data
         $range = collect();
         foreach ($period as $key => $date) {
             $range->push($date->toDateString());
         }
 
+        // Compare the view data and date range arrays, assigning view counts where applicable
         $total = collect();
-        // Compare the collections and assign matching dates with their views
         foreach ($range as $date) {
             if (array_key_exists($date, $views)) {
                 $total->put($date, $views[$date]);

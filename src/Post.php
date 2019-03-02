@@ -4,6 +4,7 @@ namespace Canvas;
 
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
+use Illuminate\Support\Str;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
@@ -143,10 +144,13 @@ class Post extends Model
      */
     public function getReadTimeAttribute($value): string
     {
+        // Only count words in our estimation
         $words = str_word_count(strip_tags($this->body));
-        $minutes = ceil($words / 200);
 
-        return sprintf('%s %s %s', $minutes, str_plural(' min', $minutes), ' read');
+        // Divide by the average number of words per minute
+        $minutes = ceil($words / 250);
+
+        return sprintf('%s %s %s', $minutes, Str::plural(' min', $minutes), ' read');
     }
 
     /**
@@ -157,29 +161,42 @@ class Post extends Model
      */
     public function getPopularReadingTimesAttribute($value): array
     {
+        // Get the views associated with the post
         $data = View::where('post_id', $this->id)->get();
 
+        // Filter the view data to only include hours:minutes
         $collection = collect();
         $data->each(function ($item, $key) use ($collection) {
             $collection->push($item->created_at->minute(0)->format('H:i'));
         });
 
+        // Count the unique values and assign to their respective keys
         $filtered = array_count_values($collection->toArray());
-        $popular_reading_times = collect();
 
+        $popular_reading_times = collect();
         foreach ($filtered as $key => $value) {
+
+            // Use each given time to create a 60 min range
             $start_time = Carbon::createFromTimeString($key);
             $end_time = $start_time->copy()->addMinutes(60);
 
+            // Find the percentage based on the value
             $percentage = round($value / $data->count() * 100);
+
+            // Get a human-readable hour range and floating percentage
             $popular_reading_times->put(sprintf('%s - %s', $start_time->format('g:i A'), $end_time->format('g:i A')), $percentage);
         }
 
+        // Cast the collection to an array
         $array = $popular_reading_times->toArray();
-        $sorted = array_slice($array, 0, 5, true);
-        arsort($sorted);
 
-        return $sorted;
+        // Only return the top 5 reading times and percentages
+        $sliced = array_slice($array, 0, 5, true);
+
+        // Sort the array in a descending fashion
+        arsort($sliced);
+
+        return $sliced;
     }
 
     /**
@@ -190,18 +207,25 @@ class Post extends Model
      */
     public function getTopReferersAttribute($value): array
     {
+        // Get the views associated with the post
         $data = $this->views;
 
+        // Filter the view data to only include referrers
         $collection = collect();
         $data->each(function ($item, $key) use ($collection) {
             is_null($item->referer) ? $collection->push('Other') : $collection->push(parse_url($item->referer)['host']);
         });
 
+        // Count the unique values and assign to their respective keys
         $array = array_count_values($collection->toArray());
-        $sorted = array_slice($array, 0, 10, true);
-        arsort($sorted);
 
-        return $sorted;
+        // Only return the top 10 referrers with their view count
+        $sliced = array_slice($array, 0, 10, true);
+
+        // Sort the array in a descending fashion
+        arsort($sliced);
+
+        return $sliced;
     }
 
     /**
@@ -212,26 +236,33 @@ class Post extends Model
      */
     public function getViewTrendAttribute($value): array
     {
+        // Get the views associated with the post
         $data = $this->views;
 
+        // Filter views to only include the last 30 days
         $filtered = $data->filter(function ($value, $key) {
             return $value->created_at >= now()->subDays(30);
         });
 
+        // Filter the view data to only include created_at time strings
         $collection = collect();
         $filtered->sortBy('created_at')->each(function ($item, $key) use ($collection) {
             $collection->push($item->created_at->toDateString());
         });
 
+        // Count the unique values and assign to their respective keys
         $views = array_count_values($collection->toArray());
 
+        // Create a 30 day range to hold the default date values
         $period = CarbonPeriod::create(now()->subDays(30)->toDateString(), 30)->excludeStartDate();
 
+        // Prep the array to perform a comparison with the actual view data
         $range = collect();
         foreach ($period as $key => $date) {
             $range->push($date->toDateString());
         }
 
+        // Compare the view data and date range arrays, assigning view counts where applicable
         $total = collect();
         foreach ($range as $date) {
             if (array_key_exists($date, $views)) {

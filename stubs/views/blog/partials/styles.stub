@@ -240,7 +240,6 @@
     div.embedded_image p {
         text-align: center !important;
         color: #6c757d !important;
-        padding-top: 1rem !important;
         font-size: 0.9rem !important;
         line-height: 1.6 !important;
         font-weight: 400 !important;
