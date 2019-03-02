@@ -7,6 +7,7 @@ use Illuminate\Events\Dispatcher;
 use Canvas\Console\InstallCommand;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Contracts\Container\BindingResolutionException;
 
 class CanvasServiceProvider extends ServiceProvider
 {
@@ -16,6 +17,7 @@ class CanvasServiceProvider extends ServiceProvider
      * Bootstrap any package services.
      *
      * @return void
+     * @throws BindingResolutionException
      */
     public function boot()
     {
@@ -44,6 +46,7 @@ class CanvasServiceProvider extends ServiceProvider
      * Register the events and listeners.
      *
      * @return void
+     * @throws BindingResolutionException
      */
     private function registerEvents()
     {
