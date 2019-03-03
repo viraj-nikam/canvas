@@ -1,11 +1,11 @@
 <script type="text/ecmascript-6">
     import Quill from 'quill';
     import Parchment from 'parchment';
-    import ImageUploader from './editorComponents/ImageUploader.vue';
-    import HTMLEmbedder from './editorComponents/HTMLEmbedder.vue';
+    import HTMLBlot from './editorComponents/HTMLBlot.js';
     import ImageBlot from './editorComponents/ImageBlot.js';
     import DividerBlot from './editorComponents/DividerBlot.js';
-    import HTMLBlot from './editorComponents/HTMLBlot.js';
+    import HTMLEmbedder from './editorComponents/HTMLEmbedder.vue';
+    import ImageUploader from './editorComponents/ImageUploader.vue';
 
     /**
      * Create an instance of the QuillJS editor.
@@ -14,8 +14,8 @@
      */
     export default {
         components: {
-            'image-uploader': ImageUploader,
-            'html-embedder': HTMLEmbedder
+            'html-embedder': HTMLEmbedder,
+            'image-uploader': ImageUploader
         },
 
         props: {
@@ -53,7 +53,7 @@
                 const icons = Quill.import('ui/icons');
                 icons.header[3] = require('!html-loader!quill/assets/icons/header-3.svg');
 
-                return new Quill(this.$refs.editor, {
+                let quill = new Quill(this.$refs.editor, {
                     modules: {
                         syntax: true,
                         toolbar: [
@@ -66,6 +66,17 @@
                     scrollingContainer: 'html, body',
                     placeholder: "Tell your story..."
                 });
+
+                /**
+                 * Temporary workaround for customizing the link tooltip.
+                 *
+                 * @source: https://github.com/quilljs/quill/issues/1107#issuecomment-259938173
+                 */
+                let tooltip = quill.theme.tooltip;
+                let input = tooltip.root.querySelector("input[data-link]");
+                input.dataset.link = 'Paste or type a link...';
+
+                return quill;
             },
 
             // Handle the editor value
