@@ -7,7 +7,7 @@
 @endsection
 
 @section('content')
-    <post-filter :models="{{ $data['posts'] }}" inline-template>
+    <post-list :models="{{ $data['posts'] }}" inline-template>
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-10">
@@ -69,5 +69,5 @@
                 </div>
             </div>
         </div>
-    </post-filter>
+    </post-list>
 @endsection

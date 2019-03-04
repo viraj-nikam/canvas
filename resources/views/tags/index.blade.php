@@ -7,7 +7,7 @@
 @endsection
 
 @section('content')
-    <tag-filter :models="{{ $data['tags'] }}" inline-template>
+    <tag-list :models="{{ $data['tags'] }}" inline-template>
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-10">
@@ -55,5 +55,5 @@
                 </div>
             </div>
         </div>
-    </tag-filter>
+    </tag-list>
 @endsection
