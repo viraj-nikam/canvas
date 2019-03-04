@@ -8,7 +8,7 @@
 
 @section('content')
     <tag-list :models="{{ $data['tags'] }}" inline-template>
-        <div class="container">
+        <div class="container" v-cloak>
             <div class="row justify-content-center">
                 <div class="col-md-10">
                     <div class="d-flex justify-content-between">

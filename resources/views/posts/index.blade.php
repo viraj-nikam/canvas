@@ -8,7 +8,7 @@
 
 @section('content')
     <post-list :models="{{ $data['posts'] }}" inline-template>
-        <div class="container">
+        <div class="container" v-cloak>
             <div class="row justify-content-center">
                 <div class="col-md-10">
                     <div class="d-flex justify-content-between">
@@ -19,12 +19,12 @@
                                style="margin-top: -8px">
                                 <i class="fas fa-search"></i>
                             </a>
-                            <div class="dropdown-menu dropdown-menu-right py-0" aria-labelledby="dropdownMenuButton">
-                                <form class="pl-2 pr-4 mr-5">
+                            <div class="dropdown-menu dropdown-menu-right py-0" style="min-width: 15rem;" aria-labelledby="dropdownMenuButton">
+                                <form class="pl-2 w-100">
                                     <div class="form-group mb-0">
                                         <input v-model="search"
                                                type="text"
-                                               class="form-control border-0 px-0 py-0"
+                                               class="form-control border-0 pl-0"
                                                id="search"
                                                placeholder="Search..."
                                                autofocus>
