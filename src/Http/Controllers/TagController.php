@@ -19,7 +19,7 @@ class TagController extends Controller
     public function index(): View
     {
         $data = [
-            'tags' => Tag::orderByDesc('created_at')->withCount('posts')->paginate(15),
+            'tags' => Tag::orderByDesc('created_at')->withCount('posts')->get(),
         ];
 
         return view('canvas::tags.index', compact('data'));
