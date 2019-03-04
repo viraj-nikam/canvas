@@ -3,7 +3,7 @@
     <input type="hidden" name="id" hidden value="{{ $data['id'] }}">
 
     <slug inline-template>
-        <div>
+        <div v-cloak>
             <div class="form-group row my-5">
                 <div class="col-lg-12">
                     <input type="text" name="name" v-model="name" title="Name"

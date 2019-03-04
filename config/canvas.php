@@ -7,9 +7,9 @@ return [
     | Route Middleware
     |--------------------------------------------------------------------------
     |
-    | You may assign any custom middleware that you choose to the Canvas
-    | routes in your application. They will be protected by basic
-    | user authentication by default.
+    | Assign any custom middleware to limit access to the admin interface.
+    | If your app needs roles or permissions that allow for specific
+    | users to manage the blog, create and add a middleware here.
     |
     */
 
@@ -23,9 +23,9 @@ return [
     | Uploads Disk
     |--------------------------------------------------------------------------
     |
-    | This is the storage disk Canvas will use to put file uploads, you can use
-    | any of the disks defined in your config/filesystems.php file. You may
-    | also configure the path where the files should be stored.
+    | This is the storage disk Canvas will use to put file uploads, you can
+    | use any of the disks defined in your config/filesystems.php file.
+    | You may also configure the path files should be stored at.
     |
     */
 

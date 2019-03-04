@@ -1,7 +1,7 @@
 <script type="text/ecmascript-6">
     import Vue from 'vue'
-    import Chart from 'vue2-frappe'
     import moment from 'moment';
+    import Chart from 'vue2-frappe'
 
     Vue.use(Chart);
     Vue.prototype.moment = moment;
@@ -22,7 +22,7 @@
 </script>
 
 <template>
-    <div>
+    <div v-cloak>
         <vue-frappe
                 id="stats"
                 :labels="this.labels"

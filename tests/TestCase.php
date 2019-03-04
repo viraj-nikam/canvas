@@ -10,6 +10,8 @@ use Illuminate\Database\Schema\Blueprint;
 abstract class TestCase extends \Orchestra\Testbench\TestCase
 {
     /**
+     * The authenticated user to test with.
+     *
      * @var User
      */
     protected $testUser;
@@ -28,10 +30,9 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
 
     /**
      * @param \Illuminate\Foundation\Application $app
-     *
      * @return array
      */
-    protected function getPackageProviders($app)
+    protected function getPackageProviders($app): array
     {
         return [
             CanvasServiceProvider::class,
@@ -44,7 +45,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
      * @param \Illuminate\Foundation\Application $app
      * @return void
      */
-    protected function getEnvironmentSetUp($app)
+    protected function getEnvironmentSetUp($app): void
     {
         // If we're not in TravisCI, load our local .env file
         if (empty(getenv('CI'))) {
@@ -74,7 +75,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
      * @param \Illuminate\Foundation\Application $app
      * @return void
      */
-    protected function setUpDatabase($app)
+    protected function setUpDatabase($app): void
     {
         $this->artisan('migrate:fresh');
         $app['db']->connection()->getSchemaBuilder()->create('users', function (Blueprint $table) {
@@ -88,12 +89,14 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
     }
 
     /**
+     * Create the default test user.
+     *
      * @return User
      */
-    protected function createTestUser(): User
+    private function createTestUser(): User
     {
         return User::create([
-            'email' => 'test@user.com',
+            'email' => 'user@example.com',
         ]);
     }
 }
