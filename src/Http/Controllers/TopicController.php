@@ -19,7 +19,7 @@ class TopicController extends Controller
     public function index(): View
     {
         $data = [
-            'topics' => Topic::orderByDesc('created_at')->withCount('posts')->paginate(15),
+            'topics' => Topic::orderByDesc('created_at')->withCount('posts')->get(),
         ];
 
         return view('canvas::topics.index', compact('data'));
