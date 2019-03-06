@@ -53,6 +53,13 @@ class Post extends Model
     public $incrementing = false;
 
     /**
+     * The number of models to return for pagination.
+     *
+     * @var int
+     */
+    protected $perPage = 10;
+
+    /**
      * The attributes that should be mutated to dates.
      *
      * @var array
@@ -162,7 +169,7 @@ class Post extends Model
     public function getPopularReadingTimesAttribute($value): array
     {
         // Get the views associated with the post
-        $data = View::where('post_id', $this->id)->get();
+        $data = $this->views;
 
         // Filter the view data to only include hours:minutes
         $collection = collect();

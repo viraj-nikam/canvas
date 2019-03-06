@@ -18,7 +18,7 @@
                     <div class="card-deck mb-4">
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title text-muted small text-uppercase font-weight-bold">Total Views</h5>
+                                <h5 class="card-title text-muted small text-uppercase font-weight-bold">Views (30 days)</h5>
                                 <p class="card-text display-4">{{ \Canvas\SuffixedNumber::format($data['views']['count']) }}</p>
                             </div>
                         </div>
@@ -57,7 +57,7 @@
                                         </p>
                                 </div>
                                 <div class="ml-auto d-none d-lg-block">
-                                    <span class="text-muted mr-3">{{ \Canvas\SuffixedNumber::format($post->views->count()) }} View(s)</span>
+                                    <span class="text-muted mr-3">{{ \Canvas\SuffixedNumber::format($post->views_count) }} View(s)</span>
                                     Created {{ \Carbon\Carbon::parse($post->created_at)->diffForHumans() }}
                                 </div>
                             </div>

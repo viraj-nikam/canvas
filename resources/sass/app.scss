@@ -11,6 +11,10 @@
 // Bootstrap
 @import "~bootstrap/scss/bootstrap";
 
+[v-cloak] {
+  display: none;
+}
+
 body:not(.user-is-tabbing) a:focus,
 body:not(.user-is-tabbing) button:focus,
 body:not(.user-is-tabbing) input:focus,

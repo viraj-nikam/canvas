@@ -8,7 +8,7 @@
 
 @section('content')
     <post-list :models="{{ $data['posts'] }}" inline-template>
-        <div class="container" v-cloak>
+        <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-10">
                     <div class="d-flex justify-content-between">
@@ -35,34 +35,36 @@
                     </div>
 
                     @if(count($data['posts']))
-                        <div class="d-flex border-top py-3 align-items-center" v-for="post in filteredList">
-                            <div class="mr-auto py-1">
-                                <p class="mb-1">
-                                    <a :href="'/canvas/posts/' + post.id + '/edit'" class="font-weight-bold lead">@{{ post.title }}</a>
-                                </p>
-                                <p class="mb-1" v-if="post.summary">@{{ post.summary }}</p>
-                                <p class="text-muted mb-0">
-                                    <span v-if="post.published_at <= new Date().toJSON().slice(0, 19).replace('T', ' ')">Published @{{ moment(post.published_at).fromNow() }}</span>
-                                    <span v-else class="text-danger">Draft</span>
-                                    ―
-                                    Updated @{{ moment(post.updated_at).fromNow() }}
-                                </p>
-                            </div>
-                            <div class="ml-auto d-none d-lg-block">
-                                <a :href="'/canvas/posts/' + post.id + '/edit'">
-                                    <div v-if="post.featured_image"
-                                         class="mr-2"
-                                         :style="{ backgroundImage: 'url(' + post.featured_image + ')' }"
-                                         style="background-size: cover;width: 57px; height: 57px; -webkit-border-radius: 50%;-moz-border-radius: 50%;border-radius: 50%;"></div>
-                                    <span v-else class="fa-stack fa-2x align-middle">
+                        <div v-cloak>
+                            <div class="d-flex border-top py-3 align-items-center" v-for="post in filteredList">
+                                <div class="mr-auto py-1">
+                                    <p class="mb-1">
+                                        <a :href="'/canvas/posts/' + post.id + '/edit'" class="font-weight-bold lead">@{{ post.title }}</a>
+                                    </p>
+                                    <p class="mb-1" v-if="post.summary">@{{ post.summary }}</p>
+                                    <p class="text-muted mb-0">
+                                        <span v-if="post.published_at <= new Date().toJSON().slice(0, 19).replace('T', ' ')">Published @{{ moment(post.published_at).fromNow() }}</span>
+                                        <span v-else class="text-danger">Draft</span>
+                                        ―
+                                        Updated @{{ moment(post.updated_at).fromNow() }}
+                                    </p>
+                                </div>
+                                <div class="ml-auto d-none d-lg-block">
+                                    <a :href="'/canvas/posts/' + post.id + '/edit'">
+                                        <div v-if="post.featured_image"
+                                             class="mr-2"
+                                             :style="{ backgroundImage: 'url(' + post.featured_image + ')' }"
+                                             style="background-size: cover;width: 57px; height: 57px; -webkit-border-radius: 50%;-moz-border-radius: 50%;border-radius: 50%;"></div>
+                                        <span v-else class="fa-stack fa-2x align-middle">
                                         <i class="fas fa-circle fa-stack-2x text-black-50"></i>
                                         <i class="fas fa-fw fa-stack-1x fa-camera fa-inverse"></i>
                                     </span>
-                                </a>
+                                    </a>
+                                </div>
                             </div>
-                        </div>
 
-                        <p class="mt-4" v-if="!filteredList.length">No posts matched the given search criteria.</p>
+                            <p class="mt-4" v-if="!filteredList.length">No posts matched the given search criteria.</p>
+                        </div>
                     @else
                         <p class="mt-4">No posts were found, start by <a href="{{ route('canvas.post.create') }}">adding a new post</a>.</p>
                     @endif

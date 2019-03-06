@@ -8,7 +8,7 @@
 
 @section('content')
     <tag-list :models="{{ $data['tags'] }}" inline-template>
-        <div class="container" v-cloak>
+        <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-10">
                     <div class="d-flex justify-content-between">
@@ -35,20 +35,22 @@
                     </div>
 
                     @if(count($data['tags']))
-                        <div class="d-flex border-top py-3 align-items-center" v-for="tag in filteredList">
-                            <div class="mr-auto">
-                                <p class="mb-0 py-1">
-                                    <a :href="'/canvas/tags/' + tag.id + '/edit'"
-                                       class="font-weight-bold lead">@{{ tag.name }}</a>
-                                </p>
+                        <div v-cloak>
+                            <div class="d-flex border-top py-3 align-items-center" v-for="tag in filteredList">
+                                <div class="mr-auto">
+                                    <p class="mb-0 py-1">
+                                        <a :href="'/canvas/tags/' + tag.id + '/edit'"
+                                           class="font-weight-bold lead">@{{ tag.name }}</a>
+                                    </p>
+                                </div>
+                                <div class="ml-auto">
+                                    <span class="text-muted mr-3">@{{ tag.posts_count }} Post(s)</span>
+                                    Created @{{ moment(tag.created_at).fromNow() }}
+                                </div>
                             </div>
-                            <div class="ml-auto">
-                                <span class="text-muted mr-3">@{{ tag.posts_count }} Post(s)</span>
-                                Created @{{ moment(tag.created_at).fromNow() }}
-                            </div>
-                        </div>
 
-                        <p class="mt-4" v-if="!filteredList.length">No tags matched the given search criteria.</p>
+                            <p class="mt-4" v-if="!filteredList.length">No tags matched the given search criteria.</p>
+                        </div>
                     @else
                         <p class="mt-4">No tags were found, start by <a href="{{ route('canvas.tag.create') }}">adding a new tag</a>.</p>
                     @endif

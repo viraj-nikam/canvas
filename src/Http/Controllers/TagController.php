@@ -3,20 +3,18 @@
 namespace Canvas\Http\Controllers;
 
 use Canvas\Tag;
-use Illuminate\View\View;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\Routing\Controller;
-use Illuminate\Http\RedirectResponse;
 
 class TagController extends Controller
 {
     /**
      * Show a paginated list of tags.
      *
-     * @return View
+     * @return \Illuminate\View\View
      */
-    public function index(): View
+    public function index()
     {
         $data = [
             'tags' => Tag::orderByDesc('created_at')->withCount('posts')->get(),
@@ -28,9 +26,9 @@ class TagController extends Controller
     /**
      * Show the form for creating a new tag.
      *
-     * @return View
+     * @return \Illuminate\View\View
      */
-    public function create(): View
+    public function create()
     {
         $data = [
             'id' => Str::uuid(),
@@ -43,9 +41,9 @@ class TagController extends Controller
      * Show the form for editing a tag.
      *
      * @param string $id
-     * @return View
+     * @return \Illuminate\View\View
      */
-    public function edit(string $id): View
+    public function edit(string $id)
     {
         $data = [
             'tag' => Tag::findOrFail($id),
@@ -57,9 +55,9 @@ class TagController extends Controller
     /**
      * Store a newly created tag in storage.
      *
-     * @return RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(): RedirectResponse
+    public function store()
     {
         $data = [
             'id'   => request('id'),
@@ -83,9 +81,9 @@ class TagController extends Controller
      * Update a tag in storage.
      *
      * @param string $id
-     * @return RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(string $id): RedirectResponse
+    public function update(string $id)
     {
         $tag = Tag::findOrFail($id);
 
@@ -110,9 +108,9 @@ class TagController extends Controller
      * Soft delete a tag in storage.
      *
      * @param string $id
-     * @return RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy(string $id): RedirectResponse
+    public function destroy(string $id)
     {
         $tag = Tag::findOrFail($id);
         $tag->delete();
