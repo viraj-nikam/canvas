@@ -53,6 +53,13 @@ class Post extends Model
     public $incrementing = false;
 
     /**
+     * The number of models to return for pagination.
+     *
+     * @var int
+     */
+    protected $perPage = 10;
+
+    /**
      * The attributes that should be mutated to dates.
      *
      * @var array

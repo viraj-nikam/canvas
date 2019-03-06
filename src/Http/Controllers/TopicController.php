@@ -3,20 +3,18 @@
 namespace Canvas\Http\Controllers;
 
 use Canvas\Topic;
-use Illuminate\View\View;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\Routing\Controller;
-use Illuminate\Http\RedirectResponse;
 
 class TopicController extends Controller
 {
     /**
      * Show a paginated list of topics.
      *
-     * @return View
+     * @return \Illuminate\View\View
      */
-    public function index(): View
+    public function index()
     {
         $data = [
             'topics' => Topic::orderByDesc('created_at')->withCount('posts')->get(),
@@ -28,9 +26,9 @@ class TopicController extends Controller
     /**
      * Show the form for creating a new topic.
      *
-     * @return View
+     * @return \Illuminate\View\View
      */
-    public function create(): View
+    public function create()
     {
         $data = [
             'id' => Str::uuid(),
@@ -43,9 +41,9 @@ class TopicController extends Controller
      * Show the form for editing a topic.
      *
      * @param string $id
-     * @return View
+     * @return \Illuminate\View\View
      */
-    public function edit(string $id): View
+    public function edit(string $id)
     {
         $data = [
             'topic' => Topic::findOrFail($id),
@@ -57,9 +55,9 @@ class TopicController extends Controller
     /**
      * Store a newly created topic in storage.
      *
-     * @return RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(): RedirectResponse
+    public function store()
     {
         $data = [
             'id'   => request('id'),
@@ -83,9 +81,9 @@ class TopicController extends Controller
      * Update a topic in storage.
      *
      * @param string $id
-     * @return RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(string $id): RedirectResponse
+    public function update(string $id)
     {
         $topic = Topic::findOrFail($id);
 
@@ -110,9 +108,9 @@ class TopicController extends Controller
      * Soft delete a topic in storage.
      *
      * @param string $id
-     * @return RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy(string $id): RedirectResponse
+    public function destroy(string $id)
     {
         $topic = Topic::findOrFail($id);
         $topic->delete();

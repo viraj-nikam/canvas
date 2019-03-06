@@ -6,20 +6,18 @@ use Canvas\Tag;
 use Canvas\Post;
 use Canvas\Topic;
 use Carbon\Carbon;
-use Illuminate\View\View;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\Routing\Controller;
-use Illuminate\Http\RedirectResponse;
 
 class PostController extends Controller
 {
     /**
      * Show a paginated list of posts.
      *
-     * @return View
+     * @return \Illuminate\View\View
      */
-    public function index(): View
+    public function index()
     {
         $data = [
             'posts' => Post::orderByDesc('created_at')->with('tags')->get(),
@@ -31,9 +29,9 @@ class PostController extends Controller
     /**
      * Show the form for creating a new post.
      *
-     * @return View
+     * @return \Illuminate\View\View
      */
-    public function create(): View
+    public function create()
     {
         $data = [
             'id'     => Str::uuid(),
@@ -48,9 +46,9 @@ class PostController extends Controller
      * Show the form for editing an existing post.
      *
      * @param string $id
-     * @return View
+     * @return \Illuminate\View\View
      */
-    public function edit(string $id): View
+    public function edit(string $id)
     {
         $post = Post::findOrFail($id);
 
@@ -67,9 +65,9 @@ class PostController extends Controller
     /**
      * Store a newly created post in storage.
      *
-     * @return RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(): RedirectResponse
+    public function store()
     {
         $data = [
             'id'                     => request('id'),
@@ -121,9 +119,9 @@ class PostController extends Controller
      * Update a post in storage.
      *
      * @param string $id
-     * @return RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(string $id): RedirectResponse
+    public function update(string $id)
     {
         $post = Post::findOrFail($id);
 
@@ -176,9 +174,9 @@ class PostController extends Controller
      * Soft delete a post in storage.
      *
      * @param string $id
-     * @return RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy(string $id): RedirectResponse
+    public function destroy(string $id)
     {
         $post = Post::findOrFail($id);
         $post->delete();

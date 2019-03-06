@@ -3,20 +3,30 @@
 namespace Canvas\Http\Controllers;
 
 use Canvas\Post;
-use Illuminate\View\View;
+use Canvas\View;
 use Illuminate\Routing\Controller;
 
 class StatsController extends Controller
 {
     /**
+     * The number of days to generate statistics for.
+     *
+     * @const int
+     */
+    const DAYS_PRIOR = 30;
+
+    /**
      * Show the overall statistics for all posts.
      *
-     * @return View
+     * @return \Illuminate\View\View
      */
-    public function index(): View
+    public function index()
     {
-        $posts = Post::with('views')->orderByDesc('created_at')->paginate(10);
-        $views = \Canvas\View::all();
+        $posts = Post::withCount('views')->orderByDesc('created_at')->paginate();
+        $views = View::whereBetween('created_at', [
+            now()->subDays(self::DAYS_PRIOR)->toDateTimeString(),
+            now()->toDateTimeString(),
+        ])->select('created_at')->get();
 
         $data = [
             'posts' => [
@@ -26,7 +36,7 @@ class StatsController extends Controller
             ],
             'views' => [
                 'count' => $views->count(),
-                'trend' => json_encode(\Canvas\View::viewTrend($views)),
+                'trend' => json_encode(View::viewTrend($views, self::DAYS_PRIOR)),
             ],
         ];
 
@@ -37,11 +47,11 @@ class StatsController extends Controller
      * Show data analytics for a single post.
      *
      * @param string $id
-     * @return View
+     * @return \Illuminate\View\View
      */
-    public function show(string $id): View
+    public function show(string $id)
     {
-        $post = Post::with('views')->findOrFail($id);
+        $post = Post::findOrFail($id);
 
         if ($post->published) {
             $data = [

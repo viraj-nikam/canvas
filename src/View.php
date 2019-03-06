@@ -9,8 +9,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class View extends Model
 {
-    const DAYS_PRIOR = 30;
-
     /**
      * The attributes that aren't mass assignable.
      *
@@ -39,18 +37,14 @@ class View extends Model
      * Return a view count for the last [X] days.
      *
      * @param Collection $views
+     * @param int $days
      * @return array
      */
-    public static function viewTrend(Collection $views): array
+    public static function viewTrend(Collection $views, int $days): array
     {
-        // Filter views to only include the last [X] days
-        $filtered = $views->filter(function ($value, $key) {
-            return $value->created_at >= now()->subDays(self::DAYS_PRIOR);
-        });
-
-        // Filter the view data to only include created_at time strings
+        // Filter the view data to only include created_at date strings
         $collection = collect();
-        $filtered->sortBy('created_at')->each(function ($item, $key) use ($collection) {
+        $views->sortBy('created_at')->each(function ($item, $key) use ($collection) {
             $collection->push($item->created_at->toDateString());
         });
 
@@ -58,7 +52,7 @@ class View extends Model
         $views = array_count_values($collection->toArray());
 
         // Create a [X] day range to hold the default date values
-        $period = CarbonPeriod::create(now()->subDays(self::DAYS_PRIOR)->toDateString(), self::DAYS_PRIOR)->excludeStartDate();
+        $period = CarbonPeriod::create(now()->subDays($days)->toDateString(), $days)->excludeStartDate();
 
         // Prep the array to perform a comparison with the actual view data
         $range = collect();
