@@ -169,7 +169,7 @@ class Post extends Model
     public function getPopularReadingTimesAttribute($value): array
     {
         // Get the views associated with the post
-        $data = $this->views;
+        $data = View::where('post_id', $this->id)->get();
 
         // Filter the view data to only include hours:minutes
         $collection = collect();
