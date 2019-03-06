@@ -8,6 +8,11 @@ use Illuminate\Routing\Controller;
 
 class StatsController extends Controller
 {
+    /**
+     * The number of days to generate statistics for.
+     *
+     * @const int
+     */
     const DAYS_PRIOR = 30;
 
     /**
