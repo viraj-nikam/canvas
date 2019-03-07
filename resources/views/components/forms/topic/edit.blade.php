@@ -2,8 +2,8 @@
     @method('PUT')
     @csrf
 
-    <slug :entity="{{ $data['topic'] }}" inline-template>
-        <div>
+    <slug :model="{{ $data['topic'] }}" inline-template>
+        <div v-cloak>
             <div class="form-group row my-5">
                 <div class="col-lg-12">
                     <input type="text" name="name" v-model="name" value="{{ $data['topic']->name }}"
