@@ -19,7 +19,7 @@
                                style="margin-top: -8px">
                                 <i class="fas fa-search"></i>
                             </a>
-                            <div class="dropdown-menu dropdown-menu-right py-0" aria-labelledby="dropdownMenuButton">
+                            <div class="dropdown-menu dropdown-menu-right py-0" style="min-width: 15rem;" aria-labelledby="dropdownMenuButton">
                                 <form class="pl-2 pr-4 mr-5">
                                     <div class="form-group mb-0">
                                         <input v-model="search"
