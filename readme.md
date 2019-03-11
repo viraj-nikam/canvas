@@ -1,6 +1,6 @@
 <p align="center">
     <br>
-    <img src="https://raw.githubusercontent.com/cnvs/art/master/github-header.png" width="500">
+    <img src="https://raw.githubusercontent.com/cnvs/art/master/github-header.png#1" width="450">
 </p>
 
 <p align="center">
