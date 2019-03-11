@@ -32,3 +32,6 @@ Route::post('topics', 'TopicController@store')->name('canvas.topic.store');
 Route::get('topics/{id}/edit', 'TopicController@edit')->name('canvas.topic.edit');
 Route::put('topics/{id}', 'TopicController@update')->name('canvas.topic.update');
 Route::delete('topics/{id}', 'TopicController@destroy')->name('canvas.topic.destroy');
+
+// Settings routes...
+Route::get('settings', 'SettingsController@index')->name('canvas.settings.index');
