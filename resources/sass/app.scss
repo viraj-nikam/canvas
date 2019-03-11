@@ -42,12 +42,9 @@ a, .btn-link {
   font-family: $font-family-sans-serif;
 }
 
-.logo {
-  font-family: $font-family-serif;
+.logo i {
   font-size: 20px;
-  span {
-    color: $light-grey;
-  }
+  color: rgb(33, 37, 41) !important;
 }
 
 input, textarea, select {
