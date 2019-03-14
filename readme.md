@@ -1,5 +1,5 @@
 <p align="center">
-    <br><br><br>
+    <br>
     <img src="https://raw.githubusercontent.com/cnvs/art/master/github-header.png" width="450">
 </p>
 
