@@ -1,5 +1,5 @@
 <p align="center">
-    <br>
+    <br><br><br>
     <img src="https://raw.githubusercontent.com/cnvs/art/master/github-header.png" width="450">
 </p>
 
@@ -8,7 +8,7 @@
 	<a href="https://packagist.org/packages/cnvs/canvas"><img src="https://poser.pugx.org/cnvs/canvas/downloads"></a>
 	<a href="https://packagist.org/packages/cnvs/canvas"><img src="https://poser.pugx.org/cnvs/canvas/v/stable"></a>
 	<a href="https://packagist.org/packages/cnvs/canvas"><img src="https://poser.pugx.org/cnvs/canvas/license"></a>
-    <br>
+    <br><br><br>
 </p>
 
 ## Introduction
