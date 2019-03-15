@@ -1,6 +1,6 @@
 <?php
 
-namespace Canvas\Tests\Unit\Console;
+namespace Canvas\Tests\Console;
 
 use Canvas\Tests\FeatureTestCase;
 
