@@ -5,6 +5,7 @@ namespace Canvas\Tests;
 use Canvas\CanvasServiceProvider;
 use Orchestra\Testbench\TestCase;
 use Illuminate\Foundation\Auth\User;
+use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class FeatureTestCase extends TestCase
@@ -22,7 +23,7 @@ class FeatureTestCase extends TestCase
     }
 
     /**
-     * @param \Illuminate\Foundation\Application $app
+     * @param Application $app
      * @return array
      */
     protected function getPackageProviders($app): array
@@ -33,7 +34,8 @@ class FeatureTestCase extends TestCase
     }
 
     /**
-     * @param \Illuminate\Foundation\Application $app
+     * @param Application $app
+     * @return void
      */
     protected function resolveApplicationCore($app)
     {
@@ -45,7 +47,7 @@ class FeatureTestCase extends TestCase
     }
 
     /**
-     * @param \Illuminate\Foundation\Application $app
+     * @param Application $app
      * @return void
      */
     protected function getEnvironmentSetUp($app): void
@@ -66,7 +68,7 @@ class FeatureTestCase extends TestCase
     }
 
     /**
-     * @param \Illuminate\Foundation\Application $app
+     * @param Application $app
      * @return void
      */
     protected function setUpDatabase($app): void
@@ -74,8 +76,6 @@ class FeatureTestCase extends TestCase
         $this->loadLaravelMigrations();
 
         $this->loadMigrationsFrom(dirname(__DIR__).'/database/migrations');
-
-        $this->loadFactoriesUsing($app, dirname(__DIR__).'/database/factories');
 
         $this->artisan('migrate');
     }
