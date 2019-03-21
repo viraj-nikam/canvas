@@ -144,7 +144,7 @@ class Post extends Model
     }
 
     /**
-     * Get the human-friendly reading time of a post.
+     * Get the human-friendly estimated reading time of a post.
      *
      * @param $value
      * @return string

@@ -35,7 +35,10 @@ class CanvasServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__.'/../config/canvas.php', 'canvas');
+        $this->mergeConfigFrom(
+            __DIR__.'/../config/canvas.php', 'canvas'
+        );
+
         $this->commands([
             InstallCommand::class,
             SetupCommand::class,
@@ -91,7 +94,7 @@ class CanvasServiceProvider extends ServiceProvider
     private function registerMigrations()
     {
         if ($this->app->runningInConsole()) {
-            $this->loadMigrationsFrom(__DIR__.'/Migrations');
+            $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
         }
     }
 
