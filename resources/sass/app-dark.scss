@@ -35,7 +35,7 @@ blockquote {
   border-left: 4px solid #434857 !important;
 
   span {
-    color: #59616A !important;
+    color: #cfd2da !important;
   }
 }
 
@@ -105,8 +105,11 @@ input, textarea {
   color: #cfd2da !important;
 }
 
-line {
-  stroke: #434857 !important;
+.line-chart {
+  line.line-horizontal,
+  line.line-vertical {
+    stroke: #434857 !important;
+  }
 }
 
 .logo i {
