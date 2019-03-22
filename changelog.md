@@ -3,7 +3,7 @@
 ## [v4.1.15](https://github.com/cnvs/canvas/compare/v4.1.14...v4.1.15)
 
 ### Added
-- Added a dark mode (()[])
+- Added a dark mode ([e3723ac](https://github.com/cnvs/canvas/commit/e3723ac6523ef000b0901f3c073a94bcad7cfebf))
 
 ## [v4.1.14](https://github.com/cnvs/canvas/compare/v4.1.13...v4.1.14)
 
