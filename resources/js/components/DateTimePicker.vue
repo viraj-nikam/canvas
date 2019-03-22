@@ -1,5 +1,5 @@
 <script type="text/ecmascript-6">
-    import moment from 'moment';
+    import moment from 'moment'
 
     /**
      * Create the default date/time picker.

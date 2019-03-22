@@ -1,11 +1,11 @@
 <script type="text/ecmascript-6">
-    import Quill from 'quill';
-    import Parchment from 'parchment';
-    import HTMLBlot from './editorComponents/HTMLBlot.js';
-    import ImageBlot from './editorComponents/ImageBlot.js';
-    import DividerBlot from './editorComponents/DividerBlot.js';
-    import HTMLEmbedder from './editorComponents/HTMLEmbedder.vue';
-    import ImageUploader from './editorComponents/ImageUploader.vue';
+    import Quill from 'quill'
+    import Parchment from 'parchment'
+    import HTMLBlot from './editorComponents/HTMLBlot.js'
+    import ImageBlot from './editorComponents/ImageBlot.js'
+    import DividerBlot from './editorComponents/DividerBlot.js'
+    import HTMLEmbedder from './editorComponents/HTMLEmbedder.vue'
+    import ImageUploader from './editorComponents/ImageUploader.vue'
 
     /**
      * Create an instance of the QuillJS editor.

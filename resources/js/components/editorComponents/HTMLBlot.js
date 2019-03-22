@@ -4,7 +4,7 @@
  * @source https://github.com/writingink/wink
  */
 
-import Quill from 'quill';
+import Quill from 'quill'
 
 let BlockEmbed = Quill.import('blots/block/embed');
 
