@@ -1,4 +1,3 @@
-
 window._ = require('lodash');
 
 /**
@@ -13,14 +12,19 @@ try {
     window.autosize = window.autosize ? window.autosize : require('autosize');
 
     // Apply auto-sizing to textarea inputs
-    $(function () {autosize($('textarea'))});
+    $(function () {
+        autosize($('textarea'))
+    });
 
     // Opt-in to tooltip functionality
-    $(function () {$('[data-toggle="tooltip"]').tooltip()});
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    });
 
     require('bootstrap');
     require('@fortawesome/fontawesome-free');
-} catch (e) {}
+} catch (e) {
+}
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests

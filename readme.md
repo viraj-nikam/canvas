@@ -73,10 +73,10 @@ Run any new migrations using the `migrate` Artisan command:
 php artisan migrate
 ```
 
-You may also want to run this command to re-publish the assets:
+Re-publish the assets using the `canvas:publish` Artisan command:
 
 ```bash
-php artisan vendor:publish --tag=canvas-assets --force
+php artisan canvas:publish
 ```
 
 ## Testing

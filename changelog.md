@@ -1,5 +1,10 @@
 # Release Notes
 
+## [v4.1.15](https://github.com/cnvs/canvas/compare/v4.1.14...v4.1.15)
+
+### Added
+- Added a dark mode (()[])
+
 ## [v4.1.14](https://github.com/cnvs/canvas/compare/v4.1.13...v4.1.14)
 
 ### Fixed
