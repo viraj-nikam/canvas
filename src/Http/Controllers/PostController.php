@@ -35,8 +35,8 @@ class PostController extends Controller
     {
         $data = [
             'id'     => Str::uuid(),
-            'tags'   => Tag::all(),
-            'topics' => Topic::all(),
+            'tags'   => Tag::all(['name', 'slug']),
+            'topics' => Topic::all(['name', 'slug']),
         ];
 
         return view('canvas::posts.create', compact('data'));
@@ -55,8 +55,8 @@ class PostController extends Controller
         $data = [
             'post'   => $post,
             'meta'   => $post->meta,
-            'tags'   => Tag::all(),
-            'topics' => Topic::all(),
+            'tags'   => Tag::all(['name', 'slug']),
+            'topics' => Topic::all(['name', 'slug']),
         ];
 
         return view('canvas::posts.edit', compact('data'));
