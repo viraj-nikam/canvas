@@ -11,12 +11,27 @@ try {
     window.$ = window.jQuery = require('jquery');
     window.autosize = window.autosize ? window.autosize : require('autosize');
 
-    // Apply auto-sizing to textarea inputs
+    /**
+     * Current workaround for using the Autosize library which will only resize
+     * elements when clicked, not on the initial page load.
+     *
+     * @source http://www.jacklmoore.com/autosize/#faq-hidden
+     */
     $(function () {
-        autosize($('textarea'))
+        let textarea = $('textarea');
+
+        autosize(textarea);
+
+        textarea.focus(function () {
+            autosize.update(textarea);
+        });
     });
 
-    // Opt-in to tooltip functionality
+    /**
+     * Initialize all tooltips on a page by manually opting in.
+     *
+     * @source https://getbootstrap.com/docs/4.3/components/tooltips/#example-enable-tooltips-everywhere
+     */
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()
     });

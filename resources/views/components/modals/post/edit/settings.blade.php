@@ -21,7 +21,7 @@
                     <div class="col-12">
                         <label for="summary" class="font-weight-bold">Summary</label>
                         <textarea name="summary" class="form-control border-0 px-0"
-                                  placeholder="A descriptive summary.."
+                                  placeholder="A descriptive summary.." rows="1"
                                   title="Summary">{{ $data['post']->summary }}</textarea>
                     </div>
                 </div>
