@@ -17,8 +17,6 @@ A [Laravel](https://laravel.com) publishing platform. Canvas is a fully open sou
 application and get you up-and-running with a blog in just a few minutes. In addition to a distraction-free 
 writing experience, you can view monthly trends on your content, get insights into reader traffic and more!
 
-<img src="https://cnvs.io/img/zDTOCfMeOf2pr1sHax9KqNzWsnF8KOa55CPPyppc.png#1">
-
 ## Installation
 
 > **Note:** Canvas requires you to have user authentication in place prior to installation. You may run the `make:auth` Artisan command to satisfy this requirement.
