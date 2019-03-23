@@ -15,7 +15,7 @@ try {
      * Current workaround for using the Autosize library which will only resize
      * elements when clicked, not on the initial page load.
      *
-     * @source http://www.jacklmoore.com/autosize/#faq-hidden
+     * @link http://www.jacklmoore.com/autosize/#faq-hidden
      */
     $(function () {
         let textarea = $('textarea');
@@ -30,7 +30,7 @@ try {
     /**
      * Initialize all tooltips on a page by manually opting in.
      *
-     * @source https://getbootstrap.com/docs/4.3/components/tooltips/#example-enable-tooltips-everywhere
+     * @link https://getbootstrap.com/docs/4.3/components/tooltips/#example-enable-tooltips-everywhere
      */
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()

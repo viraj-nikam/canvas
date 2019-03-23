@@ -54,7 +54,7 @@ class InstallCommand extends Command
      *
      * @return void
      *
-     * @source https://gihtub.com/laravel/telescope
+     * @author Taylor Otwell <taylor@laravel.com>
      */
     private function registerCanvasServiceProvider()
     {

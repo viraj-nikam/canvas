@@ -10,7 +10,7 @@
     /**
      * Create an instance of the QuillJS editor.
      *
-     * @source https://github.com/writingink/wink
+     * @author Mohamed Said <themsaid@gmail.com>
      */
     export default {
         components: {
@@ -70,7 +70,7 @@
                 /**
                  * Temporary workaround for customizing the link tooltip.
                  *
-                 * @source: https://github.com/quilljs/quill/issues/1107#issuecomment-259938173
+                 * @link https://github.com/quilljs/quill/issues/1107#issuecomment-259938173
                  */
                 let tooltip = quill.theme.tooltip;
                 let input = tooltip.root.querySelector("input[data-link]");
