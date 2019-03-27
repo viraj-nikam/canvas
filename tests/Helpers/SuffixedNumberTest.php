@@ -3,9 +3,9 @@
 namespace Canvas\Tests\Helpers;
 
 use Canvas\SuffixedNumber;
-use Canvas\Tests\FeatureTestCase;
+use Canvas\Tests\TestCase;
 
-class SuffixedNumberTest extends FeatureTestCase
+class SuffixedNumberTest extends TestCase
 {
     /**
      * @return void

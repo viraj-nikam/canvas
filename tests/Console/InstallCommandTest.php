@@ -2,9 +2,9 @@
 
 namespace Canvas\Tests\Console;
 
-use Canvas\Tests\FeatureTestCase;
+use Canvas\Tests\TestCase;
 
-class InstallCommandTest extends FeatureTestCase
+class InstallCommandTest extends TestCase
 {
     /**
      * @return void
