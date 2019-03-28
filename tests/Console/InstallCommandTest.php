@@ -15,7 +15,7 @@ class InstallCommandTest extends TestCase
     }
 
     /** @test */
-    public function it_can_install_assets_and_configuration()
+    public function install_assets_and_configuration()
     {
         $this->artisan('canvas:install')
             ->expectsOutput('Publishing the assets...')

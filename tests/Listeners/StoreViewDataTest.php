@@ -27,7 +27,7 @@ class StoreViewDataTest extends TestCase
     }
 
     /** @test */
-    public function it_returns_true_if_a_post_was_recently_viewed()
+    public function check_if_a_post_was_recently_viewed()
     {
         $post = Post::create([
             'id'      => Str::uuid()->toString(),
@@ -44,19 +44,8 @@ class StoreViewDataTest extends TestCase
 
         $this->assertTrue($response);
         $this->assertArrayHasKey($post->id, session()->get('viewed_posts'));
-    }
 
-    /** @test */
-    public function it_returns_false_if_a_post_was_not_recently_viewed()
-    {
-        session()->put('viewed_posts', []);
-
-        $post = Post::create([
-            'id'      => Str::uuid()->toString(),
-            'title'   => 'Example Post',
-            'slug'    => 'example-slug',
-            'user_id' => 1,
-        ]);
+        session()->flush();
 
         $response = $this->invokeMethod($this->instance, 'wasRecentlyViewed', ['post' => $post]);
 
@@ -64,7 +53,7 @@ class StoreViewDataTest extends TestCase
     }
 
     /** @test */
-    public function it_stores_a_post_id_in_session()
+    public function store_a_post_id_in_session()
     {
         $post = Post::create([
             'id'      => Str::uuid()->toString(),
