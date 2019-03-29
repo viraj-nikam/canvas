@@ -56,9 +56,9 @@ class StatsController extends Controller
         if ($post->published) {
             $data = [
                 'post'                  => $post,
-                'traffic'               => $post->topReferers,
-                'popular_reading_times' => $post->popularReadingTimes,
-                'views'                 => json_encode($post->viewTrend),
+                'traffic'               => $post->top_referers,
+                'popular_reading_times' => $post->popular_reading_times,
+                'views'                 => json_encode($post->view_trend),
             ];
 
             return view('canvas::stats.show', compact('data'));

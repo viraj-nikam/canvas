@@ -50,7 +50,7 @@
                                            class="font-weight-bold lead">{{ $post->title }}</a>
                                     </p>
                                     <p class="text-muted mb-2">
-                                            {{ $post->readTime }} ― <a
+                                            {{ $post->read_time }} ― <a
                                                 href="{{ route('canvas.post.edit', $post->id) }}">Edit
                                                 post</a> ― <a
                                                 href="{{ route('canvas.stats.show', $post->id) }}">Details</a>
