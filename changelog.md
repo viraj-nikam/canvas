@@ -1,6 +1,6 @@
 # Release Notes
 
-## [v4.1.16](https://github.com/cnvs/canvas/compare/v4.1.16...v4.1.17)
+## [v4.1.17](https://github.com/cnvs/canvas/compare/v4.1.16...v4.1.17)
 
 ### Changed
 - Minor branding updates ([6321678](https://github.com/cnvs/canvas/commit/63216782a497a1dc4434a806eaef100e8cac0255))
