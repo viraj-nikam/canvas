@@ -1,6 +1,12 @@
 # Release Notes
 
-## [v4.1.16](https://github.com/cnvs/canvas/compare/v4.1.16...v4.1.17)
+## [v4.1.18](https://github.com/cnvs/canvas/compare/v4.1.17...v4.1.18)
+
+### Changed
+- Removed the unnecessary auth check ([4e36d8c](https://github.com/cnvs/canvas/commit/4e36d8ca28939b06c3cbf23345b7c74eeae8fe6a))
+- Version bump for dependencies ([fa661ea](https://github.com/cnvs/canvas/commit/fa661eafce842bcd78caf95b80fd1911ce912e05), [2c1feeb](https://github.com/cnvs/canvas/commit/2c1feeb282e1cbd319e3d8f096f052cf679ec255))
+
+## [v4.1.17](https://github.com/cnvs/canvas/compare/v4.1.16...v4.1.17)
 
 ### Changed
 - Minor branding updates ([6321678](https://github.com/cnvs/canvas/commit/63216782a497a1dc4434a806eaef100e8cac0255))

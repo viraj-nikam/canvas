@@ -13,7 +13,7 @@
                 <h1 class="mt-2">Stats</h1>
 
                 @if($data['posts']['all']->isNotEmpty())
-                    <p class="mt-3 mb-4">Click a post below to view more specific insights.</p>
+                    <p class="mt-3 mb-4">Click on a post below to see more detailed insights.</p>
 
                     <div class="card-deck mb-4">
                         <div class="card">
