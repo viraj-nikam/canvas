@@ -13,7 +13,7 @@ class ViewThrottle
      *
      * @const int
      */
-    const EXPIRES = 3600;
+    const EXPIRES_IN = 3600;
 
     /**
      * Handle the incoming request.
@@ -54,7 +54,7 @@ class ViewThrottle
     {
         $time = time();
 
-        $throttleTime = self::EXPIRES;
+        $throttleTime = self::EXPIRES_IN;
 
         return array_filter($posts, function ($timestamp) use ($time, $throttleTime) {
             return ($timestamp + $throttleTime) > $time;
