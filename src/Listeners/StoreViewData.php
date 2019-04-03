@@ -15,7 +15,7 @@ class StoreViewData
      */
     public function handle(PostViewed $event)
     {
-        if (! $this->wasRecentlyViewed($event->post)) {
+        if (!$this->wasRecentlyViewed($event->post)) {
             $view_data = [
                 'post_id' => $event->post->id,
                 'ip'      => request()->getClientIp(),
@@ -43,14 +43,15 @@ class StoreViewData
     }
 
     /**
-     * Add the post ID into the session.
+     * Add a given post to the session.
      *
      * @param Post $post
      * @return void
      */
     private function storeInSession(Post $post)
     {
-        $key = 'viewed_posts.'.$post->id;
+        $key = 'viewed_posts.' . $post->id;
+
         session()->put($key, time());
     }
 }

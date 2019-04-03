@@ -27,7 +27,7 @@ class PostController extends Controller
     }
 
     /**
-     * Show the form for creating a new post.
+     * Create a new post.
      *
      * @return \Illuminate\View\View
      */
@@ -43,7 +43,7 @@ class PostController extends Controller
     }
 
     /**
-     * Show the form for editing an existing post.
+     * Edit a given post.
      *
      * @param string $id
      * @return \Illuminate\View\View
@@ -63,7 +63,7 @@ class PostController extends Controller
     }
 
     /**
-     * Store a newly created post in storage.
+     * Save a new post.
      *
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -116,7 +116,7 @@ class PostController extends Controller
     }
 
     /**
-     * Update a post in storage.
+     * Save a given post.
      *
      * @param string $id
      * @return \Illuminate\Http\RedirectResponse
@@ -171,7 +171,7 @@ class PostController extends Controller
     }
 
     /**
-     * Soft delete a post in storage.
+     * Delete a given post.
      *
      * @param string $id
      * @return \Illuminate\Http\RedirectResponse
@@ -185,7 +185,7 @@ class PostController extends Controller
     }
 
     /**
-     * Collect tags from the request.
+     * Collect or create given tags.
      *
      * @param  array $incomingTags
      * @return array
@@ -212,7 +212,7 @@ class PostController extends Controller
     }
 
     /**
-     * Assign a post to a selected topic.
+     * Collect or create given topics.
      *
      * @param array $incomingTopics
      * @return array

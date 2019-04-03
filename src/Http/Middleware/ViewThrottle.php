@@ -9,7 +9,7 @@ use Illuminate\Http\Response;
 class ViewThrottle
 {
     /**
-     * The number of seconds a view will be kept in session.
+     * The number of seconds until a view expires.
      *
      * @const int
      */
@@ -26,16 +26,15 @@ class ViewThrottle
     {
         $posts = $this->getViewedPosts();
 
-        if (! is_null($posts)) {
-            $posts = $this->cleanExpiredViews($posts);
-            $this->storeInSession($posts);
+        if (!is_null($posts)) {
+            $this->pruneExpiredViews($posts);
         }
 
         return $next($request);
     }
 
     /**
-     * Get the viewed posts currently in session.
+     * Get the viewed posts in session.
      *
      * @return array|null
      */
@@ -45,30 +44,23 @@ class ViewThrottle
     }
 
     /**
-     * Clean out the expired posts from the session.
+     * Prune expired posts from the session.
      *
      * @param array $posts
-     * @return array
+     * @return void
      */
-    private function cleanExpiredViews(array $posts): array
+    private function pruneExpiredViews(array $posts): void
     {
         $time = time();
 
-        $throttleTime = self::EXPIRES_IN;
+        $throttleLimit = self::EXPIRES_IN;
 
-        return array_filter($posts, function ($timestamp) use ($time, $throttleTime) {
-            return ($timestamp + $throttleTime) > $time;
-        });
-    }
+        $collection = collect($posts);
 
-    /**
-     * Store posts in the current session.
-     *
-     * @param $posts
-     * @return void
-     */
-    private function storeInSession($posts)
-    {
-        session()->put('viewed_posts', $posts);
+        foreach ($collection as $key => $value) {
+            if ($value < $time - $throttleLimit) {
+                session()->forget('viewed_posts.' . $key);
+            }
+        }
     }
 }

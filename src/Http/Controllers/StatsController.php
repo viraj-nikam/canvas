@@ -9,14 +9,14 @@ use Illuminate\Routing\Controller;
 class StatsController extends Controller
 {
     /**
-     * The number of days to generate statistics for.
+     * Days in the past to generate statistics for.
      *
      * @const int
      */
     const DAYS_PRIOR = 30;
 
     /**
-     * Show the overall statistics for all posts.
+     * Get all of the posts and views.
      *
      * @return \Illuminate\View\View
      */
@@ -44,7 +44,7 @@ class StatsController extends Controller
     }
 
     /**
-     * Show data analytics for a single post.
+     * Get the statistics for a given post.
      *
      * @param string $id
      * @return \Illuminate\View\View
