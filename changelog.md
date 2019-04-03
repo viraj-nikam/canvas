@@ -1,5 +1,13 @@
 # Release Notes
 
+## [v4.1.19](https://github.com/cnvs/canvas/compare/v4.1.18...v4.1.19)
+
+### Changed
+- Removed unnecessary eager loading from the post index route ([09d01c6](https://github.com/cnvs/canvas/commit/09d01c622f04997dc23ae64ac9719a067a28b734))
+
+### Fixed
+- Refactored the ViewThrottle middleware to prune posts from the session instead of simply filtering ([087832e](https://github.com/cnvs/canvas/commit/087832eb6b7439dbe0f9214fea99020e9eaeed39))
+
 ## [v4.1.18](https://github.com/cnvs/canvas/compare/v4.1.17...v4.1.18)
 
 ### Changed
