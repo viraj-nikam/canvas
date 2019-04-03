@@ -13,14 +13,14 @@ use Illuminate\Routing\Controller;
 class PostController extends Controller
 {
     /**
-     * Show a paginated list of posts.
+     * Get all of the posts.
      *
      * @return \Illuminate\View\View
      */
     public function index()
     {
         $data = [
-            'posts' => Post::orderByDesc('created_at')->with('tags')->get(),
+            'posts' => Post::orderByDesc('created_at')->get(),
         ];
 
         return view('canvas::posts.index', compact('data'));
