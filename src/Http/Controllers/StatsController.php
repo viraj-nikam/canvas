@@ -22,7 +22,18 @@ class StatsController extends Controller
      */
     public function index()
     {
-        $posts = Post::withCount('views')->orderByDesc('created_at')->paginate();
+        // Get all of the posts
+        $posts = Post::select('id', 'title', 'published_at', 'created_at')->withCount('views')->get();
+
+        // Filter out posts that are not published
+        $postList = $posts->filter(function ($value, $key) {
+            return $value->published;
+        });
+
+        // Append the reading time attribute
+        $postList->each->append('read_time');
+
+        // Get views for the last [X] days
         $views = View::whereBetween('created_at', [
             now()->subDays(self::DAYS_PRIOR)->toDateTimeString(),
             now()->toDateTimeString(),
@@ -30,9 +41,9 @@ class StatsController extends Controller
 
         $data = [
             'posts' => [
-                'all'       => $posts,
-                'published' => $posts->where('published_at', '<=', now()->toDateTimeString()),
-                'drafts'    => $posts->where('published_at', '>', now()->toDateTimeString()),
+                'all'             => $posts,
+                'published_count' => $posts->where('published_at', '<=', now()->toDateTimeString())->count(),
+                'drafts_count'    => $posts->where('published_at', '>', now()->toDateTimeString())->count(),
             ],
             'views' => [
                 'count' => $views->count(),

@@ -1,5 +1,10 @@
 # Release Notes
 
+## [v4.1.20](https://github.com/cnvs/canvas/compare/v4.1.19...v4.1.20)
+
+### Added
+- Added dynamic pagination to Vue component filtered lists ([ec087a4](https://github.com/cnvs/canvas/commit/ec087a4fcea738775df95df2d795e695b12d6b1d))
+
 ## [v4.1.19](https://github.com/cnvs/canvas/compare/v4.1.18...v4.1.19)
 
 ### Changed
