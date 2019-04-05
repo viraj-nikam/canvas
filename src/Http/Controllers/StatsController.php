@@ -23,7 +23,7 @@ class StatsController extends Controller
     public function index()
     {
         // Get all of the posts
-        $posts = Post::select('id', 'title', 'published_at', 'created_at')->withCount('views')->get();
+        $posts = Post::select('id', 'title', 'body', 'published_at', 'created_at')->withCount('views')->get();
 
         // Filter out posts that are not published
         $postList = $posts->filter(function ($value, $key) {
