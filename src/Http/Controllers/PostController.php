@@ -105,7 +105,7 @@ class PostController extends Controller
         );
 
         $post->topic()->sync(
-            $this->assignTopics(request('topic') ? [request('topic')] : [])
+            $this->assignTopic(request('topic') ?? [])
         );
 
         return redirect(route('canvas.post.edit', $post->id))->with('notify', 'Saved!');
@@ -156,7 +156,7 @@ class PostController extends Controller
         );
 
         $post->topic()->sync(
-            $this->assignTopics(request('topic') ? [request('topic')] : [])
+            $this->assignTopic(request('topic') ?? [])
         );
 
         return redirect(route('canvas.post.edit', $post->id))->with('notify', 'Saved!');
@@ -204,19 +204,15 @@ class PostController extends Controller
     }
 
     /**
-     * Collect or create given topics.
+     * Assign a given topic.
      *
-     * @param array $incomingTopics
-     * @return array
-     *
-     * @author Mohamed Said <themsaid@gmail.com>
+     * @param $incomingTopic
+     * @return mixed
      */
-    private function assignTopics(array $incomingTopics): array
+    private function assignTopic(array $incomingTopic)
     {
-        $topics = Topic::all();
-
-        return collect($incomingTopics)->map(function ($incomingTopic) use ($topics) {
-            $topic = $topics->where('slug', $incomingTopic['slug'])->first();
+        if ($incomingTopic) {
+            $topic = Topic::where('slug', $incomingTopic['slug'])->first();
 
             if (! $topic) {
                 $topic = Topic::create([
@@ -226,7 +222,9 @@ class PostController extends Controller
                 ]);
             }
 
-            return (string) $topic->id;
-        })->toArray();
+            return collect((string) $topic->id)->toArray();
+        } else {
+            return [];
+        }
     }
 }
