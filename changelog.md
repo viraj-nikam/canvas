@@ -1,5 +1,10 @@
 # Release Notes
 
+## [v4.1.22](https://github.com/cnvs/canvas/compare/v4.1.21...v4.1.22)
+
+### Changed
+- Updated the favicon to an .ico format ([]())
+
 ## [v4.1.21](https://github.com/cnvs/canvas/compare/v4.1.20...v4.1.21)
 
 ### Changed
