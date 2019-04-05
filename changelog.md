@@ -3,7 +3,7 @@
 ## [v4.1.22](https://github.com/cnvs/canvas/compare/v4.1.21...v4.1.22)
 
 ### Changed
-- Updated the favicon to an .ico format ([]())
+- Updated the favicon to an .ico format ([08e8dc6](https://github.com/cnvs/canvas/commit/08e8dc6d6a6f52aeb0e4ae033caf7103761c32c1))
 
 ## [v4.1.21](https://github.com/cnvs/canvas/compare/v4.1.20...v4.1.21)
 
