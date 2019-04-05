@@ -1,5 +1,13 @@
 # Release Notes
 
+## [v4.1.21](https://github.com/cnvs/canvas/compare/v4.1.20...v4.1.21)
+
+### Changed
+- Refactored the float parsing on stat view counts ([ea53999](https://github.com/cnvs/canvas/commit/ea539996fde96c5caedbcaa4ae10ac1a5b3b12fe))
+
+### Fixed
+- Included the post body in the stats index endpoint to not break the read times ([111291f](https://github.com/cnvs/canvas/commit/111291fa20ee910474467cc03aabc03a232b1a30))
+
 ## [v4.1.20](https://github.com/cnvs/canvas/compare/v4.1.19...v4.1.20)
 
 ### Added
