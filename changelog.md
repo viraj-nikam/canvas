@@ -1,5 +1,10 @@
 # Release Notes
 
+## [v4.1.23](https://github.com/cnvs/canvas/compare/v4.1.22...v4.1.23)
+
+### Fixed
+- Fixed the removal of all topics and tags from a post ([e83930f](https://github.com/cnvs/canvas/commit/e83930f7e6b62e70e8d66af3601f56dc21200e1a))
+
 ## [v4.1.22](https://github.com/cnvs/canvas/compare/v4.1.21...v4.1.22)
 
 ### Changed
