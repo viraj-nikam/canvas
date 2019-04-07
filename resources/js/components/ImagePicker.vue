@@ -72,7 +72,7 @@
 
                 this.$emit('changed', {
                     url: this.selectedUnsplashImage.urls.regular,
-                    caption: 'Photo by <a href="' + this.selectedUnsplashImage.user.links.html + '">' + this.selectedUnsplashImage.user.name + '</a> on <a href="https://unsplash.com">Unsplash</a>',
+                    caption: 'Photo by <a href="' + this.selectedUnsplashImage.user.links.html + '" target="_blank">' + this.selectedUnsplashImage.user.name + '</a> on <a href="https://unsplash.com" target="_blank">Unsplash</a>',
                 });
 
                 this.closeUnsplashModal();
