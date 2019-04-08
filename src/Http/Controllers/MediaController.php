@@ -14,7 +14,7 @@ class MediaController extends Controller
      */
     public function store(): string
     {
-        $path = request()->image->store(config('canvas.storage_path'), [
+        $path = request()->image->store(sprintf('%s/%s', config('canvas.storage_path'), 'images'), [
             'disk'       => config('canvas.storage_disk'),
             'visibility' => 'public',
         ]);
