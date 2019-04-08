@@ -1,5 +1,13 @@
 # Release Notes
 
+## [v4.1.24](https://github.com/cnvs/canvas/compare/v4.1.23...v4.1.24)
+
+### Changed
+
+- Changed the `laravel/framework` requirement to `illuminate/support` ([#453](https://github.com/cnvs/canvas/pull/453), [a1306c5](https://github.com/cnvs/canvas/commit/a1306c5c925f6357f6c150c4249e44505ce15c57), [b056182](https://github.com/cnvs/canvas/commit/b056182da87cc92403672cbf81f062a5ea72c171))
+- Updated Unsplash links to open in new tabs ([2fe5658](https://github.com/cnvs/canvas/commit/2fe5658c363afea9b03ad270353f9659bab19494))
+- Refactored the `storage_path` configuration to less explicit with images ([b0ab792](https://github.com/cnvs/canvas/commit/b0ab7926446d018461ca9a644a2ac571ad6eb046))
+
 ## [v4.1.23](https://github.com/cnvs/canvas/compare/v4.1.22...v4.1.23)
 
 ### Fixed
