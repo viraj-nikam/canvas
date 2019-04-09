@@ -18,7 +18,6 @@ env:
     - LARAVEL=dev-master
 
 matrix:
-  fast_finish: true
   exclude:
     - php: 7.1
       env: LARAVEL=dev-master
