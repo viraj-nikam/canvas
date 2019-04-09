@@ -7,9 +7,6 @@ php:
   - 7.2
   - 7.3
 
-notifications:
-  slack: cnvs-io:d8USerZXRy2eKNhzFvGDsg92
-
 env:
   matrix:
     - LARAVEL=5.8.*
