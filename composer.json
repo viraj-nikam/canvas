@@ -5,8 +5,8 @@
 	"license": "MIT",
 	"homepage": "https://cnvs.io",
 	"support": {
-		"issues": "https://github.com/cnvs/canvas/issues",
-		"source": "https://github.com/cnvs/canvas"
+		"source": "https://github.com/cnvs/canvas",
+		"issues": "https://github.com/cnvs/canvas/issues"
 	},
 	"authors": [
 		{
