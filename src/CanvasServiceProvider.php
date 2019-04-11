@@ -3,7 +3,6 @@
 namespace Canvas;
 
 use Canvas\Console\SetupCommand;
-use Canvas\Console\ExportCommand;
 use Illuminate\Events\Dispatcher;
 use Canvas\Console\InstallCommand;
 use Canvas\Console\PublishCommand;
@@ -42,7 +41,6 @@ class CanvasServiceProvider extends ServiceProvider
         );
 
         $this->commands([
-            ExportCommand::class,
             InstallCommand::class,
             PublishCommand::class,
             SetupCommand::class,
