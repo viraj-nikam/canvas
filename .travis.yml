@@ -2,11 +2,8 @@ language: php
 
 sudo: false
 
-cache:
-  directories:
-    - $HOME/.composer/cache
-
 php:
+  - 7.1
   - 7.2
   - 7.3
 
@@ -21,14 +18,17 @@ env:
     - LARAVEL=dev-master
 
 matrix:
+  exclude:
+    - php: 7.1
+      env: LARAVEL=dev-master
   allow_failures:
     - env: LARAVEL=dev-master
 
 before_install:
   - phpenv config-rm xdebug.ini || true
+  - travis_retry composer self-update
 
 install:
-  - travis_retry composer self-update
   - travis_retry composer require "illuminate/contracts=${LARAVEL}" --dev --prefer-dist --no-interaction --no-suggest
 
 script: vendor/bin/phpunit --verbose
