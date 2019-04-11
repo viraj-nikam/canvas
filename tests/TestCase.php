@@ -7,10 +7,10 @@ use ReflectionException;
 use Canvas\CanvasServiceProvider;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Foundation\Application;
-use Orchestra\Testbench\TestCase as BaseTestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Orchestra\Testbench\TestCase as OrchestraTestCase;
 
-abstract class TestCase extends BaseTestCase
+abstract class TestCase extends OrchestraTestCase
 {
     use RefreshDatabase;
 
@@ -64,7 +64,7 @@ abstract class TestCase extends BaseTestCase
             'prefix'   => '',
         ]);
 
-        $config->set('view.paths', [dirname(__DIR__).'/resources/views']);
+        $config->set('view.paths', [dirname(__DIR__) . '/resources/views']);
 
         $config->set('auth.providers.users.model', User::class);
     }
@@ -77,7 +77,7 @@ abstract class TestCase extends BaseTestCase
     {
         $this->loadLaravelMigrations();
 
-        $this->loadMigrationsFrom(dirname(__DIR__).'/database/migrations');
+        $this->loadMigrationsFrom(dirname(__DIR__) . '/database/migrations');
 
         $this->artisan('migrate');
     }
