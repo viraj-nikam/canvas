@@ -1,5 +1,13 @@
 # Release Notes
 
+## [v4.1.26](https://github.com/cnvs/canvas/compare/v4.1.25...v4.1.26)
+
+### Added
+- Added a PostTags model ([0942a5b](https://github.com/cnvs/canvas/commit/0942a5b0b03b96e9ab1981fed18038fe8e7a9686))
+
+### Fixed
+- Skipped the `canvas:install` test ([#456](https://github.com/cnvs/canvas/issues/456), [53f21e6](https://github.com/cnvs/canvas/commit/53f21e67a8e1f004249b1bf21b2786b06ebeec99))
+
 ## [v4.1.25](https://github.com/cnvs/canvas/compare/v4.1.24...v4.1.25)
 
 ### Added
