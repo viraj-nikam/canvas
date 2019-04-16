@@ -13,7 +13,7 @@ class StatsController extends Controller
      *
      * @const int
      */
-    const DAYS_PRIOR = 30;
+    private const DAYS_PRIOR = 30;
 
     /**
      * Get all of the posts and views.

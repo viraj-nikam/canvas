@@ -22,29 +22,22 @@ class CanvasServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->registerEvents();
-        $this->registerRoutes();
-        $this->registerMigrations();
-        $this->registerPublishing();
-        $this->registerResources();
+        $this->handleConfig();
+        $this->handleEvents();
+        $this->handleRoutes();
+        $this->handleMigrations();
+        $this->handlePublishing();
+        $this->handleResources();
+        $this->handleCommands();
     }
 
     /**
-     * Register any package services.
+     * Register bindings in the container.
      *
      * @return void
      */
     public function register()
     {
-        $this->mergeConfigFrom(
-            __DIR__.'/../config/canvas.php', 'canvas'
-        );
-
-        $this->commands([
-            InstallCommand::class,
-            PublishCommand::class,
-            SetupCommand::class,
-        ]);
     }
 
     /**
@@ -53,7 +46,7 @@ class CanvasServiceProvider extends ServiceProvider
      * @return void
      * @throws BindingResolutionException
      */
-    private function registerEvents()
+    private function handleEvents()
     {
         $events = $this->app->make(Dispatcher::class);
 
@@ -69,7 +62,7 @@ class CanvasServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    private function registerRoutes()
+    private function handleRoutes()
     {
         Route::group($this->routeConfiguration(), function () {
             $this->loadRoutesFrom(__DIR__.'/../routes/canvas.php');
@@ -84,8 +77,8 @@ class CanvasServiceProvider extends ServiceProvider
     private function routeConfiguration()
     {
         return [
-            'namespace'  => 'Canvas\Http\Controllers',
-            'prefix'     => 'canvas',
+            'namespace' => 'Canvas\Http\Controllers',
+            'prefix' => 'canvas',
             'middleware' => config('canvas.middleware'),
         ];
     }
@@ -95,7 +88,7 @@ class CanvasServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    private function registerResources()
+    private function handleResources()
     {
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'canvas');
     }
@@ -105,7 +98,7 @@ class CanvasServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    private function registerMigrations()
+    private function handleMigrations()
     {
         if ($this->app->runningInConsole()) {
             $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
@@ -117,7 +110,7 @@ class CanvasServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    private function registerPublishing()
+    private function handlePublishing()
     {
         if ($this->app->runningInConsole()) {
             $this->publishes([
@@ -129,8 +122,33 @@ class CanvasServiceProvider extends ServiceProvider
             ], 'canvas-config');
 
             $this->publishes([
-                __DIR__.'/../stubs/providers/CanvasServiceProvider.stub' => app_path('Providers/CanvasServiceProvider.php'),
+                __DIR__.'/../stubs/providers/CanvasServiceProvider.stub' => app_path(
+                    'Providers/CanvasServiceProvider.php'
+                ),
             ], 'canvas-provider');
         }
+    }
+
+    /**
+     * @return void
+     */
+    private function handleConfig(): void
+    {
+        $this->mergeConfigFrom(
+            __DIR__.'/../config/canvas.php',
+            'canvas'
+        );
+    }
+
+    /**
+     * @return void
+     */
+    private function handleCommands(): void
+    {
+        $this->commands([
+            InstallCommand::class,
+            PublishCommand::class,
+            SetupCommand::class,
+        ]);
     }
 }
