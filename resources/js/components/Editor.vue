@@ -196,35 +196,37 @@
 </script>
 
 <template>
-    <div style="position: relative">
-        <div id="sidebar-controls" style="margin-top: -8px">
-            <button id="show-controls" type="button" class="btn btn-outline-light btn-circle border"
-                    @click="showSideControls" v-on:submit.prevent="onSubmit">
-                <i class="fas fa-plus fa-fw text-muted"></i>
-            </button>
+    <div v-cloak>
+        <div style="position: relative">
+            <div id="sidebar-controls" style="margin-top: -8px">
+                <button id="show-controls" type="button" class="btn btn-outline-light btn-circle border"
+                        @click="showSideControls" v-on:submit.prevent="onSubmit">
+                    <i class="fas fa-plus fa-fw text-muted"></i>
+                </button>
 
-            <div class="controls pl-3 bg-white d-none">
-                <button class="btn btn-outline-light btn-circle border mr-1" type="button" @click="openImageUploader()"
-                        data-toggle="modal" data-target="#image-upload">
-                    <i class="far fa-fw fa-image text-muted"></i>
-                </button>
-                <button class="btn btn-outline-light btn-circle border mr-1" type="button"
-                        @click="$emit('openingHTMLEmbedder')" v-on:submit.prevent="onSubmit"
-                        data-toggle="modal" data-target="#embed-html">
-                    <i class="fas fa-fw fa-code text-muted"></i>
-                </button>
-                <button class="btn btn-outline-light btn-circle border mr-2" type="button"
-                        @click="addDivider" v-on:submit.prevent="onSubmit">
-                    <i class="fas fa-fw fa-ellipsis-h text-muted"></i>
-                </button>
+                <div class="controls pl-3 bg-white d-none">
+                    <button class="btn btn-outline-light btn-circle border mr-1" type="button" @click="openImageUploader()"
+                            data-toggle="modal" data-target="#image-upload">
+                        <i class="far fa-fw fa-image text-muted"></i>
+                    </button>
+                    <button class="btn btn-outline-light btn-circle border mr-1" type="button"
+                            @click="$emit('openingHTMLEmbedder')" v-on:submit.prevent="onSubmit"
+                            data-toggle="modal" data-target="#embed-html">
+                        <i class="fas fa-fw fa-code text-muted"></i>
+                    </button>
+                    <button class="btn btn-outline-light btn-circle border mr-2" type="button"
+                            @click="addDivider" v-on:submit.prevent="onSubmit">
+                        <i class="fas fa-fw fa-ellipsis-h text-muted"></i>
+                    </button>
+                </div>
             </div>
+
+            <div ref="editor"></div>
+            <input type="hidden" name="body" ref="body" />
+
+            <image-uploader @updated="applyImage" :unsplash="this.unsplash"></image-uploader>
+            <html-embedder @adding="addHTML"></html-embedder>
         </div>
-
-        <div ref="editor"></div>
-        <input type="hidden" name="body" ref="body" />
-
-        <image-uploader @updated="applyImage" :unsplash="this.unsplash"></image-uploader>
-        <html-embedder @adding="addHTML"></html-embedder>
     </div>
 </template>
 
