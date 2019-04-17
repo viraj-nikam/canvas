@@ -1,5 +1,10 @@
 # Release Notes
 
+## [v4.1.27](https://github.com/cnvs/canvas/compare/v4.1.26...v4.1.27)
+
+### Changed
+- Refactored resource handling from the `register()` to the `boot()` method in the service provider ([#462](https://github.com/cnvs/canvas/pull/462)) 
+
 ## [v4.1.26](https://github.com/cnvs/canvas/compare/v4.1.25...v4.1.26)
 
 ### Added
