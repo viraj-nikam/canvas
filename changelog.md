@@ -1,5 +1,10 @@
 # Release Notes
 
+## [v4.1.28](https://github.com/cnvs/canvas/compare/v4.1.27...v4.1.28)
+
+### Changed
+- Added a `v-cloak` directive to the main editor component ([5d81ea4](https://github.com/cnvs/canvas/commit/5d81ea49d3d67b193274ff9b038344bb884d69f9))
+
 ## [v4.1.27](https://github.com/cnvs/canvas/compare/v4.1.26...v4.1.27)
 
 ### Changed

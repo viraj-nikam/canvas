@@ -29,6 +29,6 @@ before_install:
   - travis_retry composer self-update
 
 install:
-  - travis_retry composer require "illuminate/contracts=${LARAVEL}" --dev --prefer-dist --no-interaction --no-suggest
+  - travis_retry composer require "illuminate/support=${LARAVEL}" --dev --prefer-dist --no-interaction --no-suggest
 
 script: vendor/bin/phpunit --verbose
