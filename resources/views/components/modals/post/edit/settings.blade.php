@@ -2,14 +2,14 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-body">
-                <p class="font-weight-bold lead">{{ trans('canvas::posts.settings.header') }}</p>
+                <p class="font-weight-bold lead">{{ trans('canvas::posts.forms.settings.header') }}</p>
 
                 <div class="form-group row">
                     <div class="col-12">
-                        <label for="slug" class="font-weight-bold">{{ trans('canvas::posts.settings.slug.label') }}</label>
+                        <label for="slug" class="font-weight-bold">{{ trans('canvas::posts.forms.settings.slug.label') }}</label>
                         <input type="text" class="form-control border-0 px-0"
-                               name="slug" title="{{ trans('canvas::posts.settings.slug.label') }}" value="{{ $data['post']->slug }}" required
-                               placeholder="{{ trans('canvas::posts.settings.slug.placeholder') }}">
+                               name="slug" title="{{ trans('canvas::posts.forms.settings.slug.label') }}" value="{{ $data['post']->slug }}" required
+                               placeholder="{{ trans('canvas::posts.forms.settings.slug.placeholder') }}">
                         @if ($errors->has('slug'))
                             <div class="invalid-feedback d-block">
                                 <strong>{{ $errors->first('slug') }}</strong>
@@ -19,15 +19,15 @@
                 </div>
                 <div class="form-group row">
                     <div class="col-12">
-                        <label for="summary" class="font-weight-bold">{{ trans('canvas::posts.settings.summary.label') }}</label>
+                        <label for="summary" class="font-weight-bold">{{ trans('canvas::posts.forms.settings.summary.label') }}</label>
                         <textarea name="summary" class="form-control border-0 px-0"
-                                  placeholder="{{ trans('canvas::posts.settings.summary.placeholder') }}" rows="1"
-                                  title="{{ trans('canvas::posts.settings.summary.label') }}">{{ $data['post']->summary }}</textarea>
+                                  placeholder="{{ trans('canvas::posts.forms.settings.summary.placeholder') }}" rows="1"
+                                  title="{{ trans('canvas::posts.forms.settings.summary.label') }}">{{ $data['post']->summary }}</textarea>
                     </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-12">
-                        <label for="topic" class="font-weight-bold">{{ trans('canvas::posts.settings.topic.label') }}</label>
+                        <label for="topic" class="font-weight-bold">{{ trans('canvas::posts.forms.settings.topic.label') }}</label>
 
                         <topic-select :topics="{{ $data['topics'] }}"
                                       :assigned="{{ json_encode(optional($data['post']->topic->first())->only(['name', 'slug'])) }}">
@@ -36,7 +36,7 @@
                 </div>
                 <div class="form-group row">
                     <div class="col-12">
-                        <label for="published_at" class="font-weight-bold">{{ trans('canvas::posts.settings.tags.label') }}</label>
+                        <label for="published_at" class="font-weight-bold">{{ trans('canvas::posts.forms.settings.tags.label') }}</label>
 
                         <tag-select :tags="{{ $data['tags'] }}" :tagged="{{ $data['post']->tags }}"></tag-select>
                     </div>
