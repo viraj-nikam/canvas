@@ -26,5 +26,9 @@ return [
     'details' => [
         'created' => 'Criado',
     ],
+    'delete'  => [
+        'header'  => 'Excluir',
+        'warning' => 'Os tópicos excluídos desaparecerão para sempre. Você tem certeza?',
+    ],
 
 ];

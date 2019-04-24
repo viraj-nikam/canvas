@@ -27,5 +27,9 @@ return [
         'draft'     => 'Brouillon',
         'updated'   => 'Mis à jour',
     ],
+    'delete'  => [
+        'header'  => 'Effacer',
+        'warning' => 'Les messages supprimés ont disparu pour toujours. Êtes-vous sûr?',
+    ],
 
 ];

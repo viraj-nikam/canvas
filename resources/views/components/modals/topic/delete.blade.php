@@ -2,14 +2,14 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-body">
-                <p class="font-weight-bold lead">Delete</p>
+                <p class="font-weight-bold lead">{{ trans('canvas::topics.delete.header') }}</p>
 
-                Deleted topics are gone forever. Are you sure?
+                {{ trans('canvas::topics.delete.warning') }}
             </div>
             <div class="modal-footer">
                 <a href="#" class="btn btn-danger"
                    onclick="event.preventDefault();document.getElementById('form-delete').submit();"
-                   aria-label="Delete">Delete</a>
+                   aria-label="Delete">{{ trans('canvas::buttons.general.delete') }}</a>
                 <button type="button" class="btn btn-link text-muted" data-dismiss="modal">
                     {{ trans('canvas::buttons.general.cancel') }}
                 </button>

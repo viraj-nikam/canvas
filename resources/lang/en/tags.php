@@ -26,5 +26,9 @@ return [
     'details' => [
         'created' => 'Created',
     ],
+    'delete'  => [
+        'header'  => 'Delete',
+        'warning' => 'Deleted tags are gone forever. Are you sure?',
+    ],
 
 ];

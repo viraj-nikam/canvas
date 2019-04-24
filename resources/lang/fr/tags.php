@@ -26,5 +26,9 @@ return [
     'details' => [
         'created' => 'Créé',
     ],
+    'delete'  => [
+        'header'  => 'Effacer',
+        'warning' => 'Les balises supprimées ont disparu pour toujours. Êtes-vous sûr?',
+    ],
 
 ];

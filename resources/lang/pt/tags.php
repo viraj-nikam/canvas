@@ -26,5 +26,9 @@ return [
     'details' => [
         'created' => 'Criado',
     ],
+    'delete'  => [
+        'header'  => 'Excluir',
+        'warning' => 'As tags excluídas se foram para sempre. Você tem certeza?',
+    ],
 
 ];

@@ -31,7 +31,7 @@
                 </div>
                 <div class="form-group row">
                     <div class="col-12">
-                        <label for="twitter_title" class="font-weight-bold">Twitter Title</label>
+                        <label for="twitter_title" class="font-weight-bold">Twitter Card Title</label>
                         <input type="text" class="form-control border-0 px-0"
                                name="twitter_title" title="Twitter Card Title" value="{{ old('twitter_title') }}"
                                placeholder="Title in Twitter Card">
@@ -47,7 +47,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-link text-muted" data-dismiss="modal">Done</button>
+                <button class="btn btn-link text-muted" data-dismiss="modal">{{ trans('canvas::buttons.general.done') }}</button>
             </div>
         </div>
     </div>

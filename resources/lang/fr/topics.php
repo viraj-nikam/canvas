@@ -26,5 +26,9 @@ return [
     'details' => [
         'created' => 'Créé',
     ],
+    'delete'  => [
+        'header'  => 'Effacer',
+        'warning' => 'Les sujets supprimés ont disparu pour toujours. Êtes-vous sûr?',
+    ],
 
 ];

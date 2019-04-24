@@ -27,5 +27,48 @@ return [
         'draft'     => 'Draft',
         'updated'   => 'Updated',
     ],
+    'forms'   => [
+        'image'    => [
+            'header' => 'Featured image',
+        ],
+        'publish'  => [
+            'header'  => 'Publish date (m/d/y h:m)',
+            'subtext' => [
+                'details'  => 'Post scheduling uses a 24-hour time format and is utilizing the',
+                'timezone' => 'timezone',
+            ],
+        ],
+        'seo'      => [
+            'header'   => 'SEO & Social',
+            'meta'     => 'Meta Description',
+            'facebook' => [
+                'label'       => 'Facebook Card Title',
+                'description' => 'Facebook Card Description',
+                'placeholder' => 'Title in Facebook Card',
+            ],
+            'twitter'  => [
+                'label'       => 'Twitter Card Title',
+                'description' => 'Twitter Card Description',
+                'placeholder' => 'Title in Twitter Card',
+            ],
+        ],
+        'settings' => [
+            'header'  => 'General settings',
+            'summary' => [
+                'label'       => 'Summary',
+                'placeholder' => 'A descriptive summary..',
+            ],
+            'topic'   => [
+                'label' => 'Topic',
+            ],
+            'tags'    => [
+                'label' => 'Tags',
+            ],
+        ],
+    ],
+    'delete'  => [
+        'header'  => 'Delete',
+        'warning' => 'Deleted posts are gone forever. Are you sure?',
+    ],
 
 ];

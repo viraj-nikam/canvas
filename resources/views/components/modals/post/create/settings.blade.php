@@ -40,7 +40,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-link text-muted" data-dismiss="modal">Done</button>
+                <button class="btn btn-link text-muted" data-dismiss="modal">{{ trans('canvas::buttons.general.done') }}</button>
             </div>
         </div>
     </div>

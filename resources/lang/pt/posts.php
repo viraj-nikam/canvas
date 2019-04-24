@@ -27,5 +27,9 @@ return [
         'draft'     => 'Esboço, projeto',
         'updated'   => 'Atualizado',
     ],
+    'delete'  => [
+        'header'  => 'Excluir',
+        'warning' => 'As postagens excluídas se foram para sempre. Você tem certeza?',
+    ],
 
 ];
