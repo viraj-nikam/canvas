@@ -154,7 +154,7 @@ class Post extends Model
         // Divide by the average number of words per minute
         $minutes = ceil($words / 250);
 
-        return sprintf('%d %s read', $minutes, Str::plural('min', $minutes));
+        return sprintf('%d %s %s', $minutes, Str::plural(trans('canvas::stats.details.reading.time'), $minutes), trans('canvas::stats.details.reading.read'));
     }
 
     /**

@@ -28,6 +28,10 @@ return [
         'updated'   => 'Updated',
     ],
     'forms'   => [
+        'editor'   => [
+            'title' => 'Title',
+            'body'  => 'Tell your story...',
+        ],
         'image'    => [
             'header' => 'Featured image',
         ],

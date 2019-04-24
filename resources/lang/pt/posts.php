@@ -28,11 +28,15 @@ return [
         'updated'   => 'Atualizado',
     ],
     'forms'   => [
+        'editor'   => [
+            'title' => 'Título',
+            'body'  => 'Conte sua história ...',
+        ],
         'image'    => [
             'header' => 'Imagem em destaque',
         ],
         'publish'  => [
-            'header'  => 'Data de publicação (m / d / ah: m)',
+            'header'  => 'Data de publicação (m/d/a h:m)',
             'subtext' => [
                 'details'  => 'O agendamento de postagem usa um formato de horário de 24 horas e está utilizando',
                 'timezone' => 'fuso horário',
@@ -66,7 +70,7 @@ return [
             'header'  => 'Configurações Gerais',
             'slug'    => [
                 'label'       => 'Lesma',
-                'placeholder' => 'uma lesma única',
+                'placeholder' => 'uma-lesma-única',
             ],
             'summary' => [
                 'label'       => 'Resumo',

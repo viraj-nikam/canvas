@@ -56,7 +56,7 @@
 
             <div class="col-md-5 mt-4">
                 <h5 class="text-muted small text-uppercase font-weight-bold">
-                    {{ trans('canvas::stats.details.reading') }}
+                    {{ trans('canvas::stats.details.reading.header') }}
                 </h5>
 
                 @if($data['popular_reading_times'])

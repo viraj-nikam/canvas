@@ -36,7 +36,11 @@ return [
         'created'   => 'Criado',
         'published' => 'publicado em',
         'views'     => 'Visualizações por fonte de tráfego',
-        'reading'   => 'Tempos de leitura populares',
+        'reading'   => [
+            'header' => 'Tempos de leitura populares',
+            'time'   => 'min',
+            'read'   => 'ler',
+        ],
         'empty'     => 'Aguardando até que sua postagem tenha mais visualizações para mostrar essas informações.',
         'referer'   => [
             'other'   => 'De outros',

@@ -28,11 +28,15 @@ return [
         'updated'   => 'Mis à jour',
     ],
     'forms'   => [
+        'editor'   => [
+            'title' => 'Titre',
+            'body'  => 'Raconte ton histoire ...',
+        ],
         'image'    => [
             'header' => 'L\'image sélectionnée',
         ],
         'publish'  => [
-            'header'  => 'Date de publication (m / j / a h: m)',
+            'header'  => 'Date de publication (m/j/a h:m)',
             'subtext' => [
                 'details'  => 'La planification des messages utilise un format horaire de 24 heures et utilise le',
                 'timezone' => 'fuseau horaire',
@@ -66,7 +70,7 @@ return [
             'header'  => 'Réglages généraux',
             'slug'    => [
                 'label'       => 'Limace',
-                'placeholder' => 'une limace unique',
+                'placeholder' => 'une-limace-unique',
             ],
             'summary' => [
                 'label'       => 'Résumé',

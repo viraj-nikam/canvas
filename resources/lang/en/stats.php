@@ -36,7 +36,11 @@ return [
         'created'   => 'Created',
         'published' => 'Published on',
         'views'     => 'Views by traffic source',
-        'reading'   => 'Popular reading times',
+        'reading'   => [
+            'header' => 'Popular reading times',
+            'time'   => 'min',
+            'read'   => 'read',
+        ],
         'empty'     => 'Waiting until your post has more views to show these insights.',
         'referer'   => [
             'other'   => 'Other',
