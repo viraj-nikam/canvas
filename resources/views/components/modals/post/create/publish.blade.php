@@ -14,7 +14,7 @@
             <div class="modal-footer">
                 <a href="#" class="btn btn-primary"
                    onclick="event.preventDefault();document.getElementById('form-create').submit();"
-                   aria-label="Publish this post">Schedule to publish</a>
+                   aria-label="Publish this post">{{ trans('canvas::buttons.posts.update') }}</a>
                 <button class="btn btn-link text-muted" data-dismiss="modal">
                     {{ trans('canvas::buttons.general.cancel') }}
                 </button>

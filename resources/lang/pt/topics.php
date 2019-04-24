@@ -4,7 +4,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Post Language Lines
+    | Topic Language Lines
     |--------------------------------------------------------------------------
     |
     | The following language lines are used by the paginator library to build
@@ -13,19 +13,18 @@ return [
     |
     */
 
-    'header'  => 'Posts',
+    'header'  => 'Tópicos',
+    'posts'   => 'Postagens)',
     'empty'   => [
-        'description' => 'No posts were found, start by',
-        'action'      => 'adding a new post',
+        'description' => 'Nenhum tópico foi encontrado, comece por',
+        'action'      => 'adicionando um novo tópico',
     ],
     'search'  => [
-        'input' => 'Search',
-        'empty' => 'No posts matched the given search criteria.',
+        'input' => 'Procurar',
+        'empty' => 'Nenhum tópico correspondeu aos critérios de pesquisa fornecidos.',
     ],
     'details' => [
-        'published' => 'Published',
-        'draft'     => 'Draft',
-        'updated'   => 'Updated',
+        'created' => 'Criado',
     ],
 
 ];

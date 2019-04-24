@@ -74,7 +74,7 @@ class TagController extends Controller
         $tag->fill($data);
         $tag->save();
 
-        return redirect(route('canvas.tag.edit', $tag->id))->with('notify', 'Saved!');
+        return redirect(route('canvas.tag.edit', $tag->id))->with('notify', trans('canvas::nav.notify.success'));
     }
 
     /**
@@ -101,7 +101,7 @@ class TagController extends Controller
         $tag->fill($data);
         $tag->save();
 
-        return redirect(route('canvas.tag.edit', $tag->id))->with('notify', 'Saved!');
+        return redirect(route('canvas.tag.edit', $tag->id))->with('notify', trans('canvas::nav.notify.success'));
     }
 
     /**

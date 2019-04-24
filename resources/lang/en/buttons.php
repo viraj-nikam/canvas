@@ -17,7 +17,6 @@ return [
         'cancel' => 'Cancel',
         'delete' => 'Delete',
         'done'   => 'Done',
-        'next'   => 'Next page',
         'load'   => 'Show more',
         'save'   => 'Save',
     ],

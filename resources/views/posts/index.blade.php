@@ -26,7 +26,7 @@
                                                type="text"
                                                class="form-control border-0 pl-0"
                                                id="search"
-                                               placeholder="Search..."
+                                               placeholder="{{ trans('canvas::posts.search.input') }}..."
                                                autofocus>
                                     </div>
                                 </form>

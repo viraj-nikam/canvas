@@ -28,7 +28,7 @@
                         <div class="d-flex @if($loop->first) border-top @endif py-2 align-items-center">
                             <div class="mr-auto">
                                 <p class="mb-0 py-1">
-                                    @unless($host == 'Other')
+                                    @unless($host == trans('canvas::stats.details.referer.other'))
                                         <img src="{{ sprintf('%s%s', 'https://favicons.githubusercontent.com/', $host) }}"
                                              alt="{{ $host }}" style="width: 15px; height: 15px;" class="mr-1">
                                         <a href="http://{{ $host }}" target="_blank">{{ $host }}</a>
@@ -37,14 +37,14 @@
                                              alt="{{ $host }}" style="width: 15px; height: 15px;" class="mr-1">
                                         <a data-toggle="tooltip" data-placement="right"
                                                        style="cursor: pointer"
-                                                       title="Post views in this category could not reliably determine a referrer. e.g. Incognito mode">
+                                                       title="{{ trans('canvas::stats.details.referer.unknown') }}">
                                             {{ $host }} <i class="far fa-fw fa-question-circle text-muted"></i>
                                         </a>
                                     @endunless
                                 </p>
                             </div>
                             <div class="ml-auto">
-                                <span class="text-muted">{{ \Canvas\SuffixedNumber::format($views) }} View(s)</span>
+                                <span class="text-muted">{{ \Canvas\SuffixedNumber::format($views) }} {{ trans('canvas::stats.views') }}</span>
                             </div>
                         </div>
                     @endforeach
@@ -73,7 +73,8 @@
                         </div>
                     @endforeach
                 @else
-                    <p class="py-4 border-top"><em>{{ trans('canvas::stats.details.empty') }}</em>
+                    <p class="py-4 border-top">
+                        <em>{{ trans('canvas::stats.details.empty') }}</em>
                     </p>
                 @endif
             </div>

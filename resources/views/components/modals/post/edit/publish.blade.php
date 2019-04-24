@@ -14,7 +14,7 @@
             <div class="modal-footer">
                 <a href="#" class="btn btn-primary"
                    onclick="event.preventDefault();document.getElementById('form-edit').submit();"
-                   aria-label="Update post">Update post</a>
+                   aria-label="Update post">{{ trans('canvas::buttons.posts.schedule') }}</a>
                 <button class="btn btn-link text-muted" data-dismiss="modal">
                     {{ trans('canvas::buttons.general.cancel') }}
                 </button>

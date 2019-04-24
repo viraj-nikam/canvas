@@ -108,7 +108,7 @@ class PostController extends Controller
             $this->assignTopic(request('topic') ?? [])
         );
 
-        return redirect(route('canvas.post.edit', $post->id))->with('notify', 'Saved!');
+        return redirect(route('canvas.post.edit', $post->id))->with('notify', trans('canvas::nav.notify.success'));
     }
 
     /**
@@ -159,7 +159,7 @@ class PostController extends Controller
             $this->assignTopic(request('topic') ?? [])
         );
 
-        return redirect(route('canvas.post.edit', $post->id))->with('notify', 'Saved!');
+        return redirect(route('canvas.post.edit', $post->id))->with('notify', trans('canvas::nav.notify.success'));
     }
 
     /**

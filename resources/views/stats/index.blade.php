@@ -51,13 +51,13 @@
                                         </p>
                                         <p class="text-muted mb-2">
                                             @{{ post.read_time }} ―
-                                            <a :href="'/canvas/posts/' + post.id + '/edit'">Edit post</a> ―
-                                            <a :href="'/canvas/stats/' + post.id">Details</a>
+                                            <a :href="'/canvas/posts/' + post.id + '/edit'">{{ trans('canvas::buttons.posts.edit') }}</a> ―
+                                            <a :href="'/canvas/stats/' + post.id">{{ trans('canvas::buttons.stats.show') }}</a>
                                         </p>
                                     </div>
                                     <div class="ml-auto d-none d-lg-block">
-                                        <span class="text-muted mr-3">@{{ suffixedNumber(post.views_count) }} View(s)</span>
-                                        Created @{{ moment(post.created_at).fromNow() }}
+                                        <span class="text-muted mr-3">@{{ suffixedNumber(post.views_count) }} {{ trans('canvas::stats.views') }}</span>
+                                        {{ trans('canvas::stats.details.created') }} @{{ moment(post.created_at).fromNow() }}
                                     </div>
                                 </div>
 

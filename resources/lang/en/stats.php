@@ -16,6 +16,7 @@ return [
     'header'  => 'Stats',
     'subtext' => 'Click on a post below to see more detailed insights.',
     'empty'   => 'There are no published posts for which you can view stats.',
+    'views'   => 'View(s)',
     'cards'   => [
         'views'      => [
             'title' => 'Views (30 days)',
@@ -32,10 +33,15 @@ return [
         ],
     ],
     'details' => [
+        'created'   => 'Created',
         'published' => 'Published on',
         'views'     => 'Views by traffic source',
         'reading'   => 'Popular reading times',
         'empty'     => 'Waiting until your post has more views to show these insights.',
+        'referer'   => [
+            'other'   => 'Other',
+            'unknown' => 'Post views in this category could not reliably determine a referrer. e.g. Incognito mode',
+        ],
     ],
 
 ];

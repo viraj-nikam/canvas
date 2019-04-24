@@ -4,7 +4,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Post Language Lines
+    | Tag Language Lines
     |--------------------------------------------------------------------------
     |
     | The following language lines are used by the paginator library to build
@@ -13,19 +13,18 @@ return [
     |
     */
 
-    'header'  => 'Posts',
+    'header'  => 'Tags',
+    'posts'   => 'Post(s)',
     'empty'   => [
-        'description' => 'No posts were found, start by',
-        'action'      => 'adding a new post',
+        'description' => 'No tags were found, start by',
+        'action'      => 'adding a new tag',
     ],
     'search'  => [
         'input' => 'Search',
-        'empty' => 'No posts matched the given search criteria.',
+        'empty' => 'No tags matched the given search criteria.',
     ],
     'details' => [
-        'published' => 'Published',
-        'draft'     => 'Draft',
-        'updated'   => 'Updated',
+        'created' => 'Created',
     ],
 
 ];

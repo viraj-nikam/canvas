@@ -4,7 +4,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Topics Language Lines
+    | Topic Language Lines
     |--------------------------------------------------------------------------
     |
     | The following language lines are used by the paginator library to build
@@ -14,11 +14,13 @@ return [
     */
 
     'header'  => 'Topics',
+    'posts'   => 'Post(s)',
     'empty'   => [
         'description' => 'No topics were found, start by',
         'action'      => 'adding a new topic',
     ],
     'search'  => [
+        'input' => '',
         'empty' => 'No topics matched the given search criteria.',
     ],
     'details' => [

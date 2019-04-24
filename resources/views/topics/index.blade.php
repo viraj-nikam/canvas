@@ -26,7 +26,7 @@
                                                type="text"
                                                class="form-control border-0 px-0 py-0"
                                                id="search"
-                                               placeholder="Search..."
+                                               placeholder="{{ trans('canvas::topics.search.input') }}..."
                                                autofocus>
                                     </div>
                                 </form>
@@ -44,7 +44,7 @@
                                     </p>
                                 </div>
                                 <div class="ml-auto">
-                                    <span class="text-muted mr-3">@{{ topic.posts_count }} Post(s)</span>
+                                    <span class="text-muted mr-3">@{{ topic.posts_count }} {{ trans('canvas::topics.posts') }}</span>
                                     {{ trans('canvas::topics.details.created') }} @{{ moment(topic.created_at).fromNow() }}
                                 </div>
                             </div>
@@ -53,7 +53,7 @@
                                 <a href="#!" class="btn btn-link" @click="limit += 7" v-if="load">{{ trans('canvas::buttons.general.load') }} <i class="fa fa-fw fa-angle-down"></i></a>
                             </div>
 
-                            <p class="mt-4" v-if="!filteredList.length">{{ trans('canvas::topics.empty.search') }}</p>
+                            <p class="mt-4" v-if="!filteredList.length">{{ trans('canvas::topics.search.empty') }}</p>
                         </div>
                     @else
                         <p class="mt-4">{{ trans('canvas::topics.empty.description') }} <a href="{{ route('canvas.topic.create') }}">{{ trans('canvas::topics.empty.action') }}</a>.</p>

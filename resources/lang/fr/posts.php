@@ -13,19 +13,19 @@ return [
     |
     */
 
-    'header'  => 'Posts',
+    'header'  => 'Des postes',
     'empty'   => [
-        'description' => 'No posts were found, start by',
-        'action'      => 'adding a new post',
+        'description' => 'Aucun article n\'a été trouvé, commencez par',
+        'action'      => 'ajouter un nouveau message',
     ],
     'search'  => [
-        'input' => 'Search',
-        'empty' => 'No posts matched the given search criteria.',
+        'input' => 'Chercher',
+        'empty' => 'Aucun article ne correspond aux critères de recherche donnés.',
     ],
     'details' => [
-        'published' => 'Published',
-        'draft'     => 'Draft',
-        'updated'   => 'Updated',
+        'published' => 'Publié',
+        'draft'     => 'Brouillon',
+        'updated'   => 'Mis à jour',
     ],
 
 ];
