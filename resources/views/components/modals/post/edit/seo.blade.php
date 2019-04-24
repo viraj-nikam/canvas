@@ -2,46 +2,46 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-body">
-                <p class="font-weight-bold lead">SEO & Social</p>
+                <p class="font-weight-bold lead">{{ trans('canvas::posts.forms.seo.header') }}</p>
 
                 <div class="form-group row">
                     <div class="col-12">
-                        <label for="meta_description" class="font-weight-bold">Meta Description</label>
+                        <label for="meta_description" class="font-weight-bold">{{ trans('canvas::posts.forms.seo.meta') }}</label>
                         <textarea name="meta_description" class="form-control border-0 px-0" rows="1"
-                                  placeholder="Meta Description" title="Meta Description">{{ $data['meta']['meta_description'] }}</textarea>
+                                  placeholder="{{ trans('canvas::posts.forms.seo.meta') }}" title="{{ trans('canvas::posts.forms.seo.meta') }}">{{ $data['meta']['meta_description'] }}</textarea>
                     </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-12">
-                        <label for="og_title" class="font-weight-bold">Facebook Card Title</label>
+                        <label for="og_title" class="font-weight-bold">{{ trans('canvas::posts.forms.facebook.title.label') }}</label>
                         <input type="text"
                                class="form-control border-0 px-0"
-                               name="og_title" title="Facebook Card Title" value="{{ $data['meta']['og_title'] }}"
-                               placeholder="Title in Facebook Card">
+                               name="og_title" title="{{ trans('canvas::posts.forms.facebook.title.label') }}" value="{{ $data['meta']['og_title'] }}"
+                               placeholder="{{ trans('canvas::posts.forms.facebook.title.placeholder') }}">
                     </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-12">
-                        <label for="og_description" class="font-weight-bold">Facebook Card Description</label>
+                        <label for="og_description" class="font-weight-bold">{{ trans('canvas::posts.forms.facebook.description.label') }}</label>
                         <textarea name="og_description" class="form-control border-0 px-0" rows="1"
-                                  placeholder="Description in Facebook Card"
-                                  title="Facebook Card Description">{{ $data['meta']['og_description'] }}</textarea>
+                                  placeholder="{{ trans('canvas::posts.forms.facebook.description.placeholder') }}"
+                                  title="{{ trans('canvas::posts.forms.facebook.description.label') }}">{{ $data['meta']['og_description'] }}</textarea>
                     </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-12">
-                        <label for="twitter_title" class="font-weight-bold">Twitter Card Title</label>
+                        <label for="twitter_title" class="font-weight-bold">{{ trans('canvas::posts.forms.twitter.title.label') }}</label>
                         <input type="text" class="form-control border-0 px-0"
-                               name="twitter_title" title="Twitter Card Title" value="{{ $data['meta']['twitter_title'] }}"
-                               placeholder="Title in Twitter Card">
+                               name="twitter_title" title="{{ trans('canvas::posts.forms.twitter.title.label') }}" value="{{ $data['meta']['twitter_title'] }}"
+                               placeholder="{{ trans('canvas::posts.forms.twitter.title.placeholder') }}">
                     </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-12">
-                        <label for="twitter_description" class="font-weight-bold">Twitter Card Description</label>
+                        <label for="twitter_description" class="font-weight-bold">{{ trans('canvas::posts.forms.twitter.description.label') }}</label>
                         <textarea name="twitter_description" class="form-control border-0 px-0" rows="1"
-                                  placeholder="Description in Twitter Card"
-                                  title="Twitter Card Description">{{ $data['meta']['twitter_description'] }}</textarea>
+                                  placeholder="{{ trans('canvas::posts.forms.twitter.description.placeholder') }}"
+                                  title="{{ trans('canvas::posts.forms.twitter.description.label') }}">{{ $data['meta']['twitter_description'] }}</textarea>
                     </div>
                 </div>
             </div>

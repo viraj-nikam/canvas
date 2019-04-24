@@ -4,8 +4,8 @@
             <div class="modal-body">
                 <div class="form-group row">
                     <div class="col-12">
-                        <label for="published_at" class="font-weight-bold">Publish date (m/d/y h:m)</label>
-                        <p class="text-muted">Post scheduling uses a 24-hour time format and is utilizing the <span class="font-weight-bold">{{ now()->timezoneName }}</span> timezone.</p>
+                        <label for="published_at" class="font-weight-bold">{{ trans('canvas::posts.forms.publish.header') }}</label>
+                        <p class="text-muted">{{ trans('canvas::posts.forms.publish.subtext.details') }} <span class="font-weight-bold">{{ now()->timezoneName }}</span> {{ trans('canvas::posts.forms.publish.subtext.timezone') }}.</p>
 
                         <date-time-picker value="{{ $data['post']->published_at->format('Y-m-d\TH:i') }}"></date-time-picker>
                     </div>

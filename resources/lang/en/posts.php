@@ -42,18 +42,32 @@ return [
             'header'   => 'SEO & Social',
             'meta'     => 'Meta Description',
             'facebook' => [
-                'label'       => 'Facebook Card Title',
-                'description' => 'Facebook Card Description',
-                'placeholder' => 'Title in Facebook Card',
+                'title'       => [
+                    'label'       => 'Facebook Card Title',
+                    'placeholder' => 'Title in Facebook Card',
+                ],
+                'description' => [
+                    'label'       => 'Facebook Card Description',
+                    'placeholder' => 'Description in Facebook Card',
+                ],
             ],
             'twitter'  => [
-                'label'       => 'Twitter Card Title',
-                'description' => 'Twitter Card Description',
-                'placeholder' => 'Title in Twitter Card',
+                'title'       => [
+                    'label'       => 'Twitter Card Title',
+                    'placeholder' => 'Title in Twitter Card',
+                ],
+                'description' => [
+                    'label'       => 'Twitter Card Description',
+                    'placeholder' => 'Description in Twitter Card',
+                ],
             ],
         ],
         'settings' => [
             'header'  => 'General settings',
+            'slug'    => [
+                'label'       => 'Slug',
+                'placeholder' => 'a-unique-slug',
+            ],
             'summary' => [
                 'label'       => 'Summary',
                 'placeholder' => 'A descriptive summary..',
