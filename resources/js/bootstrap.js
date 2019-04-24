@@ -37,7 +37,6 @@ try {
     });
 
     require('bootstrap');
-    require('@fortawesome/fontawesome-free');
 } catch (e) {
 }
 

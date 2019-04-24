@@ -10,7 +10,9 @@
                 <a href="#" class="btn btn-danger"
                    onclick="event.preventDefault();document.getElementById('form-delete').submit();"
                    aria-label="Delete">Delete</a>
-                <button type="button" class="btn btn-link text-muted" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-link text-muted" data-dismiss="modal">
+                    {{ trans('canvas::buttons.general.cancel') }}
+                </button>
 
                 <form id="form-delete" action="{{ route('canvas.topic.destroy', $data['topic']->id) }}" method="POST" style="display: none">
                     @method('DELETE')

@@ -2,7 +2,7 @@
 
 @section('actions')
     <a href="{{ route('canvas.post.create') }}" class="btn btn-sm btn-outline-primary my-auto mx-3">
-        New post
+        {{ trans('canvas::buttons.posts.create') }}
     </a>
 @endsection
 
@@ -10,30 +10,30 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-10">
-                <h1 class="mt-2">Stats</h1>
+                <h1 class="mt-2">{{ trans('canvas::stats.header') }}</h1>
 
                 @if($data['posts']['all']->isNotEmpty())
-                    <p class="mt-3 mb-4">Click on a post below to see more detailed insights.</p>
+                    <p class="mt-3 mb-4">{{ trans('canvas::stats.subtext') }}</p>
 
                     <div class="card-deck mb-4">
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title text-muted small text-uppercase font-weight-bold">Views (30 days)</h5>
+                                <h5 class="card-title text-muted small text-uppercase font-weight-bold">{{ trans('canvas::stats.cards.views.title') }}</h5>
                                 <p class="card-text display-4">{{ \Canvas\SuffixedNumber::format($data['views']['count']) }}</p>
                             </div>
                         </div>
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title text-muted small text-uppercase font-weight-bold">Total Posts</h5>
+                                <h5 class="card-title text-muted small text-uppercase font-weight-bold">{{ trans('canvas::stats.cards.posts.title') }}</h5>
                                 <p class="card-text display-4">{{ $data['posts']['all']->count() }}</p>
                             </div>
                         </div>
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title text-muted small text-uppercase font-weight-bold">Publishing</h5>
+                                <h5 class="card-title text-muted small text-uppercase font-weight-bold">{{ trans('canvas::stats.cards.publishing.title') }}</h5>
                                 <ul>
-                                    <li>{{ $data['posts']['published_count'] }} Published Post(s)</li>
-                                    <li>{{ $data['posts']['drafts_count'] }} Draft(s)</li>
+                                    <li>{{ $data['posts']['published_count'] }} {{ trans('canvas::stats.cards.publishing.details.published') }}</li>
+                                    <li>{{ $data['posts']['drafts_count'] }} {{ trans('canvas::stats.cards.publishing.details.published') }}</li>
                                 </ul>
                             </div>
                         </div>
@@ -62,13 +62,13 @@
                                 </div>
 
                                 <div class="d-flex justify-content-center">
-                                    <a href="#!" class="btn btn-link" @click="limit += 7" v-if="load">Show more <i class="fa fa-fw fa-angle-down"></i></a>
+                                    <a href="#!" class="btn btn-link" @click="limit += 7" v-if="load">{{ trans('canvas::buttons.general.load') }} <i class="fa fa-fw fa-angle-down"></i></a>
                                 </div>
                             </div>
                         </div>
                     </post-list>
                 @else
-                    <p class="mt-4">There are no published posts for which you can view stats.</p>
+                    <p class="mt-4">{{ trans('canvas::stats.empty') }}</p>
                 @endif
             </div>
         </div>

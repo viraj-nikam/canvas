@@ -28,6 +28,7 @@ class CanvasServiceProvider extends ServiceProvider
         $this->handleMigrations();
         $this->handlePublishing();
         $this->handleResources();
+        $this->handleTranslations();
         $this->handleCommands();
     }
 
@@ -92,6 +93,16 @@ class CanvasServiceProvider extends ServiceProvider
     private function handleResources()
     {
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'canvas');
+    }
+
+    /**
+     * Register the translations.
+     *
+     * @return void
+     */
+    private function handleTranslations()
+    {
+        $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'canvas');
     }
 
     /**

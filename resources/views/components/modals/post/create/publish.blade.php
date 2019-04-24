@@ -15,7 +15,9 @@
                 <a href="#" class="btn btn-primary"
                    onclick="event.preventDefault();document.getElementById('form-create').submit();"
                    aria-label="Publish this post">Schedule to publish</a>
-                <button class="btn btn-link text-muted" data-dismiss="modal">Cancel</button>
+                <button class="btn btn-link text-muted" data-dismiss="modal">
+                    {{ trans('canvas::buttons.general.cancel') }}
+                </button>
             </div>
         </div>
     </div>

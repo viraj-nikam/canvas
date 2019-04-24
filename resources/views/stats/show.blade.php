@@ -2,7 +2,7 @@
 
 @section('actions')
     <a href="{{ route('canvas.index') }}" class="btn btn-sm btn-outline-primary my-auto mx-3">
-        See all stats
+        {{ trans('canvas::buttons.stats.index') }}
     </a>
 @endsection
 
@@ -11,7 +11,7 @@
         <div class="row justify-content-center">
             <div class="col-md-10">
                 <h5 class="text-muted small text-uppercase font-weight-bold mt-2">
-                    Published on {{ \Carbon\Carbon::parse($data['post']->published_at)->format('F d, Y') }}
+                    {{ trans('canvas::stats.details.published') }} {{ \Carbon\Carbon::parse($data['post']->published_at)->format('F d, Y') }}
                 </h5>
                 <h1 class="mb-4">{{ $data['post']->title }}</h1>
 
@@ -19,7 +19,9 @@
             </div>
 
             <div class="col-md-5 mt-4">
-                <h5 class="text-muted small text-uppercase font-weight-bold">Views by Traffic Source</h5>
+                <h5 class="text-muted small text-uppercase font-weight-bold">
+                    {{ trans('canvas::stats.details.views') }}
+                </h5>
 
                 @if($data['traffic'])
                     @foreach($data['traffic'] as $host => $views)
@@ -47,13 +49,15 @@
                         </div>
                     @endforeach
                 @else
-                    <p class="py-4 border-top"><em>Waiting until your post has more views to show these insights.</em>
+                    <p class="py-4 border-top"><em>{{ trans('canvas::stats.details.empty') }}</em>
                     </p>
                 @endif
             </div>
 
             <div class="col-md-5 mt-4">
-                <h5 class="text-muted small text-uppercase font-weight-bold">Popular Reading Times</h5>
+                <h5 class="text-muted small text-uppercase font-weight-bold">
+                    {{ trans('canvas::stats.details.reading') }}
+                </h5>
 
                 @if($data['popular_reading_times'])
                     @foreach($data['popular_reading_times'] as $range => $percentage)
@@ -69,7 +73,7 @@
                         </div>
                     @endforeach
                 @else
-                    <p class="py-4 border-top"><em>Waiting until your post has more views to show these insights.</em>
+                    <p class="py-4 border-top"><em>{{ trans('canvas::stats.details.empty') }}</em>
                     </p>
                 @endif
             </div>
