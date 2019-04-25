@@ -28,6 +28,9 @@
         @yield('body')
     </div>
 
+    <!-- Localization scripts -->
+    <script type="text/javascript">let locale="{{ config('app.locale') }}"</script>
+
     <!-- Application scripts -->
     <script type="text/javascript" src="{{ mix('js/app.js', 'vendor/canvas') }}"></script>
 
