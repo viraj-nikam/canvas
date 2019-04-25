@@ -26,6 +26,9 @@ return [
     'details' => [
         'created' => 'Criado',
     ],
+    'forms'   => [
+        'placeholder' => 'Dê um nome ao seu tópico',
+    ],
     'delete'  => [
         'header'  => 'Excluir',
         'warning' => 'Os tópicos excluídos desaparecerão para sempre. Você tem certeza?',

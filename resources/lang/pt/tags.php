@@ -26,6 +26,9 @@ return [
     'details' => [
         'created' => 'Criado',
     ],
+    'forms'   => [
+        'placeholder' => 'Dê um nome à sua tag',
+    ],
     'delete'  => [
         'header'  => 'Excluir',
         'warning' => 'As tags excluídas se foram para sempre. Você tem certeza?',

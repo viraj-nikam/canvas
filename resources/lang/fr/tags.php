@@ -26,6 +26,9 @@ return [
     'details' => [
         'created' => 'Créé',
     ],
+    'forms'   => [
+        'placeholder' => 'Donnez un nom à votre tag',
+    ],
     'delete'  => [
         'header'  => 'Effacer',
         'warning' => 'Les balises supprimées ont disparu pour toujours. Êtes-vous sûr?',

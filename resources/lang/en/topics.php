@@ -26,6 +26,9 @@ return [
     'details' => [
         'created' => 'Created',
     ],
+    'forms'   => [
+        'placeholder' => 'Give your topic a name',
+    ],
     'delete'  => [
         'header'  => 'Delete',
         'warning' => 'Deleted topics are gone forever. Are you sure?',

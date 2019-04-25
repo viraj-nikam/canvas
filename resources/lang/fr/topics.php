@@ -26,6 +26,9 @@ return [
     'details' => [
         'created' => 'Créé',
     ],
+    'forms'   => [
+        'placeholder' => 'Donnez un nom à votre sujet',
+    ],
     'delete'  => [
         'header'  => 'Effacer',
         'warning' => 'Les sujets supprimés ont disparu pour toujours. Êtes-vous sûr?',
