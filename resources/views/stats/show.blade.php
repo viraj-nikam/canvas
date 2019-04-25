@@ -2,7 +2,7 @@
 
 @section('actions')
     <a href="{{ route('canvas.index') }}" class="btn btn-sm btn-outline-primary my-auto mx-3">
-        {{ trans('canvas::buttons.stats.index') }}
+        {{ __('canvas::buttons.stats.index') }}
     </a>
 @endsection
 
@@ -11,7 +11,7 @@
         <div class="row justify-content-center">
             <div class="col-md-10">
                 <h5 class="text-muted small text-uppercase font-weight-bold mt-2">
-                    {{ trans('canvas::stats.details.published') }} {{ \Carbon\Carbon::parse($data['post']->published_at)->format('F d, Y') }}
+                    {{ __('canvas::stats.details.published') }} {{ \Carbon\Carbon::parse($data['post']->published_at)->format('F d, Y') }}
                 </h5>
                 <h1 class="mb-4">{{ $data['post']->title }}</h1>
 
@@ -20,7 +20,7 @@
 
             <div class="col-md-5 mt-4">
                 <h5 class="text-muted small text-uppercase font-weight-bold">
-                    {{ trans('canvas::stats.details.views') }}
+                    {{ __('canvas::stats.details.views') }}
                 </h5>
 
                 @if($data['traffic'])
@@ -28,7 +28,7 @@
                         <div class="d-flex @if($loop->first) border-top @endif py-2 align-items-center">
                             <div class="mr-auto">
                                 <p class="mb-0 py-1">
-                                    @unless($host == trans('canvas::stats.details.referer.other'))
+                                    @unless($host == __('canvas::stats.details.referer.other'))
                                         <img src="{{ sprintf('%s%s', 'https://favicons.githubusercontent.com/', $host) }}"
                                              alt="{{ $host }}" style="width: 15px; height: 15px;" class="mr-1">
                                         <a href="http://{{ $host }}" target="_blank">{{ $host }}</a>
@@ -37,26 +37,26 @@
                                              alt="{{ $host }}" style="width: 15px; height: 15px;" class="mr-1">
                                         <a data-toggle="tooltip" data-placement="right"
                                                        style="cursor: pointer"
-                                                       title="{{ trans('canvas::stats.details.referer.unknown') }}">
+                                                       title="{{ __('canvas::stats.details.referer.unknown') }}">
                                             {{ $host }} <i class="far fa-fw fa-question-circle text-muted"></i>
                                         </a>
                                     @endunless
                                 </p>
                             </div>
                             <div class="ml-auto">
-                                <span class="text-muted">{{ \Canvas\SuffixedNumber::format($views) }} {{ trans('canvas::stats.views') }}</span>
+                                <span class="text-muted">{{ \Canvas\SuffixedNumber::format($views) }} {{ __('canvas::stats.views') }}</span>
                             </div>
                         </div>
                     @endforeach
                 @else
-                    <p class="py-4 border-top"><em>{{ trans('canvas::stats.details.empty') }}</em>
+                    <p class="py-4 border-top"><em>{{ __('canvas::stats.details.empty') }}</em>
                     </p>
                 @endif
             </div>
 
             <div class="col-md-5 mt-4">
                 <h5 class="text-muted small text-uppercase font-weight-bold">
-                    {{ trans('canvas::stats.details.reading.header') }}
+                    {{ __('canvas::stats.details.reading.header') }}
                 </h5>
 
                 @if($data['popular_reading_times'])
@@ -74,7 +74,7 @@
                     @endforeach
                 @else
                     <p class="py-4 border-top">
-                        <em>{{ trans('canvas::stats.details.empty') }}</em>
+                        <em>{{ __('canvas::stats.details.empty') }}</em>
                     </p>
                 @endif
             </div>

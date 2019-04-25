@@ -4,7 +4,7 @@
     <a href="#" class="btn btn-sm btn-outline-primary my-auto"
        onclick="event.preventDefault();document.getElementById('form-edit').submit();"
        aria-label="Save">
-        {{ trans('canvas::buttons.tags.update') }}
+        {{ __('canvas::buttons.tags.update') }}
     </a>
 
     <div class="dropdown">
@@ -13,7 +13,7 @@
         </a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
             <a href="#" class="dropdown-item text-danger" data-toggle="modal" data-target="#modal-delete">
-                {{ trans('canvas::buttons.general.delete') }}
+                {{ __('canvas::buttons.general.delete') }}
             </a>
         </div>
     </div>

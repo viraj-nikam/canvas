@@ -2,16 +2,16 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-body">
-                <p class="font-weight-bold lead">{{ trans('canvas::topics.delete.header') }}</p>
+                <p class="font-weight-bold lead">{{ __('canvas::topics.delete.header') }}</p>
 
-                {{ trans('canvas::topics.delete.warning') }}
+                {{ __('canvas::topics.delete.warning') }}
             </div>
             <div class="modal-footer">
                 <a href="#" class="btn btn-danger"
                    onclick="event.preventDefault();document.getElementById('form-delete').submit();"
-                   aria-label="Delete">{{ trans('canvas::buttons.general.delete') }}</a>
+                   aria-label="Delete">{{ __('canvas::buttons.general.delete') }}</a>
                 <button type="button" class="btn btn-link text-muted" data-dismiss="modal">
-                    {{ trans('canvas::buttons.general.cancel') }}
+                    {{ __('canvas::buttons.general.cancel') }}
                 </button>
 
                 <form id="form-delete" action="{{ route('canvas.topic.destroy', $data['topic']->id) }}" method="POST" style="display: none">

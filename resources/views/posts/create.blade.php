@@ -1,10 +1,10 @@
 @extends('canvas::index')
 
-@section('context', trans('canvas::nav.context.draft'))
+@section('context', __('canvas::nav.context.draft'))
 
 @section('actions')
     <a href="#" class="btn btn-sm btn-outline-primary my-auto" data-toggle="modal" data-target="#modal-publish">
-        {{ trans('canvas::buttons.posts.save') }}
+        {{ __('canvas::buttons.posts.save') }}
     </a>
 
     <div class="dropdown">
@@ -14,13 +14,13 @@
         </a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
             <a href="#" class="dropdown-item" data-toggle="modal" data-target="#modal-settings">
-                {{ trans('canvas::nav.controls.settings') }}
+                {{ __('canvas::nav.controls.settings') }}
             </a>
             <a href="#" class="dropdown-item" data-toggle="modal" data-target="#modal-image">
-                {{ trans('canvas::nav.controls.image') }}
+                {{ __('canvas::nav.controls.image') }}
             </a>
             <a href="#" class="dropdown-item" data-toggle="modal" data-target="#modal-seo">
-                {{ trans('canvas::nav.controls.seo') }}
+                {{ __('canvas::nav.controls.seo') }}
             </a>
         </div>
     </div>

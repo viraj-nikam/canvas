@@ -154,7 +154,7 @@ class Post extends Model
         // Divide by the average number of words per minute
         $minutes = ceil($words / 250);
 
-        return sprintf('%d %s %s', $minutes, Str::plural(trans('canvas::stats.details.reading.time'), $minutes), trans('canvas::stats.details.reading.read'));
+        return sprintf('%d %s %s', $minutes, Str::plural(__('canvas::stats.details.reading.time'), $minutes), __('canvas::stats.details.reading.read'));
     }
 
     /**
@@ -217,7 +217,7 @@ class Post extends Model
         // Filter the view data to only include referrers
         $collection = collect();
         $data->each(function ($item, $key) use ($collection) {
-            is_null($item->referer) ? $collection->push(trans('canvas::stats.details.referer.other')) : $collection->push(parse_url($item->referer)['host']);
+            is_null($item->referer) ? $collection->push(__('canvas::stats.details.referer.other')) : $collection->push(parse_url($item->referer)['host']);
         });
 
         // Count the unique values and assign to their respective keys

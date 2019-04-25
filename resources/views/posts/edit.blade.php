@@ -1,10 +1,10 @@
 @extends('canvas::index')
 
-@section('context', $data['post']->published ? trans('canvas::nav.context.published') : trans('canvas::nav.context.draft'))
+@section('context', $data['post']->published ? __('canvas::nav.context.published') : __('canvas::nav.context.draft'))
 
 @section('actions')
     <a href="#" class="btn btn-sm btn-outline-primary my-auto" data-toggle="modal" data-target="#modal-publish">
-        {{ trans('canvas::buttons.posts.save') }}
+        {{ __('canvas::buttons.posts.save') }}
     </a>
 
     <div class="dropdown">
@@ -15,21 +15,21 @@
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
             @if($data['post']->published)
                 <a href="{{ route('canvas.stats.show', $data['post']->id) }}" class="dropdown-item">
-                    {{ trans('canvas::nav.controls.stats') }}
+                    {{ __('canvas::nav.controls.stats') }}
                 </a>
                 <div class="dropdown-divider"></div>
             @endif
             <a href="#" class="dropdown-item" data-toggle="modal" data-target="#modal-settings">
-                {{ trans('canvas::nav.controls.settings') }}
+                {{ __('canvas::nav.controls.settings') }}
             </a>
             <a href="#" class="dropdown-item" data-toggle="modal" data-target="#modal-image">
-                {{ trans('canvas::nav.controls.image') }}
+                {{ __('canvas::nav.controls.image') }}
             </a>
             <a href="#" class="dropdown-item" data-toggle="modal" data-target="#modal-seo">
-                {{ trans('canvas::nav.controls.seo') }}
+                {{ __('canvas::nav.controls.seo') }}
             </a>
             <a href="#" class="dropdown-item text-danger" data-toggle="modal" data-target="#modal-delete">
-                {{ trans('canvas::buttons.general.delete') }}
+                {{ __('canvas::buttons.general.delete') }}
             </a>
         </div>
     </div>

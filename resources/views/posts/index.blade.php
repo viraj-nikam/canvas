@@ -2,7 +2,7 @@
 
 @section('actions')
     <a href="{{ route('canvas.post.create') }}" class="btn btn-sm btn-outline-primary my-auto mx-3">
-        {{ trans('canvas::buttons.posts.create') }}
+        {{ __('canvas::buttons.posts.create') }}
     </a>
 @endsection
 
@@ -12,7 +12,7 @@
             <div class="row justify-content-center">
                 <div class="col-md-10">
                     <div class="d-flex justify-content-between">
-                        <h1 class="mb-4 mt-2">{{ trans('canvas::posts.header') }}</h1>
+                        <h1 class="mb-4 mt-2">{{ __('canvas::posts.header') }}</h1>
                         <div class="dropdown my-auto">
                             <a href="#" id="navbarDropdown" class="nav-link px-0 text-secondary pt-0" role="button"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre
@@ -26,7 +26,7 @@
                                                type="text"
                                                class="form-control border-0 pl-0"
                                                id="search"
-                                               placeholder="{{ trans('canvas::posts.search.input') }}..."
+                                               placeholder="{{ __('canvas::posts.search.input') }}..."
                                                autofocus>
                                     </div>
                                 </form>
@@ -44,12 +44,12 @@
                                     <p class="mb-1" v-if="post.summary">@{{ post.summary }}</p>
                                     <p class="text-muted mb-0">
                                         <span v-if="post.published_at <= new Date().toJSON().slice(0, 19).replace('T', ' ')">
-                                            {{ trans('canvas::posts.details.published') }} @{{ moment(post.published_at).fromNow() }}
+                                            {{ __('canvas::posts.details.published') }} @{{ moment(post.published_at).fromNow() }}
                                         </span>
                                         <span v-else class="text-danger">
-                                            {{ trans('canvas::posts.details.draft') }}
+                                            {{ __('canvas::posts.details.draft') }}
                                         </span>
-                                        ― {{ trans('canvas::posts.details.updated') }} @{{ moment(post.updated_at).fromNow() }}
+                                        ― {{ __('canvas::posts.details.updated') }} @{{ moment(post.updated_at).fromNow() }}
                                     </p>
                                 </div>
                                 <div class="ml-auto d-none d-lg-block">
@@ -67,13 +67,13 @@
                             </div>
 
                             <div class="d-flex justify-content-center">
-                                <a href="#!" class="btn btn-link" @click="limit += 7" v-if="load">{{ trans('canvas::buttons.general.load') }} <i class="fa fa-fw fa-angle-down"></i></a>
+                                <a href="#!" class="btn btn-link" @click="limit += 7" v-if="load">{{ __('canvas::buttons.general.load') }} <i class="fa fa-fw fa-angle-down"></i></a>
                             </div>
 
-                            <p class="mt-4" v-if="!filteredList.length">{{ trans('canvas::posts.search.empty') }}</p>
+                            <p class="mt-4" v-if="!filteredList.length">{{ __('canvas::posts.search.empty') }}</p>
                         </div>
                     @else
-                        <p class="mt-4">{{ trans('canvas::posts.empty.description') }} <a href="{{ route('canvas.post.create') }}">{{ trans('canvas::posts.empty.action') }}</a>.</p>
+                        <p class="mt-4">{{ __('canvas::posts.empty.description') }} <a href="{{ route('canvas.post.create') }}">{{ __('canvas::posts.empty.action') }}</a>.</p>
                     @endif
                 </div>
             </div>
