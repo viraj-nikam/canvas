@@ -19,6 +19,7 @@ return [
         'done'   => 'Feito',
         'load'   => 'Mostre mais',
         'save'   => 'Salve ',
+        'next'   => 'Próxima página',
     ],
     'posts'   => [
         'create'   => 'Nova postagem',

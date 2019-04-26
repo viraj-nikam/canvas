@@ -29,8 +29,45 @@ return [
     ],
     'forms'   => [
         'editor'   => [
-            'title' => 'Title',
-            'body'  => 'Tell your story...',
+            'title'  => 'Title',
+            'body'   => 'Tell your story...',
+            'link'   => 'Paste or type a link...',
+            'html'   => [
+                'label'       => 'Embed HTML',
+                'placeholder' => 'Paste your HTML here',
+            ],
+            'images' => [
+                'featured' => [
+                    'title'       => 'Featured Image Caption',
+                    'placeholder' => 'Add a caption for your image',
+                ],
+                'picker'   => [
+                    'greeting'    => 'Please',
+                    'action'      => 'upload',
+                    'item'        => 'an image',
+                    'operator'    => 'or',
+                    'unsplash'    => 'search Unsplash',
+                    'key'         => 'Please configure your Unsplash API Key.',
+                    'placeholder' => 'Search free high-resolution photos',
+                    'caption'     => [
+                        'by' => 'Photo by',
+                        'on' => 'on',
+                    ],
+                    'search'      => [
+                        'empty' => 'We couldn\'t find any matches.',
+                    ],
+                    'uploader'    => [
+                        'label'   => 'Add image',
+                        'caption' => [
+                            'placeholder' => 'Type caption for image (optional)',
+                        ],
+                        'layout'  => [
+                            'default' => 'Default layout',
+                            'wide'    => 'Wide image',
+                        ],
+                    ],
+                ],
+            ],
         ],
         'image'    => [
             'header' => 'Featured image',

@@ -28,6 +28,8 @@ return [
     ],
     'forms'   => [
         'placeholder' => 'Donnez un nom à votre sujet',
+        'topic'       => 'Ajouter ceci comme nouveau sujet',
+        'select'      => 'Choisissez un sujet...',
     ],
     'delete'  => [
         'header'  => 'Effacer',

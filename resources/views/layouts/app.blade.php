@@ -29,7 +29,7 @@
     </div>
 
     <!-- Localization scripts -->
-    <script type="text/javascript">let locale="{{ str_replace('_', '-', app()->getLocale()) }}"</script>
+    <script src="{{ route('canvas.lang') }}"></script>
 
     <!-- Application scripts -->
     <script type="text/javascript" src="{{ mix('js/app.js', 'vendor/canvas') }}"></script>

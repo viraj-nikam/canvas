@@ -28,6 +28,8 @@ return [
     ],
     'forms'   => [
         'placeholder' => 'Give your tag a name',
+        'tag'         => 'Add a new tag',
+        'select'      => 'Select some tags...',
     ],
     'delete'  => [
         'header'  => 'Delete',

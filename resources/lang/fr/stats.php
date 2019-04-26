@@ -17,6 +17,10 @@ return [
     'subtext' => 'Cliquez sur un post ci-dessous pour obtenir des informations plus détaillées.',
     'empty'   => 'Il n\'y a pas d\'articles publiés pour lesquels vous pouvez voir les statistiques.',
     'views'   => 'Vue(s)',
+    'chart'   => [
+        'view'  => 'vue',
+        'views' => 'Vues (30 jours)',
+    ],
     'cards'   => [
         'views'      => [
             'title' => 'Vues (30 jours)',

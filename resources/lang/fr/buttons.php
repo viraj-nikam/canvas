@@ -19,6 +19,7 @@ return [
         'done'   => 'Terminé',
         'load'   => 'Montre plus',
         'save'   => 'sauvegarder',
+        'next'   => 'Page suivante',
     ],
     'posts'   => [
         'create'   => 'Nouveau poste',

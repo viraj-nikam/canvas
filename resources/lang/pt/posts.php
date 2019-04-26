@@ -29,8 +29,45 @@ return [
     ],
     'forms'   => [
         'editor'   => [
-            'title' => 'Título',
-            'body'  => 'Conte sua história ...',
+            'title'  => 'Título',
+            'body'   => 'Conte sua história ...',
+            'link'   => 'Cole ou digite um link ...',
+            'html'   => [
+                'label'       => 'Incorporar HTML',
+                'placeholder' => 'Cole seu HTML aqui',
+            ],
+            'images' => [
+                'featured' => [
+                    'title'       => 'Legenda da imagem em destaque',
+                    'placeholder' => 'Adicione uma legenda para sua imagem',
+                ],
+                'picker'   => [
+                    'greeting'    => 'Por favor',
+                    'action'      => 'Envio',
+                    'item'        => 'uma imagem',
+                    'operator'    => 'ou',
+                    'unsplash'    => 'pesquisa Unsplash',
+                    'key'         => 'Por favor, configure sua chave de API Unsplash.',
+                    'placeholder' => 'Pesquise fotos de alta resolução gratuitas',
+                    'caption'     => [
+                        'by' => 'foto por',
+                        'on' => 'em',
+                    ],
+                    'search'      => [
+                        'empty' => 'Não foi possível encontrar correspondências.',
+                    ],
+                    'uploader'    => [
+                        'label'   => 'Adicionar imagem',
+                        'caption' => [
+                            'placeholder' => 'Digite legenda para imagem (opcional)',
+                        ],
+                        'layout'  => [
+                            'default' => 'Layout padrão',
+                            'wide'    => 'Imagem ampla',
+                        ],
+                    ],
+                ],
+            ],
         ],
         'image'    => [
             'header' => 'Imagem em destaque',

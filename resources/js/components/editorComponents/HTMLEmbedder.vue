@@ -8,8 +8,10 @@
         data() {
             return {
                 content: '',
-
                 modalShown: false,
+                done: i18n.buttons.general.done,
+                label: i18n.posts.forms.editor.html.label,
+                placeholder: i18n.posts.forms.editor.html.placeholder,
             }
         },
 
@@ -38,16 +40,16 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-body">
-                    <p class="font-weight-bold lead">Embed HTML</p>
+                    <p class="font-weight-bold lead">{{ this.label }}</p>
                     <div class="form-group row">
                         <div class="col-lg-12 mx-0 px-0">
                             <textarea ref="content" cols="30" rows="10" class="form-control border-0"
-                              placeholder="Paste your HTML here" style="resize: none" v-model="content"></textarea>
+                              :placeholder="this.placeholder" style="resize: none" v-model="content"></textarea>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-link text-muted" data-dismiss="modal" @click="addHTML">Done</button>
+                    <button class="btn btn-link text-muted" data-dismiss="modal" @click="addHTML">{{ this.done }}</button>
                 </div>
             </div>
         </div>

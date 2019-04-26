@@ -17,6 +17,10 @@ return [
     'subtext' => 'Click on a post below to see more detailed insights.',
     'empty'   => 'There are no published posts for which you can view stats.',
     'views'   => 'View(s)',
+    'chart'   => [
+        'view'  => 'view',
+        'views' => 'Views (30 days)',
+    ],
     'cards'   => [
         'views'      => [
             'title' => 'Views (30 days)',

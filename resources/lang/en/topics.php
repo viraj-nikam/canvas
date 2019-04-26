@@ -20,7 +20,7 @@ return [
         'action'      => 'adding a new topic',
     ],
     'search'  => [
-        'input' => '',
+        'input' => 'Search',
         'empty' => 'No topics matched the given search criteria.',
     ],
     'details' => [
@@ -28,6 +28,8 @@ return [
     ],
     'forms'   => [
         'placeholder' => 'Give your topic a name',
+        'topic'       => 'Add this as a new topic',
+        'select'      => 'Select a topic...',
     ],
     'delete'  => [
         'header'  => 'Delete',

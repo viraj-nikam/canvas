@@ -29,8 +29,45 @@ return [
     ],
     'forms'   => [
         'editor'   => [
-            'title' => 'Titre',
-            'body'  => 'Raconte ton histoire ...',
+            'title'  => 'Titre',
+            'body'   => 'Raconte ton histoire ...',
+            'link'   => 'Coller ou taper un lien ...',
+            'html'   => [
+                'label'       => 'HTML incorporé',
+                'placeholder' => 'Collez votre code HTML ici',
+            ],
+            'images' => [
+                'featured' => [
+                    'title'       => 'Légende de l\'image en vedette',
+                    'placeholder' => 'Ajouter une légende pour votre image',
+                ],
+                'picker'   => [
+                    'greeting'    => 'S\'il vous plaît',
+                    'action'      => 'télécharger',
+                    'item'        => 'une image',
+                    'operator'    => 'ou',
+                    'unsplash'    => 'rechercher Unsplash',
+                    'key'         => 'Veuillez configurer votre clé API Unsplash.',
+                    'placeholder' => 'Rechercher des photos haute résolution gratuites',
+                    'caption'     => [
+                        'by' => 'photo par',
+                        'on' => 'sur',
+                    ],
+                    'search'      => [
+                        'empty' => 'Nous n\'avons trouvé aucune correspondance.',
+                    ],
+                    'uploader'    => [
+                        'label'   => 'Ajouter une image',
+                        'caption' => [
+                            'placeholder' => 'Tapez la légende pour l\'image (facultatif)',
+                        ],
+                        'layout'  => [
+                            'default' => 'Mise en page par défaut',
+                            'wide'    => 'Image large',
+                        ],
+                    ],
+                ],
+            ],
         ],
         'image'    => [
             'header' => 'L\'image sélectionnée',

@@ -28,6 +28,8 @@ return [
     ],
     'forms'   => [
         'placeholder' => 'Donnez un nom à votre tag',
+        'tag'         => 'Ajouter un nouveau tag',
+        'select'      => 'Sélectionnez des tags ...',
     ],
     'delete'  => [
         'header'  => 'Effacer',
