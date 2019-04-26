@@ -15,7 +15,7 @@ Route::put('posts/{id}', 'PostController@update')->name('canvas.post.update');
 Route::delete('posts/{id}', 'PostController@destroy')->name('canvas.post.destroy');
 
 // Media routes...
-Route::post('media/uploads', 'MediaController@store')->name('canvas.media.store');
+Route::post('media/uploads', 'MediaController')->name('canvas.media.store');
 
 // Tag routes...
 Route::get('tags', 'TagController@index')->name('canvas.tag.index');

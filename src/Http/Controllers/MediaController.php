@@ -12,7 +12,7 @@ class MediaController extends Controller
      *
      * @return string
      */
-    public function store(): string
+    public function __invoke(): string
     {
         $path = request()->image->store(sprintf('%s/%s', config('canvas.storage_path'), 'images'), [
             'disk'       => config('canvas.storage_disk'),
