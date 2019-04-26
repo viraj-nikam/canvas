@@ -88,12 +88,16 @@ class PostController extends Controller
             ],
         ];
 
+        $messages = [
+            'unique' => __('canvas::validation.unique'),
+        ];
+
         validator($data, [
             'title'        => 'required',
             'slug'         => 'required|'.Rule::unique('canvas_posts', 'slug')->ignore(request('id')).'|regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/i',
             'published_at' => 'required|date',
             'user_id'      => 'required',
-        ])->validate();
+        ], $messages)->validate();
 
         $post = new Post(['id' => request('id')]);
         $post->fill($data);
@@ -108,7 +112,7 @@ class PostController extends Controller
             $this->assignTopic(request('topic') ?? [])
         );
 
-        return redirect(route('canvas.post.edit', $post->id))->with('notify', 'Saved!');
+        return redirect(route('canvas.post.edit', $post->id))->with('notify', __('canvas::nav.notify.success'));
     }
 
     /**
@@ -140,12 +144,16 @@ class PostController extends Controller
             ],
         ];
 
+        $messages = [
+            'unique' => __('canvas::validation.unique'),
+        ];
+
         validator($data, [
             'title'        => 'required',
             'slug'         => 'required|'.Rule::unique('canvas_posts', 'slug')->ignore($id).'|regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/i',
             'published_at' => 'required',
             'user_id'      => 'required',
-        ])->validate();
+        ], $messages)->validate();
 
         $post->fill($data);
         $post->meta = $data['meta'];
@@ -159,7 +167,7 @@ class PostController extends Controller
             $this->assignTopic(request('topic') ?? [])
         );
 
-        return redirect(route('canvas.post.edit', $post->id))->with('notify', 'Saved!');
+        return redirect(route('canvas.post.edit', $post->id))->with('notify', __('canvas::nav.notify.success'));
     }
 
     /**

@@ -32,7 +32,9 @@
         data() {
             return {
                 editor: null,
-                editorBody: this.value
+                editorBody: this.value,
+                placeholder: i18n.posts.forms.editor.body,
+                link: i18n.posts.forms.editor.link,
             }
         },
 
@@ -64,7 +66,7 @@
                     },
                     theme: 'bubble',
                     scrollingContainer: 'html, body',
-                    placeholder: "Tell your story..."
+                    placeholder: this.placeholder
                 });
 
                 /**
@@ -74,7 +76,7 @@
                  */
                 let tooltip = quill.theme.tooltip;
                 let input = tooltip.root.querySelector("input[data-link]");
-                input.dataset.link = 'Paste or type a link...';
+                input.dataset.link = this.link;
 
                 return quill;
             },

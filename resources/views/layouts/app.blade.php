@@ -28,6 +28,9 @@
         @yield('body')
     </div>
 
+    <!-- Localization scripts -->
+    <script src="{{ route('canvas.lang') }}"></script>
+
     <!-- Application scripts -->
     <script type="text/javascript" src="{{ mix('js/app.js', 'vendor/canvas') }}"></script>
 
