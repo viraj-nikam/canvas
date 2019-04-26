@@ -1,5 +1,10 @@
 # Release Notes
 
+## [v4.1.29](https://github.com/cnvs/canvas/compare/v4.1.28...v4.1.29)
+
+### Added
+- Added multilingual support for French, Portuguese and Chinese (Simplified) ([#447](https://github.com/cnvs/canvas/issues/447), [f622b1e](https://github.com/cnvs/canvas/commit/f622b1e4864ecd1a526c79a467dda7b1aa1485ad))
+
 ## [v4.1.28](https://github.com/cnvs/canvas/compare/v4.1.27...v4.1.28)
 
 ### Changed
