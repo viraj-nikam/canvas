@@ -20,7 +20,9 @@
 
             return {
                 value: this.assigned ? this.assigned : [],
-                options: allTopics
+                options: allTopics,
+                topic: i18n.topics.forms.tag,
+                select: i18n.topics.forms.select,
             }
         },
 
@@ -64,8 +66,8 @@
     <div>
         <multiselect
                 v-model="value"
-                placeholder="Select a topic..."
-                tag-placeholder="Add this as new topic"
+                :placeholder="this.select"
+                :tag-placeholder="this.topic"
                 label="name"
                 track-by="slug"
                 :options="options"

@@ -74,7 +74,7 @@ class TopicController extends Controller
         $topic->fill($data);
         $topic->save();
 
-        return redirect(route('canvas.topic.edit', $topic->id))->with('notify', 'Saved!');
+        return redirect(route('canvas.topic.edit', $topic->id))->with('notify', __('canvas::nav.notify.success'));
     }
 
     /**
@@ -101,7 +101,7 @@ class TopicController extends Controller
         $topic->fill($data);
         $topic->save();
 
-        return redirect(route('canvas.topic.edit', $topic->id))->with('notify', 'Saved!');
+        return redirect(route('canvas.topic.edit', $topic->id))->with('notify', __('canvas::nav.notify.success'));
     }
 
     /**

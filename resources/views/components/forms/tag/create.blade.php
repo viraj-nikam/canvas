@@ -8,7 +8,7 @@
                 <div class="col-lg-12">
                     <input type="text" name="name" v-model="name" title="Name"
                            class="form-control-lg form-control border-0 px-0"
-                           value="{{ old('name') }}" required placeholder="Give your tag a name">
+                           value="{{ old('name') }}" required placeholder="{{ __('canvas::tags.forms.placeholder') }}">
                     @if ($errors->has('slug'))
                         <div class="invalid-feedback d-block">
                             <strong>{{ $errors->first('slug') }}</strong>
