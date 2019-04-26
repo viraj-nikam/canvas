@@ -1,5 +1,10 @@
 # Release Notes
 
+## [v4.1.30](https://github.com/cnvs/canvas/compare/v4.1.29...v4.1.30)
+
+### Fixed
+- Fixed the query scope for published posts ([be072bd](https://github.com/cnvs/canvas/commit/be072bd583e738ed7422cb31a171b73e4f8d5e2f))
+
 ## [v4.1.29](https://github.com/cnvs/canvas/compare/v4.1.28...v4.1.29)
 
 ### Added

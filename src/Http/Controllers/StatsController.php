@@ -23,7 +23,8 @@ class StatsController extends Controller
     public function index()
     {
         // Get all of the posts
-        $posts = Post::orderByDesc('created_at')
+        $posts = Post::published()
+            ->orderByDesc('created_at')
             ->select('id', 'title', 'body', 'published_at', 'created_at')
             ->withCount('views')
             ->get();
