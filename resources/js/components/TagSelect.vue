@@ -20,8 +20,7 @@
             return {
                 value: this.tagged ? this.tagged : [],
                 options: allTags,
-                tag: i18n.tags.forms.tag,
-                select: i18n.tags.forms.select,
+                trans: i18n
             }
         },
 
@@ -56,8 +55,8 @@
     <div>
         <multiselect
                 v-model="value"
-                :placeholder="this.select"
-                :tag-placeholder="this.tag"
+                :placeholder="this.trans.tags.forms.select"
+                :tag-placeholder="this.trans.tags.forms.tag"
                 label="name"
                 track-by="slug"
                 :options="options"

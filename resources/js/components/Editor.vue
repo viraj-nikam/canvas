@@ -33,8 +33,7 @@
             return {
                 editor: null,
                 editorBody: this.value,
-                placeholder: i18n.posts.forms.editor.body,
-                link: i18n.posts.forms.editor.link,
+                trans: i18n
             }
         },
 
@@ -66,7 +65,7 @@
                     },
                     theme: 'bubble',
                     scrollingContainer: 'html, body',
-                    placeholder: this.placeholder
+                    placeholder: this.trans.posts.forms.editor.body
                 });
 
                 /**
@@ -76,7 +75,7 @@
                  */
                 let tooltip = quill.theme.tooltip;
                 let input = tooltip.root.querySelector("input[data-link]");
-                input.dataset.link = this.link;
+                input.dataset.link = this.trans.posts.forms.editor.link;
 
                 return quill;
             },

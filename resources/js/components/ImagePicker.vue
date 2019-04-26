@@ -18,18 +18,7 @@
                 unsplashPage: 1,
                 searchingUnsplash: true,
                 unsplashImages: [],
-                greeting: i18n.posts.forms.editor.images.picker.greeting,
-                action: i18n.posts.forms.editor.images.picker.action,
-                item: i18n.posts.forms.editor.images.picker.item,
-                operator: i18n.posts.forms.editor.images.picker.operator,
-                source: i18n.posts.forms.editor.images.picker.unsplash,
-                key: i18n.posts.forms.editor.images.picker.key,
-                placeholder: i18n.posts.forms.editor.images.picker.placeholder,
-                empty: i18n.posts.forms.editor.images.picker.search.empty,
-                next: i18n.buttons.general.next,
-                cancel: i18n.buttons.general.cancel,
-                captionBy: i18n.posts.forms.editor.images.picker.caption.by,
-                captionOn: i18n.posts.forms.editor.images.picker.caption.on,
+                trans: i18n
             }
         },
 
@@ -43,7 +32,7 @@
             // Get images from Unsplash
             getImagesFromUnsplash(page = 1) {
                 if (!this.unsplash) {
-                    return this.alertError(this.key);
+                    return this.alertError(this.trans.posts.forms.editor.images.picker.key);
                 }
                 this.unsplashPage = page;
                 this.searchingUnsplash = true;
@@ -84,7 +73,7 @@
 
                 this.$emit('changed', {
                     url: this.selectedUnsplashImage.urls.regular,
-                    caption: this.captionBy + ' <a href="' + this.selectedUnsplashImage.user.links.html + '" target="_blank">' + this.selectedUnsplashImage.user.name + '</a> ' + this.captionOn + ' <a href="https://unsplash.com" target="_blank">Unsplash</a>',
+                    caption: this.trans.posts.forms.editor.images.picker.caption.by + ' <a href="' + this.selectedUnsplashImage.user.links.html + '" target="_blank">' + this.selectedUnsplashImage.user.name + '</a> ' + this.trans.posts.forms.editor.images.picker.caption.on + ' <a href="https://unsplash.com" target="_blank">Unsplash</a>',
                 });
 
                 this.closeUnsplashModal();
@@ -134,14 +123,14 @@
                accept="image/*"
                v-on:change="uploadSelectedImage">
         <div class="mb-0">
-            {{ this.greeting }} <label :for="'imageUpload'+_uid" class="text-primary" style="cursor:pointer;">{{
-            this.action }}</label> {{ this.item }}
-            <span v-if="this.unsplash">{{ this.operator }}</span>
+            {{ this.trans.posts.forms.editor.images.picker.greeting }} <label :for="'imageUpload'+_uid" class="text-primary" style="cursor:pointer;">{{
+            this.trans.posts.forms.editor.images.picker.action }}</label> {{ this.trans.posts.forms.editor.images.picker.item }}
+            <span v-if="this.unsplash">{{ this.trans.posts.forms.editor.images.picker.operator }}</span>
             <a v-if="this.unsplash"
                href="#"
                @click.prevent="openUnsplashModal"
                class="text-primary">
-                {{ this.source }}
+                {{ this.trans.posts.forms.editor.images.picker.unsplash }}
             </a>
         </div>
 
@@ -152,7 +141,7 @@
                        v-if="this.unsplash"
                        v-model="unsplashSearchTerm"
                        ref="unsplashSearch"
-                       :placeholder="this.placeholder">
+                       :placeholder="this.trans.posts.forms.editor.images.picker.placeholder">
 
                 <div v-if="!searchingUnsplash && unsplashImages.length">
                     <div class="card-columns">
@@ -170,20 +159,20 @@
                                 type="button"
                                 @click="closeUnsplashModal"
                                 v-on:submit.prevent="onSubmit">
-                            {{ this.cancel }}
+                            {{ this.trans.buttons.general.cancel }}
                         </button>
                         <button class="btn btn-sm btn-outline-primary"
                                 type="button"
                                 @click="getImagesFromUnsplash(unsplashPage + 1)"
                                 v-if="unsplashImages.length == 12"
                                 v-on:submit.prevent="onSubmit">
-                            {{ this.next }}
+                            {{ this.trans.buttons.general.next }}
                         </button>
                     </div>
                 </div>
 
                 <div v-if="!searchingUnsplash && !unsplashImages.length">
-                    <h4 class="text-center py-4">{{ this.empty }}</h4>
+                    <h4 class="text-center py-4">{{ this.trans.posts.forms.editor.images.picker.search.empty }}</h4>
                 </div>
             </div>
         </div>
