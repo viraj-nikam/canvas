@@ -15,11 +15,7 @@
                 imageUrl: null,
                 layout: 'default',
                 caption: '',
-                label: i18n.posts.forms.editor.images.picker.uploader.label,
-                placeholder: i18n.posts.forms.editor.images.picker.uploader.caption.placeholder,
-                default: i18n.posts.forms.editor.images.picker.uploader.layout.default,
-                wide: i18n.posts.forms.editor.images.picker.uploader.layout.wide,
-                done: i18n.buttons.general.done,
+                trans: i18n
             }
         },
 
@@ -78,7 +74,7 @@
         <div class="modal-dialog" id="unsplash-modal" role="document">
             <div class="modal-content">
                 <div class="modal-body">
-                    <p class="font-weight-bold lead">{{ this.label }}</p>
+                    <p class="font-weight-bold lead">{{ this.trans.posts.forms.editor.images.picker.uploader.label }}</p>
                     <div class="form-group row">
                         <div class="col-lg-12">
                             <div v-if="imageUrl" id="current-image">
@@ -86,13 +82,13 @@
 
                                 <div class="input-group py-2">
                                     <input type="text" class="form-control border-0 px-0" v-model="caption"
-                                           :placeholder="this.placeholder" ref="caption">
+                                           :placeholder="this.trans.posts.forms.editor.images.picker.uploader.caption.placeholder" ref="caption">
                                 </div>
 
                                 <div class="input-group py-2">
                                     <select class="custom-select border-0 px-0" v-model="layout">
-                                        <option value="default">{{ this.default }}</option>
-                                        <option value="wide">{{ this.wide }}</option>
+                                        <option value="default">{{ this.trans.posts.forms.editor.images.picker.uploader.layout.default }}</option>
+                                        <option value="wide">{{ this.trans.posts.forms.editor.images.picker.uploader.layout.wide }}</option>
                                     </select>
                                 </div>
                             </div>
@@ -106,7 +102,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-link text-muted" data-dismiss="modal" @click="applyImage">{{ this.done }}</button>
+                    <button class="btn btn-link text-muted" data-dismiss="modal" @click="applyImage">{{ this.trans.buttons.general.done }}</button>
                 </div>
             </div>
         </div>

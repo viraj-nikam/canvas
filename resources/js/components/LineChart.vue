@@ -14,9 +14,8 @@
                 points: [{
                     values: Object.values(this.views)
                 }],
-                title: i18n.stats.cards.views.title,
-                tooltip: i18n.stats.chart.view,
-                labels: Object.keys(this.views)
+                labels: Object.keys(this.views),
+                trans: i18n
             }
         },
 
@@ -37,7 +36,7 @@
         <vue-frappe
                 id="stats"
                 :labels="this.labels"
-                :title="this.title"
+                :title="this.trans.stats.cards.views.title"
                 type="line"
                 :axisOptions="{
                     xIsSeries: true,
@@ -51,7 +50,7 @@
                 :dataSets="this.points"
                 :tooltipOptions="{
                     formatTooltipX: d => moment(d, 'YYYY-MM-DD').format('dddd, MMMM Do'),
-                    formatTooltipY: d => d + pluralize(this.tooltip, d),
+                    formatTooltipY: d => d + pluralize(this.trans.stats.chart.view, d),
                 }">
         </vue-frappe>
     </div>
