@@ -1,5 +1,11 @@
 # Release Notes
 
+## [v4.1.31](https://github.com/cnvs/canvas/compare/v4.1.30...v4.1.31)
+
+### Changed
+- Refactored the MediaController into a single action for simplicity ([2201769](https://github.com/cnvs/canvas/commit/22017691233fabfcea16cb473ca64e1573dd751c))
+- Refactored the `i18n` objects into single translation endpoints throughout the components for better maintainability ([0af8873](https://github.com/cnvs/canvas/commit/0af8873a90e26cf97ca9aec11c67f8851a11b36e))
+
 ## [v4.1.30](https://github.com/cnvs/canvas/compare/v4.1.29...v4.1.30)
 
 ### Fixed
