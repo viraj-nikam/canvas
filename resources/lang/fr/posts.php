@@ -20,14 +20,14 @@ return [
         'editor'   => [
             'title'  => 'Titre',
             'body'   => 'Raconte ton histoire ...',
-            'link'   => 'Coller ou taper un lien ...',
+            'link'   => 'Coller ou saisir un lien ...',
             'html'   => [
                 'label'       => 'HTML incorporé',
                 'placeholder' => 'Collez votre code HTML ici',
             ],
             'images' => [
                 'featured' => [
-                    'title'       => 'Légende de l\'image en vedette',
+                    'title'       => 'Légende de l\'image principale',
                     'placeholder' => 'Ajouter une légende pour votre image',
                 ],
                 'picker'   => [
@@ -35,7 +35,7 @@ return [
                     'action'      => 'télécharger',
                     'item'        => 'une image',
                     'operator'    => 'ou',
-                    'unsplash'    => 'rechercher Unsplash',
+                    'unsplash'    => 'recherche Unsplash',
                     'key'         => 'Veuillez configurer votre clé API Unsplash.',
                     'placeholder' => 'Rechercher des photos haute résolution gratuites',
                     'caption'     => [
@@ -73,22 +73,22 @@ return [
             'meta'     => 'Meta Description',
             'facebook' => [
                 'title'       => [
-                    'label'       => 'Titre de la carte Facebook',
-                    'placeholder' => 'Titre sur la carte Facebook',
+                    'label'       => 'Titre de l\'encart Facebook',
+                    'placeholder' => 'Titre sur l\'encart Facebook',
                 ],
                 'description' => [
-                    'label'       => 'Description de la carte Facebook',
-                    'placeholder' => 'Description dans la carte Facebook',
+                    'label'       => 'Description de l\'encart Facebook',
+                    'placeholder' => 'Description de l\'encart Facebook',
                 ],
             ],
             'twitter'  => [
                 'title'       => [
-                    'label'       => 'Titre de la carte Twitter',
-                    'placeholder' => 'Titre sur Twitter Card',
+                    'label'       => 'Titre de l\'encart Twitter',
+                    'placeholder' => 'Titre de l\'encart Twitter',
                 ],
                 'description' => [
-                    'label'       => 'Description de la carte Twitter',
-                    'placeholder' => 'Description dans Twitter Card',
+                    'label'       => 'Description de l\'encart Twitter',
+                    'placeholder' => 'Description de l\'encart Twitter',
                 ],
             ],
         ],
@@ -100,7 +100,7 @@ return [
             ],
             'summary' => [
                 'label'       => 'Résumé',
-                'placeholder' => 'Un résumé descriptif ..',
+                'placeholder' => 'Un exemple de résumé...',
             ],
             'topic'   => [
                 'label' => 'Sujet',
@@ -112,7 +112,7 @@ return [
     ],
     'delete'  => [
         'header'  => 'Effacer',
-        'warning' => 'Les messages supprimés ont disparu pour toujours. Êtes-vous sûr?',
+        'warning' => 'Les messages vont être supprimés définitivement. Êtes-vous sûr ?',
     ],
 
 ];
