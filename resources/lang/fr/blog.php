@@ -6,8 +6,8 @@ return [
     'buttons' => [
         'learn' => 'Apprendre encore plus',
         'next'  => 'Lire la suite',
-        'enjoy' => 'Vous pourriez apprécier',
-        'edit'  => 'Modifier le post',
+        'enjoy' => 'Vous pourriez aimer',
+        'edit'  => 'Modifier le billet',
         'stats' => 'Voir les statistiques',
     ],
     'empty'   => [
@@ -16,7 +16,7 @@ return [
     ],
     'nav'     => [
         'user' => [
-            'posts'  => 'Des postes',
+            'posts'  => 'Des billets',
             'tags'   => 'Mots clés',
             'topics' => 'Les sujets',
             'stats'  => 'Statistiques',
@@ -25,7 +25,7 @@ return [
         ],
     ],
     'posts'   => [
-        'label' => 'Messages récents',
+        'label' => 'Billets récents',
     ],
     'tags'    => [
         'label' => 'Mots clés',
