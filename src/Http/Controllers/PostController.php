@@ -132,7 +132,7 @@ class PostController extends Controller
             'summary'                => request('summary', null),
             'body'                   => request('body', null),
             'published_at'           => Carbon::parse(request('published_at'))->toDateTimeString(),
-            'featured_image'         => request('featured_image', $post->featured_image),
+            'featured_image'         => request('featured_image', null),
             'featured_image_caption' => request('featured_image_caption', null),
             'user_id'                => $post->user->id,
             'meta'                   => [

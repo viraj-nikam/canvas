@@ -13,6 +13,7 @@
                 imageUrl: '',
                 imageCaption: '',
                 uploading: false,
+                trans: i18n
             }
         },
 
@@ -55,7 +56,7 @@
                        name="featured_image_caption"
                        title="Featured Image Caption"
                        v-model="imageCaption"
-                       placeholder="Add a caption for your image">
+                       :placeholder="this.trans.posts.forms.editor.images.picker.uploader.caption.placeholder" >
             </div>
         </div>
 

@@ -38,6 +38,10 @@ return [
                     'unsplash'    => '搜索Unsplash',
                     'key'         => '請配置您的Unsplash API密鑰。',
                     'placeholder' => '搜索免費的高分辨率照片',
+                    'clear'       => [
+                        'action'      => '去掉',
+                        'description' => '选定的图像',
+                    ],
                     'caption'     => [
                         'by' => '拍攝者',
                         'on' => '上',

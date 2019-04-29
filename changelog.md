@@ -1,5 +1,16 @@
 # Release Notes
 
+## [v4.1.32](https://github.com/cnvs/canvas/compare/v4.1.31...v4.1.32)
+
+### Changed
+- Updated the French translations ([#466](https://github.com/cnvs/canvas/commit/7ff9a356d5cccac6dee735a4915e81b89482c71f), [#467](https://github.com/cnvs/canvas/commit/f7c1ed69d1058d1d608757b2e0eb936e8e941cb5), [#468](https://github.com/cnvs/canvas/commit/ff5d2b7b5c45f5b86dd816694bba0fe74e8337d4), [#469](https://github.com/cnvs/canvas/commit/9e46ab3f1683ff587a77be19a2f5c3b871aff57e), [#470](https://github.com/cnvs/canvas/commit/c25df9f1336cf3bfe687815877351315ffc0c5ed))
+
+### Added
+- Added the ability to remove a featured image ([10b0019](https://github.com/cnvs/canvas/commit/10b0019f61b7a5d3ff22843fd0ef250ffab689c0))
+
+### Fixed
+- Fixed the missing featured image caption translation ([c5f26b4](https://github.com/cnvs/canvas/commit/c5f26b4721a1de27d60d9f4e6bb39230fd3f767f))
+
 ## [v4.1.31](https://github.com/cnvs/canvas/compare/v4.1.30...v4.1.31)
 
 ### Changed

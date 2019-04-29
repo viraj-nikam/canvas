@@ -81,8 +81,11 @@
                                 <img :src="imageUrl" class="w-100">
 
                                 <div class="input-group py-2">
-                                    <input type="text" class="form-control border-0 px-0" v-model="caption"
-                                           :placeholder="this.trans.posts.forms.editor.images.picker.uploader.caption.placeholder" ref="caption">
+                                    <input type="text"
+                                           class="form-control border-0 px-0"
+                                           v-model="caption"
+                                           :placeholder="this.trans.posts.forms.editor.images.picker.uploader.caption.placeholder"
+                                           ref="caption">
                                 </div>
 
                                 <div class="input-group py-2">
