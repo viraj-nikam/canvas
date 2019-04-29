@@ -3,8 +3,8 @@
 return [
 
     'header'  => 'Statistiques',
-    'subtext' => 'Cliquez sur un post ci-dessous pour obtenir des informations plus détaillées.',
-    'empty'   => 'Il n\'y a pas d\'articles publiés pour lesquels vous pouvez voir les statistiques.',
+    'subtext' => 'Cliquez sur un des billets ci-dessous pour obtenir plus de détails.',
+    'empty'   => 'Il n\'y a pas d\'articles publiés pour lesquels les statistiques sont consultables.',
     'views'   => 'Vue(s)',
     'chart'   => [
         'view'  => 'vue',
@@ -28,16 +28,16 @@ return [
     'details' => [
         'created'   => 'Créé',
         'published' => 'Publié le',
-        'views'     => 'Vues par source de trafic',
+        'views'     => 'Vues par source de traffic',
         'reading'   => [
-            'header' => 'Temps de lecture populaires',
+            'header' => 'Moyenne du temps de lecture',
             'time'   => 'min',
             'read'   => 'lis',
         ],
-        'empty'     => 'Attendre que votre message ait plus de vues pour montrer ces idées.',
+        'empty'     => 'Attendre que votre message ait plus de vues avant de montrer ces idées.',
         'referer'   => [
             'other'   => 'Autre',
-            'unknown' => 'Les affichages de publication de cette catégorie ne pouvaient pas déterminer de manière fiable un parrain. par exemple. Mode de navigation privée',
+            'unknown' => 'Les affichages de publication de cette catégorie ne pouvaient pas déterminer de manière fiable un site de provenance i.e. Mode de navigation privée',
         ],
     ],
 
