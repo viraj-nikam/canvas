@@ -38,6 +38,10 @@ return [
                     'unsplash'    => 'search Unsplash',
                     'key'         => 'Please configure your Unsplash API Key.',
                     'placeholder' => 'Search free high-resolution photos',
+                    'clear'       => [
+                        'action'      => 'Remove',
+                        'description' => 'the selected image',
+                    ],
                     'caption'     => [
                         'by' => 'Photo by',
                         'on' => 'on',

@@ -38,6 +38,10 @@ return [
                     'unsplash'    => 'recherche Unsplash',
                     'key'         => 'Veuillez configurer votre clé API Unsplash.',
                     'placeholder' => 'Rechercher des photos haute résolution gratuites',
+                    'clear'       => [
+                        'action'      => 'Retirer',
+                        'description' => 'l\'image sélectionnée',
+                    ],
                     'caption'     => [
                         'by' => 'photo par',
                         'on' => 'sur',

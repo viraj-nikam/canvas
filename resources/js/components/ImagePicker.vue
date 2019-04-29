@@ -110,28 +110,40 @@
                     console.log(error);
                 });
             },
+
+            // Clear the selected image
+            clearSelectedImage(event) {
+                  this.$parent.imageUrl = '';
+            },
         }
     }
 </script>
 
 <template>
     <div>
-        <input hidden
-               type="file"
-               class="custom-file-input"
-               :id="'imageUpload'+_uid"
-               accept="image/*"
-               v-on:change="uploadSelectedImage">
-        <div class="mb-0">
-            {{ this.trans.posts.forms.editor.images.picker.greeting }} <label :for="'imageUpload'+_uid" class="text-primary" style="cursor:pointer;">{{
-            this.trans.posts.forms.editor.images.picker.action }}</label> {{ this.trans.posts.forms.editor.images.picker.item }}
-            <span v-if="this.unsplash">{{ this.trans.posts.forms.editor.images.picker.operator }}</span>
-            <a v-if="this.unsplash"
-               href="#"
-               @click.prevent="openUnsplashModal"
-               class="text-primary">
-                {{ this.trans.posts.forms.editor.images.picker.unsplash }}
-            </a>
+
+        <div v-if="this.$parent.imageUrl">
+            <a href="#" @click="clearSelectedImage">{{ this.trans.posts.forms.editor.images.picker.clear.action }}</a> {{ this.trans.posts.forms.editor.images.picker.clear.description }}
+        </div>
+
+        <div v-else>
+            <input hidden
+                   type="file"
+                   class="custom-file-input"
+                   :id="'imageUpload'+_uid"
+                   accept="image/*"
+                   v-on:change="uploadSelectedImage">
+            <div class="mb-0">
+                {{ this.trans.posts.forms.editor.images.picker.greeting }} <label :for="'imageUpload'+_uid" class="text-primary" style="cursor:pointer;">{{
+                this.trans.posts.forms.editor.images.picker.action }}</label> {{ this.trans.posts.forms.editor.images.picker.item }}
+                <span v-if="this.unsplash">{{ this.trans.posts.forms.editor.images.picker.operator }}</span>
+                <a v-if="this.unsplash"
+                   href="#"
+                   @click.prevent="openUnsplashModal"
+                   class="text-primary">
+                    {{ this.trans.posts.forms.editor.images.picker.unsplash }}
+                </a>
+            </div>
         </div>
 
         <div v-if="unsplashModalShown">
