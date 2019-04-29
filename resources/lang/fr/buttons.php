@@ -6,14 +6,14 @@ return [
         'cancel' => 'Annuler',
         'delete' => 'Effacer',
         'done'   => 'Terminé',
-        'load'   => 'Montre plus',
-        'save'   => 'sauvegarder',
+        'load'   => 'Voir plus',
+        'save'   => 'Sauvegarder',
         'next'   => 'Page suivante',
     ],
     'posts'   => [
-        'create'   => 'Nouveau poste',
-        'edit'     => 'Modifier le post',
-        'update'   => 'Mettre à jour le post',
+        'create'   => 'Nouveau billet',
+        'edit'     => 'Modifier le billet',
+        'update'   => 'Mettre à jour le billet',
         'save'     => 'Enregistrer et publier',
         'schedule' => 'Calendrier de publication',
     ],
@@ -22,7 +22,7 @@ return [
         'show'  => 'Détails',
     ],
     'tags'    => [
-        'create' => 'Nouvelle balise',
+        'create' => 'Nouveau mot clé',
         'update' => 'Sauvegarder les modifications',
     ],
     'topics'  => [
