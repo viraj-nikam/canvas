@@ -41,15 +41,12 @@ php artisan storage:link
 
 ## Configuration
 
-> **Note:** You are not required to complete the following steps. You have total design freedom when integrating blog content into your application.
+> **Note:** The following steps are optional configurations, you are not required to complete them.
 
-Generate a default blog controller with routes and views to get up and running as quickly as possible:
+**Want to get started fast?** Just run `php artisan canvas:setup` after installing Canvas. Then, navigate your browser to `http://your-app.test/blog` or any other URL that is assigned to your application. This command scaffolds a default frontend for your entire blog!
 
-```bash
-php artisan canvas:setup
-```
 
-If you want to include [Unsplash](https://unsplash.com) images in your posts, set up a new application at [https://unsplash.com/oauth/applications](https://unsplash.com/oauth/applications). Grab your access key and update `config/canvas.php`:
+If you want to include [Unsplash](https://unsplash.com) images in your post content, set up a new application at [https://unsplash.com/oauth/applications](https://unsplash.com/oauth/applications). Grab your access key and update `config/canvas.php`:
 
 ```php
 'unsplash' => [
