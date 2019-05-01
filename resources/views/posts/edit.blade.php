@@ -1,4 +1,4 @@
-@extends('canvas::index')
+@extends('canvas::layouts.app')
 
 @section('context', $data['post']->published ? __('canvas::nav.context.published') : __('canvas::nav.context.draft'))
 
