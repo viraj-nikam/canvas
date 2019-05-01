@@ -6,7 +6,7 @@
     @include('blog.partials.styles')
 @endpush
 
-@section('body')
+@section('content')
     <div class="container">
         @include('blog.partials.navbar')
 
