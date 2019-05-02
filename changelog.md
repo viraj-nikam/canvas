@@ -1,5 +1,11 @@
 # Release Notes
 
+## [v4.1.33](https://github.com/cnvs/canvas/compare/v4.1.32...v4.1.33)
+
+### Changed
+- Refactored the blade templates [2d37762](https://github.com/cnvs/canvas/commit/2d377623bbf103d593b326008e898e8f969a31a4)
+- Updated the default template dependencies [8136282](https://github.com/cnvs/canvas/commit/8136282391830d73c38afc12c487e37f10a2a7ca)
+
 ## [v4.1.32](https://github.com/cnvs/canvas/compare/v4.1.31...v4.1.32)
 
 ### Changed

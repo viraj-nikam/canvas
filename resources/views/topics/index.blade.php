@@ -1,4 +1,4 @@
-@extends('canvas::index')
+@extends('canvas::layouts.app')
 
 @section('actions')
     <a href="{{ route('canvas.topic.create') }}" class="btn btn-sm btn-outline-primary my-auto mx-3">

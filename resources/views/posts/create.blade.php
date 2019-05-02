@@ -1,4 +1,4 @@
-@extends('canvas::index')
+@extends('canvas::layouts.app')
 
 @section('context', __('canvas::nav.context.draft'))
 

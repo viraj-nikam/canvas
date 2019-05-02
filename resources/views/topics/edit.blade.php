@@ -1,4 +1,4 @@
-@extends('canvas::index')
+@extends('canvas::layouts.app')
 
 @section('actions')
     <a href="#" class="btn btn-sm btn-outline-primary my-auto"
