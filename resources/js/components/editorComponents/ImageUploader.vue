@@ -1,3 +1,48 @@
+<template>
+    <div v-cloak>
+        <div class="modal fade" id="image-upload" tabindex="-1" role="dialog" data-backdrop="static">
+            <div class="modal-dialog" id="unsplash-modal" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <p class="font-weight-bold lead">{{ this.trans.posts.forms.editor.images.picker.uploader.label }}</p>
+                        <div class="form-group row">
+                            <div class="col-lg-12">
+                                <div v-if="imageUrl" id="current-image">
+                                    <img :src="imageUrl" class="w-100">
+
+                                    <div class="input-group py-2">
+                                        <input type="text"
+                                               class="form-control border-0 px-0"
+                                               v-model="caption"
+                                               :placeholder="this.trans.posts.forms.editor.images.picker.uploader.caption.placeholder"
+                                               ref="caption">
+                                    </div>
+
+                                    <div class="input-group py-2">
+                                        <select class="custom-select border-0 px-0" v-model="layout">
+                                            <option value="default">{{ this.trans.posts.forms.editor.images.picker.uploader.layout.default }}</option>
+                                            <option value="wide">{{ this.trans.posts.forms.editor.images.picker.uploader.layout.wide }}</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <image-picker
+                                        v-if="!imageUrl"
+                                        @changed="updateImage"
+                                        :unsplash="this.unsplash">
+                                </image-picker>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-link text-muted" data-dismiss="modal" @click="applyImage">{{ this.trans.buttons.general.done }}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
 <script type="text/ecmascript-6">
     import $ from 'jquery';
 
@@ -7,7 +52,12 @@
      * @author Mohamed Said <themsaid@gmail.com>
      */
     export default {
-        props: ['unsplash'],
+        props: {
+            unsplash: {
+                type: String,
+                required: false
+            }
+        },
 
         data() {
             return {
@@ -68,46 +118,3 @@
         }
     }
 </script>
-
-<template>
-    <div class="modal fade" id="image-upload" tabindex="-1" role="dialog" data-backdrop="static">
-        <div class="modal-dialog" id="unsplash-modal" role="document">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <p class="font-weight-bold lead">{{ this.trans.posts.forms.editor.images.picker.uploader.label }}</p>
-                    <div class="form-group row">
-                        <div class="col-lg-12">
-                            <div v-if="imageUrl" id="current-image">
-                                <img :src="imageUrl" class="w-100">
-
-                                <div class="input-group py-2">
-                                    <input type="text"
-                                           class="form-control border-0 px-0"
-                                           v-model="caption"
-                                           :placeholder="this.trans.posts.forms.editor.images.picker.uploader.caption.placeholder"
-                                           ref="caption">
-                                </div>
-
-                                <div class="input-group py-2">
-                                    <select class="custom-select border-0 px-0" v-model="layout">
-                                        <option value="default">{{ this.trans.posts.forms.editor.images.picker.uploader.layout.default }}</option>
-                                        <option value="wide">{{ this.trans.posts.forms.editor.images.picker.uploader.layout.wide }}</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <image-picker
-                                    v-if="!imageUrl"
-                                    @changed="updateImage"
-                                    :unsplash="this.unsplash">
-                            </image-picker>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-link text-muted" data-dismiss="modal" @click="applyImage">{{ this.trans.buttons.general.done }}</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</template>

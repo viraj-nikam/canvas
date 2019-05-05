@@ -1,8 +1,40 @@
+<template>
+    <div v-cloak>
+        <multiselect
+                v-model="value"
+                :placeholder="this.trans.topics.forms.select"
+                :tag-placeholder="this.trans.topics.forms.tag"
+                label="name"
+                track-by="slug"
+                :options="options"
+                :taggable="true"
+                @input="onChange"
+                @tag="addTopic">
+        </multiselect>
+
+        <div class="topics">
+            <template v-if="value.length != 0">
+                <input hidden type="hidden" :name="`topic[name]`" :value="value.name">
+                <input hidden type="hidden" :name="`topic[slug]`" :value="value.slug">
+            </template>
+        </div>
+    </div>
+</template>
+
 <script type="text/ecmascript-6">
     import Multiselect from 'vue-multiselect'
 
     export default {
-        props: ['topics', 'assigned'],
+        props: {
+            topics: {
+                type: Array,
+                required: false
+            },
+            assigned: {
+                type: Array,
+                required: false
+            }
+        },
 
         components: {
             Multiselect
@@ -60,28 +92,5 @@
         }
     }
 </script>
-
-<template>
-    <div>
-        <multiselect
-                v-model="value"
-                :placeholder="this.trans.topics.forms.select"
-                :tag-placeholder="this.trans.topics.forms.tag"
-                label="name"
-                track-by="slug"
-                :options="options"
-                :taggable="true"
-                @input="onChange"
-                @tag="addTopic">
-        </multiselect>
-
-        <div class="topics">
-            <template v-if="value.length != 0">
-                <input hidden type="hidden" :name="`topic[name]`" :value="value.name">
-                <input hidden type="hidden" :name="`topic[slug]`" :value="value.slug">
-            </template>
-        </div>
-    </div>
-</template>
 
 <style rel="stylesheet" type="text/css" src="vue-multiselect/dist/vue-multiselect.min.css"></style>
