@@ -83,7 +83,7 @@
     }
 </script>
 
-<style scoped>
+<style>
     @import "~vue-multiselect/dist/vue-multiselect.min.css";
 
     .multiselect__select {

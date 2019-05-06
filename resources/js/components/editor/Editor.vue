@@ -236,8 +236,8 @@
     }
 </script>
 
-<style scoped>
-    @import "../../../../node_modules/quill/dist/quill.bubble.css";
+<style>
+    @import "~quill/dist/quill.bubble.css";
 
     .ql-container {
         box-sizing: border-box;
