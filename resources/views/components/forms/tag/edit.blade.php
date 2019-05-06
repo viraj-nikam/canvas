@@ -2,7 +2,7 @@
     @method('PUT')
     @csrf
 
-    <slug :model="{{ $data['tag'] }}" inline-template>
+    <slug-component :model="{{ $data['tag'] }}" inline-template>
         <div v-cloak>
             <div class="form-group row my-5">
                 <div class="col-lg-12">
@@ -23,5 +23,5 @@
                 </div>
             </div>
         </div>
-    </slug>
+    </slug-component>
 </form>

@@ -21,7 +21,7 @@
     </div>
 </template>
 
-<script type="text/ecmascript-6">
+<script>
     import Multiselect from 'vue-multiselect'
 
     export default {
@@ -93,4 +93,6 @@
     }
 </script>
 
-<style rel="stylesheet" type="text/css" src="vue-multiselect/dist/vue-multiselect.min.css"></style>
+<style scoped>
+    @import "~vue-multiselect/dist/vue-multiselect.min.css";
+</style>

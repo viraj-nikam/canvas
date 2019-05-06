@@ -24,7 +24,7 @@
     </div>
 </template>
 
-<script type="text/ecmascript-6">
+<script>
     /**
      * Embed a block of HTML.
      *

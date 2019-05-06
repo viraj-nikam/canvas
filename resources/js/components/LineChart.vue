@@ -23,7 +23,7 @@
     </div>
 </template>
 
-<script type="text/ecmascript-6">
+<script>
     import Vue from 'vue'
     import moment from 'moment';
     import Chart from 'vue2-frappe'

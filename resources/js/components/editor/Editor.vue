@@ -27,20 +27,25 @@
             <div ref="editor"></div>
             <input type="hidden" name="body" ref="body" />
 
-            <image-uploader @updated="applyImage" :unsplash="this.unsplash"></image-uploader>
-            <html-embedder @adding="addHTML"></html-embedder>
+            <image-uploader
+                    @updated="applyImage"
+                    :unsplash="this.unsplash">
+            </image-uploader>
+            <html-embedder
+                    @adding="addHTML">
+            </html-embedder>
         </div>
     </div>
 </template>
 
-<script type="text/ecmascript-6">
+<script>
     import Quill from 'quill'
     import Parchment from 'parchment'
-    import HTMLBlot from './editorComponents/HTMLBlot.js'
-    import ImageBlot from './editorComponents/ImageBlot.js'
-    import DividerBlot from './editorComponents/DividerBlot.js'
-    import HTMLEmbedder from './editorComponents/HTMLEmbedder.vue'
-    import ImageUploader from './editorComponents/ImageUploader.vue'
+    import HTMLBlot from './HTMLBlot'
+    import ImageBlot from './ImageBlot'
+    import DividerBlot from './DividerBlot'
+    import HTMLEmbedder from './HTMLEmbedder'
+    import ImageUploader from './ImageUploader'
 
     /**
      * Create an instance of the QuillJS editor.
@@ -231,8 +236,8 @@
     }
 </script>
 
-<style type="text/css">
-    @import "./../../../node_modules/quill/dist/quill.bubble.css";
+<style scoped>
+    @import "../../../../node_modules/quill/dist/quill.bubble.css";
 
     .ql-container {
         box-sizing: border-box;
