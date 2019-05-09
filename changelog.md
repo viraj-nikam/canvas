@@ -1,5 +1,10 @@
 # Release Notes
 
+## [v4.1.34](https://github.com/cnvs/canvas/compare/v4.1.33...v4.1.34)
+
+### Changed
+- Refactored Vue components to better align with the official style guide ([6c27729](https://github.com/cnvs/canvas/commit/6c2772926320e25a7f550d7da427772526465df2), [4fbc257](https://github.com/cnvs/canvas/commit/4fbc257c249538d6c7b52ddbf04af08b6d2735b1))
+
 ## [v4.1.33](https://github.com/cnvs/canvas/compare/v4.1.32...v4.1.33)
 
 ### Changed
