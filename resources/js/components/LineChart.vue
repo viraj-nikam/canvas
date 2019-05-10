@@ -1,36 +1,3 @@
-<script type="text/ecmascript-6">
-    import Vue from 'vue'
-    import moment from 'moment';
-    import Chart from 'vue2-frappe'
-
-    Vue.use(Chart);
-    Vue.prototype.moment = moment;
-
-    export default {
-        props: ['views'],
-
-        data() {
-            return {
-                points: [{
-                    values: Object.values(this.views)
-                }],
-                labels: Object.keys(this.views),
-                trans: i18n
-            }
-        },
-
-        methods: {
-            pluralize(string, count) {
-                if (count > 1 || count === 0) {
-                    return ' ' + string + 's';
-                } else {
-                    return ' ' + string;
-                }
-            }
-        }
-    }
-</script>
-
 <template>
     <div v-cloak>
         <vue-frappe
@@ -55,3 +22,41 @@
         </vue-frappe>
     </div>
 </template>
+
+<script>
+    import Vue from 'vue'
+    import moment from 'moment';
+    import Chart from 'vue2-frappe'
+
+    Vue.use(Chart);
+    Vue.prototype.moment = moment;
+
+    export default {
+        props: {
+            views: {
+                type: Object,
+                required: true
+            }
+        },
+
+        data() {
+            return {
+                points: [{
+                    values: Object.values(this.views)
+                }],
+                labels: Object.keys(this.views),
+                trans: i18n
+            }
+        },
+
+        methods: {
+            pluralize(string, count) {
+                if (count > 1 || count === 0) {
+                    return ' ' + string + 's';
+                } else {
+                    return ' ' + string;
+                }
+            }
+        }
+    }
+</script>
