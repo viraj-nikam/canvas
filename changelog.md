@@ -1,5 +1,10 @@
 # Release Notes
 
+## [v4.1.35](https://github.com/cnvs/canvas/compare/v4.1.34...v4.1.35)
+
+### Changed
+- Refactored list components and updated prop definitions ([092a0cb](https://github.com/cnvs/canvas/commit/092a0cb085111ef307b3f74302182f4e684a374c), [11f43c0](https://github.com/cnvs/canvas/commit/11f43c0cb07c3162077bcb28a7bf81ee35bf0ae1))
+
 ## [v4.1.34](https://github.com/cnvs/canvas/compare/v4.1.33...v4.1.34)
 
 ### Changed
