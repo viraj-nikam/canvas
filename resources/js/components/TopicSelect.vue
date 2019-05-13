@@ -13,7 +13,7 @@
         </multiselect>
 
         <div class="topics">
-            <template v-if="value.length != 0">
+            <template v-if="value.length !== 0">
                 <input hidden type="hidden" :name="`topic[name]`" :value="value.name">
                 <input hidden type="hidden" :name="`topic[slug]`" :value="value.slug">
             </template>
@@ -31,7 +31,7 @@
                 required: false
             },
             assigned: {
-                type: Array,
+                type: Object,
                 required: false
             }
         },

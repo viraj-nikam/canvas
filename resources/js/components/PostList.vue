@@ -62,11 +62,7 @@
                     return post.title.toLowerCase().includes(this.search.toLowerCase())
                 });
 
-                if (Object.keys(filtered).length > this.limit) {
-                    this.load = true;
-                } else {
-                    this.load = false;
-                }
+                this.load = Object.keys(filtered).length > this.limit;
 
                 return this.limit ? filtered.slice(0, this.limit) : this.postList;
             }
