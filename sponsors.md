@@ -26,15 +26,15 @@ You can join them in supporting the ongoing development of Canvas by [pledging o
 
 <tr>
 <td align="center" valign="center">
-<p><a href="https://www.jetbrains.com">jetbrains.com</a></p>
+<a href="https://www.jetbrains.com">jetbrains.com</a>
 </td>
 
 <td align="center" valign="center">
-<p><a href="https://digitalocean.com/?refcode=41cb45b3c7db">digitalocean.com</a></p>
+<a href="https://digitalocean.com/?refcode=41cb45b3c7db">digitalocean.com</a>
 </td>
 
 <td align="center" valign="center">
-<p><a href="https://www.navicat.com">navicat.com</a></p>
+<a href="https://www.navicat.com">navicat.com</a>
 </td>
 </tr>
 
