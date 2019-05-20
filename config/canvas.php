@@ -49,12 +49,12 @@ return [
 
     /*
    |--------------------------------------------------------------------------
-   | Weekly Summary
+   | Weekly Summary Digest
    |--------------------------------------------------------------------------
    |
-   | This option allows weekly e-mail summaries to be generated and sent
-   | out via the default mail driver. This will give helpful insights
-   | into your content and its impact to your readers.
+   | This option enables Canvas to send notifications via e-mail. A weekly
+   | summary digest will be delivered via the default mail driver. This
+   | will provide helpful insights into your content and its impact.
    |
    */
 
