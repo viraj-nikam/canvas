@@ -1,5 +1,10 @@
 # Release Notes
 
+## [v4.1.36](https://github.com/cnvs/canvas/compare/v4.1.35...v4.1.36)
+
+### Added
+- Added support for a weekly digest e-mail ([7d385bd](https://github.com/cnvs/canvas/commit/7d385bd9da3a4a37ded04373c67203f35f531f19))
+
 ## [v4.1.35](https://github.com/cnvs/canvas/compare/v4.1.34...v4.1.35)
 
 ### Changed
