@@ -4,7 +4,7 @@ namespace Canvas;
 
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class PostTags extends Pivot
+class PostsTags extends Pivot
 {
     /**
      * The table associated with the model.

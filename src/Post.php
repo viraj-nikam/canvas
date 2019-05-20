@@ -2,16 +2,11 @@
 
 namespace Canvas;
 
-use Carbon\Carbon;
-use Carbon\CarbonPeriod;
 use Illuminate\Support\Str;
+use Carbon\{Carbon, CarbonPeriod};
 use Illuminate\Foundation\Auth\User;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\{Model, Builder, SoftDeletes};
+use Illuminate\Database\Eloquent\Relations\{HasMany, BelongsTo, BelongsToMany};
 
 class Post extends Model
 {
