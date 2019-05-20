@@ -266,48 +266,50 @@
                                     <table align="center" width="570" cellpadding="0" cellspacing="0" role="presentation">
                                         <tr>
                                             <td class="content-cell" align="center">
-                                                <img src="{{ sprintf('%s%s%s', 'https://secure.gravatar.com/avatar/', md5(strtolower(trim($user->email))), '?s=500') }}">
+                                                <img src="{{ sprintf('%s%s%s', 'https://secure.gravatar.com/avatar/', md5(strtolower(trim($data['email']))), '?s=500') }}">
                                             </td>
                                         </tr>
                                     </table>
 
-                                    <p style="font-size: 24px;">Your weekly writer summary for May 17, 2019</p>
+                                    <p style="font-size: 24px;">Your weekly writer summary for {{ $data['end_date'] }}</p>
 
                                     <p style="text-transform: uppercase; font-size: 12px; font-weight: lighter;">Your posts on Canvas</p>
 
-                                    <p style="font-weight: bolder; font-size: 20px;">From May 10 to May 17, 2019, your posts received:</p>
+                                    <p style="font-weight: bolder; font-size: 20px;">From {{ $data['start_date'] }} to {{ $data['end_date'] }}, your posts received:</p>
 
                                     <h1>
-                                        <span style="font-size: 32px;">57</span>
+                                        <span style="font-size: 32px;">{{ $data['total_views'] }}</span>
                                         <br>
-                                        <span style="font-size: 16px; color: #8e8e8e">Views</span>
+                                        <span style="font-size: 16px; color: #8e8e8e">View(s)</span>
                                     </h1>
 
-                                    <table class="subcopy" width="100%" cellpadding="0" cellspacing="0" role="presentation">
-                                        <tr>
-                                            <td>
-                                                <table class="panel" width="100%" cellpadding="0" cellspacing="0" role="presentation">
-                                                    <tr>
-                                                        <td class="panel-content">
-                                                            <table width="100%" cellpadding="0" cellspacing="0" role="presentation">
-                                                                <tr>
-                                                                    <td class="panel-item">
-                                                                        <span style="font-size: 18px; font-weight: bolder;">Architect of the Future</span>
-                                                                    </td>
+                                    @foreach($data['posts'] as $post_title => $view_count)
+                                        <table class="subcopy" width="100%" cellpadding="0" cellspacing="0" role="presentation">
+                                            <tr>
+                                                <td>
+                                                    <table class="panel" width="100%" cellpadding="0" cellspacing="0" role="presentation">
+                                                        <tr>
+                                                            <td>
+                                                                <table width="100%" cellpadding="0" cellspacing="0" role="presentation">
+                                                                    <tr>
+                                                                        <td class="panel-item">
+                                                                            <span style="font-size: 18px; font-weight: bolder;">{{ $post_title }}</span>
+                                                                        </td>
 
-                                                                    <td class="panel-item">
-                                                                        <span style="font-size: 16px; color: #8e8e8e">Views this week</span>
-                                                                        <br>
-                                                                        <span style="font-size: 44px; font-weight: bolder;">+54</span>
-                                                                    </td>
-                                                                </tr>
-                                                            </table>
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                            </td>
-                                        </tr>
-                                    </table>
+                                                                        <td class="panel-item" align="right">
+                                                                            <span style="font-size: 16px; color: #8e8e8e">View(s) this week</span>
+                                                                            <br>
+                                                                            <span style="font-size: 44px; font-weight: bolder;">+{{ $view_count }}</span>
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    @endforeach
 
                                     <table class="action" align="center" width="100%" cellpadding="0" cellspacing="0" role="presentation">
                                         <tr>
@@ -318,7 +320,7 @@
                                                             <table border="0" cellpadding="0" cellspacing="0" role="presentation">
                                                                 <tr>
                                                                     <td>
-                                                                        <a href="{{ url('/canvas/stats') }}" class="button button-primary" target="_blank">View all stats</a>
+                                                                        <a href="{{ route('canvas.index') }}" class="button button-primary" target="_blank">View all stats</a>
                                                                     </td>
                                                                 </tr>
                                                             </table>
