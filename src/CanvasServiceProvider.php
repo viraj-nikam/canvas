@@ -2,6 +2,7 @@
 
 namespace Canvas;
 
+use Canvas\Console\DigestCommand;
 use Canvas\Console\SetupCommand;
 use Illuminate\Events\Dispatcher;
 use Canvas\Console\InstallCommand;
@@ -158,6 +159,7 @@ class CanvasServiceProvider extends ServiceProvider
     private function handleCommands(): void
     {
         $this->commands([
+            DigestCommand::class,
             InstallCommand::class,
             PublishCommand::class,
             SetupCommand::class,

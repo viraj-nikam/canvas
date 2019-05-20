@@ -47,4 +47,19 @@ return [
         'access_key' => env('CANVAS_UNSPLASH_ACCESS_KEY'),
     ],
 
+    /*
+   |--------------------------------------------------------------------------
+   | Weekly Summary
+   |--------------------------------------------------------------------------
+   |
+   | This option allows weekly e-mail summaries to be generated and sent
+   | out via the default mail driver. This will give helpful insights
+   | into your content and its impact to your readers.
+   |
+   */
+
+    'mail' => [
+        'enabled' => env('CANVAS_MAIL_ENABLED', false),
+    ],
+
 ];
