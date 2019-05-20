@@ -25,7 +25,7 @@ class DigestCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Create an e-mail digest of Canvas statistics';
+    protected $description = 'Generate a weekly summary digest of Canvas stats for a user';
 
     /**
      * Execute the console command.
