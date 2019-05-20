@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -39,7 +39,7 @@
         }
 
         a {
-            color: #3869d4;
+            color: #3490dc;
         }
 
         a img {
@@ -69,21 +69,6 @@
             -premailer-cellpadding: 0;
             -premailer-cellspacing: 0;
             -premailer-width: 100%;
-        }
-
-        /* Header */
-
-        .header {
-            padding: 25px 0;
-            text-align: center;
-        }
-
-        .header a {
-            color: #bbbfc3;
-            font-size: 19px;
-            font-weight: bold;
-            text-decoration: none;
-            text-shadow: 0 1px 0 white;
         }
 
         /* Body */
@@ -145,6 +130,10 @@
             color: #aeaeae;
             font-size: 12px;
             text-align: center;
+        }
+
+        .footer a {
+            color: #3490dc;
         }
 
         /* Tables */
@@ -246,12 +235,9 @@
     <tr>
         <td align="center">
             <table class="content" width="100%" cellpadding="0" cellspacing="0" role="presentation">
-
-                <!-- Email Body -->
                 <tr>
                     <td class="body" width="100%" cellpadding="0" cellspacing="0">
                         <table class="inner-body" align="center" width="570" cellpadding="0" cellspacing="0" role="presentation">
-                            <!-- Body content -->
                             <tr>
                                 <td class="content-cell">
 
@@ -271,16 +257,16 @@
                                         </tr>
                                     </table>
 
-                                    <p style="font-size: 24px;">Your weekly writer summary for {{ $data['end_date'] }}</p>
+                                    <p style="font-size: 24px;">{{ __('canvas::mail.digest.summary') }} {{ $data['end_date'] }}</p>
 
-                                    <p style="text-transform: uppercase; font-size: 12px; font-weight: lighter;">Your posts on Canvas</p>
+                                    <p style="text-transform: uppercase; font-size: 12px; font-weight: lighter;">{{ __('canvas::mail.digest.details') }}</p>
 
-                                    <p style="font-weight: bolder; font-size: 20px;">From {{ $data['start_date'] }} to {{ $data['end_date'] }}, your posts received:</p>
+                                    <p style="font-weight: bolder; font-size: 20px;">{{ __('canvas::mail.digest.from') }} {{ $data['start_date'] }} {{ __('canvas::mail.digest.to') }} {{ $data['end_date'] }}, {{ __('canvas::mail.digest.data') }}:</p>
 
                                     <h1>
                                         <span style="font-size: 32px;">{{ $data['total_views'] }}</span>
                                         <br>
-                                        <span style="font-size: 16px; color: #8e8e8e">View(s)</span>
+                                        <span style="font-size: 16px; color: #8e8e8e">{{ __('canvas::mail.digest.views') }}</span>
                                     </h1>
 
                                     @foreach($data['posts'] as $post_title => $view_count)
@@ -292,12 +278,12 @@
                                                             <td>
                                                                 <table width="100%" cellpadding="0" cellspacing="0" role="presentation">
                                                                     <tr>
-                                                                        <td class="panel-item">
+                                                                        <td class="panel-item" width="70%" style="padding: 0 30px 0 0">
                                                                             <span style="font-size: 18px; font-weight: bolder;">{{ $post_title }}</span>
                                                                         </td>
 
-                                                                        <td class="panel-item" align="right">
-                                                                            <span style="font-size: 16px; color: #8e8e8e">View(s) this week</span>
+                                                                        <td class="panel-item" width="30%">
+                                                                            <span style="font-size: 16px; color: #8e8e8e; font-weight: bolder;">{{ __('canvas::mail.digest.views_this_week') }}</span>
                                                                             <br>
                                                                             <span style="font-size: 44px; font-weight: bolder;">+{{ $view_count }}</span>
                                                                         </td>
@@ -320,7 +306,9 @@
                                                             <table border="0" cellpadding="0" cellspacing="0" role="presentation">
                                                                 <tr>
                                                                     <td>
-                                                                        <a href="{{ route('canvas.index') }}" class="button button-primary" target="_blank">View all stats</a>
+                                                                        <a href="{{ route('canvas.index') }}" class="button button-primary" target="_blank">
+                                                                            {{ __('canvas::buttons.stats.index') }}
+                                                                        </a>
                                                                     </td>
                                                                 </tr>
                                                             </table>
@@ -330,20 +318,18 @@
                                             </td>
                                         </tr>
                                     </table>
-
                                 </td>
                             </tr>
                         </table>
                     </td>
                 </tr>
-
                 <tr>
                     <td>
                         <table class="footer" align="center" width="570" cellpadding="0" cellspacing="0" role="presentation">
                             <tr>
                                 <td class="content-cell" align="center">
                                     <span style="font-size: 12px;">
-                                        Sent by <a href="http://cnvs.io" class="text-muted" target="_blank">Canvas</a>
+                                        {{ __('canvas::mail.general.sent_by') }} <a href="http://cnvs.io" class="text-muted" target="_blank">Canvas</a>
                                     </span>
                                 </td>
                             </tr>
