@@ -47,4 +47,19 @@ return [
         'access_key' => env('CANVAS_UNSPLASH_ACCESS_KEY'),
     ],
 
+    /*
+   |--------------------------------------------------------------------------
+   | Weekly Summary Digest
+   |--------------------------------------------------------------------------
+   |
+   | This option enables Canvas to send notifications via e-mail. A weekly
+   | summary digest will be delivered via the default mail driver. This
+   | will provide helpful insights into your content and its impact.
+   |
+   */
+
+    'mail' => [
+        'enabled' => env('CANVAS_MAIL_ENABLED', false),
+    ],
+
 ];
