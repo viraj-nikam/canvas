@@ -257,14 +257,20 @@
                                         </tr>
                                     </table>
 
-                                    <p style="font-size: 24px;">{{ __('canvas::mail.digest.summary') }} {{ $data['end_date'] }}</p>
+                                    <p style="font-size: 24px;">
+                                        {{ __('canvas::mail.digest.summary') }} {{ $data['end_date'] }}
+                                    </p>
 
-                                    <p style="text-transform: uppercase; font-size: 12px; font-weight: lighter;">{{ __('canvas::mail.digest.details') }}</p>
+                                    <p style="text-transform: uppercase; font-size: 12px; font-weight: lighter;">
+                                        {{ __('canvas::mail.digest.details') }}
+                                    </p>
 
-                                    <p style="font-weight: bolder; font-size: 20px;">{{ __('canvas::mail.digest.from') }} {{ $data['start_date'] }} {{ __('canvas::mail.digest.to') }} {{ $data['end_date'] }}, {{ __('canvas::mail.digest.data') }}:</p>
+                                    <p style="font-weight: bolder; font-size: 20px;">
+                                        {{ __('canvas::mail.digest.from') }} {{ $data['start_date'] }} {{ __('canvas::mail.digest.to') }} {{ $data['end_date'] }}, {{ __('canvas::mail.digest.data') }}:
+                                    </p>
 
                                     <h1>
-                                        <span style="font-size: 32px;">{{ $data['total_views'] }}</span>
+                                        <span style="font-size: 32px;">{{ number_format($data['total_views']) }}</span>
                                         <br>
                                         <span style="font-size: 16px; color: #8e8e8e">{{ __('canvas::mail.digest.views') }}</span>
                                     </h1>
@@ -285,7 +291,7 @@
                                                                         <td class="panel-item" width="30%">
                                                                             <span style="font-size: 16px; color: #8e8e8e; font-weight: bolder;">{{ __('canvas::mail.digest.views_this_week') }}</span>
                                                                             <br>
-                                                                            <span style="font-size: 44px; font-weight: bolder;">+{{ $view_count }}</span>
+                                                                            <span style="font-size: 44px; font-weight: bolder;">+{{ number_format($view_count) }}</span>
                                                                         </td>
                                                                     </tr>
                                                                 </table>
