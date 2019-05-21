@@ -4,6 +4,7 @@
 
 ### Added
 - Added support for a weekly digest e-mail ([7d385bd](https://github.com/cnvs/canvas/commit/7d385bd9da3a4a37ded04373c67203f35f531f19))
+- Added multilingual support for Russian ([418ad29](https://github.com/cnvs/canvas/commit/418ad290637cef92a8d561c0471af28f468c8e7b))
 
 ## [v4.1.35](https://github.com/cnvs/canvas/compare/v4.1.34...v4.1.35)
 
