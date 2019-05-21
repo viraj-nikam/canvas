@@ -56,7 +56,7 @@ If you want to include [Unsplash](https://unsplash.com) images in your post cont
 
 **Want a weekly summary?** Canvas provides support for a weekly digest e-mail that includes detailed stats on content you've authored, delivered straight to your inbox. Once your application is [configured for sending mail](https://laravel.com/docs/5.8/mail), update `config/canvas.php`:
 
-```bash
+```php
 'mail' => [
     'enabled' => env('CANVAS_MAIL_ENABLED', false),
 ],
