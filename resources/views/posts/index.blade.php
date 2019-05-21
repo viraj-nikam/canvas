@@ -7,7 +7,7 @@
 @endsection
 
 @section('content')
-    <post-list :models="{{ $data['posts'] }}" inline-template>
+    <post-list :models="{{ $data['posts'] }}" :default-timezone="{{ json_encode(config("app.timezone")) }}" inline-template>
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-10">
@@ -43,7 +43,7 @@
                                     </p>
                                     <p class="mb-1" v-if="post.summary">@{{ post.summary }}</p>
                                     <p class="text-muted mb-0">
-                                        <span v-if="post.published_at <= new Date().toJSON().slice(0, 19).replace('T', ' ')">
+                                        <span v-if="post.published_at <= moment(new Date()).tz(timezone).utc().format().slice(0, 19).replace('T', ' ')">
                                             {{ __('canvas::posts.details.published') }} @{{ moment(post.published_at).fromNow() }}
                                         </span>
                                         <span v-else class="text-danger">
