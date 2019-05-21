@@ -1,5 +1,10 @@
 # Release Notes
 
+## [v4.1.39](https://github.com/cnvs/canvas/compare/v4.1.38...v4.1.39)
+
+### Fixed
+- Fixed Moment.js not respecting the app timezone ([#474](https://github.com/cnvs/canvas/issues/474), [#482](https://github.com/cnvs/canvas/pull/482), [a9c64d9](https://github.com/cnvs/canvas/commit/a9c64d965e4acad7f0e65432118cef9cd82f44a8))
+
 ## [v4.1.38](https://github.com/cnvs/canvas/compare/v4.1.37...v4.1.38)
 
 ### Changed
