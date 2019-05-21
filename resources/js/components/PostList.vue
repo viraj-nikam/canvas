@@ -1,11 +1,16 @@
 <script>
+    import 'moment-timezone'
+
     export default {
         props: {
             models: {
                 type: Array,
                 required: false
             },
-            defaultTimezone: String
+            defaultTimezone: {
+                type: String,
+                required: false
+            },
         },
 
         data() {
@@ -14,7 +19,7 @@
                 postList: this.models ? this.models : [],
                 limit: 7,
                 load: false,
-                timezone: this.defaultTimezone ? this.defaultTimezone : "UTC",
+                timezone: this.defaultTimezone ? this.defaultTimezone : 'UTC',
             }
         },
 
