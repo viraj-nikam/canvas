@@ -4,7 +4,8 @@
             models: {
                 type: Array,
                 required: false
-            }
+            },
+            defaultTimezone: String
         },
 
         data() {
@@ -12,7 +13,8 @@
                 search: '',
                 postList: this.models ? this.models : [],
                 limit: 7,
-                load: false
+                load: false,
+                timezone: this.defaultTimezone ? this.defaultTimezone : "UTC",
             }
         },
 
