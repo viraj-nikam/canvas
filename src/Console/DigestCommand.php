@@ -25,7 +25,7 @@ class DigestCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Generate a weekly summary digest of Canvas stats for a user';
+    protected $description = 'E-mail a weekly digest of Canvas stats to a user';
 
     /**
      * Execute the console command.
@@ -43,13 +43,13 @@ class DigestCommand extends Command
                 // Gather the post IDs for a given user
                 $post_ids = Post::where('user_id', $user->id)->pluck('id');
 
-                // Compile the view count data for a users posts
+                // Compile view count data for a user's posts
                 $data = collect($this->compileViewData($post_ids->toArray(), 7));
 
                 // Get the email of the user to notify
                 $data->put('email', $user->email);
 
-                // Get the summary date ranges
+                // Get the weekly digest date ranges
                 $data->put('start_date', now()->subDays(7)->format('M d'));
                 $data->put('end_date', now()->format('M d, Y'));
 
@@ -82,7 +82,7 @@ class DigestCommand extends Command
                 now()->toDateTimeString(),
             ])->where('post_id', $post_id)->count();
 
-            // Only collect view data if there is any
+            // Only collect view data if any is available
             if ($post_views) {
                 $post = Post::find($post_id);
                 $post_data->put($post->title, $post_views);
@@ -104,7 +104,7 @@ class DigestCommand extends Command
     }
 
     /**
-     * Get users who have authored content.
+     * Return all users who have authored content.
      *
      * @return Collection
      */
