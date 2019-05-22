@@ -81,7 +81,7 @@ class CanvasServiceProvider extends ServiceProvider
     {
         return [
             'namespace'  => 'Canvas\Http\Controllers',
-            'prefix'     => 'canvas',
+            'prefix'     => config('canvas.path'),
             'middleware' => config('canvas.middleware'),
         ];
     }

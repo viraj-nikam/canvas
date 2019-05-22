@@ -3,6 +3,19 @@
 return [
 
     /*
+   |--------------------------------------------------------------------------
+   | Canvas Path
+   |--------------------------------------------------------------------------
+   |
+   | This is the URI path where Canvas will be accessible from. You are free
+   | to change this path to anything you like. Note that updating the URI
+   | will affect the internal API paths that are not exposed to users.
+   |
+   */
+
+    'path' => env('CANVAS_PATH_NAME', 'canvas'),
+
+    /*
     |--------------------------------------------------------------------------
     | Route Middleware
     |--------------------------------------------------------------------------
@@ -49,7 +62,7 @@ return [
 
     /*
    |--------------------------------------------------------------------------
-   | Weekly Summary Digest
+   | Weekly Digest
    |--------------------------------------------------------------------------
    |
    | This option enables Canvas to send notifications via e-mail. A weekly
