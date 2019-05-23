@@ -1,6 +1,10 @@
 ## Sponsors
 
-You can join them in supporting the ongoing development of Canvas by [pledging on Patreon](https://www.patreon.com/austintoddj)! Sponsors in the same pledge level appear in the order of pledge date.
+[Canvas](https://cnvs.io) is an freely available, open source project that gives something back to the greater Laravel community. Because PHP and blogs in general dominate so much of the Internet today, it makes sense that there would be a highly-maintained package ready and waiting for any developers who need one.
+
+*Financial contributions will never be required to maintain this project*, they are however a kind gesture. If you've ever used Canvas in your daily work, either personally or professionally, and feel that it has made your life eaiser, consider supporting the project by buying a cup of coffee.
+
+[Click here to become a sponsor](#)
 
 ---
 
@@ -39,51 +43,3 @@ You can join them in supporting the ongoing development of Canvas by [pledging o
 </tr>
 
 </table>
-
-### Platinum Sponsor ($500/month)
-
-[Pledge](https://www.patreon.com/join/austintoddj/checkout?rid=1295515)
-
-*No pledges yet.*
-
-### Premium Sponsor ($250/month)
-
-[Pledge](https://www.patreon.com/join/austintoddj/checkout?rid=1295497)
-
-*No pledges yet.*
-
-### Sponsor ($100/month)
-
-[Pledge](https://www.patreon.com/join/austintoddj/checkout?rid=1295498)
-
-*No pledges yet.*
-
-### Platinum Backer ($50/month)
-
-[Pledge](https://www.patreon.com/join/austintoddj/checkout?rid=1294556)
-
-*No pledges yet.*
-
-### Premium Backer ($25/month)
-
-[Pledge](https://www.patreon.com/join/austintoddj/checkout?rid=1294557)
-
-*No pledges yet.*
-
-### Generous Backer ($10/month)
-
-[Pledge](https://www.patreon.com/join/austintoddj/checkout?rid=1294558)
-
-*No pledges yet.*
-
-### Backer ($5/month)
-
-[Pledge](https://www.patreon.com/join/austintoddj/checkout?rid=1294541)
-
-*No pledges yet.*
-
-### Contributor ($2/month)
-
-[Pledge](https://www.patreon.com/join/austintoddj/checkout?rid=1295416)
-
-*No pledges yet.*
