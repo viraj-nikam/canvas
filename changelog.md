@@ -2,10 +2,16 @@
 
 ## [4.2.0](https://github.com/cnvs/canvas/compare/v4.1.39...v4.2.0)
 
+## Changed
+- Query optimization ([2afc167](https://github.com/cnvs/canvas/commit/2afc1676cb053e2f13a450308a69f4ad367162c5))
+
 ## Added
 - Added multilingual support for Spanish, German and Arabic ([231494f](https://github.com/cnvs/canvas/commit/231494fe3310137c69b9b7217d8ee15fd613dbb9), [3aa2296](https://github.com/cnvs/canvas/commit/3aa229643baec844608f7c4c23db77efb28c9ef3), [02f704c](https://github.com/cnvs/canvas/commit/02f704c5a4d9e3df80ba8e83964f189c60748353))
 
 ## Fixed
+- Fixed an inconsistency with post objects prior to passing to the PostList component ([5aa89ff](https://github.com/cnvs/canvas/commit/5aa89ff007b4a7d45e40ffcaad534de813b50f58))
+- Fixed an incorrect total posts count on the Stats page ([616d4b8](https://github.com/cnvs/canvas/commit/616d4b8257be3c3c8f123fd1ae07644c35f864bd))
+- Fixed the incorrect translation line being pulled on the Stats page ([ba66fa8](https://github.com/cnvs/canvas/commit/ba66fa88106f5a6cc791ae0f59a46e1a039e2d69))
 - Fixed missing validation lines from the language files ([b33389e](https://github.com/cnvs/canvas/commit/b33389ed0df09a51875913b34d26edd8b1097f73))
 
 ## [v4.1.39](https://github.com/cnvs/canvas/compare/v4.1.38...v4.1.39)
