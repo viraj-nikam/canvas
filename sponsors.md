@@ -23,7 +23,7 @@
         <a href="https://www.navicat.com"><img width="180px" src="https://github.com/cnvs/art/blob/master/sponsors/navicat.png?raw=true"></a>
     </td>
     <td align="center" valign="center">
-        <a href="https://www.navicat.com"><img width="180px" src="https://github.com/cnvs/art/blob/master/sponsors/readme.png?raw=true"></a>
+        <a href="https://readme.io"><img width="180px" src="https://github.com/cnvs/art/blob/master/sponsors/readme.png?raw=true"></a>
     </td>
 </tr>
 
