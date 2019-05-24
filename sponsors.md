@@ -4,9 +4,9 @@
 
 *Financial contributions will never be required to maintain this project*, they are however very much appreciated. If you've ever used Canvas in your daily work, either personally or professionally, and feel that it has made your life easier, consider supporting the project by buying a cup of coffee.
 
-If you haven't already, star the repo to show your support, it makes a huge difference. Thank you in advance. :-)
-
 [Click here to become a sponsor](#)
+
+If you haven't already, star the repo to show your support, it makes a huge difference. Thank you in advance. :-)
 
 ---
 
