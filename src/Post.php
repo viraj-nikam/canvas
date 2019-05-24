@@ -288,4 +288,15 @@ class Post extends Model
     {
         return $query->where('published_at', '<=', now()->toDateTimeString());
     }
+
+    /**
+     * Scope a query to only include drafted posts.
+     *
+     * @param Builder $query
+     * @return Builder
+     */
+    public function scopeDraft($query): Builder
+    {
+        return $query->where('published_at', '>', now()->toDateTimeString());
+    }
 }
