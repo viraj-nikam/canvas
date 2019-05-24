@@ -66,12 +66,13 @@ class TagController extends Controller
         ];
 
         $messages = [
-            'unique' => __('canvas::validation.unique'),
+            'required' => __('canvas::validation.required'),
+            'unique'   => __('canvas::validation.unique'),
         ];
 
         validator($data, [
             'name' => 'required',
-            'slug' => 'required|'.Rule::unique('canvas_tags', 'slug')->ignore(request('id')).'|regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/i',
+            'slug' => 'required|' . Rule::unique('canvas_tags', 'slug')->ignore(request('id')) . '|regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/i',
         ], $messages)->validate();
 
         $tag = new Tag(['id' => request('id')]);
@@ -98,12 +99,13 @@ class TagController extends Controller
         ];
 
         $messages = [
-            'unique' => __('canvas::validation.unique'),
+            'required' => __('canvas::validation.required'),
+            'unique'   => __('canvas::validation.unique'),
         ];
 
         validator($data, [
             'name' => 'required',
-            'slug' => 'required|'.Rule::unique('canvas_tags', 'slug')->ignore(request('id')).'|regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/i',
+            'slug' => 'required|' . Rule::unique('canvas_tags', 'slug')->ignore(request('id')) . '|regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/i',
         ], $messages)->validate();
 
         $tag->fill($data);
