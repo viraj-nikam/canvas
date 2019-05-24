@@ -25,7 +25,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title text-muted small text-uppercase font-weight-bold">{{ __('canvas::stats.cards.posts.title') }}</h5>
-                                <p class="card-text display-4">{{ $data['posts']['all']->count() }}</p>
+                                <p class="card-text display-4">{{ $data['posts']['published_count'] + $data['posts']['drafts_count'] }}</p>
                             </div>
                         </div>
                         <div class="card">
