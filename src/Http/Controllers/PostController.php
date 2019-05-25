@@ -19,8 +19,12 @@ class PostController extends Controller
      */
     public function index()
     {
+        $posts = Post::orderByDesc('created_at')
+            ->select('id', 'title', 'body', 'published_at', 'created_at')
+            ->get();
+
         $data = [
-            'posts' => Post::orderByDesc('created_at')->get(),
+            'posts' => $posts,
         ];
 
         return view('canvas::posts.index', compact('data'));
@@ -89,7 +93,8 @@ class PostController extends Controller
         ];
 
         $messages = [
-            'unique' => __('canvas::validation.unique'),
+            'required' => __('canvas::validation.required'),
+            'unique'   => __('canvas::validation.unique'),
         ];
 
         validator($data, [
@@ -145,7 +150,8 @@ class PostController extends Controller
         ];
 
         $messages = [
-            'unique' => __('canvas::validation.unique'),
+            'required' => __('canvas::validation.required'),
+            'unique'   => __('canvas::validation.unique'),
         ];
 
         validator($data, [
@@ -187,7 +193,7 @@ class PostController extends Controller
     /**
      * Collect or create given tags.
      *
-     * @param  array $incomingTags
+     * @param array $incomingTags
      * @return array
      *
      * @author Mohamed Said <themsaid@gmail.com>
