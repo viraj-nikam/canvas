@@ -20,7 +20,7 @@ class PostController extends Controller
     public function index()
     {
         $posts = Post::orderByDesc('created_at')
-            ->select('id', 'title', 'body', 'published_at', 'created_at')
+            ->select('id', 'title', 'body', 'published_at', 'featured_image', 'created_at')
             ->get();
 
         $data = [

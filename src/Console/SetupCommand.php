@@ -62,8 +62,7 @@ class SetupCommand extends Command
             FILE_APPEND
         );
 
-        $this->line('');
-        $this->line('<info>[✔]</info> Canvas is setup and ready to use. Enjoy! Head over to '.url('/blog').' to get started.');
+        $this->info('Setup complete. Head over to <comment>'.url('/blog').'</comment> to get started.');
     }
 
     /**

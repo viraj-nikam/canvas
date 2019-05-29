@@ -1,5 +1,17 @@
 # Release Notes
 
+## [Unreleased](https://github.com/cnvs/canvas/compare/master...develop)
+
+## [4.2.1](https://github.com/cnvs/canvas/compare/v4.2.0...v4.2.1)
+
+## Changed
+- Refactored the command output lines ([94ddef1](https://github.com/cnvs/canvas/commit/94ddef17704843b9efdff50f27669dcbe116b3b5))
+- Improved font load times with the display swap property ([43c448a](https://github.com/cnvs/canvas/commit/43c448ab7155dcda2f5643cfb66d0350eab0dccb))
+
+## Fixed
+- Fixed the missing featured image property on the posts index ([15c559b](https://github.com/cnvs/canvas/commit/15c559b25e440460ba97e2de7708d72a8ff2fd4d))
+- Fixed incorrect line widths being applied to the line chart components ([046211e](https://github.com/cnvs/canvas/commit/046211e3e1fa2f3a9099259c5e74f10dc9980d8a))
+
 ## [4.2.0](https://github.com/cnvs/canvas/compare/v4.1.39...v4.2.0)
 
 ## Changed

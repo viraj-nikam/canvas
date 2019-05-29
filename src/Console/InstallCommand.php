@@ -45,8 +45,7 @@ class InstallCommand extends Command
 
         $this->registerCanvasServiceProvider();
 
-        $this->line('');
-        $this->line('<info>[✔]</info> Canvas is installed and ready to use. Enjoy!');
+        $this->info('Installation complete.');
     }
 
     /**
