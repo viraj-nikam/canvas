@@ -2,6 +2,8 @@
 
 ## [Unreleased](https://github.com/cnvs/canvas/compare/master...develop)
 
+## [4.2.1](https://github.com/cnvs/canvas/compare/v4.2.0...v4.2.1)
+
 ## Changed
 - Refactored the command output lines ([94ddef1](https://github.com/cnvs/canvas/commit/94ddef17704843b9efdff50f27669dcbe116b3b5))
 - Improved font load times with the display swap property ([43c448a](https://github.com/cnvs/canvas/commit/43c448ab7155dcda2f5643cfb66d0350eab0dccb))
