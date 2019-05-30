@@ -28,13 +28,13 @@ return [
     'details' => [
         'created'   => 'Erstellt',
         'published' => 'Veröffentlicht auf',
-        'views'     => 'Aufrufe nach Verkehrsquelle',
+        'views'     => 'Aufrufe nach Traffic Quelle',
         'reading'   => [
             'header' => 'Beliebte Lesezeiten',
             'time'   => 'min',
             'read'   => 'Lesezeit',
         ],
-        'empty'     => 'Warten Sie, bis Ihr Beitrag mehr Aufrufe enthält, um diese Einsichten anzuzeigen.',
+        'empty'     => 'Warten Sie, bis Ihr Beitrag mehr Aufrufe enthält, um diese Sichten anzuzeigen.',
         'referer'   => [
             'other'   => 'Andere',
             'unknown' => 'Post Ansichten in dieser Kategorie konnten einen Referrer nicht zuverlässig ermitteln. z.B. Inkognito-Modus',
