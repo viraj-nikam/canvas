@@ -31,8 +31,8 @@ return [
         'views'     => 'Aufrufe nach Verkehrsquelle',
         'reading'   => [
             'header' => 'Beliebte Lesezeiten',
-            'time'   => 'mindest',
-            'read'   => 'lesen',
+            'time'   => 'min',
+            'read'   => 'Lesezeit',
         ],
         'empty'     => 'Warten Sie, bis Ihr Beitrag mehr Aufrufe enthält, um diese Einsichten anzuzeigen.',
         'referer'   => [
