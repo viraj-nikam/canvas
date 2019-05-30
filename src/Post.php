@@ -64,7 +64,7 @@ class Post extends Model
      *
      * @var array
      */
-    public $dates = [
+    protected $dates = [
         'published_at',
     ];
 
