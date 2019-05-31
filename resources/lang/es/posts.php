@@ -99,8 +99,8 @@ return [
         'settings' => [
             'header'  => 'Configuración general',
             'slug'    => [
-                'label'       => 'Babosa',
-                'placeholder' => 'una-babosa-única',
+                'label'       => 'Etiqueta',
+                'placeholder' => 'una-etiqueta-única',
             ],
             'summary' => [
                 'label'       => 'Resumen',
@@ -116,7 +116,7 @@ return [
     ],
     'delete'  => [
         'header'  => 'Borrar',
-        'warning' => 'Las publicaciones eliminadas se han ido para siempre. ¿Estás seguro?',
+        'warning' => 'Las publicaciones eliminadas se irán para siempre. ¿Estás seguro?',
     ],
 
 ];
