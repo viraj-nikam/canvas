@@ -15,12 +15,12 @@ return [
             'title' => 'Vistas (30 días)',
         ],
         'posts'      => [
-            'title' => 'Total de mensajes',
+            'title' => 'Total de publicaciones',
         ],
         'publishing' => [
             'title'   => 'Publicación',
             'details' => [
-                'published' => 'Publicaciones publicadas',
+                'published' => 'Articulose publicados',
                 'drafts'    => 'Borradores)',
             ],
         ],
@@ -34,10 +34,10 @@ return [
             'time'   => 'min',
             'read'   => 'leer',
         ],
-        'empty'     => 'Esperando hasta que tu publicación tenga más vistas para mostrar estas ideas.',
+        'empty'     => 'Espera hasta que tu publicación tenga más vistas para mostrar estos datos.',
         'referer'   => [
             'other'   => 'Otro',
-            'unknown' => 'Las vistas de publicación en esta categoría no pudieron determinar de manera confiable una referencia. p.ej. Modo incognito',
+            'unknown' => 'Las vistas en esta categoría no pudieron determinar de manera confiable una referencia. p.ej. Modo incognito',
         ],
     ],
 

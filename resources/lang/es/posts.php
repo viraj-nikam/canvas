@@ -2,7 +2,7 @@
 
 return [
 
-    'header'  => 'Mensajes',
+    'header'  => 'Publicaciones',
     'empty'   => [
         'description' => 'No se encontraron publicaciones, comienza por',
         'action'      => 'añadiendo una nueva publicación',

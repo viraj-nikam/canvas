@@ -10,9 +10,9 @@ return [
         'success' => '¡Salvado!',
     ],
     'user'     => [
-        'posts'  => 'Mensajes',
+        'posts'  => 'Publicaciones',
         'tags'   => 'Etiquetas',
-        'topics' => 'Los temas',
+        'topics' => 'Temas',
         'stats'  => 'Estadísticas',
         'logout' => 'Desconectar',
     ],
