@@ -4,6 +4,7 @@
 
 ## Changed
 - Updated the German translations ([89e5f76](https://github.com/cnvs/canvas/commit/89e5f76f8f53c4337fd468e5b8e2b78830a25281), [c77fa7a](https://github.com/cnvs/canvas/commit/c77fa7ad9c84a85fc777fe985d99ccef99528de2))
+- Updated the Spanish translations ([#495](https://github.com/cnvs/canvas/pull/495), [f7ab6c2](https://github.com/cnvs/canvas/commit/f7ab6c2bb2f911131442eba80d100f9822e2ccef), [54ecb39](https://github.com/cnvs/canvas/commit/54ecb39b99e77efb71e11be01f3401de70a8639a))
 - Minor updates from PHP Insights ([7a297c2](https://github.com/cnvs/canvas/commit/7a297c284f5fc68f9cda9b8a208d3b184db9d010))
 - Refactored the command output lines ([7466c19](https://github.com/cnvs/canvas/commit/7466c19ed2bd7b65852e007140fc2d0ecd5b4bf0))
 - Reverted the font display options ([b9326c1](https://github.com/cnvs/canvas/commit/b9326c1f36882e06c24673b13bcb485062126726))
