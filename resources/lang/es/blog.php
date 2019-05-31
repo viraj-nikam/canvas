@@ -4,28 +4,28 @@ return [
 
     'title'   => 'Blog',
     'buttons' => [
-        'learn' => 'Aprende más',
-        'next'  => 'Lee esto siguiente',
+        'learn' => 'Conoce más',
+        'next'  => 'A continuación lee',
         'enjoy' => 'Usted podría disfrutar',
         'edit'  => 'Editar post',
         'stats' => 'Ver estadísticas',
     ],
     'empty'   => [
         'description' => 'No se encontraron publicaciones, comienza por',
-        'action'      => 'añadiendo una nueva publicación',
+        'action'      => 'añadir una nueva publicación',
     ],
     'nav'     => [
         'user' => [
-            'posts'  => 'Mensajes',
+            'posts'  => 'Publicaciones',
             'tags'   => 'Etiquetas',
-            'topics' => 'Los temas',
+            'topics' => 'Temas',
             'stats'  => 'Estadísticas',
             'login'  => 'Registrarse',
             'logout' => 'Desconectar',
         ],
     ],
     'posts'   => [
-        'label' => 'Mensajes recientes',
+        'label' => 'Publicaciones recientes',
     ],
     'tags'    => [
         'label' => 'Etiquetas',
