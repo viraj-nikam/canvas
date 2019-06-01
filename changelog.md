@@ -2,6 +2,8 @@
 
 ## [Unreleased](https://github.com/cnvs/canvas/compare/master...develop)
 
+## [4.2.2](https://github.com/cnvs/canvas/compare/v4.2.1...v4.2.2)
+
 ## Changed
 - Updated the German translations ([89e5f76](https://github.com/cnvs/canvas/commit/89e5f76f8f53c4337fd468e5b8e2b78830a25281), [c77fa7a](https://github.com/cnvs/canvas/commit/c77fa7ad9c84a85fc777fe985d99ccef99528de2))
 - Updated the Spanish translations ([#495](https://github.com/cnvs/canvas/pull/495), [f7ab6c2](https://github.com/cnvs/canvas/commit/f7ab6c2bb2f911131442eba80d100f9822e2ccef), [54ecb39](https://github.com/cnvs/canvas/commit/54ecb39b99e77efb71e11be01f3401de70a8639a))
