@@ -220,10 +220,10 @@ class PostController extends Controller
     /**
      * Assign a given topic.
      *
-     * @param $incomingTopic
-     * @return mixed
+     * @param array $incomingTopic
+     * @return array
      */
-    private function assignTopic(array $incomingTopic)
+    private function assignTopic(array $incomingTopic): array
     {
         if ($incomingTopic) {
             $topic = Topic::where('slug', $incomingTopic['slug'])->first();
