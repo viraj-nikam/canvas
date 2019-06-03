@@ -95,6 +95,10 @@ return [
                     'placeholder' => 'Twitter卡中的描述',
                 ],
             ],
+            'canonical'  => [
+                'label'       => '典范',
+                'placeholder' => '标签中的规范URL',
+            ],
         ],
         'settings' => [
             'header'  => '常規設置',

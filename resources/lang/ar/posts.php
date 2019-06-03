@@ -95,6 +95,10 @@ return [
                     'placeholder' => 'الوصف في بطاقة تويتر',
                 ],
             ],
+            'canonical'  => [
+                'label'       => 'العنوان الأساسي',
+                'placeholder' => 'عنوان URL الكنسي في العلامة',
+            ],
         ],
         'settings' => [
             'header'  => 'الاعدادات العامة',

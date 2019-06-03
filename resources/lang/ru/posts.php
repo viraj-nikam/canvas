@@ -95,6 +95,10 @@ return [
                     'placeholder' => 'Описание в Твиттере',
                 ],
             ],
+            'canonical'  => [
+                'label'       => 'канонический',
+                'placeholder' => 'Канонический URL в теге',
+            ],
         ],
         'settings' => [
             'header'  => 'Общие настройки',
