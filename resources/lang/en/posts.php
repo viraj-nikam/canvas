@@ -95,6 +95,10 @@ return [
                     'placeholder' => 'Description in Twitter Card',
                 ],
             ],
+            'canonical'  => [
+                'label'       => 'Canonical',
+                'placeholder' => 'Canonical URL in tag',
+            ],
         ],
         'settings' => [
             'header'  => 'General settings',

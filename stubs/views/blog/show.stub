@@ -13,6 +13,7 @@
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="{{ $data['meta']['twitter_description'] }}">
     <meta name="twitter:description" content="{{ $data['meta']['twitter_description'] }}">
+    <link rel="canonical" href="{{ $data['meta']['canonical_link'] }}" />
     @isset($data['post']->featured_image)
         <meta name="og:image" content="{{ url($data['post']->featured_image) }}">
         <meta name="twitter:image" content="{{ url($data['post']->featured_image) }}">
