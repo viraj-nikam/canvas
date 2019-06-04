@@ -198,7 +198,7 @@ class Post extends Model
         // Only return the top 5 reading times and percentages
         $sliced = array_slice($array, 0, 5, true);
 
-        // Sort the array in a descending fashion
+        // Sort the array in a descending order
         arsort($sliced);
 
         return $sliced;
@@ -226,7 +226,7 @@ class Post extends Model
         // Only return the top 10 referrers with their view count
         $sliced = array_slice($array, 0, 10, true);
 
-        // Sort the array in a descending fashion
+        // Sort the array in a descending order
         arsort($sliced);
 
         return $sliced;
