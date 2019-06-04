@@ -27,7 +27,11 @@
 	"autoload": {
 		"psr-4": {
 			"Canvas\\": "src/"
-		}
+		},
+		"classmap": [
+			"database/seeds",
+			"database/factories"
+		]
 	},
 	"autoload-dev": {
 		"psr-4": {

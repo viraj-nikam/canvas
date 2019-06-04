@@ -14,7 +14,7 @@ class SetupCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'canvas:setup';
+    protected $signature = 'canvas:setup {--data : Specifies that demo data should be seeded}';
 
     /**
      * The console command description.
@@ -48,7 +48,12 @@ class SetupCommand extends Command
         $this->exportController();
         $this->registerRoutes();
 
-        $this->info('Setup complete. Head over to <comment>'.url('/blog').'</comment> to get started.');
+        // Optionally seed the database with demo data
+        if ($this->option('data')) {
+            $this->seed();
+        }
+
+        $this->info('Setup complete. Head over to <comment>' . url('/blog') . '</comment> to get started.');
     }
 
     /**
@@ -58,11 +63,11 @@ class SetupCommand extends Command
      */
     private function createDirectories()
     {
-        if (! is_dir($directory = resource_path('views/blog/layouts'))) {
+        if (!is_dir($directory = resource_path('views/blog/layouts'))) {
             mkdir($directory, 0755, true);
         }
 
-        if (! is_dir($directory = resource_path('views/blog/partials'))) {
+        if (!is_dir($directory = resource_path('views/blog/partials'))) {
             mkdir($directory, 0755, true);
         }
     }
@@ -75,8 +80,8 @@ class SetupCommand extends Command
     private function exportViews()
     {
         foreach ($this->views as $key => $value) {
-            if (file_exists($view = resource_path('views/blog/'.$value))) {
-                if (! $this->confirm("The [{$value}] view already exists. Do you want to replace it?")) {
+            if (file_exists($view = resource_path('views/blog/' . $value))) {
+                if (!$this->confirm("The [{$value}] view already exists. Do you want to replace it?")) {
                     continue;
                 }
             }
@@ -98,7 +103,7 @@ class SetupCommand extends Command
         return str_replace(
             '{{namespace}}',
             $this->getAppNamespace(),
-            file_get_contents(dirname(__DIR__, 2).'/stubs/controllers/BlogController.stub')
+            file_get_contents(dirname(__DIR__, 2) . '/stubs/controllers/BlogController.stub')
         );
     }
 
@@ -124,8 +129,13 @@ class SetupCommand extends Command
     {
         file_put_contents(
             base_path('routes/web.php'),
-            file_get_contents(dirname(__DIR__, 2).'/stubs/routes.stub'),
+            file_get_contents(dirname(__DIR__, 2) . '/stubs/routes.stub'),
             FILE_APPEND
         );
+    }
+
+    private function seed()
+    {
+        // todo: implement the seed() method
     }
 }
