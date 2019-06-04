@@ -5,8 +5,7 @@ return [
     'general' => [
         'sent_by' => '由..送出',
     ],
-
-    'digest' => [
+    'digest'  => [
         'summary'         => '您的每周作家摘要',
         'details'         => '你在Canvas上的帖子',
         'from'            => '从',
@@ -14,8 +13,7 @@ return [
         'data'            => '收到你的帖子',
         'views'           => '视图（s）',
         'views_this_week' => '查看本周',
-
-        'email' => [
+        'email'           => [
             'subject' => '您的帖子的统计信息',
         ],
     ],
