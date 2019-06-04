@@ -2,6 +2,9 @@
 
 ## [Unreleased](https://github.com/cnvs/canvas/compare/master...develop)
 
+## Fixed
+- Patch for the default template to utilize the correct meta tags ([#496](https://github.com/cnvs/canvas/issues/496), [acff60c](https://github.com/cnvs/canvas/commit/acff60c546d77766de62b583e90f07855b0c54aa))
+
 ## [4.2.2](https://github.com/cnvs/canvas/compare/v4.2.1...v4.2.2)
 
 ## Changed
