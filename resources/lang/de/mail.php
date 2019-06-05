@@ -7,7 +7,7 @@ return [
     ],
     'digest'  => [
         'summary'         => 'Deine wöchentliche Autorenübersicht für',
-        'details'         => 'Ihre Beiträge auf Leinwand',
+        'details'         => 'Deine Beiträge auf Canvas',
         'from'            => 'Von',
         'to'              => 'zu',
         'data'            => 'Ihre Beiträge erhalten',
