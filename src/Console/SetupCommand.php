@@ -2,7 +2,13 @@
 
 namespace Canvas\Console;
 
+use Canvas\Tag;
+use Canvas\Post;
+use Canvas\Topic;
+use Illuminate\Support\Str;
+use Faker\Generator as Faker;
 use Illuminate\Console\Command;
+use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Console\DetectsApplicationNamespace;
 
@@ -54,7 +60,7 @@ class SetupCommand extends Command
             $this->seed();
         }
 
-        $this->info('Setup complete. Head over to <comment>'.url('/blog').'</comment> to get started.');
+        $this->info('Setup complete. Head over to <comment>' . url('/blog') . '</comment> to get started.');
     }
 
     /**
@@ -64,11 +70,11 @@ class SetupCommand extends Command
      */
     private function createDirectories()
     {
-        if (! is_dir($directory = resource_path('views/blog/layouts'))) {
+        if (!is_dir($directory = resource_path('views/blog/layouts'))) {
             mkdir($directory, 0755, true);
         }
 
-        if (! is_dir($directory = resource_path('views/blog/partials'))) {
+        if (!is_dir($directory = resource_path('views/blog/partials'))) {
             mkdir($directory, 0755, true);
         }
     }
@@ -81,8 +87,8 @@ class SetupCommand extends Command
     private function exportViews()
     {
         foreach ($this->views as $key => $value) {
-            if (file_exists($view = resource_path('views/blog/'.$value))) {
-                if (! $this->confirm("The [blog/{$value}] view already exists. Do you want to replace it?")) {
+            if (file_exists($view = resource_path('views/blog/' . $value))) {
+                if (!$this->confirm("The [blog/{$value}] view already exists. Do you want to replace it?")) {
                     continue;
                 }
             }
@@ -121,7 +127,7 @@ class SetupCommand extends Command
         return str_replace(
             '{{namespace}}',
             $this->getAppNamespace(),
-            file_get_contents(dirname(__DIR__, 2).'/stubs/controllers/BlogController.stub')
+            file_get_contents(dirname(__DIR__, 2) . '/stubs/controllers/BlogController.stub')
         );
     }
 
@@ -132,10 +138,10 @@ class SetupCommand extends Command
      */
     private function registerRoutes()
     {
-        if (! Route::has('blog.index')) {
+        if (!Route::has('blog.index')) {
             file_put_contents(
                 base_path('routes/web.php'),
-                file_get_contents(dirname(__DIR__, 2).'/stubs/routes.stub'),
+                file_get_contents(dirname(__DIR__, 2) . '/stubs/routes.stub'),
                 FILE_APPEND
             );
         }
@@ -148,6 +154,48 @@ class SetupCommand extends Command
      */
     private function seed()
     {
-        $this->callSilent('db:seed --class="Canvas/Storage/seeds/DatabaseSeeder" ');
+        /** @var Faker $faker */
+        $faker = resolve(Faker::class);
+
+        $post_counter = 1;
+        while ($post_counter < 6) {
+            $post = $faker->word();
+            $post_id = Str::uuid();
+            Post::create([
+                'id'           => $post_id,
+                'slug'         => "post-{$post_id}",
+                'title'        => ucfirst($post),
+                'summary'      => $faker->sentence,
+                'body'         => $faker->realText(500),
+                'published_at' => now()->toDateTimeString(),
+                'user_id'      => User::first()->id,
+            ]);
+
+            $post_counter++;
+        }
+
+        $tag_counter = 1;
+        while ($tag_counter < 10) {
+            $tag = ucfirst($faker->word);
+            Tag::create([
+                'id'   => Str::uuid(),
+                'slug' => Str::slug($tag),
+                'name' => $tag,
+            ]);
+
+            $tag_counter++;
+        }
+
+        $topic_counter = 1;
+        while ($topic_counter < 10) {
+            $topic = ucfirst($faker->word);
+            Topic::create([
+                'id'   => Str::uuid(),
+                'slug' => Str::slug($topic),
+                'name' => $topic,
+            ]);
+
+            $topic_counter++;
+        }
     }
 }
