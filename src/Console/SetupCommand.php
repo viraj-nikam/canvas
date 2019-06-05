@@ -159,7 +159,7 @@ class SetupCommand extends Command
 
         $post_counter = 1;
         while ($post_counter < 6) {
-            $post = $faker->word();
+            $post = $faker->words(3, true);
             $post_id = Str::uuid();
             Post::create([
                 'id'           => $post_id,
