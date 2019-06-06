@@ -4,10 +4,13 @@ namespace Canvas\Http\Controllers;
 
 use Canvas\Post;
 use Canvas\View;
+use Canvas\Trends;
 use Illuminate\Routing\Controller;
 
 class StatsController extends Controller
 {
+    use Trends;
+
     /**
      * Days in the past to generate statistics for.
      *
@@ -46,7 +49,7 @@ class StatsController extends Controller
             ],
             'views' => [
                 'count' => $views->count(),
-                'trend' => json_encode(View::viewTrend($views, self::DAYS_PRIOR)),
+                'trend' => json_encode($this->getViewTrends($views, self::DAYS_PRIOR)),
             ],
         ];
 
@@ -68,7 +71,7 @@ class StatsController extends Controller
                 'post'                  => $post,
                 'traffic'               => $post->top_referers,
                 'popular_reading_times' => $post->popular_reading_times,
-                'views'                 => json_encode($post->view_trend),
+                'views'                 => json_encode($this->getViewTrends($post->views, self::DAYS_PRIOR)),
             ];
 
             return view('canvas::stats.show', compact('data'));
