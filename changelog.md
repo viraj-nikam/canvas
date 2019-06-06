@@ -2,8 +2,17 @@
 
 ## [Unreleased](https://github.com/cnvs/canvas/compare/master...develop)
 
+## Changed
+- Refactored the `pt` language files to `pt-BR` ([#500](https://github.com/cnvs/canvas/issues/500), [865b392](https://github.com/cnvs/canvas/commit/865b392e9205bba15bc7d24ec4045743a62a574f))
+
+## Added
+- Added canonical link support to improve SEO ([#498](https://github.com/cnvs/canvas/pull/498))
+- Added multilingual support for Hindi ([047c299](https://github.com/cnvs/canvas/commit/047c299b37228a8690de802f446a8c342a795f5b))
+- Added a `--data` option for the setup command that will seed demo content ([#494](https://github.com/cnvs/canvas/issues/494), [009a5fb](https://github.com/cnvs/canvas/commit/009a5fb8dbc59876c532d5f1157ae66c347b8b2c))
+
 ## Fixed
 - Patch for the default template to utilize the correct meta tags ([#496](https://github.com/cnvs/canvas/issues/496), [acff60c](https://github.com/cnvs/canvas/commit/acff60c546d77766de62b583e90f07855b0c54aa))
+- Removed a bad method call in the post list component ([0f373ae](https://github.com/cnvs/canvas/commit/0f373aed96e9cdce57a5174f940cef175fd3e4eb))
 
 ## [4.2.2](https://github.com/cnvs/canvas/compare/v4.2.1...v4.2.2)
 
