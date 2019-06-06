@@ -95,6 +95,10 @@ return [
                     'placeholder' => 'Description de l\'encart Twitter',
                 ],
             ],
+            'canonical'  => [
+                'label'       => 'Canonique',
+                'placeholder' => 'URL canonique dans la balise',
+            ],
         ],
         'settings' => [
             'header'  => 'Réglages généraux',

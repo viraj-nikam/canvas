@@ -89,6 +89,7 @@ class PostController extends Controller
                 'og_description'      => request('og_description', null),
                 'twitter_title'       => request('twitter_title', null),
                 'twitter_description' => request('twitter_description', null),
+                'canonical_link'      => request('canonical_link', null),
             ],
         ];
 
@@ -146,6 +147,7 @@ class PostController extends Controller
                 'og_description'      => request('og_description', null),
                 'twitter_title'       => request('twitter_title', null),
                 'twitter_description' => request('twitter_description', null),
+                'canonical_link'      => request('canonical_link', null),
             ],
         ];
 
