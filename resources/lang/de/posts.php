@@ -73,9 +73,9 @@ return [
             ],
         ],
         'seo'      => [
-            'header'   => 'SEO & Soziales',
-            'meta'     => 'Meta-Beschreibung',
-            'facebook' => [
+            'header'    => 'SEO & Soziales',
+            'meta'      => 'Meta-Beschreibung',
+            'facebook'  => [
                 'title'       => [
                     'label'       => 'Facebook-Kartentitel',
                     'placeholder' => 'Titel in der Facebook-Karte',
@@ -85,7 +85,7 @@ return [
                     'placeholder' => 'Beschreibung in der Facebook-Karte',
                 ],
             ],
-            'twitter'  => [
+            'twitter'   => [
                 'title'       => [
                     'label'       => 'Twitter-Kartentitel',
                     'placeholder' => 'Titel in der Twitter-Karte',
@@ -95,9 +95,9 @@ return [
                     'placeholder' => 'Beschreibung in Twitter Card',
                 ],
             ],
-            'canonical'  => [
+            'canonical' => [
                 'label'       => 'Kanonisch',
-                'placeholder' => 'Kanonische URL im Tag',
+                'placeholder' => 'Kanonische URL der Originalquelle',
             ],
         ],
         'settings' => [

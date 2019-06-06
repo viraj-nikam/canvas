@@ -73,9 +73,9 @@ return [
             ],
         ],
         'seo'      => [
-            'header'   => 'SEO & Social',
-            'meta'     => 'Meta Description',
-            'facebook' => [
+            'header'    => 'SEO & Social',
+            'meta'      => 'Meta Description',
+            'facebook'  => [
                 'title'       => [
                     'label'       => 'Titre de l\'encart Facebook',
                     'placeholder' => 'Titre sur l\'encart Facebook',
@@ -85,7 +85,7 @@ return [
                     'placeholder' => 'Description de l\'encart Facebook',
                 ],
             ],
-            'twitter'  => [
+            'twitter'   => [
                 'title'       => [
                     'label'       => 'Titre de l\'encart Twitter',
                     'placeholder' => 'Titre de l\'encart Twitter',
@@ -95,9 +95,9 @@ return [
                     'placeholder' => 'Description de l\'encart Twitter',
                 ],
             ],
-            'canonical'  => [
+            'canonical' => [
                 'label'       => 'Canonique',
-                'placeholder' => 'URL canonique dans la balise',
+                'placeholder' => 'URL canonique de la source originale',
             ],
         ],
         'settings' => [
