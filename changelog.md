@@ -2,6 +2,8 @@
 
 ## [Unreleased](https://github.com/cnvs/canvas/compare/master...develop)
 
+## [4.2.3](https://github.com/cnvs/canvas/compare/v4.2.2...v4.2.3)
+
 ## Changed
 - Refactored the `pt` language files to `pt-BR` ([#500](https://github.com/cnvs/canvas/issues/500), [865b392](https://github.com/cnvs/canvas/commit/865b392e9205bba15bc7d24ec4045743a62a574f))
 
