@@ -57,10 +57,14 @@ class SetupCommand extends Command
 
         // Optionally seed the database with demo data
         if ($this->option('data')) {
-            $this->seed();
-        }
+            if (User::find(1)) {
+                $this->seed();
 
-        $this->info('Setup complete. Head over to <comment>'.url('/blog').'</comment> to get started.');
+                $this->info('Setup complete. Head over to <comment>'.url('/blog').'</comment> to get started.');
+            } else {
+                $this->error('No users found. Please create a user and run the setup again.');
+            }
+        }
     }
 
     /**
@@ -170,7 +174,7 @@ class SetupCommand extends Command
                 'summary'                => $faker->sentence,
                 'body'                   => $faker->realText(500),
                 'published_at'           => now()->toDateTimeString(),
-                'featured_image'         => $faker->imageUrl(),
+                'featured_image'         => 'https://source.unsplash.com/random/640x480',
                 'featured_image_caption' => ucfirst($title),
                 'user_id'                => User::first()->id,
             ]);
@@ -183,7 +187,7 @@ class SetupCommand extends Command
         $tags = collect();
         $tag_counter = 1;
         while ($tag_counter < 10) {
-            $name = ucfirst($faker->word);
+            $name = ucfirst($faker->words(2, true));
             $tag = Tag::create([
                 'id'   => Str::uuid(),
                 'slug' => Str::slug($name),
@@ -198,7 +202,7 @@ class SetupCommand extends Command
         $topics = collect();
         $topic_counter = 1;
         while ($topic_counter < 10) {
-            $name = ucfirst($faker->word);
+            $name = ucfirst($faker->words(2, true));
             $topic = Topic::create([
                 'id'   => Str::uuid(),
                 'slug' => Str::slug($name),
