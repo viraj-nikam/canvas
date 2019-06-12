@@ -2,6 +2,11 @@
 
 ## [Unreleased](https://github.com/cnvs/canvas/compare/master...develop)
 
+## [4.2.4](https://github.com/cnvs/canvas/compare/v4.2.3...v4.2.4)
+
+## Fixed
+- Patch for the canonical link causing an undefined index ([#508](https://github.com/cnvs/canvas/issues/508), [3a45bc7](https://github.com/cnvs/canvas/commit/3a45bc7136728bfddeed945b2ac1e2dff5bca7a2))
+
 ## [4.2.3](https://github.com/cnvs/canvas/compare/v4.2.2...v4.2.3)
 
 ## Changed
