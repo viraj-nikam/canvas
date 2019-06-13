@@ -1,12 +1,12 @@
-<form role="form" id="form-edit" method="POST" action="{{ route('canvas.tag.update', $data['tag']->id) }}">
+<form role="form" id="form-edit" method="POST" action="{{ route('canvas.tag.update', $tag->id) }}">
     @method('PUT')
     @csrf
 
-    <slug-component :model="{{ $data['tag'] }}" inline-template>
+    <slug-component :model="{{ $tag }}" inline-template>
         <div v-cloak>
             <div class="form-group row my-5">
                 <div class="col-lg-12">
-                    <input type="text" name="name" v-model="name" value="{{ $data['tag']->name }}"
+                    <input type="text" name="name" v-model="name" value="{{ $tag->name }}"
                            class="form-control-lg form-control border-0 px-0"
                            title="Name" required placeholder="{{ __('canvas::tags.forms.placeholder') }}">
                     @if ($errors->has('slug'))

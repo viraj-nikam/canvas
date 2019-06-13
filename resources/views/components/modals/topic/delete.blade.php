@@ -14,7 +14,7 @@
                     {{ __('canvas::buttons.general.cancel') }}
                 </button>
 
-                <form id="form-delete" action="{{ route('canvas.topic.destroy', $data['topic']->id) }}" method="POST" style="display: none">
+                <form id="form-delete" action="{{ route('canvas.topic.destroy', $topic->id) }}" method="POST" style="display: none">
                     @method('DELETE')
                     @csrf
                 </form>

@@ -10,46 +10,45 @@ use Illuminate\Routing\Controller;
 class TagController extends Controller
 {
     /**
-     * Get all of the tags.
+     * Show the tags index page.
      *
      * @return \Illuminate\View\View
      */
     public function index()
     {
-        $data = [
-            'tags' => Tag::orderByDesc('created_at')->withCount('posts')->get(),
-        ];
+        // Grab all of the tags
+        $tags = Tag::orderByDesc('created_at')
+            ->withCount('posts')
+            ->get();
 
-        return view('canvas::tags.index', compact('data'));
+        return view('canvas::tags.index', compact('tags'));
     }
 
     /**
-     * Create a new tag.
+     * Show the page to create a new tag.
      *
      * @return \Illuminate\View\View
      */
     public function create()
     {
-        $data = [
-            'id' => Str::uuid(),
-        ];
+        // Generate a new tag ID
+        $tag_id = Str::uuid();
 
-        return view('canvas::tags.create', compact('data'));
+        return view('canvas::tags.create', compact('tag_id'));
     }
 
     /**
-     * Edit a given tag.
+     * Show the page to edit a given tag.
      *
      * @param string $id
      * @return \Illuminate\View\View
      */
     public function edit(string $id)
     {
-        $data = [
-            'tag' => Tag::findOrFail($id),
-        ];
+        // Lookup a tag given an ID
+        $tag = Tag::findOrFail($id);
 
-        return view('canvas::tags.edit', compact('data'));
+        return view('canvas::tags.edit', compact('tag'));
     }
 
     /**
@@ -70,11 +69,13 @@ class TagController extends Controller
             'unique'   => __('canvas::validation.unique'),
         ];
 
+        // Validate the request
         validator($data, [
             'name' => 'required',
             'slug' => 'required|'.Rule::unique('canvas_tags', 'slug')->ignore(request('id')).'|regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/i',
         ], $messages)->validate();
 
+        // Create a new tag
         $tag = new Tag(['id' => request('id')]);
         $tag->fill($data);
         $tag->save();
@@ -90,6 +91,7 @@ class TagController extends Controller
      */
     public function update(string $id)
     {
+        // Lookup a tag given an ID
         $tag = Tag::findOrFail($id);
 
         $data = [
@@ -103,11 +105,13 @@ class TagController extends Controller
             'unique'   => __('canvas::validation.unique'),
         ];
 
+        // Validate the request
         validator($data, [
             'name' => 'required',
             'slug' => 'required|'.Rule::unique('canvas_tags', 'slug')->ignore(request('id')).'|regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/i',
         ], $messages)->validate();
 
+        // Update the tag
         $tag->fill($data);
         $tag->save();
 
@@ -122,7 +126,10 @@ class TagController extends Controller
      */
     public function destroy(string $id)
     {
+        // Lookup a tag given an ID
         $tag = Tag::findOrFail($id);
+
+        // Delete the tag
         $tag->delete();
 
         return redirect(route('canvas.tag.index'));

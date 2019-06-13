@@ -13,15 +13,14 @@ use Illuminate\Routing\Controller;
 class PostController extends Controller
 {
     /**
-     * Get all of the posts authored by authenticated user.
+     * Show the posts index page.
      *
      * @return \Illuminate\View\View
      */
     public function index()
     {
-        // Grab all posts for the authenticated user
+        // Grab all of the posts
         $posts = Post::select('id', 'title', 'body', 'published_at', 'featured_image', 'created_at')
-            ->where('user_id', auth()->user()->id)
             ->orderByDesc('created_at')
             ->get();
 
@@ -29,7 +28,7 @@ class PostController extends Controller
     }
 
     /**
-     * Create a new post.
+     * Show the page to create a new post.
      *
      * @return \Illuminate\View\View
      */
@@ -45,7 +44,7 @@ class PostController extends Controller
     }
 
     /**
-     * Edit a given post.
+     * Show the page to edit a given post.
      *
      * @param string $id
      * @return \Illuminate\View\View
@@ -113,12 +112,12 @@ class PostController extends Controller
 
         // Sync the tags
         $post->tags()->sync(
-            $this->collectTags(request('tags') ?? [])
+            $this->attachOrCreateTags(request('tags') ?? [])
         );
 
         // Sync the topic
         $post->topic()->sync(
-            $this->assignTopic(request('topic') ?? [])
+            $this->attachOrCreateTopic(request('topic') ?? [])
         );
 
         return redirect(route('canvas.post.edit', $post->id))->with('notify', __('canvas::nav.notify.success'));

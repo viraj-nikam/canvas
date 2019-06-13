@@ -12,27 +12,27 @@ class StatsController extends Controller
     use Trends;
 
     /**
-     * Days in the past to generate statistics for.
+     * Number of days in the past to generate stats for.
      *
      * @const int
      */
     private const DAYS_PRIOR = 30;
 
     /**
-     * Get all of the posts and views.
+     * Show the stats index page with post and view data.
      *
      * @return \Illuminate\View\View
      */
     public function index()
     {
-        // Get all of the published posts
-        $published = Post::published()
+        // Grab all published posts with view counts
+        $published = Post::select('id', 'title', 'body', 'published_at', 'created_at')
+            ->published()
             ->orderByDesc('created_at')
-            ->select('id', 'title', 'body', 'published_at', 'created_at')
             ->withCount('views')
             ->get();
 
-        // Append the reading time attribute
+        // Append the estimated reading time
         $published->each->append('read_time');
 
         // Get views for the last [X] days
@@ -57,7 +57,7 @@ class StatsController extends Controller
     }
 
     /**
-     * Get the statistics for a given post.
+     * Show the stats page for a given post.
      *
      * @param string $id
      * @return \Illuminate\View\View
