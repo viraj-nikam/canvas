@@ -13,21 +13,19 @@ use Illuminate\Routing\Controller;
 class PostController extends Controller
 {
     /**
-     * Get all of the posts.
+     * Get all of the posts authored by authenticated user.
      *
      * @return \Illuminate\View\View
      */
     public function index()
     {
-        $posts = Post::orderByDesc('created_at')
-            ->select('id', 'title', 'body', 'published_at', 'featured_image', 'created_at')
+        // Grab all posts for the authenticated user
+        $posts = Post::select('id', 'title', 'body', 'published_at', 'featured_image', 'created_at')
+            ->where('user_id', auth()->user()->id)
+            ->orderByDesc('created_at')
             ->get();
 
-        $data = [
-            'posts' => $posts,
-        ];
-
-        return view('canvas::posts.index', compact('data'));
+        return view('canvas::posts.index', compact('posts'));
     }
 
     /**
@@ -54,6 +52,7 @@ class PostController extends Controller
      */
     public function edit(string $id)
     {
+        // Lookup a post given an ID
         $post = Post::findOrFail($id);
 
         $data = [
@@ -98,6 +97,7 @@ class PostController extends Controller
             'unique'   => __('canvas::validation.unique'),
         ];
 
+        // Validate the request
         validator($data, [
             'title'        => 'required',
             'slug'         => 'required|'.Rule::unique('canvas_posts', 'slug')->ignore(request('id')).'|regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/i',
@@ -105,15 +105,18 @@ class PostController extends Controller
             'user_id'      => 'required',
         ], $messages)->validate();
 
+        // Create a new post
         $post = new Post(['id' => request('id')]);
         $post->fill($data);
         $post->meta = $data['meta'];
         $post->save();
 
+        // Sync the tags
         $post->tags()->sync(
             $this->collectTags(request('tags') ?? [])
         );
 
+        // Sync the topic
         $post->topic()->sync(
             $this->assignTopic(request('topic') ?? [])
         );
@@ -129,6 +132,7 @@ class PostController extends Controller
      */
     public function update(string $id)
     {
+        // Lookup a post given an ID
         $post = Post::findOrFail($id);
 
         $data = [
@@ -156,6 +160,7 @@ class PostController extends Controller
             'unique'   => __('canvas::validation.unique'),
         ];
 
+        // Validate the request
         validator($data, [
             'title'        => 'required',
             'slug'         => 'required|'.Rule::unique('canvas_posts', 'slug')->ignore($id).'|regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/i',
@@ -163,16 +168,19 @@ class PostController extends Controller
             'user_id'      => 'required',
         ], $messages)->validate();
 
+        // Update the post
         $post->fill($data);
         $post->meta = $data['meta'];
         $post->save();
 
+        // Sync the tags
         $post->tags()->sync(
-            $this->collectTags(request('tags') ?? [])
+            $this->attachOrCreateTags(request('tags') ?? [])
         );
 
+        // Sync the topic
         $post->topic()->sync(
-            $this->assignTopic(request('topic') ?? [])
+            $this->attachOrCreateTopic(request('topic') ?? [])
         );
 
         return redirect(route('canvas.post.edit', $post->id))->with('notify', __('canvas::nav.notify.success'));
@@ -186,28 +194,34 @@ class PostController extends Controller
      */
     public function destroy(string $id)
     {
+        // Lookup a post given an ID
         $post = Post::findOrFail($id);
+
+        // Delete the post
         $post->delete();
 
         return redirect(route('canvas.post.index'));
     }
 
     /**
-     * Collect or create given tags.
+     * Attach or create tags given an incoming array.
      *
      * @param array $incomingTags
      * @return array
      *
      * @author Mohamed Said <themsaid@gmail.com>
      */
-    private function collectTags(array $incomingTags): array
+    private function attachOrCreateTags(array $incomingTags): array
     {
+        // Grab all the tags
         $tags = Tag::all();
 
         return collect($incomingTags)->map(function ($incomingTag) use ($tags) {
+            // Lookup an existing tag given a slug
             $tag = $tags->where('slug', $incomingTag['slug'])->first();
 
             if (! $tag) {
+                // Create a new tag
                 $tag = Tag::create([
                     'id'   => $id = Str::uuid(),
                     'name' => $incomingTag['name'],
@@ -220,17 +234,19 @@ class PostController extends Controller
     }
 
     /**
-     * Assign a given topic.
+     * Attach or create a topic given an incoming array.
      *
      * @param array $incomingTopic
      * @return array
      */
-    private function assignTopic(array $incomingTopic): array
+    private function attachOrCreateTopic(array $incomingTopic): array
     {
         if ($incomingTopic) {
+            // Lookup a topic given a slug
             $topic = Topic::where('slug', $incomingTopic['slug'])->first();
 
             if (! $topic) {
+                // Create a new topic
                 $topic = Topic::create([
                     'id'   => $id = Str::uuid(),
                     'name' => $incomingTopic['name'],
