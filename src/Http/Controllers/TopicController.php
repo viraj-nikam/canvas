@@ -16,7 +16,6 @@ class TopicController extends Controller
      */
     public function index()
     {
-        // Grab all of the topics
         $topics = Topic::orderByDesc('created_at')
             ->withCount('posts')
             ->get();
@@ -31,7 +30,6 @@ class TopicController extends Controller
      */
     public function create()
     {
-        // Generate a new topic ID
         $topic_id = Str::uuid();
 
         return view('canvas::topics.create', compact('topic_id'));
@@ -45,7 +43,6 @@ class TopicController extends Controller
      */
     public function edit(string $id)
     {
-        // Lookup a topic given an ID
         $topic = Topic::findOrFail($id);
 
         return view('canvas::topics.edit', compact('topic'));
@@ -69,13 +66,11 @@ class TopicController extends Controller
             'unique'   => __('canvas::validation.unique'),
         ];
 
-        // Validate the request
         validator($data, [
             'name' => 'required',
             'slug' => 'required|'.Rule::unique('canvas_topics', 'slug')->ignore(request('id')).'|regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/i',
         ], $messages)->validate();
 
-        // Save a new topic
         $topic = new Topic(['id' => request('id')]);
         $topic->fill($data);
         $topic->save();
@@ -91,7 +86,6 @@ class TopicController extends Controller
      */
     public function update(string $id)
     {
-        // Lookup a topic given an ID
         $topic = Topic::findOrFail($id);
 
         $data = [
@@ -105,13 +99,11 @@ class TopicController extends Controller
             'unique'   => __('canvas::validation.unique'),
         ];
 
-        // Validate the request
         validator($data, [
             'name' => 'required',
             'slug' => 'required|'.Rule::unique('canvas_topics', 'slug')->ignore(request('id')).'|regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/i',
         ], $messages)->validate();
 
-        // Update the topic
         $topic->fill($data);
         $topic->save();
 
@@ -126,10 +118,8 @@ class TopicController extends Controller
      */
     public function destroy(string $id)
     {
-        // Lookup a topic given an ID
         $topic = Topic::findOrFail($id);
 
-        // Delete the topic
         $topic->delete();
 
         return redirect(route('canvas.topic.index'));

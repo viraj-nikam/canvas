@@ -16,7 +16,6 @@ class TagController extends Controller
      */
     public function index()
     {
-        // Grab all of the tags
         $tags = Tag::orderByDesc('created_at')
             ->withCount('posts')
             ->get();
@@ -31,7 +30,6 @@ class TagController extends Controller
      */
     public function create()
     {
-        // Generate a new tag ID
         $tag_id = Str::uuid();
 
         return view('canvas::tags.create', compact('tag_id'));
@@ -45,7 +43,6 @@ class TagController extends Controller
      */
     public function edit(string $id)
     {
-        // Lookup a tag given an ID
         $tag = Tag::findOrFail($id);
 
         return view('canvas::tags.edit', compact('tag'));
@@ -69,13 +66,11 @@ class TagController extends Controller
             'unique'   => __('canvas::validation.unique'),
         ];
 
-        // Validate the request
         validator($data, [
             'name' => 'required',
             'slug' => 'required|'.Rule::unique('canvas_tags', 'slug')->ignore(request('id')).'|regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/i',
         ], $messages)->validate();
 
-        // Create a new tag
         $tag = new Tag(['id' => request('id')]);
         $tag->fill($data);
         $tag->save();
@@ -91,7 +86,6 @@ class TagController extends Controller
      */
     public function update(string $id)
     {
-        // Lookup a tag given an ID
         $tag = Tag::findOrFail($id);
 
         $data = [
@@ -105,13 +99,11 @@ class TagController extends Controller
             'unique'   => __('canvas::validation.unique'),
         ];
 
-        // Validate the request
         validator($data, [
             'name' => 'required',
             'slug' => 'required|'.Rule::unique('canvas_tags', 'slug')->ignore(request('id')).'|regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/i',
         ], $messages)->validate();
 
-        // Update the tag
         $tag->fill($data);
         $tag->save();
 
@@ -126,10 +118,8 @@ class TagController extends Controller
      */
     public function destroy(string $id)
     {
-        // Lookup a tag given an ID
         $tag = Tag::findOrFail($id);
 
-        // Delete the tag
         $tag->delete();
 
         return redirect(route('canvas.tag.index'));

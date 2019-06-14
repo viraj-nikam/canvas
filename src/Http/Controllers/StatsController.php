@@ -25,7 +25,6 @@ class StatsController extends Controller
      */
     public function index()
     {
-        // Grab all published posts with view counts
         $published = Post::select('id', 'title', 'body', 'published_at', 'created_at')
             ->published()
             ->orderByDesc('created_at')

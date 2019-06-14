@@ -19,7 +19,6 @@ class PostController extends Controller
      */
     public function index()
     {
-        // Grab all of the posts
         $posts = Post::select('id', 'title', 'body', 'published_at', 'featured_image', 'created_at')
             ->orderByDesc('created_at')
             ->get();
@@ -51,7 +50,6 @@ class PostController extends Controller
      */
     public function edit(string $id)
     {
-        // Lookup a post given an ID
         $post = Post::findOrFail($id);
 
         $data = [
@@ -96,7 +94,6 @@ class PostController extends Controller
             'unique'   => __('canvas::validation.unique'),
         ];
 
-        // Validate the request
         validator($data, [
             'title'        => 'required',
             'slug'         => 'required|'.Rule::unique('canvas_posts', 'slug')->ignore(request('id')).'|regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/i',
@@ -104,18 +101,15 @@ class PostController extends Controller
             'user_id'      => 'required',
         ], $messages)->validate();
 
-        // Create a new post
         $post = new Post(['id' => request('id')]);
         $post->fill($data);
         $post->meta = $data['meta'];
         $post->save();
 
-        // Sync the tags
         $post->tags()->sync(
             $this->attachOrCreateTags(request('tags') ?? [])
         );
 
-        // Sync the topic
         $post->topic()->sync(
             $this->attachOrCreateTopic(request('topic') ?? [])
         );
@@ -131,7 +125,6 @@ class PostController extends Controller
      */
     public function update(string $id)
     {
-        // Lookup a post given an ID
         $post = Post::findOrFail($id);
 
         $data = [
@@ -159,7 +152,6 @@ class PostController extends Controller
             'unique'   => __('canvas::validation.unique'),
         ];
 
-        // Validate the request
         validator($data, [
             'title'        => 'required',
             'slug'         => 'required|'.Rule::unique('canvas_posts', 'slug')->ignore($id).'|regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/i',
@@ -167,17 +159,14 @@ class PostController extends Controller
             'user_id'      => 'required',
         ], $messages)->validate();
 
-        // Update the post
         $post->fill($data);
         $post->meta = $data['meta'];
         $post->save();
 
-        // Sync the tags
         $post->tags()->sync(
             $this->attachOrCreateTags(request('tags') ?? [])
         );
 
-        // Sync the topic
         $post->topic()->sync(
             $this->attachOrCreateTopic(request('topic') ?? [])
         );
@@ -193,10 +182,7 @@ class PostController extends Controller
      */
     public function destroy(string $id)
     {
-        // Lookup a post given an ID
         $post = Post::findOrFail($id);
-
-        // Delete the post
         $post->delete();
 
         return redirect(route('canvas.post.index'));
@@ -212,15 +198,13 @@ class PostController extends Controller
      */
     private function attachOrCreateTags(array $incomingTags): array
     {
-        // Grab all the tags
         $tags = Tag::all();
 
         return collect($incomingTags)->map(function ($incomingTag) use ($tags) {
-            // Lookup an existing tag given a slug
+
             $tag = $tags->where('slug', $incomingTag['slug'])->first();
 
             if (! $tag) {
-                // Create a new tag
                 $tag = Tag::create([
                     'id'   => $id = Str::uuid(),
                     'name' => $incomingTag['name'],
@@ -241,11 +225,10 @@ class PostController extends Controller
     private function attachOrCreateTopic(array $incomingTopic): array
     {
         if ($incomingTopic) {
-            // Lookup a topic given a slug
+
             $topic = Topic::where('slug', $incomingTopic['slug'])->first();
 
             if (! $topic) {
-                // Create a new topic
                 $topic = Topic::create([
                     'id'   => $id = Str::uuid(),
                     'name' => $incomingTopic['name'],
