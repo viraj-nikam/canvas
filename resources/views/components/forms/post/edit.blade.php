@@ -1,6 +1,6 @@
 <form role="form" id="form-edit" method="POST" action="{{ route('canvas.post.update', $data['post']->id) }}"
       enctype="multipart/form-data">
-    @csrf
+    {{ csrf_token() }}
     @method('PUT')
 
     <div class="form-group row my-3">

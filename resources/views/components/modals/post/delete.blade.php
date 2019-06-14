@@ -16,7 +16,7 @@
 
                 <form id="form-delete" action="{{ route('canvas.post.destroy', $data['post']->id) }}" method="POST" style="display: none">
                     @method('DELETE')
-                    @csrf
+                    {{ csrf_token() }}
                 </form>
             </div>
         </div>

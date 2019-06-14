@@ -42,7 +42,7 @@
                                 {{ __('canvas::nav.user.logout') }}
                             </a>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                @csrf
+                                {{ csrf_token() }}
                             </form>
                         </div>
                     </div>

@@ -1,5 +1,5 @@
 <form role="form" id="form-create" method="POST" action="{{ route('canvas.topic.store') }}">
-    @csrf
+    {{ csrf_token() }}
     <input type="hidden" name="id" hidden value="{{ $topic_id }}">
 
     <slug-component inline-template>

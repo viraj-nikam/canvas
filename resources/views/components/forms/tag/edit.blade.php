@@ -1,6 +1,6 @@
 <form role="form" id="form-edit" method="POST" action="{{ route('canvas.tag.update', $tag->id) }}">
     @method('PUT')
-    @csrf
+    {{ csrf_token() }}
 
     <slug-component :model="{{ $tag }}" inline-template>
         <div v-cloak>
