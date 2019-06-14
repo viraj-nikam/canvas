@@ -48,6 +48,7 @@ class SetupCommand extends Command
      * Execute the console command.
      *
      * @return void
+     * @throws \Exception
      */
     public function handle()
     {
@@ -112,7 +113,12 @@ class SetupCommand extends Command
      */
     private function exportController()
     {
-        if (file_exists($controller = app_path('Http/Controllers/BlogController.php'))) {
+        if (! file_exists($controller = app_path('Http/Controllers/BlogController.php'))) {
+            file_put_contents(
+                app_path('Http/Controllers/BlogController.php'),
+                $this->compileControllerStub()
+            );
+        } else {
             if ($this->confirm('The [Http/Controllers/BlogController.php] already exists. Do you want to replace it?')) {
                 file_put_contents(
                     app_path('Http/Controllers/BlogController.php'),
