@@ -54,7 +54,7 @@ class SetupCommand extends Command
     {
         $this->createDirectories();
         $this->exportViews();
-        $this->exportController();
+        $this->buildController();
         $this->registerRoutes();
 
         // Optionally seed the database with demo data
@@ -107,25 +107,32 @@ class SetupCommand extends Command
     }
 
     /**
+     * Build the new controller.
+     *
+     * @return void
+     */
+    private function buildController()
+    {
+        if (! file_exists($controller = app_path('Http/Controllers/BlogController.php'))) {
+            $this->exportController();
+        } else {
+            if ($this->confirm('The [Http/Controllers/BlogController.php] already exists. Do you want to replace it?')) {
+                $this->exportController();
+            }
+        }
+    }
+
+    /**
      * Export the new controller.
      *
      * @return void
      */
     private function exportController()
     {
-        if (! file_exists($controller = app_path('Http/Controllers/BlogController.php'))) {
-            file_put_contents(
-                app_path('Http/Controllers/BlogController.php'),
-                $this->compileControllerStub()
-            );
-        } else {
-            if ($this->confirm('The [Http/Controllers/BlogController.php] already exists. Do you want to replace it?')) {
-                file_put_contents(
-                    app_path('Http/Controllers/BlogController.php'),
-                    $this->compileControllerStub()
-                );
-            }
-        }
+        file_put_contents(
+            app_path('Http/Controllers/BlogController.php'),
+            $this->compileControllerStub()
+        );
     }
 
     /**
