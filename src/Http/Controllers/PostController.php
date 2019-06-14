@@ -6,7 +6,7 @@ use Canvas\Tag;
 use Canvas\Post;
 use Canvas\Topic;
 use Carbon\Carbon;
-use Illuminate\Support\Str;
+use Ramsey\Uuid\Uuid;
 use Illuminate\Validation\Rule;
 use Illuminate\Routing\Controller;
 
@@ -30,11 +30,12 @@ class PostController extends Controller
      * Show the page to create a new post.
      *
      * @return \Illuminate\View\View
+     * @throws \Exception
      */
     public function create()
     {
         $data = [
-            'id'     => Str::uuid(),
+            'id'     => Uuid::uuid4(),
             'tags'   => Tag::all(['name', 'slug']),
             'topics' => Topic::all(['name', 'slug']),
         ];
@@ -66,6 +67,7 @@ class PostController extends Controller
      * Save a new post.
      *
      * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
      */
     public function store()
     {
@@ -122,6 +124,7 @@ class PostController extends Controller
      *
      * @param string $id
      * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
      */
     public function update(string $id)
     {
@@ -205,7 +208,7 @@ class PostController extends Controller
 
             if (! $tag) {
                 $tag = Tag::create([
-                    'id'   => $id = Str::uuid(),
+                    'id'   => $id = Uuid::uuid4(),
                     'name' => $incomingTag['name'],
                     'slug' => $incomingTag['slug'],
                 ]);
@@ -220,6 +223,7 @@ class PostController extends Controller
      *
      * @param array $incomingTopic
      * @return array
+     * @throws \Exception
      */
     private function attachOrCreateTopic(array $incomingTopic): array
     {
@@ -228,7 +232,7 @@ class PostController extends Controller
 
             if (! $topic) {
                 $topic = Topic::create([
-                    'id'   => $id = Str::uuid(),
+                    'id'   => $id = Uuid::uuid4(),
                     'name' => $incomingTopic['name'],
                     'slug' => $incomingTopic['slug'],
                 ]);

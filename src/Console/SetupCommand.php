@@ -6,6 +6,7 @@ use Canvas\Tag;
 use Canvas\Post;
 use Canvas\Topic;
 use Faker\Generator;
+use Ramsey\Uuid\Uuid;
 use Illuminate\Support\Str;
 use Illuminate\Console\Command;
 use Illuminate\Foundation\Auth\User;
@@ -155,6 +156,7 @@ class SetupCommand extends Command
      * Run the demo data seeder.
      *
      * @return void
+     * @throws \Exception
      */
     private function seed()
     {
@@ -166,7 +168,7 @@ class SetupCommand extends Command
         $post_counter = 1;
         while ($post_counter < 6) {
             $title = $faker->words(3, true);
-            $post_id = Str::uuid();
+            $post_id = Uuid::uuid4();
             $post = Post::create([
                 'id'                     => $post_id,
                 'slug'                   => "post-{$post_id}",
@@ -189,7 +191,7 @@ class SetupCommand extends Command
         while ($tag_counter < 10) {
             $name = ucfirst($faker->words(2, true));
             $tag = Tag::create([
-                'id'   => Str::uuid(),
+                'id'   => Uuid::uuid4(),
                 'slug' => Str::slug($name),
                 'name' => $name,
             ]);
@@ -204,7 +206,7 @@ class SetupCommand extends Command
         while ($topic_counter < 10) {
             $name = ucfirst($faker->words(2, true));
             $topic = Topic::create([
-                'id'   => Str::uuid(),
+                'id'   => Uuid::uuid4(),
                 'slug' => Str::slug($name),
                 'name' => $name,
             ]);

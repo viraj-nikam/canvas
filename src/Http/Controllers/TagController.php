@@ -3,7 +3,7 @@
 namespace Canvas\Http\Controllers;
 
 use Canvas\Tag;
-use Illuminate\Support\Str;
+use Ramsey\Uuid\Uuid;
 use Illuminate\Validation\Rule;
 use Illuminate\Routing\Controller;
 
@@ -27,10 +27,11 @@ class TagController extends Controller
      * Show the page to create a new tag.
      *
      * @return \Illuminate\View\View
+     * @throws \Exception
      */
     public function create()
     {
-        $tag_id = Str::uuid();
+        $tag_id = Uuid::uuid4();
 
         return view('canvas::tags.create', compact('tag_id'));
     }
