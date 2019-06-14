@@ -2,6 +2,9 @@
 
 ## [Unreleased](https://github.com/cnvs/canvas/compare/master...develop)
 
+## Changed
+- Minor refactor of the digest email ([543398a](https://github.com/cnvs/canvas/commit/543398a3a881608b9012d9e541faafd1fef9d512))
+
 ## [4.2.4](https://github.com/cnvs/canvas/compare/v4.2.3...v4.2.4)
 
 ## Fixed
