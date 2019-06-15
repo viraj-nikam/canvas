@@ -43,7 +43,7 @@ php artisan storage:link
 
 > **Note:** The following steps are optional configurations, you are not required to complete them.
 
-**Want to get started fast?** Just run `php artisan canvas:setup` after installing Canvas. Then, navigate your browser to `http://your-app.test/blog` or any other URL that is assigned to your application. This command scaffolds a default frontend for your entire blog!
+**Want to get started fast?** Just run `php artisan canvas:setup` after installing Canvas. A `--data` option may also be included in the command to generate demo data. Then, navigate your browser to `http://your-app.test/blog` or any other URL that is assigned to your application. This command scaffolds a default frontend for your entire blog!
 
 
 If you want to include [Unsplash](https://unsplash.com) images in your post content, set up a new application at [https://unsplash.com/oauth/applications](https://unsplash.com/oauth/applications). Grab your access key and update `config/canvas.php`:

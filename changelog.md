@@ -2,6 +2,17 @@
 
 ## [Unreleased](https://github.com/cnvs/canvas/compare/master...develop)
 
+## [4.2.5](https://github.com/cnvs/canvas/compare/v4.2.4...v4.2.5)
+
+## Changed
+- Minor refactor of the digest email ([543398a](https://github.com/cnvs/canvas/commit/543398a3a881608b9012d9e541faafd1fef9d512))
+
+## Added
+- Added support for Laravel LTS(5.5) ([#511](https://github.com/cnvs/canvas/issues/511), [acdf9ed](https://github.com/cnvs/canvas/commit/acdf9ed80723589610031f606bf869831aecdb9d))
+
+## Fixed
+- Patch for the default controller not being built on an initial setup ([e1d8625](https://github.com/cnvs/canvas/commit/e1d8625ec04037f9ef5324e422ac5702048160a0))
+
 ## [4.2.4](https://github.com/cnvs/canvas/compare/v4.2.3...v4.2.4)
 
 ## Fixed
