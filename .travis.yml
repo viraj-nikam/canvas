@@ -1,12 +1,10 @@
 language: php
 
-sudo: false
+cache:
+  directories:
+    - $HOME/.composer/cache
 
-php:
-  - 7.0
-  - 7.1
-  - 7.2
-  - 7.3
+sudo: false
 
 notifications:
   email: false
@@ -20,27 +18,22 @@ env:
   - ILLUMINATE_VERSION=5.8.* PHPUNIT_VERSION=~7.0 COVERAGE=true
 
 matrix:
-  exclude:
-    - php: 7.0
-      env: ILLUMINATE_VERSION=5.6.* PHPUNIT_VERSION=~7.0
-    - php: 7.0
-      env: ILLUMINATE_VERSION=5.7.* PHPUNIT_VERSION=~7.0 COVERAGE=true
-    - php: 7.1
-      env: ILLUMINATE_VERSION=5.1.* PHPUNIT_VERSION=~4.0
-    - php: 7.1
-      env: ILLUMINATE_VERSION=5.2.* PHPUNIT_VERSION=~4.0
-    - php: 7.1
-      env: ILLUMINATE_VERSION=5.3.* PHPUNIT_VERSION=~5.0
+  fast_finish: true
+  include:
+    - php: 7.2
+      env: LARAVEL='5.8.*' TESTBENCH='3.8.*' COMPOSER_FLAGS='--prefer-lowest'
+    - php: 7.2
+      env: LARAVEL='5.8.*' TESTBENCH='3.8.*' COMPOSER_FLAGS='--prefer-stable'
+    - php: 7.3
+      env: LARAVEL='5.8.*' TESTBENCH='3.8.*' COMPOSER_FLAGS='--prefer-lowest'
+    - php: 7.3
+      env: LARAVEL='5.8.*' TESTBENCH='3.8.*' COMPOSER_FLAGS='--prefer-stable'
 
 before_install:
-  - echo "memory_limit=2G" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
-  - cp ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini ~/xdebug.ini
-  - phpenv config-rm xdebug.ini || true
   - travis_retry composer self-update
+  - travis_retry composer require --no-update --no-interaction "illuminate/support:${LARAVEL}" "orchestra/testbench:${TESTBENCH}"
 
 install:
-  - composer require "illuminate/support:${ILLUMINATE_VERSION}" --no-update --prefer-dist --no-interaction --no-suggest
-  - composer require "orchestra/testbench:${ILLUMINATE_VERSION/5\./3\.}" --no-update --prefer-dist --no-interaction --no-suggest
-  - composer require "phpunit/phpunit:${PHPUNIT_VERSION}" --no-update --prefer-dist --no-interaction --no-suggest
+  - travis_retry composer update ${COMPOSER_FLAGS} --prefer-dist --no-interaction --no-suggest
 
 script: vendor/bin/phpunit --verbose
