@@ -1,6 +1,6 @@
 <form role="form" id="form-edit" method="POST" action="{{ route('canvas.topic.update', $topic->id) }}">
-    @method('PUT')
-    @csrf
+    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+    {{ method_field('PUT') }}
 
     <slug-component :model="{{ $topic }}" inline-template>
         <div v-cloak>

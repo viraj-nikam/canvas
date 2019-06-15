@@ -3,7 +3,7 @@
 namespace Canvas\Http\Controllers;
 
 use Canvas\Topic;
-use Illuminate\Support\Str;
+use Ramsey\Uuid\Uuid;
 use Illuminate\Validation\Rule;
 use Illuminate\Routing\Controller;
 
@@ -27,10 +27,11 @@ class TopicController extends Controller
      * Show the page to create a new topic.
      *
      * @return \Illuminate\View\View
+     * @throws \Exception
      */
     public function create()
     {
-        $topic_id = Str::uuid();
+        $topic_id = Uuid::uuid4();
 
         return view('canvas::topics.create', compact('topic_id'));
     }
