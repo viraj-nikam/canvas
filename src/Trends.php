@@ -2,7 +2,11 @@
 
 namespace Canvas;
 
+use DateInterval;
+use DatePeriod;
+use Carbon\Carbon;
 use Carbon\CarbonPeriod;
+use Carbon\CarbonInterval;
 use Illuminate\Support\Collection;
 
 trait Trends
@@ -14,7 +18,7 @@ trait Trends
      * @param int|null $days
      * @return array
      */
-    public function getViewTrends(Collection $views = null, int $days = null)
+    public function getViewTrends(Collection $views = null, int $days = 1)
     {
         // Filter the view data to only include created_at date strings
         $collection = collect();
@@ -26,24 +30,35 @@ trait Trends
         $views = array_count_values($collection->toArray());
 
         // Create a [X] day range to hold the default date values
-        $period = CarbonPeriod::create(now()->subDays($days)->toDateString(), $days)->excludeStartDate();
-
-        // Prep the array to perform a comparison with the actual view data
-        $range = collect();
-        foreach ($period as $key => $date) {
-            $range->push($date->toDateString());
-        }
+        $range = $this->generateDateRange(today()->subDays($days), CarbonInterval::day(), $days);
 
         // Compare the view data and date range arrays, assigning view counts where applicable
         $total = collect();
         foreach ($range as $date) {
-            if (array_key_exists($date, $views)) {
-                $total->put($date, $views[$date]);
-            } else {
-                $total->put($date, 0);
-            }
+            array_key_exists($date, $views) ? $total->put($date, $views[$date]) : $total->put($date, 0);
         }
 
         return $total->toArray();
+    }
+
+    /**
+     * Generate a date range array of formatted strings.
+     *
+     * @param Carbon $start_date
+     * @param DateInterval $interval
+     * @param int $recurrences
+     * @param int $exclusive
+     * @return array
+     */
+    private function generateDateRange(Carbon $start_date, DateInterval $interval, int $recurrences, int $exclusive = 1): array
+    {
+        $period = new DatePeriod($start_date, $interval, $recurrences, $exclusive);
+
+        $dates = collect();
+        foreach ($period as $date) {
+            $dates->push($date->format('Y-m-d'));
+        }
+
+        return $dates->toArray();
     }
 }
