@@ -52,7 +52,7 @@ class BlogController extends Controller
                     })->get();
 
                 if ($related->isEmpty()) {
-                    $random = $filtered->count() > 1 ?? $filtered->random();
+                    $random = $filtered->count() > 1 ? $filtered->random() : null;
                 } else {
                     $random = $related->random();
                 }
@@ -88,7 +88,7 @@ class BlogController extends Controller
      */
     public function getPostsByTag(string $slug): View
     {
-        if (Tag::firstWhere('slug', $slug)) {
+        if (Tag::where('slug', $slug)->first()) {
             $data = [
                 'tag'    => Tag::with('posts')->where('slug', $slug)->first(),
                 'tags'   => Tag::all(['name', 'slug']),
@@ -112,7 +112,7 @@ class BlogController extends Controller
      */
     public function getPostsByTopic(string $slug): View
     {
-        if (Topic::firstWhere('slug', $slug)) {
+        if (Topic::where('slug', $slug)->first()) {
             $data = [
                 'tags'   => Tag::all(['name', 'slug']),
                 'topics' => Topic::all(['name', 'slug']),
