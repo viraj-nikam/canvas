@@ -2,6 +2,13 @@
 
 ## [Unreleased](https://github.com/cnvs/canvas/compare/master...develop)
 
+## Changed
+- Upgraded to Font Awesome 5.9 ([26cacf2](https://github.com/cnvs/canvas/commit/26cacf2ae09a6938614630a6420d92369e73b012))
+
+## Fixed
+- Patch for PHP 7.0 constants not supporting visibility ([6e49604](https://github.com/cnvs/canvas/commit/6e49604fca9ea5dd8e5ccfae09a0ea32df326138))
+- Patch for CarbonPeriod not being available in Laravel LTS ([6e49604](https://github.com/cnvs/canvas/commit/6e49604fca9ea5dd8e5ccfae09a0ea32df326138))
+
 ## [4.2.5](https://github.com/cnvs/canvas/compare/v4.2.4...v4.2.5)
 
 ## Changed
