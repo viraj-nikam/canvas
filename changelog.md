@@ -96,7 +96,7 @@
 ### Changed
 - Minor updates to the sponsorship page ([91a6ff5](https://github.com/cnvs/canvas/commit/91a6ff598821fe76627398be6b725c2ad3cb522c))
 
-## [v4.1.36](https://github.com/cnvs/canvas/compare/v4.1.35...v4.1.36) (May 22, 2019)
+## [v4.1.36](https://github.com/cnvs/canvas/compare/v4.1.35...v4.1.36) (May 16, 2019)
 
 ### Added
 - Added sponsor information ([6476549](https://github.com/cnvs/canvas/commit/64765492e228ac859399054f7aee05e5fcf07b33))
