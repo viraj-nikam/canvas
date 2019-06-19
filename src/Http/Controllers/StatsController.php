@@ -16,7 +16,7 @@ class StatsController extends Controller
      *
      * @const int
      */
-    private const DAYS_PRIOR = 30;
+    const DAYS_PRIOR = 30;
 
     /**
      * Show the stats index page with post and view data.

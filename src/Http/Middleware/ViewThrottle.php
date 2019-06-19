@@ -13,7 +13,7 @@ class ViewThrottle
      *
      * @const int
      */
-    private const EXPIRES_IN = 3600;
+    const EXPIRES_IN = 3600;
 
     /**
      * Handle the incoming request.
