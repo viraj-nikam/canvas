@@ -2,6 +2,8 @@
 
 ## [Unreleased](https://github.com/cnvs/canvas/compare/master...develop)
 
+## [4.2.6](https://github.com/cnvs/canvas/compare/v4.2.5...v4.2.6) (June 19, 2019)
+
 ## Changed
 - Upgraded to Font Awesome 5.9 ([26cacf2](https://github.com/cnvs/canvas/commit/26cacf2ae09a6938614630a6420d92369e73b012))
 
