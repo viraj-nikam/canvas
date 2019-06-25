@@ -76,18 +76,6 @@
                     name: topic.name,
                     slug: topic.slug
                 };
-            },
-
-            /**
-             * Convert a string to a slug.
-             *
-             * @source https://gist.github.com/mathewbyrne/1280286
-             */
-            slugify(text) {
-                return text.toString().toLowerCase()
-                    .replace(/\s+/g, '-')
-                    .replace(/[^\w\-]+/g, '')
-                    .replace(/--+/g, '-')
             }
         }
     }

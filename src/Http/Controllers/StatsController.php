@@ -18,11 +18,6 @@ class StatsController extends Controller
      */
     const DAYS_PRIOR = 30;
 
-    /**
-     * Show the stats index page with post and view data.
-     *
-     * @return \Illuminate\View\View
-     */
     public function index()
     {
         $published = Post::select('id', 'title', 'body', 'published_at', 'created_at')
@@ -40,7 +35,7 @@ class StatsController extends Controller
             now()->toDateTimeString(),
         ])->select('created_at')->get();
 
-        $data = [
+        return response()->json([
             'posts' => [
                 'all'             => $published,
                 'published_count' => $published->count(),
@@ -50,30 +45,20 @@ class StatsController extends Controller
                 'count' => $views->count(),
                 'trend' => json_encode($this->getViewTrends($views, self::DAYS_PRIOR)),
             ],
-        ];
-
-        return view('canvas::stats.index', compact('data'));
+        ]);
     }
 
-    /**
-     * Show the stats page for a given post.
-     *
-     * @param string $id
-     * @return \Illuminate\View\View
-     */
     public function show(string $id)
     {
         $post = Post::findOrFail($id);
 
         if ($post->published) {
-            $data = [
+            return response()->json([
                 'post'                  => $post,
                 'traffic'               => $post->top_referers,
                 'popular_reading_times' => $post->popular_reading_times,
                 'views'                 => json_encode($this->getViewTrends($post->views, self::DAYS_PRIOR)),
-            ];
-
-            return view('canvas::stats.show', compact('data'));
+            ]);
         } else {
             abort(404);
         }

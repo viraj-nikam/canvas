@@ -12,63 +12,36 @@ use Illuminate\Routing\Controller;
 
 class PostController extends Controller
 {
-    /**
-     * Show the posts index page.
-     *
-     * @return \Illuminate\View\View
-     */
     public function index()
     {
         $posts = Post::select('id', 'title', 'body', 'published_at', 'featured_image', 'created_at')
             ->orderByDesc('created_at')
             ->get();
 
-        return view('canvas::posts.index', compact('posts'));
+        return $posts;
     }
 
-    /**
-     * Show the page to create a new post.
-     *
-     * @return \Illuminate\View\View
-     * @throws \Exception
-     */
     public function create()
     {
-        $data = [
+        return response()->json([
             'id'     => Uuid::uuid4(),
             'tags'   => Tag::all(['name', 'slug']),
             'topics' => Topic::all(['name', 'slug']),
-        ];
-
-        return view('canvas::posts.create', compact('data'));
+        ]);
     }
 
-    /**
-     * Show the page to edit a given post.
-     *
-     * @param string $id
-     * @return \Illuminate\View\View
-     */
     public function edit(string $id)
     {
         $post = Post::findOrFail($id);
 
-        $data = [
+        return response()->json([
             'post'   => $post,
             'meta'   => $post->meta,
             'tags'   => Tag::all(['name', 'slug']),
             'topics' => Topic::all(['name', 'slug']),
-        ];
-
-        return view('canvas::posts.edit', compact('data'));
+        ]);
     }
 
-    /**
-     * Save a new post.
-     *
-     * @return \Illuminate\Http\RedirectResponse
-     * @throws \Exception
-     */
     public function store()
     {
         $data = [
@@ -98,7 +71,7 @@ class PostController extends Controller
 
         validator($data, [
             'title'        => 'required',
-            'slug'         => 'required|'.Rule::unique('canvas_posts', 'slug')->ignore(request('id')).'|regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/i',
+            'slug'         => 'required|' . Rule::unique('canvas_posts', 'slug')->ignore(request('id')) . '|regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/i',
             'published_at' => 'required|date',
             'user_id'      => 'required',
         ], $messages)->validate();
@@ -116,7 +89,7 @@ class PostController extends Controller
             $this->attachOrCreateTopic(request('topic') ?? [])
         );
 
-        return redirect(route('canvas.post.edit', $post->id))->with('notify', __('canvas::nav.notify.success'));
+        return response()->json([$post]);
     }
 
     /**
@@ -157,7 +130,7 @@ class PostController extends Controller
 
         validator($data, [
             'title'        => 'required',
-            'slug'         => 'required|'.Rule::unique('canvas_posts', 'slug')->ignore($id).'|regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/i',
+            'slug'         => 'required|' . Rule::unique('canvas_posts', 'slug')->ignore($id) . '|regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/i',
             'published_at' => 'required',
             'user_id'      => 'required',
         ], $messages)->validate();
@@ -174,7 +147,7 @@ class PostController extends Controller
             $this->attachOrCreateTopic(request('topic') ?? [])
         );
 
-        return redirect(route('canvas.post.edit', $post->id))->with('notify', __('canvas::nav.notify.success'));
+        return response()->json([$post]);
     }
 
     /**
@@ -188,7 +161,7 @@ class PostController extends Controller
         $post = Post::findOrFail($id);
         $post->delete();
 
-        return redirect(route('canvas.post.index'));
+        return response()->json([$post]);
     }
 
     /**
@@ -206,7 +179,7 @@ class PostController extends Controller
         return collect($incomingTags)->map(function ($incomingTag) use ($tags) {
             $tag = $tags->where('slug', $incomingTag['slug'])->first();
 
-            if (! $tag) {
+            if (!$tag) {
                 $tag = Tag::create([
                     'id'   => $id = Uuid::uuid4(),
                     'name' => $incomingTag['name'],
@@ -214,7 +187,7 @@ class PostController extends Controller
                 ]);
             }
 
-            return (string) $tag->id;
+            return (string)$tag->id;
         })->toArray();
     }
 
@@ -230,7 +203,7 @@ class PostController extends Controller
         if ($incomingTopic) {
             $topic = Topic::where('slug', $incomingTopic['slug'])->first();
 
-            if (! $topic) {
+            if (!$topic) {
                 $topic = Topic::create([
                     'id'   => $id = Uuid::uuid4(),
                     'name' => $incomingTopic['name'],
@@ -238,7 +211,7 @@ class PostController extends Controller
                 ]);
             }
 
-            return collect((string) $topic->id)->toArray();
+            return collect((string)$topic->id)->toArray();
         } else {
             return [];
         }

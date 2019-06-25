@@ -9,31 +9,20 @@ use Illuminate\Routing\Controller;
 
 class TopicController extends Controller
 {
-    /**
-     * Show the topics index page.
-     *
-     * @return \Illuminate\View\View
-     */
     public function index()
     {
         $topics = Topic::orderByDesc('created_at')
             ->withCount('posts')
             ->get();
 
-        return view('canvas::topics.index', compact('topics'));
+        return response()->json([$topics]);
     }
 
-    /**
-     * Show the page to create a new topic.
-     *
-     * @return \Illuminate\View\View
-     * @throws \Exception
-     */
     public function create()
     {
-        $topic_id = Uuid::uuid4();
-
-        return view('canvas::topics.create', compact('topic_id'));
+        return response()->json([
+            'id' => Uuid::uuid4(),
+        ]);
     }
 
     /**
@@ -44,16 +33,11 @@ class TopicController extends Controller
      */
     public function edit(string $id)
     {
-        $topic = Topic::findOrFail($id);
-
-        return view('canvas::topics.edit', compact('topic'));
+        return response()->json([
+            'topic' => Topic::findOrFail($id),
+        ]);
     }
 
-    /**
-     * Save a new topic.
-     *
-     * @return \Illuminate\Http\RedirectResponse
-     */
     public function store()
     {
         $data = [
@@ -76,7 +60,7 @@ class TopicController extends Controller
         $topic->fill($data);
         $topic->save();
 
-        return redirect(route('canvas.topic.edit', $topic->id))->with('notify', __('canvas::nav.notify.success'));
+        return response()->json([$topic]);
     }
 
     /**
@@ -108,21 +92,14 @@ class TopicController extends Controller
         $topic->fill($data);
         $topic->save();
 
-        return redirect(route('canvas.topic.edit', $topic->id))->with('notify', __('canvas::nav.notify.success'));
+        return response()->json([$topic]);
     }
 
-    /**
-     * Delete a given topic.
-     *
-     * @param string $id
-     * @return \Illuminate\Http\RedirectResponse
-     */
     public function destroy(string $id)
     {
         $topic = Topic::findOrFail($id);
-
         $topic->delete();
 
-        return redirect(route('canvas.topic.index'));
+        return response()->json([$topic]);
     }
 }
