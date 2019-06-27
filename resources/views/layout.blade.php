@@ -17,6 +17,9 @@
     <!-- HighlightJS sheets -->
     <link rel="stylesheet" href="{{ url('https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.6/build/styles/default.min.css') }}">
 
+    <!-- NProgress sheets -->
+    <link  rel="stylesheet" href="{{ url('https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.css') }}">
+
     <!-- Style sheets -->
     <link rel="stylesheet" type="text/css" href="{{ asset(mix(sprintf('css/%s', $canvasCssFile), 'vendor/canvas')) }}">
 

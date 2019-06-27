@@ -5,6 +5,7 @@ namespace Canvas\Http\Controllers;
 use Canvas\Post;
 use Canvas\View;
 use Canvas\Trends;
+use Canvas\SuffixedNumber;
 use Illuminate\Routing\Controller;
 
 class StatsController extends Controller
@@ -42,7 +43,7 @@ class StatsController extends Controller
                 'drafts_count'    => Post::draft()->count(),
             ],
             'views' => [
-                'count' => $views->count(),
+                'count' => SuffixedNumber::format($views->count()),
                 'trend' => json_encode($this->getViewTrends($views, self::DAYS_PRIOR)),
             ],
         ]);

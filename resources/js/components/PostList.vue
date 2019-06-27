@@ -15,46 +15,11 @@
 
         data() {
             return {
-                search: '',
-                postList: this.models ? this.models : [],
                 limit: 7,
                 load: false,
+                postList: this.models ? this.models : [],
+                search: '',
                 timezone: this.defaultTimezone ? this.defaultTimezone : 'UTC',
-            }
-        },
-
-        methods: {
-            /**
-             * Return a number formatted with a suffix.
-             *
-             * @return string
-             */
-            suffixedNumber(number) {
-                let formatted = '';
-                let suffix = '';
-
-                if (number < 900) {
-                    formatted = number;
-                    suffix = '';
-                } else if (number < 900000) {
-                    let n_total = number / 1000;
-                    formatted = parseFloat(n_total.toFixed(1));
-                    suffix = 'K';
-                } else if (number < 900000000) {
-                    let n_total = number / 1000000;
-                    formatted = parseFloat(n_total.toFixed(1));
-                    suffix = 'M';
-                } else if (number < 900000000000) {
-                    let n_total = number / 1000000000;
-                    formatted = parseFloat(n_total.toFixed(1));
-                    suffix = 'B';
-                } else {
-                    let n_total = number / 1000000000000;
-                    formatted = parseFloat(n_total.toFixed(1));
-                    suffix = 'T';
-                }
-
-                return formatted + suffix;
             }
         },
 

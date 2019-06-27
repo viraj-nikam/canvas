@@ -71,16 +71,20 @@ const router = new VueRouter({
     base: routerBasePath,
 });
 
+NProgress.configure({
+    showSpinner: false
+});
+
 router.beforeResolve((to, from, next) => {
     // If this isn't an initial page load
-    if (to.name) {
+    if (to.path) {
         // Start the route progress bar
         NProgress.start()
     }
     next()
 });
 
-router.afterEach((to, from) => {
+router.afterEach(() => {
     // Complete the animation of the route progress bar
     NProgress.done()
 });
@@ -99,8 +103,6 @@ new Vue({
 
     data() {
         return {
-            i18n: JSON.parse(Canvas.lang),
-
             alert: {
                 type: null,
                 autoClose: 0,

@@ -45,19 +45,9 @@
                     values: Object.values(this.views)
                 }],
                 labels: Object.keys(this.views),
-                trans: i18n
+                trans: JSON.parse(Canvas.lang),
             }
         },
-
-        methods: {
-            pluralize(string, count) {
-                if (count > 1 || count === 0) {
-                    return ' ' + string + 's';
-                } else {
-                    return ' ' + string;
-                }
-            }
-        }
     }
 </script>
 
