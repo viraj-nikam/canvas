@@ -12,6 +12,8 @@ export default {
         /**
          * Trim an alphanumeric string and convert to a slug.
          *
+         * @param text
+         * @return string
          * @source https://gist.github.com/mathewbyrne/1280286
          */
         slugify(text) {
@@ -24,7 +26,8 @@ export default {
         /**
          * Return a number formatted with a suffix.
          *
-         * @return string
+         * @param number
+         * @returns {string}
          */
         suffixedNumber(number) {
             let formatted = '';
@@ -54,6 +57,13 @@ export default {
             return formatted + suffix;
         },
 
+        /**
+         * Get the plural form of a word.
+         *
+         * @param string
+         * @param count
+         * @returns {string}
+         */
         pluralize(string, count) {
             if (count > 1 || count === 0) {
                 return ' ' + string + 's';
@@ -62,6 +72,11 @@ export default {
             }
         },
 
+        /**
+         * Create an HTTP request.
+         *
+         * @returns {AxiosInstance}
+         */
         request() {
             let instance = axios.create();
 
