@@ -19,8 +19,9 @@ class Canvas
     public static function scriptVariables()
     {
         return [
-            'path' => config('canvas.path'),
-            'lang' => self::collectLanguageFiles(),
+            'path'     => config('canvas.path'),
+            'lang'     => self::collectLanguageFiles(),
+            'timezone' => config('app.timezone'),
         ];
     }
 

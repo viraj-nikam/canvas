@@ -5,6 +5,7 @@ import {Bus} from './bus.js';
 import Routes from './routes';
 import NProgress from 'nprogress';
 import VueRouter from 'vue-router';
+import moment from 'moment-timezone';
 
 /**
  * First we will load all of this project's JavaScript dependencies which
@@ -55,6 +56,8 @@ if (token) {
 }
 
 Vue.use(VueRouter);
+
+moment.tz.setDefault(Canvas.timezone);
 
 window.Canvas.basePath = '/' + window.Canvas.path;
 

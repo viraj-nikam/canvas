@@ -2,8 +2,8 @@
     <div v-cloak>
         <vue-frappe
                 id="stats"
-                :labels="this.labels"
-                :title="this.trans.stats.cards.views.title"
+                :labels="labels"
+                :title="trans.stats.cards.views.title"
                 type="line"
                 :axisOptions="{
                     xIsSeries: true,
@@ -14,10 +14,10 @@
                 }"
                 :height="250"
                 :colors="['#3490dc']"
-                :dataSets="this.points"
+                :dataSets="points"
                 :tooltipOptions="{
                     formatTooltipX: d => moment(d, 'YYYY-MM-DD').format('dddd, MMMM Do'),
-                    formatTooltipY: d => d + pluralize(this.trans.stats.chart.view, d),
+                    formatTooltipY: d => d + pluralize(trans.stats.chart.view, d),
                 }">
         </vue-frappe>
     </div>

@@ -66,7 +66,7 @@
                         </div>
                     </div>
                 </div>
-                <p v-else class="mt-4">{{ trans.stats.empty }}</p>
+                <p v-else class="mt-3">{{ trans.stats.empty }}</p>
             </div>
         </div>
     </div>
