@@ -91,7 +91,7 @@ export default {
                             break;
 
                         case 401:
-                            window.location.href = '/' + Canvas.path + '/logout';
+                            window.location.href = '/logout';
                             break;
                     }
 

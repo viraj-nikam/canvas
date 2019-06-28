@@ -36,15 +36,6 @@ $(function () {
 });
 
 /**
- * Initialize all tooltips on a page by manually opting in.
- *
- * @link https://getbootstrap.com/docs/4.3/components/tooltips/#example-enable-tooltips-everywhere
- */
-$(function () {
-    $('[data-toggle="tooltip"]').tooltip()
-});
-
-/**
  * Next we will register the CSRF Token as a common header with Axios so that
  * all outgoing HTTP requests automatically have it attached. This is just
  * a simple convenience so we don't have to attach every token manually.
@@ -125,4 +116,6 @@ new Vue({
     mounted() {
         Bus.$on('httpError', message => this.alertError(message));
     },
+
+    methods: {}
 });

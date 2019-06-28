@@ -1,6 +1,8 @@
 export default [
-    {path: '/', redirect: '/stats'},
-
+    {
+        path: '/',
+        redirect: '/stats'
+    },
     {
         path: '/stats',
         name: 'stats',

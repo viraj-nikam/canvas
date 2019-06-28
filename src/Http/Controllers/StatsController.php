@@ -60,8 +60,6 @@ class StatsController extends Controller
                 'popular_reading_times' => $post->popular_reading_times,
                 'views'                 => json_encode($this->getViewTrends($post->views, self::DAYS_PRIOR)),
             ]);
-        } else {
-            abort(404);
         }
     }
 }
