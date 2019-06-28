@@ -57,10 +57,5 @@ export default [
         path: '/topics/:id/edit',
         name: 'topics-edit',
         component: require('./screens/topics/edit').default,
-    },
-    {
-        path: '*',
-        name: 'catch-all',
-        component: require('./screens/errors/404').default,
-    },
+    }
 ];

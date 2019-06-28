@@ -89,7 +89,7 @@
                 endpoint: '/api/stats',
                 trans: JSON.parse(Canvas.lang),
                 posts: [],
-                views: [],
+                views: {},
                 isReady: false,
                 loadMore: false,
                 limit: 7,
