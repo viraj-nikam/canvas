@@ -16939,12 +16939,18 @@ a.text-dark:focus {
   display: none;
 }
 
-body:not(.user-is-tabbing) a:focus,
-body:not(.user-is-tabbing) button:focus,
-body:not(.user-is-tabbing) input:focus,
-body:not(.user-is-tabbing) select:focus,
-body:not(.user-is-tabbing) textarea:focus {
-  outline: none;
+a,
+a:focus,
+input,
+input:focus,
+button,
+button:focus,
+select,
+select:focus,
+textarea,
+textarea:focus {
+  box-shadow: none !important;
+  outline: none !important;
 }
 
 input:-webkit-autofill,
