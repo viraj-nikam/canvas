@@ -1,5 +1,4 @@
 import Vue from 'vue';
-import axios from 'axios';
 import Base from './base';
 import {Bus} from './bus.js';
 import Routes from './routes';
@@ -7,11 +6,6 @@ import NProgress from 'nprogress';
 import VueRouter from 'vue-router';
 import moment from 'moment-timezone';
 
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
 require('bootstrap');
 
 window._ = require('lodash');
@@ -35,63 +29,41 @@ $(function () {
     });
 });
 
-/**
- * Next we will register the CSRF Token as a common header with Axios so that
- * all outgoing HTTP requests automatically have it attached. This is just
- * a simple convenience so we don't have to attach every token manually.
- */
-let token = document.head.querySelector('meta[name="csrf-token"]');
-
-if (token) {
-    axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
-}
-
-Vue.use(VueRouter);
-
+// Set the default app timezone
 moment.tz.setDefault(Canvas.timezone);
 
-window.Canvas.basePath = '/' + window.Canvas.path;
-
-let routerBasePath = window.Canvas.basePath + '/';
-
-if (window.Canvas.path === '' || window.Canvas.path === '/') {
-    routerBasePath = '/';
-    window.Canvas.basePath = '';
-}
+Vue.use(VueRouter);
 
 const router = new VueRouter({
     routes: Routes,
     mode: 'history',
-    base: routerBasePath,
+    base: window.Canvas.path,
 });
 
 NProgress.configure({
     showSpinner: false
 });
 
+// Start the progress bar animation if not on an initial page load
 router.beforeResolve((to, from, next) => {
-    // If this isn't an initial page load
     if (to.path) {
-        // Start the route progress bar
         NProgress.start()
     }
     next()
 });
 
+// Complete the animation of the route progress bar
 router.afterEach(() => {
-    // Complete the animation of the route progress bar
     NProgress.done()
 });
 
 Vue.mixin(Base);
 
+// Prevent the production tip on Vue startup
 Vue.config.productionTip = false;
 
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
+Vue.component('profile-dropdown', require('./components/ProfileDropdown.vue').default);
+
 new Vue({
     el: '#canvas',
 

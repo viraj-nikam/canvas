@@ -90,8 +90,9 @@ export default {
                             Bus.$emit('httpError', error.response.data.message);
                             break;
 
+                        case 405:
                         case 401:
-                            window.location.href = '/logout';
+                            window.location.href = '/login';
                             break;
                     }
 

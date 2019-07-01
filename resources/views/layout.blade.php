@@ -57,43 +57,7 @@
                         {{ __('canvas::buttons.stats.index') }}
                     </router-link>
 
-                    <div class="dropdown">
-                        <a href="#" id="navbarDropdown" class="nav-link px-0 text-secondary" role="button"
-                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                            <img src="{{ sprintf('%s%s%s', 'https://secure.gravatar.com/avatar/', md5(strtolower(trim(auth()->user()->email))), '?s=200') }}"
-                                 class="rounded-circle my-0"
-                                 style="width: 31px"
-                                 alt="{{ auth()->user()->name }}"
-                            >
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                            <h6 class="dropdown-header">
-                                <strong>{{ auth()->user()->name }}</strong><br>{{ auth()->user()->email }}
-                            </h6>
-                            <div class="dropdown-divider"></div>
-
-                            <router-link to="/posts" class="dropdown-item">
-                                <span>{{ __('canvas::nav.user.posts') }}</span>
-                            </router-link>
-                            <router-link to="/tags" class="dropdown-item">
-                                <span>{{ __('canvas::nav.user.tags') }}</span>
-                            </router-link>
-                            <router-link to="/topics" class="dropdown-item">
-                                <span>{{ __('canvas::nav.user.topics') }}</span>
-                            </router-link>
-                            <router-link to="/stats" class="dropdown-item">
-                                <span>{{ __('canvas::nav.user.stats') }}</span>
-                            </router-link>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="{{ route('logout') }}"
-                               onclick="event.preventDefault();document.getElementById('logout-form').submit();">
-                                {{ __('canvas::nav.user.logout') }}
-                            </a>
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                            </form>
-                        </div>
-                    </div>
+                    <profile-dropdown :authenticated-user="{{ auth()->user() }}"></profile-dropdown>
                 </nav>
             </div>
         </div>
