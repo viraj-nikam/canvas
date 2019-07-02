@@ -1,4 +1,6 @@
 <script>
+    // @TODO: Remove this component
+
     import 'moment-timezone'
 
     export default {

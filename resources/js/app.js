@@ -62,8 +62,6 @@ Vue.mixin(Base);
 // Prevent the production tip on Vue startup
 Vue.config.productionTip = false;
 
-Vue.component('profile-dropdown', require('./components/ProfileDropdown.vue').default);
-
 new Vue({
     el: '#canvas',
 

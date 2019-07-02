@@ -19,9 +19,10 @@ class Canvas
     public static function scriptVariables()
     {
         return [
-            'path'     => config('canvas.path'),
             'lang'     => self::collectLanguageFiles(),
+            'path'     => config('canvas.path'),
             'timezone' => config('app.timezone'),
+            'user'     => auth()->user()->only(['name', 'email']),
         ];
     }
 

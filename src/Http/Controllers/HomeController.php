@@ -8,9 +8,9 @@ use Illuminate\Routing\Controller;
 class HomeController extends Controller
 {
     /**
-     * Single page application catch-all route.
+     * Return the SPA with global variables.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {

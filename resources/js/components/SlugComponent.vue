@@ -1,4 +1,6 @@
 <script>
+    // @TODO: Remove this component
+
     export default {
         props: {
             model: {
