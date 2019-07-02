@@ -99,7 +99,6 @@
 </template>
 
 <script>
-    import PostList from '../../components/PostList';
     import LineChart from '../../components/LineChart';
     import ProfileDropdown from '../../components/ProfileDropdown';
 
@@ -108,7 +107,6 @@
 
         components: {
             LineChart,
-            PostList,
             ProfileDropdown
         },
 
