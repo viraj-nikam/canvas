@@ -11,11 +11,9 @@ class TopicController extends Controller
 {
     public function index()
     {
-        $topics = Topic::orderByDesc('created_at')
-            ->withCount('posts')
-            ->get();
-
-        return response()->json([$topics]);
+        return response()->json([
+            'topics' => Topic::orderByDesc('created_at')->withCount('posts')->get(),
+        ]);
     }
 
     public function create()
