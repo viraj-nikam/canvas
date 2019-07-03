@@ -55,7 +55,7 @@
      * @author Mohamed Said <themsaid@gmail.com>
      */
     export default {
-        name: 'quill-editor',
+        name: "quill-editor",
 
         components: {
             'html-embedder': HTMLEmbedder,

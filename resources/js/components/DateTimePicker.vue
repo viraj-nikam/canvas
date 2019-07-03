@@ -46,6 +46,8 @@
      * @author Mohamed Said <themsaid@gmail.com>
      */
     export default {
+        name: "datetime-picker",
+
         props: {
             value: {
                 type: String,

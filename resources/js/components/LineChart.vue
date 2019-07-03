@@ -32,6 +32,8 @@
     Vue.prototype.moment = moment;
 
     export default {
+        name: "line-chart",
+
         props: {
             views: {
                 type: Object,

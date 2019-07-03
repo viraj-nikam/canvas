@@ -61,6 +61,8 @@
      * @author Mohamed Said <themsaid@gmail.com>
      */
     export default {
+        name: "image-uploader",
+
         props: {
             unsplash: {
                 type: String,

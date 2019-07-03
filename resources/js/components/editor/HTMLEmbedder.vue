@@ -35,6 +35,8 @@
      * @author Mohamed Said <themsaid@gmail.com>
      */
     export default {
+        name: "html-embedder",
+
         data() {
             return {
                 content: '',

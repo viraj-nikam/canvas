@@ -30,6 +30,8 @@
      * @author Mohamed Said <themsaid@gmail.com>
      */
     export default {
+        name: "featured-image-uploader",
+
         props: {
             post: {
                 type: String,
