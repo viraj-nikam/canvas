@@ -14,12 +14,8 @@ class PostController extends Controller
 {
     public function index()
     {
-        $posts = Post::select('id', 'title', 'summary', 'body', 'published_at', 'featured_image', 'created_at')
-            ->orderByDesc('created_at')
-            ->get();
-
         return response()->json([
-            'posts' => $posts,
+            'posts' => Post::orderByDesc('created_at')->get(),
         ]);
     }
 

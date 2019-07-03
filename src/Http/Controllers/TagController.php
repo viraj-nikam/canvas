@@ -11,11 +11,9 @@ class TagController extends Controller
 {
     public function index()
     {
-        $tags = Tag::orderByDesc('created_at')
-            ->withCount('posts')
-            ->get();
-
-        return response()->json([$tags]);
+        return response()->json([
+            'tags' => Tag::orderByDesc('created_at')->withCount('posts')->get()
+        ]);
     }
 
     public function create()

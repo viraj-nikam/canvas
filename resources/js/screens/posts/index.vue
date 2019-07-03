@@ -24,12 +24,13 @@
                     <div class="col-md-10">
                         <div class="d-flex justify-content-between">
                             <h1 class="mb-4 mt-2">{{ trans.posts.header }}</h1>
+
                             <div class="dropdown my-auto">
-                                <a href="#" id="navbarDropdown" class="nav-link px-0 text-secondary" role="button"
-                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-top: -8px">
+                                <a href="#" class="nav-link px-0 text-secondary" id="navbarDropdown" role="button"
+                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fas fa-search"></i>
                                 </a>
-                                <div class="dropdown-menu dropdown-menu-right py-0" style="min-width: 15rem;" aria-labelledby="dropdownMenuButton">
+                                <div class="dropdown-menu dropdown-menu-right py-0" id="searchDropdown" aria-labelledby="dropdownMenuButton">
                                     <form class="pl-2 w-100">
                                         <div class="form-group mb-0">
                                             <!-- todo: store the input placeholder ellipsis in lang files -->
@@ -68,9 +69,9 @@
                                     <div class="ml-auto d-none d-lg-block">
                                         <router-link :to="{ name: 'posts-edit', params: {id: post.id } }">
                                             <div v-if="post.featured_image"
+                                                 id="featuredImage"
                                                  class="mr-2"
-                                                 :style="{ backgroundImage: 'url(' + post.featured_image + ')' }"
-                                                 style="background-size: cover;width: 57px; height: 57px; -webkit-border-radius: 50%;-moz-border-radius: 50%;border-radius: 50%;">
+                                                 :style="{ backgroundImage: 'url(' + post.featured_image + ')' }">
                                             </div>
                                             <span v-else class="fa-stack fa-2x align-middle">
                                                 <i class="fas fa-circle fa-stack-2x text-black-50"></i>
@@ -162,5 +163,20 @@
 </script>
 
 <style scoped>
+    #navbarDropdown {
+        margin-top: -8px;
+    }
 
+    #searchDropdown {
+        min-width: 15rem;
+    }
+
+    #featuredImage {
+        background-size: cover;
+        width: 57px;
+        height: 57px;
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        border-radius: 50%;
+    }
 </style>
