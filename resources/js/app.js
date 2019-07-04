@@ -45,6 +45,7 @@ NProgress.configure({
 });
 
 // Start the progress bar animation if not on an initial page load
+// todo: is there a way to ignore this when hitting the Load More button on index lists?
 router.beforeResolve((to, from, next) => {
     if (to.path) {
         NProgress.start()

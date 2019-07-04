@@ -102,7 +102,7 @@
 
         methods: {
             submit() {
-
+                // todo: implement the form submission
             }
         }
     }
