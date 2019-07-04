@@ -92,7 +92,7 @@ export default {
 
                         case 405:
                         case 401:
-                            window.location.href = '/login';
+                            window.location.href = instance.defaults.baseURL;
                             break;
                     }
 

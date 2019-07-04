@@ -122,7 +122,6 @@
                 limit: 7,
                 loadMore: false,
                 isReady: false,
-                user: Canvas.user,
                 timezone: Canvas.timezone,
                 trans: JSON.parse(Canvas.lang),
             }

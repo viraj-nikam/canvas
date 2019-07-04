@@ -3,7 +3,6 @@
 namespace Canvas\Http\Controllers;
 
 use Canvas\Tag;
-use Ramsey\Uuid\Uuid;
 use Illuminate\Validation\Rule;
 use Illuminate\Routing\Controller;
 
@@ -13,13 +12,6 @@ class TagController extends Controller
     {
         return response()->json([
             'tags' => Tag::orderByDesc('created_at')->withCount('posts')->get(),
-        ]);
-    }
-
-    public function create()
-    {
-        return response()->json([
-            'id' => Uuid::uuid4(),
         ]);
     }
 

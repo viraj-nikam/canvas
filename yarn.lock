@@ -2840,9 +2840,9 @@ fragment-cache@^0.2.1:
     map-cache "^0.2.2"
 
 frappe-charts@^1.1.0:
-  version "1.2.2"
-  resolved "https://registry.yarnpkg.com/frappe-charts/-/frappe-charts-1.2.2.tgz#2af592c1dfce07554b8278ad2fb330922fbcd5d8"
-  integrity sha512-TrZ/JPqvr/RWHKW0fneh3dDzKPm3d+oDEMJj8aREbOWXNhOOIwfonp0uLwo8hxyGEZPwpDAKqs0154GgahSXkA==
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/frappe-charts/-/frappe-charts-1.2.3.tgz#ee1840864cfe5c9371b61f8ec9b8624633fdc84d"
+  integrity sha512-nHDCERSKni0JDT/0eooGpR3nE/NBKcAJEgbZfjojoA5D3jK4cT6B4kRT3m9EgIqMkwPllZncWUPp0zYtN8WSsQ==
 
 fresh@0.5.2:
   version "0.5.2"
@@ -4462,9 +4462,9 @@ node-pre-gyp@^0.12.0:
     tar "^4"
 
 node-releases@^1.1.23:
-  version "1.1.24"
-  resolved "https://registry.yarnpkg.com/node-releases/-/node-releases-1.1.24.tgz#2fb494562705c01bfb81a7af9f8584c4d56311b4"
-  integrity sha512-wym2jptfuKowMmkZsfCSTsn8qAVo8zm+UiQA6l5dNqUcpfChZSnS/vbbpOeXczf+VdPhutxh+99lWHhdd6xKzg==
+  version "1.1.25"
+  resolved "https://registry.yarnpkg.com/node-releases/-/node-releases-1.1.25.tgz#0c2d7dbc7fed30fbe02a9ee3007b8c90bf0133d3"
+  integrity sha512-fI5BXuk83lKEoZDdH3gRhtsNgh05/wZacuXkgbiYkceE7+QIMXOg98n9ZV7mz27B+kFHnqHcUpscZZlGRSmTpQ==
   dependencies:
     semver "^5.3.0"
 
@@ -6618,9 +6618,9 @@ vue-multiselect@^2.1.4:
   integrity sha512-s7jmZPlm9FeueJg1RwJtnE9KNPtME/7C8uRWSfp9/yEN4M8XcS/d+bddoyVwVnvFyRh9msFo0HWeW0vTL8Qv+w==
 
 vue-router@^3.0.1:
-  version "3.0.6"
-  resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-3.0.6.tgz#2e4f0f9cbb0b96d0205ab2690cfe588935136ac3"
-  integrity sha512-Ox0ciFLswtSGRTHYhGvx2L44sVbTPNS+uD2kRISuo8B39Y79rOo0Kw0hzupTmiVtftQYCZl87mwldhh2L9Aquw==
+  version "3.0.7"
+  resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-3.0.7.tgz#b36ca107b4acb8ff5bc4ff824584059c23fcb87b"
+  integrity sha512-utJ+QR3YlIC/6x6xq17UMXeAfxEvXA0VKD3PiSio7hBOZNusA1jXcbxZxVEfJunLp48oonjTepY8ORoIlRx/EQ==
 
 vue-style-loader@^4.1.0:
   version "4.1.2"

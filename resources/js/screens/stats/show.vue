@@ -128,7 +128,6 @@
                 popular_reading_times: [],
                 traffic: [],
                 isReady: false,
-                user: Canvas.user,
                 trans: JSON.parse(Canvas.lang),
             }
         },

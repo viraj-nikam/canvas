@@ -118,7 +118,6 @@
                 limit: 7,
                 loadMore: false,
                 isReady: false,
-                user: Canvas.user,
                 trans: JSON.parse(Canvas.lang),
             }
         },

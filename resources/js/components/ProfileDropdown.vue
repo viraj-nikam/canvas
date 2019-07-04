@@ -25,21 +25,23 @@
                 <span>{{ trans.nav.user.stats }}</span>
             </router-link>
             <div class="dropdown-divider"></div>
-            <router-link to="/logout" class="dropdown-item" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+            <a href="" class="dropdown-item" @click.prevent="logout">
                 {{ trans.nav.user.logout }}
-            </router-link>
-            <form id="logout-form" action="/logout" method="POST" class="d-none">
-                <input type="hidden" name="_token" v-model="token">
-            </form>
+            </a>
         </div>
     </div>
 </template>
 
 <script>
     import md5 from 'md5';
+    import axios from 'axios';
 
     export default {
         name: "profile-dropdown",
+
+        components: {
+            axios
+        },
 
         data() {
             return {
@@ -59,6 +61,20 @@
                 let hash = md5(this.user.email.toLowerCase().trim());
 
                 return 'https://secure.gravatar.com/avatar/' + hash + '?s=200';
+            },
+
+            /**
+             * Log out of the application.
+             *
+             * @returns void
+             */
+            logout() {
+                axios.post('/logout', {
+                        '_token': this.token
+                    }
+                ).then(response => {
+                    window.location.href = '/login';
+                });
             },
         }
     }

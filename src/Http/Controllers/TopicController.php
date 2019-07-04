@@ -3,7 +3,6 @@
 namespace Canvas\Http\Controllers;
 
 use Canvas\Topic;
-use Ramsey\Uuid\Uuid;
 use Illuminate\Validation\Rule;
 use Illuminate\Routing\Controller;
 
@@ -13,13 +12,6 @@ class TopicController extends Controller
     {
         return response()->json([
             'topics' => Topic::orderByDesc('created_at')->withCount('posts')->get(),
-        ]);
-    }
-
-    public function create()
-    {
-        return response()->json([
-            'id' => Uuid::uuid4(),
         ]);
     }
 
