@@ -1,5 +1,5 @@
+import _ from 'lodash';
 import axios from 'axios';
-import {Bus} from './bus.js';
 
 export default {
     computed: {
@@ -9,6 +9,38 @@ export default {
     },
 
     methods: {
+        /**
+         * Create a debounced function that delays invoking a callback.
+         *
+         * @return void
+         */
+        debouncer: _.debounce(callback => callback(), 100),
+
+        httpRequest() {
+            let instance = axios.create();
+
+            instance.defaults.baseURL = '/' + Canvas.path;
+
+            instance.interceptors.response.use(
+                response => response,
+                error => {
+                    switch (error.response.status) {
+                        case 500:
+                            console.log(error.response.data.message);
+                            break;
+
+                        case 401:
+                            console.log(error.response.data.message);
+                            break;
+                    }
+
+                    return Promise.reject(error);
+                }
+            );
+
+            return instance;
+        },
+
         /**
          * Trim an alphanumeric string and convert to a slug.
          *
@@ -70,57 +102,6 @@ export default {
             } else {
                 return ' ' + string;
             }
-        },
-
-        /**
-         * Create an HTTP request.
-         *
-         * @returns {AxiosInstance}
-         */
-        request() {
-            let instance = axios.create();
-
-            instance.defaults.baseURL = '/' + Canvas.path;
-
-            instance.interceptors.response.use(
-                response => response,
-                error => {
-                    switch (error.response.status) {
-                        case 500:
-                            Bus.$emit('httpError', error.response.data.message);
-                            break;
-
-                        case 405:
-                        case 401:
-                            window.location.href = instance.defaults.baseURL;
-                            break;
-                    }
-
-                    return Promise.reject(error);
-                }
-            );
-
-            return instance;
-        },
-
-        alertError(message) {
-            this.$root.alert.type = 'error';
-            this.$root.alert.autoClose = false;
-            this.$root.alert.message = message;
-        },
-
-        alertConfirm(message, success, failure) {
-            this.$root.alert.type = 'confirmation';
-            this.$root.alert.autoClose = false;
-            this.$root.alert.message = message;
-            this.$root.alert.confirmationProceed = success;
-            this.$root.alert.confirmationCancel = failure;
-        },
-
-        notifySuccess(message, autoClose) {
-            this.$root.notification.type = 'success';
-            this.$root.notification.autoClose = autoClose;
-            this.$root.notification.message = message;
         },
     }
 };

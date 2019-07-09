@@ -1,5 +1,5 @@
 <template>
-    <div class="dropdown" v-cloak>
+    <div class="dropdown ml-3" v-cloak>
         <a href="#" id="navbarDropdown" class="nav-link px-0 text-secondary" role="button"
            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <img :src="gravatar()"

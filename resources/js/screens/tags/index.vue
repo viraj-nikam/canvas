@@ -8,7 +8,7 @@
                             <i class="fas fa-align-left"></i>
                         </router-link>
 
-                        <router-link to="/tags/create" class="btn btn-sm btn-outline-primary my-auto ml-auto mr-3">
+                        <router-link to="/tags/create" class="btn btn-sm btn-outline-primary my-auto ml-auto">
                             {{ trans.buttons.tags.create }}
                         </router-link>
 
@@ -97,7 +97,6 @@
 
         data() {
             return {
-                endpoint: '/api/tags',
                 tags: [],
                 search: '',
                 limit: 10,
@@ -114,11 +113,30 @@
 
         methods: {
             fetchData() {
-                this.request().get(this.endpoint
-                ).then(response => {
-                    this.tags = response.data.tags;
+                try {
+                    this.request().then((e) => {
+                        this.handleResponse(e);
 
-                    this.isReady = true;
+                        this.isReady = true;
+                    });
+                } catch (error) {
+                    console.error(error);
+                }
+            },
+
+            request() {
+                const promise = new Promise((resolve) => {
+                    this.httpRequest().get('/api/tags').then(response => {
+                        resolve(response.data);
+                    });
+                });
+
+                return promise;
+            },
+
+            handleResponse(response) {
+                this.$nextTick(() => {
+                    this.tags = response.tags;
                 });
             },
         },

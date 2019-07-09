@@ -8,7 +8,7 @@
                             <i class="fas fa-align-left"></i>
                         </router-link>
 
-                        <router-link to="/stats" class="btn btn-sm btn-outline-primary my-auto ml-auto mr-3">
+                        <router-link to="/stats" class="btn btn-sm btn-outline-primary my-auto ml-auto">
                             {{ trans.buttons.stats.index }}
                         </router-link>
 
@@ -122,7 +122,6 @@
 
         data() {
             return {
-                endpoint: '/api/stats/' + this.$route.params.id,
                 post: [],
                 views: {},
                 popular_reading_times: [],
@@ -138,14 +137,33 @@
 
         methods: {
             fetchData() {
-                this.request().get(this.endpoint
-                ).then(response => {
-                    this.popular_reading_times = response.data.popular_reading_times;
-                    this.post = response.data.post;
-                    this.traffic = response.data.traffic;
-                    this.views = response.data.views;
+                try {
+                    this.request().then((e) => {
+                        this.handleResponse(e);
 
-                    this.isReady = true;
+                        this.isReady = true;
+                    });
+                } catch (error) {
+                    console.error(error);
+                }
+            },
+
+            request() {
+                const promise = new Promise((resolve) => {
+                    this.httpRequest().get('/api/stats/' + this.$route.params.id).then(response => {
+                        resolve(response.data);
+                    });
+                });
+
+                return promise;
+            },
+
+            handleResponse(response) {
+                this.$nextTick(() => {
+                    this.popular_reading_times = response.popular_reading_times;
+                    this.post = response.post;
+                    this.traffic = response.traffic;
+                    this.views = response.views;
                 });
             },
         }

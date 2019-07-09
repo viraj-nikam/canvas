@@ -1,17 +1,21 @@
 import Vue from 'vue';
+import $ from 'jquery';
+import axios from 'axios';
 import Base from './base';
-import {Bus} from './bus.js';
 import Routes from './routes';
+import autosize from 'autosize';
 import NProgress from 'nprogress';
 import VueRouter from 'vue-router';
 import moment from 'moment-timezone';
 
 require('bootstrap');
-
-window._ = require('lodash');
-window.$ = window.jQuery = require('jquery');
-window.autosize = window.autosize ? window.autosize : require('autosize');
 window.Popper = require('popper.js').default;
+
+let token = document.head.querySelector('meta[name="csrf-token"]');
+
+if (token) {
+    axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
+}
 
 /**
  * Current workaround for using the Autosize library which will only
@@ -31,6 +35,11 @@ $(function () {
 
 // Set the default app timezone
 moment.tz.setDefault(Canvas.timezone);
+
+Vue.mixin(Base);
+
+// Prevent the production tip on Vue startup
+Vue.config.productionTip = false;
 
 Vue.use(VueRouter);
 
@@ -58,37 +67,8 @@ router.afterEach(() => {
     NProgress.done()
 });
 
-Vue.mixin(Base);
-
-// Prevent the production tip on Vue startup
-Vue.config.productionTip = false;
-
 new Vue({
     el: '#canvas',
 
     router,
-
-    data() {
-        return {
-            alert: {
-                type: null,
-                autoClose: 0,
-                message: '',
-                confirmationProceed: null,
-                confirmationCancel: null,
-            },
-
-            notification: {
-                type: null,
-                autoClose: 0,
-                message: ''
-            }
-        }
-    },
-
-    mounted() {
-        Bus.$on('httpError', message => this.alertError(message));
-    },
-
-    methods: {}
 });

@@ -8,7 +8,7 @@
                             <i class="fas fa-align-left"></i>
                         </router-link>
 
-                        <router-link to="/posts/create" class="btn btn-sm btn-outline-primary my-auto ml-auto mr-3">
+                        <router-link to="/posts/create" class="btn btn-sm btn-outline-primary my-auto ml-auto">
                             {{ trans.buttons.posts.create }}
                         </router-link>
 
@@ -51,7 +51,7 @@
                                 <div class="d-flex border-top py-3 align-items-center" v-for="post in filteredList">
                                     <div class="mr-auto py-1">
                                         <p class="mb-1">
-                                            <router-link :to="{ name: 'stats-show', params: {id: post.id } }" class="font-weight-bold lead">
+                                            <router-link :to="{ name: 'posts-edit', params: {id: post.id } }" class="font-weight-bold lead">
                                                 {{ post.title }}
                                             </router-link>
                                         </p>
@@ -116,7 +116,6 @@
 
         data() {
             return {
-                endpoint: '/api/posts',
                 posts: [],
                 search: '',
                 limit: 7,
@@ -133,11 +132,30 @@
 
         methods: {
             fetchData() {
-                this.request().get(this.endpoint
-                ).then(response => {
-                    this.posts = response.data.posts;
+                try {
+                    this.request().then((e) => {
+                        this.handleResponse(e);
 
-                    this.isReady = true;
+                        this.isReady = true;
+                    });
+                } catch (error) {
+                    console.error(error);
+                }
+            },
+
+            request() {
+                const promise = new Promise((resolve) => {
+                    this.httpRequest().get('/api/posts').then(response => {
+                        resolve(response.data);
+                    });
+                });
+
+                return promise;
+            },
+
+            handleResponse(response) {
+                this.$nextTick(() => {
+                    this.posts = response.posts;
                 });
             },
         },

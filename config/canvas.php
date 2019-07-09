@@ -8,8 +8,8 @@ return [
     |--------------------------------------------------------------------------
     |
     | This is the URI path where Canvas will be accessible from. You are free
-    | to change this path to anything you like. Note that updating the URI
-    | will affect the internal API paths that are not exposed to users.
+    | to change this path to anything you like. Note that the URI will not
+    | affect the paths of its internal API that aren't exposed to users.
     |
     */
 

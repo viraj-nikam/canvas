@@ -9,9 +9,8 @@ Route::prefix('api')->group(function () {
 
     // Post routes...
     Route::get('/posts', 'PostController@index');
-    Route::get('/posts/{id}/edit', 'PostController@edit');
-    Route::post('/posts', 'PostController@store');
-    Route::put('/posts/{id}', 'PostController@update');
+    Route::get('/posts/{id?}', 'PostController@show');
+    Route::post('/posts/{id}', 'PostController@store');
     Route::delete('/posts/{id}', 'PostController@destroy');
 
     // Media routes...
@@ -19,16 +18,14 @@ Route::prefix('api')->group(function () {
 
     // Tag routes...
     Route::get('/tags', 'TagController@index');
-    Route::get('/tags/{id}/edit', 'TagController@edit');
-    Route::post('/tags', 'TagController@store');
-    Route::put('/tags/{id}', 'TagController@update');
+    Route::get('/tags/{id?}', 'TagController@show');
+    Route::post('/tags/{id}', 'TagController@store');
     Route::delete('/tags/{id}', 'TagController@destroy');
 
     // Topic routes...
     Route::get('/topics', 'TopicController@index');
-    Route::get('/topics/{id}/edit', 'TopicController@edit');
-    Route::post('/topics', 'TopicController@store');
-    Route::put('/topics/{id}', 'TopicController@update');
+    Route::get('/topics/{id?}', 'TopicController@show');
+    Route::post('/topics/{id}', 'TopicController@store');
     Route::delete('/topics/{id}', 'TopicController@destroy');
 });
 

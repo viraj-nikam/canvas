@@ -8,7 +8,7 @@
                             <i class="fas fa-align-left"></i>
                         </router-link>
 
-                        <router-link to="/posts/create" class="btn btn-sm btn-outline-primary my-auto ml-auto mr-3">
+                        <router-link to="/posts/create" class="btn btn-sm btn-outline-primary my-auto ml-auto">
                             {{ trans.buttons.posts.create }}
                         </router-link>
 
@@ -112,7 +112,6 @@
 
         data() {
             return {
-                endpoint: '/api/stats',
                 posts: [],
                 views: {},
                 limit: 7,
@@ -128,12 +127,31 @@
 
         methods: {
             fetchData() {
-                this.request().get(this.endpoint
-                ).then(response => {
-                    this.posts = response.data.posts;
-                    this.views = response.data.views;
+                try {
+                    this.request().then((e) => {
+                        this.handleResponse(e);
 
-                    this.isReady = true;
+                        this.isReady = true;
+                    });
+                } catch (error) {
+                    console.error(error);
+                }
+            },
+
+            request() {
+                const promise = new Promise((resolve) => {
+                    this.httpRequest().get('/api/stats').then(response => {
+                        resolve(response.data);
+                    });
+                });
+
+                return promise;
+            },
+
+            handleResponse(response) {
+                this.$nextTick(() => {
+                    this.posts = response.posts;
+                    this.views = response.views;
                 });
             },
         },

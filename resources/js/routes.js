@@ -21,7 +21,7 @@ export default [
     {
         path: '/posts/create',
         name: 'posts-create',
-        component: require('./screens/posts/create').default,
+        component: require('./screens/posts/edit').default,
     },
     {
         path: '/posts/:id/edit',
@@ -36,7 +36,7 @@ export default [
     {
         path: '/tags/create',
         name: 'tags-create',
-        component: require('./screens/tags/create').default,
+        component: require('./screens/tags/edit').default,
     },
     {
         path: '/tags/:id/edit',
@@ -51,7 +51,7 @@ export default [
     {
         path: '/topics/create',
         name: 'topics-create',
-        component: require('./screens/topics/create').default,
+        component: require('./screens/topics/edit').default,
     },
     {
         path: '/topics/:id/edit',
