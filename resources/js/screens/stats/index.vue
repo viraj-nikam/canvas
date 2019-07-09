@@ -99,6 +99,7 @@
 </template>
 
 <script>
+    import API from './api';
     import LineChart from '../../components/LineChart';
     import ProfileDropdown from '../../components/ProfileDropdown';
 
@@ -128,7 +129,7 @@
         methods: {
             fetchData() {
                 try {
-                    this.request().then((e) => {
+                    this.statsApiRequest().then((e) => {
                         this.handleResponse(e);
 
                         this.isReady = true;
@@ -138,10 +139,13 @@
                 }
             },
 
-            request() {
+            statsApiRequest() {
                 const promise = new Promise((resolve) => {
-                    this.httpRequest().get('/api/stats').then(response => {
+                    API.get().then((response) => {
                         resolve(response.data);
+                    }).catch((err) => {
+                        resolve(err.response.data);
+                        console.error(err);
                     });
                 });
 
@@ -152,6 +156,8 @@
                 this.$nextTick(() => {
                     this.posts = response.posts;
                     this.views = response.views;
+
+                    this.isReady = true;
                 });
             },
         },

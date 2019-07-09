@@ -9,13 +9,6 @@ export default {
     },
 
     methods: {
-        /**
-         * Create a debounced function that delays invoking a callback.
-         *
-         * @return void
-         */
-        debouncer: _.debounce(callback => callback(), 100),
-
         httpRequest() {
             let instance = axios.create();
 

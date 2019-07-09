@@ -4,7 +4,7 @@
 
 <script>
     export default {
-        name: "topics-edit"
+        name: 'topics-edit'
     }
 </script>
 

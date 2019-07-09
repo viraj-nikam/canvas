@@ -130,7 +130,7 @@
 
             tagsApiRequest(searchParams) {
                 const promise = new Promise((resolve) => {
-                    API.fetch(searchParams).then((response) => {
+                    API.show(searchParams).then((response) => {
                         resolve(response.data);
                     }).catch((err) => {
                         resolve(err.response.data);

@@ -86,6 +86,7 @@
 </template>
 
 <script>
+    import API from './api';
     import ProfileDropdown from '../../components/ProfileDropdown';
 
     export default {
@@ -114,7 +115,7 @@
         methods: {
             fetchData() {
                 try {
-                    this.request().then((e) => {
+                    this.topicsApiRequest().then((e) => {
                         this.handleResponse(e);
 
                         this.isReady = true;
@@ -124,10 +125,13 @@
                 }
             },
 
-            request() {
+            topicsApiRequest() {
                 const promise = new Promise((resolve) => {
-                    this.httpRequest().get('/api/topics').then(response => {
+                    API.get().then((response) => {
                         resolve(response.data);
+                    }).catch((err) => {
+                        resolve(err.response.data);
+                        console.error(err);
                     });
                 });
 
@@ -137,6 +141,8 @@
             handleResponse(response) {
                 this.$nextTick(() => {
                     this.topics = response.topics;
+
+                    this.isReady = true;
                 });
             },
         },

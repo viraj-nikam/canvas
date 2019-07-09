@@ -4,7 +4,7 @@
 
 <script>
     export default {
-        name: "posts-edit"
+        name: 'posts-edit',
     }
 </script>
 

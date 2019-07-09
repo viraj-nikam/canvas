@@ -3,15 +3,15 @@ import axios from 'axios';
 let baseUrl = '/' + Canvas.path;
 
 const get = () => axios.get(
-    baseUrl + '/api/tags',
+    baseUrl + '/api/topics',
 );
 
 const show = (data) => axios.get(
-    baseUrl + '/api/tags/' + data.id,
+    baseUrl + '/api/topics/' + data.id,
 );
 
 const store = (data) => axios.post(
-    baseUrl + '/api/tags/' + data.id,
+    baseUrl + '/api/topics/' + data.id,
 );
 
 export default {

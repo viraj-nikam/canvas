@@ -8,7 +8,7 @@
                             <i class="fas fa-align-left"></i>
                         </router-link>
 
-                        <router-link to="/tags/create" class="btn btn-sm btn-outline-primary my-auto ml-auto">
+                        <router-link to="/tags/create" class="btn btn-sm btn-outline-primary my-auto ml-auto mr-3">
                             {{ trans.buttons.tags.create }}
                         </router-link>
 
@@ -86,6 +86,7 @@
 </template>
 
 <script>
+    import API from './api';
     import ProfileDropdown from '../../components/ProfileDropdown';
 
     export default {
@@ -114,7 +115,7 @@
         methods: {
             fetchData() {
                 try {
-                    this.request().then((e) => {
+                    this.tagsApiRequest().then((e) => {
                         this.handleResponse(e);
 
                         this.isReady = true;
@@ -124,10 +125,13 @@
                 }
             },
 
-            request() {
+            tagsApiRequest() {
                 const promise = new Promise((resolve) => {
-                    this.httpRequest().get('/api/tags').then(response => {
+                    API.get().then((response) => {
                         resolve(response.data);
+                    }).catch((err) => {
+                        resolve(err.response.data);
+                        console.error(err);
                     });
                 });
 
@@ -137,6 +141,8 @@
             handleResponse(response) {
                 this.$nextTick(() => {
                     this.tags = response.tags;
+
+                    this.isReady = true;
                 });
             },
         },
