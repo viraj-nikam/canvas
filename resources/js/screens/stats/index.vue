@@ -99,7 +99,6 @@
 </template>
 
 <script>
-    import API from './api';
     import LineChart from '../../components/LineChart';
     import ProfileDropdown from '../../components/ProfileDropdown';
 
@@ -129,34 +128,17 @@
         methods: {
             fetchData() {
                 try {
-                    this.statsApiRequest().then((e) => {
-                        this.handleResponse(e);
+                    this.request().get('/api/stats').then((response) => {
+                        this.posts = response.data.posts;
+                        this.views = response.data.views;
 
                         this.isReady = true;
+                    }).catch((err) => {
+                        console.error(err);
                     });
                 } catch (error) {
                     console.error(error);
                 }
-            },
-
-            statsApiRequest() {
-                const promise = new Promise((resolve) => {
-                    API.get().then((response) => {
-                        resolve(response.data);
-                    }).catch((err) => {
-                        resolve(err.response.data);
-                        console.error(err);
-                    });
-                });
-
-                return promise;
-            },
-
-            handleResponse(response) {
-                this.$nextTick(() => {
-                    this.posts = response.posts;
-                    this.views = response.views;
-                });
             },
         },
 

@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import $ from 'jquery';
-import axios from 'axios';
 import Base from './base';
 import Routes from './routes';
 import autosize from 'autosize';
@@ -10,12 +9,6 @@ import moment from 'moment-timezone';
 
 require('bootstrap');
 window.Popper = require('popper.js').default;
-
-let token = document.head.querySelector('meta[name="csrf-token"]');
-
-if (token) {
-    axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
-}
 
 /**
  * Current workaround for using the Autosize library which will only

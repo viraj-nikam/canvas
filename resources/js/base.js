@@ -1,4 +1,7 @@
+import axios from 'axios';
+
 export default {
+
     computed: {
         Canvas() {
             return Canvas;
@@ -67,6 +70,36 @@ export default {
             } else {
                 return ' ' + string;
             }
+        },
+
+        request() {
+            let instance = axios.create();
+            let token = document.head.querySelector('meta[name="csrf-token"]');
+
+            if (token) {
+                axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
+            }
+
+            instance.defaults.baseURL = '/' + Canvas.path;
+
+            instance.interceptors.response.use(
+                response => response,
+                error => {
+                    switch (error.response.status) {
+                        case 500:
+                            console.error(error.response.data.message);
+                            break;
+
+                        case 401:
+                            window.location.href = '/logout';
+                            break;
+                    }
+
+                    return Promise.reject(error);
+                }
+            );
+
+            return instance;
         },
     }
 };

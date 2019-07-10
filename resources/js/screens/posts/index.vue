@@ -105,7 +105,6 @@
 </template>
 
 <script>
-    import API from './api';
     import ProfileDropdown from '../../components/ProfileDropdown';
 
     export default {
@@ -134,35 +133,16 @@
         methods: {
             fetchData() {
                 try {
-                    this.postsApiRequest().then((e) => {
-                        this.handleResponse(e);
+                    this.request().get('/api/posts').then((response) => {
+                        this.posts = response.data.posts;
 
                         this.isReady = true;
+                    }).catch((err) => {
+                        console.error(err);
                     });
                 } catch (error) {
                     console.error(error);
                 }
-            },
-
-            postsApiRequest() {
-                const promise = new Promise((resolve) => {
-                    API.get().then((response) => {
-                        resolve(response.data);
-                    }).catch((err) => {
-                        resolve(err.response.data);
-                        console.error(err);
-                    });
-                });
-
-                return promise;
-            },
-
-            handleResponse(response) {
-                this.$nextTick(() => {
-                    this.posts = response.posts;
-
-                    this.isReady = true;
-                });
             },
         },
 

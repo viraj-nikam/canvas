@@ -73,7 +73,6 @@
 </template>
 
 <script>
-    import API from './api';
     import {uuid} from 'uuid';
     import ProfileDropdown from '../../components/ProfileDropdown';
 
@@ -116,15 +115,18 @@
         methods: {
             fetchData() {
                 try {
-                    API.show({
-                        id: this.id
-                    }).then((response) => {
-                        this.handleResponse(response.data);
+                    this.request().get('/api/tags/' + this.id).then((response) => {
+                        this.tag = response.data.tag;
+                        this.form.id = response.data.tag.id;
+
+                        if (this.id !== 'create') {
+                            this.form.name = response.data.tag.name;
+                            this.form.slug = response.data.tag.slug;
+                        }
 
                         this.isReady = true;
-                    }).catch((error) => {
-                        resolve(error.response.data);
-                        console.error(error);
+                    }).catch((err) => {
+                        console.error(err);
                     });
                 } catch (error) {
                     console.error(error);
@@ -135,33 +137,14 @@
                 this.form.isSaving = true;
                 this.form.errors = [];
 
-                try {
-                    API.store({
-                        id: this.id,
-                        data: this.form
-                    }).then((response) => {
-                        this.handleResponse(response.data);
+                this.request().post('/api/tags/' + this.id, this.form).then((response) => {
+                    this.form.isSaving = false;
+                    this.form.hasSuccess = true;
+                }).catch((err) => {
+                    this.form.errors = error.response.data.errors;
+                    this.form.isSaving = false;
 
-                        this.form.isSaving = false;
-                        this.form.hasSuccess = true;
-                    }).catch((error) => {
-                        this.form.errors = error.response.data.errors;
-                        this.form.isSaving = false;
-                    });
-                } catch (error) {
-                    console.error(error);
-                }
-            },
-
-            handleResponse(response) {
-                this.$nextTick(() => {
-                    this.tag = response.tag;
-                    this.form.id = response.tag.id;
-
-                    if (this.id !== 'create') {
-                        this.form.name = response.tag.name;
-                        this.form.slug = response.tag.slug;
-                    }
+                    console.error(err);
                 });
             },
         }
