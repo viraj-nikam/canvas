@@ -37,11 +37,7 @@
     import axios from 'axios';
 
     export default {
-        name: "profile-dropdown",
-
-        components: {
-            axios
-        },
+        name: 'profile-dropdown',
 
         data() {
             return {
@@ -64,7 +60,7 @@
             },
 
             /**
-             * Log out of the application.
+             * Log the user out of the application.
              *
              * @returns void
              */
@@ -83,5 +79,10 @@
 <style scoped>
     img {
         width: 31px;
+    }
+
+    a.dropdown-item:active {
+        background-color: #f8f9fa;
+        color: #16181b;
     }
 </style>

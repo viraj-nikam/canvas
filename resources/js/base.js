@@ -72,6 +72,11 @@ export default {
             }
         },
 
+        /**
+         * Create an base Axios request and set the defaults.
+         *
+         * @returns {AxiosInstance}
+         */
         request() {
             let instance = axios.create();
             let token = document.head.querySelector('meta[name="csrf-token"]');

@@ -7,7 +7,8 @@ import NProgress from 'nprogress';
 import VueRouter from 'vue-router';
 import moment from 'moment-timezone';
 
-require('bootstrap');
+require ('bootstrap');
+
 window.Popper = require('popper.js').default;
 
 /**
@@ -29,10 +30,10 @@ $(function () {
 // Set the default app timezone
 moment.tz.setDefault(Canvas.timezone);
 
-Vue.mixin(Base);
-
 // Prevent the production tip on Vue startup
 Vue.config.productionTip = false;
+
+Vue.mixin(Base);
 
 Vue.use(VueRouter);
 

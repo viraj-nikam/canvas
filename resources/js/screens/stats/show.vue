@@ -48,7 +48,7 @@
                                                 <b-link v-b-tooltip.hover.right
                                                         :title="trans.stats.details.referer.unknown"
                                                         href="#">
-                                                    {{ host }} <i class="far fa-fw fa-question-circle text-muted"></i>
+                                                    {{ host }} <i class="fas fa-fw fa-question-circle text-muted"></i>
                                                 </b-link>
                                             </p>
                                         </div>
@@ -105,12 +105,8 @@
 </template>
 
 <script>
-    import Vue from 'vue'
-    import BootstrapVue from 'bootstrap-vue';
     import LineChart from '../../components/LineChart';
     import ProfileDropdown from '../../components/ProfileDropdown';
-
-    Vue.use(BootstrapVue);
 
     export default {
         name: 'stats-show',
