@@ -45,11 +45,9 @@
                                                      :alt="host"
                                                      style="width: 15px; height: 15px;"
                                                      class="mr-1">
-                                                <b-link v-b-tooltip.hover.right
-                                                        :title="trans.stats.details.referer.unknown"
-                                                        href="#">
+                                                <a href="#" v-tooltip="{placement: 'right'}" :title="trans.stats.details.referer.unknown">
                                                     {{ host }} <i class="fas fa-fw fa-question-circle text-muted"></i>
-                                                </b-link>
+                                                </a>
                                             </p>
                                         </div>
                                         <div v-else>
@@ -105,6 +103,7 @@
 </template>
 
 <script>
+    import Tooltip from '../../directives/Tooltip';
     import LineChart from '../../components/LineChart';
     import ProfileDropdown from '../../components/ProfileDropdown';
 
@@ -114,6 +113,10 @@
         components: {
             LineChart,
             ProfileDropdown
+        },
+
+        directives: {
+            Tooltip
         },
 
         data() {

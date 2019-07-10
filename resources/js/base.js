@@ -81,10 +81,7 @@ export default {
             let instance = axios.create();
             let token = document.head.querySelector('meta[name="csrf-token"]');
 
-            if (token) {
-                axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
-            }
-
+            instance.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
             instance.defaults.baseURL = '/' + Canvas.path;
 
             instance.interceptors.response.use(
