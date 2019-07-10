@@ -116,29 +116,41 @@
         methods: {
             fetchData() {
                 try {
-                    this.tagsApiRequest({
+                    API.show({
                         id: this.id
-                    }).then((e) => {
-                        this.handleResponse(e);
+                    }).then((response) => {
+                        this.handleResponse(response.data);
 
                         this.isReady = true;
+                    }).catch((error) => {
+                        resolve(error.response.data);
+                        console.error(error);
                     });
                 } catch (error) {
                     console.error(error);
                 }
             },
 
-            tagsApiRequest(searchParams) {
-                const promise = new Promise((resolve) => {
-                    API.show(searchParams).then((response) => {
-                        resolve(response.data);
-                    }).catch((err) => {
-                        resolve(err.response.data);
-                        console.error(err);
-                    });
-                });
+            save() {
+                this.form.isSaving = true;
+                this.form.errors = [];
 
-                return promise;
+                try {
+                    API.store({
+                        id: this.id,
+                        data: this.form
+                    }).then((response) => {
+                        this.handleResponse(response.data);
+
+                        this.form.isSaving = false;
+                        this.form.hasSuccess = true;
+                    }).catch((error) => {
+                        this.form.errors = error.response.data.errors;
+                        this.form.isSaving = false;
+                    });
+                } catch (error) {
+                    console.error(error);
+                }
             },
 
             handleResponse(response) {
@@ -150,21 +162,6 @@
                         this.form.name = response.tag.name;
                         this.form.slug = response.tag.slug;
                     }
-
-                    this.isReady = true;
-                });
-            },
-
-            save() {
-                this.form.isSaving = true;
-                this.form.errors = [];
-
-                this.httpRequest().post('/api/tags/' + this.id, this.form).then(response => {
-                    this.form.isSaving = false;
-                    this.form.hasSuccess = true;
-                }).catch(error => {
-                    this.form.errors = error.response.data.errors;
-                    this.form.isSaving = false;
                 });
             },
         }

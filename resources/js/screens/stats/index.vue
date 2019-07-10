@@ -156,8 +156,6 @@
                 this.$nextTick(() => {
                     this.posts = response.posts;
                     this.views = response.views;
-
-                    this.isReady = true;
                 });
             },
         },

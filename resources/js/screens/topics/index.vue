@@ -141,8 +141,6 @@
             handleResponse(response) {
                 this.$nextTick(() => {
                     this.topics = response.topics;
-
-                    this.isReady = true;
                 });
             },
         },

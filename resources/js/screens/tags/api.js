@@ -11,7 +11,7 @@ const show = (data) => axios.get(
 );
 
 const store = (data) => axios.post(
-    baseUrl + '/api/tags/' + data.id,
+    baseUrl + '/api/tags/' + data.id, data
 );
 
 export default {

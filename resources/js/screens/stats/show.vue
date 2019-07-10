@@ -106,6 +106,7 @@
 
 <script>
     import Vue from 'vue'
+    import API from './api';
     import BootstrapVue from 'bootstrap-vue';
     import LineChart from '../../components/LineChart';
     import ProfileDropdown from '../../components/ProfileDropdown';
@@ -122,6 +123,7 @@
 
         data() {
             return {
+                id: this.$route.params.id,
                 post: [],
                 views: {},
                 popular_reading_times: [],
@@ -138,7 +140,9 @@
         methods: {
             fetchData() {
                 try {
-                    this.request().then((e) => {
+                    this.statsApiRequest({
+                        id: this.id
+                    }).then((e) => {
                         this.handleResponse(e);
 
                         this.isReady = true;
@@ -148,10 +152,13 @@
                 }
             },
 
-            request() {
+            statsApiRequest(searchParams) {
                 const promise = new Promise((resolve) => {
-                    this.httpRequest().get('/api/stats/' + this.$route.params.id).then(response => {
+                    API.show(searchParams).then((response) => {
                         resolve(response.data);
+                    }).catch((err) => {
+                        resolve(err.response.data);
+                        console.error(err);
                     });
                 });
 

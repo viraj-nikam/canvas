@@ -1,6 +1,3 @@
-import _ from 'lodash';
-import axios from 'axios';
-
 export default {
     computed: {
         Canvas() {
@@ -9,31 +6,6 @@ export default {
     },
 
     methods: {
-        httpRequest() {
-            let instance = axios.create();
-
-            instance.defaults.baseURL = '/' + Canvas.path;
-
-            instance.interceptors.response.use(
-                response => response,
-                error => {
-                    switch (error.response.status) {
-                        case 500:
-                            console.log(error.response.data.message);
-                            break;
-
-                        case 401:
-                            console.log(error.response.data.message);
-                            break;
-                    }
-
-                    return Promise.reject(error);
-                }
-            );
-
-            return instance;
-        },
-
         /**
          * Trim an alphanumeric string and convert to a slug.
          *
