@@ -24,7 +24,13 @@
                         </a>
 
                         <div class="dropdown" v-if="id !== 'create'">
-                            <a id="navbarDropdown" class="nav-link text-secondary" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <a id="navbarDropdown"
+                               class="nav-link text-secondary pr-0"
+                               href="#"
+                               role="button"
+                               data-toggle="dropdown"
+                               aria-haspopup="true"
+                               aria-expanded="false">
                                 <i class="fas fa-sliders-h fa-fw fa-rotate-270"></i>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
@@ -147,7 +153,6 @@
                         this.tag = response.data.tag;
                     })
                     .catch((error) => {
-                        console.log(error);
                         this.form.isSaving = false;
                         this.form.errors = error.response.data.errors;
                     })
