@@ -7,6 +7,7 @@ return [
         'draft'     => 'प्रारूप',
     ],
     'notify'   => [
+        'saving'  => 'सहेजा जा रहा है ...',
         'success' => 'बचाया!',
     ],
     'user'     => [

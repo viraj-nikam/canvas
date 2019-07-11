@@ -137,20 +137,19 @@
 
         methods: {
             fetchData() {
-                try {
-                    this.request().get('/api/stats/' + this.id).then((response) => {
+                this.request()
+                    .get('/api/stats/' + this.id)
+                    .then((response) => {
                         this.popular_reading_times = response.data.popular_reading_times;
                         this.post = response.data.post;
                         this.traffic = response.data.traffic;
                         this.views = response.data.views;
 
                         this.isReady = true;
-                    }).catch((err) => {
-                        console.error(err);
+                    })
+                    .catch((error) => {
+                        console.log(error);
                     });
-                } catch (error) {
-                    console.error(error);
-                }
             },
         }
     }

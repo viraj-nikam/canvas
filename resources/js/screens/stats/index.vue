@@ -127,18 +127,17 @@
 
         methods: {
             fetchData() {
-                try {
-                    this.request().get('/api/stats').then((response) => {
+                this.request()
+                    .get('/api/stats')
+                    .then((response) => {
                         this.posts = response.data.posts;
                         this.views = response.data.views;
 
                         this.isReady = true;
-                    }).catch((err) => {
-                        console.error(err);
+                    })
+                    .catch((error) => {
+                        console.log(error);
                     });
-                } catch (error) {
-                    console.error(error);
-                }
             },
         },
 

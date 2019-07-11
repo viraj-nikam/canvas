@@ -84,21 +84,28 @@ export default {
             instance.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
             instance.defaults.baseURL = '/' + Canvas.path;
 
+            const requestHandler = (request) => {
+                // Add any request modifiers...
+                return request;
+            };
+
+            const errorHandler = (error) => {
+                // Add any error modifiers...
+                return Promise.reject({ ...error });
+            };
+
+            const successHandler = (response) => {
+                // Add any response modifiers...
+                return response;
+            };
+
+            instance.interceptors.request.use(
+                request => requestHandler(request)
+            );
+
             instance.interceptors.response.use(
-                response => response,
-                error => {
-                    switch (error.response.status) {
-                        case 500:
-                            console.error(error.response.data.message);
-                            break;
-
-                        case 401:
-                            window.location.href = '/logout';
-                            break;
-                    }
-
-                    return Promise.reject(error);
-                }
+                response => successHandler(response),
+                error => errorHandler(error)
             );
 
             return instance;

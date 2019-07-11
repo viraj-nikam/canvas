@@ -7,6 +7,7 @@ return [
         'draft'     => 'Brouillon',
     ],
     'notify'   => [
+        'saving'  => 'Économie...',
         'success' => 'Enregistré!',
     ],
     'user'     => [

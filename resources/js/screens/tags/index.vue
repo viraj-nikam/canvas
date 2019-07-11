@@ -113,17 +113,16 @@
 
         methods: {
             fetchData() {
-                try {
-                    this.request().get('/api/tags').then((response) => {
+                this.request()
+                    .get('/api/tags')
+                    .then((response) => {
                         this.tags = response.data.tags;
 
                         this.isReady = true;
-                    }).catch((err) => {
-                        console.error(err);
+                    })
+                    .catch((error) => {
+                        console.log(error);
                     });
-                } catch (error) {
-                    console.error(error);
-                }
             },
         },
 

@@ -10,12 +10,13 @@
 
                         <ul class="navbar-nav mr-auto flex-row float-right">
                             <li class="text-muted font-weight-bold">
-                                <span v-if="form.isSaving">Saving...</span>
-                                <span v-if="form.hasSuccess" class="text-success">Saved!</span>
+                                <span v-if="form.isSaving">{{ trans.nav.notify.saving }}</span>
+                                <span v-if="form.hasSuccess" class="text-success">{{ trans.nav.notify.success }}</span>
                             </li>
                         </ul>
 
                         <a href="#"
+                           :class="{ disabled : form.name === '' }"
                            class="btn btn-sm btn-outline-primary my-auto ml-auto"
                            @click="save"
                            aria-label="Save">
@@ -39,7 +40,7 @@
             </div>
         </div>
 
-        <main class="py-4">
+        <main class="py-4" v-if="isReady">
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-md-8">
@@ -114,8 +115,9 @@
 
         methods: {
             fetchData() {
-                try {
-                    this.request().get('/api/tags/' + this.id).then((response) => {
+                this.request()
+                    .get('/api/tags/' + this.id)
+                    .then((response) => {
                         this.tag = response.data.tag;
                         this.form.id = response.data.tag.id;
 
@@ -125,27 +127,30 @@
                         }
 
                         this.isReady = true;
-                    }).catch((err) => {
-                        console.error(err);
+                    })
+                    .catch((error) => {
+                        console.log(error);
                     });
-                } catch (error) {
-                    console.error(error);
-                }
             },
 
             save() {
+                this.form.hasSuccess = false;
                 this.form.isSaving = true;
                 this.form.errors = [];
 
-                this.request().post('/api/tags/' + this.id, this.form).then((response) => {
-                    this.form.isSaving = false;
-                    this.form.hasSuccess = true;
-                }).catch((err) => {
-                    this.form.errors = error.response.data.errors;
-                    this.form.isSaving = false;
-
-                    console.error(err);
-                });
+                this.request()
+                    .post('/api/tags/' + this.id, this.form)
+                    .then((response) => {
+                        this.form.isSaving = false;
+                        this.form.hasSuccess = true;
+                        this.id = response.data.tag.id;
+                        this.tag = response.data.tag;
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                        this.form.isSaving = false;
+                        this.form.errors = error.response.data.errors;
+                    })
             },
         }
     }

@@ -132,17 +132,16 @@
 
         methods: {
             fetchData() {
-                try {
-                    this.request().get('/api/posts').then((response) => {
+                this.request()
+                    .get('/api/posts')
+                    .then((response) => {
                         this.posts = response.data.posts;
 
                         this.isReady = true;
-                    }).catch((err) => {
-                        console.error(err);
+                    })
+                    .catch((error) => {
+                        console.log(error);
                     });
-                } catch (error) {
-                    console.error(error);
-                }
             },
         },
 
