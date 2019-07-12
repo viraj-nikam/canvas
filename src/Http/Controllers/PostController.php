@@ -8,11 +8,17 @@ use Canvas\Topic;
 use Carbon\Carbon;
 use Ramsey\Uuid\Uuid;
 use Illuminate\Validation\Rule;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
 
 class PostController extends Controller
 {
-    public function index()
+    /**
+     * Get all the posts.
+     *
+     * @return JsonResponse
+     */
+    public function index(): JsonResponse
     {
         return response()->json([
             'posts' => Post::orderByDesc('created_at')->get(),
@@ -140,12 +146,12 @@ class PostController extends Controller
     }
 
     /**
-     * Delete a given post.
+     * Delete a post.
      *
      * @param string $id
-     * @return \Illuminate\Http\RedirectResponse
+     * @return JsonResponse
      */
-    public function destroy(string $id)
+    public function destroy(string $id): JsonResponse
     {
         $post = Post::findOrFail($id);
         $post->delete();
