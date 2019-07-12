@@ -3,12 +3,19 @@
 namespace Canvas\Http\Controllers;
 
 use Canvas\Topic;
+use Ramsey\Uuid\Uuid;
 use Illuminate\Validation\Rule;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
 
 class TopicController extends Controller
 {
-    public function index()
+    /**
+     * Get all the topics.
+     *
+     * @return JsonResponse
+     */
+    public function index(): JsonResponse
     {
         return response()->json([
             'topics' => Topic::orderByDesc('created_at')->withCount('posts')->get(),
@@ -16,53 +23,35 @@ class TopicController extends Controller
     }
 
     /**
-     * Show the page to edit a given topic.
+     * Get a single topic or return a UUID to create one.
      *
-     * @param string $id
-     * @return \Illuminate\View\View
+     * @param null $id
+     * @return JsonResponse
+     * @throws \Exception
      */
-    public function edit(string $id)
+    public function show($id = null): JsonResponse
     {
-        return response()->json([
-            'topic' => Topic::findOrFail($id),
-        ]);
-    }
-
-    public function store()
-    {
-        $data = [
-            'id'   => request('id'),
-            'name' => request('name'),
-            'slug' => request('slug'),
-        ];
-
-        $messages = [
-            'required' => __('canvas::validation.required'),
-            'unique'   => __('canvas::validation.unique'),
-        ];
-
-        validator($data, [
-            'name' => 'required',
-            'slug' => 'required|'.Rule::unique('canvas_topics', 'slug')->ignore(request('id')).'|regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/i',
-        ], $messages)->validate();
-
-        $topic = new Topic(['id' => request('id')]);
-        $topic->fill($data);
-        $topic->save();
-
-        return response()->json([$topic]);
+        if ($id === 'create') {
+            return response()->json([
+                'topic' => Topic::make([
+                    'id' => Uuid::uuid4(),
+                ]),
+            ]);
+        } else {
+            return response()->json([
+                'topic' => Topic::findOrFail($id),
+            ]);
+        }
     }
 
     /**
-     * Save a given topic.
+     * Create or update a topic.
      *
      * @param string $id
-     * @return \Illuminate\Http\RedirectResponse
+     * @return JsonResponse
      */
-    public function update(string $id)
+    public function store(string $id)
     {
-        $topic = Topic::findOrFail($id);
-
         $data = [
             'id'   => request('id'),
             'name' => request('name'),
@@ -76,16 +65,26 @@ class TopicController extends Controller
 
         validator($data, [
             'name' => 'required',
-            'slug' => 'required|'.Rule::unique('canvas_topics', 'slug')->ignore(request('id')).'|regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/i',
+            'slug' => Rule::unique('canvas_topics', 'slug')->ignore(request('id')).'|regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/i',
         ], $messages)->validate();
+
+        $topic = $id !== 'create' ? Topic::findOrFail($id) : new Topic(['id' => request('id')]);
 
         $topic->fill($data);
         $topic->save();
 
-        return response()->json([$topic]);
+        return response()->json([
+            'topic' => $topic->fresh(),
+        ]);
     }
 
-    public function destroy(string $id)
+    /**
+     * Delete a topic.
+     *
+     * @param string $id
+     * @return JsonResponse
+     */
+    public function destroy(string $id): JsonResponse
     {
         $topic = Topic::findOrFail($id);
         $topic->delete();

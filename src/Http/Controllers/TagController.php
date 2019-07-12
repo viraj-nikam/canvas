@@ -10,6 +10,11 @@ use Illuminate\Routing\Controller;
 
 class TagController extends Controller
 {
+    /**
+     * Get all the tags.
+     *
+     * @return JsonResponse
+     */
     public function index(): JsonResponse
     {
         return response()->json([
@@ -17,6 +22,13 @@ class TagController extends Controller
         ]);
     }
 
+    /**
+     * Get a single tag or return a UUID to create one.
+     *
+     * @param null $id
+     * @return JsonResponse
+     * @throws \Exception
+     */
     public function show($id = null): JsonResponse
     {
         if ($id === 'create') {
@@ -32,6 +44,12 @@ class TagController extends Controller
         }
     }
 
+    /**
+     * Create or update a tag.
+     *
+     * @param string $id
+     * @return JsonResponse
+     */
     public function store(string $id): JsonResponse
     {
         $data = [
@@ -60,6 +78,12 @@ class TagController extends Controller
         ]);
     }
 
+    /**
+     * Delete a tag.
+     *
+     * @param string $id
+     * @return JsonResponse
+     */
     public function destroy(string $id): JsonResponse
     {
         $tag = Tag::findOrFail($id);

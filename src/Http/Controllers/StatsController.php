@@ -5,6 +5,7 @@ namespace Canvas\Http\Controllers;
 use Canvas\Post;
 use Canvas\View;
 use Canvas\Trends;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
 
 class StatsController extends Controller
@@ -18,7 +19,12 @@ class StatsController extends Controller
      */
     const DAYS_PRIOR = 30;
 
-    public function index()
+    /**
+     * Get all the stats.
+     *
+     * @return JsonResponse
+     */
+    public function index(): JsonResponse
     {
         $published = Post::published()
             ->orderByDesc('created_at')
@@ -48,7 +54,13 @@ class StatsController extends Controller
         ]);
     }
 
-    public function show(string $id)
+    /**
+     * Get stats for a single post.
+     *
+     * @param string $id
+     * @return JsonResponse
+     */
+    public function show(string $id): JsonResponse
     {
         $post = Post::findOrFail($id);
 
