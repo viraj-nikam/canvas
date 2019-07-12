@@ -4894,9 +4894,9 @@ popper.js@^1.12:
   integrity sha512-w010cY1oCUmI+9KwwlWki+r5jxKfTFDVoadl7MSrIujHU5MJ5OR6HTDj6Xo8aoR/QsA56x8jKjA59qGH4ELtrA==
 
 portfinder@^1.0.20:
-  version "1.0.20"
-  resolved "https://registry.yarnpkg.com/portfinder/-/portfinder-1.0.20.tgz#bea68632e54b2e13ab7b0c4775e9b41bf270e44a"
-  integrity sha512-Yxe4mTyDzTd59PZJY4ojZR8F+E5e97iq2ZOHPz3HDgSvYC5siNad2tLooQ5y5QHyQhc3xVqvyk/eNA3wuoa7Sw==
+  version "1.0.21"
+  resolved "https://registry.yarnpkg.com/portfinder/-/portfinder-1.0.21.tgz#60e1397b95ac170749db70034ece306b9a27e324"
+  integrity sha512-ESabpDCzmBS3ekHbmpAIiESq3udRsCBGiBZLsC+HgBKv2ezb0R4oG+7RnYEVZ/ZCfhel5Tx3UzdNWA0Lox2QCA==
   dependencies:
     async "^1.5.2"
     debug "^2.2.0"
@@ -5748,9 +5748,9 @@ sass-loader@^7.1.0:
     semver "^5.5.0"
 
 sass@^1.15.2:
-  version "1.22.3"
-  resolved "https://registry.yarnpkg.com/sass/-/sass-1.22.3.tgz#b3591191ab0f3caece39ed9384c90caccacf471c"
-  integrity sha512-9ECcSAEgGStxZkpOCT+Z8F6jEJq+jjPonxgX52QVNeJbRL1CmrjN9qcoO78gob6M1bY4ocGVwPWjGDNMeOgvbg==
+  version "1.22.4"
+  resolved "https://registry.yarnpkg.com/sass/-/sass-1.22.4.tgz#00b433055f00a25ed5f060ca4abc332facaf02fc"
+  integrity sha512-gQFNzYKlAn9ee6Qy1UhTxy0G24QR5BWP61AN61jAEqwauzVCP5qjUveO/WkIj72po0ljncdVXo96EQR+ig2lRw==
   dependencies:
     chokidar ">=2.0.0 <4.0.0"
 

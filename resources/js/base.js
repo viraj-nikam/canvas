@@ -91,6 +91,20 @@ export default {
 
             const errorHandler = (error) => {
                 // Add any error modifiers...
+                switch (error.response.status) {
+                    case 405:
+                    case 401:
+                        axios.post('/logout', {
+                                '_token': token
+                            }
+                        ).then(response => {
+                            window.location.href = '/login';
+                        });
+                        break;
+                    default:
+                        break;
+                }
+
                 return Promise.reject({ ...error });
             };
 

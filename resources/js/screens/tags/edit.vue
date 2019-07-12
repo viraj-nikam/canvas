@@ -18,8 +18,8 @@
                         <a href="#"
                            :class="{ disabled : form.name === '' }"
                            class="btn btn-sm btn-outline-primary my-auto ml-auto"
-                           @click="save"
-                           aria-label="Save">
+                           @click="saveTag"
+                           :aria-label="trans.buttons.general.save">
                             {{ trans.buttons.general.save }}
                         </a>
 
@@ -34,7 +34,7 @@
                                 <i class="fas fa-sliders-h fa-fw fa-rotate-270"></i>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                                <a href="#" class="dropdown-item text-danger" data-toggle="modal" data-target="#modal-delete">
+                                <a href="#" class="dropdown-item text-danger" @click="showModal">
                                     {{ trans.buttons.general.delete }}
                                 </a>
                             </div>
@@ -60,8 +60,8 @@
                                        class="form-control-lg form-control border-0 px-0"
                                        :placeholder="trans.tags.forms.placeholder">
 
-                                <div class="invalid-feedback d-block">
-                                    <strong v-for="error in form.errors">{{ error }}</strong>
+                                <div v-if="form.errors.name" class="invalid-feedback d-block">
+                                    <strong>{{ form.errors.name[0] }}</strong>
                                 </div>
                             </div>
                         </div>
@@ -70,17 +70,29 @@
                                 <p class="lead text-muted">
                                     <span class="text-primary">{{ form.slug }}</span>
                                 </p>
+                                <div v-if="form.errors.slug" class="invalid-feedback d-block">
+                                    <strong>{{ form.errors.slug[0] }}</strong>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </main>
+
+        <delete-modal
+                ref="modal"
+                @delete="deleteTag"
+                :header="trans.tags.delete.header"
+                :message="trans.tags.delete.warning">
+        </delete-modal>
     </div>
 </template>
 
 <script>
+    import $ from 'jquery';
     import {uuid} from 'uuid';
+    import DeleteModal from '../../components/DeleteModal';
     import ProfileDropdown from '../../components/ProfileDropdown';
 
     export default {
@@ -88,6 +100,7 @@
 
         components: {
             uuid,
+            DeleteModal,
             ProfileDropdown
         },
 
@@ -139,10 +152,10 @@
                     });
             },
 
-            save() {
-                this.form.hasSuccess = false;
-                this.form.isSaving = true;
+            saveTag() {
                 this.form.errors = [];
+                this.form.isSaving = true;
+                this.form.hasSuccess = false;
 
                 this.request()
                     .post('/api/tags/' + this.id, this.form)
@@ -156,6 +169,23 @@
                         this.form.isSaving = false;
                         this.form.errors = error.response.data.errors;
                     })
+            },
+
+            deleteTag() {
+                this.request()
+                    .delete('/api/tags/' + this.id)
+                    .then((response) => {
+                        $(this.$refs.modal.$el).modal('hide');
+
+                        this.$router.push('/tags');
+                    })
+                    .catch((error) => {
+                        console.error(error.response.data.errors);
+                    })
+            },
+
+            showModal() {
+                $(this.$refs.modal.$el).modal('show');
             },
         }
     }
