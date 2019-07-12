@@ -9,7 +9,7 @@ return [
         'action'      => 'ein neues Thema hinzufügen',
     ],
     'search'  => [
-        'input' => 'Suche',
+        'input' => 'Suche...',
         'empty' => 'Kein Thema entspricht den angegebenen Suchkriterien.',
     ],
     'details' => [

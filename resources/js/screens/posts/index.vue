@@ -33,12 +33,11 @@
                                 <div class="dropdown-menu dropdown-menu-right py-0" id="searchDropdown" aria-labelledby="dropdownMenuButton">
                                     <form class="pl-2 w-100">
                                         <div class="form-group mb-0">
-                                            <!-- todo: store the input placeholder ellipsis in lang files -->
                                             <input v-model="search"
                                                    type="text"
                                                    class="form-control border-0 pl-0"
                                                    id="search"
-                                                   :placeholder="trans.posts.search.input + '...'"
+                                                   :placeholder="trans.posts.search.input"
                                                    autofocus>
                                         </div>
                                     </form>
@@ -93,7 +92,7 @@
                                 <p class="mt-4">{{ trans.posts.empty.description }}
                                     <router-link to="/posts/create">
                                         {{ trans.posts.empty.action }}
-                                    </router-link>.
+                                    </router-link>
                                 </p>
                             </div>
                         </div>

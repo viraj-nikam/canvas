@@ -9,7 +9,7 @@ return [
         'action'      => 'ajout d\'un nouveau sujet',
     ],
     'search'  => [
-        'input' => 'Chercher',
+        'input' => 'Chercher...',
         'empty' => 'Aucun sujet ne correspond aux critères de recherche donnés.',
     ],
     'details' => [
