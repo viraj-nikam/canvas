@@ -115,7 +115,6 @@
                     errors: [],
                     isSaving: false,
                     hasSuccess: false,
-                    _token: document.head.querySelector('meta[name="csrf-token"]').content,
                 },
                 isReady: false,
                 trans: JSON.parse(Canvas.lang),
@@ -190,7 +189,3 @@
         }
     }
 </script>
-
-<style scoped>
-
-</style>

@@ -4,7 +4,6 @@
             <div class="modal-content">
                 <div class="modal-body">
                     <p class="font-weight-bold lead">{{ header }}</p>
-
                     {{ message }}
                 </div>
                 <div class="modal-footer">
@@ -14,7 +13,9 @@
                        aria-label="Delete">
                         {{ trans.buttons.general.delete }}
                     </a>
-                    <button type="button" class="btn btn-link text-muted" data-dismiss="modal">
+                    <button type="button"
+                            class="btn btn-link text-muted"
+                            data-dismiss="modal">
                         {{ trans.buttons.general.cancel }}
                     </button>
                 </div>
