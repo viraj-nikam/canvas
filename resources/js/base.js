@@ -73,7 +73,7 @@ export default {
         },
 
         /**
-         * Create an base Axios request and set the defaults.
+         * Create a base Axios request and configure the defaults.
          *
          * @returns {AxiosInstance}
          */
