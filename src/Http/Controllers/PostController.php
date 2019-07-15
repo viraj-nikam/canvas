@@ -8,67 +8,35 @@ use Canvas\Topic;
 use Carbon\Carbon;
 use Ramsey\Uuid\Uuid;
 use Illuminate\Validation\Rule;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
 
 class PostController extends Controller
 {
     /**
-     * Show the posts index page.
+     * Get all the posts.
      *
-     * @return \Illuminate\View\View
+     * @return JsonResponse
      */
-    public function index()
+    public function index(): JsonResponse
     {
-        $posts = Post::select('id', 'title', 'body', 'published_at', 'featured_image', 'created_at')
-            ->orderByDesc('created_at')
-            ->get();
-
-        return view('canvas::posts.index', compact('posts'));
+        return response()->json([
+            'posts' => Post::orderByDesc('created_at')->get(),
+        ]);
     }
 
-    /**
-     * Show the page to create a new post.
-     *
-     * @return \Illuminate\View\View
-     * @throws \Exception
-     */
-    public function create()
-    {
-        $data = [
-            'id'     => Uuid::uuid4(),
-            'tags'   => Tag::all(['name', 'slug']),
-            'topics' => Topic::all(['name', 'slug']),
-        ];
-
-        return view('canvas::posts.create', compact('data'));
-    }
-
-    /**
-     * Show the page to edit a given post.
-     *
-     * @param string $id
-     * @return \Illuminate\View\View
-     */
     public function edit(string $id)
     {
         $post = Post::findOrFail($id);
 
-        $data = [
+        return response()->json([
             'post'   => $post,
             'meta'   => $post->meta,
             'tags'   => Tag::all(['name', 'slug']),
             'topics' => Topic::all(['name', 'slug']),
-        ];
-
-        return view('canvas::posts.edit', compact('data'));
+        ]);
     }
 
-    /**
-     * Save a new post.
-     *
-     * @return \Illuminate\Http\RedirectResponse
-     * @throws \Exception
-     */
     public function store()
     {
         $data = [
@@ -116,7 +84,7 @@ class PostController extends Controller
             $this->attachOrCreateTopic(request('topic') ?? [])
         );
 
-        return redirect(route('canvas.post.edit', $post->id))->with('notify', __('canvas::nav.notify.success'));
+        return response()->json([$post]);
     }
 
     /**
@@ -174,21 +142,21 @@ class PostController extends Controller
             $this->attachOrCreateTopic(request('topic') ?? [])
         );
 
-        return redirect(route('canvas.post.edit', $post->id))->with('notify', __('canvas::nav.notify.success'));
+        return response()->json([$post]);
     }
 
     /**
-     * Delete a given post.
+     * Delete a post.
      *
      * @param string $id
-     * @return \Illuminate\Http\RedirectResponse
+     * @return JsonResponse
      */
-    public function destroy(string $id)
+    public function destroy(string $id): JsonResponse
     {
         $post = Post::findOrFail($id);
         $post->delete();
 
-        return redirect(route('canvas.post.index'));
+        return response()->json([$post]);
     }
 
     /**

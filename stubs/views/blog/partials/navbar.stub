@@ -20,10 +20,10 @@
                         >
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="{{ route('canvas.post.index') }}">{{ __('canvas::blog.nav.user.posts') }}</a>
-                        <a class="dropdown-item" href="{{ route('canvas.tag.index') }}">{{ __('canvas::blog.nav.user.tags') }}</a>
-                        <a class="dropdown-item" href="{{ route('canvas.topic.index') }}">{{ __('canvas::blog.nav.user.topics') }}</a>
-                        <a class="dropdown-item" href="{{ route('canvas.index') }}">{{ __('canvas::blog.nav.user.stats') }}</a>
+                        <a class="dropdown-item" href="{{ url(sprintf('%s/posts', config('canvas.path'))) }}">{{ __('canvas::blog.nav.user.posts') }}</a>
+                        <a class="dropdown-item" href="{{ url(sprintf('%s/tags', config('canvas.path'))) }}">{{ __('canvas::blog.nav.user.tags') }}</a>
+                        <a class="dropdown-item" href="{{ url(sprintf('%s/topics', config('canvas.path'))) }}">{{ __('canvas::blog.nav.user.topics') }}</a>
+                        <a class="dropdown-item" href="{{ url(sprintf('%s/stats', config('canvas.path'))) }}">{{ __('canvas::blog.nav.user.stats') }}</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{{ route('logout') }}"
                            onclick="event.preventDefault();document.getElementById('logout-form').submit();">
@@ -40,7 +40,7 @@
 
         @guest()
             <div class="col-4 d-flex justify-content-end align-items-center">
-                <a class="text-muted" href="{{ route('canvas.index') }}">{{ __('canvas::blog.nav.user.login') }}</a>
+                <a class="text-muted" href="{{ url(config('canvas.path')) }}">{{ __('canvas::blog.nav.user.login') }}</a>
             </div>
         @endguest
     </div>

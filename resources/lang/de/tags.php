@@ -9,7 +9,7 @@ return [
         'action'      => 'Hinzufügen eines neuen Tags',
     ],
     'search'  => [
-        'input' => 'Suche',
+        'input' => 'Suche...',
         'empty' => 'Keine Tags stimmen mit den angegebenen Suchkriterien überein.',
     ],
     'details' => [

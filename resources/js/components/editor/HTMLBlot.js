@@ -10,7 +10,7 @@ let BlockEmbed = Quill.import('blots/block/embed');
 
 class HTMLBlot extends BlockEmbed {
     static create(value) {
-        let node = super.create();
+        let node = super.edit();
 
         node.innerHTML = value.content;
         node.setAttribute('contenteditable', false);

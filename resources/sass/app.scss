@@ -1,7 +1,6 @@
 
 // Fonts
 @import url("https://fonts.googleapis.com/css?family=Nunito|Merriweather:300,400,700");
-@import "~@fortawesome/fontawesome-free/scss/regular";
 @import "~@fortawesome/fontawesome-free/scss/solid";
 @import "~@fortawesome/fontawesome-free/scss/fontawesome";
 
@@ -26,10 +25,9 @@ $teal: #4dc0b5;
 $cyan: #6cb2eb;
 $red: #e3342f;
 
-// Base
 @import "base";
 
-.logo i {
+a.navbar-brand > i {
   font-size: 20px;
   color: rgb(33, 37, 41) !important;
 }

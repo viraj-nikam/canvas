@@ -10,7 +10,7 @@ let BlockEmbed = Quill.import('blots/block/embed');
 
 class ImageBlot extends BlockEmbed {
     static create(value) {
-        let node = super.create();
+        let node = super.edit();
 
         node.setAttribute('contenteditable', false);
         node.dataset.layout = value.layout;

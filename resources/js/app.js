@@ -1,25 +1,68 @@
+import Vue from 'vue';
+import $ from 'jquery';
+import Base from './base';
+import Routes from './routes';
+import autosize from 'autosize';
+import NProgress from 'nprogress';
+import VueRouter from 'vue-router';
+import moment from 'moment-timezone';
+
+require ('bootstrap');
+
+window.Popper = require('popper.js').default;
+
 /**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
+ * Current workaround for using the Autosize library which will only
+ * resize elements when clicked, not on the initial page load.
+ *
+ * @link http://www.jacklmoore.com/autosize/#faq-hidden
  */
+$(function () {
+    let textarea = $('textarea');
 
-require('./bootstrap');
+    autosize(textarea);
 
-window.Vue = require('vue');
+    textarea.focus(function () {
+        autosize.update(textarea);
+    });
+});
 
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
+// Set the default app timezone
+moment.tz.setDefault(Canvas.timezone);
 
-const files = require.context('./', true, /\.vue$/i);
+// Prevent the production tip on Vue startup
+Vue.config.productionTip = false;
 
-files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
+Vue.mixin(Base);
 
-Vue.prototype.trans = string => _.get(window.i18n, string);
+Vue.use(VueRouter);
+
+const router = new VueRouter({
+    routes: Routes,
+    mode: 'history',
+    base: window.Canvas.path,
+});
+
+NProgress.configure({
+    showSpinner: false
+});
+
+// Start the progress bar animation if not on an initial page load
+// todo: is there a way to ignore this when hitting the Load More button on index lists?
+router.beforeResolve((to, from, next) => {
+    if (to.path) {
+        NProgress.start()
+    }
+    next()
+});
+
+// Complete the animation of the route progress bar
+router.afterEach(() => {
+    NProgress.done()
+});
 
 new Vue({
-    el: '#app',
+    el: '#canvas',
+
+    router,
 });

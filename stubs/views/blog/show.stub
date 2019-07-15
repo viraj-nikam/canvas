@@ -17,7 +17,7 @@
     @isset($data['meta']['canonical_link'])
         <link rel="canonical" href="{{ $data['meta']['canonical_link'] }}" />
     @endisset
-    
+
     @isset($data['post']->featured_image)
         <meta name="og:image" content="{{ url($data['post']->featured_image) }}">
         <meta name="twitter:image" content="{{ url($data['post']->featured_image) }}">
@@ -31,9 +31,9 @@
             <i class="fas fa-cog fa-fw"></i>
         </a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-            <a href="{{ route('canvas.post.edit', $data['post']->id) }}"
+            <a href="{{ url(sprintf('%s/posts/%s/edit', config('canvas.path'), $data['post']->id)) }}"
                class="dropdown-item sans-serif">{{ __('canvas::blog.buttons.edit') }}</a>
-            <a href="{{ route('canvas.stats.show', $data['post']->id) }}"
+            <a href="{{ url(sprintf('%s/stats/%s', config('canvas.path'), $data['post']->id)) }}"
                class="dropdown-item sans-serif">{{ __('canvas::blog.buttons.stats') }}</a>
         </div>
     </div>

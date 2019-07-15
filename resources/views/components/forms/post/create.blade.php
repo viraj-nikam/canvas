@@ -10,9 +10,9 @@
         </div>
     </div>
 
-    <editor :unsplash="'{{ config('canvas.unsplash.access_key') }}'"
+    <quill-editor :unsplash="'{{ config('canvas.unsplash.access_key') }}'"
             :path="'{{ config('canvas.path') }}'">
-    </editor>
+    </quill-editor>
 
     @include('canvas::components.modals.post.create.settings')
     @include('canvas::components.modals.post.create.publish')

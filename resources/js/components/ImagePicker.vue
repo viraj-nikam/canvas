@@ -81,6 +81,8 @@
      * @author Mohamed Said <themsaid@gmail.com>
      */
     export default {
+        name: "image-picker",
+
         props: {
             unsplash: {
                 type: String,

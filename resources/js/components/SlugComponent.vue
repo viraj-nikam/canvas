@@ -1,4 +1,6 @@
 <script>
+    // @TODO: Remove this component
+
     export default {
         props: {
             model: {
@@ -16,20 +18,6 @@
         computed: {
             slug() {
                 return this.slugify(this.name);
-            }
-        },
-
-        methods: {
-            /**
-             * Trim an alphanumeric string and convert to a slug.
-             *
-             * @source https://gist.github.com/mathewbyrne/1280286
-             */
-            slugify(text) {
-                return text.toString().toLowerCase()
-                    .replace(/\s+/g, '-')
-                    .replace(/[^\w\-]+/g, '')
-                    .replace(/--+/g, '-')
             }
         }
     }

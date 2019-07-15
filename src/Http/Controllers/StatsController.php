@@ -5,6 +5,7 @@ namespace Canvas\Http\Controllers;
 use Canvas\Post;
 use Canvas\View;
 use Canvas\Trends;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
 
 class StatsController extends Controller
@@ -19,14 +20,13 @@ class StatsController extends Controller
     const DAYS_PRIOR = 30;
 
     /**
-     * Show the stats index page with post and view data.
+     * Get all the stats.
      *
-     * @return \Illuminate\View\View
+     * @return JsonResponse
      */
-    public function index()
+    public function index(): JsonResponse
     {
-        $published = Post::select('id', 'title', 'body', 'published_at', 'created_at')
-            ->published()
+        $published = Post::published()
             ->orderByDesc('created_at')
             ->withCount('views')
             ->get();
@@ -35,12 +35,13 @@ class StatsController extends Controller
         $published->each->append('read_time');
 
         // Get views for the last [X] days
-        $views = View::whereBetween('created_at', [
-            now()->subDays(self::DAYS_PRIOR)->toDateTimeString(),
-            now()->toDateTimeString(),
-        ])->select('created_at')->get();
+        $views = View::select('created_at')
+            ->whereBetween('created_at', [
+                now()->subDays(self::DAYS_PRIOR)->toDateTimeString(),
+                now()->toDateTimeString(),
+            ])->get();
 
-        $data = [
+        return response()->json([
             'posts' => [
                 'all'             => $published,
                 'published_count' => $published->count(),
@@ -50,32 +51,26 @@ class StatsController extends Controller
                 'count' => $views->count(),
                 'trend' => json_encode($this->getViewTrends($views, self::DAYS_PRIOR)),
             ],
-        ];
-
-        return view('canvas::stats.index', compact('data'));
+        ]);
     }
 
     /**
-     * Show the stats page for a given post.
+     * Get stats for a single post.
      *
      * @param string $id
-     * @return \Illuminate\View\View
+     * @return JsonResponse
      */
-    public function show(string $id)
+    public function show(string $id): JsonResponse
     {
         $post = Post::findOrFail($id);
 
         if ($post->published) {
-            $data = [
+            return response()->json([
                 'post'                  => $post,
                 'traffic'               => $post->top_referers,
                 'popular_reading_times' => $post->popular_reading_times,
                 'views'                 => json_encode($this->getViewTrends($post->views, self::DAYS_PRIOR)),
-            ];
-
-            return view('canvas::stats.show', compact('data'));
-        } else {
-            abort(404);
+            ]);
         }
     }
 }

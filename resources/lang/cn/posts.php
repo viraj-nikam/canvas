@@ -8,8 +8,8 @@ return [
         'action'      => '添加新帖子',
     ],
     'search'  => [
-        'input' => '搜索',
-        'empty' => '沒有帖子符合給定的搜索條件。',
+        'input' => '搜索...',
+        'empty' => '没有帖子符合给定的搜索条件。',
     ],
     'details' => [
         'published' => '發布時間',

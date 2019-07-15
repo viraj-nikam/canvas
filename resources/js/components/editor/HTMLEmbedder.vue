@@ -7,8 +7,12 @@
                         <p class="font-weight-bold lead">{{ this.trans.posts.forms.editor.html.label }}</p>
                         <div class="form-group row">
                             <div class="col-lg-12 mx-0 px-0">
-                            <textarea ref="content" cols="30" rows="10" class="form-control border-0"
-                                      :placeholder="this.trans.posts.forms.editor.html.placeholder" style="resize: none"
+                            <textarea ref="content"
+                                      cols="30"
+                                      rows="10"
+                                      class="form-control border-0"
+                                      :placeholder="this.trans.posts.forms.editor.html.placeholder"
+                                      style="resize: none"
                                       v-model="content"></textarea>
                             </div>
                         </div>
@@ -31,6 +35,8 @@
      * @author Mohamed Said <themsaid@gmail.com>
      */
     export default {
+        name: "html-embedder",
+
         data() {
             return {
                 content: '',

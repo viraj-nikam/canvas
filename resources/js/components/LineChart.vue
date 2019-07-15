@@ -1,9 +1,9 @@
 <template>
-    <div v-cloak>
+    <div v-if="isReady">
         <vue-frappe
                 id="stats"
-                :labels="this.labels"
-                :title="this.trans.stats.cards.views.title"
+                :labels="labels"
+                :title="trans.stats.cards.views.title"
                 type="line"
                 :axisOptions="{
                     xIsSeries: true,
@@ -14,10 +14,10 @@
                 }"
                 :height="250"
                 :colors="['#3490dc']"
-                :dataSets="this.points"
+                :dataSets="points"
                 :tooltipOptions="{
                     formatTooltipX: d => moment(d, 'YYYY-MM-DD').format('dddd, MMMM Do'),
-                    formatTooltipY: d => d + pluralize(this.trans.stats.chart.view, d),
+                    formatTooltipY: d => d + pluralize(trans.stats.chart.view, d),
                 }">
         </vue-frappe>
     </div>
@@ -32,6 +32,8 @@
     Vue.prototype.moment = moment;
 
     export default {
+        name: "line-chart",
+
         props: {
             views: {
                 type: Object,
@@ -41,27 +43,39 @@
 
         data() {
             return {
-                points: [{
-                    values: Object.values(this.views)
-                }],
-                labels: Object.keys(this.views),
-                trans: i18n
+                labels: null,
+                points: null,
+                trans: JSON.parse(Canvas.lang),
+                isReady: false,
             }
         },
 
+        mounted() {
+            this.plotDataPoints(this.views);
+        },
+
         methods: {
-            pluralize(string, count) {
-                if (count > 1 || count === 0) {
-                    return ' ' + string + 's';
-                } else {
-                    return ' ' + string;
-                }
+            /**
+             * Plot the data and assign labels to the axis.
+             *
+             * todo: Still need to address <svg> draw issues of NaN attributes
+             * @link https://github.com/frappe/charts/issues/220
+             *
+             * @param data
+             */
+            plotDataPoints(data) {
+                this.labels = Object.keys(data);
+                this.points = [{
+                    values: Object.values(data)
+                }];
+
+                this.isReady = true;
             }
         }
     }
 </script>
 
-<style>
+<style scoped>
     #stats > div > svg > g > g.dataset-units.dataset-line.dataset-0 > path.line-graph-path {
         stroke-width: 2px !important;
     }
