@@ -57,5 +57,9 @@ export default [
         path: '/topics/:id/edit',
         name: 'topics-edit',
         component: require('./screens/topics/edit').default,
-    }
+    },
+    {
+        path: '*',
+        redirect: '/stats'
+    },
 ];
