@@ -1,5 +1,9 @@
 <template>
-    <div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
+    <div class="modal fade"
+         tabindex="-1"
+         role="dialog"
+         aria-hidden="true"
+         data-backdrop="static">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-body">
@@ -22,7 +26,6 @@
             </div>
         </div>
     </div>
-
 </template>
 
 <script>

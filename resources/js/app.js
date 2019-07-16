@@ -1,8 +1,6 @@
 import Vue from 'vue';
-import $ from 'jquery';
 import Base from './base';
 import Routes from './routes';
-import autosize from 'autosize';
 import NProgress from 'nprogress';
 import VueRouter from 'vue-router';
 import moment from 'moment-timezone';
@@ -10,22 +8,6 @@ import moment from 'moment-timezone';
 require ('bootstrap');
 
 window.Popper = require('popper.js').default;
-
-/**
- * Current workaround for using the Autosize library which will only
- * resize elements when clicked, not on the initial page load.
- *
- * @link http://www.jacklmoore.com/autosize/#faq-hidden
- */
-$(function () {
-    let textarea = $('textarea');
-
-    autosize(textarea);
-
-    textarea.focus(function () {
-        autosize.update(textarea);
-    });
-});
 
 // Set the default app timezone
 moment.tz.setDefault(Canvas.timezone);

@@ -23,7 +23,7 @@
                 <div class="row justify-content-center">
                     <div class="col-md-10">
                         <div class="d-flex justify-content-between">
-                            <h1 class="mb-4 mt-2">{{ trans.topics.header }}</h1>
+                            <h1 class="mt-2">{{ trans.topics.header }}</h1>
 
                             <div class="dropdown my-auto">
                                 <a href="#" class="nav-link px-0 text-secondary" id="navbarDropdown" role="button"
@@ -46,7 +46,7 @@
                         </div>
 
                         <div v-if="isReady">
-                            <div v-if="topics.length">
+                            <div v-if="topics.length" class="mt-4">
                                 <div class="d-flex border-top py-3 align-items-center" v-for="tag in filteredList">
                                     <div class="mr-auto">
                                         <p class="mb-0 py-1">
@@ -67,15 +67,13 @@
                                     </a>
                                 </div>
 
-                                <p class="mt-4" v-if="!filteredList.length">{{ trans.topics.search.empty }}</p>
+                                <p v-if="!filteredList.length" class="mt-2">{{ trans.topics.search.empty }}</p>
                             </div>
-                            <div v-else>
-                                <p class="mt-4">{{ trans.topics.empty.description }}
-                                    <router-link to="/topics/create">
-                                        {{ trans.topics.empty.action }}
-                                    </router-link>
-                                </p>
-                            </div>
+                            <p v-else class="mt-2">{{ trans.topics.empty.description }}
+                                <router-link to="/topics/create">
+                                    {{ trans.topics.empty.action }}
+                                </router-link>
+                            </p>
                         </div>
                     </div>
                 </div>

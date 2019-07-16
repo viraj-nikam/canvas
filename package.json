@@ -12,7 +12,6 @@
   },
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^5.9",
-    "autosize": "^4.0.2",
     "axios": "^0.19",
     "bootstrap": "^4.3.1",
     "cross-env": "^5.1",

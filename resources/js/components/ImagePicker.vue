@@ -27,7 +27,7 @@
             </div>
         </div>
 
-        <div v-if="unsplashModalShown">
+        <div v-if="showUnsplashModal">
             <div class="container p-0">
                 <input type="text"
                        class="form-control-lg form-control border-0 px-0"
@@ -74,7 +74,6 @@
 
 <script>
     import $ from 'jquery';
-    import axios from 'axios'
 
     /**
      * Create the default image picker.
@@ -116,32 +115,41 @@
                 this.unsplashPage = page;
                 this.searchingUnsplash = true;
 
-                axios.get('https://api.unsplash.com/search/photos?client_id=' + this.unsplash +
-                    '&orientation=landscape&per_page=12' +
-                    '&query=' + this.unsplashSearchTerm +
-                    '&page=' + page
-                ).then(response => {
-                    this.unsplashImages = response.data.results;
-                    this.searchingUnsplash = false;
-                }).catch(error => {
-                    let errors = error.response.data.errors;
+                this.request()
+                    .get('https://api.unsplash.com/search/photos?client_id='
+                        + this.unsplash
+                        + '&orientation=landscape&per_page=12'
+                        + '&query=' + this.unsplashSearchTerm
+                        + '&page=' + page)
+                    .then((response) => {
+                        this.unsplashImages = response.data.results;
+                        this.searchingUnsplash = false;
+                    })
+                    .catch((error) => {
+                        let errors = error.response.data.errors;
 
-                    this.searchingUnsplash = false;
-                });
+                        this.searchingUnsplash = false;
+                    });
             },
 
             openUnsplashModal() {
-                if ($('#featuredImageUnsplashModal')) {
-                    $('#featuredImageUnsplashModal').classList.add('modal-lg');
+                let featuredImageUnsplashModal = $('#featuredImageUnsplashModal');
+                let unsplashModal = $('#unsplashModal');
+                let currentImage = $('#currentImage');
+
+                if (featuredImageUnsplashModal) {
+                    featuredImageUnsplashModal.classList.add('modal-lg');
                 }
-                if ($('#unsplashModal')) {
-                    $('#unsplashModal').classList.add('modal-lg');
+                if (unsplashModal) {
+                    unsplashModal.classList.add('modal-lg');
                 }
-                if ($('#currentImage')) {
-                    $('#currentImage').classList.add('d-none');
+                if (currentImage) {
+                    currentImage.classList.add('d-none');
                 }
+
                 this.unsplashSearchTerm = 'work';
-                this.unsplashModalShown = true;
+                this.showUnsplashModal = true;
+
                 this.$nextTick(() => {
                     this.$refs.unsplashSearch.focus();
                 })
@@ -159,17 +167,23 @@
             },
 
             closeUnsplashModal() {
-                if ($('#featuredImageUnsplashModal')) {
-                    $('#featuredImageUnsplashModal').classList.remove('modal-lg');
+                let featuredImageUnsplashModal = $('#featuredImageUnsplashModal');
+                let unsplashModal = $('#unsplashModal');
+                let currentImage = $('#currentImage');
+
+                if (featuredImageUnsplashModal) {
+                    featuredImageUnsplashModal.classList.remove('modal-lg');
                 }
-                if ($('#unsplashModal')) {
-                    $('#unsplashModal').classList.remove('modal-lg');
+                if (unsplashModal) {
+                    unsplashModal.classList.remove('modal-lg');
                 }
-                if ($('#currentImage')) {
-                    $('#currentImage').classList.remove('d-none');
+                if (currentImage) {
+                    currentImage.classList.remove('d-none');
                 }
+
                 this.unsplashSearchTerm = '';
-                this.unsplashModalShown = false;
+                this.showUnsplashModal = false;
+
                 this.selectedUnsplashImage = null;
             },
 
@@ -181,11 +195,14 @@
 
                 this.$emit('uploading');
 
-                axios.post('/' + this.path + '/media/uploads', formData).then(response => {
-                    this.$emit('changed', {url: response.data});
-                }).catch(error => {
-                    console.log(error);
-                });
+                this.request()
+                    .post('/api/media/uploads', formData)
+                    .then((response) => {
+                        this.$emit('changed', {url: response.data});
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
             },
 
             clearSelectedImage(event) {
