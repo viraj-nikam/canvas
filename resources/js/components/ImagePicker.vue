@@ -2,9 +2,9 @@
     <div v-cloak>
         <div v-if="this.$parent.imageUrl">
             <a href="#" @click="clearSelectedImage">
-                {{ this.trans.posts.forms.editor.images.picker.clear.action }}
+                {{ trans.posts.forms.editor.images.picker.clear.action }}
             </a>
-            {{ this.trans.posts.forms.editor.images.picker.clear.description }}
+            {{ trans.posts.forms.editor.images.picker.clear.description }}
         </div>
 
         <div v-else>
@@ -13,16 +13,16 @@
                    class="custom-file-input"
                    :id="'imageUpload'+_uid"
                    accept="image/*"
-                   v-on:change="uploadSelectedImage">
+                   @change="uploadSelectedImage">
             <div class="mb-0">
-                {{ this.trans.posts.forms.editor.images.picker.greeting }} <label :for="'imageUpload'+_uid" class="text-primary" style="cursor:pointer;">
-                {{ this.trans.posts.forms.editor.images.picker.action }}</label> {{ this.trans.posts.forms.editor.images.picker.item }}
-                <span v-if="this.unsplash">{{ this.trans.posts.forms.editor.images.picker.operator }}</span>
-                <a v-if="this.unsplash"
+                {{ trans.posts.forms.editor.images.picker.greeting }} <label :for="'imageUpload'+_uid" class="text-primary" style="cursor:pointer;">
+                {{ trans.posts.forms.editor.images.picker.action }}</label> {{ trans.posts.forms.editor.images.picker.item }}
+                <span v-if="unsplashKey">{{ trans.posts.forms.editor.images.picker.operator }}</span>
+                <a v-if="unsplashKey"
                    href="#"
                    @click.prevent="openUnsplashModal"
                    class="text-primary">
-                    {{ this.trans.posts.forms.editor.images.picker.unsplash }}
+                    {{ trans.posts.forms.editor.images.picker.unsplash }}
                 </a>
             </div>
         </div>
@@ -31,16 +31,16 @@
             <div class="container p-0">
                 <input type="text"
                        class="form-control-lg form-control border-0 px-0"
-                       v-if="this.unsplash"
+                       v-if="unsplashKey"
                        v-model="unsplashSearchTerm"
                        ref="unsplashSearch"
-                       :placeholder="this.trans.posts.forms.editor.images.picker.placeholder">
+                       :placeholder="trans.posts.forms.editor.images.picker.placeholder">
 
                 <div v-if="!searchingUnsplash && unsplashImages.length">
                     <div class="card-columns">
                         <div class="card border-0"
                              v-for="image in unsplashImages">
-                            <img v-bind:src="image.urls.small"
+                            <img :src="image.urls.small"
                                  class="card-img"
                                  style="cursor: pointer"
                                  @click="closeUnsplashModalAndInsertImage(image)">
@@ -51,21 +51,21 @@
                         <button class="btn btn-link text-muted"
                                 type="button"
                                 @click="closeUnsplashModal"
-                                v-on:submit.prevent="onSubmit">
-                            {{ this.trans.buttons.general.cancel }}
+                                @submit.prevent="onSubmit">
+                            {{ trans.buttons.general.cancel }}
                         </button>
                         <button class="btn btn-sm btn-outline-primary"
                                 type="button"
                                 @click="getImagesFromUnsplash(unsplashPage + 1)"
-                                v-if="unsplashImages.length == 12"
-                                v-on:submit.prevent="onSubmit">
-                            {{ this.trans.buttons.general.next }}
+                                v-if="unsplashImages.length === 12"
+                                @submit.prevent="onSubmit">
+                            {{ trans.buttons.general.next }}
                         </button>
                     </div>
                 </div>
 
                 <div v-if="!searchingUnsplash && !unsplashImages.length">
-                    <h4 class="text-center py-4">{{ this.trans.posts.forms.editor.images.picker.search.empty }}</h4>
+                    <h4 class="text-center py-4">{{ trans.posts.forms.editor.images.picker.search.empty }}</h4>
                 </div>
             </div>
         </div>
@@ -73,6 +73,7 @@
 </template>
 
 <script>
+    import $ from 'jquery';
     import axios from 'axios'
 
     /**
@@ -81,18 +82,7 @@
      * @author Mohamed Said <themsaid@gmail.com>
      */
     export default {
-        name: "image-picker",
-
-        props: {
-            unsplash: {
-                type: String,
-                required: false
-            },
-            path: {
-                type: String,
-                required: true
-            }
-        },
+        name: 'image-picker',
 
         data() {
             return {
@@ -103,7 +93,9 @@
                 unsplashPage: 1,
                 searchingUnsplash: true,
                 unsplashImages: [],
-                trans: i18n
+                basePath: Canvas.path,
+                unsplashKey: Canvas.unsplash,
+                trans: JSON.parse(Canvas.lang),
             }
         },
 
@@ -114,13 +106,16 @@
         },
 
         methods: {
-            // Get images from Unsplash
             getImagesFromUnsplash(page = 1) {
                 if (!this.unsplash) {
                     return this.alertError(this.trans.posts.forms.editor.images.picker.key);
                 }
+
+                // todo: add a message about using the key
+
                 this.unsplashPage = page;
                 this.searchingUnsplash = true;
+
                 axios.get('https://api.unsplash.com/search/photos?client_id=' + this.unsplash +
                     '&orientation=landscape&per_page=12' +
                     '&query=' + this.unsplashSearchTerm +
@@ -130,20 +125,20 @@
                     this.searchingUnsplash = false;
                 }).catch(error => {
                     let errors = error.response.data.errors;
+
                     this.searchingUnsplash = false;
                 });
             },
 
-            // Open the Unsplash modal
             openUnsplashModal() {
-                if (document.querySelector('#featured-image-unsplash-modal')) {
-                    document.querySelector('#featured-image-unsplash-modal').classList.add('modal-lg');
+                if ($('#featuredImageUnsplashModal')) {
+                    $('#featuredImageUnsplashModal').classList.add('modal-lg');
                 }
-                if (document.querySelector('#unsplash-modal')) {
-                    document.querySelector('#unsplash-modal').classList.add('modal-lg');
+                if ($('#unsplashModal')) {
+                    $('#unsplashModal').classList.add('modal-lg');
                 }
-                if (document.querySelector('#current-image')) {
-                    document.querySelector('#current-image').classList.add('d-none');
+                if ($('#currentImage')) {
+                    $('#currentImage').classList.add('d-none');
                 }
                 this.unsplashSearchTerm = 'work';
                 this.unsplashModalShown = true;
@@ -152,7 +147,6 @@
                 })
             },
 
-            // Select an Unsplash image
             closeUnsplashModalAndInsertImage(image) {
                 this.selectedUnsplashImage = image;
 
@@ -164,23 +158,21 @@
                 this.closeUnsplashModal();
             },
 
-            // Close unsplash modal
             closeUnsplashModal() {
-                if (document.querySelector('#featured-image-unsplash-modal')) {
-                    document.querySelector('#featured-image-unsplash-modal').classList.remove('modal-lg');
+                if ($('#featuredImageUnsplashModal')) {
+                    $('#featuredImageUnsplashModal').classList.remove('modal-lg');
                 }
-                if (document.querySelector('#unsplash-modal')) {
-                    document.querySelector('#unsplash-modal').classList.remove('modal-lg');
+                if ($('#unsplashModal')) {
+                    $('#unsplashModal').classList.remove('modal-lg');
                 }
-                if (document.querySelector('#current-image')) {
-                    document.querySelector('#current-image').classList.remove('d-none');
+                if ($('#currentImage')) {
+                    $('#currentImage').classList.remove('d-none');
                 }
                 this.unsplashSearchTerm = '';
                 this.unsplashModalShown = false;
                 this.selectedUnsplashImage = null;
             },
 
-            // Upload the selected image
             uploadSelectedImage(event) {
                 let file = event.target.files[0];
                 let formData = new FormData();
@@ -196,7 +188,6 @@
                 });
             },
 
-            // Clear the selected image
             clearSelectedImage(event) {
                   this.$parent.imageUrl = '';
             },

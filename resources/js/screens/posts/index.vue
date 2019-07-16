@@ -81,7 +81,11 @@
                                 </div>
 
                                 <div class="d-flex justify-content-center">
-                                    <a href="#!" class="btn btn-link" @click="limit += 7" v-if="loadMore">{{ trans.buttons.general.load }}
+                                    <a href="#!"
+                                       class="btn btn-link"
+                                       @click="limit += 7"
+                                       v-if="loadMore">
+                                        {{ trans.buttons.general.load }}
                                         <i class="fa fa-fw fa-angle-down"></i>
                                     </a>
                                 </div>

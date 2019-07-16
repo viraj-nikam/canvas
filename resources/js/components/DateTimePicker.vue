@@ -46,7 +46,7 @@
      * @author Mohamed Said <themsaid@gmail.com>
      */
     export default {
-        name: "datetime-picker",
+        name: 'datetime-picker',
 
         props: {
             value: {
@@ -70,17 +70,22 @@
         },
 
         mounted() {
-            this.buildComponents(this.value);
+            this.createPicker(this.value);
         },
 
         watch: {
             value(val) {
-                this.buildComponents(val);
+                this.createPicker(val);
             },
 
             dateComponents: {
                 handler: function () {
-                    this.result = this.dateComponents.year + '-' + this.dateComponents.month + '-' + this.dateComponents.day + ' ' + this.dateComponents.hour + ':' + this.dateComponents.minute + ':00';
+                    this.result = this.dateComponents.year
+                        + '-' + this.dateComponents.month
+                        + '-' + this.dateComponents.day
+                        + ' ' + this.dateComponents.hour
+                        + ':' + this.dateComponents.minute
+                        + ':00';
 
                     this.$emit('input', this.result);
                 },
@@ -89,7 +94,7 @@
         },
 
         methods: {
-            buildComponents(val) {
+            createPicker(val) {
                 let date = moment(val + ' Z').utc();
 
                 this.dateComponents = {

@@ -22,6 +22,7 @@ class Canvas
             'lang'     => self::collectLanguageFiles(),
             'path'     => config('canvas.path'),
             'timezone' => config('app.timezone'),
+            'unsplash' => config('canvas.unsplash.access_key'),
             'user'     => auth()->user()->only(['name', 'email']),
         ];
     }

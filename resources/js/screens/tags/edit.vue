@@ -34,7 +34,7 @@
                                 <i class="fas fa-sliders-h fa-fw fa-rotate-270"></i>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                                <a href="#" class="dropdown-item text-danger" @click="showModal">
+                                <a href="#" class="dropdown-item text-danger" @click="showDeleteModal">
                                     {{ trans.buttons.general.delete }}
                                 </a>
                             </div>
@@ -81,7 +81,7 @@
         </main>
 
         <delete-modal
-                ref="modal"
+                ref="deleteModal"
                 @delete="deleteTag"
                 :header="trans.tags.delete.header"
                 :message="trans.tags.delete.warning">
@@ -91,7 +91,6 @@
 
 <script>
     import $ from 'jquery';
-    import {uuid} from 'uuid';
     import DeleteModal from '../../components/DeleteModal';
     import ProfileDropdown from '../../components/ProfileDropdown';
 
@@ -99,7 +98,6 @@
         name: 'tags-edit',
 
         components: {
-            uuid,
             DeleteModal,
             ProfileDropdown
         },
@@ -174,7 +172,7 @@
                 this.request()
                     .delete('/api/tags/' + this.id)
                     .then((response) => {
-                        $(this.$refs.modal.$el).modal('hide');
+                        $(this.$refs.deleteModal.$el).modal('hide');
 
                         this.$router.push('/tags');
                     })
@@ -183,8 +181,8 @@
                     })
             },
 
-            showModal() {
-                $(this.$refs.modal.$el).modal('show');
+            showDeleteModal() {
+                $(this.$refs.deleteModal.$el).modal('show');
             },
         }
     }

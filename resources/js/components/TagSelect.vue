@@ -52,7 +52,7 @@
             return {
                 value: this.tagged ? this.tagged : [],
                 options: allTags,
-                trans: i18n
+                trans: JSON.parse(Canvas.lang),
             }
         },
 

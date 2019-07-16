@@ -34,7 +34,7 @@
                                 <i class="fas fa-sliders-h fa-fw fa-rotate-270"></i>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                                <a href="#" class="dropdown-item text-danger" @click="showModal">
+                                <a href="#" class="dropdown-item text-danger" @click="showDeleteModal">
                                     {{ trans.buttons.general.delete }}
                                 </a>
                             </div>
@@ -81,8 +81,8 @@
         </main>
 
         <delete-modal
-                ref="modal"
-                @delete="deleteTag"
+                ref="deleteModal"
+                @delete="deleteTopic"
                 :header="trans.topics.delete.header"
                 :message="trans.topics.delete.warning">
         </delete-modal>
@@ -91,7 +91,6 @@
 
 <script>
     import $ from 'jquery';
-    import {uuid} from 'uuid';
     import DeleteModal from '../../components/DeleteModal';
     import ProfileDropdown from '../../components/ProfileDropdown';
 
@@ -99,7 +98,6 @@
         name: 'topics-edit',
 
         components: {
-            uuid,
             DeleteModal,
             ProfileDropdown
         },
@@ -170,11 +168,11 @@
                     })
             },
 
-            deleteTag() {
+            deleteTopic() {
                 this.request()
                     .delete('/api/topics/' + this.id)
                     .then((response) => {
-                        $(this.$refs.modal.$el).modal('hide');
+                        $(this.$refs.deleteModal.$el).modal('hide');
 
                         this.$router.push('/topics');
                     })
@@ -183,8 +181,8 @@
                     })
             },
 
-            showModal() {
-                $(this.$refs.modal.$el).modal('show');
+            showDeleteModal() {
+                $(this.$refs.deleteModal.$el).modal('show');
             },
         }
     }

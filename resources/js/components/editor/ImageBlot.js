@@ -1,13 +1,13 @@
-/**
- * Create the divider blot.
- *
- * @author Mohamed Said <themsaid@gmail.com>
- */
-
 import Quill from 'quill';
 
 let BlockEmbed = Quill.import('blots/block/embed');
 
+/**
+ * Create the divider blot.
+ *
+ * @author Mohamed Said <themsaid@gmail.com>
+ * @link https://quilljs.com/guides/how-to-customize-quill/#customizing-blots
+ */
 class ImageBlot extends BlockEmbed {
     static create(value) {
         let node = super.edit();
@@ -16,8 +16,10 @@ class ImageBlot extends BlockEmbed {
         node.dataset.layout = value.layout;
 
         let img = document.createElement('img');
+
         img.setAttribute('alt', value.caption);
         img.setAttribute('src', value.url);
+
         node.appendChild(img);
 
         if (value.caption) {

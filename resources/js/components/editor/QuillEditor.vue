@@ -1,25 +1,35 @@
 <template>
     <div v-cloak>
         <div style="position: relative">
-            <div id="sidebar-controls" style="margin-top: -8px">
-                <button id="show-controls" type="button" class="btn btn-outline-light btn-circle border"
-                        @click="showSideControls" v-on:submit.prevent="onSubmit">
+            <div id="sidebarControls" style="margin-top: -8px">
+                <button id="showControls"
+                        type="button"
+                        class="btn btn-outline-light btn-circle border"
+                        @click="showSideControls"
+                        @submit.prevent="onSubmit">
                     <i class="fas fa-plus fa-fw text-muted"></i>
                 </button>
 
                 <div class="controls pl-3 bg-white d-none">
-                    <button class="btn btn-outline-light btn-circle border mr-1" type="button"
+                    <button class="btn btn-outline-light btn-circle border mr-1"
+                            type="button"
                             @click="openImageUploader()"
-                            data-toggle="modal" data-target="#image-upload">
+                            data-toggle="modal"
+                            data-target="#image-upload">
                         <i class="far fa-fw fa-image text-muted"></i>
                     </button>
-                    <button class="btn btn-outline-light btn-circle border mr-1" type="button"
-                            @click="$emit('openingHTMLEmbedder')" v-on:submit.prevent="onSubmit"
-                            data-toggle="modal" data-target="#embed-html">
+                    <button class="btn btn-outline-light btn-circle border mr-1"
+                            type="button"
+                            @click="$emit('openingCodeEmbed')"
+                            @submit.prevent="onSubmit"
+                            data-toggle="modal"
+                            data-target="#embed-html">
                         <i class="fas fa-fw fa-code text-muted"></i>
                     </button>
-                    <button class="btn btn-outline-light btn-circle border mr-2" type="button"
-                            @click="addDivider" v-on:submit.prevent="onSubmit">
+                    <button class="btn btn-outline-light btn-circle border mr-2"
+                            type="button"
+                            @click="addDivider"
+                            @submit.prevent="onSubmit">
                         <i class="fas fa-fw fa-ellipsis-h text-muted"></i>
                     </button>
                 </div>
@@ -29,24 +39,23 @@
             <input type="hidden" name="body" ref="body"/>
 
             <image-uploader
-                    @updated="applyImage"
-                    :unsplash="this.unsplash"
-                    :path="this.path">
+                    @updated="applyImage">
             </image-uploader>
-            <html-embedder
+            <code-embed
                     @adding="addHTML">
-            </html-embedder>
+            </code-embed>
         </div>
     </div>
 </template>
 
 <script>
+    import $ from 'jquery';
     import Quill from 'quill'
     import Parchment from 'parchment'
-    import HTMLBlot from './HTMLBlot'
+    import CodeBlot from './CodeBlot'
     import ImageBlot from './ImageBlot'
+    import CodeEmbed from './CodeEmbed'
     import DividerBlot from './DividerBlot'
-    import HTMLEmbedder from './HTMLEmbedder'
     import ImageUploader from './ImageUploader'
 
     /**
@@ -55,22 +64,14 @@
      * @author Mohamed Said <themsaid@gmail.com>
      */
     export default {
-        name: "quill-editor",
+        name: 'quill-editor',
 
         components: {
-            'html-embedder': HTMLEmbedder,
-            'image-uploader': ImageUploader
+            CodeEmbed,
+            ImageUploader
         },
 
         props: {
-            unsplash: {
-                type: String,
-                default: ''
-            },
-            path: {
-                type: String,
-                required: true
-            },
             value: {
                 type: String,
                 default: ''
@@ -81,7 +82,7 @@
             return {
                 editor: null,
                 editorBody: this.value,
-                trans: i18n
+                trans: JSON.parse(Canvas.lang),
             }
         },
 
@@ -93,11 +94,10 @@
         },
 
         methods: {
-            // Create the editor
             createEditor() {
                 Quill.register(ImageBlot, true);
                 Quill.register(DividerBlot, true);
-                Quill.register(HTMLBlot, true);
+                Quill.register(CodeBlot, true);
 
                 const icons = Quill.import('ui/icons');
                 icons.header[3] = require('!html-loader!quill/assets/icons/header-3.svg');
@@ -122,24 +122,23 @@
                  * @link https://github.com/quilljs/quill/issues/1107#issuecomment-259938173
                  */
                 let tooltip = quill.theme.tooltip;
-                let input = tooltip.root.querySelector("input[data-link]");
+                let input = tooltip.root.querySelector('input[data-link]');
                 input.dataset.link = this.trans.posts.forms.editor.link;
 
                 return quill;
             },
 
-            // Handle the editor value
             handleEditorValue() {
                 this.editor.root.innerHTML = this.value;
 
                 this.editor.on('text-change', () => {
                     let body = this.editor.getText() ? this.editor.root.innerHTML : '';
+
                     this.$refs['body'].value = body;
                     this.$emit('input', body);
                 });
             },
 
-            // Handle click events inside the editor
             handleClicksInsideEditor() {
                 this.editor.root.addEventListener('click', (ev) => {
                     let blot = Parchment.find(ev.target, true);
@@ -154,12 +153,11 @@
                 });
             },
 
-            // Initialize the side controls
             initSideControls() {
                 let Block = Quill.import('blots/block');
 
                 this.editor.on(Quill.events.EDITOR_CHANGE, (eventType, range) => {
-                    let sidebarControls = document.getElementById('sidebar-controls');
+                    let sidebarControls = $('#sidebarControls');
 
                     if (eventType !== Quill.events.SELECTION_CHANGE) return;
 
@@ -190,19 +188,16 @@
                 });
             },
 
-            // Show the side controls
             showSideControls() {
-                document.getElementById('sidebar-controls').classList.toggle('active');
+                $('#sidebarControls').classList.toggle('active');
 
                 this.editor.focus();
             },
 
-            // Open the image upload modal
             openImageUploader(data = null) {
                 this.$emit('openingImageUploader', data);
             },
 
-            // Add a new captioned image to the content
             applyImage({url, caption, existingBlot, layout}) {
                 let values = {
                     url: url,
@@ -217,11 +212,9 @@
                 let range = this.editor.getSelection(true);
 
                 this.editor.insertEmbed(range.index, 'captioned-image', values, Quill.sources.USER);
-
                 this.editor.setSelection(range.index + 1, Quill.sources.SILENT);
             },
 
-            // Add a divider to the content
             addDivider() {
                 let range = this.editor.getSelection(true);
 
@@ -230,7 +223,6 @@
                 this.editor.setSelection(range.index + 2, Quill.sources.SILENT);
             },
 
-            // Add a new HTML blot to the content
             addHTML({content}) {
                 let range = this.editor.getSelection(true);
 
@@ -368,21 +360,21 @@
         line-height: 1.42857;
     }
 
-    #sidebar-controls {
+    #sidebarControls {
         display: none;
         position: absolute;
         z-index: 10;
         left: -60px !important;
     }
 
-    #sidebar-controls button:focus {
+    #sidebarControls button:focus {
         -webkit-box-shadow: none !important;
         -moz-box-shadow: none !important;
         box-shadow: none !important;
         outline: none !important;
     }
 
-    #sidebar-controls.active .controls {
+    #sidebarControls.active .controls {
         display: inline-block !important;
     }
 
@@ -432,7 +424,7 @@
     }
 
     @media (max-width: 767px) {
-        #sidebar-controls {
+        #sidebarControls {
             display: none !important;
         }
     }

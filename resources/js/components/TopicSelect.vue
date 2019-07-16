@@ -53,7 +53,7 @@
             return {
                 value: this.assigned ? this.assigned : [],
                 options: allTopics,
-                trans: i18n
+                trans: JSON.parse(Canvas.lang),
             }
         },
 

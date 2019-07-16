@@ -8,7 +8,7 @@
                        name="featured_image_caption"
                        title="Featured Image Caption"
                        v-model="imageCaption"
-                       :placeholder="this.trans.posts.forms.editor.images.picker.uploader.caption.placeholder">
+                       :placeholder="trans.posts.forms.editor.images.picker.uploader.caption.placeholder">
             </div>
         </div>
 
@@ -16,9 +16,7 @@
 
         <image-picker
                 @changed="updateImage"
-                @uploading="uploading = true"
-                :unsplash="this.unsplash"
-                :path="this.path">
+                @uploading="uploading = true">
         </image-picker>
     </div>
 </template>
@@ -30,7 +28,7 @@
      * @author Mohamed Said <themsaid@gmail.com>
      */
     export default {
-        name: "featured-image-uploader",
+        name: 'featured-image-uploader',
 
         props: {
             post: {
@@ -45,14 +43,6 @@
                 type: String,
                 default: ''
             },
-            unsplash: {
-                type: String,
-                required: false
-            },
-            path: {
-                type: String,
-                required: true
-            },
         },
 
         data() {
@@ -60,7 +50,7 @@
                 imageUrl: '',
                 imageCaption: '',
                 uploading: false,
-                trans: i18n
+                trans: JSON.parse(Canvas.lang),
             }
         },
 
@@ -70,19 +60,19 @@
         },
 
         methods: {
-            // Save the image
             saveImage() {
-                this.$emit('changed', {url: this.imageUrl, caption: this.imageCaption});
+                this.$emit('changed', {
+                    url: this.imageUrl,
+                    caption: this.imageCaption
+                });
 
                 this.close();
             },
 
-            // Close the modal
             close() {
                 this.modalShown = false;
             },
 
-            // Update the selected image
             updateImage({url, caption}) {
                 this.imageUrl = url;
                 this.imageCaption = caption;
