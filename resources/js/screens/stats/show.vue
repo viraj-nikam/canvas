@@ -43,7 +43,6 @@
                                             <p class="mb-0 py-1">
                                                 <img :src="`https://favicons.githubusercontent.com/${host}`"
                                                      :alt="host"
-                                                     style="width: 15px; height: 15px;"
                                                      class="mr-1">
                                                 <a href="#" v-tooltip="{placement: 'right'}" :title="trans.stats.details.referer.unknown">
                                                     {{ host }} <i class="fas fa-fw fa-question-circle text-muted"></i>
@@ -54,7 +53,6 @@
                                             <p class="mb-0 py-1">
                                                 <img :src="`https://favicons.githubusercontent.com/${host}`"
                                                      :alt="host"
-                                                     style="width: 15px; height: 15px;"
                                                      class="mr-1">
                                                 <a :href="'http://' + host"
                                                    target="_blank">{{ host }}
@@ -154,3 +152,10 @@
         }
     }
 </script>
+
+<style scoped>
+    img {
+        width: 15px;
+        height: 15px;
+    }
+</style>

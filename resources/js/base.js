@@ -10,7 +10,7 @@ export default {
 
     methods: {
         /**
-         * Trim an alphanumeric string and convert to a slug.
+         * Generate a URL friendly "slug" from a given string.
          *
          * @param text
          * @return string
@@ -58,13 +58,13 @@ export default {
         },
 
         /**
-         * Get the plural form of a word.
+         * Returns a word in plural form.
          *
          * @param string
          * @param count
          * @returns {string}
          */
-        pluralize(string, count) {
+        plural(string, count) {
             if (count > 1 || count === 0) {
                 return ' ' + string + 's';
             } else {

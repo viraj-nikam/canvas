@@ -16632,11 +16632,11 @@ a.navbar-brand > i {
   color: #59616A !important;
 }
 
-#sidebar-controls .controls button i {
+#sidebarControls .controls button i {
   color: #6c757d !important;
 }
 
-#sidebar-controls .controls button:hover i {
+#sidebarControls .controls button:hover i {
   color: #6c757d !important;
 }
 

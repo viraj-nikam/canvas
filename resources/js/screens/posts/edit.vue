@@ -59,7 +59,7 @@
                                 <textarea-autosize
                                         :placeholder="trans.posts.forms.editor.title"
                                         class="form-control-lg form-control border-0 pl-0 serif"
-                                        style="font-size: 42px"
+                                        rows="1"
                                         v-model="form.title">
                                 </textarea-autosize>
                             </div>
@@ -207,5 +207,7 @@
 </script>
 
 <style scoped>
-
+    textarea {
+        font-size: 42px;
+    }
 </style>

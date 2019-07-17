@@ -118,7 +118,7 @@
                         this.isReady = true;
                     })
                     .catch((error) => {
-                        console.log(error);
+                        // Add any error debugging...
                     });
             },
         },

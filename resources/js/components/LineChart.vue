@@ -17,7 +17,7 @@
                 :dataSets="points"
                 :tooltipOptions="{
                     formatTooltipX: d => moment(d, 'YYYY-MM-DD').format('dddd, MMMM Do'),
-                    formatTooltipY: d => d + pluralize(trans.stats.chart.view, d),
+                    formatTooltipY: d => d + plural(trans.stats.chart.view, d),
                 }">
         </vue-frappe>
     </div>

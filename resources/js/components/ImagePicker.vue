@@ -205,7 +205,7 @@
                         this.$emit('changed', {url: response.data});
                     })
                     .catch((error) => {
-                        console.log(error);
+                        // Add any error debugging...
                     });
             },
 
