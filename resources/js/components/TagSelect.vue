@@ -2,14 +2,14 @@
     <div v-cloak>
         <multiselect
                 v-model="value"
-                :placeholder="this.trans.tags.forms.select"
-                :tag-placeholder="this.trans.tags.forms.tag"
-                label="name"
-                track-by="slug"
+                :placeholder="trans.tags.forms.select"
+                :tag-placeholder="trans.tags.forms.tag"
                 :options="options"
                 :multiple="true"
                 :taggable="true"
-                @tag="addTag">
+                @tag="addTag"
+                label="name"
+                track-by="slug">
         </multiselect>
 
         <div class="tags">
@@ -43,6 +43,7 @@
         data() {
             const allTags = this.tags.map(obj => {
                 let filtered = {};
+
                 filtered['name'] = obj.name;
                 filtered['slug'] = obj.slug;
 
@@ -50,15 +51,14 @@
             });
 
             return {
-                value: this.tagged ? this.tagged : [],
                 options: allTags,
+                value: this.tagged ? this.tagged : [],
                 trans: JSON.parse(Canvas.lang),
             }
         },
 
         methods: {
             addTag(newTag) {
-
                 const tag = {
                     name: newTag,
                     slug: this.slugify(newTag)
@@ -71,7 +71,7 @@
     }
 </script>
 
-<style>
+<style scoped>
     @import "~vue-multiselect/dist/vue-multiselect.min.css";
 
     .multiselect__select {

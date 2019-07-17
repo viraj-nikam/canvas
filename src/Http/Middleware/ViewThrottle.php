@@ -49,7 +49,7 @@ class ViewThrottle
      * @param array $posts
      * @return void
      */
-    private function pruneExpiredViews(array $posts): void
+    private function pruneExpiredViews(array $posts)
     {
         foreach (collect($posts) as $key => $value) {
             if ($value < time() - self::EXPIRES_IN) {

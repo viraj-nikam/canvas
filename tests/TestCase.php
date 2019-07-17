@@ -52,7 +52,7 @@ abstract class TestCase extends OrchestraTestCase
      * @param Application $app
      * @return void
      */
-    protected function getEnvironmentSetUp($app): void
+    protected function getEnvironmentSetUp($app)
     {
         $config = $app->get('config');
 
@@ -73,7 +73,7 @@ abstract class TestCase extends OrchestraTestCase
      * @param Application $app
      * @return void
      */
-    protected function setUpDatabase($app): void
+    protected function setUpDatabase($app)
     {
         $this->loadLaravelMigrations();
 

@@ -60,6 +60,7 @@ export default [
     },
     {
         path: '*',
+        name: 'catch-all',
         redirect: '/stats'
     },
 ];

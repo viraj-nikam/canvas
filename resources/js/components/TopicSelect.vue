@@ -2,14 +2,14 @@
     <div v-cloak>
         <multiselect
                 v-model="value"
-                :placeholder="this.trans.topics.forms.select"
-                :tag-placeholder="this.trans.topics.forms.tag"
-                label="name"
-                track-by="slug"
+                :placeholder="trans.topics.forms.select"
+                :tag-placeholder="trans.topics.forms.tag"
                 :options="options"
                 :taggable="true"
                 @input="onChange"
-                @tag="addTopic">
+                @tag="addTopic"
+                label="name"
+                track-by="slug">
         </multiselect>
 
         <div class="topics">
@@ -51,8 +51,8 @@
             });
 
             return {
-                value: this.assigned ? this.assigned : [],
                 options: allTopics,
+                value: this.assigned ? this.assigned : [],
                 trans: JSON.parse(Canvas.lang),
             }
         },
@@ -81,7 +81,7 @@
     }
 </script>
 
-<style>
+<style scoped>
     @import "~vue-multiselect/dist/vue-multiselect.min.css";
 
     .multiselect__select {

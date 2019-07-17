@@ -9,7 +9,7 @@
                         </p>
                         <div class="form-group row">
                             <div class="col-lg-12">
-                                <div v-if="imageUrl" id="current-image">
+                                <div v-if="imageUrl" id="currentImage">
                                     <img :src="imageUrl" class="w-100">
 
                                     <div class="input-group py-2">
@@ -94,22 +94,6 @@
         },
 
         methods: {
-            showImageModal() {
-                $('#imageUpload').modal('show');
-            },
-
-            clear() {
-                this.existingBlot = null;
-                this.imageUrl = null;
-                this.layout = 'default';
-                this.caption = '';
-            },
-
-            updateImage({url, caption}) {
-                this.imageUrl = url;
-                this.caption = caption ? caption : '';
-            },
-
             setImage() {
                 if (!this.imageUrl) {
                     return;
@@ -122,8 +106,24 @@
                     layout: this.layout,
                 });
 
-                this.clear();
-            }
+                this.clearImage();
+            },
+
+            updateImage({url, caption}) {
+                this.imageUrl = url;
+                this.caption = caption ? caption : '';
+            },
+
+            clearImage() {
+                this.existingBlot = null;
+                this.imageUrl = null;
+                this.layout = 'default';
+                this.caption = '';
+            },
+
+            showImageModal() {
+                $('#imageUpload').modal('show');
+            },
         }
     }
 </script>

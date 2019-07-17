@@ -52,8 +52,7 @@
                     <div class="col-md-8">
                         <div class="form-group row my-5">
                             <div class="col-lg-12">
-                                <input required
-                                       type="text"
+                                <input type="text"
                                        name="name"
                                        v-model="form.name"
                                        title="Name"

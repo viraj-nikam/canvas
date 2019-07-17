@@ -8,7 +8,7 @@
                     <div class="col-12">
                         <label for="slug" class="font-weight-bold">{{ __('canvas::posts.forms.settings.slug.label') }}</label>
                         <input type="text" class="form-control border-0 px-0"
-                               name="slug" title="{{ __('canvas::posts.forms.settings.slug.label') }}" value="{{ old('slug', 'post-'.$data['id']) }}" required
+                               name="slug" title="{{ __('canvas::posts.forms.settings.slug.label') }}" value="{{ old('slug', 'post-'.$data['id']) }}"
                                placeholder="{{ __('canvas::posts.forms.settings.slug.placeholder') }}">
                         @if ($errors->has('slug'))
                             <div class="invalid-feedback d-block">

@@ -1,6 +1,6 @@
 <template>
     <div v-cloak>
-        <div v-if="imageUrl" id="current-image">
+        <div v-if="imageUrl" id="currentImage">
             <img :src="imageUrl" class="w-100">
 
             <div class="input-group py-2">

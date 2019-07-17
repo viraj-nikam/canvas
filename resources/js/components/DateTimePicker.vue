@@ -1,32 +1,31 @@
 <template>
     <div v-cloak>
         <div class="d-flex flex-row">
-            <select class="input pr-2"
-                    v-model="dateComponents.month">
+            <select class="input pr-2" v-model="dateElements.month">
                 <option v-for="value in Array.from({length: 12}, (_, i) => String(i + 1).padStart(2, '0'))"
                         :value="value">{{ value }}
                 </option>
             </select>
             <span class="px-1">/</span>
-            <select class="input px-2" v-model="dateComponents.day">
+            <select class="input px-2" v-model="dateElements.day">
                 <option v-for="value in Array.from({length: 31}, (_, i) => String(i + 1).padStart(2, '0'))"
                         :value="value">{{ value }}
                 </option>
             </select>
             <span class="px-1">/</span>
-            <select class="input px-2" v-model="dateComponents.year">
+            <select class="input px-2" v-model="dateElements.year">
                 <option v-for="value in Array.from({length: 15}, (_, i) => i + (new Date()).getFullYear() - 10)"
                         :value="value">{{ value }}
                 </option>
             </select>
             <span class="pl-3"> </span>
-            <select class="input px-2" v-model="dateComponents.hour">
+            <select class="input px-2" v-model="dateElements.hour">
                 <option v-for="value in Array.from({length: 24}, (_, i) => String(i).padStart(2, '0'))" :value="value">
                     {{ value }}
                 </option>
             </select>
             <span class="px-1">:</span>
-            <select class="input pl-2" v-model="dateComponents.minute">
+            <select class="input pl-2" v-model="dateElements.minute">
                 <option v-for="value in Array.from({length: 60}, (_, i) => String(i).padStart(2, '0'))" :value="value">
                     {{ value }}
                 </option>
@@ -57,7 +56,7 @@
 
         data() {
             return {
-                dateComponents: {
+                dateElements: {
                     day: '',
                     month: '',
                     year: '',
@@ -70,21 +69,21 @@
         },
 
         mounted() {
-            this.createPicker(this.value);
+            this.generateDatePicker(this.value);
         },
 
         watch: {
             value(val) {
-                this.createPicker(val);
+                this.generateDatePicker(val);
             },
 
-            dateComponents: {
+            dateElements: {
                 handler: function () {
-                    this.result = this.dateComponents.year
-                        + '-' + this.dateComponents.month
-                        + '-' + this.dateComponents.day
-                        + ' ' + this.dateComponents.hour
-                        + ':' + this.dateComponents.minute
+                    this.result = this.dateElements.year
+                        + '-' + this.dateElements.month
+                        + '-' + this.dateElements.day
+                        + ' ' + this.dateElements.hour
+                        + ':' + this.dateElements.minute
                         + ':00';
 
                     this.$emit('input', this.result);
@@ -94,10 +93,10 @@
         },
 
         methods: {
-            createPicker(val) {
+            generateDatePicker(val) {
                 let date = moment(val + ' Z').utc();
 
-                this.dateComponents = {
+                this.dateElements = {
                     month: date.format('MM'),
                     day: date.format('DD'),
                     year: date.format('YYYY'),

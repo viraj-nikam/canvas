@@ -56,7 +56,7 @@
                         </button>
                         <button class="btn btn-sm btn-outline-primary"
                                 type="button"
-                                @click="getImagesFromUnsplash(unsplashPage + 1)"
+                                @click="fetchImagesFromUnsplash(unsplashPage + 1)"
                                 v-if="unsplashImages.length === 12"
                                 @submit.prevent="onSubmit">
                             {{ trans.buttons.general.next }}
@@ -87,7 +87,7 @@
             return {
                 url: '',
                 selectedUnsplashImage: null,
-                unsplashModalShown: false,
+                showUnsplashModal: false,
                 unsplashSearchTerm: '',
                 unsplashPage: 1,
                 searchingUnsplash: true,
@@ -100,15 +100,15 @@
 
         watch: {
             unsplashSearchTerm() {
-                this.getImagesFromUnsplash()
+                this.fetchImagesFromUnsplash()
             }
         },
 
         methods: {
-            getImagesFromUnsplash(page = 1) {
-                if (!this.unsplash) {
-                    return this.alertError(this.trans.posts.forms.editor.images.picker.key);
-                }
+            fetchImagesFromUnsplash(page = 1) {
+                // if (!this.unsplash) {
+                //     return this.alertError(this.trans.posts.forms.editor.images.picker.key);
+                // }
 
                 // todo: add a message about using the key
 
@@ -160,7 +160,11 @@
 
                 this.$emit('changed', {
                     url: this.selectedUnsplashImage.urls.regular,
-                    caption: this.trans.posts.forms.editor.images.picker.caption.by + ' <a href="' + this.selectedUnsplashImage.user.links.html + '" target="_blank">' + this.selectedUnsplashImage.user.name + '</a> ' + this.trans.posts.forms.editor.images.picker.caption.on + ' <a href="https://unsplash.com" target="_blank">Unsplash</a>',
+                    caption: this.trans.posts.forms.editor.images.picker.caption.by
+                        + ' <a href="' + this.selectedUnsplashImage.user.links.html
+                        + '" target="_blank">' + this.selectedUnsplashImage.user.name
+                        + '</a> ' + this.trans.posts.forms.editor.images.picker.caption.on
+                        + ' <a href="https://unsplash.com" target="_blank">Unsplash</a>',
                 });
 
                 this.closeUnsplashModal();
