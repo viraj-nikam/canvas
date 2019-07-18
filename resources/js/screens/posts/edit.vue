@@ -27,7 +27,7 @@
                             {{ trans.buttons.general.save }}
                         </a>
 
-                        <div class="dropdown" v-if="id !== 'create'">
+                        <div class="dropdown">
                             <a id="navbarDropdown"
                                class="nav-link text-secondary pr-0"
                                href="#"
@@ -37,8 +37,21 @@
                                aria-expanded="false">
                                 <i class="fas fa-sliders-h fa-fw fa-rotate-270"></i>
                             </a>
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                                <a href="#" class="dropdown-item text-danger" @click="showDeleteModal">
+
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <router-link :to="{ name: 'stats-show', params: {id: id } }" class="dropdown-item">
+                                    {{ trans.nav.controls.stats }}
+                                </router-link>
+                                <div class="dropdown-divider"></div>
+                                <a href="#"
+                                   class="dropdown-item"
+                                   @click="showSettingsModal">
+                                    {{ trans.nav.controls.settings }}
+                                </a>
+                                <a v-if="id !== 'create'"
+                                   href="#"
+                                   class="dropdown-item text-danger"
+                                   @click="showDeleteModal">
                                     {{ trans.buttons.general.delete }}
                                 </a>
                             </div>
@@ -71,6 +84,15 @@
             </div>
         </main>
 
+        <settings-modal
+                v-if="isReady"
+                ref="settingsModal"
+                :input="form"
+                :post="post"
+                :tags="tags"
+                :topics="topics">
+        </settings-modal>
+
         <delete-modal
                 ref="deleteModal"
                 @delete="deletePost"
@@ -85,6 +107,7 @@
     import $ from 'jquery';
     import DeleteModal from '../../components/DeleteModal';
     import VueTextAreaAutosize from 'vue-textarea-autosize';
+    import SettingsModal from '../../components/SettingsModal';
     import QuillEditor from '../../components/editor/QuillEditor';
     import ProfileDropdown from '../../components/ProfileDropdown';
 
@@ -96,12 +119,15 @@
         components: {
             DeleteModal,
             ProfileDropdown,
-            QuillEditor
+            QuillEditor,
+            SettingsModal
         },
 
         data() {
             return {
                 post: null,
+                tags: [],
+                topics: [],
                 id: this.$route.params.id || 'create',
                 form: {
                     id: '',
@@ -142,6 +168,8 @@
                     .get('/api/posts/' + this.id)
                     .then((response) => {
                         this.post = response.data.post;
+                        this.tags = response.data.tags;
+                        this.topics = response.data.topics;
                         this.form.id = response.data.post.id;
 
                         if (this.id !== 'create') {
@@ -201,6 +229,10 @@
 
             showDeleteModal() {
                 $(this.$refs.deleteModal.$el).modal('show');
+            },
+
+            showSettingsModal() {
+                $(this.$refs.settingsModal.$el).modal('show');
             },
         },
     }

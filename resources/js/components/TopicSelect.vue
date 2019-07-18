@@ -31,7 +31,7 @@
                 required: false
             },
             assigned: {
-                type: Object,
+                type: Array,
                 required: false
             }
         },

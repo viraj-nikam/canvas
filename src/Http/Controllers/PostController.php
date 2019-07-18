@@ -47,7 +47,7 @@ class PostController extends Controller
             ]);
         } else {
             return response()->json([
-                'post'   => Post::findOrFail($id),
+                'post'   => Post::with('tags', 'topic')->findOrFail($id),
                 'tags'   => $tags,
                 'topics' => $topics,
             ]);
