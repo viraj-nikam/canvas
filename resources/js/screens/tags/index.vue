@@ -26,11 +26,11 @@
                             <h1 class="mt-2">{{ trans.tags.header }}</h1>
 
                             <div class="dropdown my-auto">
-                                <a href="#" class="nav-link px-0 pb-0 text-secondary" id="navbarDropdown" role="button"
+                                <a href="#" class="nav-link px-0 pb-0 pt-3 text-secondary" id="navbarDropdown" role="button"
                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fas fa-search"></i>
                                 </a>
-                                <div class="dropdown-menu dropdown-menu-right py-0 mt-2" id="searchDropdown" aria-labelledby="dropdownMenuButton">
+                                <div class="dropdown-menu dropdown-menu-right py-0" id="searchDropdown" aria-labelledby="dropdownMenuButton">
                                     <form class="pl-2 w-100">
                                         <div class="form-group mb-0">
                                             <input v-model="search"
@@ -46,7 +46,7 @@
                         </div>
 
                         <div v-if="isReady">
-                            <div v-if="tags.length" class="mt-2">
+                            <div v-if="tags.length" class="mt-4">
                                 <div class="d-flex border-top py-3 align-items-center" v-for="tag in filteredList">
                                     <div class="mr-auto">
                                         <p class="mb-0 py-1">
@@ -69,7 +69,7 @@
 
                                 <p v-if="!filteredList.length">{{ trans.tags.search.empty }}</p>
                             </div>
-                            <p v-else class="mt-2">{{ trans.tags.empty.description }}
+                            <p v-else class="mt-4">{{ trans.tags.empty.description }}
                                 <router-link to="/tags/create">
                                     {{ trans.tags.empty.action }}
                                 </router-link>

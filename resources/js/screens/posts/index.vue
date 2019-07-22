@@ -26,7 +26,7 @@
                             <h1 class="mt-2">{{ trans.posts.header }}</h1>
 
                             <div class="dropdown my-auto">
-                                <a href="#" class="nav-link px-0 text-secondary" id="navbarDropdown" role="button"
+                                <a href="#" class="nav-link px-0 pb-0 pt-3 text-secondary" id="navbarDropdown" role="button"
                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fas fa-search"></i>
                                 </a>
@@ -90,9 +90,9 @@
                                     </a>
                                 </div>
 
-                                <p class="mt-2" v-if="!filteredList.length">{{ trans.posts.search.empty }}</p>
+                                <p v-if="!filteredList.length">{{ trans.posts.search.empty }}</p>
                             </div>
-                            <p v-else class="mt-2">{{ trans.posts.empty.description }}
+                            <p v-else class="mt-4">{{ trans.posts.empty.description }}
                                 <router-link to="/posts/create">
                                     {{ trans.posts.empty.action }}
                                 </router-link>
