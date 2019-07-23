@@ -22,7 +22,7 @@
 
                         <a href="#"
                            class="btn btn-sm btn-outline-primary my-auto ml-auto"
-                           @click="saveTag"
+                           @click="save"
                            :aria-label="trans.buttons.general.save">
                             {{ trans.buttons.general.save }}
                         </a>
@@ -90,7 +90,8 @@
                 :input="form"
                 :post="post"
                 :tags="tags"
-                :topics="topics">
+                :topics="topics"
+                @updating="save">
         </settings-modal>
 
         <delete-modal
@@ -160,8 +161,6 @@
             this.fetchData();
         },
 
-        watch: {},
-
         methods: {
             fetchData() {
                 this.request()
@@ -191,14 +190,15 @@
                         this.isReady = true;
                     })
                     .catch((error) => {
+                        console.log(error);
                         this.$router.push('/posts');
                     });
             },
 
-            saveTag() {
+            save() {
                 this.form.errors = [];
-                this.form.isSaving = true;
                 this.form.hasSuccess = false;
+                this.form.isSaving = true;
 
                 this.request()
                     .post('/api/posts/' + this.id, this.form)
@@ -227,12 +227,12 @@
                     })
             },
 
-            showDeleteModal() {
-                $(this.$refs.deleteModal.$el).modal('show');
-            },
-
             showSettingsModal() {
                 $(this.$refs.settingsModal.$el).modal('show');
+            },
+
+            showDeleteModal() {
+                $(this.$refs.deleteModal.$el).modal('show');
             },
         },
     }

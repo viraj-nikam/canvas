@@ -56,7 +56,8 @@
                 <div class="modal-footer">
                     <button type="button"
                             class="btn btn-link text-muted"
-                            data-dismiss="modal">
+                            data-dismiss="modal"
+                            @click.prevent="closeModal">
                         {{ trans.buttons.general.done }}
                     </button>
                 </div>
@@ -119,6 +120,12 @@
             this.form = this.input;
             this.allTags = this.tags;
             this.allTopics = this.topics;
-        }
+        },
+
+        methods: {
+            closeModal() {
+                this.$emit('updating');
+            }
+        },
     }
 </script>
