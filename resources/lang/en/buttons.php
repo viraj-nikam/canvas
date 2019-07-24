@@ -13,9 +13,12 @@ return [
     'posts'   => [
         'create'   => 'New post',
         'edit'     => 'Edit post',
-        'update'   => 'Update post',
+        'ready'    => 'Ready to publish?',
         'save'     => 'Save and publish',
+        'publish'  => 'Publish now',
+        'later'    => 'Schedule for later',
         'schedule' => 'Schedule to publish',
+        'cancel'   => 'Cancel scheduling',
     ],
     'stats'   => [
         'index' => 'See all stats',

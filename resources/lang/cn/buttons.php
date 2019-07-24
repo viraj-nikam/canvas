@@ -12,10 +12,13 @@ return [
     ],
     'posts'   => [
         'create'   => '最新帖子',
-        'edit'     => '編輯帖子',
-        'update'   => '更新帖子',
-        'save'     => '保存並發布',
-        'schedule' => '發佈時間表',
+        'edit'     => '编辑帖子',
+        'ready'    => '准备出版？',
+        'save'     => '保存并发布',
+        'publish'  => '立即发布',
+        'later'    => '安排以后',
+        'schedule' => '发布时间表',
+        'cancel'   => '取消预定',
     ],
     'stats'   => [
         'index' => '查看所有統計數據',

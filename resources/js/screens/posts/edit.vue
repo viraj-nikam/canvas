@@ -20,11 +20,18 @@
                             </li>
                         </ul>
 
-                        <a href="#"
+                        <a v-if="id !== 'create'"
+                           href="#"
                            class="btn btn-sm btn-outline-primary my-auto ml-auto"
-                           @click="save"
-                           :aria-label="trans.buttons.general.save">
-                            {{ trans.buttons.general.save }}
+                           @click="save">
+                            {{ trans.buttons.posts.save }}
+                        </a>
+
+                        <a v-else
+                           href="#"
+                           class="btn btn-sm btn-outline-primary my-auto ml-auto"
+                           @click="showPublishModal">
+                            {{ trans.buttons.posts.ready }}
                         </a>
 
                         <div class="dropdown">
@@ -47,6 +54,16 @@
                                    class="dropdown-item"
                                    @click="showSettingsModal">
                                     {{ trans.nav.controls.settings }}
+                                </a>
+                                <a href="#"
+                                   class="dropdown-item"
+                                   @click="showFeaturedImageModal">
+                                    {{ trans.nav.controls.image }}
+                                </a>
+                                <a href="#"
+                                   class="dropdown-item"
+                                   @click="showSeoModal">
+                                    {{ trans.nav.controls.seo }}
                                 </a>
                                 <a v-if="id !== 'create'"
                                    href="#"
@@ -227,8 +244,20 @@
                     })
             },
 
+            showPublishModal() {
+                $(this.$refs.publishModal.$el).modal('show');
+            },
+
             showSettingsModal() {
                 $(this.$refs.settingsModal.$el).modal('show');
+            },
+
+            showFeaturedImageModal() {
+                $(this.$refs.featuredImageModal.$el).modal('show');
+            },
+
+            showSeoModal() {
+                $(this.$refs.seoModal.$el).modal('show');
             },
 
             showDeleteModal() {

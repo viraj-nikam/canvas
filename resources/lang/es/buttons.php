@@ -13,9 +13,12 @@ return [
     'posts'   => [
         'create'   => 'Nueva publicación',
         'edit'     => 'Editar post',
-        'update'   => 'Actualizar publicación',
+        'ready'    => '¿Listo para publicar?',
         'save'     => 'Guardar y publicar',
+        'publish'  => 'Publica ahora',
+        'later'    => 'Horario para más tarde',
         'schedule' => 'Programar para publicar',
+        'cancel'   => 'Cancelar la programación',
     ],
     'stats'   => [
         'index' => 'Ver todas las estadísticas',

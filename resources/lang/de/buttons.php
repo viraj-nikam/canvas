@@ -13,9 +13,12 @@ return [
     'posts'   => [
         'create'   => 'Neuer Beitrag',
         'edit'     => 'Beitrag bearbeiten',
-        'update'   => 'Beitrag aktualisieren',
+        'ready'    => 'Bereit zum Veröffentlichen?',
         'save'     => 'Speichern und veröffentlichen',
+        'publish'  => 'Jetzt veröffentlichen',
+        'later'    => 'Planen Sie für später',
         'schedule' => 'Planen Sie die Veröffentlichung',
+        'cancel'   => 'Terminierung abbrechen',
     ],
     'stats'   => [
         'index' => 'Alle Statistiken anzeigen',

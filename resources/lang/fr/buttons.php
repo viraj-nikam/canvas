@@ -11,11 +11,14 @@ return [
         'next'   => 'Page suivante',
     ],
     'posts'   => [
-        'create'   => 'Nouveau billet',
-        'edit'     => 'Modifier le billet',
-        'update'   => 'Mettre à jour le billet',
+        'create'   => 'Nouveau poste',
+        'edit'     => 'Modifier le post',
+        'ready'    => 'Prêt à publier?',
         'save'     => 'Enregistrer et publier',
+        'publish'  => 'Publier maintenant',
+        'later'    => 'Planifier pour plus tard',
         'schedule' => 'Calendrier de publication',
+        'cancel'   => 'Annuler la planification',
     ],
     'stats'   => [
         'index' => 'Voir toutes les stats',
