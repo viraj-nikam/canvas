@@ -4,11 +4,12 @@ return [
 
     'title'   => 'Blog',
     'buttons' => [
-        'learn' => 'Apprendre encore plus',
-        'next'  => 'Lire la suite',
-        'enjoy' => 'Vous pourriez aimer',
-        'edit'  => 'Modifier le billet',
-        'stats' => 'Voir les statistiques',
+        'learn'    => 'Apprendre encore plus',
+        'continue' => 'Continuer la lecture...',
+        'next'     => 'Lire la suite',
+        'enjoy'    => 'Vous pourriez aimer',
+        'edit'     => 'Modifier le billet',
+        'stats'    => 'Voir les statistiques',
     ],
     'empty'   => [
         'description' => 'Aucun article n\'a été trouvé, commencez par',

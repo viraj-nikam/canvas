@@ -28,7 +28,7 @@
                             <p class="lead my-3"><a href="{{ route('blog.post', $post->slug) }}"
                                                     class="text-white text-decoration-none">{{ $post->summary }}</a></p>
                             <p class="lead mb-0"><a href="{{ route('blog.post', $post->slug) }}"
-                                                    class="text-white font-weight-bold text-decoration-none">Continue reading...</a></p>
+                                                    class="text-white font-weight-bold text-decoration-none">{{ __('canvas::blog.buttons.continue') }}</a></p>
                         </div>
                     </div>
                 @endif
