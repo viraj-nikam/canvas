@@ -39,7 +39,6 @@ class SetupCommand extends Command
     protected $views = [
         'layouts/app.stub'     => 'layouts/app.blade.php',
         'partials/navbar.stub' => 'partials/navbar.blade.php',
-        'partials/styles.stub' => 'partials/styles.blade.php',
         'index.stub'           => 'index.blade.php',
         'show.stub'            => 'show.blade.php',
     ];

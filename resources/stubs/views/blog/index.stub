@@ -1,10 +1,6 @@
-@extends('blog.layouts.app')
+@extends('blog.layouts.app.stub')
 
 @section('title', sprintf('%s — %s', config('app.name'), __('canvas::blog.title')))
-
-@push('styles')
-    @include('blog.partials.styles')
-@endpush
 
 @section('content')
     <div class="container">
@@ -14,7 +10,7 @@
             <div class="nav-scroller py-1 mb-2">
                 <nav class="nav d-flex justify-content-between">
                     @foreach($data['topics'] as $topic)
-                        <a class="p-2 text-muted" href="{{ route('blog.topic', $topic->slug) }}">{{ $topic->name }}</a>
+                        <a class="p-2 text-muted text-decoration-none" href="{{ route('blog.topic', $topic->slug) }}">{{ $topic->name }}</a>
                     @endforeach
                 </nav>
             </div>
@@ -32,7 +28,7 @@
                             <p class="lead my-3"><a href="{{ route('blog.post', $post->slug) }}"
                                                     class="text-white text-decoration-none">{{ $post->summary }}</a></p>
                             <p class="lead mb-0"><a href="{{ route('blog.post', $post->slug) }}"
-                                                    class="text-white font-weight-bold">Continue reading...</a></p>
+                                                    class="text-white font-weight-bold text-decoration-none">Continue reading...</a></p>
                         </div>
                     </div>
                 @endif
@@ -69,7 +65,7 @@
                     <h4 class="font-italic">{{ __('canvas::blog.tags.label') }}</h4>
                     <ol class="list-unstyled mb-0">
                         @foreach($data['tags'] as $tag)
-                            <li><a href="{{ route('blog.tag', $tag->slug) }}">{{ $tag->name }}</a></li>
+                            <li><a href="{{ route('blog.tag', $tag->slug) }}" class="text-decoration-none">{{ $tag->name }}</a></li>
                         @endforeach
                     </ol>
                 </div>
