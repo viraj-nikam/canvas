@@ -197,6 +197,7 @@
                         this.tags = response.data.tags;
                         this.topics = response.data.topics;
                         this.form.id = response.data.post.id;
+                        this.form.slug = response.data.post.slug;
 
                         if (this.id !== 'create') {
                             this.fillForm(response.data.post);
