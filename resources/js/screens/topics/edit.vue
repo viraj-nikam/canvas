@@ -18,7 +18,7 @@
                         <a href="#"
                            :class="{ disabled : form.name === '' }"
                            class="btn btn-sm btn-outline-primary my-auto ml-auto"
-                           @click="saveTag"
+                           @click="saveTopic"
                            :aria-label="trans.buttons.general.save">
                             {{ trans.buttons.general.save }}
                         </a>
@@ -56,6 +56,7 @@
                                        name="name"
                                        v-model="form.name"
                                        title="Name"
+                                       v-on:keyup.enter="saveTopic"
                                        class="form-control-lg form-control border-0 px-0"
                                        :placeholder="trans.topics.forms.placeholder">
 
@@ -148,7 +149,7 @@
                     });
             },
 
-            saveTag() {
+            saveTopic() {
                 this.form.errors = [];
                 this.form.isSaving = true;
                 this.form.hasSuccess = false;

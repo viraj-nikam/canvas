@@ -16,8 +16,8 @@
                         </ul>
 
                         <a href="#"
-                           :class="{ disabled : form.name === '' }"
                            class="btn btn-sm btn-outline-primary my-auto ml-auto"
+                           :class="{ disabled : form.name === '' }"
                            @click="saveTag"
                            :aria-label="trans.buttons.general.save">
                             {{ trans.buttons.general.save }}
@@ -56,6 +56,7 @@
                                        name="name"
                                        v-model="form.name"
                                        title="Name"
+                                       v-on:keyup.enter="saveTag"
                                        class="form-control-lg form-control border-0 px-0"
                                        :placeholder="trans.tags.forms.placeholder">
 

@@ -123,6 +123,7 @@
 <script>
     import Vue from 'vue';
     import $ from 'jquery';
+    import { Bus } from '../../bus';
     import DeleteModal from '../../components/DeleteModal';
     import VueTextAreaAutosize from 'vue-textarea-autosize';
     import SettingsModal from '../../components/SettingsModal';
@@ -164,6 +165,8 @@
                         twitter_description: '',
                         canonical_link: '',
                     },
+                    topic: [],
+                    tags: [],
                     errors: [],
                     isSaving: false,
                     hasSuccess: false,
@@ -172,6 +175,13 @@
                 timezone: Canvas.timezone,
                 trans: JSON.parse(Canvas.lang),
             }
+        },
+
+        created() {
+            Bus.$on('updating', data => {
+                this.fillForm(data);
+                this.save();
+            });
         },
 
         mounted() {
@@ -189,27 +199,32 @@
                         this.form.id = response.data.post.id;
 
                         if (this.id !== 'create') {
-                            this.form.title = response.data.post.title;
-                            this.form.slug = response.data.post.slug;
-                            this.form.summary = response.data.post.summary;
-                            this.form.body = response.data.post.body;
-                            this.form.published_at = response.data.post.published_at;
-                            this.form.featured_image = response.data.post.featured_image;
-                            this.form.featured_image_caption = response.data.post.featured_image_caption;
-                            this.form.meta.meta_description = response.data.post.meta.meta_description;
-                            this.form.meta.og_title = response.data.post.meta.og_title;
-                            this.form.meta.og_description = response.data.post.meta.og_description;
-                            this.form.meta.twitter_title = response.data.post.meta.twitter_title;
-                            this.form.meta.twitter_description = response.data.post.meta.twitter_description;
-                            this.form.meta.canonical_link = response.data.post.meta.canonical_link;
+                            this.fillForm(response.data.post);
                         }
 
                         this.isReady = true;
                     })
                     .catch((error) => {
-                        console.log(error);
                         this.$router.push('/posts');
                     });
+            },
+
+            fillForm(data) {
+                this.form.title = data.title || this.form.title;
+                this.form.slug = data.slug || this.form.slug;
+                this.form.summary = data.summary || this.form.summary;
+                this.form.body = data.body || this.form.body;
+                this.form.published_at = data.published_at || this.form.published_at;
+                this.form.featured_image = data.featured_image || this.form.featured_image;
+                this.form.featured_image_caption = data.featured_image_caption || this.form.featured_image_caption;
+                this.form.meta.meta_description = data.meta.meta_description || this.form.meta.meta_description;
+                this.form.meta.og_title = data.meta.og_title || this.form.meta.og_title;
+                this.form.meta.og_description = data.meta.og_description || this.form.meta.og_description;
+                this.form.meta.twitter_title = data.meta.twitter_title || this.form.meta.twitter_title;
+                this.form.meta.twitter_description = data.meta.twitter_description || this.form.meta.twitter_description;
+                this.form.meta.canonical_link = data.meta.canonical_link || this.form.meta.canonical_link;
+                this.form.topic = data.topic || this.form.topic;
+                this.form.tags = data.tags || this.form.tags;
             },
 
             save() {

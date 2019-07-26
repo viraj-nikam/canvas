@@ -67,6 +67,7 @@
 </template>
 
 <script>
+    import { Bus } from '../bus';
     import TagSelect from './TagSelect';
     import TopicSelect from './TopicSelect';
     import VueTextAreaAutosize from 'vue-textarea-autosize';
@@ -124,7 +125,7 @@
 
         methods: {
             closeModal() {
-                this.$emit('updating');
+                Bus.$emit('updating', this.form);
             }
         },
     }
