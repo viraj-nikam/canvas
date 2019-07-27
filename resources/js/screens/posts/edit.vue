@@ -11,7 +11,7 @@
                         <ul class="navbar-nav mr-auto flex-row float-right">
                             <li class="text-muted font-weight-bold">
                                 <div v-if="isReady" class="d-inline-block">
-                                    <span v-if="post.published_at <= moment(new Date()).tz(this.timezone).format().slice(0, 19).replace('T', ' ')">{{ trans.nav.context.published }}</span>
+                                    <span v-if="isPublished">{{ trans.nav.context.published }}</span>
                                     <span v-else>{{ trans.nav.context.draft }}</span>
                                 </div>
 
@@ -20,7 +20,7 @@
                             </li>
                         </ul>
 
-                        <a v-if="id !== 'create'"
+                        <a v-if="isPublished"
                            href="#"
                            class="btn btn-sm btn-outline-primary my-auto ml-auto"
                            @click="save">
@@ -46,10 +46,10 @@
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right">
-                                <router-link :to="{ name: 'stats-show', params: {id: id } }" class="dropdown-item">
+                                <router-link :to="{ name: 'stats-show', params: {id: id } }" v-if="isPublished" class="dropdown-item">
                                     {{ trans.nav.controls.stats }}
                                 </router-link>
-                                <div class="dropdown-divider"></div>
+                                <div class="dropdown-divider" v-if="isPublished"></div>
                                 <a href="#"
                                    class="dropdown-item"
                                    @click="showSettingsModal">
@@ -123,6 +123,7 @@
 <script>
     import Vue from 'vue';
     import $ from 'jquery';
+    import moment from 'moment';
     import { Bus } from '../../bus';
     import DeleteModal from '../../components/DeleteModal';
     import VueTextAreaAutosize from 'vue-textarea-autosize';
@@ -188,6 +189,12 @@
             this.fetchData();
         },
 
+        computed: {
+            isPublished() {
+                return !!(this.post && this.post.published_at <= moment(new Date()).tz(this.timezone).format().slice(0, 19).replace('T', ' '));
+            }
+        },
+
         methods: {
             fetchData() {
                 this.request()
@@ -211,21 +218,21 @@
             },
 
             fillForm(data) {
-                this.form.title = data.title || this.form.title;
-                this.form.slug = data.slug || this.form.slug;
-                this.form.summary = data.summary || this.form.summary;
-                this.form.body = data.body || this.form.body;
-                this.form.published_at = data.published_at || this.form.published_at;
-                this.form.featured_image = data.featured_image || this.form.featured_image;
-                this.form.featured_image_caption = data.featured_image_caption || this.form.featured_image_caption;
-                this.form.meta.meta_description = data.meta.meta_description || this.form.meta.meta_description;
-                this.form.meta.og_title = data.meta.og_title || this.form.meta.og_title;
-                this.form.meta.og_description = data.meta.og_description || this.form.meta.og_description;
-                this.form.meta.twitter_title = data.meta.twitter_title || this.form.meta.twitter_title;
-                this.form.meta.twitter_description = data.meta.twitter_description || this.form.meta.twitter_description;
-                this.form.meta.canonical_link = data.meta.canonical_link || this.form.meta.canonical_link;
-                this.form.topic = data.topic || this.form.topic;
-                this.form.tags = data.tags || this.form.tags;
+                this.form.title = data && data.title || this.form.title;
+                this.form.slug = data && data.slug || this.form.slug;
+                this.form.summary = data && data.summary || this.form.summary;
+                this.form.body = data && data.body || this.form.body;
+                this.form.published_at = data && data.published_at || this.form.published_at;
+                this.form.featured_image = data && data.featured_image || this.form.featured_image;
+                this.form.featured_image_caption = data && data.featured_image_caption || this.form.featured_image_caption;
+                this.form.meta.meta_description = data && data.meta.meta_description || this.form.meta.meta_description;
+                this.form.meta.og_title = data && data.meta.og_title || this.form.meta.og_title;
+                this.form.meta.og_description = data && data.meta.og_description || this.form.meta.og_description;
+                this.form.meta.twitter_title = data && data.meta.twitter_title || this.form.meta.twitter_title;
+                this.form.meta.twitter_description = data && data.meta.twitter_description || this.form.meta.twitter_description;
+                this.form.meta.canonical_link = data && data.meta.canonical_link || this.form.meta.canonical_link;
+                this.form.topic = data && data.topic || this.form.topic;
+                this.form.tags = data && data.tags || this.form.tags;
             },
 
             save() {

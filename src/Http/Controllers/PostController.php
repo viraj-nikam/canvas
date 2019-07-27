@@ -72,7 +72,7 @@ class PostController extends Controller
             'title'                  => request('title', 'Post Title'),
             'summary'                => request('summary', null),
             'body'                   => request('body', null),
-            'published_at'           => Carbon::parse(request('published_at'))->toDateTimeString(),
+            'published_at'           => request('published_at', null),
             'featured_image'         => request('featured_image', null),
             'featured_image_caption' => request('featured_image_caption', null),
             'user_id'                => auth()->user()->id,
@@ -92,9 +92,8 @@ class PostController extends Controller
         ];
 
         validator($data, [
-            'slug'         => 'required|'.Rule::unique('canvas_posts', 'slug')->ignore(request('id')).'|regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/i',
-            'published_at' => 'required|date',
-            'user_id'      => 'required',
+            'slug'    => 'required|' . Rule::unique('canvas_posts', 'slug')->ignore(request('id')) . '|regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/i',
+            'user_id' => 'required',
         ], $messages)->validate();
 
         $post = $id !== 'create' ? Post::findOrFail($id) : new Post(['id' => request('id')]);
@@ -145,7 +144,7 @@ class PostController extends Controller
         return collect($incomingTags)->map(function ($incomingTag) use ($tags) {
             $tag = $tags->where('slug', $incomingTag['slug'])->first();
 
-            if (! $tag) {
+            if (!$tag) {
                 $tag = Tag::create([
                     'id'   => $id = Uuid::uuid4(),
                     'name' => $incomingTag['name'],
@@ -153,7 +152,7 @@ class PostController extends Controller
                 ]);
             }
 
-            return (string) $tag->id;
+            return (string)$tag->id;
         })->toArray();
     }
 
@@ -169,7 +168,7 @@ class PostController extends Controller
         if ($incomingTopic) {
             $topic = Topic::where('slug', $incomingTopic['slug'])->first();
 
-            if (! $topic) {
+            if (!$topic) {
                 $topic = Topic::create([
                     'id'   => $id = Uuid::uuid4(),
                     'name' => $incomingTopic['name'],
@@ -177,7 +176,7 @@ class PostController extends Controller
                 ]);
             }
 
-            return collect((string) $topic->id)->toArray();
+            return collect((string)$topic->id)->toArray();
         } else {
             return [];
         }

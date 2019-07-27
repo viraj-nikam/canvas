@@ -14,14 +14,13 @@
                             <label class="font-weight-bold">{{ trans.posts.forms.settings.slug.label }}</label>
                             <input type="text" class="form-control border-0 px-0"
                                    name="slug"
-                                   :value="form.slug"
+                                   v-model="form.slug"
+                                   @keydown="update"
                                    :title="trans.posts.forms.settings.slug.label"
                                    :placeholder="trans.posts.forms.settings.slug.placeholder">
-                            <!--                            @if ($errors->has('slug'))-->
-                            <!--                            <div class="invalid-feedback d-block">-->
-                            <!--                                <strong>{{ $errors->first('slug') }}</strong>-->
-                            <!--                            </div>-->
-                            <!--                            @endif-->
+                            <div v-if="form.errors.slug" class="invalid-feedback d-block">
+                                <strong>{{ form.errors.slug[0] }}</strong>
+                            </div>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -31,8 +30,9 @@
                                     name="summary"
                                     class="form-control border-0 px-0"
                                     rows="1"
-                                    :placeholder="trans.posts.forms.editor.title"
-                                    v-model="form.summary">
+                                    v-model="form.summary"
+                                    @keydown.native="update"
+                                    :placeholder="trans.posts.forms.editor.title">
                             </textarea-autosize>
                         </div>
                     </div>
@@ -56,8 +56,7 @@
                 <div class="modal-footer">
                     <button type="button"
                             class="btn btn-link text-muted"
-                            data-dismiss="modal"
-                            @click.prevent="closeModal">
+                            data-dismiss="modal">
                         {{ trans.buttons.general.done }}
                     </button>
                 </div>
@@ -67,6 +66,7 @@
 </template>
 
 <script>
+    import _ from 'lodash';
     import { Bus } from '../bus';
     import TagSelect from './TagSelect';
     import TopicSelect from './TopicSelect';
@@ -111,7 +111,8 @@
                     slug: '',
                     summary: '',
                     topic: [],
-                    tags: []
+                    tags: [],
+                    errors: [],
                 },
                 trans: JSON.parse(Canvas.lang),
             }
@@ -124,9 +125,9 @@
         },
 
         methods: {
-            closeModal() {
-                Bus.$emit('updating', this.form);
-            }
-        },
+            update: _.debounce(function (e) {
+                Bus.$emit('updating');
+            }, 700)
+        }
     }
 </script>

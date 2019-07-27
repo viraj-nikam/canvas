@@ -35,7 +35,7 @@
                             {{ trans.stats.details.views }}
                         </h5>
 
-                        <div v-if="popular_reading_times">
+                        <div v-if="traffic">
                             <div v-for="(views, host, index) in traffic">
                                 <div class="d-flex py-2 align-items-center" :class="{ 'border-top': index === 0 }">
                                     <div class="mr-auto">
@@ -66,7 +66,7 @@
                                 </div>
                             </div>
                         </div>
-                        <p class="py-4 border-top" v-else>
+                        <p v-else class="py-4 border-top">
                             <em>{{ trans.stats.details.empty }}</em>
                         </p>
                     </div>
@@ -90,7 +90,7 @@
                                 </div>
                             </div>
                         </div>
-                        <p class="py-4 border-top" v-else>
+                        <p v-else class="py-4 border-top">
                             <em>{{ trans.stats.details.empty }}</em>
                         </p>
                     </div>
@@ -101,6 +101,7 @@
 </template>
 
 <script>
+    import moment from 'moment';
     import Tooltip from '../../directives/Tooltip';
     import LineChart from '../../components/LineChart';
     import ProfileDropdown from '../../components/ProfileDropdown';
@@ -120,35 +121,37 @@
         data() {
             return {
                 id: this.$route.params.id,
-                post: [],
-                views: {},
-                popular_reading_times: [],
-                traffic: [],
+                post: null,
+                views: null,
+                popular_reading_times: null,
+                traffic: null,
                 isReady: false,
                 trans: JSON.parse(Canvas.lang),
             }
         },
 
-        mounted() {
-            this.fetchData();
-        },
-
-        methods: {
-            fetchData() {
-                this.request()
-                    .get('/api/stats/' + this.id)
+        beforeRouteEnter(to, from, next) {
+            next(vm => {
+                vm.request()
+                    .get('/api/stats/' + vm.id)
                     .then((response) => {
-                        this.popular_reading_times = response.data.popular_reading_times;
-                        this.post = response.data.post;
-                        this.traffic = response.data.traffic;
-                        this.views = response.data.views;
+                        vm.popular_reading_times = response.data.popular_reading_times;
+                        vm.post = response.data.post;
+                        vm.traffic = response.data.traffic;
+                        vm.views = response.data.views;
 
-                        this.isReady = true;
+                        vm.isReady = true;
                     })
                     .catch((error) => {
-                        this.$router.push('/stats');
+                        vm.$router.push('/stats');
                     });
-            },
+
+                // if (vm.post) {
+                //     if (vm.post.published_at == null || vm.post.published_at > moment(new Date()).tz(vm.timezone).format().slice(0, 19).replace('T', ' ')) {
+                //         vm.$router.push('/stats');
+                //     }
+                // }
+            });
         }
     }
 </script>
