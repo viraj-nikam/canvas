@@ -41,9 +41,7 @@
                                     <div class="mr-auto">
                                         <div v-if="host === trans.stats.details.referer.other">
                                             <p class="mb-0 py-1">
-                                                <img :src="`https://favicons.githubusercontent.com/${host}`"
-                                                     :alt="host"
-                                                     class="mr-1">
+                                                <img :src="`https://favicons.githubusercontent.com/${host}`" :alt="host" class="mr-1">
                                                 <a href="#" v-tooltip="{placement: 'right'}" :title="trans.stats.details.referer.unknown">
                                                     {{ host }} <i class="fas fa-fw fa-question-circle text-muted"></i>
                                                 </a>
@@ -51,12 +49,8 @@
                                         </div>
                                         <div v-else>
                                             <p class="mb-0 py-1">
-                                                <img :src="`https://favicons.githubusercontent.com/${host}`"
-                                                     :alt="host"
-                                                     class="mr-1">
-                                                <a :href="'http://' + host"
-                                                   target="_blank">{{ host }}
-                                                </a>
+                                                <img :src="`https://favicons.githubusercontent.com/${host}`" :alt="host" class="mr-1">
+                                                <a :href="'http://' + host" target="_blank">{{ host }}</a>
                                             </p>
                                         </div>
                                     </div>
@@ -101,7 +95,6 @@
 </template>
 
 <script>
-    import moment from 'moment';
     import Tooltip from '../../directives/Tooltip';
     import LineChart from '../../components/LineChart';
     import ProfileDropdown from '../../components/ProfileDropdown';
@@ -145,12 +138,6 @@
                     .catch((error) => {
                         vm.$router.push('/stats');
                     });
-
-                // if (vm.post) {
-                //     if (vm.post.published_at == null || vm.post.published_at > moment(new Date()).tz(vm.timezone).format().slice(0, 19).replace('T', ' ')) {
-                //         vm.$router.push('/stats');
-                //     }
-                // }
             });
         }
     }

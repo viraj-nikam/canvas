@@ -32,7 +32,7 @@
                                     rows="1"
                                     v-model="form.summary"
                                     @keydown.native="update"
-                                    :placeholder="trans.posts.forms.editor.title">
+                                    :placeholder="trans.posts.forms.settings.summary.placeholder">
                             </textarea-autosize>
                         </div>
                     </div>
