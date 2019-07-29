@@ -39,7 +39,7 @@ Create a symbolic link to ensure file uploads are publicly accessible from the w
 php artisan storage:link
 ```
 
-## Configuration
+## Options
 
 > **Note:** The following steps are optional configurations, you are not required to complete them.
 
