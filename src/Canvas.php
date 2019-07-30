@@ -12,7 +12,7 @@ class Canvas
     public static $useDarkMode = false;
 
     /**
-     * Get the default JavaScript variables for Canvas.
+     * Build a global JavaScript object for the Vue app.
      *
      * @return array
      */

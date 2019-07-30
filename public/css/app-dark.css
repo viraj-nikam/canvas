@@ -1,7 +1,7 @@
 @import url(https://fonts.googleapis.com/css?family=Nunito|Merriweather:300,400,700);@charset "UTF-8";
 
 /*!
- * Font Awesome Free 5.9.0 by @fontawesome - https://fontawesome.com
+ * Font Awesome Free 5.10.0 by @fontawesome - https://fontawesome.com
  * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
  */
 
@@ -10,8 +10,8 @@
   font-style: normal;
   font-weight: 900;
   font-display: auto;
-  src: url(../fonts/vendor/@fortawesome/fontawesome-free/webfa-solid-900.eot?ef3df98419d143d9617fe163bf4edc0b);
-  src: url(../fonts/vendor/@fortawesome/fontawesome-free/webfa-solid-900.eot?ef3df98419d143d9617fe163bf4edc0b) format("embedded-opentype"), url(../fonts/vendor/@fortawesome/fontawesome-free/webfa-solid-900.woff2?b5cf8ae26748570d8fb95a47f46b69e1) format("woff2"), url(../fonts/vendor/@fortawesome/fontawesome-free/webfa-solid-900.woff?4bced7c4c0d61d4f988629bb8ae80b8b) format("woff"), url(../fonts/vendor/@fortawesome/fontawesome-free/webfa-solid-900.ttf?acf50f59802f20d8b45220eaae532a1c) format("truetype"), url(../fonts/vendor/@fortawesome/fontawesome-free/webfa-solid-900.svg?b557f56e367e59344ca95f9d1fb44352) format("svg");
+  src: url(../fonts/vendor/@fortawesome/fontawesome-free/webfa-solid-900.eot?f9b8a1aa417e318d5be775e14ee3c475);
+  src: url(../fonts/vendor/@fortawesome/fontawesome-free/webfa-solid-900.eot?f9b8a1aa417e318d5be775e14ee3c475) format("embedded-opentype"), url(../fonts/vendor/@fortawesome/fontawesome-free/webfa-solid-900.woff2?60ce8cf4dd9fe177abdfeda21e20798e) format("woff2"), url(../fonts/vendor/@fortawesome/fontawesome-free/webfa-solid-900.woff?55ce8d0ca92adb7c283d6043d0edf46f) format("woff"), url(../fonts/vendor/@fortawesome/fontawesome-free/webfa-solid-900.ttf?e9809ab6a5a34dc6b7966de82265d6bd) format("truetype"), url(../fonts/vendor/@fortawesome/fontawesome-free/webfa-solid-900.svg?d42cc8bb088b9bbcb51b1db2d9210976) format("svg");
 }
 
 .fa,
@@ -21,7 +21,7 @@
 }
 
 /*!
- * Font Awesome Free 5.9.0 by @fontawesome - https://fontawesome.com
+ * Font Awesome Free 5.10.0 by @fontawesome - https://fontawesome.com
  * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
  */
 
@@ -29,6 +29,7 @@
 .fas,
 .far,
 .fal,
+.fad,
 .fab {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
@@ -1447,6 +1448,10 @@ readers do not read off random characters that represent icons */
 
 .fa-copyright:before {
   content: "\F1F9";
+}
+
+.fa-cotton-bureau:before {
+  content: "\F89E";
 }
 
 .fa-couch:before {

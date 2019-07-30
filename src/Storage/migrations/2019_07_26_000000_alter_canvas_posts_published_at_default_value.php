@@ -14,7 +14,7 @@ class AlterCanvasPostsPublishedAtDefaultValue extends Migration
     public function up()
     {
         Schema::table('canvas_posts', function (Blueprint $table) {
-            $table->dateTime('published_at')->default(null);
+            $table->dateTime('published_at')->nullable()->change();
         });
     }
 
@@ -26,7 +26,7 @@ class AlterCanvasPostsPublishedAtDefaultValue extends Migration
     public function down()
     {
         Schema::table('canvas_posts', function (Blueprint $table) {
-            $table->dateTime('published_at')->default('2018-10-12 00:00:00');
+            $table->dateTime('published_at')->default('2018-10-12 00:00:00')->change();
         });
     }
 }

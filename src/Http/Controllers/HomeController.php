@@ -15,8 +15,8 @@ class HomeController extends Controller
     public function index()
     {
         return view('canvas::layout', [
-            'canvasScriptVariables' => Canvas::scriptVariables(),
-            'canvasCssFile'         => Canvas::$useDarkMode ? 'app-dark.css' : 'app.css',
+            'scripts'    => Canvas::scriptVariables(),
+            'stylesheet' => Canvas::$useDarkMode ? 'app-dark.css' : 'app.css',
         ]);
     }
 }

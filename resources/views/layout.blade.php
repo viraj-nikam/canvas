@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.css">
 
     <!-- Application Stylesheets -->
-    <link rel="stylesheet" type="text/css" href="{{ asset(mix(sprintf('css/%s', $canvasCssFile), 'vendor/canvas')) }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset(mix(sprintf('css/%s', $stylesheet), 'vendor/canvas')) }}">
 
     <!-- Application Icon -->
     <link rel="shortcut icon" href="{{ mix('favicon.ico', 'vendor/canvas') }}">
@@ -33,7 +33,7 @@
 
 <!-- Canvas Global Object -->
 <script type="text/javascript">
-    window.Canvas = @json($canvasScriptVariables);
+    window.Canvas = @json($scripts);
 </script>
 
 <!-- Application Scripts -->
