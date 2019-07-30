@@ -14,7 +14,7 @@ class AlterCanvasPostsPublishedAtDefaultValue extends Migration
     public function up()
     {
         Schema::table('canvas_posts', function (Blueprint $table) {
-            $table->dateTime('published_at')->nullable()->change();
+            $table->dateTime('published_at')->nullable()->default(null)->change();
         });
     }
 
@@ -25,6 +25,8 @@ class AlterCanvasPostsPublishedAtDefaultValue extends Migration
      */
     public function down()
     {
+        // To truly reverse the migration above we would need to add ->nullable(false)
+        // This is omitted however because MySQL throws an exception if null values exist
         Schema::table('canvas_posts', function (Blueprint $table) {
             $table->dateTime('published_at')->default('2018-10-12 00:00:00')->change();
         });

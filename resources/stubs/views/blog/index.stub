@@ -1,4 +1,4 @@
-@extends('blog.layouts.app.stub')
+@extends('blog.layouts.app')
 
 @section('title', sprintf('%s — %s', config('app.name'), __('canvas::blog.title')))
 
