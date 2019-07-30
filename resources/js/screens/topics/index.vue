@@ -46,7 +46,7 @@
                         </div>
 
                         <div v-if="isReady">
-                            <div v-if="topics.length" class="mt-4">
+                            <div v-if="topics.length" class="mt-2">
                                 <div class="d-flex border-top py-3 align-items-center" v-for="tag in filteredList">
                                     <div class="mr-auto">
                                         <p class="mb-0 py-1">
@@ -69,7 +69,7 @@
 
                                 <p v-if="!filteredList.length">{{ trans.topics.search.empty }}</p>
                             </div>
-                            <p v-else class="mt-4">{{ trans.topics.empty.description }}
+                            <p v-else class="mt-2">{{ trans.topics.empty.description }}
                                 <router-link to="/topics/create">
                                     {{ trans.topics.empty.action }}
                                 </router-link>
