@@ -6,7 +6,7 @@
                 :title="trans.stats.cards.views.title"
                 type="line"
                 :axisOptions="{
-                    xIsSeries: true,
+                    xIsSeries: true
                 }"
                 :lineOptions="{
                     regionFill: 1,
@@ -32,7 +32,7 @@
     Vue.prototype.moment = moment;
 
     export default {
-        name: "line-chart",
+        name: 'line-chart',
 
         props: {
             views: {
@@ -43,8 +43,8 @@
 
         data() {
             return {
-                labels: null,
-                points: null,
+                labels: [],
+                points: [],
                 trans: JSON.parse(Canvas.lang),
                 isReady: false,
             }
@@ -52,13 +52,15 @@
 
         mounted() {
             this.plotDataPoints(this.views);
+
+            this.isReady = true;
         },
 
         methods: {
             /**
              * Plot the data and assign labels to the axis.
              *
-             * todo: Still need to address <svg> draw issues of NaN attributes
+             * todo: Still need to address <svg> draw issues of NaN values
              * @link https://github.com/frappe/charts/issues/220
              *
              * @param data
@@ -68,15 +70,7 @@
                 this.points = [{
                     values: Object.values(data)
                 }];
-
-                this.isReady = true;
             }
         }
     }
 </script>
-
-<style scoped>
-    #stats > div > svg > g > g.dataset-units.dataset-line.dataset-0 > path.line-graph-path {
-        stroke-width: 2px !important;
-    }
-</style>

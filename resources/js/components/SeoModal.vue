@@ -1,9 +1,5 @@
 <template>
-    <div class="modal fade"
-         tabindex="-1"
-         role="dialog"
-         aria-hidden="true"
-         data-backdrop="static">
+    <div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-body">
@@ -17,7 +13,7 @@
                                 class="form-control border-0 px-0"
                                 rows="1"
                                 v-model="form.meta.meta_description"
-                                @keydown.native="update"
+                                @change.native="update"
                                 :placeholder="trans.posts.forms.seo.meta">
                             </textarea-autosize>
                         </div>
@@ -41,7 +37,7 @@
                                 class="form-control border-0 px-0"
                                 rows="1"
                                 v-model="form.meta.og_description"
-                                @keydown.native="update"
+                                @change.native="update"
                                 :placeholder="trans.posts.forms.seo.facebook.description.placeholder">
                             </textarea-autosize>
                         </div>
@@ -65,7 +61,7 @@
                                 class="form-control border-0 px-0"
                                 rows="1"
                                 v-model="form.meta.twitter_description"
-                                @keydown.native="update"
+                                @change.native="update"
                                 :placeholder="trans.posts.forms.seo.twitter.description.placeholder">
                             </textarea-autosize>
                         </div>
