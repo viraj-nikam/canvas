@@ -17,9 +17,7 @@
                        aria-label="Delete">
                         {{ trans.buttons.general.delete }}
                     </a>
-                    <button type="button"
-                            class="btn btn-link text-muted"
-                            data-dismiss="modal">
+                    <button type="button" class="btn btn-link text-muted" data-dismiss="modal">
                         {{ trans.buttons.general.cancel }}
                     </button>
                 </div>

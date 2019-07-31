@@ -11,8 +11,7 @@
                         <ul class="navbar-nav mr-auto flex-row float-right">
                             <li class="text-muted font-weight-bold">
                                 <div v-if="isReady" class="d-inline-block">
-                                    <span v-if="isPublished">{{ trans.nav.context.published }}</span>
-                                    <span v-else>{{ trans.nav.context.draft }}</span>
+                                    <span>{{ contextualState }}</span>
                                 </div>
 
                                 <span v-if="form.isSaving" class="pl-2">{{ trans.nav.notify.saving }}</span>
@@ -87,10 +86,10 @@
                         <div class="form-group row my-3">
                             <div class="col-lg-12">
                                 <textarea-autosize
-                                        :placeholder="trans.posts.forms.editor.title"
-                                        class="form-control-lg form-control border-0 pl-0 serif"
-                                        rows="1"
-                                        v-model="form.title">
+                                    :placeholder="trans.posts.forms.editor.title"
+                                    class="form-control-lg form-control border-0 pl-0 serif"
+                                    rows="1"
+                                    v-model="form.title">
                                 </textarea-autosize>
                             </div>
                         </div>
@@ -102,20 +101,27 @@
         </main>
 
         <settings-modal
-                v-if="isReady"
-                ref="settingsModal"
-                :input="form"
-                :post="post"
-                :tags="tags"
-                :topics="topics"
-                @updating="save">
+            v-if="isReady"
+            ref="settingsModal"
+            :input="form"
+            :post="post"
+            :tags="tags"
+            :topics="topics"
+            @updating="save">
         </settings-modal>
 
+        <seo-modal
+            v-if="isReady"
+            ref="seoModal"
+            :input="form"
+            @updating="save">
+        </seo-modal>
+
         <delete-modal
-                ref="deleteModal"
-                @delete="deletePost"
-                :header="trans.posts.delete.header"
-                :message="trans.posts.delete.warning">
+            ref="deleteModal"
+            @delete="deletePost"
+            :header="trans.posts.delete.header"
+            :message="trans.posts.delete.warning">
         </delete-modal>
     </div>
 </template>
@@ -124,7 +130,8 @@
     import Vue from 'vue';
     import $ from 'jquery';
     import moment from 'moment';
-    import { Bus } from '../../bus';
+    import {Bus} from '../../bus';
+    import SeoModal from "../../components/SeoModal";
     import DeleteModal from '../../components/DeleteModal';
     import VueTextAreaAutosize from 'vue-textarea-autosize';
     import SettingsModal from '../../components/SettingsModal';
@@ -140,6 +147,7 @@
             DeleteModal,
             ProfileDropdown,
             QuillEditor,
+            SeoModal,
             SettingsModal
         },
 
@@ -180,7 +188,7 @@
 
         created() {
             Bus.$on('updating', data => {
-                this.fillForm(data);
+                this.updateFormData(data);
                 this.save();
             });
         },
@@ -192,6 +200,14 @@
         computed: {
             isPublished() {
                 return !!(this.post && this.post.published_at <= moment(new Date()).tz(this.timezone).format().slice(0, 19).replace('T', ' '));
+            },
+
+            contextualState() {
+                if (this.isPublished) {
+                    return this.trans.nav.context.published;
+                } else {
+                    this.trans.nav.context.draft;
+                }
             }
         },
 
@@ -207,7 +223,7 @@
                         this.form.slug = response.data.post.slug;
 
                         if (this.id !== 'create') {
-                            this.fillForm(response.data.post);
+                            this.updateFormData(response.data.post);
                         }
 
                         this.isReady = true;
@@ -217,7 +233,8 @@
                     });
             },
 
-            fillForm(data) {
+            updateFormData(data) {
+                // todo: refactor these to be less ugly?
                 this.form.title = data && data.title || this.form.title;
                 this.form.slug = data && data.slug || this.form.slug;
                 this.form.summary = data && data.summary || this.form.summary;

@@ -15,7 +15,7 @@
                             <input type="text" class="form-control border-0 px-0"
                                    name="slug"
                                    v-model="form.slug"
-                                   @keydown="update"
+                                   @change="update"
                                    :title="trans.posts.forms.settings.slug.label"
                                    :placeholder="trans.posts.forms.settings.slug.placeholder">
                             <div v-if="form.errors.slug" class="invalid-feedback d-block">
@@ -31,7 +31,7 @@
                                     class="form-control border-0 px-0"
                                     rows="1"
                                     v-model="form.summary"
-                                    @keydown.native="update"
+                                    @change.native="update"
                                     :placeholder="trans.posts.forms.settings.summary.placeholder">
                             </textarea-autosize>
                         </div>
@@ -54,9 +54,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button"
-                            class="btn btn-link text-muted"
-                            data-dismiss="modal">
+                    <button type="button" class="btn btn-link text-muted" data-dismiss="modal">
                         {{ trans.buttons.general.done }}
                     </button>
                 </div>
@@ -128,6 +126,6 @@
             update: _.debounce(function (e) {
                 Bus.$emit('updating');
             }, 700)
-        }
+        },
     }
 </script>
