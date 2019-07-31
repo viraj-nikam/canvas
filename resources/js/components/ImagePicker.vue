@@ -211,6 +211,7 @@
 
             clearSelectedImage(event) {
                   this.$parent.imageUrl = '';
+                  this.$parent.imageCaption = '';
             },
         }
     }

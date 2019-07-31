@@ -110,6 +110,13 @@
             @updating="save">
         </settings-modal>
 
+        <featured-image-modal
+            v-if="isReady"
+            ref="featuredImageModal"
+            :input="form"
+            @updating="save">
+        </featured-image-modal>
+
         <seo-modal
             v-if="isReady"
             ref="seoModal"
@@ -137,6 +144,7 @@
     import SettingsModal from '../../components/SettingsModal';
     import QuillEditor from '../../components/editor/QuillEditor';
     import ProfileDropdown from '../../components/ProfileDropdown';
+    import FeaturedImageModal from "../../components/FeaturedImageModal";
 
     Vue.use(VueTextAreaAutosize);
 
@@ -144,6 +152,7 @@
         name: 'posts-edit',
 
         components: {
+            FeaturedImageModal,
             DeleteModal,
             ProfileDropdown,
             QuillEditor,
@@ -268,7 +277,7 @@
                     .catch((error) => {
                         this.form.isSaving = false;
                         this.form.errors = error.response.data.errors;
-                    })
+                    });
             },
 
             deletePost() {
@@ -281,7 +290,7 @@
                     })
                     .catch((error) => {
                         console.error(error.response.data.errors);
-                    })
+                    });
             },
 
             showPublishModal() {

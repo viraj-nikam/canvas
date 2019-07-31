@@ -1,27 +1,30 @@
 <template>
     <div v-cloak>
-        <div v-if="imageUrl" id="currentImage">
-            <img :src="imageUrl" class="w-100">
+        <img :src="imageUrl" class="w-100">
 
-            <div class="input-group py-2">
-                <input type="text" class="form-control border-0 px-0"
-                       name="featured_image_caption"
-                       title="Featured Image Caption"
-                       v-model="imageCaption"
-                       :placeholder="trans.posts.forms.editor.images.picker.uploader.caption.placeholder">
-            </div>
+        <div class="input-group py-2">
+            <input type="text"
+                   class="form-control border-0 px-0"
+                   name="featured_image_caption"
+                   v-model="imageCaption"
+                   @change="update"
+                   :placeholder="trans.posts.forms.editor.images.picker.uploader.caption.placeholder">
         </div>
 
         <input hidden type="hidden" name="featured_image" v-model="imageUrl">
 
         <image-picker
-                @changed="updateImage"
-                @uploading="uploading = true">
+            @changed="updateImage"
+            @uploading="isUploading = true">
         </image-picker>
     </div>
 </template>
 
 <script>
+    import _ from 'lodash';
+    import { Bus } from '../bus';
+    import ImagePicker from "./ImagePicker";
+
     /**
      * Upload a featured image.
      *
@@ -31,54 +34,65 @@
         name: 'featured-image-uploader',
 
         props: {
-            post: {
+            postId: {
                 type: String,
                 required: true
             },
-            url: {
+
+            featuredImage: {
                 type: String,
                 required: false
             },
-            caption: {
+
+            featuredImageCaption: {
                 type: String,
-                default: ''
+                required: false
             },
+        },
+
+        components: {
+            ImagePicker
         },
 
         data() {
             return {
                 imageUrl: '',
                 imageCaption: '',
-                uploading: false,
+                isReady: false,
+                isUploading: false,
                 trans: JSON.parse(Canvas.lang),
             }
         },
 
-        mounted() {
-            this.imageUrl = this.url;
-            this.imageCaption = this.caption;
+        created() {
+            this.imageUrl = this.featuredImage;
+            this.imageCaption = this.featuredImageCaption;
+            this.isReady = true;
         },
 
         methods: {
-            saveImage() {
-                this.$emit('changed', {
-                    url: this.imageUrl,
-                    caption: this.imageCaption
-                });
-
-                this.close();
-            },
-
-            close() {
-                this.modalShown = false;
-            },
-
-            updateImage({url, caption}) {
-                this.imageUrl = url;
-                this.imageCaption = caption;
-
-                this.uploading = false;
-            },
+            update: _.debounce(function (e) {
+                Bus.$emit('updating');
+            }, 700)
+            // saveImage() {
+            //     this.$emit('changed', {
+            //         url: this.imageUrl,
+            //         caption: this.imageCaption
+            //     });
+            //
+            //     this.close();
+            // },
+            //
+            // close() {
+            //     this.modalShown = false;
+            // },
+            //
+            // updateImage({url, caption}) {
+            //     this.imageUrl = url;
+            //     this.imageCaption = caption;
+            //
+            //     this.isUploading = false;
+            // },
         }
     }
 </script>

@@ -72,7 +72,7 @@
         props: {
             input: {
                 type: Object,
-                required: false
+                required: true
             },
 
             post: {
@@ -113,7 +113,11 @@
         },
 
         mounted() {
-            this.form = this.input;
+            this.form.slug = this.input.slug;
+            this.form.summary = this.input.summary;
+            this.form.topic = this.input.topic;
+            this.form.tags = this.input.tags;
+            this.form.errors = this.input.errors;
             this.allTags = this.tags;
             this.allTopics = this.topics;
         },
