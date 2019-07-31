@@ -39,7 +39,7 @@ class TopicController extends Controller
             ]);
         } else {
             return response()->json([
-                'topic' => Topic::findOrFail($id),
+                'topic' => Topic::find($id),
             ]);
         }
     }
@@ -50,7 +50,7 @@ class TopicController extends Controller
      * @param string $id
      * @return JsonResponse
      */
-    public function store(string $id)
+    public function store(string $id): JsonResponse
     {
         $data = [
             'id'   => request('id'),
@@ -65,16 +65,16 @@ class TopicController extends Controller
 
         validator($data, [
             'name' => 'required',
-            'slug' => Rule::unique('canvas_topics', 'slug')->ignore(request('id')).'|regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/i',
+            'slug' => Rule::unique('canvas_topics', 'slug')->ignore(request('id')) . '|regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/i',
         ], $messages)->validate();
 
-        $topic = $id !== 'create' ? Topic::findOrFail($id) : new Topic(['id' => request('id')]);
+        $topic = $id !== 'create' ? Topic::find($id) : new Topic(['id' => request('id')]);
 
         $topic->fill($data);
         $topic->save();
 
         return response()->json([
-            'topic' => $topic->fresh(),
+            'topic' => $topic->refresh(),
         ]);
     }
 
@@ -86,8 +86,11 @@ class TopicController extends Controller
      */
     public function destroy(string $id): JsonResponse
     {
-        $topic = Topic::findOrFail($id);
-        $topic->delete();
+        $topic = Topic::find($id);
+
+        if ($topic) {
+            $topic->delete();
+        }
 
         return response()->json([$topic]);
     }

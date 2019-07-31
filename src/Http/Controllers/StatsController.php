@@ -62,15 +62,17 @@ class StatsController extends Controller
      */
     public function show(string $id): JsonResponse
     {
-        $post = Post::findOrFail($id);
+        $post = Post::find($id);
 
-        if ($post->published) {
+        if ($post && $post->published) {
             return response()->json([
                 'post'                  => $post,
                 'traffic'               => $post->top_referers,
                 'popular_reading_times' => $post->popular_reading_times,
                 'views'                 => json_encode($this->getViewTrends($post->views, self::DAYS_PRIOR)),
             ]);
+        } else {
+            return response()->json(null, 301);
         }
     }
 }

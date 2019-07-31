@@ -39,7 +39,7 @@ class TagController extends Controller
             ]);
         } else {
             return response()->json([
-                'tag' => Tag::findOrFail($id),
+                'tag' => Tag::find($id),
             ]);
         }
     }
@@ -65,16 +65,16 @@ class TagController extends Controller
 
         validator($data, [
             'name' => 'required',
-            'slug' => Rule::unique('canvas_tags', 'slug')->ignore(request('id')).'|regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/i',
+            'slug' => Rule::unique('canvas_tags', 'slug')->ignore(request('id')) . '|regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/i',
         ], $messages)->validate();
 
-        $tag = $id !== 'create' ? Tag::findOrFail($id) : new Tag(['id' => request('id')]);
+        $tag = $id !== 'create' ? Tag::find($id) : new Tag(['id' => request('id')]);
 
         $tag->fill($data);
         $tag->save();
 
         return response()->json([
-            'tag' => $tag->fresh(),
+            'tag' => $tag->refresh(),
         ]);
     }
 
@@ -86,8 +86,11 @@ class TagController extends Controller
      */
     public function destroy(string $id): JsonResponse
     {
-        $tag = Tag::findOrFail($id);
-        $tag->delete();
+        $tag = Tag::find($id);
+
+        if ($tag) {
+            $tag->delete();
+        }
 
         return response()->json([$tag]);
     }

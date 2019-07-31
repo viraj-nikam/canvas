@@ -49,7 +49,7 @@ class PostController extends Controller
             ]);
         } else {
             return response()->json([
-                'post'   => Post::with('tags', 'topic')->findOrFail($id),
+                'post'   => Post::with('tags', 'topic')->find($id),
                 'tags'   => $tags,
                 'topics' => $topics,
             ]);
@@ -91,11 +91,11 @@ class PostController extends Controller
         ];
 
         validator($data, [
-            'slug'    => 'required|'.Rule::unique('canvas_posts', 'slug')->ignore(request('id')).'|regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/i',
+            'slug'    => 'required|' . Rule::unique('canvas_posts', 'slug')->ignore(request('id')) . '|regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/i',
             'user_id' => 'required',
         ], $messages)->validate();
 
-        $post = $id !== 'create' ? Post::findOrFail($id) : new Post(['id' => request('id')]);
+        $post = $id !== 'create' ? Post::find($id) : new Post(['id' => request('id')]);
 
         $post->fill($data);
         $post->meta = $data['meta'];
@@ -110,7 +110,7 @@ class PostController extends Controller
         );
 
         return response()->json([
-            'post' => $post->fresh(),
+            'post' => $post->refresh(),
         ]);
     }
 
@@ -122,8 +122,11 @@ class PostController extends Controller
      */
     public function destroy(string $id): JsonResponse
     {
-        $post = Post::findOrFail($id);
-        $post->delete();
+        $post = Post::find($id);
+
+        if ($post) {
+            $post->delete();
+        }
 
         return response()->json([$post]);
     }
@@ -143,7 +146,7 @@ class PostController extends Controller
         return collect($incomingTags)->map(function ($incomingTag) use ($tags) {
             $tag = $tags->where('slug', $incomingTag['slug'])->first();
 
-            if (! $tag) {
+            if (!$tag) {
                 $tag = Tag::create([
                     'id'   => $id = Uuid::uuid4(),
                     'name' => $incomingTag['name'],
@@ -151,7 +154,7 @@ class PostController extends Controller
                 ]);
             }
 
-            return (string) $tag->id;
+            return (string)$tag->id;
         })->toArray();
     }
 
@@ -167,7 +170,7 @@ class PostController extends Controller
         if ($incomingTopic) {
             $topic = Topic::where('slug', $incomingTopic['slug'])->first();
 
-            if (! $topic) {
+            if (!$topic) {
                 $topic = Topic::create([
                     'id'   => $id = Uuid::uuid4(),
                     'name' => $incomingTopic['name'],
@@ -175,7 +178,7 @@ class PostController extends Controller
                 ]);
             }
 
-            return collect((string) $topic->id)->toArray();
+            return collect((string)$topic->id)->toArray();
         } else {
             return [];
         }
