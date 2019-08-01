@@ -1,4 +1,4 @@
-@extends('blog.layouts.app')
+@extends('blog.layouts.app.stub')
 
 @section('title', $data['post']->title)
 
@@ -37,7 +37,7 @@
 
 @section('content')
     <div class="container">
-        @include('blog.partials.navbar')
+        @include('blog.partials.navbar.stub')
 
         <div class="row justify-content-md-center">
             <div class="col col-lg-8">
