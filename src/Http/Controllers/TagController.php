@@ -17,9 +17,9 @@ class TagController extends Controller
      */
     public function index(): JsonResponse
     {
-        return response()->json([
-            'tags' => Tag::orderByDesc('created_at')->withCount('posts')->get(),
-        ]);
+        return response()->json(Tag::withCount('posts')
+            ->orderByDesc('created_at')
+            ->get());
     }
 
     /**
@@ -32,15 +32,17 @@ class TagController extends Controller
     public function show($id = null): JsonResponse
     {
         if ($id === 'create') {
-            return response()->json([
-                'tag' => Tag::make([
-                    'id' => Uuid::uuid4(),
-                ]),
-            ]);
+            return response()->json(Tag::make([
+                'id' => Uuid::uuid4(),
+            ]));
         } else {
-            return response()->json([
-                'tag' => Tag::find($id),
-            ]);
+            $tag = Tag::find($id);
+
+            if ($tag) {
+                return response()->json($tag);
+            } else {
+                return response()->json(null, 301);
+            }
         }
     }
 
@@ -65,7 +67,11 @@ class TagController extends Controller
 
         validator($data, [
             'name' => 'required',
-            'slug' => Rule::unique('canvas_tags', 'slug')->ignore(request('id')).'|regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/i',
+            'slug' => [
+                'required',
+                'alpha_dash',
+                Rule::unique('canvas_tags', 'slug')->ignore(request('id')),
+            ],
         ], $messages)->validate();
 
         $tag = $id !== 'create' ? Tag::find($id) : new Tag(['id' => request('id')]);
@@ -73,25 +79,22 @@ class TagController extends Controller
         $tag->fill($data);
         $tag->save();
 
-        return response()->json([
-            'tag' => $tag->refresh(),
-        ]);
+        return response()->json($tag->refresh());
     }
 
     /**
      * Delete a tag.
      *
      * @param string $id
-     * @return JsonResponse
+     * @return void
      */
-    public function destroy(string $id): JsonResponse
+    public function destroy(string $id)
     {
         $tag = Tag::find($id);
 
         if ($tag) {
+            $tag->posts()->detach();
             $tag->delete();
         }
-
-        return response()->json([$tag]);
     }
 }

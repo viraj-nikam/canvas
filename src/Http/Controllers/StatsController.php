@@ -49,7 +49,7 @@ class StatsController extends Controller
             ],
             'views' => [
                 'count' => $views->count(),
-                'trend' => json_encode($this->getViewTrends($views, self::DAYS_PRIOR)),
+                'trend' => json_encode($this->getDailyViewCounts($views, self::DAYS_PRIOR)),
             ],
         ]);
     }
@@ -69,7 +69,7 @@ class StatsController extends Controller
                 'post'                  => $post,
                 'traffic'               => $post->top_referers,
                 'popular_reading_times' => $post->popular_reading_times,
-                'views'                 => json_encode($this->getViewTrends($post->views, self::DAYS_PRIOR)),
+                'views'                 => json_encode($this->getDailyViewCounts($post->views, self::DAYS_PRIOR)),
             ]);
         } else {
             return response()->json(null, 301);

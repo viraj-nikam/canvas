@@ -248,4 +248,9 @@ class Post extends Model
     {
         return $query->where('published_at', '>', now()->toDateTimeString());
     }
+
+    public function scopeForUser($query, $user): Builder
+    {
+        return $query->where('user_id', $user);
+    }
 }

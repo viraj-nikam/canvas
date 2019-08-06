@@ -134,12 +134,12 @@
                 this.request()
                     .get('/api/tags/' + this.id)
                     .then((response) => {
-                        this.tag = response.data.tag;
-                        this.form.id = response.data.tag.id;
+                        this.tag = response.data;
+                        this.form.id = response.data.id;
 
                         if (this.id !== 'create') {
-                            this.form.name = response.data.tag.name;
-                            this.form.slug = response.data.tag.slug;
+                            this.form.name = response.data.name;
+                            this.form.slug = response.data.slug;
                         }
 
                         this.isReady = true;
@@ -159,8 +159,8 @@
                     .then((response) => {
                         this.form.isSaving = false;
                         this.form.hasSuccess = true;
-                        this.id = response.data.tag.id;
-                        this.tag = response.data.tag;
+                        this.id = response.data.id;
+                        this.tag = response.data;
                     })
                     .catch((error) => {
                         this.form.isSaving = false;

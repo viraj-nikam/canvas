@@ -17,9 +17,9 @@ class TopicController extends Controller
      */
     public function index(): JsonResponse
     {
-        return response()->json([
-            'topics' => Topic::orderByDesc('created_at')->withCount('posts')->get(),
-        ]);
+        return response()->json(Topic::withCount('posts')
+            ->orderByDesc('created_at')
+            ->get());
     }
 
     /**
@@ -32,15 +32,17 @@ class TopicController extends Controller
     public function show($id = null): JsonResponse
     {
         if ($id === 'create') {
-            return response()->json([
-                'topic' => Topic::make([
-                    'id' => Uuid::uuid4(),
-                ]),
-            ]);
+            return response()->json(Topic::make([
+                'id' => Uuid::uuid4(),
+            ]));
         } else {
-            return response()->json([
-                'topic' => Topic::find($id),
-            ]);
+            $topic = Topic::find($id);
+
+            if ($topic) {
+                return response()->json($topic);
+            } else {
+                return response()->json(null, 301);
+            }
         }
     }
 
@@ -65,7 +67,11 @@ class TopicController extends Controller
 
         validator($data, [
             'name' => 'required',
-            'slug' => Rule::unique('canvas_topics', 'slug')->ignore(request('id')).'|regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/i',
+            'slug' => [
+                'required',
+                'alpha_dash',
+                Rule::unique('canvas_topics', 'slug')->ignore(request('id')),
+            ],
         ], $messages)->validate();
 
         $topic = $id !== 'create' ? Topic::find($id) : new Topic(['id' => request('id')]);
@@ -73,9 +79,7 @@ class TopicController extends Controller
         $topic->fill($data);
         $topic->save();
 
-        return response()->json([
-            'topic' => $topic->refresh(),
-        ]);
+        return response()->json($topic->refresh());
     }
 
     /**
@@ -89,9 +93,8 @@ class TopicController extends Controller
         $topic = Topic::find($id);
 
         if ($topic) {
+            $topic->posts()->detach();
             $topic->delete();
         }
-
-        return response()->json([$topic]);
     }
 }

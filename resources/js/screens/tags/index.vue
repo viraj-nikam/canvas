@@ -113,7 +113,7 @@
                 this.request()
                     .get('/api/tags')
                     .then((response) => {
-                        this.tags = response.data.tags;
+                        this.tags = response.data;
 
                         this.isReady = true;
                     })

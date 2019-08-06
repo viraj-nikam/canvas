@@ -19,9 +19,9 @@ class PostController extends Controller
      */
     public function index(): JsonResponse
     {
-        return response()->json([
-            'posts' => Post::orderByDesc('created_at')->get(),
-        ]);
+        return response()->json(Post::forUser(request()->user()->id)
+            ->orderByDesc('created_at')
+            ->get());
     }
 
     /**
@@ -74,7 +74,7 @@ class PostController extends Controller
             'published_at'           => request('published_at', null),
             'featured_image'         => request('featured_image', null),
             'featured_image_caption' => request('featured_image_caption', null),
-            'user_id'                => auth()->user()->id,
+            'user_id'                => request()->user()->id,
             'meta'                   => [
                 'meta_description'    => request('meta_description', null),
                 'og_title'            => request('og_title', null),
@@ -91,8 +91,12 @@ class PostController extends Controller
         ];
 
         validator($data, [
-            'slug'    => 'required|'.Rule::unique('canvas_posts', 'slug')->ignore(request('id')).'|regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/i',
             'user_id' => 'required',
+            'slug'    => [
+                'required',
+                'alpha_dash',
+                Rule::unique('canvas_posts', 'slug')->ignore(request('id')),
+            ],
         ], $messages)->validate();
 
         $post = $id !== 'create' ? Post::find($id) : new Post(['id' => request('id')]);
@@ -109,26 +113,24 @@ class PostController extends Controller
             $this->attachOrCreateTopic(request('topic') ?? [])
         );
 
-        return response()->json([
-            'post' => $post->refresh(),
-        ]);
+        return response()->json($post->refresh());
     }
 
     /**
      * Delete a post.
      *
      * @param string $id
-     * @return JsonResponse
+     * @return void
      */
-    public function destroy(string $id): JsonResponse
+    public function destroy(string $id)
     {
         $post = Post::find($id);
 
         if ($post) {
+            $post->tags()->detach();
+            $post->topic()->detach();
             $post->delete();
         }
-
-        return response()->json([$post]);
     }
 
     /**
@@ -146,7 +148,7 @@ class PostController extends Controller
         return collect($incomingTags)->map(function ($incomingTag) use ($tags) {
             $tag = $tags->where('slug', $incomingTag['slug'])->first();
 
-            if (! $tag) {
+            if (!$tag) {
                 $tag = Tag::create([
                     'id'   => $id = Uuid::uuid4(),
                     'name' => $incomingTag['name'],
@@ -154,7 +156,7 @@ class PostController extends Controller
                 ]);
             }
 
-            return (string) $tag->id;
+            return (string)$tag->id;
         })->toArray();
     }
 
@@ -170,7 +172,7 @@ class PostController extends Controller
         if ($incomingTopic) {
             $topic = Topic::where('slug', $incomingTopic['slug'])->first();
 
-            if (! $topic) {
+            if (!$topic) {
                 $topic = Topic::create([
                     'id'   => $id = Uuid::uuid4(),
                     'name' => $incomingTopic['name'],
@@ -178,7 +180,7 @@ class PostController extends Controller
                 ]);
             }
 
-            return collect((string) $topic->id)->toArray();
+            return collect((string)$topic->id)->toArray();
         } else {
             return [];
         }
