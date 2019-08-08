@@ -26,6 +26,7 @@
                                    class="form-control border-0 px-0"
                                    :title="trans.posts.forms.seo.facebook.title.label"
                                    v-model="form.meta.og_title"
+                                   @change="update"
                                    :placeholder="trans.posts.forms.seo.facebook.title.placeholder">
                         </div>
                     </div>
@@ -48,6 +49,7 @@
                             <input type="text"
                                    class="form-control border-0 px-0"
                                    name="twitter_title"
+                                   @change="update"
                                    v-model="form.meta.twitter_title"
                                    :title="trans.posts.forms.seo.twitter.title.label"
                                    :placeholder="trans.posts.forms.seo.twitter.title.placeholder">
@@ -60,8 +62,8 @@
                                 name="twitter_description"
                                 class="form-control border-0 px-0"
                                 rows="1"
-                                v-model="form.meta.twitter_description"
                                 @change.native="update"
+                                v-model="form.meta.twitter_description"
                                 :placeholder="trans.posts.forms.seo.twitter.description.placeholder">
                             </textarea-autosize>
                         </div>
@@ -72,6 +74,7 @@
                             <input type="text"
                                    class="form-control border-0 px-0"
                                    name="canonical_link"
+                                   @change="update"
                                    v-model="form.meta.canonical_link"
                                    :title="trans.posts.forms.seo.canonical.label"
                                    :placeholder="trans.posts.forms.seo.canonical.placeholder">
@@ -129,7 +132,7 @@
 
         methods: {
             update: _.debounce(function (e) {
-                Bus.$emit('updating');
+                Bus.$emit('updating', this.form);
             }, 700)
         }
     }

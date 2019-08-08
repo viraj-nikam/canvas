@@ -1,91 +1,76 @@
 <template>
-    <div v-cloak>
-        <div v-if="imageUrl" id="current-image">
-            <img :src="imageUrl" class="w-100">
+    <div v-if="isReady">
+        <div v-if="url" id="currentImage">
+            <img :src="url" class="w-100">
 
             <div class="input-group py-2">
                 <input type="text" class="form-control border-0 px-0"
                        name="featured_image_caption"
-                       title="Featured Image Caption"
-                       v-model="imageCaption"
-                       :placeholder="this.trans.posts.forms.editor.images.picker.uploader.caption.placeholder">
+                       v-model="caption"
+                       @change="update"
+                       :placeholder="trans.posts.forms.editor.images.picker.uploader.caption.placeholder">
             </div>
         </div>
 
-        <input hidden type="hidden" name="featured_image" v-model="imageUrl">
+        <input hidden type="hidden" name="featured_image" v-model="url" @change="update">
 
         <image-picker
-            @changed="updateImage"
-            @uploading="uploading = true"
-            :unsplash="this.unsplash"
-            :path="this.path">
+            @changed="update"
+            @isUploading="isUploading = true">
         </image-picker>
     </div>
 </template>
 
 <script>
-    /**
-     * Upload a featured image.
-     *
-     * @author Mohamed Said <themsaid@gmail.com>
-     */
+    import { Bus } from '../bus';
+    import ImagePicker from "./ImagePicker";
+
     export default {
+        components: {
+            ImagePicker
+        },
+
         props: {
-            post: {
+            postId: {
                 type: String,
                 required: true
             },
-            url: {
+            featuredImage: {
                 type: String,
                 required: false
             },
-            caption: {
+            featuredImageCaption: {
                 type: String,
                 default: ''
-            },
-            unsplash: {
-                type: String,
-                required: false
-            },
-            path: {
-                type: String,
-                required: true
             },
         },
 
         data() {
             return {
-                imageUrl: '',
-                imageCaption: '',
-                uploading: false,
-                trans: i18n
+                url: '',
+                caption: '',
+                isReady: false,
+                isUploading: false,
+                trans: JSON.parse(Canvas.lang),
             }
         },
 
         mounted() {
-            this.imageUrl = this.url;
-            this.imageCaption = this.caption;
+            this.url = this.featuredImage;
+            this.caption = this.featuredImageCaption;
+            this.isReady = true;
         },
 
         methods: {
-            // Save the image
-            saveImage() {
-                this.$emit('changed', {url: this.imageUrl, caption: this.imageCaption});
+            update({url, caption}) {
+                this.url = url;
+                this.caption = caption;
+                this.isUploading = false;
 
-                this.close();
-            },
-
-            // Close the modal
-            close() {
-                this.modalShown = false;
-            },
-
-            // Update the selected image
-            updateImage({url, caption}) {
-                this.imageUrl = url;
-                this.imageCaption = caption;
-
-                this.uploading = false;
+                Bus.$emit('updating', {
+                    featured_image: this.url,
+                    featured_image_caption: this.caption,
+                })
             },
         }
     }

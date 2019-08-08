@@ -1,6 +1,6 @@
 <template>
     <div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
-        <div class="modal-dialog" id="featuredImageUnsplashModal" role="document">
+        <div class="modal-dialog" id="featuredImageModal" role="document">
             <div class="modal-content">
                 <div class="modal-body">
                     <p class="font-weight-bold lead">{{ trans.posts.forms.image.header }}</p>
@@ -8,7 +8,8 @@
                     <featured-image-uploader
                         :post-id="id"
                         :featured-image="imageUrl"
-                        :featured-image-caption="imageCaption">
+                        :featured-image-caption="imageCaption"
+                        @updating="update">
                     </featured-image-uploader>
                 </div>
                 <div class="modal-footer">
@@ -47,10 +48,17 @@
             }
         },
 
-        created() {
+        mounted() {
             this.id = this.input.id;
             this.imageUrl = this.input.featured_image;
             this.imageCaption = this.input.featured_image_caption;
         },
+
+        methods: {
+            update(data) {
+                this.imageUrl = data.featured_image;
+                this.imageCaption = data.featured_image_caption;
+            },
+        }
     }
 </script>

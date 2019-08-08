@@ -11,7 +11,7 @@
                         <ul class="navbar-nav mr-auto flex-row float-right">
                             <li class="text-muted font-weight-bold">
                                 <div v-if="isReady" class="d-inline-block">
-                                    <span>{{ contextualState }}</span>
+                                    <span>{{ getContextualState() }}</span>
                                 </div>
 
                                 <span v-if="form.isSaving" class="pl-2">{{ trans.nav.notify.saving }}</span>
@@ -210,14 +210,6 @@
             isPublished() {
                 return !!(this.post && this.post.published_at <= moment(new Date()).tz(this.timezone).format().slice(0, 19).replace('T', ' '));
             },
-
-            contextualState() {
-                if (this.isPublished) {
-                    return this.trans.nav.context.published;
-                } else {
-                    this.trans.nav.context.draft;
-                }
-            }
         },
 
         methods: {
@@ -271,8 +263,8 @@
                     .then((response) => {
                         this.form.isSaving = false;
                         this.form.hasSuccess = true;
-                        this.id = response.data.post.id;
-                        this.post = response.data.post;
+                        this.id = response.data.id;
+                        this.post = response.data;
                     })
                     .catch((error) => {
                         this.form.isSaving = false;
@@ -291,6 +283,10 @@
                     .catch((error) => {
                         console.error(error.response.data.errors);
                     });
+            },
+
+            getContextualState() {
+                return this.isPublished ? this.trans.nav.context.published : this.trans.nav.context.draft;
             },
 
             showPublishModal() {

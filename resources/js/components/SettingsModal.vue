@@ -124,7 +124,7 @@
 
         methods: {
             update: _.debounce(function (e) {
-                Bus.$emit('updating');
+                Bus.$emit('updating', this.form);
             }, 700)
         },
     }
