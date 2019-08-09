@@ -55,7 +55,7 @@ class TopicController extends Controller
     public function store(string $id): JsonResponse
     {
         $data = [
-            'id'   => $id,
+            'id'   => request('id'),
             'name' => request('name'),
             'slug' => request('slug'),
         ];
@@ -74,7 +74,7 @@ class TopicController extends Controller
             ],
         ], $messages)->validate();
 
-        $topic = $id !== 'create' ? Topic::find($id) : new Topic(['id' => $id]);
+        $topic = $id !== 'create' ? Topic::find($id) : new Topic(['id' => request('id')]);
 
         $topic->fill($data);
         $topic->save();

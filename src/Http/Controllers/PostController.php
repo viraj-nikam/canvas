@@ -66,7 +66,7 @@ class PostController extends Controller
     public function store(string $id): JsonResponse
     {
         $data = [
-            'id'                     => $id,
+            'id'                     => request('id'),
             'slug'                   => request('slug'),
             'title'                  => request('title', 'Post Title'),
             'summary'                => request('summary', null),
@@ -99,7 +99,7 @@ class PostController extends Controller
             ],
         ], $messages)->validate();
 
-        $post = $id !== 'create' ? Post::find($id) : new Post(['id' => $id]);
+        $post = $id !== 'create' ? Post::find($id) : new Post(['id' => request('id')]);
 
         $post->fill($data);
         $post->meta = $data['meta'];

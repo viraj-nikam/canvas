@@ -55,7 +55,7 @@ class TagController extends Controller
     public function store(string $id): JsonResponse
     {
         $data = [
-            'id'   => $id,
+            'id'   => request('id'),
             'name' => request('name'),
             'slug' => request('slug'),
         ];
@@ -74,7 +74,7 @@ class TagController extends Controller
             ],
         ], $messages)->validate();
 
-        $tag = $id !== 'create' ? Tag::find($id) : new Tag(['id' => $id]);
+        $tag = $id !== 'create' ? Tag::find($id) : new Tag(['id' => request('id')]);
 
         $tag->fill($data);
         $tag->save();
