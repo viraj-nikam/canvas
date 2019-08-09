@@ -92,15 +92,13 @@
         <featured-image-modal
             v-if="isReady"
             ref="featuredImageModal"
-            :input="form"
-            @updating="save">
+            :input="form">
         </featured-image-modal>
 
         <seo-modal
             v-if="isReady"
             ref="seoModal"
-            :input="form"
-            @updating="save">
+            :input="form">
         </seo-modal>
 
         <delete-modal
