@@ -1,8 +1,6 @@
 import axios from 'axios';
-import NProgress from 'nprogress';
 
 export default {
-
     computed: {
         Canvas() {
             return Canvas;

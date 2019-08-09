@@ -86,8 +86,7 @@
             :input="form"
             :post="post"
             :tags="tags"
-            :topics="topics"
-            @updating="save">
+            :topics="topics">
         </settings-modal>
 
         <featured-image-modal
@@ -116,6 +115,7 @@
 <script>
     import Vue from 'vue';
     import $ from 'jquery';
+    import _ from 'lodash';
     import moment from 'moment';
     import {Bus} from '../../bus';
     import SeoModal from "../../components/SeoModal";
@@ -215,23 +215,21 @@
             },
 
             fillFormData(data) {
-                // todo: refactor these to be less ugly?
-
-                this.form.title = data && data.title || this.form.title;
-                this.form.slug = data && data.slug || this.form.slug;
-                this.form.summary = data && data.summary || this.form.summary;
-                this.form.body = data && data.body || this.form.body;
-                this.form.published_at = data && data.published_at || this.form.published_at;
-                this.form.featured_image = data && data.featured_image || this.form.featured_image;
-                this.form.featured_image_caption = data && data.featured_image_caption || this.form.featured_image_caption;
-                this.form.meta.meta_description = data && data.meta && data.meta.meta_description || this.form.meta.meta_description;
-                this.form.meta.og_title = data && data.meta && data.meta.og_title || this.form.meta.og_title;
-                this.form.meta.og_description = data && data.meta && data.meta.og_description || this.form.meta.og_description;
-                this.form.meta.twitter_title = data && data.meta && data.meta.twitter_title || this.form.meta.twitter_title;
-                this.form.meta.twitter_description = data && data.meta && data.meta.twitter_description || this.form.meta.twitter_description;
-                this.form.meta.canonical_link = data && data.meta && data.meta.canonical_link || this.form.meta.canonical_link;
-                this.form.topic = data && data.topic || this.form.topic;
-                this.form.tags = data && data.tags || this.form.tags;
+                this.form.title = _.get(data, 'title', this.form.title);
+                this.form.slug = _.get(data, 'slug', this.form.slug);
+                this.form.summary = _.get(data, 'summary', this.form.summary);
+                this.form.body = _.get(data, 'body', this.form.body);
+                this.form.published_at = _.get(data, 'published_at', this.form.published_at);
+                this.form.featured_image = _.get(data, 'featured_image', this.form.featured_image);
+                this.form.featured_image_caption = _.get(data, 'featured_image_caption', this.form.featured_image_caption);
+                this.form.meta.meta_description = _.get(data, 'meta.meta_description', this.form.meta.meta_description);
+                this.form.meta.og_title = _.get(data, 'meta.og_title', this.form.meta.og_title);
+                this.form.meta.og_description = _.get(data, 'meta.og_description', this.form.meta.og_description);
+                this.form.meta.twitter_title = _.get(data, 'meta.twitter_title', this.form.meta.twitter_title);
+                this.form.meta.twitter_description = _.get(data, 'meta.twitter_description', this.form.meta.twitter_description);
+                this.form.meta.canonical_link = _.get(data, 'meta.canonical_link', this.form.meta.canonical_link);
+                this.form.topic = _.get(data, 'topic', this.form.topic);
+                this.form.tags = _.get(data, 'tags', this.form.tags);
             },
 
             save() {
@@ -242,12 +240,14 @@
                 this.request()
                     .post('/api/posts/' + this.id, this.form)
                     .then((response) => {
+                        if (this.id === 'create') {
+                            this.$router.push({name: 'posts-edit', params: {id: response.data.id}});
+                        }
+
                         this.form.isSaving = false;
                         this.form.hasSuccess = true;
                         this.id = response.data.id;
                         this.post = response.data;
-
-                        this.$router.push({name: 'posts-edit', params: {id: response.data.id}});
                     })
                     .catch((error) => {
                         this.form.isSaving = false;
