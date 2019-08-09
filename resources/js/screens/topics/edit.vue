@@ -16,7 +16,7 @@
                         </ul>
 
                         <a href="#"
-                           :class="{ disabled : form.name === '' }"
+                           :class="{disabled : form.name === ''}"
                            class="btn btn-sm btn-outline-primary my-auto ml-auto"
                            @click="saveTopic"
                            :aria-label="trans.buttons.general.save">

@@ -8,7 +8,7 @@
                             <i class="fas fa-align-left"></i>
                         </router-link>
 
-                        <router-link to="/topics/create" class="btn btn-sm btn-outline-primary my-auto ml-auto">
+                        <router-link :to="{name: 'topics-create'}" class="btn btn-sm btn-outline-primary my-auto ml-auto">
                             {{ trans.buttons.topics.create }}
                         </router-link>
 

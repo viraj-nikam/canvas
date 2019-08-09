@@ -19,55 +19,34 @@
                             </li>
                         </ul>
 
-                        <a v-if="isPublished"
-                           href="#"
-                           class="btn btn-sm btn-outline-primary my-auto ml-auto"
-                           @click="save">
+                        <a v-if="isPublished" href="#" class="btn btn-sm btn-outline-primary my-auto ml-auto" @click="save">
                             {{ trans.buttons.posts.save }}
                         </a>
 
-                        <a v-else
-                           href="#"
-                           class="btn btn-sm btn-outline-primary my-auto ml-auto"
-                           @click="showPublishModal">
+                        <a v-else href="#" class="btn btn-sm btn-outline-primary my-auto ml-auto" @click="showPublishModal">
                             {{ trans.buttons.posts.ready }}
                         </a>
 
                         <div class="dropdown">
-                            <a id="navbarDropdown"
-                               class="nav-link text-secondary pr-0"
-                               href="#"
-                               role="button"
-                               data-toggle="dropdown"
-                               aria-haspopup="true"
-                               aria-expanded="false">
+                            <a id="navbarDropdown" class="nav-link text-secondary pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-sliders-h fa-fw fa-rotate-270"></i>
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right">
-                                <router-link :to="{ name: 'stats-show', params: {id: id } }" v-if="isPublished" class="dropdown-item">
+                                <router-link :to="{name: 'stats-show', params: {id: id}}" v-if="isPublished" class="dropdown-item">
                                     {{ trans.nav.controls.stats }}
                                 </router-link>
                                 <div class="dropdown-divider" v-if="isPublished"></div>
-                                <a href="#"
-                                   class="dropdown-item"
-                                   @click="showSettingsModal">
+                                <a href="#" class="dropdown-item" @click="showSettingsModal">
                                     {{ trans.nav.controls.settings }}
                                 </a>
-                                <a href="#"
-                                   class="dropdown-item"
-                                   @click="showFeaturedImageModal">
+                                <a href="#" class="dropdown-item" @click="showFeaturedImageModal">
                                     {{ trans.nav.controls.image }}
                                 </a>
-                                <a href="#"
-                                   class="dropdown-item"
-                                   @click="showSeoModal">
+                                <a href="#" class="dropdown-item" @click="showSeoModal">
                                     {{ trans.nav.controls.seo }}
                                 </a>
-                                <a v-if="id !== 'create'"
-                                   href="#"
-                                   class="dropdown-item text-danger"
-                                   @click="showDeleteModal">
+                                <a v-if="id !== 'create'" href="#" class="dropdown-item text-danger" @click="showDeleteModal">
                                     {{ trans.buttons.general.delete }}
                                 </a>
                             </div>

@@ -8,7 +8,7 @@
                             <i class="fas fa-align-left"></i>
                         </router-link>
 
-                        <router-link to="/posts/create" class="btn btn-sm btn-outline-primary my-auto ml-auto">
+                        <router-link :to="{name: 'posts-create'}" class="btn btn-sm btn-outline-primary my-auto ml-auto">
                             {{ trans.buttons.posts.create }}
                         </router-link>
 
@@ -58,18 +58,18 @@
                                     <div class="d-flex border-top py-3 align-items-center" v-for="post in filteredList">
                                         <div class="mr-auto">
                                             <p class="mb-1 mt-2">
-                                                <router-link :to="{ name: 'stats-show', params: {id: post.id } }" class="font-weight-bold lead">
+                                                <router-link :to="{name: 'stats-show', params: {id: post.id }}" class="font-weight-bold lead">
                                                     {{ post.title }}
                                                 </router-link>
                                             </p>
                                             <p class="text-muted mb-2">
                                                 {{ post.read_time }}
                                                 ―
-                                                <router-link :to="{ name: 'posts-edit', params: {id: post.id } }">
+                                                <router-link :to="{name: 'posts-edit', params: {id: post.id }}">
                                                     {{ trans.buttons.posts.edit }}
                                                 </router-link>
                                                 ―
-                                                <router-link :to="{ name: 'stats-show', params: {id: post.id } }">
+                                                <router-link :to="{name: 'stats-show', params: {id: post.id }}">
                                                     {{ trans.buttons.stats.show }}
                                                 </router-link>
                                             </p>
