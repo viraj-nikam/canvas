@@ -55,7 +55,7 @@ class TagController extends Controller
     public function store(string $id): JsonResponse
     {
         $data = [
-            'id'   => request('id'),
+            'id'   => $id,
             'name' => request('name'),
             'slug' => request('slug'),
         ];
@@ -70,11 +70,11 @@ class TagController extends Controller
             'slug' => [
                 'required',
                 'alpha_dash',
-                Rule::unique('canvas_tags', 'slug')->ignore(request('id')),
+                Rule::unique('canvas_tags', 'slug')->ignore($id),
             ],
         ], $messages)->validate();
 
-        $tag = $id !== 'create' ? Tag::find($id) : new Tag(['id' => request('id')]);
+        $tag = $id !== 'create' ? Tag::find($id) : new Tag(['id' => $id]);
 
         $tag->fill($data);
         $tag->save();

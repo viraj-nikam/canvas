@@ -23,9 +23,9 @@
                         <div class="col-12">
                             <label class="font-weight-bold">{{ trans.posts.forms.settings.summary.label }}</label>
                             <textarea-autosize
+                                    rows="1"
                                     name="summary"
                                     class="form-control border-0 px-0"
-                                    rows="1"
                                     v-model="form.summary"
                                     @change.native="update"
                                     :placeholder="trans.posts.forms.settings.summary.placeholder">

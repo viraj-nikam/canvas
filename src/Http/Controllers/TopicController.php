@@ -55,7 +55,7 @@ class TopicController extends Controller
     public function store(string $id): JsonResponse
     {
         $data = [
-            'id'   => request('id'),
+            'id'   => $id,
             'name' => request('name'),
             'slug' => request('slug'),
         ];
@@ -70,11 +70,11 @@ class TopicController extends Controller
             'slug' => [
                 'required',
                 'alpha_dash',
-                Rule::unique('canvas_topics', 'slug')->ignore(request('id')),
+                Rule::unique('canvas_topics', 'slug')->ignore($id),
             ],
         ], $messages)->validate();
 
-        $topic = $id !== 'create' ? Topic::find($id) : new Topic(['id' => request('id')]);
+        $topic = $id !== 'create' ? Topic::find($id) : new Topic(['id' => $id]);
 
         $topic->fill($data);
         $topic->save();

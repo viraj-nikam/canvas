@@ -66,7 +66,7 @@ class PostController extends Controller
     public function store(string $id): JsonResponse
     {
         $data = [
-            'id'                     => request('id'),
+            'id'                     => $id,
             'slug'                   => request('slug'),
             'title'                  => request('title', 'Post Title'),
             'summary'                => request('summary', null),
@@ -95,11 +95,11 @@ class PostController extends Controller
             'slug'    => [
                 'required',
                 'alpha_dash',
-                Rule::unique('canvas_posts', 'slug')->ignore(request('id')),
+                Rule::unique('canvas_posts', 'slug')->ignore($id),
             ],
         ], $messages)->validate();
 
-        $post = $id !== 'create' ? Post::find($id) : new Post(['id' => request('id')]);
+        $post = $id !== 'create' ? Post::find($id) : new Post(['id' => $id]);
 
         $post->fill($data);
         $post->meta = $data['meta'];
