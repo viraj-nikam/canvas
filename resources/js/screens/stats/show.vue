@@ -136,7 +136,7 @@
                         vm.isReady = true;
                     })
                     .catch((error) => {
-                        vm.$router.push('/stats');
+                        vm.$router.push({name: 'stats'});
                     });
             });
         }

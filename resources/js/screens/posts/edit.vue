@@ -89,6 +89,7 @@
                                     :placeholder="trans.posts.forms.editor.title"
                                     class="form-control-lg form-control border-0 pl-0 serif"
                                     rows="1"
+                                    @change.native="update"
                                     v-model="form.title">
                                 </textarea-autosize>
                             </div>
@@ -197,7 +198,7 @@
 
         created() {
             Bus.$on('updating', data => {
-                this.updateFormData(data);
+                this.fillFormData(data);
                 this.save();
             });
         },
@@ -224,17 +225,17 @@
                         this.form.slug = response.data.post.slug;
 
                         if (this.id !== 'create') {
-                            this.updateFormData(response.data.post);
+                            this.fillFormData(response.data.post);
                         }
 
                         this.isReady = true;
                     })
                     .catch((error) => {
-                        this.$router.push('/posts');
+                        this.$router.push({name: 'posts'});
                     });
             },
 
-            updateFormData(data) {
+            fillFormData(data) {
                 // todo: refactor these to be less ugly?
 
                 this.form.title = data && data.title || this.form.title;
@@ -266,6 +267,8 @@
                         this.form.hasSuccess = true;
                         this.id = response.data.id;
                         this.post = response.data;
+
+                        this.$router.push({name: 'posts-edit', params: {id: response.data.id}});
                     })
                     .catch((error) => {
                         this.form.isSaving = false;
@@ -273,13 +276,17 @@
                     });
             },
 
+            update: _.debounce(function (e) {
+                this.save();
+            }, 700),
+
             deletePost() {
                 this.request()
                     .delete('/api/posts/' + this.id)
                     .then((response) => {
                         $(this.$refs.deleteModal.$el).modal('hide');
 
-                        this.$router.push('/posts');
+                        this.$router.push({name: 'posts'});
                     })
                     .catch((error) => {
                         console.error(error.response.data.errors);

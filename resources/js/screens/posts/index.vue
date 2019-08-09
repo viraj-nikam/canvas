@@ -137,7 +137,6 @@
                     .get('/api/posts')
                     .then((response) => {
                         this.posts = response.data;
-
                         this.isReady = true;
                     })
                     .catch((error) => {

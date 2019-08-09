@@ -114,7 +114,6 @@
                     .get('/api/tags')
                     .then((response) => {
                         this.tags = response.data;
-
                         this.isReady = true;
                     })
                     .catch((error) => {

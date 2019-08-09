@@ -145,7 +145,7 @@
                         this.isReady = true;
                     })
                     .catch((error) => {
-                        this.$router.push('/topics');
+                        this.$router.push({name: 'topics'});
                     });
             },
 
@@ -174,7 +174,7 @@
                     .then((response) => {
                         $(this.$refs.deleteModal.$el).modal('hide');
 
-                        this.$router.push('/topics');
+                        this.$router.push({name: 'topics'});
                     })
                     .catch((error) => {
                         console.error(error.response.data.errors);

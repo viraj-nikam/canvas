@@ -113,8 +113,7 @@
                 this.request()
                     .get('/api/topics')
                     .then((response) => {
-                        this.topics = response.data.topics;
-
+                        this.topics = response.data;
                         this.isReady = true;
                     })
                     .catch((error) => {

@@ -145,7 +145,7 @@
                         this.isReady = true;
                     })
                     .catch((error) => {
-                        this.$router.push('/tags');
+                        this.$router.push({name: 'tags'});
                     });
             },
 
@@ -174,7 +174,7 @@
                     .then((response) => {
                         $(this.$refs.deleteModal.$el).modal('hide');
 
-                        this.$router.push('/tags');
+                        this.$router.push({name: 'tags'});
                     })
                     .catch((error) => {
                         console.error(error.response.data.errors);

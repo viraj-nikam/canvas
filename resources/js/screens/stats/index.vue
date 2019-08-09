@@ -132,7 +132,6 @@
                     .then((response) => {
                         this.posts = response.data.posts;
                         this.views = response.data.views;
-
                         this.isReady = true;
                     })
                     .catch((error) => {
