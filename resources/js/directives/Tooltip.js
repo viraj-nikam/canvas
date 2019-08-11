@@ -8,7 +8,7 @@ import $ from 'jquery';
  * For example:
  *
  * ```
- * <i class="fas fa-question-circle" title="Tooltip text here!" v-tooltip></i>
+ * <i class="fas fa-question-circle" title="Tooltip text" v-tooltip></i>
  * ```
  *
  * The `title` attribute can also be a dynamic prop:

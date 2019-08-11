@@ -54,9 +54,10 @@
                             <div class="col-lg-12">
                                 <input type="text"
                                        name="name"
+                                       autocomplete="off"
                                        v-model="form.name"
                                        title="Name"
-                                       v-on:keyup.enter="saveTag"
+                                       @keyup.enter="saveTag"
                                        class="form-control-lg form-control border-0 px-0"
                                        :placeholder="trans.tags.forms.placeholder">
 

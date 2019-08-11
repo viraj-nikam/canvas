@@ -54,9 +54,10 @@
                             <div class="col-lg-12">
                                 <input type="text"
                                        name="name"
+                                       autocomplete="off"
                                        v-model="form.name"
                                        title="Name"
-                                       v-on:keyup.enter="saveTopic"
+                                       @keyup.enter="saveTopic"
                                        class="form-control-lg form-control border-0 px-0"
                                        :placeholder="trans.topics.forms.placeholder">
 
@@ -134,12 +135,12 @@
                 this.request()
                     .get('/api/topics/' + this.id)
                     .then((response) => {
-                        this.topic = response.data.topic;
-                        this.form.id = response.data.topic.id;
+                        this.topic = response.data;
+                        this.form.id = response.data.id;
 
                         if (this.id !== 'create') {
-                            this.form.name = response.data.topic.name;
-                            this.form.slug = response.data.topic.slug;
+                            this.form.name = response.data.name;
+                            this.form.slug = response.data.slug;
                         }
 
                         this.isReady = true;
@@ -159,8 +160,8 @@
                     .then((response) => {
                         this.form.isSaving = false;
                         this.form.hasSuccess = true;
-                        this.id = response.data.topic.id;
-                        this.topic = response.data.topic;
+                        this.id = response.data.id;
+                        this.topic = response.data;
                     })
                     .catch((error) => {
                         this.form.isSaving = false;
