@@ -4,7 +4,7 @@ namespace Canvas;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Topic extends Model
 {
@@ -48,17 +48,10 @@ class Topic extends Model
     /**
      * Get the posts relationship.
      *
-     * @return HasManyThrough
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function posts(): HasManyThrough
+    public function posts(): BelongsToMany
     {
-        return $this->HasManyThrough(
-            Post::class,
-            PostsTopics::class,
-            'topic_id', // Foreign key on canvas_posts_topics table...
-            'id', // Foreign key on canvas_posts table...
-            'id', // Local key on canvas_topics table...
-            'post_id' // Local key on canvas_posts_topics table...
-        );
+        return $this->belongsToMany(Post::class, 'canvas_posts_topics', 'topic_id', 'post_id');
     }
 }

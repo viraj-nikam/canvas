@@ -48,7 +48,7 @@ class Tag extends Model
     /**
      * The posts that have the tag.
      *
-     * @return BelongsToMany
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function posts(): BelongsToMany
     {

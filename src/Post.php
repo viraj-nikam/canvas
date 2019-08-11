@@ -8,9 +8,9 @@ use Illuminate\Foundation\Auth\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Post extends Model
 {
@@ -79,21 +79,21 @@ class Post extends Model
     /**
      * Get the tags relationship.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function tags(): BelongsToMany
+    public function tags(): HasMany
     {
-        return $this->belongsToMany(Tag::class, 'canvas_posts_tags', 'post_id', 'tag_id');
+        return $this->hasMany(Tag::class, 'tag_id', 'post_id');
     }
 
     /**
      * Get the topics relationship.
      *
-     * @return belongsToMany
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function topic(): belongsToMany
+    public function topic(): HasOne
     {
-        return $this->belongsToMany(Topic::class, 'canvas_posts_topics', 'post_id', 'topic_id');
+        return $this->hasOne(Topic::class, 'topic_id', 'post_id');
     }
 
     /**
