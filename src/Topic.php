@@ -54,4 +54,18 @@ class Topic extends Model
     {
         return $this->belongsToMany(Post::class, 'canvas_posts_topics', 'topic_id', 'post_id');
     }
+
+    /**
+     * The "booting" method of the model.
+     *
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($item) {
+            $item->posts()->detach();
+        });
+    }
 }

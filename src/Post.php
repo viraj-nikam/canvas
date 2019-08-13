@@ -8,9 +8,9 @@ use Illuminate\Foundation\Auth\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Post extends Model
 {
@@ -79,21 +79,31 @@ class Post extends Model
     /**
      * Get the tags relationship.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function tags(): HasMany
+    public function tags(): BelongsToMany
     {
-        return $this->hasMany(Tag::class, 'tag_id', 'post_id');
+        return $this->belongsToMany(
+            Tag::class,
+            'canvas_posts_tags',
+            'post_id',
+            'tag_id'
+        );
     }
 
     /**
-     * Get the topics relationship.
+     * Get the topic relationship.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function topic(): HasOne
+    public function topic(): BelongsToMany
     {
-        return $this->hasOne(Topic::class, 'topic_id', 'post_id');
+        return $this->belongsToMany(
+            Topic::class,
+            'canvas_posts_topics',
+            'post_id',
+            'topic_id'
+        );
     }
 
     /**
@@ -133,7 +143,7 @@ class Post extends Model
      */
     public function getPublishedAttribute(): bool
     {
-        return ! is_null($this->published_at) && $this->published_at <= now()->toDateTimeString();
+        return !is_null($this->published_at) && $this->published_at <= now()->toDateTimeString();
     }
 
     /**

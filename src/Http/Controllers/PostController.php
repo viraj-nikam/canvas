@@ -127,8 +127,6 @@ class PostController extends Controller
         $post = Post::find($id);
 
         if ($post) {
-            $post->tags()->detach();
-            $post->topic()->detach();
             $post->delete();
         }
     }

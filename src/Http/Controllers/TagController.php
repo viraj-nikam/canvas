@@ -93,7 +93,6 @@ class TagController extends Controller
         $tag = Tag::find($id);
 
         if ($tag) {
-            $tag->posts()->detach();
             $tag->delete();
         }
     }

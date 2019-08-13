@@ -86,14 +86,13 @@ class TopicController extends Controller
      * Delete a topic.
      *
      * @param string $id
-     * @return JsonResponse
+     * @return void
      */
-    public function destroy(string $id): JsonResponse
+    public function destroy(string $id)
     {
         $topic = Topic::find($id);
 
         if ($topic) {
-            $topic->posts()->detach();
             $topic->delete();
         }
     }
