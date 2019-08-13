@@ -178,7 +178,7 @@
                         this.$router.push({name: 'tags'});
                     })
                     .catch((error) => {
-                        console.error(error.response.data.errors);
+                        // Add any error debugging...
                     })
             },
 

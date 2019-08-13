@@ -107,7 +107,6 @@
                         this.isSearchingUnsplash = false;
                     })
                     .catch((error) => {
-                        // Add any error debugging...
                         this.isSearchingUnsplash = false;
                     });
             },
