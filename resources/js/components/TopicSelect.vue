@@ -22,6 +22,7 @@
 </template>
 
 <script>
+    import { Bus } from '../bus';
     import Multiselect from 'vue-multiselect'
 
     export default {
@@ -59,8 +60,19 @@
 
         methods: {
             onChange(value, id) {
-                if (this.value == null) {
+                if (this.value === null) {
                     this.value = [];
+
+                    Bus.$emit('updating', {
+                        topic: []
+                    });
+                } else {
+                    Bus.$emit('updating', {
+                        topic: {
+                            name: value.name,
+                            slug: value.slug
+                        }
+                    });
                 }
             },
 
@@ -76,6 +88,13 @@
                     name: topic.name,
                     slug: topic.slug
                 };
+
+                Bus.$emit('updating', {
+                    topic: {
+                        name: topic.name,
+                        slug: topic.slug
+                    }
+                });
             }
         }
     }

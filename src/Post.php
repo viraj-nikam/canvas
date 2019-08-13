@@ -263,4 +263,19 @@ class Post extends Model
     {
         return $query->where('user_id', $user);
     }
+
+    /**
+     * The "booting" method of the model.
+     *
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($item) {
+            $item->tags()->detach();
+            $item->topics()->detach();
+        });
+    }
 }
