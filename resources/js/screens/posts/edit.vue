@@ -80,6 +80,12 @@
             </div>
         </main>
 
+        <publish-modal
+            v-if="isReady"
+            ref="publishModal"
+            :input="form">
+        </publish-modal>
+
         <settings-modal
             v-if="isReady"
             ref="settingsModal"
@@ -123,6 +129,7 @@
     import QuillEditor from '../../components/editor/QuillEditor';
     import ProfileDropdown from '../../components/ProfileDropdown';
     import FeaturedImageModal from "../../components/FeaturedImageModal";
+    import PublishModal from "../../components/PublishModal";
 
     Vue.use(VueTextAreaAutosize);
 
@@ -130,6 +137,7 @@
         name: 'posts-edit',
 
         components: {
+            PublishModal,
             FeaturedImageModal,
             DeleteModal,
             ProfileDropdown,
