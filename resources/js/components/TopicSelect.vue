@@ -5,6 +5,7 @@
                 :placeholder="trans.topics.forms.select"
                 :tag-placeholder="trans.topics.forms.tag"
                 :options="options"
+                :multiple="false"
                 :taggable="true"
                 @input="onChange"
                 @tag="addTopic"
@@ -60,7 +61,7 @@
 
         methods: {
             onChange(value, id) {
-                if (this.value === null) {
+                if (this.value == null) {
                     this.value = [];
 
                     Bus.$emit('updating', {
@@ -90,12 +91,9 @@
                 };
 
                 Bus.$emit('updating', {
-                    topic: {
-                        name: topic.name,
-                        slug: topic.slug
-                    }
+                    topic: this.value
                 });
-            }
+            },
         }
     }
 </script>

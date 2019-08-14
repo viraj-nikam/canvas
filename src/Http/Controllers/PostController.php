@@ -49,7 +49,7 @@ class PostController extends Controller
             ]);
         } else {
             return response()->json([
-                'post'   => Post::with('tags', 'topic')->find($id),
+                'post'   => Post::with('tags:name,slug', 'topic:name,slug')->find($id),
                 'tags'   => $tags,
                 'topics' => $topics,
             ]);
@@ -106,11 +106,11 @@ class PostController extends Controller
         $post->save();
 
         $post->tags()->sync(
-            $this->attachOrCreateTags(request('tags') ?? [])
+            $this->attachOrCreateTags(request('tags'))
         );
 
         $post->topic()->sync(
-            $this->attachOrCreateTopic(request('topic') ?? [])
+            $this->attachOrCreateTopic(request('topic'))
         );
 
         return response()->json($post->refresh());
@@ -169,7 +169,6 @@ class PostController extends Controller
     {
         if ($incomingTopic) {
             $topic = Topic::where('slug', $incomingTopic['slug'])->first();
-
             if (! $topic) {
                 $topic = Topic::create([
                     'id'   => $id = Uuid::uuid4(),
@@ -177,7 +176,6 @@ class PostController extends Controller
                     'slug' => $incomingTopic['slug'],
                 ]);
             }
-
             return collect((string) $topic->id)->toArray();
         } else {
             return [];

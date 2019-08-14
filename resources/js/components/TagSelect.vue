@@ -7,6 +7,7 @@
                 :options="options"
                 :multiple="true"
                 :taggable="true"
+                @input="onChange"
                 @tag="addTag"
                 label="name"
                 track-by="slug">
@@ -22,6 +23,7 @@
 </template>
 
 <script>
+    import { Bus } from '../bus';
     import Multiselect from 'vue-multiselect'
 
     export default {
@@ -58,14 +60,35 @@
         },
 
         methods: {
-            addTag(newTag) {
+            onChange(value, id) {
+                if (this.value === null) {
+                    this.value = [];
+
+                    Bus.$emit('updating', {
+                        tag: []
+                    });
+                } else {
+                    Bus.$emit('updating', {
+                        tag: {
+                            name: value.name,
+                            slug: value.slug
+                        }
+                    });
+                }
+            },
+
+            addTag(searchQuery) {
                 const tag = {
-                    name: newTag,
-                    slug: this.slugify(newTag)
+                    name: searchQuery,
+                    slug: this.slugify(searchQuery)
                 };
 
                 this.options.push(tag);
-                this.value.push(tag)
+                this.value.push(tag);
+
+                Bus.$emit('updating', {
+                    tag: { tag }
+                });
             }
         }
     }
