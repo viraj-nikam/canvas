@@ -47,17 +47,17 @@
 
                         <div v-if="isReady">
                             <div v-if="topics.length" class="mt-2">
-                                <div class="d-flex border-top py-3 align-items-center" v-for="tag in filteredList">
+                                <div class="d-flex border-top py-3 align-items-center" v-for="topic in filteredList">
                                     <div class="mr-auto">
                                         <p class="mb-0 py-1">
-                                            <router-link :to="{ name: 'topics-edit', params: {id: tag.id } }" class="font-weight-bold lead">
-                                                {{ tag.name }}
+                                            <router-link :to="{ name: 'topics-edit', params: {id: topic.id } }" class="font-weight-bold lead">
+                                                {{ topic.name }}
                                             </router-link>
                                         </p>
                                     </div>
                                     <div class="ml-auto">
-                                        <span class="text-muted mr-3">{{ tag.posts_count }} {{ trans.topics.posts }}</span>
-                                        {{ trans.topics.details.created }} {{ moment(tag.created_at).fromNow() }}
+                                        <span class="text-muted mr-3">{{ topic.posts_count }} {{ trans.topics.posts }}</span>
+                                        {{ trans.topics.details.created }} {{ moment(topic.created_at).fromNow() }}
                                     </div>
                                 </div>
 
@@ -119,7 +119,7 @@
                     .catch((error) => {
                         // Add any error debugging...
                     });
-            },
+            }
         },
 
         computed: {
