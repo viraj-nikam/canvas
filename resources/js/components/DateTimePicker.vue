@@ -38,6 +38,7 @@
 
 <script>
     import moment from 'moment'
+    import { Bus } from '../bus';
 
     /**
      * Create the default date/time picker.
@@ -56,6 +57,9 @@
 
         data() {
             return {
+                form: {
+                    published_at: ''
+                },
                 dateElements: {
                     day: '',
                     month: '',
@@ -88,6 +92,7 @@
 
                     this.$emit('input', this.result);
                 },
+
                 deep: true
             },
         },
@@ -103,7 +108,11 @@
                     hour: date.format('HH'),
                     minute: date.format('mm')
                 };
-            }
+            },
+
+            update: _.debounce(function (e) {
+                Bus.$emit('updating', this.form);
+            }, 700)
         }
     }
 </script>

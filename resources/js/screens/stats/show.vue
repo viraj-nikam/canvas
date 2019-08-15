@@ -128,10 +128,10 @@
                 vm.request()
                     .get('/api/stats/' + vm.id)
                     .then((response) => {
-                        vm.popular_reading_times = response.data.popular_reading_times;
                         vm.post = response.data.post;
-                        vm.traffic = response.data.traffic;
                         vm.views = response.data.views;
+                        vm.traffic = response.data.traffic;
+                        vm.popular_reading_times = response.data.popular_reading_times;
 
                         vm.isReady = true;
                     })
