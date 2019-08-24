@@ -275,7 +275,7 @@ class Post extends Model
 
         static::deleting(function ($item) {
             $item->tags()->detach();
-            $item->topics()->detach();
+            $item->topic()->detach();
         });
     }
 }
