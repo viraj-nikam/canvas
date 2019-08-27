@@ -1,25 +1,30 @@
 <template>
-    <div v-cloak>
-        <div class="modal fade" id="embed-html" tabindex="-1" role="dialog" data-backdrop="static">
+    <div>
+        <div class="modal fade" tabindex="-1" role="dialog" data-backdrop="static">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-body">
-                        <p class="font-weight-bold lead">{{ this.trans.posts.forms.editor.html.label }}</p>
+                        <p class="font-weight-bold lead">{{ trans.posts.forms.editor.html.label }}</p>
                         <div class="form-group row">
                             <div class="col-lg-12 mx-0 px-0">
                             <textarea ref="content"
                                       cols="30"
                                       rows="10"
                                       class="form-control border-0"
-                                      :placeholder="this.trans.posts.forms.editor.html.placeholder"
+                                      :placeholder="trans.posts.forms.editor.html.placeholder"
                                       style="resize: none"
-                                      v-model="content"></textarea>
+                                      :value="content">
+                            </textarea>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-link text-muted" data-dismiss="modal" @click="addHTML">
-                            {{ this.trans.buttons.general.done }}
+                        <button
+                            class="btn btn-link text-muted"
+                            type="button"
+                            data-dismiss="modal"
+                            @click="addingHTML">
+                            {{ trans.buttons.general.done }}
                         </button>
                     </div>
                 </div>
@@ -30,27 +35,18 @@
 
 <script>
     export default {
-        name: 'code-embed',
+        name: 'html-modal',
 
         data() {
             return {
                 content: '',
-                modalShown: false,
                 trans: JSON.parse(Canvas.lang),
             }
         },
 
-        mounted() {
-            this.$parent.$on('openingCodeEmbed', data => {
-                this.modalShown = true;
-
-                this.$nextTick(() => this.$refs.content.focus());
-            });
-        },
-
         methods: {
-            addHTML() {
-                this.$emit('adding', {
+            addingHTML() {
+                this.$emit('addingHTML', {
                     content: this.content,
                 });
 

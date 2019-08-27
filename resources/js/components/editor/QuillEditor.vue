@@ -1,62 +1,57 @@
 <template>
-    <div v-cloak>
+    <div>
         <div style="position: relative">
             <div id="sidebarControls" style="margin-top: -8px">
-                <button id="showControls"
+                <button class="btn btn-outline-light btn-circle border"
                         type="button"
-                        class="btn btn-outline-light btn-circle border"
-                        @click="showSideControls"
-                        @submit.prevent="onSubmit">
+                        @click="showSidebarControls">
                     <i class="fas fa-plus fa-fw text-muted"></i>
                 </button>
-
                 <div class="controls pl-3 bg-white d-none">
                     <button class="btn btn-outline-light btn-circle border mr-1"
                             type="button"
-                            @click="openImageUploader()"
-                            data-toggle="modal"
-                            data-target="#image-upload">
-                        <i class="far fa-fw fa-image text-muted"></i>
+                            @click="showImageModal">
+                        <i class="fas fa-fw fa-image text-muted"></i>
                     </button>
                     <button class="btn btn-outline-light btn-circle border mr-1"
                             type="button"
-                            @click="$emit('openingCodeEmbed')"
-                            @submit.prevent="onSubmit"
-                            data-toggle="modal"
-                            data-target="#embed-html">
+                            @click="showCodeModal">
                         <i class="fas fa-fw fa-code text-muted"></i>
                     </button>
                     <button class="btn btn-outline-light btn-circle border mr-2"
                             type="button"
-                            @click="addDivider"
-                            @submit.prevent="onSubmit">
+                            @click="insertDivider">
                         <i class="fas fa-fw fa-ellipsis-h text-muted"></i>
                     </button>
                 </div>
             </div>
 
             <div ref="editor"></div>
-            <input type="hidden" name="body" ref="body"/>
+            <input type="hidden" name="body" ref="body">
 
-            <image-uploader
-                    @updated="applyImage">
-            </image-uploader>
-            <code-embed
-                    @adding="addHTML">
-            </code-embed>
+            <image-modal
+                ref="imageModal"
+                @updated="insertImage"
+                :unsplash="this.unsplash"
+                :path="this.path">
+            </image-modal>
+            <html-modal
+                ref="htmlModal"
+                @addingHTML="insertHTML">
+            </html-modal>
         </div>
     </div>
 </template>
 
 <script>
     import $ from 'jquery';
-    import Quill from 'quill'
-    import Parchment from 'parchment'
-    import CodeBlot from './CodeBlot'
-    import ImageBlot from './ImageBlot'
-    import CodeEmbed from './CodeEmbed'
-    import DividerBlot from './DividerBlot'
-    import ImageUploader from './ImageUploader'
+    import Quill from 'quill';
+    import Parchment from 'parchment';
+    import HTMLBlot from "./HTMLBlot";
+    import ImageBlot from './ImageBlot';
+    import HTMLModal from "./HTMLModal";
+    import ImageModal from "./ImageModal";
+    import DividerBlot from './DividerBlot';
 
     /**
      * Create an instance of the QuillJS editor.
@@ -67,8 +62,8 @@
         name: 'quill-editor',
 
         components: {
-            CodeEmbed,
-            ImageUploader
+            CodeModal,
+            ImageModal
         },
 
         props: {
@@ -82,6 +77,8 @@
             return {
                 editor: null,
                 editorBody: this.value,
+                unsplash: Canvas.unsplash,
+                path: Canvas.path,
                 trans: JSON.parse(Canvas.lang),
             }
         },
@@ -90,14 +87,14 @@
             this.editor = this.createEditor();
             this.handleEditorValue();
             this.handleClicksInsideEditor();
-            this.initSideControls();
+            this.initializeSidebarControls();
         },
 
         methods: {
             createEditor() {
                 Quill.register(ImageBlot, true);
                 Quill.register(DividerBlot, true);
-                Quill.register(CodeBlot, true);
+                Quill.register(HTMLBlot, true);
 
                 const icons = Quill.import('ui/icons');
                 icons.header[3] = require('!html-loader!quill/assets/icons/header-3.svg');
@@ -122,7 +119,7 @@
                  * @link https://github.com/quilljs/quill/issues/1107#issuecomment-259938173
                  */
                 let tooltip = quill.theme.tooltip;
-                let input = tooltip.root.querySelector('input[data-link]');
+                let input = tooltip.root.querySelector("input[data-link]");
                 input.dataset.link = this.trans.posts.forms.editor.link;
 
                 return quill;
@@ -133,13 +130,13 @@
 
                 this.editor.on('text-change', () => {
                     let body = this.editor.getText() ? this.editor.root.innerHTML : '';
-
                     this.$refs['body'].value = body;
                     this.$emit('input', body);
                 });
             },
 
             handleClicksInsideEditor() {
+                // todo: check console warning about the event listener
                 this.editor.root.addEventListener('click', (ev) => {
                     let blot = Parchment.find(ev.target, true);
 
@@ -148,12 +145,12 @@
 
                         values.existingBlot = blot;
 
-                        this.openImageUploader(values);
+                        this.showImageModal(values);
                     }
                 });
             },
 
-            initSideControls() {
+            initializeSidebarControls() {
                 let Block = Quill.import('blots/block');
 
                 this.editor.on(Quill.events.EDITOR_CHANGE, (eventType, range) => {
@@ -188,17 +185,12 @@
                 });
             },
 
-            showSideControls() {
+            showSidebarControls() {
                 $('#sidebarControls').classList.toggle('active');
-
                 this.editor.focus();
             },
 
-            openImageUploader(data = null) {
-                this.$emit('openingImageUploader', data);
-            },
-
-            applyImage({url, caption, existingBlot, layout}) {
+            insertImage({url, caption, existingBlot, layout}) {
                 let values = {
                     url: url,
                     caption: caption,
@@ -212,10 +204,11 @@
                 let range = this.editor.getSelection(true);
 
                 this.editor.insertEmbed(range.index, 'captioned-image', values, Quill.sources.USER);
+
                 this.editor.setSelection(range.index + 1, Quill.sources.SILENT);
             },
 
-            addDivider() {
+            insertDivider() {
                 let range = this.editor.getSelection(true);
 
                 this.editor.insertText(range.index, '\n', Quill.sources.USER);
@@ -223,7 +216,7 @@
                 this.editor.setSelection(range.index + 2, Quill.sources.SILENT);
             },
 
-            addHTML({content}) {
+            insertHTML({content}) {
                 let range = this.editor.getSelection(true);
 
                 this.editor.insertEmbed(range.index, 'html', {
@@ -231,6 +224,14 @@
                 }, Quill.sources.USER);
 
                 this.editor.setSelection(range.index + 1, Quill.sources.SILENT);
+            },
+
+            showImageModal() {
+                $(this.$refs.imageModal.$el).modal('show');
+            },
+
+            showCodeModal() {
+                $(this.$refs.htmlModal.$el).modal('show');
             },
         }
     }
