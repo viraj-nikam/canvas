@@ -1,29 +1,22 @@
 <template>
     <div v-cloak>
-        <div v-if="this.$parent.url">
-            <a href="#" @click="clearSelectedImage">{{ trans.posts.forms.editor.images.picker.clear.action }}</a>
-            {{ trans.posts.forms.editor.images.picker.clear.description }}
-        </div>
+        <input hidden type="file" class="custom-file-input" :id="'imageUpload'+_uid" accept="image/*" @change="uploadSelectedImage">
+        <div class="mb-0">
+            {{ trans.posts.forms.editor.images.picker.greeting }} <label :for="'imageUpload'+_uid" class="text-primary" style="cursor:pointer;">
+            {{ trans.posts.forms.editor.images.picker.action }}</label> {{ trans.posts.forms.editor.images.picker.item }}
 
-        <div v-else>
-            <input hidden type="file" class="custom-file-input" :id="'imageUpload'+_uid" accept="image/*" @change="uploadSelectedImage">
-            <div class="mb-0">
-                {{ trans.posts.forms.editor.images.picker.greeting }} <label :for="'imageUpload'+_uid" class="text-primary" style="cursor:pointer;">
-                {{ trans.posts.forms.editor.images.picker.action }}</label> {{ trans.posts.forms.editor.images.picker.item }}
+            <span v-if="unsplash">{{ trans.posts.forms.editor.images.picker.operator }}</span>
 
-                <span v-if="this.unsplash">{{ trans.posts.forms.editor.images.picker.operator }}</span>
-
-                <a v-if="this.unsplash" href="#" @click.prevent="openUnsplash" class="text-primary">
-                    {{ trans.posts.forms.editor.images.picker.unsplash }}
-                </a>
-            </div>
+            <a v-if="unsplash" href="#" @click.prevent="openUnsplash" class="text-primary">
+                {{ trans.posts.forms.editor.images.picker.unsplash }}
+            </a>
         </div>
 
         <div v-if="showUnsplash">
             <div class="container p-0">
                 <input type="text"
                        class="form-control-lg form-control border-0 px-0"
-                       v-if="this.unsplash"
+                       v-if="unsplash"
                        v-model="searchQuery"
                        ref="searchKeyword"
                        :placeholder="trans.posts.forms.editor.images.picker.placeholder">
@@ -66,9 +59,17 @@
 
 <script>
     export default {
+        name: 'image-picker',
+
+        props: {
+            imageUrl: {
+                type: String,
+                required: false
+            },
+        },
+
         data() {
             return {
-                url: '',
                 showUnsplash: false,
                 searchQuery: '',
                 unsplashPage: 1,
@@ -113,12 +114,16 @@
 
             openUnsplash() {
                 let featuredImageModal = document.querySelector('#featuredImageModal');
-                let currentImage = document.querySelector('#currentImage');
-
                 if (featuredImageModal) {
                     featuredImageModal.classList.add('modal-lg');
                 }
 
+                let imageModal = document.querySelector('#imageModal');
+                if (imageModal) {
+                    imageModal.classList.add('modal-lg');
+                }
+
+                let currentImage = document.querySelector('#currentImage');
                 if (currentImage) {
                     currentImage.classList.add('d-none');
                 }
@@ -148,12 +153,16 @@
 
             closeUnsplash() {
                 let featuredImageModal = document.querySelector('#featuredImageModal');
-                let currentImage = document.querySelector('#currentImage');
-
                 if (featuredImageModal) {
                     featuredImageModal.classList.remove('modal-lg');
                 }
 
+                let imageModal = document.querySelector('#imageModal');
+                if (imageModal) {
+                    imageModal.classList.remove('modal-lg');
+                }
+
+                let currentImage = document.querySelector('#currentImage');
                 if (currentImage) {
                     currentImage.classList.remove('d-none');
                 }
@@ -181,11 +190,6 @@
                     .catch((error) => {
                         // Add any error debugging...
                     });
-            },
-
-            clearSelectedImage(event) {
-                this.$parent.url = '';
-                this.$parent.caption = '';
             },
         }
     }

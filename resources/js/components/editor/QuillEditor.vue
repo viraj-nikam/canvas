@@ -1,10 +1,10 @@
 <template>
-    <div>
+    <div v-cloak>
         <div style="position: relative">
             <div id="sidebarControls" style="margin-top: -8px">
                 <button class="btn btn-outline-light btn-circle border"
                         type="button"
-                        @click="showSidebarControls">
+                        @click="openSidebarControls">
                     <i class="fas fa-plus fa-fw text-muted"></i>
                 </button>
                 <div class="controls pl-3 bg-white d-none">
@@ -15,7 +15,7 @@
                     </button>
                     <button class="btn btn-outline-light btn-circle border mr-1"
                             type="button"
-                            @click="showCodeModal">
+                            @click="showHTMLModal">
                         <i class="fas fa-fw fa-code text-muted"></i>
                     </button>
                     <button class="btn btn-outline-light btn-circle border mr-2"
@@ -31,9 +31,7 @@
 
             <image-modal
                 ref="imageModal"
-                @updated="insertImage"
-                :unsplash="this.unsplash"
-                :path="this.path">
+                @addingImage="insertImage">
             </image-modal>
             <html-modal
                 ref="htmlModal"
@@ -62,8 +60,8 @@
         name: 'quill-editor',
 
         components: {
-            CodeModal,
-            ImageModal
+            'html-modal': HTMLModal,
+            'image-modal': ImageModal
         },
 
         props: {
@@ -130,6 +128,7 @@
 
                 this.editor.on('text-change', () => {
                     let body = this.editor.getText() ? this.editor.root.innerHTML : '';
+
                     this.$refs['body'].value = body;
                     this.$emit('input', body);
                 });
@@ -154,7 +153,8 @@
                 let Block = Quill.import('blots/block');
 
                 this.editor.on(Quill.events.EDITOR_CHANGE, (eventType, range) => {
-                    let sidebarControls = $('#sidebarControls');
+
+                    let sidebarControls = document.getElementById('sidebarControls');
 
                     if (eventType !== Quill.events.SELECTION_CHANGE) return;
 
@@ -185,8 +185,9 @@
                 });
             },
 
-            showSidebarControls() {
-                $('#sidebarControls').classList.toggle('active');
+            openSidebarControls() {
+                document.getElementById('sidebarControls').classList.toggle('active');
+
                 this.editor.focus();
             },
 
@@ -230,7 +231,7 @@
                 $(this.$refs.imageModal.$el).modal('show');
             },
 
-            showCodeModal() {
+            showHTMLModal() {
                 $(this.$refs.htmlModal.$el).modal('show');
             },
         }

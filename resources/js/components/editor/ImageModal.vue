@@ -1,51 +1,48 @@
 <template>
-    <div>
-        <div class="modal fade" tabindex="-1" role="dialog" data-backdrop="static">
-            <div class="modal-dialog" id="unsplashModal" role="document">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        <p class="font-weight-bold lead">
-                            {{ trans.posts.forms.editor.images.picker.uploader.label }}
-                        </p>
-                        <div class="form-group row">
-                            <div class="col-lg-12">
-                                <div v-if="imageUrl" id="currentImage">
-                                    <img :src="imageUrl" class="w-100">
+    <div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog" id="imageModal" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <p class="font-weight-bold lead">{{ trans.posts.forms.editor.images.picker.uploader.label }}</p>
 
-                                    <div class="input-group py-2">
-                                        <input type="text"
-                                               class="form-control border-0 px-0"
-                                               v-model="caption"
-                                               :placeholder="trans.posts.forms.editor.images.picker.uploader.caption.placeholder"
-                                               ref="caption">
-                                    </div>
+                    <div class="form-group row">
+                        <div class="col-lg-12">
+                            <div v-if="imageUrl" id="currentImage">
+                                <img :src="imageUrl" class="w-100">
 
-                                    <div class="input-group py-2">
-                                        <select class="custom-select border-0 px-0" v-model="layout">
-                                            <option value="default">
-                                                {{ trans.posts.forms.editor.images.picker.uploader.layout.default }}
-                                            </option>
-                                            <option value="wide">
-                                                {{ trans.posts.forms.editor.images.picker.uploader.layout.wide }}
-                                            </option>
-                                        </select>
-                                    </div>
+                                <div class="input-group py-2">
+                                    <input type="text"
+                                           class="form-control border-0 px-0"
+                                           v-model="caption"
+                                           :placeholder="trans.posts.forms.editor.images.picker.uploader.caption.placeholder"
+                                           ref="caption">
                                 </div>
 
-                                <image-picker
-                                        v-if="!imageUrl"
-                                        @changed="updateImage">
-                                </image-picker>
+                                <div class="input-group py-2">
+                                    <select class="custom-select border-0 px-0" v-model="layout">
+                                        <option value="default">
+                                            {{ trans.posts.forms.editor.images.picker.uploader.layout.default }}
+                                        </option>
+                                        <option value="wide">
+                                            {{ trans.posts.forms.editor.images.picker.uploader.layout.wide }}
+                                        </option>
+                                    </select>
+                                </div>
                             </div>
+
+                            <image-picker
+                                :image-url="imageUrl"
+                                @changed="updateImage">
+                            </image-picker>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-link text-muted"
-                                data-dismiss="modal"
-                                @click="setImage">
-                            {{ trans.buttons.general.done }}
-                        </button>
-                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-link text-muted"
+                            data-dismiss="modal"
+                            @click="setImage">
+                        {{ trans.buttons.general.done }}
+                    </button>
                 </div>
             </div>
         </div>
@@ -99,7 +96,7 @@
                     return;
                 }
 
-                this.$emit('updated', {
+                this.$emit('addingImage', {
                     url: this.imageUrl,
                     caption: this.caption,
                     existingBlot: this.existingBlot,
