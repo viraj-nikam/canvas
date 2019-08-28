@@ -57,8 +57,7 @@
         },
 
         components: {
-            ImagePicker,
-            FeaturedImageUploader
+            ImagePicker
         },
 
         data() {
