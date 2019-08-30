@@ -34,6 +34,10 @@
     export default {
         name: 'line-chart',
 
+        components: {
+            Chart
+        },
+
         props: {
             views: {
                 type: Object,

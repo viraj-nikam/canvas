@@ -61,18 +61,11 @@
 </template>
 
 <script>
-    import moment from 'moment'
-    import {Bus} from '../bus';
+    import moment from 'moment';
+    import { store } from '../screens/posts/store';
 
     export default {
         name: 'publish-modal',
-
-        props: {
-            input: {
-                type: Object,
-                required: true
-            }
-        },
 
         data() {
             return {
@@ -83,28 +76,20 @@
                     hour: '',
                     minute: '',
                 },
-                form: {
-                    published_at: ''
-                },
                 result: '',
+                storeState: store.state,
                 trans: JSON.parse(Canvas.lang),
             }
         },
 
         mounted() {
-            if (this.input.published_at === null) {
-                this.form.published_at = moment().format('YYYY-MM-DD hh:mm:ss');
-            } else {
-                this.form.published_at = this.input.published_at;
-            }
-
-            this.generateDatePicker(this.form.published_at);
+            this.generateDatePicker(this.storeState.form.published_at || moment().format('YYYY-MM-DD hh:mm:ss'));
         },
 
         watch: {
-            // value(val) {
-            //     this.generateDatePicker(val);
-            // },
+            value(val) {
+                this.generateDatePicker(val);
+            },
 
             dateElements: {
                 handler: function () {
@@ -114,8 +99,6 @@
                         + ' ' + this.dateElements.hour
                         + ':' + this.dateElements.minute
                         + ':00';
-
-                    this.$emit('input', this.result);
                 },
 
                 deep: true
@@ -142,9 +125,7 @@
             },
 
             publish() {
-                this.form.published_at = this.result;
-
-                Bus.$emit('updating', this.form);
+                this.storeState.form.published_at = this.result;
             }
         }
     }

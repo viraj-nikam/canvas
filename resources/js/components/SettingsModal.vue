@@ -10,12 +10,11 @@
                             <label class="font-weight-bold">{{ trans.posts.forms.settings.slug.label }}</label>
                             <input type="text" class="form-control border-0 px-0"
                                    name="slug"
-                                   v-model="form.slug"
-                                   @change="update"
+                                   v-model="storeState.form.slug"
                                    :title="trans.posts.forms.settings.slug.label"
                                    :placeholder="trans.posts.forms.settings.slug.placeholder">
-                            <div v-if="form.errors.slug" class="invalid-feedback d-block">
-                                <strong>{{ form.errors.slug[0] }}</strong>
+                            <div v-if="storeState.form.errors.slug" class="invalid-feedback d-block">
+                                <strong>{{ storeState.form.errors.slug[0] }}</strong>
                             </div>
                         </div>
                     </div>
@@ -26,8 +25,7 @@
                                     rows="1"
                                     name="summary"
                                     class="form-control border-0 px-0"
-                                    v-model="form.summary"
-                                    @change.native="update"
+                                    v-model="storeState.form.summary"
                                     :placeholder="trans.posts.forms.settings.summary.placeholder">
                             </textarea-autosize>
                         </div>
@@ -60,31 +58,23 @@
 </template>
 
 <script>
-    import _ from 'lodash';
-    import { Bus } from '../bus';
     import TagSelect from './TagSelect';
     import TopicSelect from './TopicSelect';
+    import { store } from '../screens/posts/store';
     import VueTextAreaAutosize from 'vue-textarea-autosize';
 
     export default {
         name: 'settings-modal',
 
         props: {
-            input: {
-                type: Object,
-                required: true
-            },
-
             post: {
                 type: Object,
                 required: false
             },
-
             tags: {
                 type: Array,
                 required: false
             },
-
             topics: {
                 type: Array,
                 required: false
@@ -101,31 +91,14 @@
             return {
                 allTags: [],
                 allTopics: [],
-                form: {
-                    slug: '',
-                    summary: '',
-                    topic: [],
-                    tags: [],
-                    errors: [],
-                },
+                storeState: store.state,
                 trans: JSON.parse(Canvas.lang),
             }
         },
 
         mounted() {
-            this.form.slug = this.input.slug;
-            this.form.summary = this.input.summary;
-            this.form.topic = this.input.topic;
-            this.form.tags = this.input.tags;
-            this.form.errors = this.input.errors;
             this.allTags = this.tags;
             this.allTopics = this.topics;
-        },
-
-        methods: {
-            update: _.debounce(function (e) {
-                Bus.$emit('updating', this.form);
-            }, 700)
         },
     }
 </script>

@@ -40,6 +40,5 @@ router.afterEach(() => {
 
 new Vue({
     el: '#canvas',
-
     router,
 });

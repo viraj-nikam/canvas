@@ -12,8 +12,7 @@
                                 name="meta_description"
                                 class="form-control border-0 px-0"
                                 rows="1"
-                                v-model="form.meta.meta_description"
-                                @change.native="update"
+                                v-model="storeState.form.meta.meta_description"
                                 :placeholder="trans.posts.forms.seo.meta">
                             </textarea-autosize>
                         </div>
@@ -25,8 +24,7 @@
                                    type="text"
                                    class="form-control border-0 px-0"
                                    :title="trans.posts.forms.seo.facebook.title.label"
-                                   v-model="form.meta.og_title"
-                                   @change="update"
+                                   v-model="storeState.form.meta.og_title"
                                    :placeholder="trans.posts.forms.seo.facebook.title.placeholder">
                         </div>
                     </div>
@@ -37,8 +35,7 @@
                                 name="og_description"
                                 class="form-control border-0 px-0"
                                 rows="1"
-                                v-model="form.meta.og_description"
-                                @change.native="update"
+                                v-model="storeState.form.meta.og_description"
                                 :placeholder="trans.posts.forms.seo.facebook.description.placeholder">
                             </textarea-autosize>
                         </div>
@@ -49,8 +46,7 @@
                             <input type="text"
                                    class="form-control border-0 px-0"
                                    name="twitter_title"
-                                   @change="update"
-                                   v-model="form.meta.twitter_title"
+                                   v-model="storeState.form.meta.twitter_title"
                                    :title="trans.posts.forms.seo.twitter.title.label"
                                    :placeholder="trans.posts.forms.seo.twitter.title.placeholder">
                         </div>
@@ -62,8 +58,7 @@
                                 name="twitter_description"
                                 class="form-control border-0 px-0"
                                 rows="1"
-                                @change.native="update"
-                                v-model="form.meta.twitter_description"
+                                v-model="storeState.form.meta.twitter_description"
                                 :placeholder="trans.posts.forms.seo.twitter.description.placeholder">
                             </textarea-autosize>
                         </div>
@@ -74,8 +69,7 @@
                             <input type="text"
                                    class="form-control border-0 px-0"
                                    name="canonical_link"
-                                   @change="update"
-                                   v-model="form.meta.canonical_link"
+                                   v-model="storeState.form.meta.canonical_link"
                                    :title="trans.posts.forms.seo.canonical.label"
                                    :placeholder="trans.posts.forms.seo.canonical.placeholder">
                         </div>
@@ -92,19 +86,11 @@
 </template>
 
 <script>
-    import _ from 'lodash';
-    import { Bus } from '../bus';
+    import { store } from '../screens/posts/store';
     import VueTextAreaAutosize from 'vue-textarea-autosize';
 
     export default {
         name: 'seo-modal',
-
-        props: {
-            input: {
-                type: Object,
-                required: false
-            },
-        },
 
         components: {
             VueTextAreaAutosize
@@ -112,28 +98,9 @@
 
         data() {
             return {
-                form: {
-                    meta: {
-                        meta_description: '',
-                        og_title: '',
-                        og_description: '',
-                        twitter_title: '',
-                        twitter_description: '',
-                        canonical_link: '',
-                    },
-                },
+                storeState: store.state,
                 trans: JSON.parse(Canvas.lang),
             }
-        },
-
-        mounted() {
-            this.form = this.input;
-        },
-
-        methods: {
-            update: _.debounce(function (e) {
-                Bus.$emit('updating', this.form);
-            }, 700)
         }
     }
 </script>

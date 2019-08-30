@@ -14,8 +14,8 @@
                                     <span>{{ getContextualState() }}</span>
                                 </div>
 
-                                <span v-if="form.isSaving" class="pl-2">{{ trans.nav.notify.saving }}</span>
-                                <span v-if="form.hasSuccess" class="pl-2 text-success">{{ trans.nav.notify.success }}</span>
+                                <span v-if="storeState.isSaving" class="pl-2">{{ trans.nav.notify.saving }}</span>
+                                <span v-if="storeState.hasSuccess" class="pl-2 text-success">{{ trans.nav.notify.success }}</span>
                             </li>
                         </ul>
 
@@ -68,13 +68,12 @@
                                     :placeholder="trans.posts.forms.editor.title"
                                     class="form-control-lg form-control border-0 pl-0 serif"
                                     rows="1"
-                                    @change.native="update"
-                                    v-model="form.title">
+                                    v-model="storeState.form.title">
                                 </textarea-autosize>
                             </div>
                         </div>
 
-                        <quill-editor :value="form.body"></quill-editor>
+                        <quill-editor></quill-editor>
                     </div>
                 </div>
             </div>
@@ -82,14 +81,12 @@
 
         <publish-modal
             v-if="isReady"
-            ref="publishModal"
-            :input="form">
+            ref="publishModal">
         </publish-modal>
 
         <settings-modal
             v-if="isReady"
             ref="settingsModal"
-            :input="form"
             :post="post"
             :tags="tags"
             :topics="topics">
@@ -97,14 +94,12 @@
 
         <featured-image-modal
             v-if="isReady"
-            ref="featuredImageModal"
-            :input="form">
+            ref="featuredImageModal">
         </featured-image-modal>
 
         <seo-modal
             v-if="isReady"
-            ref="seoModal"
-            :input="form">
+            ref="seoModal">
         </seo-modal>
 
         <delete-modal
@@ -118,18 +113,18 @@
 
 <script>
     import Vue from 'vue';
-    import $ from 'jquery';
     import _ from 'lodash';
+    import $ from 'jquery';
     import moment from 'moment';
-    import {Bus} from '../../bus';
+    import { store } from './store';
     import SeoModal from "../../components/SeoModal";
     import DeleteModal from '../../components/DeleteModal';
     import VueTextAreaAutosize from 'vue-textarea-autosize';
+    import PublishModal from "../../components/PublishModal";
     import SettingsModal from '../../components/SettingsModal';
     import QuillEditor from '../../components/editor/QuillEditor';
     import ProfileDropdown from '../../components/ProfileDropdown';
     import FeaturedImageModal from "../../components/FeaturedImageModal";
-    import PublishModal from "../../components/PublishModal";
 
     Vue.use(VueTextAreaAutosize);
 
@@ -152,29 +147,7 @@
                 tags: [],
                 topics: [],
                 id: this.$route.params.id || 'create',
-                form: {
-                    id: '',
-                    title: '',
-                    slug: '',
-                    summary: '',
-                    body: '',
-                    published_at: '',
-                    featured_image: '',
-                    featured_image_caption: '',
-                    meta: {
-                        meta_description: '',
-                        og_title: '',
-                        og_description: '',
-                        twitter_title: '',
-                        twitter_description: '',
-                        canonical_link: '',
-                    },
-                    topic: [],
-                    tags: [],
-                    errors: [],
-                    isSaving: false,
-                    hasSuccess: false,
-                },
+                storeState: store.state,
                 isReady: false,
                 timezone: Canvas.timezone,
                 trans: JSON.parse(Canvas.lang),
@@ -182,13 +155,6 @@
         },
 
         created() {
-            Bus.$on('updating', data => {
-                this.fillFormData(data);
-                this.save();
-            });
-        },
-
-        mounted() {
             this.fetchData();
         },
 
@@ -206,11 +172,11 @@
                         this.post = response.data.post;
                         this.tags = response.data.tags;
                         this.topics = response.data.topics;
-                        this.form.id = response.data.post.id;
-                        this.form.slug = response.data.post.slug;
+                        this.storeState.form.id = response.data.post.id;
+                        this.storeState.form.slug = response.data.post.slug;
 
                         if (this.id !== 'create') {
-                            this.fillFormData(response.data.post);
+                            store.hydrateForm(response.data.post);
                         }
 
                         this.isReady = true;
@@ -220,50 +186,28 @@
                     });
             },
 
-            fillFormData(data) {
-                this.form.title = _.get(data, 'title', this.form.title);
-                this.form.slug = _.get(data, 'slug', this.form.slug);
-                this.form.summary = _.get(data, 'summary', this.form.summary);
-                this.form.body = _.get(data, 'body', this.form.body);
-                this.form.published_at = _.get(data, 'published_at', this.form.published_at);
-                this.form.featured_image = _.get(data, 'featured_image', this.form.featured_image);
-                this.form.featured_image_caption = _.get(data, 'featured_image_caption', this.form.featured_image_caption);
-                this.form.meta.meta_description = _.get(data, 'meta.meta_description', this.form.meta.meta_description);
-                this.form.meta.og_title = _.get(data, 'meta.og_title', this.form.meta.og_title);
-                this.form.meta.og_description = _.get(data, 'meta.og_description', this.form.meta.og_description);
-                this.form.meta.twitter_title = _.get(data, 'meta.twitter_title', this.form.meta.twitter_title);
-                this.form.meta.twitter_description = _.get(data, 'meta.twitter_description', this.form.meta.twitter_description);
-                this.form.meta.canonical_link = _.get(data, 'meta.canonical_link', this.form.meta.canonical_link);
-                this.form.topic = _.get(data, 'topic', this.form.topic);
-                this.form.tags = _.get(data, 'tags', this.form.tags);
-            },
-
             save() {
-                this.form.errors = [];
-                this.form.hasSuccess = false;
-                this.form.isSaving = true;
+                this.storeState.form.errors = [];
+                this.storeState.form.hasSuccess = false;
+                this.storeState.form.isSaving = true;
 
                 this.request()
-                    .post('/api/posts/' + this.id, this.form)
+                    .post('/api/posts/' + this.id, this.storeState.form)
                     .then((response) => {
                         if (this.id === 'create') {
                             this.$router.push({name: 'posts-edit', params: {id: response.data.id}});
                         }
 
-                        this.form.isSaving = false;
-                        this.form.hasSuccess = true;
+                        this.storeState.form.isSaving = false;
+                        this.storeState.form.hasSuccess = true;
                         this.id = response.data.id;
                         this.post = response.data;
                     })
                     .catch((error) => {
-                        this.form.isSaving = false;
-                        this.form.errors = error.response.data.errors;
+                        this.storeState.form.isSaving = false;
+                        this.storeState.form.errors = error.response.data.errors;
                     });
             },
-
-            update: _.debounce(function (e) {
-                this.save();
-            }, 700),
 
             deletePost() {
                 this.request()

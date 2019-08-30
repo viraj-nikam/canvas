@@ -23,7 +23,6 @@
 </template>
 
 <script>
-    import { Bus } from '../bus';
     import Multiselect from 'vue-multiselect'
 
     export default {
@@ -64,16 +63,18 @@
                 if (this.value === null) {
                     this.value = [];
 
-                    Bus.$emit('updating', {
-                        tag: []
-                    });
+                    // todo: fix the bus reference
+                    // Bus.$emit('updating', {
+                    //     tag: []
+                    // });
                 } else {
-                    Bus.$emit('updating', {
-                        tag: {
-                            name: value.name,
-                            slug: value.slug
-                        }
-                    });
+                    // todo: fix the bus reference
+                    // Bus.$emit('updating', {
+                    //     tag: {
+                    //         name: value.name,
+                    //         slug: value.slug
+                    //     }
+                    // });
                 }
             },
 
@@ -86,9 +87,10 @@
                 this.options.push(tag);
                 this.value.push(tag);
 
-                Bus.$emit('updating', {
-                    tag: { tag }
-                });
+                // todo: fix the bus reference
+                // Bus.$emit('updating', {
+                //     tag: { tag }
+                // });
             }
         }
     }

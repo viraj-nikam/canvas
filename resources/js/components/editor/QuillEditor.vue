@@ -27,7 +27,6 @@
             </div>
 
             <div ref="editor"></div>
-            <input type="hidden" name="body" ref="body">
 
             <image-modal
                 ref="imageModal"
@@ -42,6 +41,7 @@
 </template>
 
 <script>
+    import _ from 'lodash';
     import $ from 'jquery';
     import Quill from 'quill';
     import Parchment from 'parchment';
@@ -50,6 +50,7 @@
     import HTMLModal from "./HTMLModal";
     import ImageModal from "./ImageModal";
     import DividerBlot from './DividerBlot';
+    import { store } from '../../screens/posts/store';
 
     /**
      * Create an instance of the QuillJS editor.
@@ -64,17 +65,10 @@
             'image-modal': ImageModal
         },
 
-        props: {
-            value: {
-                type: String,
-                default: ''
-            }
-        },
-
         data() {
             return {
                 editor: null,
-                editorBody: this.value,
+                storeState: store.state,
                 unsplash: Canvas.unsplash,
                 path: Canvas.path,
                 trans: JSON.parse(Canvas.lang),
@@ -124,13 +118,16 @@
             },
 
             handleEditorValue() {
-                this.editor.root.innerHTML = this.value;
+                this.editor.root.innerHTML = this.storeState.form.body;
 
                 this.editor.on('text-change', () => {
-                    let body = this.editor.getText() ? this.editor.root.innerHTML : '';
+                    // let body = this.editor.getText() ? this.editor.root.innerHTML : '';
 
-                    this.$refs['body'].value = body;
-                    this.$emit('input', body);
+                    this.storeState.form.body = this.editor.getText() ? this.editor.root.innerHTML : '';
+                    // this.$refs['body'].value = body;
+                    // this.$emit('input', body);
+
+
                 });
             },
 
@@ -234,6 +231,11 @@
             showHTMLModal() {
                 $(this.$refs.htmlModal.$el).modal('show');
             },
+
+            update: _.debounce(function (e) {
+                // todo: fix the bus reference
+                // Bus.$emit('updating', this.form);
+            }, 700)
         }
     }
 </script>
