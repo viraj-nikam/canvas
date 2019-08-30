@@ -1,29 +1,21 @@
 <template>
-    <div v-cloak>
-        <multiselect
-                v-model="value"
-                :placeholder="trans.tags.forms.select"
-                :tag-placeholder="trans.tags.forms.tag"
-                :options="options"
-                :multiple="true"
-                :taggable="true"
-                @input="onChange"
-                @tag="addTag"
-                label="name"
-                track-by="slug">
-        </multiselect>
-
-        <div class="tags">
-            <template v-for="(tags, index) in value">
-                <input hidden type="hidden" :name="`tags[${index}][name]`" :value="tags.name">
-                <input hidden type="hidden" :name="`tags[${index}][slug]`" :value="tags.slug">
-            </template>
-        </div>
-    </div>
+    <multiselect
+        v-model="value"
+        :placeholder="trans.tags.forms.select"
+        :tag-placeholder="trans.tags.forms.tag"
+        :options="options"
+        :multiple="true"
+        :taggable="true"
+        @input="onChange"
+        @tag="addTag"
+        label="name"
+        track-by="slug">
+    </multiselect>
 </template>
 
 <script>
-    import Multiselect from 'vue-multiselect'
+    import Multiselect from 'vue-multiselect';
+    import { store } from '../screens/posts/store';
 
     export default {
         props: {
@@ -54,28 +46,14 @@
             return {
                 options: allTags,
                 value: this.tagged ? this.tagged : [],
+                storeState: store.state,
                 trans: JSON.parse(Canvas.lang),
             }
         },
 
         methods: {
             onChange(value, id) {
-                if (this.value === null) {
-                    this.value = [];
-
-                    // todo: fix the bus reference
-                    // Bus.$emit('updating', {
-                    //     tag: []
-                    // });
-                } else {
-                    // todo: fix the bus reference
-                    // Bus.$emit('updating', {
-                    //     tag: {
-                    //         name: value.name,
-                    //         slug: value.slug
-                    //     }
-                    // });
-                }
+                store.syncTags(value);
             },
 
             addTag(searchQuery) {
@@ -87,10 +65,7 @@
                 this.options.push(tag);
                 this.value.push(tag);
 
-                // todo: fix the bus reference
-                // Bus.$emit('updating', {
-                //     tag: { tag }
-                // });
+                store.syncTags(tag);
             }
         }
     }

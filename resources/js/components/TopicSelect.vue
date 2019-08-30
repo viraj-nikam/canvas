@@ -1,29 +1,21 @@
 <template>
-    <div v-cloak>
-        <multiselect
-                v-model="value"
-                :placeholder="trans.topics.forms.select"
-                :tag-placeholder="trans.topics.forms.tag"
-                :options="options"
-                :multiple="false"
-                :taggable="true"
-                @input="onChange"
-                @tag="addTopic"
-                label="name"
-                track-by="slug">
-        </multiselect>
-
-        <div class="topics">
-            <template v-if="value.length !== 0">
-                <input hidden type="hidden" :name="`topic[name]`" :value="value.name">
-                <input hidden type="hidden" :name="`topic[slug]`" :value="value.slug">
-            </template>
-        </div>
-    </div>
+    <multiselect
+        v-model="value"
+        :placeholder="trans.topics.forms.select"
+        :tag-placeholder="trans.topics.forms.tag"
+        :options="options"
+        :multiple="false"
+        :taggable="true"
+        @input="onChange"
+        @tag="addTopic"
+        label="name"
+        track-by="slug">
+    </multiselect>
 </template>
 
 <script>
-    import Multiselect from 'vue-multiselect'
+    import Multiselect from 'vue-multiselect';
+    import { store } from '../screens/posts/store';
 
     export default {
         props: {
@@ -60,22 +52,7 @@
 
         methods: {
             onChange(value, id) {
-                if (this.value == null) {
-                    this.value = [];
-
-                    // todo: fix the bus reference
-                    // Bus.$emit('updating', {
-                    //     topic: []
-                    // });
-                } else {
-                    // todo: fix the bus reference
-                    // Bus.$emit('updating', {
-                    //     topic: {
-                    //         name: value.name,
-                    //         slug: value.slug
-                    //     }
-                    // });
-                }
+                store.syncTopic(value);
             },
 
             addTopic(searchQuery) {
@@ -91,10 +68,7 @@
                     slug: topic.slug
                 };
 
-                // todo: fix the bus reference
-                // Bus.$emit('updating', {
-                //     topic: this.value
-                // });
+                store.syncTopic(topic);
             },
         }
     }

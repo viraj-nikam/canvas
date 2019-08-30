@@ -41,9 +41,6 @@
                                     </option>
                                 </select>
                             </div>
-
-                            <input hidden type="hidden" name="published_at" v-model="result">
-
                         </div>
                     </div>
                 </div>

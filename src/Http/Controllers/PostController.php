@@ -106,11 +106,11 @@ class PostController extends Controller
         $post->save();
 
         $post->tags()->sync(
-            $this->attachOrCreateTags(request('tags'))
+            $this->syncTags(request('tags'))
         );
 
         $post->topic()->sync(
-            $this->attachOrCreateTopic(request('topic'))
+            $this->syncTopic(request('topic'))
         );
 
         return response()->json($post->refresh());
@@ -139,7 +139,7 @@ class PostController extends Controller
      *
      * @author Mohamed Said <themsaid@gmail.com>
      */
-    private function attachOrCreateTags(array $incomingTags): array
+    private function syncTags(array $incomingTags): array
     {
         $tags = Tag::all();
 
@@ -165,7 +165,7 @@ class PostController extends Controller
      * @return array
      * @throws \Exception
      */
-    private function attachOrCreateTopic(array $incomingTopic): array
+    private function syncTopic(array $incomingTopic): array
     {
         if ($incomingTopic) {
             $topic = Topic::where('slug', $incomingTopic['slug'])->first();

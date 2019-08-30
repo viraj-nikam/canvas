@@ -43,5 +43,13 @@ export const store = {
         this.state.form.meta.canonical_link = _.get(data, 'meta.canonical_link', this.state.form.meta.canonical_link);
         this.state.form.topic = _.get(data, 'topic', this.state.form.topic);
         this.state.form.tags = _.get(data, 'tags', this.state.form.tags);
+    },
+
+    syncTags(tags) {
+        this.state.form.tags = tags;
+    },
+
+    syncTopic(topic) {
+        this.state.form.topic = topic || [];
     }
 };
