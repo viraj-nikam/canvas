@@ -36,7 +36,7 @@ class PostController extends Controller
         $tags = Tag::all(['name', 'slug']);
         $topics = Topic::all(['name', 'slug']);
 
-        if ($id === 'create') {
+        if ($this->isNewPost($id)) {
             $uuid = Uuid::uuid4();
 
             return response()->json([
@@ -132,6 +132,17 @@ class PostController extends Controller
     }
 
     /**
+     * Returns true if creating a new post.
+     *
+     * @param string $id
+     * @return bool
+     */
+    private function isNewPost(string $id): bool
+    {
+        return $id === 'create';
+    }
+
+    /**
      * Attach or create tags given an incoming array.
      *
      * @param array $incomingTags
@@ -146,7 +157,7 @@ class PostController extends Controller
         return collect($incomingTags)->map(function ($incomingTag) use ($tags) {
             $tag = $tags->where('slug', $incomingTag['slug'])->first();
 
-            if (! $tag) {
+            if (!$tag) {
                 $tag = Tag::create([
                     'id'   => $id = Uuid::uuid4(),
                     'name' => $incomingTag['name'],
@@ -154,7 +165,7 @@ class PostController extends Controller
                 ]);
             }
 
-            return (string) $tag->id;
+            return (string)$tag->id;
         })->toArray();
     }
 
@@ -169,7 +180,7 @@ class PostController extends Controller
     {
         if ($incomingTopic) {
             $topic = Topic::where('slug', $incomingTopic['slug'])->first();
-            if (! $topic) {
+            if (!$topic) {
                 $topic = Topic::create([
                     'id'   => $id = Uuid::uuid4(),
                     'name' => $incomingTopic['name'],
@@ -177,7 +188,7 @@ class PostController extends Controller
                 ]);
             }
 
-            return collect((string) $topic->id)->toArray();
+            return collect((string)$topic->id)->toArray();
         } else {
             return [];
         }

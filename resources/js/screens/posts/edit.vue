@@ -14,8 +14,8 @@
                                     <span>{{ getContextualState() }}</span>
                                 </div>
 
-                                <span v-if="storeState.isSaving" class="pl-2">{{ trans.nav.notify.saving }}</span>
-                                <span v-if="storeState.hasSuccess" class="pl-2 text-success">{{ trans.nav.notify.success }}</span>
+                                <span v-if="storeState.form.isSaving" class="pl-2">{{ trans.nav.notify.saving }}</span>
+                                <span v-if="storeState.form.hasSuccess" class="pl-2 text-success">{{ trans.nav.notify.success }}</span>
                             </li>
                         </ul>
 
@@ -161,7 +161,7 @@
         computed: {
             isPublished() {
                 return !!(this.post && this.post.published_at <= moment(new Date()).tz(this.timezone).format().slice(0, 19).replace('T', ' '));
-            },
+            }
         },
 
         methods: {
@@ -169,16 +169,11 @@
                 this.request()
                     .get('/api/posts/' + this.id)
                     .then((response) => {
+                        store.hydrateForm(response.data.post);
+
                         this.post = response.data.post;
                         this.tags = response.data.tags;
                         this.topics = response.data.topics;
-                        this.storeState.form.id = response.data.post.id;
-                        this.storeState.form.slug = response.data.post.slug;
-
-                        if (this.id !== 'create') {
-                            store.hydrateForm(response.data.post);
-                        }
-
                         this.isReady = true;
                     })
                     .catch((error) => {
@@ -188,8 +183,8 @@
 
             save() {
                 this.storeState.form.errors = [];
-                this.storeState.form.hasSuccess = false;
                 this.storeState.form.isSaving = true;
+                this.storeState.form.hasSuccess = false;
 
                 this.request()
                     .post('/api/posts/' + this.id, this.storeState.form)
