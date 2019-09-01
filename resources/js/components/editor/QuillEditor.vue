@@ -41,7 +41,6 @@
 </template>
 
 <script>
-    import _ from 'lodash';
     import $ from 'jquery';
     import Quill from 'quill';
     import Parchment from 'parchment';
@@ -230,12 +229,7 @@
 
             showHTMLModal() {
                 $(this.$refs.htmlModal.$el).modal('show');
-            },
-
-            update: _.debounce(function (e) {
-                // todo: fix the bus reference
-                // Bus.$emit('updating', this.form);
-            }, 700)
+            }
         }
     }
 </script>
