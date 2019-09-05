@@ -1,55 +1,69 @@
 <template>
-    <div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
+    <div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-body">
                     <div class="form-group row">
                         <div class="col-12">
-                            <label class="font-weight-bold">{{ trans.posts.forms.publish.header }}</label>
-                            <p class="text-muted">{{ trans.posts.forms.publish.subtext.details }}
-                                <span class="font-weight-bold">{{ moment.tz.guess() }}</span> {{ trans.posts.forms.publish.subtext.timezone }}.
-                            </p>
+                            <section v-if="isReadyToPublish">
+                                <label class="font-weight-bold">Post preview</label>
+                                <p class="text-muted">
+                                    Take a moment and make sure you feel satisfied with how your post will look to readers.
+                                </p>
 
-                            <div class="d-flex flex-row">
-                                <select class="input pr-2" v-model="dateElements.month">
-                                    <option v-for="value in Array.from({length: 12}, (_, i) => String(i + 1).padStart(2, '0'))"
-                                            :value="value">{{ value }}
-                                    </option>
-                                </select>
-                                <span class="px-1">/</span>
-                                <select class="input px-2" v-model="dateElements.day">
-                                    <option v-for="value in Array.from({length: 31}, (_, i) => String(i + 1).padStart(2, '0'))"
-                                            :value="value">{{ value }}
-                                    </option>
-                                </select>
-                                <span class="px-1">/</span>
-                                <select class="input px-2" v-model="dateElements.year">
-                                    <option v-for="value in Array.from({length: 15}, (_, i) => i + (new Date()).getFullYear() - 10)"
-                                            :value="value">{{ value }}
-                                    </option>
-                                </select>
-                                <span class="pl-3"> </span>
-                                <select class="input px-2" v-model="dateElements.hour">
-                                    <option v-for="value in Array.from({length: 24}, (_, i) => String(i).padStart(2, '0'))" :value="value">
-                                        {{ value }}
-                                    </option>
-                                </select>
-                                <span class="px-1">:</span>
-                                <select class="input pl-2" v-model="dateElements.minute">
-                                    <option v-for="value in Array.from({length: 60}, (_, i) => String(i).padStart(2, '0'))" :value="value">
-                                        {{ value }}
-                                    </option>
-                                </select>
-                            </div>
+                                <div v-if="storeState.form.featured_image">
+                                    <img :src="storeState.form.featured_image" class="w-100">
+                                    <p class="text-center">{{ storeState.form.summary }}</p>
+                                </div>
+                            </section>
+
+                            <section v-else>
+                                <label class="font-weight-bold">{{ trans.posts.forms.publish.header }}</label>
+                                <p class="text-muted">{{ trans.posts.forms.publish.subtext.details }}
+                                    <span class="font-weight-bold">{{ moment.tz.guess() }}</span> {{ trans.posts.forms.publish.subtext.timezone }}.
+                                </p>
+
+                                <div class="d-flex flex-row">
+                                    <select class="input pr-2" v-model="dateElements.month">
+                                        <option v-for="value in Array.from({length: 12}, (_, i) => String(i + 1).padStart(2, '0'))"
+                                                :value="value">{{ value }}
+                                        </option>
+                                    </select>
+                                    <span class="px-1">/</span>
+                                    <select class="input px-2" v-model="dateElements.day">
+                                        <option v-for="value in Array.from({length: 31}, (_, i) => String(i + 1).padStart(2, '0'))"
+                                                :value="value">{{ value }}
+                                        </option>
+                                    </select>
+                                    <span class="px-1">/</span>
+                                    <select class="input px-2" v-model="dateElements.year">
+                                        <option v-for="value in Array.from({length: 15}, (_, i) => i + (new Date()).getFullYear() - 10)"
+                                                :value="value">{{ value }}
+                                        </option>
+                                    </select>
+                                    <span class="pl-3"> </span>
+                                    <select class="input px-2" v-model="dateElements.hour">
+                                        <option v-for="value in Array.from({length: 24}, (_, i) => String(i).padStart(2, '0'))" :value="value">
+                                            {{ value }}
+                                        </option>
+                                    </select>
+                                    <span class="px-1">:</span>
+                                    <select class="input pl-2" v-model="dateElements.minute">
+                                        <option v-for="value in Array.from({length: 60}, (_, i) => String(i).padStart(2, '0'))" :value="value">
+                                            {{ value }}
+                                        </option>
+                                    </select>
+                                </div>
+                            </section>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <a href="#" class="btn btn-primary" @click="publish" data-dismiss="modal">
-                        {{ trans.buttons.posts.schedule }}
+                        {{ trans.buttons.posts.publish }}
                     </a>
-                    <button type="button" class="btn btn-link text-muted" data-dismiss="modal">
-                        {{ trans.buttons.general.cancel }}
+                    <button type="button" class="btn btn-link text-muted">
+                        {{ trans.buttons.posts.later }}
                     </button>
                 </div>
             </div>
@@ -74,6 +88,7 @@
                     minute: '',
                 },
                 result: '',
+                isReadyToPublish: true,
                 storeState: store.state,
                 trans: JSON.parse(Canvas.lang),
             }
