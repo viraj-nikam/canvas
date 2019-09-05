@@ -28,6 +28,7 @@ export const store = {
     },
 
     hydrateForm(data) {
+        this.state.form.id = _.get(data, 'id', '');
         this.state.form.title = _.get(data, 'title', '');
         this.state.form.slug = _.get(data, 'slug', '');
         this.state.form.summary = _.get(data, 'summary', '');
