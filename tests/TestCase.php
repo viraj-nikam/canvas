@@ -75,7 +75,7 @@ abstract class TestCase extends OrchestraTestCase
      */
     protected function setUpDatabase($app)
     {
-        $this->loadLaravelMigrations();
+//        $this->loadLaravelMigrations(['--database' => 'laravel']);
 
         $this->loadMigrationsFrom(dirname(__DIR__).'/database/migrations');
 
