@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-cloak>
         <div class="border-bottom">
             <div class="container d-flex justify-content-center px-0">
                 <div class="col-md-10 px-0">
@@ -10,7 +10,7 @@
 
                         <ul class="navbar-nav mr-auto flex-row float-right">
                             <li class="text-muted font-weight-bold">
-                                <div v-if="isReady" class="d-inline-block">
+                                <div class="d-inline-block">
                                     <span>{{ getContextualState() }}</span>
                                 </div>
 
