@@ -1,6 +1,6 @@
-import Quill from 'quill';
+import Quill from "quill";
 
-const BlockEmbed = Quill.import('blots/block/embed');
+const BlockEmbed = Quill.import("blots/block/embed");
 
 /**
  * Create the divider blot.
@@ -12,18 +12,18 @@ class ImageBlot extends BlockEmbed {
     static create(value) {
         let node = super.edit();
 
-        node.setAttribute('contenteditable', false);
+        node.setAttribute("contenteditable", false);
         node.dataset.layout = value.layout;
 
-        let img = document.createElement('img');
+        let img = document.createElement("img");
 
-        img.setAttribute('alt', value.caption);
-        img.setAttribute('src', value.url);
+        img.setAttribute("alt", value.caption);
+        img.setAttribute("src", value.url);
 
         node.appendChild(img);
 
         if (value.caption) {
-            let caption = document.createElement('p');
+            let caption = document.createElement("p");
             caption.innerHTML = value.caption;
             node.appendChild(caption);
         }
@@ -32,18 +32,18 @@ class ImageBlot extends BlockEmbed {
     }
 
     static value(node) {
-        let img = node.querySelector('img');
+        let img = node.querySelector("img");
 
         return {
             layout: node.dataset.layout,
-            caption: img.getAttribute('alt'),
-            url: img.getAttribute('src')
+            caption: img.getAttribute("alt"),
+            url: img.getAttribute("src")
         };
     }
 }
 
-ImageBlot.tagName = 'div';
-ImageBlot.blotName = 'captioned-image';
-ImageBlot.className = 'embedded_image';
+ImageBlot.tagName = "div";
+ImageBlot.blotName = "captioned-image";
+ImageBlot.className = "embedded_image";
 
 export default ImageBlot;

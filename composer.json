@@ -1,7 +1,7 @@
 {
 	"name": "cnvs/canvas",
 	"description": "A Laravel publishing platform",
-	"keywords": ["cnvs", "canvas", "laravel", "publishing"],
+	"keywords": ["canvas", "laravel", "publishing", "platform"],
 	"license": "MIT",
 	"homepage": "https://cnvs.io",
 	"support": {

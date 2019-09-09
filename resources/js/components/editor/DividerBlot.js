@@ -1,6 +1,6 @@
-import Quill from 'quill';
+import Quill from "quill";
 
-const BlockEmbed = Quill.import('blots/block/embed');
+const BlockEmbed = Quill.import("blots/block/embed");
 
 /**
  * Create the divider blot.
@@ -12,7 +12,7 @@ class DividerBlot extends BlockEmbed {
     //
 }
 
-DividerBlot.blotName = 'divider';
-DividerBlot.tagName = 'hr';
+DividerBlot.blotName = "divider";
+DividerBlot.tagName = "hr";
 
 export default DividerBlot;

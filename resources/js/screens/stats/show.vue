@@ -3,12 +3,20 @@
         <div class="border-bottom">
             <div class="container d-flex justify-content-center px-0">
                 <div class="col-md-10 px-0">
-                    <nav class="navbar navbar-light justify-content-between flex-nowrap flex-row py-1">
-                        <router-link to="/" class="navbar-brand font-weight-bold py-0">
+                    <nav
+                        class="navbar navbar-light justify-content-between flex-nowrap flex-row py-1"
+                    >
+                        <router-link
+                            to="/"
+                            class="navbar-brand font-weight-bold py-0"
+                        >
                             <i class="fas fa-align-left"></i>
                         </router-link>
 
-                        <router-link to="/stats" class="btn btn-sm btn-outline-primary my-auto ml-auto">
+                        <router-link
+                            to="/stats"
+                            class="btn btn-sm btn-outline-primary my-auto ml-auto"
+                        >
                             {{ trans.buttons.stats.index }}
                         </router-link>
 
@@ -22,8 +30,13 @@
             <div class="container" v-if="isReady">
                 <div class="row justify-content-center">
                     <div class="col-md-10">
-                        <h5 class="text-muted small text-uppercase font-weight-bold mt-2">
-                            {{ trans.stats.details.published }} {{ moment(post.published_at).format('MMM D, YYYY') }}
+                        <h5
+                            class="text-muted small text-uppercase font-weight-bold mt-2"
+                        >
+                            {{ trans.stats.details.published }}
+                            {{
+                                moment(post.published_at).format("MMM D, YYYY")
+                            }}
                         </h5>
                         <h1 class="mb-4">{{ post.title }}</h1>
 
@@ -31,31 +44,73 @@
                     </div>
 
                     <div class="col-md-5 mt-4">
-                        <h5 class="text-muted small text-uppercase font-weight-bold">
+                        <h5
+                            class="text-muted small text-uppercase font-weight-bold"
+                        >
                             {{ trans.stats.details.views }}
                         </h5>
 
                         <div v-if="traffic">
                             <div v-for="(views, host, index) in traffic">
-                                <div class="d-flex py-2 align-items-center" :class="{ 'border-top': index === 0 }">
+                                <div
+                                    class="d-flex py-2 align-items-center"
+                                    :class="{ 'border-top': index === 0 }"
+                                >
                                     <div class="mr-auto">
-                                        <div v-if="host === trans.stats.details.referer.other">
+                                        <div
+                                            v-if="
+                                                host ===
+                                                    trans.stats.details.referer
+                                                        .other
+                                            "
+                                        >
                                             <p class="mb-0 py-1">
-                                                <img :src="`https://favicons.githubusercontent.com/${host}`" :alt="host" class="mr-1">
-                                                <a href="#" v-tooltip="{placement: 'right'}" :title="trans.stats.details.referer.unknown">
-                                                    {{ host }} <i class="fas fa-fw fa-question-circle text-muted"></i>
+                                                <img
+                                                    :src="
+                                                        `https://favicons.githubusercontent.com/${host}`
+                                                    "
+                                                    :alt="host"
+                                                    class="mr-1"
+                                                />
+                                                <a
+                                                    href="#"
+                                                    v-tooltip="{
+                                                        placement: 'right'
+                                                    }"
+                                                    :title="
+                                                        trans.stats.details
+                                                            .referer.unknown
+                                                    "
+                                                >
+                                                    {{ host }}
+                                                    <i
+                                                        class="fas fa-fw fa-question-circle text-muted"
+                                                    ></i>
                                                 </a>
                                             </p>
                                         </div>
                                         <div v-else>
                                             <p class="mb-0 py-1">
-                                                <img :src="`https://favicons.githubusercontent.com/${host}`" :alt="host" class="mr-1">
-                                                <a :href="'http://' + host" target="_blank">{{ host }}</a>
+                                                <img
+                                                    :src="
+                                                        `https://favicons.githubusercontent.com/${host}`
+                                                    "
+                                                    :alt="host"
+                                                    class="mr-1"
+                                                />
+                                                <a
+                                                    :href="'http://' + host"
+                                                    target="_blank"
+                                                    >{{ host }}</a
+                                                >
                                             </p>
                                         </div>
                                     </div>
                                     <div class="ml-auto">
-                                        <span class="text-muted">{{ suffixedNumber(views) }} {{ trans.stats.views }}</span>
+                                        <span class="text-muted"
+                                            >{{ suffixedNumber(views) }}
+                                            {{ trans.stats.views }}</span
+                                        >
                                     </div>
                                 </div>
                             </div>
@@ -66,20 +121,31 @@
                     </div>
 
                     <div class="col-md-5 mt-4">
-                        <h5 class="text-muted small text-uppercase font-weight-bold">
+                        <h5
+                            class="text-muted small text-uppercase font-weight-bold"
+                        >
                             {{ trans.stats.details.reading.header }}
                         </h5>
 
                         <div v-if="popular_reading_times">
-                            <div v-for="(percentage, time, index) in popular_reading_times">
-                                <div class="d-flex py-2 align-items-center" :class="{ 'border-top': index === 0 }">
+                            <div
+                                v-for="(percentage,
+                                time,
+                                index) in popular_reading_times"
+                            >
+                                <div
+                                    class="d-flex py-2 align-items-center"
+                                    :class="{ 'border-top': index === 0 }"
+                                >
                                     <div class="mr-auto">
                                         <p class="mb-0 py-1">
                                             {{ time }}
                                         </p>
                                     </div>
                                     <div class="ml-auto">
-                                        <span class="text-muted">{{ percentage + '%' }}</span>
+                                        <span class="text-muted">{{
+                                            percentage + "%"
+                                        }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -95,57 +161,58 @@
 </template>
 
 <script>
-    import Tooltip from '../../directives/Tooltip';
-    import LineChart from '../../components/LineChart';
-    import ProfileDropdown from '../../components/ProfileDropdown';
+import Tooltip from "../../directives/tooltip";
+import LineChart from "../../components/LineChart";
+import ProfileDropdown from "../../components/ProfileDropdown";
 
-    export default {
-        name: 'stats-show',
+export default {
+    name: "stats-show",
 
-        components: {
-            LineChart,
-            ProfileDropdown
-        },
+    components: {
+        LineChart,
+        ProfileDropdown
+    },
 
-        directives: {
-            Tooltip
-        },
+    directives: {
+        Tooltip
+    },
 
-        data() {
-            return {
-                id: this.$route.params.id,
-                post: null,
-                views: null,
-                popular_reading_times: null,
-                traffic: null,
-                isReady: false,
-                trans: JSON.parse(Canvas.lang),
-            }
-        },
+    data() {
+        return {
+            id: this.$route.params.id,
+            post: null,
+            views: null,
+            popular_reading_times: null,
+            traffic: null,
+            isReady: false,
+            trans: JSON.parse(this.Canvas.lang)
+        };
+    },
 
-        beforeRouteEnter(to, from, next) {
-            next(vm => {
-                vm.request()
-                    .get('/api/stats/' + vm.id)
-                    .then((response) => {
-                        vm.post = response.data.post;
-                        vm.views = response.data.views;
-                        vm.traffic = response.data.traffic;
-                        vm.popular_reading_times = response.data.popular_reading_times;
+    beforeRouteEnter(to, from, next) {
+        next(vm => {
+            vm.request()
+                .get("/api/stats/" + vm.id)
+                .then(response => {
+                    vm.post = response.data.post;
+                    vm.views = response.data.views;
+                    vm.traffic = response.data.traffic;
+                    vm.popular_reading_times =
+                        response.data.popular_reading_times;
 
-                        vm.isReady = true;
-                    })
-                    .catch((error) => {
-                        vm.$router.push({name: 'stats'});
-                    });
-            });
-        }
+                    vm.isReady = true;
+                })
+                .catch(error => {
+                    vm.$router.push({ name: "stats" });
+                });
+        });
     }
+};
 </script>
 
 <style scoped>
-    img {
-        width: 15px;
-        height: 15px;
-    }
+img {
+    width: 15px;
+    height: 15px;
+}
 </style>

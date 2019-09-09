@@ -3,17 +3,25 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-body">
-                    <p class="font-weight-bold lead">{{ header }}</p>
+                    <p class="font-weight-bold lead">
+                        {{ header }}
+                    </p>
                     {{ message }}
                 </div>
                 <div class="modal-footer">
-                    <a href="#"
-                       @click.prevent="confirmProceed()"
-                       class="btn btn-danger"
-                       aria-label="Delete">
+                    <a
+                        href="#"
+                        class="btn btn-danger"
+                        aria-label="Delete"
+                        @click.prevent="confirmProceed()"
+                    >
                         {{ trans.buttons.general.delete }}
                     </a>
-                    <button type="button" class="btn btn-link text-muted" data-dismiss="modal">
+                    <button
+                        type="button"
+                        class="btn btn-link text-muted"
+                        data-dismiss="modal"
+                    >
                         {{ trans.buttons.general.cancel }}
                     </button>
                 </div>
@@ -23,30 +31,30 @@
 </template>
 
 <script>
-    export default {
-        name: 'delete-modal',
+export default {
+    name: "DeleteModal",
 
-        props: {
-            header: {
-                type: String,
-                required: true
-            },
-            message: {
-                type: String,
-                required: true
-            }
+    props: {
+        header: {
+            type: String,
+            required: true
         },
+        message: {
+            type: String,
+            required: true
+        }
+    },
 
-        data() {
-            return {
-                trans: JSON.parse(Canvas.lang),
-            }
-        },
+    data() {
+        return {
+            trans: JSON.parse(this.Canvas.lang)
+        };
+    },
 
-        methods: {
-            confirmProceed() {
-                this.$emit('delete');
-            }
+    methods: {
+        confirmProceed() {
+            this.$emit("delete");
         }
     }
+};
 </script>

@@ -1,6 +1,6 @@
-import Quill from 'quill'
+import Quill from "quill";
 
-const BlockEmbed = Quill.import('blots/block/embed');
+const BlockEmbed = Quill.import("blots/block/embed");
 
 /**
  * Create the HTML blot.
@@ -13,7 +13,7 @@ class HTMLBlot extends BlockEmbed {
         let node = super.edit();
 
         node.innerHTML = value.content;
-        node.setAttribute('contenteditable', false);
+        node.setAttribute("contenteditable", false);
 
         return node;
     }
@@ -25,8 +25,8 @@ class HTMLBlot extends BlockEmbed {
     }
 }
 
-HTMLBlot.blotName = 'html';
-HTMLBlot.tagName = 'div';
-HTMLBlot.className = 'inline_html';
+HTMLBlot.blotName = "html";
+HTMLBlot.tagName = "div";
+HTMLBlot.className = "inline_html";
 
 export default HTMLBlot;

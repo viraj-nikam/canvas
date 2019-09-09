@@ -3,52 +3,81 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-body">
-                    <p class="font-weight-bold lead">{{ trans.posts.forms.settings.header }}</p>
+                    <p class="font-weight-bold lead">
+                        {{ trans.posts.forms.settings.header }}
+                    </p>
 
                     <div class="form-group row">
                         <div class="col-12">
-                            <label class="font-weight-bold">{{ trans.posts.forms.settings.slug.label }}</label>
-                            <input type="text" class="form-control border-0 px-0"
-                                   name="slug"
-                                   v-model="storeState.form.slug"
-                                   :title="trans.posts.forms.settings.slug.label"
-                                   :placeholder="trans.posts.forms.settings.slug.placeholder">
-                            <div v-if="storeState.form.errors.slug" class="invalid-feedback d-block">
-                                <strong>{{ storeState.form.errors.slug[0] }}</strong>
+                            <label class="font-weight-bold">{{
+                                trans.posts.forms.settings.slug.label
+                            }}</label>
+                            <input
+                                type="text"
+                                class="form-control border-0 px-0"
+                                name="slug"
+                                v-model="storeState.form.slug"
+                                :title="trans.posts.forms.settings.slug.label"
+                                :placeholder="
+                                    trans.posts.forms.settings.slug.placeholder
+                                "
+                            />
+                            <div
+                                v-if="storeState.form.errors.slug"
+                                class="invalid-feedback d-block"
+                            >
+                                <strong>{{
+                                    storeState.form.errors.slug[0]
+                                }}</strong>
                             </div>
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-12">
-                            <label class="font-weight-bold">{{ trans.posts.forms.settings.summary.label }}</label>
+                            <label class="font-weight-bold">{{
+                                trans.posts.forms.settings.summary.label
+                            }}</label>
                             <textarea-autosize
-                                    rows="1"
-                                    name="summary"
-                                    class="form-control border-0 px-0"
-                                    v-model="storeState.form.summary"
-                                    :placeholder="trans.posts.forms.settings.summary.placeholder">
+                                rows="1"
+                                name="summary"
+                                class="form-control border-0 px-0"
+                                v-model="storeState.form.summary"
+                                :placeholder="
+                                    trans.posts.forms.settings.summary
+                                        .placeholder
+                                "
+                            >
                             </textarea-autosize>
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-12">
-                            <label class="font-weight-bold">{{ trans.posts.forms.settings.topic.label }}</label>
-                            <topic-select :topics="topics"
-                                          :assigned="post.topic">
+                            <label class="font-weight-bold">{{
+                                trans.posts.forms.settings.topic.label
+                            }}</label>
+                            <topic-select
+                                :topics="topics"
+                                :assigned="post.topic"
+                            >
                             </topic-select>
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-12">
-                            <label class="font-weight-bold">{{ trans.posts.forms.settings.tags.label }}</label>
-                            <tag-select :tags="tags"
-                                        :tagged="post.tags">
+                            <label class="font-weight-bold">{{
+                                trans.posts.forms.settings.tags.label
+                            }}</label>
+                            <tag-select :tags="tags" :tagged="post.tags">
                             </tag-select>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-link text-muted" data-dismiss="modal">
+                    <button
+                        type="button"
+                        class="btn btn-link text-muted"
+                        data-dismiss="modal"
+                    >
                         {{ trans.buttons.general.done }}
                     </button>
                 </div>
@@ -58,47 +87,47 @@
 </template>
 
 <script>
-    import TagSelect from './TagSelect';
-    import TopicSelect from './TopicSelect';
-    import { store } from '../screens/posts/store';
-    import VueTextAreaAutosize from 'vue-textarea-autosize';
+import TagSelect from "./TagSelect";
+import TopicSelect from "./TopicSelect";
+import { store } from "../screens/posts/store";
+import VueTextAreaAutosize from "vue-textarea-autosize";
 
-    export default {
-        name: 'settings-modal',
+export default {
+    name: "settings-modal",
 
-        props: {
-            post: {
-                type: Object,
-                required: false
-            },
-            tags: {
-                type: Array,
-                required: false
-            },
-            topics: {
-                type: Array,
-                required: false
-            },
+    props: {
+        post: {
+            type: Object,
+            required: false
         },
-
-        components: {
-            TagSelect,
-            TopicSelect,
-            VueTextAreaAutosize
+        tags: {
+            type: Array,
+            required: false
         },
+        topics: {
+            type: Array,
+            required: false
+        }
+    },
 
-        data() {
-            return {
-                allTags: [],
-                allTopics: [],
-                storeState: store.state,
-                trans: JSON.parse(Canvas.lang),
-            }
-        },
+    components: {
+        TagSelect,
+        TopicSelect,
+        VueTextAreaAutosize
+    },
 
-        mounted() {
-            this.allTags = this.tags;
-            this.allTopics = this.topics;
-        },
+    data() {
+        return {
+            allTags: [],
+            allTopics: [],
+            storeState: store.state,
+            trans: JSON.parse(this.Canvas.lang)
+        };
+    },
+
+    mounted() {
+        this.allTags = this.tags;
+        this.allTopics = this.topics;
     }
+};
 </script>
