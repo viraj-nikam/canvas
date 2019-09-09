@@ -1,82 +1,38 @@
 <template>
     <div v-cloak>
-        <input
-            hidden
-            type="file"
-            class="custom-file-input"
-            :id="'imageUpload' + _uid"
-            accept="image/*"
-            @change="uploadSelectedImage"
-        />
+        <input hidden type="file" class="custom-file-input" :id="'imageUpload' + _uid" accept="image/*" @change="uploadSelectedImage"/>
         <div class="mb-0">
             {{ trans.posts.forms.editor.images.picker.greeting }}
-            <label
-                :for="'imageUpload' + _uid"
-                class="text-primary"
-                style="cursor:pointer;"
-            >
-                {{ trans.posts.forms.editor.images.picker.action }}</label
-            >
+
+            <label :for="'imageUpload' + _uid" class="text-primary" style="cursor:pointer;">
+                {{ trans.posts.forms.editor.images.picker.action }}
+            </label>
+
             {{ trans.posts.forms.editor.images.picker.item }}
 
-            <span v-if="unsplash">{{
-                trans.posts.forms.editor.images.picker.operator
-            }}</span>
+            <span v-if="unsplash">{{ trans.posts.forms.editor.images.picker.operator }}</span>
 
-            <a
-                v-if="unsplash"
-                href="#"
-                @click.prevent="openUnsplash"
-                class="text-primary"
-            >
+            <a v-if="unsplash" href="#" @click.prevent="openUnsplash" class="text-primary">
                 {{ trans.posts.forms.editor.images.picker.unsplash }}
             </a>
         </div>
 
         <div v-if="showUnsplash">
             <div class="container p-0">
-                <input
-                    type="text"
-                    class="form-control-lg form-control border-0 px-0"
-                    v-if="unsplash"
-                    v-model="searchQuery"
-                    ref="searchKeyword"
-                    :placeholder="
-                        trans.posts.forms.editor.images.picker.placeholder
-                    "
-                />
+                <input type="text" class="form-control-lg form-control border-0 px-0" v-if="unsplash" v-model="searchQuery" ref="searchKeyword" :placeholder="trans.posts.forms.editor.images.picker.placeholder"/>
 
                 <div v-if="!isSearchingUnsplash && unsplashImages.length">
                     <div class="card-columns">
-                        <div
-                            class="card border-0"
-                            v-for="image in unsplashImages"
-                        >
-                            <img
-                                v-bind:src="image.urls.small"
-                                class="card-img"
-                                style="cursor: pointer"
-                                @click="closeUnsplashAndInsertImage(image)"
-                            />
+                        <div class="card border-0" v-for="image in unsplashImages">
+                            <img v-bind:src="image.urls.small" class="card-img" style="cursor: pointer" @click="closeUnsplashAndInsertImage(image)"/>
                         </div>
                     </div>
 
                     <div class="text-center">
-                        <button
-                            class="btn btn-link text-muted"
-                            type="button"
-                            @click="closeUnsplash"
-                            @submit.prevent
-                        >
+                        <button class="btn btn-link text-muted" type="button" @click="closeUnsplash" @submit.prevent>
                             {{ trans.buttons.general.cancel }}
                         </button>
-                        <button
-                            class="btn btn-sm btn-outline-primary"
-                            type="button"
-                            @click="fetchImages(unsplashPage + 1)"
-                            v-if="unsplashImages.length === 12"
-                            @submit.prevent
-                        >
+                        <button class="btn btn-sm btn-outline-primary" type="button" @click="fetchImages(unsplashPage + 1)" v-if="unsplashImages.length === 12" @submit.prevent>
                             {{ trans.buttons.general.next }}
                         </button>
                     </div>
@@ -84,9 +40,7 @@
 
                 <div v-if="!isSearchingUnsplash && !unsplashImages.length">
                     <h4 class="text-center py-4">
-                        {{
-                            trans.posts.forms.editor.images.picker.search.empty
-                        }}
+                        {{ trans.posts.forms.editor.images.picker.search.empty }}
                     </h4>
                 </div>
             </div>
@@ -115,7 +69,7 @@ export default {
             selectedUnsplashImage: null,
             unsplash: Canvas.unsplash,
             path: Canvas.path,
-            trans: JSON.parse(this.Canvas.lang)
+            trans: JSON.parse(Canvas.lang)
         };
     },
 

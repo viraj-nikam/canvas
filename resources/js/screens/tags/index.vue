@@ -3,20 +3,12 @@
         <div class="border-bottom">
             <div class="container d-flex justify-content-center px-0">
                 <div class="col-md-10 px-0">
-                    <nav
-                        class="navbar navbar-light justify-content-between flex-nowrap flex-row py-1"
-                    >
-                        <router-link
-                            to="/"
-                            class="navbar-brand font-weight-bold py-0"
-                        >
+                    <nav class="navbar navbar-light justify-content-between flex-nowrap flex-row py-1">
+                        <router-link to="/" class="navbar-brand font-weight-bold py-0">
                             <i class="fas fa-align-left"></i>
                         </router-link>
 
-                        <router-link
-                            :to="{ name: 'tags-create' }"
-                            class="btn btn-sm btn-outline-primary my-auto ml-auto"
-                        >
+                        <router-link :to="{ name: 'tags-create' }" class="btn btn-sm btn-outline-primary my-auto ml-auto">
                             {{ trans.buttons.tags.create }}
                         </router-link>
 
@@ -34,34 +26,14 @@
                             <h1 class="mt-2">{{ trans.tags.header }}</h1>
 
                             <div class="dropdown my-auto">
-                                <a
-                                    href="#"
-                                    class="nav-link px-0 pb-0 pt-3 text-secondary"
-                                    id="navbarDropdown"
-                                    role="button"
-                                    data-toggle="dropdown"
-                                    aria-haspopup="true"
-                                    aria-expanded="false"
-                                >
+                                <a href="#" class="nav-link px-0 pb-0 pt-3 text-secondary" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fas fa-search"></i>
                                 </a>
-                                <div
-                                    class="dropdown-menu dropdown-menu-right py-0"
-                                    id="searchDropdown"
-                                    aria-labelledby="dropdownMenuButton"
-                                >
+                                <div class="dropdown-menu dropdown-menu-right py-0" id="searchDropdown" aria-labelledby="dropdownMenuButton">
                                     <form class="pl-2 w-100">
                                         <div class="form-group mb-0">
-                                            <input
-                                                v-model="search"
-                                                type="text"
-                                                class="form-control border-0 pl-0"
-                                                id="search"
-                                                :placeholder="
-                                                    trans.tags.search.input
-                                                "
-                                                autofocus
-                                            />
+                                            <label for="search"></label>
+                                            <input v-model="search" type="text" class="form-control border-0 pl-0" id="search" :placeholder="trans.tags.search.input" autofocus/>
                                         </div>
                                     </form>
                                 </div>
@@ -70,20 +42,10 @@
 
                         <div v-if="isReady">
                             <div v-if="tags.length" class="mt-2">
-                                <div
-                                    v-for="tag in filteredList"
-                                    v-bind:key="tag"
-                                    class="d-flex border-top py-3 align-items-center"
-                                >
+                                <div v-for="tag in filteredList" v-bind:key="tag" class="d-flex border-top py-3 align-items-center">
                                     <div class="mr-auto">
                                         <p class="mb-0 py-1">
-                                            <router-link
-                                                :to="{
-                                                    name: 'tags-edit',
-                                                    params: { id: tag.id }
-                                                }"
-                                                class="font-weight-bold lead"
-                                            >
+                                            <router-link :to="{name: 'tags-edit',params: { id: tag.id }}" class="font-weight-bold lead">
                                                 {{ tag.name }}
                                             </router-link>
                                         </p>
@@ -99,12 +61,7 @@
                                 </div>
 
                                 <div class="d-flex justify-content-center">
-                                    <a
-                                        href="#!"
-                                        class="btn btn-link"
-                                        @click="limit += 10"
-                                        v-if="loadMore"
-                                        >{{ trans.buttons.general.load }}
+                                    <a href="#!" class="btn btn-link" @click="limit += 10" v-if="loadMore">{{ trans.buttons.general.load }}
                                         <i class="fa fa-fw fa-angle-down"></i>
                                     </a>
                                 </div>
@@ -144,8 +101,8 @@ export default {
             limit: 10,
             loadMore: false,
             isReady: false,
-            timezone: this.Canvas.timezone,
-            trans: JSON.parse(this.Canvas.lang)
+            timezone: Canvas.timezone,
+            trans: JSON.parse(Canvas.lang)
         };
     },
 

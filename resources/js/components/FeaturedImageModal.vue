@@ -7,54 +7,30 @@
                         {{ trans.posts.forms.image.header }}
                     </p>
 
-                    <div
-                        v-if="storeState.form.featured_image"
-                        id="currentImage"
-                    >
-                        <img
-                            :src="storeState.form.featured_image"
-                            :alt="storeState.form.featured_image_caption"
-                            class="w-100"
-                        />
+                    <div v-if="storeState.form.featured_image" id="currentImage">
+                        <img :src="storeState.form.featured_image" :alt="storeState.form.featured_image_caption" class="w-100"/>
 
                         <div class="input-group py-2">
-                            <input
-                                type="text"
-                                class="form-control border-0 px-0"
-                                name="featured_image_caption"
-                                v-model="storeState.form.featured_image_caption"
-                                :placeholder="
-                                    trans.posts.forms.editor.images.picker
-                                        .uploader.caption.placeholder
-                                "
-                            />
+                            <input type="text" class="form-control border-0 px-0" name="featured_image_caption" v-model="storeState.form.featured_image_caption" :placeholder="trans.posts.forms.editor.images.picker.uploader.caption.placeholder"/>
                         </div>
                     </div>
 
                     <div v-if="storeState.form.featured_image">
-                        <a href="#" @click="clear">{{
-                            trans.posts.forms.editor.images.picker.clear.action
-                        }}</a>
-                        {{
-                            trans.posts.forms.editor.images.picker.clear
-                                .description
-                        }}
+                        <a href="#" @click="clear">
+                            {{ trans.posts.forms.editor.images.picker.clear.action }}
+                        </a>
+
+                        {{ trans.posts.forms.editor.images.picker.clear.description }}
                     </div>
 
-                    <image-picker
-                        v-else
-                        :image-url="storeState.form.featured_image"
-                        @clearSelectedImage="clear"
-                        @isUploading="isUploading = true"
-                    >
+                    <image-picker v-else
+                                  :image-url="storeState.form.featured_image"
+                                  @clearSelectedImage="clear"
+                                  @isUploading="isUploading = true">
                     </image-picker>
                 </div>
                 <div class="modal-footer">
-                    <button
-                        type="button"
-                        class="btn btn-link text-muted"
-                        data-dismiss="modal"
-                    >
+                    <button type="button" class="btn btn-link text-muted" data-dismiss="modal">
                         {{ trans.buttons.general.done }}
                     </button>
                 </div>
@@ -78,7 +54,7 @@ export default {
         return {
             storeState: store.state,
             isUploading: false,
-            trans: JSON.parse(this.Canvas.lang)
+            trans: JSON.parse(Canvas.lang)
         };
     },
 

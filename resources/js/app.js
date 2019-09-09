@@ -12,7 +12,7 @@ window.Popper = require("popper.js").default;
 Vue.mixin(Base);
 
 // Set the default app timezone
-moment.tz.setDefault(this.Canvas.timezone);
+moment.tz.setDefault(Canvas.timezone);
 
 // Prevent the production tip on Vue startup
 Vue.config.productionTip = false;
@@ -22,7 +22,7 @@ Vue.use(VueRouter);
 const router = new VueRouter({
     routes: Routes,
     mode: "history",
-    base: this.Canvas.path
+    base: Canvas.path
 });
 
 NProgress.configure({

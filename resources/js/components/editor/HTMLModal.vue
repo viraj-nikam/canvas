@@ -8,27 +8,13 @@
                     </p>
                     <div class="form-group row">
                         <div class="col-lg-12 mx-0 px-0">
-                            <textarea
-                                cols="30"
-                                rows="10"
-                                class="form-control border-0"
-                                :placeholder="
-                                    trans.posts.forms.editor.html.placeholder
-                                "
-                                style="resize: none"
-                                v-model="content"
-                            >
+                            <textarea cols="30" rows="10" class="form-control border-0" :placeholder="trans.posts.forms.editor.html.placeholder" style="resize: none" v-model="content">
                             </textarea>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button
-                        class="btn btn-link text-muted"
-                        type="button"
-                        data-dismiss="modal"
-                        @click="addingHTML"
-                    >
+                    <button class="btn btn-link text-muted" type="button" data-dismiss="modal" @click="addingHTML">
                         {{ trans.buttons.general.done }}
                     </button>
                 </div>
@@ -44,7 +30,7 @@ export default {
     data() {
         return {
             content: "",
-            trans: JSON.parse(this.Canvas.lang)
+            trans: JSON.parse(Canvas.lang)
         };
     },
 

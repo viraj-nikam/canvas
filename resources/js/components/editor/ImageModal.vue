@@ -4,75 +4,42 @@
             <div class="modal-content">
                 <div class="modal-body">
                     <p class="font-weight-bold lead">
-                        {{
-                            trans.posts.forms.editor.images.picker.uploader
-                                .label
-                        }}
+                        {{ trans.posts.forms.editor.images.picker.uploader.label }}
                     </p>
 
                     <div class="form-group row">
                         <div class="col-lg-12">
                             <div v-if="imageUrl" id="currentImage">
-                                <img
-                                    :src="imageUrl"
-                                    :alt="caption"
-                                    class="w-100"
-                                />
+                                <img :src="imageUrl" :alt="caption" class="w-100"/>
 
                                 <div class="input-group py-2">
                                     <label>
-                                        <input
-                                            ref="caption"
-                                            v-model="caption"
-                                            type="text"
-                                            class="form-control border-0 px-0"
-                                            :placeholder="
-                                                trans.posts.forms.editor.images
-                                                    .picker.uploader.caption
-                                                    .placeholder
-                                            "
-                                        />
+                                        <input ref="caption" v-model="caption" type="text" class="form-control border-0 px-0" :placeholder="trans.posts.forms.editor.images.picker.uploader.caption.placeholder"/>
                                     </label>
                                 </div>
 
                                 <div class="input-group py-2">
                                     <label>
-                                        <select
-                                            v-model="layout"
-                                            class="custom-select border-0 px-0"
-                                        >
+                                        <select v-model="layout" class="custom-select border-0 px-0">
                                             <option value="default">
-                                                {{
-                                                    trans.posts.forms.editor
-                                                        .images.picker.uploader
-                                                        .layout.default
-                                                }}
+                                                {{ trans.posts.forms.editor.images.picker.uploader.layout.default }}
                                             </option>
                                             <option value="wide">
-                                                {{
-                                                    trans.posts.forms.editor
-                                                        .images.picker.uploader
-                                                        .layout.wide
-                                                }}
+                                                {{ trans.posts.forms.editor.images.picker.uploader.layout.wide }}
                                             </option>
                                         </select>
                                     </label>
                                 </div>
                             </div>
 
-                            <ImagePicker
-                                :image-url="imageUrl"
-                                @changed="updateImage"
-                            />
+                            <ImagePicker :image-url="imageUrl"
+                                         @changed="updateImage">
+                            </ImagePicker>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button
-                        class="btn btn-link text-muted"
-                        data-dismiss="modal"
-                        @click="setImage"
-                    >
+                    <button class="btn btn-link text-muted" data-dismiss="modal" @click="setImage">
                         {{ trans.buttons.general.done }}
                     </button>
                 </div>
@@ -105,7 +72,7 @@ export default {
             existingBlot: null,
             imageUrl: null,
             layout: "default",
-            trans: JSON.parse(this.Canvas.lang)
+            trans: JSON.parse(Canvas.lang)
         };
     },
 

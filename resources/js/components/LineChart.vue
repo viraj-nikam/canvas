@@ -1,26 +1,23 @@
 <template>
     <div v-if="isReady">
-        <vue-frappe
-            id="stats"
-            :labels="labels"
-            :title="trans.stats.cards.views.title"
-            type="line"
-            :axisOptions="{
-                xIsSeries: true
-            }"
-            :lineOptions="{
-                regionFill: 1,
-                hideDots: 1
-            }"
-            :height="250"
-            :colors="['#3490dc']"
-            :dataSets="points"
-            :tooltipOptions="{
-                formatTooltipX: d =>
-                    moment(d, 'YYYY-MM-DD').format('dddd, MMMM Do'),
-                formatTooltipY: d => d + plural(trans.stats.chart.view, d)
-            }"
-        >
+        <vue-frappe id="stats"
+                    :labels="labels"
+                    :title="trans.stats.cards.views.title"
+                    type="line"
+                    :axisOptions="{
+                        xIsSeries: true
+                    }"
+                    :lineOptions="{
+                        regionFill: 1,
+                        hideDots: 1
+                    }"
+                    :height="250"
+                    :colors="['#3490dc']"
+                    :dataSets="points"
+                    :tooltipOptions="{
+                        formatTooltipX: d => moment(d, 'YYYY-MM-DD').format('dddd, MMMM Do'),
+                        formatTooltipY: d => d + plural(trans.stats.chart.view, d)
+                    }">
         </vue-frappe>
     </div>
 </template>
@@ -51,7 +48,7 @@ export default {
         return {
             labels: [],
             points: [],
-            trans: JSON.parse(this.Canvas.lang),
+            trans: JSON.parse(Canvas.lang),
             isReady: false
         };
     },

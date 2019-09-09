@@ -1,16 +1,14 @@
 <template>
-    <multiselect
-        v-model="value"
-        :placeholder="trans.tags.forms.select"
-        :tag-placeholder="trans.tags.forms.tag"
-        :options="options"
-        :multiple="true"
-        :taggable="true"
-        @input="onChange"
-        @tag="addTag"
-        label="name"
-        track-by="slug"
-    >
+    <multiselect v-model="value"
+                 :placeholder="trans.tags.forms.select"
+                 :tag-placeholder="trans.tags.forms.tag"
+                 :options="options"
+                 :multiple="true"
+                 :taggable="true"
+                 @input="onChange"
+                 @tag="addTag"
+                 label="name"
+                 track-by="slug">
     </multiselect>
 </template>
 
@@ -48,7 +46,7 @@ export default {
             options: allTags,
             value: this.tagged ? this.tagged : [],
             storeState: store.state,
-            trans: JSON.parse(this.Canvas.lang)
+            trans: JSON.parse(Canvas.lang)
         };
     },
 

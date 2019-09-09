@@ -9,19 +9,10 @@
                     {{ message }}
                 </div>
                 <div class="modal-footer">
-                    <a
-                        href="#"
-                        class="btn btn-danger"
-                        aria-label="Delete"
-                        @click.prevent="confirmProceed()"
-                    >
+                    <a href="#" class="btn btn-danger" aria-label="Delete" @click.prevent="confirmProceed()">
                         {{ trans.buttons.general.delete }}
                     </a>
-                    <button
-                        type="button"
-                        class="btn btn-link text-muted"
-                        data-dismiss="modal"
-                    >
+                    <button type="button" class="btn btn-link text-muted" data-dismiss="modal">
                         {{ trans.buttons.general.cancel }}
                     </button>
                 </div>
@@ -47,7 +38,7 @@ export default {
 
     data() {
         return {
-            trans: JSON.parse(this.Canvas.lang)
+            trans: JSON.parse(Canvas.lang)
         };
     },
 

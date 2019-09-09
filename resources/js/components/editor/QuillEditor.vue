@@ -2,33 +2,17 @@
     <div v-cloak>
         <div style="position: relative">
             <div id="sidebarControls" style="margin-top: -8px">
-                <button
-                    class="btn btn-outline-light btn-circle border"
-                    type="button"
-                    @click="openSidebarControls"
-                >
+                <button class="btn btn-outline-light btn-circle border" type="button" @click="openSidebarControls">
                     <i class="fas fa-plus fa-fw text-muted"></i>
                 </button>
                 <div class="controls pl-3 bg-white d-none">
-                    <button
-                        class="btn btn-outline-light btn-circle border mr-1"
-                        type="button"
-                        @click="showImageModal"
-                    >
+                    <button class="btn btn-outline-light btn-circle border mr-1" type="button" @click="showImageModal">
                         <i class="fas fa-fw fa-image text-muted"></i>
                     </button>
-                    <button
-                        class="btn btn-outline-light btn-circle border mr-1"
-                        type="button"
-                        @click="showHTMLModal"
-                    >
+                    <button class="btn btn-outline-light btn-circle border mr-1" type="button" @click="showHTMLModal">
                         <i class="fas fa-fw fa-code text-muted"></i>
                     </button>
-                    <button
-                        class="btn btn-outline-light btn-circle border mr-2"
-                        type="button"
-                        @click="insertDivider"
-                    >
+                    <button class="btn btn-outline-light btn-circle border mr-2" type="button" @click="insertDivider">
                         <i class="fas fa-fw fa-ellipsis-h text-muted"></i>
                     </button>
                 </div>
@@ -36,9 +20,12 @@
 
             <div ref="editor"></div>
 
-            <image-modal ref="imageModal" @addingImage="insertImage">
+            <image-modal ref="imageModal"
+                         @addingImage="insertImage">
             </image-modal>
-            <html-modal ref="htmlModal" @addingHTML="insertHTML"> </html-modal>
+            <html-modal ref="htmlModal"
+                        @addingHTML="insertHTML">
+            </html-modal>
         </div>
     </div>
 </template>
@@ -71,9 +58,9 @@ export default {
         return {
             editor: null,
             storeState: store.state,
-            unsplash: this.Canvas.unsplash,
-            path: this.Canvas.path,
-            trans: JSON.parse(this.Canvas.lang)
+            unsplash: Canvas.unsplash,
+            path: Canvas.path,
+            trans: JSON.parse(Canvas.lang)
         };
     },
 

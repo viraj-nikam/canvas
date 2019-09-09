@@ -9,75 +9,43 @@
 
                     <div class="form-group row">
                         <div class="col-12">
-                            <label class="font-weight-bold">{{
-                                trans.posts.forms.settings.slug.label
-                            }}</label>
-                            <input
-                                type="text"
-                                class="form-control border-0 px-0"
-                                name="slug"
-                                v-model="storeState.form.slug"
-                                :title="trans.posts.forms.settings.slug.label"
-                                :placeholder="
-                                    trans.posts.forms.settings.slug.placeholder
-                                "
-                            />
-                            <div
-                                v-if="storeState.form.errors.slug"
-                                class="invalid-feedback d-block"
-                            >
-                                <strong>{{
-                                    storeState.form.errors.slug[0]
-                                }}</strong>
+                            <label class="font-weight-bold">{{ trans.posts.forms.settings.slug.label }}</label>
+                            <input type="text" class="form-control border-0 px-0" name="slug" v-model="storeState.form.slug" :title="trans.posts.forms.settings.slug.label" :placeholder="trans.posts.forms.settings.slug.placeholder"/>
+                            <div v-if="storeState.form.errors.slug" class="invalid-feedback d-block">
+                                <strong>{{ storeState.form.errors.slug[0] }}</strong>
                             </div>
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-12">
-                            <label class="font-weight-bold">{{
-                                trans.posts.forms.settings.summary.label
-                            }}</label>
-                            <textarea-autosize
-                                rows="1"
-                                name="summary"
-                                class="form-control border-0 px-0"
-                                v-model="storeState.form.summary"
-                                :placeholder="
-                                    trans.posts.forms.settings.summary
-                                        .placeholder
-                                "
-                            >
+                            <label class="font-weight-bold">{{ trans.posts.forms.settings.summary.label }}</label>
+                            <textarea-autosize rows="1"
+                                               name="summary"
+                                               class="form-control border-0 px-0"
+                                               v-model="storeState.form.summary"
+                                               :placeholder="trans.posts.forms.settings.summary.placeholder">
                             </textarea-autosize>
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-12">
-                            <label class="font-weight-bold">{{
-                                trans.posts.forms.settings.topic.label
-                            }}</label>
-                            <topic-select
-                                :topics="topics"
-                                :assigned="post.topic"
-                            >
+                            <label class="font-weight-bold">{{ trans.posts.forms.settings.topic.label }}</label>
+                            <topic-select :topics="topics"
+                                          :assigned="post.topic">
                             </topic-select>
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-12">
-                            <label class="font-weight-bold">{{
-                                trans.posts.forms.settings.tags.label
-                            }}</label>
-                            <tag-select :tags="tags" :tagged="post.tags">
+                            <label class="font-weight-bold">{{ trans.posts.forms.settings.tags.label }}</label>
+                            <tag-select :tags="tags"
+                                        :tagged="post.tags">
                             </tag-select>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button
-                        type="button"
-                        class="btn btn-link text-muted"
-                        data-dismiss="modal"
-                    >
+                    <button type="button" class="btn btn-link text-muted" data-dismiss="modal">
                         {{ trans.buttons.general.done }}
                     </button>
                 </div>
@@ -121,7 +89,7 @@ export default {
             allTags: [],
             allTopics: [],
             storeState: store.state,
-            trans: JSON.parse(this.Canvas.lang)
+            trans: JSON.parse(Canvas.lang)
         };
     },
 

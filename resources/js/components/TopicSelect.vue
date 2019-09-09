@@ -1,16 +1,14 @@
 <template>
-    <multiselect
-        v-model="value"
-        :placeholder="trans.topics.forms.select"
-        :tag-placeholder="trans.topics.forms.tag"
-        :options="options"
-        :multiple="false"
-        :taggable="true"
-        @input="onChange"
-        @tag="addTopic"
-        label="name"
-        track-by="slug"
-    >
+    <multiselect v-model="value"
+                 :placeholder="trans.topics.forms.select"
+                 :tag-placeholder="trans.topics.forms.tag"
+                 :options="options"
+                 :multiple="false"
+                 :taggable="true"
+                 @input="onChange"
+                 @tag="addTopic"
+                 label="name"
+                 track-by="slug">
     </multiselect>
 </template>
 
@@ -47,7 +45,7 @@ export default {
         return {
             options: allTopics,
             value: this.assigned ? this.assigned : [],
-            trans: JSON.parse(this.Canvas.lang)
+            trans: JSON.parse(Canvas.lang)
         };
     },
 
