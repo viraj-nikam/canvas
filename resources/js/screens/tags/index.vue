@@ -42,7 +42,7 @@
 
                         <div v-if="isReady">
                             <div v-if="tags.length" class="mt-2">
-                                <div v-for="tag in filteredList" v-bind:key="tag" class="d-flex border-top py-3 align-items-center">
+                                <div v-for="tag in filteredList" class="d-flex border-top py-3 align-items-center">
                                     <div class="mr-auto">
                                         <p class="mb-0 py-1">
                                             <router-link :to="{name: 'tags-edit',params: { id: tag.id }}" class="font-weight-bold lead">

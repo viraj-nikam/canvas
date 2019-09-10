@@ -44,7 +44,7 @@
 
                         <div v-if="isReady">
                             <div v-if="topics.length" class="mt-2">
-                                <div v-for="topic in filteredList" v-bind:key="topic" class="d-flex border-top py-3 align-items-center">
+                                <div v-for="topic in filteredList" class="d-flex border-top py-3 align-items-center">
                                     <div class="mr-auto">
                                         <p class="mb-0 py-1">
                                             <router-link :to="{name: 'topics-edit', params: { id: topic.id }}" class="font-weight-bold lead">
