@@ -125,7 +125,7 @@ export default {
                 currentImage.classList.add("d-none");
             }
 
-            this.searchQuery = "work";
+            this.searchQuery = "canvas";
             this.showUnsplash = true;
 
             this.$nextTick(() => {
@@ -153,9 +153,7 @@ export default {
         },
 
         closeUnsplash() {
-            let featuredImageModal = document.querySelector(
-                "#featuredImageModal"
-            );
+            let featuredImageModal = document.querySelector("#featuredImageModal");
             if (featuredImageModal) {
                 featuredImageModal.classList.remove("modal-lg");
             }

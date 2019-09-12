@@ -25,6 +25,7 @@
 
                     <image-picker v-else
                                   :image-url="storeState.form.featured_image"
+                                  @changed="updateImage"
                                   @clearSelectedImage="clear"
                                   @isUploading="isUploading = true">
                     </image-picker>
@@ -62,7 +63,14 @@ export default {
         clear() {
             this.storeState.form.featured_image = "";
             this.storeState.form.featured_image_caption = "";
-        }
+        },
+
+        updateImage({url, caption}) {
+            this.storeState.form.featured_image = url;
+            this.storeState.form.featured_image_caption = caption;
+
+            this.isUploading = false;
+        },
     }
 };
 </script>
