@@ -51,10 +51,7 @@
                                         </p>
                                     </div>
                                     <div class="ml-auto">
-                                        <span class="text-muted mr-3">
-                                            {{ tag.posts_count }}
-                                            {{ trans.tags.posts }}
-                                        </span>
+                                        <span class="text-muted mr-3">{{ tag.posts_count }} {{ trans.tags.posts }}</span>
                                         {{ trans.tags.details.created }}
                                         {{ moment(tag.created_at).fromNow() }}
                                     </div>

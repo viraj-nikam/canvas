@@ -9,12 +9,12 @@ return [
         'load'   => '顯示更多',
         'save'   => '保存',
         'next'   => '下一頁',
+        'draft'  => '转换为草稿',
     ],
     'posts'   => [
         'create'   => '最新帖子',
         'edit'     => '编辑帖子',
         'ready'    => '准备出版？',
-        'save'     => '保存并发布',
         'publish'  => '立即发布',
         'later'    => '安排以后',
         'schedule' => '发布时间表',

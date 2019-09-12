@@ -18,7 +18,7 @@
                         </ul>
 
                         <a v-if="isPublished" href="#" class="btn btn-sm btn-outline-primary my-auto ml-auto" @click="save">
-                            {{ trans.buttons.posts.save }}
+                            {{ trans.buttons.general.save }}
                         </a>
 
                         <a v-else href="#" class="btn btn-sm btn-outline-primary my-auto ml-auto" @click="showPublishModal">
@@ -43,6 +43,9 @@
                                 </a>
                                 <a href="#" class="dropdown-item" @click="showSeoModal">
                                     {{ trans.nav.controls.seo }}
+                                </a>
+                                <a  v-if="isPublished" href="#" class="dropdown-item" @click.prevent="convertToDraft">
+                                    {{ trans.buttons.general.draft }}
                                 </a>
                                 <a v-if="id !== 'create'" href="#" class="dropdown-item text-danger" @click="showDeleteModal">
                                     {{ trans.buttons.general.delete }}
@@ -207,6 +210,11 @@ export default {
                 });
         },
 
+        convertToDraft() {
+            this.storeState.form.published_at = "";
+            this.save();
+        },
+
         deletePost() {
             this.request()
                 .delete("/api/posts/" + this.id)
@@ -221,9 +229,7 @@ export default {
         },
 
         getContextualState() {
-            return this.isPublished
-                ? this.trans.nav.context.published
-                : this.trans.nav.context.draft;
+            return this.isPublished ? this.trans.nav.context.published : this.trans.nav.context.draft;
         },
 
         showPublishModal() {

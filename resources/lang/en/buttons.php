@@ -9,12 +9,12 @@ return [
         'load'   => 'Show more',
         'save'   => 'Save',
         'next'   => 'Next page',
+        'draft'  => 'Convert to draft',
     ],
     'posts'   => [
         'create'   => 'New post',
         'edit'     => 'Edit post',
         'ready'    => 'Ready to publish?',
-        'save'     => 'Save and publish',
         'publish'  => 'Publish now',
         'later'    => 'Schedule for later',
         'schedule' => 'Schedule to publish',

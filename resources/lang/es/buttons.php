@@ -9,12 +9,12 @@ return [
         'load'   => 'Mostrar más',
         'save'   => 'Salvar',
         'next'   => 'Siguiente página',
+        'draft'  => 'Convertir a borrador',
     ],
     'posts'   => [
         'create'   => 'Nueva publicación',
         'edit'     => 'Editar post',
         'ready'    => '¿Listo para publicar?',
-        'save'     => 'Guardar y publicar',
         'publish'  => 'Publica ahora',
         'later'    => 'Horario para más tarde',
         'schedule' => 'Programar para publicar',
