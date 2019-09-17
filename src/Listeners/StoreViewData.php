@@ -20,7 +20,7 @@ class StoreViewData
                 'post_id' => $event->post->id,
                 'ip'      => request()->getClientIp(),
                 'agent'   => request()->header('user_agent'),
-                'referer' => request()->header('referer'),
+                'referer' => $this->validUrl(request()->header('referer')),
             ];
 
             $event->post->views()->create($view_data);
@@ -51,5 +51,16 @@ class StoreViewData
     private function storeInSession(Post $post)
     {
         session()->put("viewed_posts.{$post->id}", time());
+    }
+
+    /**
+     * Return only value URLs.
+     *
+     * @param string $url
+     * @return mixed
+     */
+    private function validUrl(string $url)
+    {
+        return filter_var($url, FILTER_VALIDATE_URL) ?? null;
     }
 }
