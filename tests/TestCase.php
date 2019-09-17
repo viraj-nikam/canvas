@@ -39,7 +39,7 @@ abstract class TestCase extends OrchestraTestCase
      * @param Application $app
      * @return void
      */
-    protected function resolveApplicationCore($app)
+    protected function resolveApplicationCore($app): void
     {
         parent::resolveApplicationCore($app);
 
@@ -75,8 +75,6 @@ abstract class TestCase extends OrchestraTestCase
      */
     protected function setUpDatabase($app): void
     {
-        $this->loadLaravelMigrations();
-
         $this->loadMigrationsFrom(dirname(__DIR__).'/database/migrations');
 
         $this->artisan('migrate');

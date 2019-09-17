@@ -1,6 +1,6 @@
 <?php
 
-namespace Canvas\Tests\Listeners;
+namespace Canvas\Tests\Middleware;
 
 use Canvas\Post;
 use Ramsey\Uuid\Uuid;

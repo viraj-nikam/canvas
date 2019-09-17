@@ -2,6 +2,14 @@
 
 ## [Unreleased](https://github.com/cnvs/canvas/compare/master...develop)
 
+## [4.2.8](https://github.com/cnvs/canvas/compare/v4.2.7...v4.2.8) (September 17, 2019)
+
+## Added
+- Added support for Laravel 6 LTS ([#549](https://github.com/cnvs/canvas/issues/549), [cd5fab3](https://github.com/cnvs/canvas/commit/cd5fab3b1ea1544e5256abd868fd09f88e8cff5a))
+
+## Fixed
+- Patch for an undefined 'host' index on referer links ([#545](https://github.com/cnvs/canvas/issues/545), [#546](https://github.com/cnvs/canvas/pull/546), [dfa09e3](https://github.com/cnvs/canvas/commit/dfa09e314a4ca45864dd96cd3353609a87d8ef2f))
+
 ## [4.2.7](https://github.com/cnvs/canvas/compare/v4.2.6...v4.2.7) (August 19, 2019)
 
 ## Added
