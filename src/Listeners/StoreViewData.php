@@ -20,7 +20,7 @@ class StoreViewData
                 'post_id' => $event->post->id,
                 'ip'      => request()->getClientIp(),
                 'agent'   => request()->header('user_agent'),
-                'referer' => $this->validUrl(request()->header('referer')),
+                'referer' => $this->validUrl((string) request()->header('referer')),
             ];
 
             $event->post->views()->create($view_data);
