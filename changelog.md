@@ -2,6 +2,11 @@
 
 ## [Unreleased](https://github.com/cnvs/canvas/compare/master...develop)
 
+## [4.2.9](https://github.com/cnvs/canvas/compare/v4.2.8...v4.2.9) (September 20, 2019)
+
+## Fixed
+- Patch for null referer URLs being passed in the view listener ([76e5fd6](https://github.com/cnvs/canvas/commit/76e5fd6aca480cda2455a195001babecf9e76b37))
+
 ## [4.2.8](https://github.com/cnvs/canvas/compare/v4.2.7...v4.2.8) (September 17, 2019)
 
 ## Added
