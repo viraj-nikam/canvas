@@ -11,7 +11,7 @@
                         <img :src="storeState.form.featured_image" :alt="storeState.form.featured_image_caption" class="w-100"/>
 
                         <div class="input-group py-2">
-                            <input type="text" class="form-control border-0 px-0" name="featured_image_caption" v-model="storeState.form.featured_image_caption" :placeholder="trans.posts.forms.editor.images.picker.uploader.caption.placeholder"/>
+                            <input type="text" class="form-control border-0 px-0" @blur="update" name="featured_image_caption" v-model="storeState.form.featured_image_caption" :placeholder="trans.posts.forms.editor.images.picker.uploader.caption.placeholder"/>
                         </div>
                     </div>
 
@@ -25,7 +25,7 @@
 
                     <image-picker v-else
                                   :image-url="storeState.form.featured_image"
-                                  @changed="updateImage"
+                                  @changed="update"
                                   @clearSelectedImage="clear"
                                   @isUploading="isUploading = true">
                     </image-picker>
@@ -65,10 +65,15 @@ export default {
             this.storeState.form.featured_image_caption = "";
         },
 
-        updateImage({url, caption}) {
-            this.storeState.form.featured_image = url;
-            this.storeState.form.featured_image_caption = caption;
+        update({url, caption}) {
+            if (url) {
+                this.storeState.form.featured_image = url;
+            }
+            if (caption) {
+                this.storeState.form.featured_image_caption = caption;
+            }
 
+            this.$parent.save();
             this.isUploading = false;
         },
     }

@@ -53,6 +53,7 @@ export default {
     methods: {
         onChange(value, id) {
             store.syncTags(value);
+            this.update();
         },
 
         addTag(searchQuery) {
@@ -65,6 +66,11 @@ export default {
             this.value.push(tag);
 
             store.syncTags(tag);
+            this.update();
+        },
+
+        update() {
+            this.$parent.update();
         }
     }
 };

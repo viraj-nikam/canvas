@@ -112,9 +112,7 @@ export default {
             this.editor.on("text-change", () => {
                 // let body = this.editor.getText() ? this.editor.root.innerHTML : '';
 
-                this.storeState.form.body = this.editor.getText()
-                    ? this.editor.root.innerHTML
-                    : "";
+                this.storeState.form.body = this.editor.getText() ? this.editor.root.innerHTML : "";
                 // this.$refs['body'].value = body;
                 // this.$emit('input', body);
             });

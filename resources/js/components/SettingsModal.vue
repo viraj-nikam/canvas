@@ -10,7 +10,7 @@
                     <div class="form-group row">
                         <div class="col-12">
                             <label class="font-weight-bold">{{ trans.posts.forms.settings.slug.label }}</label>
-                            <input type="text" class="form-control border-0 px-0" name="slug" v-model="storeState.form.slug" :title="trans.posts.forms.settings.slug.label" :placeholder="trans.posts.forms.settings.slug.placeholder"/>
+                            <input type="text" class="form-control border-0 px-0" @blur="update" name="slug" v-model="storeState.form.slug" :title="trans.posts.forms.settings.slug.label" :placeholder="trans.posts.forms.settings.slug.placeholder"/>
                             <div v-if="storeState.form.errors.slug" class="invalid-feedback d-block">
                                 <strong>{{ storeState.form.errors.slug[0] }}</strong>
                             </div>
@@ -23,6 +23,7 @@
                                                name="summary"
                                                class="form-control border-0 px-0"
                                                v-model="storeState.form.summary"
+                                               @blur.native="update"
                                                :placeholder="trans.posts.forms.settings.summary.placeholder">
                             </textarea-autosize>
                         </div>
@@ -96,6 +97,12 @@ export default {
     mounted() {
         this.allTags = this.tags;
         this.allTopics = this.topics;
+    },
+
+    methods: {
+        update() {
+            this.$parent.save();
+        }
     }
 };
 </script>

@@ -52,6 +52,7 @@ export default {
     methods: {
         onChange(value, id) {
             store.syncTopic(value);
+            this.update();
         },
 
         addTopic(searchQuery) {
@@ -68,6 +69,11 @@ export default {
             };
 
             store.syncTopic(topic);
+            this.update();
+        },
+
+        update() {
+            this.$parent.update();
         }
     }
 };

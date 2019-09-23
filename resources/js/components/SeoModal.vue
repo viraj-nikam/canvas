@@ -13,6 +13,7 @@
                             <textarea-autosize name="meta_description"
                                                class="form-control border-0 px-0"
                                                rows="1"
+                                               @blur.native="update"
                                                v-model="storeState.form.meta.meta_description"
                                                :placeholder="trans.posts.forms.seo.meta">
                             </textarea-autosize>
@@ -23,7 +24,7 @@
                             <label class="font-weight-bold">
                                 {{ trans.posts.forms.seo.facebook.title.label }}
                             </label>
-                            <input name="og_title" type="text" class="form-control border-0 px-0" :title="trans.posts.forms.seo.facebook.title.label" v-model="storeState.form.meta.og_title" :placeholder="trans.posts.forms.seo.facebook.title.placeholder"/>
+                            <input name="og_title" type="text" @blur="update" class="form-control border-0 px-0" :title="trans.posts.forms.seo.facebook.title.label" v-model="storeState.form.meta.og_title" :placeholder="trans.posts.forms.seo.facebook.title.placeholder"/>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -32,6 +33,7 @@
                             <textarea-autosize name="og_description"
                                                class="form-control border-0 px-0"
                                                rows="1"
+                                               @blur.native="update"
                                                v-model="storeState.form.meta.og_description"
                                                :placeholder="trans.posts.forms.seo.facebook.description.placeholder">
                             </textarea-autosize>
@@ -43,6 +45,7 @@
                             <input type="text"
                                    class="form-control border-0 px-0"
                                    name="twitter_title"
+                                   @blur="update"
                                    v-model="storeState.form.meta.twitter_title"
                                    :title="trans.posts.forms.seo.twitter.title.label"
                                    :placeholder="trans.posts.forms.seo.twitter.title.placeholder"/>
@@ -54,6 +57,7 @@
                             <textarea-autosize name="twitter_description"
                                                class="form-control border-0 px-0"
                                                rows="1"
+                                               @blur.native="update"
                                                v-model="storeState.form.meta.twitter_description"
                                                :placeholder="trans.posts.forms.seo.twitter.description.placeholder">
                             </textarea-autosize>
@@ -62,7 +66,7 @@
                     <div class="form-group row">
                         <div class="col-12">
                             <label class="font-weight-bold">{{ trans.posts.forms.seo.canonical.label }}</label>
-                            <input type="text" class="form-control border-0 px-0" name="canonical_link" v-model="storeState.form.meta.canonical_link" :title="trans.posts.forms.seo.canonical.label" :placeholder="trans.posts.forms.seo.canonical.placeholder"/>
+                            <input type="text" @blur="update" class="form-control border-0 px-0" name="canonical_link" v-model="storeState.form.meta.canonical_link" :title="trans.posts.forms.seo.canonical.label" :placeholder="trans.posts.forms.seo.canonical.placeholder"/>
                         </div>
                     </div>
                 </div>
@@ -92,6 +96,12 @@ export default {
             storeState: store.state,
             trans: JSON.parse(Canvas.lang)
         };
+    },
+
+    methods: {
+        update() {
+            this.$parent.save();
+        }
     }
 };
 </script>

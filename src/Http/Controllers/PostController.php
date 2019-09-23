@@ -2,6 +2,7 @@
 
 namespace Canvas\Http\Controllers;
 
+use Exception;
 use Canvas\Tag;
 use Canvas\Post;
 use Canvas\Topic;
@@ -29,7 +30,7 @@ class PostController extends Controller
      *
      * @param null $id
      * @return JsonResponse
-     * @throws \Exception
+     * @throws Exception
      */
     public function show($id = null): JsonResponse
     {
@@ -61,14 +62,14 @@ class PostController extends Controller
      *
      * @param string $id
      * @return JsonResponse
-     * @throws \Exception
+     * @throws Exception
      */
     public function store(string $id): JsonResponse
     {
         $data = [
             'id'                     => request('id'),
             'slug'                   => request('slug'),
-            'title'                  => request('title', 'Post Title'),
+            'title'                  => request('title', 'Title'),
             'summary'                => request('summary', null),
             'body'                   => request('body', null),
             'published_at'           => request('published_at', null),
@@ -174,7 +175,7 @@ class PostController extends Controller
      *
      * @param array $incomingTopic
      * @return array
-     * @throws \Exception
+     * @throws Exception
      */
     private function syncTopic(array $incomingTopic): array
     {

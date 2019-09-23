@@ -2,6 +2,7 @@
 
 namespace Canvas\Http\Controllers;
 
+use Exception;
 use Canvas\Topic;
 use Ramsey\Uuid\Uuid;
 use Illuminate\Validation\Rule;
@@ -27,7 +28,7 @@ class TopicController extends Controller
      *
      * @param null $id
      * @return JsonResponse
-     * @throws \Exception
+     * @throws Exception
      */
     public function show($id = null): JsonResponse
     {

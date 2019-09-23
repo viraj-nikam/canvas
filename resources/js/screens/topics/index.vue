@@ -34,7 +34,6 @@
                                 <div id="searchDropdown" class="dropdown-menu dropdown-menu-right py-0" aria-labelledby="dropdownMenuButton">
                                     <form class="pl-2 w-100">
                                         <div class="form-group mb-0">
-                                            <label for="search"></label>
                                             <input id="search" v-model="search" type="text" class="form-control border-0 pl-0" :placeholder="trans.topics.search.input" autofocus/>
                                         </div>
                                     </form>
