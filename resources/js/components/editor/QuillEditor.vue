@@ -110,16 +110,11 @@ export default {
             this.editor.root.innerHTML = this.storeState.form.body;
 
             this.editor.on("text-change", () => {
-                // let body = this.editor.getText() ? this.editor.root.innerHTML : '';
-
                 this.storeState.form.body = this.editor.getText() ? this.editor.root.innerHTML : "";
-                // this.$refs['body'].value = body;
-                // this.$emit('input', body);
             });
         },
 
         handleClicksInsideEditor() {
-            // todo: check console warning about the event listener
             this.editor.root.addEventListener("click", ev => {
                 let blot = Parchment.find(ev.target, true);
 
