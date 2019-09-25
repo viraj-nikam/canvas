@@ -50,7 +50,7 @@
                     <a v-if="isReadyToPublish" href="#" class="btn btn-primary" @click="publish" data-dismiss="modal">
                         {{ trans.buttons.posts.publish }}
                     </a>
-                    <a v-else href="#" class="btn btn-primary" @click="publish" data-dismiss="modal">
+                    <a v-else href="#" class="btn btn-primary" @click="schedule" data-dismiss="modal">
                         {{ trans.buttons.posts.schedule }}
                     </a>
                     <button v-if="isReadyToPublish" type="button" class="btn btn-link text-muted" @click="isReadyToPublish = false">
@@ -133,8 +133,14 @@ export default {
             };
         },
 
-        publish() {
+        schedule() {
             this.storeState.form.published_at = this.result;
+            this.$parent.save();
+            this.isReadyToPublish = true;
+        },
+
+        publish() {
+            this.storeState.form.published_at = moment().format("YYYY-MM-DD hh:mm:ss");
             this.$parent.save();
             this.isReadyToPublish = true;
         }
