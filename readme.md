@@ -19,7 +19,7 @@ writing experience, you can view monthly trends on your content, get insights in
 
 ## Installation
 
-> **Note:** Canvas requires you to have user authentication in place prior to installation. You may run the `make:auth` Artisan command to satisfy this requirement.
+> **Note:** Canvas requires you to have user authentication in place prior to installation. For Laravel 5.* based projects you may run the `make:auth` Artisan command to satisfy this requirement. For Laravel 6.* based projects please see the [official guide](https://laravel.com/docs/6.x/authentication#introduction) to get started.   
 
 You may use composer to install Canvas into your Laravel project:
 
