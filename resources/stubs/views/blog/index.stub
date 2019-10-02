@@ -28,7 +28,8 @@
                             <p class="lead my-3"><a href="{{ route('blog.post', $post->slug) }}"
                                                     class="text-white text-decoration-none">{{ $post->summary }}</a></p>
                             <p class="lead mb-0"><a href="{{ route('blog.post', $post->slug) }}"
-                                                    class="text-white font-weight-bold text-decoration-none">{{ __('canvas::blog.buttons.continue') }}</a></p>
+                                                    class="text-white font-weight-bold text-decoration-none">{{ __('canvas::blog.buttons.continue') }}</a>
+                            </p>
                         </div>
                     </div>
                 @endif
@@ -46,16 +47,21 @@
                     @foreach($data['posts'] as $post)
                         @if(!$loop->first)
                             <div class="blog-post">
-                                <h2 class="blog-post-title"><a href="{{ route('blog.post', $post->slug) }}" class="text-dark text-decoration-none">{{ $post->title }}</a></h2>
+                                <h2 class="blog-post-title">
+                                    <a href="{{ route('blog.post', $post->slug) }}" class="text-dark text-decoration-none">{{ $post->title }}</a>
+                                </h2>
                                 <p class="blog-post-meta small">{{ $post->published_at->format('M d') }} — {{ $post->read_time }}</p>
-                                <p><a href="{{ route('blog.post', $post->slug) }}" class="text-dark text-decoration-none">{{ $post->summary }}</a></p>
+                                <p>
+                                    <a href="{{ route('blog.post', $post->slug) }}" class="text-dark text-decoration-none">{{ $post->summary }}</a>
+                                </p>
                             </div>
                         @endif
                     @endforeach
 
                     {{ $data['posts']->links() }}
                 @else
-                    <p class="mt-4">{{ __('canvas::blog.empty.description') }} <a href="{{ url(sprintf('%s/posts/create', config('canvas.path'))) }}">
+                    <p class="mt-4">{{ __('canvas::blog.empty.description') }}
+                        <a href="{{ url(sprintf('%s/posts/create', config('canvas.path'))) }}">
                             {{ __('canvas::blog.empty.action') }}</a>.</p>
                 @endif
             </div>
@@ -65,7 +71,9 @@
                     <h4 class="font-italic">{{ __('canvas::blog.tags.label') }}</h4>
                     <ol class="list-unstyled mb-0">
                         @foreach($data['tags'] as $tag)
-                            <li><a href="{{ route('blog.tag', $tag->slug) }}" class="text-decoration-none">{{ $tag->name }}</a></li>
+                            <li>
+                                <a href="{{ route('blog.tag', $tag->slug) }}" class="text-decoration-none">{{ $tag->name }}</a>
+                            </li>
                         @endforeach
                     </ol>
                 </div>

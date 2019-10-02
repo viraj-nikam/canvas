@@ -11,7 +11,7 @@
     <meta name="twitter:description" content="{{ $data['meta']['twitter_description'] }}">
 
     @isset($data['meta']['canonical_link'])
-        <link rel="canonical" href="{{ $data['meta']['canonical_link'] }}" />
+        <link rel="canonical" href="{{ $data['meta']['canonical_link'] }}"/>
     @endisset
 
     @isset($data['post']->featured_image)
@@ -29,6 +29,7 @@
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
             <a href="{{ url(sprintf('%s/posts/%s/edit', config('canvas.path'), $data['post']->id)) }}"
                class="dropdown-item sans-serif">{{ __('canvas::blog.buttons.edit') }}</a>
+
             <a href="{{ url(sprintf('%s/stats/%s', config('canvas.path'), $data['post']->id)) }}"
                class="dropdown-item sans-serif">{{ __('canvas::blog.buttons.stats') }}</a>
         </div>
@@ -68,8 +69,7 @@
                 @if($data['post']->tags->count() > 0)
                     <h5>
                         @foreach($data['post']->tags as $tag)
-                            <span><a href="{{ route('blog.tag', $tag->slug) }}"
-                                     class="badge badge-light p-2 tag">{{ $tag->name }}</a></span>
+                            <span><a href="{{ route('blog.tag', $tag->slug) }}" class="badge badge-light p-2 tag text-decoration-none">{{ $tag->name }}</a></span>
                         @endforeach
                     </h5>
                 @endif
@@ -87,9 +87,9 @@
                         {{ __('canvas::blog.buttons.next') }}
                     </a>
                     <h2 class="font-weight-bold serif my-3 @if(!empty($data['next']->featured_image)) text-white @endif">
-                        <a href="{{ route('blog.post', $data['next']->slug) }}"
-                           class="title">{{ $data['next']->title }}</a></h2>
-                    <p class="serif body @if(!empty($data['next']->featured_image)) text-white-50 @else text-muted @endif">{{ Illuminate\Support\Str::limit(strip_tags($data['next']->body), 140) }}</p>
+                        <a href="{{ route('blog.post', $data['next']->slug) }}" class="title">{{ $data['next']->title }}</a>
+                    </h2>
+                    <p class="serif body @if(!empty($data['next']->featured_image)) text-white-50 @else text-muted @endif">{{ Illuminate\Support\Str::limit(strip_tags($data['next']->summary), 140) }}</p>
                 </div>
             @endif
             @if($data['random'])
@@ -102,7 +102,7 @@
                     <h2 class="font-weight-bold serif my-3 @if(!empty($data['random']->featured_image)) text-white @endif">
                         <a href="{{ route('blog.post', $data['random']->slug) }}"
                            class="title">{{ $data['random']->title }}</a></h2>
-                    <p class="serif body @if(!empty($data['random']->featured_image)) text-white-50 @else text-muted @endif">{{ Illuminate\Support\Str::limit(strip_tags($data['random']->body), 140) }}</p>
+                    <p class="serif body @if(!empty($data['random']->featured_image)) text-white-50 @else text-muted @endif">{{ Illuminate\Support\Str::limit(strip_tags($data['random']->summary), 140) }}</p>
                 </div>
             @endif
         </div>
@@ -111,7 +111,7 @@
 
 @push('scripts')
     <script type="text/javascript">
-        $(function() {
+        $(function () {
             mediumZoom('.embedded_image img');
         });
 
