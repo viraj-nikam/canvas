@@ -2,10 +2,6 @@
 // Bootstrap
 @import "~bootstrap/scss/bootstrap";
 
-[v-cloak] {
-  display: none;
-}
-
 a, a:focus,
 input, input:focus,
 button, button:focus,
@@ -40,4 +36,8 @@ a, .btn-link {
 input, textarea, select {
   box-shadow: none !important;
   outline: none !important;
+}
+
+[v-cloak] {
+    display: none;
 }

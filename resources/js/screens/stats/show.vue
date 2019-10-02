@@ -32,13 +32,13 @@
                     </div>
 
                     <div class="col-md-5 mt-4">
-                        <h5 class="text-muted small text-uppercase font-weight-bold">
+                        <h5 class="text-muted small text-uppercase font-weight-bold border-bottom pb-2">
                             {{ trans.stats.details.views }}
                         </h5>
 
                         <div v-if="traffic">
                             <div v-for="(views, host, index) in traffic">
-                                <div class="d-flex py-2 align-items-center" :class="{ 'border-top': index === 0 }">
+                                <div class="d-flex py-2 align-items-center">
                                     <div class="mr-auto">
                                         <div v-if="host === trans.stats.details.referer.other">
                                             <p class="mb-0 py-1">
@@ -52,34 +52,29 @@
                                         <div v-else>
                                             <p class="mb-0 py-1">
                                                 <img :src="`https://favicons.githubusercontent.com/${host}`" :alt="host" class="mr-1"/>
-                                                <a :href="'http://' + host" target="_blank">
-                                                    {{ host }}
-                                                </a>
+                                                <a :href="'http://' + host" target="_blank">{{ host }}</a>
                                             </p>
                                         </div>
                                     </div>
                                     <div class="ml-auto">
-                                        <span class="text-muted">
-                                            {{ suffixedNumber(views) }}
-                                            {{ trans.stats.views }}
-                                        </span>
+                                        <span class="text-muted">{{ suffixedNumber(views) }} {{ trans.stats.views }}</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <p v-else class="py-4 border-top">
-                            <em>{{ trans.stats.details.empty }}</em>
+                        <p v-else class="py-2 font-italic">
+                            {{ trans.stats.details.empty }}
                         </p>
                     </div>
 
                     <div class="col-md-5 mt-4">
-                        <h5 class="text-muted small text-uppercase font-weight-bold">
+                        <h5 class="text-muted small text-uppercase font-weight-bold border-bottom pb-2">
                             {{ trans.stats.details.reading.header }}
                         </h5>
 
                         <div v-if="popular_reading_times">
                             <div v-for="(percentage, time, index) in popular_reading_times">
-                                <div class="d-flex py-2 align-items-center" :class="{ 'border-top': index === 0 }">
+                                <div class="d-flex py-2 align-items-center">
                                     <div class="mr-auto">
                                         <p class="mb-0 py-1">
                                             {{ time }}
@@ -91,8 +86,8 @@
                                 </div>
                             </div>
                         </div>
-                        <p v-else class="py-4 border-top">
-                            <em>{{ trans.stats.details.empty }}</em>
+                        <p v-else class="py-2 font-italic">
+                            {{ trans.stats.details.empty }}
                         </p>
                     </div>
                 </div>
@@ -137,9 +132,8 @@ export default {
                 .then(response => {
                     vm.post = response.data.post;
                     vm.views = response.data.views;
-                    vm.traffic = response.data.traffic;
-                    vm.popular_reading_times =
-                        response.data.popular_reading_times;
+                    vm.traffic = Array.isArray(response.data.traffic) ? null : response.data.traffic;
+                    vm.popular_reading_times = Array.isArray(response.data.popular_reading_times) ? null : response.data.popular_reading_times;
 
                     vm.isReady = true;
                 })

@@ -31,7 +31,7 @@
                                 <a id="navbarDropdown" href="#" class="nav-link px-0 pb-0 pt-3 text-secondary" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fas fa-search"></i>
                                 </a>
-                                <div id="searchDropdown" class="dropdown-menu dropdown-menu-right py-0" aria-labelledby="dropdownMenuButton">
+                                <div id="searchDropdown" class="dropdown-menu dropdown-menu-right py-0 shadow-sm" aria-labelledby="dropdownMenuButton">
                                     <form class="pl-2 w-100">
                                         <div class="form-group mb-0">
                                             <input id="search" v-model="search" type="text" class="form-control border-0 pl-0" :placeholder="trans.topics.search.input" autofocus/>
@@ -59,7 +59,7 @@
                                 </div>
 
                                 <div class="d-flex justify-content-center">
-                                    <a v-if="loadMore" href="#!" class="btn btn-link" @click="limit += 10">
+                                    <a v-if="loadMore" href="#!" class="btn btn-link btn-block" @click="limit += 10">
                                         {{ trans.buttons.general.load }}
                                         <i class="fa fa-fw fa-angle-down"></i>
                                     </a>
