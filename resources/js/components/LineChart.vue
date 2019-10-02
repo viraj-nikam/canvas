@@ -25,7 +25,7 @@
 <script>
 import Vue from "vue";
 import moment from "moment";
-import Chart from "vue2-frappe";
+import Chart from "vue-frappe";
 
 Vue.use(Chart);
 Vue.prototype.moment = moment;
