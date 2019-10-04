@@ -10,18 +10,18 @@
 
                         <ul class="navbar-nav mr-auto flex-row float-right">
                             <li class="text-muted font-weight-bold">
-                                <div class="d-inline-block"><span>{{ getContextualState() }}</span></div>
+                                <div class="d-inline-block"><span>{{ context }}</span></div>
 
                                 <span v-if="storeState.form.isSaving" class="pl-2">{{ trans.nav.notify.saving }}</span>
                                 <span v-if="storeState.form.hasSuccess" class="pl-2 text-success">{{ trans.nav.notify.success }}</span>
                             </li>
                         </ul>
 
-                        <a v-if="isPublished" href="#" class="btn btn-sm btn-outline-primary my-auto ml-auto" @click="save">
+                        <a v-if="isDraft" href="#" class="btn btn-sm btn-outline-primary font-weight-bold my-auto ml-auto" @click="save">
                             {{ trans.buttons.general.save }}
                         </a>
 
-                        <a v-else href="#" class="btn btn-sm btn-outline-primary my-auto ml-auto" @click="showPublishModal">
+                        <a v-else href="#" class="btn btn-sm btn-outline-primary font-weight-bold font-weight-bolder my-auto ml-auto" @click="showPublishModal">
                             {{ trans.buttons.posts.ready }}
                         </a>
 
@@ -31,10 +31,10 @@
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right">
-                                <router-link :to="{name: 'stats-show', params: { id: id }}" v-if="isPublished" class="dropdown-item">
+                                <router-link :to="{name: 'stats-show', params: { id: id }}" v-if="isDraft" class="dropdown-item">
                                     {{ trans.nav.controls.stats }}
                                 </router-link>
-                                <div class="dropdown-divider" v-if="isPublished"></div>
+                                <div class="dropdown-divider" v-if="isDraft"></div>
                                 <a href="#" class="dropdown-item" @click="showSettingsModal">
                                     {{ trans.nav.controls.settings }}
                                 </a>
@@ -44,7 +44,7 @@
                                 <a href="#" class="dropdown-item" @click="showSeoModal">
                                     {{ trans.nav.controls.seo }}
                                 </a>
-                                <a  v-if="isPublished" href="#" class="dropdown-item" @click.prevent="convertToDraft">
+                                <a  v-if="isDraft" href="#" class="dropdown-item" @click.prevent="convertToDraft">
                                     {{ trans.buttons.general.draft }}
                                 </a>
                                 <a v-if="id !== 'create'" href="#" class="dropdown-item text-danger" @click="showDeleteModal">
@@ -138,6 +138,7 @@ export default {
 
     data() {
         return {
+            context: null,
             post: null,
             tags: [],
             topics: [],
@@ -154,16 +155,8 @@ export default {
     },
 
     computed: {
-        isPublished() {
-            return !!(
-                this.post &&
-                this.post.published_at <=
-                    moment(new Date())
-                        .tz(this.timezone)
-                        .format()
-                        .slice(0, 19)
-                        .replace("T", " ")
-            );
+        isDraft() {
+            return this.post && this.post.published_at <= moment(new Date()).tz(this.timezone).format().slice(0, 19).replace("T", " ");
         }
     },
 
@@ -177,6 +170,7 @@ export default {
                     this.post = response.data.post;
                     this.tags = response.data.tags;
                     this.topics = response.data.topics;
+                    this.context = this.getContextualState();
                     this.isReady = true;
                 })
                 .catch(error => {
@@ -229,7 +223,7 @@ export default {
         },
 
         getContextualState() {
-            return this.isPublished ? this.trans.nav.context.published : this.trans.nav.context.draft;
+            return this.isDraft ? this.trans.nav.context.published : this.trans.nav.context.draft;
         },
 
         showPublishModal() {

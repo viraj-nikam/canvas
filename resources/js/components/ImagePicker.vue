@@ -29,10 +29,10 @@
                     </div>
 
                     <div class="text-center">
-                        <button class="btn btn-link text-muted" type="button" @click="closeUnsplash" @submit.prevent>
+                        <button class="btn btn-link font-weight-bold text-muted" type="button" @click="closeUnsplash" @submit.prevent>
                             {{ trans.buttons.general.cancel }}
                         </button>
-                        <button class="btn btn-sm btn-outline-primary" type="button" @click="fetchImages(unsplashPage + 1)" v-if="unsplashImages.length === 12" @submit.prevent>
+                        <button class="btn btn-sm btn-outline-primary font-weight-bold" type="button" @click="fetchImages(unsplashPage + 1)" v-if="unsplashImages.length === 12" @submit.prevent>
                             {{ trans.buttons.general.next }}
                         </button>
                     </div>

@@ -31,7 +31,7 @@
                     </image-picker>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-link text-muted" data-dismiss="modal">
+                    <button type="button" class="btn btn-link font-weight-bold text-muted" data-dismiss="modal">
                         {{ trans.buttons.general.done }}
                     </button>
                 </div>

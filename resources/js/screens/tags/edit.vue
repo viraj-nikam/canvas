@@ -19,7 +19,7 @@
                             </li>
                         </ul>
 
-                        <a href="#" class="btn btn-sm btn-outline-primary my-auto ml-auto" :class="{ disabled: form.name === '' }" @click="saveTag" :aria-label="trans.buttons.general.save">
+                        <a href="#" class="btn btn-sm btn-outline-primary font-weight-bold my-auto ml-auto" :class="{ disabled: form.name === '' }" @click="saveTag" :aria-label="trans.buttons.general.save">
                             {{ trans.buttons.general.save }}
                         </a>
 

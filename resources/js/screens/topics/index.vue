@@ -8,7 +8,7 @@
                             <i class="fas fa-align-left"></i>
                         </router-link>
 
-                        <router-link :to="{ name: 'topics-create' }" class="btn btn-sm btn-outline-primary my-auto ml-auto">
+                        <router-link :to="{ name: 'topics-create' }" class="btn btn-sm btn-outline-primary font-weight-bold my-auto ml-auto">
                             {{ trans.buttons.topics.create }}
                         </router-link>
 
@@ -59,7 +59,7 @@
                                 </div>
 
                                 <div class="d-flex justify-content-center">
-                                    <a v-if="loadMore" href="#!" class="btn btn-link btn-block" @click="limit += 10">
+                                    <a v-if="loadMore" href="#!" class="btn btn-link font-weight-bold btn-block" @click="limit += 10">
                                         {{ trans.buttons.general.load }}
                                         <i class="fa fa-fw fa-angle-down"></i>
                                     </a>

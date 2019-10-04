@@ -8,7 +8,7 @@
                             <i class="fas fa-align-left"></i>
                         </router-link>
 
-                        <router-link :to="{ name: 'posts-create' }" class="btn btn-sm btn-outline-primary my-auto ml-auto">
+                        <router-link :to="{ name: 'posts-create' }" class="btn btn-sm btn-outline-primary font-weight-bold my-auto ml-auto">
                             {{ trans.buttons.posts.create }}
                         </router-link>
 
@@ -31,7 +31,7 @@
                                 </p>
 
                                 <div class="card-deck mb-4">
-                                    <div class="card">
+                                    <div class="card shadow-sm">
                                         <div class="card-body">
                                             <h5 class="card-title text-muted small text-uppercase font-weight-bold">
                                                 {{ trans.stats.cards.views.title }}
@@ -41,7 +41,7 @@
                                             </p>
                                         </div>
                                     </div>
-                                    <div class="card">
+                                    <div class="card shadow-sm">
                                         <div class="card-body">
                                             <h5 class="card-title text-muted small text-uppercase font-weight-bold">
                                                 {{ trans.stats.cards.posts.title }}
@@ -51,7 +51,7 @@
                                             </p>
                                         </div>
                                     </div>
-                                    <div class="card">
+                                    <div class="card shadow-sm">
                                         <div class="card-body">
                                             <h5 class="card-title text-muted small text-uppercase font-weight-bold">
                                                 {{ trans.stats.cards.publishing.title }}
@@ -100,7 +100,7 @@
                                     </div>
 
                                     <div class="d-flex justify-content-center">
-                                        <a href="#!" class="btn btn-link" @click="limit += 7" v-if="loadMore">{{ trans.buttons.general.load }}
+                                        <a href="#!" class="btn btn-link font-weight-bold" @click="limit += 7" v-if="loadMore">{{ trans.buttons.general.load }}
                                             <i class="fa fa-fw fa-angle-down"></i>
                                         </a>
                                     </div>

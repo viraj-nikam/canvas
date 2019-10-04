@@ -8,7 +8,7 @@
                             <i class="fas fa-align-left"></i>
                         </router-link>
 
-                        <router-link to="/stats" class="btn btn-sm btn-outline-primary my-auto ml-auto">
+                        <router-link to="/stats" class="btn btn-sm btn-outline-primary font-weight-bold my-auto ml-auto">
                             {{ trans.buttons.stats.index }}
                         </router-link>
 
