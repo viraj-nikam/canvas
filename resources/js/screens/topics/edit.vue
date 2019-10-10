@@ -74,100 +74,100 @@
 </template>
 
 <script>
-import $ from "jquery";
-import DeleteModal from "../../components/DeleteModal";
-import ProfileDropdown from "../../components/ProfileDropdown";
+    import $ from "jquery";
+    import DeleteModal from "../../components/DeleteModal";
+    import ProfileDropdown from "../../components/ProfileDropdown";
 
-export default {
-    name: "topics-edit",
+    export default {
+        name: "topics-edit",
 
-    components: {
-        DeleteModal,
-        ProfileDropdown
-    },
+        components: {
+            DeleteModal,
+            ProfileDropdown
+        },
 
-    data() {
-        return {
-            topic: null,
-            id: this.$route.params.id || "create",
-            form: {
-                id: "",
-                name: "",
-                slug: "",
-                errors: [],
-                isSaving: false,
-                hasSuccess: false
+        data() {
+            return {
+                topic: null,
+                id: this.$route.params.id || "create",
+                form: {
+                    id: "",
+                    name: "",
+                    slug: "",
+                    errors: [],
+                    isSaving: false,
+                    hasSuccess: false
+                },
+                isReady: false,
+                trans: JSON.parse(Canvas.lang)
+            };
+        },
+
+        mounted() {
+            this.fetchData();
+        },
+
+        watch: {
+            "form.name"(val) {
+                this.form.slug = this.slugify(val);
+            }
+        },
+
+        methods: {
+            fetchData() {
+                this.request()
+                    .get("/api/topics/" + this.id)
+                    .then(response => {
+                        this.topic = response.data;
+                        this.form.id = response.data.id;
+
+                        if (this.id !== "create") {
+                            this.form.name = response.data.name;
+                            this.form.slug = response.data.slug;
+                        }
+
+                        this.isReady = true;
+                    })
+                    .catch(error => {
+                        this.$router.push({name: "topics"});
+                    });
             },
-            isReady: false,
-            trans: JSON.parse(Canvas.lang)
-        };
-    },
 
-    mounted() {
-        this.fetchData();
-    },
+            saveTopic() {
+                this.form.errors = [];
+                this.form.isSaving = true;
+                this.form.hasSuccess = false;
 
-    watch: {
-        "form.name"(val) {
-            this.form.slug = this.slugify(val);
+                this.request()
+                    .post("/api/topics/" + this.id, this.form)
+                    .then(response => {
+                        this.form.isSaving = false;
+                        this.form.hasSuccess = true;
+                        this.id = response.data.id;
+                        this.topic = response.data;
+                    })
+                    .catch(error => {
+                        this.form.isSaving = false;
+                        this.form.errors = error.response.data.errors;
+                    });
+            },
+
+            deleteTopic() {
+                this.request()
+                    .delete("/api/topics/" + this.id)
+                    .then(response => {
+                        $(this.$refs.deleteModal.$el).modal("hide");
+
+                        this.$router.push({name: "topics"});
+                    })
+                    .catch(error => {
+                        // Add any error debugging...
+                    });
+            },
+
+            showDeleteModal() {
+                $(this.$refs.deleteModal.$el).modal("show");
+            }
         }
-    },
-
-    methods: {
-        fetchData() {
-            this.request()
-                .get("/api/topics/" + this.id)
-                .then(response => {
-                    this.topic = response.data;
-                    this.form.id = response.data.id;
-
-                    if (this.id !== "create") {
-                        this.form.name = response.data.name;
-                        this.form.slug = response.data.slug;
-                    }
-
-                    this.isReady = true;
-                })
-                .catch(error => {
-                    this.$router.push({ name: "topics" });
-                });
-        },
-
-        saveTopic() {
-            this.form.errors = [];
-            this.form.isSaving = true;
-            this.form.hasSuccess = false;
-
-            this.request()
-                .post("/api/topics/" + this.id, this.form)
-                .then(response => {
-                    this.form.isSaving = false;
-                    this.form.hasSuccess = true;
-                    this.id = response.data.id;
-                    this.topic = response.data;
-                })
-                .catch(error => {
-                    this.form.isSaving = false;
-                    this.form.errors = error.response.data.errors;
-                });
-        },
-
-        deleteTopic() {
-            this.request()
-                .delete("/api/topics/" + this.id)
-                .then(response => {
-                    $(this.$refs.deleteModal.$el).modal("hide");
-
-                    this.$router.push({ name: "topics" });
-                })
-                .catch(error => {
-                    // Add any error debugging...
-                });
-        },
-
-        showDeleteModal() {
-            $(this.$refs.deleteModal.$el).modal("show");
-        }
-    }
-};
+    };
 </script>

@@ -49,77 +49,77 @@
 </template>
 
 <script>
-import $ from "jquery";
-import ImagePicker from "../ImagePicker";
+    import $ from "jquery";
+    import ImagePicker from "../ImagePicker";
 
-/**
- * This component displays...
- *
- * This component will contain...
- *
- * @author Mohamed Said <themsaid@gmail.com>
- */
-export default {
-    name: "ImageModal",
+    /**
+     * This component displays...
+     *
+     * This component will contain...
+     *
+     * @author Mohamed Said <themsaid@gmail.com>
+     */
+    export default {
+        name: "ImageModal",
 
-    components: {
-        ImagePicker
-    },
+        components: {
+            ImagePicker
+        },
 
-    data() {
-        return {
-            caption: "",
-            existingBlot: null,
-            imageUrl: null,
-            layout: "default",
-            trans: JSON.parse(Canvas.lang)
-        };
-    },
+        data() {
+            return {
+                caption: "",
+                existingBlot: null,
+                imageUrl: null,
+                layout: "default",
+                trans: JSON.parse(Canvas.lang)
+            };
+        },
 
-    mounted() {
-        this.$parent.$on("openingImageUploader", data => {
-            if (data) {
-                this.showImageModal();
+        mounted() {
+            this.$parent.$on("openingImageUploader", data => {
+                if (data) {
+                    this.showImageModal();
 
-                this.caption = data.caption;
-                this.imageUrl = data.url;
-                this.layout = data.layout || "default";
-                this.existingBlot = data.existingBlot;
-            }
-        });
-    },
-
-    methods: {
-        setImage() {
-            if (!this.imageUrl) {
-                return;
-            }
-
-            this.$emit("addingImage", {
-                url: this.imageUrl,
-                caption: this.caption,
-                existingBlot: this.existingBlot,
-                layout: this.layout
+                    this.caption = data.caption;
+                    this.imageUrl = data.url;
+                    this.layout = data.layout || "default";
+                    this.existingBlot = data.existingBlot;
+                }
             });
-
-            this.clearImage();
         },
 
-        updateImage({ url, caption }) {
-            this.imageUrl = url;
-            this.caption = caption ? caption : "";
-        },
+        methods: {
+            setImage() {
+                if (!this.imageUrl) {
+                    return;
+                }
 
-        clearImage() {
-            this.existingBlot = null;
-            this.imageUrl = null;
-            this.layout = "default";
-            this.caption = "";
-        },
+                this.$emit("addingImage", {
+                    url: this.imageUrl,
+                    caption: this.caption,
+                    existingBlot: this.existingBlot,
+                    layout: this.layout
+                });
 
-        showImageModal() {
-            $("#imageUpload").modal("show");
+                this.clearImage();
+            },
+
+            updateImage({url, caption}) {
+                this.imageUrl = url;
+                this.caption = caption ? caption : "";
+            },
+
+            clearImage() {
+                this.existingBlot = null;
+                this.imageUrl = null;
+                this.layout = "default";
+                this.caption = "";
+            },
+
+            showImageModal() {
+                $("#imageUpload").modal("show");
+            }
         }
-    }
-};
+    };
 </script>

@@ -97,57 +97,57 @@
 </template>
 
 <script>
-import Tooltip from "../../directives/tooltip";
-import LineChart from "../../components/LineChart";
-import ProfileDropdown from "../../components/ProfileDropdown";
+    import Tooltip from "../../directives/tooltip";
+    import LineChart from "../../components/LineChart";
+    import ProfileDropdown from "../../components/ProfileDropdown";
 
-export default {
-    name: "stats-show",
+    export default {
+        name: "stats-show",
 
-    components: {
-        LineChart,
-        ProfileDropdown
-    },
+        components: {
+            LineChart,
+            ProfileDropdown
+        },
 
-    directives: {
-        Tooltip
-    },
+        directives: {
+            Tooltip
+        },
 
-    data() {
-        return {
-            id: this.$route.params.id,
-            post: null,
-            views: null,
-            popular_reading_times: null,
-            traffic: null,
-            isReady: false,
-            trans: JSON.parse(Canvas.lang)
-        };
-    },
+        data() {
+            return {
+                id: this.$route.params.id,
+                post: null,
+                views: null,
+                popular_reading_times: null,
+                traffic: null,
+                isReady: false,
+                trans: JSON.parse(Canvas.lang)
+            };
+        },
 
-    beforeRouteEnter(to, from, next) {
-        next(vm => {
-            vm.request()
-                .get("/api/stats/" + vm.id)
-                .then(response => {
-                    vm.post = response.data.post;
-                    vm.views = response.data.views;
-                    vm.traffic = Array.isArray(response.data.traffic) ? null : response.data.traffic;
-                    vm.popular_reading_times = Array.isArray(response.data.popular_reading_times) ? null : response.data.popular_reading_times;
+        beforeRouteEnter(to, from, next) {
+            next(vm => {
+                vm.request()
+                    .get("/api/stats/" + vm.id)
+                    .then(response => {
+                        vm.post = response.data.post;
+                        vm.views = response.data.views;
+                        vm.traffic = Array.isArray(response.data.traffic) ? null : response.data.traffic;
+                        vm.popular_reading_times = Array.isArray(response.data.popular_reading_times) ? null : response.data.popular_reading_times;
 
-                    vm.isReady = true;
-                })
-                .catch(error => {
-                    vm.$router.push({ name: "stats" });
-                });
-        });
-    }
-};
+                        vm.isReady = true;
+                    })
+                    .catch(error => {
+                        vm.$router.push({name: "stats"});
+                    });
+            });
+        }
+    };
 </script>
 
 <style scoped>
-img {
-    width: 15px;
-    height: 15px;
-}
+    img {
+        width: 15px;
+        height: 15px;
+    }
 </style>

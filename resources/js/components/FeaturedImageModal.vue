@@ -11,7 +11,7 @@
                         <img :src="storeState.form.featured_image" :alt="storeState.form.featured_image_caption" class="w-100"/>
 
                         <div class="input-group py-2">
-                            <input type="text" class="form-control border-0 px-0" @blur="update" name="featured_image_caption" v-model="storeState.form.featured_image_caption" :placeholder="trans.posts.forms.editor.images.picker.uploader.caption.placeholder"/>
+                            <input type="text" class="form-control border-0 px-0" @input="update" name="featured_image_caption" v-model="storeState.form.featured_image_caption" :placeholder="trans.posts.forms.editor.images.picker.uploader.caption.placeholder"/>
                         </div>
                     </div>
 
@@ -41,41 +41,41 @@
 </template>
 
 <script>
-import ImagePicker from "./ImagePicker";
-import { store } from "../screens/posts/store";
+    import ImagePicker from "./ImagePicker";
+    import {store} from "../screens/posts/store";
 
-export default {
-    name: "featured-image-modal",
+    export default {
+        name: "featured-image-modal",
 
-    components: {
-        ImagePicker
-    },
-
-    data() {
-        return {
-            storeState: store.state,
-            isUploading: false,
-            trans: JSON.parse(Canvas.lang)
-        };
-    },
-
-    methods: {
-        clear() {
-            this.storeState.form.featured_image = "";
-            this.storeState.form.featured_image_caption = "";
+        components: {
+            ImagePicker
         },
 
-        update({url, caption}) {
-            if (url) {
-                this.storeState.form.featured_image = url;
-            }
-            if (caption) {
-                this.storeState.form.featured_image_caption = caption;
-            }
-
-            this.$parent.save();
-            this.isUploading = false;
+        data() {
+            return {
+                storeState: store.state,
+                isUploading: false,
+                trans: JSON.parse(Canvas.lang)
+            };
         },
-    }
-};
+
+        methods: {
+            clear() {
+                this.storeState.form.featured_image = "";
+                this.storeState.form.featured_image_caption = "";
+            },
+
+            update({url, caption}) {
+                if (url) {
+                    this.storeState.form.featured_image = url;
+                }
+                if (caption) {
+                    this.storeState.form.featured_image_caption = caption;
+                }
+
+                this.$parent.save();
+                this.isUploading = false;
+            },
+        }
+    };
 </script>

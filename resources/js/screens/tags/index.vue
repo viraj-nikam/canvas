@@ -81,72 +81,72 @@
 </template>
 
 <script>
-import ProfileDropdown from "../../components/ProfileDropdown";
+    import ProfileDropdown from "../../components/ProfileDropdown";
 
-export default {
-    name: "tags",
+    export default {
+        name: "tags",
 
-    components: {
-        ProfileDropdown
-    },
+        components: {
+            ProfileDropdown
+        },
 
-    data() {
-        return {
-            tags: [],
-            search: "",
-            limit: 10,
-            loadMore: false,
-            isReady: false,
-            timezone: Canvas.timezone,
-            trans: JSON.parse(Canvas.lang)
-        };
-    },
+        data() {
+            return {
+                tags: [],
+                search: "",
+                limit: 10,
+                loadMore: false,
+                isReady: false,
+                timezone: Canvas.timezone,
+                trans: JSON.parse(Canvas.lang)
+            };
+        },
 
-    mounted() {
-        this.fetchData();
-    },
+        mounted() {
+            this.fetchData();
+        },
 
-    methods: {
-        fetchData() {
-            this.request()
-                .get("/api/tags")
-                .then(response => {
-                    this.tags = response.data;
-                    this.isReady = true;
-                })
-                .catch(error => {
-                    // Add any error debugging...
+        methods: {
+            fetchData() {
+                this.request()
+                    .get("/api/tags")
+                    .then(response => {
+                        this.tags = response.data;
+                        this.isReady = true;
+                    })
+                    .catch(error => {
+                        // Add any error debugging...
+                    });
+            }
+        },
+
+        computed: {
+            /**
+             * Filter tags by their name.
+             *
+             * @source https://codepen.io/AndrewThian/pen/QdeOVa
+             */
+            filteredList() {
+                let filtered = this.tags.filter(tag => {
+                    return tag.name
+                        .toLowerCase()
+                        .includes(this.search.toLowerCase());
                 });
+
+                this.loadMore = Object.keys(filtered).length > this.limit;
+
+                return this.limit ? filtered.slice(0, this.limit) : this.tags;
+            }
         }
-    },
-
-    computed: {
-        /**
-         * Filter tags by their name.
-         *
-         * @source https://codepen.io/AndrewThian/pen/QdeOVa
-         */
-        filteredList() {
-            let filtered = this.tags.filter(tag => {
-                return tag.name
-                    .toLowerCase()
-                    .includes(this.search.toLowerCase());
-            });
-
-            this.loadMore = Object.keys(filtered).length > this.limit;
-
-            return this.limit ? filtered.slice(0, this.limit) : this.tags;
-        }
-    }
-};
+    };
 </script>
 
 <style scoped>
-#navbarDropdown {
-    margin-top: -8px;
-}
+    #navbarDropdown {
+        margin-top: -8px;
+    }
 
-#searchDropdown {
-    min-width: 15rem;
-}
+    #searchDropdown {
+        min-width: 15rem;
+    }
 </style>

@@ -22,30 +22,30 @@
 </template>
 
 <script>
-export default {
-    name: "DeleteModal",
+    export default {
+        name: "DeleteModal",
 
-    props: {
-        header: {
-            type: String,
-            required: true
+        props: {
+            header: {
+                type: String,
+                required: true
+            },
+            message: {
+                type: String,
+                required: true
+            }
         },
-        message: {
-            type: String,
-            required: true
-        }
-    },
 
-    data() {
-        return {
-            trans: JSON.parse(Canvas.lang)
-        };
-    },
+        data() {
+            return {
+                trans: JSON.parse(Canvas.lang)
+            };
+        },
 
-    methods: {
-        confirmProceed() {
-            this.$emit("delete");
+        methods: {
+            confirmProceed() {
+                this.$emit("delete");
+            }
         }
-    }
-};
+    };
 </script>

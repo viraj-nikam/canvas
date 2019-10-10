@@ -100,81 +100,81 @@
 </template>
 
 <script>
-import ProfileDropdown from "../../components/ProfileDropdown";
+    import ProfileDropdown from "../../components/ProfileDropdown";
 
-export default {
-    name: "posts",
+    export default {
+        name: "posts",
 
-    components: {
-        ProfileDropdown
-    },
+        components: {
+            ProfileDropdown
+        },
 
-    data() {
-        return {
-            posts: [],
-            search: "",
-            limit: 7,
-            loadMore: false,
-            isReady: false,
-            timezone: Canvas.timezone,
-            trans: JSON.parse(Canvas.lang)
-        };
-    },
+        data() {
+            return {
+                posts: [],
+                search: "",
+                limit: 7,
+                loadMore: false,
+                isReady: false,
+                timezone: Canvas.timezone,
+                trans: JSON.parse(Canvas.lang)
+            };
+        },
 
-    mounted() {
-        this.fetchData();
-    },
+        mounted() {
+            this.fetchData();
+        },
 
-    methods: {
-        fetchData() {
-            this.request()
-                .get("/api/posts")
-                .then(response => {
-                    this.posts = response.data;
-                    this.isReady = true;
-                })
-                .catch(error => {
-                    // Add any error debugging...
+        methods: {
+            fetchData() {
+                this.request()
+                    .get("/api/posts")
+                    .then(response => {
+                        this.posts = response.data;
+                        this.isReady = true;
+                    })
+                    .catch(error => {
+                        // Add any error debugging...
+                    });
+            }
+        },
+
+        computed: {
+            /**
+             * Filter posts by their title.
+             *
+             * @source https://codepen.io/AndrewThian/pen/QdeOVa
+             */
+            filteredList() {
+                let filtered = this.posts.filter(post => {
+                    return post.title
+                        .toLowerCase()
+                        .includes(this.search.toLowerCase());
                 });
+
+                this.loadMore = Object.keys(filtered).length > this.limit;
+
+                return this.limit ? filtered.slice(0, this.limit) : this.posts;
+            }
         }
-    },
-
-    computed: {
-        /**
-         * Filter posts by their title.
-         *
-         * @source https://codepen.io/AndrewThian/pen/QdeOVa
-         */
-        filteredList() {
-            let filtered = this.posts.filter(post => {
-                return post.title
-                    .toLowerCase()
-                    .includes(this.search.toLowerCase());
-            });
-
-            this.loadMore = Object.keys(filtered).length > this.limit;
-
-            return this.limit ? filtered.slice(0, this.limit) : this.posts;
-        }
-    }
-};
+    };
 </script>
 
 <style scoped>
-#navbarDropdown {
-    margin-top: -8px;
-}
+    #navbarDropdown {
+        margin-top: -8px;
+    }
 
-#searchDropdown {
-    min-width: 15rem;
-}
+    #searchDropdown {
+        min-width: 15rem;
+    }
 
-#featuredImage {
-    background-size: cover;
-    width: 57px;
-    height: 57px;
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    border-radius: 50%;
-}
+    #featuredImage {
+        background-size: cover;
+        width: 57px;
+        height: 57px;
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        border-radius: 50%;
+    }
 </style>

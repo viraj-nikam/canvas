@@ -24,24 +24,24 @@
 </template>
 
 <script>
-export default {
-    name: "html-modal",
+    export default {
+        name: "html-modal",
 
-    data() {
-        return {
-            content: "",
-            trans: JSON.parse(Canvas.lang)
-        };
-    },
+        data() {
+            return {
+                content: "",
+                trans: JSON.parse(Canvas.lang)
+            };
+        },
 
-    methods: {
-        addingHTML() {
-            this.$emit("addingHTML", {
-                content: this.content
-            });
+        methods: {
+            addingHTML() {
+                this.$emit("addingHTML", {
+                    content: this.content
+                });
 
-            this.content = "";
+                this.content = "";
+            }
         }
-    }
-};
+    };
 </script>

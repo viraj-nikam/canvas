@@ -49,149 +49,149 @@
 </template>
 
 <script>
-export default {
-    name: "image-picker",
+    export default {
+        name: "image-picker",
 
-    props: {
-        imageUrl: {
-            type: String,
-            required: false
-        }
-    },
-
-    data() {
-        return {
-            showUnsplash: false,
-            searchQuery: "",
-            unsplashPage: 1,
-            unsplashImages: [],
-            isSearchingUnsplash: false,
-            selectedUnsplashImage: null,
-            unsplash: Canvas.unsplash,
-            path: Canvas.path,
-            trans: JSON.parse(Canvas.lang)
-        };
-    },
-
-    watch: {
-        searchQuery() {
-            this.fetchImages();
-        }
-    },
-
-    methods: {
-        fetchImages(page = 1) {
-            if (!this.unsplash) {
-                return alert(this.trans.posts.forms.editor.images.picker.key);
+        props: {
+            imageUrl: {
+                type: String,
+                required: false
             }
+        },
 
-            this.isSearchingUnsplash = true;
-            this.unsplashPage = page;
+        data() {
+            return {
+                showUnsplash: false,
+                searchQuery: "",
+                unsplashPage: 1,
+                unsplashImages: [],
+                isSearchingUnsplash: false,
+                selectedUnsplashImage: null,
+                unsplash: Canvas.unsplash,
+                path: Canvas.path,
+                trans: JSON.parse(Canvas.lang)
+            };
+        },
 
-            this.request()
-                .get(
-                    "https://api.unsplash.com/search/photos?client_id=" +
+        watch: {
+            searchQuery() {
+                this.fetchImages();
+            }
+        },
+
+        methods: {
+            fetchImages(page = 1) {
+                if (!this.unsplash) {
+                    return alert(this.trans.posts.forms.editor.images.picker.key);
+                }
+
+                this.isSearchingUnsplash = true;
+                this.unsplashPage = page;
+
+                this.request()
+                    .get(
+                        "https://api.unsplash.com/search/photos?client_id=" +
                         this.unsplash +
                         "&orientation=landscape&per_page=12" +
                         "&query=" +
                         this.searchQuery +
                         "&page=" +
                         page
-                )
-                .then(response => {
-                    this.unsplashImages = response.data.results;
-                    this.isSearchingUnsplash = false;
-                })
-                .catch(error => {
-                    this.isSearchingUnsplash = false;
-                });
-        },
-
-        openUnsplash() {
-            let featuredImageModal = document.querySelector(
-                "#featuredImageModal"
-            );
-            if (featuredImageModal) {
-                featuredImageModal.classList.add("modal-lg");
-            }
-
-            let imageModal = document.querySelector("#imageModal");
-            if (imageModal) {
-                imageModal.classList.add("modal-lg");
-            }
-
-            let currentImage = document.querySelector("#currentImage");
-            if (currentImage) {
-                currentImage.classList.add("d-none");
-            }
-
-            this.searchQuery = "canvas";
-            this.showUnsplash = true;
-
-            this.$nextTick(() => {
-                this.$refs.searchKeyword.focus();
-            });
-        },
-
-        closeUnsplashAndInsertImage(image) {
-            this.selectedUnsplashImage = image;
-
-            this.$emit("changed", {
-                url: this.selectedUnsplashImage.urls.regular,
-                caption:
-                    this.trans.posts.forms.editor.images.picker.caption.by +
-                    ' <a href="' +
-                    this.selectedUnsplashImage.user.links.html +
-                    '" target="_blank">' +
-                    this.selectedUnsplashImage.user.name +
-                    "</a> " +
-                    this.trans.posts.forms.editor.images.picker.caption.on +
-                    ' <a href="https://unsplash.com" target="_blank">Unsplash</a>'
-            });
-
-            this.closeUnsplash();
-        },
-
-        closeUnsplash() {
-            let featuredImageModal = document.querySelector("#featuredImageModal");
-            if (featuredImageModal) {
-                featuredImageModal.classList.remove("modal-lg");
-            }
-
-            let imageModal = document.querySelector("#imageModal");
-            if (imageModal) {
-                imageModal.classList.remove("modal-lg");
-            }
-
-            let currentImage = document.querySelector("#currentImage");
-            if (currentImage) {
-                currentImage.classList.remove("d-none");
-            }
-
-            this.searchQuery = "";
-            this.showUnsplash = false;
-            this.selectedUnsplashImage = null;
-        },
-
-        uploadSelectedImage(event) {
-            let file = event.target.files[0];
-            let formData = new FormData();
-
-            formData.append("image", file, file.name);
-
-            this.$emit("isUploading");
-
-            this.request()
-                .post("/api/media/uploads", formData)
-                .then(response => {
-                    this.$emit("changed", {
-                        url: response.data
+                    )
+                    .then(response => {
+                        this.unsplashImages = response.data.results;
+                        this.isSearchingUnsplash = false;
+                    })
+                    .catch(error => {
+                        this.isSearchingUnsplash = false;
                     });
-                })
-                .catch(error => {
-                    // Add any error debugging...
+            },
+
+            openUnsplash() {
+                let featuredImageModal = document.querySelector(
+                    "#featuredImageModal"
+                );
+                if (featuredImageModal) {
+                    featuredImageModal.classList.add("modal-lg");
+                }
+
+                let imageModal = document.querySelector("#imageModal");
+                if (imageModal) {
+                    imageModal.classList.add("modal-lg");
+                }
+
+                let currentImage = document.querySelector("#currentImage");
+                if (currentImage) {
+                    currentImage.classList.add("d-none");
+                }
+
+                this.searchQuery = "canvas";
+                this.showUnsplash = true;
+
+                this.$nextTick(() => {
+                    this.$refs.searchKeyword.focus();
                 });
+            },
+
+            closeUnsplashAndInsertImage(image) {
+                this.selectedUnsplashImage = image;
+
+                this.$emit("changed", {
+                    url: this.selectedUnsplashImage.urls.regular,
+                    caption:
+                        this.trans.posts.forms.editor.images.picker.caption.by +
+                        ' <a href="' +
+                        this.selectedUnsplashImage.user.links.html +
+                        '" target="_blank">' +
+                        this.selectedUnsplashImage.user.name +
+                        "</a> " +
+                        this.trans.posts.forms.editor.images.picker.caption.on +
+                        ' <a href="https://unsplash.com" target="_blank">Unsplash</a>'
+                });
+
+                this.closeUnsplash();
+            },
+
+            closeUnsplash() {
+                let featuredImageModal = document.querySelector("#featuredImageModal");
+                if (featuredImageModal) {
+                    featuredImageModal.classList.remove("modal-lg");
+                }
+
+                let imageModal = document.querySelector("#imageModal");
+                if (imageModal) {
+                    imageModal.classList.remove("modal-lg");
+                }
+
+                let currentImage = document.querySelector("#currentImage");
+                if (currentImage) {
+                    currentImage.classList.remove("d-none");
+                }
+
+                this.searchQuery = "";
+                this.showUnsplash = false;
+                this.selectedUnsplashImage = null;
+            },
+
+            uploadSelectedImage(event) {
+                let file = event.target.files[0];
+                let formData = new FormData();
+
+                formData.append("image", file, file.name);
+
+                this.$emit("isUploading");
+
+                this.request()
+                    .post("/api/media/uploads", formData)
+                    .then(response => {
+                        this.$emit("changed", {
+                            url: response.data
+                        });
+                    })
+                    .catch(error => {
+                        // Add any error debugging...
+                    });
+            }
         }
-    }
-};
+    };
 </script>

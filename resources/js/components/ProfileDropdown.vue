@@ -6,7 +6,7 @@
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
             <h6 class="dropdown-header">
                 <strong>{{ user.name }}</strong>
-                <br />
+                <br/>
                 {{ user.email }}
             </h6>
             <div class="dropdown-divider"></div>
@@ -32,58 +32,58 @@
 </template>
 
 <script>
-import md5 from "md5";
-import axios from "axios";
+    import md5 from "md5";
+    import axios from "axios";
 
-export default {
-    name: "profile-dropdown",
+    export default {
+        name: "profile-dropdown",
 
-    data() {
-        return {
-            user: Canvas.user,
-            token: document.head.querySelector('meta[name="csrf-token"]')
-                .content,
-            trans: JSON.parse(Canvas.lang)
-        };
-    },
-
-    methods: {
-        /**
-         * Generate an MD5 hash from a given email to retrieve a Gravatar.
-         *
-         * @returns {string}
-         */
-        gravatar() {
-            let hash = md5(this.user.email.toLowerCase().trim());
-
-            return "https://secure.gravatar.com/avatar/" + hash + "?s=200";
+        data() {
+            return {
+                user: Canvas.user,
+                token: document.head.querySelector('meta[name="csrf-token"]')
+                    .content,
+                trans: JSON.parse(Canvas.lang)
+            };
         },
 
-        /**
-         * Log the user out of the application.
-         *
-         * @returns void
-         */
-        logout() {
-            axios
-                .post("/logout", {
-                    _token: this.token
-                })
-                .then(response => {
-                    window.location.href = "/login";
-                });
+        methods: {
+            /**
+             * Generate an MD5 hash from a given email to retrieve a Gravatar.
+             *
+             * @returns {string}
+             */
+            gravatar() {
+                let hash = md5(this.user.email.toLowerCase().trim());
+
+                return "https://secure.gravatar.com/avatar/" + hash + "?s=200";
+            },
+
+            /**
+             * Log the user out of the application.
+             *
+             * @returns void
+             */
+            logout() {
+                axios
+                    .post("/logout", {
+                        _token: this.token
+                    })
+                    .then(response => {
+                        window.location.href = "/login";
+                    });
+            }
         }
-    }
-};
+    };
 </script>
 
 <style scoped>
-img {
-    width: 31px;
-}
+    img {
+        width: 31px;
+    }
 
-a.dropdown-item:active {
-    background-color: #f8f9fa;
-    color: #16181b;
-}
+    a.dropdown-item:active {
+        background-color: #f8f9fa;
+        color: #16181b;
+    }
 </style>

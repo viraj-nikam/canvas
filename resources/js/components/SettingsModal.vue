@@ -10,7 +10,7 @@
                     <div class="form-group row">
                         <div class="col-12">
                             <label class="font-weight-bold">{{ trans.posts.forms.settings.slug.label }}</label>
-                            <input type="text" class="form-control border-0 px-0" @blur="update" name="slug" v-model="storeState.form.slug" :title="trans.posts.forms.settings.slug.label" :placeholder="trans.posts.forms.settings.slug.placeholder"/>
+                            <input type="text" class="form-control border-0 px-0" @input="update" name="slug" v-model="storeState.form.slug" :title="trans.posts.forms.settings.slug.label" :placeholder="trans.posts.forms.settings.slug.placeholder"/>
                             <div v-if="storeState.form.errors.slug" class="invalid-feedback d-block">
                                 <strong>{{ storeState.form.errors.slug[0] }}</strong>
                             </div>
@@ -23,7 +23,7 @@
                                                name="summary"
                                                class="form-control border-0 px-0"
                                                v-model="storeState.form.summary"
-                                               @blur.native="update"
+                                               @input.native="update"
                                                :placeholder="trans.posts.forms.settings.summary.placeholder">
                             </textarea-autosize>
                         </div>
@@ -56,53 +56,54 @@
 </template>
 
 <script>
-import TagSelect from "./TagSelect";
-import TopicSelect from "./TopicSelect";
-import { store } from "../screens/posts/store";
-import VueTextAreaAutosize from "vue-textarea-autosize";
+    import _ from 'lodash';
+    import TagSelect from "./TagSelect";
+    import TopicSelect from "./TopicSelect";
+    import {store} from "../screens/posts/store";
+    import VueTextAreaAutosize from "vue-textarea-autosize";
 
-export default {
-    name: "settings-modal",
+    export default {
+        name: "settings-modal",
 
-    props: {
-        post: {
-            type: Object,
-            required: false
+        props: {
+            post: {
+                type: Object,
+                required: false
+            },
+            tags: {
+                type: Array,
+                required: false
+            },
+            topics: {
+                type: Array,
+                required: false
+            }
         },
-        tags: {
-            type: Array,
-            required: false
+
+        components: {
+            TagSelect,
+            TopicSelect,
+            VueTextAreaAutosize
         },
-        topics: {
-            type: Array,
-            required: false
+
+        data() {
+            return {
+                allTags: [],
+                allTopics: [],
+                storeState: store.state,
+                trans: JSON.parse(Canvas.lang)
+            };
+        },
+
+        mounted() {
+            this.allTags = this.tags;
+            this.allTopics = this.topics;
+        },
+
+        methods: {
+            update: _.debounce(function (e) {
+                this.$parent.save();
+            }, 900)
         }
-    },
-
-    components: {
-        TagSelect,
-        TopicSelect,
-        VueTextAreaAutosize
-    },
-
-    data() {
-        return {
-            allTags: [],
-            allTopics: [],
-            storeState: store.state,
-            trans: JSON.parse(Canvas.lang)
-        };
-    },
-
-    mounted() {
-        this.allTags = this.tags;
-        this.allTopics = this.topics;
-    },
-
-    methods: {
-        update() {
-            this.$parent.save();
-        }
-    }
-};
+    };
 </script>

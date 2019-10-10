@@ -44,7 +44,7 @@
                                 <a href="#" class="dropdown-item" @click="showSeoModal">
                                     {{ trans.nav.controls.seo }}
                                 </a>
-                                <a  v-if="isDraft" href="#" class="dropdown-item" @click.prevent="convertToDraft">
+                                <a v-if="isDraft" href="#" class="dropdown-item" @click.prevent="convertToDraft">
                                     {{ trans.buttons.general.draft }}
                                 </a>
                                 <a v-if="id !== 'create'" href="#" class="dropdown-item text-danger" @click="showDeleteModal">
@@ -108,149 +108,149 @@
 </template>
 
 <script>
-import Vue from "vue";
-import $ from "jquery";
-import moment from "moment";
-import { store } from "./store";
-import SeoModal from "../../components/SeoModal";
-import DeleteModal from "../../components/DeleteModal";
-import VueTextAreaAutosize from "vue-textarea-autosize";
-import PublishModal from "../../components/PublishModal";
-import SettingsModal from "../../components/SettingsModal";
-import QuillEditor from "../../components/editor/QuillEditor";
-import ProfileDropdown from "../../components/ProfileDropdown";
-import FeaturedImageModal from "../../components/FeaturedImageModal";
+    import Vue from "vue";
+    import $ from "jquery";
+    import moment from "moment";
+    import {store} from "./store";
+    import SeoModal from "../../components/SeoModal";
+    import DeleteModal from "../../components/DeleteModal";
+    import VueTextAreaAutosize from "vue-textarea-autosize";
+    import PublishModal from "../../components/PublishModal";
+    import SettingsModal from "../../components/SettingsModal";
+    import QuillEditor from "../../components/editor/QuillEditor";
+    import ProfileDropdown from "../../components/ProfileDropdown";
+    import FeaturedImageModal from "../../components/FeaturedImageModal";
 
-Vue.use(VueTextAreaAutosize);
+    Vue.use(VueTextAreaAutosize);
 
-export default {
-    name: "posts-edit",
+    export default {
+        name: "posts-edit",
 
-    components: {
-        PublishModal,
-        FeaturedImageModal,
-        DeleteModal,
-        ProfileDropdown,
-        QuillEditor,
-        SeoModal,
-        SettingsModal
-    },
+        components: {
+            PublishModal,
+            FeaturedImageModal,
+            DeleteModal,
+            ProfileDropdown,
+            QuillEditor,
+            SeoModal,
+            SettingsModal
+        },
 
-    data() {
-        return {
-            context: null,
-            post: null,
-            tags: [],
-            topics: [],
-            id: this.$route.params.id || "create",
-            storeState: store.state,
-            isReady: false,
-            timezone: Canvas.timezone,
-            trans: JSON.parse(Canvas.lang)
-        };
-    },
+        data() {
+            return {
+                context: null,
+                post: null,
+                tags: [],
+                topics: [],
+                id: this.$route.params.id || "create",
+                storeState: store.state,
+                isReady: false,
+                timezone: Canvas.timezone,
+                trans: JSON.parse(Canvas.lang)
+            };
+        },
 
-    created() {
-        this.fetchData();
-    },
+        created() {
+            this.fetchData();
+        },
 
-    computed: {
-        isDraft() {
-            return this.post && this.post.published_at <= moment(new Date()).tz(this.timezone).format().slice(0, 19).replace("T", " ");
+        computed: {
+            isDraft() {
+                return this.post && this.post.published_at <= moment(new Date()).tz(this.timezone).format().slice(0, 19).replace("T", " ");
+            }
+        },
+
+        methods: {
+            fetchData() {
+                this.request()
+                    .get("/api/posts/" + this.id)
+                    .then(response => {
+                        store.hydrateForm(response.data.post);
+
+                        this.post = response.data.post;
+                        this.tags = response.data.tags;
+                        this.topics = response.data.topics;
+                        this.context = this.getContextualState();
+                        this.isReady = true;
+                    })
+                    .catch(error => {
+                        this.$router.push({name: "posts"});
+                    });
+            },
+
+            save() {
+                this.storeState.form.errors = [];
+                this.storeState.form.isSaving = true;
+                this.storeState.form.hasSuccess = false;
+
+                this.request()
+                    .post("/api/posts/" + this.id, this.storeState.form)
+                    .then(response => {
+                        if (this.id === "create") {
+                            this.$router.push({
+                                name: "posts-edit",
+                                params: {id: response.data.id}
+                            });
+                        }
+
+                        this.storeState.form.isSaving = false;
+                        this.storeState.form.hasSuccess = true;
+                        this.id = response.data.id;
+                        this.post = response.data;
+                    })
+                    .catch(error => {
+                        this.storeState.form.isSaving = false;
+                        this.storeState.form.errors = error.response.data.errors;
+                    });
+            },
+
+            convertToDraft() {
+                this.storeState.form.published_at = "";
+                this.save();
+            },
+
+            deletePost() {
+                this.request()
+                    .delete("/api/posts/" + this.id)
+                    .then(response => {
+                        $(this.$refs.deleteModal.$el).modal("hide");
+
+                        this.$router.push({name: "posts"});
+                    })
+                    .catch(error => {
+                        // Add any error debugging...
+                    });
+            },
+
+            getContextualState() {
+                return this.isDraft ? this.trans.nav.context.published : this.trans.nav.context.draft;
+            },
+
+            showPublishModal() {
+                $(this.$refs.publishModal.$el).modal("show");
+            },
+
+            showSettingsModal() {
+                $(this.$refs.settingsModal.$el).modal("show");
+            },
+
+            showFeaturedImageModal() {
+                $(this.$refs.featuredImageModal.$el).modal("show");
+            },
+
+            showSeoModal() {
+                $(this.$refs.seoModal.$el).modal("show");
+            },
+
+            showDeleteModal() {
+                $(this.$refs.deleteModal.$el).modal("show");
+            }
         }
-    },
-
-    methods: {
-        fetchData() {
-            this.request()
-                .get("/api/posts/" + this.id)
-                .then(response => {
-                    store.hydrateForm(response.data.post);
-
-                    this.post = response.data.post;
-                    this.tags = response.data.tags;
-                    this.topics = response.data.topics;
-                    this.context = this.getContextualState();
-                    this.isReady = true;
-                })
-                .catch(error => {
-                    this.$router.push({ name: "posts" });
-                });
-        },
-
-        save() {
-            this.storeState.form.errors = [];
-            this.storeState.form.isSaving = true;
-            this.storeState.form.hasSuccess = false;
-
-            this.request()
-                .post("/api/posts/" + this.id, this.storeState.form)
-                .then(response => {
-                    if (this.id === "create") {
-                        this.$router.push({
-                            name: "posts-edit",
-                            params: { id: response.data.id }
-                        });
-                    }
-
-                    this.storeState.form.isSaving = false;
-                    this.storeState.form.hasSuccess = true;
-                    this.id = response.data.id;
-                    this.post = response.data;
-                })
-                .catch(error => {
-                    this.storeState.form.isSaving = false;
-                    this.storeState.form.errors = error.response.data.errors;
-                });
-        },
-
-        convertToDraft() {
-            this.storeState.form.published_at = "";
-            this.save();
-        },
-
-        deletePost() {
-            this.request()
-                .delete("/api/posts/" + this.id)
-                .then(response => {
-                    $(this.$refs.deleteModal.$el).modal("hide");
-
-                    this.$router.push({ name: "posts" });
-                })
-                .catch(error => {
-                    // Add any error debugging...
-                });
-        },
-
-        getContextualState() {
-            return this.isDraft ? this.trans.nav.context.published : this.trans.nav.context.draft;
-        },
-
-        showPublishModal() {
-            $(this.$refs.publishModal.$el).modal("show");
-        },
-
-        showSettingsModal() {
-            $(this.$refs.settingsModal.$el).modal("show");
-        },
-
-        showFeaturedImageModal() {
-            $(this.$refs.featuredImageModal.$el).modal("show");
-        },
-
-        showSeoModal() {
-            $(this.$refs.seoModal.$el).modal("show");
-        },
-
-        showDeleteModal() {
-            $(this.$refs.deleteModal.$el).modal("show");
-        }
-    }
-};
+    };
 </script>
 
 <style scoped>
-textarea {
-    font-size: 42px;
-}
+    textarea {
+        font-size: 42px;
+    }
 </style>

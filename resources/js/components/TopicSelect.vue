@@ -13,117 +13,118 @@
 </template>
 
 <script>
-import Multiselect from "vue-multiselect";
-import { store } from "../screens/posts/store";
+    import _ from 'lodash';
+    import Multiselect from "vue-multiselect";
+    import {store} from "../screens/posts/store";
 
-export default {
-    props: {
-        topics: {
-            type: Array,
-            required: false
-        },
-        assigned: {
-            type: Array,
-            required: false
-        }
-    },
-
-    components: {
-        Multiselect
-    },
-
-    data() {
-        const allTopics = this.topics.map(obj => {
-            let filtered = {};
-
-            filtered["name"] = obj.name;
-            filtered["slug"] = obj.slug;
-
-            return filtered;
-        });
-
-        return {
-            options: allTopics,
-            value: this.assigned ? this.assigned : [],
-            trans: JSON.parse(Canvas.lang)
-        };
-    },
-
-    methods: {
-        onChange(value, id) {
-            store.syncTopic(value);
-            this.update();
+    export default {
+        props: {
+            topics: {
+                type: Array,
+                required: false
+            },
+            assigned: {
+                type: Array,
+                required: false
+            }
         },
 
-        addTopic(searchQuery) {
-            const topic = {
-                name: searchQuery,
-                slug: this.slugify(searchQuery)
+        components: {
+            Multiselect
+        },
+
+        data() {
+            const allTopics = this.topics.map(obj => {
+                let filtered = {};
+
+                filtered["name"] = obj.name;
+                filtered["slug"] = obj.slug;
+
+                return filtered;
+            });
+
+            return {
+                options: allTopics,
+                value: this.assigned ? this.assigned : [],
+                trans: JSON.parse(Canvas.lang)
             };
-
-            this.options.push(topic);
-
-            this.value = {
-                name: topic.name,
-                slug: topic.slug
-            };
-
-            store.syncTopic(topic);
-            this.update();
         },
 
-        update() {
-            this.$parent.update();
+        methods: {
+            onChange(value, id) {
+                store.syncTopic(value);
+                this.update();
+            },
+
+            addTopic(searchQuery) {
+                const topic = {
+                    name: searchQuery,
+                    slug: this.slugify(searchQuery)
+                };
+
+                this.options.push(topic);
+
+                this.value = {
+                    name: topic.name,
+                    slug: topic.slug
+                };
+
+                store.syncTopic(topic);
+                this.update();
+            },
+
+            update: _.debounce(function (e) {
+                this.$parent.update();
+            }, 900)
         }
-    }
-};
+    };
 </script>
 
-<style scoped>
-@import "~vue-multiselect/dist/vue-multiselect.min.css";
+<style>
+    @import "~vue-multiselect/dist/vue-multiselect.min.css";
 
-.multiselect__select {
-    display: none;
-}
+    .multiselect__select {
+        display: none;
+    }
 
-.multiselect__tags {
-    border: none;
-    padding-left: 0;
-    padding-right: 0;
-}
+    .multiselect__tags {
+        border: none;
+        padding-left: 0;
+        padding-right: 0;
+    }
 
-.multiselect__tag,
-.multiselect__option--highlight,
-.multiselect__option--highlight::after,
-.multiselect__tag-icon:focus,
-.multiselect__tag-icon:hover {
-    background: #3490dc;
-}
+    .multiselect__tag,
+    .multiselect__option--highlight,
+    .multiselect__option--highlight::after,
+    .multiselect__tag-icon:focus,
+    .multiselect__tag-icon:hover {
+        background: #3490dc;
+    }
 
-.multiselect,
-.multiselect__input,
-.multiselect__single {
-    font-size: 14px;
-    padding: 0;
-    border-radius: 0;
-}
+    .multiselect,
+    .multiselect__input,
+    .multiselect__single {
+        font-size: 14px;
+        padding: 0;
+        border-radius: 0;
+    }
 
-.multiselect__input:focus::placeholder,
-.multiselect__input:focus::-webkit-input-placeholder,
-.multiselect__input::placeholder,
-.multiselect__input::-webkit-input-placeholder,
-.multiselect__placeholder {
-    color: #6c757d;
-    opacity: 1;
-    padding-top: 0;
-    line-height: 1;
-}
+    .multiselect__input:focus::placeholder,
+    .multiselect__input:focus::-webkit-input-placeholder,
+    .multiselect__input::placeholder,
+    .multiselect__input::-webkit-input-placeholder,
+    .multiselect__placeholder {
+        color: #6c757d;
+        opacity: 1;
+        padding-top: 0;
+        line-height: 1;
+    }
 
-.multiselect__input {
-    line-height: 1;
-}
+    .multiselect__input {
+        line-height: 1;
+    }
 
-.multiselect__tag {
-    padding-bottom: 2px;
-}
+    .multiselect__tag {
+        padding-bottom: 2px;
+    }
 </style>

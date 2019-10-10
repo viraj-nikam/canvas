@@ -66,98 +66,98 @@
 </template>
 
 <script>
-import moment from "moment";
-import { store } from "../screens/posts/store";
+    import moment from "moment";
+    import {store} from "../screens/posts/store";
 
-export default {
-    name: "publish-modal",
+    export default {
+        name: "publish-modal",
 
-    data() {
-        return {
-            components: {
-                day: "",
-                month: "",
-                year: "",
-                hour: "",
-                minute: ""
-            },
-            result: "",
-            isReadyToPublish: true,
-            storeState: store.state,
-            trans: JSON.parse(Canvas.lang)
-        };
-    },
-
-    mounted() {
-        this.generateDatePicker(
-            this.storeState.form.published_at ||
-                moment().format("YYYY-MM-DD hh:mm:ss")
-        );
-    },
-
-    watch: {
-        value(val) {
-            this.generateDatePicker(val);
-        },
-
-        components: {
-            handler: function() {
-                this.result =
-                    this.components.year + "-" +
-                    this.components.month + "-" +
-                    this.components.day + " " +
-                    this.components.hour + ":" +
-                    this.components.minute + ":00";
-            },
-
-            deep: true
-        }
-    },
-
-    filters: {
-        moment: function(date) {
-            return moment.tz(date).format("YYYY-MM-DD hh:mm:ss");
-        }
-    },
-
-    methods: {
-        generateDatePicker(val) {
-            let date = moment(val + " Z").utc();
-
-            this.components = {
-                month: date.format("MM"),
-                day: date.format("DD"),
-                year: date.format("YYYY"),
-                hour: date.format("HH"),
-                minute: date.format("mm")
+        data() {
+            return {
+                components: {
+                    day: "",
+                    month: "",
+                    year: "",
+                    hour: "",
+                    minute: ""
+                },
+                result: "",
+                isReadyToPublish: true,
+                storeState: store.state,
+                trans: JSON.parse(Canvas.lang)
             };
         },
 
-        schedule() {
-            this.storeState.form.published_at = this.result;
-            this.$parent.save();
-            this.isReadyToPublish = true;
+        mounted() {
+            this.generateDatePicker(
+                this.storeState.form.published_at ||
+                moment().format("YYYY-MM-DD hh:mm:ss")
+            );
         },
 
-        publish() {
-            this.storeState.form.published_at = moment().format("YYYY-MM-DD hh:mm:ss");
-            this.$parent.save();
-            this.isReadyToPublish = true;
+        watch: {
+            value(val) {
+                this.generateDatePicker(val);
+            },
+
+            components: {
+                handler: function () {
+                    this.result =
+                        this.components.year + "-" +
+                        this.components.month + "-" +
+                        this.components.day + " " +
+                        this.components.hour + ":" +
+                        this.components.minute + ":00";
+                },
+
+                deep: true
+            }
+        },
+
+        filters: {
+            moment: function (date) {
+                return moment.tz(date).format("YYYY-MM-DD hh:mm:ss");
+            }
+        },
+
+        methods: {
+            generateDatePicker(val) {
+                let date = moment(val + " Z").utc();
+
+                this.components = {
+                    month: date.format("MM"),
+                    day: date.format("DD"),
+                    year: date.format("YYYY"),
+                    hour: date.format("HH"),
+                    minute: date.format("mm")
+                };
+            },
+
+            schedule() {
+                this.storeState.form.published_at = this.result;
+                this.$parent.save();
+                this.isReadyToPublish = true;
+            },
+
+            publish() {
+                this.storeState.form.published_at = moment().format("YYYY-MM-DD hh:mm:ss");
+                this.$parent.save();
+                this.isReadyToPublish = true;
+            }
         }
-    }
-};
+    };
 </script>
 
 <style scoped>
-select {
-    width: auto;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-}
+    select {
+        width: auto;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+    }
 
-.input {
-    border: none;
-    background-color: transparent;
-}
+    .input {
+        border: none;
+        background-color: transparent;
+    }
 </style>

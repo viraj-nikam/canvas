@@ -84,7 +84,7 @@
                                                 <router-link :to="{name: 'posts-edit',params: { id: post.id }}">
                                                     {{ trans.buttons.posts.edit }}
                                                 </router-link>
-                                                ―
+                                                                       ―
                                                 <router-link :to="{name: 'stats-show',params: { id: post.id }}">
                                                     {{ trans.buttons.stats.show }}
                                                 </router-link>
@@ -118,62 +118,62 @@
 </template>
 
 <script>
-import LineChart from "../../components/LineChart";
-import ProfileDropdown from "../../components/ProfileDropdown";
+    import LineChart from "../../components/LineChart";
+    import ProfileDropdown from "../../components/ProfileDropdown";
 
-export default {
-    name: "stats",
+    export default {
+        name: "stats",
 
-    components: {
-        LineChart,
-        ProfileDropdown
-    },
+        components: {
+            LineChart,
+            ProfileDropdown
+        },
 
-    data() {
-        return {
-            posts: [],
-            views: {},
-            limit: 7,
-            loadMore: false,
-            isReady: false,
-            trans: JSON.parse(Canvas.lang)
-        };
-    },
+        data() {
+            return {
+                posts: [],
+                views: {},
+                limit: 7,
+                loadMore: false,
+                isReady: false,
+                trans: JSON.parse(Canvas.lang)
+            };
+        },
 
-    mounted() {
-        this.fetchData();
-    },
+        mounted() {
+            this.fetchData();
+        },
 
-    methods: {
-        fetchData() {
-            this.request()
-                .get("/api/stats")
-                .then(response => {
-                    this.posts = response.data.posts;
-                    this.views = response.data.views;
-                    this.isReady = true;
-                })
-                .catch(error => {
-                    // Add any error debugging...
-                });
+        methods: {
+            fetchData() {
+                this.request()
+                    .get("/api/stats")
+                    .then(response => {
+                        this.posts = response.data.posts;
+                        this.views = response.data.views;
+                        this.isReady = true;
+                    })
+                    .catch(error => {
+                        // Add any error debugging...
+                    });
+            }
+        },
+
+        computed: {
+            /**
+             * There isn't much to filter here since no search option exists on
+             * this component. Simply increment the post list array by the
+             * limit that was given on the click event.
+             *
+             * @source https://codepen.io/AndrewThian/pen/QdeOVa
+             */
+            filteredList() {
+                this.loadMore = Object.keys(this.posts.all).length > this.limit;
+
+                return this.limit
+                    ? this.posts.all.slice(0, this.limit)
+                    : this.posts.all;
+            }
         }
-    },
-
-    computed: {
-        /**
-         * There isn't much to filter here since no search option exists on
-         * this component. Simply increment the post list array by the
-         * limit that was given on the click event.
-         *
-         * @source https://codepen.io/AndrewThian/pen/QdeOVa
-         */
-        filteredList() {
-            this.loadMore = Object.keys(this.posts.all).length > this.limit;
-
-            return this.limit
-                ? this.posts.all.slice(0, this.limit)
-                : this.posts.all;
-        }
-    }
-};
+    };
 </script>

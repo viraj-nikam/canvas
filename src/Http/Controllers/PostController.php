@@ -106,12 +106,12 @@ class PostController extends Controller
         $post->meta = $data['meta'];
         $post->save();
 
-        $post->tags()->sync(
-            $this->syncTags(request('tags'))
-        );
-
         $post->topic()->sync(
             $this->syncTopic(request('topic'))
+        );
+
+        $post->tags()->sync(
+            $this->syncTags(request('tags'))
         );
 
         return response()->json($post->refresh());
@@ -144,33 +144,6 @@ class PostController extends Controller
     }
 
     /**
-     * Attach or create tags given an incoming array.
-     *
-     * @param array $incomingTags
-     * @return array
-     *
-     * @author Mohamed Said <themsaid@gmail.com>
-     */
-    private function syncTags(array $incomingTags): array
-    {
-        $tags = Tag::all();
-
-        return collect($incomingTags)->map(function ($incomingTag) use ($tags) {
-            $tag = $tags->where('slug', $incomingTag['slug'])->first();
-
-            if (! $tag) {
-                $tag = Tag::create([
-                    'id'   => $id = Uuid::uuid4(),
-                    'name' => $incomingTag['name'],
-                    'slug' => $incomingTag['slug'],
-                ]);
-            }
-
-            return (string) $tag->id;
-        })->toArray();
-    }
-
-    /**
      * Attach or create a topic given an incoming array.
      *
      * @param array $incomingTopic
@@ -180,7 +153,9 @@ class PostController extends Controller
     private function syncTopic(array $incomingTopic): array
     {
         if ($incomingTopic) {
+
             $topic = Topic::where('slug', $incomingTopic['slug'])->first();
+
             if (! $topic) {
                 $topic = Topic::create([
                     'id'   => $id = Uuid::uuid4(),
@@ -193,5 +168,33 @@ class PostController extends Controller
         } else {
             return [];
         }
+    }
+
+    /**
+     * Attach or create tags given an incoming array.
+     *
+     * @param array $incomingTags
+     * @return array
+     *
+     * @author Mohamed Said <themsaid@gmail.com>
+     */
+    private function syncTags(array $incomingTags): array
+    {
+        $tags = Tag::all();
+
+        return collect($incomingTags)->map(function ($incomingTag) use ($tags) {
+
+            $tag = $tags->where('slug', $incomingTag['slug'])->first();
+
+            if (! $tag) {
+                $tag = Tag::create([
+                    'id'   => $id = Uuid::uuid4(),
+                    'name' => $incomingTag['name'],
+                    'slug' => $incomingTag['slug'],
+                ]);
+            }
+
+            return (string) $tag->id;
+        })->toArray();
     }
 }
