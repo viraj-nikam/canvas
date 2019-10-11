@@ -1,12 +1,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="{{ Illuminate\Support\Str::limit('_', '-', app()->getLocale()) }}">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
     <style type="text/css">
-        /* Base */
-
         body,
         body *:not(html):not(style):not(br):not(tr):not(code) {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif,
@@ -16,7 +14,7 @@
 
         body {
             background-color: #f8fafc;
-            color: rgb(51,51,50);
+            color: rgb(51, 51, 50);
             height: 100%;
             hyphens: auto;
             line-height: 1.4;
@@ -50,8 +48,6 @@
             max-width: 100%;
         }
 
-        /* Layout */
-
         .wrapper {
             background-color: #f8fafc;
             margin: 0;
@@ -70,8 +66,6 @@
             -premailer-cellspacing: 0;
             -premailer-width: 100%;
         }
-
-        /* Body */
 
         .body {
             background-color: #ffffff;
@@ -102,8 +96,6 @@
             width: 80px;
         }
 
-        /* Subcopy */
-
         .subcopy {
             border-top: 1px solid #edeff2;
             margin-top: 25px;
@@ -113,8 +105,6 @@
         .subcopy p {
             font-size: 12px;
         }
-
-        /* Footer */
 
         .footer {
             margin: 0 auto;
@@ -135,8 +125,6 @@
         .footer a {
             color: #3490dc;
         }
-
-        /* Tables */
 
         .table table {
             margin: 30px auto;
@@ -163,8 +151,6 @@
         .content-cell {
             padding: 35px;
         }
-
-        /* Buttons */
 
         .action {
             margin: 30px auto;
@@ -193,14 +179,8 @@
             border-left: 18px solid #3490dc;
         }
 
-        /* Panels */
-
         .panel {
             margin: 0 0 21px;
-        }
-
-        .panel-content {
-            padding: 16px 0;
         }
 
         .panel-item {
@@ -312,7 +292,7 @@
                                                             <table border="0" cellpadding="0" cellspacing="0" role="presentation">
                                                                 <tr>
                                                                     <td>
-                                                                        <a href="{{ route('canvas.index') }}" class="button button-primary" target="_blank">
+                                                                        <a href="{{ url(config('canvas.path')) }}" class="button button-primary" target="_blank">
                                                                             {{ __('canvas::buttons.stats.index') }}
                                                                         </a>
                                                                     </td>
