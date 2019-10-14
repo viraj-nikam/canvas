@@ -1,63 +1,57 @@
 <template>
-    <div v-cloak>
-        <div class="border-bottom">
-            <div class="container d-flex justify-content-center px-0">
-                <div class="col-md-10 px-0">
-                    <nav class="navbar navbar-light justify-content-between flex-nowrap flex-row py-1">
-                        <router-link to="/" class="navbar-brand font-weight-bold py-0">
-                            <i class="fas fa-align-left"></i>
+    <div>
+        <page-header>
+            <template slot="status">
+                <ul class="navbar-nav mr-auto flex-row float-right">
+                    <li class="text-muted font-weight-bold">
+                        <div class="d-inline-block"><span>{{ context }}</span></div>
+
+                        <span v-if="storeState.form.isSaving" class="pl-2">{{ trans.nav.notify.saving }}</span>
+                        <span v-if="storeState.form.hasSuccess" class="pl-2 text-success">{{ trans.nav.notify.success }}</span>
+                    </li>
+                </ul>
+            </template>
+
+            <template slot="action">
+                <a v-if="isDraft" href="#" class="btn btn-sm btn-outline-success font-weight-bold" @click="save">
+                    {{ trans.buttons.general.save }}
+                </a>
+
+                <a v-else href="#" class="btn btn-sm btn-outline-success font-weight-bold font-weight-bolder" @click="showPublishModal">
+                    {{ trans.buttons.posts.ready }}
+                </a>
+            </template>
+
+            <template slot="menu">
+                <div class="dropdown">
+                    <a id="navbarDropdown" class="nav-link text-secondary pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-sliders-h fa-fw fa-rotate-270"></i>
+                    </a>
+
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <router-link :to="{name: 'stats-show', params: { id: id }}" v-if="isDraft" class="dropdown-item">
+                            {{ trans.nav.controls.stats }}
                         </router-link>
-
-                        <ul class="navbar-nav mr-auto flex-row float-right">
-                            <li class="text-muted font-weight-bold">
-                                <div class="d-inline-block"><span>{{ context }}</span></div>
-
-                                <span v-if="storeState.form.isSaving" class="pl-2">{{ trans.nav.notify.saving }}</span>
-                                <span v-if="storeState.form.hasSuccess" class="pl-2 text-success">{{ trans.nav.notify.success }}</span>
-                            </li>
-                        </ul>
-
-                        <a v-if="isDraft" href="#" class="btn btn-sm btn-outline-primary font-weight-bold my-auto ml-auto" @click="save">
-                            {{ trans.buttons.general.save }}
+                        <div class="dropdown-divider" v-if="isDraft"></div>
+                        <a href="#" class="dropdown-item" @click="showSettingsModal">
+                            {{ trans.nav.controls.settings }}
                         </a>
-
-                        <a v-else href="#" class="btn btn-sm btn-outline-primary font-weight-bold font-weight-bolder my-auto ml-auto" @click="showPublishModal">
-                            {{ trans.buttons.posts.ready }}
+                        <a href="#" class="dropdown-item" @click="showFeaturedImageModal">
+                            {{ trans.nav.controls.image }}
                         </a>
-
-                        <div class="dropdown">
-                            <a id="navbarDropdown" class="nav-link text-secondary pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-sliders-h fa-fw fa-rotate-270"></i>
-                            </a>
-
-                            <div class="dropdown-menu dropdown-menu-right">
-                                <router-link :to="{name: 'stats-show', params: { id: id }}" v-if="isDraft" class="dropdown-item">
-                                    {{ trans.nav.controls.stats }}
-                                </router-link>
-                                <div class="dropdown-divider" v-if="isDraft"></div>
-                                <a href="#" class="dropdown-item" @click="showSettingsModal">
-                                    {{ trans.nav.controls.settings }}
-                                </a>
-                                <a href="#" class="dropdown-item" @click="showFeaturedImageModal">
-                                    {{ trans.nav.controls.image }}
-                                </a>
-                                <a href="#" class="dropdown-item" @click="showSeoModal">
-                                    {{ trans.nav.controls.seo }}
-                                </a>
-                                <a v-if="isDraft" href="#" class="dropdown-item" @click.prevent="convertToDraft">
-                                    {{ trans.buttons.general.draft }}
-                                </a>
-                                <a v-if="id !== 'create'" href="#" class="dropdown-item text-danger" @click="showDeleteModal">
-                                    {{ trans.buttons.general.delete }}
-                                </a>
-                            </div>
-                        </div>
-
-                        <profile-dropdown></profile-dropdown>
-                    </nav>
+                        <a href="#" class="dropdown-item" @click="showSeoModal">
+                            {{ trans.nav.controls.seo }}
+                        </a>
+                        <a v-if="isDraft" href="#" class="dropdown-item" @click.prevent="convertToDraft">
+                            {{ trans.buttons.general.draft }}
+                        </a>
+                        <a v-if="id !== 'create'" href="#" class="dropdown-item text-danger" @click="showDeleteModal">
+                            {{ trans.buttons.general.delete }}
+                        </a>
+                    </div>
                 </div>
-            </div>
-        </div>
+            </template>
+        </page-header>
 
         <main class="py-4">
             <div class="container">
@@ -113,12 +107,12 @@
     import moment from "moment";
     import {store} from "./store";
     import SeoModal from "../../components/SeoModal";
+    import PageHeader from "../../components/PageHeader";
     import DeleteModal from "../../components/DeleteModal";
     import VueTextAreaAutosize from "vue-textarea-autosize";
     import PublishModal from "../../components/PublishModal";
     import SettingsModal from "../../components/SettingsModal";
     import QuillEditor from "../../components/editor/QuillEditor";
-    import ProfileDropdown from "../../components/ProfileDropdown";
     import FeaturedImageModal from "../../components/FeaturedImageModal";
 
     Vue.use(VueTextAreaAutosize);
@@ -130,8 +124,8 @@
             PublishModal,
             FeaturedImageModal,
             DeleteModal,
-            ProfileDropdown,
             QuillEditor,
+            PageHeader,
             SeoModal,
             SettingsModal
         },

@@ -26,7 +26,9 @@ const router = new VueRouter({
 });
 
 NProgress.configure({
-    showSpinner: false
+    showSpinner: false,
+    easing: 'ease',
+    speed: 300
 });
 
 router.beforeEach((to, from, next) => {

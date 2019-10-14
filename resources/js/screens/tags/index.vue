@@ -1,22 +1,12 @@
 <template>
     <div>
-        <div class="border-bottom">
-            <div class="container d-flex justify-content-center px-0">
-                <div class="col-md-10 px-0">
-                    <nav class="navbar navbar-light justify-content-between flex-nowrap flex-row py-1">
-                        <router-link to="/" class="navbar-brand font-weight-bold py-0">
-                            <i class="fas fa-align-left"></i>
-                        </router-link>
-
-                        <router-link :to="{ name: 'tags-create' }" class="btn btn-sm btn-outline-primary font-weight-bold my-auto ml-auto">
-                            {{ trans.buttons.tags.create }}
-                        </router-link>
-
-                        <profile-dropdown></profile-dropdown>
-                    </nav>
-                </div>
-            </div>
-        </div>
+        <page-header>
+            <template slot="action">
+                <router-link :to="{ name: 'tags-create' }" class="btn btn-sm btn-outline-success font-weight-bold">
+                    {{ trans.buttons.tags.create }}
+                </router-link>
+            </template>
+        </page-header>
 
         <main class="py-4">
             <div class="container">
@@ -44,7 +34,7 @@
                                 <div v-for="tag in filteredList" class="d-flex border-top py-3 align-items-center">
                                     <div class="mr-auto">
                                         <p class="mb-0 py-1">
-                                            <router-link :to="{name: 'tags-edit',params: { id: tag.id }}" class="font-weight-bold lead">
+                                            <router-link :to="{name: 'tags-edit',params: { id: tag.id }}" class="font-weight-bold text-lg lead text-decoration-none text-dark">
                                                 {{ tag.name }}
                                             </router-link>
                                         </p>
@@ -57,7 +47,7 @@
                                 </div>
 
                                 <div class="d-flex justify-content-center">
-                                    <a href="#!" class="btn btn-link font-weight-bold btn-block" @click="limit += 10" v-if="loadMore">{{ trans.buttons.general.load }}
+                                    <a href="#!" class="btn btn-link text-success text-decoration-none font-weight-bold btn-block" @click="limit += 10" v-if="loadMore">{{ trans.buttons.general.load }}
                                         <i class="fa fa-fw fa-angle-down"></i>
                                     </a>
                                 </div>
@@ -81,13 +71,13 @@
 </template>
 
 <script>
-    import ProfileDropdown from "../../components/ProfileDropdown";
+    import PageHeader from "../../components/PageHeader";
 
     export default {
         name: "tags",
 
         components: {
-            ProfileDropdown
+            PageHeader
         },
 
         data() {

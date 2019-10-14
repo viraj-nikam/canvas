@@ -1,24 +1,14 @@
 <template>
     <div>
-        <div class="border-bottom">
-            <div class="container d-flex justify-content-center px-0">
-                <div class="col-md-10 px-0">
-                    <nav class="navbar navbar-light justify-content-between flex-nowrap flex-row py-1">
-                        <router-link to="/" class="navbar-brand font-weight-bold py-0">
-                            <i class="fas fa-align-left"></i>
-                        </router-link>
+        <page-header>
+            <template slot="action">
+                <router-link :to="{ name: 'posts-create' }" class="btn btn-sm btn-outline-success font-weight-bold">
+                    {{ trans.buttons.posts.create }}
+                </router-link>
+            </template>
+        </page-header>
 
-                        <router-link :to="{ name: 'posts-create' }" class="btn btn-sm btn-outline-primary font-weight-bold my-auto ml-auto">
-                            {{ trans.buttons.posts.create }}
-                        </router-link>
-
-                        <profile-dropdown></profile-dropdown>
-                    </nav>
-                </div>
-            </div>
-        </div>
-
-        <main class="py-4">
+        <main class="py-3">
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-md-10">
@@ -76,16 +66,16 @@
                                     <div class="d-flex border-top py-3 align-items-center" v-for="post in filteredList">
                                         <div class="mr-auto">
                                             <p class="mb-1 mt-2">
-                                                <router-link :to="{name: 'stats-show', params: { id: post.id }}" class="font-weight-bold lead">
+                                                <router-link :to="{name: 'stats-show', params: { id: post.id }}" class="font-weight-bold text-lg lead text-decoration-none text-dark">
                                                     {{ post.title }}
                                                 </router-link>
                                             </p>
                                             <p class="text-muted mb-2">{{ post.read_time }} ―
-                                                <router-link :to="{name: 'posts-edit',params: { id: post.id }}">
+                                                <router-link :to="{name: 'posts-edit',params: { id: post.id }}" class="text-decoration-none text-muted">
                                                     {{ trans.buttons.posts.edit }}
                                                 </router-link>
                                                                        ―
-                                                <router-link :to="{name: 'stats-show',params: { id: post.id }}">
+                                                <router-link :to="{name: 'stats-show',params: { id: post.id }}" class="text-decoration-none text-muted">
                                                     {{ trans.buttons.stats.show }}
                                                 </router-link>
                                             </p>
@@ -100,7 +90,7 @@
                                     </div>
 
                                     <div class="d-flex justify-content-center">
-                                        <a href="#!" class="btn btn-link font-weight-bold" @click="limit += 7" v-if="loadMore">{{ trans.buttons.general.load }}
+                                        <a href="#!" class="btn btn-link text-success text-decoration-none font-weight-bold btn-block" @click="limit += 7" v-if="loadMore">{{ trans.buttons.general.load }}
                                             <i class="fa fa-fw fa-angle-down"></i>
                                         </a>
                                     </div>
@@ -119,14 +109,14 @@
 
 <script>
     import LineChart from "../../components/LineChart";
-    import ProfileDropdown from "../../components/ProfileDropdown";
+    import PageHeader from "../../components/PageHeader";
 
     export default {
         name: "stats",
 
         components: {
             LineChart,
-            ProfileDropdown
+            PageHeader
         },
 
         data() {

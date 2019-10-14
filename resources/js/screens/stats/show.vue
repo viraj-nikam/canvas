@@ -1,24 +1,14 @@
 <template>
     <div>
-        <div class="border-bottom">
-            <div class="container d-flex justify-content-center px-0">
-                <div class="col-md-10 px-0">
-                    <nav class="navbar navbar-light justify-content-between flex-nowrap flex-row py-1">
-                        <router-link to="/" class="navbar-brand font-weight-bold py-0">
-                            <i class="fas fa-align-left"></i>
-                        </router-link>
+        <page-header>
+            <template slot="right">
+                <router-link to="/stats" class="btn btn-sm btn-outline-success font-weight-bold my-auto ml-auto">
+                    {{ trans.buttons.stats.index }}
+                </router-link>
+            </template>
+        </page-header>
 
-                        <router-link to="/stats" class="btn btn-sm btn-outline-primary font-weight-bold my-auto ml-auto">
-                            {{ trans.buttons.stats.index }}
-                        </router-link>
-
-                        <profile-dropdown></profile-dropdown>
-                    </nav>
-                </div>
-            </div>
-        </div>
-
-        <main class="py-4">
+        <main class="py-3">
             <div class="container" v-if="isReady">
                 <div class="row justify-content-center">
                     <div class="col-md-10">
@@ -43,7 +33,7 @@
                                         <div v-if="host === trans.stats.details.referer.other">
                                             <p class="mb-0 py-1">
                                                 <img :src="`https://favicons.githubusercontent.com/${host}`" :alt="host" class="mr-1"/>
-                                                <a href="#" v-tooltip="{ placement: 'right' }" :title="trans.stats.details.referer.unknown">
+                                                <a href="#" v-tooltip="{ placement: 'right' }" class="text-dark text-decoration-none" :title="trans.stats.details.referer.unknown">
                                                     {{ host }}
                                                     <i class="fas fa-fw fa-question-circle text-muted"></i>
                                                 </a>
@@ -52,7 +42,7 @@
                                         <div v-else>
                                             <p class="mb-0 py-1">
                                                 <img :src="`https://favicons.githubusercontent.com/${host}`" :alt="host" class="mr-1"/>
-                                                <a :href="'http://' + host" target="_blank">{{ host }}</a>
+                                                <a :href="'http://' + host" class="text-dark text-decoration-none" target="_blank">{{ host }}</a>
                                             </p>
                                         </div>
                                     </div>
@@ -99,14 +89,14 @@
 <script>
     import Tooltip from "../../directives/tooltip";
     import LineChart from "../../components/LineChart";
-    import ProfileDropdown from "../../components/ProfileDropdown";
+    import PageHeader from "../../components/PageHeader";
 
     export default {
         name: "stats-show",
 
         components: {
             LineChart,
-            ProfileDropdown
+            PageHeader
         },
 
         directives: {
