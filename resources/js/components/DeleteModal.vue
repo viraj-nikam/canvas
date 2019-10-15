@@ -12,7 +12,7 @@
                     <a href="#" class="btn btn-danger font-weight-bold" aria-label="Delete" @click.prevent="confirmProceed()">
                         {{ trans.buttons.general.delete }}
                     </a>
-                    <button type="button" class="btn btn-link font-weight-bold text-muted" data-dismiss="modal">
+                    <button type="button" class="btn btn-link font-weight-bold text-muted text-decoration-none" data-dismiss="modal">
                         {{ trans.buttons.general.cancel }}
                     </button>
                 </div>

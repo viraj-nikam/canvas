@@ -75973,7 +75973,8 @@ var render = function() {
             _c(
               "button",
               {
-                staticClass: "btn btn-link font-weight-bold text-muted",
+                staticClass:
+                  "btn btn-link font-weight-bold text-muted text-decoration-none",
                 attrs: { type: "button", "data-dismiss": "modal" }
               },
               [
@@ -76095,7 +76096,11 @@ var render = function() {
                   ? _c("div", [
                       _c(
                         "a",
-                        { attrs: { href: "#" }, on: { click: _vm.clear } },
+                        {
+                          staticClass: "text-decoration-none",
+                          attrs: { href: "#" },
+                          on: { click: _vm.clear }
+                        },
                         [
                           _vm._v(
                             "\n                        " +
@@ -76136,7 +76141,8 @@ var render = function() {
               _c(
                 "button",
                 {
-                  staticClass: "btn btn-link font-weight-bold text-muted",
+                  staticClass:
+                    "btn btn-link font-weight-bold text-muted text-decoration-none",
                   attrs: { type: "button", "data-dismiss": "modal" }
                 },
                 [
@@ -76197,7 +76203,7 @@ var render = function() {
       _c(
         "label",
         {
-          staticClass: "text-primary",
+          staticClass: "text-success",
           staticStyle: { cursor: "pointer" },
           attrs: { for: "imageUpload" + _vm._uid }
         },
@@ -76224,7 +76230,7 @@ var render = function() {
         ? _c(
             "a",
             {
-              staticClass: "text-primary",
+              staticClass: "text-success text-decoration-none",
               attrs: { href: "#" },
               on: {
                 click: function($event) {
@@ -76325,7 +76331,7 @@ var render = function() {
                           "button",
                           {
                             staticClass:
-                              "btn btn-sm btn-outline-primary font-weight-bold",
+                              "btn btn-sm btn-outline-success font-weight-bold",
                             attrs: { type: "button" },
                             on: {
                               click: function($event) {
@@ -76935,7 +76941,7 @@ var render = function() {
               ? _c(
                   "a",
                   {
-                    staticClass: "btn btn-primary font-weight-bold",
+                    staticClass: "btn btn-success font-weight-bold",
                     attrs: { href: "#", "data-dismiss": "modal" },
                     on: { click: _vm.publish }
                   },
@@ -76950,7 +76956,7 @@ var render = function() {
               : _c(
                   "a",
                   {
-                    staticClass: "btn btn-primary font-weight-bold",
+                    staticClass: "btn btn-success font-weight-bold",
                     attrs: { href: "#", "data-dismiss": "modal" },
                     on: { click: _vm.schedule }
                   },
@@ -76967,7 +76973,8 @@ var render = function() {
               ? _c(
                   "button",
                   {
-                    staticClass: "btn btn-link font-weight-bold text-muted",
+                    staticClass:
+                      "btn btn-link font-weight-bold text-muted text-decoration-none",
                     attrs: { type: "button" },
                     on: {
                       click: function($event) {
@@ -76986,7 +76993,8 @@ var render = function() {
               : _c(
                   "button",
                   {
-                    staticClass: "btn btn-link text-muted font-weight-bold",
+                    staticClass:
+                      "btn btn-link text-muted font-weight-bold text-decoration-none",
                     attrs: { type: "button" },
                     on: {
                       click: function($event) {
@@ -77311,7 +77319,8 @@ var render = function() {
             _c(
               "button",
               {
-                staticClass: "btn btn-link font-weight-bold text-muted",
+                staticClass:
+                  "btn btn-link font-weight-bold text-muted text-decoration-none",
                 attrs: { type: "button", "data-dismiss": "modal" }
               },
               [
@@ -77492,7 +77501,8 @@ var render = function() {
             _c(
               "button",
               {
-                staticClass: "btn btn-link font-weight-bold text-muted",
+                staticClass:
+                  "btn btn-link font-weight-bold text-muted text-decoration-none",
                 attrs: { type: "button", "data-dismiss": "modal" }
               },
               [
@@ -77666,7 +77676,8 @@ var render = function() {
             _c(
               "button",
               {
-                staticClass: "btn btn-link text-muted font-weight-bold",
+                staticClass:
+                  "btn btn-link text-muted font-weight-bold text-decoration-none",
                 attrs: { type: "button", "data-dismiss": "modal" },
                 on: { click: _vm.addingHTML }
               },
@@ -77856,7 +77867,8 @@ var render = function() {
               _c(
                 "button",
                 {
-                  staticClass: "btn btn-link text-muted font-weight-bold",
+                  staticClass:
+                    "btn btn-link text-muted font-weight-bold text-decoration-none",
                   attrs: { "data-dismiss": "modal" },
                   on: { click: _vm.setImage }
                 },

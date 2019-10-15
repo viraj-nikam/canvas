@@ -39,7 +39,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-link text-muted font-weight-bold" data-dismiss="modal" @click="setImage">
+                    <button class="btn btn-link text-muted font-weight-bold text-decoration-none" data-dismiss="modal" @click="setImage">
                         {{ trans.buttons.general.done }}
                     </button>
                 </div>

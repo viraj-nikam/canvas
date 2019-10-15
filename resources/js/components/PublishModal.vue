@@ -47,16 +47,16 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <a v-if="isReadyToPublish" href="#" class="btn btn-primary font-weight-bold" @click="publish" data-dismiss="modal">
+                    <a v-if="isReadyToPublish" href="#" class="btn btn-success font-weight-bold" @click="publish" data-dismiss="modal">
                         {{ trans.buttons.posts.publish }}
                     </a>
-                    <a v-else href="#" class="btn btn-primary font-weight-bold" @click="schedule" data-dismiss="modal">
+                    <a v-else href="#" class="btn btn-success font-weight-bold" @click="schedule" data-dismiss="modal">
                         {{ trans.buttons.posts.schedule }}
                     </a>
-                    <button v-if="isReadyToPublish" type="button" class="btn btn-link font-weight-bold text-muted" @click="isReadyToPublish = false">
+                    <button v-if="isReadyToPublish" type="button" class="btn btn-link font-weight-bold text-muted text-decoration-none" @click="isReadyToPublish = false">
                         {{ trans.buttons.posts.later }}
                     </button>
-                    <button v-else type="button" class="btn btn-link text-muted font-weight-bold" @click="isReadyToPublish = true">
+                    <button v-else type="button" class="btn btn-link text-muted font-weight-bold text-decoration-none" @click="isReadyToPublish = true">
                         {{ trans.buttons.posts.cancel }}
                     </button>
                 </div>

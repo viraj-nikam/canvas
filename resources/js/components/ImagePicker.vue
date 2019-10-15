@@ -4,7 +4,7 @@
         <div class="mb-0">
             {{ trans.posts.forms.editor.images.picker.greeting }}
 
-            <label :for="'imageUpload' + _uid" class="text-primary" style="cursor:pointer;">
+            <label :for="'imageUpload' + _uid" class="text-success" style="cursor:pointer;">
                 {{ trans.posts.forms.editor.images.picker.action }}
             </label>
 
@@ -12,7 +12,7 @@
 
             <span v-if="unsplash">{{ trans.posts.forms.editor.images.picker.operator }}</span>
 
-            <a v-if="unsplash" href="#" @click.prevent="openUnsplash" class="text-primary">
+            <a v-if="unsplash" href="#" @click.prevent="openUnsplash" class="text-success text-decoration-none">
                 {{ trans.posts.forms.editor.images.picker.unsplash }}
             </a>
         </div>
@@ -32,7 +32,7 @@
                         <button class="btn btn-link font-weight-bold text-muted" type="button" @click="closeUnsplash" @submit.prevent>
                             {{ trans.buttons.general.cancel }}
                         </button>
-                        <button class="btn btn-sm btn-outline-primary font-weight-bold" type="button" @click="fetchImages(unsplashPage + 1)" v-if="unsplashImages.length === 12" @submit.prevent>
+                        <button class="btn btn-sm btn-outline-success font-weight-bold" type="button" @click="fetchImages(unsplashPage + 1)" v-if="unsplashImages.length === 12" @submit.prevent>
                             {{ trans.buttons.general.next }}
                         </button>
                     </div>

@@ -14,7 +14,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-link text-muted font-weight-bold" type="button" data-dismiss="modal" @click="addingHTML">
+                    <button class="btn btn-link text-muted font-weight-bold text-decoration-none" type="button" data-dismiss="modal" @click="addingHTML">
                         {{ trans.buttons.general.done }}
                     </button>
                 </div>

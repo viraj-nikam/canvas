@@ -16,7 +16,7 @@
                     </div>
 
                     <div v-if="storeState.form.featured_image">
-                        <a href="#" @click="clear">
+                        <a href="#" @click="clear" class="text-decoration-none">
                             {{ trans.posts.forms.editor.images.picker.clear.action }}
                         </a>
 
@@ -31,7 +31,7 @@
                     </image-picker>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-link font-weight-bold text-muted" data-dismiss="modal">
+                    <button type="button" class="btn btn-link font-weight-bold text-muted text-decoration-none" data-dismiss="modal">
                         {{ trans.buttons.general.done }}
                     </button>
                 </div>
