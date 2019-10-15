@@ -33,6 +33,7 @@ matrix:
 
 before_install:
   - phpenv config-rm xdebug.ini || true
+  - travis_retry composer self-update
 
 install:
   - travis_retry composer require "illuminate/support=${LARAVEL}" "orchestra/testbench=${TESTBENCH}" "doctrine/dbal=${DBAL}" --no-update --no-interaction
