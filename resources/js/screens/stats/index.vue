@@ -8,7 +8,7 @@
             </template>
         </page-header>
 
-        <main class="py-3">
+        <main class="py-4">
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-md-10">
@@ -90,8 +90,9 @@
                                     </div>
 
                                     <div class="d-flex justify-content-center">
-                                        <a href="#!" class="btn btn-link text-success text-decoration-none font-weight-bold btn-block" @click="limit += 7" v-if="loadMore">{{ trans.buttons.general.load }}
-                                            <i class="fa fa-fw fa-angle-down"></i>
+                                        <a href="#!" class="btn btn-link text-success text-decoration-none font-weight-bold btn-block" @click="limit += 7" v-if="loadMore">
+                                            {{ trans.buttons.general.load }}
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="25" viewBox="0 0 24 24" class="icon-cheveron-down"><path class="secondary" fill-rule="evenodd" d="M15.3 10.3a1 1 0 0 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.4l3.3 3.29 3.3-3.3z"/></svg>
                                         </a>
                                     </div>
                                 </div>

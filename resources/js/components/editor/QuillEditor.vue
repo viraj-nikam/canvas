@@ -1,31 +1,34 @@
 <template>
     <div v-cloak>
-        <div style="position: relative">
+        <div class="position-relative">
             <div id="sidebarControls" style="margin-top: -8px">
                 <button class="btn btn-outline-light btn-circle border" type="button" @click="openSidebarControls">
-                    <i class="fas fa-plus fa-fw text-muted"></i>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="25" viewBox="0 0 24 24" class="icon-add-circle"><circle cx="12" cy="12" r="10" class="primary"/><path class="secondary" d="M13 11h4a1 1 0 0 1 0 2h-4v4a1 1 0 0 1-2 0v-4H7a1 1 0 0 1 0-2h4V7a1 1 0 0 1 2 0v4z"/></svg>
                 </button>
                 <div class="controls pl-3 bg-white d-none">
                     <button class="btn btn-outline-light btn-circle border mr-1" type="button" @click="showImageModal">
-                        <i class="fas fa-fw fa-image text-muted"></i>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="25" viewBox="0 0 24 24" class="icon-photo"><path class="primary" d="M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5c0-1.1.9-2 2-2zm9 6a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/><path class="secondary" d="M15.3 12.3a1 1 0 0 1 1.4 0l2 2a1 1 0 0 1 .3.7v3a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-3a1 1 0 0 1 .3-.7l4-4a1 1 0 0 1 1.4 0l3.3 3.29 1.3-1.3z"/></svg>
                     </button>
                     <button class="btn btn-outline-light btn-circle border mr-1" type="button" @click="showHTMLModal">
-                        <i class="fas fa-fw fa-code text-muted"></i>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="25" viewBox="0 0 24 24" class="icon-code"><rect width="18" height="18" x="3" y="3" class="primary" rx="2"/><path class="secondary" d="M8.7 13.3a1 1 0 0 1-1.4 1.4l-2-2a1 1 0 0 1 0-1.4l2-2a1 1 0 1 1 1.4 1.4L7.42 12l1.3 1.3zm6.6 0l1.29-1.3-1.3-1.3a1 1 0 1 1 1.42-1.4l2 2a1 1 0 0 1 0 1.4l-2 2a1 1 0 0 1-1.42-1.4zm-3.32 3.9a1 1 0 0 1-1.96-.4l2-10a1 1 0 0 1 1.96.4l-2 10z"/></svg>
                     </button>
                     <button class="btn btn-outline-light btn-circle border mr-2" type="button" @click="insertDivider">
-                        <i class="fas fa-fw fa-ellipsis-h text-muted"></i>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="25" viewBox="0 0 24 24" class="icon-dots-horizontal"><path class="secondary" fill-rule="evenodd" d="M5 14a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm7 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm7 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/></svg>
                     </button>
                 </div>
             </div>
 
             <div ref="editor"></div>
 
-            <image-modal ref="imageModal"
-                         @addingImage="insertImage">
-            </image-modal>
-            <html-modal ref="htmlModal"
-                        @addingHTML="insertHTML">
-            </html-modal>
+            <image-modal
+                ref="imageModal"
+                @addingImage="insertImage"
+            />
+
+            <html-modal
+                ref="htmlModal"
+                @addingHTML="insertHTML"
+            />
         </div>
     </div>
 </template>
@@ -420,7 +423,7 @@
         line-height: 1.6;
         font-weight: 400;
         text-align: center;
-        font-family: "Nunito", sans-serif;
+        font-family: "Karla", sans-serif;
     }
 
     @media screen and (max-width: 1024px) {

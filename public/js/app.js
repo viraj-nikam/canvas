@@ -3171,6 +3171,9 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 //
 //
 //
+//
+//
+//
 
 
 
@@ -3693,7 +3696,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "posts",
@@ -3756,6 +3758,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_LineChart__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../components/LineChart */ "./resources/js/components/LineChart.vue");
 /* harmony import */ var _components_PageHeader__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../components/PageHeader */ "./resources/js/components/PageHeader.vue");
+//
 //
 //
 //
@@ -4237,6 +4240,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_PageHeader__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../components/PageHeader */ "./resources/js/components/PageHeader.vue");
+//
 //
 //
 //
@@ -11317,7 +11321,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 exports.i(__webpack_require__(/*! -!../../../../node_modules/css-loader??ref--7-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!quill/dist/quill.bubble.css */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/quill/dist/quill.bubble.css"), "");
 
 // module
-exports.push([module.i, "\n.ql-container {\n    box-sizing: border-box;\n    font-family: \"Merriweather\", serif;\n    height: 100%;\n    margin: 0;\n    position: relative;\n}\n.ql-editor {\n    font-family: \"Merriweather\", serif;\n    font-weight: 300;\n    color: hsla(0, 0%, 0%, 0.9);\n    font-size: 1.1rem;\n    line-height: 1.9;\n    padding: 0;\n    overflow-y: visible;\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n}\n.ql-editor p,\n.ql-editor ul,\n.ql-editor ol,\n.ql-editor h1,\n.ql-editor h2,\n.ql-editor h3,\n.ql-editor blockquote,\n.ql-editor pre {\n    min-width: 100%;\n}\n.ql-editor h2 {\n    margin-top: 0 !important;\n    margin-bottom: 33px !important;\n    font-size: 1.5rem;\n    font-weight: bold;\n    line-height: 2.6rem;\n}\n.ql-editor h3 {\n    margin-bottom: 33px !important;\n    font-size: 17px !important;\n    font-weight: bold;\n    line-height: 2.6rem;\n}\n.ql-editor p,\n.ql-editor ol,\n.ql-editor ul,\n.ql-editor pre,\n.ql-editor blockquote {\n    margin-bottom: 33px !important;\n}\n.ql-editor blockquote {\n    font-style: italic !important;\n}\n.ql-bubble .ql-editor pre.ql-syntax {\n    background-color: rgba(0, 0, 0, 0.05);\n    border: none;\n    color: #000;\n    overflow-x: auto;\n    padding: 1em;\n}\n.ql-editor h1,\n.ql-editor h2 {\n    margin-top: 56px;\n    margin-bottom: 15px;\n}\n.ql-editor ol,\n.ql-editor ul {\n    padding-left: 0;\n}\n.ql-editor ol li,\n.ql-editor ul li {\n    margin-bottom: 20px;\n}\n.ql-editor.ql-blank::before {\n    left: 0;\n    font-style: normal;\n}\n.ql-bubble .ql-editor a {\n    color: #3490dc;\n    text-decoration: none !important;\n}\n.ql-container hr {\n    margin-top: 0;\n    border: none;\n    color: #111;\n    letter-spacing: 1em;\n    text-align: center;\n}\n.ql-container hr:before {\n    content: \"...\";\n}\n.btn-circle {\n    width: 40px;\n    height: 40px;\n    padding: 6px 0;\n    border-radius: 9999px;\n    text-align: center;\n    line-height: 1.42857;\n}\n#sidebarControls {\n    display: none;\n    position: absolute;\n    z-index: 10;\n    left: -60px !important;\n}\n#sidebarControls button:focus {\n    box-shadow: none !important;\n    outline: none !important;\n}\n#sidebarControls.active .controls {\n    display: inline-block !important;\n}\n.embedded_image {\n    margin-bottom: 33px !important;\n    cursor: default;\n}\n.embedded_image[data-layout=\"wide\"] img {\n    max-width: 1024px;\n}\n.embedded_image img {\n    max-width: 100%;\n    height: auto;\n    margin: 0 auto;\n    display: block;\n}\n.embedded_image:hover img {\n    cursor: pointer !important;\n    box-shadow: 0 0 0 3px #3490dc !important;\n}\ndiv.embedded_image[data-laout=\"wide\"] {\n    width: 100vw !important;\n    position: relative !important;\n    left: 50% !important;\n    margin-left: -50vw !important;\n}\n.embedded_image p {\n    margin-bottom: 0 !important;\n    color: #6c757d;\n    padding-top: 1rem;\n    font-size: 0.9rem;\n    line-height: 1.6;\n    font-weight: 400;\n    text-align: center;\n    font-family: \"Nunito\", sans-serif;\n}\n@media screen and (max-width: 1024px) {\n.embedded_image[data-layout=\"wide\"] img {\n        max-width: 100%;\n}\n}\n@media (max-width: 767px) {\n#sidebarControls {\n        display: none !important;\n}\n}\n", ""]);
+exports.push([module.i, "\n.ql-container {\n    box-sizing: border-box;\n    font-family: \"Merriweather\", serif;\n    height: 100%;\n    margin: 0;\n    position: relative;\n}\n.ql-editor {\n    font-family: \"Merriweather\", serif;\n    font-weight: 300;\n    color: hsla(0, 0%, 0%, 0.9);\n    font-size: 1.1rem;\n    line-height: 1.9;\n    padding: 0;\n    overflow-y: visible;\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n}\n.ql-editor p,\n.ql-editor ul,\n.ql-editor ol,\n.ql-editor h1,\n.ql-editor h2,\n.ql-editor h3,\n.ql-editor blockquote,\n.ql-editor pre {\n    min-width: 100%;\n}\n.ql-editor h2 {\n    margin-top: 0 !important;\n    margin-bottom: 33px !important;\n    font-size: 1.5rem;\n    font-weight: bold;\n    line-height: 2.6rem;\n}\n.ql-editor h3 {\n    margin-bottom: 33px !important;\n    font-size: 17px !important;\n    font-weight: bold;\n    line-height: 2.6rem;\n}\n.ql-editor p,\n.ql-editor ol,\n.ql-editor ul,\n.ql-editor pre,\n.ql-editor blockquote {\n    margin-bottom: 33px !important;\n}\n.ql-editor blockquote {\n    font-style: italic !important;\n}\n.ql-bubble .ql-editor pre.ql-syntax {\n    background-color: rgba(0, 0, 0, 0.05);\n    border: none;\n    color: #000;\n    overflow-x: auto;\n    padding: 1em;\n}\n.ql-editor h1,\n.ql-editor h2 {\n    margin-top: 56px;\n    margin-bottom: 15px;\n}\n.ql-editor ol,\n.ql-editor ul {\n    padding-left: 0;\n}\n.ql-editor ol li,\n.ql-editor ul li {\n    margin-bottom: 20px;\n}\n.ql-editor.ql-blank::before {\n    left: 0;\n    font-style: normal;\n}\n.ql-bubble .ql-editor a {\n    color: #3490dc;\n    text-decoration: none !important;\n}\n.ql-container hr {\n    margin-top: 0;\n    border: none;\n    color: #111;\n    letter-spacing: 1em;\n    text-align: center;\n}\n.ql-container hr:before {\n    content: \"...\";\n}\n.btn-circle {\n    width: 40px;\n    height: 40px;\n    padding: 6px 0;\n    border-radius: 9999px;\n    text-align: center;\n    line-height: 1.42857;\n}\n#sidebarControls {\n    display: none;\n    position: absolute;\n    z-index: 10;\n    left: -60px !important;\n}\n#sidebarControls button:focus {\n    box-shadow: none !important;\n    outline: none !important;\n}\n#sidebarControls.active .controls {\n    display: inline-block !important;\n}\n.embedded_image {\n    margin-bottom: 33px !important;\n    cursor: default;\n}\n.embedded_image[data-layout=\"wide\"] img {\n    max-width: 1024px;\n}\n.embedded_image img {\n    max-width: 100%;\n    height: auto;\n    margin: 0 auto;\n    display: block;\n}\n.embedded_image:hover img {\n    cursor: pointer !important;\n    box-shadow: 0 0 0 3px #3490dc !important;\n}\ndiv.embedded_image[data-laout=\"wide\"] {\n    width: 100vw !important;\n    position: relative !important;\n    left: 50% !important;\n    margin-left: -50vw !important;\n}\n.embedded_image p {\n    margin-bottom: 0 !important;\n    color: #6c757d;\n    padding-top: 1rem;\n    font-size: 0.9rem;\n    line-height: 1.6;\n    font-weight: 400;\n    text-align: center;\n    font-family: \"Karla\", sans-serif;\n}\n@media screen and (max-width: 1024px) {\n.embedded_image[data-layout=\"wide\"] img {\n        max-width: 100%;\n}\n}\n@media (max-width: 767px) {\n#sidebarControls {\n        display: none !important;\n}\n}\n", ""]);
 
 // exports
 
@@ -77896,7 +77900,7 @@ var render = function() {
   return _c("div", {}, [
     _c(
       "div",
-      { staticStyle: { position: "relative" } },
+      { staticClass: "position-relative" },
       [
         _c(
           "div",
@@ -77912,7 +77916,32 @@ var render = function() {
                 attrs: { type: "button" },
                 on: { click: _vm.openSidebarControls }
               },
-              [_c("i", { staticClass: "fas fa-plus fa-fw text-muted" })]
+              [
+                _c(
+                  "svg",
+                  {
+                    staticClass: "icon-add-circle",
+                    attrs: {
+                      xmlns: "http://www.w3.org/2000/svg",
+                      width: "25",
+                      viewBox: "0 0 24 24"
+                    }
+                  },
+                  [
+                    _c("circle", {
+                      staticClass: "primary",
+                      attrs: { cx: "12", cy: "12", r: "10" }
+                    }),
+                    _c("path", {
+                      staticClass: "secondary",
+                      attrs: {
+                        d:
+                          "M13 11h4a1 1 0 0 1 0 2h-4v4a1 1 0 0 1-2 0v-4H7a1 1 0 0 1 0-2h4V7a1 1 0 0 1 2 0v4z"
+                      }
+                    })
+                  ]
+                )
+              ]
             ),
             _vm._v(" "),
             _c("div", { staticClass: "controls pl-3 bg-white d-none" }, [
@@ -77923,7 +77952,35 @@ var render = function() {
                   attrs: { type: "button" },
                   on: { click: _vm.showImageModal }
                 },
-                [_c("i", { staticClass: "fas fa-fw fa-image text-muted" })]
+                [
+                  _c(
+                    "svg",
+                    {
+                      staticClass: "icon-photo",
+                      attrs: {
+                        xmlns: "http://www.w3.org/2000/svg",
+                        width: "25",
+                        viewBox: "0 0 24 24"
+                      }
+                    },
+                    [
+                      _c("path", {
+                        staticClass: "primary",
+                        attrs: {
+                          d:
+                            "M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5c0-1.1.9-2 2-2zm9 6a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"
+                        }
+                      }),
+                      _c("path", {
+                        staticClass: "secondary",
+                        attrs: {
+                          d:
+                            "M15.3 12.3a1 1 0 0 1 1.4 0l2 2a1 1 0 0 1 .3.7v3a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-3a1 1 0 0 1 .3-.7l4-4a1 1 0 0 1 1.4 0l3.3 3.29 1.3-1.3z"
+                        }
+                      })
+                    ]
+                  )
+                ]
               ),
               _vm._v(" "),
               _c(
@@ -77933,7 +77990,38 @@ var render = function() {
                   attrs: { type: "button" },
                   on: { click: _vm.showHTMLModal }
                 },
-                [_c("i", { staticClass: "fas fa-fw fa-code text-muted" })]
+                [
+                  _c(
+                    "svg",
+                    {
+                      staticClass: "icon-code",
+                      attrs: {
+                        xmlns: "http://www.w3.org/2000/svg",
+                        width: "25",
+                        viewBox: "0 0 24 24"
+                      }
+                    },
+                    [
+                      _c("rect", {
+                        staticClass: "primary",
+                        attrs: {
+                          width: "18",
+                          height: "18",
+                          x: "3",
+                          y: "3",
+                          rx: "2"
+                        }
+                      }),
+                      _c("path", {
+                        staticClass: "secondary",
+                        attrs: {
+                          d:
+                            "M8.7 13.3a1 1 0 0 1-1.4 1.4l-2-2a1 1 0 0 1 0-1.4l2-2a1 1 0 1 1 1.4 1.4L7.42 12l1.3 1.3zm6.6 0l1.29-1.3-1.3-1.3a1 1 0 1 1 1.42-1.4l2 2a1 1 0 0 1 0 1.4l-2 2a1 1 0 0 1-1.42-1.4zm-3.32 3.9a1 1 0 0 1-1.96-.4l2-10a1 1 0 0 1 1.96.4l-2 10z"
+                        }
+                      })
+                    ]
+                  )
+                ]
               ),
               _vm._v(" "),
               _c(
@@ -77943,7 +78031,29 @@ var render = function() {
                   attrs: { type: "button" },
                   on: { click: _vm.insertDivider }
                 },
-                [_c("i", { staticClass: "fas fa-fw fa-ellipsis-h text-muted" })]
+                [
+                  _c(
+                    "svg",
+                    {
+                      staticClass: "icon-dots-horizontal",
+                      attrs: {
+                        xmlns: "http://www.w3.org/2000/svg",
+                        width: "25",
+                        viewBox: "0 0 24 24"
+                      }
+                    },
+                    [
+                      _c("path", {
+                        staticClass: "secondary",
+                        attrs: {
+                          "fill-rule": "evenodd",
+                          d:
+                            "M5 14a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm7 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm7 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"
+                        }
+                      })
+                    ]
+                  )
+                ]
               )
             ])
           ]
@@ -78060,7 +78170,7 @@ var render = function() {
               _c(
                 "a",
                 {
-                  staticClass: "nav-link text-secondary pr-0",
+                  staticClass: "nav-link pr-0",
                   attrs: {
                     id: "navbarDropdown",
                     href: "#",
@@ -78071,9 +78181,27 @@ var render = function() {
                   }
                 },
                 [
-                  _c("i", {
-                    staticClass: "fas fa-sliders-h fa-fw fa-rotate-270"
-                  })
+                  _c(
+                    "svg",
+                    {
+                      staticClass: "icon-dots-horizontal",
+                      attrs: {
+                        xmlns: "http://www.w3.org/2000/svg",
+                        viewBox: "0 0 24 24",
+                        width: "25"
+                      }
+                    },
+                    [
+                      _c("path", {
+                        staticClass: "primary",
+                        attrs: {
+                          "fill-rule": "evenodd",
+                          d:
+                            "M5 14a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm7 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm7 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"
+                        }
+                      })
+                    ]
+                  )
                 ]
               ),
               _vm._v(" "),
@@ -78216,7 +78344,7 @@ var render = function() {
                         [
                           _c("textarea-autosize", {
                             staticClass:
-                              "form-control-lg form-control border-0 pl-0 serif",
+                              "form-control-lg form-control border-0 pl-0 font-serif",
                             attrs: {
                               placeholder: _vm.trans.posts.forms.editor.title,
                               rows: "1"
@@ -78336,7 +78464,46 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "dropdown my-auto" }, [
-                  _vm._m(0),
+                  _c(
+                    "a",
+                    {
+                      staticClass: "nav-link px-0 pb-0 pt-3",
+                      attrs: {
+                        href: "#",
+                        id: "navbarDropdown",
+                        role: "button",
+                        "data-toggle": "dropdown",
+                        "aria-haspopup": "true",
+                        "aria-expanded": "false"
+                      }
+                    },
+                    [
+                      _c(
+                        "svg",
+                        {
+                          staticClass: "icon-search",
+                          attrs: {
+                            xmlns: "http://www.w3.org/2000/svg",
+                            width: "25",
+                            viewBox: "0 0 24 24"
+                          }
+                        },
+                        [
+                          _c("circle", {
+                            staticClass: "primary",
+                            attrs: { cx: "10", cy: "10", r: "7" }
+                          }),
+                          _c("path", {
+                            staticClass: "secondary",
+                            attrs: {
+                              d:
+                                "M16.32 14.9l1.1 1.1c.4-.02.83.13 1.14.44l3 3a1.5 1.5 0 0 1-2.12 2.12l-3-3a1.5 1.5 0 0 1-.44-1.14l-1.1-1.1a8 8 0 1 1 1.41-1.41zM10 16a6 6 0 1 0 0-12 6 6 0 0 0 0 12z"
+                            }
+                          })
+                        ]
+                      )
+                    ]
+                  ),
                   _vm._v(" "),
                   _c(
                     "div",
@@ -78525,21 +78692,42 @@ var render = function() {
                                                 attrs: { id: "featuredImage" }
                                               })
                                             : _c(
-                                                "span",
+                                                "div",
                                                 {
                                                   staticClass:
-                                                    "fa-stack fa-2x align-middle"
+                                                    "mr-3 align-middle"
                                                 },
                                                 [
-                                                  _c("i", {
-                                                    staticClass:
-                                                      "fas fa-circle fa-stack-2x text-black-50"
-                                                  }),
-                                                  _vm._v(" "),
-                                                  _c("i", {
-                                                    staticClass:
-                                                      "fas fa-fw fa-stack-1x fa-camera fa-inverse"
-                                                  })
+                                                  _c(
+                                                    "svg",
+                                                    {
+                                                      staticClass:
+                                                        "icon-camera",
+                                                      attrs: {
+                                                        xmlns:
+                                                          "http://www.w3.org/2000/svg",
+                                                        width: "45",
+                                                        viewBox: "0 0 24 24"
+                                                      }
+                                                    },
+                                                    [
+                                                      _c("path", {
+                                                        staticClass: "primary",
+                                                        attrs: {
+                                                          d:
+                                                            "M6.59 6l2.7-2.7A1 1 0 0 1 10 3h4a1 1 0 0 1 .7.3L17.42 6H20a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8c0-1.1.9-2 2-2h2.59zM19 10a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-7 8a5 5 0 1 0 0-10 5 5 0 0 0 0 10z"
+                                                        }
+                                                      }),
+                                                      _c("path", {
+                                                        staticClass:
+                                                          "secondary",
+                                                        attrs: {
+                                                          d:
+                                                            "M12 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"
+                                                        }
+                                                      })
+                                                    ]
+                                                  )
                                                 ]
                                               )
                                         ]
@@ -78576,9 +78764,28 @@ var render = function() {
                                             ) +
                                             "\n                                    "
                                         ),
-                                        _c("i", {
-                                          staticClass: "fa fa-fw fa-angle-down"
-                                        })
+                                        _c(
+                                          "svg",
+                                          {
+                                            staticClass: "icon-cheveron-down",
+                                            attrs: {
+                                              xmlns:
+                                                "http://www.w3.org/2000/svg",
+                                              width: "25",
+                                              viewBox: "0 0 24 24"
+                                            }
+                                          },
+                                          [
+                                            _c("path", {
+                                              staticClass: "secondary",
+                                              attrs: {
+                                                "fill-rule": "evenodd",
+                                                d:
+                                                  "M15.3 10.3a1 1 0 0 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.4l3.3 3.29 3.3-3.3z"
+                                              }
+                                            })
+                                          ]
+                                        )
                                       ]
                                     )
                                   : _vm._e()
@@ -78630,28 +78837,7 @@ var render = function() {
     1
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "a",
-      {
-        staticClass: "nav-link px-0 pb-0 pt-3 text-secondary",
-        attrs: {
-          href: "#",
-          id: "navbarDropdown",
-          role: "button",
-          "data-toggle": "dropdown",
-          "aria-haspopup": "true",
-          "aria-expanded": "false"
-        }
-      },
-      [_c("i", { staticClass: "fas fa-search" })]
-    )
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -78705,7 +78891,7 @@ var render = function() {
         2
       ),
       _vm._v(" "),
-      _c("main", { staticClass: "py-3" }, [
+      _c("main", { staticClass: "py-4" }, [
         _c("div", { staticClass: "container" }, [
           _c("div", { staticClass: "row justify-content-center" }, [
             _c("div", { staticClass: "col-md-10" }, [
@@ -79023,15 +79209,35 @@ var render = function() {
                                           },
                                           [
                                             _vm._v(
-                                              _vm._s(
-                                                _vm.trans.buttons.general.load
-                                              ) +
+                                              "\n                                        " +
+                                                _vm._s(
+                                                  _vm.trans.buttons.general.load
+                                                ) +
                                                 "\n                                        "
                                             ),
-                                            _c("i", {
-                                              staticClass:
-                                                "fa fa-fw fa-angle-down"
-                                            })
+                                            _c(
+                                              "svg",
+                                              {
+                                                staticClass:
+                                                  "icon-cheveron-down",
+                                                attrs: {
+                                                  xmlns:
+                                                    "http://www.w3.org/2000/svg",
+                                                  width: "25",
+                                                  viewBox: "0 0 24 24"
+                                                }
+                                              },
+                                              [
+                                                _c("path", {
+                                                  staticClass: "secondary",
+                                                  attrs: {
+                                                    "fill-rule": "evenodd",
+                                                    d:
+                                                      "M15.3 10.3a1 1 0 0 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.4l3.3 3.29 3.3-3.3z"
+                                                  }
+                                                })
+                                              ]
+                                            )
                                           ]
                                         )
                                       : _vm._e()
@@ -79088,7 +79294,7 @@ var render = function() {
         [
           _c(
             "template",
-            { slot: "right" },
+            { slot: "action" },
             [
               _c(
                 "router-link",
@@ -79112,7 +79318,7 @@ var render = function() {
         2
       ),
       _vm._v(" "),
-      _c("main", { staticClass: "py-3" }, [
+      _c("main", { staticClass: "py-4" }, [
         _vm.isReady
           ? _c("div", { staticClass: "container" }, [
               _c("div", { staticClass: "row justify-content-center" }, [
@@ -79218,10 +79424,34 @@ var render = function() {
                                                   _vm._s(host) +
                                                   "\n                                                "
                                               ),
-                                              _c("i", {
-                                                staticClass:
-                                                  "fas fa-fw fa-question-circle text-muted"
-                                              })
+                                              _c(
+                                                "svg",
+                                                {
+                                                  staticClass: "icon-help",
+                                                  attrs: {
+                                                    xmlns:
+                                                      "http://www.w3.org/2000/svg",
+                                                    width: "20",
+                                                    viewBox: "0 0 24 24"
+                                                  }
+                                                },
+                                                [
+                                                  _c("path", {
+                                                    staticClass: "primary",
+                                                    attrs: {
+                                                      d:
+                                                        "M12 22a10 10 0 1 1 0-20 10 10 0 0 1 0 20z"
+                                                    }
+                                                  }),
+                                                  _c("path", {
+                                                    staticClass: "secondary",
+                                                    attrs: {
+                                                      d:
+                                                        "M12 19.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm1-5.5a1 1 0 0 1-2 0v-1.41a1 1 0 0 1 .55-.9L14 10.5C14.64 10.08 15 9.53 15 9c0-1.03-1.3-2-3-2-1.35 0-2.49.62-2.87 1.43a1 1 0 0 1-1.8-.86C8.05 6.01 9.92 5 12 5c2.7 0 5 1.72 5 4 0 1.3-.76 2.46-2.05 3.24L13 13.2V14z"
+                                                    }
+                                                  })
+                                                ]
+                                              )
                                             ]
                                           )
                                         ])
@@ -79420,7 +79650,7 @@ var render = function() {
                   _c(
                     "a",
                     {
-                      staticClass: "nav-link text-secondary pr-0",
+                      staticClass: "nav-link pr-0",
                       attrs: {
                         id: "navbarDropdown",
                         href: "#",
@@ -79431,9 +79661,27 @@ var render = function() {
                       }
                     },
                     [
-                      _c("i", {
-                        staticClass: "fas fa-sliders-h fa-fw fa-rotate-270"
-                      })
+                      _c(
+                        "svg",
+                        {
+                          staticClass: "icon-dots-horizontal",
+                          attrs: {
+                            xmlns: "http://www.w3.org/2000/svg",
+                            viewBox: "0 0 24 24",
+                            width: "25"
+                          }
+                        },
+                        [
+                          _c("path", {
+                            staticClass: "primary",
+                            attrs: {
+                              "fill-rule": "evenodd",
+                              d:
+                                "M5 14a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm7 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm7 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"
+                            }
+                          })
+                        ]
+                      )
                     ]
                   ),
                   _vm._v(" "),
@@ -79636,7 +79884,46 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "dropdown my-auto" }, [
-                  _vm._m(0),
+                  _c(
+                    "a",
+                    {
+                      staticClass: "nav-link px-0 pb-0 pt-3",
+                      attrs: {
+                        href: "#",
+                        id: "navbarDropdown",
+                        role: "button",
+                        "data-toggle": "dropdown",
+                        "aria-haspopup": "true",
+                        "aria-expanded": "false"
+                      }
+                    },
+                    [
+                      _c(
+                        "svg",
+                        {
+                          staticClass: "icon-search",
+                          attrs: {
+                            xmlns: "http://www.w3.org/2000/svg",
+                            width: "25",
+                            viewBox: "0 0 24 24"
+                          }
+                        },
+                        [
+                          _c("circle", {
+                            staticClass: "primary",
+                            attrs: { cx: "10", cy: "10", r: "7" }
+                          }),
+                          _c("path", {
+                            staticClass: "secondary",
+                            attrs: {
+                              d:
+                                "M16.32 14.9l1.1 1.1c.4-.02.83.13 1.14.44l3 3a1.5 1.5 0 0 1-2.12 2.12l-3-3a1.5 1.5 0 0 1-.44-1.14l-1.1-1.1a8 8 0 1 1 1.41-1.41zM10 16a6 6 0 1 0 0-12 6 6 0 0 0 0 12z"
+                            }
+                          })
+                        ]
+                      )
+                    ]
+                  ),
                   _vm._v(" "),
                   _c(
                     "div",
@@ -79774,14 +80061,34 @@ var render = function() {
                                       },
                                       [
                                         _vm._v(
-                                          _vm._s(
-                                            _vm.trans.buttons.general.load
-                                          ) +
+                                          "\n                                    " +
+                                            _vm._s(
+                                              _vm.trans.buttons.general.load
+                                            ) +
                                             "\n                                    "
                                         ),
-                                        _c("i", {
-                                          staticClass: "fa fa-fw fa-angle-down"
-                                        })
+                                        _c(
+                                          "svg",
+                                          {
+                                            staticClass: "icon-cheveron-down",
+                                            attrs: {
+                                              xmlns:
+                                                "http://www.w3.org/2000/svg",
+                                              width: "25",
+                                              viewBox: "0 0 24 24"
+                                            }
+                                          },
+                                          [
+                                            _c("path", {
+                                              staticClass: "secondary",
+                                              attrs: {
+                                                "fill-rule": "evenodd",
+                                                d:
+                                                  "M15.3 10.3a1 1 0 0 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.4l3.3 3.29 3.3-3.3z"
+                                              }
+                                            })
+                                          ]
+                                        )
                                       ]
                                     )
                                   : _vm._e()
@@ -79833,28 +80140,7 @@ var render = function() {
     1
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "a",
-      {
-        staticClass: "nav-link px-0 pb-0 pt-3 text-secondary",
-        attrs: {
-          href: "#",
-          id: "navbarDropdown",
-          role: "button",
-          "data-toggle": "dropdown",
-          "aria-haspopup": "true",
-          "aria-expanded": "false"
-        }
-      },
-      [_c("i", { staticClass: "fas fa-search" })]
-    )
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -79930,7 +80216,7 @@ var render = function() {
                   _c(
                     "a",
                     {
-                      staticClass: "nav-link text-secondary pr-0",
+                      staticClass: "nav-link pr-0",
                       attrs: {
                         id: "navbarDropdown",
                         href: "#",
@@ -79941,9 +80227,27 @@ var render = function() {
                       }
                     },
                     [
-                      _c("i", {
-                        staticClass: "fas fa-sliders-h fa-fw fa-rotate-270"
-                      })
+                      _c(
+                        "svg",
+                        {
+                          staticClass: "icon-dots-horizontal",
+                          attrs: {
+                            xmlns: "http://www.w3.org/2000/svg",
+                            viewBox: "0 0 24 24",
+                            width: "25"
+                          }
+                        },
+                        [
+                          _c("path", {
+                            staticClass: "primary",
+                            attrs: {
+                              "fill-rule": "evenodd",
+                              d:
+                                "M5 14a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm7 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm7 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"
+                            }
+                          })
+                        ]
+                      )
                     ]
                   ),
                   _vm._v(" "),
@@ -80150,7 +80454,46 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "dropdown my-auto" }, [
-                  _vm._m(0),
+                  _c(
+                    "a",
+                    {
+                      staticClass: "nav-link px-0 pb-0 pt-3",
+                      attrs: {
+                        id: "navbarDropdown",
+                        href: "#",
+                        role: "button",
+                        "data-toggle": "dropdown",
+                        "aria-haspopup": "true",
+                        "aria-expanded": "false"
+                      }
+                    },
+                    [
+                      _c(
+                        "svg",
+                        {
+                          staticClass: "icon-search",
+                          attrs: {
+                            xmlns: "http://www.w3.org/2000/svg",
+                            width: "25",
+                            viewBox: "0 0 24 24"
+                          }
+                        },
+                        [
+                          _c("circle", {
+                            staticClass: "primary",
+                            attrs: { cx: "10", cy: "10", r: "7" }
+                          }),
+                          _c("path", {
+                            staticClass: "secondary",
+                            attrs: {
+                              d:
+                                "M16.32 14.9l1.1 1.1c.4-.02.83.13 1.14.44l3 3a1.5 1.5 0 0 1-2.12 2.12l-3-3a1.5 1.5 0 0 1-.44-1.14l-1.1-1.1a8 8 0 1 1 1.41-1.41zM10 16a6 6 0 1 0 0-12 6 6 0 0 0 0 12z"
+                            }
+                          })
+                        ]
+                      )
+                    ]
+                  ),
                   _vm._v(" "),
                   _c(
                     "div",
@@ -80296,9 +80639,28 @@ var render = function() {
                                             ) +
                                             "\n                                    "
                                         ),
-                                        _c("i", {
-                                          staticClass: "fa fa-fw fa-angle-down"
-                                        })
+                                        _c(
+                                          "svg",
+                                          {
+                                            staticClass: "icon-cheveron-down",
+                                            attrs: {
+                                              xmlns:
+                                                "http://www.w3.org/2000/svg",
+                                              width: "25",
+                                              viewBox: "0 0 24 24"
+                                            }
+                                          },
+                                          [
+                                            _c("path", {
+                                              staticClass: "secondary",
+                                              attrs: {
+                                                "fill-rule": "evenodd",
+                                                d:
+                                                  "M15.3 10.3a1 1 0 0 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.4l3.3 3.29 3.3-3.3z"
+                                              }
+                                            })
+                                          ]
+                                        )
                                       ]
                                     )
                                   : _vm._e()
@@ -80350,28 +80712,7 @@ var render = function() {
     1
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "a",
-      {
-        staticClass: "nav-link px-0 pb-0 pt-3 text-secondary",
-        attrs: {
-          id: "navbarDropdown",
-          href: "#",
-          role: "button",
-          "data-toggle": "dropdown",
-          "aria-haspopup": "true",
-          "aria-expanded": "false"
-        }
-      },
-      [_c("i", { staticClass: "fas fa-search" })]
-    )
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

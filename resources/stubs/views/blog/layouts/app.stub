@@ -11,8 +11,7 @@
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito|Merriweather" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Karla|Merriweather" rel="stylesheet">
 
     <!-- HighlightJS -->
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/default.min.css">
@@ -32,21 +31,21 @@
     <!-- Styles -->
     <style type="text/css">
         html, body {
-            font-family: 'Nunito', sans-serif;
+            font-family: 'Karla', sans-serif;
+            font-size: 1rem;
             line-height: 1.6;
         }
 
-        a, .btn-link, .page-link {
-            color: hsla(0, 0%, 0%, 0.9);
-            /*text-decoration: underline;*/
+        .primary {
+            fill: #A5B3BB;
         }
 
-        a:hover {
-            color: hsla(0, 0%, 0%, 0.9);
+        .secondary {
+            fill: #0D2B3E;
         }
 
         .blog-header {
-            line-height: 1;
+            /*line-height: 1;*/
             border-bottom: 1px solid #e5e5e5;
         }
 
@@ -104,11 +103,6 @@
             font-size: .875rem;
         }
 
-        .dropdown-item {
-            font-size: 0.9rem;
-            padding: 0.55rem 1.5rem;
-        }
-
         .card-img-right {
             height: 100%;
             border-radius: 0 3px 3px 0;
@@ -129,23 +123,6 @@
             }
         }
 
-        .blog-title {
-            margin-bottom: 0;
-            font-size: 2rem;
-            font-weight: 400;
-        }
-
-        .blog-description {
-            font-size: 1.1rem;
-            color: #999;
-        }
-
-        @media (min-width: 40em) {
-            .blog-title {
-                font-size: 3.5rem;
-            }
-        }
-
         .blog-post {
             margin-bottom: 4rem;
         }
@@ -160,25 +137,17 @@
             color: #999;
         }
 
-        .tag {
-            font-family: Nunito, sans-serif;
-        }
-
-        .serif {
+        .font-serif {
             font-family: "Merriweather", serif;
         }
 
-        .sans-serif {
-            font-family: "Nunito", sans-serif;
+        .font-sans {
+            font-family: "Karla", sans-serif;
         }
 
         .content-title {
             color: #444;
             font-size: 36px;
-        }
-
-        .content-title a {
-            color: #444;
         }
 
         .content-body {
@@ -239,11 +208,6 @@
             font-size: 1.125rem
         }
 
-        .content-body .h6,
-        .content-body h6 {
-            font-size: .9rem
-        }
-
         .content-body blockquote {
             margin-top: 2em;
             margin-bottom: 2em;
@@ -277,7 +241,7 @@
             font-size: 0.9rem !important;
             line-height: 1.6 !important;
             font-weight: 400 !important;
-            font-family: "Nunito", sans-serif;
+            font-family: "Karla", sans-serif;
         }
 
         .content-body hr {

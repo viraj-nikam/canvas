@@ -2,7 +2,6 @@
 // Typography
 $font-family-sans-serif: "Karla", sans-serif;
 $font-family-serif: "Merriweather", serif;
-$fa-font-path: "../fonts" !default;
 $font-size-base: 1rem;
 $line-height-base: 1.6;
 
@@ -13,6 +12,14 @@ $dark-grey: #444;
 $green: #029E74;
 $blue: #3490dc;
 $red: #e3342f;
+
+.primary {
+    fill: #A5B3BB;
+}
+
+.secondary {
+    fill: #0D2B3E;
+}
 
 // Base
 @import "base";

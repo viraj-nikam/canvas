@@ -24,8 +24,8 @@
 
             <template slot="menu">
                 <div class="dropdown">
-                    <a id="navbarDropdown" class="nav-link text-secondary pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-sliders-h fa-fw fa-rotate-270"></i>
+                    <a id="navbarDropdown" class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="25" class="icon-dots-horizontal"><path class="primary" fill-rule="evenodd" d="M5 14a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm7 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm7 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/></svg>
                     </a>
 
                     <div class="dropdown-menu dropdown-menu-right">
@@ -60,7 +60,7 @@
                         <div class="form-group row my-3">
                             <div class="col-lg-12">
                                 <textarea-autosize :placeholder="trans.posts.forms.editor.title"
-                                                   class="form-control-lg form-control border-0 pl-0 serif"
+                                                   class="form-control-lg form-control border-0 pl-0 font-serif"
                                                    rows="1"
                                                    v-model="storeState.form.title">
                                 </textarea-autosize>
