@@ -76414,7 +76414,7 @@ var render = function() {
                 hideDots: 1
               },
               height: 250,
-              colors: ["#029E74"],
+              colors: ["#03a87c"],
               dataSets: _vm.points,
               tooltipOptions: {
                 formatTooltipX: function(d) {
@@ -78707,7 +78707,7 @@ var render = function() {
                                                 "div",
                                                 {
                                                   staticClass:
-                                                    "mr-3 align-middle"
+                                                    "mx-3 align-middle"
                                                 },
                                                 [
                                                   _c(
@@ -79961,6 +79961,7 @@ var render = function() {
                             ],
                             staticClass: "form-control border-0 pl-0",
                             attrs: {
+                              "aria-label": "Search",
                               type: "text",
                               id: "search",
                               placeholder: _vm.trans.tags.search.input,

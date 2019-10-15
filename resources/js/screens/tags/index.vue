@@ -22,7 +22,7 @@
                                 <div class="dropdown-menu dropdown-menu-right py-0 shadow-sm" id="searchDropdown" aria-labelledby="dropdownMenuButton">
                                     <form class="pl-2 w-100">
                                         <div class="form-group mb-0">
-                                            <input v-model="search" type="text" class="form-control border-0 pl-0" id="search" :placeholder="trans.tags.search.input" autofocus/>
+                                            <input aria-label="Search" v-model="search" type="text" class="form-control border-0 pl-0" id="search" :placeholder="trans.tags.search.input" autofocus/>
                                         </div>
                                     </form>
                                 </div>

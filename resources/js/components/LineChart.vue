@@ -12,7 +12,7 @@
                         hideDots: 1
                     }"
                     :height="250"
-                    :colors="['#029E74']"
+                    :colors="['#03a87c']"
                     :dataSets="points"
                     :tooltipOptions="{
                         formatTooltipX: d => moment(d, 'YYYY-MM-DD').format('dddd, MMMM Do'),

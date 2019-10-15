@@ -1,25 +1,67 @@
 
-// Typography
+$white: #fff;
+$gray-100: #f7fafc;
+$gray-200: #edf2f7;
+$gray-300: #e2e8f0;
+$gray-400: #cbd5e0;
+$gray-500: #a0aec0;
+$gray-600: #718096;
+$gray-700: #4a5568;
+$gray-800: #2d3748;
+$gray-900: #1a202c;
+$black: #000;
+
+$green: #03a87c;
+$red: #cc5454;
+
 $font-family-sans-serif: "Karla", sans-serif;
 $font-family-serif: "Merriweather", serif;
-$font-size-base: 1rem;
 $line-height-base: 1.6;
 
-// Variables
-$light-grey: #a0aec0;
-$orange: #f6993f;
-$dark-grey: #444;
-$green: #029E74;
-$blue: #3490dc;
-$red: #e3342f;
+$text-muted: $gray-500;
+
+a, a:focus,
+input, input:focus,
+button, button:focus,
+select, select:focus,
+textarea, textarea:focus {
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s !important;
+}
 
 .primary {
-    fill: #A5B3BB;
+    fill: $gray-500;
 }
 
 .secondary {
-    fill: #0D2B3E;
+    fill: $gray-700;
 }
 
-// Base
-@import "base";
+.font-serif {
+    font-family: $font-family-serif;
+}
+
+.font-sans {
+    font-family: $font-family-sans-serif;
+}
+
+[v-cloak] {
+    display: none;
+}
+
+@import 'progress-bar';
+
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+@import '~bootstrap/scss/mixins';
+
+@import '~bootstrap';
