@@ -2,6 +2,10 @@ language: php
 
 sudo: false
 
+cache:
+  directories:
+    - $HOME/.composer/cache
+
 notifications:
   email: false
   slack:
@@ -32,6 +36,6 @@ before_install:
   - travis_retry composer self-update
 
 install:
-  - travis_retry composer require "illuminate/support=${LARAVEL}" "orchestra/testbench=${TESTBENCH}" "doctrine/dbal=${DBAL}" --no-update --no-interaction
+  - travis_retry composer require "illuminate/support=${LARAVEL}" "orchestra/testbench=${TESTBENCH}" "doctrine/dbal=${DBAL}" --dev --prefer-dist --no-update --no-interaction
 
 script: vendor/bin/phpunit --verbose
