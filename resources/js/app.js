@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Routes from "./routes";
-import Base from "./mixins/base";
+import Base from "./mixins/Base";
 import NProgress from "nprogress";
 import VueRouter from "vue-router";
 import moment from "moment-timezone";

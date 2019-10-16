@@ -87,7 +87,7 @@
 </template>
 
 <script>
-    import Tooltip from "../../directives/tooltip";
+    import Tooltip from "../../directives/Tooltip";
     import LineChart from "../../components/LineChart";
     import PageHeader from "../../components/PageHeader";
 

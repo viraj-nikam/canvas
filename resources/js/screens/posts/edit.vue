@@ -25,7 +25,9 @@
             <template slot="menu">
                 <div class="dropdown">
                     <a id="navbarDropdown" class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="25" class="icon-dots-horizontal"><path class="primary" fill-rule="evenodd" d="M5 14a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm7 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm7 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="25" class="icon-dots-horizontal">
+                            <path class="primary" fill-rule="evenodd" d="M5 14a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm7 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm7 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/>
+                        </svg>
                     </a>
 
                     <div class="dropdown-menu dropdown-menu-right">
@@ -59,11 +61,13 @@
                     <div class="col-md-8" v-if="isReady">
                         <div class="form-group row my-3">
                             <div class="col-lg-12">
-                                <textarea-autosize :placeholder="trans.posts.forms.editor.title"
-                                                   class="form-control-lg form-control border-0 pl-0 font-serif"
-                                                   rows="1"
-                                                   v-model="storeState.form.title">
-                                </textarea-autosize>
+                                <textarea-autosize
+                                    :placeholder="trans.posts.forms.editor.title"
+                                    class="form-control-lg form-control border-0 pl-0 font-serif"
+                                    @input.native="update"
+                                    rows="1"
+                                    v-model="storeState.form.title"
+                                />
                             </div>
                         </div>
 
@@ -73,31 +77,36 @@
             </div>
         </main>
 
-        <publish-modal v-if="isReady"
-                       ref="publishModal">
-        </publish-modal>
+        <publish-modal
+            v-if="isReady"
+            ref="publishModal"
+        />
 
-        <settings-modal v-if="isReady"
-                        ref="settingsModal"
-                        :post="post"
-                        :tags="tags"
-                        :topics="topics">
-        </settings-modal>
+        <settings-modal
+            v-if="isReady"
+            ref="settingsModal"
+            :post="post"
+            :tags="tags"
+            :topics="topics"
+        />
 
-        <featured-image-modal v-if="isReady"
-                              ref="featuredImageModal">
-        </featured-image-modal>
+        <featured-image-modal
+            v-if="isReady"
+            ref="featuredImageModal"
+        />
 
-        <seo-modal v-if="isReady"
-                   ref="seoModal">
-        </seo-modal>
+        <seo-modal
+            v-if="isReady"
+            ref="seoModal"
+        />
 
-        <delete-modal v-if="isReady"
-                      ref="deleteModal"
-                      @delete="deletePost"
-                      :header="trans.posts.delete.header"
-                      :message="trans.posts.delete.warning">
-        </delete-modal>
+        <delete-modal
+            v-if="isReady"
+            ref="deleteModal"
+            @delete="deletePost"
+            :header="trans.posts.delete.header"
+            :message="trans.posts.delete.warning"
+        />
     </div>
 </template>
 
@@ -197,6 +206,10 @@
                         this.storeState.form.errors = error.response.data.errors;
                     });
             },
+
+            update: _.debounce(function (e) {
+                this.save();
+            }, 900),
 
             convertToDraft() {
                 this.storeState.form.published_at = "";

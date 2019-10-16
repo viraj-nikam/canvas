@@ -17,7 +17,7 @@
 
                             <div class="dropdown my-auto">
                                 <a href="#" class="nav-link px-0 pb-0 pt-3" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="23" viewBox="0 0 24 24" class="icon-search"><circle cx="10" cy="10" r="7" class="fill-white"/><path class="secondary" d="M16.32 14.9l1.1 1.1c.4-.02.83.13 1.14.44l3 3a1.5 1.5 0 0 1-2.12 2.12l-3-3a1.5 1.5 0 0 1-.44-1.14l-1.1-1.1a8 8 0 1 1 1.41-1.41zM10 16a6 6 0 1 0 0-12 6 6 0 0 0 0 12z"/></svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="23" viewBox="0 0 24 24" class="icon-search"><circle cx="10" cy="10" r="7" class="fill-white"/><path class="primary" d="M16.32 14.9l1.1 1.1c.4-.02.83.13 1.14.44l3 3a1.5 1.5 0 0 1-2.12 2.12l-3-3a1.5 1.5 0 0 1-.44-1.14l-1.1-1.1a8 8 0 1 1 1.41-1.41zM10 16a6 6 0 1 0 0-12 6 6 0 0 0 0 12z"/></svg>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right py-0 shadow-sm" id="searchDropdown" aria-labelledby="dropdownMenuButton">
                                     <form class="pl-2 w-100">
@@ -53,11 +53,11 @@
                                             {{ moment(post.updated_at).fromNow() }}
                                         </p>
                                     </div>
-                                    <div class="ml-auto d-none d-lg-block">
+                                    <div class="ml-auto d-none d-lg-block pl-3">
                                         <router-link :to="{name: 'posts-edit',params: { id: post.id }}">
                                             <div v-if="post.featured_image" id="featuredImage" class="mr-2" :style="{backgroundImage:'url(' + post.featured_image +')'}"></div>
-                                            <div class="mx-3 align-middle" v-else>
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="45" viewBox="0 0 24 24" class="icon-camera"><path class="primary" d="M6.59 6l2.7-2.7A1 1 0 0 1 10 3h4a1 1 0 0 1 .7.3L17.42 6H20a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8c0-1.1.9-2 2-2h2.59zM19 10a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-7 8a5 5 0 1 0 0-10 5 5 0 0 0 0 10z"/><path class="secondary" d="M12 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+                                            <div v-else class="mx-3 align-middle">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="45" viewBox="0 0 24 24" class="icon-camera"><path class="primary" d="M6.59 6l2.7-2.7A1 1 0 0 1 10 3h4a1 1 0 0 1 .7.3L17.42 6H20a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8c0-1.1.9-2 2-2h2.59zM19 10a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-7 8a5 5 0 1 0 0-10 5 5 0 0 0 0 10z"/><path class="primary" d="M12 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
                                             </div>
                                         </router-link>
                                     </div>
