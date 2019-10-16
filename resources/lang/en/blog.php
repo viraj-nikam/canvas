@@ -4,12 +4,13 @@ return [
 
     'title'   => 'Blog',
     'buttons' => [
-        'learn'    => 'Learn More',
-        'continue' => 'Continue reading...',
-        'next'     => 'Read this next',
-        'enjoy'    => 'You might enjoy',
-        'edit'     => 'Edit post',
-        'stats'    => 'View stats',
+        'learn'     => 'Learn More',
+        'continue'  => 'Continue reading...',
+        'next'      => 'Read this next',
+        'enjoy'     => 'You might enjoy',
+        'edit'      => 'Edit post',
+        'stats'     => 'View stats',
+        'canonical' => 'This post was originally published on',
     ],
     'empty'   => [
         'description' => 'No posts were found, start by',
