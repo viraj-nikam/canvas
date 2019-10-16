@@ -64,7 +64,7 @@
                     @endisset
                 @endisset
 
-                <div class="post font-serif mt-4 pb-3">{!! $data['post']->body !!}</div>
+                <div class="post font-serif mt-4">{!! $data['post']->body !!}</div>
 
                 @if($data['post']->tags->count() > 0)
                     <h5>
@@ -77,34 +77,44 @@
         </div>
     </div>
 
+    @isset($data['meta']['canonical_link'])
+        <div class="post">
+            <hr>
+
+            <p class="text-center font-italic pt-3 my-5">
+                This post was originally published on <a href="{{ url($data['meta']['canonical_link']) }}" target="_blank" rel="noopener">{{ parse_url($data['meta']['canonical_link'])['host'] }}</a>
+            </p>
+        </div>
+    @endisset
+
     <div class="read-more mt-5 container-fluid">
         <div class="row">
-            @if($data['next'])
+            @isset($data['next'])
                 <div class="col-lg bg-light text-center px-lg-5 py-5"
-                     @if(!empty($data['next']->featured_image)) style="background: linear-gradient(rgba(0, 0, 0, 0.8),rgba(0, 0, 0, 0.8)),url({{ $data['next']->featured_image }}); background-size: cover" @endif>
+                     @isset($data['next']->featured_image) style="background: linear-gradient(rgba(0, 0, 0, 0.8),rgba(0, 0, 0, 0.8)),url({{ $data['next']->featured_image }}); background-size: cover" @endisset>
                     <a href="{{ route('blog.post', $data['next']->slug) }}"
-                       class="btn btn-sm text-decoration-none @if(!empty($data['next']->featured_image)) btn-outline-light @else btn-outline-secondary @endif text-uppercase font-weight-bold mt-3">
+                       class="btn btn-sm text-decoration-none @isset($data['next']->featured_image) btn-outline-light @else btn-outline-secondary @endisset text-uppercase font-weight-bold mt-3">
                         {{ __('canvas::blog.buttons.next') }}
                     </a>
-                    <h2 class="font-weight-bold font-serif my-3 @if(!empty($data['next']->featured_image)) text-white @endif">
-                        <a href="{{ route('blog.post', $data['next']->slug) }}" class="text-decoration-none text-dark">{{ $data['next']->title }}</a>
+                    <h2 class="font-weight-bold font-serif my-3">
+                        <a href="{{ route('blog.post', $data['next']->slug) }}" class="text-decoration-none @isset($data['next']->featured_image) text-light @else text-dark @endisset">{{ $data['next']->title }}</a>
                     </h2>
-                    <p class="text-lg font-serif @if(!empty($data['next']->featured_image)) text-white-50 @else text-muted @endif">{{ Illuminate\Support\Str::limit(strip_tags($data['next']->summary), 140) }}</p>
+                    <p class="text-lg font-serif @isset($data['next']->featured_image) text-white-50 @else text-muted @endisset">{{ Illuminate\Support\Str::limit(strip_tags($data['next']->summary), 140) }}</p>
                 </div>
-            @endif
-            @if($data['random'])
+            @endisset
+            @isset($data['random'])
                 <div class="col-lg bg-light text-center px-lg-5 py-5"
-                     @if(!empty($data['random']->featured_image)) style="background: linear-gradient(rgba(0, 0, 0, 0.8),rgba(0, 0, 0, 0.8)),url({{ $data['random']->featured_image }}); background-size: cover" @endif>
+                     @isset($data['random']->featured_image) style="background: linear-gradient(rgba(0, 0, 0, 0.8),rgba(0, 0, 0, 0.8)),url({{ $data['random']->featured_image }}); background-size: cover" @endisset>
                     <a href="{{ route('blog.post', $data['random']->slug) }}"
-                       class="btn btn-sm text-decoration-none @if(!empty($data['random']->featured_image)) btn-outline-light @else btn-outline-secondary @endif text-uppercase font-weight-bold mt-3">
+                       class="btn btn-sm text-decoration-none @isset($data['random']->featured_image) btn-outline-light @else btn-outline-secondary @endisset text-uppercase font-weight-bold mt-3">
                         {{ __('canvas::blog.buttons.enjoy') }}
                     </a>
-                    <h2 class="font-weight-bold font-serif my-3 @if(!empty($data['random']->featured_image)) text-white @endif">
+                    <h2 class="font-weight-bold font-serif my-3 @isset($data['random']->featured_image) text-white @endisset">
                         <a href="{{ route('blog.post', $data['random']->slug) }}"
                            class="title">{{ $data['random']->title }}</a></h2>
-                    <p class="font-serif body @if(!empty($data['random']->featured_image)) text-white-50 @else text-muted @endif">{{ Illuminate\Support\Str::limit(strip_tags($data['random']->summary), 140) }}</p>
+                    <p class="font-serif body @isset($data['random']->featured_image) text-white-50 @else text-muted @endisset">{{ Illuminate\Support\Str::limit(strip_tags($data['random']->summary), 140) }}</p>
                 </div>
-            @endif
+            @endisset
         </div>
     </div>
 @endsection

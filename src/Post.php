@@ -212,10 +212,10 @@ class Post extends Model
     /**
      * Get the top referring websites for a post.
      *
-     * @param int $count
+     * @param $count
      * @return array
      */
-    public function getTopReferersAttribute(int $count = 10): array
+    public function getTopReferersAttribute($count = 10): array
     {
         // Get the views associated with the post
         $data = $this->views;

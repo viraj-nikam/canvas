@@ -16,7 +16,7 @@
             </div>
         @endif
 
-        @if(count($data['posts']) > 0)
+        @if($data['posts']->count() > 0)
             @foreach($data['posts'] as $post)
                 @if($loop->first)
                     <div class="jumbotron p-4 p-md-5 text-white rounded @if(empty($post->featured_image)) bg-dark @endif"
@@ -38,13 +38,13 @@
         @endif
     </div>
 
-    <main role="main" class="container">
+    <main role="main" class="container @if($data['posts']->count() == 0) mt-4 @endif">
         <div class="row">
             <div class="col-md-8">
-                <h3 class="pb-4 mb-4 font-italic border-bottom font-serif">
+                <h3 class="mb-4 font-italic @if($data['posts']->count() > 0) pb-4 border-bottom @endif font-serif">
                     {{ __('canvas::blog.posts.label') }}
                 </h3>
-                @if(count($data['posts']) > 0)
+                @if($data['posts']->count() > 0)
                     @foreach($data['posts'] as $post)
                         @if(!$loop->first)
                             <div class="mb-5">
@@ -67,18 +67,20 @@
                 @endif
             </div>
 
-            <aside class="col-md-4">
-                <div class="p-md-4">
-                    <h4 class="font-italic font-serif">{{ __('canvas::blog.tags.label') }}</h4>
-                    <ol class="list-unstyled mb-0">
-                        @foreach($data['tags'] as $tag)
-                            <li>
-                                <a href="{{ route('blog.tag', $tag->slug) }}" class="text-decoration-none text-secondary">{{ $tag->name }}</a>
-                            </li>
-                        @endforeach
-                    </ol>
-                </div>
-            </aside>
+            @if($data['tags']->isNotEmpty())
+                <aside class="col-md-4">
+                    <div class="p-md-4">
+                        <h4 class="font-italic font-serif">{{ __('canvas::blog.tags.label') }}</h4>
+                        <ol class="list-unstyled mb-0">
+                            @foreach($data['tags'] as $tag)
+                                <li>
+                                    <a href="{{ route('blog.tag', $tag->slug) }}" class="text-decoration-none text-secondary">{{ $tag->name }}</a>
+                                </li>
+                            @endforeach
+                        </ol>
+                    </div>
+                </aside>
+            @endif
         </div>
     </main>
 @endsection

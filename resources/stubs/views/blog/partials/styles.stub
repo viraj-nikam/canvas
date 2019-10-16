@@ -149,6 +149,19 @@
         text-align: center;
     }
 
+    .canonical {
+        margin-top: 0;
+        border: none;
+        font-size: 17px;
+        color: #111;
+        letter-spacing: 1em;
+        text-align: center;
+    }
+
+    .canonical:before {
+        content: "...";
+    }
+
     .post hr:before {
         content: '...';
     }
