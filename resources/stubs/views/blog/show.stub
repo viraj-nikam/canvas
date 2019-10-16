@@ -82,7 +82,7 @@
             <hr>
 
             <p class="text-center font-italic pt-3 my-5">
-                This post was originally published on <a href="{{ url($data['meta']['canonical_link']) }}" target="_blank" rel="noopener">{{ parse_url($data['meta']['canonical_link'])['host'] }}</a>
+                {{ __('canvas::blog.buttons.canonical') }} <a href="{{ url($data['meta']['canonical_link']) }}" target="_blank" rel="noopener">{{ parse_url($data['meta']['canonical_link'])['host'] }}</a>
             </p>
         </div>
     @endisset
