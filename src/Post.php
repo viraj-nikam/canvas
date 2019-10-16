@@ -210,11 +210,12 @@ class Post extends Model
     }
 
     /**
-     * Get the top 10 referring websites for a post.
+     * Get the top referring websites for a post.
      *
+     * @param int $count
      * @return array
      */
-    public function getTopReferersAttribute(): array
+    public function getTopReferersAttribute(int $count = 10): array
     {
         // Get the views associated with the post
         $data = $this->views;
@@ -228,8 +229,8 @@ class Post extends Model
         // Count the unique values and assign to their respective keys
         $array = array_count_values($collection->toArray());
 
-        // Only return the top 10 referrers with their view count
-        $sliced = array_slice($array, 0, 10, true);
+        // Only return the top N referrers with their view count
+        $sliced = array_slice($array, 0, $count, true);
 
         // Sort the array in a descending order
         arsort($sliced);

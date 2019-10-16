@@ -46,6 +46,10 @@ input:-webkit-autofill:active {
     fill: $gray-700;
 }
 
+.fill-white {
+    fill: $white;
+}
+
 .font-serif {
     font-family: $font-family-serif;
 }
@@ -58,7 +62,8 @@ input:-webkit-autofill:active {
     display: none;
 }
 
-@import 'progress-bar';
+@import 'nprogress';
+@import 'multiselect';
 
 @import '~bootstrap/scss/functions';
 @import '~bootstrap/scss/variables';
