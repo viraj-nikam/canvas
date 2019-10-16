@@ -123,7 +123,7 @@
         }
 
         .footer a {
-            color: #3490dc;
+            color: #8e8e8e;
         }
 
         .table table {
@@ -171,12 +171,12 @@
             -webkit-text-size-adjust: none;
         }
 
-        .button-primary {
-            background-color: #3490dc;
-            border-top: 10px solid #3490dc;
-            border-right: 18px solid #3490dc;
-            border-bottom: 10px solid #3490dc;
-            border-left: 18px solid #3490dc;
+        .button-success {
+            background-color: #03a87c;
+            border-top: 10px solid #03a87c;
+            border-right: 18px solid #03a87c;
+            border-bottom: 10px solid #03a87c;
+            border-left: 18px solid #03a87c;
         }
 
         .panel {
@@ -241,8 +241,8 @@
                                         {{ __('canvas::mail.digest.summary') }} {{ $data['end_date'] }}
                                     </p>
 
-                                    <p style="text-transform: uppercase; font-size: 12px; font-weight: lighter;">
-                                        {{ __('canvas::mail.digest.details') }}
+                                    <p style="text-transform: uppercase; font-size: 12px; font-weight: normal;">
+                                        {{ sprintf('%s %s', __('canvas::mail.digest.details'), 'Canvas') }}
                                     </p>
 
                                     <p style="font-weight: bolder; font-size: 20px;">
@@ -292,7 +292,7 @@
                                                             <table border="0" cellpadding="0" cellspacing="0" role="presentation">
                                                                 <tr>
                                                                     <td>
-                                                                        <a href="{{ url(config('canvas.path')) }}" class="button button-primary" target="_blank">
+                                                                        <a href="{{ url(config('canvas.path')) }}" class="button button-success" target="_blank">
                                                                             {{ __('canvas::buttons.stats.index') }}
                                                                         </a>
                                                                     </td>

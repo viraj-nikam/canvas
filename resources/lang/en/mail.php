@@ -7,7 +7,7 @@ return [
     ],
     'digest'  => [
         'summary'         => 'Your weekly writer summary for',
-        'details'         => 'Your posts on Canvas',
+        'details'         => 'Your posts on',
         'from'            => 'From',
         'to'              => 'to',
         'data'            => 'your posts received',
