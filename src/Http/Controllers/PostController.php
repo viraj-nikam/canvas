@@ -77,12 +77,12 @@ class PostController extends Controller
             'featured_image_caption' => request('featured_image_caption', null),
             'user_id'                => request()->user()->id,
             'meta'                   => [
-                'meta_description'    => request('meta_description', null),
-                'og_title'            => request('og_title', null),
-                'og_description'      => request('og_description', null),
-                'twitter_title'       => request('twitter_title', null),
-                'twitter_description' => request('twitter_description', null),
-                'canonical_link'      => request('canonical_link', null),
+                'meta_description'    => request('meta.meta_description', null),
+                'og_title'            => request('meta.og_title', null),
+                'og_description'      => request('meta.og_description', null),
+                'twitter_title'       => request('meta.twitter_title', null),
+                'twitter_description' => request('meta.twitter_description', null),
+                'canonical_link'      => request('meta.canonical_link', null),
             ],
         ];
 
