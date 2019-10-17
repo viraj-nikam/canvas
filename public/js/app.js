@@ -2468,7 +2468,6 @@ __webpack_require__.r(__webpack_exports__);
         minute: ""
       },
       result: "",
-      isReadyToPublish: true,
       storeState: _screens_posts_store__WEBPACK_IMPORTED_MODULE_1__["store"].state,
       trans: JSON.parse(Canvas.lang)
     };
@@ -2504,15 +2503,14 @@ __webpack_require__.r(__webpack_exports__);
         minute: date.format("mm")
       };
     },
-    schedule: function schedule() {
+    scheduleOrPublish: function scheduleOrPublish() {
       this.storeState.form.published_at = this.result;
       this.$parent.save();
-      this.isReadyToPublish = true;
-    },
-    publish: function publish() {
-      this.storeState.form.published_at = moment__WEBPACK_IMPORTED_MODULE_0___default()().format("YYYY-MM-DD hh:mm:ss");
-      this.$parent.save();
-      this.isReadyToPublish = true;
+    }
+  },
+  computed: {
+    shouldPublish: function shouldPublish() {
+      return moment__WEBPACK_IMPORTED_MODULE_0___default()(this.result).isBefore(moment__WEBPACK_IMPORTED_MODULE_0___default()().format("YYYY-MM-DD hh:mm:ss"));
     }
   }
 });
@@ -3506,6 +3504,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -3532,7 +3537,6 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_textarea_autosize__WEBPACK_IM
   },
   data: function data() {
     return {
-      context: null,
       post: null,
       tags: [],
       topics: [],
@@ -3545,6 +3549,12 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_textarea_autosize__WEBPACK_IM
   },
   created: function created() {
     this.fetchData();
+  },
+  beforeRouteLeave: function beforeRouteLeave(to, from, next) {
+    // Reset the form status to avoid it flashing on the next screen load
+    this.storeState.form.isSaving = false;
+    this.storeState.form.hasSuccess = false;
+    next();
   },
   computed: {
     isDraft: function isDraft() {
@@ -3560,7 +3570,6 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_textarea_autosize__WEBPACK_IM
         _this.post = response.data.post;
         _this.tags = response.data.tags;
         _this.topics = response.data.topics;
-        _this.context = _this.getContextualState();
         _this.isReady = true;
       })["catch"](function (error) {
         _this.$router.push({
@@ -3611,9 +3620,6 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_textarea_autosize__WEBPACK_IM
         });
       })["catch"](function (error) {// Add any error debugging...
       });
-    },
-    getContextualState: function getContextualState() {
-      return this.isDraft ? this.trans.nav.context.published : this.trans.nav.context.draft;
     },
     showPublishModal: function showPublishModal() {
       jquery__WEBPACK_IMPORTED_MODULE_1___default()(this.$refs.publishModal.$el).modal("show");
@@ -76614,385 +76620,327 @@ var render = function() {
         _c("div", { staticClass: "modal-content" }, [
           _c("div", { staticClass: "modal-body" }, [
             _c("div", { staticClass: "form-group row" }, [
-              !_vm.isReadyToPublish
-                ? _c("div", { staticClass: "col-12" }, [
-                    _c("label", { staticClass: "font-weight-bold" }, [
-                      _vm._v(_vm._s(_vm.trans.posts.forms.publish.header))
-                    ]),
-                    _vm._v(" "),
-                    _c("p", { staticClass: "text-muted" }, [
-                      _vm._v(
-                        "\n                            " +
-                          _vm._s(
-                            _vm.trans.posts.forms.publish.subtext.details
-                          ) +
-                          "\n                            "
-                      ),
-                      _c("span", { staticClass: "font-weight-bold" }, [
-                        _vm._v(_vm._s(_vm.moment.tz.guess()))
-                      ]),
-                      _vm._v(
-                        "\n                            " +
-                          _vm._s(
-                            _vm.trans.posts.forms.publish.subtext.timezone
-                          ) +
-                          ".\n                        "
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "d-flex flex-row" }, [
-                      _c(
-                        "select",
+              _c("div", { staticClass: "col-12" }, [
+                _c("label", { staticClass: "font-weight-bold" }, [
+                  _vm._v(_vm._s(_vm.trans.posts.forms.publish.header))
+                ]),
+                _vm._v(" "),
+                _c("p", { staticClass: "text-muted" }, [
+                  _vm._v(
+                    "\n                            " +
+                      _vm._s(_vm.trans.posts.forms.publish.subtext.details) +
+                      "\n                            "
+                  ),
+                  _c("span", { staticClass: "font-weight-bold" }, [
+                    _vm._v(_vm._s(_vm.moment.tz.guess()))
+                  ]),
+                  _vm._v(
+                    "\n                            " +
+                      _vm._s(_vm.trans.posts.forms.publish.subtext.timezone) +
+                      ".\n                        "
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "d-flex flex-row" }, [
+                  _c(
+                    "select",
+                    {
+                      directives: [
                         {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.components.month,
-                              expression: "components.month"
-                            }
-                          ],
-                          staticClass: "input pr-2",
-                          on: {
-                            change: function($event) {
-                              var $$selectedVal = Array.prototype.filter
-                                .call($event.target.options, function(o) {
-                                  return o.selected
-                                })
-                                .map(function(o) {
-                                  var val = "_value" in o ? o._value : o.value
-                                  return val
-                                })
-                              _vm.$set(
-                                _vm.components,
-                                "month",
-                                $event.target.multiple
-                                  ? $$selectedVal
-                                  : $$selectedVal[0]
-                              )
-                            }
-                          }
-                        },
-                        _vm._l(
-                          Array.from({ length: 12 }, function(_, i) {
-                            return String(i + 1).padStart(2, "0")
-                          }),
-                          function(value) {
-                            return _c(
-                              "option",
-                              { domProps: { value: value } },
-                              [
-                                _vm._v(
-                                  "\n                                    " +
-                                    _vm._s(value) +
-                                    "\n                                "
-                                )
-                              ]
-                            )
-                          }
-                        ),
-                        0
-                      ),
-                      _vm._v(" "),
-                      _c("span", { staticClass: "px-1" }, [_vm._v("/")]),
-                      _vm._v(" "),
-                      _c(
-                        "select",
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.components.month,
+                          expression: "components.month"
+                        }
+                      ],
+                      staticClass: "input pr-2",
+                      on: {
+                        change: function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.$set(
+                            _vm.components,
+                            "month",
+                            $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          )
+                        }
+                      }
+                    },
+                    _vm._l(
+                      Array.from({ length: 12 }, function(_, i) {
+                        return String(i + 1).padStart(2, "0")
+                      }),
+                      function(value) {
+                        return _c("option", { domProps: { value: value } }, [
+                          _vm._v(
+                            "\n                                    " +
+                              _vm._s(value) +
+                              "\n                                "
+                          )
+                        ])
+                      }
+                    ),
+                    0
+                  ),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "px-1" }, [_vm._v("/")]),
+                  _vm._v(" "),
+                  _c(
+                    "select",
+                    {
+                      directives: [
                         {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.components.day,
-                              expression: "components.day"
-                            }
-                          ],
-                          staticClass: "input px-2",
-                          on: {
-                            change: function($event) {
-                              var $$selectedVal = Array.prototype.filter
-                                .call($event.target.options, function(o) {
-                                  return o.selected
-                                })
-                                .map(function(o) {
-                                  var val = "_value" in o ? o._value : o.value
-                                  return val
-                                })
-                              _vm.$set(
-                                _vm.components,
-                                "day",
-                                $event.target.multiple
-                                  ? $$selectedVal
-                                  : $$selectedVal[0]
-                              )
-                            }
-                          }
-                        },
-                        _vm._l(
-                          Array.from({ length: 31 }, function(_, i) {
-                            return String(i + 1).padStart(2, "0")
-                          }),
-                          function(value) {
-                            return _c(
-                              "option",
-                              { domProps: { value: value } },
-                              [
-                                _vm._v(
-                                  "\n                                    " +
-                                    _vm._s(value) +
-                                    "\n                                "
-                                )
-                              ]
-                            )
-                          }
-                        ),
-                        0
-                      ),
-                      _vm._v(" "),
-                      _c("span", { staticClass: "px-1" }, [_vm._v("/")]),
-                      _vm._v(" "),
-                      _c(
-                        "select",
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.components.day,
+                          expression: "components.day"
+                        }
+                      ],
+                      staticClass: "input px-2",
+                      on: {
+                        change: function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.$set(
+                            _vm.components,
+                            "day",
+                            $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          )
+                        }
+                      }
+                    },
+                    _vm._l(
+                      Array.from({ length: 31 }, function(_, i) {
+                        return String(i + 1).padStart(2, "0")
+                      }),
+                      function(value) {
+                        return _c("option", { domProps: { value: value } }, [
+                          _vm._v(
+                            "\n                                    " +
+                              _vm._s(value) +
+                              "\n                                "
+                          )
+                        ])
+                      }
+                    ),
+                    0
+                  ),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "px-1" }, [_vm._v("/")]),
+                  _vm._v(" "),
+                  _c(
+                    "select",
+                    {
+                      directives: [
                         {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.components.year,
-                              expression: "components.year"
-                            }
-                          ],
-                          staticClass: "input px-2",
-                          on: {
-                            change: function($event) {
-                              var $$selectedVal = Array.prototype.filter
-                                .call($event.target.options, function(o) {
-                                  return o.selected
-                                })
-                                .map(function(o) {
-                                  var val = "_value" in o ? o._value : o.value
-                                  return val
-                                })
-                              _vm.$set(
-                                _vm.components,
-                                "year",
-                                $event.target.multiple
-                                  ? $$selectedVal
-                                  : $$selectedVal[0]
-                              )
-                            }
-                          }
-                        },
-                        _vm._l(
-                          Array.from({ length: 15 }, function(_, i) {
-                            return i + new Date().getFullYear() - 10
-                          }),
-                          function(value) {
-                            return _c(
-                              "option",
-                              { domProps: { value: value } },
-                              [
-                                _vm._v(
-                                  "\n                                    " +
-                                    _vm._s(value) +
-                                    "\n                                "
-                                )
-                              ]
-                            )
-                          }
-                        ),
-                        0
-                      ),
-                      _vm._v(" "),
-                      _c("span", { staticClass: "pl-3" }),
-                      _vm._v(" "),
-                      _c(
-                        "select",
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.components.year,
+                          expression: "components.year"
+                        }
+                      ],
+                      staticClass: "input px-2",
+                      on: {
+                        change: function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.$set(
+                            _vm.components,
+                            "year",
+                            $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          )
+                        }
+                      }
+                    },
+                    _vm._l(
+                      Array.from({ length: 15 }, function(_, i) {
+                        return i + new Date().getFullYear() - 10
+                      }),
+                      function(value) {
+                        return _c("option", { domProps: { value: value } }, [
+                          _vm._v(
+                            "\n                                    " +
+                              _vm._s(value) +
+                              "\n                                "
+                          )
+                        ])
+                      }
+                    ),
+                    0
+                  ),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "pl-3" }),
+                  _vm._v(" "),
+                  _c(
+                    "select",
+                    {
+                      directives: [
                         {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.components.hour,
-                              expression: "components.hour"
-                            }
-                          ],
-                          staticClass: "input px-2",
-                          on: {
-                            change: function($event) {
-                              var $$selectedVal = Array.prototype.filter
-                                .call($event.target.options, function(o) {
-                                  return o.selected
-                                })
-                                .map(function(o) {
-                                  var val = "_value" in o ? o._value : o.value
-                                  return val
-                                })
-                              _vm.$set(
-                                _vm.components,
-                                "hour",
-                                $event.target.multiple
-                                  ? $$selectedVal
-                                  : $$selectedVal[0]
-                              )
-                            }
-                          }
-                        },
-                        _vm._l(
-                          Array.from({ length: 24 }, function(_, i) {
-                            return String(i).padStart(2, "0")
-                          }),
-                          function(value) {
-                            return _c(
-                              "option",
-                              { domProps: { value: value } },
-                              [
-                                _vm._v(
-                                  "\n                                    " +
-                                    _vm._s(value) +
-                                    "\n                                "
-                                )
-                              ]
-                            )
-                          }
-                        ),
-                        0
-                      ),
-                      _vm._v(" "),
-                      _c("span", { staticClass: "px-1" }, [_vm._v(":")]),
-                      _vm._v(" "),
-                      _c(
-                        "select",
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.components.hour,
+                          expression: "components.hour"
+                        }
+                      ],
+                      staticClass: "input px-2",
+                      on: {
+                        change: function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.$set(
+                            _vm.components,
+                            "hour",
+                            $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          )
+                        }
+                      }
+                    },
+                    _vm._l(
+                      Array.from({ length: 24 }, function(_, i) {
+                        return String(i).padStart(2, "0")
+                      }),
+                      function(value) {
+                        return _c("option", { domProps: { value: value } }, [
+                          _vm._v(
+                            "\n                                    " +
+                              _vm._s(value) +
+                              "\n                                "
+                          )
+                        ])
+                      }
+                    ),
+                    0
+                  ),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "px-1" }, [_vm._v(":")]),
+                  _vm._v(" "),
+                  _c(
+                    "select",
+                    {
+                      directives: [
                         {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.components.minute,
-                              expression: "components.minute"
-                            }
-                          ],
-                          staticClass: "input pl-2",
-                          on: {
-                            change: function($event) {
-                              var $$selectedVal = Array.prototype.filter
-                                .call($event.target.options, function(o) {
-                                  return o.selected
-                                })
-                                .map(function(o) {
-                                  var val = "_value" in o ? o._value : o.value
-                                  return val
-                                })
-                              _vm.$set(
-                                _vm.components,
-                                "minute",
-                                $event.target.multiple
-                                  ? $$selectedVal
-                                  : $$selectedVal[0]
-                              )
-                            }
-                          }
-                        },
-                        _vm._l(
-                          Array.from({ length: 60 }, function(_, i) {
-                            return String(i).padStart(2, "0")
-                          }),
-                          function(value) {
-                            return _c(
-                              "option",
-                              { domProps: { value: value } },
-                              [
-                                _vm._v(
-                                  "\n                                    " +
-                                    _vm._s(value) +
-                                    "\n                                "
-                                )
-                              ]
-                            )
-                          }
-                        ),
-                        0
-                      )
-                    ])
-                  ])
-                : _vm._e()
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.components.minute,
+                          expression: "components.minute"
+                        }
+                      ],
+                      staticClass: "input pl-2",
+                      on: {
+                        change: function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.$set(
+                            _vm.components,
+                            "minute",
+                            $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          )
+                        }
+                      }
+                    },
+                    _vm._l(
+                      Array.from({ length: 60 }, function(_, i) {
+                        return String(i).padStart(2, "0")
+                      }),
+                      function(value) {
+                        return _c("option", { domProps: { value: value } }, [
+                          _vm._v(
+                            "\n                                    " +
+                              _vm._s(value) +
+                              "\n                                "
+                          )
+                        ])
+                      }
+                    ),
+                    0
+                  )
+                ])
+              ])
             ])
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "modal-footer" }, [
-            _vm.isReadyToPublish
-              ? _c(
-                  "a",
-                  {
-                    staticClass: "btn btn-success font-weight-bold",
-                    attrs: { href: "#", "data-dismiss": "modal" },
-                    on: { click: _vm.publish }
-                  },
-                  [
-                    _vm._v(
-                      "\n                    " +
-                        _vm._s(_vm.trans.buttons.posts.publish) +
-                        "\n                "
-                    )
-                  ]
-                )
-              : _c(
-                  "a",
-                  {
-                    staticClass: "btn btn-success font-weight-bold",
-                    attrs: { href: "#", "data-dismiss": "modal" },
-                    on: { click: _vm.schedule }
-                  },
-                  [
-                    _vm._v(
-                      "\n                    " +
-                        _vm._s(_vm.trans.buttons.posts.schedule) +
-                        "\n                "
-                    )
-                  ]
-                ),
+            _c(
+              "a",
+              {
+                staticClass: "btn btn-success font-weight-bold",
+                attrs: { href: "#", "data-dismiss": "modal" },
+                on: { click: _vm.scheduleOrPublish }
+              },
+              [
+                _vm.shouldPublish
+                  ? _c("span", [
+                      _vm._v(
+                        "\n                        " +
+                          _vm._s(_vm.trans.buttons.posts.publish) +
+                          "\n                    "
+                      )
+                    ])
+                  : _c("span", [
+                      _vm._v(
+                        "\n                        " +
+                          _vm._s(_vm.trans.buttons.posts.schedule) +
+                          "\n                    "
+                      )
+                    ])
+              ]
+            ),
             _vm._v(" "),
-            _vm.isReadyToPublish
-              ? _c(
-                  "button",
-                  {
-                    staticClass:
-                      "btn btn-link font-weight-bold text-muted text-decoration-none",
-                    attrs: { type: "button" },
-                    on: {
-                      click: function($event) {
-                        _vm.isReadyToPublish = false
-                      }
-                    }
-                  },
-                  [
-                    _vm._v(
-                      "\n                    " +
-                        _vm._s(_vm.trans.buttons.posts.later) +
-                        "\n                "
-                    )
-                  ]
+            _c(
+              "button",
+              {
+                staticClass:
+                  "btn btn-link text-muted font-weight-bold text-decoration-none",
+                attrs: { type: "button", "data-dismiss": "modal" }
+              },
+              [
+                _vm._v(
+                  "\n                    " +
+                    _vm._s(_vm.trans.buttons.general.cancel) +
+                    "\n                "
                 )
-              : _c(
-                  "button",
-                  {
-                    staticClass:
-                      "btn btn-link text-muted font-weight-bold text-decoration-none",
-                    attrs: { type: "button" },
-                    on: {
-                      click: function($event) {
-                        _vm.isReadyToPublish = true
-                      }
-                    }
-                  },
-                  [
-                    _vm._v(
-                      "\n                    " +
-                        _vm._s(_vm.trans.buttons.posts.cancel) +
-                        "\n                "
-                    )
-                  ]
-                )
+              ]
+            )
           ])
         ])
       ])
@@ -78112,7 +78060,21 @@ var render = function() {
               [
                 _c("li", { staticClass: "text-muted font-weight-bold" }, [
                   _c("div", { staticClass: "d-inline-block" }, [
-                    _c("span", [_vm._v(_vm._s(_vm.context))])
+                    _vm.isDraft
+                      ? _c("span", [
+                          _vm._v(
+                            "\n                            " +
+                              _vm._s(_vm.trans.nav.context.published) +
+                              "\n                        "
+                          )
+                        ])
+                      : _c("span", [
+                          _vm._v(
+                            "\n                            " +
+                              _vm._s(_vm.trans.nav.context.draft) +
+                              "\n                        "
+                          )
+                        ])
                   ]),
                   _vm._v(" "),
                   _vm.storeState.form.isSaving

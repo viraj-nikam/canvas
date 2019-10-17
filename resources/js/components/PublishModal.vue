@@ -4,7 +4,7 @@
             <div class="modal-content">
                 <div class="modal-body">
                     <div class="form-group row">
-                        <div v-if="!isReadyToPublish" class="col-12">
+                        <div class="col-12">
                             <label class="font-weight-bold">{{ trans.posts.forms.publish.header }}</label>
                             <p class="text-muted">
                                 {{ trans.posts.forms.publish.subtext.details }}
@@ -47,17 +47,17 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <a v-if="isReadyToPublish" href="#" class="btn btn-success font-weight-bold" @click="publish" data-dismiss="modal">
-                        {{ trans.buttons.posts.publish }}
+                    <a href="#" class="btn btn-success font-weight-bold" @click="scheduleOrPublish" data-dismiss="modal">
+                        <span v-if="shouldPublish">
+                            {{ trans.buttons.posts.publish }}
+                        </span>
+                        <span v-else>
+                            {{ trans.buttons.posts.schedule }}
+                        </span>
                     </a>
-                    <a v-else href="#" class="btn btn-success font-weight-bold" @click="schedule" data-dismiss="modal">
-                        {{ trans.buttons.posts.schedule }}
-                    </a>
-                    <button v-if="isReadyToPublish" type="button" class="btn btn-link font-weight-bold text-muted text-decoration-none" @click="isReadyToPublish = false">
-                        {{ trans.buttons.posts.later }}
-                    </button>
-                    <button v-else type="button" class="btn btn-link text-muted font-weight-bold text-decoration-none" @click="isReadyToPublish = true">
-                        {{ trans.buttons.posts.cancel }}
+
+                    <button type="button" class="btn btn-link text-muted font-weight-bold text-decoration-none" data-dismiss="modal">
+                        {{ trans.buttons.general.cancel }}
                     </button>
                 </div>
             </div>
@@ -82,7 +82,6 @@
                     minute: ""
                 },
                 result: "",
-                isReadyToPublish: true,
                 storeState: store.state,
                 trans: JSON.parse(Canvas.lang)
             };
@@ -90,8 +89,7 @@
 
         mounted() {
             this.generateDatePicker(
-                this.storeState.form.published_at ||
-                moment().format("YYYY-MM-DD hh:mm:ss")
+                this.storeState.form.published_at || moment().format("YYYY-MM-DD hh:mm:ss")
             );
         },
 
@@ -133,16 +131,15 @@
                 };
             },
 
-            schedule() {
+            scheduleOrPublish() {
                 this.storeState.form.published_at = this.result;
                 this.$parent.save();
-                this.isReadyToPublish = true;
-            },
+            }
+        },
 
-            publish() {
-                this.storeState.form.published_at = moment().format("YYYY-MM-DD hh:mm:ss");
-                this.$parent.save();
-                this.isReadyToPublish = true;
+        computed: {
+            shouldPublish() {
+                return moment(this.result).isBefore(moment().format("YYYY-MM-DD hh:mm:ss"));
             }
         }
     };

@@ -4,7 +4,14 @@
             <template slot="status">
                 <ul class="navbar-nav mr-auto flex-row float-right">
                     <li class="text-muted font-weight-bold">
-                        <div class="d-inline-block"><span>{{ context }}</span></div>
+                        <div class="d-inline-block">
+                            <span v-if="isDraft">
+                                {{ trans.nav.context.published }}
+                            </span>
+                            <span v-else>
+                                {{ trans.nav.context.draft }}
+                            </span>
+                        </div>
 
                         <span v-if="storeState.form.isSaving" class="pl-2">{{ trans.nav.notify.saving }}</span>
                         <span v-if="storeState.form.hasSuccess" class="pl-2 text-success">{{ trans.nav.notify.success }}</span>
@@ -141,7 +148,6 @@
 
         data() {
             return {
-                context: null,
                 post: null,
                 tags: [],
                 topics: [],
@@ -155,6 +161,14 @@
 
         created() {
             this.fetchData();
+        },
+
+        beforeRouteLeave(to, from, next) {
+            // Reset the form status to avoid it flashing on the next screen load
+            this.storeState.form.isSaving = false;
+            this.storeState.form.hasSuccess = false;
+
+            next();
         },
 
         computed: {
@@ -173,7 +187,6 @@
                         this.post = response.data.post;
                         this.tags = response.data.tags;
                         this.topics = response.data.topics;
-                        this.context = this.getContextualState();
                         this.isReady = true;
                     })
                     .catch(error => {
@@ -227,10 +240,6 @@
                     .catch(error => {
                         // Add any error debugging...
                     });
-            },
-
-            getContextualState() {
-                return this.isDraft ? this.trans.nav.context.published : this.trans.nav.context.draft;
             },
 
             showPublishModal() {
