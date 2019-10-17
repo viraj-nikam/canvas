@@ -3,17 +3,28 @@
         <div class="position-relative">
             <div id="sidebarControls">
                 <button class="btn btn-outline-light btn-circle border" type="button" @click="openSidebarControls">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="25" viewBox="0 0 24 24" class="icon-add-circle"><circle cx="12" cy="12" r="10" class="fill-white"/><path class="secondary" d="M13 11h4a1 1 0 0 1 0 2h-4v4a1 1 0 0 1-2 0v-4H7a1 1 0 0 1 0-2h4V7a1 1 0 0 1 2 0v4z"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="25" viewBox="0 0 24 24" class="icon-add-circle">
+                        <circle cx="12" cy="12" r="10" class="fill-white"/>
+                        <path class="secondary" d="M13 11h4a1 1 0 0 1 0 2h-4v4a1 1 0 0 1-2 0v-4H7a1 1 0 0 1 0-2h4V7a1 1 0 0 1 2 0v4z"/>
+                    </svg>
                 </button>
                 <div class="controls pl-3 bg-white d-none">
                     <button class="btn btn-outline-light btn-circle border mr-1" type="button" @click="showImageModal">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="25" viewBox="0 0 24 24" class="icon-photo"><path class="primary" d="M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5c0-1.1.9-2 2-2zm9 6a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/><path class="secondary" d="M15.3 12.3a1 1 0 0 1 1.4 0l2 2a1 1 0 0 1 .3.7v3a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-3a1 1 0 0 1 .3-.7l4-4a1 1 0 0 1 1.4 0l3.3 3.29 1.3-1.3z"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="25" viewBox="0 0 24 24" class="icon-photo">
+                            <path class="primary" d="M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5c0-1.1.9-2 2-2zm9 6a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/>
+                            <path class="secondary" d="M15.3 12.3a1 1 0 0 1 1.4 0l2 2a1 1 0 0 1 .3.7v3a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-3a1 1 0 0 1 .3-.7l4-4a1 1 0 0 1 1.4 0l3.3 3.29 1.3-1.3z"/>
+                        </svg>
                     </button>
                     <button class="btn btn-outline-light btn-circle border mr-1" type="button" @click="showHTMLModal">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="25" viewBox="0 0 24 24" class="icon-code"><rect width="18" height="18" x="3" y="3" class="fill-white" rx="2"/><path class="secondary" d="M8.7 13.3a1 1 0 0 1-1.4 1.4l-2-2a1 1 0 0 1 0-1.4l2-2a1 1 0 1 1 1.4 1.4L7.42 12l1.3 1.3zm6.6 0l1.29-1.3-1.3-1.3a1 1 0 1 1 1.42-1.4l2 2a1 1 0 0 1 0 1.4l-2 2a1 1 0 0 1-1.42-1.4zm-3.32 3.9a1 1 0 0 1-1.96-.4l2-10a1 1 0 0 1 1.96.4l-2 10z"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="25" viewBox="0 0 24 24" class="icon-code">
+                            <rect width="18" height="18" x="3" y="3" class="fill-white" rx="2"/>
+                            <path class="secondary" d="M8.7 13.3a1 1 0 0 1-1.4 1.4l-2-2a1 1 0 0 1 0-1.4l2-2a1 1 0 1 1 1.4 1.4L7.42 12l1.3 1.3zm6.6 0l1.29-1.3-1.3-1.3a1 1 0 1 1 1.42-1.4l2 2a1 1 0 0 1 0 1.4l-2 2a1 1 0 0 1-1.42-1.4zm-3.32 3.9a1 1 0 0 1-1.96-.4l2-10a1 1 0 0 1 1.96.4l-2 10z"/>
+                        </svg>
                     </button>
                     <button class="btn btn-outline-light btn-circle border mr-2" type="button" @click="insertDivider">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="25" viewBox="0 0 24 24" class="icon-dots-horizontal"><path class="secondary" fill-rule="evenodd" d="M5 14a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm7 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm7 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="25" viewBox="0 0 24 24" class="icon-dots-horizontal">
+                            <path class="secondary" fill-rule="evenodd" d="M5 14a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm7 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm7 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/>
+                        </svg>
                     </button>
                 </div>
             </div>
@@ -85,7 +96,7 @@
                 icons.header[3] = require("!html-loader!quill/assets/icons/header-3.svg");
 
                 // Set contents on the initial page load
-                this.$refs.editor.innerHTML = this.storeState.form.body;
+                // this.$refs.editor.innerHTML = this.storeState.form.body;
 
                 let quill = new Quill(this.$refs.editor, {
                     modules: {
@@ -115,6 +126,8 @@
             },
 
             handleEditorValue() {
+                this.editor.root.innerHTML = this.storeState.form.body;
+
                 this.editor.on("text-change", (delta, oldDelta, source) => {
                     this.storeState.form.body = this.editor.getText() ? this.editor.root.innerHTML : '';
                     this.update();
@@ -182,21 +195,16 @@
                 let values = {
                     url: url,
                     caption: caption,
-                    layout: layout
+                    layout: layout,
                 };
 
                 if (existingBlot) {
-                    return existingBlot.replaceWith("captioned-image", values);
+                    return existingBlot.replaceWith('captioned-image', values);
                 }
 
                 let range = this.editor.getSelection(true);
 
-                this.editor.insertEmbed(
-                    range.index,
-                    "captioned-image",
-                    values,
-                    Quill.sources.USER
-                );
+                this.editor.insertEmbed(range.index, 'captioned-image', values, Quill.sources.USER);
 
                 this.editor.setSelection(range.index + 1, Quill.sources.SILENT);
             },
@@ -205,26 +213,23 @@
                 let range = this.editor.getSelection(true);
 
                 this.editor.insertText(range.index, "\n", Quill.sources.USER);
+
                 this.editor.insertEmbed(
                     range.index + 1,
                     "divider",
                     true,
                     Quill.sources.USER
                 );
+
                 this.editor.setSelection(range.index + 2, Quill.sources.SILENT);
             },
 
             insertHTML({content}) {
                 let range = this.editor.getSelection(true);
 
-                this.editor.insertEmbed(
-                    range.index,
-                    "html",
-                    {
-                        content: content
-                    },
-                    Quill.sources.USER
-                );
+                this.editor.insertEmbed(range.index, 'html', {
+                    content: content,
+                }, Quill.sources.USER);
 
                 this.editor.setSelection(range.index + 1, Quill.sources.SILENT);
             },
@@ -233,7 +238,9 @@
                 this.$parent.save();
             }, 1000),
 
-            showImageModal() {
+            showImageModal(data = null) {
+                this.$emit('openingImageUploader', data);
+
                 $(this.$refs.imageModal.$el).modal("show");
             },
 

@@ -14,7 +14,13 @@
 
                                 <div class="input-group py-2">
                                     <label>
-                                        <input ref="caption" v-model="caption" type="text" class="form-control border-0 px-0" :placeholder="trans.posts.forms.editor.images.picker.uploader.caption.placeholder"/>
+                                        <input
+                                            ref="caption"
+                                            v-model="caption"
+                                            type="text"
+                                            class="form-control border-0 px-0"
+                                            :placeholder="trans.posts.forms.editor.images.picker.uploader.caption.placeholder"
+                                        />
                                     </label>
                                 </div>
 
@@ -32,9 +38,10 @@
                                 </div>
                             </div>
 
-                            <ImagePicker :image-url="imageUrl"
-                                         @changed="updateImage">
-                            </ImagePicker>
+                            <ImagePicker
+                                :image-url="imageUrl"
+                                @changed="updateImage"
+                            />
                         </div>
                     </div>
                 </div>

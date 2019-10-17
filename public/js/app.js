@@ -2981,6 +2981,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "html-modal",
   data: function data() {
@@ -3013,6 +3021,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _ImagePicker__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../ImagePicker */ "./resources/js/components/ImagePicker.vue");
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -3199,6 +3214,17 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -3242,8 +3268,8 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       quill__WEBPACK_IMPORTED_MODULE_1___default.a.register(_HTMLBlot__WEBPACK_IMPORTED_MODULE_3__["default"], true);
       var icons = quill__WEBPACK_IMPORTED_MODULE_1___default.a["import"]("ui/icons");
       icons.header[3] = __webpack_require__(/*! html-loader!quill/assets/icons/header-3.svg */ "./node_modules/html-loader/index.js!./node_modules/quill/assets/icons/header-3.svg"); // Set contents on the initial page load
+      // this.$refs.editor.innerHTML = this.storeState.form.body;
 
-      this.$refs.editor.innerHTML = this.storeState.form.body;
       var quill = new quill__WEBPACK_IMPORTED_MODULE_1___default.a(this.$refs.editor, {
         modules: {
           syntax: true,
@@ -3271,6 +3297,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     handleEditorValue: function handleEditorValue() {
       var _this = this;
 
+      this.editor.root.innerHTML = this.storeState.form.body;
       this.editor.on("text-change", function (delta, oldDelta, source) {
         _this.storeState.form.body = _this.editor.getText() ? _this.editor.root.innerHTML : '';
 
@@ -3339,11 +3366,11 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       };
 
       if (existingBlot) {
-        return existingBlot.replaceWith("captioned-image", values);
+        return existingBlot.replaceWith('captioned-image', values);
       }
 
       var range = this.editor.getSelection(true);
-      this.editor.insertEmbed(range.index, "captioned-image", values, quill__WEBPACK_IMPORTED_MODULE_1___default.a.sources.USER);
+      this.editor.insertEmbed(range.index, 'captioned-image', values, quill__WEBPACK_IMPORTED_MODULE_1___default.a.sources.USER);
       this.editor.setSelection(range.index + 1, quill__WEBPACK_IMPORTED_MODULE_1___default.a.sources.SILENT);
     },
     insertDivider: function insertDivider() {
@@ -3355,7 +3382,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     insertHTML: function insertHTML(_ref2) {
       var content = _ref2.content;
       var range = this.editor.getSelection(true);
-      this.editor.insertEmbed(range.index, "html", {
+      this.editor.insertEmbed(range.index, 'html', {
         content: content
       }, quill__WEBPACK_IMPORTED_MODULE_1___default.a.sources.USER);
       this.editor.setSelection(range.index + 1, quill__WEBPACK_IMPORTED_MODULE_1___default.a.sources.SILENT);
@@ -3364,6 +3391,8 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       this.$parent.save();
     }, 1000),
     showImageModal: function showImageModal() {
+      var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+      this.$emit('openingImageUploader', data);
       jquery__WEBPACK_IMPORTED_MODULE_0___default()(this.$refs.imageModal.$el).modal("show");
     },
     showHTMLModal: function showHTMLModal() {
@@ -77675,6 +77704,7 @@ var render = function() {
                       expression: "content"
                     }
                   ],
+                  ref: "content",
                   staticClass: "form-control border-0",
                   staticStyle: { resize: "none" },
                   attrs: {
@@ -77962,6 +77992,7 @@ var render = function() {
                     staticClass: "fill-white",
                     attrs: { cx: "12", cy: "12", r: "10" }
                   }),
+                  _vm._v(" "),
                   _c("path", {
                     staticClass: "secondary",
                     attrs: {
@@ -78001,6 +78032,7 @@ var render = function() {
                           "M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5c0-1.1.9-2 2-2zm9 6a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"
                       }
                     }),
+                    _vm._v(" "),
                     _c("path", {
                       staticClass: "secondary",
                       attrs: {
@@ -78042,6 +78074,7 @@ var render = function() {
                         rx: "2"
                       }
                     }),
+                    _vm._v(" "),
                     _c("path", {
                       staticClass: "secondary",
                       attrs: {
