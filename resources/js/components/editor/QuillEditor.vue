@@ -69,6 +69,7 @@
 
         mounted() {
             this.editor = this.createEditor();
+
             this.handleEditorValue();
             this.handleClicksInsideEditor();
             this.initializeSidebarControls();
@@ -82,6 +83,9 @@
 
                 const icons = Quill.import("ui/icons");
                 icons.header[3] = require("!html-loader!quill/assets/icons/header-3.svg");
+
+                // Set contents on the initial page load
+                this.$refs.editor.innerHTML = this.storeState.form.body;
 
                 let quill = new Quill(this.$refs.editor, {
                     modules: {
@@ -104,16 +108,16 @@
                  */
                 let tooltip = quill.theme.tooltip;
                 let input = tooltip.root.querySelector("input[data-link]");
+
                 input.dataset.link = this.trans.posts.forms.editor.link;
 
                 return quill;
             },
 
             handleEditorValue() {
-                this.editor.root.innerHTML = this.storeState.form.body;
-
-                this.editor.on("text-change", () => {
-                    this.storeState.form.body = this.editor.getText() ? this.editor.root.innerHTML : "";
+                this.editor.on("text-change", (delta, oldDelta, source) => {
+                    this.storeState.form.body = this.editor.getText() ? this.editor.root.innerHTML : '';
+                    this.update();
                 });
             },
 
@@ -149,36 +153,27 @@
                             range.index
                         );
 
-                        if (
-                            block != null &&
-                            block.domNode.firstChild instanceof HTMLBRElement
-                        ) {
+                        if (block != null && block.domNode.firstChild instanceof HTMLBRElement) {
                             let lineBounds = this.editor.getBounds(range);
 
                             sidebarControls.classList.remove("active");
-
                             sidebarControls.style.display = "block";
 
-                            sidebarControls.style.left =
-                                lineBounds.left - 50 + "px";
+                            sidebarControls.style.left = lineBounds.left - 50 + "px";
                             sidebarControls.style.top = lineBounds.top - 2 + "px";
                         } else {
                             sidebarControls.style.display = "none";
-
                             sidebarControls.classList.remove("active");
                         }
                     } else {
                         sidebarControls.style.display = "none";
-
                         sidebarControls.classList.remove("active");
                     }
                 });
             },
 
             openSidebarControls() {
-                document
-                    .getElementById("sidebarControls")
-                    .classList.toggle("active");
+                document.getElementById("sidebarControls").classList.toggle("active");
 
                 this.editor.focus();
             },
@@ -233,6 +228,10 @@
 
                 this.editor.setSelection(range.index + 1, Quill.sources.SILENT);
             },
+
+            update: _.debounce(function (e) {
+                this.$parent.save();
+            }, 1000),
 
             showImageModal() {
                 $(this.$refs.imageModal.$el).modal("show");

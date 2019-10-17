@@ -8,7 +8,7 @@
                     </p>
 
                     <div class="form-group row">
-                        <div class="col-lg-12">
+                        <div class="col-12">
                             <div v-if="imageUrl" id="currentImage">
                                 <img :src="imageUrl" :alt="caption" class="w-100"/>
 
