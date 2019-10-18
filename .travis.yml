@@ -14,10 +14,6 @@ notifications:
 matrix:
   fast_finish: true
   include:
-    - php: 7.0
-      env: LARAVEL='5.5.*' TESTBENCH='3.5.*' DBAL='2.4.*' COMPOSER_FLAGS='--prefer-lowest' PHPUNIT='6.*'
-    - php: 7.0
-      env: LARAVEL='5.5.*' TESTBENCH='3.5.*' DBAL='2.4.*' COMPOSER_FLAGS='--prefer-stable' PHPUNIT='6.*'
     - php: 7.1
       env: LARAVEL='5.5.*' TESTBENCH='3.5.*' DBAL='2.9.*' COMPOSER_FLAGS='--prefer-lowest' PHPUNIT='6.*'
     - php: 7.1
@@ -78,7 +74,7 @@ matrix:
 before_install:
   - phpenv config-rm xdebug.ini || true
   - travis_retry composer self-update
-  - travis_retry composer require --no-update --no-interaction "illuminate/support=${LARAVEL}" "orchestra/testbench=${TESTBENCH}" "doctrine/dbal=${DBAL}" "phpunit/phpunit=${PHPUNIT}"
+  - travis_retry composer require --no-update --no-interaction "illuminate/support=${LARAVEL}" "orchestra/testbench=${TESTBENCH}" "doctrine/dbal=${DBAL}" "phpunit/phpunit=${PHPUNIT}" "orchestra/database=${TESTBENCH}"
 
 install:
   - travis_retry composer update ${COMPOSER_FLAGS} --prefer-dist --no-interaction --no-suggest
