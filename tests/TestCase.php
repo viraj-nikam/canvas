@@ -32,6 +32,7 @@ abstract class TestCase extends OrchestraTestCase
     {
         return [
             CanvasServiceProvider::class,
+            Orchestra\Database\ConsoleServiceProvider::class,
         ];
     }
 
