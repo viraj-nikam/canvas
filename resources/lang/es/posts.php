@@ -15,6 +15,7 @@ return [
         'published' => 'Publicado',
         'draft'     => 'Borrador',
         'updated'   => 'Actualizado',
+        'scheduled' => 'Programado',
     ],
     'forms'   => [
         'editor'   => [

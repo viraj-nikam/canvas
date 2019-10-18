@@ -15,6 +15,7 @@ return [
         'published' => 'Publicados',
         'draft'     => 'Esboço, projeto',
         'updated'   => 'Atualizado',
+        'scheduled' => 'Programado',
     ],
     'forms'   => [
         'editor'   => [

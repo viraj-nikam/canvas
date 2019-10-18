@@ -15,6 +15,7 @@ return [
         'published' => '發布時間',
         'draft'     => '草案',
         'updated'   => '更新',
+        'scheduled' => '预定的',
     ],
     'forms'   => [
         'editor'   => [

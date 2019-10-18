@@ -6,6 +6,7 @@
                     <div class="form-group row">
                         <div class="col-12">
                             <label class="font-weight-bold">{{ trans.posts.forms.publish.header }}</label>
+
                             <p class="text-muted">
                                 {{ trans.posts.forms.publish.subtext.details }}
                                 <span class="font-weight-bold">{{ moment.tz.guess() }}</span>
@@ -43,6 +44,10 @@
                                     </option>
                                 </select>
                             </div>
+
+                            <p class="mt-3 text-danger font-italic" v-if="isScheduled">
+                                Your post will publish at {{ moment(this.storeState.form.published_at).format("h:mm A") }} on {{ moment(this.storeState.form.published_at).format("MMMM DD, YYYY") }}.
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -56,8 +61,12 @@
                         </span>
                     </a>
 
-                    <button type="button" class="btn btn-link text-muted font-weight-bold text-decoration-none" data-dismiss="modal">
+                    <button v-if="shouldPublish" type="button" class="btn btn-link text-muted font-weight-bold text-decoration-none" data-dismiss="modal">
                         {{ trans.buttons.general.cancel }}
+                    </button>
+
+                    <button v-if="isScheduled" @click="cancelScheduling" type="button" class="btn btn-link text-muted font-weight-bold text-decoration-none" data-dismiss="modal">
+                        {{ trans.buttons.posts.cancel }}
                     </button>
                 </div>
             </div>
@@ -134,12 +143,21 @@
             scheduleOrPublish() {
                 this.storeState.form.published_at = this.result;
                 this.$parent.save();
+            },
+
+            cancelScheduling() {
+                this.storeState.form.published_at = '';
+                this.$parent.save();
             }
         },
 
         computed: {
             shouldPublish() {
                 return moment(this.result).isBefore(moment().format("YYYY-MM-DD hh:mm:ss"));
+            },
+
+            isScheduled() {
+                return this.storeState.form.published_at && moment(this.result).isAfter(moment().format("YYYY-MM-DD hh:mm:ss"));
             }
         }
     };

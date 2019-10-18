@@ -15,6 +15,7 @@ return [
         'published' => 'опубликованный',
         'draft'     => 'Проект',
         'updated'   => 'обновленный',
+        'scheduled' => 'по расписанию',
     ],
     'forms'   => [
         'editor'   => [

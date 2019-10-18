@@ -15,6 +15,7 @@ return [
         'published' => 'نشرت',
         'draft'     => 'مشروع',
         'updated'   => 'محدث',
+        'scheduled' => 'المقرر',
     ],
     'forms'   => [
         'editor'   => [

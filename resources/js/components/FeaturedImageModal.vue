@@ -11,7 +11,14 @@
                         <img :src="storeState.form.featured_image" :alt="storeState.form.featured_image_caption" class="w-100"/>
 
                         <div class="input-group py-2">
-                            <input type="text" class="form-control border-0 px-0" @input="update" name="featured_image_caption" v-model="storeState.form.featured_image_caption" :placeholder="trans.posts.forms.editor.images.picker.uploader.caption.placeholder"/>
+                            <input
+                                type="text"
+                                class="form-control border-0 px-0"
+                                @input="update"
+                                name="featured_image_caption"
+                                v-model="storeState.form.featured_image_caption"
+                                :placeholder="trans.posts.forms.editor.images.picker.uploader.caption.placeholder"
+                            />
                         </div>
                     </div>
 
@@ -23,12 +30,13 @@
                         {{ trans.posts.forms.editor.images.picker.clear.description }}
                     </div>
 
-                    <image-picker v-else
-                                  :image-url="storeState.form.featured_image"
-                                  @changed="update"
-                                  @clearSelectedImage="clear"
-                                  @isUploading="isUploading = true">
-                    </image-picker>
+                    <image-picker
+                        v-else
+                        :image-url="storeState.form.featured_image"
+                        @changed="update"
+                        @clearSelectedImage="clear"
+                        @isUploading="isUploading = true"
+                    />
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-link font-weight-bold text-muted text-decoration-none" data-dismiss="modal">

@@ -1,11 +1,9 @@
 <template>
-    <div class="modal fade" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
+    <div class="modal fade" tabindex="-1" role="dialog" data-backdrop="static">
+        <div class="modal-dialog" id="htmlModal" role="document">
             <div class="modal-content">
                 <div class="modal-body">
-                    <p class="font-weight-bold lead">
-                        {{ trans.posts.forms.editor.html.label }}
-                    </p>
+                    <p class="font-weight-bold lead">{{ trans.posts.forms.editor.html.label }}</p>
                     <div class="form-group row">
                         <div class="col-lg-12 mx-0 px-0">
                             <textarea
@@ -15,14 +13,13 @@
                                 class="form-control border-0"
                                 :placeholder="trans.posts.forms.editor.html.placeholder"
                                 style="resize: none"
-                                v-model="content"
-                            >
+                                v-model="content">
                             </textarea>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-link text-muted font-weight-bold text-decoration-none" type="button" data-dismiss="modal" @click="addingHTML">
+                    <button class="btn btn-link text-muted font-weight-bold text-decoration-none" @click="addHTML" data-dismiss="modal">
                         {{ trans.buttons.general.done }}
                     </button>
                 </div>
@@ -37,19 +34,23 @@
 
         data() {
             return {
-                content: "",
+                content: '',
                 trans: JSON.parse(Canvas.lang)
-            };
+            }
+        },
+
+        mounted() {
+            this.$nextTick(() => this.$refs.content.focus());
         },
 
         methods: {
-            addingHTML() {
-                this.$emit("addingHTML", {
-                    content: this.content
+            addHTML() {
+                this.$emit('addingHTML', {
+                    content: this.content,
                 });
 
-                this.content = "";
+                this.content = '';
             }
         }
-    };
+    }
 </script>

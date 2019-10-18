@@ -1962,6 +1962,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2454,6 +2462,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2506,11 +2523,18 @@ __webpack_require__.r(__webpack_exports__);
     scheduleOrPublish: function scheduleOrPublish() {
       this.storeState.form.published_at = this.result;
       this.$parent.save();
+    },
+    cancelScheduling: function cancelScheduling() {
+      this.storeState.form.published_at = '';
+      this.$parent.save();
     }
   },
   computed: {
     shouldPublish: function shouldPublish() {
       return moment__WEBPACK_IMPORTED_MODULE_0___default()(this.result).isBefore(moment__WEBPACK_IMPORTED_MODULE_0___default()().format("YYYY-MM-DD hh:mm:ss"));
+    },
+    isScheduled: function isScheduled() {
+      return this.storeState.form.published_at && moment__WEBPACK_IMPORTED_MODULE_0___default()(this.result).isAfter(moment__WEBPACK_IMPORTED_MODULE_0___default()().format("YYYY-MM-DD hh:mm:ss"));
     }
   }
 });
@@ -2986,23 +3010,27 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "html-modal",
   data: function data() {
     return {
-      content: "",
+      content: '',
       trans: JSON.parse(Canvas.lang)
     };
   },
+  mounted: function mounted() {
+    var _this = this;
+
+    this.$nextTick(function () {
+      return _this.$refs.content.focus();
+    });
+  },
   methods: {
-    addingHTML: function addingHTML() {
-      this.$emit("addingHTML", {
+    addHTML: function addHTML() {
+      this.$emit('addingHTML', {
         content: this.content
       });
-      this.content = "";
+      this.content = '';
     }
   }
 });
@@ -3072,21 +3100,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
-
-/**
- * This component displays...
- *
- * This component will contain...
- *
- * @author Mohamed Said <themsaid@gmail.com>
- */
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "ImageModal",
@@ -3095,55 +3109,55 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      caption: "",
       existingBlot: null,
       imageUrl: null,
-      layout: "default",
+      layout: 'default',
+      caption: '',
       trans: JSON.parse(Canvas.lang)
     };
   },
   mounted: function mounted() {
     var _this = this;
 
-    this.$parent.$on("openingImageUploader", function (data) {
+    this.$parent.$on('openingImageModal', function (data) {
       if (data) {
         _this.showImageModal();
 
         _this.caption = data.caption;
         _this.imageUrl = data.url;
-        _this.layout = data.layout || "default";
+        _this.layout = data.layout || 'default';
         _this.existingBlot = data.existingBlot;
       }
     });
   },
   methods: {
-    setImage: function setImage() {
-      if (!this.imageUrl) {
-        return;
-      }
-
-      this.$emit("addingImage", {
-        url: this.imageUrl,
-        caption: this.caption,
-        existingBlot: this.existingBlot,
-        layout: this.layout
-      });
-      this.clearImage();
+    clear: function clear() {
+      this.existingBlot = null;
+      this.imageUrl = null;
+      this.layout = 'default';
+      this.caption = '';
     },
     updateImage: function updateImage(_ref) {
       var url = _ref.url,
           caption = _ref.caption;
       this.imageUrl = url;
-      this.caption = caption ? caption : "";
+      this.caption = caption ? caption : '';
     },
-    clearImage: function clearImage() {
-      this.existingBlot = null;
-      this.imageUrl = null;
-      this.layout = "default";
-      this.caption = "";
+    applyImage: function applyImage() {
+      if (!this.imageUrl) {
+        return;
+      }
+
+      this.$emit('addingImage', {
+        url: this.imageUrl,
+        caption: this.caption,
+        existingBlot: this.existingBlot,
+        layout: this.layout
+      });
+      this.clear();
     },
     showImageModal: function showImageModal() {
-      jquery__WEBPACK_IMPORTED_MODULE_0___default()("#imageUpload").modal("show");
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()('#editorImage').modal('show');
     }
   }
 });
@@ -3225,6 +3239,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 //
 //
 //
+//
 
 
 
@@ -3233,25 +3248,23 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-
-/**
- * Create an instance of the QuillJS editor.
- *
- * @author Mohamed Said <themsaid@gmail.com>
- */
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "quill-editor",
   components: {
-    "html-modal": _HTMLModal__WEBPACK_IMPORTED_MODULE_5__["default"],
-    "image-modal": _ImageModal__WEBPACK_IMPORTED_MODULE_6__["default"]
+    'html-modal': _HTMLModal__WEBPACK_IMPORTED_MODULE_5__["default"],
+    'image-modal': _ImageModal__WEBPACK_IMPORTED_MODULE_6__["default"]
+  },
+  props: {
+    value: {
+      type: String,
+      "default": ''
+    }
   },
   data: function data() {
     return {
-      editor: null,
       storeState: _screens_posts_store__WEBPACK_IMPORTED_MODULE_8__["store"].state,
-      unsplash: Canvas.unsplash,
-      path: Canvas.path,
+      editor: null,
+      // editorBody: this.value,
       trans: JSON.parse(Canvas.lang)
     };
   },
@@ -3259,28 +3272,26 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     this.editor = this.createEditor();
     this.handleEditorValue();
     this.handleClicksInsideEditor();
-    this.initializeSidebarControls();
+    this.initSideControls();
   },
   methods: {
     createEditor: function createEditor() {
       quill__WEBPACK_IMPORTED_MODULE_1___default.a.register(_ImageBlot__WEBPACK_IMPORTED_MODULE_4__["default"], true);
       quill__WEBPACK_IMPORTED_MODULE_1___default.a.register(_DividerBlot__WEBPACK_IMPORTED_MODULE_7__["default"], true);
       quill__WEBPACK_IMPORTED_MODULE_1___default.a.register(_HTMLBlot__WEBPACK_IMPORTED_MODULE_3__["default"], true);
-      var icons = quill__WEBPACK_IMPORTED_MODULE_1___default.a["import"]("ui/icons");
-      icons.header[3] = __webpack_require__(/*! html-loader!quill/assets/icons/header-3.svg */ "./node_modules/html-loader/index.js!./node_modules/quill/assets/icons/header-3.svg"); // Set contents on the initial page load
-      // this.$refs.editor.innerHTML = this.storeState.form.body;
-
+      var icons = quill__WEBPACK_IMPORTED_MODULE_1___default.a["import"]('ui/icons');
+      icons.header[3] = __webpack_require__(/*! html-loader!quill/assets/icons/header-3.svg */ "./node_modules/html-loader/index.js!./node_modules/quill/assets/icons/header-3.svg");
       var quill = new quill__WEBPACK_IMPORTED_MODULE_1___default.a(this.$refs.editor, {
         modules: {
           syntax: true,
-          toolbar: [["bold", "italic", "code", "link"], [{
-            header: "2"
+          toolbar: [['bold', 'italic', 'code', 'link'], [{
+            'header': '2'
           }, {
-            header: "3"
-          }], ["blockquote", "code-block"]]
+            'header': '3'
+          }], ['blockquote', 'code-block']]
         },
-        theme: "bubble",
-        scrollingContainer: "html, body",
+        theme: 'bubble',
+        scrollingContainer: 'html, body',
         placeholder: this.trans.posts.forms.editor.body
       });
       /**
@@ -3298,32 +3309,33 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       var _this = this;
 
       this.editor.root.innerHTML = this.storeState.form.body;
-      this.editor.on("text-change", function (delta, oldDelta, source) {
-        _this.storeState.form.body = _this.editor.getText() ? _this.editor.root.innerHTML : '';
+      this.editor.on('text-change', function () {
+        var body = _this.editor.getText() ? _this.editor.root.innerHTML : '';
+        _this.$refs['body'].value = body;
 
-        _this.update();
+        _this.$emit('input', body);
       });
     },
     handleClicksInsideEditor: function handleClicksInsideEditor() {
       var _this2 = this;
 
-      this.editor.root.addEventListener("click", function (ev) {
+      this.editor.root.addEventListener('click', function (ev) {
         var blot = parchment__WEBPACK_IMPORTED_MODULE_2___default.a.find(ev.target, true);
 
         if (blot instanceof _ImageBlot__WEBPACK_IMPORTED_MODULE_4__["default"]) {
-          var values = blot.value(blot.domNode)["captioned-image"];
+          var values = blot.value(blot.domNode)['captioned-image'];
           values.existingBlot = blot;
 
           _this2.showImageModal(values);
         }
       });
     },
-    initializeSidebarControls: function initializeSidebarControls() {
+    initSideControls: function initSideControls() {
       var _this3 = this;
 
-      var Block = quill__WEBPACK_IMPORTED_MODULE_1___default.a["import"]("blots/block");
+      var Block = quill__WEBPACK_IMPORTED_MODULE_1___default.a["import"]('blots/block');
       this.editor.on(quill__WEBPACK_IMPORTED_MODULE_1___default.a.events.EDITOR_CHANGE, function (eventType, range) {
-        var sidebarControls = document.getElementById("sidebarControls");
+        var sidebarControls = document.getElementById('sidebarControls');
         if (eventType !== quill__WEBPACK_IMPORTED_MODULE_1___default.a.events.SELECTION_CHANGE) return;
         if (range == null) return;
 
@@ -3336,23 +3348,31 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
           if (block != null && block.domNode.firstChild instanceof HTMLBRElement) {
             var lineBounds = _this3.editor.getBounds(range);
 
-            sidebarControls.classList.remove("active");
-            sidebarControls.style.display = "block";
-            sidebarControls.style.left = lineBounds.left - 50 + "px";
-            sidebarControls.style.top = lineBounds.top - 2 + "px";
+            sidebarControls.classList.remove('active');
+            sidebarControls.style.display = 'block';
+            sidebarControls.style.left = lineBounds.left - 50 + 'px';
+            sidebarControls.style.top = lineBounds.top - 2 + 'px';
           } else {
-            sidebarControls.style.display = "none";
-            sidebarControls.classList.remove("active");
+            sidebarControls.style.display = 'none';
+            sidebarControls.classList.remove('active');
           }
         } else {
-          sidebarControls.style.display = "none";
-          sidebarControls.classList.remove("active");
+          sidebarControls.style.display = 'none';
+          sidebarControls.classList.remove('active');
         }
       });
     },
     openSidebarControls: function openSidebarControls() {
-      document.getElementById("sidebarControls").classList.toggle("active");
+      document.getElementById('sidebarControls').classList.toggle('active');
       this.editor.focus();
+    },
+    showImageModal: function showImageModal() {
+      var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+      this.$emit('openingImageModal', data);
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()(this.$refs.imageModal.$el).modal("show");
+    },
+    showHTMLModal: function showHTMLModal() {
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()(this.$refs.htmlModal.$el).modal("show");
     },
     insertImage: function insertImage(_ref) {
       var url = _ref.url,
@@ -3373,12 +3393,6 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       this.editor.insertEmbed(range.index, 'captioned-image', values, quill__WEBPACK_IMPORTED_MODULE_1___default.a.sources.USER);
       this.editor.setSelection(range.index + 1, quill__WEBPACK_IMPORTED_MODULE_1___default.a.sources.SILENT);
     },
-    insertDivider: function insertDivider() {
-      var range = this.editor.getSelection(true);
-      this.editor.insertText(range.index, "\n", quill__WEBPACK_IMPORTED_MODULE_1___default.a.sources.USER);
-      this.editor.insertEmbed(range.index + 1, "divider", true, quill__WEBPACK_IMPORTED_MODULE_1___default.a.sources.USER);
-      this.editor.setSelection(range.index + 2, quill__WEBPACK_IMPORTED_MODULE_1___default.a.sources.SILENT);
-    },
     insertHTML: function insertHTML(_ref2) {
       var content = _ref2.content;
       var range = this.editor.getSelection(true);
@@ -3387,16 +3401,11 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       }, quill__WEBPACK_IMPORTED_MODULE_1___default.a.sources.USER);
       this.editor.setSelection(range.index + 1, quill__WEBPACK_IMPORTED_MODULE_1___default.a.sources.SILENT);
     },
-    update: _.debounce(function (e) {
-      this.$parent.save();
-    }, 1000),
-    showImageModal: function showImageModal() {
-      var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
-      this.$emit('openingImageUploader', data);
-      jquery__WEBPACK_IMPORTED_MODULE_0___default()(this.$refs.imageModal.$el).modal("show");
-    },
-    showHTMLModal: function showHTMLModal() {
-      jquery__WEBPACK_IMPORTED_MODULE_0___default()(this.$refs.htmlModal.$el).modal("show");
+    insertDivider: function insertDivider() {
+      var range = this.editor.getSelection(true);
+      this.editor.insertText(range.index, '\n', quill__WEBPACK_IMPORTED_MODULE_1___default.a.sources.USER);
+      this.editor.insertEmbed(range.index + 1, 'divider', true, quill__WEBPACK_IMPORTED_MODULE_1___default.a.sources.USER);
+      this.editor.setSelection(range.index + 2, quill__WEBPACK_IMPORTED_MODULE_1___default.a.sources.SILENT);
     }
   }
 });
@@ -3685,7 +3694,10 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_textarea_autosize__WEBPACK_IM
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _components_PageHeader__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../components/PageHeader */ "./resources/js/components/PageHeader.vue");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _components_PageHeader__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../components/PageHeader */ "./resources/js/components/PageHeader.vue");
+//
 //
 //
 //
@@ -3777,10 +3789,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "posts",
   components: {
-    PageHeader: _components_PageHeader__WEBPACK_IMPORTED_MODULE_0__["default"]
+    PageHeader: _components_PageHeader__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   data: function data() {
     return {
@@ -11382,7 +11395,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 exports.i(__webpack_require__(/*! -!../../../../node_modules/css-loader??ref--7-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!quill/dist/quill.bubble.css */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/quill/dist/quill.bubble.css"), "");
 
 // module
-exports.push([module.i, "\n.ql-container {\n    box-sizing: border-box;\n    font-family: \"Merriweather\", serif;\n    height: 100%;\n    margin: 0;\n    position: relative;\n}\n.ql-editor {\n    font-family: \"Merriweather\", serif;\n    font-weight: 300;\n    color: hsla(0, 0%, 0%, 0.9);\n    font-size: 1.1rem;\n    line-height: 1.9;\n    padding: 0;\n    overflow-y: visible;\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n}\n.ql-editor p,\n.ql-editor ul,\n.ql-editor ol,\n.ql-editor h1,\n.ql-editor h2,\n.ql-editor h3,\n.ql-editor blockquote,\n.ql-editor pre {\n    min-width: 100%;\n}\n.ql-editor h2 {\n    margin-top: 0 !important;\n    margin-bottom: 33px !important;\n    font-size: 1.5rem;\n    font-weight: bold;\n    line-height: 2.6rem;\n}\n.ql-editor h3 {\n    margin-bottom: 33px !important;\n    font-size: 17px !important;\n    font-weight: bold;\n    line-height: 2.6rem;\n}\n.ql-editor p,\n.ql-editor ol,\n.ql-editor ul,\n.ql-editor pre,\n.ql-editor blockquote {\n    margin-bottom: 33px !important;\n}\n.ql-editor blockquote {\n    font-style: italic !important;\n}\n.ql-bubble .ql-editor pre.ql-syntax {\n    background-color: rgba(0, 0, 0, 0.05);\n    border: none;\n    color: #000;\n    overflow-x: auto;\n    padding: 1em;\n}\n.ql-editor h1,\n.ql-editor h2 {\n    margin-top: 56px;\n    margin-bottom: 15px;\n}\n.ql-editor ol,\n.ql-editor ul {\n    padding-left: 0;\n}\n.ql-editor ol li,\n.ql-editor ul li {\n    margin-bottom: 20px;\n}\n.ql-editor.ql-blank::before {\n    left: 0;\n    font-style: normal;\n}\n.ql-bubble .ql-editor a {\n    color: inherit;\n}\n.ql-container hr {\n    margin-top: 0;\n    border: none;\n    color: #111;\n    letter-spacing: 1em;\n    text-align: center;\n}\n.ql-container hr:before {\n    content: \"...\";\n}\n.btn-circle {\n    width: 40px;\n    height: 40px;\n    padding: 6px 0;\n    border-radius: 9999px;\n    text-align: center;\n    line-height: 1.42857;\n}\n#sidebarControls {\n    display: none;\n    position: absolute;\n    z-index: 10;\n    margin-top: -8px;\n    left: -60px !important;\n}\n#sidebarControls button:hover {\n    background-color: transparent;\n}\n#sidebarControls button:focus {\n    box-shadow: none !important;\n    outline: none !important;\n}\n#sidebarControls.active .controls {\n    display: inline-block !important;\n}\n.embedded_image {\n    margin-bottom: 33px !important;\n    cursor: default;\n}\n.embedded_image[data-layout=\"wide\"] img {\n    max-width: 1024px;\n}\n.embedded_image img {\n    max-width: 100%;\n    height: auto;\n    margin: 0 auto;\n    display: block;\n}\n.embedded_image:hover img {\n    cursor: pointer !important;\n    box-shadow: 0 0 0 3px #03a87c !important;\n}\ndiv.embedded_image[data-laout=\"wide\"] {\n    width: 100vw !important;\n    position: relative !important;\n    left: 50% !important;\n    margin-left: -50vw !important;\n}\n.embedded_image p {\n    margin-bottom: 0 !important;\n    color: #6c757d;\n    padding-top: 1rem;\n    font-size: 0.9rem;\n    line-height: 1.6;\n    font-weight: 400;\n    text-align: center;\n    font-family: \"Karla\", sans-serif;\n}\n@media screen and (max-width: 1024px) {\n.embedded_image[data-layout=\"wide\"] img {\n        max-width: 100%;\n}\n}\n@media (max-width: 767px) {\n#sidebarControls {\n        display: none !important;\n}\n}\n\n", ""]);
+exports.push([module.i, "\n.ql-container {\n    box-sizing: border-box;\n    font-family: \"Merriweather\", serif;\n    height: 100%;\n    margin: 0;\n    position: relative;\n}\n.ql-editor {\n    font-family: \"Merriweather\", serif;\n    font-weight: 300;\n    color: hsla(0, 0%, 0%, 0.9);\n    font-size: 1.1rem;\n    line-height: 1.9;\n    padding: 0;\n    overflow-y: visible;\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n}\n.ql-editor p,\n.ql-editor ul,\n.ql-editor ol,\n.ql-editor h1,\n.ql-editor h2,\n.ql-editor h3,\n.ql-editor blockquote,\n.ql-editor pre {\n    min-width: 100%;\n}\n.ql-editor h2 {\n    margin-top: 0 !important;\n    margin-bottom: 33px !important;\n    font-size: 1.5rem;\n    font-weight: bold;\n    line-height: 2.6rem;\n}\n.ql-editor h3 {\n    margin-bottom: 33px !important;\n    font-size: 17px !important;\n    font-weight: bold;\n    line-height: 2.6rem;\n}\n.ql-editor p,\n.ql-editor ol,\n.ql-editor ul,\n.ql-editor pre,\n.ql-editor blockquote {\n    margin-bottom: 33px !important;\n}\n.ql-editor blockquote {\n    font-style: italic !important;\n}\n.ql-bubble .ql-editor pre.ql-syntax {\n    background-color: rgba(0, 0, 0, 0.05);\n    border: none;\n    color: #000;\n    overflow-x: auto;\n    padding: 1em;\n}\n.ql-editor h1,\n.ql-editor h2 {\n    margin-top: 56px;\n    margin-bottom: 15px;\n}\n.ql-editor ol,\n.ql-editor ul {\n    padding-left: 0;\n}\n.ql-editor ol li,\n.ql-editor ul li {\n    margin-bottom: 20px;\n}\n.ql-editor.ql-blank::before {\n    left: 0;\n    font-style: normal;\n}\n.ql-container hr {\n    margin-top: 0;\n    border: none;\n    color: #111;\n    letter-spacing: 1em;\n    text-align: center;\n}\n.ql-container hr:before {\n    content: '...';\n}\n.btn-circle {\n    width: 40px;\n    height: 40px;\n    padding: 6px 0;\n    border-radius: 9999px;\n    text-align: center;\n    line-height: 1.42857;\n}\n#sidebarControls {\n    margin-top: -8px;\n    display: none;\n    position: absolute;\n    z-index: 10;\n    left: -60px !important;\n}\n#sidebarControls button:hover {\n    background-color: transparent;\n}\n#sidebarControls button:focus {\n    box-shadow: none !important;\n    outline: none !important;\n}\n#sidebarControls.active .controls {\n    display: inline-block !important;\n}\n.embedded_image {\n    margin-bottom: 33px !important;\n    cursor: default;\n}\n.embedded_image[data-layout=\"wide\"] img {\n    max-width: 1024px;\n}\n.embedded_image img {\n    max-width: 100%;\n    height: auto;\n    margin: 0 auto;\n    display: block;\n}\n.embedded_image:hover img {\n    cursor: pointer !important;\n    box-shadow: 0 0 0 3px #03a87c !important;\n}\ndiv.embedded_image[data-laout=\"wide\"] {\n    width: 100vw !important;\n    position: relative !important;\n    left: 50% !important;\n    margin-left: -50vw !important;\n}\n.embedded_image p {\n    margin-bottom: 0 !important;\n    color: #6c757d;\n    padding-top: 1rem;\n    font-size: 0.9rem;\n    line-height: 1.6;\n    font-weight: 400;\n    text-align: center;\n    font-family: \"Karla\", sans-serif;\n}\n@media screen and (max-width: 1024px) {\n.embedded_image[data-layout=\"wide\"] img {\n        max-width: 100%\n}\n}\n@media (max-width: 767px) {\n#sidebarControls {\n        display: none !important;\n}\n}\n", ""]);
 
 // exports
 
@@ -77002,7 +77015,27 @@ var render = function() {
                     ),
                     0
                   )
-                ])
+                ]),
+                _vm._v(" "),
+                _vm.isScheduled
+                  ? _c("p", { staticClass: "mt-3 text-danger font-italic" }, [
+                      _vm._v(
+                        "\n                            Your post will publish at " +
+                          _vm._s(
+                            _vm
+                              .moment(this.storeState.form.published_at)
+                              .format("h:mm A")
+                          ) +
+                          " on " +
+                          _vm._s(
+                            _vm
+                              .moment(this.storeState.form.published_at)
+                              .format("MMMM DD, YYYY")
+                          ) +
+                          ".\n                        "
+                      )
+                    ])
+                  : _vm._e()
               ])
             ])
           ]),
@@ -77034,21 +77067,42 @@ var render = function() {
               ]
             ),
             _vm._v(" "),
-            _c(
-              "button",
-              {
-                staticClass:
-                  "btn btn-link text-muted font-weight-bold text-decoration-none",
-                attrs: { type: "button", "data-dismiss": "modal" }
-              },
-              [
-                _vm._v(
-                  "\n                    " +
-                    _vm._s(_vm.trans.buttons.general.cancel) +
-                    "\n                "
+            _vm.shouldPublish
+              ? _c(
+                  "button",
+                  {
+                    staticClass:
+                      "btn btn-link text-muted font-weight-bold text-decoration-none",
+                    attrs: { type: "button", "data-dismiss": "modal" }
+                  },
+                  [
+                    _vm._v(
+                      "\n                    " +
+                        _vm._s(_vm.trans.buttons.general.cancel) +
+                        "\n                "
+                    )
+                  ]
                 )
-              ]
-            )
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.isScheduled
+              ? _c(
+                  "button",
+                  {
+                    staticClass:
+                      "btn btn-link text-muted font-weight-bold text-decoration-none",
+                    attrs: { type: "button", "data-dismiss": "modal" },
+                    on: { click: _vm.cancelScheduling }
+                  },
+                  [
+                    _vm._v(
+                      "\n                    " +
+                        _vm._s(_vm.trans.buttons.posts.cancel) +
+                        "\n                "
+                    )
+                  ]
+                )
+              : _vm._e()
           ])
         ])
       ])
@@ -77680,72 +77734,78 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "modal fade", attrs: { tabindex: "-1", role: "dialog" } },
+    {
+      staticClass: "modal fade",
+      attrs: { tabindex: "-1", role: "dialog", "data-backdrop": "static" }
+    },
     [
-      _c("div", { staticClass: "modal-dialog", attrs: { role: "document" } }, [
-        _c("div", { staticClass: "modal-content" }, [
-          _c("div", { staticClass: "modal-body" }, [
-            _c("p", { staticClass: "font-weight-bold lead" }, [
-              _vm._v(
-                "\n                    " +
-                  _vm._s(_vm.trans.posts.forms.editor.html.label) +
-                  "\n                "
-              )
+      _c(
+        "div",
+        {
+          staticClass: "modal-dialog",
+          attrs: { id: "htmlModal", role: "document" }
+        },
+        [
+          _c("div", { staticClass: "modal-content" }, [
+            _c("div", { staticClass: "modal-body" }, [
+              _c("p", { staticClass: "font-weight-bold lead" }, [
+                _vm._v(_vm._s(_vm.trans.posts.forms.editor.html.label))
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group row" }, [
+                _c("div", { staticClass: "col-lg-12 mx-0 px-0" }, [
+                  _c("textarea", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.content,
+                        expression: "content"
+                      }
+                    ],
+                    ref: "content",
+                    staticClass: "form-control border-0",
+                    staticStyle: { resize: "none" },
+                    attrs: {
+                      cols: "30",
+                      rows: "10",
+                      placeholder: _vm.trans.posts.forms.editor.html.placeholder
+                    },
+                    domProps: { value: _vm.content },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.content = $event.target.value
+                      }
+                    }
+                  })
+                ])
+              ])
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "form-group row" }, [
-              _c("div", { staticClass: "col-lg-12 mx-0 px-0" }, [
-                _c("textarea", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.content,
-                      expression: "content"
-                    }
-                  ],
-                  ref: "content",
-                  staticClass: "form-control border-0",
-                  staticStyle: { resize: "none" },
-                  attrs: {
-                    cols: "30",
-                    rows: "10",
-                    placeholder: _vm.trans.posts.forms.editor.html.placeholder
-                  },
-                  domProps: { value: _vm.content },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.content = $event.target.value
-                    }
-                  }
-                })
-              ])
+            _c("div", { staticClass: "modal-footer" }, [
+              _c(
+                "button",
+                {
+                  staticClass:
+                    "btn btn-link text-muted font-weight-bold text-decoration-none",
+                  attrs: { "data-dismiss": "modal" },
+                  on: { click: _vm.addHTML }
+                },
+                [
+                  _vm._v(
+                    "\n                    " +
+                      _vm._s(_vm.trans.buttons.general.done) +
+                      "\n                "
+                  )
+                ]
+              )
             ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "modal-footer" }, [
-            _c(
-              "button",
-              {
-                staticClass:
-                  "btn btn-link text-muted font-weight-bold text-decoration-none",
-                attrs: { type: "button", "data-dismiss": "modal" },
-                on: { click: _vm.addingHTML }
-              },
-              [
-                _vm._v(
-                  "\n                    " +
-                    _vm._s(_vm.trans.buttons.general.done) +
-                    "\n                "
-                )
-              ]
-            )
           ])
-        ])
-      ])
+        ]
+      )
     ]
   )
 }
@@ -77775,7 +77835,12 @@ var render = function() {
     "div",
     {
       staticClass: "modal fade",
-      attrs: { tabindex: "-1", role: "dialog", "aria-hidden": "true" }
+      attrs: {
+        id: "editorImage",
+        tabindex: "-1",
+        role: "dialog",
+        "data-backdrop": "static"
+      }
     },
     [
       _c(
@@ -77800,117 +77865,106 @@ var render = function() {
               _c("div", { staticClass: "form-group row" }, [
                 _c(
                   "div",
-                  { staticClass: "col-12" },
+                  { staticClass: "col-lg-12" },
                   [
                     _vm.imageUrl
                       ? _c("div", { attrs: { id: "currentImage" } }, [
                           _c("img", {
                             staticClass: "w-100",
-                            attrs: { src: _vm.imageUrl, alt: _vm.caption }
+                            attrs: { src: _vm.imageUrl }
                           }),
                           _vm._v(" "),
                           _c("div", { staticClass: "input-group py-2" }, [
-                            _c("label", [
-                              _c("input", {
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.caption,
+                                  expression: "caption"
+                                }
+                              ],
+                              ref: "caption",
+                              staticClass: "form-control border-0 px-0",
+                              attrs: {
+                                type: "text",
+                                placeholder:
+                                  _vm.trans.posts.forms.editor.images.picker
+                                    .uploader.caption.placeholder
+                              },
+                              domProps: { value: _vm.caption },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.caption = $event.target.value
+                                }
+                              }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "input-group py-2" }, [
+                            _c(
+                              "select",
+                              {
                                 directives: [
                                   {
                                     name: "model",
                                     rawName: "v-model",
-                                    value: _vm.caption,
-                                    expression: "caption"
+                                    value: _vm.layout,
+                                    expression: "layout"
                                   }
                                 ],
-                                ref: "caption",
-                                staticClass: "form-control border-0 px-0",
-                                attrs: {
-                                  type: "text",
-                                  placeholder:
-                                    _vm.trans.posts.forms.editor.images.picker
-                                      .uploader.caption.placeholder
-                                },
-                                domProps: { value: _vm.caption },
+                                staticClass: "custom-select border-0 px-0",
                                 on: {
-                                  input: function($event) {
-                                    if ($event.target.composing) {
-                                      return
-                                    }
-                                    _vm.caption = $event.target.value
+                                  change: function($event) {
+                                    var $$selectedVal = Array.prototype.filter
+                                      .call($event.target.options, function(o) {
+                                        return o.selected
+                                      })
+                                      .map(function(o) {
+                                        var val =
+                                          "_value" in o ? o._value : o.value
+                                        return val
+                                      })
+                                    _vm.layout = $event.target.multiple
+                                      ? $$selectedVal
+                                      : $$selectedVal[0]
                                   }
                                 }
-                              })
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "input-group py-2" }, [
-                            _c("label", [
-                              _c(
-                                "select",
-                                {
-                                  directives: [
-                                    {
-                                      name: "model",
-                                      rawName: "v-model",
-                                      value: _vm.layout,
-                                      expression: "layout"
-                                    }
-                                  ],
-                                  staticClass: "custom-select border-0 px-0",
-                                  on: {
-                                    change: function($event) {
-                                      var $$selectedVal = Array.prototype.filter
-                                        .call($event.target.options, function(
-                                          o
-                                        ) {
-                                          return o.selected
-                                        })
-                                        .map(function(o) {
-                                          var val =
-                                            "_value" in o ? o._value : o.value
-                                          return val
-                                        })
-                                      _vm.layout = $event.target.multiple
-                                        ? $$selectedVal
-                                        : $$selectedVal[0]
-                                    }
-                                  }
-                                },
-                                [
-                                  _c(
-                                    "option",
-                                    { attrs: { value: "default" } },
-                                    [
-                                      _vm._v(
-                                        "\n                                            " +
-                                          _vm._s(
-                                            _vm.trans.posts.forms.editor.images
-                                              .picker.uploader.layout.default
-                                          ) +
-                                          "\n                                        "
-                                      )
-                                    ]
-                                  ),
-                                  _vm._v(" "),
-                                  _c("option", { attrs: { value: "wide" } }, [
-                                    _vm._v(
-                                      "\n                                            " +
-                                        _vm._s(
-                                          _vm.trans.posts.forms.editor.images
-                                            .picker.uploader.layout.wide
-                                        ) +
-                                        "\n                                        "
-                                    )
-                                  ])
-                                ]
-                              )
-                            ])
+                              },
+                              [
+                                _c("option", { attrs: { value: "default" } }, [
+                                  _vm._v(
+                                    "\n                                        " +
+                                      _vm._s(
+                                        _vm.trans.posts.forms.editor.images
+                                          .picker.uploader.layout.default
+                                      ) +
+                                      "\n                                    "
+                                  )
+                                ]),
+                                _vm._v(" "),
+                                _c("option", { attrs: { value: "wide" } }, [
+                                  _vm._v(
+                                    "\n                                        " +
+                                      _vm._s(
+                                        _vm.trans.posts.forms.editor.images
+                                          .picker.uploader.layout.wide
+                                      ) +
+                                      "\n                                    "
+                                  )
+                                ])
+                              ]
+                            )
                           ])
                         ])
                       : _vm._e(),
                     _vm._v(" "),
-                    _c("ImagePicker", {
-                      attrs: { "image-url": _vm.imageUrl },
-                      on: { changed: _vm.updateImage }
-                    })
+                    !_vm.imageUrl
+                      ? _c("image-picker", { on: { changed: _vm.updateImage } })
+                      : _vm._e()
                   ],
                   1
                 )
@@ -77924,7 +77978,7 @@ var render = function() {
                   staticClass:
                     "btn btn-link text-muted font-weight-bold text-decoration-none",
                   attrs: { "data-dismiss": "modal" },
-                  on: { click: _vm.setImage }
+                  on: { click: _vm.applyImage }
                 },
                 [
                   _vm._v(
@@ -77966,7 +78020,7 @@ var render = function() {
   return _c("div", {}, [
     _c(
       "div",
-      { staticClass: "position-relative" },
+      { staticStyle: { position: "relative" } },
       [
         _c("div", { attrs: { id: "sidebarControls" } }, [
           _c(
@@ -78122,6 +78176,8 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("div", { ref: "editor" }),
+        _vm._v(" "),
+        _c("input", { ref: "body", attrs: { type: "hidden", name: "body" } }),
         _vm._v(" "),
         _c("image-modal", {
           ref: "imageModal",
@@ -78690,13 +78746,13 @@ var render = function() {
                                       "p",
                                       { staticClass: "text-muted mb-0" },
                                       [
-                                        post.published_at <=
                                         _vm
-                                          .moment(new Date())
-                                          .tz(_vm.timezone)
-                                          .format()
-                                          .slice(0, 19)
-                                          .replace("T", " ")
+                                          .moment(post.published_at)
+                                          .isBefore(
+                                            _vm
+                                              .moment()
+                                              .format("YYYY-MM-DD hh:mm:ss")
+                                          )
                                           ? _c("span", [
                                               _vm._v(
                                                 "\n                                            " +
@@ -78713,7 +78769,10 @@ var render = function() {
                                                   "\n                                        "
                                               )
                                             ])
-                                          : _c(
+                                          : _vm._e(),
+                                        _vm._v(" "),
+                                        !post.published_at
+                                          ? _c(
                                               "span",
                                               { staticClass: "text-danger" },
                                               [
@@ -78726,13 +78785,37 @@ var render = function() {
                                                     "\n                                        "
                                                 )
                                               ]
-                                            ),
+                                            )
+                                          : _vm._e(),
+                                        _vm._v(" "),
+                                        _vm
+                                          .moment(post.published_at)
+                                          .isAfter(
+                                            _vm
+                                              .moment()
+                                              .format("YYYY-MM-DD hh:mm:ss")
+                                          )
+                                          ? _c(
+                                              "span",
+                                              { staticClass: "text-danger" },
+                                              [
+                                                _vm._v(
+                                                  "\n                                            " +
+                                                    _vm._s(
+                                                      _vm.trans.posts.details
+                                                        .scheduled
+                                                    ) +
+                                                    "\n                                        "
+                                                )
+                                              ]
+                                            )
+                                          : _vm._e(),
                                         _vm._v(
-                                          "\n                                        ― " +
+                                          " ― " +
                                             _vm._s(
                                               _vm.trans.posts.details.updated
                                             ) +
-                                            "\n                                        " +
+                                            " " +
                                             _vm._s(
                                               _vm
                                                 .moment(post.updated_at)
@@ -96942,13 +97025,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 
-var BlockEmbed = quill__WEBPACK_IMPORTED_MODULE_0___default.a["import"]("blots/block/embed");
-/**
- * Create the divider blot.
- *
- * @author Mohamed Said <themsaid@gmail.com>
- * @link https://quilljs.com/guides/how-to-customize-quill/#customizing-blots
- */
+var BlockEmbed = quill__WEBPACK_IMPORTED_MODULE_0___default.a["import"]('blots/block/embed');
 
 var DividerBlot =
 /*#__PURE__*/
@@ -96964,8 +97041,8 @@ function (_BlockEmbed) {
   return DividerBlot;
 }(BlockEmbed);
 
-DividerBlot.blotName = "divider";
-DividerBlot.tagName = "hr";
+DividerBlot.blotName = 'divider';
+DividerBlot.tagName = 'hr';
 /* harmony default export */ __webpack_exports__["default"] = (DividerBlot);
 
 /***/ }),
@@ -97004,13 +97081,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 
-var BlockEmbed = quill__WEBPACK_IMPORTED_MODULE_0___default.a["import"]("blots/block/embed");
-/**
- * Create the HTML blot.
- *
- * @author Mohamed Said <themsaid@gmail.com>
- * @link https://quilljs.com/guides/how-to-customize-quill/#customizing-blots
- */
+var BlockEmbed = quill__WEBPACK_IMPORTED_MODULE_0___default.a["import"]('blots/block/embed');
 
 var HTMLBlot =
 /*#__PURE__*/
@@ -97026,10 +97097,10 @@ function (_BlockEmbed) {
   _createClass(HTMLBlot, null, [{
     key: "create",
     value: function create(value) {
-      var node = _get(_getPrototypeOf(HTMLBlot), "edit", this).call(this);
+      var node = _get(_getPrototypeOf(HTMLBlot), "create", this).call(this);
 
       node.innerHTML = value.content;
-      node.setAttribute("contenteditable", false);
+      node.setAttribute('contenteditable', false);
       return node;
     }
   }, {
@@ -97044,9 +97115,9 @@ function (_BlockEmbed) {
   return HTMLBlot;
 }(BlockEmbed);
 
-HTMLBlot.blotName = "html";
-HTMLBlot.tagName = "div";
-HTMLBlot.className = "inline_html";
+HTMLBlot.blotName = 'html';
+HTMLBlot.tagName = 'div';
+HTMLBlot.className = 'inline_html';
 /* harmony default export */ __webpack_exports__["default"] = (HTMLBlot);
 
 /***/ }),
@@ -97154,13 +97225,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 
-var BlockEmbed = quill__WEBPACK_IMPORTED_MODULE_0___default.a["import"]("blots/block/embed");
-/**
- * Create the divider blot.
- *
- * @author Mohamed Said <themsaid@gmail.com>
- * @link https://quilljs.com/guides/how-to-customize-quill/#customizing-blots
- */
+var BlockEmbed = quill__WEBPACK_IMPORTED_MODULE_0___default.a["import"]('blots/block/embed');
 
 var ImageBlot =
 /*#__PURE__*/
@@ -97176,17 +97241,17 @@ function (_BlockEmbed) {
   _createClass(ImageBlot, null, [{
     key: "create",
     value: function create(value) {
-      var node = _get(_getPrototypeOf(ImageBlot), "edit", this).call(this);
+      var node = _get(_getPrototypeOf(ImageBlot), "create", this).call(this);
 
-      node.setAttribute("contenteditable", false);
+      node.setAttribute('contenteditable', false);
       node.dataset.layout = value.layout;
-      var img = document.createElement("img");
-      img.setAttribute("alt", value.caption);
-      img.setAttribute("src", value.url);
+      var img = document.createElement('img');
+      img.setAttribute('alt', value.caption);
+      img.setAttribute('src', value.url);
       node.appendChild(img);
 
       if (value.caption) {
-        var caption = document.createElement("p");
+        var caption = document.createElement('p');
         caption.innerHTML = value.caption;
         node.appendChild(caption);
       }
@@ -97196,11 +97261,11 @@ function (_BlockEmbed) {
   }, {
     key: "value",
     value: function value(node) {
-      var img = node.querySelector("img");
+      var img = node.querySelector('img');
       return {
         layout: node.dataset.layout,
-        caption: img.getAttribute("alt"),
-        url: img.getAttribute("src")
+        caption: img.getAttribute('alt'),
+        url: img.getAttribute('src')
       };
     }
   }]);
@@ -97208,9 +97273,9 @@ function (_BlockEmbed) {
   return ImageBlot;
 }(BlockEmbed);
 
-ImageBlot.tagName = "div";
-ImageBlot.blotName = "captioned-image";
-ImageBlot.className = "embedded_image";
+ImageBlot.tagName = 'div';
+ImageBlot.blotName = 'captioned-image';
+ImageBlot.className = 'embedded_image';
 /* harmony default export */ __webpack_exports__["default"] = (ImageBlot);
 
 /***/ }),

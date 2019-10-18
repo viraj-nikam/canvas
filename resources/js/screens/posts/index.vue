@@ -42,15 +42,16 @@
                                             {{ post.summary }}
                                         </p>
                                         <p class="text-muted mb-0">
-                                            <span v-if="post.published_at <= moment(new Date()).tz(timezone).format().slice(0, 19).replace('T', ' ')">
+                                            <span v-if="moment(post.published_at).isBefore(moment().format('YYYY-MM-DD hh:mm:ss'))">
                                                 {{ trans.posts.details.published }}
                                                 {{ moment(post.published_at).fromNow() }}
                                             </span>
-                                            <span v-else class="text-danger">
+                                            <span v-if="!post.published_at" class="text-danger">
                                                 {{ trans.posts.details.draft }}
                                             </span>
-                                            ― {{ trans.posts.details.updated }}
-                                            {{ moment(post.updated_at).fromNow() }}
+                                            <span v-if="moment(post.published_at).isAfter(moment().format('YYYY-MM-DD hh:mm:ss'))" class="text-danger">
+                                                {{ trans.posts.details.scheduled }}
+                                            </span> ― {{ trans.posts.details.updated }} {{ moment(post.updated_at).fromNow() }}
                                         </p>
                                     </div>
                                     <div class="ml-auto d-none d-lg-block pl-3">
@@ -89,6 +90,7 @@
 </template>
 
 <script>
+    import moment from 'moment';
     import PageHeader from "../../components/PageHeader";
 
     export default {

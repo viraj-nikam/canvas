@@ -174,8 +174,6 @@ class PostController extends Controller
      *
      * @param array $incomingTags
      * @return array
-     *
-     * @author Mohamed Said <themsaid@gmail.com>
      */
     private function syncTags(array $incomingTags): array
     {

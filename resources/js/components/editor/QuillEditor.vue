@@ -1,6 +1,6 @@
 <template>
     <div v-cloak>
-        <div class="position-relative">
+        <div style="position: relative">
             <div id="sidebarControls">
                 <button class="btn btn-outline-light btn-circle border" type="button" @click="openSidebarControls">
                     <svg xmlns="http://www.w3.org/2000/svg" width="25" viewBox="0 0 24 24" class="icon-add-circle">
@@ -30,6 +30,7 @@
             </div>
 
             <div ref="editor"></div>
+            <input type="hidden" name="body" ref="body"/>
 
             <image-modal
                 ref="imageModal"
@@ -45,37 +46,36 @@
 </template>
 
 <script>
-    import $ from "jquery";
-    import Quill from "quill";
-    import Parchment from "parchment";
-    import HTMLBlot from "./HTMLBlot";
-    import ImageBlot from "./ImageBlot";
+    import $ from 'jquery';
+    import Quill from 'quill'
+    import Parchment from 'parchment'
+    import HTMLBlot from './HTMLBlot'
+    import ImageBlot from './ImageBlot'
     import HTMLModal from "./HTMLModal";
     import ImageModal from "./ImageModal";
-    import DividerBlot from "./DividerBlot";
+    import DividerBlot from './DividerBlot'
     import {store} from "../../screens/posts/store";
 
-    /**
-     * Create an instance of the QuillJS editor.
-     *
-     * @author Mohamed Said <themsaid@gmail.com>
-     */
     export default {
-        name: "quill-editor",
-
         components: {
-            "html-modal": HTMLModal,
-            "image-modal": ImageModal
+            'html-modal': HTMLModal,
+            'image-modal': ImageModal
+        },
+
+        props: {
+            value: {
+                type: String,
+                default: ''
+            }
         },
 
         data() {
             return {
-                editor: null,
                 storeState: store.state,
-                unsplash: Canvas.unsplash,
-                path: Canvas.path,
+                editor: null,
+                // editorBody: this.value,
                 trans: JSON.parse(Canvas.lang)
-            };
+            }
         },
 
         mounted() {
@@ -83,7 +83,7 @@
 
             this.handleEditorValue();
             this.handleClicksInsideEditor();
-            this.initializeSidebarControls();
+            this.initSideControls();
         },
 
         methods: {
@@ -92,23 +92,20 @@
                 Quill.register(DividerBlot, true);
                 Quill.register(HTMLBlot, true);
 
-                const icons = Quill.import("ui/icons");
-                icons.header[3] = require("!html-loader!quill/assets/icons/header-3.svg");
-
-                // Set contents on the initial page load
-                // this.$refs.editor.innerHTML = this.storeState.form.body;
+                const icons = Quill.import('ui/icons');
+                icons.header[3] = require('!html-loader!quill/assets/icons/header-3.svg');
 
                 let quill = new Quill(this.$refs.editor, {
                     modules: {
                         syntax: true,
                         toolbar: [
-                            ["bold", "italic", "code", "link"],
-                            [{header: "2"}, {header: "3"}],
-                            ["blockquote", "code-block"]
+                            ['bold', 'italic', 'code', 'link'],
+                            [{'header': '2'}, {'header': '3'}],
+                            ['blockquote', 'code-block'],
                         ]
                     },
-                    theme: "bubble",
-                    scrollingContainer: "html, body",
+                    theme: 'bubble',
+                    scrollingContainer: 'html, body',
                     placeholder: this.trans.posts.forms.editor.body
                 });
 
@@ -128,18 +125,19 @@
             handleEditorValue() {
                 this.editor.root.innerHTML = this.storeState.form.body;
 
-                this.editor.on("text-change", (delta, oldDelta, source) => {
-                    this.storeState.form.body = this.editor.getText() ? this.editor.root.innerHTML : '';
-                    this.update();
+                this.editor.on('text-change', () => {
+                    let body = this.editor.getText() ? this.editor.root.innerHTML : '';
+                    this.$refs['body'].value = body;
+                    this.$emit('input', body);
                 });
             },
 
             handleClicksInsideEditor() {
-                this.editor.root.addEventListener("click", ev => {
+                this.editor.root.addEventListener('click', (ev) => {
                     let blot = Parchment.find(ev.target, true);
 
                     if (blot instanceof ImageBlot) {
-                        let values = blot.value(blot.domNode)["captioned-image"];
+                        let values = blot.value(blot.domNode)['captioned-image'];
 
                         values.existingBlot = blot;
 
@@ -148,47 +146,55 @@
                 });
             },
 
-            initializeSidebarControls() {
-                let Block = Quill.import("blots/block");
+            initSideControls() {
+                let Block = Quill.import('blots/block');
 
                 this.editor.on(Quill.events.EDITOR_CHANGE, (eventType, range) => {
-                    let sidebarControls = document.getElementById(
-                        "sidebarControls"
-                    );
+                    let sidebarControls = document.getElementById('sidebarControls');
 
                     if (eventType !== Quill.events.SELECTION_CHANGE) return;
 
                     if (range == null) return;
 
                     if (range.length === 0) {
-                        let [block, offset] = this.editor.scroll.descendant(
-                            Block,
-                            range.index
-                        );
+                        let [block, offset] = this.editor.scroll.descendant(Block, range.index);
 
                         if (block != null && block.domNode.firstChild instanceof HTMLBRElement) {
                             let lineBounds = this.editor.getBounds(range);
 
-                            sidebarControls.classList.remove("active");
-                            sidebarControls.style.display = "block";
+                            sidebarControls.classList.remove('active');
 
-                            sidebarControls.style.left = lineBounds.left - 50 + "px";
-                            sidebarControls.style.top = lineBounds.top - 2 + "px";
+                            sidebarControls.style.display = 'block';
+
+                            sidebarControls.style.left = (lineBounds.left - 50) + 'px';
+                            sidebarControls.style.top = (lineBounds.top - 2) + 'px';
                         } else {
-                            sidebarControls.style.display = "none";
-                            sidebarControls.classList.remove("active");
+                            sidebarControls.style.display = 'none';
+
+                            sidebarControls.classList.remove('active');
                         }
                     } else {
-                        sidebarControls.style.display = "none";
-                        sidebarControls.classList.remove("active");
+                        sidebarControls.style.display = 'none';
+
+                        sidebarControls.classList.remove('active');
                     }
                 });
             },
 
             openSidebarControls() {
-                document.getElementById("sidebarControls").classList.toggle("active");
+                document.getElementById('sidebarControls').classList.toggle('active');
 
                 this.editor.focus();
+            },
+
+            showImageModal(data = null) {
+                this.$emit('openingImageModal', data);
+
+                $(this.$refs.imageModal.$el).modal("show");
+            },
+
+            showHTMLModal() {
+                $(this.$refs.htmlModal.$el).modal("show");
             },
 
             insertImage({url, caption, existingBlot, layout}) {
@@ -209,21 +215,6 @@
                 this.editor.setSelection(range.index + 1, Quill.sources.SILENT);
             },
 
-            insertDivider() {
-                let range = this.editor.getSelection(true);
-
-                this.editor.insertText(range.index, "\n", Quill.sources.USER);
-
-                this.editor.insertEmbed(
-                    range.index + 1,
-                    "divider",
-                    true,
-                    Quill.sources.USER
-                );
-
-                this.editor.setSelection(range.index + 2, Quill.sources.SILENT);
-            },
-
             insertHTML({content}) {
                 let range = this.editor.getSelection(true);
 
@@ -234,21 +225,15 @@
                 this.editor.setSelection(range.index + 1, Quill.sources.SILENT);
             },
 
-            update: _.debounce(function (e) {
-                this.$parent.save();
-            }, 1000),
+            insertDivider() {
+                let range = this.editor.getSelection(true);
 
-            showImageModal(data = null) {
-                this.$emit('openingImageUploader', data);
-
-                $(this.$refs.imageModal.$el).modal("show");
+                this.editor.insertText(range.index, '\n', Quill.sources.USER);
+                this.editor.insertEmbed(range.index + 1, 'divider', true, Quill.sources.USER);
+                this.editor.setSelection(range.index + 2, Quill.sources.SILENT);
             },
-
-            showHTMLModal() {
-                $(this.$refs.htmlModal.$el).modal("show");
-            }
         }
-    };
+    }
 </script>
 
 <style>
@@ -349,10 +334,6 @@
         font-style: normal;
     }
 
-    .ql-bubble .ql-editor a {
-        color: inherit;
-    }
-
     .ql-container hr {
         margin-top: 0;
         border: none;
@@ -362,7 +343,7 @@
     }
 
     .ql-container hr:before {
-        content: "...";
+        content: '...';
     }
 
     .btn-circle {
@@ -375,10 +356,10 @@
     }
 
     #sidebarControls {
+        margin-top: -8px;
         display: none;
         position: absolute;
         z-index: 10;
-        margin-top: -8px;
         left: -60px !important;
     }
 
@@ -438,7 +419,7 @@
 
     @media screen and (max-width: 1024px) {
         .embedded_image[data-layout="wide"] img {
-            max-width: 100%;
+            max-width: 100%
         }
     }
 
@@ -447,5 +428,4 @@
             display: none !important;
         }
     }
-
 </style>

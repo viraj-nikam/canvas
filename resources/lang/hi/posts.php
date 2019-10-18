@@ -15,6 +15,7 @@ return [
         'published' => 'प्रकाशित',
         'draft'     => 'प्रारूप',
         'updated'   => 'अपडेट किया गया',
+        'scheduled' => 'अनुसूचित',
     ],
     'forms'   => [
         'editor'   => [
