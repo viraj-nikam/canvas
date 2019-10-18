@@ -3157,6 +3157,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     showImageModal: function showImageModal() {
       jquery__WEBPACK_IMPORTED_MODULE_0___default()('#editorImage').modal('show');
+    },
+    closeModal: function closeModal(event) {
+      console.log('i got closed');
     }
   }
 });
@@ -3194,12 +3197,6 @@ function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) ||
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -3306,34 +3303,33 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       return quill;
     },
     handleEditorValue: function handleEditorValue() {
-      var _this = this;
-
-      this.editor.root.innerHTML = this.storeState.form.body;
-      this.editor.on('text-change', function () {
-        var body = _this.editor.getText() ? _this.editor.root.innerHTML : '';
-        _this.storeState.form.body = body;
-
-        _this.$emit('input', body);
-
-        _this.update();
-      });
+      this.editor.root.innerHTML = this.storeState.form.body; // this.editor.on('text-change', (delta, oldContents, source) => {
+      //     let body = this.editor.getText() ? this.editor.root.innerHTML : '';
+      //
+      //     this.storeState.form.body = body;
+      //
+      //     this.$emit('input', body);
+      //
+      //     // todo: do not UPDATE on an initial draw
+      //     this.update();
+      // });
     },
     handleClicksInsideEditor: function handleClicksInsideEditor() {
-      var _this2 = this;
+      var _this = this;
 
-      this.editor.root.addEventListener('click', function (ev) {
-        var blot = parchment__WEBPACK_IMPORTED_MODULE_3___default.a.find(ev.target, true);
+      this.editor.root.addEventListener('click', function (event) {
+        var blot = parchment__WEBPACK_IMPORTED_MODULE_3___default.a.find(event.target, true);
 
         if (blot instanceof _ImageBlot__WEBPACK_IMPORTED_MODULE_5__["default"]) {
           var values = blot.value(blot.domNode)['captioned-image'];
           values.existingBlot = blot;
 
-          _this2.showImageModal(values);
+          _this.showImageModal(values);
         }
       });
     },
     initSideControls: function initSideControls() {
-      var _this3 = this;
+      var _this2 = this;
 
       var Block = quill__WEBPACK_IMPORTED_MODULE_2___default.a["import"]('blots/block');
       this.editor.on(quill__WEBPACK_IMPORTED_MODULE_2___default.a.events.EDITOR_CHANGE, function (eventType, range) {
@@ -3342,13 +3338,13 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
         if (range == null) return;
 
         if (range.length === 0) {
-          var _this3$editor$scroll$ = _this3.editor.scroll.descendant(Block, range.index),
-              _this3$editor$scroll$2 = _slicedToArray(_this3$editor$scroll$, 2),
-              block = _this3$editor$scroll$2[0],
-              offset = _this3$editor$scroll$2[1];
+          var _this2$editor$scroll$ = _this2.editor.scroll.descendant(Block, range.index),
+              _this2$editor$scroll$2 = _slicedToArray(_this2$editor$scroll$, 2),
+              block = _this2$editor$scroll$2[0],
+              offset = _this2$editor$scroll$2[1];
 
           if (block != null && block.domNode.firstChild instanceof HTMLBRElement) {
-            var lineBounds = _this3.editor.getBounds(range);
+            var lineBounds = _this2.editor.getBounds(range);
 
             sidebarControls.classList.remove('active');
             sidebarControls.style.display = 'block';
@@ -78052,7 +78048,7 @@ var render = function() {
                   staticClass: "icon-add-circle",
                   attrs: {
                     xmlns: "http://www.w3.org/2000/svg",
-                    width: "25",
+                    width: "26",
                     viewBox: "0 0 24 24"
                   }
                 },
@@ -78061,7 +78057,6 @@ var render = function() {
                     staticClass: "fill-white",
                     attrs: { cx: "12", cy: "12", r: "10" }
                   }),
-                  _vm._v(" "),
                   _c("path", {
                     staticClass: "secondary",
                     attrs: {
@@ -78086,28 +78081,24 @@ var render = function() {
                 _c(
                   "svg",
                   {
-                    staticClass: "icon-photo",
+                    staticClass: "icon-camera",
                     attrs: {
                       xmlns: "http://www.w3.org/2000/svg",
-                      width: "25",
+                      width: "26",
                       viewBox: "0 0 24 24"
                     }
                   },
                   [
                     _c("path", {
-                      staticClass: "primary",
-                      attrs: {
-                        d:
-                          "M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5c0-1.1.9-2 2-2zm9 6a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("path", {
                       staticClass: "secondary",
                       attrs: {
                         d:
-                          "M15.3 12.3a1 1 0 0 1 1.4 0l2 2a1 1 0 0 1 .3.7v3a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-3a1 1 0 0 1 .3-.7l4-4a1 1 0 0 1 1.4 0l3.3 3.29 1.3-1.3z"
+                          "M6.59 6l2.7-2.7A1 1 0 0 1 10 3h4a1 1 0 0 1 .7.3L17.42 6H20a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8c0-1.1.9-2 2-2h2.59zM19 10a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-7 8a5 5 0 1 0 0-10 5 5 0 0 0 0 10z"
                       }
+                    }),
+                    _c("path", {
+                      staticClass: "secondary",
+                      attrs: { d: "M12 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" }
                     })
                   ]
                 )
@@ -78128,7 +78119,7 @@ var render = function() {
                     staticClass: "icon-code",
                     attrs: {
                       xmlns: "http://www.w3.org/2000/svg",
-                      width: "25",
+                      width: "26",
                       viewBox: "0 0 24 24"
                     }
                   },
@@ -78170,7 +78161,7 @@ var render = function() {
                     staticClass: "icon-dots-horizontal",
                     attrs: {
                       xmlns: "http://www.w3.org/2000/svg",
-                      width: "25",
+                      width: "26",
                       viewBox: "0 0 24 24"
                     }
                   },

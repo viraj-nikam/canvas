@@ -3,26 +3,20 @@
         <div style="position: relative">
             <div id="sidebarControls">
                 <button class="btn btn-outline-light btn-circle border" type="button" @click="openSidebarControls">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="25" viewBox="0 0 24 24" class="icon-add-circle">
-                        <circle cx="12" cy="12" r="10" class="fill-white"/>
-                        <path class="secondary" d="M13 11h4a1 1 0 0 1 0 2h-4v4a1 1 0 0 1-2 0v-4H7a1 1 0 0 1 0-2h4V7a1 1 0 0 1 2 0v4z"/>
-                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="26" viewBox="0 0 24 24" class="icon-add-circle"><circle cx="12" cy="12" r="10" class="fill-white"/><path class="secondary" d="M13 11h4a1 1 0 0 1 0 2h-4v4a1 1 0 0 1-2 0v-4H7a1 1 0 0 1 0-2h4V7a1 1 0 0 1 2 0v4z"/></svg>
                 </button>
                 <div class="controls pl-3 bg-white d-none">
                     <button class="btn btn-outline-light btn-circle border mr-1" type="button" @click="showImageModal">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="25" viewBox="0 0 24 24" class="icon-photo">
-                            <path class="primary" d="M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5c0-1.1.9-2 2-2zm9 6a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/>
-                            <path class="secondary" d="M15.3 12.3a1 1 0 0 1 1.4 0l2 2a1 1 0 0 1 .3.7v3a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-3a1 1 0 0 1 .3-.7l4-4a1 1 0 0 1 1.4 0l3.3 3.29 1.3-1.3z"/>
-                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="26" viewBox="0 0 24 24" class="icon-camera"><path class="secondary" d="M6.59 6l2.7-2.7A1 1 0 0 1 10 3h4a1 1 0 0 1 .7.3L17.42 6H20a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8c0-1.1.9-2 2-2h2.59zM19 10a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-7 8a5 5 0 1 0 0-10 5 5 0 0 0 0 10z"/><path class="secondary" d="M12 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
                     </button>
                     <button class="btn btn-outline-light btn-circle border mr-1" type="button" @click="showHTMLModal">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="25" viewBox="0 0 24 24" class="icon-code">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="26" viewBox="0 0 24 24" class="icon-code">
                             <rect width="18" height="18" x="3" y="3" class="fill-white" rx="2"/>
                             <path class="secondary" d="M8.7 13.3a1 1 0 0 1-1.4 1.4l-2-2a1 1 0 0 1 0-1.4l2-2a1 1 0 1 1 1.4 1.4L7.42 12l1.3 1.3zm6.6 0l1.29-1.3-1.3-1.3a1 1 0 1 1 1.42-1.4l2 2a1 1 0 0 1 0 1.4l-2 2a1 1 0 0 1-1.42-1.4zm-3.32 3.9a1 1 0 0 1-1.96-.4l2-10a1 1 0 0 1 1.96.4l-2 10z"/>
                         </svg>
                     </button>
                     <button class="btn btn-outline-light btn-circle border mr-2" type="button" @click="insertDivider">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="25" viewBox="0 0 24 24" class="icon-dots-horizontal">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="26" viewBox="0 0 24 24" class="icon-dots-horizontal">
                             <path class="secondary" fill-rule="evenodd" d="M5 14a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm7 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm7 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/>
                         </svg>
                     </button>
@@ -124,21 +118,21 @@
             handleEditorValue() {
                 this.editor.root.innerHTML = this.storeState.form.body;
 
-                this.editor.on('text-change', () => {
-                    let body = this.editor.getText() ? this.editor.root.innerHTML : '';
-
-                    this.storeState.form.body = body;
-
-                    this.$emit('input', body);
-
-                    // todo: do not UPDATE on an initial draw
-                    this.update();
-                });
+                // this.editor.on('text-change', (delta, oldContents, source) => {
+                //     let body = this.editor.getText() ? this.editor.root.innerHTML : '';
+                //
+                //     this.storeState.form.body = body;
+                //
+                //     this.$emit('input', body);
+                //
+                //     // todo: do not UPDATE on an initial draw
+                //     this.update();
+                // });
             },
 
             handleClicksInsideEditor() {
-                this.editor.root.addEventListener('click', (ev) => {
-                    let blot = Parchment.find(ev.target, true);
+                this.editor.root.addEventListener('click', (event) => {
+                    let blot = Parchment.find(event.target, true);
 
                     if (blot instanceof ImageBlot) {
                         let values = blot.value(blot.domNode)['captioned-image'];

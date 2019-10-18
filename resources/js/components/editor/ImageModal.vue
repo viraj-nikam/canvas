@@ -113,6 +113,10 @@
 
             showImageModal() {
                 $('#editorImage').modal('show');
+            },
+
+            closeModal(event) {
+                console.log('i got closed');
             }
         }
     }
