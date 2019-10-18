@@ -9,6 +9,7 @@ use Illuminate\Foundation\Auth\User;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
+use Orchestra\Database\ConsoleServiceProvider as ConsoleServiceProvider;
 
 abstract class TestCase extends OrchestraTestCase
 {
@@ -32,7 +33,7 @@ abstract class TestCase extends OrchestraTestCase
     {
         return [
             CanvasServiceProvider::class,
-            Orchestra\Database\ConsoleServiceProvider::class,
+            ConsoleServiceProvider::class,
         ];
     }
 
