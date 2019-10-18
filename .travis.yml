@@ -15,21 +15,21 @@ matrix:
   fast_finish: true
   include:
     - php: 7.0
-      env: LARAVEL='5.5.*' TESTBENCH='3.5.*' DBAL='2.9.*' COMPOSER_FLAGS='--prefer-lowest' PHPUNIT='6.*'
+      env: LARAVEL='5.5.*' TESTBENCH='3.5.*' DBAL='2.4.*' COMPOSER_FLAGS='--prefer-lowest' PHPUNIT='6.*'
     - php: 7.0
+      env: LARAVEL='5.5.*' TESTBENCH='3.5.*' DBAL='2.4.*' COMPOSER_FLAGS='--prefer-stable' PHPUNIT='6.*'
+    - php: 7.1
+      env: LARAVEL='5.5.*' TESTBENCH='3.5.*' DBAL='2.9.*' COMPOSER_FLAGS='--prefer-lowest' PHPUNIT='6.*'
+    - php: 7.1
       env: LARAVEL='5.5.*' TESTBENCH='3.5.*' DBAL='2.9.*' COMPOSER_FLAGS='--prefer-stable' PHPUNIT='6.*'
-    - php: 7.1
-      env: LARAVEL='5.5.*' TESTBENCH='3.5.*' DBAL='2.9.*' COMPOSER_FLAGS='--prefer-lowest' PHPUNIT='7.*'
-    - php: 7.1
-      env: LARAVEL='5.5.*' TESTBENCH='3.5.*' DBAL='2.9.*' COMPOSER_FLAGS='--prefer-stable' PHPUNIT='7.*'
     - php: 7.2
-      env: LARAVEL='5.5.*' TESTBENCH='3.5.*' DBAL='2.9.*' COMPOSER_FLAGS='--prefer-lowest' PHPUNIT='8.4.*'
+      env: LARAVEL='5.5.*' TESTBENCH='3.5.*' DBAL='2.9.*' COMPOSER_FLAGS='--prefer-lowest' PHPUNIT='6.*'
     - php: 7.2
-      env: LARAVEL='5.5.*' TESTBENCH='3.5.*' DBAL='2.9.*' COMPOSER_FLAGS='--prefer-stable' PHPUNIT='8.4.*'
+      env: LARAVEL='5.5.*' TESTBENCH='3.5.*' DBAL='2.9.*' COMPOSER_FLAGS='--prefer-stable' PHPUNIT='6.*'
     - php: 7.3
-      env: LARAVEL='5.5.*' TESTBENCH='3.5.*' DBAL='2.9.*' COMPOSER_FLAGS='--prefer-lowest' PHPUNIT='8.4.*'
+      env: LARAVEL='5.5.*' TESTBENCH='3.5.*' DBAL='2.9.*' COMPOSER_FLAGS='--prefer-lowest' PHPUNIT='6.*'
     - php: 7.3
-      env: LARAVEL='5.5.*' TESTBENCH='3.5.*' DBAL='2.9.*' COMPOSER_FLAGS='--prefer-stable' PHPUNIT='8.4.*'
+      env: LARAVEL='5.5.*' TESTBENCH='3.5.*' DBAL='2.9.*' COMPOSER_FLAGS='--prefer-stable' PHPUNIT='6.*'
     - php: 7.1
       env: LARAVEL='5.6.*' TESTBENCH='3.6.*' DBAL='2.9.*' COMPOSER_FLAGS='--prefer-lowest' PHPUNIT='7.*'
     - php: 7.1
