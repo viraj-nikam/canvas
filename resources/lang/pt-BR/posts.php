@@ -8,13 +8,14 @@ return [
         'action'      => 'adicionando uma nova postagem',
     ],
     'search'  => [
-        'input' => 'Procurar',
+        'input' => 'Procurar...',
         'empty' => 'Nenhuma postagem corresponde aos critérios de pesquisa fornecidos.',
     ],
     'details' => [
         'published' => 'Publicados',
         'draft'     => 'Esboço, projeto',
         'updated'   => 'Atualizado',
+        'scheduled' => 'Programado',
     ],
     'forms'   => [
         'editor'   => [

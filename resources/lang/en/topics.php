@@ -6,10 +6,10 @@ return [
     'posts'   => 'Post(s)',
     'empty'   => [
         'description' => 'No topics were found, start by',
-        'action'      => 'adding a new topic',
+        'action'      => 'adding a new topic.',
     ],
     'search'  => [
-        'input' => 'Search',
+        'input' => 'Search...',
         'empty' => 'No topics matched the given search criteria.',
     ],
     'details' => [

@@ -1,9 +1,3 @@
-/**
- * Create the HTML blot.
- *
- * @author Mohamed Said <themsaid@gmail.com>
- */
-
 import Quill from 'quill'
 
 let BlockEmbed = Quill.import('blots/block/embed');

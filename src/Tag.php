@@ -46,12 +46,26 @@ class Tag extends Model
     public $incrementing = false;
 
     /**
-     * The posts that have the tag.
+     * Get the posts relationship.
      *
-     * @return BelongsToMany
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function posts(): BelongsToMany
     {
         return $this->belongsToMany(Post::class, 'canvas_posts_tags', 'tag_id', 'post_id');
+    }
+
+    /**
+     * The "booting" method of the model.
+     *
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($item) {
+            $item->posts()->detach();
+        });
     }
 }

@@ -8,13 +8,14 @@ return [
         'action'      => 'Hinzufügen eines neuen Beitrags',
     ],
     'search'  => [
-        'input' => 'Suche',
+        'input' => 'Suche...',
         'empty' => 'Keine Beiträge stimmen mit den angegebenen Suchkriterien überein.',
     ],
     'details' => [
         'published' => 'Veröffentlicht',
         'draft'     => 'Entwurf',
         'updated'   => 'Aktualisierte',
+        'scheduled' => 'Geplant',
     ],
     'forms'   => [
         'editor'   => [

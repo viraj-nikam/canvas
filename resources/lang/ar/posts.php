@@ -8,13 +8,14 @@ return [
         'action'      => 'إضافة منشور جديد',
     ],
     'search'  => [
-        'input' => 'بحث',
+        'input' => 'بحث...',
         'empty' => 'لا توجد مشاركات مطابقة لمعايير البحث المحددة.',
     ],
     'details' => [
         'published' => 'نشرت',
         'draft'     => 'مشروع',
         'updated'   => 'محدث',
+        'scheduled' => 'المقرر',
     ],
     'forms'   => [
         'editor'   => [

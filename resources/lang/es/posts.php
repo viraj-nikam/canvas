@@ -8,13 +8,14 @@ return [
         'action'      => 'añadiendo una nueva publicación',
     ],
     'search'  => [
-        'input' => 'Buscar',
+        'input' => 'Buscar...',
         'empty' => 'No hay publicaciones que coincidan con los criterios de búsqueda dados.',
     ],
     'details' => [
         'published' => 'Publicado',
         'draft'     => 'Borrador',
         'updated'   => 'Actualizado',
+        'scheduled' => 'Programado',
     ],
     'forms'   => [
         'editor'   => [

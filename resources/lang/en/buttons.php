@@ -9,13 +9,16 @@ return [
         'load'   => 'Show more',
         'save'   => 'Save',
         'next'   => 'Next page',
+        'draft'  => 'Convert to draft',
     ],
     'posts'   => [
         'create'   => 'New post',
         'edit'     => 'Edit post',
-        'update'   => 'Update post',
-        'save'     => 'Save and publish',
+        'ready'    => 'Ready to publish?',
+        'publish'  => 'Publish now',
+        'later'    => 'Schedule for later',
         'schedule' => 'Schedule to publish',
+        'cancel'   => 'Cancel scheduling',
     ],
     'stats'   => [
         'index' => 'See all stats',

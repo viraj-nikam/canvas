@@ -9,7 +9,7 @@ return [
         'action'      => 'adicionando um novo tópico',
     ],
     'search'  => [
-        'input' => 'Procurar',
+        'input' => 'Procurar...',
         'empty' => 'Nenhum tópico correspondeu aos critérios de pesquisa fornecidos.',
     ],
     'details' => [

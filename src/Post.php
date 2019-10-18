@@ -83,17 +83,27 @@ class Post extends Model
      */
     public function tags(): BelongsToMany
     {
-        return $this->belongsToMany(Tag::class, 'canvas_posts_tags', 'post_id', 'tag_id');
+        return $this->belongsToMany(
+            Tag::class,
+            'canvas_posts_tags',
+            'post_id',
+            'tag_id'
+        );
     }
 
     /**
-     * Get the topics relationship.
+     * Get the topic relationship.
      *
-     * @return belongsToMany
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function topic(): belongsToMany
+    public function topic(): BelongsToMany
     {
-        return $this->belongsToMany(Topic::class, 'canvas_posts_topics', 'post_id', 'topic_id');
+        return $this->belongsToMany(
+            Topic::class,
+            'canvas_posts_topics',
+            'post_id',
+            'topic_id'
+        );
     }
 
     /**
@@ -133,11 +143,7 @@ class Post extends Model
      */
     public function getPublishedAttribute(): bool
     {
-        if ($this->published_at <= now()->toDateTimeString()) {
-            return true;
-        } else {
-            return false;
-        }
+        return ! is_null($this->published_at) && $this->published_at <= now()->toDateTimeString();
     }
 
     /**
@@ -204,7 +210,7 @@ class Post extends Model
     }
 
     /**
-     * Get the top 10 referring websites for a post.
+     * Get the top referring websites for a post.
      *
      * @return array
      */
@@ -222,8 +228,8 @@ class Post extends Model
         // Count the unique values and assign to their respective keys
         $array = array_count_values($collection->toArray());
 
-        // Only return the top 10 referrers with their view count
-        $sliced = array_slice($array, 0, 10, true);
+        // Only return the top N referrers with their view count
+        $sliced = array_slice($array, 0, 8, true);
 
         // Sort the array in a descending order
         arsort($sliced);
@@ -250,6 +256,26 @@ class Post extends Model
      */
     public function scopeDraft($query): Builder
     {
-        return $query->where('published_at', '>', now()->toDateTimeString());
+        return $query->where('published_at', null)->orWhere('published_at', '>', now()->toDateTimeString());
+    }
+
+    public function scopeForUser($query, $user): Builder
+    {
+        return $query->where('user_id', $user);
+    }
+
+    /**
+     * The "booting" method of the model.
+     *
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($item) {
+            $item->tags()->detach();
+            $item->topic()->detach();
+        });
     }
 }

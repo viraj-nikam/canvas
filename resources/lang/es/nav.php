@@ -7,6 +7,7 @@ return [
         'draft'     => 'Borrador',
     ],
     'notify'   => [
+        'saving'  => 'Ahorro...',
         'success' => '¡Salvado!',
     ],
     'user'     => [

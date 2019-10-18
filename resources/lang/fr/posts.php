@@ -8,13 +8,14 @@ return [
         'action'      => 'ajouter un nouveau message',
     ],
     'search'  => [
-        'input' => 'Chercher',
+        'input' => 'Chercher...',
         'empty' => 'Aucun article ne correspond aux critères de recherche donnés.',
     ],
     'details' => [
         'published' => 'Publié',
         'draft'     => 'Brouillon',
         'updated'   => 'Mis à jour',
+        'scheduled' => 'Prévu',
     ],
     'forms'   => [
         'editor'   => [
