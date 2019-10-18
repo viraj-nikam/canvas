@@ -30,7 +30,6 @@
             </div>
 
             <div ref="editor"></div>
-            <input type="hidden" name="body" ref="body"/>
 
             <image-modal
                 ref="imageModal"
@@ -46,6 +45,7 @@
 </template>
 
 <script>
+    import _ from 'lodash';
     import $ from 'jquery';
     import Quill from 'quill'
     import Parchment from 'parchment'
@@ -73,7 +73,6 @@
             return {
                 storeState: store.state,
                 editor: null,
-                // editorBody: this.value,
                 trans: JSON.parse(Canvas.lang)
             }
         },
@@ -127,8 +126,13 @@
 
                 this.editor.on('text-change', () => {
                     let body = this.editor.getText() ? this.editor.root.innerHTML : '';
-                    this.$refs['body'].value = body;
+
+                    this.storeState.form.body = body;
+
                     this.$emit('input', body);
+
+                    // todo: do not UPDATE on an initial draw
+                    this.update();
                 });
             },
 
@@ -232,6 +236,10 @@
                 this.editor.insertEmbed(range.index + 1, 'divider', true, Quill.sources.USER);
                 this.editor.setSelection(range.index + 2, Quill.sources.SILENT);
             },
+
+            update: _.debounce(function (e) {
+                this.$parent.save();
+            }, 900)
         }
     }
 </script>

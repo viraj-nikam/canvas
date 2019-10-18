@@ -3172,18 +3172,20 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
-/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var quill__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! quill */ "./node_modules/quill/dist/quill.js");
-/* harmony import */ var quill__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(quill__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var parchment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! parchment */ "./node_modules/parchment/dist/parchment.js");
-/* harmony import */ var parchment__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(parchment__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _HTMLBlot__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./HTMLBlot */ "./resources/js/components/editor/HTMLBlot.js");
-/* harmony import */ var _ImageBlot__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ImageBlot */ "./resources/js/components/editor/ImageBlot.js");
-/* harmony import */ var _HTMLModal__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./HTMLModal */ "./resources/js/components/editor/HTMLModal.vue");
-/* harmony import */ var _ImageModal__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./ImageModal */ "./resources/js/components/editor/ImageModal.vue");
-/* harmony import */ var _DividerBlot__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./DividerBlot */ "./resources/js/components/editor/DividerBlot.js");
-/* harmony import */ var _screens_posts_store__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../screens/posts/store */ "./resources/js/screens/posts/store.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var quill__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! quill */ "./node_modules/quill/dist/quill.js");
+/* harmony import */ var quill__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(quill__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var parchment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! parchment */ "./node_modules/parchment/dist/parchment.js");
+/* harmony import */ var parchment__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(parchment__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _HTMLBlot__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./HTMLBlot */ "./resources/js/components/editor/HTMLBlot.js");
+/* harmony import */ var _ImageBlot__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./ImageBlot */ "./resources/js/components/editor/ImageBlot.js");
+/* harmony import */ var _HTMLModal__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./HTMLModal */ "./resources/js/components/editor/HTMLModal.vue");
+/* harmony import */ var _ImageModal__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./ImageModal */ "./resources/js/components/editor/ImageModal.vue");
+/* harmony import */ var _DividerBlot__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./DividerBlot */ "./resources/js/components/editor/DividerBlot.js");
+/* harmony import */ var _screens_posts_store__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../screens/posts/store */ "./resources/js/screens/posts/store.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
@@ -3238,7 +3240,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 //
 //
 //
-//
+
 
 
 
@@ -3250,8 +3252,8 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    'html-modal': _HTMLModal__WEBPACK_IMPORTED_MODULE_5__["default"],
-    'image-modal': _ImageModal__WEBPACK_IMPORTED_MODULE_6__["default"]
+    'html-modal': _HTMLModal__WEBPACK_IMPORTED_MODULE_6__["default"],
+    'image-modal': _ImageModal__WEBPACK_IMPORTED_MODULE_7__["default"]
   },
   props: {
     value: {
@@ -3261,9 +3263,8 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
   },
   data: function data() {
     return {
-      storeState: _screens_posts_store__WEBPACK_IMPORTED_MODULE_8__["store"].state,
+      storeState: _screens_posts_store__WEBPACK_IMPORTED_MODULE_9__["store"].state,
       editor: null,
-      // editorBody: this.value,
       trans: JSON.parse(Canvas.lang)
     };
   },
@@ -3275,12 +3276,12 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
   },
   methods: {
     createEditor: function createEditor() {
-      quill__WEBPACK_IMPORTED_MODULE_1___default.a.register(_ImageBlot__WEBPACK_IMPORTED_MODULE_4__["default"], true);
-      quill__WEBPACK_IMPORTED_MODULE_1___default.a.register(_DividerBlot__WEBPACK_IMPORTED_MODULE_7__["default"], true);
-      quill__WEBPACK_IMPORTED_MODULE_1___default.a.register(_HTMLBlot__WEBPACK_IMPORTED_MODULE_3__["default"], true);
-      var icons = quill__WEBPACK_IMPORTED_MODULE_1___default.a["import"]('ui/icons');
+      quill__WEBPACK_IMPORTED_MODULE_2___default.a.register(_ImageBlot__WEBPACK_IMPORTED_MODULE_5__["default"], true);
+      quill__WEBPACK_IMPORTED_MODULE_2___default.a.register(_DividerBlot__WEBPACK_IMPORTED_MODULE_8__["default"], true);
+      quill__WEBPACK_IMPORTED_MODULE_2___default.a.register(_HTMLBlot__WEBPACK_IMPORTED_MODULE_4__["default"], true);
+      var icons = quill__WEBPACK_IMPORTED_MODULE_2___default.a["import"]('ui/icons');
       icons.header[3] = __webpack_require__(/*! html-loader!quill/assets/icons/header-3.svg */ "./node_modules/html-loader/index.js!./node_modules/quill/assets/icons/header-3.svg");
-      var quill = new quill__WEBPACK_IMPORTED_MODULE_1___default.a(this.$refs.editor, {
+      var quill = new quill__WEBPACK_IMPORTED_MODULE_2___default.a(this.$refs.editor, {
         modules: {
           syntax: true,
           toolbar: [['bold', 'italic', 'code', 'link'], [{
@@ -3310,18 +3311,20 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       this.editor.root.innerHTML = this.storeState.form.body;
       this.editor.on('text-change', function () {
         var body = _this.editor.getText() ? _this.editor.root.innerHTML : '';
-        _this.$refs['body'].value = body;
+        _this.storeState.form.body = body;
 
         _this.$emit('input', body);
+
+        _this.update();
       });
     },
     handleClicksInsideEditor: function handleClicksInsideEditor() {
       var _this2 = this;
 
       this.editor.root.addEventListener('click', function (ev) {
-        var blot = parchment__WEBPACK_IMPORTED_MODULE_2___default.a.find(ev.target, true);
+        var blot = parchment__WEBPACK_IMPORTED_MODULE_3___default.a.find(ev.target, true);
 
-        if (blot instanceof _ImageBlot__WEBPACK_IMPORTED_MODULE_4__["default"]) {
+        if (blot instanceof _ImageBlot__WEBPACK_IMPORTED_MODULE_5__["default"]) {
           var values = blot.value(blot.domNode)['captioned-image'];
           values.existingBlot = blot;
 
@@ -3332,10 +3335,10 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     initSideControls: function initSideControls() {
       var _this3 = this;
 
-      var Block = quill__WEBPACK_IMPORTED_MODULE_1___default.a["import"]('blots/block');
-      this.editor.on(quill__WEBPACK_IMPORTED_MODULE_1___default.a.events.EDITOR_CHANGE, function (eventType, range) {
+      var Block = quill__WEBPACK_IMPORTED_MODULE_2___default.a["import"]('blots/block');
+      this.editor.on(quill__WEBPACK_IMPORTED_MODULE_2___default.a.events.EDITOR_CHANGE, function (eventType, range) {
         var sidebarControls = document.getElementById('sidebarControls');
-        if (eventType !== quill__WEBPACK_IMPORTED_MODULE_1___default.a.events.SELECTION_CHANGE) return;
+        if (eventType !== quill__WEBPACK_IMPORTED_MODULE_2___default.a.events.SELECTION_CHANGE) return;
         if (range == null) return;
 
         if (range.length === 0) {
@@ -3368,10 +3371,10 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     showImageModal: function showImageModal() {
       var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
       this.$emit('openingImageModal', data);
-      jquery__WEBPACK_IMPORTED_MODULE_0___default()(this.$refs.imageModal.$el).modal("show");
+      jquery__WEBPACK_IMPORTED_MODULE_1___default()(this.$refs.imageModal.$el).modal("show");
     },
     showHTMLModal: function showHTMLModal() {
-      jquery__WEBPACK_IMPORTED_MODULE_0___default()(this.$refs.htmlModal.$el).modal("show");
+      jquery__WEBPACK_IMPORTED_MODULE_1___default()(this.$refs.htmlModal.$el).modal("show");
     },
     insertImage: function insertImage(_ref) {
       var url = _ref.url,
@@ -3389,23 +3392,26 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       }
 
       var range = this.editor.getSelection(true);
-      this.editor.insertEmbed(range.index, 'captioned-image', values, quill__WEBPACK_IMPORTED_MODULE_1___default.a.sources.USER);
-      this.editor.setSelection(range.index + 1, quill__WEBPACK_IMPORTED_MODULE_1___default.a.sources.SILENT);
+      this.editor.insertEmbed(range.index, 'captioned-image', values, quill__WEBPACK_IMPORTED_MODULE_2___default.a.sources.USER);
+      this.editor.setSelection(range.index + 1, quill__WEBPACK_IMPORTED_MODULE_2___default.a.sources.SILENT);
     },
     insertHTML: function insertHTML(_ref2) {
       var content = _ref2.content;
       var range = this.editor.getSelection(true);
       this.editor.insertEmbed(range.index, 'html', {
         content: content
-      }, quill__WEBPACK_IMPORTED_MODULE_1___default.a.sources.USER);
-      this.editor.setSelection(range.index + 1, quill__WEBPACK_IMPORTED_MODULE_1___default.a.sources.SILENT);
+      }, quill__WEBPACK_IMPORTED_MODULE_2___default.a.sources.USER);
+      this.editor.setSelection(range.index + 1, quill__WEBPACK_IMPORTED_MODULE_2___default.a.sources.SILENT);
     },
     insertDivider: function insertDivider() {
       var range = this.editor.getSelection(true);
-      this.editor.insertText(range.index, '\n', quill__WEBPACK_IMPORTED_MODULE_1___default.a.sources.USER);
-      this.editor.insertEmbed(range.index + 1, 'divider', true, quill__WEBPACK_IMPORTED_MODULE_1___default.a.sources.USER);
-      this.editor.setSelection(range.index + 2, quill__WEBPACK_IMPORTED_MODULE_1___default.a.sources.SILENT);
-    }
+      this.editor.insertText(range.index, '\n', quill__WEBPACK_IMPORTED_MODULE_2___default.a.sources.USER);
+      this.editor.insertEmbed(range.index + 1, 'divider', true, quill__WEBPACK_IMPORTED_MODULE_2___default.a.sources.USER);
+      this.editor.setSelection(range.index + 2, quill__WEBPACK_IMPORTED_MODULE_2___default.a.sources.SILENT);
+    },
+    update: lodash__WEBPACK_IMPORTED_MODULE_0___default.a.debounce(function (e) {
+      this.$parent.save();
+    }, 900)
   }
 });
 
@@ -78185,8 +78191,6 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("div", { ref: "editor" }),
-        _vm._v(" "),
-        _c("input", { ref: "body", attrs: { type: "hidden", name: "body" } }),
         _vm._v(" "),
         _c("image-modal", {
           ref: "imageModal",
