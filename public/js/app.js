@@ -2470,7 +2470,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -77041,33 +77040,43 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "modal-footer" }, [
-            _c(
-              "a",
-              {
-                staticClass: "btn btn-success font-weight-bold",
-                attrs: { href: "#", "data-dismiss": "modal" },
-                on: { click: _vm.scheduleOrPublish }
-              },
-              [
-                _vm.shouldPublish
-                  ? _c("span", [
-                      _vm._v(
-                        "\n                        " +
-                          _vm._s(_vm.trans.buttons.posts.publish) +
-                          "\n                    "
-                      )
-                    ])
-                  : _c("span", [
-                      _vm._v(
-                        "\n                        " +
-                          _vm._s(_vm.trans.buttons.posts.schedule) +
-                          "\n                    "
-                      )
-                    ])
-              ]
-            ),
-            _vm._v(" "),
             _vm.shouldPublish
+              ? _c(
+                  "a",
+                  {
+                    staticClass: "btn btn-success font-weight-bold",
+                    attrs: { href: "#", "data-dismiss": "modal" },
+                    on: { click: _vm.scheduleOrPublish }
+                  },
+                  [
+                    _vm._v(
+                      "\n                    " +
+                        _vm._s(_vm.trans.buttons.posts.publish) +
+                        "\n                "
+                    )
+                  ]
+                )
+              : _vm._e(),
+            _vm._v(" "),
+            !_vm.shouldPublish
+              ? _c(
+                  "a",
+                  {
+                    staticClass: "btn btn-success font-weight-bold",
+                    attrs: { href: "#" },
+                    on: { click: _vm.scheduleOrPublish }
+                  },
+                  [
+                    _vm._v(
+                      "\n                    " +
+                        _vm._s(_vm.trans.buttons.posts.schedule) +
+                        "\n                "
+                    )
+                  ]
+                )
+              : _vm._e(),
+            _vm._v(" "),
+            !_vm.isScheduled
               ? _c(
                   "button",
                   {

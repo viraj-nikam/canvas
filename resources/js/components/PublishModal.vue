@@ -52,16 +52,15 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <a href="#" class="btn btn-success font-weight-bold" @click="scheduleOrPublish" data-dismiss="modal">
-                        <span v-if="shouldPublish">
-                            {{ trans.buttons.posts.publish }}
-                        </span>
-                        <span v-else>
-                            {{ trans.buttons.posts.schedule }}
-                        </span>
+                    <a href="#" v-if="shouldPublish" class="btn btn-success font-weight-bold" @click="scheduleOrPublish" data-dismiss="modal">
+                        {{ trans.buttons.posts.publish }}
                     </a>
 
-                    <button v-if="shouldPublish" type="button" class="btn btn-link text-muted font-weight-bold text-decoration-none" data-dismiss="modal">
+                    <a href="#" v-if="!shouldPublish" class="btn btn-success font-weight-bold" @click="scheduleOrPublish">
+                        {{ trans.buttons.posts.schedule }}
+                    </a>
+
+                    <button v-if="!isScheduled" type="button" class="btn btn-link text-muted font-weight-bold text-decoration-none" data-dismiss="modal">
                         {{ trans.buttons.general.cancel }}
                     </button>
 
