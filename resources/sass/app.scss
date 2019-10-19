@@ -1,42 +1,8 @@
 
-$white: #fff;
-$gray-100: #f7fafc;
-$gray-200: #edf2f7;
-$gray-300: #e2e8f0;
-$gray-400: #cbd5e0;
-$gray-500: #a0aec0;
-$gray-600: #718096;
-$gray-700: #4a5568;
-$gray-800: #2d3748;
-$gray-900: #1a202c;
-$black: #000;
+@import 'variables';
+@import 'overrides';
 
-$green: #03a87c;
-$red: #cc5454;
-
-$font-family-sans-serif: "Karla", sans-serif;
-$font-family-serif: "Merriweather", serif;
-$line-height-base: 1.6;
-
-$text-muted: $gray-500;
-
-a, a:focus,
-input, input:focus,
-button, button:focus,
-select, select:focus,
-textarea, textarea:focus {
-    -webkit-box-shadow: none !important;
-    -moz-box-shadow: none !important;
-    box-shadow: none !important;
-    outline: none !important;
-}
-
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-input:-webkit-autofill:active {
-    transition: background-color 5000s ease-in-out 0s !important;
-}
+$link-color: $gray-900;
 
 .primary {
     fill: $gray-500;
@@ -44,10 +10,6 @@ input:-webkit-autofill:active {
 
 .secondary {
     fill: $gray-700;
-}
-
-.fill-white {
-    fill: $white;
 }
 
 .font-serif {

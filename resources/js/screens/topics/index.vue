@@ -19,12 +19,12 @@
 
                             <div class="dropdown my-auto">
                                 <a id="navbarDropdown" href="#" class="nav-link px-0 pb-0 pt-3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="23" viewBox="0 0 24 24" class="icon-search"><circle cx="10" cy="10" r="7" class="fill-white"/><path class="primary" d="M16.32 14.9l1.1 1.1c.4-.02.83.13 1.14.44l3 3a1.5 1.5 0 0 1-2.12 2.12l-3-3a1.5 1.5 0 0 1-.44-1.14l-1.1-1.1a8 8 0 1 1 1.41-1.41zM10 16a6 6 0 1 0 0-12 6 6 0 0 0 0 12z"/></svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="23" viewBox="0 0 24 24" class="icon-search"><circle cx="10" cy="10" r="7" style="fill: none"/><path class="primary" d="M16.32 14.9l1.1 1.1c.4-.02.83.13 1.14.44l3 3a1.5 1.5 0 0 1-2.12 2.12l-3-3a1.5 1.5 0 0 1-.44-1.14l-1.1-1.1a8 8 0 1 1 1.41-1.41zM10 16a6 6 0 1 0 0-12 6 6 0 0 0 0 12z"/></svg>
                                 </a>
                                 <div id="searchDropdown" class="dropdown-menu dropdown-menu-right py-0 shadow-sm" aria-labelledby="dropdownMenuButton">
                                     <form class="pl-2 w-100">
                                         <div class="form-group mb-0">
-                                            <input id="search" v-model="search" type="text" class="form-control border-0 pl-0" :placeholder="trans.topics.search.input" autofocus/>
+                                            <input id="search" v-model="search" type="text" class="form-control border-0 pl-0 bg-transparent" :placeholder="trans.topics.search.input" autofocus/>
                                         </div>
                                     </form>
                                 </div>
@@ -36,7 +36,7 @@
                                 <div v-for="topic in filteredList" class="d-flex border-top py-3 align-items-center">
                                     <div class="mr-auto">
                                         <p class="mb-0 py-1">
-                                            <router-link :to="{name: 'topics-edit', params: { id: topic.id }}" class="font-weight-bold text-lg lead text-decoration-none text-dark">
+                                            <router-link :to="{name: 'topics-edit', params: { id: topic.id }}" class="font-weight-bold text-lg lead text-decoration-none">
                                                 {{ topic.name }}
                                             </router-link>
                                         </p>

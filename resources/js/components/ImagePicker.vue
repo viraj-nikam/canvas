@@ -19,7 +19,7 @@
 
         <div v-if="showUnsplash">
             <div class="container p-0">
-                <input type="text" class="form-control-lg form-control border-0 px-0" v-if="unsplash" v-model="searchQuery" ref="searchKeyword" :placeholder="trans.posts.forms.editor.images.picker.placeholder"/>
+                <input type="text" class="form-control-lg form-control border-0 px-0 bg-transparent" v-if="unsplash" v-model="searchQuery" ref="searchKeyword" :placeholder="trans.posts.forms.editor.images.picker.placeholder"/>
 
                 <div v-if="!isSearchingUnsplash && unsplashImages.length">
                     <div class="card-columns">
@@ -29,7 +29,7 @@
                     </div>
 
                     <div class="text-center">
-                        <button class="btn btn-link font-weight-bold text-muted" type="button" @click="closeUnsplash" @submit.prevent>
+                        <button class="btn btn-link font-weight-bold text-muted text-decoration-none" type="button" @click="closeUnsplash" @submit.prevent>
                             {{ trans.buttons.general.cancel }}
                         </button>
                         <button class="btn btn-sm btn-outline-success font-weight-bold" type="button" @click="fetchImages(unsplashPage + 1)" v-if="unsplashImages.length === 12" @submit.prevent>

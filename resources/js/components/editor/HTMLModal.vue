@@ -10,7 +10,7 @@
                                 ref="content"
                                 cols="30"
                                 rows="10"
-                                class="form-control border-0"
+                                class="form-control border-0 bg-transparent"
                                 :placeholder="trans.posts.forms.editor.html.placeholder"
                                 style="resize: none"
                                 v-model="content">

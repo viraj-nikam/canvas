@@ -3,15 +3,15 @@
         <div style="position: relative">
             <div id="sidebarControls">
                 <button class="btn btn-outline-light btn-circle border" type="button" @click="openSidebarControls">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="26" viewBox="0 0 24 24" class="icon-add-circle"><circle cx="12" cy="12" r="10" class="fill-white"/><path class="secondary" d="M13 11h4a1 1 0 0 1 0 2h-4v4a1 1 0 0 1-2 0v-4H7a1 1 0 0 1 0-2h4V7a1 1 0 0 1 2 0v4z"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="26" viewBox="0 0 24 24" class="icon-add-circle"><circle cx="12" cy="12" r="10" style="fill: none"/><path class="secondary" d="M13 11h4a1 1 0 0 1 0 2h-4v4a1 1 0 0 1-2 0v-4H7a1 1 0 0 1 0-2h4V7a1 1 0 0 1 2 0v4z"/></svg>
                 </button>
-                <div class="controls pl-3 bg-white d-none">
+                <div class="controls pl-3 d-none">
                     <button class="btn btn-outline-light btn-circle border mr-1" type="button" @click="showImageModal">
                         <svg xmlns="http://www.w3.org/2000/svg" width="26" viewBox="0 0 24 24" class="icon-camera"><path class="secondary" d="M6.59 6l2.7-2.7A1 1 0 0 1 10 3h4a1 1 0 0 1 .7.3L17.42 6H20a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8c0-1.1.9-2 2-2h2.59zM19 10a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-7 8a5 5 0 1 0 0-10 5 5 0 0 0 0 10z"/><path class="secondary" d="M12 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
                     </button>
                     <button class="btn btn-outline-light btn-circle border mr-1" type="button" @click="showHTMLModal">
                         <svg xmlns="http://www.w3.org/2000/svg" width="26" viewBox="0 0 24 24" class="icon-code">
-                            <rect width="18" height="18" x="3" y="3" class="fill-white" rx="2"/>
+                            <rect width="18" height="18" x="3" y="3" style="fill: none" rx="2"/>
                             <path class="secondary" d="M8.7 13.3a1 1 0 0 1-1.4 1.4l-2-2a1 1 0 0 1 0-1.4l2-2a1 1 0 1 1 1.4 1.4L7.42 12l1.3 1.3zm6.6 0l1.29-1.3-1.3-1.3a1 1 0 1 1 1.42-1.4l2 2a1 1 0 0 1 0 1.4l-2 2a1 1 0 0 1-1.42-1.4zm-3.32 3.9a1 1 0 0 1-1.96-.4l2-10a1 1 0 0 1 1.96.4l-2 10z"/>
                         </svg>
                     </button>
@@ -252,7 +252,7 @@
     .ql-editor {
         font-family: "Merriweather", serif;
         font-weight: 300;
-        color: hsla(0, 0%, 0%, 0.9);
+        /*color: hsla(0, 0%, 0%, 0.9);*/
         font-size: 1.1rem;
         line-height: 1.9;
         padding: 0;

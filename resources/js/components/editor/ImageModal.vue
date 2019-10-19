@@ -14,14 +14,14 @@
                                 <div class="input-group py-2">
                                     <input
                                         type="text"
-                                        class="form-control border-0 px-0"
+                                        class="form-control border-0 px-0 bg-transparent"
                                         v-model="caption"
                                         :placeholder="trans.posts.forms.editor.images.picker.uploader.caption.placeholder"
                                         ref="caption">
                                 </div>
 
                                 <div class="input-group py-2">
-                                    <select class="custom-select border-0 px-0" v-model="layout">
+                                    <select class="custom-select border-0 px-0 bg-transparent" v-model="layout">
                                         <option value="default">
                                             {{ trans.posts.forms.editor.images.picker.uploader.layout.default }}
                                         </option>

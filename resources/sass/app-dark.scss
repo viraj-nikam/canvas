@@ -1,0 +1,97 @@
+
+@import 'variables';
+@import 'overrides';
+
+$body-bg: rgb(38, 50, 56);
+$body-color: rgb(195, 211, 222);
+$border-color: rgba(67, 72, 87, 1);
+
+$link-color: $gray-300;
+$link-hover-color: $gray-500;
+
+$dropdown-bg: $body-bg;
+$dropdown-color: $body-color;
+$dropdown-link-color: $gray-300;
+$dropdown-link-hover-color: darken($gray-900, 5%);
+$dropdown-link-hover-bg: $gray-500;
+$dropdown-border-color: $gray-700;
+$dropdown-divider-bg: $gray-800;
+
+$card-border-color: $gray-700;
+
+$box-shadow-sm: 0 .125rem .25rem rgba($white, .075);
+
+$input-color: $gray-400;
+$input-placeholder-color: $gray-600;
+
+$modal-content-bg: $body-bg;
+
+.frappe-chart text {
+    fill: $body-color;
+}
+
+.ql-editor {
+    color: $body-color;
+}
+
+div.ql-editor.ql-blank::before {
+    color: $gray-600;
+}
+
+select.input {
+    color: $input-color;
+}
+
+.primary {
+    fill: $gray-500;
+}
+
+.secondary {
+    fill: $gray-700;
+}
+
+.multiselect__content-wrapper {
+    background-color: $body-bg;
+    border-color: $border-color;
+}
+
+.multiselect--above .multiselect__content-wrapper {
+    border-top-color: $border-color;
+}
+
+.multiselect__content-wrapper ul li {
+    color: $input-color;
+}
+
+.multiselect__single {
+    color: $input-color;
+}
+
+#sidebarControls.active {
+    background-color: $body-bg;
+}
+
+#sidebarControls .secondary {
+    fill: $body-color;
+}
+
+.font-serif {
+    font-family: $font-family-serif;
+}
+
+.font-sans {
+    font-family: $font-family-sans-serif;
+}
+
+[v-cloak] {
+    display: none;
+}
+
+@import 'nprogress';
+@import 'multiselect';
+
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+@import '~bootstrap/scss/mixins';
+
+@import '~bootstrap';

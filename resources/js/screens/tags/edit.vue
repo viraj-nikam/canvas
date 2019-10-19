@@ -36,7 +36,7 @@
                     <div class="col-md-8">
                         <div class="form-group row my-5">
                             <div class="col-lg-12">
-                                <input type="text" name="name" autocomplete="off" v-model="form.name" title="Name" @keyup.enter="saveTag" class="form-control-lg form-control border-0 px-0" :placeholder="trans.tags.forms.placeholder"/>
+                                <input type="text" name="name" autocomplete="off" v-model="form.name" title="Name" @keyup.enter="saveTag" class="form-control-lg form-control border-0 px-0 bg-transparent" :placeholder="trans.tags.forms.placeholder"/>
 
                                 <div v-if="form.errors.name" class="invalid-feedback d-block">
                                     <strong>{{ form.errors.name[0] }}</strong>

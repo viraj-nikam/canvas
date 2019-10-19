@@ -70,7 +70,7 @@
                             <div class="col-lg-12">
                                 <textarea-autosize
                                     :placeholder="trans.posts.forms.editor.title"
-                                    class="form-control-lg form-control border-0 pl-0 font-serif"
+                                    class="form-control-lg form-control border-0 pl-0 font-serif bg-transparent"
                                     @input.native="update"
                                     rows="1"
                                     v-model="storeState.form.title"

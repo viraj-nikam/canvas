@@ -21,7 +21,7 @@
                                 </p>
 
                                 <div class="card-deck mb-4">
-                                    <div class="card shadow-sm">
+                                    <div class="card shadow-sm bg-transparent">
                                         <div class="card-body">
                                             <h5 class="card-title text-muted small text-uppercase font-weight-bold">
                                                 {{ trans.stats.cards.views.title }}
@@ -31,7 +31,7 @@
                                             </p>
                                         </div>
                                     </div>
-                                    <div class="card shadow-sm">
+                                    <div class="card shadow-sm bg-transparent">
                                         <div class="card-body">
                                             <h5 class="card-title text-muted small text-uppercase font-weight-bold">
                                                 {{ trans.stats.cards.posts.title }}
@@ -41,7 +41,7 @@
                                             </p>
                                         </div>
                                     </div>
-                                    <div class="card shadow-sm">
+                                    <div class="card shadow-sm bg-transparent">
                                         <div class="card-body">
                                             <h5 class="card-title text-muted small text-uppercase font-weight-bold">
                                                 {{ trans.stats.cards.publishing.title }}
@@ -66,7 +66,7 @@
                                     <div class="d-flex border-top py-3 align-items-center" v-for="post in filteredList">
                                         <div class="mr-auto">
                                             <p class="mb-1 mt-2">
-                                                <router-link :to="{name: 'stats-show', params: { id: post.id }}" class="font-weight-bold text-lg lead text-decoration-none text-dark">
+                                                <router-link :to="{name: 'stats-show', params: { id: post.id }}" class="font-weight-bold text-lg lead text-decoration-none">
                                                     {{ post.title }}
                                                 </router-link>
                                             </p>

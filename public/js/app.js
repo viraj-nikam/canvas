@@ -11396,7 +11396,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 exports.i(__webpack_require__(/*! -!../../../../node_modules/css-loader??ref--7-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!quill/dist/quill.bubble.css */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/quill/dist/quill.bubble.css"), "");
 
 // module
-exports.push([module.i, "\n.ql-container {\n    box-sizing: border-box;\n    font-family: \"Merriweather\", serif;\n    height: 100%;\n    margin: 0;\n    position: relative;\n}\n.ql-editor {\n    font-family: \"Merriweather\", serif;\n    font-weight: 300;\n    color: hsla(0, 0%, 0%, 0.9);\n    font-size: 1.1rem;\n    line-height: 1.9;\n    padding: 0;\n    overflow-y: visible;\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n}\n.ql-editor p,\n.ql-editor ul,\n.ql-editor ol,\n.ql-editor h1,\n.ql-editor h2,\n.ql-editor h3,\n.ql-editor blockquote,\n.ql-editor pre {\n    min-width: 100%;\n}\n.ql-editor h2 {\n    margin-top: 0 !important;\n    margin-bottom: 33px !important;\n    font-size: 1.5rem;\n    font-weight: bold;\n    line-height: 2.6rem;\n}\n.ql-editor h3 {\n    margin-bottom: 33px !important;\n    font-size: 17px !important;\n    font-weight: bold;\n    line-height: 2.6rem;\n}\n.ql-editor p,\n.ql-editor ol,\n.ql-editor ul,\n.ql-editor pre,\n.ql-editor blockquote {\n    margin-bottom: 33px !important;\n}\n.ql-editor blockquote {\n    font-style: italic !important;\n}\n.ql-bubble .ql-editor pre.ql-syntax {\n    background-color: rgba(0, 0, 0, 0.05);\n    border: none;\n    color: #000;\n    overflow-x: auto;\n    padding: 1em;\n}\n.ql-editor h1,\n.ql-editor h2 {\n    margin-top: 56px;\n    margin-bottom: 15px;\n}\n.ql-editor ol,\n.ql-editor ul {\n    padding-left: 0;\n}\n.ql-editor ol li,\n.ql-editor ul li {\n    margin-bottom: 20px;\n}\n.ql-editor.ql-blank::before {\n    left: 0;\n    font-style: normal;\n}\n.ql-container hr {\n    margin-top: 0;\n    border: none;\n    color: #111;\n    letter-spacing: 1em;\n    text-align: center;\n}\n.ql-container hr:before {\n    content: '...';\n}\n.btn-circle {\n    width: 40px;\n    height: 40px;\n    padding: 6px 0;\n    border-radius: 9999px;\n    text-align: center;\n    line-height: 1.42857;\n}\n#sidebarControls {\n    margin-top: -8px;\n    display: none;\n    position: absolute;\n    z-index: 10;\n    left: -60px !important;\n}\n#sidebarControls button:hover {\n    background-color: transparent;\n}\n#sidebarControls button:focus {\n    box-shadow: none !important;\n    outline: none !important;\n}\n#sidebarControls.active .controls {\n    display: inline-block !important;\n}\n.embedded_image {\n    margin-bottom: 33px !important;\n    cursor: default;\n}\n.embedded_image[data-layout=\"wide\"] img {\n    max-width: 1024px;\n}\n.embedded_image img {\n    max-width: 100%;\n    height: auto;\n    margin: 0 auto;\n    display: block;\n}\n.embedded_image:hover img {\n    cursor: pointer !important;\n    box-shadow: 0 0 0 3px #03a87c !important;\n}\ndiv.embedded_image[data-laout=\"wide\"] {\n    width: 100vw !important;\n    position: relative !important;\n    left: 50% !important;\n    margin-left: -50vw !important;\n}\n.embedded_image p {\n    margin-bottom: 0 !important;\n    color: #6c757d;\n    padding-top: 1rem;\n    font-size: 0.9rem;\n    line-height: 1.6;\n    font-weight: 400;\n    text-align: center;\n    font-family: \"Karla\", sans-serif;\n}\n@media screen and (max-width: 1024px) {\n.embedded_image[data-layout=\"wide\"] img {\n        max-width: 100%\n}\n}\n@media (max-width: 767px) {\n#sidebarControls {\n        display: none !important;\n}\n}\n", ""]);
+exports.push([module.i, "\n.ql-container {\n    box-sizing: border-box;\n    font-family: \"Merriweather\", serif;\n    height: 100%;\n    margin: 0;\n    position: relative;\n}\n.ql-editor {\n    font-family: \"Merriweather\", serif;\n    font-weight: 300;\n    /*color: hsla(0, 0%, 0%, 0.9);*/\n    font-size: 1.1rem;\n    line-height: 1.9;\n    padding: 0;\n    overflow-y: visible;\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n}\n.ql-editor p,\n.ql-editor ul,\n.ql-editor ol,\n.ql-editor h1,\n.ql-editor h2,\n.ql-editor h3,\n.ql-editor blockquote,\n.ql-editor pre {\n    min-width: 100%;\n}\n.ql-editor h2 {\n    margin-top: 0 !important;\n    margin-bottom: 33px !important;\n    font-size: 1.5rem;\n    font-weight: bold;\n    line-height: 2.6rem;\n}\n.ql-editor h3 {\n    margin-bottom: 33px !important;\n    font-size: 17px !important;\n    font-weight: bold;\n    line-height: 2.6rem;\n}\n.ql-editor p,\n.ql-editor ol,\n.ql-editor ul,\n.ql-editor pre,\n.ql-editor blockquote {\n    margin-bottom: 33px !important;\n}\n.ql-editor blockquote {\n    font-style: italic !important;\n}\n.ql-bubble .ql-editor pre.ql-syntax {\n    background-color: rgba(0, 0, 0, 0.05);\n    border: none;\n    color: #000;\n    overflow-x: auto;\n    padding: 1em;\n}\n.ql-editor h1,\n.ql-editor h2 {\n    margin-top: 56px;\n    margin-bottom: 15px;\n}\n.ql-editor ol,\n.ql-editor ul {\n    padding-left: 0;\n}\n.ql-editor ol li,\n.ql-editor ul li {\n    margin-bottom: 20px;\n}\n.ql-editor.ql-blank::before {\n    left: 0;\n    font-style: normal;\n}\n.ql-container hr {\n    margin-top: 0;\n    border: none;\n    color: #111;\n    letter-spacing: 1em;\n    text-align: center;\n}\n.ql-container hr:before {\n    content: '...';\n}\n.btn-circle {\n    width: 40px;\n    height: 40px;\n    padding: 6px 0;\n    border-radius: 9999px;\n    text-align: center;\n    line-height: 1.42857;\n}\n#sidebarControls {\n    margin-top: -8px;\n    display: none;\n    position: absolute;\n    z-index: 10;\n    left: -60px !important;\n}\n#sidebarControls button:hover {\n    background-color: transparent;\n}\n#sidebarControls button:focus {\n    box-shadow: none !important;\n    outline: none !important;\n}\n#sidebarControls.active .controls {\n    display: inline-block !important;\n}\n.embedded_image {\n    margin-bottom: 33px !important;\n    cursor: default;\n}\n.embedded_image[data-layout=\"wide\"] img {\n    max-width: 1024px;\n}\n.embedded_image img {\n    max-width: 100%;\n    height: auto;\n    margin: 0 auto;\n    display: block;\n}\n.embedded_image:hover img {\n    cursor: pointer !important;\n    box-shadow: 0 0 0 3px #03a87c !important;\n}\ndiv.embedded_image[data-laout=\"wide\"] {\n    width: 100vw !important;\n    position: relative !important;\n    left: 50% !important;\n    margin-left: -50vw !important;\n}\n.embedded_image p {\n    margin-bottom: 0 !important;\n    color: #6c757d;\n    padding-top: 1rem;\n    font-size: 0.9rem;\n    line-height: 1.6;\n    font-weight: 400;\n    text-align: center;\n    font-family: \"Karla\", sans-serif;\n}\n@media screen and (max-width: 1024px) {\n.embedded_image[data-layout=\"wide\"] img {\n        max-width: 100%\n}\n}\n@media (max-width: 767px) {\n#sidebarControls {\n        display: none !important;\n}\n}\n", ""]);
 
 // exports
 
@@ -76375,7 +76375,8 @@ var render = function() {
                     }
                   ],
                   ref: "searchKeyword",
-                  staticClass: "form-control-lg form-control border-0 px-0",
+                  staticClass:
+                    "form-control-lg form-control border-0 px-0 bg-transparent",
                   attrs: {
                     type: "text",
                     placeholder:
@@ -76419,7 +76420,8 @@ var render = function() {
                     _c(
                       "button",
                       {
-                        staticClass: "btn btn-link font-weight-bold text-muted",
+                        staticClass:
+                          "btn btn-link font-weight-bold text-muted text-decoration-none",
                         attrs: { type: "button" },
                         on: {
                           click: _vm.closeUnsplash,
@@ -77175,7 +77177,7 @@ var render = function() {
                       expression: "storeState.form.meta.meta_description"
                     }
                   ],
-                  staticClass: "form-control border-0 px-0",
+                  staticClass: "form-control border-0 px-0 bg-transparent",
                   attrs: {
                     name: "meta_description",
                     rows: "1",
@@ -77222,7 +77224,7 @@ var render = function() {
                       expression: "storeState.form.meta.og_title"
                     }
                   ],
-                  staticClass: "form-control border-0 px-0",
+                  staticClass: "form-control border-0 px-0 bg-transparent",
                   attrs: {
                     name: "og_title",
                     type: "text",
@@ -77267,7 +77269,7 @@ var render = function() {
                       expression: "storeState.form.meta.og_description"
                     }
                   ],
-                  staticClass: "form-control border-0 px-0",
+                  staticClass: "form-control border-0 px-0 bg-transparent",
                   attrs: {
                     name: "og_description",
                     rows: "1",
@@ -77309,7 +77311,7 @@ var render = function() {
                       expression: "storeState.form.meta.twitter_title"
                     }
                   ],
-                  staticClass: "form-control border-0 px-0",
+                  staticClass: "form-control border-0 px-0 bg-transparent",
                   attrs: {
                     type: "text",
                     name: "twitter_title",
@@ -77354,7 +77356,7 @@ var render = function() {
                       expression: "storeState.form.meta.twitter_description"
                     }
                   ],
-                  staticClass: "form-control border-0 px-0",
+                  staticClass: "form-control border-0 px-0 bg-transparent",
                   attrs: {
                     name: "twitter_description",
                     rows: "1",
@@ -77398,7 +77400,7 @@ var render = function() {
                       expression: "storeState.form.meta.canonical_link"
                     }
                   ],
-                  staticClass: "form-control border-0 px-0",
+                  staticClass: "form-control border-0 px-0 bg-transparent",
                   attrs: {
                     type: "text",
                     name: "canonical_link",
@@ -77503,7 +77505,7 @@ var render = function() {
                       expression: "storeState.form.slug"
                     }
                   ],
-                  staticClass: "form-control border-0 px-0",
+                  staticClass: "form-control border-0 px-0 bg-transparent",
                   attrs: {
                     type: "text",
                     name: "slug",
@@ -77553,7 +77555,7 @@ var render = function() {
                       expression: "storeState.form.summary"
                     }
                   ],
-                  staticClass: "form-control border-0 px-0",
+                  staticClass: "form-control border-0 px-0 bg-transparent",
                   attrs: {
                     rows: "1",
                     name: "summary",
@@ -77775,7 +77777,7 @@ var render = function() {
                       }
                     ],
                     ref: "content",
-                    staticClass: "form-control border-0",
+                    staticClass: "form-control border-0 bg-transparent",
                     staticStyle: { resize: "none" },
                     attrs: {
                       cols: "30",
@@ -77896,7 +77898,8 @@ var render = function() {
                                 }
                               ],
                               ref: "caption",
-                              staticClass: "form-control border-0 px-0",
+                              staticClass:
+                                "form-control border-0 px-0 bg-transparent",
                               attrs: {
                                 type: "text",
                                 placeholder:
@@ -77927,7 +77930,8 @@ var render = function() {
                                     expression: "layout"
                                   }
                                 ],
-                                staticClass: "custom-select border-0 px-0",
+                                staticClass:
+                                  "custom-select border-0 px-0 bg-transparent",
                                 on: {
                                   change: function($event) {
                                     var $$selectedVal = Array.prototype.filter
@@ -78054,7 +78058,7 @@ var render = function() {
                 },
                 [
                   _c("circle", {
-                    staticClass: "fill-white",
+                    staticStyle: { fill: "none" },
                     attrs: { cx: "12", cy: "12", r: "10" }
                   }),
                   _c("path", {
@@ -78069,7 +78073,7 @@ var render = function() {
             ]
           ),
           _vm._v(" "),
-          _c("div", { staticClass: "controls pl-3 bg-white d-none" }, [
+          _c("div", { staticClass: "controls pl-3 d-none" }, [
             _c(
               "button",
               {
@@ -78125,7 +78129,7 @@ var render = function() {
                   },
                   [
                     _c("rect", {
-                      staticClass: "fill-white",
+                      staticStyle: { fill: "none" },
                       attrs: {
                         width: "18",
                         height: "18",
@@ -78480,7 +78484,7 @@ var render = function() {
                         [
                           _c("textarea-autosize", {
                             staticClass:
-                              "form-control-lg form-control border-0 pl-0 font-serif",
+                              "form-control-lg form-control border-0 pl-0 font-serif bg-transparent",
                             attrs: {
                               placeholder: _vm.trans.posts.forms.editor.title,
                               rows: "1"
@@ -78631,7 +78635,7 @@ var render = function() {
                         },
                         [
                           _c("circle", {
-                            staticClass: "fill-white",
+                            staticStyle: { fill: "none" },
                             attrs: { cx: "10", cy: "10", r: "7" }
                           }),
                           _c("path", {
@@ -78668,7 +78672,8 @@ var render = function() {
                                 expression: "search"
                               }
                             ],
-                            staticClass: "form-control border-0 pl-0",
+                            staticClass:
+                              "form-control border-0 pl-0 bg-transparent",
                             attrs: {
                               type: "text",
                               id: "search",
@@ -78716,7 +78721,7 @@ var render = function() {
                                           "router-link",
                                           {
                                             staticClass:
-                                              "font-weight-bold text-lg lead text-decoration-none text-dark",
+                                              "font-weight-bold text-lg lead text-decoration-none",
                                             attrs: {
                                               to: {
                                                 name: "posts-edit",
@@ -79082,126 +79087,146 @@ var render = function() {
                             ]),
                             _vm._v(" "),
                             _c("div", { staticClass: "card-deck mb-4" }, [
-                              _c("div", { staticClass: "card shadow-sm" }, [
-                                _c("div", { staticClass: "card-body" }, [
-                                  _c(
-                                    "h5",
-                                    {
-                                      staticClass:
-                                        "card-title text-muted small text-uppercase font-weight-bold"
-                                    },
-                                    [
-                                      _vm._v(
-                                        "\n                                            " +
-                                          _vm._s(
-                                            _vm.trans.stats.cards.views.title
-                                          ) +
-                                          "\n                                        "
-                                      )
-                                    ]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "p",
-                                    { staticClass: "card-text display-4" },
-                                    [
-                                      _vm._v(
-                                        "\n                                            " +
-                                          _vm._s(
-                                            _vm.suffixedNumber(_vm.views.count)
-                                          ) +
-                                          "\n                                        "
-                                      )
-                                    ]
-                                  )
-                                ])
-                              ]),
-                              _vm._v(" "),
-                              _c("div", { staticClass: "card shadow-sm" }, [
-                                _c("div", { staticClass: "card-body" }, [
-                                  _c(
-                                    "h5",
-                                    {
-                                      staticClass:
-                                        "card-title text-muted small text-uppercase font-weight-bold"
-                                    },
-                                    [
-                                      _vm._v(
-                                        "\n                                            " +
-                                          _vm._s(
-                                            _vm.trans.stats.cards.posts.title
-                                          ) +
-                                          "\n                                        "
-                                      )
-                                    ]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "p",
-                                    { staticClass: "card-text display-4" },
-                                    [
-                                      _vm._v(
-                                        "\n                                            " +
-                                          _vm._s(
-                                            _vm.posts.drafts_count +
-                                              _vm.posts.published_count
-                                          ) +
-                                          "\n                                        "
-                                      )
-                                    ]
-                                  )
-                                ])
-                              ]),
-                              _vm._v(" "),
-                              _c("div", { staticClass: "card shadow-sm" }, [
-                                _c("div", { staticClass: "card-body" }, [
-                                  _c(
-                                    "h5",
-                                    {
-                                      staticClass:
-                                        "card-title text-muted small text-uppercase font-weight-bold"
-                                    },
-                                    [
-                                      _vm._v(
-                                        "\n                                            " +
-                                          _vm._s(
-                                            _vm.trans.stats.cards.publishing
-                                              .title
-                                          ) +
-                                          "\n                                        "
-                                      )
-                                    ]
-                                  ),
-                                  _vm._v(" "),
-                                  _c("ul", [
-                                    _c("li", [
-                                      _vm._v(
-                                        "\n                                                " +
-                                          _vm._s(_vm.posts.published_count) +
-                                          "\n                                                " +
-                                          _vm._s(
-                                            _vm.trans.stats.cards.publishing
-                                              .details.published
-                                          ) +
-                                          "\n                                            "
-                                      )
-                                    ]),
+                              _c(
+                                "div",
+                                {
+                                  staticClass: "card shadow-sm bg-transparent"
+                                },
+                                [
+                                  _c("div", { staticClass: "card-body" }, [
+                                    _c(
+                                      "h5",
+                                      {
+                                        staticClass:
+                                          "card-title text-muted small text-uppercase font-weight-bold"
+                                      },
+                                      [
+                                        _vm._v(
+                                          "\n                                            " +
+                                            _vm._s(
+                                              _vm.trans.stats.cards.views.title
+                                            ) +
+                                            "\n                                        "
+                                        )
+                                      ]
+                                    ),
                                     _vm._v(" "),
-                                    _c("li", [
-                                      _vm._v(
-                                        "\n                                                " +
-                                          _vm._s(_vm.posts.drafts_count) +
+                                    _c(
+                                      "p",
+                                      { staticClass: "card-text display-4" },
+                                      [
+                                        _vm._v(
+                                          "\n                                            " +
+                                            _vm._s(
+                                              _vm.suffixedNumber(
+                                                _vm.views.count
+                                              )
+                                            ) +
+                                            "\n                                        "
+                                        )
+                                      ]
+                                    )
+                                  ])
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                {
+                                  staticClass: "card shadow-sm bg-transparent"
+                                },
+                                [
+                                  _c("div", { staticClass: "card-body" }, [
+                                    _c(
+                                      "h5",
+                                      {
+                                        staticClass:
+                                          "card-title text-muted small text-uppercase font-weight-bold"
+                                      },
+                                      [
+                                        _vm._v(
+                                          "\n                                            " +
+                                            _vm._s(
+                                              _vm.trans.stats.cards.posts.title
+                                            ) +
+                                            "\n                                        "
+                                        )
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "p",
+                                      { staticClass: "card-text display-4" },
+                                      [
+                                        _vm._v(
+                                          "\n                                            " +
+                                            _vm._s(
+                                              _vm.posts.drafts_count +
+                                                _vm.posts.published_count
+                                            ) +
+                                            "\n                                        "
+                                        )
+                                      ]
+                                    )
+                                  ])
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                {
+                                  staticClass: "card shadow-sm bg-transparent"
+                                },
+                                [
+                                  _c("div", { staticClass: "card-body" }, [
+                                    _c(
+                                      "h5",
+                                      {
+                                        staticClass:
+                                          "card-title text-muted small text-uppercase font-weight-bold"
+                                      },
+                                      [
+                                        _vm._v(
+                                          "\n                                            " +
+                                            _vm._s(
+                                              _vm.trans.stats.cards.publishing
+                                                .title
+                                            ) +
+                                            "\n                                        "
+                                        )
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _c("ul", [
+                                      _c("li", [
+                                        _vm._v(
                                           "\n                                                " +
-                                          _vm._s(
-                                            _vm.trans.stats.cards.publishing
-                                              .details.drafts
-                                          ) +
-                                          "\n                                            "
-                                      )
+                                            _vm._s(_vm.posts.published_count) +
+                                            "\n                                                " +
+                                            _vm._s(
+                                              _vm.trans.stats.cards.publishing
+                                                .details.published
+                                            ) +
+                                            "\n                                            "
+                                        )
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("li", [
+                                        _vm._v(
+                                          "\n                                                " +
+                                            _vm._s(_vm.posts.drafts_count) +
+                                            "\n                                                " +
+                                            _vm._s(
+                                              _vm.trans.stats.cards.publishing
+                                                .details.drafts
+                                            ) +
+                                            "\n                                            "
+                                        )
+                                      ])
                                     ])
                                   ])
-                                ])
-                              ])
+                                ]
+                              )
                             ]),
                             _vm._v(" "),
                             _c("line-chart", {
@@ -79229,7 +79254,7 @@ var render = function() {
                                               "router-link",
                                               {
                                                 staticClass:
-                                                  "font-weight-bold text-lg lead text-decoration-none text-dark",
+                                                  "font-weight-bold text-lg lead text-decoration-none",
                                                 attrs: {
                                                   to: {
                                                     name: "stats-show",
@@ -79578,7 +79603,7 @@ var render = function() {
                                                 }
                                               ],
                                               staticClass:
-                                                "text-dark text-decoration-none",
+                                                "text-decoration-none",
                                               attrs: {
                                                 href: "#",
                                                 title:
@@ -79640,7 +79665,7 @@ var render = function() {
                                             "a",
                                             {
                                               staticClass:
-                                                "text-dark text-decoration-none",
+                                                "text-decoration-none",
                                               attrs: {
                                                 href: "http://" + host,
                                                 target: "_blank"
@@ -79901,7 +79926,7 @@ var render = function() {
                           }
                         ],
                         staticClass:
-                          "form-control-lg form-control border-0 px-0",
+                          "form-control-lg form-control border-0 px-0 bg-transparent",
                         attrs: {
                           type: "text",
                           name: "name",
@@ -80078,7 +80103,7 @@ var render = function() {
                         },
                         [
                           _c("circle", {
-                            staticClass: "fill-white",
+                            staticStyle: { fill: "none" },
                             attrs: { cx: "10", cy: "10", r: "7" }
                           }),
                           _c("path", {
@@ -80115,7 +80140,8 @@ var render = function() {
                                 expression: "search"
                               }
                             ],
-                            staticClass: "form-control border-0 pl-0",
+                            staticClass:
+                              "form-control border-0 pl-0 bg-transparent",
                             attrs: {
                               "aria-label": "Search",
                               type: "text",
@@ -80164,7 +80190,7 @@ var render = function() {
                                           "router-link",
                                           {
                                             staticClass:
-                                              "font-weight-bold text-lg lead text-decoration-none text-dark",
+                                              "font-weight-bold text-lg lead text-decoration-none",
                                             attrs: {
                                               to: {
                                                 name: "tags-edit",
@@ -80468,7 +80494,7 @@ var render = function() {
                           }
                         ],
                         staticClass:
-                          "form-control-lg form-control border-0 px-0",
+                          "form-control-lg form-control border-0 px-0 bg-transparent",
                         attrs: {
                           type: "text",
                           name: "name",
@@ -80649,7 +80675,7 @@ var render = function() {
                         },
                         [
                           _c("circle", {
-                            staticClass: "fill-white",
+                            staticStyle: { fill: "none" },
                             attrs: { cx: "10", cy: "10", r: "7" }
                           }),
                           _c("path", {
@@ -80686,7 +80712,8 @@ var render = function() {
                                 expression: "search"
                               }
                             ],
-                            staticClass: "form-control border-0 pl-0",
+                            staticClass:
+                              "form-control border-0 pl-0 bg-transparent",
                             attrs: {
                               id: "search",
                               type: "text",
@@ -80734,7 +80761,7 @@ var render = function() {
                                           "router-link",
                                           {
                                             staticClass:
-                                              "font-weight-bold text-lg lead text-decoration-none text-dark",
+                                              "font-weight-bold text-lg lead text-decoration-none",
                                             attrs: {
                                               to: {
                                                 name: "topics-edit",

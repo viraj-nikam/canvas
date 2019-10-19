@@ -12,7 +12,7 @@
                             <label class="font-weight-bold">{{ trans.posts.forms.settings.slug.label }}</label>
                             <input
                                 type="text"
-                                class="form-control border-0 px-0"
+                                class="form-control border-0 px-0 bg-transparent"
                                 @input="update"
                                 name="slug"
                                 v-model="storeState.form.slug"
@@ -30,7 +30,7 @@
                             <textarea
                                 rows="1"
                                 name="summary"
-                                class="form-control border-0 px-0"
+                                class="form-control border-0 px-0 bg-transparent"
                                 v-model="storeState.form.summary"
                                 @input="update"
                                 :placeholder="trans.posts.forms.settings.summary.placeholder">

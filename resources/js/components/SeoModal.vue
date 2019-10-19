@@ -13,7 +13,7 @@
                             <textarea
                                 name="meta_description"
                                 rows="1"
-                                class="form-control border-0 px-0"
+                                class="form-control border-0 px-0 bg-transparent"
                                 @input="update"
                                 v-model="storeState.form.meta.meta_description"
                                 :placeholder="trans.posts.forms.seo.meta">
@@ -29,7 +29,7 @@
                                 name="og_title"
                                 type="text"
                                 @input="update"
-                                class="form-control border-0 px-0"
+                                class="form-control border-0 px-0 bg-transparent"
                                 :title="trans.posts.forms.seo.facebook.title.label"
                                 v-model="storeState.form.meta.og_title"
                                 :placeholder="trans.posts.forms.seo.facebook.title.placeholder"
@@ -41,7 +41,7 @@
                             <label class="font-weight-bold">{{ trans.posts.forms.seo.facebook.description.label }}</label>
                             <textarea
                                 name="og_description"
-                                class="form-control border-0 px-0"
+                                class="form-control border-0 px-0 bg-transparent"
                                 rows="1"
                                 @input="update"
                                 v-model="storeState.form.meta.og_description"
@@ -54,7 +54,7 @@
                             <label class="font-weight-bold">{{ trans.posts.forms.seo.twitter.title.label }}</label>
                             <input
                                 type="text"
-                                class="form-control border-0 px-0"
+                                class="form-control border-0 px-0 bg-transparent"
                                 name="twitter_title"
                                 @input="update"
                                 v-model="storeState.form.meta.twitter_title"
@@ -68,7 +68,7 @@
                             <label class="font-weight-bold">{{ trans.posts.forms.seo.twitter.description.label }}</label>
                             <textarea
                                 name="twitter_description"
-                                class="form-control border-0 px-0"
+                                class="form-control border-0 px-0 bg-transparent"
                                 rows="1"
                                 @input="update"
                                 v-model="storeState.form.meta.twitter_description"
@@ -82,7 +82,7 @@
                             <input
                                 type="text"
                                 @input="update"
-                                class="form-control border-0 px-0"
+                                class="form-control border-0 px-0 bg-transparent"
                                 name="canonical_link"
                                 v-model="storeState.form.meta.canonical_link"
                                 :title="trans.posts.forms.seo.canonical.label"
