@@ -2,6 +2,9 @@
 
 ## [Unreleased](https://github.com/cnvs/canvas/compare/master...develop)
 
+## Changed
+- Rewrite of the entire package into an SPA ([]())
+
 ## [4.2.9](https://github.com/cnvs/canvas/compare/v4.2.8...v4.2.9) (September 20, 2019)
 
 ## Fixed
