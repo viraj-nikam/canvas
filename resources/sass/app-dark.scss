@@ -30,6 +30,10 @@ $modal-content-bg: $body-bg;
     fill: $body-color;
 }
 
+.controls {
+    background-color: $body-bg;
+}
+
 .ql-editor {
     color: $body-color;
 }
@@ -63,7 +67,7 @@ select.input {
     color: $input-color;
 }
 
-.multiselect__single {
+.multiselect__input, .multiselect__single {
     color: $input-color;
 }
 

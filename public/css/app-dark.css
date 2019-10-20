@@ -25,6 +25,10 @@ input:-webkit-autofill:active {
   fill: #c3d3de;
 }
 
+.controls {
+  background-color: #263238;
+}
+
 .ql-editor {
   color: #c3d3de;
 }
@@ -58,6 +62,7 @@ select.input {
   color: #cbd5e0;
 }
 
+.multiselect__input,
 .multiselect__single {
   color: #cbd5e0;
 }
