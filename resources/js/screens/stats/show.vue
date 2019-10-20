@@ -6,6 +6,22 @@
                     {{ trans.buttons.stats.index }}
                 </router-link>
             </template>
+
+            <template slot="menu">
+                <div class="dropdown">
+                    <a id="navbarDropdown" class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="25" class="icon-dots-horizontal">
+                            <path class="primary" fill-rule="evenodd" d="M5 14a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm7 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm7 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/>
+                        </svg>
+                    </a>
+
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <router-link :to="{name: 'posts-edit', params: { id: id }}" class="dropdown-item">
+                            {{ trans.buttons.posts.edit }}
+                        </router-link>
+                    </div>
+                </div>
+            </template>
         </page-header>
 
         <main class="py-4">

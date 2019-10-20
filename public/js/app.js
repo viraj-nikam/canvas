@@ -4114,6 +4114,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -76588,7 +76604,7 @@ var render = function() {
               },
               [
                 _c("span", { staticClass: "text-muted" }, [_vm._v("/")]),
-                _vm._v("cnvs\n            ")
+                _c("span", { staticClass: "text-body" }, [_vm._v("cnvs")])
               ]
             ),
             _vm._v(" "),
@@ -79508,7 +79524,73 @@ var render = function() {
               )
             ],
             1
-          )
+          ),
+          _vm._v(" "),
+          _c("template", { slot: "menu" }, [
+            _c("div", { staticClass: "dropdown" }, [
+              _c(
+                "a",
+                {
+                  staticClass: "nav-link pr-0",
+                  attrs: {
+                    id: "navbarDropdown",
+                    href: "#",
+                    role: "button",
+                    "data-toggle": "dropdown",
+                    "aria-haspopup": "true",
+                    "aria-expanded": "false"
+                  }
+                },
+                [
+                  _c(
+                    "svg",
+                    {
+                      staticClass: "icon-dots-horizontal",
+                      attrs: {
+                        xmlns: "http://www.w3.org/2000/svg",
+                        viewBox: "0 0 24 24",
+                        width: "25"
+                      }
+                    },
+                    [
+                      _c("path", {
+                        staticClass: "primary",
+                        attrs: {
+                          "fill-rule": "evenodd",
+                          d:
+                            "M5 14a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm7 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm7 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"
+                        }
+                      })
+                    ]
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "dropdown-menu dropdown-menu-right" },
+                [
+                  _c(
+                    "router-link",
+                    {
+                      staticClass: "dropdown-item",
+                      attrs: {
+                        to: { name: "posts-edit", params: { id: _vm.id } }
+                      }
+                    },
+                    [
+                      _vm._v(
+                        "\n                        " +
+                          _vm._s(_vm.trans.buttons.posts.edit) +
+                          "\n                    "
+                      )
+                    ]
+                  )
+                ],
+                1
+              )
+            ])
+          ])
         ],
         2
       ),
