@@ -1,15 +1,16 @@
 <template>
-    <multiselect v-model="value"
-                 :placeholder="trans.tags.forms.select"
-                 :tag-placeholder="trans.tags.forms.tag"
-                 :options="options"
-                 :multiple="true"
-                 :taggable="true"
-                 @input="onChange"
-                 @tag="addTag"
-                 label="name"
-                 track-by="slug">
-    </multiselect>
+    <multiselect
+        v-model="value"
+        :placeholder="trans.tags.forms.select"
+        :tag-placeholder="trans.tags.forms.tag"
+        :options="options"
+        :multiple="true"
+        :taggable="true"
+        @input="onChange"
+        @tag="addTag"
+        label="name"
+        track-by="slug"
+    />
 </template>
 
 <script>
@@ -54,6 +55,7 @@
         methods: {
             onChange(value, id) {
                 store.syncTags(value);
+
                 this.update();
             },
 
@@ -66,7 +68,8 @@
                 this.options.push(tag);
                 this.value.push(tag);
 
-                store.syncTags(tag);
+                store.syncTags(this.value);
+
                 this.update();
             },
 

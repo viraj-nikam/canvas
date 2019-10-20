@@ -106,13 +106,17 @@ class PostController extends Controller
         $post->meta = $data['meta'];
         $post->save();
 
-        $post->topic()->sync(
-            $this->syncTopic(request('topic'))
-        );
+        if (request('topic')) {
+            $post->topic()->sync(
+                $this->syncTopic(request('topic'))
+            );
+        }
 
-        $post->tags()->sync(
-            $this->syncTags(request('tags'))
-        );
+        if (request('tags')) {
+            $post->tags()->sync(
+                $this->syncTags(request('tags'))
+            );
+        }
 
         return response()->json($post->refresh());
     }
@@ -152,21 +156,17 @@ class PostController extends Controller
      */
     private function syncTopic(array $incomingTopic): array
     {
-        if ($incomingTopic) {
-            $topic = Topic::where('slug', $incomingTopic['slug'])->first();
+        $topic = Topic::where('slug', $incomingTopic['slug'])->first();
 
-            if (! $topic) {
-                $topic = Topic::create([
-                    'id'   => $id = Uuid::uuid4(),
-                    'name' => $incomingTopic['name'],
-                    'slug' => $incomingTopic['slug'],
-                ]);
-            }
-
-            return collect((string) $topic->id)->toArray();
-        } else {
-            return [];
+        if (! $topic) {
+            $topic = Topic::create([
+                'id'   => $id = Uuid::uuid4(),
+                'name' => $incomingTopic['name'],
+                'slug' => $incomingTopic['slug'],
+            ]);
         }
+
+        return collect((string) $topic->id)->toArray();
     }
 
     /**
@@ -177,7 +177,7 @@ class PostController extends Controller
      */
     private function syncTags(array $incomingTags): array
     {
-        $tags = Tag::all();
+        $tags = Tag::all(['name', 'slug']);
 
         return collect($incomingTags)->map(function ($incomingTag) use ($tags) {
             $tag = $tags->where('slug', $incomingTag['slug'])->first();

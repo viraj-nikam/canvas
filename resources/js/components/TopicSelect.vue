@@ -1,15 +1,16 @@
 <template>
-    <multiselect v-model="value"
-                 :placeholder="trans.topics.forms.select"
-                 :tag-placeholder="trans.topics.forms.tag"
-                 :options="options"
-                 :multiple="false"
-                 :taggable="true"
-                 @input="onChange"
-                 @tag="addTopic"
-                 label="name"
-                 track-by="slug">
-    </multiselect>
+    <multiselect
+        v-model="value"
+        :placeholder="trans.topics.forms.select"
+        :tag-placeholder="trans.topics.forms.tag"
+        :options="options"
+        :multiple="false"
+        :taggable="true"
+        @input="onChange"
+        @tag="addTopic"
+        label="name"
+        track-by="slug"
+    />
 </template>
 
 <script>
@@ -53,6 +54,7 @@
         methods: {
             onChange(value, id) {
                 store.syncTopic(value);
+
                 this.update();
             },
 
@@ -69,7 +71,8 @@
                     slug: topic.slug
                 };
 
-                store.syncTopic(topic);
+                store.syncTopic(this.value);
+
                 this.update();
             },
 

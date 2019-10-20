@@ -2832,6 +2832,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -2875,7 +2876,7 @@ __webpack_require__.r(__webpack_exports__);
       };
       this.options.push(tag);
       this.value.push(tag);
-      _screens_posts_store__WEBPACK_IMPORTED_MODULE_2__["store"].syncTags(tag);
+      _screens_posts_store__WEBPACK_IMPORTED_MODULE_2__["store"].syncTags(this.value);
       this.update();
     },
     update: lodash__WEBPACK_IMPORTED_MODULE_0___default.a.debounce(function (e) {
@@ -2900,6 +2901,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-multiselect */ "./node_modules/vue-multiselect/dist/vue-multiselect.min.js");
 /* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_multiselect__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _screens_posts_store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../screens/posts/store */ "./resources/js/screens/posts/store.js");
+//
 //
 //
 //
@@ -2959,7 +2961,7 @@ __webpack_require__.r(__webpack_exports__);
         name: topic.name,
         slug: topic.slug
       };
-      _screens_posts_store__WEBPACK_IMPORTED_MODULE_2__["store"].syncTopic(topic);
+      _screens_posts_store__WEBPACK_IMPORTED_MODULE_2__["store"].syncTopic(this.value);
       this.update();
     },
     update: lodash__WEBPACK_IMPORTED_MODULE_0___default.a.debounce(function (e) {
