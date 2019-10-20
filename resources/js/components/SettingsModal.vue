@@ -29,6 +29,7 @@
                             <label class="font-weight-bold">{{ trans.posts.forms.settings.summary.label }}</label>
                             <textarea
                                 rows="1"
+                                ref="summary"
                                 name="summary"
                                 class="form-control border-0 px-0 bg-transparent"
                                 v-model="storeState.form.summary"
@@ -68,10 +69,10 @@
 
 <script>
     import _ from 'lodash';
+    import autosize from 'autosize';
     import TagSelect from "./TagSelect";
     import TopicSelect from "./TopicSelect";
     import {store} from "../screens/posts/store";
-    import VueTextAreaAutosize from "vue-textarea-autosize";
 
     export default {
         name: "settings-modal",
@@ -93,8 +94,7 @@
 
         components: {
             TagSelect,
-            TopicSelect,
-            VueTextAreaAutosize
+            TopicSelect
         },
 
         data() {
@@ -107,6 +107,9 @@
         },
 
         mounted() {
+            const summary = this.$refs.summary;
+            autosize(summary);
+
             this.allTags = this.tags;
             this.allTopics = this.topics;
         },

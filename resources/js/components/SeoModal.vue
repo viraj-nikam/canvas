@@ -11,8 +11,9 @@
                         <div class="col-12">
                             <label class="font-weight-bold">{{ trans.posts.forms.seo.meta }}</label>
                             <textarea
-                                name="meta_description"
                                 rows="1"
+                                ref="meta_description"
+                                name="meta_description"
                                 class="form-control border-0 px-0 bg-transparent"
                                 @input="update"
                                 v-model="storeState.form.meta.meta_description"
@@ -40,9 +41,10 @@
                         <div class="col-12">
                             <label class="font-weight-bold">{{ trans.posts.forms.seo.facebook.description.label }}</label>
                             <textarea
+                                ref="og_description"
+                                rows="1"
                                 name="og_description"
                                 class="form-control border-0 px-0 bg-transparent"
-                                rows="1"
                                 @input="update"
                                 v-model="storeState.form.meta.og_description"
                                 :placeholder="trans.posts.forms.seo.facebook.description.placeholder">
@@ -67,9 +69,10 @@
                         <div class="col-12">
                             <label class="font-weight-bold">{{ trans.posts.forms.seo.twitter.description.label }}</label>
                             <textarea
+                                ref="twitter_description"
+                                rows="1"
                                 name="twitter_description"
                                 class="form-control border-0 px-0 bg-transparent"
-                                rows="1"
                                 @input="update"
                                 v-model="storeState.form.meta.twitter_description"
                                 :placeholder="trans.posts.forms.seo.twitter.description.placeholder">
@@ -103,6 +106,7 @@
 
 <script>
     import _ from 'lodash';
+    import autosize from 'autosize';
     import {store} from "../screens/posts/store";
 
     export default {
@@ -115,6 +119,16 @@
             };
         },
 
+        mounted() {
+            const meta_description = this.$refs.meta_description;
+            const og_description = this.$refs.og_description;
+            const twitter_description = this.$refs.twitter_description;
+
+            autosize(meta_description);
+            autosize(og_description);
+            autosize(twitter_description);
+        },
+
         methods: {
             update: _.debounce(function (e) {
                 this.$parent.save();
@@ -122,9 +136,3 @@
         }
     };
 </script>
-
-<style scoped>
-    textarea {
-        /*resize: none;*/
-    }
-</style>
