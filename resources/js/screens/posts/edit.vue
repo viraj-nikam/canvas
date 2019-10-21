@@ -13,8 +13,8 @@
                             </span>
                         </div>
 
-                        <span v-if="storeState.form.isSaving" class="pl-2">{{ trans.nav.notify.saving }}</span>
-                        <span v-if="storeState.form.hasSuccess" class="pl-2 text-success">{{ trans.nav.notify.success }}</span>
+                        <span v-if="post.isSaving" class="pl-2">{{ trans.nav.notify.saving }}</span>
+                        <span v-if="post.hasSuccess" class="pl-2 text-success">{{ trans.nav.notify.success }}</span>
                     </li>
                 </ul>
             </template>
@@ -73,7 +73,7 @@
                                     class="form-control-lg form-control border-0 pl-0 font-serif bg-transparent"
                                     @input.native="update"
                                     rows="1"
-                                    v-model="storeState.form.title"
+                                    v-model="post.title"
                                 />
                             </div>
                         </div>
@@ -121,7 +121,6 @@
     import Vue from "vue";
     import $ from "jquery";
     import moment from "moment";
-    import {store} from "./store";
     import SeoModal from "../../components/SeoModal";
     import PageHeader from "../../components/PageHeader";
     import DeleteModal from "../../components/DeleteModal";
@@ -148,16 +147,16 @@
 
         data() {
             return {
-                post: null,
+                post: {},
                 tags: [],
                 topics: [],
                 id: this.$route.params.id || "create",
-                storeState: store.state,
                 isReady: false,
                 timezone: Canvas.timezone,
                 trans: JSON.parse(Canvas.lang)
             };
         },
+
 
         created() {
             this.fetchData();
@@ -165,8 +164,8 @@
 
         beforeRouteLeave(to, from, next) {
             // Reset the form status to avoid it flashing on the next screen load
-            this.storeState.form.isSaving = false;
-            this.storeState.form.hasSuccess = false;
+            this.post.isSaving = false;
+            this.post.hasSuccess = false;
 
             next();
         },
@@ -182,9 +181,9 @@
                 this.request()
                     .get("/api/posts/" + this.id)
                     .then(response => {
-                        store.hydrateForm(response.data.post);
+                        this.$store.dispatch('setActivePost', response.data.post);
 
-                        this.post = response.data.post;
+                        this.post = this.$store.getters.activePost;
                         this.tags = response.data.tags;
                         this.topics = response.data.topics;
                         this.isReady = true;
@@ -195,29 +194,11 @@
             },
 
             save() {
-                this.storeState.form.errors = [];
-                this.storeState.form.isSaving = true;
-                this.storeState.form.hasSuccess = false;
+                this.post.errors = [];
+                this.post.isSaving = true;
+                this.post.hasSuccess = false;
 
-                this.request()
-                    .post("/api/posts/" + this.id, this.storeState.form)
-                    .then(response => {
-                        if (this.id === "create") {
-                            this.$router.push({
-                                name: "posts-edit",
-                                params: {id: response.data.id}
-                            });
-                        }
-
-                        this.storeState.form.isSaving = false;
-                        this.storeState.form.hasSuccess = true;
-                        this.id = response.data.id;
-                        this.post = response.data;
-                    })
-                    .catch(error => {
-                        this.storeState.form.isSaving = false;
-                        this.storeState.form.errors = error.response.data.errors;
-                    });
+                this.$store.dispatch('saveActivePost', this.post);
             },
 
             update: _.debounce(function (e) {
@@ -225,21 +206,14 @@
             }, 900),
 
             convertToDraft() {
-                this.storeState.form.published_at = "";
+                this.post.published_at = "";
                 this.save();
             },
 
             deletePost() {
-                this.request()
-                    .delete("/api/posts/" + this.id)
-                    .then(response => {
-                        $(this.$refs.deleteModal.$el).modal("hide");
+                this.$store.dispatch('deletePost', this.post.id);
 
-                        this.$router.push({name: "posts"});
-                    })
-                    .catch(error => {
-                        // Add any error debugging...
-                    });
+                $(this.$refs.deleteModal.$el).modal("hide");
             },
 
             showPublishModal() {

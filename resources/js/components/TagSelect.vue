@@ -16,7 +16,6 @@
 <script>
     import _ from 'lodash';
     import Multiselect from "vue-multiselect";
-    import {store} from "../screens/posts/store";
 
     export default {
         props: {
@@ -47,14 +46,13 @@
             return {
                 options: allTags,
                 value: this.tagged ? this.tagged : [],
-                storeState: store.state,
                 trans: JSON.parse(Canvas.lang)
             };
         },
 
         methods: {
             onChange(value, id) {
-                store.syncTags(value);
+                this.$store.dispatch('setPostTags', value);
 
                 this.update();
             },
@@ -68,7 +66,7 @@
                 this.options.push(tag);
                 this.value.push(tag);
 
-                store.syncTags(this.value);
+                this.$store.dispatch('setPostTags', this.value);
 
                 this.update();
             },

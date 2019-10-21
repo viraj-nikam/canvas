@@ -16,7 +16,6 @@
 <script>
     import _ from 'lodash';
     import Multiselect from "vue-multiselect";
-    import {store} from "../screens/posts/store";
 
     export default {
         props: {
@@ -25,7 +24,7 @@
                 required: false
             },
             assigned: {
-                type: Array,
+                type: Object,
                 required: false
             }
         },
@@ -53,7 +52,7 @@
 
         methods: {
             onChange(value, id) {
-                store.syncTopic(value);
+                this.$store.dispatch('setPostTopic', value);
 
                 this.update();
             },
@@ -71,7 +70,7 @@
                     slug: topic.slug
                 };
 
-                store.syncTopic(this.value);
+                this.$store.dispatch('setPostTopic', this.value);
 
                 this.update();
             },

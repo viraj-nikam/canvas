@@ -130,6 +130,8 @@ class PostController extends Controller
         if ($post) {
             $post->delete();
         }
+
+        return response()->json([], 204);
     }
 
     /**

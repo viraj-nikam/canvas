@@ -48,9 +48,11 @@
     import HTMLModal from "./HTMLModal";
     import ImageModal from "./ImageModal";
     import DividerBlot from './DividerBlot'
-    import {store} from "../../screens/posts/store";
+    import { mapState } from 'vuex';
 
     export default {
+        computed: mapState(['activePost']),
+
         components: {
             'html-modal': HTMLModal,
             'image-modal': ImageModal
@@ -65,15 +67,8 @@
 
         data() {
             return {
-                storeState: store.state,
                 editor: null,
                 trans: JSON.parse(Canvas.lang)
-            }
-        },
-
-        watch: {
-            'storeState.form.body'(val) {
-                this.update();
             }
         },
 
@@ -122,10 +117,11 @@
             },
 
             handleEditorValue() {
-                this.editor.root.innerHTML = this.storeState.form.body;
+                this.editor.root.innerHTML = this.$store.getters.activePost.body;
 
                 this.editor.on('text-change', (delta, oldContents, source) => {
-                    this.storeState.form.body = this.editor.getText() ? this.editor.root.innerHTML : '';
+                    this.$store.dispatch('updatePostBody', this.editor.getText() ? this.editor.root.innerHTML : '');
+                    this.update();
                 });
             },
 

@@ -15,12 +15,12 @@
                                 class="form-control border-0 px-0 bg-transparent"
                                 @input="update"
                                 name="slug"
-                                v-model="storeState.form.slug"
+                                v-model="activePost.slug"
                                 :title="trans.posts.forms.settings.slug.label"
                                 :placeholder="trans.posts.forms.settings.slug.placeholder"
                             />
-                            <div v-if="storeState.form.errors.slug" class="invalid-feedback d-block">
-                                <strong>{{ storeState.form.errors.slug[0] }}</strong>
+                            <div v-if="activePost.errors.slug" class="invalid-feedback d-block">
+                                <strong>{{ activePost.errors.slug[0] }}</strong>
                             </div>
                         </div>
                     </div>
@@ -32,7 +32,7 @@
                                 id="settings"
                                 name="summary"
                                 class="form-control border-0 px-0 bg-transparent resize-none"
-                                v-model="storeState.form.summary"
+                                v-model="activePost.summary"
                                 @input="update"
                                 :placeholder="trans.posts.forms.settings.summary.placeholder">
                             </textarea>
@@ -43,7 +43,7 @@
                             <label class="font-weight-bold">{{ trans.posts.forms.settings.topic.label }}</label>
                             <topic-select
                                 :topics="topics"
-                                :assigned="post.topic"
+                                :assigned="activePost.topic"
                             />
                         </div>
                     </div>
@@ -52,7 +52,7 @@
                             <label class="font-weight-bold">{{ trans.posts.forms.settings.tags.label }}</label>
                             <tag-select
                                 :tags="tags"
-                                :tagged="post.tags"
+                                :tagged="activePost.tags"
                             />
                         </div>
                     </div>
@@ -73,16 +73,12 @@
     import autosize from 'autosize';
     import TagSelect from "./TagSelect";
     import TopicSelect from "./TopicSelect";
-    import {store} from "../screens/posts/store";
+    import { mapState } from 'vuex';
 
     export default {
         name: "settings-modal",
 
         props: {
-            post: {
-                type: Object,
-                required: false
-            },
             tags: {
                 type: Array,
                 required: false
@@ -102,10 +98,11 @@
             return {
                 allTags: [],
                 allTopics: [],
-                storeState: store.state,
-                trans: JSON.parse(Canvas.lang)
+                trans: JSON.parse(Canvas.lang),
             };
         },
+
+        computed: mapState(['activePost']),
 
         mounted() {
             $('#settingsModal').on('shown.bs.modal', function(){
