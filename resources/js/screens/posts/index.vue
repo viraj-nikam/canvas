@@ -39,7 +39,7 @@
                                             </router-link>
                                         </p>
                                         <p class="mb-1" v-if="post.summary">
-                                            {{ post.summary }}
+                                            {{ trim(post.summary, 200) }}
                                         </p>
                                         <p class="text-muted mb-0">
                                             <span v-if="moment(post.published_at).isBefore(moment().format('YYYY-MM-DD hh:mm:ss'))">

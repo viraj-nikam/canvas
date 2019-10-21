@@ -74,6 +74,17 @@ export default {
         },
 
         /**
+         * Trim a given string.
+         *
+         * @return {string}
+         */
+        trim(string, length = 70) {
+            return _.truncate(string, {
+                'length': length
+            });
+        },
+
+        /**
          * Create a base Axios request and configure the defaults.
          *
          * @returns {AxiosInstance}
