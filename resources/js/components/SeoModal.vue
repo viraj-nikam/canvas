@@ -1,5 +1,5 @@
 <template>
-    <div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal fade" id="seoModal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-body">
@@ -12,7 +12,7 @@
                             <label class="font-weight-bold">{{ trans.posts.forms.seo.meta }}</label>
                             <textarea
                                 rows="1"
-                                ref="meta_description"
+                                id="meta_description"
                                 name="meta_description"
                                 class="form-control border-0 px-0 bg-transparent"
                                 @input="update"
@@ -41,7 +41,7 @@
                         <div class="col-12">
                             <label class="font-weight-bold">{{ trans.posts.forms.seo.facebook.description.label }}</label>
                             <textarea
-                                ref="og_description"
+                                id="og_description"
                                 rows="1"
                                 name="og_description"
                                 class="form-control border-0 px-0 bg-transparent"
@@ -69,7 +69,7 @@
                         <div class="col-12">
                             <label class="font-weight-bold">{{ trans.posts.forms.seo.twitter.description.label }}</label>
                             <textarea
-                                ref="twitter_description"
+                                id="twitter_description"
                                 rows="1"
                                 name="twitter_description"
                                 class="form-control border-0 px-0 bg-transparent"
@@ -106,6 +106,7 @@
 
 <script>
     import _ from 'lodash';
+    import $ from 'jquery';
     import autosize from 'autosize';
     import {store} from "../screens/posts/store";
 
@@ -120,13 +121,11 @@
         },
 
         mounted() {
-            const meta_description = this.$refs.meta_description;
-            const og_description = this.$refs.og_description;
-            const twitter_description = this.$refs.twitter_description;
-
-            autosize(meta_description);
-            autosize(og_description);
-            autosize(twitter_description);
+            $('#seoModal').on('shown.bs.modal', function(){
+                autosize($('#meta_description'));
+                autosize($('#og_description'));
+                autosize($('#twitter_description'));
+            });
         },
 
         methods: {

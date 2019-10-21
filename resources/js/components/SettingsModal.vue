@@ -1,5 +1,5 @@
 <template>
-    <div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal fade" id="settingsModal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-body">
@@ -29,9 +29,9 @@
                             <label class="font-weight-bold">{{ trans.posts.forms.settings.summary.label }}</label>
                             <textarea
                                 rows="1"
-                                ref="summary"
+                                id="settings"
                                 name="summary"
-                                class="form-control border-0 px-0 bg-transparent"
+                                class="form-control border-0 px-0 bg-transparent resize-none"
                                 v-model="storeState.form.summary"
                                 @input="update"
                                 :placeholder="trans.posts.forms.settings.summary.placeholder">
@@ -69,6 +69,7 @@
 
 <script>
     import _ from 'lodash';
+    import $ from 'jquery';
     import autosize from 'autosize';
     import TagSelect from "./TagSelect";
     import TopicSelect from "./TopicSelect";
@@ -107,8 +108,9 @@
         },
 
         mounted() {
-            const summary = this.$refs.summary;
-            autosize(summary);
+            $('#settingsModal').on('shown.bs.modal', function(){
+                autosize($('#settings'));
+            });
 
             this.allTags = this.tags;
             this.allTopics = this.topics;
