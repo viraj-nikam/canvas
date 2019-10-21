@@ -178,7 +178,7 @@ class PostController extends Controller
     private function syncTags(array $incomingTags): array
     {
         if ($incomingTags) {
-            $tags = Tag::all(['name', 'slug']);
+            $tags = Tag::all(['id', 'name', 'slug']);
 
             return collect($incomingTags)->map(function ($incomingTag) use ($tags) {
                 $tag = $tags->where('slug', $incomingTag['slug'])->first();
