@@ -118,16 +118,11 @@
             handleEditorValue() {
                 this.editor.root.innerHTML = this.storeState.form.body;
 
-                // this.editor.on('text-change', (delta, oldContents, source) => {
-                //     let body = this.editor.getText() ? this.editor.root.innerHTML : '';
-                //
-                //     this.storeState.form.body = body;
-                //
-                //     this.$emit('input', body);
-                //
-                //     // todo: do not UPDATE on an initial draw
-                //     this.update();
-                // });
+                this.editor.on('text-change', (delta, oldContents, source) => {
+                    this.storeState.form.body = this.editor.getText() ? this.editor.root.innerHTML : '';
+
+                    this.update();
+                });
             },
 
             handleClicksInsideEditor() {

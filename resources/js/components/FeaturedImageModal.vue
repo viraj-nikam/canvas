@@ -23,7 +23,7 @@
                     </div>
 
                     <div v-if="storeState.form.featured_image">
-                        <a href="#" @click="clear" class="text-decoration-none">
+                        <a href="#" @click="clear" class="text-decoration-none text-success">
                             {{ trans.posts.forms.editor.images.picker.clear.action }}
                         </a>
 

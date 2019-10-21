@@ -54,7 +54,7 @@
     import ImagePicker from "../ImagePicker";
 
     export default {
-        name: "ImageModal",
+        name: "image-modal",
 
         components: {
             ImagePicker

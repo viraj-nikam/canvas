@@ -2177,7 +2177,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "DeleteModal",
+  name: "delete-modal",
   props: {
     header: {
       type: String,
@@ -3420,7 +3420,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "ImageModal",
+  name: "image-modal",
   components: {
     ImagePicker: _ImagePicker__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
@@ -3621,19 +3621,17 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       return quill;
     },
     handleEditorValue: function handleEditorValue() {
-      this.editor.root.innerHTML = this.storeState.form.body; // this.editor.on('text-change', (delta, oldContents, source) => {
-      //     let body = this.editor.getText() ? this.editor.root.innerHTML : '';
-      //
-      //     this.storeState.form.body = body;
-      //
-      //     this.$emit('input', body);
-      //
-      //     // todo: do not UPDATE on an initial draw
-      //     this.update();
-      // });
+      var _this = this;
+
+      this.editor.root.innerHTML = this.storeState.form.body;
+      this.editor.on('text-change', function (delta, oldContents, source) {
+        _this.storeState.form.body = _this.editor.getText() ? _this.editor.root.innerHTML : '';
+
+        _this.update();
+      });
     },
     handleClicksInsideEditor: function handleClicksInsideEditor() {
-      var _this = this;
+      var _this2 = this;
 
       this.editor.root.addEventListener('click', function (event) {
         var blot = parchment__WEBPACK_IMPORTED_MODULE_3___default.a.find(event.target, true);
@@ -3642,12 +3640,12 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
           var values = blot.value(blot.domNode)['captioned-image'];
           values.existingBlot = blot;
 
-          _this.showImageModal(values);
+          _this2.showImageModal(values);
         }
       });
     },
     initSideControls: function initSideControls() {
-      var _this2 = this;
+      var _this3 = this;
 
       var Block = quill__WEBPACK_IMPORTED_MODULE_2___default.a["import"]('blots/block');
       this.editor.on(quill__WEBPACK_IMPORTED_MODULE_2___default.a.events.EDITOR_CHANGE, function (eventType, range) {
@@ -3656,13 +3654,13 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
         if (range == null) return;
 
         if (range.length === 0) {
-          var _this2$editor$scroll$ = _this2.editor.scroll.descendant(Block, range.index),
-              _this2$editor$scroll$2 = _slicedToArray(_this2$editor$scroll$, 2),
-              block = _this2$editor$scroll$2[0],
-              offset = _this2$editor$scroll$2[1];
+          var _this3$editor$scroll$ = _this3.editor.scroll.descendant(Block, range.index),
+              _this3$editor$scroll$2 = _slicedToArray(_this3$editor$scroll$, 2),
+              block = _this3$editor$scroll$2[0],
+              offset = _this3$editor$scroll$2[1];
 
           if (block != null && block.domNode.firstChild instanceof HTMLBRElement) {
-            var lineBounds = _this2.editor.getBounds(range);
+            var lineBounds = _this3.editor.getBounds(range);
 
             sidebarControls.classList.remove('active');
             sidebarControls.style.display = 'block';
@@ -76493,7 +76491,7 @@ var render = function() {
                       _c(
                         "a",
                         {
-                          staticClass: "text-decoration-none",
+                          staticClass: "text-decoration-none text-success",
                           attrs: { href: "#" },
                           on: { click: _vm.clear }
                         },
