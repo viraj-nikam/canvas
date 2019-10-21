@@ -13,7 +13,7 @@
                         <div class="input-group py-2">
                             <input
                                 type="text"
-                                class="form-control border-0 px-0"
+                                class="form-control border-0 px-0 bg-transparent"
                                 @input="update"
                                 name="featured_image_caption"
                                 v-model="storeState.form.featured_image_caption"

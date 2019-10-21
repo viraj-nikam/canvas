@@ -76458,7 +76458,8 @@ var render = function() {
                                 "storeState.form.featured_image_caption"
                             }
                           ],
-                          staticClass: "form-control border-0 px-0",
+                          staticClass:
+                            "form-control border-0 px-0 bg-transparent",
                           attrs: {
                             type: "text",
                             name: "featured_image_caption",
