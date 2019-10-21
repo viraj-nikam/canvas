@@ -3583,6 +3583,11 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       trans: JSON.parse(Canvas.lang)
     };
   },
+  watch: {
+    'storeState.form.body': function storeStateFormBody(val) {
+      this.update();
+    }
+  },
   mounted: function mounted() {
     this.editor = this.createEditor();
     this.handleEditorValue();
@@ -3626,8 +3631,6 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       this.editor.root.innerHTML = this.storeState.form.body;
       this.editor.on('text-change', function (delta, oldContents, source) {
         _this.storeState.form.body = _this.editor.getText() ? _this.editor.root.innerHTML : '';
-
-        _this.update();
       });
     },
     handleClicksInsideEditor: function handleClicksInsideEditor() {

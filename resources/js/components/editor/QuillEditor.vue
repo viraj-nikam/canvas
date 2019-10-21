@@ -71,6 +71,12 @@
             }
         },
 
+        watch: {
+            'storeState.form.body'(val) {
+                this.update();
+            }
+        },
+
         mounted() {
             this.editor = this.createEditor();
 
@@ -120,8 +126,6 @@
 
                 this.editor.on('text-change', (delta, oldContents, source) => {
                     this.storeState.form.body = this.editor.getText() ? this.editor.root.innerHTML : '';
-
-                    this.update();
                 });
             },
 
