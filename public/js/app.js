@@ -98338,7 +98338,7 @@ var store = {
     this.state.form.meta.twitter_title = lodash__WEBPACK_IMPORTED_MODULE_0___default.a.get(data, "meta.twitter_title", "");
     this.state.form.meta.twitter_description = lodash__WEBPACK_IMPORTED_MODULE_0___default.a.get(data, "meta.twitter_description", "");
     this.state.form.meta.canonical_link = lodash__WEBPACK_IMPORTED_MODULE_0___default.a.get(data, "meta.canonical_link", "");
-    this.state.form.topic = lodash__WEBPACK_IMPORTED_MODULE_0___default.a.get(data, "topic", []);
+    this.state.form.topic = lodash__WEBPACK_IMPORTED_MODULE_0___default.a.get(data, "topic.0", []);
     this.state.form.tags = lodash__WEBPACK_IMPORTED_MODULE_0___default.a.get(data, "tags", []);
     this.state.form.errors = [];
     this.state.form.isSaving = false;
@@ -98348,7 +98348,7 @@ var store = {
     this.state.form.tags = tags;
   },
   syncTopic: function syncTopic(topic) {
-    this.state.form.topic = topic || [];
+    this.state.form.topic = topic;
   }
 };
 

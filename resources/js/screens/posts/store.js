@@ -42,7 +42,7 @@ export const store = {
         this.state.form.meta.twitter_title = _.get(data, "meta.twitter_title", "");
         this.state.form.meta.twitter_description = _.get(data, "meta.twitter_description", "");
         this.state.form.meta.canonical_link = _.get(data, "meta.canonical_link", "");
-        this.state.form.topic = _.get(data, "topic", []);
+        this.state.form.topic = _.get(data, "topic.0", []);
         this.state.form.tags = _.get(data, "tags", []);
         this.state.form.errors = [];
         this.state.form.isSaving = false;
@@ -54,6 +54,6 @@ export const store = {
     },
 
     syncTopic(topic) {
-        this.state.form.topic = topic || [];
+        this.state.form.topic = topic;
     }
 };

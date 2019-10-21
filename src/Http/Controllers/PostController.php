@@ -34,8 +34,8 @@ class PostController extends Controller
      */
     public function show($id = null): JsonResponse
     {
-        $tags = Tag::all();
-        $topics = Topic::all();
+        $tags = Tag::all(['name', 'slug']);
+        $topics = Topic::all(['name', 'slug']);
 
         if ($this->isNewPost($id)) {
             $uuid = Uuid::uuid4();
@@ -50,7 +50,7 @@ class PostController extends Controller
             ]);
         } else {
             return response()->json([
-                'post'   => Post::with('tags', 'topic')->find($id),
+                'post'   => Post::with('tags:name,slug', 'topic:name,slug')->find($id),
                 'tags'   => $tags,
                 'topics' => $topics,
             ]);
@@ -178,7 +178,7 @@ class PostController extends Controller
     private function syncTags(array $incomingTags): array
     {
         if ($incomingTags) {
-            $tags = Tag::all();
+            $tags = Tag::all(['name', 'slug']);
 
             return collect($incomingTags)->map(function ($incomingTag) use ($tags) {
                 $tag = $tags->where('slug', $incomingTag['slug'])->first();
