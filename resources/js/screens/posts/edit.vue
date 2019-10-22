@@ -5,12 +5,8 @@
                 <ul class="navbar-nav mr-auto flex-row float-right">
                     <li class="text-muted font-weight-bold">
                         <div class="d-inline-block">
-                            <span v-if="isDraft">
-                                {{ trans.nav.context.draft }}
-                            </span>
-                            <span v-else>
-                                {{ trans.nav.context.published }}
-                            </span>
+                            <span v-if="isDraft">{{ trans.nav.context.draft }}</span>
+                            <span v-else>{{ trans.nav.context.published }}</span>
                         </div>
 
                         <span v-if="post.isSaving" class="pl-2">{{ trans.nav.notify.saving }}</span>

@@ -3588,7 +3588,6 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
   computed: Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapState"])(['activePost']),
   watch: {
     'activePost.body': function activePostBody(val) {
-      console.log('lets update baby');
       this.update();
     }
   },
@@ -3758,10 +3757,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-//
-//
-//
-//
 //
 //
 //
@@ -78496,18 +78491,10 @@ var render = function() {
                   _c("div", { staticClass: "d-inline-block" }, [
                     _vm.isDraft
                       ? _c("span", [
-                          _vm._v(
-                            "\n                            " +
-                              _vm._s(_vm.trans.nav.context.draft) +
-                              "\n                        "
-                          )
+                          _vm._v(_vm._s(_vm.trans.nav.context.draft))
                         ])
                       : _c("span", [
-                          _vm._v(
-                            "\n                            " +
-                              _vm._s(_vm.trans.nav.context.published) +
-                              "\n                        "
-                          )
+                          _vm._v(_vm._s(_vm.trans.nav.context.published))
                         ])
                   ]),
                   _vm._v(" "),
