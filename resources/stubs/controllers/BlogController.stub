@@ -7,13 +7,14 @@ use Canvas\Post;
 use Canvas\Topic;
 use Illuminate\View\View;
 use Canvas\Events\PostViewed;
+use Illuminate\Support\Collection;
 
 class BlogController extends Controller
 {
     /**
      * Show the blog index page.
      *
-     * @return View
+     * @return \Illuminate\View\View
      */
     public function getPosts(): View
     {
@@ -30,45 +31,39 @@ class BlogController extends Controller
      * Show a post given a slug.
      *
      * @param string $slug
-     * @return View
+     * @return \Illuminate\View\View
      */
     public function findPostBySlug(string $slug): View
     {
         $posts = Post::with('tags', 'topic')->published()->get();
         $post = $posts->firstWhere('slug', $slug);
 
-        if (optional($post)->published) {
-            $next = $posts->sortBy('published_at')->firstWhere('published_at', '>', optional($post)->published_at);
+        if ($post->published) {
+            $readNext = $posts->sortBy('published_at')->firstWhere('published_at', '>', $post->published_at);
 
-            $filtered = $posts->filter(function ($value, $key) use ($slug, $next) {
-                return $value->slug != $slug && $value->slug != optional($next)->slug;
-            });
-
-            if ($post->tags->isNotEmpty()) {
-                $related = Post::where('id', '!=', $post->id)
-                    ->where('id', '!=', optional($next)->id)
-                    ->whereHas('tags', function ($query) use ($post, $next) {
-                        return $query->whereIn('name', $post->tags->pluck('slug'));
-                    })->get();
-
-                if ($related->isEmpty()) {
-                    $random = $filtered->count() > 1 ? $filtered->random() : null;
-                } else {
-                    $random = $related->random();
-                }
+            if ($readNext) {
+                $randomPool = $posts->filter(function ($item) use ($readNext, $post) {
+                    return $item->id != $post->id && $item->id != $readNext->id;
+                });
             } else {
-                if ($filtered->isNotEmpty()) {
-                    $filtered->random();
-                }
-                $random = null;
+                $randomPool = $posts->filter(function ($item) use ($readNext, $post) {
+                    return $item->id != $post->id;
+                });
+            }
+
+            if ($post->tags->isNotEmpty() || $post->topic->isNotEmtpy()) {
+                $related = $this->findRelatedViaTaxonomy($randomPool, $post);
+                $readRandom = $related->isEmpty() ? null : $related->first();
+            } else {
+                $readRandom = $randomPool->random();
             }
 
             $data = [
                 'author' => $post->author,
                 'post'   => $post,
                 'meta'   => $post->meta,
-                'next'   => $next,
-                'random' => $random,
+                'next'   => $readNext,
+                'random' => $readRandom,
                 'topic'  => $post->topic->first() ?? null,
             ];
 
@@ -84,7 +79,7 @@ class BlogController extends Controller
      * Show all posts given a tag.
      *
      * @param string $slug
-     * @return View
+     * @return \Illuminate\View\View
      */
     public function getPostsByTag(string $slug): View
     {
@@ -108,7 +103,7 @@ class BlogController extends Controller
      * Show all posts given a topic.
      *
      * @param string $slug
-     * @return View
+     * @return \Illuminate\View\View
      */
     public function getPostsByTopic(string $slug): View
     {
@@ -126,5 +121,24 @@ class BlogController extends Controller
         } else {
             abort(404);
         }
+    }
+
+    /**
+     * @param \Illuminate\Support\Collection $randomPool
+     * @param \Canvas\Post $post
+     * @return mixed
+     */
+    private function findRelatedViaTaxonomy(Collection $randomPool, Post $post)
+    {
+        return collect($randomPool)->filter(function($item, $key) use ($post) {
+            $matched_tag = array_intersect($item->tags->pluck('slug')->toArray(), $post->tags->pluck('slug')->toArray());
+            $matched_topic = array_intersect($item->topic->pluck('slug')->toArray(), $post->topic->pluck('slug')->toArray());
+
+            if ($matched_tag || $matched_topic) {
+                return true;
+            } else {
+                return false;
+            }
+        });
     }
 }
