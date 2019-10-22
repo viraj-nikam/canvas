@@ -84,6 +84,12 @@
             'activePost'
         ]),
 
+        watch: {
+            'activePost.body'(val) {
+                this.update();
+            }
+        },
+
         methods: {
             createEditor() {
                 Quill.register(ImageBlot, true);
@@ -125,7 +131,6 @@
 
                 this.editor.on('text-change', (delta, oldContents, source) => {
                     this.$store.dispatch('updatePostBody', this.editor.getText() ? this.editor.root.innerHTML : '');
-                    this.update();
                 });
             },
 

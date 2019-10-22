@@ -3586,6 +3586,12 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     this.initSideControls();
   },
   computed: Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapState"])(['activePost']),
+  watch: {
+    'activePost.body': function activePostBody(val) {
+      console.log('lets update baby');
+      this.update();
+    }
+  },
   methods: {
     createEditor: function createEditor() {
       quill__WEBPACK_IMPORTED_MODULE_2___default.a.register(_ImageBlot__WEBPACK_IMPORTED_MODULE_6__["default"], true);
@@ -3623,8 +3629,6 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       this.editor.root.innerHTML = this.$store.getters.activePost.body;
       this.editor.on('text-change', function (delta, oldContents, source) {
         _this.$store.dispatch('updatePostBody', _this.editor.getText() ? _this.editor.root.innerHTML : '');
-
-        _this.update();
       });
     },
     handleClicksInsideEditor: function handleClicksInsideEditor() {
