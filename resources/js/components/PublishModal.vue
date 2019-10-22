@@ -95,7 +95,10 @@
         },
 
         computed: {
-            ...mapState(['activePost']),
+            ...mapState([
+                'activePost'
+            ]),
+
             shouldPublish() {
                 return moment(this.result).isBefore(moment().format("YYYY-MM-DD hh:mm:ss"));
             },
