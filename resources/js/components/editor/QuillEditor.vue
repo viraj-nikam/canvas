@@ -334,7 +334,6 @@
     .ql-container hr {
         margin-top: 0;
         border: none;
-        color: #111;
         letter-spacing: 1em;
         text-align: center;
     }
