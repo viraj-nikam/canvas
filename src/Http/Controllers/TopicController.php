@@ -87,7 +87,7 @@ class TopicController extends Controller
      * Delete a topic.
      *
      * @param string $id
-     * @return void
+     * @return mixed
      */
     public function destroy(string $id)
     {
@@ -95,6 +95,8 @@ class TopicController extends Controller
 
         if ($topic) {
             $topic->delete();
+
+            return response()->json([], 204);
         }
     }
 }

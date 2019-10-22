@@ -121,7 +121,7 @@ class PostController extends Controller
      * Delete a post.
      *
      * @param string $id
-     * @return void
+     * @return mixed
      */
     public function destroy(string $id)
     {
@@ -129,6 +129,8 @@ class PostController extends Controller
 
         if ($post) {
             $post->delete();
+
+            return response()->json([], 204);
         }
     }
 

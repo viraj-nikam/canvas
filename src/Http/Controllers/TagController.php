@@ -87,7 +87,7 @@ class TagController extends Controller
      * Delete a tag.
      *
      * @param string $id
-     * @return void
+     * @return mixed
      */
     public function destroy(string $id)
     {
@@ -95,6 +95,8 @@ class TagController extends Controller
 
         if ($tag) {
             $tag->delete();
+
+            return response()->json([], 204);
         }
     }
 }
