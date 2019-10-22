@@ -97581,6 +97581,42 @@ module.exports = function(module) {
 
 /***/ }),
 
+/***/ "./resources/js/actions.js":
+/*!*********************************!*\
+  !*** ./resources/js/actions.js ***!
+  \*********************************/
+/*! exports provided: actions, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "actions", function() { return actions; });
+var actions = {
+  setActivePost: function setActivePost(context, payload) {
+    context.commit('setActivePost', payload);
+  },
+  updatePostBody: function updatePostBody(context, body) {
+    context.commit('updatePostBody', body);
+  },
+  saveActivePost: function saveActivePost(context, payload) {
+    context.commit('saveActivePost', payload);
+  },
+  setPostTags: function setPostTags(context, payload) {
+    context.commit('setPostTags', payload);
+  },
+  setPostTopic: function setPostTopic(context, payload) {
+    context.commit('setPostTopic', payload);
+  },
+  deletePost: function deletePost(context, payload) {
+    context.commit('deletePost', payload);
+  }
+};
+/* harmony default export */ __webpack_exports__["default"] = ({
+  actions: actions
+});
+
+/***/ }),
+
 /***/ "./resources/js/app.js":
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
@@ -98879,6 +98915,34 @@ var Tooltip = {
 
 /***/ }),
 
+/***/ "./resources/js/getters.js":
+/*!*********************************!*\
+  !*** ./resources/js/getters.js ***!
+  \*********************************/
+/*! exports provided: getters, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getters", function() { return getters; });
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_0__);
+
+var getters = {
+  activePost: function activePost(state) {
+    return state.activePost;
+  },
+  isDraft: function isDraft(state) {
+    var date = state.activePost.published_at;
+    return date === null || date === "" || date > moment__WEBPACK_IMPORTED_MODULE_0___default()(new Date()).tz(Canvas.timezone).format().slice(0, 19).replace("T", " ");
+  }
+};
+/* harmony default export */ __webpack_exports__["default"] = ({
+  getters: getters
+});
+
+/***/ }),
+
 /***/ "./resources/js/mixins/Base.js":
 /*!*************************************!*\
   !*** ./resources/js/mixins/Base.js ***!
@@ -99030,6 +99094,93 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return instance;
     }
   }
+});
+
+/***/ }),
+
+/***/ "./resources/js/mutations.js":
+/*!***********************************!*\
+  !*** ./resources/js/mutations.js ***!
+  \***********************************/
+/*! exports provided: mutations, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mutations", function() { return mutations; });
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
+
+var mutations = {
+  setActivePost: function setActivePost(state, data) {
+    var payload = {};
+    payload.id = lodash__WEBPACK_IMPORTED_MODULE_0___default.a.get(data, "id", "create");
+    payload.title = lodash__WEBPACK_IMPORTED_MODULE_0___default.a.get(data, "title", "");
+    payload.slug = lodash__WEBPACK_IMPORTED_MODULE_0___default.a.get(data, "slug", "");
+    payload.summary = lodash__WEBPACK_IMPORTED_MODULE_0___default.a.get(data, "summary", "");
+    payload.body = lodash__WEBPACK_IMPORTED_MODULE_0___default.a.get(data, "body", "");
+    payload.published_at = lodash__WEBPACK_IMPORTED_MODULE_0___default.a.get(data, "published_at", "");
+    payload.featured_image = lodash__WEBPACK_IMPORTED_MODULE_0___default.a.get(data, "featured_image", "");
+    payload.featured_image_caption = lodash__WEBPACK_IMPORTED_MODULE_0___default.a.get(data, "featured_image_caption", "");
+    payload.meta = {};
+    payload.meta.meta_description = lodash__WEBPACK_IMPORTED_MODULE_0___default.a.get(data, "meta.meta_description", "");
+    payload.meta.og_title = lodash__WEBPACK_IMPORTED_MODULE_0___default.a.get(data, "meta.og_title", "");
+    payload.meta.og_description = lodash__WEBPACK_IMPORTED_MODULE_0___default.a.get(data, "meta.og_description", "");
+    payload.meta.twitter_title = lodash__WEBPACK_IMPORTED_MODULE_0___default.a.get(data, "meta.twitter_title", "");
+    payload.meta.twitter_description = lodash__WEBPACK_IMPORTED_MODULE_0___default.a.get(data, "meta.twitter_description", "");
+    payload.meta.canonical_link = lodash__WEBPACK_IMPORTED_MODULE_0___default.a.get(data, "meta.canonical_link", "");
+    payload.topic = lodash__WEBPACK_IMPORTED_MODULE_0___default.a.get(data, "topic.0", []);
+    payload.tags = lodash__WEBPACK_IMPORTED_MODULE_0___default.a.get(data, "tags", []);
+    payload.errors = [];
+    payload.isSaving = false;
+    payload.hasSuccess = false;
+    state.activePost = payload;
+  },
+  updatePostBody: function updatePostBody(state, data) {
+    state.activePost.body = data;
+  },
+  saveActivePost: function saveActivePost(state, payload) {
+    var _this = this;
+
+    this.$app.request().post("/api/posts/" + payload.id, payload.data).then(function (response) {
+      if (payload.id === "create") {
+        _this.$app.$router.push({
+          name: "posts-edit",
+          params: {
+            id: response.data.id
+          }
+        });
+      }
+
+      state.activePost.isSaving = false;
+      state.activePost.hasSuccess = true;
+      state.activePost.post = response.data;
+    })["catch"](function (error) {
+      state.activePost.isSaving = false;
+      state.activePost.errors = error.response.data.errors;
+    });
+  },
+  setPostTags: function setPostTags(state, tags) {
+    state.activePost.tags = tags;
+  },
+  setPostTopic: function setPostTopic(state, topic) {
+    state.activePost.topic = topic;
+  },
+  deletePost: function deletePost(state, postId) {
+    var _this2 = this;
+
+    this.$app.request()["delete"]("/api/posts/" + postId).then(function (response) {
+      state.activePost = {};
+
+      _this2.$app.$router.push({
+        name: "posts"
+      });
+    })["catch"](function (error) {// Add any error debugging...
+    });
+  }
+};
+/* harmony default export */ __webpack_exports__["default"] = ({
+  mutations: mutations
 });
 
 /***/ }),
@@ -99740,6 +99891,25 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/state.js":
+/*!*******************************!*\
+  !*** ./resources/js/state.js ***!
+  \*******************************/
+/*! exports provided: state, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "state", function() { return state; });
+var state = {
+  activePost: {}
+};
+/* harmony default export */ __webpack_exports__["default"] = ({
+  state: state
+});
+
+/***/ }),
+
 /***/ "./resources/js/store.js":
 /*!*******************************!*\
   !*** ./resources/js/store.js ***!
@@ -99752,117 +99922,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "store", function() { return store; });
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _state__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./state */ "./resources/js/state.js");
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./actions */ "./resources/js/actions.js");
+/* harmony import */ var _getters__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./getters */ "./resources/js/getters.js");
+/* harmony import */ var _mutations__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./mutations */ "./resources/js/mutations.js");
 
 
 
 
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_2__["default"]);
-var store = new vuex__WEBPACK_IMPORTED_MODULE_2__["default"].Store({
-  state: {
-    activePost: {}
-  },
-  mutations: {
-    setActivePost: function setActivePost(state, data) {
-      var payload = {};
-      payload.id = lodash__WEBPACK_IMPORTED_MODULE_1___default.a.get(data, "id", "create");
-      payload.title = lodash__WEBPACK_IMPORTED_MODULE_1___default.a.get(data, "title", "");
-      payload.slug = lodash__WEBPACK_IMPORTED_MODULE_1___default.a.get(data, "slug", "");
-      payload.summary = lodash__WEBPACK_IMPORTED_MODULE_1___default.a.get(data, "summary", "");
-      payload.body = lodash__WEBPACK_IMPORTED_MODULE_1___default.a.get(data, "body", "");
-      payload.published_at = lodash__WEBPACK_IMPORTED_MODULE_1___default.a.get(data, "published_at", "");
-      payload.featured_image = lodash__WEBPACK_IMPORTED_MODULE_1___default.a.get(data, "featured_image", "");
-      payload.featured_image_caption = lodash__WEBPACK_IMPORTED_MODULE_1___default.a.get(data, "featured_image_caption", "");
-      payload.meta = {};
-      payload.meta.meta_description = lodash__WEBPACK_IMPORTED_MODULE_1___default.a.get(data, "meta.meta_description", "");
-      payload.meta.og_title = lodash__WEBPACK_IMPORTED_MODULE_1___default.a.get(data, "meta.og_title", "");
-      payload.meta.og_description = lodash__WEBPACK_IMPORTED_MODULE_1___default.a.get(data, "meta.og_description", "");
-      payload.meta.twitter_title = lodash__WEBPACK_IMPORTED_MODULE_1___default.a.get(data, "meta.twitter_title", "");
-      payload.meta.twitter_description = lodash__WEBPACK_IMPORTED_MODULE_1___default.a.get(data, "meta.twitter_description", "");
-      payload.meta.canonical_link = lodash__WEBPACK_IMPORTED_MODULE_1___default.a.get(data, "meta.canonical_link", "");
-      payload.topic = lodash__WEBPACK_IMPORTED_MODULE_1___default.a.get(data, "topic.0", []);
-      payload.tags = lodash__WEBPACK_IMPORTED_MODULE_1___default.a.get(data, "tags", []);
-      payload.errors = [];
-      payload.isSaving = false;
-      payload.hasSuccess = false;
-      state.activePost = payload;
-    },
-    updatePostBody: function updatePostBody(state, data) {
-      state.activePost.body = data;
-    },
-    saveActivePost: function saveActivePost(state, payload) {
-      var _this = this;
 
-      this.$app.request().post("/api/posts/" + payload.id, payload.data).then(function (response) {
-        if (payload.id === "create") {
-          _this.$app.$router.push({
-            name: "posts-edit",
-            params: {
-              id: response.data.id
-            }
-          });
-        }
 
-        state.activePost.isSaving = false;
-        state.activePost.hasSuccess = true;
-        state.activePost.post = response.data;
-      })["catch"](function (error) {
-        state.activePost.isSaving = false;
-        state.activePost.errors = error.response.data.errors;
-      });
-    },
-    setPostTags: function setPostTags(state, tags) {
-      state.activePost.tags = tags;
-    },
-    setPostTopic: function setPostTopic(state, topic) {
-      state.activePost.topic = topic;
-    },
-    deletePost: function deletePost(state, postId) {
-      var _this2 = this;
-
-      this.$app.request()["delete"]("/api/posts/" + postId).then(function (response) {
-        state.activePost = {};
-
-        _this2.$app.$router.push({
-          name: "posts"
-        });
-      })["catch"](function (error) {// Add any error debugging...
-      });
-    }
-  },
-  actions: {
-    setActivePost: function setActivePost(context, payload) {
-      context.commit('setActivePost', payload);
-    },
-    updatePostBody: function updatePostBody(context, body) {
-      context.commit('updatePostBody', body);
-    },
-    saveActivePost: function saveActivePost(context, payload) {
-      context.commit('saveActivePost', payload);
-    },
-    setPostTags: function setPostTags(context, payload) {
-      context.commit('setPostTags', payload);
-    },
-    setPostTopic: function setPostTopic(context, payload) {
-      context.commit('setPostTopic', payload);
-    },
-    deletePost: function deletePost(context, payload) {
-      context.commit('deletePost', payload);
-    }
-  },
-  getters: {
-    activePost: function activePost(state) {
-      return state.activePost;
-    },
-    isDraft: function isDraft(state) {
-      var date = state.activePost.published_at;
-      return date === null || date === "" || date > moment__WEBPACK_IMPORTED_MODULE_3___default()(new Date()).tz(Canvas.timezone).format().slice(0, 19).replace("T", " ");
-    }
-  }
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]);
+var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
+  state: _state__WEBPACK_IMPORTED_MODULE_2__["state"],
+  mutations: _mutations__WEBPACK_IMPORTED_MODULE_5__["mutations"],
+  actions: _actions__WEBPACK_IMPORTED_MODULE_3__["actions"],
+  getters: _getters__WEBPACK_IMPORTED_MODULE_4__["getters"]
 });
 
 /***/ }),
