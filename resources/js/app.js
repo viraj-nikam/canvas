@@ -47,5 +47,5 @@ const canvasApp = new Vue({
     store
 });
 
-// Give the store access to the root vue instance so we can make use of the mixins and router...
+// Give the store access to the root Vue instance
 store.$app = canvasApp;

@@ -42,14 +42,15 @@
                                             {{ trim(post.summary, 200) }}
                                         </p>
                                         <p class="text-muted mb-0">
-                                            <span v-if="moment(post.published_at).isBefore(moment().format('YYYY-MM-DD hh:mm:ss'))">
-                                                {{ trans.posts.details.published }}
-                                                {{ moment(post.published_at).fromNow() }}
+                                            <span v-if="isPublished(post)">
+                                                {{ trans.posts.details.published }} {{ moment(post.published_at).fromNow() }}
                                             </span>
-                                            <span v-if="!post.published_at" class="text-danger">
+
+                                            <span v-if="isDraft(post)" class="text-danger">
                                                 {{ trans.posts.details.draft }}
                                             </span>
-                                            <span v-if="moment(post.published_at).isAfter(moment().format('YYYY-MM-DD hh:mm:ss'))" class="text-danger">
+
+                                            <span v-if="isScheduled(post)" class="text-danger">
                                                 {{ trans.posts.details.scheduled }}
                                             </span> ― {{ trans.posts.details.updated }} {{ moment(post.updated_at).fromNow() }}
                                         </p>
@@ -107,7 +108,6 @@
                 limit: 7,
                 loadMore: false,
                 isReady: false,
-                timezone: Canvas.timezone,
                 trans: JSON.parse(Canvas.lang)
             };
         },
@@ -127,6 +127,18 @@
                     .catch(error => {
                         // Add any error debugging...
                     });
+            },
+
+            isDraft(post) {
+                return post.published_at == null || post.published_at === "";
+            },
+
+            isScheduled(post) {
+                return moment(post.published_at).isAfter(moment(new Date()).format().slice(0, 19).replace("T", " "));
+            },
+
+            isPublished(post) {
+                return moment(post.published_at).isBefore(moment(new Date()).format().slice(0, 19).replace("T", " "));
             }
         },
 

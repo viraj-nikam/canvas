@@ -90,7 +90,6 @@
                 limit: 10,
                 loadMore: false,
                 isReady: false,
-                timezone: Canvas.timezone,
                 trans: JSON.parse(Canvas.lang)
             };
         },

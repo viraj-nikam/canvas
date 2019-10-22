@@ -2788,14 +2788,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['activePost']), {
     shouldPublish: function shouldPublish() {
-      return moment__WEBPACK_IMPORTED_MODULE_0___default()(this.result).isBefore(moment__WEBPACK_IMPORTED_MODULE_0___default()().format("YYYY-MM-DD hh:mm:ss"));
+      return moment__WEBPACK_IMPORTED_MODULE_0___default()(this.result).isBefore(moment__WEBPACK_IMPORTED_MODULE_0___default()(new Date()).format().slice(0, 19).replace("T", " "));
     },
     isScheduled: function isScheduled() {
-      return this.activePost.published_at && moment__WEBPACK_IMPORTED_MODULE_0___default()(this.result).isAfter(moment__WEBPACK_IMPORTED_MODULE_0___default()().format("YYYY-MM-DD hh:mm:ss"));
+      return this.activePost.published_at && moment__WEBPACK_IMPORTED_MODULE_0___default()(this.result).isAfter(moment__WEBPACK_IMPORTED_MODULE_0___default()(new Date()).format().slice(0, 19).replace("T", " "));
     }
   }),
   mounted: function mounted() {
-    this.generateDatePicker(this.activePost.published_at || moment__WEBPACK_IMPORTED_MODULE_0___default()().format("YYYY-MM-DD hh:mm:ss"));
+    this.generateDatePicker(this.activePost.published_at || moment__WEBPACK_IMPORTED_MODULE_0___default()(new Date()).format().slice(0, 19).replace("T", " "));
   },
   watch: {
     value: function value(val) {
@@ -4079,6 +4079,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -4093,7 +4094,6 @@ __webpack_require__.r(__webpack_exports__);
       limit: 7,
       loadMore: false,
       isReady: false,
-      timezone: Canvas.timezone,
       trans: JSON.parse(Canvas.lang)
     };
   },
@@ -4109,6 +4109,15 @@ __webpack_require__.r(__webpack_exports__);
         _this.isReady = true;
       })["catch"](function (error) {// Add any error debugging...
       });
+    },
+    isDraft: function isDraft(post) {
+      return post.published_at == null || post.published_at === "";
+    },
+    isScheduled: function isScheduled(post) {
+      return moment__WEBPACK_IMPORTED_MODULE_0___default()(post.published_at).isAfter(moment__WEBPACK_IMPORTED_MODULE_0___default()(new Date()).format().slice(0, 19).replace("T", " "));
+    },
+    isPublished: function isPublished(post) {
+      return moment__WEBPACK_IMPORTED_MODULE_0___default()(post.published_at).isBefore(moment__WEBPACK_IMPORTED_MODULE_0___default()(new Date()).format().slice(0, 19).replace("T", " "));
     }
   },
   computed: {
@@ -4726,7 +4735,6 @@ __webpack_require__.r(__webpack_exports__);
       limit: 10,
       loadMore: false,
       isReady: false,
-      timezone: Canvas.timezone,
       trans: JSON.parse(Canvas.lang)
     };
   },
@@ -5033,7 +5041,6 @@ __webpack_require__.r(__webpack_exports__);
       limit: 10,
       loadMore: false,
       isReady: false,
-      timezone: Canvas.timezone,
       trans: JSON.parse(Canvas.lang)
     };
   },
@@ -77011,7 +77018,7 @@ var render = function() {
                       "\n                            "
                   ),
                   _c("span", { staticClass: "font-weight-bold" }, [
-                    _vm._v(_vm._s(_vm.moment.tz.guess()))
+                    _vm._v(_vm._s(_vm.Canvas.timezone))
                   ]),
                   _vm._v(
                     "\n                            " +
@@ -79002,13 +79009,7 @@ var render = function() {
                                       "p",
                                       { staticClass: "text-muted mb-0" },
                                       [
-                                        _vm
-                                          .moment(post.published_at)
-                                          .isBefore(
-                                            _vm
-                                              .moment()
-                                              .format("YYYY-MM-DD hh:mm:ss")
-                                          )
+                                        _vm.isPublished(post)
                                           ? _c("span", [
                                               _vm._v(
                                                 "\n                                            " +
@@ -79016,7 +79017,7 @@ var render = function() {
                                                     _vm.trans.posts.details
                                                       .published
                                                   ) +
-                                                  "\n                                            " +
+                                                  " " +
                                                   _vm._s(
                                                     _vm
                                                       .moment(post.published_at)
@@ -79027,7 +79028,7 @@ var render = function() {
                                             ])
                                           : _vm._e(),
                                         _vm._v(" "),
-                                        !post.published_at
+                                        _vm.isDraft(post)
                                           ? _c(
                                               "span",
                                               { staticClass: "text-danger" },
@@ -79044,13 +79045,7 @@ var render = function() {
                                             )
                                           : _vm._e(),
                                         _vm._v(" "),
-                                        _vm
-                                          .moment(post.published_at)
-                                          .isAfter(
-                                            _vm
-                                              .moment()
-                                              .format("YYYY-MM-DD hh:mm:ss")
-                                          )
+                                        _vm.isScheduled(post)
                                           ? _c(
                                               "span",
                                               { staticClass: "text-danger" },
@@ -97665,7 +97660,7 @@ var canvasApp = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
   el: "#canvas",
   router: router,
   store: _store__WEBPACK_IMPORTED_MODULE_5__["store"]
-}); // Give the store access to the root vue instance so we can make use of the mixins and router...
+}); // Give the store access to the root Vue instance
 
 _store__WEBPACK_IMPORTED_MODULE_5__["store"].$app = canvasApp;
 
@@ -98925,7 +98920,7 @@ var getters = {
   },
   isDraft: function isDraft(state) {
     var date = state.activePost.published_at;
-    return date === null || date === "" || date > moment__WEBPACK_IMPORTED_MODULE_0___default()(new Date()).tz(Canvas.timezone).format().slice(0, 19).replace("T", " ");
+    return date === null || date === "" || moment__WEBPACK_IMPORTED_MODULE_0___default()(date).isAfter(moment__WEBPACK_IMPORTED_MODULE_0___default()(new Date()).format().slice(0, 19).replace("T", " "));
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = ({

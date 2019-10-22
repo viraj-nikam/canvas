@@ -8,7 +8,7 @@ export const getters = {
     isDraft(state) {
         const date = state.activePost.published_at;
 
-        return date === null || date === "" || date > moment(new Date()).tz(Canvas.timezone).format().slice(0, 19).replace("T", " ");
+        return date === null || date === "" || moment(date).isAfter(moment(new Date()).format().slice(0, 19).replace("T", " "));
     }
 };
 

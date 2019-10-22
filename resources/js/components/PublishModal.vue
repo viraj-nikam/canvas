@@ -9,7 +9,7 @@
 
                             <p class="text-muted">
                                 {{ trans.posts.forms.publish.subtext.details }}
-                                <span class="font-weight-bold">{{ moment.tz.guess() }}</span>
+                                <span class="font-weight-bold">{{ Canvas.timezone }}</span>
                                 {{ trans.posts.forms.publish.subtext.timezone }}.
                             </p>
 
@@ -100,17 +100,17 @@
             ]),
 
             shouldPublish() {
-                return moment(this.result).isBefore(moment().format("YYYY-MM-DD hh:mm:ss"));
+                return moment(this.result).isBefore(moment(new Date()).format().slice(0, 19).replace("T", " "));
             },
 
             isScheduled() {
-                return this.activePost.published_at && moment(this.result).isAfter(moment().format("YYYY-MM-DD hh:mm:ss"));
+                return this.activePost.published_at && moment(this.result).isAfter(moment(new Date()).format().slice(0, 19).replace("T", " "));
             }
         },
 
         mounted() {
             this.generateDatePicker(
-                this.activePost.published_at || moment().format("YYYY-MM-DD hh:mm:ss")
+                this.activePost.published_at || moment(new Date()).format().slice(0, 19).replace("T", " ")
             );
         },
 
