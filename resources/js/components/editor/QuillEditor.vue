@@ -42,19 +42,16 @@
     import _ from 'lodash';
     import $ from 'jquery';
     import Quill from 'quill'
+    import { mapState } from 'vuex';
     import Parchment from 'parchment'
     import HTMLBlot from './HTMLBlot'
     import ImageBlot from './ImageBlot'
     import HTMLModal from "./HTMLModal";
     import ImageModal from "./ImageModal";
     import DividerBlot from './DividerBlot'
-    import {store} from "../../screens/posts/store";
 
     export default {
-        components: {
-            'html-modal': HTMLModal,
-            'image-modal': ImageModal
-        },
+        name: 'quill-editor',
 
         props: {
             value: {
@@ -63,17 +60,15 @@
             }
         },
 
-        data() {
-            return {
-                storeState: store.state,
-                editor: null,
-                trans: JSON.parse(Canvas.lang)
-            }
+        components: {
+            'html-modal': HTMLModal,
+            'image-modal': ImageModal
         },
 
-        watch: {
-            'storeState.form.body'(val) {
-                this.update();
+        data() {
+            return {
+                editor: null,
+                trans: JSON.parse(Canvas.lang)
             }
         },
 
@@ -84,6 +79,10 @@
             this.handleClicksInsideEditor();
             this.initSideControls();
         },
+
+        computed: mapState([
+            'activePost'
+        ]),
 
         methods: {
             createEditor() {
@@ -122,10 +121,11 @@
             },
 
             handleEditorValue() {
-                this.editor.root.innerHTML = this.storeState.form.body;
+                this.editor.root.innerHTML = this.$store.getters.activePost.body;
 
                 this.editor.on('text-change', (delta, oldContents, source) => {
-                    this.storeState.form.body = this.editor.getText() ? this.editor.root.innerHTML : '';
+                    this.$store.dispatch('updatePostBody', this.editor.getText() ? this.editor.root.innerHTML : '');
+                    this.update();
                 });
             },
 

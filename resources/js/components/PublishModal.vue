@@ -46,7 +46,7 @@
                             </div>
 
                             <p class="mt-3 text-danger font-italic" v-if="isScheduled">
-                                Your post will publish at {{ moment(this.storeState.form.published_at).format("h:mm A") }} on {{ moment(this.storeState.form.published_at).format("MMMM DD, YYYY") }}.
+                                Your post will publish at {{ moment(this.activePost.published_at).format("h:mm A") }} on {{ moment(this.activePost.published_at).format("MMMM DD, YYYY") }}.
                             </p>
                         </div>
                     </div>
@@ -75,7 +75,7 @@
 
 <script>
     import moment from "moment";
-    import {store} from "../screens/posts/store";
+    import { mapState } from 'vuex';
 
     export default {
         name: "publish-modal",
@@ -90,14 +90,27 @@
                     minute: ""
                 },
                 result: "",
-                storeState: store.state,
                 trans: JSON.parse(Canvas.lang)
             };
         },
 
+        computed: {
+            ...mapState([
+                'activePost'
+            ]),
+
+            shouldPublish() {
+                return moment(this.result).isBefore(moment().format("YYYY-MM-DD hh:mm:ss"));
+            },
+
+            isScheduled() {
+                return this.activePost.published_at && moment(this.result).isAfter(moment().format("YYYY-MM-DD hh:mm:ss"));
+            }
+        },
+
         mounted() {
             this.generateDatePicker(
-                this.storeState.form.published_at || moment().format("YYYY-MM-DD hh:mm:ss")
+                this.activePost.published_at || moment().format("YYYY-MM-DD hh:mm:ss")
             );
         },
 
@@ -140,25 +153,15 @@
             },
 
             scheduleOrPublish() {
-                this.storeState.form.published_at = this.result;
+                this.activePost.published_at = this.result;
                 this.$parent.save();
             },
 
             cancelScheduling() {
-                this.storeState.form.published_at = '';
+                this.activePost.published_at = '';
                 this.$parent.save();
             }
         },
-
-        computed: {
-            shouldPublish() {
-                return moment(this.result).isBefore(moment().format("YYYY-MM-DD hh:mm:ss"));
-            },
-
-            isScheduled() {
-                return this.storeState.form.published_at && moment(this.result).isAfter(moment().format("YYYY-MM-DD hh:mm:ss"));
-            }
-        }
     };
 </script>
 

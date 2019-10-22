@@ -7,8 +7,8 @@
                         {{ trans.posts.forms.image.header }}
                     </p>
 
-                    <div v-if="storeState.form.featured_image" id="currentImage">
-                        <img :src="storeState.form.featured_image" :alt="storeState.form.featured_image_caption" class="w-100"/>
+                    <div v-if="activePost.featured_image" id="currentImage">
+                        <img :src="activePost.featured_image" :alt="activePost.featured_image_caption" class="w-100"/>
 
                         <div class="input-group py-2">
                             <input
@@ -16,13 +16,13 @@
                                 class="form-control border-0 px-0 bg-transparent"
                                 @input="update"
                                 name="featured_image_caption"
-                                v-model="storeState.form.featured_image_caption"
+                                v-model="activePost.featured_image_caption"
                                 :placeholder="trans.posts.forms.editor.images.picker.uploader.caption.placeholder"
                             />
                         </div>
                     </div>
 
-                    <div v-if="storeState.form.featured_image">
+                    <div v-if="activePost.featured_image">
                         <a href="#" @click="clear" class="text-decoration-none text-success">
                             {{ trans.posts.forms.editor.images.picker.clear.action }}
                         </a>
@@ -32,7 +32,7 @@
 
                     <image-picker
                         v-else
-                        :image-url="storeState.form.featured_image"
+                        :image-url="activePost.featured_image"
                         @changed="update"
                         @clearSelectedImage="clear"
                         @isUploading="isUploading = true"
@@ -50,7 +50,7 @@
 
 <script>
     import ImagePicker from "./ImagePicker";
-    import {store} from "../screens/posts/store";
+    import { mapState } from 'vuex';
 
     export default {
         name: "featured-image-modal",
@@ -61,24 +61,25 @@
 
         data() {
             return {
-                storeState: store.state,
                 isUploading: false,
                 trans: JSON.parse(Canvas.lang)
             };
         },
 
+        computed: mapState(['activePost']),
+
         methods: {
             clear() {
-                this.storeState.form.featured_image = "";
-                this.storeState.form.featured_image_caption = "";
+                this.activePost.featured_image = "";
+                this.activePost.featured_image_caption = "";
             },
 
             update({url, caption}) {
                 if (url) {
-                    this.storeState.form.featured_image = url;
+                    this.activePost.featured_image = url;
                 }
                 if (caption) {
-                    this.storeState.form.featured_image_caption = caption;
+                    this.activePost.featured_image_caption = caption;
                 }
 
                 this.$parent.save();
