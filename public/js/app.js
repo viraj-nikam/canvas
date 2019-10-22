@@ -3238,7 +3238,7 @@ __webpack_require__.r(__webpack_exports__);
       required: false
     },
     assigned: {
-      type: Object,
+      type: Object | Array,
       required: false
     }
   },

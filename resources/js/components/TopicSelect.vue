@@ -24,7 +24,7 @@
                 required: false
             },
             assigned: {
-                type: Object,
+                type: Object|Array,
                 required: false
             }
         },
