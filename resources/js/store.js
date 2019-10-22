@@ -44,11 +44,11 @@ export const store = new Vuex.Store({
             state.activePost.body = data;
         },
 
-        saveActivePost(state, data) {
+        saveActivePost(state, payload) {
             this.$app.request()
-                .post("/api/posts/" + state.activePost.id, data)
+                .post("/api/posts/" + payload.id, payload.data)
                 .then(response => {
-                    if (data.id === "create") {
+                    if (payload.id === "create") {
                         this.$app.$router.push({
                             name: "posts-edit",
                             params: {id: response.data.id}
@@ -57,7 +57,6 @@ export const store = new Vuex.Store({
 
                     state.activePost.isSaving = false;
                     state.activePost.hasSuccess = true;
-                    state.activePost.id = response.data.id;
                     state.activePost.post = response.data;
                 })
                 .catch(error => {
@@ -83,7 +82,7 @@ export const store = new Vuex.Store({
                     this.$app.$router.push({name: "posts"});
                 })
                 .catch(error => {
-                    console.log(error)
+                    // Add any error debugging...
                 });
         },
     },

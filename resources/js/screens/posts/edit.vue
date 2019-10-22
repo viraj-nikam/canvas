@@ -197,7 +197,11 @@
                 this.post.isSaving = true;
                 this.post.hasSuccess = false;
 
-                this.$store.dispatch('saveActivePost', this.post);
+                this.$store.dispatch('saveActivePost', {data: this.post, id: this.id});
+
+                if (this.id === 'create') {
+                    this.id = this.post.id;
+                }
             },
 
             update: _.debounce(function (e) {
