@@ -6,10 +6,10 @@
                     <li class="text-muted font-weight-bold">
                         <div class="d-inline-block">
                             <span v-if="isDraft">
-                                {{ trans.nav.context.published }}
+                                {{ trans.nav.context.draft }}
                             </span>
                             <span v-else>
-                                {{ trans.nav.context.draft }}
+                                {{ trans.nav.context.published }}
                             </span>
                         </div>
 
@@ -20,12 +20,12 @@
             </template>
 
             <template slot="action">
-                <a v-if="isDraft" href="#" class="btn btn-sm btn-outline-success font-weight-bold" @click="save">
-                    {{ trans.buttons.general.save }}
+                <a v-if="isDraft" href="#" class="btn btn-sm btn-outline-success font-weight-bold" @click="showPublishModal">
+                    {{ trans.buttons.posts.ready }}
                 </a>
 
-                <a v-else href="#" class="btn btn-sm btn-outline-success font-weight-bold font-weight-bolder" @click="showPublishModal">
-                    {{ trans.buttons.posts.ready }}
+                <a v-else href="#" class="btn btn-sm btn-outline-success font-weight-bold" @click="save">
+                    {{ trans.buttons.general.save }}
                 </a>
             </template>
 
@@ -38,10 +38,10 @@
                     </a>
 
                     <div class="dropdown-menu dropdown-menu-right">
-                        <router-link :to="{name: 'stats-show', params: { id: id }}" v-if="isDraft" class="dropdown-item">
+                        <router-link v-if="!isDraft" :to="{name: 'stats-show', params: { id: id }}" class="dropdown-item">
                             {{ trans.nav.controls.stats }}
                         </router-link>
-                        <div class="dropdown-divider" v-if="isDraft"></div>
+                        <div v-if="!isDraft" class="dropdown-divider"></div>
                         <a href="#" class="dropdown-item" @click="showSettingsModal">
                             {{ trans.nav.controls.settings }}
                         </a>
@@ -51,7 +51,7 @@
                         <a href="#" class="dropdown-item" @click="showSeoModal">
                             {{ trans.nav.controls.seo }}
                         </a>
-                        <a v-if="isDraft" href="#" class="dropdown-item" @click.prevent="convertToDraft">
+                        <a v-if="!isDraft" href="#" class="dropdown-item" @click.prevent="convertToDraft">
                             {{ trans.buttons.general.draft }}
                         </a>
                         <a v-if="id !== 'create'" href="#" class="dropdown-item text-danger" @click="showDeleteModal">
@@ -120,7 +120,7 @@
 <script>
     import Vue from "vue";
     import $ from "jquery";
-    import moment from "moment";
+    import {mapGetters} from 'vuex';
     import SeoModal from "../../components/SeoModal";
     import PageHeader from "../../components/PageHeader";
     import DeleteModal from "../../components/DeleteModal";
@@ -152,7 +152,6 @@
                 topics: [],
                 id: this.$route.params.id || "create",
                 isReady: false,
-                timezone: Canvas.timezone,
                 trans: JSON.parse(Canvas.lang)
             };
         },
@@ -171,9 +170,9 @@
         },
 
         computed: {
-            isDraft() {
-                return this.post && this.post.published_at <= moment(new Date()).tz(this.timezone).format().slice(0, 19).replace("T", " ");
-            }
+            ...mapGetters([
+                'isDraft'
+            ])
         },
 
         methods: {
