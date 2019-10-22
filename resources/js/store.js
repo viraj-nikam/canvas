@@ -1,16 +1,17 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue from 'vue';
 import _ from "lodash";
+import Vuex from 'vuex';
+import moment from 'moment';
 
 Vue.use(Vuex);
 
 export const store = new Vuex.Store({
     state: {
-        activePost:{},
+        activePost: {},
     },
 
     mutations: {
-        setActivePost(state, data){
+        setActivePost(state, data) {
             let payload = {};
 
             payload.id = _.get(data, "id", "create");
@@ -39,11 +40,11 @@ export const store = new Vuex.Store({
             state.activePost = payload;
         },
 
-        updatePostBody(state, data){
+        updatePostBody(state, data) {
             state.activePost.body = data;
         },
 
-        saveActivePost(state, data){
+        saveActivePost(state, data) {
             this.$app.request()
                 .post("/api/posts/" + state.activePost.id, data)
                 .then(response => {
@@ -65,15 +66,15 @@ export const store = new Vuex.Store({
                 });
         },
 
-        setPostTags(state, tags){
+        setPostTags(state, tags) {
             state.activePost.tags = tags;
         },
 
-        setPostTopic(state, topic){
+        setPostTopic(state, topic) {
             state.activePost.topic = topic;
         },
 
-        deletePost(state, postId){
+        deletePost(state, postId) {
             this.$app.request()
                 .delete("/api/posts/" + postId)
                 .then(response => {
@@ -87,34 +88,40 @@ export const store = new Vuex.Store({
         },
     },
     actions: {
-        setActivePost(context, payload){
+        setActivePost(context, payload) {
             context.commit('setActivePost', payload)
         },
 
-        updatePostBody(context, body){
+        updatePostBody(context, body) {
             context.commit('updatePostBody', body)
         },
 
-        saveActivePost(context, payload){
+        saveActivePost(context, payload) {
             context.commit('saveActivePost', payload);
         },
 
-        setPostTags(context, payload){
+        setPostTags(context, payload) {
             context.commit('setPostTags', payload);
         },
 
-        setPostTopic(context, payload){
+        setPostTopic(context, payload) {
             context.commit('setPostTopic', payload);
         },
 
-        deletePost(context, payload){
+        deletePost(context, payload) {
             context.commit('deletePost', payload);
         }
     },
 
     getters: {
-        activePost(state){
+        activePost(state) {
             return state.activePost;
+        },
+
+        isDraft(state) {
+            const date = state.activePost.published_at;
+
+            return date === null || date === "" || date > moment(new Date()).tz(Canvas.timezone).format().slice(0, 19).replace("T", " ");
         }
     }
 });
