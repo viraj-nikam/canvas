@@ -42,27 +42,27 @@
     import _ from 'lodash';
     import $ from 'jquery';
     import Quill from 'quill'
+    import { mapState } from 'vuex';
     import Parchment from 'parchment'
     import HTMLBlot from './HTMLBlot'
     import ImageBlot from './ImageBlot'
     import HTMLModal from "./HTMLModal";
     import ImageModal from "./ImageModal";
     import DividerBlot from './DividerBlot'
-    import { mapState } from 'vuex';
 
     export default {
-        computed: mapState(['activePost']),
-
-        components: {
-            'html-modal': HTMLModal,
-            'image-modal': ImageModal
-        },
+        name: 'quill-editor',
 
         props: {
             value: {
                 type: String,
                 default: ''
             }
+        },
+
+        components: {
+            'html-modal': HTMLModal,
+            'image-modal': ImageModal
         },
 
         data() {
@@ -79,6 +79,10 @@
             this.handleClicksInsideEditor();
             this.initSideControls();
         },
+
+        computed: mapState([
+            'activePost'
+        ]),
 
         methods: {
             createEditor() {
