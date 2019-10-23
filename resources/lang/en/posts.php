@@ -100,6 +100,10 @@ return [
                 'label'       => 'Canonical',
                 'placeholder' => 'Canonical URL of original source',
             ],
+            'sync'      => [
+                'title'       => 'Sync with the post title',
+                'description' => 'Sync with the post summary',
+            ],
         ],
         'settings' => [
             'header'  => 'General settings',

@@ -100,6 +100,10 @@ return [
                 'label'       => 'Kanonisch',
                 'placeholder' => 'Kanonische URL der Originalquelle',
             ],
+            'sync'      => [
+                'title'       => 'Mit dem Beitragstitel synchronisieren',
+                'description' => 'Mit der Post-Zusammenfassung synchronisieren',
+            ],
         ],
         'settings' => [
             'header'  => 'Allgemeine Einstellungen',

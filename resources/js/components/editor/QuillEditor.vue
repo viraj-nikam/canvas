@@ -3,7 +3,7 @@
         <div style="position: relative">
             <div id="sidebarControls">
                 <button class="btn btn-outline-light btn-circle border" type="button" @click="openSidebarControls">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="26" viewBox="0 0 24 24" class="icon-add-circle"><circle cx="12" cy="12" r="10" style="fill: none"/><path class="secondary" d="M13 11h4a1 1 0 0 1 0 2h-4v4a1 1 0 0 1-2 0v-4H7a1 1 0 0 1 0-2h4V7a1 1 0 0 1 2 0v4z"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="26" viewBox="0 0 24 24" class="icon-add-circle"><circle cx="12" cy="12" r="10" style="fill:none"/><path class="secondary" d="M13 11h4a1 1 0 0 1 0 2h-4v4a1 1 0 0 1-2 0v-4H7a1 1 0 0 1 0-2h4V7a1 1 0 0 1 2 0v4z"/></svg>
                 </button>
                 <div class="controls pl-3 d-none">
                     <button class="btn btn-outline-light btn-circle border mr-1" type="button" @click="showImageModal">
@@ -11,7 +11,7 @@
                     </button>
                     <button class="btn btn-outline-light btn-circle border mr-1" type="button" @click="showHTMLModal">
                         <svg xmlns="http://www.w3.org/2000/svg" width="26" viewBox="0 0 24 24" class="icon-code">
-                            <rect width="18" height="18" x="3" y="3" style="fill: none" rx="2"/>
+                            <rect width="18" height="18" x="3" y="3" style="fill:none" rx="2"/>
                             <path class="secondary" d="M8.7 13.3a1 1 0 0 1-1.4 1.4l-2-2a1 1 0 0 1 0-1.4l2-2a1 1 0 1 1 1.4 1.4L7.42 12l1.3 1.3zm6.6 0l1.29-1.3-1.3-1.3a1 1 0 1 1 1.42-1.4l2 2a1 1 0 0 1 0 1.4l-2 2a1 1 0 0 1-1.42-1.4zm-3.32 3.9a1 1 0 0 1-1.96-.4l2-10a1 1 0 0 1 1.96.4l-2 10z"/>
                         </svg>
                     </button>

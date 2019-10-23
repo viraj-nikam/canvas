@@ -100,6 +100,10 @@ return [
                 'label'       => '典范',
                 'placeholder' => '原始来源的规范URL',
             ],
+            'sync'      => [
+                'title'       => '与帖子标题同步',
+                'description' => '与帖子摘要同步',
+            ],
         ],
         'settings' => [
             'header'  => '常規設置',

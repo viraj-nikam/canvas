@@ -100,6 +100,10 @@ return [
                 'label'       => 'Canonique',
                 'placeholder' => 'URL canonique de la source originale',
             ],
+            'sync'      => [
+                'title'       => 'Synchroniser avec le titre de l\'article',
+                'description' => 'Synchroniser avec le résumé de la publication',
+            ],
         ],
         'settings' => [
             'header'  => 'Réglages généraux',
