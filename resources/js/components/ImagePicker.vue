@@ -125,7 +125,17 @@
                     currentImage.classList.add("d-none");
                 }
 
-                this.searchQuery = "canvas";
+                let searchTerms = [
+                    'animal',
+                    'art',
+                    'city',
+                    'emotion',
+                    'nature',
+                    'smile',
+                    'tech'
+                ];
+
+                this.searchQuery = searchTerms[Math.floor(Math.random()*searchTerms.length)];
                 this.showUnsplash = true;
 
                 this.$nextTick(() => {
