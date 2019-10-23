@@ -11,6 +11,19 @@
     <br><br>
 </p>
 
+## Table of Contents
+
+- [Introduction](#introduction)
+- [Installation](#installation)
+- [Usage](#usage)
+	- [Configuration](#configuration)
+	- [Publishing](#publishing)
+- [Options](#options)
+- [Updates](#updates)
+- [Testing](#testing)
+- [License](#license)
+- [Credits](#credits)
+
 ## Introduction
 
 A [Laravel](https://laravel.com) publishing platform. Canvas is a fully open source package to extend your 
@@ -84,7 +97,7 @@ If you'd like to restrict access to Canvas in a production environment, add any 
 
 ### Publishing
 
-Canvas takes care of all the backend publishing while giving you the freedom to display it on the frontend however you choose. A very simple setup would include a controller, some views, and a few routes. Take a look at the following example:
+Canvas takes care of the backend while giving you the freedom to display the final content however you choose. A very simple setup would include a controller, some views, and a few routes. Take a look at the following example:
 
 Define a few routes inside of `routes/web.php`:
 
@@ -162,7 +175,7 @@ public function findPostBySlug(string $slug)
             'meta'   => $post->meta,
         ];
 
-        // IMPORTANT: Including this event allows Canvas to save the view data
+        // IMPORTANT: You must include this event for Canvas to store view data
         event(new \Canvas\Events\PostViewed($post));
 
         return view('blog.show', compact('data'));
@@ -172,7 +185,9 @@ public function findPostBySlug(string $slug)
 }
 ```
 
-If you'd rather have this completed for you automatically, just follow through the optional guide below to generate a fully-featured template. Aside from general post listings, you'll get localized content, reading suggestions and more!
+Finally, just create `index.blade.php` and `show.blade.php` inside a `/views/blog` directory. 
+
+If you'd rather have all of this run automatically with no extra work from you, just follow through the optional guide below to build a Medium-inspired frontend. Aside from general post listings, you'll get localized content, reading suggestions and more!
 
 ## Options
 
@@ -218,7 +233,7 @@ If you want to include [Unsplash](https://unsplash.com) images in your post cont
 ],
 ```
 
-Since the weekly digest runs on [Laravel's Scheduler](https://laravel.com/docs/5.8/scheduling#introduction), you'll need to add the following cron entry to your server:
+Since the weekly digest runs on [Laravel's Scheduler](https://laravel.com/docs/master/scheduling), you'll need to add the following cron entry to your server:
 
 ```bash
 * * * * * cd /path-to-your-project && php artisan schedule:run >> /dev/null 2>&1

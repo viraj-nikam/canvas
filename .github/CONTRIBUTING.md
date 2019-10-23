@@ -2,10 +2,21 @@
 
 Hi! I'm really excited that you are interested in contributing to Canvas. The following guide will help you get your environment set up to begin making changes.
 
+## Table of Contents
+
+- [OS Tools](#before-you-get-started)
+- [Development Setup](#development-setup)
+	- [Git](#git)
+	- [Database](#database)
+	- [Authentication](#authentication)
+	- [Directories](#directories)
+	- [Installation](#installation)
+	- [Developing](#developing)
+
 ## Before you get started
 
 - Make sure the [Vue DevTools](https://chrome.google.com/webstore/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd?hl=en) extension is installed in your Chrome browser
-- Add the following function to your shell(*Bash, Zsh, etc.*):
+- Add the following function from [Caleb Porzio](https://calebporzio.com/bash-alias-composer-link-use-local-folders-as-composer-dependancies/) to your `~/.bashrc`, `~/.bash_profile` or `~/.zshrc`:
 
 ```bash
 composer-link() {composer config repositories.local '{"type": "path", "url": "'$1'"}' --file composer.json}

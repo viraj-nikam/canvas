@@ -3,7 +3,17 @@
 ## [Unreleased](https://github.com/cnvs/canvas/compare/master...develop)
 
 ## Changed
-- Rewrite of the entire package into an SPA ([]())
+- Converted the package from a traditional SSR app into an SPA
+- Replaced the FontAwesome library with custom illustrated icons from [RefactoringUI](https://refactoringui.com)
+- Comprehensive update to the color palette
+
+## Added
+- Added Vuex for state management ([de90dd8](https://github.com/cnvs/canvas/commit/de90dd8e512f223a0c59b39556c8a92667d70854))
+- Added [NProgress](https://github.com/rstacruz/nprogress) on page loads
+- Added an autosaving feature to the editor
+
+## Fixed
+- Updated version support in CI testing ([#513](https://github.com/cnvs/canvas/issues/513), [f702d8d](https://github.com/cnvs/canvas/commit/f702d8d2c5c5bad8512ae0458794d91fbcb338c8))
 
 ## [4.2.9](https://github.com/cnvs/canvas/compare/v4.2.8...v4.2.9) (September 20, 2019)
 
