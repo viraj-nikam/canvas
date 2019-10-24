@@ -1,19 +1,19 @@
 <?php
 
-use Canvas\Post;
-
 /* @var \Illuminate\Database\Eloquent\Factory $factory */
-$factory->define(Post::class, function (Faker\Generator $faker) {
+$factory->define(\Canvas\Post::class, function (Faker\Generator $faker) {
     return [
         'id'                     => $faker->uuid,
         'slug'                   => $faker->slug,
         'title'                  => $faker->word,
         'summary'                => $faker->sentence,
         'body'                   => $faker->realText(),
-        'published_at'           => now()->toDateTimeString(),
+        'published_at'           => today()->toDateTimeString(),
         'featured_image'         => $faker->imageUrl(),
         'featured_image_caption' => $faker->sentence,
-        'user_id'                => (string) $faker->numberBetween(0, 5),
+        'user_id'                => function () {
+            return factory(\Illuminate\Foundation\Auth\User::class)->create()->id;
+        },
         'meta'                   => [
             'meta_description'    => $faker->sentence,
             'og_title'            => $faker->sentence,

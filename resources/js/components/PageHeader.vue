@@ -3,7 +3,7 @@
         <div class="col-md-10 px-0">
             <nav class="navbar navbar-light justify-content-between flex-nowrap flex-row py-3">
                 <router-link to="/" class="navbar-brand font-weight-bold py-0">
-                    <span class="text-muted">/</span><span class="text-body">cnvs</span>
+                    <span class="text-muted">{</span><span class="text-body">need_a_logo</span><span class="text-muted">}</span>
                 </router-link>
 
                 <ul class="navbar-nav mr-auto flex-row float-right">
