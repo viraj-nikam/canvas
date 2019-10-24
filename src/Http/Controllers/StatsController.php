@@ -13,7 +13,7 @@ class StatsController extends Controller
     use Trends;
 
     /**
-     * Number of days in the past to generate stats for.
+     * Number of days to compile stats.
      *
      * @const int
      */
@@ -37,8 +37,8 @@ class StatsController extends Controller
         // Get views for the last [X] days
         $views = View::select('created_at')
             ->whereBetween('created_at', [
-                now()->subDays(self::DAYS_PRIOR)->toDateTimeString(),
-                now()->toDateTimeString(),
+                today()->subDays(self::DAYS_PRIOR)->toDateTimeString(),
+                today()->toDateTimeString(),
             ])->get();
 
         return response()->json([
@@ -49,7 +49,7 @@ class StatsController extends Controller
             ],
             'views' => [
                 'count' => $views->count(),
-                'trend' => json_encode($this->getDailyViewCounts($views, self::DAYS_PRIOR)),
+                'trend' => json_encode($this->getViewCounts($views, self::DAYS_PRIOR)),
             ],
         ]);
     }
@@ -69,7 +69,7 @@ class StatsController extends Controller
                 'post'                  => $post,
                 'traffic'               => $post->top_referers,
                 'popular_reading_times' => $post->popular_reading_times,
-                'views'                 => json_encode($this->getDailyViewCounts($post->views, self::DAYS_PRIOR)),
+                'views'                 => json_encode($this->getViewCounts($post->views, self::DAYS_PRIOR)),
             ]);
         } else {
             return response()->json(null, 301);
