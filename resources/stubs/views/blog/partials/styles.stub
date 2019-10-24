@@ -168,6 +168,7 @@
 
     .post a {
         text-decoration: underline !important;
+        color: #343a40 !important;
     }
 
     .post p code {
