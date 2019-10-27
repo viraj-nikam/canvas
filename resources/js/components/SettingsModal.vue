@@ -10,6 +10,15 @@
                     <div class="form-group row">
                         <div class="col-12">
                             <label class="font-weight-bold">{{ trans.posts.forms.settings.slug.label }}</label>
+                            <a
+                                href="#"
+                                class="text-decoration-none"
+                                v-if="activePost.title"
+                                v-tooltip="{ placement: 'right' }"
+                                :title="trans.posts.forms.seo.sync.title"
+                                @click.prevent="syncSlug()">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-refresh" width="25"><circle cx="12" cy="12" r="10" style="fill:none"/><path class="primary" d="M8.52 7.11a5.98 5.98 0 0 1 8.98 2.5 1 1 0 1 1-1.83.8 4 4 0 0 0-5.7-1.86l.74.74A1 1 0 0 1 10 11H7a1 1 0 0 1-1-1V7a1 1 0 0 1 1.7-.7l.82.81zm5.51 8.34l-.74-.74A1 1 0 0 1 14 13h3a1 1 0 0 1 1 1v3a1 1 0 0 1-1.7.7l-.82-.81A5.98 5.98 0 0 1 6.5 14.4a1 1 0 1 1 1.83-.8 4 4 0 0 0 5.7 1.85z"/></svg>
+                            </a>
                             <input
                                 type="text"
                                 class="form-control border-0 px-0 bg-transparent"
@@ -71,9 +80,10 @@
     import _ from 'lodash';
     import $ from 'jquery';
     import autosize from 'autosize';
+    import { mapState } from 'vuex';
     import TagSelect from "./TagSelect";
     import TopicSelect from "./TopicSelect";
-    import { mapState } from 'vuex';
+    import Tooltip from '../directives/Tooltip';
 
     export default {
         name: "settings-modal",
@@ -92,6 +102,10 @@
         components: {
             TagSelect,
             TopicSelect
+        },
+
+        directives: {
+            Tooltip
         },
 
         data() {
@@ -114,6 +128,11 @@
         },
 
         methods: {
+            syncSlug() {
+                this.activePost.slug = this.slugify(this.activePost.title);
+                this.$parent.save();
+            },
+
             update: _.debounce(function (e) {
                 this.$parent.save();
             }, 900)

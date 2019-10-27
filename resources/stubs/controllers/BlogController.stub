@@ -35,10 +35,12 @@ class BlogController extends Controller
      */
     public function findPostBySlug(string $slug): View
     {
-        $posts = Post::with('tags', 'topic')->published()->get();
-        $post = $posts->firstWhere('slug', $slug);
+        $post = Post::where('slug', $slug)->first();
 
-        if ($post->published) {
+        if ($post && $post->published) {
+
+            $posts = Post::with('tags', 'topic')->published()->get();
+
             $readNext = $posts->sortBy('published_at')->firstWhere('published_at', '>', $post->published_at);
 
             if ($readNext) {
@@ -51,7 +53,7 @@ class BlogController extends Controller
                 });
             }
 
-            if ($post->tags->isNotEmpty() || $post->topic->isNotEmtpy()) {
+            if ($post->tags || $post->topic) {
                 $related = $this->findRelatedViaTaxonomy($randomPool, $post);
                 $readRandom = $related->isEmpty() ? null : $related->first();
             } else {

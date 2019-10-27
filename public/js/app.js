@@ -3077,9 +3077,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var autosize__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! autosize */ "./node_modules/autosize/dist/autosize.js");
 /* harmony import */ var autosize__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(autosize__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _TagSelect__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./TagSelect */ "./resources/js/components/TagSelect.vue");
-/* harmony import */ var _TopicSelect__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./TopicSelect */ "./resources/js/components/TopicSelect.vue");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _TagSelect__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./TagSelect */ "./resources/js/components/TagSelect.vue");
+/* harmony import */ var _TopicSelect__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./TopicSelect */ "./resources/js/components/TopicSelect.vue");
+/* harmony import */ var _directives_Tooltip__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../directives/Tooltip */ "./resources/js/directives/Tooltip.js");
 //
 //
 //
@@ -3149,6 +3150,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
@@ -3168,8 +3179,11 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   components: {
-    TagSelect: _TagSelect__WEBPACK_IMPORTED_MODULE_3__["default"],
-    TopicSelect: _TopicSelect__WEBPACK_IMPORTED_MODULE_4__["default"]
+    TagSelect: _TagSelect__WEBPACK_IMPORTED_MODULE_4__["default"],
+    TopicSelect: _TopicSelect__WEBPACK_IMPORTED_MODULE_5__["default"]
+  },
+  directives: {
+    Tooltip: _directives_Tooltip__WEBPACK_IMPORTED_MODULE_6__["default"]
   },
   data: function data() {
     return {
@@ -3178,7 +3192,7 @@ __webpack_require__.r(__webpack_exports__);
       trans: JSON.parse(Canvas.lang)
     };
   },
-  computed: Object(vuex__WEBPACK_IMPORTED_MODULE_5__["mapState"])(['activePost']),
+  computed: Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapState"])(['activePost']),
   mounted: function mounted() {
     jquery__WEBPACK_IMPORTED_MODULE_1___default()('#settingsModal').on('shown.bs.modal', function () {
       autosize__WEBPACK_IMPORTED_MODULE_2___default()(jquery__WEBPACK_IMPORTED_MODULE_1___default()('#settings'));
@@ -3187,6 +3201,10 @@ __webpack_require__.r(__webpack_exports__);
     this.allTopics = this.topics;
   },
   methods: {
+    syncSlug: function syncSlug() {
+      this.activePost.slug = this.slugify(this.activePost.title);
+      this.$parent.save();
+    },
     update: lodash__WEBPACK_IMPORTED_MODULE_0___default.a.debounce(function (e) {
       this.$parent.save();
     }, 900)
@@ -78101,6 +78119,59 @@ var render = function() {
                 _c("label", { staticClass: "font-weight-bold" }, [
                   _vm._v(_vm._s(_vm.trans.posts.forms.settings.slug.label))
                 ]),
+                _vm._v(" "),
+                _vm.activePost.title
+                  ? _c(
+                      "a",
+                      {
+                        directives: [
+                          {
+                            name: "tooltip",
+                            rawName: "v-tooltip",
+                            value: { placement: "right" },
+                            expression: "{ placement: 'right' }"
+                          }
+                        ],
+                        staticClass: "text-decoration-none",
+                        attrs: {
+                          href: "#",
+                          title: _vm.trans.posts.forms.seo.sync.title
+                        },
+                        on: {
+                          click: function($event) {
+                            $event.preventDefault()
+                            return _vm.syncSlug()
+                          }
+                        }
+                      },
+                      [
+                        _c(
+                          "svg",
+                          {
+                            staticClass: "icon-refresh",
+                            attrs: {
+                              xmlns: "http://www.w3.org/2000/svg",
+                              viewBox: "0 0 24 24",
+                              width: "25"
+                            }
+                          },
+                          [
+                            _c("circle", {
+                              staticStyle: { fill: "none" },
+                              attrs: { cx: "12", cy: "12", r: "10" }
+                            }),
+                            _c("path", {
+                              staticClass: "primary",
+                              attrs: {
+                                d:
+                                  "M8.52 7.11a5.98 5.98 0 0 1 8.98 2.5 1 1 0 1 1-1.83.8 4 4 0 0 0-5.7-1.86l.74.74A1 1 0 0 1 10 11H7a1 1 0 0 1-1-1V7a1 1 0 0 1 1.7-.7l.82.81zm5.51 8.34l-.74-.74A1 1 0 0 1 14 13h3a1 1 0 0 1 1 1v3a1 1 0 0 1-1.7.7l-.82-.81A5.98 5.98 0 0 1 6.5 14.4a1 1 0 1 1 1.83-.8 4 4 0 0 0 5.7 1.85z"
+                              }
+                            })
+                          ]
+                        )
+                      ]
+                    )
+                  : _vm._e(),
                 _vm._v(" "),
                 _c("input", {
                   directives: [

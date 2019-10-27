@@ -141,8 +141,6 @@ select.input {
 .multiselect,
 .multiselect__input,
 .multiselect__single {
-  background-color: transparent;
-  font-size: 14px;
   padding: 0;
   border-radius: 0;
 }
