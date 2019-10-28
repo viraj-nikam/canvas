@@ -79606,7 +79606,7 @@ var render = function() {
                                           },
                                           [
                                             _c("path", {
-                                              staticClass: "secondary",
+                                              staticClass: "primary",
                                               attrs: {
                                                 "fill-rule": "evenodd",
                                                 d:
@@ -80997,7 +80997,7 @@ var render = function() {
                                           },
                                           [
                                             _c("path", {
-                                              staticClass: "secondary",
+                                              staticClass: "primary",
                                               attrs: {
                                                 "fill-rule": "evenodd",
                                                 d:
@@ -81570,7 +81570,7 @@ var render = function() {
                                           },
                                           [
                                             _c("path", {
-                                              staticClass: "secondary",
+                                              staticClass: "primary",
                                               attrs: {
                                                 "fill-rule": "evenodd",
                                                 d:
