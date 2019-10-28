@@ -23,7 +23,7 @@
                                 <div class="card-deck mb-4">
                                     <div class="card shadow-sm bg-transparent">
                                         <div class="card-body">
-                                            <h5 class="card-title text-muted small text-uppercase font-weight-bold">
+                                            <h5 class="card-title text-muted small text-uppercase font-weight-bolder">
                                                 {{ trans.stats.cards.views.title }}
                                             </h5>
                                             <p class="card-text display-4">

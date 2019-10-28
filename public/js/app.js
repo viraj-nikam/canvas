@@ -2176,6 +2176,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "delete-modal",
   props: {
@@ -11744,7 +11746,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\nimg[data-v-7fb418a7] {\n    width: 31px;\n}\na.dropdown-item[data-v-7fb418a7]:active {\n    background-color: #f8f9fa;\n    color: #16181b;\n}\n", ""]);
+exports.push([module.i, "\na.dropdown-item[data-v-7fb418a7]:active {\n    background-color: #f8f9fa;\n    color: #16181b;\n}\n", ""]);
 
 // exports
 
@@ -76410,12 +76412,33 @@ var render = function() {
                   "\n                "
               )
             ]),
-            _vm._v(
-              "\n                " + _vm._s(_vm.message) + "\n            "
-            )
+            _vm._v(" "),
+            _c("p", [
+              _vm._v(
+                "\n                    " +
+                  _vm._s(_vm.message) +
+                  "\n                "
+              )
+            ])
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "modal-footer" }, [
+            _c(
+              "button",
+              {
+                staticClass:
+                  "btn btn-link font-weight-bold text-muted text-decoration-none",
+                attrs: { type: "button", "data-dismiss": "modal" }
+              },
+              [
+                _vm._v(
+                  "\n                    " +
+                    _vm._s(_vm.trans.buttons.general.cancel) +
+                    "\n                "
+                )
+              ]
+            ),
+            _vm._v(" "),
             _c(
               "a",
               {
@@ -76432,22 +76455,6 @@ var render = function() {
                 _vm._v(
                   "\n                    " +
                     _vm._s(_vm.trans.buttons.general.delete) +
-                    "\n                "
-                )
-              ]
-            ),
-            _vm._v(" "),
-            _c(
-              "button",
-              {
-                staticClass:
-                  "btn btn-link font-weight-bold text-muted text-decoration-none",
-                attrs: { type: "button", "data-dismiss": "modal" }
-              },
-              [
-                _vm._v(
-                  "\n                    " +
-                    _vm._s(_vm.trans.buttons.general.cancel) +
                     "\n                "
                 )
               ]
@@ -76939,11 +76946,9 @@ var render = function() {
                 attrs: { to: "/" }
               },
               [
-                _c("span", { staticClass: "text-muted" }, [_vm._v("{")]),
-                _c("span", { staticClass: "text-body" }, [
-                  _vm._v("need_a_logo")
-                ]),
-                _c("span", { staticClass: "text-muted" }, [_vm._v("}")])
+                _c("span", { staticClass: "text-muted" }, [_vm._v("{ ")]),
+                _c("span", { staticClass: "text-body" }, [_vm._v("logo")]),
+                _c("span", { staticClass: "text-muted" }, [_vm._v(" }")])
               ]
             ),
             _vm._v(" "),
@@ -76986,6 +76991,7 @@ var render = function() {
                 [
                   _c("img", {
                     staticClass: "rounded-circle my-0 shadow-sm",
+                    staticStyle: { width: "31px" },
                     attrs: { src: _vm.gravatar(), alt: _vm.user.name }
                   })
                 ]
@@ -77401,38 +77407,6 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "modal-footer" }, [
-            _vm.shouldPublish
-              ? _c(
-                  "a",
-                  {
-                    staticClass: "btn btn-success font-weight-bold",
-                    attrs: { href: "#", "data-dismiss": "modal" },
-                    on: { click: _vm.scheduleOrPublish }
-                  },
-                  [
-                    _vm._v(
-                      "\n                    " +
-                        _vm._s(_vm.trans.buttons.posts.publish) +
-                        "\n                "
-                    )
-                  ]
-                )
-              : _c(
-                  "a",
-                  {
-                    staticClass: "btn btn-success font-weight-bold",
-                    attrs: { href: "#" },
-                    on: { click: _vm.scheduleOrPublish }
-                  },
-                  [
-                    _vm._v(
-                      "\n                    " +
-                        _vm._s(_vm.trans.buttons.posts.schedule) +
-                        "\n                "
-                    )
-                  ]
-                ),
-            _vm._v(" "),
             _vm.isScheduled
               ? _c(
                   "button",
@@ -77461,6 +77435,38 @@ var render = function() {
                     _vm._v(
                       "\n                    " +
                         _vm._s(_vm.trans.buttons.general.cancel) +
+                        "\n                "
+                    )
+                  ]
+                ),
+            _vm._v(" "),
+            _vm.shouldPublish
+              ? _c(
+                  "a",
+                  {
+                    staticClass: "btn btn-success font-weight-bold",
+                    attrs: { href: "#", "data-dismiss": "modal" },
+                    on: { click: _vm.scheduleOrPublish }
+                  },
+                  [
+                    _vm._v(
+                      "\n                    " +
+                        _vm._s(_vm.trans.buttons.posts.publish) +
+                        "\n                "
+                    )
+                  ]
+                )
+              : _c(
+                  "a",
+                  {
+                    staticClass: "btn btn-success font-weight-bold",
+                    attrs: { href: "#" },
+                    on: { click: _vm.scheduleOrPublish }
+                  },
+                  [
+                    _vm._v(
+                      "\n                    " +
+                        _vm._s(_vm.trans.buttons.posts.schedule) +
                         "\n                "
                     )
                   ]
@@ -79754,7 +79760,7 @@ var render = function() {
                                       "h5",
                                       {
                                         staticClass:
-                                          "card-title text-muted small text-uppercase font-weight-bold"
+                                          "card-title text-muted small text-uppercase font-weight-bolder"
                                       },
                                       [
                                         _vm._v(

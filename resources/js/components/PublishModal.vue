@@ -52,14 +52,6 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <a href="#" v-if="shouldPublish" class="btn btn-success font-weight-bold" @click="scheduleOrPublish" data-dismiss="modal">
-                        {{ trans.buttons.posts.publish }}
-                    </a>
-
-                    <a href="#" v-else class="btn btn-success font-weight-bold" @click="scheduleOrPublish">
-                        {{ trans.buttons.posts.schedule }}
-                    </a>
-
                     <button v-if="isScheduled" @click="cancelScheduling" type="button" class="btn btn-link text-muted font-weight-bold text-decoration-none" data-dismiss="modal">
                         {{ trans.buttons.posts.cancel }}
                     </button>
@@ -67,6 +59,14 @@
                     <button v-else type="button" class="btn btn-link text-muted font-weight-bold text-decoration-none" data-dismiss="modal">
                         {{ trans.buttons.general.cancel }}
                     </button>
+
+                    <a href="#" v-if="shouldPublish" class="btn btn-success font-weight-bold" @click="scheduleOrPublish" data-dismiss="modal">
+                        {{ trans.buttons.posts.publish }}
+                    </a>
+
+                    <a href="#" v-else class="btn btn-success font-weight-bold" @click="scheduleOrPublish">
+                        {{ trans.buttons.posts.schedule }}
+                    </a>
                 </div>
             </div>
         </div>

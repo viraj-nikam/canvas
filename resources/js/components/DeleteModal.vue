@@ -6,15 +6,17 @@
                     <p class="font-weight-bold lead">
                         {{ header }}
                     </p>
-                    {{ message }}
+                    <p>
+                        {{ message }}
+                    </p>
                 </div>
                 <div class="modal-footer">
-                    <a href="#" class="btn btn-danger font-weight-bold" aria-label="Delete" @click.prevent="confirmProceed()">
-                        {{ trans.buttons.general.delete }}
-                    </a>
                     <button type="button" class="btn btn-link font-weight-bold text-muted text-decoration-none" data-dismiss="modal">
                         {{ trans.buttons.general.cancel }}
                     </button>
+                    <a href="#" class="btn btn-danger font-weight-bold" aria-label="Delete" @click.prevent="confirmProceed()">
+                        {{ trans.buttons.general.delete }}
+                    </a>
                 </div>
             </div>
         </div>
