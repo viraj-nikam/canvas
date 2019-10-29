@@ -1,18 +1,18 @@
 import Vue from "vue";
 import Routes from "./routes";
+import { store } from './store'
 import Base from "./mixins/Base";
 import NProgress from "nprogress";
 import VueRouter from "vue-router";
-import { store } from './store'
 import moment from "moment-timezone";
 
-require("bootstrap");
+require('bootstrap');
 
-window.Popper = require("popper.js").default;
+window.Popper = require('popper.js').default;
 
 Vue.mixin(Base);
 
-// Set the default canvasApp timezone
+// Set the default timezone
 moment.tz.setDefault(Canvas.timezone);
 
 // Prevent the production tip on Vue startup
@@ -22,7 +22,7 @@ Vue.use(VueRouter);
 
 const router = new VueRouter({
     routes: Routes,
-    mode: "history",
+    mode: 'history',
     base: Canvas.path
 });
 
@@ -41,11 +41,11 @@ router.afterEach(() => {
     NProgress.done();
 });
 
-const canvasApp = new Vue({
-    el: "#canvas",
+const app = new Vue({
+    el: '#canvas',
     router,
     store
 });
 
 // Give the store access to the root Vue instance
-store.$app = canvasApp;
+store.$app = app;

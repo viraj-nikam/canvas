@@ -20,7 +20,7 @@
 
                 <div class="dropdown ml-3" v-cloak>
                     <a href="#" id="navbarDropdown" class="nav-link px-0 text-secondary" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <img :src="gravatar()" :alt="user.name" class="rounded-circle my-0 shadow-sm" style="width: 31px"/>
+                        <img :src="gravatar()" :alt="user.name" class="rounded-circle my-0 shadow-inner" style="width: 31px"/>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                         <h6 class="dropdown-header">
