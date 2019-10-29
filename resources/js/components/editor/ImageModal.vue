@@ -40,7 +40,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-link text-muted font-weight-bold text-decoration-none" @click="applyImage" data-dismiss="modal">
+                    <button class="btn btn-link btn-block text-muted font-weight-bold text-decoration-none" @click="applyImage" data-dismiss="modal">
                         {{ trans.buttons.general.done }}
                     </button>
                 </div>

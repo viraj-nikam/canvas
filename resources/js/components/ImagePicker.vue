@@ -28,11 +28,11 @@
                         </div>
                     </div>
 
-                    <div class="text-center">
-                        <button class="btn btn-link font-weight-bold text-muted text-decoration-none" type="button" @click="closeUnsplash" @submit.prevent>
+                    <div class="d-flex pt-3">
+                        <button class="btn btn-link btn-block font-weight-bold text-muted text-decoration-none" type="button" @click="closeUnsplash" @submit.prevent>
                             {{ trans.buttons.general.cancel }}
                         </button>
-                        <button class="btn btn-sm btn-outline-success font-weight-bold" type="button" @click="fetchImages(unsplashPage + 1)" v-if="unsplashImages.length === 12" @submit.prevent>
+                        <button class="btn btn-success btn-block font-weight-bold mt-0" type="button" @click="fetchImages(unsplashPage + 1)" v-if="unsplashImages.length === 12" @submit.prevent>
                             {{ trans.buttons.general.next }}
                         </button>
                     </div>

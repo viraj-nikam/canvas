@@ -11,10 +11,10 @@
                     </p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-link font-weight-bold text-muted text-decoration-none" data-dismiss="modal">
+                    <button class="btn btn-link btn-block font-weight-bold text-muted text-decoration-none" data-dismiss="modal">
                         {{ trans.buttons.general.cancel }}
                     </button>
-                    <a href="#" class="btn btn-danger font-weight-bold" aria-label="Delete" @click.prevent="confirmProceed()">
+                    <a href="#" class="btn btn-danger btn-block font-weight-bold mt-0" aria-label="Delete" @click.prevent="confirmProceed()">
                         {{ trans.buttons.general.delete }}
                     </a>
                 </div>
