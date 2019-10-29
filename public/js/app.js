@@ -2376,6 +2376,7 @@ __webpack_require__.r(__webpack_exports__);
       showUnsplash: false,
       searchQuery: "",
       unsplashPage: 1,
+      perPage: 12,
       unsplashImages: [],
       isSearchingUnsplash: false,
       selectedUnsplashImage: null,
@@ -2401,7 +2402,7 @@ __webpack_require__.r(__webpack_exports__);
 
       this.isSearchingUnsplash = true;
       this.unsplashPage = page;
-      this.request().get("https://api.unsplash.com/search/photos?client_id=" + this.unsplash + "&orientation=landscape&per_page=12" + "&query=" + this.searchQuery + "&page=" + page).then(function (response) {
+      this.request().get("https://api.unsplash.com/search/photos?client_id=" + this.unsplash + "&orientation=landscape&per_page=" + this.perPage + "&query=" + this.searchQuery + "&page=" + page).then(function (response) {
         _this.unsplashImages = response.data.results;
         _this.isSearchingUnsplash = false;
       })["catch"](function (error) {
@@ -76800,7 +76801,7 @@ var render = function() {
                       ]
                     ),
                     _vm._v(" "),
-                    _vm.unsplashImages.length === 12
+                    _vm.unsplashImages.length === _vm.perPage
                       ? _c(
                           "button",
                           {

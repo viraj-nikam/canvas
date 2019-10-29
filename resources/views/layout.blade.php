@@ -10,11 +10,11 @@
 
     <title>Canvas</title>
 
-    <link rel="dns-prefetch" href="{{ url('fonts.gstatic.com') }}">
-    <link rel="stylesheet" href="{{ url('fonts.googleapis.com/css?family=Karla|Merriweather') }}">
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Karla|Merriweather">
 
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/default.min.css">
-    <script src="{{ url('cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js') }}"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>
 
     <link rel="stylesheet" type="text/css" href="{{ asset(mix(sprintf('css/%s', $stylesheet), 'vendor/canvas')) }}">
 
