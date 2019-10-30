@@ -2,7 +2,7 @@
 
 return [
 
-    'required' => 'The :attribute Поле, обязательное для заполнения.',
-    'unique'   => 'The :attribute уже занят.',
+    'required' => ':attribute поле, обязательное для заполнения.',
+    'unique'   => ':attribute поле уже занято.',
 
 ];
