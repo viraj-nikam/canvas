@@ -7,7 +7,7 @@ return [
     ],
     'digest'  => [
         'summary'         => 'Votre résumé de rédacteur hebdomadaire pour',
-        'details'         => 'Vos messages sur Canvas',
+        'details'         => 'Vos messages sur',
         'from'            => 'De',
         'to'              => 'à',
         'data'            => 'vos messages reçus',

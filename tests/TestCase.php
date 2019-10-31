@@ -75,7 +75,9 @@ abstract class TestCase extends OrchestraTestCase
      */
     protected function setUpDatabase($app): void
     {
+        $this->loadLaravelMigrations();
         $this->loadMigrationsFrom(dirname(__DIR__).'/database/migrations');
+        $this->loadFactoriesUsing($this->app, __DIR__.'/../src/Storage/factories');
 
         $this->artisan('migrate');
     }

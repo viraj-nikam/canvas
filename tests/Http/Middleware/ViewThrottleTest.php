@@ -3,7 +3,6 @@
 namespace Canvas\Tests\Middleware;
 
 use Canvas\Post;
-use Ramsey\Uuid\Uuid;
 use Canvas\Tests\TestCase;
 use Canvas\Http\Middleware\ViewThrottle;
 
@@ -29,31 +28,19 @@ class ViewThrottleTest extends TestCase
     /** @test */
     public function filter_expired_views_in_session()
     {
-        $post1 = Post::create([
-            'id'      => Uuid::uuid4()->toString(),
-            'title'   => 'Example Post 1',
-            'slug'    => 'example-slug-1',
-            'user_id' => 1,
-        ]);
+        $post_1 = factory(Post::class)->create();
+        $key_1 = 'viewed_posts.'.$post_1->id;
 
-        $key1 = 'viewed_posts.'.$post1->id;
+        session()->put($key_1, now()->timestamp);
 
-        session()->put($key1, now()->timestamp);
+        $post_2 = factory(Post::class)->create();
+        $key_2 = 'viewed_posts.'.$post_2->id;
 
-        $post2 = Post::create([
-            'id'      => Uuid::uuid4()->toString(),
-            'title'   => 'Example Post 2',
-            'slug'    => 'example-slug-2',
-            'user_id' => 1,
-        ]);
-
-        $key2 = 'viewed_posts.'.$post2->id;
-
-        session()->put($key2, now()->subHours(2)->timestamp);
+        session()->put($key_2, now()->subHours(2)->timestamp);
 
         $this->invokeMethod($this->instance, 'pruneExpiredViews', [session()->get('viewed_posts')]);
 
-        $this->assertArrayHasKey($post1->id, session()->get('viewed_posts'));
-        $this->assertArrayNotHasKey($post2->id, session()->get('viewed_posts'));
+        $this->assertArrayHasKey($post_1->id, session()->get('viewed_posts'));
+        $this->assertArrayNotHasKey($post_2->id, session()->get('viewed_posts'));
     }
 }

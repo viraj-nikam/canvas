@@ -5,16 +5,17 @@ return [
     'header'  => 'Posts',
     'empty'   => [
         'description' => 'No posts were found, start by',
-        'action'      => 'adding a new post',
+        'action'      => 'adding a new post.',
     ],
     'search'  => [
-        'input' => 'Search',
+        'input' => 'Search...',
         'empty' => 'No posts matched the given search criteria.',
     ],
     'details' => [
         'published' => 'Published',
         'draft'     => 'Draft',
         'updated'   => 'Updated',
+        'scheduled' => 'Scheduled',
     ],
     'forms'   => [
         'editor'   => [
@@ -98,6 +99,10 @@ return [
             'canonical' => [
                 'label'       => 'Canonical',
                 'placeholder' => 'Canonical URL of original source',
+            ],
+            'sync'      => [
+                'title'       => 'Sync with the post title',
+                'description' => 'Sync with the post summary',
             ],
         ],
         'settings' => [

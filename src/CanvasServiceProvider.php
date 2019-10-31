@@ -113,7 +113,7 @@ class CanvasServiceProvider extends ServiceProvider
     private function handleMigrations()
     {
         if ($this->app->runningInConsole()) {
-            $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+            $this->loadMigrationsFrom(__DIR__.'/Storage/migrations');
         }
     }
 
@@ -144,7 +144,7 @@ class CanvasServiceProvider extends ServiceProvider
     /**
      * @return void
      */
-    private function handleConfig(): void
+    private function handleConfig()
     {
         $this->mergeConfigFrom(
             __DIR__.'/../config/canvas.php',
@@ -155,7 +155,7 @@ class CanvasServiceProvider extends ServiceProvider
     /**
      * @return void
      */
-    private function handleCommands(): void
+    private function handleCommands()
     {
         $this->commands([
             DigestCommand::class,

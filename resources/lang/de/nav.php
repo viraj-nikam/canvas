@@ -7,6 +7,7 @@ return [
         'draft'     => 'Entwurf',
     ],
     'notify'   => [
+        'saving'  => 'Speichern ...',
         'success' => 'Gerettet!',
     ],
     'user'     => [

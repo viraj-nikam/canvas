@@ -1,71 +1,47 @@
 <template>
     <div v-cloak>
-        <div v-if="this.$parent.imageUrl">
-            <a href="#" @click="clearSelectedImage">
-                {{ this.trans.posts.forms.editor.images.picker.clear.action }}
+        <input hidden type="file" class="custom-file-input" :id="'imageUpload' + _uid" accept="image/*" @change="uploadSelectedImage"/>
+        <div class="mb-0">
+            {{ trans.posts.forms.editor.images.picker.greeting }}
+
+            <label :for="'imageUpload' + _uid" class="text-success" style="cursor:pointer;">
+                {{ trans.posts.forms.editor.images.picker.action }}
+            </label>
+
+            {{ trans.posts.forms.editor.images.picker.item }}
+
+            <span v-if="unsplash">{{ trans.posts.forms.editor.images.picker.operator }}</span>
+
+            <a v-if="unsplash" href="#" @click.prevent="openUnsplash" class="text-success text-decoration-none">
+                {{ trans.posts.forms.editor.images.picker.unsplash }}
             </a>
-            {{ this.trans.posts.forms.editor.images.picker.clear.description }}
         </div>
 
-        <div v-else>
-            <input hidden
-                   type="file"
-                   class="custom-file-input"
-                   :id="'imageUpload'+_uid"
-                   accept="image/*"
-                   v-on:change="uploadSelectedImage">
-            <div class="mb-0">
-                {{ this.trans.posts.forms.editor.images.picker.greeting }} <label :for="'imageUpload'+_uid" class="text-primary" style="cursor:pointer;">
-                {{ this.trans.posts.forms.editor.images.picker.action }}</label> {{ this.trans.posts.forms.editor.images.picker.item }}
-                <span v-if="this.unsplash">{{ this.trans.posts.forms.editor.images.picker.operator }}</span>
-                <a v-if="this.unsplash"
-                   href="#"
-                   @click.prevent="openUnsplashModal"
-                   class="text-primary">
-                    {{ this.trans.posts.forms.editor.images.picker.unsplash }}
-                </a>
-            </div>
-        </div>
-
-        <div v-if="unsplashModalShown">
+        <div v-if="showUnsplash">
             <div class="container p-0">
-                <input type="text"
-                       class="form-control-lg form-control border-0 px-0"
-                       v-if="this.unsplash"
-                       v-model="unsplashSearchTerm"
-                       ref="unsplashSearch"
-                       :placeholder="this.trans.posts.forms.editor.images.picker.placeholder">
+                <input type="text" class="form-control-lg form-control border-0 px-0 bg-transparent" v-if="unsplash" v-model="searchQuery" ref="searchKeyword" :placeholder="trans.posts.forms.editor.images.picker.placeholder"/>
 
-                <div v-if="!searchingUnsplash && unsplashImages.length">
+                <div v-if="!isSearchingUnsplash && unsplashImages.length">
                     <div class="card-columns">
-                        <div class="card border-0"
-                             v-for="image in unsplashImages">
-                            <img v-bind:src="image.urls.small"
-                                 class="card-img"
-                                 style="cursor: pointer"
-                                 @click="closeUnsplashModalAndInsertImage(image)">
+                        <div class="card border-0" v-for="image in unsplashImages">
+                            <img v-bind:src="image.urls.small" class="card-img" style="cursor: pointer" @click="closeUnsplashAndInsertImage(image)"/>
                         </div>
                     </div>
 
-                    <div class="text-center">
-                        <button class="btn btn-link text-muted"
-                                type="button"
-                                @click="closeUnsplashModal"
-                                v-on:submit.prevent="onSubmit">
-                            {{ this.trans.buttons.general.cancel }}
+                    <div class="d-flex pt-3">
+                        <button class="btn btn-link btn-block font-weight-bold text-muted text-decoration-none" type="button" @click="closeUnsplash" @submit.prevent>
+                            {{ trans.buttons.general.cancel }}
                         </button>
-                        <button class="btn btn-sm btn-outline-primary"
-                                type="button"
-                                @click="getImagesFromUnsplash(unsplashPage + 1)"
-                                v-if="unsplashImages.length == 12"
-                                v-on:submit.prevent="onSubmit">
-                            {{ this.trans.buttons.general.next }}
+                        <button class="btn btn-success btn-block font-weight-bold mt-0" type="button" @click="fetchImages(unsplashPage + 1)" v-if="unsplashImages.length === perPage" @submit.prevent>
+                            {{ trans.buttons.general.next }}
                         </button>
                     </div>
                 </div>
 
-                <div v-if="!searchingUnsplash && !unsplashImages.length">
-                    <h4 class="text-center py-4">{{ this.trans.posts.forms.editor.images.picker.search.empty }}</h4>
+                <div v-if="!isSearchingUnsplash && !unsplashImages.length">
+                    <h4 class="text-center py-4">
+                        {{ trans.posts.forms.editor.images.picker.search.empty }}
+                    </h4>
                 </div>
             </div>
         </div>
@@ -73,131 +49,161 @@
 </template>
 
 <script>
-    import axios from 'axios'
-
-    /**
-     * Create the default image picker.
-     *
-     * @author Mohamed Said <themsaid@gmail.com>
-     */
     export default {
+        name: "image-picker",
+
         props: {
-            unsplash: {
+            imageUrl: {
                 type: String,
                 required: false
-            },
-            path: {
-                type: String,
-                required: true
             }
         },
 
         data() {
             return {
-                url: '',
-                selectedUnsplashImage: null,
-                unsplashModalShown: false,
-                unsplashSearchTerm: '',
+                showUnsplash: false,
+                searchQuery: "",
                 unsplashPage: 1,
-                searchingUnsplash: true,
+                perPage: 12,
                 unsplashImages: [],
-                trans: i18n
-            }
+                isSearchingUnsplash: false,
+                selectedUnsplashImage: null,
+                unsplash: Canvas.unsplash,
+                path: Canvas.path,
+                trans: JSON.parse(Canvas.lang)
+            };
         },
 
         watch: {
-            unsplashSearchTerm() {
-                this.getImagesFromUnsplash()
+            searchQuery() {
+                this.fetchImages();
             }
         },
 
         methods: {
-            // Get images from Unsplash
-            getImagesFromUnsplash(page = 1) {
+            fetchImages(page = 1) {
                 if (!this.unsplash) {
-                    return this.alertError(this.trans.posts.forms.editor.images.picker.key);
+                    return alert(this.trans.posts.forms.editor.images.picker.key);
                 }
+
+                this.isSearchingUnsplash = true;
                 this.unsplashPage = page;
-                this.searchingUnsplash = true;
-                axios.get('https://api.unsplash.com/search/photos?client_id=' + this.unsplash +
-                    '&orientation=landscape&per_page=12' +
-                    '&query=' + this.unsplashSearchTerm +
-                    '&page=' + page
-                ).then(response => {
-                    this.unsplashImages = response.data.results;
-                    this.searchingUnsplash = false;
-                }).catch(error => {
-                    let errors = error.response.data.errors;
-                    this.searchingUnsplash = false;
+
+                this.request()
+                    .get(
+                        "https://api.unsplash.com/search/photos?client_id=" +
+                        this.unsplash +
+                        "&orientation=landscape&per_page=" +
+                        this.perPage +
+                        "&query=" +
+                        this.searchQuery +
+                        "&page=" +
+                        page
+                    )
+                    .then(response => {
+                        this.unsplashImages = response.data.results;
+                        this.isSearchingUnsplash = false;
+                    })
+                    .catch(error => {
+                        this.isSearchingUnsplash = false;
+                    });
+            },
+
+            openUnsplash() {
+                let featuredImageModal = document.querySelector(
+                    "#featuredImageModal"
+                );
+                if (featuredImageModal) {
+                    featuredImageModal.classList.add("modal-lg");
+                }
+
+                let imageModal = document.querySelector("#imageModal");
+                if (imageModal) {
+                    imageModal.classList.add("modal-lg");
+                }
+
+                let currentImage = document.querySelector("#currentImage");
+                if (currentImage) {
+                    currentImage.classList.add("d-none");
+                }
+
+                let searchTerms = [
+                    'animal',
+                    'art',
+                    'city',
+                    'emotion',
+                    'nature',
+                    'smile',
+                    'tech'
+                ];
+
+                this.searchQuery = searchTerms[Math.floor(Math.random()*searchTerms.length)];
+                this.showUnsplash = true;
+
+                this.$nextTick(() => {
+                    this.$refs.searchKeyword.focus();
                 });
             },
 
-            // Open the Unsplash modal
-            openUnsplashModal() {
-                if (document.querySelector('#featured-image-unsplash-modal')) {
-                    document.querySelector('#featured-image-unsplash-modal').classList.add('modal-lg');
-                }
-                if (document.querySelector('#unsplash-modal')) {
-                    document.querySelector('#unsplash-modal').classList.add('modal-lg');
-                }
-                if (document.querySelector('#current-image')) {
-                    document.querySelector('#current-image').classList.add('d-none');
-                }
-                this.unsplashSearchTerm = 'work';
-                this.unsplashModalShown = true;
-                this.$nextTick(() => {
-                    this.$refs.unsplashSearch.focus();
-                })
-            },
-
-            // Select an Unsplash image
-            closeUnsplashModalAndInsertImage(image) {
+            closeUnsplashAndInsertImage(image) {
                 this.selectedUnsplashImage = image;
 
-                this.$emit('changed', {
+                this.$emit("changed", {
                     url: this.selectedUnsplashImage.urls.regular,
-                    caption: this.trans.posts.forms.editor.images.picker.caption.by + ' <a href="' + this.selectedUnsplashImage.user.links.html + '" target="_blank">' + this.selectedUnsplashImage.user.name + '</a> ' + this.trans.posts.forms.editor.images.picker.caption.on + ' <a href="https://unsplash.com" target="_blank">Unsplash</a>',
+                    caption:
+                        this.trans.posts.forms.editor.images.picker.caption.by +
+                        ' <a href="' +
+                        this.selectedUnsplashImage.user.links.html +
+                        '" target="_blank">' +
+                        this.selectedUnsplashImage.user.name +
+                        "</a> " +
+                        this.trans.posts.forms.editor.images.picker.caption.on +
+                        ' <a href="https://unsplash.com" target="_blank">Unsplash</a>'
                 });
 
-                this.closeUnsplashModal();
+                this.closeUnsplash();
             },
 
-            // Close unsplash modal
-            closeUnsplashModal() {
-                if (document.querySelector('#featured-image-unsplash-modal')) {
-                    document.querySelector('#featured-image-unsplash-modal').classList.remove('modal-lg');
+            closeUnsplash() {
+                let featuredImageModal = document.querySelector("#featuredImageModal");
+                if (featuredImageModal) {
+                    featuredImageModal.classList.remove("modal-lg");
                 }
-                if (document.querySelector('#unsplash-modal')) {
-                    document.querySelector('#unsplash-modal').classList.remove('modal-lg');
+
+                let imageModal = document.querySelector("#imageModal");
+                if (imageModal) {
+                    imageModal.classList.remove("modal-lg");
                 }
-                if (document.querySelector('#current-image')) {
-                    document.querySelector('#current-image').classList.remove('d-none');
+
+                let currentImage = document.querySelector("#currentImage");
+                if (currentImage) {
+                    currentImage.classList.remove("d-none");
                 }
-                this.unsplashSearchTerm = '';
-                this.unsplashModalShown = false;
+
+                this.searchQuery = "";
+                this.showUnsplash = false;
                 this.selectedUnsplashImage = null;
             },
 
-            // Upload the selected image
             uploadSelectedImage(event) {
                 let file = event.target.files[0];
                 let formData = new FormData();
 
-                formData.append('image', file, file.name);
+                formData.append("image", file, file.name);
 
-                this.$emit('uploading');
+                this.$emit("isUploading");
 
-                axios.post('/' + this.path + '/media/uploads', formData).then(response => {
-                    this.$emit('changed', {url: response.data});
-                }).catch(error => {
-                    console.log(error);
-                });
-            },
-
-            // Clear the selected image
-            clearSelectedImage(event) {
-                  this.$parent.imageUrl = '';
-            },
+                this.request()
+                    .post("/api/media/uploads", formData)
+                    .then(response => {
+                        this.$emit("changed", {
+                            url: response.data
+                        });
+                    })
+                    .catch(error => {
+                        // Add any error debugging...
+                    });
+            }
         }
-    }
+    };
 </script>

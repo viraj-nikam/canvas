@@ -9,7 +9,7 @@ return [
         'action'      => '添加新標籤',
     ],
     'search'  => [
-        'input' => '搜索',
+        'input' => '搜索...',
         'empty' => '沒有標籤符合給定的搜索條件。',
     ],
     'details' => [

@@ -8,13 +8,14 @@ return [
         'action'      => 'adicionando uma nova postagem',
     ],
     'search'  => [
-        'input' => 'Procurar',
+        'input' => 'Procurar...',
         'empty' => 'Nenhuma postagem corresponde aos critérios de pesquisa fornecidos.',
     ],
     'details' => [
         'published' => 'Publicados',
         'draft'     => 'Esboço, projeto',
         'updated'   => 'Atualizado',
+        'scheduled' => 'Programado',
     ],
     'forms'   => [
         'editor'   => [
@@ -98,6 +99,10 @@ return [
             'canonical' => [
                 'label'       => 'Canônico',
                 'placeholder' => 'URL canônico da fonte original',
+            ],
+            'sync'      => [
+                'title'       => 'Sincronizar com o título da postagem',
+                'description' => 'Sincronizar com o resumo da postagem',
             ],
         ],
         'settings' => [

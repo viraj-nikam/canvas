@@ -2,92 +2,87 @@
 
 namespace Canvas\Http\Controllers;
 
+use Exception;
 use Canvas\Tag;
 use Canvas\Post;
 use Canvas\Topic;
-use Carbon\Carbon;
 use Ramsey\Uuid\Uuid;
 use Illuminate\Validation\Rule;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
 
 class PostController extends Controller
 {
     /**
-     * Show the posts index page.
+     * Get all the posts.
      *
-     * @return \Illuminate\View\View
+     * @return JsonResponse
      */
-    public function index()
+    public function index(): JsonResponse
     {
-        $posts = Post::select('id', 'title', 'body', 'published_at', 'featured_image', 'created_at')
+        return response()->json(Post::forUser(request()->user()->id)
             ->orderByDesc('created_at')
-            ->get();
-
-        return view('canvas::posts.index', compact('posts'));
+            ->get());
     }
 
     /**
-     * Show the page to create a new post.
+     * Get a single post or return a UUID to create one.
      *
-     * @return \Illuminate\View\View
-     * @throws \Exception
+     * @param null $id
+     * @return JsonResponse
+     * @throws Exception
      */
-    public function create()
+    public function show($id = null): JsonResponse
     {
-        $data = [
-            'id'     => Uuid::uuid4(),
-            'tags'   => Tag::all(['name', 'slug']),
-            'topics' => Topic::all(['name', 'slug']),
-        ];
+        $tags = Tag::all(['name', 'slug']);
+        $topics = Topic::all(['name', 'slug']);
 
-        return view('canvas::posts.create', compact('data'));
+        if ($this->isNewPost($id)) {
+            $uuid = Uuid::uuid4();
+
+            return response()->json([
+                'post'   => Post::make([
+                    'id'   => $uuid->toString(),
+                    'slug' => "post-{$uuid->toString()}",
+                ]),
+                'tags'   => $tags,
+                'topics' => $topics,
+            ]);
+        } else {
+            return response()->json([
+                'post'   => Post::with('tags:name,slug', 'topic:name,slug')->find($id),
+                'tags'   => $tags,
+                'topics' => $topics,
+            ]);
+        }
     }
 
     /**
-     * Show the page to edit a given post.
+     * Create or update a post.
      *
      * @param string $id
-     * @return \Illuminate\View\View
+     * @return JsonResponse
+     * @throws Exception
      */
-    public function edit(string $id)
-    {
-        $post = Post::findOrFail($id);
-
-        $data = [
-            'post'   => $post,
-            'meta'   => $post->meta,
-            'tags'   => Tag::all(['name', 'slug']),
-            'topics' => Topic::all(['name', 'slug']),
-        ];
-
-        return view('canvas::posts.edit', compact('data'));
-    }
-
-    /**
-     * Save a new post.
-     *
-     * @return \Illuminate\Http\RedirectResponse
-     * @throws \Exception
-     */
-    public function store()
+    public function store(string $id): JsonResponse
     {
         $data = [
             'id'                     => request('id'),
             'slug'                   => request('slug'),
-            'title'                  => request('title', 'Post Title'),
+            'title'                  => request('title', 'Title'),
             'summary'                => request('summary', null),
             'body'                   => request('body', null),
-            'published_at'           => Carbon::parse(request('published_at'))->toDateTimeString(),
+            'published_at'           => request('published_at', null),
             'featured_image'         => request('featured_image', null),
             'featured_image_caption' => request('featured_image_caption', null),
-            'user_id'                => auth()->user()->id,
+            'user_id'                => request()->user()->id,
             'meta'                   => [
-                'meta_description'    => request('meta_description', null),
-                'og_title'            => request('og_title', null),
-                'og_description'      => request('og_description', null),
-                'twitter_title'       => request('twitter_title', null),
-                'twitter_description' => request('twitter_description', null),
-                'canonical_link'      => request('canonical_link', null),
+                'meta_description'    => request('meta.meta_description', null),
+                'og_title'            => request('meta.og_title', null),
+                'og_description'      => request('meta.og_description', null),
+                'twitter_title'       => request('meta.twitter_title', null),
+                'twitter_description' => request('meta.twitter_description', null),
+                'canonical_link'      => request('meta.canonical_link', null),
             ],
         ];
 
@@ -97,125 +92,57 @@ class PostController extends Controller
         ];
 
         validator($data, [
-            'title'        => 'required',
-            'slug'         => 'required|'.Rule::unique('canvas_posts', 'slug')->ignore(request('id')).'|regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/i',
-            'published_at' => 'required|date',
-            'user_id'      => 'required',
-        ], $messages)->validate();
-
-        $post = new Post(['id' => request('id')]);
-        $post->fill($data);
-        $post->meta = $data['meta'];
-        $post->save();
-
-        $post->tags()->sync(
-            $this->attachOrCreateTags(request('tags') ?? [])
-        );
-
-        $post->topic()->sync(
-            $this->attachOrCreateTopic(request('topic') ?? [])
-        );
-
-        return redirect(route('canvas.post.edit', $post->id))->with('notify', __('canvas::nav.notify.success'));
-    }
-
-    /**
-     * Save a given post.
-     *
-     * @param string $id
-     * @return \Illuminate\Http\RedirectResponse
-     * @throws \Exception
-     */
-    public function update(string $id)
-    {
-        $post = Post::findOrFail($id);
-
-        $data = [
-            'id'                     => request('id'),
-            'slug'                   => request('slug'),
-            'title'                  => request('title', 'Post Title'),
-            'summary'                => request('summary', null),
-            'body'                   => request('body', null),
-            'published_at'           => Carbon::parse(request('published_at'))->toDateTimeString(),
-            'featured_image'         => request('featured_image', null),
-            'featured_image_caption' => request('featured_image_caption', null),
-            'user_id'                => $post->user->id,
-            'meta'                   => [
-                'meta_description'    => request('meta_description', null),
-                'og_title'            => request('og_title', null),
-                'og_description'      => request('og_description', null),
-                'twitter_title'       => request('twitter_title', null),
-                'twitter_description' => request('twitter_description', null),
-                'canonical_link'      => request('canonical_link', null),
+            'user_id' => 'required',
+            'slug'    => [
+                'required',
+                'alpha_dash',
+                Rule::unique('canvas_posts', 'slug')->ignore($id),
             ],
-        ];
-
-        $messages = [
-            'required' => __('canvas::validation.required'),
-            'unique'   => __('canvas::validation.unique'),
-        ];
-
-        validator($data, [
-            'title'        => 'required',
-            'slug'         => 'required|'.Rule::unique('canvas_posts', 'slug')->ignore($id).'|regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/i',
-            'published_at' => 'required',
-            'user_id'      => 'required',
         ], $messages)->validate();
+
+        $post = $id !== 'create' ? Post::find($id) : new Post(['id' => request('id')]);
 
         $post->fill($data);
         $post->meta = $data['meta'];
         $post->save();
 
-        $post->tags()->sync(
-            $this->attachOrCreateTags(request('tags') ?? [])
-        );
-
         $post->topic()->sync(
-            $this->attachOrCreateTopic(request('topic') ?? [])
+            $this->syncTopic(request('topic'))
         );
 
-        return redirect(route('canvas.post.edit', $post->id))->with('notify', __('canvas::nav.notify.success'));
+        $post->tags()->sync(
+            $this->syncTags(request('tags'))
+        );
+
+        return response()->json($post->refresh());
     }
 
     /**
-     * Delete a given post.
+     * Delete a post.
      *
      * @param string $id
-     * @return \Illuminate\Http\RedirectResponse
+     * @return mixed
      */
     public function destroy(string $id)
     {
-        $post = Post::findOrFail($id);
-        $post->delete();
+        $post = Post::find($id);
 
-        return redirect(route('canvas.post.index'));
+        if ($post) {
+            $post->delete();
+
+            return response()->json([], 204);
+        }
     }
 
     /**
-     * Attach or create tags given an incoming array.
+     * Returns true if creating a new post.
      *
-     * @param array $incomingTags
-     * @return array
-     *
-     * @author Mohamed Said <themsaid@gmail.com>
+     * @param string $id
+     * @return bool
      */
-    private function attachOrCreateTags(array $incomingTags): array
+    private function isNewPost(string $id): bool
     {
-        $tags = Tag::all();
-
-        return collect($incomingTags)->map(function ($incomingTag) use ($tags) {
-            $tag = $tags->where('slug', $incomingTag['slug'])->first();
-
-            if (! $tag) {
-                $tag = Tag::create([
-                    'id'   => $id = Uuid::uuid4(),
-                    'name' => $incomingTag['name'],
-                    'slug' => $incomingTag['slug'],
-                ]);
-            }
-
-            return (string) $tag->id;
-        })->toArray();
+        return $id === 'create';
     }
 
     /**
@@ -223,9 +150,9 @@ class PostController extends Controller
      *
      * @param array $incomingTopic
      * @return array
-     * @throws \Exception
+     * @throws Exception
      */
-    private function attachOrCreateTopic(array $incomingTopic): array
+    private function syncTopic(array $incomingTopic): array
     {
         if ($incomingTopic) {
             $topic = Topic::where('slug', $incomingTopic['slug'])->first();
@@ -239,6 +166,35 @@ class PostController extends Controller
             }
 
             return collect((string) $topic->id)->toArray();
+        } else {
+            return [];
+        }
+    }
+
+    /**
+     * Attach or create tags given an incoming array.
+     *
+     * @param array $incomingTags
+     * @return array
+     */
+    private function syncTags(array $incomingTags): array
+    {
+        if ($incomingTags) {
+            $tags = Tag::all(['id', 'name', 'slug']);
+
+            return collect($incomingTags)->map(function ($incomingTag) use ($tags) {
+                $tag = $tags->where('slug', $incomingTag['slug'])->first();
+
+                if (! $tag) {
+                    $tag = Tag::create([
+                        'id'   => $id = Uuid::uuid4(),
+                        'name' => $incomingTag['name'],
+                        'slug' => $incomingTag['slug'],
+                    ]);
+                }
+
+                return (string) $tag->id;
+            })->toArray();
         } else {
             return [];
         }

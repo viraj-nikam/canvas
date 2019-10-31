@@ -45,8 +45,6 @@ class InstallCommand extends Command
      * Register the Canvas service provider in the application configuration file.
      *
      * @return void
-     *
-     * @author Taylor Otwell <taylor@laravel.com>
      */
     private function registerCanvasServiceProvider()
     {

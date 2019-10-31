@@ -5,7 +5,7 @@ return [
     'general' => [
         'sent_by' => 'Отправлено от',
     ],
-    'digest'  => [
+    'digest' => [
         'summary'         => 'Ваше еженедельное резюме писателя',
         'details'         => 'Ваши публикации на Canvas',
         'from'            => 'От',

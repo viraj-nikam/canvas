@@ -4,11 +4,13 @@ return [
 
     'title'   => 'Blog',
     'buttons' => [
-        'learn' => 'Conoce más',
-        'next'  => 'A continuación lee',
-        'enjoy' => 'Usted podría disfrutar',
-        'edit'  => 'Editar post',
-        'stats' => 'Ver estadísticas',
+        'learn'     => 'Conoce más',
+        'continue'  => 'Sigue leyendo...',
+        'next'      => 'A continuación lee',
+        'enjoy'     => 'Usted podría disfrutar',
+        'edit'      => 'Editar post',
+        'stats'     => 'Ver estadísticas',
+        'canonical' => 'Esta publicación fue publicada originalmente en',
     ],
     'empty'   => [
         'description' => 'No se encontraron publicaciones, comienza por',
