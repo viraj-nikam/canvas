@@ -3,7 +3,7 @@
         <div class="col-md-10 px-0">
             <nav class="navbar navbar-light justify-content-between flex-nowrap flex-row py-3">
                 <router-link to="/" class="navbar-brand font-weight-bold py-0">
-                    <span class="text-muted font-serif font-italic">Canvas</span>
+                    <span class="font-serif">Canvas</span>
                 </router-link>
 
                 <ul class="navbar-nav mr-auto flex-row float-right">
