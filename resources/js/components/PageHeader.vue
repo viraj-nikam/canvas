@@ -1,9 +1,9 @@
 <template>
     <div class="container d-flex justify-content-center px-0">
         <div class="col-md-10 px-0">
-            <nav class="navbar navbar-light justify-content-between flex-nowrap flex-row py-3">
-                <router-link to="/" class="navbar-brand font-weight-bold py-0">
-                    <span class="font-serif">Canvas</span>
+            <nav class="navbar justify-content-between flex-nowrap flex-row py-3">
+                <router-link to="/" class="navbar-brand font-weight-bold py-0 font-serif">
+                    <span class="text-muted">{</span> logo <span class="text-muted">}</span>
                 </router-link>
 
                 <ul class="navbar-nav mr-auto flex-row float-right">

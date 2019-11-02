@@ -76937,16 +76937,20 @@ var render = function() {
           "nav",
           {
             staticClass:
-              "navbar navbar-light justify-content-between flex-nowrap flex-row py-3"
+              "navbar justify-content-between flex-nowrap flex-row py-3"
           },
           [
             _c(
               "router-link",
               {
-                staticClass: "navbar-brand font-weight-bold py-0",
+                staticClass: "navbar-brand font-weight-bold py-0 font-serif",
                 attrs: { to: "/" }
               },
-              [_c("span", { staticClass: "font-serif" }, [_vm._v("Canvas")])]
+              [
+                _c("span", { staticClass: "text-muted" }, [_vm._v("{")]),
+                _vm._v(" logo "),
+                _c("span", { staticClass: "text-muted" }, [_vm._v("}")])
+              ]
             ),
             _vm._v(" "),
             _c(
