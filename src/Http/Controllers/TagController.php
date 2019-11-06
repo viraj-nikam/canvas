@@ -71,11 +71,21 @@ class TagController extends Controller
             'slug' => [
                 'required',
                 'alpha_dash',
-                Rule::unique('canvas_tags', 'slug')->ignore($id),
+                Rule::unique('canvas_tags', 'slug')->ignore($id)->whereNull('deleted_at'),
             ],
         ], $messages)->validate();
 
-        $tag = $id !== 'create' ? Tag::find($id) : new Tag(['id' => request('id')]);
+        if ($id !== 'create') {
+            $tag = Tag::find($id);
+        }
+        else {
+            if ($tag = Tag::onlyTrashed()->where('slug', request('slug'))->first()) {
+                $tag->restore();
+            }
+            else {
+                $tag = new Tag(['id' => request('id')]);
+            }
+        }
 
         $tag->fill($data);
         $tag->save();

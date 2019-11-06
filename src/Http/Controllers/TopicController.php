@@ -71,11 +71,21 @@ class TopicController extends Controller
             'slug' => [
                 'required',
                 'alpha_dash',
-                Rule::unique('canvas_topics', 'slug')->ignore($id),
+                Rule::unique('canvas_topics', 'slug')->ignore($id)->whereNull('deleted_at'),
             ],
         ], $messages)->validate();
 
-        $topic = $id !== 'create' ? Topic::find($id) : new Topic(['id' => request('id')]);
+        if ($id !== 'create') {
+            $topic = Topic::find($id);
+        }
+        else {
+            if ($topic = Topic::onlyTrashed()->where('slug', request('slug'))->first()) {
+                $topic->restore();
+            }
+            else {
+                $topic = new Topic(['id' => request('id')]);
+            }
+        }
 
         $topic->fill($data);
         $topic->save();
