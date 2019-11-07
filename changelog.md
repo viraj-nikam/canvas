@@ -6,6 +6,7 @@
 - Converted the package from a traditional SSR app into an SPA
 - Replaced the FontAwesome library with custom illustrated icons from [RefactoringUI](https://refactoringui.com)
 - Comprehensive update to the color palette
+- Updated the config variable to enable digest notifications ([02055d1](https://github.com/cnvs/canvas/commit/02055d1291fce1cd5434a1a6551e2e24f13fe185))
 
 ## Added
 - Added Vuex for state management ([de90dd8](https://github.com/cnvs/canvas/commit/de90dd8e512f223a0c59b39556c8a92667d70854))
