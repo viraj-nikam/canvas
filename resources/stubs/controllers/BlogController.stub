@@ -35,12 +35,10 @@ class BlogController extends Controller
      */
     public function findPostBySlug(string $slug): View
     {
-        $post = Post::where('slug', $slug)->first();
+        $posts = Post::with('tags', 'topic')->published()->get();
+        $post = $posts->firstWhere('slug', $slug);
 
-        if ($post && $post->published) {
-
-            $posts = Post::with('tags', 'topic')->published()->get();
-
+        if ($post->published) {
             $readNext = $posts->sortBy('published_at')->firstWhere('published_at', '>', $post->published_at);
 
             if ($readNext) {
