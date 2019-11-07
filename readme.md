@@ -63,7 +63,7 @@ Canvas exposes a simple UI at `/canvas` by default. This can be changed by updat
 ```php
 /*
 |--------------------------------------------------------------------------
-| Canvas Path
+| Base Route
 |--------------------------------------------------------------------------
 |
 | This is the URI path where Canvas will be accessible from. You are free
@@ -219,17 +219,17 @@ If you want to include [Unsplash](https://unsplash.com) images in your post cont
 ```php
 /*
 |--------------------------------------------------------------------------
-| Notifications
+| Weekly Digest
 |--------------------------------------------------------------------------
 |
 | This option enables Canvas to send e-mail notifications via the default
-| mail driver. If enabled, a weekly summary will be sent to each user
-| that has authored content providing them with unique analytics.
+| mail driver on a weekly basis. All users that have published content
+| will receive a total view count summary of the last seven days.
 |
 */
 
-'mail' => [
-    'enabled' => env('CANVAS_MAIL_ENABLED', false),
+'digest' => [
+    'enabled' => env('CANVAS_DIGEST_ENABLED', false),
 ],
 ```
 

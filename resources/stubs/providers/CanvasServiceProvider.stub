@@ -15,7 +15,7 @@ class CanvasServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        // Canvas::night();
+//        Canvas::night();
     }
 
     /**
@@ -29,10 +29,11 @@ class CanvasServiceProvider extends ServiceProvider
             $schedule = resolve(Schedule::class);
             $schedule->command('canvas:digest')
                 ->weekly()
-                ->sundays()
-                ->at('13:00')
+                ->mondays()
+                ->timezone(config('app.timezone'))
+                ->at('08:00')
                 ->when(function () {
-                    return config('canvas.mail.enabled');
+                    return config('canvas.digest.enabled');
                 });
         });
     }
