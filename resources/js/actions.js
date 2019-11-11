@@ -8,21 +8,21 @@ export const actions = {
     },
 
     saveActivePost(context, payload) {
-        context.commit('saveActivePost', payload);
+        context.commit('saveActivePost', payload)
     },
 
     setPostTags(context, payload) {
-        context.commit('setPostTags', payload);
+        context.commit('setPostTags', payload)
     },
 
     setPostTopic(context, payload) {
-        context.commit('setPostTopic', payload);
+        context.commit('setPostTopic', payload)
     },
 
     deletePost(context, payload) {
-        context.commit('deletePost', payload);
-    }
-};
+        context.commit('deletePost', payload)
+    },
+}
 
 export default {
     actions,

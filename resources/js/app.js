@@ -1,51 +1,51 @@
-import Vue from "vue";
-import Routes from "./routes";
+import Vue from 'vue'
+import Routes from './routes'
 import { store } from './store'
-import Base from "./mixins/Base";
-import NProgress from "nprogress";
-import VueRouter from "vue-router";
-import moment from "moment-timezone";
+import Base from './mixins/Base'
+import NProgress from 'nprogress'
+import VueRouter from 'vue-router'
+import moment from 'moment-timezone'
 
-require('bootstrap');
+require('bootstrap')
 
-window.Popper = require('popper.js').default;
+window.Popper = require('popper.js').default
 
-Vue.mixin(Base);
+Vue.mixin(Base)
 
 // Set the default timezone
-moment.tz.setDefault(Canvas.timezone);
+moment.tz.setDefault(Canvas.timezone)
 
 // Prevent the production tip on Vue startup
-Vue.config.productionTip = false;
+Vue.config.productionTip = false
 
-Vue.use(VueRouter);
+Vue.use(VueRouter)
 
 const router = new VueRouter({
     routes: Routes,
     mode: 'history',
-    base: Canvas.path
-});
+    base: Canvas.path,
+})
 
 NProgress.configure({
     showSpinner: false,
     easing: 'ease',
-    speed: 300
-});
+    speed: 300,
+})
 
 router.beforeEach((to, from, next) => {
-    NProgress.start();
-    next();
-});
+    NProgress.start()
+    next()
+})
 
 router.afterEach(() => {
-    NProgress.done();
-});
+    NProgress.done()
+})
 
 const app = new Vue({
     el: '#canvas',
     router,
-    store
-});
+    store,
+})
 
 // Give the store access to the root Vue instance
-store.$app = app;
+store.$app = app

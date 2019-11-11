@@ -14,70 +14,70 @@
 </template>
 
 <script>
-    import _ from 'lodash';
-    import Multiselect from "vue-multiselect";
+import _ from 'lodash'
+import Multiselect from 'vue-multiselect'
 
-    export default {
-        props: {
-            topics: {
-                type: Array,
-                required: false
-            },
-            assigned: {
-                type: Object|Array,
-                required: false
-            }
+export default {
+    props: {
+        topics: {
+            type: Array,
+            required: false,
         },
-
-        components: {
-            Multiselect
+        assigned: {
+            type: Object | Array,
+            required: false,
         },
+    },
 
-        data() {
-            const allTopics = this.topics.map(obj => {
-                let filtered = {};
+    components: {
+        Multiselect,
+    },
 
-                filtered["name"] = obj.name;
-                filtered["slug"] = obj.slug;
+    data() {
+        const allTopics = this.topics.map(obj => {
+            let filtered = {}
 
-                return filtered;
-            });
+            filtered['name'] = obj.name
+            filtered['slug'] = obj.slug
 
-            return {
-                options: allTopics,
-                value: this.assigned ? this.assigned : [],
-                trans: JSON.parse(Canvas.lang)
-            };
-        },
+            return filtered
+        })
 
-        methods: {
-            onChange(value, id) {
-                this.$store.dispatch('setPostTopic', value);
-
-                this.update();
-            },
-
-            addTopic(searchQuery) {
-                const topic = {
-                    name: searchQuery,
-                    slug: this.slugify(searchQuery)
-                };
-
-                this.options.push(topic);
-
-                this.value = {
-                    name: topic.name,
-                    slug: topic.slug
-                };
-
-                this.$store.dispatch('setPostTopic', this.value);
-
-                this.update();
-            },
-
-            update: _.debounce(function (e) {
-                this.$parent.update();
-            }, 900)
+        return {
+            options: allTopics,
+            value: this.assigned ? this.assigned : [],
+            trans: JSON.parse(Canvas.lang),
         }
-    };
+    },
+
+    methods: {
+        onChange(value, id) {
+            this.$store.dispatch('setPostTopic', value)
+
+            this.update()
+        },
+
+        addTopic(searchQuery) {
+            const topic = {
+                name: searchQuery,
+                slug: this.slugify(searchQuery),
+            }
+
+            this.options.push(topic)
+
+            this.value = {
+                name: topic.name,
+                slug: topic.slug,
+            }
+
+            this.$store.dispatch('setPostTopic', this.value)
+
+            this.update()
+        },
+
+        update: _.debounce(function(e) {
+            this.$parent.update()
+        }, 900),
+    },
+}
 </script>

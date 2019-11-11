@@ -4,25 +4,61 @@
             <template slot="status">
                 <ul class="navbar-nav mr-auto flex-row float-right">
                     <li class="text-muted font-weight-bold">
-                        <span v-if="form.isSaving">{{ trans.nav.notify.saving }}</span>
-                        <span v-if="form.hasSuccess" class="text-success">{{ trans.nav.notify.success }}</span>
+                        <span v-if="form.isSaving">{{
+                            trans.nav.notify.saving
+                        }}</span>
+                        <span v-if="form.hasSuccess" class="text-success">{{
+                            trans.nav.notify.success
+                        }}</span>
                     </li>
                 </ul>
             </template>
 
             <template slot="action">
-                <a href="#" class="btn btn-sm btn-outline-success font-weight-bold" :class="{ disabled: form.name === '' }" @click="saveTopic" :aria-label="trans.buttons.general.save">
+                <a
+                    href="#"
+                    class="btn btn-sm btn-outline-success font-weight-bold"
+                    :class="{ disabled: form.name === '' }"
+                    @click="saveTopic"
+                    :aria-label="trans.buttons.general.save"
+                >
                     {{ trans.buttons.general.save }}
                 </a>
             </template>
 
             <template slot="menu">
                 <div class="dropdown" v-if="id !== 'create'">
-                    <a id="navbarDropdown" class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="25" class="icon-dots-horizontal"><path class="primary" fill-rule="evenodd" d="M5 14a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm7 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm7 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/></svg>
+                    <a
+                        id="navbarDropdown"
+                        class="nav-link pr-0"
+                        href="#"
+                        role="button"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            width="25"
+                            class="icon-dots-horizontal"
+                        >
+                            <path
+                                class="primary"
+                                fill-rule="evenodd"
+                                d="M5 14a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm7 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm7 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"
+                            />
+                        </svg>
                     </a>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                        <a href="#" class="dropdown-item text-danger" @click="showDeleteModal">
+                    <div
+                        class="dropdown-menu dropdown-menu-right"
+                        aria-labelledby="dropdownMenuButton"
+                    >
+                        <a
+                            href="#"
+                            class="dropdown-item text-danger"
+                            @click="showDeleteModal"
+                        >
                             {{ trans.buttons.general.delete }}
                         </a>
                     </div>
@@ -36,9 +72,23 @@
                     <div class="col-md-8">
                         <div class="form-group row my-5">
                             <div class="col-lg-12">
-                                <input type="text" name="name" autocomplete="off" v-model="form.name" title="Name" @keyup.enter="saveTopic" class="form-control-lg form-control border-0 px-0 bg-transparent" :placeholder="trans.topics.forms.placeholder"/>
+                                <input
+                                    type="text"
+                                    name="name"
+                                    autocomplete="off"
+                                    v-model="form.name"
+                                    title="Name"
+                                    @keyup.enter="saveTopic"
+                                    class="form-control-lg form-control border-0 px-0 bg-transparent"
+                                    :placeholder="
+                                        trans.topics.forms.placeholder
+                                    "
+                                />
 
-                                <div v-if="form.errors.name" class="invalid-feedback d-block">
+                                <div
+                                    v-if="form.errors.name"
+                                    class="invalid-feedback d-block"
+                                >
                                     <strong>{{ form.errors.name[0] }}</strong>
                                 </div>
                             </div>
@@ -46,10 +96,15 @@
                         <div class="form-group row">
                             <div class="col-lg-12">
                                 <p class="lead text-muted">
-                                    <span class="text-success">{{ form.slug }}</span>
+                                    <span class="text-success">{{
+                                        form.slug
+                                    }}</span>
                                 </p>
 
-                                <div v-if="form.errors.slug" class="invalid-feedback d-block">
+                                <div
+                                    v-if="form.errors.slug"
+                                    class="invalid-feedback d-block"
+                                >
                                     <strong>{{ form.errors.slug[0] }}</strong>
                                 </div>
                             </div>
@@ -59,109 +114,111 @@
             </div>
         </main>
 
-        <delete-modal ref="deleteModal"
-                      @delete="deleteTopic"
-                      :header="trans.topics.delete.header"
-                      :message="trans.topics.delete.warning">
+        <delete-modal
+            ref="deleteModal"
+            @delete="deleteTopic"
+            :header="trans.topics.delete.header"
+            :message="trans.topics.delete.warning"
+        >
         </delete-modal>
     </div>
 </template>
 
 <script>
-    import $ from "jquery";
-    import PageHeader from "../../components/PageHeader";
-    import DeleteModal from "../../components/DeleteModal";
+import $ from 'jquery'
+import PageHeader from '../../components/PageHeader'
+import DeleteModal from '../../components/DeleteModal'
 
-    export default {
-        name: "topics-edit",
+export default {
+    name: 'topics-edit',
 
-        components: {
-            PageHeader,
-            DeleteModal
-        },
+    components: {
+        PageHeader,
+        DeleteModal,
+    },
 
-        data() {
-            return {
-                topic: null,
-                id: this.$route.params.id || "create",
-                form: {
-                    id: "",
-                    name: "",
-                    slug: "",
-                    errors: [],
-                    isSaving: false,
-                    hasSuccess: false
-                },
-                isReady: false,
-                trans: JSON.parse(Canvas.lang)
-            };
-        },
-
-        mounted() {
-            this.fetchData();
-        },
-
-        watch: {
-            "form.name"(val) {
-                this.form.slug = this.slugify(val);
-            }
-        },
-
-        methods: {
-            fetchData() {
-                this.request()
-                    .get("/api/topics/" + this.id)
-                    .then(response => {
-                        this.topic = response.data;
-                        this.form.id = response.data.id;
-
-                        if (this.id !== "create") {
-                            this.form.name = response.data.name;
-                            this.form.slug = response.data.slug;
-                        }
-
-                        this.isReady = true;
-                    })
-                    .catch(error => {
-                        this.$router.push({name: "topics"});
-                    });
+    data() {
+        return {
+            topic: null,
+            id: this.$route.params.id || 'create',
+            form: {
+                id: '',
+                name: '',
+                slug: '',
+                errors: [],
+                isSaving: false,
+                hasSuccess: false,
             },
-
-            saveTopic() {
-                this.form.errors = [];
-                this.form.isSaving = true;
-                this.form.hasSuccess = false;
-
-                this.request()
-                    .post("/api/topics/" + this.id, this.form)
-                    .then(response => {
-                        this.form.isSaving = false;
-                        this.form.hasSuccess = true;
-                        this.id = response.data.id;
-                        this.topic = response.data;
-                    })
-                    .catch(error => {
-                        this.form.isSaving = false;
-                        this.form.errors = error.response.data.errors;
-                    });
-            },
-
-            deleteTopic() {
-                this.request()
-                    .delete("/api/topics/" + this.id)
-                    .then(response => {
-                        $(this.$refs.deleteModal.$el).modal("hide");
-
-                        this.$router.push({name: "topics"});
-                    })
-                    .catch(error => {
-                        // Add any error debugging...
-                    });
-            },
-
-            showDeleteModal() {
-                $(this.$refs.deleteModal.$el).modal("show");
-            }
+            isReady: false,
+            trans: JSON.parse(Canvas.lang),
         }
-    };
+    },
+
+    mounted() {
+        this.fetchData()
+    },
+
+    watch: {
+        'form.name'(val) {
+            this.form.slug = this.slugify(val)
+        },
+    },
+
+    methods: {
+        fetchData() {
+            this.request()
+                .get('/api/topics/' + this.id)
+                .then(response => {
+                    this.topic = response.data
+                    this.form.id = response.data.id
+
+                    if (this.id !== 'create') {
+                        this.form.name = response.data.name
+                        this.form.slug = response.data.slug
+                    }
+
+                    this.isReady = true
+                })
+                .catch(error => {
+                    this.$router.push({ name: 'topics' })
+                })
+        },
+
+        saveTopic() {
+            this.form.errors = []
+            this.form.isSaving = true
+            this.form.hasSuccess = false
+
+            this.request()
+                .post('/api/topics/' + this.id, this.form)
+                .then(response => {
+                    this.form.isSaving = false
+                    this.form.hasSuccess = true
+                    this.id = response.data.id
+                    this.topic = response.data
+                })
+                .catch(error => {
+                    this.form.isSaving = false
+                    this.form.errors = error.response.data.errors
+                })
+        },
+
+        deleteTopic() {
+            this.request()
+                .delete('/api/topics/' + this.id)
+                .then(response => {
+                    $(this.$refs.deleteModal.$el).modal('hide')
+
+                    this.$router.push({ name: 'topics' })
+                })
+                .catch(error => {
+                    // Add any error debugging...
+                })
+        },
+
+        showDeleteModal() {
+            $(this.$refs.deleteModal.$el).modal('show')
+        },
+    },
+}
 </script>

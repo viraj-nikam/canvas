@@ -14,67 +14,66 @@
 </template>
 
 <script>
-    import _ from 'lodash';
-    import Multiselect from "vue-multiselect";
+import _ from 'lodash'
+import Multiselect from 'vue-multiselect'
 
-    export default {
-        props: {
-            tags: {
-                type: Array,
-                required: false
-            },
-            tagged: {
-                type: Array,
-                required: false
-            }
+export default {
+    props: {
+        tags: {
+            type: Array,
+            required: false,
         },
-
-        components: {
-            Multiselect
+        tagged: {
+            type: Array,
+            required: false,
         },
+    },
 
-        data() {
-            const allTags = this.tags.map(obj => {
-                let filtered = {};
+    components: {
+        Multiselect,
+    },
 
-                filtered["name"] = obj.name;
-                filtered["slug"] = obj.slug;
+    data() {
+        const allTags = this.tags.map(obj => {
+            let filtered = {}
 
-                return filtered;
-            });
+            filtered['name'] = obj.name
+            filtered['slug'] = obj.slug
 
-            return {
-                options: allTags,
-                value: this.tagged ? this.tagged : [],
-                trans: JSON.parse(Canvas.lang)
-            };
-        },
+            return filtered
+        })
 
-        methods: {
-            onChange(value, id) {
-                this.$store.dispatch('setPostTags', value);
-
-                this.update();
-            },
-
-            addTag(searchQuery) {
-                const tag = {
-                    name: searchQuery,
-                    slug: this.slugify(searchQuery)
-                };
-
-                this.options.push(tag);
-                this.value.push(tag);
-
-                this.$store.dispatch('setPostTags', this.value);
-
-                this.update();
-            },
-
-            update: _.debounce(function (e) {
-                this.$parent.update();
-            }, 900)
+        return {
+            options: allTags,
+            value: this.tagged ? this.tagged : [],
+            trans: JSON.parse(Canvas.lang),
         }
-    };
-</script>
+    },
 
+    methods: {
+        onChange(value, id) {
+            this.$store.dispatch('setPostTags', value)
+
+            this.update()
+        },
+
+        addTag(searchQuery) {
+            const tag = {
+                name: searchQuery,
+                slug: this.slugify(searchQuery),
+            }
+
+            this.options.push(tag)
+            this.value.push(tag)
+
+            this.$store.dispatch('setPostTags', this.value)
+
+            this.update()
+        },
+
+        update: _.debounce(function(e) {
+            this.$parent.update()
+        }, 900),
+    },
+}
+</script>

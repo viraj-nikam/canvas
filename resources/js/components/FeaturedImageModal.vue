@@ -8,7 +8,11 @@
                     </p>
 
                     <div v-if="activePost.featured_image" id="currentImage">
-                        <img :src="activePost.featured_image" :alt="activePost.featured_image_caption" class="w-100"/>
+                        <img
+                            :src="activePost.featured_image"
+                            :alt="activePost.featured_image_caption"
+                            class="w-100"
+                        />
 
                         <div class="input-group py-2">
                             <input
@@ -17,17 +21,30 @@
                                 @input="update"
                                 name="featured_image_caption"
                                 v-model="activePost.featured_image_caption"
-                                :placeholder="trans.posts.forms.editor.images.picker.uploader.caption.placeholder"
+                                :placeholder="
+                                    trans.posts.forms.editor.images.picker
+                                        .uploader.caption.placeholder
+                                "
                             />
                         </div>
                     </div>
 
                     <div v-if="activePost.featured_image">
-                        <a href="#" @click="clear" class="text-decoration-none text-success">
-                            {{ trans.posts.forms.editor.images.picker.clear.action }}
+                        <a
+                            href="#"
+                            @click="clear"
+                            class="text-decoration-none text-success"
+                        >
+                            {{
+                                trans.posts.forms.editor.images.picker.clear
+                                    .action
+                            }}
                         </a>
 
-                        {{ trans.posts.forms.editor.images.picker.clear.description }}
+                        {{
+                            trans.posts.forms.editor.images.picker.clear
+                                .description
+                        }}
                     </div>
 
                     <image-picker
@@ -39,7 +56,11 @@
                     />
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-link btn-block font-weight-bold text-muted text-decoration-none" data-dismiss="modal">
+                    <button
+                        type="button"
+                        class="btn btn-link btn-block font-weight-bold text-muted text-decoration-none"
+                        data-dismiss="modal"
+                    >
                         {{ trans.buttons.general.done }}
                     </button>
                 </div>
@@ -49,42 +70,42 @@
 </template>
 
 <script>
-    import ImagePicker from "./ImagePicker";
-    import { mapState } from 'vuex';
+import ImagePicker from './ImagePicker'
+import { mapState } from 'vuex'
 
-    export default {
-        name: "featured-image-modal",
+export default {
+    name: 'featured-image-modal',
 
-        components: {
-            ImagePicker
-        },
+    components: {
+        ImagePicker,
+    },
 
-        data() {
-            return {
-                isUploading: false,
-                trans: JSON.parse(Canvas.lang)
-            };
-        },
-
-        computed: mapState(['activePost']),
-
-        methods: {
-            clear() {
-                this.activePost.featured_image = "";
-                this.activePost.featured_image_caption = "";
-            },
-
-            update({url, caption}) {
-                if (url) {
-                    this.activePost.featured_image = url;
-                }
-                if (caption) {
-                    this.activePost.featured_image_caption = caption;
-                }
-
-                this.$parent.save();
-                this.isUploading = false;
-            },
+    data() {
+        return {
+            isUploading: false,
+            trans: JSON.parse(Canvas.lang),
         }
-    };
+    },
+
+    computed: mapState(['activePost']),
+
+    methods: {
+        clear() {
+            this.activePost.featured_image = ''
+            this.activePost.featured_image_caption = ''
+        },
+
+        update({ url, caption }) {
+            if (url) {
+                this.activePost.featured_image = url
+            }
+            if (caption) {
+                this.activePost.featured_image_caption = caption
+            }
+
+            this.$parent.save()
+            this.isUploading = false
+        },
+    },
+}
 </script>

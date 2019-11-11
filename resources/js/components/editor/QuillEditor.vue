@@ -2,22 +2,86 @@
     <div v-cloak>
         <div style="position: relative">
             <div id="sidebarControls">
-                <button class="btn btn-outline-light btn-circle border" type="button" @click="openSidebarControls">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="26" viewBox="0 0 24 24" class="icon-add-circle"><circle cx="12" cy="12" r="10" style="fill:none"/><path class="secondary" d="M13 11h4a1 1 0 0 1 0 2h-4v4a1 1 0 0 1-2 0v-4H7a1 1 0 0 1 0-2h4V7a1 1 0 0 1 2 0v4z"/></svg>
+                <button
+                    class="btn btn-outline-light btn-circle border"
+                    type="button"
+                    @click="openSidebarControls">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="26"
+                        viewBox="0 0 24 24"
+                        class="icon-add-circle"
+                    >
+                        <circle cx="12" cy="12" r="10" style="fill:none"/>
+                        <path
+                            class="secondary"
+                            d="M13 11h4a1 1 0 0 1 0 2h-4v4a1 1 0 0 1-2 0v-4H7a1 1 0 0 1 0-2h4V7a1 1 0 0 1 2 0v4z"
+                        />
+                    </svg>
                 </button>
                 <div class="controls pl-3 d-none">
-                    <button class="btn btn-outline-light btn-circle border mr-1" type="button" @click="showImageModal">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="26" viewBox="0 0 24 24" class="icon-camera"><path class="secondary" d="M6.59 6l2.7-2.7A1 1 0 0 1 10 3h4a1 1 0 0 1 .7.3L17.42 6H20a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8c0-1.1.9-2 2-2h2.59zM19 10a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-7 8a5 5 0 1 0 0-10 5 5 0 0 0 0 10z"/><path class="secondary" d="M12 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
-                    </button>
-                    <button class="btn btn-outline-light btn-circle border mr-1" type="button" @click="showHTMLModal">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="26" viewBox="0 0 24 24" class="icon-code">
-                            <rect width="18" height="18" x="3" y="3" style="fill:none" rx="2"/>
-                            <path class="secondary" d="M8.7 13.3a1 1 0 0 1-1.4 1.4l-2-2a1 1 0 0 1 0-1.4l2-2a1 1 0 1 1 1.4 1.4L7.42 12l1.3 1.3zm6.6 0l1.29-1.3-1.3-1.3a1 1 0 1 1 1.42-1.4l2 2a1 1 0 0 1 0 1.4l-2 2a1 1 0 0 1-1.42-1.4zm-3.32 3.9a1 1 0 0 1-1.96-.4l2-10a1 1 0 0 1 1.96.4l-2 10z"/>
+                    <button
+                        class="btn btn-outline-light btn-circle border mr-1"
+                        type="button"
+                        @click="showImageModal"
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="26"
+                            viewBox="0 0 24 24"
+                            class="icon-camera"
+                        >
+                            <path
+                                class="secondary"
+                                d="M6.59 6l2.7-2.7A1 1 0 0 1 10 3h4a1 1 0 0 1 .7.3L17.42 6H20a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8c0-1.1.9-2 2-2h2.59zM19 10a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-7 8a5 5 0 1 0 0-10 5 5 0 0 0 0 10z"
+                            />
+                            <path
+                                class="secondary"
+                                d="M12 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"
+                            />
                         </svg>
                     </button>
-                    <button class="btn btn-outline-light btn-circle border mr-2" type="button" @click="insertDivider">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="26" viewBox="0 0 24 24" class="icon-dots-horizontal">
-                            <path class="secondary" fill-rule="evenodd" d="M5 14a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm7 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm7 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/>
+                    <button
+                        class="btn btn-outline-light btn-circle border mr-1"
+                        type="button"
+                        @click="showHTMLModal"
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="26"
+                            viewBox="0 0 24 24"
+                            class="icon-code"
+                        >
+                            <rect
+                                width="18"
+                                height="18"
+                                x="3"
+                                y="3"
+                                style="fill:none"
+                                rx="2"
+                            />
+                            <path
+                                class="secondary"
+                                d="M8.7 13.3a1 1 0 0 1-1.4 1.4l-2-2a1 1 0 0 1 0-1.4l2-2a1 1 0 1 1 1.4 1.4L7.42 12l1.3 1.3zm6.6 0l1.29-1.3-1.3-1.3a1 1 0 1 1 1.42-1.4l2 2a1 1 0 0 1 0 1.4l-2 2a1 1 0 0 1-1.42-1.4zm-3.32 3.9a1 1 0 0 1-1.96-.4l2-10a1 1 0 0 1 1.96.4l-2 10z"
+                            />
+                        </svg>
+                    </button>
+                    <button
+                        class="btn btn-outline-light btn-circle border mr-2"
+                        type="button"
+                        @click="insertDivider"
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="26"
+                            viewBox="0 0 24 24"
+                            class="icon-dots-horizontal"
+                        >
+                            <path
+                                class="secondary"
+                                fill-rule="evenodd"
+                                d="M5 14a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm7 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm7 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"
+                            />
                         </svg>
                     </button>
                 </div>
@@ -25,29 +89,23 @@
 
             <div ref="editor"></div>
 
-            <image-modal
-                ref="imageModal"
-                @addingImage="insertImage"
-            />
+            <image-modal ref="imageModal" @addingImage="insertImage"/>
 
-            <html-modal
-                ref="htmlModal"
-                @addingHTML="insertHTML"
-            />
+            <html-modal ref="htmlModal" @addingHTML="insertHTML"/>
         </div>
     </div>
 </template>
 
 <script>
-    import _ from 'lodash';
-    import $ from 'jquery';
+    import _ from 'lodash'
+    import $ from 'jquery'
     import Quill from 'quill'
-    import { mapState } from 'vuex';
+    import {mapState} from 'vuex'
     import Parchment from 'parchment'
     import HTMLBlot from './HTMLBlot'
     import ImageBlot from './ImageBlot'
-    import HTMLModal from "./HTMLModal";
-    import ImageModal from "./ImageModal";
+    import HTMLModal from './HTMLModal'
+    import ImageModal from './ImageModal'
     import DividerBlot from './DividerBlot'
 
     export default {
@@ -56,147 +114,156 @@
         props: {
             value: {
                 type: String,
-                default: ''
-            }
+                default: '',
+            },
         },
 
         components: {
             'html-modal': HTMLModal,
-            'image-modal': ImageModal
+            'image-modal': ImageModal,
         },
 
         data() {
             return {
                 editor: null,
-                trans: JSON.parse(Canvas.lang)
+                trans: JSON.parse(Canvas.lang),
             }
         },
 
         mounted() {
-            this.editor = this.createEditor();
+            this.editor = this.createEditor()
 
-            this.handleEditorValue();
-            this.handleClicksInsideEditor();
-            this.initSideControls();
+            this.handleEditorValue()
+            this.handleClicksInsideEditor()
+            this.initSideControls()
         },
 
-        computed: mapState([
-            'activePost'
-        ]),
+        computed: mapState(['activePost']),
 
         watch: {
             'activePost.body'(val) {
-                this.update();
-            }
+                this.update()
+            },
         },
 
         methods: {
             createEditor() {
-                Quill.register(ImageBlot, true);
-                Quill.register(DividerBlot, true);
-                Quill.register(HTMLBlot, true);
+                Quill.register(ImageBlot, true)
+                Quill.register(DividerBlot, true)
+                Quill.register(HTMLBlot, true)
 
-                const icons = Quill.import('ui/icons');
-                icons.header[3] = require('!html-loader!quill/assets/icons/header-3.svg');
+                const icons = Quill.import('ui/icons')
+                icons.header[3] = require('!html-loader!quill/assets/icons/header-3.svg')
 
                 let quill = new Quill(this.$refs.editor, {
                     modules: {
                         syntax: true,
                         toolbar: [
                             ['bold', 'italic', 'code', 'link'],
-                            [{'header': '2'}, {'header': '3'}],
+                            [{header: '2'}, {header: '3'}],
                             ['blockquote', 'code-block'],
-                        ]
+                        ],
                     },
                     theme: 'bubble',
                     scrollingContainer: 'html, body',
-                    placeholder: this.trans.posts.forms.editor.body
-                });
+                    placeholder: this.trans.posts.forms.editor.body,
+                })
 
                 /**
                  * Temporary workaround for customizing the link tooltip.
                  *
                  * @link https://github.com/quilljs/quill/issues/1107#issuecomment-259938173
                  */
-                let tooltip = quill.theme.tooltip;
-                let input = tooltip.root.querySelector("input[data-link]");
+                let tooltip = quill.theme.tooltip
+                let input = tooltip.root.querySelector('input[data-link]')
 
-                input.dataset.link = this.trans.posts.forms.editor.link;
+                input.dataset.link = this.trans.posts.forms.editor.link
 
-                return quill;
+                return quill
             },
 
             handleEditorValue() {
-                this.editor.root.innerHTML = this.$store.getters.activePost.body;
+                this.editor.root.innerHTML = this.$store.getters.activePost.body
 
                 this.editor.on('text-change', (delta, oldContents, source) => {
-                    this.$store.dispatch('updatePostBody', this.editor.getText() ? this.editor.root.innerHTML : '');
-                });
+                    this.$store.dispatch(
+                        'updatePostBody',
+                        this.editor.getText() ? this.editor.root.innerHTML : ''
+                    )
+                })
             },
 
             handleClicksInsideEditor() {
-                this.editor.root.addEventListener('click', (event) => {
-                    let blot = Parchment.find(event.target, true);
+                this.editor.root.addEventListener('click', event => {
+                    let blot = Parchment.find(event.target, true)
 
                     if (blot instanceof ImageBlot) {
-                        let values = blot.value(blot.domNode)['captioned-image'];
+                        let values = blot.value(blot.domNode)['captioned-image']
 
-                        values.existingBlot = blot;
+                        values.existingBlot = blot
 
-                        this.showImageModal(values);
+                        this.showImageModal(values)
                     }
-                });
+                })
             },
 
             initSideControls() {
-                let Block = Quill.import('blots/block');
+                let Block = Quill.import('blots/block')
 
                 this.editor.on(Quill.events.EDITOR_CHANGE, (eventType, range) => {
-                    let sidebarControls = document.getElementById('sidebarControls');
+                    let sidebarControls = document.getElementById('sidebarControls')
 
-                    if (eventType !== Quill.events.SELECTION_CHANGE) return;
+                    if (eventType !== Quill.events.SELECTION_CHANGE) return
 
-                    if (range == null) return;
+                    if (range == null) return
 
                     if (range.length === 0) {
-                        let [block, offset] = this.editor.scroll.descendant(Block, range.index);
+                        let [block, offset] = this.editor.scroll.descendant(
+                            Block,
+                            range.index
+                        )
 
-                        if (block != null && block.domNode.firstChild instanceof HTMLBRElement) {
-                            let lineBounds = this.editor.getBounds(range);
+                        if (
+                            block != null &&
+                            block.domNode.firstChild instanceof HTMLBRElement
+                        ) {
+                            let lineBounds = this.editor.getBounds(range)
 
-                            sidebarControls.classList.remove('active');
+                            sidebarControls.classList.remove('active')
 
-                            sidebarControls.style.display = 'block';
+                            sidebarControls.style.display = 'block'
 
-                            sidebarControls.style.left = (lineBounds.left - 50) + 'px';
-                            sidebarControls.style.top = (lineBounds.top - 2) + 'px';
+                            sidebarControls.style.left = lineBounds.left - 50 + 'px'
+                            sidebarControls.style.top = lineBounds.top - 2 + 'px'
                         } else {
-                            sidebarControls.style.display = 'none';
+                            sidebarControls.style.display = 'none'
 
-                            sidebarControls.classList.remove('active');
+                            sidebarControls.classList.remove('active')
                         }
                     } else {
-                        sidebarControls.style.display = 'none';
+                        sidebarControls.style.display = 'none'
 
-                        sidebarControls.classList.remove('active');
+                        sidebarControls.classList.remove('active')
                     }
-                });
+                })
             },
 
             openSidebarControls() {
-                document.getElementById('sidebarControls').classList.toggle('active');
+                document
+                    .getElementById('sidebarControls')
+                    .classList.toggle('active')
 
-                this.editor.focus();
+                this.editor.focus()
             },
 
             showImageModal(data = null) {
-                this.$emit('openingImageModal', data);
+                this.$emit('openingImageModal', data)
 
-                $(this.$refs.imageModal.$el).modal("show");
+                $(this.$refs.imageModal.$el).modal('show')
             },
 
             showHTMLModal() {
-                $(this.$refs.htmlModal.$el).modal("show");
+                $(this.$refs.htmlModal.$el).modal('show')
             },
 
             insertImage({url, caption, existingBlot, layout}) {
@@ -204,57 +271,72 @@
                     url: url,
                     caption: caption,
                     layout: layout,
-                };
-
-                if (existingBlot) {
-                    return existingBlot.replaceWith('captioned-image', values);
                 }
 
-                let range = this.editor.getSelection(true);
+                if (existingBlot) {
+                    return existingBlot.replaceWith('captioned-image', values)
+                }
 
-                this.editor.insertEmbed(range.index, 'captioned-image', values, Quill.sources.USER);
+                let range = this.editor.getSelection(true)
 
-                this.editor.setSelection(range.index + 1, Quill.sources.SILENT);
+                this.editor.insertEmbed(
+                    range.index,
+                    'captioned-image',
+                    values,
+                    Quill.sources.USER
+                )
+
+                this.editor.setSelection(range.index + 1, Quill.sources.SILENT)
             },
 
             insertHTML({content}) {
-                let range = this.editor.getSelection(true);
+                let range = this.editor.getSelection(true)
 
-                this.editor.insertEmbed(range.index, 'html', {
-                    content: content,
-                }, Quill.sources.USER);
+                this.editor.insertEmbed(
+                    range.index,
+                    'html',
+                    {
+                        content: content,
+                    },
+                    Quill.sources.USER
+                )
 
-                this.editor.setSelection(range.index + 1, Quill.sources.SILENT);
+                this.editor.setSelection(range.index + 1, Quill.sources.SILENT)
             },
 
             insertDivider() {
-                let range = this.editor.getSelection(true);
+                let range = this.editor.getSelection(true)
 
-                this.editor.insertText(range.index, '\n', Quill.sources.USER);
-                this.editor.insertEmbed(range.index + 1, 'divider', true, Quill.sources.USER);
-                this.editor.setSelection(range.index + 2, Quill.sources.SILENT);
+                this.editor.insertText(range.index, '\n', Quill.sources.USER)
+                this.editor.insertEmbed(
+                    range.index + 1,
+                    'divider',
+                    true,
+                    Quill.sources.USER
+                )
+                this.editor.setSelection(range.index + 2, Quill.sources.SILENT)
             },
 
             update: _.debounce(function (e) {
-                this.$parent.save();
-            }, 900)
-        }
+                this.$parent.save()
+            }, 900),
+        },
     }
 </script>
 
 <style>
-    @import "~quill/dist/quill.bubble.css";
+    @import '~quill/dist/quill.bubble.css';
 
     .ql-container {
         box-sizing: border-box;
-        font-family: "Merriweather", serif;
+        font-family: 'Merriweather', serif;
         height: 100%;
         margin: 0;
         position: relative;
     }
 
     .ql-editor {
-        font-family: "Merriweather", serif;
+        font-family: 'Merriweather', serif;
         font-weight: 300;
         /*color: hsla(0, 0%, 0%, 0.9);*/
         font-size: 1.1rem;
@@ -388,7 +470,7 @@
         cursor: default;
     }
 
-    .embedded_image[data-layout="wide"] img {
+    .embedded_image[data-layout='wide'] img {
         max-width: 1024px;
     }
 
@@ -404,7 +486,7 @@
         box-shadow: 0 0 0 3px #03a87c !important;
     }
 
-    div.embedded_image[data-laout="wide"] {
+    div.embedded_image[data-laout='wide'] {
         width: 100vw !important;
         position: relative !important;
         left: 50% !important;
@@ -419,12 +501,12 @@
         line-height: 1.6;
         font-weight: 400;
         text-align: center;
-        font-family: "Karla", sans-serif;
+        font-family: 'Karla', sans-serif;
     }
 
     @media screen and (max-width: 1024px) {
-        .embedded_image[data-layout="wide"] img {
-            max-width: 100%
+        .embedded_image[data-layout='wide'] img {
+            max-width: 100%;
         }
     }
 
