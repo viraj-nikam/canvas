@@ -1,40 +1,40 @@
 <template>
     <div v-if="isReady">
-        <vue-frappe id="stats"
-                    :labels="labels"
-                    :title="trans.stats.cards.views.title"
-                    type="line"
-                    :axisOptions="{
-                        xIsSeries: true
-                    }"
-                    :lineOptions="{
-                        regionFill: 1,
-                        hideDots: 1
-                    }"
-                    :height="250"
-                    :colors="['#03a87c']"
-                    :dataSets="points"
-                    :tooltipOptions="{
-                        formatTooltipX: d => moment(d, 'YYYY-MM-DD').format('dddd, MMMM Do'),
-                        formatTooltipY: d => d + plural(trans.stats.chart.view, d)
-                    }">
+        <vue-frappe
+            id="stats"
+            :labels="labels"
+            :title="trans.stats.cards.views.title"
+            type="line"
+            :axisOptions="{
+                xIsSeries: true
+            }"
+            :lineOptions="{
+                regionFill: 1,
+                hideDots: 1
+            }"
+            :height="250"
+            :colors="['#03a87c']"
+            :dataSets="points"
+            :tooltipOptions="{
+                formatTooltipX: d => moment(d, 'YYYY-MM-DD').format('dddd, MMMM Do'),
+                formatTooltipY: d => d + plural(trans.stats.chart.view, d)
+            }">
         </vue-frappe>
     </div>
 </template>
 
 <script>
-    import Vue from "vue";
-    import moment from "moment";
-    import Chart from "vue-frappe";
+    import Vue from 'vue';
+    import moment from 'moment';
+    import VueFrappe from 'vue-frappe'
 
-    Vue.use(Chart);
     Vue.prototype.moment = moment;
 
     export default {
         name: "line-chart",
 
         components: {
-            Chart
+            VueFrappe
         },
 
         props: {
