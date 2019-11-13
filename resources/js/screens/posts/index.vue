@@ -121,9 +121,9 @@
                                             </span>
                                             ― {{ trans.posts.details.updated }}
                                             {{
-                                            moment(
-                                            post.updated_at
-                                            ).fromNow()
+                                                moment(
+                                                    post.updated_at
+                                                ).fromNow()
                                             }}
                                         </p>
                                     </div>
@@ -211,103 +211,103 @@
 </template>
 
 <script>
-    import moment from 'moment'
-    import PageHeader from '../../components/PageHeader'
+import moment from 'moment'
+import PageHeader from '../../components/PageHeader'
 
-    export default {
-        name: 'posts',
+export default {
+    name: 'posts',
 
-        components: {
-            PageHeader,
-        },
+    components: {
+        PageHeader,
+    },
 
-        data() {
-            return {
-                posts: [],
-                search: '',
-                limit: 7,
-                loadMore: false,
-                isReady: false,
-                trans: JSON.parse(Canvas.lang),
-            }
-        },
+    data() {
+        return {
+            posts: [],
+            search: '',
+            limit: 7,
+            loadMore: false,
+            isReady: false,
+            trans: JSON.parse(Canvas.lang),
+        }
+    },
 
-        mounted() {
-            this.fetchData()
-        },
+    mounted() {
+        this.fetchData()
+    },
 
-        methods: {
-            fetchData() {
-                this.request()
-                    .get('/api/posts')
-                    .then(response => {
-                        this.posts = response.data
-                        this.isReady = true
-                    })
-                    .catch(error => {
-                        // Add any error debugging...
-                    })
-            },
-
-            isDraft(post) {
-                return post.published_at == null || post.published_at === ''
-            },
-
-            isScheduled(post) {
-                return moment(post.published_at).isAfter(
-                    moment(new Date())
-                        .format()
-                        .slice(0, 19)
-                        .replace('T', ' ')
-                )
-            },
-
-            isPublished(post) {
-                return moment(post.published_at).isBefore(
-                    moment(new Date())
-                        .format()
-                        .slice(0, 19)
-                        .replace('T', ' ')
-                )
-            },
-        },
-
-        computed: {
-            /**
-             * Filter posts by their title.
-             *
-             * @source https://codepen.io/AndrewThian/pen/QdeOVa
-             */
-            filteredList() {
-                let filtered = this.posts.filter(post => {
-                    return post.title
-                        .toLowerCase()
-                        .includes(this.search.toLowerCase())
+    methods: {
+        fetchData() {
+            this.request()
+                .get('/api/posts')
+                .then(response => {
+                    this.posts = response.data
+                    this.isReady = true
                 })
-
-                this.loadMore = Object.keys(filtered).length > this.limit
-
-                return this.limit ? filtered.slice(0, this.limit) : this.posts
-            },
+                .catch(error => {
+                    // Add any error debugging...
+                })
         },
-    }
+
+        isDraft(post) {
+            return post.published_at == null || post.published_at === ''
+        },
+
+        isScheduled(post) {
+            return moment(post.published_at).isAfter(
+                moment(new Date())
+                    .format()
+                    .slice(0, 19)
+                    .replace('T', ' ')
+            )
+        },
+
+        isPublished(post) {
+            return moment(post.published_at).isBefore(
+                moment(new Date())
+                    .format()
+                    .slice(0, 19)
+                    .replace('T', ' ')
+            )
+        },
+    },
+
+    computed: {
+        /**
+         * Filter posts by their title.
+         *
+         * @source https://codepen.io/AndrewThian/pen/QdeOVa
+         */
+        filteredList() {
+            let filtered = this.posts.filter(post => {
+                return post.title
+                    .toLowerCase()
+                    .includes(this.search.toLowerCase())
+            })
+
+            this.loadMore = Object.keys(filtered).length > this.limit
+
+            return this.limit ? filtered.slice(0, this.limit) : this.posts
+        },
+    },
+}
 </script>
 
 <style scoped>
-    #navbarDropdown {
-        margin-top: -8px;
-    }
+#navbarDropdown {
+    margin-top: -8px;
+}
 
-    #searchDropdown {
-        min-width: 15rem;
-    }
+#searchDropdown {
+    min-width: 15rem;
+}
 
-    #featuredImage {
-        background-size: cover;
-        width: 57px;
-        height: 57px;
-        -webkit-border-radius: 50%;
-        -moz-border-radius: 50%;
-        border-radius: 50%;
-    }
+#featuredImage {
+    background-size: cover;
+    width: 57px;
+    height: 57px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+}
 </style>
