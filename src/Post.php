@@ -259,9 +259,26 @@ class Post extends Model
         return $query->where('published_at', null)->orWhere('published_at', '>', now()->toDateTimeString());
     }
 
+    /**
+     * Scope a query to only include posts for a specific user.
+     *
+     * @param Builder $query
+     * @return Builder
+     */
     public function scopeForUser($query, $user): Builder
     {
         return $query->where('user_id', $user);
+    }
+
+    /**
+     * Scope a query to only include posts for the current logged in user.
+     *
+     * @param Builder $query
+     * @return Builder
+     */
+    public function scopeForCurrentUser($query): Builder
+    {
+        return $query->where('user_id', request()->user()->id ?? null);
     }
 
     /**
