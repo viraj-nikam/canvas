@@ -20,7 +20,7 @@ class PostController extends Controller
      */
     public function index(): JsonResponse
     {
-        return response()->json(Post::forUser(request()->user()->id)
+        return response()->json(Post::forCurrentUser()
             ->orderByDesc('created_at')
             ->get());
     }
@@ -50,7 +50,7 @@ class PostController extends Controller
             ]);
         } else {
             return response()->json([
-                'post'   => Post::with('tags:name,slug', 'topic:name,slug')->find($id),
+                'post'   => Post::forCurrentUser()->with('tags:name,slug', 'topic:name,slug')->find($id),
                 'tags'   => $tags,
                 'topics' => $topics,
             ]);
@@ -100,7 +100,7 @@ class PostController extends Controller
             ],
         ], $messages)->validate();
 
-        $post = $id !== 'create' ? Post::find($id) : new Post(['id' => request('id')]);
+        $post = $id !== 'create' ? Post::forCurrentUser()->find($id) : new Post(['id' => request('id')]);
 
         $post->fill($data);
         $post->meta = $data['meta'];

@@ -26,7 +26,8 @@ class StatsController extends Controller
      */
     public function index(): JsonResponse
     {
-        $published = Post::published()
+        $published = Post::forCurrentUser()
+            ->published()
             ->orderByDesc('created_at')
             ->withCount('views')
             ->get();
@@ -62,7 +63,7 @@ class StatsController extends Controller
      */
     public function show(string $id): JsonResponse
     {
-        $post = Post::find($id);
+        $post = Post::forCurrentUser()->find($id);
 
         if ($post && $post->published) {
             return response()->json([
