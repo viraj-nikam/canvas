@@ -1,10 +1,10 @@
-import axios from "axios";
+import axios from 'axios'
 
 export default {
     computed: {
         Canvas() {
-            return window.Canvas;
-        }
+            return window.Canvas
+        },
     },
 
     methods: {
@@ -19,9 +19,9 @@ export default {
             return text
                 .toString()
                 .toLowerCase()
-                .replace(/\s+/g, "-")
-                .replace(/[^\w\-]+/g, "")
-                .replace(/--+/g, "-");
+                .replace(/\s+/g, '-')
+                .replace(/[^\w\-]+/g, '')
+                .replace(/--+/g, '-')
         },
 
         /**
@@ -31,31 +31,31 @@ export default {
          * @returns {string}
          */
         suffixedNumber(number) {
-            let formatted = "";
-            let suffix = "";
+            let formatted = ''
+            let suffix = ''
 
             if (number < 900) {
-                formatted = number;
-                suffix = "";
+                formatted = number
+                suffix = ''
             } else if (number < 900000) {
-                let n_total = number / 1000;
-                formatted = parseFloat(n_total.toFixed(1));
-                suffix = "K";
+                let n_total = number / 1000
+                formatted = parseFloat(n_total.toFixed(1))
+                suffix = 'K'
             } else if (number < 900000000) {
-                let n_total = number / 1000000;
-                formatted = parseFloat(n_total.toFixed(1));
-                suffix = "M";
+                let n_total = number / 1000000
+                formatted = parseFloat(n_total.toFixed(1))
+                suffix = 'M'
             } else if (number < 900000000000) {
-                let n_total = number / 1000000000;
-                formatted = parseFloat(n_total.toFixed(1));
-                suffix = "B";
+                let n_total = number / 1000000000
+                formatted = parseFloat(n_total.toFixed(1))
+                suffix = 'B'
             } else {
-                let n_total = number / 1000000000000;
-                formatted = parseFloat(n_total.toFixed(1));
-                suffix = "T";
+                let n_total = number / 1000000000000
+                formatted = parseFloat(n_total.toFixed(1))
+                suffix = 'T'
             }
 
-            return formatted + suffix;
+            return formatted + suffix
         },
 
         /**
@@ -67,9 +67,9 @@ export default {
          */
         plural(string, count) {
             if (count > 1 || count === 0) {
-                return " " + string + "s";
+                return ' ' + string + 's'
             } else {
-                return " " + string;
+                return ' ' + string
             }
         },
 
@@ -80,8 +80,8 @@ export default {
          */
         trim(string, length = 70) {
             return _.truncate(string, {
-                'length': length
-            });
+                length: length,
+            })
         },
 
         /**
@@ -90,16 +90,16 @@ export default {
          * @returns {AxiosInstance}
          */
         request() {
-            let instance = axios.create();
-            let token = document.head.querySelector('meta[name="csrf-token"]');
+            let instance = axios.create()
+            let token = document.head.querySelector('meta[name="csrf-token"]')
 
-            instance.defaults.headers.common["X-CSRF-TOKEN"] = token.content;
-            instance.defaults.baseURL = "/" + Canvas.path;
+            instance.defaults.headers.common['X-CSRF-TOKEN'] = token.content
+            instance.defaults.baseURL = '/' + Canvas.path
 
             const requestHandler = request => {
                 // Add any request modifiers...
-                return request;
-            };
+                return request
+            }
 
             const errorHandler = error => {
                 // Add any error modifiers...
@@ -107,35 +107,35 @@ export default {
                     case 405:
                     case 401:
                         axios
-                            .post("/logout", {
-                                _token: token
+                            .post('/logout', {
+                                _token: token,
                             })
                             .then(response => {
-                                window.location.href = "/login";
-                            });
-                        break;
+                                window.location.href = '/login'
+                            })
+                        break
                     default:
-                        break;
+                        break
                 }
 
-                return Promise.reject({ ...error });
-            };
+                return Promise.reject({ ...error })
+            }
 
             const successHandler = response => {
                 // Add any response modifiers...
-                return response;
-            };
+                return response
+            }
 
             instance.interceptors.request.use(request =>
                 requestHandler(request)
-            );
+            )
 
             instance.interceptors.response.use(
                 response => successHandler(response),
                 error => errorHandler(error)
-            );
+            )
 
-            return instance;
-        }
-    }
-};
+            return instance
+        },
+    },
+}
