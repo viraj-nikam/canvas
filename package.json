@@ -1,12 +1,10 @@
 {
     "private": true,
     "scripts": {
-        "dev": "yarn development",
-        "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+        "dev": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
         "prettier": "node_modules/prettier/bin-prettier.js --write \"resources/js/**/*.{js,vue}\"",
-        "prod": "yarn prettier && yarn production",
-        "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "watch": "yarn development -- --watch",
+        "prod": "yarn prettier && cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+        "watch": "yarn dev -- --watch",
         "test": "cross-env vendor/bin/phpunit"
     },
     "dependencies": {
