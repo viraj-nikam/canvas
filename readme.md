@@ -269,7 +269,7 @@ composer test
 
 ## License
 
-Canvas is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Canvas is open-sourced software licensed under the [MIT license](license).
 
 ## Credits
 
