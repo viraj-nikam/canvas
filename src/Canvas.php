@@ -2,6 +2,9 @@
 
 namespace Canvas;
 
+use RuntimeException;
+use Illuminate\Support\Facades\File;
+
 class Canvas
 {
     /**
@@ -37,6 +40,22 @@ class Canvas
         static::$useDarkMode = true;
 
         return new static;
+    }
+
+    /**
+     * Check that the public assets are published and up-to-date.
+     *
+     * @return bool
+     */
+    public static function assetsUpToDate(): bool
+    {
+        $path = public_path('vendor/canvas/mix-manifest.json');
+
+        if (!File::exists($path)) {
+            throw new RuntimeException('The assets for Canvas are not up to date. Please run: php artisan canvas:publish');
+        }
+
+        return File::get($path) === File::get(__DIR__ . '/../public/mix-manifest.json');
     }
 
     /**
