@@ -8,7 +8,7 @@ return [
         'action'      => 'añadiendo una nueva publicación',
     ],
     'search'  => [
-        'input' => 'Buscar...',
+        'input' => 'Buscar por título ...',
         'empty' => 'No hay publicaciones que coincidan con los criterios de búsqueda dados.',
     ],
     'details' => [

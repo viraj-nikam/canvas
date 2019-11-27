@@ -8,7 +8,7 @@ return [
         'action'      => '添加新帖子',
     ],
     'search'  => [
-        'input' => '搜索...',
+        'input' => '按标题搜索...',
         'empty' => '没有帖子符合给定的搜索条件。',
     ],
     'details' => [
