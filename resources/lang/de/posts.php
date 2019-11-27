@@ -8,7 +8,7 @@ return [
         'action'      => 'Hinzufügen eines neuen Beitrags',
     ],
     'search'  => [
-        'input' => 'Suche...',
+        'input' => 'Suche nach Titel ...',
         'empty' => 'Keine Beiträge stimmen mit den angegebenen Suchkriterien überein.',
     ],
     'details' => [

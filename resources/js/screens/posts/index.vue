@@ -137,7 +137,7 @@
                                             <div
                                                 v-if="post.featured_image"
                                                 id="featuredImage"
-                                                class="mr-2"
+                                                class="mr-2 shadow-inner"
                                                 :style="{
                                                     backgroundImage:
                                                         'url(' +

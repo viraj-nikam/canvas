@@ -8,7 +8,7 @@ return [
         'action'      => 'adding a new post.',
     ],
     'search'  => [
-        'input' => 'Search...',
+        'input' => 'Search by title...',
         'empty' => 'No posts matched the given search criteria.',
     ],
     'details' => [

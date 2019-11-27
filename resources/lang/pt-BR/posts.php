@@ -8,7 +8,7 @@ return [
         'action'      => 'adicionando uma nova postagem',
     ],
     'search'  => [
-        'input' => 'Procurar...',
+        'input' => 'Pesquisar por título ...',
         'empty' => 'Nenhuma postagem corresponde aos critérios de pesquisa fornecidos.',
     ],
     'details' => [
