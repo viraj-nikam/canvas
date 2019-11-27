@@ -214,7 +214,7 @@ If you want to include [Unsplash](https://unsplash.com) images in your post cont
 ],
 ```
 
-**Want a weekly summary?** Canvas provides support for a weekly e-mail that gives you quick stats of the content you've authored, delivered straight to your inbox. Once your application is [configured for sending mail](https://laravel.com/docs/5.8/mail), update `config/canvas.php`:
+**Want a weekly summary?** Canvas provides support for a weekly e-mail that gives you quick stats of the content you've authored, delivered straight to your inbox. Once your application is [configured for sending mail](https://laravel.com/docs/master/mail), update `config/canvas.php`:
 
 ```php
 /*
@@ -274,5 +274,5 @@ Canvas is open-sourced software licensed under the [MIT license](license).
 ## Credits
 
 - [The team](https://github.com/orgs/cnvs/people) that continues to support and develop this project
-- Thanks to [Mohamed Said](https://themsaid.com/) and his project [Wink](https://github.com/writingink/wink) for design and component inspiration
+- Thanks to [Mohamed Said](https://themsaid.com/) and his open source project [Wink](https://github.com/writingink/wink)
 - Anyone who has [contributed a patch](https://github.com/cnvs/canvas/pulls) or [made a helpful suggestion](https://github.com/cnvs/canvas/issues)

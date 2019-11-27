@@ -2186,6 +2186,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'delete-modal',
   props: {
@@ -77592,42 +77598,49 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "modal-footer" }, [
-            _c(
-              "button",
-              {
-                staticClass:
-                  "btn btn-link btn-block font-weight-bold text-muted text-decoration-none",
-                attrs: { "data-dismiss": "modal" }
-              },
-              [
-                _vm._v(
-                  "\n                    " +
-                    _vm._s(_vm.trans.buttons.general.cancel) +
-                    "\n                "
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-md-6" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass:
+                      "btn btn-link btn-block font-weight-bold text-muted text-decoration-none",
+                    attrs: { "data-dismiss": "modal" }
+                  },
+                  [
+                    _vm._v(
+                      "\n                            " +
+                        _vm._s(_vm.trans.buttons.general.cancel) +
+                        "\n                        "
+                    )
+                  ]
                 )
-              ]
-            ),
-            _vm._v(" "),
-            _c(
-              "a",
-              {
-                staticClass: "btn btn-danger btn-block font-weight-bold mt-0",
-                attrs: { href: "#", "aria-label": "Delete" },
-                on: {
-                  click: function($event) {
-                    $event.preventDefault()
-                    return _vm.confirmProceed()
-                  }
-                }
-              },
-              [
-                _vm._v(
-                  "\n                    " +
-                    _vm._s(_vm.trans.buttons.general.delete) +
-                    "\n                "
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-md-6" }, [
+                _c(
+                  "a",
+                  {
+                    staticClass:
+                      "btn btn-danger btn-block font-weight-bold mt-0",
+                    attrs: { href: "#", "aria-label": "Delete" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.confirmProceed()
+                      }
+                    }
+                  },
+                  [
+                    _vm._v(
+                      "\n                            " +
+                        _vm._s(_vm.trans.buttons.general.delete) +
+                        "\n                        "
+                    )
+                  ]
                 )
-              ]
-            )
+              ])
+            ])
           ])
         ])
       ])
