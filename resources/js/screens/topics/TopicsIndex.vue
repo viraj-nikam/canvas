@@ -145,7 +145,7 @@
 import PageHeader from '../../components/PageHeader'
 
 export default {
-    name: 'Topics',
+    name: 'topics-index',
 
     components: {
         PageHeader,

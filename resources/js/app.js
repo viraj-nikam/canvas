@@ -1,16 +1,18 @@
 import Vue from 'vue'
 import Routes from './routes'
 import { store } from './store'
-import Base from './mixins/Base'
 import NProgress from 'nprogress'
 import VueRouter from 'vue-router'
 import moment from 'moment-timezone'
+import HelperMixin from "./mixins/HelperMixin"
+import RequestMixin from "./mixins/RequestMixin"
 
 require('bootstrap')
 
 window.Popper = require('popper.js').default
 
-Vue.mixin(Base)
+Vue.mixin(HelperMixin)
+Vue.mixin(RequestMixin)
 
 // Set the default timezone
 moment.tz.setDefault(Canvas.timezone)

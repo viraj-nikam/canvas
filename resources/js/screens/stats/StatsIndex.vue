@@ -197,7 +197,7 @@ import LineChart from '../../components/LineChart'
 import PageHeader from '../../components/PageHeader'
 
 export default {
-    name: 'stats',
+    name: 'stats-index',
 
     components: {
         LineChart,

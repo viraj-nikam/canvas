@@ -144,7 +144,7 @@
 import PageHeader from '../../components/PageHeader'
 
 export default {
-    name: 'tags',
+    name: 'tags-index',
 
     components: {
         PageHeader,

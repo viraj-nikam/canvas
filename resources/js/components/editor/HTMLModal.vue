@@ -13,12 +13,9 @@
                                 cols="30"
                                 rows="10"
                                 class="form-control border-0 bg-transparent"
-                                :placeholder="
-                                    trans.posts.forms.editor.html.placeholder
-                                "
+                                :placeholder="trans.posts.forms.editor.html.placeholder"
                                 style="resize: none"
-                                v-model="content"
-                            >
+                                v-model="content">
                             </textarea>
                         </div>
                     </div>
@@ -27,8 +24,7 @@
                     <button
                         class="btn btn-link btn-block text-muted font-weight-bold text-decoration-none"
                         @click="addHTML"
-                        data-dismiss="modal"
-                    >
+                        data-dismiss="modal">
                         {{ trans.buttons.general.done }}
                     </button>
                 </div>
@@ -38,28 +34,28 @@
 </template>
 
 <script>
-export default {
-    name: 'html-modal',
+    export default {
+        name: 'html-modal',
 
-    data() {
-        return {
-            content: '',
-            trans: JSON.parse(Canvas.lang),
-        }
-    },
-
-    mounted() {
-        this.$nextTick(() => this.$refs.content.focus())
-    },
-
-    methods: {
-        addHTML() {
-            this.$emit('addingHTML', {
-                content: this.content,
-            })
-
-            this.content = ''
+        data() {
+            return {
+                content: '',
+                trans: JSON.parse(Canvas.lang),
+            }
         },
-    },
-}
+
+        mounted() {
+            this.$nextTick(() => this.$refs.content.focus())
+        },
+
+        methods: {
+            addHTML() {
+                this.$emit('addingHTML', {
+                    content: this.content,
+                })
+
+                this.content = ''
+            },
+        },
+    }
 </script>

@@ -1,13 +1,8 @@
 <template>
     <div class="container d-flex justify-content-center px-0">
         <div class="col-md-10 px-0">
-            <nav
-                class="navbar justify-content-between flex-nowrap flex-row py-3"
-            >
-                <router-link
-                    to="/"
-                    class="navbar-brand font-weight-bold py-0 font-serif"
-                >
+            <nav class="navbar justify-content-between flex-nowrap flex-row py-3">
+                <router-link to="/" class="navbar-brand font-weight-bold py-0 font-serif">
                     <span class="text-muted">{</span> logo
                     <span class="text-muted">}</span>
                 </router-link>
@@ -25,29 +20,13 @@
                 <slot name="menu"></slot>
 
                 <div class="dropdown ml-3" v-cloak>
-                    <a
-                        href="#"
-                        id="navbarDropdown"
-                        class="nav-link px-0 text-secondary"
-                        role="button"
-                        data-toggle="dropdown"
-                        aria-haspopup="true"
-                        aria-expanded="false"
-                    >
-                        <img
-                            :src="gravatar()"
-                            :alt="user.name"
-                            class="rounded-circle my-0 shadow-inner"
-                            style="width: 31px"
-                        />
+                    <a href="#" id="navbarDropdown" class="nav-link px-0 text-secondary" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img :src="gravatar()" :alt="user.name" class="rounded-circle my-0 shadow-inner" style="width: 31px"/>
                     </a>
-                    <div
-                        class="dropdown-menu dropdown-menu-right"
-                        aria-labelledby="dropdownMenuButton"
-                    >
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                         <h6 class="dropdown-header">
                             <strong>{{ user.name }}</strong>
-                            <br />
+                            <br/>
                             {{ user.email }}
                         </h6>
                         <div class="dropdown-divider"></div>
@@ -65,11 +44,7 @@
                             <span>{{ trans.nav.user.stats }}</span>
                         </router-link>
                         <div class="dropdown-divider"></div>
-                        <a
-                            href=""
-                            class="dropdown-item"
-                            @click.prevent="logout"
-                        >
+                        <a href="" class="dropdown-item" @click.prevent="logout">
                             {{ trans.nav.user.logout }}
                         </a>
                     </div>
@@ -80,54 +55,54 @@
 </template>
 
 <script>
-import md5 from 'md5'
-import axios from 'axios'
+    import md5 from 'md5'
+    import axios from 'axios'
 
-export default {
-    name: 'page-header',
+    export default {
+        name: 'page-header',
 
-    data() {
-        return {
-            user: Canvas.user,
-            token: document.head.querySelector('meta[name="csrf-token"]')
-                .content,
-            trans: JSON.parse(Canvas.lang),
-        }
-    },
-
-    methods: {
-        /**
-         * Generate an MD5 hash from a given email to retrieve a Gravatar.
-         *
-         * @returns {string}
-         */
-        gravatar() {
-            let hash = md5(this.user.email.toLowerCase().trim())
-
-            return 'https://secure.gravatar.com/avatar/' + hash + '?s=200'
+        data() {
+            return {
+                user: Canvas.user,
+                token: document.head.querySelector('meta[name="csrf-token"]')
+                    .content,
+                trans: JSON.parse(Canvas.lang),
+            }
         },
 
-        /**
-         * Log the user out of the application.
-         *
-         * @returns void
-         */
-        logout() {
-            axios
-                .post('/logout', {
-                    _token: this.token,
-                })
-                .then(response => {
-                    window.location.href = '/login'
-                })
+        methods: {
+            /**
+             * Generate an MD5 hash from a given email to retrieve a Gravatar.
+             *
+             * @returns {string}
+             */
+            gravatar() {
+                let hash = md5(this.user.email.toLowerCase().trim())
+
+                return 'https://secure.gravatar.com/avatar/' + hash + '?s=200'
+            },
+
+            /**
+             * Log the user out of the application.
+             *
+             * @returns void
+             */
+            logout() {
+                axios
+                    .post('/logout', {
+                        _token: this.token,
+                    })
+                    .then(response => {
+                        window.location.href = '/login'
+                    })
+            },
         },
-    },
-}
+    }
 </script>
 
 <style scoped>
-a.dropdown-item:active {
-    background-color: #f8f9fa;
-    color: #16181b;
-}
+    a.dropdown-item:active {
+        background-color: #f8f9fa;
+        color: #16181b;
+    }
 </style>

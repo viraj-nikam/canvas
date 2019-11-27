@@ -38,8 +38,8 @@ class StatsController extends Controller
         // Get views for the last [X] days
         $views = View::select('created_at')
             ->whereBetween('created_at', [
-                today()->subDays(self::DAYS_PRIOR)->toDateTimeString(),
-                today()->toDateTimeString(),
+                today()->subDays(self::DAYS_PRIOR)->startOfDay()->toDateTimeString(),
+                today()->endofDay()->toDateTimeString(),
             ])->get();
 
         return response()->json([

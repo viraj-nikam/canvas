@@ -215,7 +215,7 @@ import moment from 'moment'
 import PageHeader from '../../components/PageHeader'
 
 export default {
-    name: 'posts',
+    name: 'posts-index',
 
     components: {
         PageHeader,
