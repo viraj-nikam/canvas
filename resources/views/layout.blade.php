@@ -18,7 +18,7 @@
 
     <link rel="stylesheet" type="text/css" href="{{ asset(mix(sprintf('css/%s', $stylesheet), 'vendor/canvas')) }}">
 
-{{--    <link rel="shortcut icon" href="{{ mix('favicon.ico', 'vendor/canvas') }}">--}}
+    <link rel="shortcut icon" href="{{ asset(mix('favicon.ico', 'vendor/canvas')) }}">
 </head>
 <body>
 <div id="canvas">

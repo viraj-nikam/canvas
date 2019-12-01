@@ -1,7 +1,4 @@
-<p align="center">
-    <br>
-    <img src="https://raw.githubusercontent.com/cnvs/art/master/github-header.png" width="400">
-</p>
+# Canvas
 
 <p align="center">
 	<a href="https://travis-ci.org/cnvs/canvas"><img src="https://travis-ci.org/cnvs/canvas.svg?branch=master"></a>
@@ -274,5 +271,6 @@ Canvas is open-sourced software licensed under the [MIT license](license).
 ## Credits
 
 - [The team](https://github.com/orgs/cnvs/people) that continues to support and develop this project
+- Logo design and branding by [Katerina Limpitsouni](https://twitter.com/NinaLimpi) 
 - Thanks to [Mohamed Said](https://themsaid.com/) and his open source project [Wink](https://github.com/writingink/wink)
 - Anyone who has [contributed a patch](https://github.com/cnvs/canvas/pulls) or [made a helpful suggestion](https://github.com/cnvs/canvas/issues)
