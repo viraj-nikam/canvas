@@ -4,11 +4,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Karla|Merriweather">
+
     <style type="text/css">
         body,
         body *:not(html):not(style):not(br):not(tr):not(code) {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif,
-            'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+            font-family: 'Karla', sans-serif;
             box-sizing: border-box;
         }
 
