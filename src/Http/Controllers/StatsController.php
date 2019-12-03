@@ -32,15 +32,16 @@ class StatsController extends Controller
             ->withCount('views')
             ->get();
 
-        // Append the estimated reading time
-        $published->each->append('read_time');
-
         // Get views for the last [X] days
         $views = View::select('created_at')
+            ->whereIn('post_id', $published->pluck('id'))
             ->whereBetween('created_at', [
                 today()->subDays(self::DAYS_PRIOR)->startOfDay()->toDateTimeString(),
-                today()->endofDay()->toDateTimeString(),
+                today()->endOfDay()->toDateTimeString(),
             ])->get();
+
+        // Append the estimated reading time
+        $published->each->append('read_time');
 
         return response()->json([
             'posts' => [

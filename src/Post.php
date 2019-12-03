@@ -143,7 +143,7 @@ class Post extends Model
      */
     public function getPublishedAttribute(): bool
     {
-        return ! is_null($this->published_at) && $this->published_at <= now()->toDateTimeString();
+        return !is_null($this->published_at) && $this->published_at <= now()->toDateTimeString();
     }
 
     /**
@@ -222,7 +222,11 @@ class Post extends Model
         // Filter the view data to only include referrers
         $collection = collect();
         $data->each(function ($item, $key) use ($collection) {
-            empty(parse_url($item->referer)['host']) ? $collection->push(__('canvas::stats.details.referer.other')) : $collection->push(parse_url($item->referer)['host']);
+            if (empty(parse_url($item->referer)['host'])) {
+                $collection->push(__('canvas::stats.details.referer.other'));
+            } else {
+                $collection->push(parse_url($item->referer)['host']);
+            }
         });
 
         // Count the unique values and assign to their respective keys
@@ -257,17 +261,6 @@ class Post extends Model
     public function scopeDraft($query): Builder
     {
         return $query->where('published_at', null)->orWhere('published_at', '>', now()->toDateTimeString());
-    }
-
-    /**
-     * Scope a query to only include posts for a specific user.
-     *
-     * @param Builder $query
-     * @return Builder
-     */
-    public function scopeForUser($query, $user): Builder
-    {
-        return $query->where('user_id', $user);
     }
 
     /**

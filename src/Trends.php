@@ -35,7 +35,11 @@ trait Trends
         $total = collect();
 
         foreach ($period as $date) {
-            array_key_exists($date, $unique_views) ? $total->put($date, $unique_views[$date]) : $total->put($date, 0);
+            if (array_key_exists($date, $unique_views)) {
+                $total->put($date, $unique_views[$date]);
+            } else {
+                $total->put($date, 0);
+            }
         }
 
         return $total->toArray();

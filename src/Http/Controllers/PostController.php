@@ -34,26 +34,30 @@ class PostController extends Controller
      */
     public function show($id = null): JsonResponse
     {
-        $tags = Tag::all(['name', 'slug']);
-        $topics = Topic::all(['name', 'slug']);
+        if (Post::forCurrentUser()->pluck('id')->contains($id) || $this->isNewPost($id)) {
+            $tags = Tag::all(['name', 'slug']);
+            $topics = Topic::all(['name', 'slug']);
 
-        if ($this->isNewPost($id)) {
-            $uuid = Uuid::uuid4();
+            if ($this->isNewPost($id)) {
+                $uuid = Uuid::uuid4();
 
-            return response()->json([
-                'post'   => Post::make([
-                    'id'   => $uuid->toString(),
-                    'slug' => "post-{$uuid->toString()}",
-                ]),
-                'tags'   => $tags,
-                'topics' => $topics,
-            ]);
+                return response()->json([
+                    'post'   => Post::make([
+                        'id'   => $uuid->toString(),
+                        'slug' => "post-{$uuid->toString()}",
+                    ]),
+                    'tags'   => $tags,
+                    'topics' => $topics,
+                ]);
+            } else {
+                return response()->json([
+                    'post'   => Post::forCurrentUser()->with('tags:name,slug', 'topic:name,slug')->find($id),
+                    'tags'   => $tags,
+                    'topics' => $topics,
+                ]);
+            }
         } else {
-            return response()->json([
-                'post'   => Post::forCurrentUser()->with('tags:name,slug', 'topic:name,slug')->find($id),
-                'tags'   => $tags,
-                'topics' => $topics,
-            ]);
+            return response()->json(null, 301);
         }
     }
 
@@ -157,7 +161,7 @@ class PostController extends Controller
         if ($incomingTopic) {
             $topic = Topic::where('slug', $incomingTopic['slug'])->first();
 
-            if (! $topic) {
+            if (!$topic) {
                 $topic = Topic::create([
                     'id'   => $id = Uuid::uuid4(),
                     'name' => $incomingTopic['name'],
@@ -165,7 +169,7 @@ class PostController extends Controller
                 ]);
             }
 
-            return collect((string) $topic->id)->toArray();
+            return collect((string)$topic->id)->toArray();
         } else {
             return [];
         }
@@ -185,7 +189,7 @@ class PostController extends Controller
             return collect($incomingTags)->map(function ($incomingTag) use ($tags) {
                 $tag = $tags->where('slug', $incomingTag['slug'])->first();
 
-                if (! $tag) {
+                if (!$tag) {
                     $tag = Tag::create([
                         'id'   => $id = Uuid::uuid4(),
                         'name' => $incomingTag['name'],
@@ -193,7 +197,7 @@ class PostController extends Controller
                     ]);
                 }
 
-                return (string) $tag->id;
+                return (string)$tag->id;
             })->toArray();
         } else {
             return [];
