@@ -1,3 +1,7 @@
+<p align="center">
+    <img src="./.github/HEADER.png">
+</p>
+
 # Canvas
 
 <a href="https://travis-ci.org/cnvs/canvas"><img src="https://travis-ci.org/cnvs/canvas.svg?branch=master"></a>
