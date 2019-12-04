@@ -1,7 +1,5 @@
 # Canvas
 
-A [Laravel](https://laravel.com) publishing platform.
-
 <a href="https://travis-ci.org/cnvs/canvas"><img src="https://travis-ci.org/cnvs/canvas.svg?branch=master"></a>
 <a href="https://packagist.org/packages/cnvs/canvas"><img src="https://poser.pugx.org/cnvs/canvas/downloads"></a>
 <a href="https://packagist.org/packages/cnvs/canvas"><img src="https://poser.pugx.org/cnvs/canvas/v/stable"></a>
@@ -22,7 +20,7 @@ A [Laravel](https://laravel.com) publishing platform.
 
 ## Introduction
 
-Canvas is a fully open source package to extend your existing application and get you up-and-running with a blog in 
+A [Laravel](https://laravel.com) publishing platform. Canvas is a fully open source package to extend your existing application and get you up-and-running with a blog in 
 just a few minutes. In addition to a distraction-free writing experience, you can view monthly trends on your content, 
 get insights into reader traffic and more!
 
