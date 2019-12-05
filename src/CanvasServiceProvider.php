@@ -134,7 +134,7 @@ class CanvasServiceProvider extends ServiceProvider
             ], 'canvas-config');
 
             $this->publishes([
-                __DIR__.'/../stubs/providers/CanvasServiceProvider.stub' => app_path(
+                __DIR__.'/../resources/stubs/providers/CanvasServiceProvider.stub' => app_path(
                     'Providers/CanvasServiceProvider.php'
                 ),
             ], 'canvas-provider');
