@@ -1,5 +1,5 @@
 <template>
-    <div v-if="isReady">
+    <div v-cloak>
         <vue-frappe
             id="stats"
             :labels="labels"
@@ -16,12 +16,10 @@
             :colors="['#03a87c']"
             :dataSets="points"
             :tooltipOptions="{
-                formatTooltipX: d =>
-                    moment(d, 'YYYY-MM-DD').format('dddd, MMMM Do'),
+                formatTooltipX: d => moment(d, 'YYYY-MM-DD').format('dddd, MMMM Do'),
                 formatTooltipY: d => d + plural(trans.stats.chart.view, d),
             }"
-        >
-        </vue-frappe>
+        />
     </div>
 </template>
 
@@ -48,36 +46,13 @@
 
         data() {
             return {
-                labels: [],
-                points: [],
+                labels: Object.keys(this.views),
+                points: [{
+                    values: Object.values(this.views),
+                }],
                 trans: JSON.parse(Canvas.lang),
                 isReady: false,
             }
-        },
-
-        mounted() {
-            this.plotDataPoints(this.views)
-
-            this.isReady = true
-        },
-
-        methods: {
-            /**
-             * Plot the data and assign labels to the axis.
-             *
-             * todo: Still need to address <svg> draw issues of NaN values
-             * @link https://github.com/frappe/charts/issues/220
-             *
-             * @param data
-             */
-            plotDataPoints(data) {
-                this.labels = Object.keys(data)
-                this.points = [
-                    {
-                        values: Object.values(data),
-                    },
-                ]
-            },
-        },
+        }
     }
 </script>
