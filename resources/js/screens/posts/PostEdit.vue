@@ -193,7 +193,7 @@
 
             update: _.debounce(function (e) {
                 this.save()
-            }, 900),
+            }, 1200),
 
             convertToDraft() {
                 this.post.published_at = ''

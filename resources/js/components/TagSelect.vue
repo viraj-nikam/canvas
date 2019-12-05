@@ -73,7 +73,7 @@
 
             update: _.debounce(function (e) {
                 this.$parent.update()
-            }, 900),
+            }, 1200),
         },
     }
 </script>
