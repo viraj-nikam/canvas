@@ -75,7 +75,7 @@
                             </div>
                             <p v-else class="mt-2">
                                 {{ trans.topics.empty.description }}
-                                <router-link to="/topics/create">
+                                <router-link to="/topics/create" class="text-success text-decoration-none">
                                     {{ trans.topics.empty.action }}
                                 </router-link>
                             </p>
