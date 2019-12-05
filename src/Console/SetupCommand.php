@@ -2,16 +2,16 @@
 
 namespace Canvas\Console;
 
-use Canvas\Tag;
 use Canvas\Post;
+use Canvas\Tag;
 use Canvas\Topic;
 use Faker\Generator;
-use Ramsey\Uuid\Uuid;
-use Illuminate\Support\Str;
 use Illuminate\Console\Command;
+use Illuminate\Console\DetectsApplicationNamespace;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Console\DetectsApplicationNamespace;
+use Illuminate\Support\Str;
+use Ramsey\Uuid\Uuid;
 
 class SetupCommand extends Command
 {
@@ -100,7 +100,7 @@ class SetupCommand extends Command
             }
 
             copy(
-                sprintf('%s/stubs/views/blog/%s', dirname(__DIR__, 2), $key),
+                sprintf('%s/resources/stubs/views/blog/%s', dirname(__DIR__, 2), $key),
                 $view
             );
         }
@@ -145,7 +145,7 @@ class SetupCommand extends Command
         return str_replace(
             '{{namespace}}',
             $this->getAppNamespace(),
-            file_get_contents(dirname(__DIR__, 2).'/stubs/controllers/BlogController.stub')
+            file_get_contents(dirname(__DIR__, 2).'/resources/stubs/controllers/BlogController.stub')
         );
     }
 
@@ -159,7 +159,7 @@ class SetupCommand extends Command
         if (! Route::has('blog.index')) {
             file_put_contents(
                 base_path('routes/web.php'),
-                file_get_contents(dirname(__DIR__, 2).'/stubs/routes.stub'),
+                file_get_contents(dirname(__DIR__, 2).'/resources/stubs/routes.stub'),
                 FILE_APPEND
             );
         }

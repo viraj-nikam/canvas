@@ -3,14 +3,14 @@
 namespace Canvas;
 
 use Carbon\Carbon;
-use Illuminate\Support\Str;
-use Illuminate\Foundation\Auth\User;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Foundation\Auth\User;
+use Illuminate\Support\Str;
 
 class Post extends Model
 {
@@ -83,17 +83,27 @@ class Post extends Model
      */
     public function tags(): BelongsToMany
     {
-        return $this->belongsToMany(Tag::class, 'canvas_posts_tags', 'post_id', 'tag_id');
+        return $this->belongsToMany(
+            Tag::class,
+            'canvas_posts_tags',
+            'post_id',
+            'tag_id'
+        );
     }
 
     /**
-     * Get the topics relationship.
+     * Get the topic relationship.
      *
-     * @return belongsToMany
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function topic(): belongsToMany
+    public function topic(): BelongsToMany
     {
-        return $this->belongsToMany(Topic::class, 'canvas_posts_topics', 'post_id', 'topic_id');
+        return $this->belongsToMany(
+            Topic::class,
+            'canvas_posts_topics',
+            'post_id',
+            'topic_id'
+        );
     }
 
     /**
@@ -133,11 +143,7 @@ class Post extends Model
      */
     public function getPublishedAttribute(): bool
     {
-        if ($this->published_at <= now()->toDateTimeString()) {
-            return true;
-        } else {
-            return false;
-        }
+        return ! is_null($this->published_at) && $this->published_at <= now()->toDateTimeString();
     }
 
     /**
@@ -204,7 +210,7 @@ class Post extends Model
     }
 
     /**
-     * Get the top 10 referring websites for a post.
+     * Get the top referring websites for a post.
      *
      * @return array
      */
@@ -216,14 +222,18 @@ class Post extends Model
         // Filter the view data to only include referrers
         $collection = collect();
         $data->each(function ($item, $key) use ($collection) {
-            empty(parse_url($item->referer)['host']) ? $collection->push(__('canvas::stats.details.referer.other')) : $collection->push(parse_url($item->referer)['host']);
+            if (empty(parse_url($item->referer)['host'])) {
+                $collection->push(__('canvas::stats.details.referer.other'));
+            } else {
+                $collection->push(parse_url($item->referer)['host']);
+            }
         });
 
         // Count the unique values and assign to their respective keys
         $array = array_count_values($collection->toArray());
 
-        // Only return the top 10 referrers with their view count
-        $sliced = array_slice($array, 0, 10, true);
+        // Only return the top N referrers with their view count
+        $sliced = array_slice($array, 0, 8, true);
 
         // Sort the array in a descending order
         arsort($sliced);
@@ -250,6 +260,32 @@ class Post extends Model
      */
     public function scopeDraft($query): Builder
     {
-        return $query->where('published_at', '>', now()->toDateTimeString());
+        return $query->where('published_at', null)->orWhere('published_at', '>', now()->toDateTimeString());
+    }
+
+    /**
+     * Scope a query to only include posts for the current logged in user.
+     *
+     * @param Builder $query
+     * @return Builder
+     */
+    public function scopeForCurrentUser($query): Builder
+    {
+        return $query->where('user_id', request()->user()->id ?? null);
+    }
+
+    /**
+     * The "booting" method of the model.
+     *
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($item) {
+            $item->tags()->detach();
+            $item->topic()->detach();
+        });
     }
 }

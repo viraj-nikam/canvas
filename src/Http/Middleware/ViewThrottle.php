@@ -13,7 +13,7 @@ class ViewThrottle
      *
      * @const int
      */
-    const EXPIRES_IN = 3600;
+    private const EXPIRES_IN = 3600;
 
     /**
      * Handle the incoming request.
@@ -49,7 +49,7 @@ class ViewThrottle
      * @param array $posts
      * @return void
      */
-    private function pruneExpiredViews(array $posts): void
+    private function pruneExpiredViews(array $posts)
     {
         foreach (collect($posts) as $key => $value) {
             if ($value < time() - self::EXPIRES_IN) {

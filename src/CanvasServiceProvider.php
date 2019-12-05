@@ -2,14 +2,14 @@
 
 namespace Canvas;
 
-use Canvas\Console\SetupCommand;
 use Canvas\Console\DigestCommand;
-use Illuminate\Events\Dispatcher;
 use Canvas\Console\InstallCommand;
 use Canvas\Console\PublishCommand;
+use Canvas\Console\SetupCommand;
+use Illuminate\Contracts\Container\BindingResolutionException;
+use Illuminate\Events\Dispatcher;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Contracts\Container\BindingResolutionException;
 
 class CanvasServiceProvider extends ServiceProvider
 {
@@ -113,7 +113,7 @@ class CanvasServiceProvider extends ServiceProvider
     private function handleMigrations()
     {
         if ($this->app->runningInConsole()) {
-            $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+            $this->loadMigrationsFrom(__DIR__.'/Storage/migrations');
         }
     }
 
@@ -134,7 +134,7 @@ class CanvasServiceProvider extends ServiceProvider
             ], 'canvas-config');
 
             $this->publishes([
-                __DIR__.'/../stubs/providers/CanvasServiceProvider.stub' => app_path(
+                __DIR__.'/../resources/stubs/providers/CanvasServiceProvider.stub' => app_path(
                     'Providers/CanvasServiceProvider.php'
                 ),
             ], 'canvas-provider');
@@ -144,7 +144,7 @@ class CanvasServiceProvider extends ServiceProvider
     /**
      * @return void
      */
-    private function handleConfig(): void
+    private function handleConfig()
     {
         $this->mergeConfigFrom(
             __DIR__.'/../config/canvas.php',
@@ -155,7 +155,7 @@ class CanvasServiceProvider extends ServiceProvider
     /**
      * @return void
      */
-    private function handleCommands(): void
+    private function handleCommands()
     {
         $this->commands([
             DigestCommand::class,

@@ -6,10 +6,10 @@ return [
     'posts'   => 'Post(s)',
     'empty'   => [
         'description' => 'No tags were found, start by',
-        'action'      => 'adding a new tag',
+        'action'      => 'adding a new tag.',
     ],
     'search'  => [
-        'input' => 'Search',
+        'input' => 'Search...',
         'empty' => 'No tags matched the given search criteria.',
     ],
     'details' => [

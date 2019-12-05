@@ -2,9 +2,9 @@
 
 namespace Canvas\Console;
 
-use Illuminate\Support\Str;
 use Illuminate\Console\Command;
 use Illuminate\Console\DetectsApplicationNamespace;
+use Illuminate\Support\Str;
 
 class InstallCommand extends Command
 {
@@ -45,8 +45,6 @@ class InstallCommand extends Command
      * Register the Canvas service provider in the application configuration file.
      *
      * @return void
-     *
-     * @author Taylor Otwell <taylor@laravel.com>
      */
     private function registerCanvasServiceProvider()
     {

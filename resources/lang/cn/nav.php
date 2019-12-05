@@ -7,6 +7,7 @@ return [
         'draft'     => '草案',
     ],
     'notify'   => [
+        'saving'  => '保存...',
         'success' => '得救了！',
     ],
     'user'     => [

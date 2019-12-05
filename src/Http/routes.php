@@ -2,36 +2,32 @@
 
 use Illuminate\Support\Facades\Route;
 
-// Stats routes...
-Route::get('/', 'StatsController@index')->name('canvas.index');
-Route::get('stats/{id}', 'StatsController@show')->name('canvas.stats.show');
+Route::prefix('api')->group(function () {
+    // Stats routes...
+    Route::get('/stats', 'StatsController@index');
+    Route::get('/stats/{id}', 'StatsController@show');
 
-// Post routes...
-Route::get('posts', 'PostController@index')->name('canvas.post.index');
-Route::get('posts/create', 'PostController@create')->name('canvas.post.create');
-Route::post('posts', 'PostController@store')->name('canvas.post.store');
-Route::get('posts/{id}/edit', 'PostController@edit')->name('canvas.post.edit');
-Route::put('posts/{id}', 'PostController@update')->name('canvas.post.update');
-Route::delete('posts/{id}', 'PostController@destroy')->name('canvas.post.destroy');
+    // Post routes...
+    Route::get('/posts', 'PostController@index');
+    Route::get('/posts/{id?}', 'PostController@show');
+    Route::post('/posts/{id}', 'PostController@store');
+    Route::delete('/posts/{id}', 'PostController@destroy');
 
-// Media routes...
-Route::post('media/uploads', 'MediaController')->name('canvas.media.store');
+    // Media routes...
+    Route::post('/media/uploads', 'MediaController');
 
-// Tag routes...
-Route::get('tags', 'TagController@index')->name('canvas.tag.index');
-Route::get('tags/create', 'TagController@create')->name('canvas.tag.create');
-Route::post('tags', 'TagController@store')->name('canvas.tag.store');
-Route::get('tags/{id}/edit', 'TagController@edit')->name('canvas.tag.edit');
-Route::put('tags/{id}', 'TagController@update')->name('canvas.tag.update');
-Route::delete('tags/{id}', 'TagController@destroy')->name('canvas.tag.destroy');
+    // Tag routes...
+    Route::get('/tags', 'TagController@index');
+    Route::get('/tags/{id?}', 'TagController@show');
+    Route::post('/tags/{id}', 'TagController@store');
+    Route::delete('/tags/{id}', 'TagController@destroy');
 
-// Topic routes...
-Route::get('topics', 'TopicController@index')->name('canvas.topic.index');
-Route::get('topics/create', 'TopicController@create')->name('canvas.topic.create');
-Route::post('topics', 'TopicController@store')->name('canvas.topic.store');
-Route::get('topics/{id}/edit', 'TopicController@edit')->name('canvas.topic.edit');
-Route::put('topics/{id}', 'TopicController@update')->name('canvas.topic.update');
-Route::delete('topics/{id}', 'TopicController@destroy')->name('canvas.topic.destroy');
+    // Topic routes...
+    Route::get('/topics', 'TopicController@index');
+    Route::get('/topics/{id?}', 'TopicController@show');
+    Route::post('/topics/{id}', 'TopicController@store');
+    Route::delete('/topics/{id}', 'TopicController@destroy');
+});
 
-// Localization routes...
-Route::get('lang', 'LangController')->name('canvas.lang');
+// Catch-all routes...
+Route::get('/{view?}', 'HomeController@index')->where('view', '(.*)')->name('canvas');

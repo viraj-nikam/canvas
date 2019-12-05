@@ -8,13 +8,14 @@ return [
         'action'      => 'añadiendo una nueva publicación',
     ],
     'search'  => [
-        'input' => 'Buscar',
+        'input' => 'Buscar por título ...',
         'empty' => 'No hay publicaciones que coincidan con los criterios de búsqueda dados.',
     ],
     'details' => [
         'published' => 'Publicado',
         'draft'     => 'Borrador',
         'updated'   => 'Actualizado',
+        'scheduled' => 'Programado',
     ],
     'forms'   => [
         'editor'   => [
@@ -98,6 +99,10 @@ return [
             'canonical' => [
                 'label'       => 'Canónico',
                 'placeholder' => 'URL canónica de fuente original',
+            ],
+            'sync'      => [
+                'title'       => 'Sincronizar con el título de la publicación',
+                'description' => 'Sincronizar con el resumen de la publicación',
             ],
         ],
         'settings' => [

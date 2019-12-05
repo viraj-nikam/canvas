@@ -9,13 +9,16 @@ return [
         'load'   => 'Mostrar más',
         'save'   => 'Salvar',
         'next'   => 'Siguiente página',
+        'draft'  => 'Convertir a borrador',
     ],
     'posts'   => [
         'create'   => 'Nueva publicación',
         'edit'     => 'Editar post',
-        'update'   => 'Actualizar publicación',
-        'save'     => 'Guardar y publicar',
+        'ready'    => '¿Listo para publicar?',
+        'publish'  => 'Publica ahora',
+        'later'    => 'Horario para más tarde',
         'schedule' => 'Programar para publicar',
+        'cancel'   => 'Cancelar la programación',
     ],
     'stats'   => [
         'index' => 'Ver todas las estadísticas',

@@ -2,6 +2,24 @@
 
 ## [Unreleased](https://github.com/cnvs/canvas/compare/master...develop)
 
+## [5.0.0](https://github.com/cnvs/canvas/compare/v4.2.9...v5.0.0) (December 5, 2019)
+
+## Changed
+- Complete re-write of the package into a single page application
+- Replaced the FontAwesome library with custom illustrated icons from [RefactoringUI](https://refactoringui.com)
+- Comprehensive update to the color palette
+- Updated the digest notifications config variable ([02055d1](https://github.com/cnvs/canvas/commit/02055d1291fce1cd5434a1a6551e2e24f13fe185))
+
+## Added
+- Added Vuex for state management ([de90dd8](https://github.com/cnvs/canvas/commit/de90dd8e512f223a0c59b39556c8a92667d70854))
+- Added [NProgress](https://github.com/rstacruz/nprogress) on page loads
+- Added an autosaving feature to the editor
+- Added SEO data syncing ([#506](https://github.com/cnvs/canvas/issues/506))
+
+## Fixed
+- Updated version support in CI testing ([#513](https://github.com/cnvs/canvas/issues/513), [f702d8d](https://github.com/cnvs/canvas/commit/f702d8d2c5c5bad8512ae0458794d91fbcb338c8))
+- Restricted access to content viewing/editing based on authorship [d9e25f4](https://github.com/cnvs/canvas/commit/d9e25f4df94e3302ee57d3b3617fda30cf5440a0)
+
 ## [4.2.9](https://github.com/cnvs/canvas/compare/v4.2.8...v4.2.9) (September 20, 2019)
 
 ## Fixed

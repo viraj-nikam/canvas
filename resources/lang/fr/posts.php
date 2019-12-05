@@ -8,13 +8,14 @@ return [
         'action'      => 'ajouter un nouveau message',
     ],
     'search'  => [
-        'input' => 'Chercher',
+        'input' => 'Rechercher par titre ...',
         'empty' => 'Aucun article ne correspond aux critères de recherche donnés.',
     ],
     'details' => [
         'published' => 'Publié',
         'draft'     => 'Brouillon',
         'updated'   => 'Mis à jour',
+        'scheduled' => 'Prévu',
     ],
     'forms'   => [
         'editor'   => [
@@ -98,6 +99,10 @@ return [
             'canonical' => [
                 'label'       => 'Canonique',
                 'placeholder' => 'URL canonique de la source originale',
+            ],
+            'sync'      => [
+                'title'       => 'Synchroniser avec le titre de l\'article',
+                'description' => 'Synchroniser avec le résumé de la publication',
             ],
         ],
         'settings' => [

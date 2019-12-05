@@ -8,13 +8,14 @@ return [
         'action'      => '添加新帖子',
     ],
     'search'  => [
-        'input' => '搜索',
-        'empty' => '沒有帖子符合給定的搜索條件。',
+        'input' => '按标题搜索...',
+        'empty' => '没有帖子符合给定的搜索条件。',
     ],
     'details' => [
         'published' => '發布時間',
         'draft'     => '草案',
         'updated'   => '更新',
+        'scheduled' => '预定的',
     ],
     'forms'   => [
         'editor'   => [
@@ -98,6 +99,10 @@ return [
             'canonical' => [
                 'label'       => '典范',
                 'placeholder' => '原始来源的规范URL',
+            ],
+            'sync'      => [
+                'title'       => '与帖子标题同步',
+                'description' => '与帖子摘要同步',
             ],
         ],
         'settings' => [

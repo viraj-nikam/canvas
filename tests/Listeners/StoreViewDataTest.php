@@ -2,10 +2,9 @@
 
 namespace Canvas\Tests\Listeners;
 
-use Canvas\Post;
-use Ramsey\Uuid\Uuid;
-use Canvas\Tests\TestCase;
 use Canvas\Listeners\StoreViewData;
+use Canvas\Post;
+use Canvas\Tests\TestCase;
 
 class StoreViewDataTest extends TestCase
 {
@@ -29,12 +28,7 @@ class StoreViewDataTest extends TestCase
     /** @test */
     public function check_if_a_post_was_recently_viewed()
     {
-        $post = Post::create([
-            'id'      => Uuid::uuid4()->toString(),
-            'title'   => 'Example Post',
-            'slug'    => 'example-slug',
-            'user_id' => 1,
-        ]);
+        $post = factory(Post::class)->create();
 
         $key = 'viewed_posts.'.$post->id;
 
@@ -55,12 +49,7 @@ class StoreViewDataTest extends TestCase
     /** @test */
     public function store_a_post_id_in_session()
     {
-        $post = Post::create([
-            'id'      => Uuid::uuid4()->toString(),
-            'title'   => 'Example Post',
-            'slug'    => 'example-slug',
-            'user_id' => 1,
-        ]);
+        $post = factory(Post::class)->create();
 
         $this->invokeMethod($this->instance, 'storeInSession', ['post' => $post]);
 

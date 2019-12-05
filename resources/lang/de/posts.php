@@ -8,13 +8,14 @@ return [
         'action'      => 'Hinzufügen eines neuen Beitrags',
     ],
     'search'  => [
-        'input' => 'Suche',
+        'input' => 'Suche nach Titel ...',
         'empty' => 'Keine Beiträge stimmen mit den angegebenen Suchkriterien überein.',
     ],
     'details' => [
         'published' => 'Veröffentlicht',
         'draft'     => 'Entwurf',
         'updated'   => 'Aktualisierte',
+        'scheduled' => 'Geplant',
     ],
     'forms'   => [
         'editor'   => [
@@ -98,6 +99,10 @@ return [
             'canonical' => [
                 'label'       => 'Kanonisch',
                 'placeholder' => 'Kanonische URL der Originalquelle',
+            ],
+            'sync'      => [
+                'title'       => 'Mit dem Beitragstitel synchronisieren',
+                'description' => 'Mit der Post-Zusammenfassung synchronisieren',
             ],
         ],
         'settings' => [

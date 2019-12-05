@@ -9,7 +9,7 @@ return [
         'action'      => 'añadiendo una nueva etiqueta',
     ],
     'search'  => [
-        'input' => 'Buscar',
+        'input' => 'Buscar...',
         'empty' => 'No hay etiquetas que coincidan con los criterios de búsqueda dados.',
     ],
     'details' => [

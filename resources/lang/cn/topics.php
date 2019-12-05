@@ -9,7 +9,7 @@ return [
         'action'      => '添加新主題',
     ],
     'search'  => [
-        'input' => '搜索',
+        'input' => '搜索...',
         'empty' => '沒有與給定搜索條件匹配的主題。',
     ],
     'details' => [

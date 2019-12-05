@@ -9,7 +9,7 @@ return [
         'action'      => 'ajout d\'un nouveau mot clé',
     ],
     'search'  => [
-        'input' => 'Chercher',
+        'input' => 'Chercher...',
         'empty' => 'Aucun mot clé ne correspond à vos critères de recherche.',
     ],
     'details' => [

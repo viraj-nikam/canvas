@@ -4,12 +4,12 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Canvas Path
+    | Base Route
     |--------------------------------------------------------------------------
     |
     | This is the URI path where Canvas will be accessible from. You are free
-    | to change this path to anything you like. Note that updating the URI
-    | will affect the internal API paths that are not exposed to users.
+    | to change this path to anything you like. Note that the URI will not
+    | affect the paths of its internal API that aren't exposed to users.
     |
     */
 
@@ -33,12 +33,12 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Uploads Disk
+    | Storage
     |--------------------------------------------------------------------------
     |
     | This is the storage disk Canvas will use to put file uploads, you may
     | use any of the disks defined in the config/filesystems.php file and
-    | You may also configure the path where files are to be stored.
+    | you may also configure the path where files are to be stored.
     |
     */
 
@@ -63,17 +63,17 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Notifications
+    | Weekly Digest
     |--------------------------------------------------------------------------
     |
     | This option enables Canvas to send e-mail notifications via the default
-    | mail driver. If enabled, a weekly summary will be sent to each user
-    | that has authored content providing them with unique analytics.
+    | mail driver on a weekly basis. All users that have published content
+    | will receive a total view count summary of the last seven days.
     |
     */
 
-    'mail' => [
-        'enabled' => env('CANVAS_MAIL_ENABLED', false),
+    'digest' => [
+        'enabled' => env('CANVAS_DIGEST_ENABLED', false),
     ],
 
 ];
