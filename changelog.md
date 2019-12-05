@@ -2,11 +2,13 @@
 
 ## [Unreleased](https://github.com/cnvs/canvas/compare/master...develop)
 
+## [5.0.0](https://github.com/cnvs/canvas/compare/v4.2.9...v5.0.0) (December 5, 2019)
+
 ## Changed
-- Converted the package from a traditional SSR app into an SPA
+- Complete re-write of the package into a single page application
 - Replaced the FontAwesome library with custom illustrated icons from [RefactoringUI](https://refactoringui.com)
 - Comprehensive update to the color palette
-- Updated the config variable to enable digest notifications ([02055d1](https://github.com/cnvs/canvas/commit/02055d1291fce1cd5434a1a6551e2e24f13fe185))
+- Updated the digest notifications config variable ([02055d1](https://github.com/cnvs/canvas/commit/02055d1291fce1cd5434a1a6551e2e24f13fe185))
 
 ## Added
 - Added Vuex for state management ([de90dd8](https://github.com/cnvs/canvas/commit/de90dd8e512f223a0c59b39556c8a92667d70854))
