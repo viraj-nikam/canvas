@@ -274,7 +274,7 @@
 
             update: _.debounce(function (e) {
                 this.$parent.save()
-            }, 900),
+            }, 1200),
         },
     }
 </script>
@@ -292,8 +292,6 @@
 
     .ql-editor {
         font-family: 'Merriweather', serif;
-        font-weight: 300;
-        /*color: hsla(0, 0%, 0%, 0.9);*/
         font-size: 1.1rem;
         line-height: 1.9;
         padding: 0;

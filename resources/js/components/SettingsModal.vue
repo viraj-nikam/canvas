@@ -131,7 +131,7 @@
 
             update: _.debounce(function (e) {
                 this.$parent.save()
-            }, 900),
+            }, 1200),
         },
     }
 </script>

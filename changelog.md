@@ -2,6 +2,11 @@
 
 ## [Unreleased](https://github.com/cnvs/canvas/compare/master...develop)
 
+## [5.0.1](https://github.com/cnvs/canvas/compare/v5.0.0...v5.0.1) (December 7, 2019)
+
+## Fixed
+- Addressed 3rd party security vulnerabilities ([8403b92](https://github.com/cnvs/canvas/commit/8403b924708c36fbb3d8ed1e307e2b802790bfab))
+
 ## [5.0.0](https://github.com/cnvs/canvas/compare/v4.2.9...v5.0.0) (December 5, 2019)
 
 ## Changed

@@ -203,7 +203,7 @@
         methods: {
             update: _.debounce(function (e) {
                 this.$parent.save()
-            }, 900),
+            }, 1200),
 
             syncMetaDescription() {
                 this.activePost.meta.meta_description = this.activePost.summary
