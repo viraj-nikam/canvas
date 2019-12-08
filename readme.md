@@ -233,7 +233,7 @@ Since the weekly digest runs on [Laravel's Scheduler](https://laravel.com/docs/m
 * * * * * cd /path-to-your-project && php artisan schedule:run >> /dev/null 2>&1
 ```
 
-**Prefer working at night?** Simply un-comment the `Canvas::night()` method in the `CanvasServiceProvider.php` to switch off the lights.
+**Prefer working at night?** Simply un-comment the `Canvas::night()` method in the `CanvasServiceProvider` to switch off the lights.
 
 ## Updates
 
