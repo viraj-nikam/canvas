@@ -10,6 +10,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
 use Illuminate\Validation\Rule;
 use Ramsey\Uuid\Uuid;
+use function foo\func;
 
 class PostController extends Controller
 {
@@ -35,8 +36,8 @@ class PostController extends Controller
     public function show($id = null): JsonResponse
     {
         if (Post::forCurrentUser()->pluck('id')->contains($id) || $this->isNewPost($id)) {
-            $tags = Tag::all(['name', 'slug']);
-            $topics = Topic::all(['name', 'slug']);
+            $tags = Tag::forCurrentUser()->get(['name', 'slug']);
+            $topics = Topic::forCurrentUser()->get(['name', 'slug']);
 
             if ($this->isNewPost($id)) {
                 $uuid = Uuid::uuid4();
@@ -100,7 +101,9 @@ class PostController extends Controller
             'slug'    => [
                 'required',
                 'alpha_dash',
-                Rule::unique('canvas_posts', 'slug')->ignore($id),
+                Rule::unique('canvas_posts')->where(function ($query) use ($data) {
+                    return $query->where('slug', $data['slug'])->where('user_id', $data['user_id']);
+                })->ignore($id),
             ],
         ], $messages)->validate();
 
@@ -139,7 +142,7 @@ class PostController extends Controller
     }
 
     /**
-     * Returns true if creating a new post.
+     * Return true if we're creating a new post.
      *
      * @param string $id
      * @return bool
@@ -184,7 +187,7 @@ class PostController extends Controller
     private function syncTags(array $incomingTags): array
     {
         if ($incomingTags) {
-            $tags = Tag::all(['id', 'name', 'slug']);
+            $tags = Tag::forCurrentUser()->get(['id', 'name', 'slug']);
 
             return collect($incomingTags)->map(function ($incomingTag) use ($tags) {
                 $tag = $tags->where('slug', $incomingTag['slug'])->first();
