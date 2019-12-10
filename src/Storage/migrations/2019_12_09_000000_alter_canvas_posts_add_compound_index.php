@@ -14,6 +14,7 @@ class AlterCanvasPostsAddCompoundIndex extends Migration
     public function up()
     {
         Schema::table('canvas_posts', function (Blueprint $table) {
+            $table->dropUnique('canvas_posts_slug_unique');
             $table->unique(['slug', 'user_id']);
         });
     }
@@ -26,6 +27,7 @@ class AlterCanvasPostsAddCompoundIndex extends Migration
     public function down()
     {
         Schema::table('canvas_posts', function (Blueprint $table) {
+            $table->unique('slug');
             $table->dropUnique('canvas_posts_slug_user_id_unique');
         });
     }
