@@ -13,9 +13,6 @@ Route::prefix('api')->group(function () {
     Route::post('/posts/{id}', 'PostController@store');
     Route::delete('/posts/{id}', 'PostController@destroy');
 
-    // Media routes...
-    Route::post('/media/uploads', 'MediaController');
-
     // Tag routes...
     Route::get('/tags', 'TagController@index');
     Route::get('/tags/{id?}', 'TagController@show');
@@ -27,6 +24,12 @@ Route::prefix('api')->group(function () {
     Route::get('/topics/{id?}', 'TopicController@show');
     Route::post('/topics/{id}', 'TopicController@store');
     Route::delete('/topics/{id}', 'TopicController@destroy');
+
+    // Media routes...
+    Route::post('/media/uploads', 'MediaController');
+
+    // Settings routes...
+    Route::get('/settings', 'SettingsController@show');
 });
 
 // Catch-all routes...
