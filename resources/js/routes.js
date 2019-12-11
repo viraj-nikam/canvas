@@ -56,6 +56,11 @@ export default [
         component: require('./screens/topics/TopicsEdit').default,
     },
     {
+        path: '/settings',
+        name: 'settings-show',
+        component: require('./screens/settings/SettingsShow').default,
+    },
+    {
         path: '*',
         name: 'catch-all',
         redirect: '/stats',
