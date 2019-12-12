@@ -29,7 +29,6 @@ class SettingsController extends Controller
             return response()->json([
                 'user'          => [
                     'id'       => $user->id,
-                    'email'    => $user->email,
                     'username' => $keyed->get('username') ?? null,
                     'summary'  => $keyed->get('summary') ?? null,
                     'avatar'   => $keyed->get('avatar') ?? null,
