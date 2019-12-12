@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Routes from './routes'
-import { store } from './store'
+import {store} from './store'
 import NProgress from 'nprogress'
 import VueRouter from 'vue-router'
 import moment from 'moment-timezone'

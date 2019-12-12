@@ -47,6 +47,9 @@
                             <span>{{ trans.nav.user.stats }}</span>
                         </router-link>
                         <div class="dropdown-divider"></div>
+                        <router-link to="/settings" class="dropdown-item">
+                            <span>Settings</span>
+                        </router-link>
                         <a href="" class="dropdown-item" @click.prevent="logout">
                             {{ trans.nav.user.logout }}
                         </a>

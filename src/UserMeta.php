@@ -2,9 +2,10 @@
 
 namespace Canvas;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class UserMeta extends Model
 {
@@ -30,5 +31,16 @@ class UserMeta extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Scope a query to only include posts for the current logged in user.
+     *
+     * @param Builder $query
+     * @return Builder
+     */
+    public function scopeForCurrentUser($query): Builder
+    {
+        return $query->where('user_id', request()->user()->id ?? null);
     }
 }

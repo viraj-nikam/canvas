@@ -2,6 +2,7 @@
 
 namespace Canvas\Http\Controllers;
 
+use Canvas\UserMeta;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
@@ -9,7 +10,7 @@ use Illuminate\Routing\Controller;
 class SettingsController extends Controller
 {
     /**
-     * Get settings for a single user.
+     * Get the authenticated user settings.
      *
      * @param Request $request
      * @return JsonResponse
@@ -19,11 +20,32 @@ class SettingsController extends Controller
         $user = $request->user();
 
         if ($user) {
+            $settings = UserMeta::forCurrentUser()->get();
+
+            $keyed = $settings->mapWithKeys(function ($item, $key) {
+                return [$item['name'] => $item['value']];
+            });
+
             return response()->json([
-                //
+                'user'          => [
+                    'id'       => $user->id,
+                    'email'    => $user->email,
+                    'username' => $keyed->get('username') ?? null,
+                    'summary'  => $keyed->get('summary') ?? null,
+                    'avatar'   => $keyed->get('avatar') ?? null,
+                ],
+                'notifications' => [
+                    'digest' => $keyed->get('digest') ?? null,
+                ],
+                'appearance'    => $keyed->get('appearance') ?? null,
             ]);
         } else {
             return response()->json(null, 301);
         }
+    }
+
+    public function update(Request $request): JsonResponse
+    {
+        //
     }
 }
