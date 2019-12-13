@@ -11,9 +11,9 @@
             </template>
 
             <template slot="action">
-                <a href="#" class="btn btn-sm btn-outline-success font-weight-bold" @click="save" :aria-label="trans.buttons.general.save">
-                    {{ trans.buttons.general.save }}
-                </a>
+                <router-link :to="{ name: 'posts-create' }" class="btn btn-sm btn-outline-success font-weight-bold">
+                    {{ trans.buttons.posts.create }}
+                </router-link>
             </template>
         </page-header>
 
@@ -37,7 +37,7 @@
                                 </div>
                                 <div class="ml-auto pl-3">
                                     <div class="align-middle">
-                                        <button class="btn btn-sm btn-outline-success font-weight-bold">Edit profile</button>
+                                        <button class="btn btn-sm btn-outline-success font-weight-bold" @click="showProfileModal">Edit profile</button>
                                     </div>
                                 </div>
                             </div>
@@ -104,17 +104,26 @@
                 </div>
             </div>
         </main>
+
+        <profile-modal
+            v-if="isReady"
+            ref="profileModal"
+            :form="form.user"
+        />
     </div>
 </template>
 
 <script>
+    import $ from 'jquery';
     import PageHeader from '../../components/PageHeader'
+    import ProfileModal from '../../components/ProfileModal';
 
     export default {
         name: 'settings-show',
 
         components: {
             PageHeader,
+            ProfileModal
         },
 
         data() {
@@ -135,6 +144,7 @@
                     hasSuccess: false,
                 },
                 user: Canvas.user,
+                isReady: false,
                 trans: JSON.parse(Canvas.lang),
             }
         },
@@ -154,6 +164,8 @@
                         this.form.user.avatar = response.data.user.avatar
                         this.form.notifications.digest = response.data.notifications.digest
                         this.form.appearance = response.data.appearance
+
+                        this.isReady = true
                     })
                     .catch(error => {
                         // Add any error debugging...
@@ -162,7 +174,11 @@
 
             save() {
                 //
-            }
+            },
+
+            showProfileModal() {
+                $(this.$refs.profileModal.$el).modal('show')
+            },
         },
     }
 </script>
