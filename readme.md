@@ -185,7 +185,7 @@ If you'd rather have all of this run automatically with no extra work from you, 
 
 ## Options
 
-> **Note:** The following steps are optional configurations, you are not required to complete them.
+> **Note:** The following components are optional features, you are not required to use them.
 
 **Want to get started fast?** Just run `php artisan canvas:setup` after installing Canvas. A `--data` option may also be included in the command to generate demo data. Then, navigate your browser to `http://your-app.test/blog` or any other URL that is assigned to your application. This command scaffolds a default frontend for your entire blog!
 
@@ -232,6 +232,8 @@ Since the weekly digest runs on [Laravel's Scheduler](https://laravel.com/docs/m
 ```bash
 * * * * * cd /path-to-your-project && php artisan schedule:run >> /dev/null 2>&1
 ```
+
+**Prefer working at night?** Simply un-comment the `Canvas::night()` method in the `CanvasServiceProvider` to switch off the lights.
 
 ## Updates
 

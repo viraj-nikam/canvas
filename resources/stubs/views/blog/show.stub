@@ -21,7 +21,7 @@
 @endpush
 
 @section('actions')
-    @if($data['post']->user_id == request()->user()->id)
+    @if($data['post']->user_id == optional(request()->user())->id)
         <div class="dropdown">
             <a href="#" aria-label="Settings" class="nav-link px-3" role="button" data-toggle="dropdown"
                aria-haspopup="true" aria-expanded="false" v-pre>
