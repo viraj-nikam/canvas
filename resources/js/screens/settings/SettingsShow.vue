@@ -9,12 +9,6 @@
                     </li>
                 </ul>
             </template>
-
-            <template slot="action">
-                <router-link :to="{ name: 'posts-create' }" class="btn btn-sm btn-outline-success font-weight-bold">
-                    {{ trans.buttons.posts.create }}
-                </router-link>
-            </template>
         </page-header>
 
         <main class="py-4">
@@ -55,7 +49,13 @@
                                     <div class="align-middle">
                                         <div class="form-group my-auto">
                                             <span class="switch switch-sm">
-                                                <input type="checkbox" class="switch" id="digest">
+                                                <input
+                                                    type="checkbox"
+                                                    class="switch"
+                                                    id="digest"
+                                                    @click="toggleNotificationsDigest"
+                                                    v-model="form.notifications.digest"
+                                                />
                                                 <label for="digest" class="mb-0 sr-only">Weekly digest</label>
                                             </span>
                                         </div>
@@ -76,8 +76,13 @@
                                     <div class="align-middle">
                                         <div class="form-group my-auto">
                                             <span class="switch switch-sm">
-                                                <input type="checkbox" class="switch" id="appearance">
-                                                <label for="appearance" class="mb-0 sr-only">Dark mode</label>
+                                                <input
+                                                    type="checkbox"
+                                                    class="switch"
+                                                    id="night"
+                                                    v-model="form.night"
+                                                />
+                                                <label for="night" class="mb-0 sr-only">Dark mode</label>
                                             </span>
                                         </div>
                                     </div>
@@ -130,15 +135,14 @@
             return {
                 form: {
                     user: {
-                        id: '',
                         username: '',
                         summary: '',
                         avatar: '',
                     },
                     notifications: {
-                        digest: '',
+                        digest: false,
                     },
-                    appearance: '',
+                    night: false,
                     errors: [],
                     isSaving: false,
                     hasSuccess: false,
@@ -163,12 +167,35 @@
                         this.form.user.summary = response.data.user.summary
                         this.form.user.avatar = response.data.user.avatar
                         this.form.notifications.digest = response.data.notifications.digest
-                        this.form.appearance = response.data.appearance
+                        this.form.night = response.data.night
 
                         this.isReady = true
                     })
                     .catch(error => {
                         // Add any error debugging...
+                    })
+            },
+
+            toggleNotificationsDigest() {
+                this.form.errors = []
+                this.form.isSaving = true
+                this.form.hasSuccess = false
+
+                this.request()
+                    .post('/api/settings', this.form.notifications)
+                    .then(response => {
+
+
+                        console.log(this.form.notifications)
+
+
+                        this.form.isSaving = false
+                        this.form.hasSuccess = true
+                        // this.notifications.digest = response.data.notifications.digest
+                    })
+                    .catch(error => {
+                        this.form.isSaving = false
+                        this.form.errors = error.response.data.errors
                     })
             },
 

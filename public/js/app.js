@@ -2824,10 +2824,12 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      trans: JSON.parse(Canvas.lang),
-      username: this.form.username,
-      summary: this.form.summary,
-      avatar: this.form.avatar
+      data: {
+        username: this.form.username,
+        summary: this.form.summary,
+        avatar: this.form.avatar
+      },
+      trans: JSON.parse(Canvas.lang)
     };
   },
   mounted: function mounted() {
@@ -2842,12 +2844,12 @@ __webpack_require__.r(__webpack_exports__);
       this.form.errors = [];
       this.form.isSaving = true;
       this.form.hasSuccess = false;
-      this.request().post('/api/settings', this.form).then(function (response) {
+      this.request().post('/api/settings', this.data).then(function (response) {
         _this.form.isSaving = false;
         _this.form.hasSuccess = true;
-        _this.username = response.data.username;
-        _this.summary = response.data.summary;
-        _this.avatar = response.data.avatar;
+        _this.username = response.data.user.username;
+        _this.summary = response.data.user.summary;
+        _this.avatar = response.data.user.avatar;
       })["catch"](function (error) {
         _this.form.isSaving = false;
         _this.form.errors = error.response.data.errors;
@@ -4605,6 +4607,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -4618,15 +4625,14 @@ __webpack_require__.r(__webpack_exports__);
     return {
       form: {
         user: {
-          id: '',
           username: '',
           summary: '',
           avatar: ''
         },
         notifications: {
-          digest: ''
+          digest: false
         },
-        appearance: '',
+        night: false,
         errors: [],
         isSaving: false,
         hasSuccess: false
@@ -4649,9 +4655,24 @@ __webpack_require__.r(__webpack_exports__);
         _this.form.user.summary = response.data.user.summary;
         _this.form.user.avatar = response.data.user.avatar;
         _this.form.notifications.digest = response.data.notifications.digest;
-        _this.form.appearance = response.data.appearance;
+        _this.form.night = response.data.night;
         _this.isReady = true;
       })["catch"](function (error) {// Add any error debugging...
+      });
+    },
+    toggleNotificationsDigest: function toggleNotificationsDigest() {
+      var _this2 = this;
+
+      this.form.errors = [];
+      this.form.isSaving = true;
+      this.form.hasSuccess = false;
+      this.request().post('/api/settings', this.form.notifications).then(function (response) {
+        console.log(_this2.form.notifications);
+        _this2.form.isSaving = false;
+        _this2.form.hasSuccess = true; // this.notifications.digest = response.data.notifications.digest
+      })["catch"](function (error) {
+        _this2.form.isSaving = false;
+        _this2.form.errors = error.response.data.errors;
       });
     },
     showProfileModal: function showProfileModal() {
@@ -81383,7 +81404,7 @@ var render = function() {
             _c("div", { staticClass: "d-flex justify-content-center" }, [
               _c("img", {
                 staticClass: "w-50 rounded-circle shadow-inner",
-                attrs: { src: _vm.avatar }
+                attrs: { src: _vm.data.avatar }
               })
             ]),
             _vm._v(" "),
@@ -81400,8 +81421,8 @@ var render = function() {
                     {
                       name: "model",
                       rawName: "v-model",
-                      value: _vm.username,
-                      expression: "username"
+                      value: _vm.data.username,
+                      expression: "data.username"
                     }
                   ],
                   staticClass: "form-control border-0 px-0 bg-transparent",
@@ -81411,13 +81432,13 @@ var render = function() {
                     title: "Username",
                     placeholder: "Username"
                   },
-                  domProps: { value: _vm.username },
+                  domProps: { value: _vm.data.username },
                   on: {
                     input: function($event) {
                       if ($event.target.composing) {
                         return
                       }
-                      _vm.username = $event.target.value
+                      _vm.$set(_vm.data, "username", $event.target.value)
                     }
                   }
                 })
@@ -81437,8 +81458,8 @@ var render = function() {
                     {
                       name: "model",
                       rawName: "v-model",
-                      value: _vm.summary,
-                      expression: "summary"
+                      value: _vm.data.summary,
+                      expression: "data.summary"
                     }
                   ],
                   staticClass: "form-control border-0 px-0 bg-transparent",
@@ -81448,13 +81469,13 @@ var render = function() {
                     name: "summary",
                     placeholder: "Tell us a little bit about yourself..."
                   },
-                  domProps: { value: _vm.summary },
+                  domProps: { value: _vm.data.summary },
                   on: {
                     input: function($event) {
                       if ($event.target.composing) {
                         return
                       }
-                      _vm.summary = $event.target.value
+                      _vm.$set(_vm.data, "summary", $event.target.value)
                     }
                   }
                 })
@@ -84181,30 +84202,7 @@ var render = function() {
                 ])
               ]
             )
-          ]),
-          _vm._v(" "),
-          _c(
-            "template",
-            { slot: "action" },
-            [
-              _c(
-                "router-link",
-                {
-                  staticClass:
-                    "btn btn-sm btn-outline-success font-weight-bold",
-                  attrs: { to: { name: "posts-create" } }
-                },
-                [
-                  _vm._v(
-                    "\n                " +
-                      _vm._s(_vm.trans.buttons.posts.create) +
-                      "\n            "
-                  )
-                ]
-              )
-            ],
-            1
-          )
+          ])
         ],
         2
       ),
@@ -84238,9 +84236,161 @@ var render = function() {
                   ]
                 ),
                 _vm._v(" "),
-                _vm._m(2),
+                _c(
+                  "div",
+                  { staticClass: "d-flex border-top py-3 align-items-center" },
+                  [
+                    _vm._m(2),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "ml-auto pl-3" }, [
+                      _c("div", { staticClass: "align-middle" }, [
+                        _c("div", { staticClass: "form-group my-auto" }, [
+                          _c("span", { staticClass: "switch switch-sm" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.form.notifications.digest,
+                                  expression: "form.notifications.digest"
+                                }
+                              ],
+                              staticClass: "switch",
+                              attrs: { type: "checkbox", id: "digest" },
+                              domProps: {
+                                checked: Array.isArray(
+                                  _vm.form.notifications.digest
+                                )
+                                  ? _vm._i(
+                                      _vm.form.notifications.digest,
+                                      null
+                                    ) > -1
+                                  : _vm.form.notifications.digest
+                              },
+                              on: {
+                                click: _vm.toggleNotificationsDigest,
+                                change: function($event) {
+                                  var $$a = _vm.form.notifications.digest,
+                                    $$el = $event.target,
+                                    $$c = $$el.checked ? true : false
+                                  if (Array.isArray($$a)) {
+                                    var $$v = null,
+                                      $$i = _vm._i($$a, $$v)
+                                    if ($$el.checked) {
+                                      $$i < 0 &&
+                                        _vm.$set(
+                                          _vm.form.notifications,
+                                          "digest",
+                                          $$a.concat([$$v])
+                                        )
+                                    } else {
+                                      $$i > -1 &&
+                                        _vm.$set(
+                                          _vm.form.notifications,
+                                          "digest",
+                                          $$a
+                                            .slice(0, $$i)
+                                            .concat($$a.slice($$i + 1))
+                                        )
+                                    }
+                                  } else {
+                                    _vm.$set(
+                                      _vm.form.notifications,
+                                      "digest",
+                                      $$c
+                                    )
+                                  }
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c(
+                              "label",
+                              {
+                                staticClass: "mb-0 sr-only",
+                                attrs: { for: "digest" }
+                              },
+                              [_vm._v("Weekly digest")]
+                            )
+                          ])
+                        ])
+                      ])
+                    ])
+                  ]
+                ),
                 _vm._v(" "),
-                _vm._m(3),
+                _c(
+                  "div",
+                  { staticClass: "d-flex border-top py-3 align-items-center" },
+                  [
+                    _vm._m(3),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "ml-auto pl-3" }, [
+                      _c("div", { staticClass: "align-middle" }, [
+                        _c("div", { staticClass: "form-group my-auto" }, [
+                          _c("span", { staticClass: "switch switch-sm" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.form.night,
+                                  expression: "form.night"
+                                }
+                              ],
+                              staticClass: "switch",
+                              attrs: { type: "checkbox", id: "night" },
+                              domProps: {
+                                checked: Array.isArray(_vm.form.night)
+                                  ? _vm._i(_vm.form.night, null) > -1
+                                  : _vm.form.night
+                              },
+                              on: {
+                                change: function($event) {
+                                  var $$a = _vm.form.night,
+                                    $$el = $event.target,
+                                    $$c = $$el.checked ? true : false
+                                  if (Array.isArray($$a)) {
+                                    var $$v = null,
+                                      $$i = _vm._i($$a, $$v)
+                                    if ($$el.checked) {
+                                      $$i < 0 &&
+                                        _vm.$set(
+                                          _vm.form,
+                                          "night",
+                                          $$a.concat([$$v])
+                                        )
+                                    } else {
+                                      $$i > -1 &&
+                                        _vm.$set(
+                                          _vm.form,
+                                          "night",
+                                          $$a
+                                            .slice(0, $$i)
+                                            .concat($$a.slice($$i + 1))
+                                        )
+                                    }
+                                  } else {
+                                    _vm.$set(_vm.form, "night", $$c)
+                                  }
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c(
+                              "label",
+                              {
+                                staticClass: "mb-0 sr-only",
+                                attrs: { for: "night" }
+                              },
+                              [_vm._v("Dark mode")]
+                            )
+                          ])
+                        ])
+                      ])
+                    ])
+                  ]
+                ),
                 _vm._v(" "),
                 _vm._m(4)
               ])
@@ -84290,87 +84440,37 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "d-flex border-top py-3 align-items-center" },
-      [
-        _c("div", { staticClass: "mr-auto py-1" }, [
-          _c("p", { staticClass: "mb-1 font-weight-bold text-lg lead" }, [
-            _vm._v(
-              "\n                                    Weekly digest\n                                "
-            )
-          ]),
-          _vm._v(" "),
-          _c("p", { staticClass: "mb-1" }, [
-            _vm._v(
-              "\n                                    Control whether to receive a weekly summary of your published content.\n                                "
-            )
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "ml-auto pl-3" }, [
-          _c("div", { staticClass: "align-middle" }, [
-            _c("div", { staticClass: "form-group my-auto" }, [
-              _c("span", { staticClass: "switch switch-sm" }, [
-                _c("input", {
-                  staticClass: "switch",
-                  attrs: { type: "checkbox", id: "digest" }
-                }),
-                _vm._v(" "),
-                _c(
-                  "label",
-                  { staticClass: "mb-0 sr-only", attrs: { for: "digest" } },
-                  [_vm._v("Weekly digest")]
-                )
-              ])
-            ])
-          ])
-        ])
-      ]
-    )
+    return _c("div", { staticClass: "mr-auto py-1" }, [
+      _c("p", { staticClass: "mb-1 font-weight-bold text-lg lead" }, [
+        _vm._v(
+          "\n                                    Weekly digest\n                                "
+        )
+      ]),
+      _vm._v(" "),
+      _c("p", { staticClass: "mb-1" }, [
+        _vm._v(
+          "\n                                    Control whether to receive a weekly summary of your published content.\n                                "
+        )
+      ])
+    ])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "d-flex border-top py-3 align-items-center" },
-      [
-        _c("div", { staticClass: "mr-auto py-1" }, [
-          _c("p", { staticClass: "mb-1 font-weight-bold text-lg lead" }, [
-            _vm._v(
-              "\n                                    Dark mode\n                                "
-            )
-          ]),
-          _vm._v(" "),
-          _c("p", { staticClass: "mb-1" }, [
-            _vm._v(
-              "\n                                    Enable a dark appearance for Canvas.\n                                "
-            )
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "ml-auto pl-3" }, [
-          _c("div", { staticClass: "align-middle" }, [
-            _c("div", { staticClass: "form-group my-auto" }, [
-              _c("span", { staticClass: "switch switch-sm" }, [
-                _c("input", {
-                  staticClass: "switch",
-                  attrs: { type: "checkbox", id: "appearance" }
-                }),
-                _vm._v(" "),
-                _c(
-                  "label",
-                  { staticClass: "mb-0 sr-only", attrs: { for: "appearance" } },
-                  [_vm._v("Dark mode")]
-                )
-              ])
-            ])
-          ])
-        ])
-      ]
-    )
+    return _c("div", { staticClass: "mr-auto py-1" }, [
+      _c("p", { staticClass: "mb-1 font-weight-bold text-lg lead" }, [
+        _vm._v(
+          "\n                                    Dark mode\n                                "
+        )
+      ]),
+      _vm._v(" "),
+      _c("p", { staticClass: "mb-1" }, [
+        _vm._v(
+          "\n                                    Enable a dark appearance for Canvas.\n                                "
+        )
+      ])
+    ])
   },
   function() {
     var _vm = this

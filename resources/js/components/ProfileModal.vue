@@ -8,7 +8,7 @@
                     </p>
 
                     <div class="d-flex justify-content-center">
-                        <img :src="avatar" class="w-50 rounded-circle shadow-inner"/>
+                        <img :src="data.avatar" class="w-50 rounded-circle shadow-inner"/>
                     </div>
 
                     <div class="form-group row">
@@ -21,7 +21,7 @@
                                 type="text"
                                 class="form-control border-0 px-0 bg-transparent"
                                 title="Username"
-                                v-model="username"
+                                v-model="data.username"
                                 placeholder="Username"
                             />
                         </div>
@@ -36,7 +36,7 @@
                                 id="summary"
                                 name="summary"
                                 class="form-control border-0 px-0 bg-transparent"
-                                v-model="summary"
+                                v-model="data.summary"
                                 placeholder="Tell us a little bit about yourself...">
                             </textarea>
                         </div>
@@ -86,10 +86,12 @@
 
         data() {
             return {
+                data: {
+                    username: this.form.username,
+                    summary: this.form.summary,
+                    avatar: this.form.avatar,
+                },
                 trans: JSON.parse(Canvas.lang),
-                username: this.form.username,
-                summary: this.form.summary,
-                avatar: this.form.avatar,
             }
         },
 
@@ -106,13 +108,13 @@
                 this.form.hasSuccess = false
 
                 this.request()
-                    .post('/api/settings', this.form)
+                    .post('/api/settings', this.data)
                     .then(response => {
                         this.form.isSaving = false
                         this.form.hasSuccess = true
-                        this.username = response.data.username
-                        this.summary = response.data.summary
-                        this.avatar = response.data.avatar
+                        this.username = response.data.user.username
+                        this.summary = response.data.user.summary
+                        this.avatar = response.data.user.avatar
                     })
                     .catch(error => {
                         this.form.isSaving = false
