@@ -6,6 +6,7 @@ use Canvas\UserMeta;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Str;
 
 class SettingsController extends Controller
 {
@@ -17,9 +18,7 @@ class SettingsController extends Controller
      */
     public function show(Request $request): JsonResponse
     {
-        $user = $request->user();
-
-        if ($user) {
+        if (request()->user()) {
             $settings = UserMeta::forCurrentUser()->get();
 
             $keyed = $settings->mapWithKeys(function ($item, $key) {
@@ -28,10 +27,10 @@ class SettingsController extends Controller
 
             return response()->json([
                 'user'          => [
-                    'id'       => $user->id,
+                    'id'       => request()->user()->id,
                     'username' => $keyed->get('username') ?? null,
                     'summary'  => $keyed->get('summary') ?? null,
-                    'avatar'   => $keyed->get('avatar') ?? null,
+                    'avatar'   => $keyed->get('avatar') ?? sprintf('https://secure.gravatar.com/avatar/%s', md5(trim(Str::lower(request()->user()->email)))),
                 ],
                 'notifications' => [
                     'digest' => $keyed->get('digest') ?? null,
@@ -43,8 +42,19 @@ class SettingsController extends Controller
         }
     }
 
-    public function update(Request $request): JsonResponse
+    public function update(): JsonResponse
     {
-        //
+        if (request()->user()) {
+            $settings = UserMeta::forCurrentUser()->get();
+
+            dd($settings->all());
+
+            $settings->each(function ($item, $key) {
+                //
+            });
+
+        } else {
+            return response()->json(null, 301);
+        }
     }
 }

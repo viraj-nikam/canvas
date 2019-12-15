@@ -49,7 +49,7 @@
                                 href="#"
                                 class="btn btn-success btn-block font-weight-bold mt-0"
                                 aria-label="Delete"
-                                @click.prevent="save()">
+                                @click.prevent="saveProfile()">
                                 Save
                             </a>
                         </div>
@@ -100,8 +100,24 @@
         },
 
         methods: {
-            save() {
-                console.log('save the form now');
+            saveProfile() {
+                this.form.errors = []
+                this.form.isSaving = true
+                this.form.hasSuccess = false
+
+                this.request()
+                    .post('/api/settings', this.form)
+                    .then(response => {
+                        this.form.isSaving = false
+                        this.form.hasSuccess = true
+                        this.username = response.data.username
+                        this.summary = response.data.summary
+                        this.avatar = response.data.avatar
+                    })
+                    .catch(error => {
+                        this.form.isSaving = false
+                        this.form.errors = error.response.data.errors
+                    })
             },
         },
     }

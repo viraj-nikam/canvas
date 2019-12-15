@@ -2836,8 +2836,22 @@ __webpack_require__.r(__webpack_exports__);
     });
   },
   methods: {
-    save: function save() {
-      console.log('save the form now');
+    saveProfile: function saveProfile() {
+      var _this = this;
+
+      this.form.errors = [];
+      this.form.isSaving = true;
+      this.form.hasSuccess = false;
+      this.request().post('/api/settings', this.form).then(function (response) {
+        _this.form.isSaving = false;
+        _this.form.hasSuccess = true;
+        _this.username = response.data.username;
+        _this.summary = response.data.summary;
+        _this.avatar = response.data.avatar;
+      })["catch"](function (error) {
+        _this.form.isSaving = false;
+        _this.form.errors = error.response.data.errors;
+      });
     }
   }
 });
@@ -4639,8 +4653,6 @@ __webpack_require__.r(__webpack_exports__);
         _this.isReady = true;
       })["catch"](function (error) {// Add any error debugging...
       });
-    },
-    save: function save() {//
     },
     showProfileModal: function showProfileModal() {
       jquery__WEBPACK_IMPORTED_MODULE_0___default()(this.$refs.profileModal.$el).modal('show');
@@ -81462,7 +81474,7 @@ var render = function() {
                     on: {
                       click: function($event) {
                         $event.preventDefault()
-                        return _vm.save()
+                        return _vm.saveProfile()
                       }
                     }
                   },

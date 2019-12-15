@@ -172,10 +172,6 @@
                     })
             },
 
-            save() {
-                //
-            },
-
             showProfileModal() {
                 $(this.$refs.profileModal.$el).modal('show')
             },
