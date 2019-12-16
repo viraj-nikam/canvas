@@ -22,7 +22,7 @@ class SettingsController extends Controller
             'username'   => $metaData->username ?? null,
             'summary'    => $metaData->summary ?? null,
             'avatar'     => $metaData->avatar ?? sprintf('https://secure.gravatar.com/avatar/%s?s=500', md5(trim(Str::lower(request()->user()->email)))),
-            'digest'     => $metaData->digest ?? 0,
+            'digest'     => $metaData->digest ?? false,
             'appearance' => $metaData->appearance ?? 0,
         ]);
     }
@@ -38,11 +38,11 @@ class SettingsController extends Controller
 
         $metaData->fill([
             'user_id' => request()->user()->id,
-            'username' => request('username'),
-            'summary' => request('summary'),
-            'avatar' => request('avatar'),
-            'digest' => request('digest'),
-            'appearance' => request('appearance'),
+            'username' => request('username') ?? $metaData->username,
+            'summary' => request('summary') ?? $metaData->summary,
+            'avatar' => request('avatar') ?? $metaData->avatar,
+            'digest' => request('digest') ?? $metaData->digest,
+            'appearance' => request('appearance') ?? $metaData->appearance,
         ]);
 
         $metaData->save();

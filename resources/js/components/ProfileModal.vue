@@ -50,7 +50,7 @@
                                 class="btn btn-success btn-block font-weight-bold mt-0"
                                 aria-label="Save"
                                 data-dismiss="modal"
-                                @click.prevent="saveProfile()">
+                                @click.prevent="update()">
                                 Save
                             </a>
                         </div>
@@ -98,24 +98,8 @@
         },
 
         methods: {
-            saveProfile() {
-                this.form.errors = []
-                this.form.isSaving = true
-                this.form.hasSuccess = false
-
-                this.request()
-                    .post('/api/settings', this.data)
-                    .then(response => {
-                        this.form.isSaving = false
-                        this.form.hasSuccess = true
-                        this.username = response.data.username
-                        this.summary = response.data.summary
-                        this.avatar = response.data.avatar
-                    })
-                    .catch(error => {
-                        this.form.isSaving = false
-                        this.form.errors = error.response.data.errors
-                    })
+            update() {
+                this.$parent.saveData(this.data)
             },
         },
     }

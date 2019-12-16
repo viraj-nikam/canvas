@@ -53,7 +53,8 @@
                                                     type="checkbox"
                                                     class="switch"
                                                     id="digest"
-                                                    @click="toggleNotificationsDigest"
+                                                    @change="toggleDigest"
+                                                    :checked="form.digest"
                                                     v-model="form.digest"
                                                 />
                                                 <label for="digest" class="mb-0 sr-only">Weekly digest</label>
@@ -79,10 +80,12 @@
                                                 <input
                                                     type="checkbox"
                                                     class="switch"
-                                                    id="night"
+                                                    id="appearance"
+                                                    @change="toggleAppearance"
+                                                    :checked="!form.appearance || form.appearance === 0"
                                                     v-model="form.appearance"
                                                 />
-                                                <label for="night" class="mb-0 sr-only">Dark mode</label>
+                                                <label for="appearance" class="mb-0 sr-only">Dark mode</label>
                                             </span>
                                         </div>
                                     </div>
@@ -137,8 +140,8 @@
                     username: null,
                     summary: null,
                     avatar: null,
-                    digest: 0,
-                    appearance: 0,
+                    digest: false,
+                    appearance: 1,
                     errors: [],
                     isSaving: false,
                     hasSuccess: false,
@@ -171,27 +174,38 @@
                     })
             },
 
-            toggleNotificationsDigest() {
+            saveData(data) {
                 this.form.errors = []
                 this.form.isSaving = true
                 this.form.hasSuccess = false
 
-                // this.request()
-                //     .post('/api/settings', this.form.notifications)
-                //     .then(response => {
-                //
-                //
-                //         console.log(this.form.notifications)
-                //
-                //
-                //         this.form.isSaving = false
-                //         this.form.hasSuccess = true
-                //         // this.notifications.digest = response.data.notifications.digest
-                //     })
-                //     .catch(error => {
-                //         this.form.isSaving = false
-                //         this.form.errors = error.response.data.errors
-                //     })
+                this.request()
+                    .post('/api/settings', data)
+                    .then(response => {
+                        this.form.isSaving = false
+                        this.form.hasSuccess = true
+                        this.username = response.data.username
+                        this.summary = response.data.summary
+                        this.avatar = response.data.avatar
+                        this.digest = response.data.digest
+                        this.appearance = response.data.appearance
+                    })
+                    .catch(error => {
+                        this.form.isSaving = false
+                        this.form.errors = error.response.data.errors
+                    })
+            },
+
+            toggleDigest() {
+                this.saveData({
+                    digest: this.form.digest
+                })
+            },
+
+            toggleAppearance() {
+                this.saveData({
+                    appearance: this.form.appearance
+                })
             },
 
             showProfileModal() {

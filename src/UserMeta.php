@@ -23,6 +23,15 @@ class UserMeta extends Model
     protected $guarded = [];
 
     /**
+     * The attributes that should be casted.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'digest' => 'boolean',
+    ];
+
+    /**
      * Get the user relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

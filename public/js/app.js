@@ -2834,22 +2834,8 @@ __webpack_require__.r(__webpack_exports__);
     });
   },
   methods: {
-    saveProfile: function saveProfile() {
-      var _this = this;
-
-      this.form.errors = [];
-      this.form.isSaving = true;
-      this.form.hasSuccess = false;
-      this.request().post('/api/settings', this.data).then(function (response) {
-        _this.form.isSaving = false;
-        _this.form.hasSuccess = true;
-        _this.username = response.data.username;
-        _this.summary = response.data.summary;
-        _this.avatar = response.data.avatar;
-      })["catch"](function (error) {
-        _this.form.isSaving = false;
-        _this.form.errors = error.response.data.errors;
-      });
+    update: function update() {
+      this.$parent.saveData(this.data);
     }
   }
 });
@@ -4608,6 +4594,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 
@@ -4623,8 +4612,8 @@ __webpack_require__.r(__webpack_exports__);
         username: null,
         summary: null,
         avatar: null,
-        digest: 0,
-        appearance: 0,
+        digest: false,
+        appearance: 1,
         errors: [],
         isSaving: false,
         hasSuccess: false
@@ -4651,25 +4640,34 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (error) {// Add any error debugging...
       });
     },
-    toggleNotificationsDigest: function toggleNotificationsDigest() {
+    saveData: function saveData(data) {
+      var _this2 = this;
+
       this.form.errors = [];
       this.form.isSaving = true;
-      this.form.hasSuccess = false; // this.request()
-      //     .post('/api/settings', this.form.notifications)
-      //     .then(response => {
-      //
-      //
-      //         console.log(this.form.notifications)
-      //
-      //
-      //         this.form.isSaving = false
-      //         this.form.hasSuccess = true
-      //         // this.notifications.digest = response.data.notifications.digest
-      //     })
-      //     .catch(error => {
-      //         this.form.isSaving = false
-      //         this.form.errors = error.response.data.errors
-      //     })
+      this.form.hasSuccess = false;
+      this.request().post('/api/settings', data).then(function (response) {
+        _this2.form.isSaving = false;
+        _this2.form.hasSuccess = true;
+        _this2.username = response.data.username;
+        _this2.summary = response.data.summary;
+        _this2.avatar = response.data.avatar;
+        _this2.digest = response.data.digest;
+        _this2.appearance = response.data.appearance;
+      })["catch"](function (error) {
+        _this2.form.isSaving = false;
+        _this2.form.errors = error.response.data.errors;
+      });
+    },
+    toggleDigest: function toggleDigest() {
+      this.saveData({
+        digest: this.form.digest
+      });
+    },
+    toggleAppearance: function toggleAppearance() {
+      this.saveData({
+        appearance: this.form.appearance
+      });
     },
     showProfileModal: function showProfileModal() {
       jquery__WEBPACK_IMPORTED_MODULE_0___default()(this.$refs.profileModal.$el).modal('show');
@@ -81495,7 +81493,7 @@ var render = function() {
                     on: {
                       click: function($event) {
                         $event.preventDefault()
-                        return _vm.saveProfile()
+                        return _vm.update()
                       }
                     }
                   },
@@ -84263,40 +84261,43 @@ var render = function() {
                                   staticClass: "switch",
                                   attrs: { type: "checkbox", id: "digest" },
                                   domProps: {
+                                    checked: _vm.form.digest,
                                     checked: Array.isArray(_vm.form.digest)
                                       ? _vm._i(_vm.form.digest, null) > -1
                                       : _vm.form.digest
                                   },
                                   on: {
-                                    click: _vm.toggleNotificationsDigest,
-                                    change: function($event) {
-                                      var $$a = _vm.form.digest,
-                                        $$el = $event.target,
-                                        $$c = $$el.checked ? true : false
-                                      if (Array.isArray($$a)) {
-                                        var $$v = null,
-                                          $$i = _vm._i($$a, $$v)
-                                        if ($$el.checked) {
-                                          $$i < 0 &&
-                                            _vm.$set(
-                                              _vm.form,
-                                              "digest",
-                                              $$a.concat([$$v])
-                                            )
+                                    change: [
+                                      function($event) {
+                                        var $$a = _vm.form.digest,
+                                          $$el = $event.target,
+                                          $$c = $$el.checked ? true : false
+                                        if (Array.isArray($$a)) {
+                                          var $$v = null,
+                                            $$i = _vm._i($$a, $$v)
+                                          if ($$el.checked) {
+                                            $$i < 0 &&
+                                              _vm.$set(
+                                                _vm.form,
+                                                "digest",
+                                                $$a.concat([$$v])
+                                              )
+                                          } else {
+                                            $$i > -1 &&
+                                              _vm.$set(
+                                                _vm.form,
+                                                "digest",
+                                                $$a
+                                                  .slice(0, $$i)
+                                                  .concat($$a.slice($$i + 1))
+                                              )
+                                          }
                                         } else {
-                                          $$i > -1 &&
-                                            _vm.$set(
-                                              _vm.form,
-                                              "digest",
-                                              $$a
-                                                .slice(0, $$i)
-                                                .concat($$a.slice($$i + 1))
-                                            )
+                                          _vm.$set(_vm.form, "digest", $$c)
                                         }
-                                      } else {
-                                        _vm.$set(_vm.form, "digest", $$c)
-                                      }
-                                    }
+                                      },
+                                      _vm.toggleDigest
+                                    ]
                                   }
                                 }),
                                 _vm._v(" "),
@@ -84337,41 +84338,47 @@ var render = function() {
                                     }
                                   ],
                                   staticClass: "switch",
-                                  attrs: { type: "checkbox", id: "night" },
+                                  attrs: { type: "checkbox", id: "appearance" },
                                   domProps: {
+                                    checked:
+                                      !_vm.form.appearance ||
+                                      _vm.form.appearance === 0,
                                     checked: Array.isArray(_vm.form.appearance)
                                       ? _vm._i(_vm.form.appearance, null) > -1
                                       : _vm.form.appearance
                                   },
                                   on: {
-                                    change: function($event) {
-                                      var $$a = _vm.form.appearance,
-                                        $$el = $event.target,
-                                        $$c = $$el.checked ? true : false
-                                      if (Array.isArray($$a)) {
-                                        var $$v = null,
-                                          $$i = _vm._i($$a, $$v)
-                                        if ($$el.checked) {
-                                          $$i < 0 &&
-                                            _vm.$set(
-                                              _vm.form,
-                                              "appearance",
-                                              $$a.concat([$$v])
-                                            )
+                                    change: [
+                                      function($event) {
+                                        var $$a = _vm.form.appearance,
+                                          $$el = $event.target,
+                                          $$c = $$el.checked ? true : false
+                                        if (Array.isArray($$a)) {
+                                          var $$v = null,
+                                            $$i = _vm._i($$a, $$v)
+                                          if ($$el.checked) {
+                                            $$i < 0 &&
+                                              _vm.$set(
+                                                _vm.form,
+                                                "appearance",
+                                                $$a.concat([$$v])
+                                              )
+                                          } else {
+                                            $$i > -1 &&
+                                              _vm.$set(
+                                                _vm.form,
+                                                "appearance",
+                                                $$a
+                                                  .slice(0, $$i)
+                                                  .concat($$a.slice($$i + 1))
+                                              )
+                                          }
                                         } else {
-                                          $$i > -1 &&
-                                            _vm.$set(
-                                              _vm.form,
-                                              "appearance",
-                                              $$a
-                                                .slice(0, $$i)
-                                                .concat($$a.slice($$i + 1))
-                                            )
+                                          _vm.$set(_vm.form, "appearance", $$c)
                                         }
-                                      } else {
-                                        _vm.$set(_vm.form, "appearance", $$c)
-                                      }
-                                    }
+                                      },
+                                      _vm.toggleAppearance
+                                    ]
                                   }
                                 }),
                                 _vm._v(" "),
@@ -84379,7 +84386,7 @@ var render = function() {
                                   "label",
                                   {
                                     staticClass: "mb-0 sr-only",
-                                    attrs: { for: "night" }
+                                    attrs: { for: "appearance" }
                                   },
                                   [_vm._v("Dark mode")]
                                 )
