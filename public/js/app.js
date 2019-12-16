@@ -2740,7 +2740,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var autosize__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! autosize */ "./node_modules/autosize/dist/autosize.js");
 /* harmony import */ var autosize__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(autosize__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _directives_Tooltip__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../directives/Tooltip */ "./resources/js/directives/Tooltip.js");
 //
 //
 //
@@ -2808,7 +2807,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2816,11 +2815,8 @@ __webpack_require__.r(__webpack_exports__);
   props: {
     form: {
       type: Object,
-      required: true
+      required: false
     }
-  },
-  directives: {
-    Tooltip: _directives_Tooltip__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   data: function data() {
     return {
@@ -2847,9 +2843,9 @@ __webpack_require__.r(__webpack_exports__);
       this.request().post('/api/settings', this.data).then(function (response) {
         _this.form.isSaving = false;
         _this.form.hasSuccess = true;
-        _this.username = response.data.user.username;
-        _this.summary = response.data.user.summary;
-        _this.avatar = response.data.user.avatar;
+        _this.username = response.data.username;
+        _this.summary = response.data.summary;
+        _this.avatar = response.data.avatar;
       })["catch"](function (error) {
         _this.form.isSaving = false;
         _this.form.errors = error.response.data.errors;
@@ -4624,15 +4620,11 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       form: {
-        user: {
-          username: '',
-          summary: '',
-          avatar: ''
-        },
-        notifications: {
-          digest: false
-        },
-        night: false,
+        username: null,
+        summary: null,
+        avatar: null,
+        digest: 0,
+        appearance: 0,
         errors: [],
         isSaving: false,
         hasSuccess: false
@@ -4650,30 +4642,34 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       this.request().get('/api/settings').then(function (response) {
-        _this.form.user.id = response.data.user.id;
-        _this.form.user.username = response.data.user.username;
-        _this.form.user.summary = response.data.user.summary;
-        _this.form.user.avatar = response.data.user.avatar;
-        _this.form.notifications.digest = response.data.notifications.digest;
-        _this.form.night = response.data.night;
+        _this.form.username = response.data.username;
+        _this.form.summary = response.data.summary;
+        _this.form.avatar = response.data.avatar;
+        _this.form.digest = response.data.digest;
+        _this.form.appearance = response.data.appearance;
         _this.isReady = true;
       })["catch"](function (error) {// Add any error debugging...
       });
     },
     toggleNotificationsDigest: function toggleNotificationsDigest() {
-      var _this2 = this;
-
       this.form.errors = [];
       this.form.isSaving = true;
-      this.form.hasSuccess = false;
-      this.request().post('/api/settings', this.form.notifications).then(function (response) {
-        console.log(_this2.form.notifications);
-        _this2.form.isSaving = false;
-        _this2.form.hasSuccess = true; // this.notifications.digest = response.data.notifications.digest
-      })["catch"](function (error) {
-        _this2.form.isSaving = false;
-        _this2.form.errors = error.response.data.errors;
-      });
+      this.form.hasSuccess = false; // this.request()
+      //     .post('/api/settings', this.form.notifications)
+      //     .then(response => {
+      //
+      //
+      //         console.log(this.form.notifications)
+      //
+      //
+      //         this.form.isSaving = false
+      //         this.form.hasSuccess = true
+      //         // this.notifications.digest = response.data.notifications.digest
+      //     })
+      //     .catch(error => {
+      //         this.form.isSaving = false
+      //         this.form.errors = error.response.data.errors
+      //     })
     },
     showProfileModal: function showProfileModal() {
       jquery__WEBPACK_IMPORTED_MODULE_0___default()(this.$refs.profileModal.$el).modal('show');
@@ -81491,7 +81487,11 @@ var render = function() {
                   {
                     staticClass:
                       "btn btn-success btn-block font-weight-bold mt-0",
-                    attrs: { href: "#", "aria-label": "Delete" },
+                    attrs: {
+                      href: "#",
+                      "aria-label": "Save",
+                      "data-dismiss": "modal"
+                    },
                     on: {
                       click: function($event) {
                         $event.preventDefault()
@@ -84213,187 +84213,186 @@ var render = function() {
             _c("div", { staticClass: "col-md-10" }, [
               _vm._m(0),
               _vm._v(" "),
-              _c("div", { staticClass: "mt-2" }, [
-                _c(
-                  "div",
-                  { staticClass: "d-flex border-top py-3 align-items-center" },
-                  [
-                    _vm._m(1),
+              _vm.isReady
+                ? _c("div", { staticClass: "mt-2" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass: "d-flex border-top py-3 align-items-center"
+                      },
+                      [
+                        _vm._m(1),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "ml-auto pl-3" }, [
+                          _c("div", { staticClass: "align-middle" }, [
+                            _c(
+                              "button",
+                              {
+                                staticClass:
+                                  "btn btn-sm btn-outline-success font-weight-bold",
+                                on: { click: _vm.showProfileModal }
+                              },
+                              [_vm._v("Edit profile")]
+                            )
+                          ])
+                        ])
+                      ]
+                    ),
                     _vm._v(" "),
-                    _c("div", { staticClass: "ml-auto pl-3" }, [
-                      _c("div", { staticClass: "align-middle" }, [
-                        _c(
-                          "button",
-                          {
-                            staticClass:
-                              "btn btn-sm btn-outline-success font-weight-bold",
-                            on: { click: _vm.showProfileModal }
-                          },
-                          [_vm._v("Edit profile")]
-                        )
-                      ])
-                    ])
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "d-flex border-top py-3 align-items-center" },
-                  [
-                    _vm._m(2),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "ml-auto pl-3" }, [
-                      _c("div", { staticClass: "align-middle" }, [
-                        _c("div", { staticClass: "form-group my-auto" }, [
-                          _c("span", { staticClass: "switch switch-sm" }, [
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.form.notifications.digest,
-                                  expression: "form.notifications.digest"
-                                }
-                              ],
-                              staticClass: "switch",
-                              attrs: { type: "checkbox", id: "digest" },
-                              domProps: {
-                                checked: Array.isArray(
-                                  _vm.form.notifications.digest
+                    _c(
+                      "div",
+                      {
+                        staticClass: "d-flex border-top py-3 align-items-center"
+                      },
+                      [
+                        _vm._m(2),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "ml-auto pl-3" }, [
+                          _c("div", { staticClass: "align-middle" }, [
+                            _c("div", { staticClass: "form-group my-auto" }, [
+                              _c("span", { staticClass: "switch switch-sm" }, [
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.form.digest,
+                                      expression: "form.digest"
+                                    }
+                                  ],
+                                  staticClass: "switch",
+                                  attrs: { type: "checkbox", id: "digest" },
+                                  domProps: {
+                                    checked: Array.isArray(_vm.form.digest)
+                                      ? _vm._i(_vm.form.digest, null) > -1
+                                      : _vm.form.digest
+                                  },
+                                  on: {
+                                    click: _vm.toggleNotificationsDigest,
+                                    change: function($event) {
+                                      var $$a = _vm.form.digest,
+                                        $$el = $event.target,
+                                        $$c = $$el.checked ? true : false
+                                      if (Array.isArray($$a)) {
+                                        var $$v = null,
+                                          $$i = _vm._i($$a, $$v)
+                                        if ($$el.checked) {
+                                          $$i < 0 &&
+                                            _vm.$set(
+                                              _vm.form,
+                                              "digest",
+                                              $$a.concat([$$v])
+                                            )
+                                        } else {
+                                          $$i > -1 &&
+                                            _vm.$set(
+                                              _vm.form,
+                                              "digest",
+                                              $$a
+                                                .slice(0, $$i)
+                                                .concat($$a.slice($$i + 1))
+                                            )
+                                        }
+                                      } else {
+                                        _vm.$set(_vm.form, "digest", $$c)
+                                      }
+                                    }
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c(
+                                  "label",
+                                  {
+                                    staticClass: "mb-0 sr-only",
+                                    attrs: { for: "digest" }
+                                  },
+                                  [_vm._v("Weekly digest")]
                                 )
-                                  ? _vm._i(
-                                      _vm.form.notifications.digest,
-                                      null
-                                    ) > -1
-                                  : _vm.form.notifications.digest
-                              },
-                              on: {
-                                click: _vm.toggleNotificationsDigest,
-                                change: function($event) {
-                                  var $$a = _vm.form.notifications.digest,
-                                    $$el = $event.target,
-                                    $$c = $$el.checked ? true : false
-                                  if (Array.isArray($$a)) {
-                                    var $$v = null,
-                                      $$i = _vm._i($$a, $$v)
-                                    if ($$el.checked) {
-                                      $$i < 0 &&
-                                        _vm.$set(
-                                          _vm.form.notifications,
-                                          "digest",
-                                          $$a.concat([$$v])
-                                        )
-                                    } else {
-                                      $$i > -1 &&
-                                        _vm.$set(
-                                          _vm.form.notifications,
-                                          "digest",
-                                          $$a
-                                            .slice(0, $$i)
-                                            .concat($$a.slice($$i + 1))
-                                        )
-                                    }
-                                  } else {
-                                    _vm.$set(
-                                      _vm.form.notifications,
-                                      "digest",
-                                      $$c
-                                    )
-                                  }
-                                }
-                              }
-                            }),
-                            _vm._v(" "),
-                            _c(
-                              "label",
-                              {
-                                staticClass: "mb-0 sr-only",
-                                attrs: { for: "digest" }
-                              },
-                              [_vm._v("Weekly digest")]
-                            )
+                              ])
+                            ])
                           ])
                         ])
-                      ])
-                    ])
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "d-flex border-top py-3 align-items-center" },
-                  [
-                    _vm._m(3),
+                      ]
+                    ),
                     _vm._v(" "),
-                    _c("div", { staticClass: "ml-auto pl-3" }, [
-                      _c("div", { staticClass: "align-middle" }, [
-                        _c("div", { staticClass: "form-group my-auto" }, [
-                          _c("span", { staticClass: "switch switch-sm" }, [
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.form.night,
-                                  expression: "form.night"
-                                }
-                              ],
-                              staticClass: "switch",
-                              attrs: { type: "checkbox", id: "night" },
-                              domProps: {
-                                checked: Array.isArray(_vm.form.night)
-                                  ? _vm._i(_vm.form.night, null) > -1
-                                  : _vm.form.night
-                              },
-                              on: {
-                                change: function($event) {
-                                  var $$a = _vm.form.night,
-                                    $$el = $event.target,
-                                    $$c = $$el.checked ? true : false
-                                  if (Array.isArray($$a)) {
-                                    var $$v = null,
-                                      $$i = _vm._i($$a, $$v)
-                                    if ($$el.checked) {
-                                      $$i < 0 &&
-                                        _vm.$set(
-                                          _vm.form,
-                                          "night",
-                                          $$a.concat([$$v])
-                                        )
-                                    } else {
-                                      $$i > -1 &&
-                                        _vm.$set(
-                                          _vm.form,
-                                          "night",
-                                          $$a
-                                            .slice(0, $$i)
-                                            .concat($$a.slice($$i + 1))
-                                        )
+                    _c(
+                      "div",
+                      {
+                        staticClass: "d-flex border-top py-3 align-items-center"
+                      },
+                      [
+                        _vm._m(3),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "ml-auto pl-3" }, [
+                          _c("div", { staticClass: "align-middle" }, [
+                            _c("div", { staticClass: "form-group my-auto" }, [
+                              _c("span", { staticClass: "switch switch-sm" }, [
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.form.appearance,
+                                      expression: "form.appearance"
                                     }
-                                  } else {
-                                    _vm.$set(_vm.form, "night", $$c)
+                                  ],
+                                  staticClass: "switch",
+                                  attrs: { type: "checkbox", id: "night" },
+                                  domProps: {
+                                    checked: Array.isArray(_vm.form.appearance)
+                                      ? _vm._i(_vm.form.appearance, null) > -1
+                                      : _vm.form.appearance
+                                  },
+                                  on: {
+                                    change: function($event) {
+                                      var $$a = _vm.form.appearance,
+                                        $$el = $event.target,
+                                        $$c = $$el.checked ? true : false
+                                      if (Array.isArray($$a)) {
+                                        var $$v = null,
+                                          $$i = _vm._i($$a, $$v)
+                                        if ($$el.checked) {
+                                          $$i < 0 &&
+                                            _vm.$set(
+                                              _vm.form,
+                                              "appearance",
+                                              $$a.concat([$$v])
+                                            )
+                                        } else {
+                                          $$i > -1 &&
+                                            _vm.$set(
+                                              _vm.form,
+                                              "appearance",
+                                              $$a
+                                                .slice(0, $$i)
+                                                .concat($$a.slice($$i + 1))
+                                            )
+                                        }
+                                      } else {
+                                        _vm.$set(_vm.form, "appearance", $$c)
+                                      }
+                                    }
                                   }
-                                }
-                              }
-                            }),
-                            _vm._v(" "),
-                            _c(
-                              "label",
-                              {
-                                staticClass: "mb-0 sr-only",
-                                attrs: { for: "night" }
-                              },
-                              [_vm._v("Dark mode")]
-                            )
+                                }),
+                                _vm._v(" "),
+                                _c(
+                                  "label",
+                                  {
+                                    staticClass: "mb-0 sr-only",
+                                    attrs: { for: "night" }
+                                  },
+                                  [_vm._v("Dark mode")]
+                                )
+                              ])
+                            ])
                           ])
                         ])
-                      ])
-                    ])
-                  ]
-                ),
-                _vm._v(" "),
-                _vm._m(4)
-              ])
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _vm._m(4)
+                  ])
+                : _vm._e()
             ])
           ])
         ])
@@ -84402,7 +84401,7 @@ var render = function() {
       _vm.isReady
         ? _c("profile-modal", {
             ref: "profileModal",
-            attrs: { form: _vm.form.user }
+            attrs: { form: _vm.form }
           })
         : _vm._e()
     ],

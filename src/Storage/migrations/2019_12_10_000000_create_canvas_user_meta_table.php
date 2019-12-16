@@ -15,12 +15,13 @@ class CreateCanvasUserMetaTable extends Migration
     {
         Schema::create('canvas_user_meta', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('user_id')->index();
-            $table->string('name');
-            $table->longText('value');
+            $table->string('user_id')->unique();
+            $table->string('username')->nullable();
+            $table->text('summary')->nullable();
+            $table->string('avatar')->nullable();
+            $table->tinyInteger('appearance')->nullable()->default(1);
+            $table->tinyInteger('digest')->nullable()->default(0);
             $table->timestamps();
-
-            $table->unique(['user_id', 'name']);
         });
     }
 

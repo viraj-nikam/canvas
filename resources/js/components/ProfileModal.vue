@@ -48,7 +48,8 @@
                             <a
                                 href="#"
                                 class="btn btn-success btn-block font-weight-bold mt-0"
-                                aria-label="Delete"
+                                aria-label="Save"
+                                data-dismiss="modal"
                                 @click.prevent="saveProfile()">
                                 Save
                             </a>
@@ -68,7 +69,6 @@
 <script>
     import $ from 'jquery'
     import autosize from 'autosize'
-    import Tooltip from '../directives/Tooltip'
 
     export default {
         name: 'profile-modal',
@@ -76,12 +76,8 @@
         props: {
             form: {
                 type: Object,
-                required: true,
+                required: false,
             },
-        },
-
-        directives: {
-            Tooltip,
         },
 
         data() {
@@ -112,9 +108,9 @@
                     .then(response => {
                         this.form.isSaving = false
                         this.form.hasSuccess = true
-                        this.username = response.data.user.username
-                        this.summary = response.data.user.summary
-                        this.avatar = response.data.user.avatar
+                        this.username = response.data.username
+                        this.summary = response.data.summary
+                        this.avatar = response.data.avatar
                     })
                     .catch(error => {
                         this.form.isSaving = false

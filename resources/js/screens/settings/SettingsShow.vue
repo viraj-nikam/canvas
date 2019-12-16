@@ -19,7 +19,7 @@
                             <h1 class="mt-2">Settings</h1>
                         </div>
 
-                        <div class="mt-2">
+                        <div class="mt-2" v-if="isReady">
                             <div class="d-flex border-top py-3 align-items-center">
                                 <div class="mr-auto py-1">
                                     <p class="mb-1 font-weight-bold text-lg lead">
@@ -54,7 +54,7 @@
                                                     class="switch"
                                                     id="digest"
                                                     @click="toggleNotificationsDigest"
-                                                    v-model="form.notifications.digest"
+                                                    v-model="form.digest"
                                                 />
                                                 <label for="digest" class="mb-0 sr-only">Weekly digest</label>
                                             </span>
@@ -80,7 +80,7 @@
                                                     type="checkbox"
                                                     class="switch"
                                                     id="night"
-                                                    v-model="form.night"
+                                                    v-model="form.appearance"
                                                 />
                                                 <label for="night" class="mb-0 sr-only">Dark mode</label>
                                             </span>
@@ -113,7 +113,7 @@
         <profile-modal
             v-if="isReady"
             ref="profileModal"
-            :form="form.user"
+            :form="form"
         />
     </div>
 </template>
@@ -134,15 +134,11 @@
         data() {
             return {
                 form: {
-                    user: {
-                        username: '',
-                        summary: '',
-                        avatar: '',
-                    },
-                    notifications: {
-                        digest: false,
-                    },
-                    night: false,
+                    username: null,
+                    summary: null,
+                    avatar: null,
+                    digest: 0,
+                    appearance: 0,
                     errors: [],
                     isSaving: false,
                     hasSuccess: false,
@@ -162,12 +158,11 @@
                 this.request()
                     .get('/api/settings')
                     .then(response => {
-                        this.form.user.id = response.data.user.id
-                        this.form.user.username = response.data.user.username
-                        this.form.user.summary = response.data.user.summary
-                        this.form.user.avatar = response.data.user.avatar
-                        this.form.notifications.digest = response.data.notifications.digest
-                        this.form.night = response.data.night
+                        this.form.username = response.data.username
+                        this.form.summary = response.data.summary
+                        this.form.avatar = response.data.avatar
+                        this.form.digest = response.data.digest
+                        this.form.appearance = response.data.appearance
 
                         this.isReady = true
                     })
@@ -181,22 +176,22 @@
                 this.form.isSaving = true
                 this.form.hasSuccess = false
 
-                this.request()
-                    .post('/api/settings', this.form.notifications)
-                    .then(response => {
-
-
-                        console.log(this.form.notifications)
-
-
-                        this.form.isSaving = false
-                        this.form.hasSuccess = true
-                        // this.notifications.digest = response.data.notifications.digest
-                    })
-                    .catch(error => {
-                        this.form.isSaving = false
-                        this.form.errors = error.response.data.errors
-                    })
+                // this.request()
+                //     .post('/api/settings', this.form.notifications)
+                //     .then(response => {
+                //
+                //
+                //         console.log(this.form.notifications)
+                //
+                //
+                //         this.form.isSaving = false
+                //         this.form.hasSuccess = true
+                //         // this.notifications.digest = response.data.notifications.digest
+                //     })
+                //     .catch(error => {
+                //         this.form.isSaving = false
+                //         this.form.errors = error.response.data.errors
+                //     })
             },
 
             showProfileModal() {

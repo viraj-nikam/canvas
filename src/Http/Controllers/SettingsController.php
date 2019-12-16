@@ -10,67 +10,43 @@ use Illuminate\Support\Str;
 class SettingsController extends Controller
 {
     /**
-     * Get the authenticated user settings.
+     * Get user settings.
      *
      * @return JsonResponse
      */
     public function show(): JsonResponse
     {
-        if (request()->user()) {
-            $settings = UserMeta::forCurrentUser()->get();
+        $metaData = UserMeta::where('user_id', request()->user()->id)->first();
 
-            $keyed = $settings->mapWithKeys(function ($item, $key) {
-                return [$item['name'] => $item['value']];
-            });
-
-            return response()->json([
-                'user'          => [
-                    'username' => $keyed->get('username') ?? null,
-                    'summary'  => $keyed->get('summary') ?? null,
-                    'avatar'   => $keyed->get('avatar') ?? sprintf('https://secure.gravatar.com/avatar/%s', md5(trim(Str::lower(request()->user()->email)))),
-                ],
-                'notifications' => [
-                    'digest' => $keyed->get('digest') ?? false,
-                ],
-                'night'    => $keyed->get('night') ? filter_var($keyed->get('night'), FILTER_VALIDATE_BOOLEAN) : false,
-            ]);
-        } else {
-            return response()->json(null, 301);
-        }
+        return response()->json([
+            'username'   => $metaData->username ?? null,
+            'summary'    => $metaData->summary ?? null,
+            'avatar'     => $metaData->avatar ?? sprintf('https://secure.gravatar.com/avatar/%s?s=500', md5(trim(Str::lower(request()->user()->email)))),
+            'digest'     => $metaData->digest ?? 0,
+            'appearance' => $metaData->appearance ?? 0,
+        ]);
     }
 
+    /**
+     * Save user settings.
+     *
+     * @return JsonResponse
+     */
     public function update(): JsonResponse
     {
-        dd(request()->all());
+        $metaData = UserMeta::where('user_id', request()->user()->id)->first() ?? new UserMeta();
 
-        if (request()->user()) {
-            $settings = UserMeta::forCurrentUser()->get();
+        $metaData->fill([
+            'user_id' => request()->user()->id,
+            'username' => request('username'),
+            'summary' => request('summary'),
+            'avatar' => request('avatar'),
+            'digest' => request('digest'),
+            'appearance' => request('appearance'),
+        ]);
 
-            $settings->each(function ($item, $key) {
-                if (request()->has($item->name)) {
-                    $item->update([
-                        'value' => request()->get($item->name),
-                    ]);
-                }
-            });
+        $metaData->save();
 
-            $keyed = $settings->mapWithKeys(function ($item, $key) {
-                return [$item['name'] => $item['value']];
-            });
-
-            return response()->json([
-                'user'          => [
-                    'username' => $keyed->get('username') ?? null,
-                    'summary'  => $keyed->get('summary') ?? null,
-                    'avatar'   => $keyed->get('avatar') ?? sprintf('https://secure.gravatar.com/avatar/%s', md5(trim(Str::lower(request()->user()->email)))),
-                ],
-                'notifications' => [
-                    'digest' => $keyed->get('digest') ?? false,
-                ],
-                'night'    => $keyed->get('night') ?? false,
-            ]);
-        } else {
-            return response()->json(null, 301);
-        }
+        return response()->json($metaData->refresh());
     }
 }
