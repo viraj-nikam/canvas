@@ -38,7 +38,7 @@ class BlogController extends Controller
         $posts = Post::with('tags', 'topic')->published()->get();
         $post = $posts->firstWhere('slug', $slug);
 
-        if ($post->published) {
+        if ($post && $post->published) {
             $readNext = $posts->sortBy('published_at')->firstWhere('published_at', '>', $post->published_at);
 
             if ($readNext) {

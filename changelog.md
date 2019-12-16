@@ -2,10 +2,15 @@
 
 ## [Unreleased](https://github.com/cnvs/canvas/compare/master...develop)
 
+## [5.0.3](https://github.com/cnvs/canvas/compare/v5.0.2...v5.0.3) (December 16, 2019)
+
+## Fixed
+- Added an existence check in the default template ([0ea4bf7](https://github.com/cnvs/canvas/pull/582/commits/0ea4bf7859da54967410751b3b39807fba16ca3c))
+
 ## [5.0.2](https://github.com/cnvs/canvas/compare/v5.0.1...v5.0.2) (December 13, 2019)
 
 ## Fixed
-- Fixed a non-object error on the default template [fc65d52](https://github.com/cnvs/canvas/commit/fc65d520e722bb44cf376be698823fa5f92c236e)
+- Fixed a non-object error on the default template ([fc65d52](https://github.com/cnvs/canvas/commit/fc65d520e722bb44cf376be698823fa5f92c236e))
 
 ## [5.0.1](https://github.com/cnvs/canvas/compare/v5.0.0...v5.0.1) (December 7, 2019)
 
