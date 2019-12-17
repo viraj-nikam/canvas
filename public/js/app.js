@@ -4613,7 +4613,7 @@ __webpack_require__.r(__webpack_exports__);
         summary: null,
         avatar: null,
         digest: false,
-        appearance: 1,
+        darkMode: 0,
         errors: [],
         isSaving: false,
         hasSuccess: false
@@ -4635,7 +4635,7 @@ __webpack_require__.r(__webpack_exports__);
         _this.form.summary = response.data.summary;
         _this.form.avatar = response.data.avatar;
         _this.form.digest = response.data.digest;
-        _this.form.appearance = response.data.appearance;
+        _this.form.darkMode = response.data.dark_mode;
         _this.isReady = true;
       })["catch"](function (error) {// Add any error debugging...
       });
@@ -4649,11 +4649,11 @@ __webpack_require__.r(__webpack_exports__);
       this.request().post('/api/settings', data).then(function (response) {
         _this2.form.isSaving = false;
         _this2.form.hasSuccess = true;
-        _this2.username = response.data.username;
-        _this2.summary = response.data.summary;
-        _this2.avatar = response.data.avatar;
-        _this2.digest = response.data.digest;
-        _this2.appearance = response.data.appearance;
+        _this2.form.username = response.data.username;
+        _this2.form.summary = response.data.summary;
+        _this2.form.avatar = response.data.avatar;
+        _this2.form.digest = response.data.digest;
+        _this2.form.darkMode = response.data.dark_mode;
       })["catch"](function (error) {
         _this2.form.isSaving = false;
         _this2.form.errors = error.response.data.errors;
@@ -4664,9 +4664,9 @@ __webpack_require__.r(__webpack_exports__);
         digest: this.form.digest
       });
     },
-    toggleAppearance: function toggleAppearance() {
+    toggleDarkMode: function toggleDarkMode() {
       this.saveData({
-        appearance: this.form.appearance
+        dark_mode: this.form.darkMode
       });
     },
     showProfileModal: function showProfileModal() {
@@ -81424,7 +81424,7 @@ var render = function() {
                     name: "username",
                     type: "text",
                     title: "Username",
-                    placeholder: "Username"
+                    placeholder: "Choose a username..."
                   },
                   domProps: { value: _vm.data.username },
                   on: {
@@ -84333,24 +84333,22 @@ var render = function() {
                                     {
                                       name: "model",
                                       rawName: "v-model",
-                                      value: _vm.form.appearance,
-                                      expression: "form.appearance"
+                                      value: _vm.form.darkMode,
+                                      expression: "form.darkMode"
                                     }
                                   ],
                                   staticClass: "switch",
-                                  attrs: { type: "checkbox", id: "appearance" },
+                                  attrs: { type: "checkbox", id: "darkMode" },
                                   domProps: {
-                                    checked:
-                                      !_vm.form.appearance ||
-                                      _vm.form.appearance === 0,
-                                    checked: Array.isArray(_vm.form.appearance)
-                                      ? _vm._i(_vm.form.appearance, null) > -1
-                                      : _vm.form.appearance
+                                    checked: _vm.form.darkMode,
+                                    checked: Array.isArray(_vm.form.darkMode)
+                                      ? _vm._i(_vm.form.darkMode, null) > -1
+                                      : _vm.form.darkMode
                                   },
                                   on: {
                                     change: [
                                       function($event) {
-                                        var $$a = _vm.form.appearance,
+                                        var $$a = _vm.form.darkMode,
                                           $$el = $event.target,
                                           $$c = $$el.checked ? true : false
                                         if (Array.isArray($$a)) {
@@ -84360,24 +84358,24 @@ var render = function() {
                                             $$i < 0 &&
                                               _vm.$set(
                                                 _vm.form,
-                                                "appearance",
+                                                "darkMode",
                                                 $$a.concat([$$v])
                                               )
                                           } else {
                                             $$i > -1 &&
                                               _vm.$set(
                                                 _vm.form,
-                                                "appearance",
+                                                "darkMode",
                                                 $$a
                                                   .slice(0, $$i)
                                                   .concat($$a.slice($$i + 1))
                                               )
                                           }
                                         } else {
-                                          _vm.$set(_vm.form, "appearance", $$c)
+                                          _vm.$set(_vm.form, "darkMode", $$c)
                                         }
                                       },
-                                      _vm.toggleAppearance
+                                      _vm.toggleDarkMode
                                     ]
                                   }
                                 }),
@@ -84386,7 +84384,7 @@ var render = function() {
                                   "label",
                                   {
                                     staticClass: "mb-0 sr-only",
-                                    attrs: { for: "appearance" }
+                                    attrs: { for: "darkMode" }
                                   },
                                   [_vm._v("Dark mode")]
                                 )

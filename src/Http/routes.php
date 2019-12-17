@@ -34,4 +34,4 @@ Route::prefix('api')->group(function () {
 });
 
 // Catch-all routes...
-Route::get('/{view?}', 'HomeController@index')->where('view', '(.*)')->name('canvas');
+Route::get('/{view?}', 'BaseController')->where('view', '(.*)')->name('canvas');

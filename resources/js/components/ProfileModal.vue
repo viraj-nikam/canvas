@@ -22,7 +22,7 @@
                                 class="form-control border-0 px-0 bg-transparent"
                                 title="Username"
                                 v-model="data.username"
-                                placeholder="Username"
+                                placeholder="Choose a username..."
                             />
                         </div>
                     </div>

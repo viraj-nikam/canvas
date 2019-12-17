@@ -19,7 +19,7 @@ class CreateCanvasUserMetaTable extends Migration
             $table->string('username')->nullable();
             $table->text('summary')->nullable();
             $table->string('avatar')->nullable();
-            $table->tinyInteger('appearance')->nullable()->default(1);
+            $table->tinyInteger('dark_mode')->nullable()->default(0);
             $table->tinyInteger('digest')->nullable()->default(0);
             $table->timestamps();
         });

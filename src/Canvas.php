@@ -8,13 +8,6 @@ use RuntimeException;
 class Canvas
 {
     /**
-     * Indicates if Canvas should utilize the dark mode.
-     *
-     * @var bool
-     */
-    public static $useDarkMode = false;
-
-    /**
      * Build a global JavaScript object for the Vue app.
      *
      * @return array
@@ -28,18 +21,6 @@ class Canvas
             'unsplash' => config('canvas.unsplash.access_key'),
             'user'     => auth()->user()->only(['name', 'email']),
         ];
-    }
-
-    /**
-     * Specifies that Canvas should apply the dark mode.
-     *
-     * @return static
-     */
-    public static function night()
-    {
-        static::$useDarkMode = true;
-
-        return new static;
     }
 
     /**

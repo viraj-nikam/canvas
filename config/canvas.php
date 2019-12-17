@@ -61,19 +61,4 @@ return [
         'access_key' => env('CANVAS_UNSPLASH_ACCESS_KEY'),
     ],
 
-    /*
-    |--------------------------------------------------------------------------
-    | Weekly Digest
-    |--------------------------------------------------------------------------
-    |
-    | This option enables Canvas to send e-mail notifications via the default
-    | mail driver on a weekly basis. All users that have published content
-    | will receive a total view count summary of the last seven days.
-    |
-    */
-
-    'digest' => [
-        'enabled' => env('CANVAS_DIGEST_ENABLED', false),
-    ],
-
 ];

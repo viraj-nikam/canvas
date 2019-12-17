@@ -80,12 +80,12 @@
                                                 <input
                                                     type="checkbox"
                                                     class="switch"
-                                                    id="appearance"
-                                                    @change="toggleAppearance"
-                                                    :checked="!form.appearance || form.appearance === 0"
-                                                    v-model="form.appearance"
+                                                    id="darkMode"
+                                                    @change="toggleDarkMode"
+                                                    :checked="form.darkMode"
+                                                    v-model="form.darkMode"
                                                 />
-                                                <label for="appearance" class="mb-0 sr-only">Dark mode</label>
+                                                <label for="darkMode" class="mb-0 sr-only">Dark mode</label>
                                             </span>
                                         </div>
                                     </div>
@@ -141,7 +141,7 @@
                     summary: null,
                     avatar: null,
                     digest: false,
-                    appearance: 1,
+                    darkMode: 0,
                     errors: [],
                     isSaving: false,
                     hasSuccess: false,
@@ -165,7 +165,7 @@
                         this.form.summary = response.data.summary
                         this.form.avatar = response.data.avatar
                         this.form.digest = response.data.digest
-                        this.form.appearance = response.data.appearance
+                        this.form.darkMode = response.data.dark_mode
 
                         this.isReady = true
                     })
@@ -184,11 +184,11 @@
                     .then(response => {
                         this.form.isSaving = false
                         this.form.hasSuccess = true
-                        this.username = response.data.username
-                        this.summary = response.data.summary
-                        this.avatar = response.data.avatar
-                        this.digest = response.data.digest
-                        this.appearance = response.data.appearance
+                        this.form.username = response.data.username
+                        this.form.summary = response.data.summary
+                        this.form.avatar = response.data.avatar
+                        this.form.digest = response.data.digest
+                        this.form.darkMode = response.data.dark_mode
                     })
                     .catch(error => {
                         this.form.isSaving = false
@@ -202,9 +202,9 @@
                 })
             },
 
-            toggleAppearance() {
+            toggleDarkMode() {
                 this.saveData({
-                    appearance: this.form.appearance
+                    dark_mode: this.form.darkMode
                 })
             },
 
