@@ -203,6 +203,15 @@
             },
 
             toggleDarkMode() {
+                localStorage.setItem('darkMode', this.form.darkMode)
+                this.$root.$data.darkMode = this.form.darkMode
+
+                if (this.form.darkMode) {
+                    $('#appearance').attr('href', '/vendor/canvas/css/app-dark.css')
+                } else {
+                    $('#appearance').attr('href', '/vendor/canvas/css/app.css')
+                }
+
                 this.saveData({
                     dark_mode: this.form.darkMode
                 })

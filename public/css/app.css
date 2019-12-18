@@ -191,7 +191,7 @@ input:-webkit-autofill:active {
 
 .switch input + label::before {
   right: 0;
-  background-color: #dee2e6;
+  background-color: #a0aec0;
   border-radius: calc(2.375rem * .8);
   -webkit-transition: 0.2s all;
   transition: 0.2s all;
@@ -4507,7 +4507,7 @@ input[type=button].btn-block {
   height: 1rem;
   pointer-events: none;
   content: "";
-  background-color: #dee2e6;
+  background-color: #a0aec0;
   border: #a0aec0 solid 1px;
 }
 
@@ -4591,7 +4591,7 @@ input[type=button].btn-block {
 }
 
 .custom-switch .custom-control-input:checked ~ .custom-control-label::after {
-  background-color: #dee2e6;
+  background-color: #a0aec0;
   -webkit-transform: translateX(0.75rem);
           transform: translateX(0.75rem);
 }

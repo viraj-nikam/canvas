@@ -13,12 +13,12 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Karla|Merriweather:400,700,900">
 
+    <link rel="stylesheet" id="appearance" type="text/css" href="{{ mix($scripts['darkMode'] == true ? 'css/app-dark.css' : 'css/app.css', 'vendor/canvas') }}">
+
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/default.min.css">
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>
 
-    <link rel="stylesheet" type="text/css" href="{{ asset(mix(sprintf('css/%s', 'app.css'), 'vendor/canvas')) }}">
-
-    <link rel="shortcut icon" href="{{ asset(mix('favicon.ico', 'vendor/canvas')) }}">
+    <link rel="shortcut icon" href="{{ mix('favicon.ico', 'vendor/canvas') }}">
 </head>
 <body>
 <div id="canvas">

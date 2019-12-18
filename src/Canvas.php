@@ -20,6 +20,7 @@ class Canvas
             'timezone' => config('app.timezone'),
             'unsplash' => config('canvas.unsplash.access_key'),
             'user'     => auth()->user()->only(['name', 'email']),
+            'darkMode' => UserMeta::forCurrentUser()->pluck('dark_mode')->first(),
         ];
     }
 
@@ -32,11 +33,11 @@ class Canvas
     {
         $path = public_path('vendor/canvas/mix-manifest.json');
 
-        if (! File::exists($path)) {
+        if (!File::exists($path)) {
             throw new RuntimeException('The assets for Canvas are not up to date. Please run: php artisan canvas:publish');
         }
 
-        return File::get($path) === File::get(__DIR__.'/../public/mix-manifest.json');
+        return File::get($path) === File::get(__DIR__ . '/../public/mix-manifest.json');
     }
 
     /**

@@ -4665,6 +4665,15 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     toggleDarkMode: function toggleDarkMode() {
+      localStorage.setItem('darkMode', this.form.darkMode);
+      this.$root.$data.darkMode = this.form.darkMode;
+
+      if (this.form.darkMode) {
+        jquery__WEBPACK_IMPORTED_MODULE_0___default()('#appearance').attr('href', '/vendor/canvas/css/app-dark.css');
+      } else {
+        jquery__WEBPACK_IMPORTED_MODULE_0___default()('#appearance').attr('href', '/vendor/canvas/css/app.css');
+      }
+
       this.saveData({
         dark_mode: this.form.darkMode
       });
@@ -102929,15 +102938,18 @@ var actions = {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./routes */ "./resources/js/routes.js");
-/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./store */ "./resources/js/store.js");
-/* harmony import */ var nprogress__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! nprogress */ "./node_modules/nprogress/nprogress.js");
-/* harmony import */ var nprogress__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(nprogress__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
-/* harmony import */ var moment_timezone__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! moment-timezone */ "./node_modules/moment-timezone/index.js");
-/* harmony import */ var moment_timezone__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(moment_timezone__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _mixins_HelperMixin__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./mixins/HelperMixin */ "./resources/js/mixins/HelperMixin.js");
-/* harmony import */ var _mixins_RequestMixin__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./mixins/RequestMixin */ "./resources/js/mixins/RequestMixin.js");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./routes */ "./resources/js/routes.js");
+/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./store */ "./resources/js/store.js");
+/* harmony import */ var nprogress__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! nprogress */ "./node_modules/nprogress/nprogress.js");
+/* harmony import */ var nprogress__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(nprogress__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
+/* harmony import */ var moment_timezone__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! moment-timezone */ "./node_modules/moment-timezone/index.js");
+/* harmony import */ var moment_timezone__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(moment_timezone__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _mixins_HelperMixin__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./mixins/HelperMixin */ "./resources/js/mixins/HelperMixin.js");
+/* harmony import */ var _mixins_RequestMixin__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./mixins/RequestMixin */ "./resources/js/mixins/RequestMixin.js");
+
 
 
 
@@ -102950,37 +102962,41 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__(/*! bootstrap */ "./node_modules/bootstrap/dist/js/bootstrap.js");
 
 window.Popper = __webpack_require__(/*! popper.js */ "./node_modules/popper.js/dist/esm/popper.js")["default"];
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.mixin(_mixins_HelperMixin__WEBPACK_IMPORTED_MODULE_6__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.mixin(_mixins_RequestMixin__WEBPACK_IMPORTED_MODULE_7__["default"]); // Set the default timezone
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.mixin(_mixins_HelperMixin__WEBPACK_IMPORTED_MODULE_7__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.mixin(_mixins_RequestMixin__WEBPACK_IMPORTED_MODULE_8__["default"]); // Set the default timezone
 
-moment_timezone__WEBPACK_IMPORTED_MODULE_5___default.a.tz.setDefault(Canvas.timezone); // Prevent the production tip on Vue startup
+moment_timezone__WEBPACK_IMPORTED_MODULE_6___default.a.tz.setDefault(Canvas.timezone); // Prevent the production tip on Vue startup
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.config.productionTip = false;
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODULE_4__["default"]);
-var router = new vue_router__WEBPACK_IMPORTED_MODULE_4__["default"]({
-  routes: _routes__WEBPACK_IMPORTED_MODULE_1__["default"],
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODULE_5__["default"]);
+var router = new vue_router__WEBPACK_IMPORTED_MODULE_5__["default"]({
+  routes: _routes__WEBPACK_IMPORTED_MODULE_2__["default"],
   mode: 'history',
   base: Canvas.path
 });
-nprogress__WEBPACK_IMPORTED_MODULE_3___default.a.configure({
+nprogress__WEBPACK_IMPORTED_MODULE_4___default.a.configure({
   showSpinner: false,
   easing: 'ease',
   speed: 300
 });
 router.beforeEach(function (to, from, next) {
-  nprogress__WEBPACK_IMPORTED_MODULE_3___default.a.start();
+  nprogress__WEBPACK_IMPORTED_MODULE_4___default.a.start();
   next();
 });
 router.afterEach(function () {
-  nprogress__WEBPACK_IMPORTED_MODULE_3___default.a.done();
+  nprogress__WEBPACK_IMPORTED_MODULE_4___default.a.done();
 });
+localStorage.setItem('darkMode', Canvas.darkMode);
 var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
   el: '#canvas',
   router: router,
-  store: _store__WEBPACK_IMPORTED_MODULE_2__["store"]
+  store: _store__WEBPACK_IMPORTED_MODULE_3__["store"],
+  data: {
+    darkMode: Canvas.darkMode
+  }
 }); // Give the store access to the root Vue instance
 
-_store__WEBPACK_IMPORTED_MODULE_2__["store"].$app = app;
+_store__WEBPACK_IMPORTED_MODULE_3__["store"].$app = app;
 
 /***/ }),
 
