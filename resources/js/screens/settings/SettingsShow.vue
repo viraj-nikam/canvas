@@ -25,7 +25,7 @@
                                     <p class="mb-1 font-weight-bold text-lg lead">
                                         Your profile
                                     </p>
-                                    <p class="mb-1">
+                                    <p class="mb-1 d-none d-lg-block">
                                         Choose a username, summary and more to share.
                                     </p>
                                 </div>
@@ -41,7 +41,7 @@
                                     <p class="mb-1 font-weight-bold text-lg lead">
                                         Weekly digest
                                     </p>
-                                    <p class="mb-1">
+                                    <p class="mb-1 d-none d-lg-block">
                                         Control whether to receive a weekly summary of your published content.
                                     </p>
                                 </div>
@@ -69,7 +69,7 @@
                                     <p class="mb-1 font-weight-bold text-lg lead">
                                         Dark mode
                                     </p>
-                                    <p class="mb-1">
+                                    <p class="mb-1 d-none d-lg-block">
                                         Enable a dark appearance for Canvas.
                                     </p>
                                 </div>
@@ -97,7 +97,7 @@
                                     <p class="mb-1 font-weight-bold text-lg lead">
                                         Download your information
                                     </p>
-                                    <p class="mb-1">
+                                    <p class="mb-1 d-none d-lg-block">
                                         Download a copy of the information you’ve shared on Canvas to a .zip file.
                                     </p>
                                 </div>
@@ -174,16 +174,22 @@
                     })
             },
 
-            saveData(data) {
+            saveData(data, withNotification) {
                 this.form.errors = []
-                this.form.isSaving = true
-                this.form.hasSuccess = false
+
+                if (withNotification) {
+                    this.form.isSaving = true
+                    this.form.hasSuccess = false
+                }
 
                 this.request()
                     .post('/api/settings', data)
                     .then(response => {
-                        this.form.isSaving = false
-                        this.form.hasSuccess = true
+                        if (withNotification) {
+                            this.form.isSaving = false
+                            this.form.hasSuccess = true
+                        }
+
                         this.form.username = response.data.username
                         this.form.summary = response.data.summary
                         this.form.avatar = response.data.avatar
@@ -203,9 +209,6 @@
             },
 
             toggleDarkMode() {
-                localStorage.setItem('darkMode', this.form.darkMode)
-                this.$root.$data.darkMode = this.form.darkMode
-
                 if (this.form.darkMode) {
                     $('#appearance').attr('href', '/vendor/canvas/css/app-dark.css')
                 } else {
@@ -214,7 +217,7 @@
 
                 this.saveData({
                     dark_mode: this.form.darkMode
-                })
+                }, false)
             },
 
             showProfileModal() {

@@ -99,7 +99,7 @@
 
         methods: {
             update() {
-                this.$parent.saveData(this.data)
+                this.$parent.saveData(this.data, true)
             },
         },
     }

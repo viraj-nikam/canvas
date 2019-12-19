@@ -13,7 +13,7 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Karla|Merriweather:400,700,900">
 
-    @if($scripts['darkMode'] == true)
+    @if($scripts['darkMode'])
         <link rel="stylesheet" id="appearance" type="text/css" href="{{ mix('css/app-dark.css', 'vendor/canvas') }}">
     @else
         <link rel="stylesheet" id="appearance" type="text/css" href="{{ mix('css/app.css', 'vendor/canvas') }}">

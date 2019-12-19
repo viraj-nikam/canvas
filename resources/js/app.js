@@ -1,5 +1,4 @@
 import Vue from 'vue'
-import $ from 'jquery'
 import Routes from './routes'
 import {store} from './store'
 import NProgress from 'nprogress'
@@ -44,15 +43,10 @@ router.afterEach(() => {
     NProgress.done()
 })
 
-localStorage.setItem('darkMode', Canvas.darkMode)
-
 const app = new Vue({
     el: '#canvas',
     router,
     store,
-    data: {
-        darkMode: Canvas.darkMode
-    }
 })
 
 // Give the store access to the root Vue instance

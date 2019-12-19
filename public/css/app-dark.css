@@ -4126,9 +4126,9 @@ input[type=button].btn-block {
 
 .dropdown-item.active,
 .dropdown-item:active {
-  color: white;
+  color: #11141c;
   text-decoration: none;
-  background-color: #007bff;
+  background-color: #a0aec0;
 }
 
 .dropdown-item.disabled,

@@ -24,7 +24,7 @@
 
                 <div class="dropdown ml-3" v-cloak>
                     <a href="#" id="navbarDropdown" class="nav-link px-0 text-secondary" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <img :src="gravatar()" :alt="user.name" class="rounded-circle my-0 shadow-inner" style="width: 31px"/>
+                        <img :src="avatar" :alt="user.name" class="rounded-circle my-0 shadow-inner" style="width: 31px"/>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                         <h6 class="dropdown-header">
@@ -61,54 +61,36 @@
 </template>
 
 <script>
-    import md5 from 'md5'
-    import axios from 'axios'
-
     export default {
         name: 'page-header',
 
         data() {
             return {
                 user: Canvas.user,
-                token: document.head.querySelector('meta[name="csrf-token"]')
-                    .content,
+                avatar: Canvas.avatar,
+                token: document.head.querySelector('meta[name="csrf-token"]').content,
                 trans: JSON.parse(Canvas.lang),
             }
         },
 
         methods: {
             /**
-             * Generate an MD5 hash from a given email to retrieve a Gravatar.
-             *
-             * @returns {string}
-             */
-            gravatar() {
-                let hash = md5(this.user.email.toLowerCase().trim())
-
-                return 'https://secure.gravatar.com/avatar/' + hash + '?s=200'
-            },
-
-            /**
              * Log the user out of the application.
              *
              * @returns void
              */
             logout() {
-                axios
+                this.request()
                     .post('/logout', {
                         _token: this.token,
                     })
                     .then(response => {
                         window.location.href = '/login'
                     })
+                    .catch(error => {
+                        // Add any error debugging...
+                    })
             },
         },
     }
 </script>
-
-<style scoped>
-    a.dropdown-item:active {
-        background-color: #f8f9fa;
-        color: #16181b;
-    }
-</style>

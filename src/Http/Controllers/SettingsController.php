@@ -16,12 +16,13 @@ class SettingsController extends Controller
      */
     public function show(): JsonResponse
     {
-        $metaData = UserMeta::where('user_id', request()->user()->id)->first();
+        $metaData = UserMeta::forCurrentUser()->first();
+        $emailHash= md5(trim(Str::lower(request()->user()->email)));
 
         return response()->json([
             'username'  => $metaData->username ?? null,
             'summary'   => $metaData->summary ?? null,
-            'avatar'    => $metaData->avatar ?? sprintf('https://secure.gravatar.com/avatar/%s?s=500', md5(trim(Str::lower(request()->user()->email)))),
+            'avatar'    => $metaData->avatar ?? "https://secure.gravatar.com/avatar/{$emailHash}?s=500",
             'digest'    => $metaData->digest ?? false,
             'dark_mode' => $metaData->dark_mode ?? 0,
         ]);
@@ -34,7 +35,7 @@ class SettingsController extends Controller
      */
     public function update(): JsonResponse
     {
-        $metaData = UserMeta::where('user_id', request()->user()->id)->first() ?? new UserMeta();
+        $metaData = UserMeta::forCurrentUser()->first() ?? new UserMeta();
 
         $metaData->fill([
             'user_id'   => request()->user()->id,

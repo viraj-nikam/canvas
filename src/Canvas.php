@@ -3,6 +3,7 @@
 namespace Canvas;
 
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 use RuntimeException;
 
 class Canvas
@@ -14,13 +15,17 @@ class Canvas
      */
     public static function scriptVariables()
     {
+        $metaData = UserMeta::forCurrentUser()->first();
+        $emailHash= md5(trim(Str::lower(request()->user()->email)));
+
         return [
-            'lang'     => self::collectLanguageFiles(),
+            'lang'     => self::collectLanguageFiles(config('app.locale')),
             'path'     => config('canvas.path'),
             'timezone' => config('app.timezone'),
             'unsplash' => config('canvas.unsplash.access_key'),
             'user'     => auth()->user()->only(['name', 'email']),
-            'darkMode' => UserMeta::forCurrentUser()->pluck('dark_mode')->first(),
+            'avatar'   => $metaData->avatar ?? "https://secure.gravatar.com/avatar/{$emailHash}?s=500",
+            'darkMode' => $metaData->dark_mode,
         ];
     }
 
@@ -33,29 +38,31 @@ class Canvas
     {
         $path = public_path('vendor/canvas/mix-manifest.json');
 
-        if (! File::exists($path)) {
+        if (!File::exists($path)) {
             throw new RuntimeException('The assets for Canvas are not up to date. Please run: php artisan canvas:publish');
         }
 
-        return File::get($path) === File::get(__DIR__.'/../public/mix-manifest.json');
+        return File::get($path) === File::get(__DIR__ . '/../public/mix-manifest.json');
     }
 
     /**
      * Gather all the language files and rebuild them into into a single
      * consumable JSON object that can be used in the Vue components.
      *
+     * @param string
      * @return string
      */
-    private static function collectLanguageFiles(): string
+    private static function collectLanguageFiles(string $locale): string
     {
-        $files = glob(sprintf('%s/resources/lang/%s/*.php', dirname(__DIR__, 1), config('app.locale')));
+        $langDirectory = dirname(__DIR__, 1) . '/resources/lang';
+        $files = collect(glob("{$langDirectory}/{$locale}/*.php"));
         $lines = collect();
 
         foreach ($files as $file) {
             $filename = basename($file, '.php');
-            $lines->put($filename, require $file);
+            $lines->put($filename, include $file);
         }
 
-        return json_encode($lines->toArray());
+        return $lines->toJson();
     }
 }

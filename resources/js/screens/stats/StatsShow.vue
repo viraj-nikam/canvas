@@ -34,7 +34,7 @@
                         </h5>
                         <h1 class="mb-4">{{ post.title }}</h1>
 
-                        <line-chart :views="JSON.parse(views)"></line-chart>
+<!--                        <line-chart :views="JSON.parse(views)"></line-chart>-->
                     </div>
 
                     <div class="col-md-5 mt-4">

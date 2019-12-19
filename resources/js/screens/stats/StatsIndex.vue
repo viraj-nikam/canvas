@@ -60,7 +60,7 @@
                                     </div>
                                 </div>
 
-                                <line-chart :views="JSON.parse(views.trend)"></line-chart>
+<!--                                <line-chart :views="JSON.parse(views.trend)"></line-chart>-->
 
                                 <div class="mt-4">
                                     <div class="d-flex border-top py-3 align-items-center" v-for="post in filteredList">
