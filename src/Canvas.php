@@ -24,8 +24,8 @@ class Canvas
             'timezone' => config('app.timezone'),
             'unsplash' => config('canvas.unsplash.access_key'),
             'user'     => auth()->user()->only(['name', 'email']),
-            'avatar'   => $metaData->avatar ?? "https://secure.gravatar.com/avatar/{$emailHash}?s=500",
-            'darkMode' => $metaData->dark_mode,
+            'avatar'   => optional($metaData)->avatar ?? "https://secure.gravatar.com/avatar/{$emailHash}?s=500",
+            'darkMode' => optional($metaData)->dark_mode,
         ];
     }
 
