@@ -24,19 +24,13 @@ export default {
                 switch (error.response.status) {
                     case 405:
                     case 401:
-                        axios
-                            .post('/logout', {
-                                _token: token,
-                            })
-                            .then(response => {
-                                window.location.href = '/login'
-                            })
+                        this.logout()
                         break
                     default:
                         break
                 }
 
-                return Promise.reject({ ...error })
+                return Promise.reject({...error})
             }
 
             const successHandler = response => {
@@ -55,5 +49,21 @@ export default {
 
             return instance
         },
+
+        logout() {
+            let instance = axios.create()
+            let token = document.head.querySelector('meta[name="csrf-token"]')
+
+            instance.defaults.headers.common['X-CSRF-TOKEN'] = token.content
+            instance.defaults.baseURL = '/'
+
+            axios
+                .post('/logout', {
+                    _token: token,
+                })
+                .then(response => {
+                    window.location.href = '/login'
+                })
+        }
     },
 }

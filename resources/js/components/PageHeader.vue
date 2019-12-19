@@ -50,7 +50,7 @@
                         <router-link to="/settings" class="dropdown-item">
                             <span>Settings</span>
                         </router-link>
-                        <a href="" class="dropdown-item" @click.prevent="logout">
+                        <a href="" class="dropdown-item" @click.prevent="sessionLogout">
                             {{ trans.nav.user.logout }}
                         </a>
                     </div>
@@ -67,29 +67,15 @@
         data() {
             return {
                 user: Canvas.user,
-                avatar: Canvas.avatar,
+                avatar: localStorage.getItem('avatar'),
                 token: document.head.querySelector('meta[name="csrf-token"]').content,
                 trans: JSON.parse(Canvas.lang),
             }
         },
 
         methods: {
-            /**
-             * Log the user out of the application.
-             *
-             * @returns void
-             */
-            logout() {
-                this.request()
-                    .post('/logout', {
-                        _token: this.token,
-                    })
-                    .then(response => {
-                        window.location.href = '/login'
-                    })
-                    .catch(error => {
-                        // Add any error debugging...
-                    })
+            sessionLogout() {
+                this.logout()
             },
         },
     }

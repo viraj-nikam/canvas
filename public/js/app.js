@@ -2689,24 +2689,14 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       user: Canvas.user,
-      avatar: Canvas.avatar,
+      avatar: localStorage.getItem('avatar'),
       token: document.head.querySelector('meta[name="csrf-token"]').content,
       trans: JSON.parse(Canvas.lang)
     };
   },
   methods: {
-    /**
-     * Log the user out of the application.
-     *
-     * @returns void
-     */
-    logout: function logout() {
-      this.request().post('/logout', {
-        _token: this.token
-      }).then(function (response) {
-        window.location.href = '/login';
-      })["catch"](function (error) {// Add any error debugging...
-      });
+    sessionLogout: function sessionLogout() {
+      this.logout();
     }
   }
 });
@@ -80927,7 +80917,7 @@ var render = function() {
                       on: {
                         click: function($event) {
                           $event.preventDefault()
-                          return _vm.logout($event)
+                          return _vm.sessionLogout($event)
                         }
                       }
                     },
@@ -102545,6 +102535,7 @@ router.beforeEach(function (to, from, next) {
 router.afterEach(function () {
   nprogress__WEBPACK_IMPORTED_MODULE_3___default.a.done();
 });
+localStorage.setItem('avatar', Canvas.avatar);
 var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
   el: '#canvas',
   router: router,
@@ -104008,6 +103999,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
      * @returns {AxiosInstance}
      */
     request: function request() {
+      var _this = this;
+
       var instance = axios__WEBPACK_IMPORTED_MODULE_0___default.a.create();
       var token = document.head.querySelector('meta[name="csrf-token"]');
       instance.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
@@ -104023,11 +104016,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         switch (error.response.status) {
           case 405:
           case 401:
-            axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/logout', {
-              _token: token
-            }).then(function (response) {
-              window.location.href = '/login';
-            });
+            _this.logout();
+
             break;
 
           default:
@@ -104051,6 +104041,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         return errorHandler(error);
       });
       return instance;
+    },
+    logout: function logout() {
+      var instance = axios__WEBPACK_IMPORTED_MODULE_0___default.a.create();
+      var token = document.head.querySelector('meta[name="csrf-token"]');
+      instance.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
+      instance.defaults.baseURL = '/';
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/logout', {
+        _token: token
+      }).then(function (response) {
+        window.location.href = '/login';
+      });
     }
   }
 });

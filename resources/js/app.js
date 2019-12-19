@@ -43,6 +43,8 @@ router.afterEach(() => {
     NProgress.done()
 })
 
+localStorage.setItem('avatar', Canvas.avatar)
+
 const app = new Vue({
     el: '#canvas',
     router,
