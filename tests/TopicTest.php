@@ -1,30 +1,11 @@
 <?php
 
-namespace Canvas\Tests\Controllers;
+namespace Canvas\Tests;
 
-use Canvas\Http\Controllers\TopicController;
-use Canvas\Tests\TestCase;
 use Ramsey\Uuid\Uuid;
 
-class TopicControllerTest extends TestCase
+class TopicTest extends TestCase
 {
-    /**
-     * The controller instance.
-     *
-     * @var TopicController
-     */
-    protected $instance;
-
-    /**
-     * @return void
-     */
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        $this->instance = new TopicController();
-    }
-
     /** @test */
     public function allow_topics_to_share_the_same_slug_with_unique_users()
     {

@@ -1,30 +1,11 @@
 <?php
 
-namespace Canvas\Tests\Controllers;
+namespace Canvas\Tests;
 
-use Canvas\Http\Controllers\TagController;
-use Canvas\Tests\TestCase;
 use Ramsey\Uuid\Uuid;
 
-class TagControllerTest extends TestCase
+class TagTest extends TestCase
 {
-    /**
-     * The controller instance.
-     *
-     * @var TagController
-     */
-    protected $instance;
-
-    /**
-     * @return void
-     */
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        $this->instance = new TagController();
-    }
-
     /** @test */
     public function allow_tags_to_share_the_same_slug_with_unique_users()
     {
