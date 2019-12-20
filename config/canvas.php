@@ -61,4 +61,20 @@ return [
         'access_key' => env('CANVAS_UNSPLASH_ACCESS_KEY'),
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | E-Mail Notifications
+    |--------------------------------------------------------------------------
+    |
+    | This option controls e-mail notifications that will be sent via the
+    | default application mail driver. A default option is provided to
+    | support the notification system as an opt-in feature.
+    |
+    |
+    */
+
+    'emails' => [
+        'enabled' => env('CANVAS_EMAILS_ENABLED', false),
+    ],
+
 ];
