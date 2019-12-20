@@ -73,8 +73,8 @@ return [
     |
     */
 
-    'emails' => [
-        'enabled' => env('CANVAS_EMAILS_ENABLED', false),
+    'mail' => [
+        'enabled' => env('CANVAS_MAIL_ENABLED', false),
     ],
 
 ];
