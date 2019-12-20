@@ -3,12 +3,25 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-body">
+                    <input
+                        hidden
+                        type="file"
+                        ref="file"
+                        accept="image/*"
+                        @change="onAvatarChange"
+                    />
+
                     <p class="font-weight-bold lead">
                         Profile
                     </p>
 
                     <div class="d-flex justify-content-center">
-                        <img :src="data.avatar" class="w-50 rounded-circle shadow-inner"/>
+                        <img
+                            :src="data.avatar"
+                            class="w-50 rounded-circle shadow-inner my-3"
+                            style="cursor:pointer"
+                            @click.prevent="launchFilePicker"
+                        />
                     </div>
 
                     <div class="form-group row">
@@ -98,9 +111,35 @@
         },
 
         methods: {
+            launchFilePicker() {
+                this.$refs.file.click();
+            },
+
+            onAvatarChange(event) {
+                let file = event.target.files[0]
+                let formData = new FormData()
+
+                formData.append('image', file, file.name)
+
+                this.request()
+                    .post('/api/media/uploads', formData)
+                    .then(response => {
+                        this.data.avatar = response.data
+                        this.update()
+                        this.$root.$emit('updateAvatar', response.data)
+                    })
+                    .catch(error => {
+                        // Add any error debugging...
+                    })
+            },
+
             update() {
                 this.$parent.saveData(this.data, true)
             },
         },
     }
 </script>
+
+<style scoped>
+
+</style>

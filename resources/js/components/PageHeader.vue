@@ -67,9 +67,15 @@
         data() {
             return {
                 user: Canvas.user,
-                avatar: localStorage.getItem('avatar'),
+                avatar: this.$root.avatar,
                 token: document.head.querySelector('meta[name="csrf-token"]').content,
                 trans: JSON.parse(Canvas.lang),
+            }
+        },
+
+        watch: {
+            '$root.avatar': function(url){
+                this.avatar = url
             }
         },
 

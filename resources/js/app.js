@@ -43,12 +43,24 @@ router.afterEach(() => {
     NProgress.done()
 })
 
-localStorage.setItem('avatar', Canvas.avatar)
-
 const app = new Vue({
     el: '#canvas',
     router,
     store,
+
+    data: {
+        avatar: Canvas.avatar
+    },
+
+    mounted() {
+        this.$root.$on('updateAvatar', this.updateAvatar)
+    },
+
+    methods: {
+        updateAvatar(url) {
+            this.$root.avatar = url
+        }
+    }
 })
 
 // Give the store access to the root Vue instance
