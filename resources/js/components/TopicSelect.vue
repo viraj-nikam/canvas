@@ -10,6 +10,7 @@
         @tag="addTopic"
         label="name"
         track-by="slug"
+        style="cursor: pointer"
     />
 </template>
 

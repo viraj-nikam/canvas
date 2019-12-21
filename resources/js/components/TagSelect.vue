@@ -10,6 +10,7 @@
         @tag="addTag"
         label="name"
         track-by="slug"
+        style="cursor: pointer"
     />
 </template>
 

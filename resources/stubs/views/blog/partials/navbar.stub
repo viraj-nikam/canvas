@@ -11,7 +11,7 @@
             </p>
         </div>
         <div class="col-4 text-center">
-            <a id="brand" class="text-dark font-weight-bolder text-decoration-none font-serif" href="{{ route('blog.index') }}">{{ config('app.name', __('canvas::blog.title')) }}</a>
+            <a id="brand" class="text-dark font-weight-bold text-decoration-none font-serif" href="{{ route('blog.index') }}">{{ config('app.name', __('canvas::blog.title')) }}</a>
         </div>
 
         @auth()

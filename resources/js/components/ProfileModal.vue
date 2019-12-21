@@ -12,10 +12,10 @@
                     />
 
                     <p class="font-weight-bold lead">
-                        Profile
+                        Edit Profile
                     </p>
 
-                    <div class="d-flex justify-content-center">
+                    <div class="d-flex justify-content-center bg-black">
                         <img
                             :src="data.avatar"
                             class="w-50 rounded-circle shadow-inner my-3"
@@ -26,7 +26,7 @@
 
                     <div class="form-group row">
                         <div class="col-12">
-                            <label class="font-weight-bold">
+                            <label class="font-weight-bold text-uppercase text-muted small">
                                 Username
                             </label>
                             <input
@@ -41,7 +41,7 @@
                     </div>
                     <div class="form-group row">
                         <div class="col-12">
-                            <label class="font-weight-bold">
+                            <label class="font-weight-bold text-uppercase text-muted small">
                                 Summary
                             </label>
                             <textarea
@@ -68,7 +68,9 @@
                             </a>
                         </div>
                         <div class="col-lg order-lg-first px-0">
-                            <button class="btn btn-link btn-block font-weight-bold text-muted text-decoration-none" data-dismiss="modal">
+                            <button
+                                class="btn btn-link btn-block font-weight-bold text-muted text-decoration-none"
+                                data-dismiss="modal">
                                 {{ trans.buttons.general.cancel }}
                             </button>
                         </div>
@@ -141,5 +143,7 @@
 </script>
 
 <style scoped>
-
+    img:hover {
+        opacity: 0.6;
+    }
 </style>

@@ -113,6 +113,7 @@ input:-webkit-autofill:active {
 .multiselect__single {
   padding: 0;
   border-radius: 0;
+  background-color: transparent;
 }
 
 .multiselect__input:focus::-webkit-input-placeholder, .multiselect__input::-webkit-input-placeholder {

@@ -26,7 +26,7 @@
                                         Your profile
                                     </p>
                                     <p class="mb-1 d-none d-lg-block">
-                                        Choose a username, summary and more to share.
+                                        Choose a unique username and share public details about yourself.
                                     </p>
                                 </div>
                                 <div class="ml-auto pl-3">
@@ -70,7 +70,7 @@
                                         Dark mode
                                     </p>
                                     <p class="mb-1 d-none d-lg-block">
-                                        Enable a dark appearance for Canvas.
+                                        Use a dark appearance for Canvas.
                                     </p>
                                 </div>
                                 <div class="ml-auto pl-3">
