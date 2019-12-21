@@ -27,6 +27,7 @@
                                         <div class="form-group mb-0">
                                             <input
                                                 aria-label="Search"
+                                                autocomplete="off"
                                                 v-model="search"
                                                 type="text"
                                                 class="form-control border-0 pl-0 bg-transparent"

@@ -28,6 +28,8 @@
                                     <form class="pl-2 w-100">
                                         <div class="form-group mb-0">
                                             <input
+                                                aria-label="Search"
+                                                autocomplete="off"
                                                 id="search"
                                                 v-model="search"
                                                 type="text"

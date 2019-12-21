@@ -4419,6 +4419,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -5329,6 +5338,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'tags-index',
@@ -5573,6 +5583,8 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_PageHeader__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../components/PageHeader */ "./resources/js/components/PageHeader.vue");
+//
+//
 //
 //
 //
@@ -83603,6 +83615,8 @@ var render = function() {
                             staticClass:
                               "form-control border-0 pl-0 bg-transparent",
                             attrs: {
+                              "aria-label": "Search",
+                              autocomplete: "off",
                               type: "text",
                               id: "search",
                               placeholder: _vm.trans.posts.search.input,
@@ -85468,6 +85482,7 @@ var render = function() {
                               "form-control border-0 pl-0 bg-transparent",
                             attrs: {
                               "aria-label": "Search",
+                              autocomplete: "off",
                               type: "text",
                               id: "search",
                               placeholder: _vm.trans.tags.search.input,
@@ -86048,6 +86063,8 @@ var render = function() {
                             staticClass:
                               "form-control border-0 pl-0 bg-transparent",
                             attrs: {
+                              "aria-label": "Search",
+                              autocomplete: "off",
                               id: "search",
                               type: "text",
                               placeholder: _vm.trans.topics.search.input,
