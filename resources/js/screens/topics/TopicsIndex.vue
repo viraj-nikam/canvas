@@ -70,7 +70,7 @@
                                 </div>
 
                                 <p v-if="!filteredList.length">
-                                    {{ trans.topics.search.empty }}
+                                    {{ trans.posts.search.empty }} "{{ search }}".
                                 </p>
                             </div>
                             <p v-else class="mt-2">

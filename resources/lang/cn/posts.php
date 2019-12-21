@@ -9,7 +9,7 @@ return [
     ],
     'search'  => [
         'input' => '按标题搜索...',
-        'empty' => '没有帖子符合给定的搜索条件。',
+        'empty' => '找不到与的结果',
     ],
     'details' => [
         'published' => '發布時間',

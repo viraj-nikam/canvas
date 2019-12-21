@@ -83890,7 +83890,9 @@ var render = function() {
                                   _vm._v(
                                     "\n                                " +
                                       _vm._s(_vm.trans.posts.search.empty) +
-                                      "\n                            "
+                                      ' "' +
+                                      _vm._s(_vm.search) +
+                                      '".\n                            '
                                   )
                                 ])
                               : _vm._e()
@@ -85618,8 +85620,10 @@ var render = function() {
                               ? _c("p", [
                                   _vm._v(
                                     "\n                                " +
-                                      _vm._s(_vm.trans.tags.search.empty) +
-                                      "\n                            "
+                                      _vm._s(_vm.trans.posts.search.empty) +
+                                      ' "' +
+                                      _vm._s(_vm.search) +
+                                      '".\n                            '
                                   )
                                 ])
                               : _vm._e()
@@ -86198,8 +86202,10 @@ var render = function() {
                               ? _c("p", [
                                   _vm._v(
                                     "\n                                " +
-                                      _vm._s(_vm.trans.topics.search.empty) +
-                                      "\n                            "
+                                      _vm._s(_vm.trans.posts.search.empty) +
+                                      ' "' +
+                                      _vm._s(_vm.search) +
+                                      '".\n                            '
                                   )
                                 ])
                               : _vm._e()
