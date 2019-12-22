@@ -31,6 +31,7 @@ Route::prefix('api')->group(function () {
     // Settings routes...
     Route::get('/settings', 'SettingsController@show');
     Route::post('/settings', 'SettingsController@update');
+    Route::post('/export', 'SettingsController@export');
 });
 
 // Catch-all routes...

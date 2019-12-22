@@ -81559,7 +81559,7 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _vm.isScheduled
-                  ? _c("p", { staticClass: "mt-3 text-danger font-italic" }, [
+                  ? _c("p", { staticClass: "mt-3 text-success font-italic" }, [
                       _vm._v(
                         "\n                            Your post will publish at\n                            " +
                           _vm._s(
