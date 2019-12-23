@@ -2,7 +2,7 @@
 
 return [
 
-    'general' => [
+    'general'  => [
         'cancel' => '取消',
         'delete' => '刪除',
         'done'   => '完成',
@@ -11,7 +11,7 @@ return [
         'next'   => '下一頁',
         'draft'  => '转换为草稿',
     ],
-    'posts'   => [
+    'posts'    => [
         'create'   => '最新帖子',
         'edit'     => '编辑帖子',
         'ready'    => '准备出版？',
@@ -20,17 +20,21 @@ return [
         'schedule' => '发布时间表',
         'cancel'   => '取消预定',
     ],
-    'stats'   => [
+    'stats'    => [
         'index' => '查看所有統計數據',
         'show'  => '細節',
     ],
-    'tags'    => [
+    'tags'     => [
         'create' => '新標籤',
         'update' => '保存更改',
     ],
-    'topics'  => [
+    'topics'   => [
         'create' => '新話題',
         'update' => '保存更改',
+    ],
+    'settings' => [
+        'profile' => '编辑个人资料',
+        'export'  => '下载.zip',
     ],
 
 ];

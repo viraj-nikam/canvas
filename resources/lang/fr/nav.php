@@ -11,11 +11,12 @@ return [
         'success' => 'Enregistré!',
     ],
     'user'     => [
-        'posts'  => 'Des postes',
-        'tags'   => 'Mots clés',
-        'topics' => 'Les sujets',
-        'stats'  => 'Statistiques',
-        'logout' => 'Déconnexion',
+        'posts'    => 'Des postes',
+        'tags'     => 'Mots clés',
+        'topics'   => 'Les sujets',
+        'stats'    => 'Statistiques',
+        'settings' => 'Réglages',
+        'logout'   => 'Déconnexion',
     ],
     'controls' => [
         'stats'    => 'Voir les statistiques',

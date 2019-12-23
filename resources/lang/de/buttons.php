@@ -2,7 +2,7 @@
 
 return [
 
-    'general' => [
+    'general'  => [
         'cancel' => 'Stornieren',
         'delete' => 'Löschen',
         'done'   => 'Erledigt',
@@ -11,7 +11,7 @@ return [
         'next'   => 'Nächste Seite',
         'draft'  => 'In Entwurf konvertieren',
     ],
-    'posts'   => [
+    'posts'    => [
         'create'   => 'Neuer Beitrag',
         'edit'     => 'Beitrag bearbeiten',
         'ready'    => 'Bereit zum Veröffentlichen?',
@@ -20,17 +20,21 @@ return [
         'schedule' => 'Planen Sie die Veröffentlichung',
         'cancel'   => 'Terminierung abbrechen',
     ],
-    'stats'   => [
+    'stats'    => [
         'index' => 'Alle Statistiken anzeigen',
         'show'  => 'Einzelheiten',
     ],
-    'tags'    => [
+    'tags'     => [
         'create' => 'Neuer Tag',
         'update' => 'Änderungen speichern',
     ],
-    'topics'  => [
+    'topics'   => [
         'create' => 'Neues Thema',
         'update' => 'Änderungen speichern',
+    ],
+    'settings' => [
+        'profile' => 'Profil bearbeiten',
+        'export'  => 'Laden Sie .zip herunter',
     ],
 
 ];
