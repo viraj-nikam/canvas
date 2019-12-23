@@ -53,7 +53,6 @@ class SettingsController extends Controller
 
         validator($data, [
             'user_id'  => 'required',
-//            'username' => 'nullable|alpha_dash|unique:canvas_user_meta',
             'username' => [
                 'nullable',
                 'alpha_dash',
