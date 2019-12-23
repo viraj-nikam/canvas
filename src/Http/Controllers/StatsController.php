@@ -47,7 +47,7 @@ class StatsController extends Controller
             'posts' => [
                 'all'             => $published,
                 'published_count' => $published->count(),
-                'drafts_count'    => Post::draft()->count(),
+                'drafts_count'    => Post::forCurrentUser()->draft()->count(),
             ],
             'views' => [
                 'count' => $views->count(),
