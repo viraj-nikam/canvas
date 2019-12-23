@@ -16,7 +16,7 @@ class CreateCanvasUserMetaTable extends Migration
         Schema::create('canvas_user_meta', function (Blueprint $table) {
             $table->increments('id');
             $table->string('user_id')->unique();
-            $table->string('username')->nullable();
+            $table->string('username')->unique()->nullable();
             $table->text('summary')->nullable();
             $table->string('avatar')->nullable();
             $table->tinyInteger('dark_mode')->nullable()->default(0);
