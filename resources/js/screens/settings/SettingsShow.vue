@@ -16,22 +16,24 @@
                 <div class="row justify-content-center">
                     <div class="col-md-10">
                         <div class="d-flex justify-content-between">
-                            <h1 class="mt-2">Settings</h1>
+                            <h1 class="mt-2">{{ trans.settings.header }}</h1>
                         </div>
 
                         <div class="mt-2" v-if="isReady">
                             <div class="d-flex border-top py-3 align-items-center">
                                 <div class="mr-auto py-1">
                                     <p class="mb-1 font-weight-bold text-lg lead">
-                                        Your profile
+                                        {{ trans.settings.profile.label }}
                                     </p>
                                     <p class="mb-1 d-none d-lg-block">
-                                        Choose a unique username and share public details about yourself.
+                                        {{ trans.settings.profile.description }}
                                     </p>
                                 </div>
                                 <div class="ml-auto pl-3">
                                     <div class="align-middle">
-                                        <button class="btn btn-sm btn-outline-success font-weight-bold" @click="showProfileModal">Edit profile</button>
+                                        <button class="btn btn-sm btn-outline-success font-weight-bold" @click="showProfileModal">
+                                            {{ trans.buttons.settings.profile }}
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -39,10 +41,10 @@
                             <div class="d-flex border-top py-3 align-items-center">
                                 <div class="mr-auto py-1">
                                     <p class="mb-1 font-weight-bold text-lg lead">
-                                        Weekly digest
+                                        {{ trans.settings.digest.label }}
                                     </p>
                                     <p class="mb-1 d-none d-lg-block">
-                                        Control whether to receive a weekly summary of your published content.
+                                        {{ trans.settings.digest.description }}
                                     </p>
                                 </div>
                                 <div class="ml-auto pl-3">
@@ -57,7 +59,9 @@
                                                     :checked="form.digest"
                                                     v-model="form.digest"
                                                 />
-                                                <label for="digest" class="mb-0 sr-only">Weekly digest</label>
+                                                <label for="digest" class="mb-0 sr-only">
+                                                    {{ trans.settings.digest.label }}
+                                                </label>
                                             </span>
                                         </div>
                                     </div>
@@ -67,10 +71,10 @@
                             <div class="d-flex border-top py-3 align-items-center">
                                 <div class="mr-auto py-1">
                                     <p class="mb-1 font-weight-bold text-lg lead">
-                                        Dark mode
+                                        {{ trans.settings.appearance.label }}
                                     </p>
                                     <p class="mb-1 d-none d-lg-block">
-                                        Use a dark appearance for Canvas.
+                                        {{ trans.settings.appearance.description }}
                                     </p>
                                 </div>
                                 <div class="ml-auto pl-3">
@@ -85,7 +89,9 @@
                                                     :checked="form.darkMode"
                                                     v-model="form.darkMode"
                                                 />
-                                                <label for="darkMode" class="mb-0 sr-only">Dark mode</label>
+                                                <label for="darkMode" class="mb-0 sr-only">
+                                                    {{ trans.settings.appearance.label }}
+                                                </label>
                                             </span>
                                         </div>
                                     </div>
@@ -95,15 +101,17 @@
                             <div class="d-flex border-top py-3 align-items-center">
                                 <div class="mr-auto py-1">
                                     <p class="mb-1 font-weight-bold text-lg lead">
-                                        Download your information
+                                        {{ trans.settings.export.label }}
                                     </p>
                                     <p class="mb-1 d-none d-lg-block">
-                                        Download a copy of the information you’ve shared on Canvas to a .zip file.
+                                        {{ trans.settings.export.description }}
                                     </p>
                                 </div>
                                 <div class="ml-auto pl-3">
                                     <div class="align-middle">
-                                        <button class="btn btn-sm btn-outline-success font-weight-bold">Download .zip</button>
+                                        <button class="btn btn-sm btn-outline-success font-weight-bold">
+                                            {{ trans.buttons.settings.export }}
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -174,7 +182,7 @@
                     })
             },
 
-            saveData(data, withNotification) {
+            saveData(data, withNotification, hidesModal) {
                 this.form.errors = []
 
                 if (withNotification) {
@@ -195,6 +203,10 @@
                         this.form.avatar = response.data.avatar
                         this.form.digest = response.data.digest
                         this.form.darkMode = response.data.dark_mode
+
+                        if (hidesModal) {
+                            this.hideProfileModal()
+                        }
                     })
                     .catch(error => {
                         this.form.isSaving = false
@@ -222,6 +234,10 @@
 
             showProfileModal() {
                 $(this.$refs.profileModal.$el).modal('show')
+            },
+
+            hideProfileModal() {
+                $(this.$refs.profileModal.$el).modal('hide')
             },
         },
     }

@@ -2804,6 +2804,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2842,14 +2844,14 @@ __webpack_require__.r(__webpack_exports__);
       this.request().post('/api/media/uploads', formData).then(function (response) {
         _this.data.avatar = response.data;
 
-        _this.update();
+        _this.update(false);
 
         _this.$root.$emit('updateAvatar', response.data);
       })["catch"](function (error) {// Add any error debugging...
       });
     },
-    update: function update() {
-      this.$parent.saveData(this.data, true);
+    update: function update(hidesModal) {
+      this.$parent.saveData(this.data, true, hidesModal);
     }
   }
 });
@@ -4624,6 +4626,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -4667,7 +4677,7 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (error) {// Add any error debugging...
       });
     },
-    saveData: function saveData(data, withNotification) {
+    saveData: function saveData(data, withNotification, hidesModal) {
       var _this2 = this;
 
       this.form.errors = [];
@@ -4688,6 +4698,10 @@ __webpack_require__.r(__webpack_exports__);
         _this2.form.avatar = response.data.avatar;
         _this2.form.digest = response.data.digest;
         _this2.form.darkMode = response.data.dark_mode;
+
+        if (hidesModal) {
+          _this2.hideProfileModal();
+        }
       })["catch"](function (error) {
         _this2.form.isSaving = false;
         _this2.form.errors = error.response.data.errors;
@@ -4711,6 +4725,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     showProfileModal: function showProfileModal() {
       jquery__WEBPACK_IMPORTED_MODULE_0___default()(this.$refs.profileModal.$el).modal('show');
+    },
+    hideProfileModal: function hideProfileModal() {
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()(this.$refs.profileModal.$el).modal('hide');
     }
   }
 });
@@ -81148,7 +81165,15 @@ var render = function() {
                       _vm.$set(_vm.data, "username", $event.target.value)
                     }
                   }
-                })
+                }),
+                _vm._v(" "),
+                _vm.form.errors.username
+                  ? _c("div", { staticClass: "invalid-feedback d-block" }, [
+                      _c("strong", [
+                        _vm._v(_vm._s(_vm.form.errors.username[0]))
+                      ])
+                    ])
+                  : _vm._e()
               ])
             ]),
             _vm._v(" "),
@@ -81205,15 +81230,11 @@ var render = function() {
                   {
                     staticClass:
                       "btn btn-success btn-block font-weight-bold mt-0",
-                    attrs: {
-                      href: "#",
-                      "aria-label": "Save",
-                      "data-dismiss": "modal"
-                    },
+                    attrs: { href: "#", "aria-label": "Save" },
                     on: {
                       click: function($event) {
                         $event.preventDefault()
-                        return _vm.update()
+                        return _vm.update(true)
                       }
                     }
                   },
@@ -84001,7 +84022,11 @@ var render = function() {
         _c("div", { staticClass: "container" }, [
           _c("div", { staticClass: "row justify-content-center" }, [
             _c("div", { staticClass: "col-md-10" }, [
-              _vm._m(0),
+              _c("div", { staticClass: "d-flex justify-content-between" }, [
+                _c("h1", { staticClass: "mt-2" }, [
+                  _vm._v(_vm._s(_vm.trans.settings.header))
+                ])
+              ]),
               _vm._v(" "),
               _vm.isReady
                 ? _c("div", { staticClass: "mt-2" }, [
@@ -84011,7 +84036,29 @@ var render = function() {
                         staticClass: "d-flex border-top py-3 align-items-center"
                       },
                       [
-                        _vm._m(1),
+                        _c("div", { staticClass: "mr-auto py-1" }, [
+                          _c(
+                            "p",
+                            {
+                              staticClass: "mb-1 font-weight-bold text-lg lead"
+                            },
+                            [
+                              _vm._v(
+                                "\n                                    " +
+                                  _vm._s(_vm.trans.settings.profile.label) +
+                                  "\n                                "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c("p", { staticClass: "mb-1 d-none d-lg-block" }, [
+                            _vm._v(
+                              "\n                                    " +
+                                _vm._s(_vm.trans.settings.profile.description) +
+                                "\n                                "
+                            )
+                          ])
+                        ]),
                         _vm._v(" "),
                         _c("div", { staticClass: "ml-auto pl-3" }, [
                           _c("div", { staticClass: "align-middle" }, [
@@ -84022,7 +84069,13 @@ var render = function() {
                                   "btn btn-sm btn-outline-success font-weight-bold",
                                 on: { click: _vm.showProfileModal }
                               },
-                              [_vm._v("Edit profile")]
+                              [
+                                _vm._v(
+                                  "\n                                        " +
+                                    _vm._s(_vm.trans.buttons.settings.profile) +
+                                    "\n                                    "
+                                )
+                              ]
                             )
                           ])
                         ])
@@ -84035,7 +84088,29 @@ var render = function() {
                         staticClass: "d-flex border-top py-3 align-items-center"
                       },
                       [
-                        _vm._m(2),
+                        _c("div", { staticClass: "mr-auto py-1" }, [
+                          _c(
+                            "p",
+                            {
+                              staticClass: "mb-1 font-weight-bold text-lg lead"
+                            },
+                            [
+                              _vm._v(
+                                "\n                                    " +
+                                  _vm._s(_vm.trans.settings.digest.label) +
+                                  "\n                                "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c("p", { staticClass: "mb-1 d-none d-lg-block" }, [
+                            _vm._v(
+                              "\n                                    " +
+                                _vm._s(_vm.trans.settings.digest.description) +
+                                "\n                                "
+                            )
+                          ])
+                        ]),
                         _vm._v(" "),
                         _c("div", { staticClass: "ml-auto pl-3" }, [
                           _c("div", { staticClass: "align-middle" }, [
@@ -84099,7 +84174,15 @@ var render = function() {
                                     staticClass: "mb-0 sr-only",
                                     attrs: { for: "digest" }
                                   },
-                                  [_vm._v("Weekly digest")]
+                                  [
+                                    _vm._v(
+                                      "\n                                                " +
+                                        _vm._s(
+                                          _vm.trans.settings.digest.label
+                                        ) +
+                                        "\n                                            "
+                                    )
+                                  ]
                                 )
                               ])
                             ])
@@ -84114,7 +84197,31 @@ var render = function() {
                         staticClass: "d-flex border-top py-3 align-items-center"
                       },
                       [
-                        _vm._m(3),
+                        _c("div", { staticClass: "mr-auto py-1" }, [
+                          _c(
+                            "p",
+                            {
+                              staticClass: "mb-1 font-weight-bold text-lg lead"
+                            },
+                            [
+                              _vm._v(
+                                "\n                                    " +
+                                  _vm._s(_vm.trans.settings.appearance.label) +
+                                  "\n                                "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c("p", { staticClass: "mb-1 d-none d-lg-block" }, [
+                            _vm._v(
+                              "\n                                    " +
+                                _vm._s(
+                                  _vm.trans.settings.appearance.description
+                                ) +
+                                "\n                                "
+                            )
+                          ])
+                        ]),
                         _vm._v(" "),
                         _c("div", { staticClass: "ml-auto pl-3" }, [
                           _c("div", { staticClass: "align-middle" }, [
@@ -84178,7 +84285,15 @@ var render = function() {
                                     staticClass: "mb-0 sr-only",
                                     attrs: { for: "darkMode" }
                                   },
-                                  [_vm._v("Dark mode")]
+                                  [
+                                    _vm._v(
+                                      "\n                                                " +
+                                        _vm._s(
+                                          _vm.trans.settings.appearance.label
+                                        ) +
+                                        "\n                                            "
+                                    )
+                                  ]
                                 )
                               ])
                             ])
@@ -84187,7 +84302,56 @@ var render = function() {
                       ]
                     ),
                     _vm._v(" "),
-                    _vm._m(4)
+                    _c(
+                      "div",
+                      {
+                        staticClass: "d-flex border-top py-3 align-items-center"
+                      },
+                      [
+                        _c("div", { staticClass: "mr-auto py-1" }, [
+                          _c(
+                            "p",
+                            {
+                              staticClass: "mb-1 font-weight-bold text-lg lead"
+                            },
+                            [
+                              _vm._v(
+                                "\n                                    " +
+                                  _vm._s(_vm.trans.settings.export.label) +
+                                  "\n                                "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c("p", { staticClass: "mb-1 d-none d-lg-block" }, [
+                            _vm._v(
+                              "\n                                    " +
+                                _vm._s(_vm.trans.settings.export.description) +
+                                "\n                                "
+                            )
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "ml-auto pl-3" }, [
+                          _c("div", { staticClass: "align-middle" }, [
+                            _c(
+                              "button",
+                              {
+                                staticClass:
+                                  "btn btn-sm btn-outline-success font-weight-bold"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                        " +
+                                    _vm._s(_vm.trans.buttons.settings.export) +
+                                    "\n                                    "
+                                )
+                              ]
+                            )
+                          ])
+                        ])
+                      ]
+                    )
                   ])
                 : _vm._e()
             ])
@@ -84205,106 +84369,7 @@ var render = function() {
     1
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "d-flex justify-content-between" }, [
-      _c("h1", { staticClass: "mt-2" }, [_vm._v("Settings")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "mr-auto py-1" }, [
-      _c("p", { staticClass: "mb-1 font-weight-bold text-lg lead" }, [
-        _vm._v(
-          "\n                                    Your profile\n                                "
-        )
-      ]),
-      _vm._v(" "),
-      _c("p", { staticClass: "mb-1 d-none d-lg-block" }, [
-        _vm._v(
-          "\n                                    Choose a unique username and share public details about yourself.\n                                "
-        )
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "mr-auto py-1" }, [
-      _c("p", { staticClass: "mb-1 font-weight-bold text-lg lead" }, [
-        _vm._v(
-          "\n                                    Weekly digest\n                                "
-        )
-      ]),
-      _vm._v(" "),
-      _c("p", { staticClass: "mb-1 d-none d-lg-block" }, [
-        _vm._v(
-          "\n                                    Control whether to receive a weekly summary of your published content.\n                                "
-        )
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "mr-auto py-1" }, [
-      _c("p", { staticClass: "mb-1 font-weight-bold text-lg lead" }, [
-        _vm._v(
-          "\n                                    Dark mode\n                                "
-        )
-      ]),
-      _vm._v(" "),
-      _c("p", { staticClass: "mb-1 d-none d-lg-block" }, [
-        _vm._v(
-          "\n                                    Use a dark appearance for Canvas.\n                                "
-        )
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "d-flex border-top py-3 align-items-center" },
-      [
-        _c("div", { staticClass: "mr-auto py-1" }, [
-          _c("p", { staticClass: "mb-1 font-weight-bold text-lg lead" }, [
-            _vm._v(
-              "\n                                    Download your information\n                                "
-            )
-          ]),
-          _vm._v(" "),
-          _c("p", { staticClass: "mb-1 d-none d-lg-block" }, [
-            _vm._v(
-              "\n                                    Download a copy of the information you’ve shared on Canvas to a .zip file.\n                                "
-            )
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "ml-auto pl-3" }, [
-          _c("div", { staticClass: "align-middle" }, [
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-sm btn-outline-success font-weight-bold"
-              },
-              [_vm._v("Download .zip")]
-            )
-          ])
-        ])
-      ]
-    )
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

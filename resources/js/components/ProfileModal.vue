@@ -37,6 +37,9 @@
                                 v-model="data.username"
                                 placeholder="Choose a username..."
                             />
+                            <div v-if="form.errors.username" class="invalid-feedback d-block">
+                                <strong>{{ form.errors.username[0] }}</strong>
+                            </div>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -62,8 +65,7 @@
                                 href="#"
                                 class="btn btn-success btn-block font-weight-bold mt-0"
                                 aria-label="Save"
-                                data-dismiss="modal"
-                                @click.prevent="update()">
+                                @click.prevent="update(true)">
                                 Save
                             </a>
                         </div>
@@ -127,7 +129,7 @@
                     .post('/api/media/uploads', formData)
                     .then(response => {
                         this.data.avatar = response.data
-                        this.update()
+                        this.update(false)
                         this.$root.$emit('updateAvatar', response.data)
                     })
                     .catch(error => {
@@ -135,8 +137,8 @@
                     })
             },
 
-            update() {
-                this.$parent.saveData(this.data, true)
+            update(hidesModal) {
+                this.$parent.saveData(this.data, true, hidesModal)
             },
         },
     }
