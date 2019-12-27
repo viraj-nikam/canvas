@@ -97,24 +97,6 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="d-flex border-top py-3 align-items-center">
-                                <div class="mr-auto py-1">
-                                    <p class="mb-1 font-weight-bold text-lg lead">
-                                        {{ trans.settings.export.label }}
-                                    </p>
-                                    <p class="mb-1 d-none d-lg-block">
-                                        {{ trans.settings.export.description }}
-                                    </p>
-                                </div>
-                                <div class="ml-auto pl-3">
-                                    <div class="align-middle">
-                                        <button class="btn btn-sm btn-outline-success font-weight-bold">
-                                            {{ trans.buttons.settings.export }}
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -130,9 +112,9 @@
 </template>
 
 <script>
-    import $ from 'jquery';
+    import $ from 'jquery'
     import PageHeader from '../../components/PageHeader'
-    import ProfileModal from '../../components/ProfileModal';
+    import ProfileModal from '../../components/ProfileModal'
 
     export default {
         name: 'settings-show',

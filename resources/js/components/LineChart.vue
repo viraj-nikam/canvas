@@ -1,6 +1,6 @@
 <template>
     <div style="height: 300px">
-        <canvas id="stats" />
+        <canvas id="stats"/>
     </div>
 </template>
 
@@ -77,8 +77,11 @@
                         mode: 'index',
                         intersect: false,
                         callbacks: {
-                            label: function(tooltipItem, data) {
-                                return ' ' + tooltipItem.value + ' views on ' + moment(tooltipItem.label, 'YYYY-MM-DD').format('MMM Do')
+                            label: function (tooltipItem, data) {
+                                return ' ' +
+                                    tooltipItem.value +
+                                    ' views on ' +
+                                    moment(tooltipItem.label, 'YYYY-MM-DD').format('MMM Do')
                             },
                             title: () => null
                         }
@@ -98,13 +101,13 @@
                                 color: "#718096"
                             }
                         }],
-                        xAxes:[{
-                            ticks:{
+                        xAxes: [{
+                            ticks: {
                                 fontColor: '#718096',
                                 display: true,
                                 autoSkip: true,
                                 maxTicksLimit: 8,
-                                callback: function(value, index, values) {
+                                callback: function (value, index, values) {
                                     return moment(value, 'YYYY-MM-DD').format('MMM Do')
                                 }
                             },

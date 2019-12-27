@@ -2,7 +2,7 @@
 
 namespace Canvas\Console;
 
-use Canvas\Mail\Digest;
+use Canvas\Mail\WeeklyDigest;
 use Canvas\Post;
 use Canvas\UserMeta;
 use Canvas\View;
@@ -55,7 +55,7 @@ class DigestCommand extends Command
                 $data->put('end_date', now()->format('M d, Y'));
 
                 try {
-                    Mail::send(new Digest($data->toArray()));
+                    Mail::send(new WeeklyDigest($data->toArray()));
                 } catch (Exception $exception) {
                     logger()->error($exception->getMessage());
                 }

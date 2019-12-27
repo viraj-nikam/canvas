@@ -18,12 +18,13 @@ return [
     ],
     'nav'     => [
         'user' => [
-            'posts'  => 'Des billets',
-            'tags'   => 'Mots clés',
-            'topics' => 'Les sujets',
-            'stats'  => 'Statistiques',
-            'login'  => 'se connecter',
-            'logout' => 'Déconnexion',
+            'posts'    => 'Des billets',
+            'tags'     => 'Mots clés',
+            'topics'   => 'Les sujets',
+            'stats'    => 'Statistiques',
+            'settings' => 'Réglages',
+            'login'    => 'se connecter',
+            'logout'   => 'Déconnexion',
         ],
     ],
     'posts'   => [

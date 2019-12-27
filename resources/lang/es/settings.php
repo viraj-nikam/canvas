@@ -26,9 +26,5 @@ return [
         'label'       => 'Modo oscuro',
         'description' => 'Use una apariencia oscura para el lienzo.',
     ],
-    'export'     => [
-        'label'       => 'Descargue su información',
-        'description' => 'Descargue una copia de la información que ha compartido en Canvas en un archivo .zip.',
-    ],
 
 ];

@@ -26,9 +26,5 @@ return [
         'label'       => 'Dunkler Modus',
         'description' => 'Verwenden Sie für Canvas ein dunkles Erscheinungsbild.',
     ],
-    'export'     => [
-        'label'       => 'Laden Sie Ihre Informationen herunter',
-        'description' => 'Laden Sie eine Kopie der auf Canvas freigegebenen Informationen in eine ZIP-Datei herunter.',
-    ],
 
 ];

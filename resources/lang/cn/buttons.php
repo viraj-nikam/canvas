@@ -34,7 +34,6 @@ return [
     ],
     'settings' => [
         'profile' => '编辑个人资料',
-        'export'  => '下载.zip',
     ],
 
 ];

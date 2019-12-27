@@ -26,9 +26,5 @@ return [
         'label'       => 'Modo escuro',
         'description' => 'Use uma aparência escura para o Canvas.',
     ],
-    'export'     => [
-        'label'       => 'Baixe suas informações',
-        'description' => 'Faça o download de uma cópia das informações que você compartilhou no Canvas para um arquivo .zip.',
-    ],
 
 ];

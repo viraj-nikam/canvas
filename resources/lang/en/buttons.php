@@ -34,7 +34,6 @@ return [
     ],
     'settings' => [
         'profile' => 'Edit profile',
-        'export'  => 'Download .zip',
     ],
 
 ];

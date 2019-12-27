@@ -18,12 +18,13 @@ return [
     ],
     'nav'     => [
         'user' => [
-            'posts'  => '帖子',
-            'tags'   => '标签',
-            'topics' => '话题',
-            'stats'  => '统计',
-            'login'  => '登入',
-            'logout' => '登出',
+            'posts'    => '帖子',
+            'tags'     => '标签',
+            'topics'   => '话题',
+            'stats'    => '统计',
+            'settings' => '设定值',
+            'login'    => '登入',
+            'logout'   => '登出',
         ],
     ],
     'posts'   => [

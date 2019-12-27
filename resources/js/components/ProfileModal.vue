@@ -66,7 +66,7 @@
                                 class="btn btn-success btn-block font-weight-bold mt-0"
                                 aria-label="Save"
                                 @click.prevent="update(true)">
-                                Save
+                                {{ trans.buttons.general.save }}
                             </a>
                         </div>
                         <div class="col-lg order-lg-first px-0">

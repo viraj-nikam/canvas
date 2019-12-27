@@ -18,12 +18,13 @@ return [
     ],
     'nav'     => [
         'user' => [
-            'posts'  => 'Publicaciones',
-            'tags'   => 'Etiquetas',
-            'topics' => 'Temas',
-            'stats'  => 'Estadísticas',
-            'login'  => 'Registrarse',
-            'logout' => 'Desconectar',
+            'posts'    => 'Publicaciones',
+            'tags'     => 'Etiquetas',
+            'topics'   => 'Temas',
+            'stats'    => 'Estadísticas',
+            'settings' => 'Configuraciones',
+            'login'    => 'Registrarse',
+            'logout'   => 'Desconectar',
         ],
     ],
     'posts'   => [

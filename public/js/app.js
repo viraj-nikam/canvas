@@ -4675,24 +4675,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -93377,7 +93359,9 @@ var render = function() {
                   },
                   [
                     _vm._v(
-                      "\n                            Save\n                        "
+                      "\n                            " +
+                        _vm._s(_vm.trans.buttons.general.save) +
+                        "\n                        "
                     )
                   ]
                 )
@@ -96434,57 +96418,6 @@ var render = function() {
                                 )
                               ])
                             ])
-                          ])
-                        ])
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      {
-                        staticClass: "d-flex border-top py-3 align-items-center"
-                      },
-                      [
-                        _c("div", { staticClass: "mr-auto py-1" }, [
-                          _c(
-                            "p",
-                            {
-                              staticClass: "mb-1 font-weight-bold text-lg lead"
-                            },
-                            [
-                              _vm._v(
-                                "\n                                    " +
-                                  _vm._s(_vm.trans.settings.export.label) +
-                                  "\n                                "
-                              )
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c("p", { staticClass: "mb-1 d-none d-lg-block" }, [
-                            _vm._v(
-                              "\n                                    " +
-                                _vm._s(_vm.trans.settings.export.description) +
-                                "\n                                "
-                            )
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "ml-auto pl-3" }, [
-                          _c("div", { staticClass: "align-middle" }, [
-                            _c(
-                              "button",
-                              {
-                                staticClass:
-                                  "btn btn-sm btn-outline-success font-weight-bold"
-                              },
-                              [
-                                _vm._v(
-                                  "\n                                        " +
-                                    _vm._s(_vm.trans.buttons.settings.export) +
-                                    "\n                                    "
-                                )
-                              ]
-                            )
                           ])
                         ])
                       ]

@@ -26,9 +26,5 @@ return [
         'label'       => '暗模式',
         'description' => '为画布使用深色外观。',
     ],
-    'export'     => [
-        'label'       => '下载您的信息',
-        'description' => '将您在Canvas上共享的信息的副本下载到.zip文件中。',
-    ],
 
 ];

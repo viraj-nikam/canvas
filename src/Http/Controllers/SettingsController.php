@@ -66,9 +66,4 @@ class SettingsController extends Controller
 
         return response()->json($metaData->refresh());
     }
-
-    public function export()
-    {
-        //
-    }
 }

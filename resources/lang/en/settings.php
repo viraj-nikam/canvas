@@ -26,9 +26,5 @@ return [
         'label'       => 'Dark mode',
         'description' => 'Use a dark appearance for Canvas.',
     ],
-    'export'     => [
-        'label'       => 'Download your information',
-        'description' => 'Download a copy of the information you’ve shared on Canvas to a .zip file.',
-    ],
 
 ];
