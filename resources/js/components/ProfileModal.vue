@@ -18,7 +18,7 @@
                     <div class="d-flex justify-content-center bg-black">
                         <img
                             :src="data.avatar"
-                            class="w-50 rounded-circle shadow-inner my-3"
+                            class="w-50 rounded-circle shadow-inner my-3 h-100"
                             style="cursor:pointer"
                             @click.prevent="launchFilePicker"
                         />
