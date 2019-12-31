@@ -2,6 +2,10 @@
 
 ## [Unreleased](https://github.com/cnvs/canvas/compare/master...develop)
 
+## Changed
+- Changed the base chart library from Frappe Charts to Charts.js ([0a5607b](https://github.com/cnvs/canvas/commit/0a5607b040874391d0cc34dfec70e320783db2f6))
+- Added a user settings screen ([]())
+
 ## [5.0.3](https://github.com/cnvs/canvas/compare/v5.0.2...v5.0.3) (December 16, 2019)
 
 ## Fixed

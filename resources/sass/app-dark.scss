@@ -15,6 +15,8 @@ $dropdown-color: $body-color;
 $dropdown-link-color: $gray-300;
 $dropdown-link-hover-color: darken($gray-900, 5%);
 $dropdown-link-hover-bg: $gray-500;
+$dropdown-link-active-color: darken($gray-900, 5%);
+$dropdown-link-active-bg: $gray-500;
 $dropdown-border-color: $gray-700;
 $dropdown-divider-bg: $gray-800;
 
@@ -24,6 +26,8 @@ $input-color: $gray-400;
 $input-placeholder-color: $gray-600;
 
 $modal-content-bg: $body-bg;
+
+$custom-control-indicator-bg: $text-muted;
 
 .frappe-chart text {
     fill: $body-color;
@@ -104,6 +108,7 @@ select.input {
 
 @import 'nprogress';
 @import 'multiselect';
+@import 'switch';
 
 @import '~bootstrap/scss/functions';
 @import '~bootstrap/scss/variables';

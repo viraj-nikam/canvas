@@ -11,11 +11,12 @@ return [
         'success' => 'Salvou!',
     ],
     'user'     => [
-        'posts'  => 'Postagens',
-        'tags'   => 'Tag',
-        'topics' => 'Tópicos',
-        'stats'  => 'Estatísticos',
-        'logout' => 'Sair',
+        'posts'    => 'Postagens',
+        'tags'     => 'Tag',
+        'topics'   => 'Tópicos',
+        'stats'    => 'Estatísticos',
+        'settings' => 'Configurações',
+        'logout'   => 'Sair',
     ],
     'controls' => [
         'stats'    => 'Ver estatísticas',

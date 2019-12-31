@@ -27,6 +27,7 @@
                                         <div class="form-group mb-0">
                                             <input
                                                 aria-label="Search"
+                                                autocomplete="off"
                                                 v-model="search"
                                                 type="text"
                                                 class="form-control border-0 pl-0 bg-transparent"
@@ -69,7 +70,7 @@
                                 </div>
 
                                 <p v-if="!filteredList.length">
-                                    {{ trans.tags.search.empty }}
+                                    {{ trans.posts.search.empty }} "{{ search }}".
                                 </p>
                             </div>
                             <p v-else class="mt-2">

@@ -23,7 +23,7 @@
                                 <div class="card-deck mb-4">
                                     <div class="card shadow bg-transparent">
                                         <div class="card-body">
-                                            <h5 class="card-title text-muted small text-uppercase font-weight-bolder">
+                                            <h5 class="card-title text-muted small text-uppercase font-weight-bold">
                                                 {{ trans.stats.cards.views.title }}
                                             </h5>
                                             <p class="card-text display-4">
@@ -60,7 +60,7 @@
                                     </div>
                                 </div>
 
-                                <line-chart :views="JSON.parse(views.trend)"></line-chart>
+                                <line-chart :views="JSON.parse(views.trend)" class="my-5"></line-chart>
 
                                 <div class="mt-4">
                                     <div class="d-flex border-top py-3 align-items-center" v-for="post in filteredList">

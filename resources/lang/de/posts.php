@@ -9,7 +9,7 @@ return [
     ],
     'search'  => [
         'input' => 'Suche nach Titel ...',
-        'empty' => 'Keine Beiträge stimmen mit den angegebenen Suchkriterien überein.',
+        'empty' => 'Keine Ergebnisse gefunden für',
     ],
     'details' => [
         'published' => 'Veröffentlicht',

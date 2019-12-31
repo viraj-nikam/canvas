@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use Canvas\Canvas;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Console\Scheduling\Schedule;
 
@@ -15,7 +14,7 @@ class CanvasServiceProvider extends ServiceProvider
      */
     public function register()
     {
-//        Canvas::night();
+        //
     }
 
     /**
@@ -33,7 +32,7 @@ class CanvasServiceProvider extends ServiceProvider
                 ->timezone(config('app.timezone'))
                 ->at('08:00')
                 ->when(function () {
-                    return config('canvas.digest.enabled');
+                    return config('canvas.mail.enabled');
                 });
         });
     }

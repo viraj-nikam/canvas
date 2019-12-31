@@ -22,7 +22,7 @@ class InstallCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Install all of the Canvas resources';
+    protected $description = 'Install the resources and run migrations';
 
     /**
      * Execute the console command.
@@ -31,7 +31,6 @@ class InstallCommand extends Command
      */
     public function handle()
     {
-        $this->callSilent('vendor:publish', ['--tag' => 'canvas-provider']);
         $this->callSilent('vendor:publish', ['--tag' => 'canvas-assets']);
         $this->callSilent('vendor:publish', ['--tag' => 'canvas-config']);
         $this->callSilent('migrate');

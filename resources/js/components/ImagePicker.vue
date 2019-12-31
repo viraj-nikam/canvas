@@ -11,7 +11,7 @@
         <div class="mb-0">
             {{ trans.posts.forms.editor.images.picker.greeting }}
 
-            <label :for="'imageUpload' + _uid" class="text-success" style="cursor:pointer;">
+            <label :for="'imageUpload' + _uid" class="text-success" style="cursor:pointer">
                 {{ trans.posts.forms.editor.images.picker.action }}
             </label>
 

@@ -51,7 +51,7 @@
                                 </select>
                             </div>
 
-                            <p class="mt-3 text-danger font-italic" v-if="isScheduled">
+                            <p class="mt-3 text-success font-italic" v-if="isScheduled">
                                 Your post will publish at
                                 {{ moment(this.activePost.published_at).format('h:mm A') }}
                                 on

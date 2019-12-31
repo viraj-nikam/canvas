@@ -22,7 +22,6 @@
                                 {{ trans.buttons.general.cancel }}
                             </button>
                         </div>
-
                     </div>
                 </div>
             </div>

@@ -2,13 +2,13 @@
 
 namespace Canvas\Console;
 
-use Canvas\Mail\Digest;
+use Canvas\Mail\WeeklyDigest;
 use Canvas\Post;
+use Canvas\UserMeta;
 use Canvas\View;
 use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Foundation\Auth\User;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Mail;
 
 class DigestCommand extends Command
@@ -25,7 +25,7 @@ class DigestCommand extends Command
      *
      * @var string
      */
-    protected $description = 'E-mail a weekly digest of reading stats to authors';
+    protected $description = 'Send the weekly digest email';
 
     /**
      * Execute the console command.
@@ -35,11 +35,12 @@ class DigestCommand extends Command
     public function handle()
     {
         // Get all the users who have authored content
-        $users = $this->gatherUsers();
+        $recipients = User::whereIn('id', Post::all()->pluck('user_id')->unique())->get();
 
-        if ($users->isNotEmpty()) {
-            foreach ($users as $user) {
+        foreach ($recipients as $user) {
 
+            // Verify that the user has enabled emails
+            if (UserMeta::where('user_id', $user->id)->pluck('digest')->first()) {
                 // Gather the post IDs for a given user
                 $post_ids = Post::where('user_id', $user->id)->pluck('id');
 
@@ -54,7 +55,7 @@ class DigestCommand extends Command
                 $data->put('end_date', now()->format('M d, Y'));
 
                 try {
-                    Mail::send(new Digest($data->toArray()));
+                    Mail::send(new WeeklyDigest($data->toArray()));
                 } catch (Exception $exception) {
                     logger()->error($exception->getMessage());
                 }
@@ -101,15 +102,5 @@ class DigestCommand extends Command
         $data->put('total_views', $views->count());
 
         return $data->toArray();
-    }
-
-    /**
-     * Return all users who have authored content.
-     *
-     * @return Collection
-     */
-    private function gatherUsers(): Collection
-    {
-        return User::whereIn('id', Post::all()->pluck('user_id')->unique())->get();
     }
 }

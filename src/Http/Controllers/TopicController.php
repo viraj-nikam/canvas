@@ -18,7 +18,8 @@ class TopicController extends Controller
      */
     public function index(): JsonResponse
     {
-        return response()->json(Topic::withCount('posts')
+        return response()->json(Topic::forCurrentUser()
+            ->withCount('posts')
             ->orderByDesc('created_at')
             ->get());
     }
@@ -32,17 +33,19 @@ class TopicController extends Controller
      */
     public function show($id = null): JsonResponse
     {
-        if ($id === 'create') {
-            return response()->json(Topic::make([
-                'id' => Uuid::uuid4(),
-            ]));
-        } else {
-            $topic = Topic::find($id);
-
-            if ($topic) {
-                return response()->json($topic);
+        if (Topic::forCurrentUser()->pluck('id')->contains($id) || $this->isNewTopic($id)) {
+            if ($this->isNewTopic($id)) {
+                return response()->json(Topic::make([
+                    'id' => Uuid::uuid4(),
+                ]));
             } else {
-                return response()->json(null, 301);
+                $topic = Topic::find($id);
+
+                if ($topic) {
+                    return response()->json($topic);
+                } else {
+                    return response()->json(null, 301);
+                }
             }
         }
     }
@@ -56,9 +59,10 @@ class TopicController extends Controller
     public function store(string $id): JsonResponse
     {
         $data = [
-            'id'   => request('id'),
-            'name' => request('name'),
-            'slug' => request('slug'),
+            'id'      => request('id'),
+            'name'    => request('name'),
+            'slug'    => request('slug'),
+            'user_id' => request()->user()->id,
         ];
 
         $messages = [
@@ -71,7 +75,9 @@ class TopicController extends Controller
             'slug' => [
                 'required',
                 'alpha_dash',
-                Rule::unique('canvas_topics', 'slug')->ignore($id)->whereNull('deleted_at'),
+                Rule::unique('canvas_topics')->where(function ($query) use ($data) {
+                    return $query->where('slug', $data['slug'])->where('user_id', $data['user_id']);
+                })->ignore($id)->whereNull('deleted_at'),
             ],
         ], $messages)->validate();
 
@@ -106,5 +112,16 @@ class TopicController extends Controller
 
             return response()->json([], 204);
         }
+    }
+
+    /**
+     * Return true if we're creating a new topic.
+     *
+     * @param string $id
+     * @return bool
+     */
+    private function isNewTopic(string $id): bool
+    {
+        return $id === 'create';
     }
 }

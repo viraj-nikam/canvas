@@ -18,12 +18,13 @@ return [
     ],
     'nav'     => [
         'user' => [
-            'posts'  => 'Posts',
-            'tags'   => 'Tags',
-            'topics' => 'Topics',
-            'stats'  => 'Stats',
-            'login'  => 'Sign in',
-            'logout' => 'Sign out',
+            'posts'    => 'Posts',
+            'tags'     => 'Tags',
+            'topics'   => 'Topics',
+            'stats'    => 'Stats',
+            'settings' => 'Settings',
+            'login'    => 'Sign in',
+            'logout'   => 'Sign out',
         ],
     ],
     'posts'   => [
