@@ -204,9 +204,11 @@
 
             toggleDarkMode() {
                 if (this.form.darkMode) {
-                    $('#appearance').attr('href', '/vendor/canvas/css/app-dark.css')
+                    $('#baseStylesheet').attr('href', '/vendor/canvas/css/app-dark.css')
+                    $('#highlightStylesheet').attr('href', '//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.17.1/build/styles/sunburst.min.css')
                 } else {
-                    $('#appearance').attr('href', '/vendor/canvas/css/app.css')
+                    $('#baseStylesheet').attr('href', '/vendor/canvas/css/app.css')
+                    $('#highlightStylesheet').attr('href', '//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.17.1/build/styles/github.min.css')
                 }
 
                 this.saveData({

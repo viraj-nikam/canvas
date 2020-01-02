@@ -14,12 +14,13 @@
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Karla|Merriweather:400,700,900">
 
     @if($scripts['darkMode'])
-        <link rel="stylesheet" id="appearance" type="text/css" href="{{ mix('css/app-dark.css', 'vendor/canvas') }}">
+        <link rel="stylesheet" id="baseStylesheet" type="text/css" href="{{ mix('css/app-dark.css', 'vendor/canvas') }}">
+        <link rel="stylesheet" id="highlightStylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.17.1/build/styles/sunburst.min.css">
     @else
-        <link rel="stylesheet" id="appearance" type="text/css" href="{{ mix('css/app.css', 'vendor/canvas') }}">
+        <link rel="stylesheet" id="baseStylesheet" type="text/css" href="{{ mix('css/app.css', 'vendor/canvas') }}">
+        <link rel="stylesheet" id="highlightStylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.17.1/build/styles/github.min.css">
     @endif
 
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.17.1/build/styles/default.min.css">
     <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.17.1/build/highlight.min.js"></script>
 
     <link rel="shortcut icon" href="{{ mix('favicon.ico', 'vendor/canvas') }}">
