@@ -2,12 +2,8 @@
 
 return [
 
-    'general' => [
-        'sent_by' => 'Gesendet von',
-    ],
-    'digest'  => [
+    'digest' => [
         'summary'         => 'Deine wöchentliche Autorenübersicht für',
-        'details'         => 'Deine Beiträge auf',
         'from'            => 'Von',
         'to'              => 'zu',
         'data'            => 'Ihre Beiträge erhalten',

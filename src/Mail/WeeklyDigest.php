@@ -38,6 +38,6 @@ class WeeklyDigest extends Mailable
         return $this->subject(sprintf('%s: %s - %s', __('canvas::mail.digest.email.subject'), $this->data['start_date'], $this->data['end_date']))
             ->from(config('mail.from.address'), config('mail.from.name'))
             ->to($this->data['email'])
-            ->view('canvas::mail.digest');
+            ->markdown('canvas::mail.digest');
     }
 }

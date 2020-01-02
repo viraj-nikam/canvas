@@ -2,12 +2,8 @@
 
 return [
 
-    'general' => [
-        'sent_by' => '由..送出',
-    ],
-    'digest'  => [
+    'digest' => [
         'summary'         => '您的每周作家摘要',
-        'details'         => '你的帖子',
         'from'            => '从',
         'to'              => '至',
         'data'            => '收到你的帖子',
