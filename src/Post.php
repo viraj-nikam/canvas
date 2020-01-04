@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Str;
@@ -117,6 +118,23 @@ class Post extends Model
     }
 
     /**
+     * Get the user meta relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOneThrough
+     */
+    public function userMeta(): HasOneThrough
+    {
+        return $this->hasOneThrough(
+            UserMeta::class,
+            User::class,
+            'id',       // Foreign key on users table...
+            'user_id',  // Foreign key on posts table...
+            'user_id',  // Local key on posts table...
+            'id'        // Local key on users table...
+        );
+    }
+
+    /**
      * Get the views relationship.
      *
      * @return HasMany
@@ -143,7 +161,7 @@ class Post extends Model
      */
     public function getPublishedAttribute(): bool
     {
-        return ! is_null($this->published_at) && $this->published_at <= now()->toDateTimeString();
+        return !is_null($this->published_at) && $this->published_at <= now()->toDateTimeString();
     }
 
     /**
@@ -272,6 +290,17 @@ class Post extends Model
     public function scopeForCurrentUser($query): Builder
     {
         return $query->where('user_id', request()->user()->id ?? null);
+    }
+
+    /**
+     * Scope a query to eager load user meta.
+     *
+     * @param $query
+     * @return Builder
+     */
+    public function scopeWithUserMeta($query): Builder
+    {
+        return $query->with('userMeta');
     }
 
     /**
