@@ -143,17 +143,7 @@ class Post extends Model
     {
         return $this->hasMany(View::class);
     }
-
-    /**
-     * Get the user who authored the post.
-     *
-     * @return User
-     */
-    public function getAuthorAttribute(): User
-    {
-        return $this->user;
-    }
-
+    
     /**
      * Check to see if the post is published.
      *

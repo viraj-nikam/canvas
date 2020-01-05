@@ -69,7 +69,7 @@ class BlogController extends Controller
 
             $data = [
                 'avatar' => optional($metaData)->avatar && !empty(optional($metaData)->avatar) ? $metaData->avatar : "https://secure.gravatar.com/avatar/{$emailHash}?s=500",
-                'author' => $post->author,
+                'author' => $post->user,
                 'post'   => $post,
                 'meta'   => $post->meta,
                 'next'   => $readNext,

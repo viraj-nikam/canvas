@@ -175,7 +175,7 @@ public function findPostBySlug(string $slug)
 
     if (optional($post)->published) {
         $data = [
-            'author' => $post->author,
+            'author' => $post->user,
             'post'   => $post,
             'meta'   => $post->meta,
         ];
