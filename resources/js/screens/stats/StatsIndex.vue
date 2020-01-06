@@ -113,6 +113,7 @@
 </template>
 
 <script>
+    import NProgress from 'nprogress'
     import LineChart from '../../components/LineChart'
     import PageHeader from '../../components/PageHeader'
 
@@ -147,9 +148,12 @@
                         this.posts = response.data.posts
                         this.views = response.data.views
                         this.isReady = true
+
+                        NProgress.done()
                     })
                     .catch(error => {
                         // Add any error debugging...
+                        NProgress.done()
                     })
             },
         },

@@ -110,6 +110,7 @@
 </template>
 
 <script>
+    import NProgress from 'nprogress'
     import Tooltip from '../../directives/Tooltip'
     import LineChart from '../../components/LineChart'
     import PageHeader from '../../components/PageHeader'
@@ -155,6 +156,8 @@
                             : response.data.popular_reading_times
 
                         vm.isReady = true
+
+                        NProgress.done()
                     })
                     .catch(error => {
                         vm.$router.push({name: 'stats'})

@@ -82,6 +82,7 @@
 
 <script>
     import $ from 'jquery'
+    import NProgress from 'nprogress'
     import PageHeader from '../../components/PageHeader'
     import DeleteModal from '../../components/DeleteModal'
 
@@ -134,6 +135,8 @@
                         }
 
                         this.isReady = true
+
+                        NProgress.done()
                     })
                     .catch(error => {
                         this.$router.push({name: 'topics'})

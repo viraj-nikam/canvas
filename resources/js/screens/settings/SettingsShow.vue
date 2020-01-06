@@ -113,6 +113,7 @@
 
 <script>
     import $ from 'jquery'
+    import NProgress from 'nprogress'
     import PageHeader from '../../components/PageHeader'
     import ProfileModal from '../../components/ProfileModal'
 
@@ -158,9 +159,12 @@
                         this.form.darkMode = response.data.dark_mode
 
                         this.isReady = true
+
+                        NProgress.done()
                     })
                     .catch(error => {
                         // Add any error debugging...
+                        NProgress.done()
                     })
             },
 

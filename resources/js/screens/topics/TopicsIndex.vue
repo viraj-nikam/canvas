@@ -90,6 +90,7 @@
 </template>
 
 <script>
+    import NProgress from 'nprogress'
     import PageHeader from '../../components/PageHeader'
 
     export default {
@@ -140,9 +141,12 @@
                     .then(response => {
                         this.topics = response.data
                         this.isReady = true
+
+                        NProgress.done()
                     })
                     .catch(error => {
                         // Add any error debugging...
+                        NProgress.done()
                     })
             },
         },

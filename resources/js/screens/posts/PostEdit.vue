@@ -110,6 +110,7 @@
     import Vue from 'vue'
     import $ from 'jquery'
     import {mapGetters} from 'vuex'
+    import NProgress from 'nprogress'
     import SeoModal from '../../components/SeoModal'
     import PageHeader from '../../components/PageHeader'
     import DeleteModal from '../../components/DeleteModal'
@@ -156,6 +157,8 @@
                         vm.tags = response.data.tags
                         vm.topics = response.data.topics
                         vm.isReady = true
+
+                        NProgress.done()
                     })
                     .catch(error => {
                         vm.$router.push({name: 'posts'})

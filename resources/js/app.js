@@ -39,10 +39,6 @@ router.beforeEach((to, from, next) => {
     next()
 })
 
-router.afterEach(() => {
-    NProgress.done()
-})
-
 const app = new Vue({
     el: '#canvas',
     router,
