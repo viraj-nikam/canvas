@@ -96118,9 +96118,9 @@ var render = function() {
                                       {
                                         staticClass:
                                           "btn btn-link text-success text-decoration-none font-weight-bold btn-block",
-                                        attrs: { href: "#!" },
                                         on: {
                                           click: function($event) {
+                                            $event.preventDefault()
                                             _vm.limit += 7
                                           }
                                         }
@@ -97874,9 +97874,9 @@ var render = function() {
                                       {
                                         staticClass:
                                           "btn btn-link text-success text-decoration-none font-weight-bold btn-block",
-                                        attrs: { href: "#!" },
                                         on: {
                                           click: function($event) {
+                                            $event.preventDefault()
                                             _vm.limit += 10
                                           }
                                         }
@@ -98458,9 +98458,9 @@ var render = function() {
                                       {
                                         staticClass:
                                           "btn btn-link text-success text-decoration-none font-weight-bold btn-block",
-                                        attrs: { href: "#!" },
                                         on: {
                                           click: function($event) {
+                                            $event.preventDefault()
                                             _vm.limit += 10
                                           }
                                         }
