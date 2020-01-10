@@ -46,6 +46,10 @@ input:-webkit-autofill:active {
   fill: #4a5568;
 }
 
+.fill-bg {
+  fill: #fff;
+}
+
 .font-serif {
   font-family: "Merriweather", serif;
 }

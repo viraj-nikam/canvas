@@ -6,6 +6,7 @@ return [
     'subtext' => 'Daha ayrıntılı bilgi görmek için aşağıdaki bir gönderiyi tıklayın.',
     'empty'   => 'İstatistiklerini görüntüleyebileceğiniz yayımlanmış bir yayın yok.',
     'views'   => 'Görüntüleme(ler)',
+    'trend'   => 'geçen aydan',
     'chart'   => [
         'view'  => 'görüntüleme',
         'views' => 'Görüntülemeler (30 günlük)',

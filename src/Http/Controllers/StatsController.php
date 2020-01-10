@@ -27,18 +27,18 @@ class StatsController extends Controller
     public function index(): JsonResponse
     {
         $published = Post::forCurrentUser()
-            ->published()
-            ->orderByDesc('created_at')
-            ->withCount('views')
-            ->get();
+                         ->published()
+                         ->orderByDesc('created_at')
+                         ->withCount('views')
+                         ->get();
 
         // Get views for the last [X] days
         $views = View::select('created_at')
-            ->whereIn('post_id', $published->pluck('id'))
-            ->whereBetween('created_at', [
-                today()->subDays(self::DAYS_PRIOR)->startOfDay()->toDateTimeString(),
-                today()->endOfDay()->toDateTimeString(),
-            ])->get();
+                     ->whereIn('post_id', $published->pluck('id'))
+                     ->whereBetween('created_at', [
+                         today()->subDays(self::DAYS_PRIOR)->startOfDay()->toDateTimeString(),
+                         today()->endOfDay()->toDateTimeString(),
+                     ])->get();
 
         // Append the estimated reading time
         $published->each->append('read_time');
@@ -69,8 +69,9 @@ class StatsController extends Controller
         if ($post && $post->published) {
             return response()->json([
                 'post'                  => $post,
-                'traffic'               => $post->top_referers,
                 'popular_reading_times' => $post->popular_reading_times,
+                'traffic'               => $post->top_referers,
+                'trend'                 => $this->compareMonthToMonth($post->views),
                 'views'                 => json_encode($this->getViewCounts($post->views, self::DAYS_PRIOR)),
             ]);
         } else {

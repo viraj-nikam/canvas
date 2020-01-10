@@ -6,6 +6,7 @@ return [
     'subtext' => 'Click on a post below to see more detailed insights.',
     'empty'   => 'There are no published posts for which you can view stats.',
     'views'   => 'View(s)',
+    'trend'   => 'from last month',
     'chart'   => [
         'view'  => 'view',
         'views' => 'Views (30 days)',

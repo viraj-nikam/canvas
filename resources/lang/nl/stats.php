@@ -6,6 +6,7 @@ return [
     'subtext' => 'Klik op een bericht hieronder voor meer gedetailleerde inzichten.',
     'empty'   => 'Er zijn geen gepubliceerde berichten waar je de statisieken voor kunt bekijken.',
     'views'   => 'Weergave(n)',
+    'trend'   => 'van vorige maand',
     'chart'   => [
         'view'  => 'weergave',
         'views' => 'Weergaven (30 dagen)',

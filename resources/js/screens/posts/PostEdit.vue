@@ -60,29 +60,26 @@
             </template>
         </page-header>
 
-        <main class="py-4">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-md-8" v-if="isReady">
-                        <div class="form-group row my-3">
-                            <div class="col-lg-12">
-                                <textarea-autosize
-                                    :placeholder="trans.posts.forms.editor.title"
-                                    class="form-control-lg form-control border-0 pl-0 font-serif bg-transparent"
-                                    @input.native="update"
-                                    rows="1"
-                                    v-model="post.title"
-                                />
-                            </div>
-                        </div>
-
-                        <quill-editor></quill-editor>
-                    </div>
+        <main class="py-4" v-if="isReady">
+            <div class="col-xl-8 offset-xl-2 px-xl-5 col-md-12">
+                <div class="form-group row my-3">
+                    <textarea-autosize
+                        :placeholder="trans.posts.forms.editor.title"
+                        class="form-control-lg form-control border-0 font-serif bg-transparent"
+                        @input.native="update"
+                        rows="1"
+                        v-model="post.title"
+                    />
                 </div>
+
+                <quill-editor/>
             </div>
         </main>
 
-        <publish-modal v-if="isReady" ref="publishModal"/>
+        <publish-modal
+            v-if="isReady"
+            ref="publishModal"
+        />
 
         <settings-modal
             v-if="isReady"
@@ -92,9 +89,15 @@
             :topics="topics"
         />
 
-        <featured-image-modal v-if="isReady" ref="featuredImageModal"/>
+        <featured-image-modal
+            v-if="isReady"
+            ref="featuredImageModal"
+        />
 
-        <seo-modal v-if="isReady" ref="seoModal"/>
+        <seo-modal
+            v-if="isReady"
+            ref="seoModal"
+        />
 
         <delete-modal
             v-if="isReady"

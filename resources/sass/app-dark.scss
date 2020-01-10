@@ -29,10 +29,6 @@ $modal-content-bg: $body-bg;
 
 $custom-control-indicator-bg: $text-muted;
 
-.frappe-chart text {
-    fill: $body-color;
-}
-
 .ql-editor {
     color: $body-color;
 }
@@ -92,6 +88,10 @@ select.input {
 
 .logo-secondary {
     fill: $gray-500;
+}
+
+.fill-bg {
+    fill: $body-bg;
 }
 
 .font-serif {

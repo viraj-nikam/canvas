@@ -22,10 +22,6 @@ input:-webkit-autofill:active {
   transition: background-color 5000s ease-in-out 0s !important;
 }
 
-.frappe-chart text {
-  fill: #c3d3de;
-}
-
 .ql-editor {
   color: #c3d3de;
 }
@@ -86,6 +82,10 @@ select.input {
 
 .logo-secondary {
   fill: #a0aec0;
+}
+
+.fill-bg {
+  fill: #263238;
 }
 
 .font-serif {

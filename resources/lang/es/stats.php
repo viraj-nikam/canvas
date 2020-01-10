@@ -6,6 +6,7 @@ return [
     'subtext' => 'Haga clic en una publicación a continuación para obtener información más detallada.',
     'empty'   => 'No hay publicaciones publicadas para las que puedes ver estadísticas.',
     'views'   => 'Puntos de vista)',
+    'trend'   => 'del mes pasado',
     'chart'   => [
         'view'  => 'ver',
         'views' => 'Vistas (30 días)',

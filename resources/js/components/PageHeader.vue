@@ -1,6 +1,6 @@
 <template>
-    <div class="container d-flex justify-content-center px-0">
-        <div class="col-md-10 px-0">
+    <div class="shadow">
+        <div class="col-xl-10 offset-xl-1 px-xl-5 col-md-12">
             <nav class="navbar justify-content-between flex-nowrap flex-row py-3">
                 <router-link to="/" class="navbar-brand font-weight-bold py-0 font-serif">
                     <svg data-name="Logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 110.981" width="32">

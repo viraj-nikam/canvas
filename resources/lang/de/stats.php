@@ -6,6 +6,7 @@ return [
     'subtext' => 'Klicken Sie auf einen Beitrag unten, um detailliertere Einblicke zu erhalten.',
     'empty'   => 'Es gibt keine veröffentlichten Beiträge, für die Sie Statistiken anzeigen können.',
     'views'   => 'Ansicht(en)',
+    'trend'   => 'vom letzten Monat',
     'chart'   => [
         'view'  => 'Aussicht',
         'views' => 'Aufrufe (30 Tage)',

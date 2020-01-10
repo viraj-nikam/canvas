@@ -33,36 +33,32 @@
         </page-header>
 
         <main class="py-4" v-if="isReady">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-md-8">
-                        <div class="form-group row my-5">
-                            <div class="col-lg-12">
-                                <input
-                                    type="text"
-                                    name="name"
-                                    autocomplete="off"
-                                    v-model="form.name"
-                                    title="Name"
-                                    @keyup.enter="saveTag"
-                                    class="form-control-lg form-control border-0 px-0 bg-transparent"
-                                    :placeholder="trans.tags.forms.placeholder"
-                                />
+            <div class="col-xl-8 offset-xl-2 px-xl-5 col-md-12">
+                <div class="form-group row my-5">
+                    <div class="col-lg-12">
+                        <input
+                            type="text"
+                            name="name"
+                            autocomplete="off"
+                            v-model="form.name"
+                            title="Name"
+                            @keyup.enter="saveTag"
+                            class="form-control-lg form-control border-0 px-0 bg-transparent"
+                            :placeholder="trans.tags.forms.placeholder"
+                        />
 
-                                <div v-if="form.errors.name" class="invalid-feedback d-block">
-                                    <strong>{{ form.errors.name[0] }}</strong>
-                                </div>
-                            </div>
+                        <div v-if="form.errors.name" class="invalid-feedback d-block">
+                            <strong>{{ form.errors.name[0] }}</strong>
                         </div>
-                        <div class="form-group row">
-                            <div class="col-lg-12">
-                                <p class="lead text-muted">
-                                    <span class="text-success">{{ form.slug }}</span>
-                                </p>
-                                <div v-if="form.errors.slug" class="invalid-feedback d-block">
-                                    <strong>{{ form.errors.slug[0] }}</strong>
-                                </div>
-                            </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-12">
+                        <p class="lead text-muted">
+                            <span class="text-success">{{ form.slug }}</span>
+                        </p>
+                        <div v-if="form.errors.slug" class="invalid-feedback d-block">
+                            <strong>{{ form.errors.slug[0] }}</strong>
                         </div>
                     </div>
                 </div>
@@ -73,8 +69,7 @@
             ref="deleteModal"
             @delete="deleteTag"
             :header="trans.tags.delete.header"
-            :message="trans.tags.delete.warning"
-        >
+            :message="trans.tags.delete.warning">
         </delete-modal>
     </div>
 </template>
