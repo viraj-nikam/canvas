@@ -201,6 +201,7 @@
             },
 
             toggleDarkMode() {
+                this.$root.Canvas.darkMode = this.form.darkMode
                 let screen = $('#canvas')
                 let isDark = this.form.darkMode
 

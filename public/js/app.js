@@ -4835,6 +4835,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     toggleDarkMode: function toggleDarkMode() {
+      this.$root.Canvas.darkMode = this.form.darkMode;
       var screen = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#canvas');
       var isDark = this.form.darkMode;
       screen.animate({
@@ -97178,6 +97179,10 @@ var render = function() {
                                             [
                                               _c("img", {
                                                 staticClass: "mr-1",
+                                                style:
+                                                  _vm.Canvas.darkMode === true
+                                                    ? { filter: "invert(100%)" }
+                                                    : "",
                                                 attrs: {
                                                   src:
                                                     "https://favicons.githubusercontent.com/" +
