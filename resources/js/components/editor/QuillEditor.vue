@@ -357,7 +357,6 @@
         font-style: italic;
         font-size: 28px;
         color: $gray-500;
-        border-left: 4px solid $gray-500;
         padding-left: 1.5em !important;
         line-height: 1.5;
     }
