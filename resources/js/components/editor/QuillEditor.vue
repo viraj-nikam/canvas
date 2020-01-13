@@ -43,11 +43,6 @@
 
             <div ref="editor" class="mb-5"></div>
 
-
-
-
-
-
             <nav class="navbar fixed-bottom navbar-expand-sm mt-5 d-xl-none p-0 navbar-mini">
                 <div class="btn-group d-flex justify-content-center">
                     <button
@@ -78,11 +73,6 @@
                     </button>
                 </div>
             </nav>
-
-
-
-
-
 
             <image-modal
                 ref="imageModal"
@@ -369,6 +359,7 @@
         color: $gray-500;
         border-left: 4px solid $gray-500;
         padding-left: 1.5em !important;
+        line-height: 1.5;
     }
 
     div.embedded_image {
