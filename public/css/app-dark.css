@@ -68,6 +68,18 @@ select.input {
   background-color: #263238;
 }
 
+.navbar-mini {
+  background-color: #263238;
+}
+
+.navbar-mini svg path {
+  fill: #c3d3de;
+}
+
+.navbar-mini button:hover {
+  background-color: transparent;
+}
+
 .primary {
   fill: #a0aec0;
 }

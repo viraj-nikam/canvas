@@ -30,6 +30,10 @@ input:-webkit-autofill:active {
   background-color: #fff;
 }
 
+.navbar-mini {
+  background-color: #fff;
+}
+
 .primary {
   fill: #a0aec0;
 }
