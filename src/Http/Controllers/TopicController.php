@@ -19,8 +19,8 @@ class TopicController extends Controller
     public function index(): JsonResponse
     {
         return response()->json(Topic::forCurrentUser()
+            ->latest()
             ->withCount('posts')
-            ->orderByDesc('created_at')
             ->get());
     }
 

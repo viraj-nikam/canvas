@@ -3633,7 +3633,8 @@ __webpack_require__.r(__webpack_exports__);
     addTag: function addTag(searchQuery) {
       var tag = {
         name: searchQuery,
-        slug: this.slugify(searchQuery)
+        slug: this.slugify(searchQuery),
+        user_id: Canvas.user.id
       };
       this.options.push(tag);
       this.value.push(tag);
@@ -3719,7 +3720,8 @@ __webpack_require__.r(__webpack_exports__);
       this.options.push(topic);
       this.value = {
         name: topic.name,
-        slug: topic.slug
+        slug: topic.slug,
+        user_id: Canvas.user.id
       };
       this.$store.dispatch('setPostTopic', this.value);
       this.update();

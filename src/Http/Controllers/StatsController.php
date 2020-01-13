@@ -28,7 +28,7 @@ class StatsController extends Controller
     {
         $published = Post::forCurrentUser()
                          ->published()
-                         ->orderByDesc('created_at')
+                         ->latest()
                          ->withCount('views')
                          ->get();
 

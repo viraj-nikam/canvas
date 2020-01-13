@@ -69,6 +69,7 @@
                 this.value = {
                     name: topic.name,
                     slug: topic.slug,
+                    user_id: Canvas.user.id
                 }
 
                 this.$store.dispatch('setPostTopic', this.value)

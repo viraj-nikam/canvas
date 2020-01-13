@@ -19,8 +19,8 @@ class TagController extends Controller
     public function index(): JsonResponse
     {
         return response()->json(Tag::forCurrentUser()
+            ->latest()
             ->withCount('posts')
-            ->orderByDesc('created_at')
             ->get());
     }
 
@@ -81,14 +81,14 @@ class TagController extends Controller
             ],
         ], $messages)->validate();
 
-        if ($id !== 'create') {
-            $tag = Tag::find($id);
-        } else {
-            if ($tag = Tag::onlyTrashed()->where('slug', request('slug'))->first()) {
+        if ($this->isNewTag($id)) {
+            if ($tag = Tag::onlyTrashed()->where('slug', $data['slug'])->first()) {
                 $tag->restore();
             } else {
-                $tag = new Tag(['id' => request('id')]);
+                $tag = new Tag(['id' => $data['id']]);
             }
+        } else {
+            $tag = Tag::find($id);
         }
 
         $tag->fill($data);

@@ -62,6 +62,7 @@
                 const tag = {
                     name: searchQuery,
                     slug: this.slugify(searchQuery),
+                    user_id: Canvas.user.id
                 }
 
                 this.options.push(tag)
