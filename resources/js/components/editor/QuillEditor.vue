@@ -349,13 +349,14 @@
     }
 
     .ql-editor h1, h2, h3 {
-        margin: 1.5em 0 0 0;
+        margin: 1.5em 0 0 0 !important;
     }
 
     .ql-editor blockquote {
         margin: 2em 0 1em 0 !important;
         font-style: italic;
         font-size: 28px;
+        border: none !important;
         color: $gray-500;
         padding-left: 1.5em !important;
         line-height: 1.5;
@@ -398,6 +399,7 @@
 
     .ql-container hr {
         border: none;
+        margin: 3em 0 4em 0;
         letter-spacing: 1em;
         text-align: center;
     }
@@ -407,11 +409,9 @@
     }
 
     .ql-editor pre.ql-syntax {
-        /*background-color: rgba(0, 0, 0, 0.05);*/
-        /*border: none;*/
-        /*color: #000;*/
-        /*overflow-x: auto;*/
-        /*padding: 1em;*/
+        border-radius: $border-radius;
+        padding: 1em;
+        margin-top: 2em;
     }
 
     .ql-editor.ql-blank::before {
