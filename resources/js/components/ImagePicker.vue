@@ -29,7 +29,7 @@
         </div>
 
         <div v-if="showUnsplash">
-            <div class="container p-0">
+            <div class="">
                 <input
                     type="text"
                     class="form-control-lg form-control border-0 px-0 bg-transparent"

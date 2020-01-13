@@ -4,15 +4,18 @@
             <template slot="status">
                 <ul class="navbar-nav mr-auto flex-row float-right">
                     <li class="text-muted font-weight-bold">
-                        <div class="d-inline-block">
+                        <div v-if="!post.isSaving && !post.hasSuccess">
                             <span v-if="isDraft">{{ trans.nav.context.draft }}</span>
-                            <span v-else>{{ trans.nav.context.published }}</span>
+                            <span v-if="!isDraft">{{ trans.nav.context.published }}</span>
                         </div>
 
-                        <span v-if="post.isSaving" class="pl-2">{{ trans.nav.notify.saving }}</span>
-                        <span v-if="post.hasSuccess" class="pl-2 text-success">
-                            {{ trans.nav.notify.success }}
-                        </span>
+                        <div v-if="post.isSaving">
+                            <span class="pl-2">{{ trans.nav.notify.saving }}</span>
+                        </div>
+
+                        <div v-if="post.hasSuccess">
+                            <span class="pl-2 text-success">{{ trans.nav.notify.success }}</span>
+                        </div>
                     </li>
                 </ul>
             </template>
@@ -195,6 +198,11 @@
                 if (this.id === 'create') {
                     this.id = this.post.id
                 }
+
+                setTimeout(() => {
+                    this.post.hasSuccess = false
+                    this.post.isSaving = false
+                }, 3000)
             },
 
             update: _.debounce(function (e) {

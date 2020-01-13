@@ -4385,6 +4385,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 
 
@@ -4444,6 +4447,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_textarea_autosize__WEBPACK_IM
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])(['isDraft'])),
   methods: {
     save: function save() {
+      var _this = this;
+
       this.post.errors = [];
       this.post.isSaving = true;
       this.post.hasSuccess = false;
@@ -4455,6 +4460,11 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_textarea_autosize__WEBPACK_IM
       if (this.id === 'create') {
         this.id = this.post.id;
       }
+
+      setTimeout(function () {
+        _this.post.hasSuccess = false;
+        _this.post.isSaving = false;
+      }, 3000);
     },
     update: _.debounce(function (e) {
       this.save();
@@ -5440,6 +5450,10 @@ __webpack_require__.r(__webpack_exports__);
         _this2.form.isSaving = false;
         _this2.form.errors = error.response.data.errors;
       });
+      setTimeout(function () {
+        _this2.form.hasSuccess = false;
+        _this2.form.isSaving = false;
+      }, 3000);
     },
     deleteTag: function deleteTag() {
       var _this3 = this;
@@ -5772,6 +5786,10 @@ __webpack_require__.r(__webpack_exports__);
         _this2.form.isSaving = false;
         _this2.form.errors = error.response.data.errors;
       });
+      setTimeout(function () {
+        _this2.form.hasSuccess = false;
+        _this2.form.isSaving = false;
+      }, 3000);
     },
     deleteTopic: function deleteTopic() {
       var _this3 = this;
@@ -92972,7 +92990,7 @@ var render = function() {
     _vm._v(" "),
     _vm.showUnsplash
       ? _c("div", [
-          _c("div", { staticClass: "container p-0" }, [
+          _c("div", {}, [
             _vm.unsplash
               ? _c("input", {
                   directives: [
@@ -93157,12 +93175,15 @@ var render = function() {
         "nav",
         {
           staticClass:
-            "navbar justify-content-between flex-nowrap flex-row py-3"
+            "navbar justify-content-between flex-nowrap flex-row py-3 px-0"
         },
         [
           _c(
             "router-link",
-            { staticClass: "navbar-brand", attrs: { to: "/" } },
+            {
+              staticClass: "navbar-brand d-none d-sm-block",
+              attrs: { to: "/" }
+            },
             [
               _c(
                 "svg",
@@ -95590,29 +95611,35 @@ var render = function() {
               { staticClass: "navbar-nav mr-auto flex-row float-right" },
               [
                 _c("li", { staticClass: "text-muted font-weight-bold" }, [
-                  _c("div", { staticClass: "d-inline-block" }, [
-                    _vm.isDraft
-                      ? _c("span", [
-                          _vm._v(_vm._s(_vm.trans.nav.context.draft))
-                        ])
-                      : _c("span", [
-                          _vm._v(_vm._s(_vm.trans.nav.context.published))
-                        ])
-                  ]),
+                  !_vm.post.isSaving && !_vm.post.hasSuccess
+                    ? _c("div", [
+                        _vm.isDraft
+                          ? _c("span", [
+                              _vm._v(_vm._s(_vm.trans.nav.context.draft))
+                            ])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        !_vm.isDraft
+                          ? _c("span", [
+                              _vm._v(_vm._s(_vm.trans.nav.context.published))
+                            ])
+                          : _vm._e()
+                      ])
+                    : _vm._e(),
                   _vm._v(" "),
                   _vm.post.isSaving
-                    ? _c("span", { staticClass: "pl-2" }, [
-                        _vm._v(_vm._s(_vm.trans.nav.notify.saving))
+                    ? _c("div", [
+                        _c("span", { staticClass: "pl-2" }, [
+                          _vm._v(_vm._s(_vm.trans.nav.notify.saving))
+                        ])
                       ])
                     : _vm._e(),
                   _vm._v(" "),
                   _vm.post.hasSuccess
-                    ? _c("span", { staticClass: "pl-2 text-success" }, [
-                        _vm._v(
-                          "\n                        " +
-                            _vm._s(_vm.trans.nav.notify.success) +
-                            "\n                    "
-                        )
+                    ? _c("div", [
+                        _c("span", { staticClass: "pl-2 text-success" }, [
+                          _vm._v(_vm._s(_vm.trans.nav.notify.success))
+                        ])
                       ])
                     : _vm._e()
                 ])

@@ -154,6 +154,11 @@
                         this.form.isSaving = false
                         this.form.errors = error.response.data.errors
                     })
+
+                setTimeout(() => {
+                    this.form.hasSuccess = false
+                    this.form.isSaving = false
+                }, 3000)
             },
 
             deleteTag() {
