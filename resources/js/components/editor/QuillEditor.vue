@@ -1,6 +1,6 @@
 <template>
     <div v-cloak>
-        <div class="position-relative">
+        <div class="position-relative overflow-hidden">
             <div id="sidebarControls">
                 <button
                     class="btn btn-outline-light btn-circle border"

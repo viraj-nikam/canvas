@@ -15,6 +15,7 @@
 - [Options](#options)
 - [Updates](#updates)
 - [Testing](#testing)
+- [Translate](#translate)
 - [License](#license)
 - [Credits](#credits)
 
@@ -274,6 +275,10 @@ Run the tests with:
 ```bash
 composer test
 ```
+
+## Translate
+
+One of the goals for the team behind Canvas is to ensure proper localization across the app. If you come across any translation mistakes or issues, please [create a pull request](https://github.com/cnvs/canvas/pulls). If you don't see your native language included in the `resources/lang` directory, feel free to add it.
 
 ## License
 
