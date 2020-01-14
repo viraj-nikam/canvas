@@ -95271,7 +95271,7 @@ var render = function() {
   return _c("div", {}, [
     _c(
       "div",
-      { staticClass: "position-relative overflow-hidden" },
+      { staticClass: "position-relative" },
       [
         _c("div", { attrs: { id: "sidebarControls" } }, [
           _c(
