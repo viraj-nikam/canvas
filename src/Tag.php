@@ -47,6 +47,13 @@ class Tag extends Model
     public $incrementing = false;
 
     /**
+     * The number of models to return for pagination.
+     *
+     * @var int
+     */
+    protected $perPage = 10;
+
+    /**
      * Get the posts relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany

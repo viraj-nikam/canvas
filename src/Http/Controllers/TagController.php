@@ -18,10 +18,12 @@ class TagController extends Controller
      */
     public function index(): JsonResponse
     {
-        return response()->json(Tag::forCurrentUser()
-            ->latest()
-            ->withCount('posts')
-            ->get());
+        return response()->json(
+            Tag::forCurrentUser()
+                ->latest()
+                ->withCount('posts')
+                ->paginate(), 200
+        );
     }
 
     /**
@@ -37,12 +39,12 @@ class TagController extends Controller
             if ($this->isNewTag($id)) {
                 return response()->json(Tag::make([
                     'id' => Uuid::uuid4(),
-                ]));
+                ]), 200);
             } else {
                 $tag = Tag::find($id);
 
                 if ($tag) {
-                    return response()->json($tag);
+                    return response()->json($tag, 200);
                 } else {
                     return response()->json(null, 301);
                 }
@@ -94,7 +96,7 @@ class TagController extends Controller
         $tag->fill($data);
         $tag->save();
 
-        return response()->json($tag->refresh());
+        return response()->json($tag->refresh(), 201);
     }
 
     /**

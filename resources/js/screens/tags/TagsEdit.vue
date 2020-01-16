@@ -11,7 +11,7 @@
             </template>
 
             <template slot="action">
-                <a href="#" class="btn btn-sm btn-outline-success font-weight-bold" :class="{ disabled: form.name === '' }" @click="saveTag" :aria-label="trans.buttons.general.save">
+                <a href="#" class="btn btn-sm btn-outline-success font-weight-bold my-auto" :class="{ disabled: form.name === '' }" @click="saveTag" :aria-label="trans.buttons.general.save">
                     {{ trans.buttons.general.save }}
                 </a>
             </template>
