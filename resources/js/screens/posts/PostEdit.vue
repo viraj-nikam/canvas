@@ -21,11 +21,11 @@
             </template>
 
             <template slot="action">
-                <a v-if="isDraft" href="#" class="btn btn-sm btn-outline-success font-weight-bold" @click="showPublishModal">
+                <a v-if="isDraft" href="#" class="btn btn-sm btn-outline-success font-weight-bold my-auto" @click="showPublishModal">
                     {{ trans.buttons.posts.ready }}
                 </a>
 
-                <a v-else href="#" class="btn btn-sm btn-outline-success font-weight-bold" @click="save">
+                <a v-else href="#" class="btn btn-sm btn-outline-success font-weight-bold my-auto" @click="save">
                     {{ trans.buttons.general.save }}
                 </a>
             </template>

@@ -8,15 +8,12 @@ return [
         'description' => 'Mevcut konu bulunamadı, katılımda bulunmak için',
         'action'      => 'yeni bir konu ekleyin.',
     ],
-    'search'  => [
-        'input' => 'Arama...',
-        'empty' => 'Belirtilen arama kriterleri ile eşleşen konu bulunamadı.',
-    ],
     'details' => [
         'created' => 'Oluşturuldu',
     ],
     'forms'   => [
         'placeholder' => 'Konunuza bir isim verin',
+        'slug'        => 'vermek-your-konu-a-name',
         'topic'       => 'Bunu yeni bir konu olarak ekle',
         'select'      => 'Bir konu seçiniz...',
     ],

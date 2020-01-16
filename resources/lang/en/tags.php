@@ -8,15 +8,12 @@ return [
         'description' => 'No tags were found, start by',
         'action'      => 'adding a new tag.',
     ],
-    'search'  => [
-        'input' => 'Search...',
-        'empty' => 'No tags matched the given search criteria.',
-    ],
     'details' => [
         'created' => 'Created',
     ],
     'forms'   => [
         'placeholder' => 'Give your tag a name',
+        'slug'        => 'give-your-tag-a-name',
         'tag'         => 'Add a new tag',
         'select'      => 'Select some tags...',
     ],

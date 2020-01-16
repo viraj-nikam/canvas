@@ -8,15 +8,12 @@ return [
         'description' => 'Mevcut etiket bulunamadı, katılımda bulunmak için',
         'action'      => 'yeni bir etiket ekleyin.',
     ],
-    'search'  => [
-        'input' => 'Arama...',
-        'empty' => 'Belirtilen arama kriterleri ile eşleşen etiket bulunamadı.',
-    ],
     'details' => [
         'created' => 'Oluşturuldu',
     ],
     'forms'   => [
         'placeholder' => 'Etiketinize bir isim verin',
+        'slug'        => 'vermek-your-etiket-a-name',
         'tag'         => 'Yeni bir etiket ekle',
         'select'      => 'Etiket(leri) seçiniz...',
     ],

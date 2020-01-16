@@ -32,13 +32,14 @@
             </template>
         </page-header>
 
-        <main class="py-4" v-if="isReady">
-            <div class="col-xl-8 offset-xl-2 px-xl-5 col-md-12">
-                <div class="form-group row my-5">
+        <main class="py-4 d-flex flex-row justify-content-center" v-if="isReady" v-cloak>
+            <div class="mt-5">
+                <div class="form-group mb-5">
                     <div class="col-lg-12">
                         <input
                             type="text"
                             name="name"
+                            autofocus
                             autocomplete="off"
                             v-model="form.name"
                             title="Name"
@@ -52,12 +53,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="form-group row">
+                <div class="form-group">
                     <div class="col-lg-12">
                         <p class="lead text-muted">
-                            <span class="text-success">{{ form.slug }}</span>
+                            <span v-if="!form.slug" class="text-success">{{ trans.topics.forms.slug }}</span>
+                            <span v-else class="text-success">{{ form.slug }}</span>
                         </p>
-
                         <div v-if="form.errors.slug" class="invalid-feedback d-block">
                             <strong>{{ form.errors.slug[0] }}</strong>
                         </div>
@@ -70,8 +71,7 @@
             ref="deleteModal"
             @delete="deleteTopic"
             :header="trans.topics.delete.header"
-            :message="trans.topics.delete.warning"
-        >
+            :message="trans.topics.delete.warning">
         </delete-modal>
     </div>
 </template>

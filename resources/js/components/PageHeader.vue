@@ -33,7 +33,6 @@
                                         type="text"
                                         class="form-control border-0 pl-0 bg-transparent"
                                         id="search"
-                                        :placeholder="trans.tags.search.input"
                                         autofocus
                                     />
                                 </div>

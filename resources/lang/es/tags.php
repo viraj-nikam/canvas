@@ -8,15 +8,12 @@ return [
         'description' => 'No se encontraron etiquetas, comience por',
         'action'      => 'añadiendo una nueva etiqueta',
     ],
-    'search'  => [
-        'input' => 'Buscar...',
-        'empty' => 'No hay etiquetas que coincidan con los criterios de búsqueda dados.',
-    ],
     'details' => [
         'created' => 'Creado',
     ],
     'forms'   => [
         'placeholder' => 'Dale un nombre a tu etiqueta',
+        'slug'        => 'dale un nombre a tu etiqueta',
         'tag'         => 'Añadir una nueva etiqueta',
         'select'      => 'Seleccione algunas etiquetas ...',
     ],

@@ -8,15 +8,12 @@ return [
         'description' => 'Geen labels gevonden, start met',
         'action'      => 'een nieuw label toevoegen.',
     ],
-    'search'  => [
-        'input' => 'Zoeken...',
-        'empty' => 'Geen labels gevonden op basis van de zoekcriteria.',
-    ],
     'details' => [
         'created' => 'Aangemaakt',
     ],
     'forms'   => [
         'placeholder' => 'Geef je label een naam',
+        'slug'        => 'give-your-tag-a-naam',
         'tag'         => 'Een nieuw label toevoegen',
         'select'      => 'Selecteer labels...',
     ],

@@ -8,15 +8,12 @@ return [
         'description' => 'Aucun mot-clé n\'a été trouvé, commencez par',
         'action'      => 'ajout d\'un nouveau mot clé',
     ],
-    'search'  => [
-        'input' => 'Chercher...',
-        'empty' => 'Aucun mot clé ne correspond à vos critères de recherche.',
-    ],
     'details' => [
         'created' => 'Créé',
     ],
     'forms'   => [
         'placeholder' => 'Donnez un nom à votre mot clé',
+        'slug'        => 'donnez votre nom à votre tag',
         'tag'         => 'Ajouter un nouveau mot clé',
         'select'      => 'Sélectionnez des mot clés ...',
     ],

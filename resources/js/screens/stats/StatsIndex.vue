@@ -2,7 +2,7 @@
     <div>
         <page-header>
             <template slot="action">
-                <router-link :to="{ name: 'posts-create' }" class="btn btn-sm btn-outline-success font-weight-bold">
+                <router-link :to="{ name: 'posts-create' }" class="btn btn-sm btn-outline-success font-weight-bold my-auto">
                     {{ trans.buttons.posts.create }}
                 </router-link>
             </template>

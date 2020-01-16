@@ -76,7 +76,7 @@
                         },
                     })
                     .then(response => {
-                        if (response.data.data.length) {
+                        if (!_.isEmpty(response.data)) {
                             this.page += 1;
                             this.topics.push(...response.data.data)
 
