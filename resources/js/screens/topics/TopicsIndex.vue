@@ -29,7 +29,7 @@
                         </div>
                     </div>
 
-                    <infinite-loading @infinite="fetchData">
+                    <infinite-loading @infinite="fetchData" spinner="spiral">
                         <span slot="no-more"></span>
                         <div slot="no-results" class="text-left">
                             <p class="mt-2">

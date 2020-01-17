@@ -89,12 +89,9 @@
                         </div>
                     </div>
                 </div>
-                <infinite-loading @infinite="fetchPosts">
+                <infinite-loading @infinite="fetchPosts" spinner="spiral">
                     <span slot="no-more"></span>
                 </infinite-loading>
-<!--                <div v-else>-->
-<!--                    <p class="mt-3">{{ trans.stats.empty }}</p>-->
-<!--                </div>-->
             </div>
         </main>
     </div>

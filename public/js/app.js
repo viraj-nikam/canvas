@@ -4801,6 +4801,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -4942,9 +4944,6 @@ function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.
 
 function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
 
-//
-//
-//
 //
 //
 //
@@ -93055,10 +93054,7 @@ var render = function() {
         [
           _c(
             "router-link",
-            {
-              staticClass: "navbar-brand d-none d-sm-block",
-              attrs: { to: "/" }
-            },
+            { staticClass: "navbar-brand", attrs: { to: "/" } },
             [
               _c(
                 "svg",
@@ -96249,271 +96245,283 @@ var render = function() {
       ),
       _vm._v(" "),
       _c("main", { staticClass: "py-4" }, [
-        _c("div", { staticClass: "col-xl-10 offset-xl-1 px-xl-5 col-md-12" }, [
-          _c("h1", { staticClass: "mt-2" }, [
-            _vm._v(_vm._s(_vm.trans.settings.header))
-          ]),
-          _vm._v(" "),
-          _vm.isReady
-            ? _c("div", { staticClass: "mt-2" }, [
-                _c(
-                  "div",
-                  { staticClass: "d-flex border-top py-3 align-items-center" },
-                  [
-                    _c("div", { staticClass: "mr-auto py-1" }, [
-                      _c(
-                        "p",
-                        { staticClass: "mb-1 font-weight-bold text-lg lead" },
-                        [
-                          _vm._v(
-                            "\n                            " +
-                              _vm._s(_vm.trans.settings.profile.label) +
-                              "\n                        "
-                          )
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c("p", { staticClass: "mb-1 d-none d-lg-block" }, [
-                        _vm._v(
-                          "\n                            " +
-                            _vm._s(_vm.trans.settings.profile.description) +
-                            "\n                        "
-                        )
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "ml-auto pl-3" }, [
-                      _c("div", { staticClass: "align-middle" }, [
+        _c(
+          "div",
+          { staticClass: "col-xl-10 offset-xl-1 px-xl-5 col-md-12 my-3" },
+          [
+            _c("div", { staticClass: "d-flex justify-content-between my-3" }, [
+              _c("h1", [_vm._v(_vm._s(_vm.trans.settings.header))])
+            ]),
+            _vm._v(" "),
+            _vm.isReady
+              ? _c("div", { staticClass: "mt-2" }, [
+                  _c(
+                    "div",
+                    {
+                      staticClass: "d-flex border-top py-3 align-items-center"
+                    },
+                    [
+                      _c("div", { staticClass: "mr-auto py-1" }, [
                         _c(
-                          "button",
-                          {
-                            staticClass:
-                              "btn btn-sm btn-outline-success font-weight-bold",
-                            on: { click: _vm.showProfileModal }
-                          },
+                          "p",
+                          { staticClass: "mb-1 font-weight-bold text-lg lead" },
                           [
                             _vm._v(
-                              "\n                                " +
-                                _vm._s(_vm.trans.buttons.settings.profile) +
-                                "\n                            "
+                              "\n                            " +
+                                _vm._s(_vm.trans.settings.profile.label) +
+                                "\n                        "
                             )
                           ]
-                        )
-                      ])
-                    ])
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "d-flex border-top py-3 align-items-center" },
-                  [
-                    _c("div", { staticClass: "mr-auto py-1" }, [
-                      _c(
-                        "p",
-                        { staticClass: "mb-1 font-weight-bold text-lg lead" },
-                        [
+                        ),
+                        _vm._v(" "),
+                        _c("p", { staticClass: "mb-1 d-none d-lg-block" }, [
                           _vm._v(
                             "\n                            " +
-                              _vm._s(_vm.trans.settings.digest.label) +
+                              _vm._s(_vm.trans.settings.profile.description) +
                               "\n                        "
                           )
-                        ]
-                      ),
+                        ])
+                      ]),
                       _vm._v(" "),
-                      _c("p", { staticClass: "mb-1 d-none d-lg-block" }, [
-                        _vm._v(
-                          "\n                            " +
-                            _vm._s(_vm.trans.settings.digest.description) +
-                            "\n                        "
-                        )
+                      _c("div", { staticClass: "ml-auto pl-3" }, [
+                        _c("div", { staticClass: "align-middle" }, [
+                          _c(
+                            "button",
+                            {
+                              staticClass:
+                                "btn btn-sm btn-outline-success font-weight-bold",
+                              on: { click: _vm.showProfileModal }
+                            },
+                            [
+                              _vm._v(
+                                "\n                                " +
+                                  _vm._s(_vm.trans.buttons.settings.profile) +
+                                  "\n                            "
+                              )
+                            ]
+                          )
+                        ])
                       ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "ml-auto pl-3" }, [
-                      _c("div", { staticClass: "align-middle" }, [
-                        _c("div", { staticClass: "form-group my-auto" }, [
-                          _c("span", { staticClass: "switch switch-sm" }, [
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.form.digest,
-                                  expression: "form.digest"
-                                }
-                              ],
-                              staticClass: "switch",
-                              attrs: { type: "checkbox", id: "digest" },
-                              domProps: {
-                                checked: _vm.form.digest,
-                                checked: Array.isArray(_vm.form.digest)
-                                  ? _vm._i(_vm.form.digest, null) > -1
-                                  : _vm.form.digest
-                              },
-                              on: {
-                                change: [
-                                  function($event) {
-                                    var $$a = _vm.form.digest,
-                                      $$el = $event.target,
-                                      $$c = $$el.checked ? true : false
-                                    if (Array.isArray($$a)) {
-                                      var $$v = null,
-                                        $$i = _vm._i($$a, $$v)
-                                      if ($$el.checked) {
-                                        $$i < 0 &&
-                                          _vm.$set(
-                                            _vm.form,
-                                            "digest",
-                                            $$a.concat([$$v])
-                                          )
-                                      } else {
-                                        $$i > -1 &&
-                                          _vm.$set(
-                                            _vm.form,
-                                            "digest",
-                                            $$a
-                                              .slice(0, $$i)
-                                              .concat($$a.slice($$i + 1))
-                                          )
-                                      }
-                                    } else {
-                                      _vm.$set(_vm.form, "digest", $$c)
-                                    }
-                                  },
-                                  _vm.toggleDigest
-                                ]
-                              }
-                            }),
-                            _vm._v(" "),
-                            _c(
-                              "label",
-                              {
-                                staticClass: "mb-0 sr-only",
-                                attrs: { for: "digest" }
-                              },
-                              [
-                                _vm._v(
-                                  "\n                                        " +
-                                    _vm._s(_vm.trans.settings.digest.label) +
-                                    "\n                                    "
-                                )
-                              ]
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass: "d-flex border-top py-3 align-items-center"
+                    },
+                    [
+                      _c("div", { staticClass: "mr-auto py-1" }, [
+                        _c(
+                          "p",
+                          { staticClass: "mb-1 font-weight-bold text-lg lead" },
+                          [
+                            _vm._v(
+                              "\n                            " +
+                                _vm._s(_vm.trans.settings.digest.label) +
+                                "\n                        "
                             )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c("p", { staticClass: "mb-1 d-none d-lg-block" }, [
+                          _vm._v(
+                            "\n                            " +
+                              _vm._s(_vm.trans.settings.digest.description) +
+                              "\n                        "
+                          )
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "ml-auto pl-3" }, [
+                        _c("div", { staticClass: "align-middle" }, [
+                          _c("div", { staticClass: "form-group my-auto" }, [
+                            _c("span", { staticClass: "switch switch-sm" }, [
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.form.digest,
+                                    expression: "form.digest"
+                                  }
+                                ],
+                                staticClass: "switch",
+                                attrs: { type: "checkbox", id: "digest" },
+                                domProps: {
+                                  checked: _vm.form.digest,
+                                  checked: Array.isArray(_vm.form.digest)
+                                    ? _vm._i(_vm.form.digest, null) > -1
+                                    : _vm.form.digest
+                                },
+                                on: {
+                                  change: [
+                                    function($event) {
+                                      var $$a = _vm.form.digest,
+                                        $$el = $event.target,
+                                        $$c = $$el.checked ? true : false
+                                      if (Array.isArray($$a)) {
+                                        var $$v = null,
+                                          $$i = _vm._i($$a, $$v)
+                                        if ($$el.checked) {
+                                          $$i < 0 &&
+                                            _vm.$set(
+                                              _vm.form,
+                                              "digest",
+                                              $$a.concat([$$v])
+                                            )
+                                        } else {
+                                          $$i > -1 &&
+                                            _vm.$set(
+                                              _vm.form,
+                                              "digest",
+                                              $$a
+                                                .slice(0, $$i)
+                                                .concat($$a.slice($$i + 1))
+                                            )
+                                        }
+                                      } else {
+                                        _vm.$set(_vm.form, "digest", $$c)
+                                      }
+                                    },
+                                    _vm.toggleDigest
+                                  ]
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c(
+                                "label",
+                                {
+                                  staticClass: "mb-0 sr-only",
+                                  attrs: { for: "digest" }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                                        " +
+                                      _vm._s(_vm.trans.settings.digest.label) +
+                                      "\n                                    "
+                                  )
+                                ]
+                              )
+                            ])
                           ])
                         ])
                       ])
-                    ])
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "d-flex border-top py-3 align-items-center" },
-                  [
-                    _c("div", { staticClass: "mr-auto py-1" }, [
-                      _c(
-                        "p",
-                        { staticClass: "mb-1 font-weight-bold text-lg lead" },
-                        [
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass: "d-flex border-top py-3 align-items-center"
+                    },
+                    [
+                      _c("div", { staticClass: "mr-auto py-1" }, [
+                        _c(
+                          "p",
+                          { staticClass: "mb-1 font-weight-bold text-lg lead" },
+                          [
+                            _vm._v(
+                              "\n                            " +
+                                _vm._s(_vm.trans.settings.appearance.label) +
+                                "\n                        "
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c("p", { staticClass: "mb-1 d-none d-lg-block" }, [
                           _vm._v(
                             "\n                            " +
-                              _vm._s(_vm.trans.settings.appearance.label) +
+                              _vm._s(
+                                _vm.trans.settings.appearance.description
+                              ) +
                               "\n                        "
                           )
-                        ]
-                      ),
+                        ])
+                      ]),
                       _vm._v(" "),
-                      _c("p", { staticClass: "mb-1 d-none d-lg-block" }, [
-                        _vm._v(
-                          "\n                            " +
-                            _vm._s(_vm.trans.settings.appearance.description) +
-                            "\n                        "
-                        )
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "ml-auto pl-3" }, [
-                      _c("div", { staticClass: "align-middle" }, [
-                        _c("div", { staticClass: "form-group my-auto" }, [
-                          _c("span", { staticClass: "switch switch-sm" }, [
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.form.darkMode,
-                                  expression: "form.darkMode"
-                                }
-                              ],
-                              staticClass: "switch",
-                              attrs: { type: "checkbox", id: "darkMode" },
-                              domProps: {
-                                checked: _vm.form.darkMode,
-                                checked: Array.isArray(_vm.form.darkMode)
-                                  ? _vm._i(_vm.form.darkMode, null) > -1
-                                  : _vm.form.darkMode
-                              },
-                              on: {
-                                change: [
-                                  function($event) {
-                                    var $$a = _vm.form.darkMode,
-                                      $$el = $event.target,
-                                      $$c = $$el.checked ? true : false
-                                    if (Array.isArray($$a)) {
-                                      var $$v = null,
-                                        $$i = _vm._i($$a, $$v)
-                                      if ($$el.checked) {
-                                        $$i < 0 &&
-                                          _vm.$set(
-                                            _vm.form,
-                                            "darkMode",
-                                            $$a.concat([$$v])
-                                          )
+                      _c("div", { staticClass: "ml-auto pl-3" }, [
+                        _c("div", { staticClass: "align-middle" }, [
+                          _c("div", { staticClass: "form-group my-auto" }, [
+                            _c("span", { staticClass: "switch switch-sm" }, [
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.form.darkMode,
+                                    expression: "form.darkMode"
+                                  }
+                                ],
+                                staticClass: "switch",
+                                attrs: { type: "checkbox", id: "darkMode" },
+                                domProps: {
+                                  checked: _vm.form.darkMode,
+                                  checked: Array.isArray(_vm.form.darkMode)
+                                    ? _vm._i(_vm.form.darkMode, null) > -1
+                                    : _vm.form.darkMode
+                                },
+                                on: {
+                                  change: [
+                                    function($event) {
+                                      var $$a = _vm.form.darkMode,
+                                        $$el = $event.target,
+                                        $$c = $$el.checked ? true : false
+                                      if (Array.isArray($$a)) {
+                                        var $$v = null,
+                                          $$i = _vm._i($$a, $$v)
+                                        if ($$el.checked) {
+                                          $$i < 0 &&
+                                            _vm.$set(
+                                              _vm.form,
+                                              "darkMode",
+                                              $$a.concat([$$v])
+                                            )
+                                        } else {
+                                          $$i > -1 &&
+                                            _vm.$set(
+                                              _vm.form,
+                                              "darkMode",
+                                              $$a
+                                                .slice(0, $$i)
+                                                .concat($$a.slice($$i + 1))
+                                            )
+                                        }
                                       } else {
-                                        $$i > -1 &&
-                                          _vm.$set(
-                                            _vm.form,
-                                            "darkMode",
-                                            $$a
-                                              .slice(0, $$i)
-                                              .concat($$a.slice($$i + 1))
-                                          )
+                                        _vm.$set(_vm.form, "darkMode", $$c)
                                       }
-                                    } else {
-                                      _vm.$set(_vm.form, "darkMode", $$c)
-                                    }
-                                  },
-                                  _vm.toggleDarkMode
+                                    },
+                                    _vm.toggleDarkMode
+                                  ]
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c(
+                                "label",
+                                {
+                                  staticClass: "mb-0 sr-only",
+                                  attrs: { for: "darkMode" }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                                        " +
+                                      _vm._s(
+                                        _vm.trans.settings.appearance.label
+                                      ) +
+                                      "\n                                    "
+                                  )
                                 ]
-                              }
-                            }),
-                            _vm._v(" "),
-                            _c(
-                              "label",
-                              {
-                                staticClass: "mb-0 sr-only",
-                                attrs: { for: "darkMode" }
-                              },
-                              [
-                                _vm._v(
-                                  "\n                                        " +
-                                    _vm._s(
-                                      _vm.trans.settings.appearance.label
-                                    ) +
-                                    "\n                                    "
-                                )
-                              ]
-                            )
+                              )
+                            ])
                           ])
                         ])
                       ])
-                    ])
-                  ]
-                )
-              ])
-            : _vm._e()
-        ])
+                    ]
+                  )
+                ])
+              : _vm._e()
+          ]
+        )
       ]),
       _vm._v(" "),
       _vm.isReady
@@ -96567,9 +96575,9 @@ var render = function() {
                 },
                 [
                   _vm._v(
-                    "\n                    " +
+                    "\n                " +
                       _vm._s(_vm.trans.buttons.posts.create) +
-                      "\n                "
+                      "\n            "
                   )
                 ]
               )
@@ -96596,9 +96604,9 @@ var render = function() {
                   [
                     _c("p", { staticClass: "mt-3 mb-4" }, [
                       _vm._v(
-                        "\n                        " +
+                        "\n                    " +
                           _vm._s(_vm.trans.stats.subtext) +
-                          "\n                    "
+                          "\n                "
                       )
                     ]),
                     _vm._v(" "),
@@ -96613,18 +96621,18 @@ var render = function() {
                             },
                             [
                               _vm._v(
-                                "\n                                    " +
+                                "\n                                " +
                                   _vm._s(_vm.trans.stats.cards.views.title) +
-                                  "\n                                "
+                                  "\n                            "
                               )
                             ]
                           ),
                           _vm._v(" "),
                           _c("p", { staticClass: "card-text display-4" }, [
                             _vm._v(
-                              "\n                                    " +
+                              "\n                                " +
                                 _vm._s(_vm.suffixedNumber(_vm.viewCount)) +
-                                "\n                                "
+                                "\n                            "
                             )
                           ])
                         ])
@@ -96640,18 +96648,18 @@ var render = function() {
                             },
                             [
                               _vm._v(
-                                "\n                                    " +
+                                "\n                                " +
                                   _vm._s(_vm.trans.stats.cards.posts.title) +
-                                  "\n                                "
+                                  "\n                            "
                               )
                             ]
                           ),
                           _vm._v(" "),
                           _c("p", { staticClass: "card-text display-4" }, [
                             _vm._v(
-                              "\n                                    " +
+                              "\n                                " +
                                 _vm._s(_vm.publishedCount + _vm.draftCount) +
-                                "\n                                "
+                                "\n                            "
                             )
                           ])
                         ])
@@ -96667,11 +96675,11 @@ var render = function() {
                             },
                             [
                               _vm._v(
-                                "\n                                    " +
+                                "\n                                " +
                                   _vm._s(
                                     _vm.trans.stats.cards.publishing.title
                                   ) +
-                                  "\n                                "
+                                  "\n                            "
                               )
                             ]
                           ),
@@ -96679,27 +96687,27 @@ var render = function() {
                           _c("ul", [
                             _c("li", [
                               _vm._v(
-                                "\n                                        " +
+                                "\n                                    " +
                                   _vm._s(_vm.publishedCount) +
-                                  "\n                                        " +
+                                  "\n                                    " +
                                   _vm._s(
                                     _vm.trans.stats.cards.publishing.details
                                       .published
                                   ) +
-                                  "\n                                    "
+                                  "\n                                "
                               )
                             ]),
                             _vm._v(" "),
                             _c("li", [
                               _vm._v(
-                                "\n                                        " +
+                                "\n                                    " +
                                   _vm._s(_vm.draftCount) +
-                                  "\n                                        " +
+                                  "\n                                    " +
                                   _vm._s(
                                     _vm.trans.stats.cards.publishing.details
                                       .drafts
                                   ) +
-                                  "\n                                    "
+                                  "\n                                "
                               )
                             ])
                           ])
@@ -96743,9 +96751,9 @@ var render = function() {
                                     },
                                     [
                                       _vm._v(
-                                        "\n                                        " +
+                                        "\n                                    " +
                                           _vm._s(post.title) +
-                                          "\n                                    "
+                                          "\n                                "
                                       )
                                     ]
                                   )
@@ -96758,9 +96766,9 @@ var render = function() {
                                 { staticClass: "text-muted mb-2" },
                                 [
                                   _vm._v(
-                                    "\n                                    " +
+                                    "\n                                " +
                                       _vm._s(post.read_time) +
-                                      " ―\n                                    "
+                                      " ―\n                                "
                                   ),
                                   _c(
                                     "router-link",
@@ -96776,14 +96784,14 @@ var render = function() {
                                     },
                                     [
                                       _vm._v(
-                                        "\n                                        " +
+                                        "\n                                    " +
                                           _vm._s(_vm.trans.buttons.posts.edit) +
-                                          "\n                                    "
+                                          "\n                                "
                                       )
                                     ]
                                   ),
                                   _vm._v(
-                                    "\n                                    ―\n                                    "
+                                    "\n                                ―\n                                "
                                   ),
                                   _c(
                                     "router-link",
@@ -96799,9 +96807,9 @@ var render = function() {
                                     },
                                     [
                                       _vm._v(
-                                        "\n                                        " +
+                                        "\n                                    " +
                                           _vm._s(_vm.trans.buttons.stats.show) +
-                                          "\n                                    "
+                                          "\n                                "
                                       )
                                     ]
                                   )
@@ -96816,23 +96824,23 @@ var render = function() {
                               [
                                 _c("span", { staticClass: "text-muted mr-3" }, [
                                   _vm._v(
-                                    "\n                                                " +
+                                    "\n                                            " +
                                       _vm._s(
                                         _vm.suffixedNumber(post.views_count)
                                       ) +
-                                      "\n                                                " +
+                                      "\n                                            " +
                                       _vm._s(_vm.trans.stats.views) +
-                                      "\n                                            "
+                                      "\n                                        "
                                   )
                                 ]),
                                 _vm._v(
-                                  "\n                                " +
+                                  "\n                            " +
                                     _vm._s(_vm.trans.stats.details.created) +
-                                    "\n                                " +
+                                    "\n                            " +
                                     _vm._s(
                                       _vm.moment(post.created_at).fromNow()
                                     ) +
-                                    "\n                            "
+                                    "\n                        "
                                 )
                               ]
                             )
@@ -96846,9 +96854,14 @@ var render = function() {
                 )
               : _vm._e(),
             _vm._v(" "),
-            _c("infinite-loading", { on: { infinite: _vm.fetchPosts } }, [
-              _c("span", { attrs: { slot: "no-more" }, slot: "no-more" })
-            ])
+            _c(
+              "infinite-loading",
+              {
+                attrs: { spinner: "spiral" },
+                on: { infinite: _vm.fetchPosts }
+              },
+              [_c("span", { attrs: { slot: "no-more" }, slot: "no-more" })]
+            )
           ],
           1
         )
@@ -97465,11 +97478,11 @@ var render = function() {
       ),
       _vm._v(" "),
       _vm.isReady
-        ? _c(
-            "main",
-            { staticClass: "py-4 d-flex flex-row justify-content-center" },
-            [
-              _c("div", { staticClass: "mt-5" }, [
+        ? _c("main", { staticClass: "py-4" }, [
+            _c(
+              "div",
+              { staticClass: "col-xl-8 offset-xl-2 px-xl-5 col-md-12 mt-5" },
+              [
                 _c("div", { staticClass: "form-group mb-5" }, [
                   _c("div", { staticClass: "col-lg-12" }, [
                     _c("input", {
@@ -97548,9 +97561,9 @@ var render = function() {
                       : _vm._e()
                   ])
                 ])
-              ])
-            ]
-          )
+              ]
+            )
+          ])
         : _vm._e(),
       _vm._v(" "),
       _c("delete-modal", {
@@ -97688,46 +97701,53 @@ var render = function() {
                 )
               }),
               _vm._v(" "),
-              _c("infinite-loading", { on: { infinite: _vm.fetchData } }, [
-                _c("span", { attrs: { slot: "no-more" }, slot: "no-more" }),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  {
-                    staticClass: "text-left",
-                    attrs: { slot: "no-results" },
-                    slot: "no-results"
-                  },
-                  [
-                    _c(
-                      "p",
-                      { staticClass: "mt-2" },
-                      [
-                        _vm._v(
-                          "\n                            " +
-                            _vm._s(_vm.trans.tags.empty.description) +
-                            "\n                            "
-                        ),
-                        _c(
-                          "router-link",
-                          {
-                            staticClass: "text-success text-decoration-none",
-                            attrs: { to: "/tags/create" }
-                          },
-                          [
-                            _vm._v(
-                              "\n                                " +
-                                _vm._s(_vm.trans.tags.empty.action) +
-                                "\n                            "
-                            )
-                          ]
-                        )
-                      ],
-                      1
-                    )
-                  ]
-                )
-              ])
+              _c(
+                "infinite-loading",
+                {
+                  attrs: { spinner: "spiral" },
+                  on: { infinite: _vm.fetchData }
+                },
+                [
+                  _c("span", { attrs: { slot: "no-more" }, slot: "no-more" }),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass: "text-left",
+                      attrs: { slot: "no-results" },
+                      slot: "no-results"
+                    },
+                    [
+                      _c(
+                        "p",
+                        { staticClass: "mt-2" },
+                        [
+                          _vm._v(
+                            "\n                            " +
+                              _vm._s(_vm.trans.tags.empty.description) +
+                              "\n                            "
+                          ),
+                          _c(
+                            "router-link",
+                            {
+                              staticClass: "text-success text-decoration-none",
+                              attrs: { to: "/tags/create" }
+                            },
+                            [
+                              _vm._v(
+                                "\n                                " +
+                                  _vm._s(_vm.trans.tags.empty.action) +
+                                  "\n                            "
+                              )
+                            ]
+                          )
+                        ],
+                        1
+                      )
+                    ]
+                  )
+                ]
+              )
             ],
             2
           )
@@ -97881,11 +97901,11 @@ var render = function() {
       ),
       _vm._v(" "),
       _vm.isReady
-        ? _c(
-            "main",
-            { staticClass: "py-4 d-flex flex-row justify-content-center" },
-            [
-              _c("div", { staticClass: "mt-5" }, [
+        ? _c("main", { staticClass: "py-4" }, [
+            _c(
+              "div",
+              { staticClass: "col-xl-8 offset-xl-2 px-xl-5 col-md-12 mt-5" },
+              [
                 _c("div", { staticClass: "form-group mb-5" }, [
                   _c("div", { staticClass: "col-lg-12" }, [
                     _c("input", {
@@ -97964,9 +97984,9 @@ var render = function() {
                       : _vm._e()
                   ])
                 ])
-              ])
-            ]
-          )
+              ]
+            )
+          ])
         : _vm._e(),
       _vm._v(" "),
       _c("delete-modal", {
@@ -98104,46 +98124,53 @@ var render = function() {
                 )
               }),
               _vm._v(" "),
-              _c("infinite-loading", { on: { infinite: _vm.fetchData } }, [
-                _c("span", { attrs: { slot: "no-more" }, slot: "no-more" }),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  {
-                    staticClass: "text-left",
-                    attrs: { slot: "no-results" },
-                    slot: "no-results"
-                  },
-                  [
-                    _c(
-                      "p",
-                      { staticClass: "mt-2" },
-                      [
-                        _vm._v(
-                          "\n                            " +
-                            _vm._s(_vm.trans.topics.empty.description) +
-                            "\n                            "
-                        ),
-                        _c(
-                          "router-link",
-                          {
-                            staticClass: "text-success text-decoration-none",
-                            attrs: { to: "/topics/create" }
-                          },
-                          [
-                            _vm._v(
-                              "\n                                " +
-                                _vm._s(_vm.trans.topics.empty.action) +
-                                "\n                            "
-                            )
-                          ]
-                        )
-                      ],
-                      1
-                    )
-                  ]
-                )
-              ])
+              _c(
+                "infinite-loading",
+                {
+                  attrs: { spinner: "spiral" },
+                  on: { infinite: _vm.fetchData }
+                },
+                [
+                  _c("span", { attrs: { slot: "no-more" }, slot: "no-more" }),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass: "text-left",
+                      attrs: { slot: "no-results" },
+                      slot: "no-results"
+                    },
+                    [
+                      _c(
+                        "p",
+                        { staticClass: "mt-2" },
+                        [
+                          _vm._v(
+                            "\n                            " +
+                              _vm._s(_vm.trans.topics.empty.description) +
+                              "\n                            "
+                          ),
+                          _c(
+                            "router-link",
+                            {
+                              staticClass: "text-success text-decoration-none",
+                              attrs: { to: "/topics/create" }
+                            },
+                            [
+                              _vm._v(
+                                "\n                                " +
+                                  _vm._s(_vm.trans.topics.empty.action) +
+                                  "\n                            "
+                              )
+                            ]
+                          )
+                        ],
+                        1
+                      )
+                    ]
+                  )
+                ]
+              )
             ],
             2
           )
