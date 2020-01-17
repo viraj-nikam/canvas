@@ -20,12 +20,23 @@ class PostController extends Controller
      */
     public function index(): JsonResponse
     {
-        return response()->json(
-            Post::forCurrentUser()
-                ->latest()
-                ->withCount('views')
-                ->paginate(), 200
-        );
+        if (request()->query('postType') == 'draft') {
+            return response()->json(
+                Post::forCurrentUser()
+                    ->draft()
+                    ->latest()
+                    ->withCount('views')
+                    ->paginate(), 200
+            );
+        } else {
+            return response()->json(
+                Post::forCurrentUser()
+                    ->published()
+                    ->latest()
+                    ->withCount('views')
+                    ->paginate(), 200
+            );
+        }
     }
 
     /**

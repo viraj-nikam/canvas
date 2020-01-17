@@ -4609,6 +4609,10 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -4623,6 +4627,8 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
     return {
       page: 1,
       posts: [],
+      postType: 'published',
+      infiniteId: +new Date(),
       trans: JSON.parse(Canvas.lang)
     };
   },
@@ -4632,7 +4638,8 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
       this.request().get('/api/posts', {
         params: {
-          page: this.page
+          page: this.page,
+          postType: this.postType
         }
       }).then(function (response) {
         if (!_.isEmpty(response.data) && !_.isEmpty(response.data.data)) {
@@ -4661,6 +4668,11 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
     },
     isPublished: function isPublished(post) {
       return moment__WEBPACK_IMPORTED_MODULE_0___default()(post.published_at).isBefore(moment__WEBPACK_IMPORTED_MODULE_0___default()(new Date()).format().slice(0, 19).replace('T', ' '));
+    },
+    changeType: function changeType() {
+      this.page = 1;
+      this.posts = [];
+      this.infiniteId += 1;
     }
   }
 });
@@ -95920,7 +95932,51 @@ var render = function() {
       _c("main", { staticClass: "py-4" }, [
         _c("div", { staticClass: "col-xl-10 offset-xl-1 px-xl-5 col-md-12" }, [
           _c("div", { staticClass: "d-flex justify-content-between my-3" }, [
-            _c("h1", [_vm._v(_vm._s(_vm.trans.posts.header))])
+            _c("h1", [_vm._v(_vm._s(_vm.trans.posts.header))]),
+            _vm._v(" "),
+            _c(
+              "select",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.postType,
+                    expression: "postType"
+                  }
+                ],
+                staticClass:
+                  "my-auto bg-transparent appearance-none border-0 text-muted",
+                attrs: { name: "", id: "" },
+                on: {
+                  change: [
+                    function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.postType = $event.target.multiple
+                        ? $$selectedVal
+                        : $$selectedVal[0]
+                    },
+                    _vm.changeType
+                  ]
+                }
+              },
+              [
+                _c("option", { attrs: { value: "published" } }, [
+                  _vm._v(_vm._s(_vm.trans.nav.context.published))
+                ]),
+                _vm._v(" "),
+                _c("option", { attrs: { value: "draft" } }, [
+                  _vm._v(_vm._s(_vm.trans.nav.context.draft))
+                ])
+              ]
+            )
           ]),
           _vm._v(" "),
           _c(
@@ -96085,46 +96141,53 @@ var render = function() {
                 )
               }),
               _vm._v(" "),
-              _c("infinite-loading", { on: { infinite: _vm.fetchData } }, [
-                _c("span", { attrs: { slot: "no-more" }, slot: "no-more" }),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  {
-                    staticClass: "text-left",
-                    attrs: { slot: "no-results" },
-                    slot: "no-results"
-                  },
-                  [
-                    _c(
-                      "p",
-                      { staticClass: "mt-2" },
-                      [
-                        _vm._v(
-                          "\n                            " +
-                            _vm._s(_vm.trans.posts.empty.description) +
-                            "\n                            "
-                        ),
-                        _c(
-                          "router-link",
-                          {
-                            staticClass: "text-success text-decoration-none",
-                            attrs: { to: "/posts/create" }
-                          },
-                          [
-                            _vm._v(
-                              "\n                                " +
-                                _vm._s(_vm.trans.posts.empty.action) +
-                                "\n                            "
-                            )
-                          ]
-                        )
-                      ],
-                      1
-                    )
-                  ]
-                )
-              ])
+              _c(
+                "infinite-loading",
+                {
+                  attrs: { identifier: _vm.infiniteId },
+                  on: { infinite: _vm.fetchData }
+                },
+                [
+                  _c("span", { attrs: { slot: "no-more" }, slot: "no-more" }),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass: "text-left",
+                      attrs: { slot: "no-results" },
+                      slot: "no-results"
+                    },
+                    [
+                      _c(
+                        "p",
+                        { staticClass: "mt-2" },
+                        [
+                          _vm._v(
+                            "\n                            " +
+                              _vm._s(_vm.trans.posts.empty.description) +
+                              "\n                            "
+                          ),
+                          _c(
+                            "router-link",
+                            {
+                              staticClass: "text-success text-decoration-none",
+                              attrs: { to: "/posts/create" }
+                            },
+                            [
+                              _vm._v(
+                                "\n                                " +
+                                  _vm._s(_vm.trans.posts.empty.action) +
+                                  "\n                            "
+                              )
+                            ]
+                          )
+                        ],
+                        1
+                      )
+                    ]
+                  )
+                ]
+              )
             ],
             2
           )

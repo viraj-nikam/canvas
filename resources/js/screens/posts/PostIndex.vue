@@ -12,6 +12,11 @@
             <div class="col-xl-10 offset-xl-1 px-xl-5 col-md-12">
                 <div class="d-flex justify-content-between my-3">
                     <h1>{{ trans.posts.header }}</h1>
+
+                    <select name="" id="" v-model="postType" @change="changeType" class="my-auto bg-transparent appearance-none border-0 text-muted">
+                        <option value="published">{{ trans.nav.context.published }}</option>
+                        <option value="draft">{{ trans.nav.context.draft }}</option>
+                    </select>
                 </div>
 
                 <div class="mt-2">
@@ -55,7 +60,7 @@
                         </div>
                     </div>
 
-                    <infinite-loading @infinite="fetchData">
+                    <infinite-loading :identifier="infiniteId" @infinite="fetchData">
                         <span slot="no-more"></span>
                         <div slot="no-results" class="text-left">
                             <p class="mt-2">
@@ -67,7 +72,6 @@
                         </div>
                     </infinite-loading>
                 </div>
-
             </div>
         </main>
     </div>
@@ -91,6 +95,8 @@
             return {
                 page: 1,
                 posts: [],
+                postType: 'published',
+                infiniteId: +new Date(),
                 trans: JSON.parse(Canvas.lang),
             }
         },
@@ -100,7 +106,8 @@
                 this.request()
                     .get('/api/posts', {
                         params: {
-                            page: this.page
+                            page: this.page,
+                            postType: this.postType,
                         },
                     })
                     .then(response => {
@@ -142,6 +149,12 @@
                         .replace('T', ' ')
                 )
             },
+
+            changeType() {
+                this.page = 1;
+                this.posts = [];
+                this.infiniteId += 1;
+            }
         }
     }
 </script>
