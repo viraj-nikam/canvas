@@ -23,6 +23,7 @@ class PostController extends Controller
         return response()->json(
             Post::forCurrentUser()
                 ->latest()
+                ->withCount('views')
                 ->paginate(), 200
         );
     }

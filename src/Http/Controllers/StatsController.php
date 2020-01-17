@@ -29,7 +29,6 @@ class StatsController extends Controller
         $published = Post::forCurrentUser()
                          ->published()
                          ->latest()
-                         ->withCount('views')
                          ->get();
 
         // Get views for the last [X] days
@@ -40,19 +39,11 @@ class StatsController extends Controller
                          today()->endOfDay()->toDateTimeString(),
                      ])->get();
 
-        // Append the estimated reading time
-        $published->each->append('read_time');
-
         return response()->json([
-            'posts' => [
-                'all'             => $published,
-                'published_count' => $published->count(),
-                'drafts_count'    => Post::forCurrentUser()->draft()->count(),
-            ],
-            'views' => [
-                'count' => $views->count(),
-                'trend' => json_encode($this->getViewCounts($views, self::DAYS_PRIOR)),
-            ],
+            'view_count'      => $views->count(),
+            'view_trend'      => json_encode($this->getViewCounts($views, self::DAYS_PRIOR)),
+            'published_count' => $published->count(),
+            'draft_count'     => Post::forCurrentUser()->draft()->count(),
         ]);
     }
 

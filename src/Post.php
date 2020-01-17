@@ -78,6 +78,13 @@ class Post extends Model
     ];
 
     /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = ['read_time'];
+
+    /**
      * Get the tags relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany

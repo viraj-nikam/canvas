@@ -76,7 +76,7 @@
                         },
                     })
                     .then(response => {
-                        if (!_.isEmpty(response.data)) {
+                        if (!_.isEmpty(response.data) && !_.isEmpty(response.data.data)) {
                             this.page += 1;
                             this.tags.push(...response.data.data)
 
