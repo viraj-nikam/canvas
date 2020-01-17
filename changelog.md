@@ -3,9 +3,14 @@
 ## [Unreleased](https://github.com/cnvs/canvas/compare/master...develop)
 
 ## Changed
-- Changed the base chart library from Frappe Charts to Charts.js ([0a5607b](https://github.com/cnvs/canvas/commit/0a5607b040874391d0cc34dfec70e320783db2f6))
-- Added a user settings screen ([8466aa0](https://github.com/cnvs/canvas/commit/8466aa02006cc68a0c5d06c6d54a2e896654abdc))
-- Refactored the mail template to use markdown syntax ([cefbd93](https://github.com/cnvs/canvas/commit/cefbd93290a33d382861e311d3c42a8d52a29c6e))
+- Changed the chart library from Frappe Charts to Charts.js ([0a5607b](https://github.com/cnvs/canvas/commit/0a5607b040874391d0cc34dfec70e320783db2f6))
+- Refactored the mailable to a markdown template ([cefbd93](https://github.com/cnvs/canvas/commit/cefbd93290a33d382861e311d3c42a8d52a29c6e))
+
+## Added
+- Added infinite loading ([e34f7f4](https://github.com/cnvs/canvas/commit/e34f7f47093bf42e19c9a2b376db47c337ad4bfc), [415c9ec](https://github.com/cnvs/canvas/commit/415c9ec2994f9c67a1273bb15994c5af0bb28ca1), [686b85c](https://github.com/cnvs/canvas/commit/686b85ce5f41bdb3e4f62520666f68dcada88c58))
+- Added user-managed settings ([8466aa0](https://github.com/cnvs/canvas/commit/8466aa02006cc68a0c5d06c6d54a2e896654abdc))
+- Added an editor control bar for mobile devices ([d48b72d](https://github.com/cnvs/canvas/commit/d48b72db213d902ce54dabafc3e74da8e62fc95c))
+- Added translations for Turkish and Dutch ([201aeb4](https://github.com/cnvs/canvas/commit/201aeb4d439b1438636accb1411c6db762fc6e9e), [281e604](https://github.com/cnvs/canvas/commit/281e604edcda0a717ee73fa8a095f8a2628a60f7))
 
 ## [5.0.3](https://github.com/cnvs/canvas/compare/v5.0.2...v5.0.3) (December 16, 2019)
 
