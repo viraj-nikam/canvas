@@ -10,14 +10,13 @@
 
         <main class="py-4">
             <div class="col-xl-10 offset-xl-1 px-xl-5 col-md-12">
-                <h1 class="mt-2">{{ trans.stats.header }}</h1>
+                <div class="my-3">
+                    <h1>{{ trans.stats.header }}</h1>
+                    <p>{{ trans.stats.subtext }}</p>
+                </div>
 
                 <div v-if="isReady" v-cloak>
-                    <p class="mt-3 mb-4">
-                        {{ trans.stats.subtext }}
-                    </p>
-
-                    <div class="card-deck mb-4">
+                    <div class="card-deck mt-4">
                         <div class="card shadow bg-transparent">
                             <div class="card-body">
                                 <h5 class="card-title text-muted small text-uppercase font-weight-bold">

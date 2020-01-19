@@ -5042,7 +5042,6 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 //
 //
 //
-//
 
 
 
@@ -93063,7 +93062,7 @@ var render = function() {
                     "data-name": "Logo",
                     xmlns: "http://www.w3.org/2000/svg",
                     viewBox: "0 0 96 110.981",
-                    width: "32"
+                    width: "30"
                   }
                 },
                 [
@@ -96593,8 +96592,10 @@ var render = function() {
           "div",
           { staticClass: "col-xl-10 offset-xl-1 px-xl-5 col-md-12" },
           [
-            _c("h1", { staticClass: "mt-2" }, [
-              _vm._v(_vm._s(_vm.trans.stats.header))
+            _c("div", { staticClass: "my-3" }, [
+              _c("h1", [_vm._v(_vm._s(_vm.trans.stats.header))]),
+              _vm._v(" "),
+              _c("p", [_vm._v(_vm._s(_vm.trans.stats.subtext))])
             ]),
             _vm._v(" "),
             _vm.isReady
@@ -96602,15 +96603,7 @@ var render = function() {
                   "div",
                   {},
                   [
-                    _c("p", { staticClass: "mt-3 mb-4" }, [
-                      _vm._v(
-                        "\n                    " +
-                          _vm._s(_vm.trans.stats.subtext) +
-                          "\n                "
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "card-deck mb-4" }, [
+                    _c("div", { staticClass: "card-deck mt-4" }, [
                       _c("div", { staticClass: "card shadow bg-transparent" }, [
                         _c("div", { staticClass: "card-body" }, [
                           _c(
