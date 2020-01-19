@@ -3417,7 +3417,7 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     update: lodash__WEBPACK_IMPORTED_MODULE_0___default.a.debounce(function (e) {
       this.$parent.save();
-    }, 1200),
+    }, 3000),
     syncMetaDescription: function syncMetaDescription() {
       this.activePost.meta.meta_description = this.activePost.summary;
       this.$parent.save();
@@ -3584,7 +3584,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     update: lodash__WEBPACK_IMPORTED_MODULE_0___default.a.debounce(function (e) {
       this.$parent.save();
-    }, 1200)
+    }, 3000)
   }
 });
 
@@ -3664,9 +3664,9 @@ __webpack_require__.r(__webpack_exports__);
       this.$store.dispatch('setPostTags', this.value);
       this.update();
     },
-    update: lodash__WEBPACK_IMPORTED_MODULE_0___default.a.debounce(function (e) {
+    update: function update() {
       this.$parent.update();
-    }, 1200)
+    }
   }
 });
 
@@ -3749,9 +3749,9 @@ __webpack_require__.r(__webpack_exports__);
       this.$store.dispatch('setPostTopic', this.value);
       this.update();
     },
-    update: lodash__WEBPACK_IMPORTED_MODULE_0___default.a.debounce(function (e) {
+    update: function update() {
       this.$parent.update();
-    }, 1200)
+    }
   }
 });
 
@@ -4251,7 +4251,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     },
     update: lodash__WEBPACK_IMPORTED_MODULE_0___default.a.debounce(function (e) {
       this.$parent.save();
-    }, 1200)
+    }, 3000)
   }
 });
 
@@ -4481,7 +4481,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_textarea_autosize__WEBPACK_IM
     },
     update: _.debounce(function (e) {
       this.save();
-    }, 1200),
+    }, 3000),
     convertToDraft: function convertToDraft() {
       this.post.published_at = '';
       this.save();

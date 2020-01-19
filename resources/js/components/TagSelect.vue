@@ -73,9 +73,9 @@
                 this.update()
             },
 
-            update: _.debounce(function (e) {
+            update() {
                 this.$parent.update()
-            }, 1200),
+            },
         },
     }
 </script>

@@ -207,7 +207,7 @@
 
             update: _.debounce(function (e) {
                 this.save()
-            }, 1200),
+            }, 3000),
 
             convertToDraft() {
                 this.post.published_at = ''
