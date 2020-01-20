@@ -28,6 +28,12 @@
             </a>
         </div>
 
+        <div v-if="exceedsMaxUploadSize">
+            <p class="text-danger font-italic">
+                {{ uploadSizeErrorMessage }}
+            </p>
+        </div>
+
         <div v-if="showUnsplash">
             <div class="">
                 <input
@@ -101,6 +107,8 @@
                 isSearchingUnsplash: false,
                 selectedUnsplashImage: null,
                 unsplash: Canvas.unsplash,
+                exceedsMaxUploadSize: false,
+                uploadSizeErrorMessage: '',
                 path: Canvas.path,
                 trans: JSON.parse(Canvas.lang),
             }
@@ -142,9 +150,7 @@
             },
 
             openUnsplash() {
-                let featuredImageModal = document.querySelector(
-                    '#featuredImageModal'
-                )
+                let featuredImageModal = document.querySelector('#featuredImageModal')
                 if (featuredImageModal) {
                     featuredImageModal.classList.add('modal-lg')
                 }
@@ -224,6 +230,8 @@
                 let file = event.target.files[0]
                 let formData = new FormData()
 
+                this.exceedsMaxUploadSize = false;
+
                 formData.append('image', file, file.name)
 
                 this.$emit('isUploading')
@@ -237,6 +245,8 @@
                     })
                     .catch(error => {
                         // Add any error debugging...
+                        this.exceedsMaxUploadSize = true;
+                        this.uploadSizeErrorMessage = error.response.data
                     })
             },
         },

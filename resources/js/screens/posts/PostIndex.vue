@@ -60,7 +60,7 @@
                         </div>
                     </div>
 
-                    <infinite-loading :identifier="infiniteId" @infinite="fetchData">
+                    <infinite-loading :identifier="infiniteId" @infinite="fetchData" spinner="spiral">
                         <span slot="no-more"></span>
                         <div slot="no-results" class="text-left">
                             <p class="mt-2">

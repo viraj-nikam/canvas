@@ -27,6 +27,9 @@ return [
                 'placeholder' => 'Plak jouw HTML hier',
             ],
             'images' => [
+                'errors'   => [
+                    'size' => 'Afbeelding overschreed de maximale uploadgrootte van',
+                ],
                 'featured' => [
                     'title'       => 'Titel Uitgelichte Afbeelding',
                     'placeholder' => 'Voeg een titel toe voor je afbeelding',

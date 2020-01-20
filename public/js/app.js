@@ -2483,6 +2483,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'image-picker',
   props: {
@@ -2501,6 +2507,8 @@ __webpack_require__.r(__webpack_exports__);
       isSearchingUnsplash: false,
       selectedUnsplashImage: null,
       unsplash: Canvas.unsplash,
+      exceedsMaxUploadSize: false,
+      uploadSizeErrorMessage: '',
       path: Canvas.path,
       trans: JSON.parse(Canvas.lang)
     };
@@ -2593,13 +2601,17 @@ __webpack_require__.r(__webpack_exports__);
 
       var file = event.target.files[0];
       var formData = new FormData();
+      this.exceedsMaxUploadSize = false;
       formData.append('image', file, file.name);
       this.$emit('isUploading');
       this.request().post('/api/media/uploads', formData).then(function (response) {
         _this3.$emit('changed', {
           url: response.data
         });
-      })["catch"](function (error) {// Add any error debugging...
+      })["catch"](function (error) {
+        // Add any error debugging...
+        _this3.exceedsMaxUploadSize = true;
+        _this3.uploadSizeErrorMessage = error.response.data;
       });
     }
   }
@@ -92861,6 +92873,18 @@ var render = function() {
         : _vm._e()
     ]),
     _vm._v(" "),
+    _vm.exceedsMaxUploadSize
+      ? _c("div", [
+          _c("p", { staticClass: "text-danger font-italic" }, [
+            _vm._v(
+              "\n            " +
+                _vm._s(_vm.uploadSizeErrorMessage) +
+                "\n        "
+            )
+          ])
+        ])
+      : _vm._e(),
+    _vm._v(" "),
     _vm.showUnsplash
       ? _c("div", [
           _c("div", {}, [
@@ -96139,7 +96163,7 @@ var render = function() {
               _c(
                 "infinite-loading",
                 {
-                  attrs: { identifier: _vm.infiniteId },
+                  attrs: { identifier: _vm.infiniteId, spinner: "spiral" },
                   on: { infinite: _vm.fetchData }
                 },
                 [

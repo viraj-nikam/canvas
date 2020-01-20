@@ -27,6 +27,9 @@ return [
                 'placeholder' => '將HTML粘貼到此處',
             ],
             'images' => [
+                'errors'   => [
+                    'size' => '图片超出了最大上传尺寸',
+                ],
                 'featured' => [
                     'title'       => '特色圖片說明',
                     'placeholder' => '為圖片添加標題',

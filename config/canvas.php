@@ -46,6 +46,8 @@ return [
 
     'storage_path' => env('CANVAS_STORAGE_PATH', 'public/canvas'),
 
+    'max_upload' => env('CANVAS_MAX_UPLOAD', 3145728),
+
     /*
     |--------------------------------------------------------------------------
     | Unsplash Integration

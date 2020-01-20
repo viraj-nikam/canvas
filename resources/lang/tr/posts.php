@@ -27,6 +27,9 @@ return [
                 'placeholder' => 'HTML\'inizi buraya yapıştırın',
             ],
             'images' => [
+                'errors'   => [
+                    'size' => 'Resim, maksimum yükleme boyutunu aştı',
+                ],
                 'featured' => [
                     'title'       => 'Öne Çıkan Resim Başlığı',
                     'placeholder' => 'Resminiz için bir başlık ekleyin',

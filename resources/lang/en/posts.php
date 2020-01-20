@@ -27,6 +27,9 @@ return [
                 'placeholder' => 'Paste your HTML here',
             ],
             'images' => [
+                'errors'   => [
+                    'size' => 'Image exceeded max upload size of',
+                ],
                 'featured' => [
                     'title'       => 'Featured Image Caption',
                     'placeholder' => 'Add a caption for your image',

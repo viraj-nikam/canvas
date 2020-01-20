@@ -27,6 +27,9 @@ return [
                 'placeholder' => 'Collez votre code HTML ici',
             ],
             'images' => [
+                'errors'   => [
+                    'size' => 'L\'image a dépassé la taille de téléchargement maximale de',
+                ],
                 'featured' => [
                     'title'       => 'Légende de l\'image principale',
                     'placeholder' => 'Ajouter une légende pour votre image',
