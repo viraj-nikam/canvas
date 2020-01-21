@@ -2825,29 +2825,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'page-header',
   data: function data() {
@@ -4952,6 +4929,7 @@ function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.
 
 function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
 
+//
 //
 //
 //
@@ -93117,54 +93095,7 @@ var render = function() {
             {
               staticClass: "my-auto ml-auto d-flex align-items-end align-middle"
             },
-            [
-              _c("div", { staticClass: "dropdown my-auto" }, [
-                _c(
-                  "a",
-                  {
-                    staticClass: "nav-link",
-                    attrs: {
-                      href: "#",
-                      role: "button",
-                      "data-toggle": "dropdown",
-                      "aria-haspopup": "true",
-                      "aria-expanded": "false"
-                    }
-                  },
-                  [
-                    _c(
-                      "svg",
-                      {
-                        staticClass: "icon-search",
-                        attrs: {
-                          xmlns: "http://www.w3.org/2000/svg",
-                          width: "23",
-                          viewBox: "0 0 24 24"
-                        }
-                      },
-                      [
-                        _c("circle", {
-                          staticStyle: { fill: "none" },
-                          attrs: { cx: "10", cy: "10", r: "7" }
-                        }),
-                        _vm._v(" "),
-                        _c("path", {
-                          staticClass: "primary",
-                          attrs: {
-                            d:
-                              "M16.32 14.9l1.1 1.1c.4-.02.83.13 1.14.44l3 3a1.5 1.5 0 0 1-2.12 2.12l-3-3a1.5 1.5 0 0 1-.44-1.14l-1.1-1.1a8 8 0 1 1 1.41-1.41zM10 16a6 6 0 1 0 0-12 6 6 0 0 0 0 12z"
-                          }
-                        })
-                      ]
-                    )
-                  ]
-                ),
-                _vm._v(" "),
-                _vm._m(0)
-              ]),
-              _vm._v(" "),
-              _vm._t("action")
-            ],
+            [_vm._t("action")],
             2
           ),
           _vm._v(" "),
@@ -93275,36 +93206,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass: "dropdown-menu dropdown-menu-right py-0 shadow-sm",
-        attrs: { "aria-labelledby": "dropdownMenuButton" }
-      },
-      [
-        _c("form", { staticClass: "pl-2 w-100" }, [
-          _c("div", { staticClass: "form-group mb-0" }, [
-            _c("input", {
-              staticClass: "form-control border-0 pl-0 bg-transparent",
-              attrs: {
-                "aria-label": "Search",
-                autocomplete: "off",
-                type: "text",
-                id: "search",
-                autofocus: ""
-              }
-            })
-          ])
-        ])
-      ]
-    )
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -96718,13 +96620,13 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("line-chart", {
-                      staticClass: "my-5",
+                      staticClass: "mt-5",
                       attrs: { views: JSON.parse(_vm.viewTrend) }
                     }),
                     _vm._v(" "),
                     _c(
                       "div",
-                      { staticClass: "mt-4" },
+                      { staticClass: "mt-5" },
                       _vm._l(_vm.posts, function(post, $index) {
                         return _c(
                           "div",
@@ -96862,7 +96764,11 @@ var render = function() {
                 attrs: { spinner: "spiral" },
                 on: { infinite: _vm.fetchPosts }
               },
-              [_c("span", { attrs: { slot: "no-more" }, slot: "no-more" })]
+              [
+                _c("span", { attrs: { slot: "no-more" }, slot: "no-more" }),
+                _vm._v(" "),
+                _c("div", { attrs: { slot: "no-results" }, slot: "no-results" })
+              ]
             )
           ],
           1

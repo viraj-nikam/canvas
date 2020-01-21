@@ -56,9 +56,9 @@
                         </div>
                     </div>
 
-                    <line-chart :views="JSON.parse(viewTrend)" class="my-5"/>
+                    <line-chart :views="JSON.parse(viewTrend)" class="mt-5"/>
 
-                    <div class="mt-4">
+                    <div class="mt-5">
                         <div v-for="(post, $index) in posts" :key="$index" class="d-flex border-top py-3 align-items-center">
                             <div class="mr-auto">
                                 <p class="mb-1 mt-2">
@@ -90,6 +90,7 @@
                 </div>
                 <infinite-loading @infinite="fetchPosts" spinner="spiral">
                     <span slot="no-more"></span>
+                    <div slot="no-results"></div>
                 </infinite-loading>
             </div>
         </main>
