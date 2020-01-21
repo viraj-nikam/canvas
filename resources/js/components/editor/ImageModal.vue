@@ -34,9 +34,7 @@
                                 </div>
                             </div>
 
-                            <image-picker
-                                v-if="!imageUrl"
-                                @changed="updateImage"/>
+                            <image-picker v-if="!imageUrl" @changed="updateImage"/>
                         </div>
                     </div>
                 </div>

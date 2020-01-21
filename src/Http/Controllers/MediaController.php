@@ -14,7 +14,7 @@ class MediaController extends Controller
      */
     public function __invoke()
     {
-        $maxUploadInBytes = config('canvas.max_upload');
+        $maxUploadInBytes = config('canvas.upload_filesize');
 
         if (request()->image->getSize() <= $maxUploadInBytes) {
             $path = request()->image->store(sprintf('%s/%s', config('canvas.storage_path'), 'images'), [

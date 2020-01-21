@@ -8,7 +8,8 @@
             accept="image/*"
             @change="uploadSelectedImage"
         />
-        <div class="mb-0">
+
+        <p class="mb-0">
             {{ trans.posts.forms.editor.images.picker.greeting }}
 
             <label :for="'imageUpload' + _uid" class="text-success" style="cursor:pointer">
@@ -26,67 +27,63 @@
                 class="text-success text-decoration-none">
                 {{ trans.posts.forms.editor.images.picker.unsplash }}
             </a>
-        </div>
+        </p>
 
-        <div v-if="exceedsMaxUploadSize">
-            <p class="text-danger font-italic">
-                {{ uploadSizeErrorMessage }}
-            </p>
-        </div>
+        <p v-if="exceedsMaxUploadSize" class="text-danger font-italic">
+            {{ uploadSizeErrorMessage }}
+        </p>
 
         <div v-if="showUnsplash">
-            <div class="">
-                <input
-                    type="text"
-                    class="form-control-lg form-control border-0 px-0 bg-transparent"
-                    v-if="unsplash"
-                    v-model="searchQuery"
-                    ref="searchKeyword"
-                    :placeholder="trans.posts.forms.editor.images.picker.placeholder"
-                />
+            <input
+                type="text"
+                class="form-control-lg form-control border-0 px-0 bg-transparent"
+                v-if="unsplash"
+                v-model="searchQuery"
+                ref="searchKeyword"
+                :placeholder="trans.posts.forms.editor.images.picker.placeholder"
+            />
 
-                <div v-if="!isSearchingUnsplash && unsplashImages.length">
-                    <div class="card-columns">
-                        <div class="card border-0" v-for="image in unsplashImages">
-                            <img
-                                v-bind:src="image.urls.small"
-                                class="card-img"
-                                style="cursor: pointer"
-                                @click="closeUnsplashAndInsertImage(image)"
-                            />
-                        </div>
-                    </div>
-
-                    <div class="d-flex pt-3">
-                        <button
-                            class="btn btn-link btn-block font-weight-bold text-muted text-decoration-none"
-                            type="button"
-                            @click="closeUnsplash"
-                            @submit.prevent>
-                            {{ trans.buttons.general.cancel }}
-                        </button>
-                        <button
-                            class="btn btn-success btn-block font-weight-bold mt-0"
-                            type="button"
-                            @click="fetchImages(unsplashPage + 1)"
-                            v-if="unsplashImages.length === perPage"
-                            @submit.prevent>
-                            {{ trans.buttons.general.next }}
-                        </button>
+            <div v-if="!isSearchingUnsplash && unsplashImages.length">
+                <div class="card-columns">
+                    <div class="card border-0" v-for="image in unsplashImages">
+                        <img
+                            v-bind:src="image.urls.small"
+                            class="card-img"
+                            style="cursor: pointer"
+                            @click="closeUnsplashAndInsertImage(image)"
+                        />
                     </div>
                 </div>
 
-                <div v-if="!isSearchingUnsplash && !unsplashImages.length">
-                    <h4 class="text-center py-4">
-                        {{ trans.posts.forms.editor.images.picker.search.empty }}
-                    </h4>
+                <div class="d-flex pt-3">
+                    <button
+                        class="btn btn-link btn-block font-weight-bold text-muted text-decoration-none"
+                        type="button"
+                        @click="closeUnsplash"
+                        @submit.prevent>
+                        {{ trans.buttons.general.cancel }}
+                    </button>
+                    <button
+                        class="btn btn-success btn-block font-weight-bold mt-0"
+                        type="button"
+                        @click="fetchImages(unsplashPage + 1)"
+                        v-if="unsplashImages.length === perPage"
+                        @submit.prevent>
+                        {{ trans.buttons.general.next }}
+                    </button>
                 </div>
             </div>
+
+            <p v-if="!isSearchingUnsplash && !unsplashImages.length" class="text-center text-muted py-4">
+                 {{ trans.posts.forms.editor.images.picker.search.empty }}
+            </p>
         </div>
     </div>
 </template>
 
 <script>
+    import _ from "lodash";
+
     export default {
         name: 'image-picker',
 
@@ -115,9 +112,9 @@
         },
 
         watch: {
-            searchQuery() {
+            searchQuery: _.debounce(function (e) {
                 this.fetchImages()
-            },
+            }, 1000),
         },
 
         methods: {
