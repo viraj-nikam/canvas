@@ -2401,6 +2401,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -2484,11 +2486,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'image-picker',
   props: {
@@ -2514,9 +2512,9 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   watch: {
-    searchQuery: function searchQuery() {
+    searchQuery: lodash__WEBPACK_IMPORTED_MODULE_0___default.a.debounce(function (e) {
       this.fetchImages();
-    }
+    }, 1000)
   },
   methods: {
     fetchImages: function fetchImages() {
@@ -3852,8 +3850,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _ImagePicker__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../ImagePicker */ "./resources/js/components/ImagePicker.vue");
-//
-//
 //
 //
 //
@@ -92817,7 +92813,7 @@ var render = function() {
       on: { change: _vm.uploadSelectedImage }
     }),
     _vm._v(" "),
-    _c("div", { staticClass: "mb-0" }, [
+    _c("p", { staticClass: "mb-0" }, [
       _vm._v(
         "\n        " +
           _vm._s(_vm.trans.posts.forms.editor.images.picker.greeting) +
@@ -92874,139 +92870,128 @@ var render = function() {
     ]),
     _vm._v(" "),
     _vm.exceedsMaxUploadSize
-      ? _c("div", [
-          _c("p", { staticClass: "text-danger font-italic" }, [
-            _vm._v(
-              "\n            " +
-                _vm._s(_vm.uploadSizeErrorMessage) +
-                "\n        "
-            )
-          ])
+      ? _c("p", { staticClass: "text-danger font-italic" }, [
+          _vm._v("\n        " + _vm._s(_vm.uploadSizeErrorMessage) + "\n    ")
         ])
       : _vm._e(),
     _vm._v(" "),
     _vm.showUnsplash
       ? _c("div", [
-          _c("div", {}, [
-            _vm.unsplash
-              ? _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.searchQuery,
-                      expression: "searchQuery"
-                    }
-                  ],
-                  ref: "searchKeyword",
-                  staticClass:
-                    "form-control-lg form-control border-0 px-0 bg-transparent",
-                  attrs: {
-                    type: "text",
-                    placeholder:
-                      _vm.trans.posts.forms.editor.images.picker.placeholder
-                  },
-                  domProps: { value: _vm.searchQuery },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.searchQuery = $event.target.value
-                    }
+          _vm.unsplash
+            ? _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.searchQuery,
+                    expression: "searchQuery"
                   }
-                })
-              : _vm._e(),
-            _vm._v(" "),
-            !_vm.isSearchingUnsplash && _vm.unsplashImages.length
-              ? _c("div", [
-                  _c(
-                    "div",
-                    { staticClass: "card-columns" },
-                    _vm._l(_vm.unsplashImages, function(image) {
-                      return _c("div", { staticClass: "card border-0" }, [
-                        _c("img", {
-                          staticClass: "card-img",
-                          staticStyle: { cursor: "pointer" },
-                          attrs: { src: image.urls.small },
-                          on: {
-                            click: function($event) {
-                              return _vm.closeUnsplashAndInsertImage(image)
-                            }
-                          }
-                        })
-                      ])
-                    }),
-                    0
-                  ),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "d-flex pt-3" }, [
-                    _c(
-                      "button",
-                      {
-                        staticClass:
-                          "btn btn-link btn-block font-weight-bold text-muted text-decoration-none",
-                        attrs: { type: "button" },
+                ],
+                ref: "searchKeyword",
+                staticClass:
+                  "form-control-lg form-control border-0 px-0 bg-transparent",
+                attrs: {
+                  type: "text",
+                  placeholder:
+                    _vm.trans.posts.forms.editor.images.picker.placeholder
+                },
+                domProps: { value: _vm.searchQuery },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.searchQuery = $event.target.value
+                  }
+                }
+              })
+            : _vm._e(),
+          _vm._v(" "),
+          !_vm.isSearchingUnsplash && _vm.unsplashImages.length
+            ? _c("div", [
+                _c(
+                  "div",
+                  { staticClass: "card-columns" },
+                  _vm._l(_vm.unsplashImages, function(image) {
+                    return _c("div", { staticClass: "card border-0" }, [
+                      _c("img", {
+                        staticClass: "card-img",
+                        staticStyle: { cursor: "pointer" },
+                        attrs: { src: image.urls.small },
                         on: {
-                          click: _vm.closeUnsplash,
-                          submit: function($event) {
-                            $event.preventDefault()
+                          click: function($event) {
+                            return _vm.closeUnsplashAndInsertImage(image)
                           }
                         }
-                      },
-                      [
-                        _vm._v(
-                          "\n                        " +
-                            _vm._s(_vm.trans.buttons.general.cancel) +
-                            "\n                    "
-                        )
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _vm.unsplashImages.length === _vm.perPage
-                      ? _c(
-                          "button",
-                          {
-                            staticClass:
-                              "btn btn-success btn-block font-weight-bold mt-0",
-                            attrs: { type: "button" },
-                            on: {
-                              click: function($event) {
-                                return _vm.fetchImages(_vm.unsplashPage + 1)
-                              },
-                              submit: function($event) {
-                                $event.preventDefault()
-                              }
+                      })
+                    ])
+                  }),
+                  0
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "d-flex pt-3" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass:
+                        "btn btn-link btn-block font-weight-bold text-muted text-decoration-none",
+                      attrs: { type: "button" },
+                      on: {
+                        click: _vm.closeUnsplash,
+                        submit: function($event) {
+                          $event.preventDefault()
+                        }
+                      }
+                    },
+                    [
+                      _vm._v(
+                        "\n                    " +
+                          _vm._s(_vm.trans.buttons.general.cancel) +
+                          "\n                "
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _vm.unsplashImages.length === _vm.perPage
+                    ? _c(
+                        "button",
+                        {
+                          staticClass:
+                            "btn btn-success btn-block font-weight-bold mt-0",
+                          attrs: { type: "button" },
+                          on: {
+                            click: function($event) {
+                              return _vm.fetchImages(_vm.unsplashPage + 1)
+                            },
+                            submit: function($event) {
+                              $event.preventDefault()
                             }
-                          },
-                          [
-                            _vm._v(
-                              "\n                        " +
-                                _vm._s(_vm.trans.buttons.general.next) +
-                                "\n                    "
-                            )
-                          ]
-                        )
-                      : _vm._e()
-                  ])
+                          }
+                        },
+                        [
+                          _vm._v(
+                            "\n                    " +
+                              _vm._s(_vm.trans.buttons.general.next) +
+                              "\n                "
+                          )
+                        ]
+                      )
+                    : _vm._e()
                 ])
-              : _vm._e(),
-            _vm._v(" "),
-            !_vm.isSearchingUnsplash && !_vm.unsplashImages.length
-              ? _c("div", [
-                  _c("h4", { staticClass: "text-center py-4" }, [
-                    _vm._v(
-                      "\n                    " +
-                        _vm._s(
-                          _vm.trans.posts.forms.editor.images.picker.search
-                            .empty
-                        ) +
-                        "\n                "
-                    )
-                  ])
-                ])
-              : _vm._e()
-          ])
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          !_vm.isSearchingUnsplash && !_vm.unsplashImages.length
+            ? _c("p", { staticClass: "text-center text-muted py-4" }, [
+                _vm._v(
+                  "\n             " +
+                    _vm._s(
+                      _vm.trans.posts.forms.editor.images.picker.search.empty
+                    ) +
+                    "\n        "
+                )
+              ])
+            : _vm._e()
         ])
       : _vm._e()
   ])
