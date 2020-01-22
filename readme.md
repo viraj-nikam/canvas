@@ -105,6 +105,8 @@ Canvas exposes a simple UI at `/canvas` by default. This can be changed by updat
 
 ### Publishing
 
+> Note: If you'd rather have all of this run automatically with no extra work from you, just follow through the [optional guide](#want-to-get-started-fast) below to scaffold a Medium-inspired frontend. Aside from general post listings, you'll get localized content, reading suggestions and more!
+
 Canvas takes care of the backend while giving you the freedom to display the final content however you choose. A very simple setup would include a controller, some views, and a few routes. Take a look at the following example:
 
 Define a few routes inside of `routes/web.php`:
@@ -193,17 +195,19 @@ public function findPostBySlug(string $slug)
 }
 ```
 
-Finally, just create `index.blade.php` and `show.blade.php` inside a `/views/blog` directory. 
-
-If you'd rather have all of this run automatically with no extra work from you, just follow through the optional guide below to build a Medium-inspired frontend. Aside from general post listings, you'll get localized content, reading suggestions and more!
+Finally, just create `index.blade.php` and `show.blade.php` inside a `/views/blog` directory to display your data.
 
 ## Options
 
 > **Note:** The following components are optional features, you are not required to use them.
 
-**Want to get started fast?** Just run `php artisan canvas:setup` after installing Canvas. Then, navigate your browser to `http://your-app.test/blog` or any other URL that is assigned to your application. This command scaffolds a default frontend for your entire blog!
+### Want to get started fast?
 
-If you want to include [Unsplash](https://unsplash.com) images in your post content, set up a new application at [https://unsplash.com/oauth/applications](https://unsplash.com/oauth/applications). Grab your access key and update `config/canvas.php`:
+Just run `php artisan canvas:setup` after installing Canvas. Then, navigate your browser to `http://your-app.test/blog` or any other URL that is assigned to your application. This command scaffolds a default frontend for your entire blog!
+
+### Want access to the entire [Unsplash](https://unsplash.com) library?
+
+Set up a new application at [https://unsplash.com/oauth/applications](https://unsplash.com/oauth/applications), grab your access key, and update `config/canvas.php`:
 
 ```php
 /*
@@ -222,7 +226,9 @@ If you want to include [Unsplash](https://unsplash.com) images in your post cont
 ]
 ```
 
-**Want a weekly summary?** Canvas allows users to receive a weekly summary of their authored content. Once your application is [configured for sending mail](https://laravel.com/docs/master/mail), update `config/canvas.php`:
+### Want a weekly summary?
+
+Canvas allows users to receive a weekly summary of their authored content. Once your application is [configured for sending mail](https://laravel.com/docs/master/mail), update `config/canvas.php`:
 
 ```php
 /*
