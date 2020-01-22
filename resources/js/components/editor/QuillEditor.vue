@@ -1,6 +1,6 @@
 <template>
     <div v-cloak>
-        <div style="position: relative">
+        <div class="position-relative">
             <div id="sidebarControls">
                 <button
                     class="btn btn-outline-light btn-circle border"
@@ -41,7 +41,38 @@
                 </div>
             </div>
 
-            <div ref="editor"></div>
+            <div ref="editor" class="mb-5"></div>
+
+            <nav class="navbar fixed-bottom navbar-expand-sm mt-5 d-xl-none p-0 navbar-mini">
+                <div class="btn-group d-flex justify-content-center">
+                    <button
+                        class="btn btn-outline-light border border-bottom-0 border-left-0 py-2"
+                        type="button"
+                        @click="showImageModal">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="26" viewBox="0 0 24 24" class="icon-camera">
+                            <path class="secondary" d="M6.59 6l2.7-2.7A1 1 0 0 1 10 3h4a1 1 0 0 1 .7.3L17.42 6H20a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8c0-1.1.9-2 2-2h2.59zM19 10a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-7 8a5 5 0 1 0 0-10 5 5 0 0 0 0 10z"/>
+                            <path class="secondary" d="M12 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                        </svg>
+                    </button>
+                    <button
+                        class="btn btn-outline-light border border-bottom-0 py-2"
+                        type="button"
+                        @click="showHTMLModal">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="26" viewBox="0 0 24 24" class="icon-code">
+                            <rect width="18" height="18" x="3" y="3" style="fill:none" rx="2"/>
+                            <path class="secondary" d="M8.7 13.3a1 1 0 0 1-1.4 1.4l-2-2a1 1 0 0 1 0-1.4l2-2a1 1 0 1 1 1.4 1.4L7.42 12l1.3 1.3zm6.6 0l1.29-1.3-1.3-1.3a1 1 0 1 1 1.42-1.4l2 2a1 1 0 0 1 0 1.4l-2 2a1 1 0 0 1-1.42-1.4zm-3.32 3.9a1 1 0 0 1-1.96-.4l2-10a1 1 0 0 1 1.96.4l-2 10z"/>
+                        </svg>
+                    </button>
+                    <button
+                        class="btn btn-outline-light border border-bottom-0 border-right-0 py-2"
+                        type="button"
+                        @click="insertDivider">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="26" viewBox="0 0 24 24" class="icon-dots-horizontal">
+                            <path class="secondary" fill-rule="evenodd" d="M5 14a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm7 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm7 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/>
+                        </svg>
+                    </button>
+                </div>
+            </nav>
 
             <image-modal
                 ref="imageModal"
@@ -274,28 +305,32 @@
 
             update: _.debounce(function (e) {
                 this.$parent.save()
-            }, 1200),
+            }, 3000),
         },
     }
 </script>
 
-<style>
+<style lang="scss">
+    @import '../../../../resources/sass/variables';
     @import '~quill/dist/quill.bubble.css';
 
     .ql-container {
-        box-sizing: border-box;
-        font-family: 'Merriweather', serif;
-        height: 100%;
+        font-size: 1.1rem;
+        line-height: 2;
+        font-family: $font-family-serif, serif;
         margin: 0;
+        height: 100%;
         position: relative;
+        box-sizing: border-box;
     }
 
     .ql-editor {
-        font-family: 'Merriweather', serif;
+        font-family: $font-family-serif, serif;
         font-size: 1.1rem;
-        line-height: 1.9;
+        line-height: 2;
         padding: 0;
         overflow-y: visible;
+        min-width: 100%;
         display: -webkit-box;
         display: -ms-flexbox;
         display: flex;
@@ -303,87 +338,84 @@
         -webkit-box-direction: normal;
         -ms-flex-direction: column;
         flex-direction: column;
-        -webkit-box-align: center;
-        -ms-flex-align: center;
-        align-items: center;
     }
 
-    .ql-editor p,
-    .ql-editor ul,
-    .ql-editor ol,
-    .ql-editor h1,
-    .ql-editor h2,
-    .ql-editor h3,
-    .ql-editor blockquote,
-    .ql-editor pre {
-        min-width: 100%;
+    .ql-editor p {
+        margin: 1.5em 0 0 0;
     }
 
-    .ql-editor h2 {
-        margin-top: 0 !important;
-        margin-bottom: 33px !important;
-        font-size: 1.5rem;
-        font-weight: bold;
-        line-height: 2.6rem;
+    .ql-editor a {
+        text-decoration: underline;
     }
 
-    .ql-editor h3 {
-        margin-bottom: 33px !important;
-        font-size: 17px !important;
-        font-weight: bold;
-        line-height: 2.6rem;
-    }
-
-    .ql-editor p,
-    .ql-editor ol,
-    .ql-editor ul,
-    .ql-editor pre,
-    .ql-editor blockquote {
-        margin-bottom: 33px !important;
+    .ql-editor h1, h2, h3 {
+        margin: 1.5em 0 0 0 !important;
     }
 
     .ql-editor blockquote {
-        font-style: italic !important;
+        margin: 2em 0 1em 0 !important;
+        font-style: italic;
+        font-size: 28px;
+        border: none !important;
+        color: $gray-500;
+        padding-left: 1.5em !important;
+        line-height: 1.5;
     }
 
-    .ql-bubble .ql-editor pre.ql-syntax {
-        background-color: rgba(0, 0, 0, 0.05);
-        border: none;
-        color: #000;
-        overflow-x: auto;
-        padding: 1em;
+    div.embedded_image {
+        margin-top: 2em;
     }
 
-    .ql-editor h1,
-    .ql-editor h2 {
-        margin-top: 56px;
-        margin-bottom: 15px;
+    div.embedded_image > img {
+        width: 100%;
+        height: auto;
+        display: block;
     }
 
-    .ql-editor ol,
-    .ql-editor ul {
-        padding-left: 0;
+    div.embedded_image > p {
+        text-align: center;
+        color: $gray-500;
+        margin-top: .5em;
+        font-size: 0.9rem;
+        font-family: $font-family-sans-serif, sans-serif;
     }
 
-    .ql-editor ol li,
-    .ql-editor ul li {
-        margin-bottom: 20px;
+    div.embedded_image:hover img {
+        cursor: pointer !important;
+        box-shadow: 0 0 0 3px #03a87c;
     }
 
-    .ql-editor.ql-blank::before {
-        left: 0;
-        font-style: normal;
+    div.embedded_image[data-layout="wide"] img {
+        max-width: 1024px;
+        margin: 0 auto 30px;
+    }
+
+    div.embedded_image[data-layout=wide] {
+        width: 100vw;
+        position: relative;
+        left: 50%;
+        margin-left: -50vw;
     }
 
     .ql-container hr {
-        margin-top: 0;
         border: none;
+        margin: 3em 0 4em 0;
         letter-spacing: 1em;
         text-align: center;
     }
 
     .ql-container hr:before {
         content: '...';
+    }
+
+    .ql-editor pre.ql-syntax {
+        border-radius: $border-radius;
+        padding: 1em;
+        margin-top: 2em;
+    }
+
+    .ql-editor.ql-blank::before {
+        left: 0 !important;
     }
 
     .btn-circle {
@@ -397,10 +429,11 @@
 
     #sidebarControls {
         margin-top: -8px;
+        top: 0;
         display: none;
         position: absolute;
         z-index: 10;
-        left: -60px !important;
+        left: -60px;
     }
 
     #sidebarControls button:hover {
@@ -408,53 +441,33 @@
     }
 
     #sidebarControls button:focus {
-        -webkit-box-shadow: none !important;
-        -moz-box-shadow: none !important;
-        box-shadow: none !important;
-        outline: none !important;
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+        box-shadow: none;
+        outline: none;
     }
 
     #sidebarControls.active .controls {
         display: inline-block !important;
     }
 
-    .embedded_image {
-        margin-bottom: 33px !important;
-        cursor: default;
+    .navbar div.btn-group {
+        flex: auto;
     }
 
-    .embedded_image[data-layout='wide'] img {
-        max-width: 1024px;
+    .navbar div.btn-group button {
+        border-radius: 0;
     }
 
-    .embedded_image img {
-        max-width: 100%;
-        height: auto;
-        margin: 0 auto;
-        display: block;
-    }
-
-    .embedded_image:hover img {
-        cursor: pointer !important;
-        box-shadow: 0 0 0 3px #03a87c !important;
+    div.ql-editor.ql-blank::before {
+        margin-top: 26.4px !important;
     }
 
     div.embedded_image[data-laout='wide'] {
-        width: 100vw !important;
-        position: relative !important;
-        left: 50% !important;
-        margin-left: -50vw !important;
-    }
-
-    .embedded_image p {
-        margin-bottom: 0 !important;
-        color: #6c757d;
-        padding-top: 1rem;
-        font-size: 0.9rem;
-        line-height: 1.6;
-        font-weight: 400;
-        text-align: center;
-        font-family: 'Karla', sans-serif;
+        width: 100vw;
+        position: relative;
+        left: 50%;
+        margin-left: -50vw;
     }
 
     @media screen and (max-width: 1024px) {
@@ -463,7 +476,7 @@
         }
     }
 
-    @media (max-width: 767px) {
+    @media (max-width: 1200px) {
         #sidebarControls {
             display: none !important;
         }

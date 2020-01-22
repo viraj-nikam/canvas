@@ -11,11 +11,12 @@ return [
         'success' => 'Gerettet!',
     ],
     'user'     => [
-        'posts'  => 'Beiträge',
-        'tags'   => 'Stichworte',
-        'topics' => 'Themen',
-        'stats'  => 'Statistiken',
-        'logout' => 'Ausloggen',
+        'posts'    => 'Beiträge',
+        'tags'     => 'Stichworte',
+        'topics'   => 'Themen',
+        'stats'    => 'Statistiken',
+        'settings' => 'Die Einstellungen',
+        'logout'   => 'Ausloggen',
     ],
     'controls' => [
         'stats'    => 'Statistiken anzeigen',

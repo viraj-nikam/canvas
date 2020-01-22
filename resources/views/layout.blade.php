@@ -13,12 +13,17 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Karla|Merriweather:400,700,900">
 
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/default.min.css">
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>
+    @if($scripts['darkMode'])
+        <link rel="stylesheet" id="baseStylesheet" type="text/css" href="{{ mix('css/app-dark.css', 'vendor/canvas') }}">
+        <link rel="stylesheet" id="highlightStylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.17.1/build/styles/sunburst.min.css">
+    @else
+        <link rel="stylesheet" id="baseStylesheet" type="text/css" href="{{ mix('css/app.css', 'vendor/canvas') }}">
+        <link rel="stylesheet" id="highlightStylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.17.1/build/styles/github.min.css">
+    @endif
 
-    <link rel="stylesheet" type="text/css" href="{{ asset(mix(sprintf('css/%s', $stylesheet), 'vendor/canvas')) }}">
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.17.1/build/highlight.min.js"></script>
 
-    <link rel="shortcut icon" href="{{ asset(mix('favicon.ico', 'vendor/canvas')) }}">
+    <link rel="shortcut icon" href="{{ mix('favicon.ico', 'vendor/canvas') }}">
 </head>
 <body>
 <div id="canvas">

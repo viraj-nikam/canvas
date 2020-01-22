@@ -9,7 +9,7 @@ return [
     ],
     'search'  => [
         'input' => 'Buscar por título ...',
-        'empty' => 'No hay publicaciones que coincidan con los criterios de búsqueda dados.',
+        'empty' => 'No se encontraron resultados para',
     ],
     'details' => [
         'published' => 'Publicado',
@@ -27,6 +27,9 @@ return [
                 'placeholder' => 'Pega tu HTML aquí',
             ],
             'images' => [
+                'errors'   => [
+                    'size' => 'La imagen superó el tamaño máximo de carga de',
+                ],
                 'featured' => [
                     'title'       => 'Leyenda de imagen destacada',
                     'placeholder' => 'Añade un título para tu imagen',

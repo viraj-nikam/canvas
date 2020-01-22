@@ -27,32 +27,23 @@ class StatsController extends Controller
     public function index(): JsonResponse
     {
         $published = Post::forCurrentUser()
-            ->published()
-            ->orderByDesc('created_at')
-            ->withCount('views')
-            ->get();
+                         ->published()
+                         ->latest()
+                         ->get();
 
         // Get views for the last [X] days
         $views = View::select('created_at')
-            ->whereIn('post_id', $published->pluck('id'))
-            ->whereBetween('created_at', [
-                today()->subDays(self::DAYS_PRIOR)->startOfDay()->toDateTimeString(),
-                today()->endOfDay()->toDateTimeString(),
-            ])->get();
-
-        // Append the estimated reading time
-        $published->each->append('read_time');
+                     ->whereIn('post_id', $published->pluck('id'))
+                     ->whereBetween('created_at', [
+                         today()->subDays(self::DAYS_PRIOR)->startOfDay()->toDateTimeString(),
+                         today()->endOfDay()->toDateTimeString(),
+                     ])->get();
 
         return response()->json([
-            'posts' => [
-                'all'             => $published,
-                'published_count' => $published->count(),
-                'drafts_count'    => Post::draft()->count(),
-            ],
-            'views' => [
-                'count' => $views->count(),
-                'trend' => json_encode($this->getViewCounts($views, self::DAYS_PRIOR)),
-            ],
+            'view_count'      => $views->count(),
+            'view_trend'      => json_encode($this->getViewCounts($views, self::DAYS_PRIOR)),
+            'published_count' => $published->count(),
+            'draft_count'     => Post::forCurrentUser()->draft()->count(),
         ]);
     }
 
@@ -69,8 +60,9 @@ class StatsController extends Controller
         if ($post && $post->published) {
             return response()->json([
                 'post'                  => $post,
-                'traffic'               => $post->top_referers,
                 'popular_reading_times' => $post->popular_reading_times,
+                'traffic'               => $post->top_referers,
+                'trend'                 => $this->compareMonthToMonth($post->views),
                 'views'                 => json_encode($this->getViewCounts($post->views, self::DAYS_PRIOR)),
             ]);
         } else {

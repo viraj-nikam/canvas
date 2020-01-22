@@ -9,7 +9,7 @@ return [
     ],
     'search'  => [
         'input' => 'Pesquisar por título ...',
-        'empty' => 'Nenhuma postagem corresponde aos critérios de pesquisa fornecidos.',
+        'empty' => 'Nenhum resultado encontrado para',
     ],
     'details' => [
         'published' => 'Publicados',
@@ -27,6 +27,9 @@ return [
                 'placeholder' => 'Cole seu HTML aqui',
             ],
             'images' => [
+                'errors'   => [
+                    'size' => 'A imagem excedeu o tamanho máximo de upload de',
+                ],
                 'featured' => [
                     'title'       => 'Legenda da imagem em destaque',
                     'placeholder' => 'Adicione uma legenda para sua imagem',

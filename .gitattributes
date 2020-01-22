@@ -10,3 +10,4 @@
 phpunit.xml export-ignore
 changelog.md export-ignore
 sponsors.md export-ignore
+upgrade.md export-ignore

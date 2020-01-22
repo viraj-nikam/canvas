@@ -6,6 +6,7 @@ return [
     'subtext' => '點擊下面的帖子查看更詳細的見解。',
     'empty'   => '沒有已發布的帖子可供您查看統計信息。',
     'views'   => '視圖（S）',
+    'trend'   => 'from last month',
     'chart'   => [
         'view'  => '視圖',
         'views' => '意見（30天）',

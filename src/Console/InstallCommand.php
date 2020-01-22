@@ -22,7 +22,7 @@ class InstallCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Install all of the Canvas resources';
+    protected $description = 'Install the resources and run migrations';
 
     /**
      * Execute the console command.

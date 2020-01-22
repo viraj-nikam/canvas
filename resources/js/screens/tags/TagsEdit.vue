@@ -11,7 +11,7 @@
             </template>
 
             <template slot="action">
-                <a href="#" class="btn btn-sm btn-outline-success font-weight-bold" :class="{ disabled: form.name === '' }" @click="saveTag" :aria-label="trans.buttons.general.save">
+                <a href="#" class="btn btn-sm btn-outline-success font-weight-bold my-auto" :class="{ disabled: form.name === '' }" @click="saveTag" :aria-label="trans.buttons.general.save">
                     {{ trans.buttons.general.save }}
                 </a>
             </template>
@@ -32,37 +32,35 @@
             </template>
         </page-header>
 
-        <main class="py-4" v-if="isReady">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-md-8">
-                        <div class="form-group row my-5">
-                            <div class="col-lg-12">
-                                <input
-                                    type="text"
-                                    name="name"
-                                    autocomplete="off"
-                                    v-model="form.name"
-                                    title="Name"
-                                    @keyup.enter="saveTag"
-                                    class="form-control-lg form-control border-0 px-0 bg-transparent"
-                                    :placeholder="trans.tags.forms.placeholder"
-                                />
+        <main v-if="isReady" class="py-4" v-cloak>
+            <div class="col-xl-8 offset-xl-2 px-xl-5 col-md-12 mt-5">
+                <div class="form-group mb-5">
+                    <div class="col-lg-12">
+                        <input
+                            type="text"
+                            name="name"
+                            autofocus
+                            autocomplete="off"
+                            v-model="form.name"
+                            title="Name"
+                            @keyup.enter="saveTag"
+                            class="form-control-lg form-control border-0 px-0 bg-transparent"
+                            :placeholder="trans.tags.forms.placeholder"
+                        />
 
-                                <div v-if="form.errors.name" class="invalid-feedback d-block">
-                                    <strong>{{ form.errors.name[0] }}</strong>
-                                </div>
-                            </div>
+                        <div v-if="form.errors.name" class="invalid-feedback d-block">
+                            <strong>{{ form.errors.name[0] }}</strong>
                         </div>
-                        <div class="form-group row">
-                            <div class="col-lg-12">
-                                <p class="lead text-muted">
-                                    <span class="text-success">{{ form.slug }}</span>
-                                </p>
-                                <div v-if="form.errors.slug" class="invalid-feedback d-block">
-                                    <strong>{{ form.errors.slug[0] }}</strong>
-                                </div>
-                            </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-12">
+                        <p class="lead text-muted">
+                            <span v-if="!form.slug" class="text-success">{{ trans.tags.forms.slug }}</span>
+                            <span v-else class="text-success">{{ form.slug }}</span>
+                        </p>
+                        <div v-if="form.errors.slug" class="invalid-feedback d-block">
+                            <strong>{{ form.errors.slug[0] }}</strong>
                         </div>
                     </div>
                 </div>
@@ -73,14 +71,14 @@
             ref="deleteModal"
             @delete="deleteTag"
             :header="trans.tags.delete.header"
-            :message="trans.tags.delete.warning"
-        >
+            :message="trans.tags.delete.warning">
         </delete-modal>
     </div>
 </template>
 
 <script>
     import $ from 'jquery'
+    import NProgress from 'nprogress'
     import PageHeader from '../../components/PageHeader'
     import DeleteModal from '../../components/DeleteModal'
 
@@ -133,6 +131,8 @@
                         }
 
                         this.isReady = true
+
+                        NProgress.done()
                     })
                     .catch(error => {
                         this.$router.push({name: 'tags'})
@@ -156,6 +156,11 @@
                         this.form.isSaving = false
                         this.form.errors = error.response.data.errors
                     })
+
+                setTimeout(() => {
+                    this.form.hasSuccess = false
+                    this.form.isSaving = false
+                }, 3000)
             },
 
             deleteTag() {

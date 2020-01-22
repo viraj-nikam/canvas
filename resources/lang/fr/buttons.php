@@ -2,7 +2,7 @@
 
 return [
 
-    'general' => [
+    'general'  => [
         'cancel' => 'Annuler',
         'delete' => 'Effacer',
         'done'   => 'Terminé',
@@ -11,7 +11,7 @@ return [
         'next'   => 'Page suivante',
         'draft'  => 'Convertir en brouillon',
     ],
-    'posts'   => [
+    'posts'    => [
         'create'   => 'Nouveau poste',
         'edit'     => 'Modifier le post',
         'ready'    => 'Prêt à publier?',
@@ -20,17 +20,20 @@ return [
         'schedule' => 'Calendrier de publication',
         'cancel'   => 'Annuler la planification',
     ],
-    'stats'   => [
+    'stats'    => [
         'index' => 'Voir toutes les stats',
         'show'  => 'Détails',
     ],
-    'tags'    => [
+    'tags'     => [
         'create' => 'Nouveau mot clé',
         'update' => 'Sauvegarder les modifications',
     ],
-    'topics'  => [
+    'topics'   => [
         'create' => 'Nouveau sujet',
         'update' => 'Sauvegarder les modifications',
+    ],
+    'settings' => [
+        'profile' => 'Editer le profil',
     ],
 
 ];

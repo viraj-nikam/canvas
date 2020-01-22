@@ -2,7 +2,7 @@
 
 return [
 
-    'general' => [
+    'general'  => [
         'cancel' => 'Cancelar',
         'delete' => 'Borrar',
         'done'   => 'Hecho',
@@ -11,7 +11,7 @@ return [
         'next'   => 'Siguiente página',
         'draft'  => 'Convertir a borrador',
     ],
-    'posts'   => [
+    'posts'    => [
         'create'   => 'Nueva publicación',
         'edit'     => 'Editar post',
         'ready'    => '¿Listo para publicar?',
@@ -20,17 +20,20 @@ return [
         'schedule' => 'Programar para publicar',
         'cancel'   => 'Cancelar la programación',
     ],
-    'stats'   => [
+    'stats'    => [
         'index' => 'Ver todas las estadísticas',
         'show'  => 'Detalles',
     ],
-    'tags'    => [
+    'tags'     => [
         'create' => 'Nueva etiqueta',
         'update' => 'Guardar cambios',
     ],
-    'topics'  => [
+    'topics'   => [
         'create' => 'Nuevo tema',
         'update' => 'Guardar cambios',
+    ],
+    'settings' => [
+        'profile' => 'Editar perfil',
     ],
 
 ];

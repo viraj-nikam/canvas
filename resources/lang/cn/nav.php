@@ -11,11 +11,12 @@ return [
         'success' => '得救了！',
     ],
     'user'     => [
-        'posts'  => '帖子',
-        'tags'   => '標籤',
-        'topics' => '話題',
-        'stats'  => '統計',
-        'logout' => '登出',
+        'posts'    => '帖子',
+        'tags'     => '標籤',
+        'topics'   => '話題',
+        'stats'    => '統計',
+        'settings' => '设定值',
+        'logout'   => '登出',
     ],
     'controls' => [
         'stats'    => '查看統計信息',

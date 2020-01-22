@@ -9,7 +9,7 @@ return [
     ],
     'search'  => [
         'input' => 'Rechercher par titre ...',
-        'empty' => 'Aucun article ne correspond aux critères de recherche donnés.',
+        'empty' => 'Aucun résultat trouvé pour',
     ],
     'details' => [
         'published' => 'Publié',
@@ -27,6 +27,9 @@ return [
                 'placeholder' => 'Collez votre code HTML ici',
             ],
             'images' => [
+                'errors'   => [
+                    'size' => 'L\'image a dépassé la taille de téléchargement maximale de',
+                ],
                 'featured' => [
                     'title'       => 'Légende de l\'image principale',
                     'placeholder' => 'Ajouter une légende pour votre image',

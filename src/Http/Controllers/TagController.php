@@ -18,9 +18,12 @@ class TagController extends Controller
      */
     public function index(): JsonResponse
     {
-        return response()->json(Tag::withCount('posts')
-            ->orderByDesc('created_at')
-            ->get());
+        return response()->json(
+            Tag::forCurrentUser()
+                ->latest()
+                ->withCount('posts')
+                ->paginate(), 200
+        );
     }
 
     /**
@@ -32,17 +35,19 @@ class TagController extends Controller
      */
     public function show($id = null): JsonResponse
     {
-        if ($id === 'create') {
-            return response()->json(Tag::make([
-                'id' => Uuid::uuid4(),
-            ]));
-        } else {
-            $tag = Tag::find($id);
-
-            if ($tag) {
-                return response()->json($tag);
+        if (Tag::forCurrentUser()->pluck('id')->contains($id) || $this->isNewTag($id)) {
+            if ($this->isNewTag($id)) {
+                return response()->json(Tag::make([
+                    'id' => Uuid::uuid4(),
+                ]), 200);
             } else {
-                return response()->json(null, 301);
+                $tag = Tag::find($id);
+
+                if ($tag) {
+                    return response()->json($tag, 200);
+                } else {
+                    return response()->json(null, 301);
+                }
             }
         }
     }
@@ -56,9 +61,10 @@ class TagController extends Controller
     public function store(string $id): JsonResponse
     {
         $data = [
-            'id'   => request('id'),
-            'name' => request('name'),
-            'slug' => request('slug'),
+            'id'      => request('id'),
+            'name'    => request('name'),
+            'slug'    => request('slug'),
+            'user_id' => request()->user()->id,
         ];
 
         $messages = [
@@ -71,24 +77,26 @@ class TagController extends Controller
             'slug' => [
                 'required',
                 'alpha_dash',
-                Rule::unique('canvas_tags', 'slug')->ignore($id)->whereNull('deleted_at'),
+                Rule::unique('canvas_tags')->where(function ($query) use ($data) {
+                    return $query->where('slug', $data['slug'])->where('user_id', $data['user_id']);
+                })->ignore($id)->whereNull('deleted_at'),
             ],
         ], $messages)->validate();
 
-        if ($id !== 'create') {
-            $tag = Tag::find($id);
-        } else {
-            if ($tag = Tag::onlyTrashed()->where('slug', request('slug'))->first()) {
+        if ($this->isNewTag($id)) {
+            if ($tag = Tag::onlyTrashed()->where('slug', $data['slug'])->first()) {
                 $tag->restore();
             } else {
-                $tag = new Tag(['id' => request('id')]);
+                $tag = new Tag(['id' => $data['id']]);
             }
+        } else {
+            $tag = Tag::find($id);
         }
 
         $tag->fill($data);
         $tag->save();
 
-        return response()->json($tag->refresh());
+        return response()->json($tag->refresh(), 201);
     }
 
     /**
@@ -106,5 +114,16 @@ class TagController extends Controller
 
             return response()->json([], 204);
         }
+    }
+
+    /**
+     * Return true if we're creating a new tag.
+     *
+     * @param string $id
+     * @return bool
+     */
+    private function isNewTag(string $id): bool
+    {
+        return $id === 'create';
     }
 }

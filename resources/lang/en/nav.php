@@ -11,11 +11,12 @@ return [
         'success' => 'Saved!',
     ],
     'user'     => [
-        'posts'  => 'Posts',
-        'tags'   => 'Tags',
-        'topics' => 'Topics',
-        'stats'  => 'Stats',
-        'logout' => 'Sign out',
+        'posts'    => 'Posts',
+        'tags'     => 'Tags',
+        'topics'   => 'Topics',
+        'stats'    => 'Stats',
+        'settings' => 'Settings',
+        'logout'   => 'Sign out',
     ],
     'controls' => [
         'stats'    => 'View stats',

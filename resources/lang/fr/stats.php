@@ -6,6 +6,7 @@ return [
     'subtext' => 'Cliquez sur un des billets ci-dessous pour obtenir plus de détails.',
     'empty'   => 'Il n\'y a pas d\'articles publiés pour lesquels les statistiques sont consultables.',
     'views'   => 'Vue(s)',
+    'trend'   => 'du mois dernier',
     'chart'   => [
         'view'  => 'vue',
         'views' => 'Vues (30 jours)',

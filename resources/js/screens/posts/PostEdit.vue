@@ -4,25 +4,28 @@
             <template slot="status">
                 <ul class="navbar-nav mr-auto flex-row float-right">
                     <li class="text-muted font-weight-bold">
-                        <div class="d-inline-block">
+                        <div v-if="!post.isSaving && !post.hasSuccess">
                             <span v-if="isDraft">{{ trans.nav.context.draft }}</span>
-                            <span v-else>{{ trans.nav.context.published }}</span>
+                            <span v-if="!isDraft">{{ trans.nav.context.published }}</span>
                         </div>
 
-                        <span v-if="post.isSaving" class="pl-2">{{ trans.nav.notify.saving }}</span>
-                        <span v-if="post.hasSuccess" class="pl-2 text-success">
-                            {{ trans.nav.notify.success }}
-                        </span>
+                        <div v-if="post.isSaving">
+                            <span class="pl-2">{{ trans.nav.notify.saving }}</span>
+                        </div>
+
+                        <div v-if="post.hasSuccess">
+                            <span class="pl-2 text-success">{{ trans.nav.notify.success }}</span>
+                        </div>
                     </li>
                 </ul>
             </template>
 
             <template slot="action">
-                <a v-if="isDraft" href="#" class="btn btn-sm btn-outline-success font-weight-bold" @click="showPublishModal">
+                <a v-if="isDraft" href="#" class="btn btn-sm btn-outline-success font-weight-bold my-auto" @click="showPublishModal">
                     {{ trans.buttons.posts.ready }}
                 </a>
 
-                <a v-else href="#" class="btn btn-sm btn-outline-success font-weight-bold" @click="save">
+                <a v-else href="#" class="btn btn-sm btn-outline-success font-weight-bold my-auto" @click="save">
                     {{ trans.buttons.general.save }}
                 </a>
             </template>
@@ -60,29 +63,26 @@
             </template>
         </page-header>
 
-        <main class="py-4">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-md-8" v-if="isReady">
-                        <div class="form-group row my-3">
-                            <div class="col-lg-12">
-                                <textarea-autosize
-                                    :placeholder="trans.posts.forms.editor.title"
-                                    class="form-control-lg form-control border-0 pl-0 font-serif bg-transparent"
-                                    @input.native="update"
-                                    rows="1"
-                                    v-model="post.title"
-                                />
-                            </div>
-                        </div>
-
-                        <quill-editor></quill-editor>
-                    </div>
+        <main class="py-4" v-if="isReady">
+            <div class="col-xl-8 offset-xl-2 px-xl-5 col-md-12">
+                <div class="form-group row my-3">
+                    <textarea-autosize
+                        :placeholder="trans.posts.forms.editor.title"
+                        class="form-control-lg form-control border-0 font-serif bg-transparent"
+                        @input.native="update"
+                        rows="1"
+                        v-model="post.title"
+                    />
                 </div>
+
+                <quill-editor/>
             </div>
         </main>
 
-        <publish-modal v-if="isReady" ref="publishModal"/>
+        <publish-modal
+            v-if="isReady"
+            ref="publishModal"
+        />
 
         <settings-modal
             v-if="isReady"
@@ -92,9 +92,15 @@
             :topics="topics"
         />
 
-        <featured-image-modal v-if="isReady" ref="featuredImageModal"/>
+        <featured-image-modal
+            v-if="isReady"
+            ref="featuredImageModal"
+        />
 
-        <seo-modal v-if="isReady" ref="seoModal"/>
+        <seo-modal
+            v-if="isReady"
+            ref="seoModal"
+        />
 
         <delete-modal
             v-if="isReady"
@@ -110,6 +116,7 @@
     import Vue from 'vue'
     import $ from 'jquery'
     import {mapGetters} from 'vuex'
+    import NProgress from 'nprogress'
     import SeoModal from '../../components/SeoModal'
     import PageHeader from '../../components/PageHeader'
     import DeleteModal from '../../components/DeleteModal'
@@ -156,6 +163,8 @@
                         vm.tags = response.data.tags
                         vm.topics = response.data.topics
                         vm.isReady = true
+
+                        NProgress.done()
                     })
                     .catch(error => {
                         vm.$router.push({name: 'posts'})
@@ -189,11 +198,16 @@
                 if (this.id === 'create') {
                     this.id = this.post.id
                 }
+
+                setTimeout(() => {
+                    this.post.hasSuccess = false
+                    this.post.isSaving = false
+                }, 3000)
             },
 
             update: _.debounce(function (e) {
                 this.save()
-            }, 1200),
+            }, 3000),
 
             convertToDraft() {
                 this.post.published_at = ''

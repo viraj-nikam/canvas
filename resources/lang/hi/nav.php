@@ -11,11 +11,12 @@ return [
         'success' => 'बचाया!',
     ],
     'user'     => [
-        'posts'  => 'पोस्ट',
-        'tags'   => 'टैग',
-        'topics' => 'विषय',
-        'stats'  => 'आँकड़े',
-        'logout' => 'साइन आउट',
+        'posts'    => 'पोस्ट',
+        'tags'     => 'टैग',
+        'topics'   => 'विषय',
+        'stats'    => 'आँकड़े',
+        'settings' => 'समायोजन',
+        'logout'   => 'साइन आउट',
     ],
     'controls' => [
         'stats'    => 'आँकड़े देखें',

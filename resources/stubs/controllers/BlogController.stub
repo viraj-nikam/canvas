@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Canvas\Tag;
 use Canvas\Post;
 use Canvas\Topic;
+use Canvas\UserMeta;
 use Illuminate\View\View;
+use Illuminate\Support\Str;
 use Canvas\Events\PostViewed;
 use Illuminate\Support\Collection;
 
@@ -18,7 +20,11 @@ class BlogController extends Controller
      */
     public function getPosts(): View
     {
+        $metaData = UserMeta::forCurrentUser()->first();
+        $emailHash = md5(trim(Str::lower(optional(request()->user())->email)));
+
         $data = [
+            'avatar' => optional($metaData)->avatar && !empty(optional($metaData)->avatar) ? $metaData->avatar : "https://secure.gravatar.com/avatar/{$emailHash}?s=500",
             'posts'  => Post::published()->orderByDesc('published_at')->simplePaginate(10),
             'topics' => Topic::all(['name', 'slug']),
             'tags'   => Tag::all(['name', 'slug']),
@@ -58,8 +64,12 @@ class BlogController extends Controller
                 $readRandom = $randomPool->random();
             }
 
+            $metaData = UserMeta::forCurrentUser()->first();
+            $emailHash = md5(trim(Str::lower(optional(request()->user())->email)));
+
             $data = [
-                'author' => $post->author,
+                'avatar' => optional($metaData)->avatar && !empty(optional($metaData)->avatar) ? $metaData->avatar : "https://secure.gravatar.com/avatar/{$emailHash}?s=500",
+                'author' => $post->user,
                 'post'   => $post,
                 'meta'   => $post->meta,
                 'next'   => $readNext,
@@ -84,7 +94,11 @@ class BlogController extends Controller
     public function getPostsByTag(string $slug): View
     {
         if (Tag::where('slug', $slug)->first()) {
+            $metaData = UserMeta::forCurrentUser()->first();
+            $emailHash = md5(trim(Str::lower(optional(request()->user())->email)));
+
             $data = [
+                'avatar' => optional($metaData)->avatar && !empty(optional($metaData)->avatar) ? $metaData->avatar : "https://secure.gravatar.com/avatar/{$emailHash}?s=500",
                 'tag'    => Tag::with('posts')->where('slug', $slug)->first(),
                 'tags'   => Tag::all(['name', 'slug']),
                 'topics' => Topic::all(['name', 'slug']),
@@ -108,7 +122,11 @@ class BlogController extends Controller
     public function getPostsByTopic(string $slug): View
     {
         if (Topic::where('slug', $slug)->first()) {
+            $metaData = UserMeta::forCurrentUser()->first();
+            $emailHash = md5(trim(Str::lower(optional(request()->user())->email)));
+
             $data = [
+                'avatar' => optional($metaData)->avatar && !empty(optional($metaData)->avatar) ? $metaData->avatar : "https://secure.gravatar.com/avatar/{$emailHash}?s=500",
                 'tags'   => Tag::all(['name', 'slug']),
                 'topics' => Topic::all(['name', 'slug']),
                 'topic'  => Topic::with('posts')->where('slug', $slug)->first(),
@@ -130,7 +148,7 @@ class BlogController extends Controller
      */
     private function findRelatedViaTaxonomy(Collection $randomPool, Post $post)
     {
-        return collect($randomPool)->filter(function($item, $key) use ($post) {
+        return collect($randomPool)->filter(function ($item, $key) use ($post) {
             $matched_tag = array_intersect($item->tags->pluck('slug')->toArray(), $post->tags->pluck('slug')->toArray());
             $matched_topic = array_intersect($item->topic->pluck('slug')->toArray(), $post->topic->pluck('slug')->toArray());
 

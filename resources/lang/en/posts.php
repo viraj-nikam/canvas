@@ -9,7 +9,7 @@ return [
     ],
     'search'  => [
         'input' => 'Search by title...',
-        'empty' => 'No posts matched the given search criteria.',
+        'empty' => 'No results found for',
     ],
     'details' => [
         'published' => 'Published',
@@ -27,6 +27,9 @@ return [
                 'placeholder' => 'Paste your HTML here',
             ],
             'images' => [
+                'errors'   => [
+                    'size' => 'Image exceeded max upload size of',
+                ],
                 'featured' => [
                     'title'       => 'Featured Image Caption',
                     'placeholder' => 'Add a caption for your image',

@@ -10,6 +10,7 @@
         @tag="addTopic"
         label="name"
         track-by="slug"
+        style="cursor: pointer"
     />
 </template>
 
@@ -68,6 +69,7 @@
                 this.value = {
                     name: topic.name,
                     slug: topic.slug,
+                    user_id: Canvas.user.id
                 }
 
                 this.$store.dispatch('setPostTopic', this.value)
@@ -75,9 +77,9 @@
                 this.update()
             },
 
-            update: _.debounce(function (e) {
+            update() {
                 this.$parent.update()
-            }, 1200),
+            },
         },
     }
 </script>

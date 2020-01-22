@@ -2,7 +2,7 @@
 
 return [
 
-    'general' => [
+    'general'  => [
         'cancel' => 'Cancel',
         'delete' => 'Delete',
         'done'   => 'Done',
@@ -11,7 +11,7 @@ return [
         'next'   => 'Next page',
         'draft'  => 'Convert to draft',
     ],
-    'posts'   => [
+    'posts'    => [
         'create'   => 'New post',
         'edit'     => 'Edit post',
         'ready'    => 'Ready to publish?',
@@ -20,17 +20,20 @@ return [
         'schedule' => 'Schedule to publish',
         'cancel'   => 'Cancel scheduling',
     ],
-    'stats'   => [
+    'stats'    => [
         'index' => 'See all stats',
         'show'  => 'Details',
     ],
-    'tags'    => [
+    'tags'     => [
         'create' => 'New tag',
         'update' => 'Save changes',
     ],
-    'topics'  => [
+    'topics'   => [
         'create' => 'New topic',
         'update' => 'Save changes',
+    ],
+    'settings' => [
+        'profile' => 'Edit profile',
     ],
 
 ];

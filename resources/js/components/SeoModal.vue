@@ -9,7 +9,7 @@
 
                     <div class="form-group row">
                         <div class="col-12">
-                            <label class="font-weight-bold">
+                            <label class="font-weight-bold text-uppercase text-muted small">
                                 {{ trans.posts.forms.seo.meta }}
                                 <a
                                     href="#"
@@ -36,7 +36,7 @@
                     </div>
                     <div class="form-group row">
                         <div class="col-12">
-                            <label class="font-weight-bold">
+                            <label class="font-weight-bold text-uppercase text-muted small">
                                 {{ trans.posts.forms.seo.facebook.title.label }}
                                 <a
                                     href="#"
@@ -63,7 +63,7 @@
                     </div>
                     <div class="form-group row">
                         <div class="col-12">
-                            <label class="font-weight-bold">
+                            <label class="font-weight-bold text-uppercase text-muted small">
                                 {{ trans.posts.forms.seo.facebook.description.label }}
                                 <a
                                     href="#"
@@ -90,7 +90,7 @@
                     </div>
                     <div class="form-group row">
                         <div class="col-12">
-                            <label class="font-weight-bold">
+                            <label class="font-weight-bold text-uppercase text-muted small">
                                 {{ trans.posts.forms.seo.twitter.title.label }}
                                 <a
                                     href="#"
@@ -117,7 +117,7 @@
                     </div>
                     <div class="form-group row">
                         <div class="col-12">
-                            <label class="font-weight-bold">
+                            <label class="font-weight-bold text-uppercase text-muted small">
                                 {{ trans.posts.forms.seo.twitter.description.label }}
                                 <a
                                     href="#"
@@ -144,7 +144,9 @@
                     </div>
                     <div class="form-group row">
                         <div class="col-12">
-                            <label class="font-weight-bold">{{ trans.posts.forms.seo.canonical.label }}</label>
+                            <label class="font-weight-bold text-uppercase text-muted small">
+                                {{ trans.posts.forms.seo.canonical.label }}
+                            </label>
                             <input
                                 type="text"
                                 @input="update"
@@ -203,7 +205,7 @@
         methods: {
             update: _.debounce(function (e) {
                 this.$parent.save()
-            }, 1200),
+            }, 3000),
 
             syncMetaDescription() {
                 this.activePost.meta.meta_description = this.activePost.summary

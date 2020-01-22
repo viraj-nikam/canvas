@@ -18,7 +18,7 @@ class PublishCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Publish any publishable assets from Canvas';
+    protected $description = 'Publish the available assets';
 
     /**
      * Execute the console command.

@@ -6,6 +6,7 @@ return [
     'subtext' => 'Clique em uma postagem abaixo para ver informações mais detalhadas.',
     'empty'   => 'Não há posts publicados para os quais você pode ver as estatísticas.',
     'views'   => 'Vista(s)',
+    'trend'   => 'do mês passado',
     'chart'   => [
         'view'  => 'Visão',
         'views' => 'Visualizações (30 dias)',

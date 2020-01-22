@@ -81,7 +81,7 @@ Now that the projects are linked, run the following installation steps:
 ```bash
 php artisan canvas:install
 php artisan storage:link
-php artisan canvas:setup --data
+php artisan canvas:setup
 ```
 
 The view stats are a core component to the project, so it's best to have a large dataset in place when developing. Assuming you passed the `--data` option during the setup process above, you'll already have posts populating the database. In which case, you can add the following snippets to your Laravel app:
@@ -91,7 +91,7 @@ The view stats are a core component to the project, so it's best to have a large
 $this->call(CanvasViewsTableSeeder::class);
 
 // Create a new class named `CanvasViewsTableSeeder` and add this to the `run()` method:
-factory(View::class, 2500)->create();
+factory(\Canvas\View::class, 2500)->create();
 
 // Create a new factory named `ViewFactory` and add this definition:
 $factory->define(\Canvas\View::class, function (\Faker\Generator $faker) {

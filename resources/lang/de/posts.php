@@ -9,7 +9,7 @@ return [
     ],
     'search'  => [
         'input' => 'Suche nach Titel ...',
-        'empty' => 'Keine Beiträge stimmen mit den angegebenen Suchkriterien überein.',
+        'empty' => 'Keine Ergebnisse gefunden für',
     ],
     'details' => [
         'published' => 'Veröffentlicht',
@@ -27,6 +27,9 @@ return [
                 'placeholder' => 'Fügen Sie hier Ihren HTML-Code ein',
             ],
             'images' => [
+                'errors'   => [
+                    'size' => 'Bild hat die maximale Upload-Größe von überschritten',
+                ],
                 'featured' => [
                     'title'       => 'Empfohlene Bildunterschrift',
                     'placeholder' => 'Fügen Sie eine Beschriftung für Ihr Bild hinzu',

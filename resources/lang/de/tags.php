@@ -8,15 +8,12 @@ return [
         'description' => 'Es wurden keine Tags gefunden. Beginnen Sie mit',
         'action'      => 'Hinzufügen eines neuen Tags',
     ],
-    'search'  => [
-        'input' => 'Suche...',
-        'empty' => 'Keine Tags stimmen mit den angegebenen Suchkriterien überein.',
-    ],
     'details' => [
         'created' => 'Erstellt',
     ],
     'forms'   => [
         'placeholder' => 'Geben Sie Ihrem Tag einen Namen',
+        'slug'        => 'gib-deinem-tag-einen-namen',
         'tag'         => 'Fügen Sie ein neues Tag hinzu',
         'select'      => 'Wählen Sie einige Tags aus ...',
     ],

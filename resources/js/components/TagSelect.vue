@@ -10,6 +10,7 @@
         @tag="addTag"
         label="name"
         track-by="slug"
+        style="cursor: pointer"
     />
 </template>
 
@@ -61,6 +62,7 @@
                 const tag = {
                     name: searchQuery,
                     slug: this.slugify(searchQuery),
+                    user_id: Canvas.user.id
                 }
 
                 this.options.push(tag)
@@ -71,9 +73,9 @@
                 this.update()
             },
 
-            update: _.debounce(function (e) {
+            update() {
                 this.$parent.update()
-            }, 1200),
+            },
         },
     }
 </script>

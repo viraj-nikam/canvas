@@ -45,6 +45,31 @@ trait Trends
         return $total->toArray();
     }
 
+    public function compareMonthToMonth(Collection $views)
+    {
+        $viewsLastMonth = $views->whereBetween('created_at', [
+            today()->subMonth()->startOfMonth()->toDateTimeString(),
+            today()->subMonth()->endOfMonth()->toDateTimeString(),
+        ])->count();
+
+        $viewsThisMonth = $views->whereBetween('created_at', [
+            today()->startOfMonth()->toDateTimeString(),
+            today()->endOfMonth()->toDateTimeString(),
+        ])->count();
+
+        if ($viewsLastMonth != 0) {
+            $difference = bcsub($viewsLastMonth, $viewsThisMonth);
+            $growth = ($difference / $viewsLastMonth) * 100;
+        } else {
+            $growth = $viewsThisMonth * 100;
+        }
+
+        return [
+            'direction'  => $viewsThisMonth > $viewsLastMonth ? 'up' : 'down',
+            'percentage' => number_format($growth),
+        ];
+    }
+
     /**
      * Generate a date range array of formatted strings.
      *

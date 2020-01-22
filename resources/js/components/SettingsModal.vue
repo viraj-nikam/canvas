@@ -9,7 +9,7 @@
 
                     <div class="form-group row">
                         <div class="col-12">
-                            <label class="font-weight-bold">{{ trans.posts.forms.settings.slug.label }}</label>
+                            <label class="font-weight-bold text-uppercase text-muted small">{{ trans.posts.forms.settings.slug.label }}</label>
                             <a
                                 href="#"
                                 class="text-decoration-none"
@@ -37,7 +37,7 @@
                     </div>
                     <div class="form-group row">
                         <div class="col-12">
-                            <label class="font-weight-bold">{{ trans.posts.forms.settings.summary.label }}</label>
+                            <label class="font-weight-bold text-uppercase text-muted small">{{ trans.posts.forms.settings.summary.label }}</label>
                             <textarea
                                 rows="1"
                                 id="settings"
@@ -51,13 +51,13 @@
                     </div>
                     <div class="form-group row">
                         <div class="col-12">
-                            <label class="font-weight-bold">{{ trans.posts.forms.settings.topic.label }}</label>
+                            <label class="font-weight-bold text-uppercase text-muted small">{{ trans.posts.forms.settings.topic.label }}</label>
                             <topic-select :topics="topics" :assigned="activePost.topic"/>
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-12">
-                            <label class="font-weight-bold">{{ trans.posts.forms.settings.tags.label }}</label>
+                            <label class="font-weight-bold text-uppercase text-muted small">{{ trans.posts.forms.settings.tags.label }}</label>
                             <tag-select :tags="tags" :tagged="activePost.tags"/>
                         </div>
                     </div>
@@ -131,7 +131,7 @@
 
             update: _.debounce(function (e) {
                 this.$parent.save()
-            }, 1200),
+            }, 3000),
         },
     }
 </script>
