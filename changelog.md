@@ -2,6 +2,8 @@
 
 ## [Unreleased](https://github.com/cnvs/canvas/compare/master...develop)
 
+## [5.1.0](https://github.com/cnvs/canvas/compare/v5.0.3...v5.1.0) (January 22, 2020)
+
 ## Changed
 - Changed the chart library from Frappe Charts to Charts.js ([0a5607b](https://github.com/cnvs/canvas/commit/0a5607b040874391d0cc34dfec70e320783db2f6))
 - Refactored the mailable to a markdown template ([cefbd93](https://github.com/cnvs/canvas/commit/cefbd93290a33d382861e311d3c42a8d52a29c6e))
