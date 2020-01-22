@@ -5060,6 +5060,7 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
   },
   mounted: function mounted() {
     this.fetchStats();
+    this.fetchPosts();
   },
   methods: {
     fetchStats: function fetchStats() {
@@ -96510,7 +96511,9 @@ var render = function() {
           _c("div", { staticClass: "my-3" }, [
             _c("h1", [_vm._v(_vm._s(_vm.trans.stats.header))]),
             _vm._v(" "),
-            _c("p", [_vm._v(_vm._s(_vm.trans.stats.subtext))])
+            _vm.isReady && _vm.posts.length
+              ? _c("p", [_vm._v(_vm._s(_vm.trans.stats.subtext))])
+              : _vm._e()
           ]),
           _vm._v(" "),
           _vm.isReady
@@ -96821,7 +96824,7 @@ var render = function() {
                       1
                     )
                   : _c("div", [
-                      _c("p", { staticClass: "mt-3" }, [
+                      _c("p", { staticClass: "mt-4" }, [
                         _vm._v(_vm._s(_vm.trans.stats.empty))
                       ])
                     ])

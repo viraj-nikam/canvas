@@ -12,7 +12,7 @@
             <div class="col-xl-10 offset-xl-1 px-xl-5 col-md-12">
                 <div class="my-3">
                     <h1>{{ trans.stats.header }}</h1>
-                    <p>{{ trans.stats.subtext }}</p>
+                    <p v-if="isReady && posts.length">{{ trans.stats.subtext }}</p>
                 </div>
 
                 <div v-if="isReady" v-cloak>
@@ -96,7 +96,7 @@
                     </div>
 
                     <div v-else>
-                        <p class="mt-3">{{ trans.stats.empty }}</p>
+                        <p class="mt-4">{{ trans.stats.empty }}</p>
                     </div>
                 </div>
             </div>
@@ -133,7 +133,8 @@
         },
 
         mounted() {
-              this.fetchStats()
+            this.fetchStats()
+            this.fetchPosts()
         },
 
         methods: {

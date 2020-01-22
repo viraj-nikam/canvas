@@ -12,13 +12,13 @@ composer update
 
 ### Configuration
  
-Add the following line in the Storage block in your `config/canvas.php` file:
+Add the following line to the Storage block in your `config/canvas.php` file:
 
 ```php
 'upload_filesize' => env('CANVAS_UPLOAD_FILESIZE', 3145728),
 ```
 
-Update the Weekly Digest configuration variable:
+Rename the Weekly Digest configuration variable:
 
 > Note: Make sure that you update your `.env` file as well to reflect this variable change
 

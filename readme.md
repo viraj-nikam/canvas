@@ -257,7 +257,7 @@ Since the weekly digest runs on [Laravel's Scheduler](https://laravel.com/docs/m
 ## Updates
 
 Canvas releases are versioned as `MAJOR.MINOR.PATCH` numbers
-- A major or minor version _can contain breaking changes_, so check out the [upgrade guide](upgrade.md) to read the documentation
+- A major or minor version _can contain breaking changes_, so check out the [upgrade guide](upgrade.md) before starting so you're aware of all changes
 - Patch versions will remain backwards compatible, so you can safely update the package by following the steps below:
 
 You may update your Canvas installation using composer:
@@ -288,7 +288,7 @@ composer test
 
 ## Translate
 
-One of the goals for the team behind Canvas is to ensure proper localization across the app. If you come across any translation mistakes or issues, please [create a pull request](https://github.com/cnvs/canvas/pulls). If you don't see your native language included in the `resources/lang` directory, feel free to add it.
+One of the goals for the team behind Canvas is to ensure proper localization across the app. If you come across any translation mistakes or issues and want to make a contribution, please [create a pull request](https://github.com/cnvs/canvas/pulls). If you don't see your native language included in the `resources/lang` directory, feel free to add it.
 
 ## License
 
