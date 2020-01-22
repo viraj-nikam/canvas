@@ -105,7 +105,7 @@ Canvas exposes a simple UI at `/canvas` by default. This can be changed by updat
 
 ### Publishing
 
-> Note: If you'd rather have all of this run automatically with no extra work from you, just follow through the [optional guide](#want-to-get-started-fast) below to scaffold a Medium-inspired frontend. Aside from general post listings, you'll get localized content, reading suggestions and more!
+> **Note:** If you'd rather have the following setup run automatically, just use [this command](#want-to-get-started-fast) to scaffold a Medium-inspired frontend. Aside from general post listings, you'll get localized content, reading suggestions and more!
 
 Canvas takes care of the backend while giving you the freedom to display the final content however you choose. A very simple setup would include a controller, some views, and a few routes. Take a look at the following example:
 
