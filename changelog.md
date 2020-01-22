@@ -2,6 +2,11 @@
 
 ## [Unreleased](https://github.com/cnvs/canvas/compare/master...develop)
 
+## [5.1.1](https://github.com/cnvs/canvas/compare/v5.0.0...v5.1.1) (January 22, 2020)
+
+## Fixed
+- Updated the views table migration to support MariaDB ([#607](https://github.com/cnvs/canvas/issues/607), [9a27a1f](https://github.com/cnvs/canvas/commit/9a27a1f86141d5bcc25c6cd3751e6fd499b56654))
+
 ## [5.1.0](https://github.com/cnvs/canvas/compare/v5.0.3...v5.1.0) (January 22, 2020)
 
 ## Changed

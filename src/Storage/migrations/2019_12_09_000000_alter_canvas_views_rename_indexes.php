@@ -14,8 +14,11 @@ class AlterCanvasViewsRenameIndexes extends Migration
     public function up()
     {
         Schema::table('canvas_views', function (Blueprint $table) {
-            $table->renameIndex('post_id', 'canvas_views_post_id_index');
-            $table->renameIndex('created_at', 'canvas_views_created_at_index');
+            $table->dropIndex('post_id');
+            $table->index('post_id');
+
+            $table->dropIndex('created_at');
+            $table->index('created_at');
         });
     }
 
@@ -27,8 +30,11 @@ class AlterCanvasViewsRenameIndexes extends Migration
     public function down()
     {
         Schema::table('canvas_views', function (Blueprint $table) {
-            $table->renameIndex('canvas_views_post_id_index', 'post_id');
-            $table->renameIndex('canvas_views_created_at_index', 'created_at');
+            $table->dropIndex('canvas_views_post_id_index');
+            $table->index('post_id', 'post_id');
+
+            $table->dropIndex('canvas_views_created_at_index');
+            $table->index('created_at', 'created_at');
         });
     }
 }
