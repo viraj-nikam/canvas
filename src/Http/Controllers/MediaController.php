@@ -8,41 +8,30 @@ use Illuminate\Support\Facades\Storage;
 class MediaController extends Controller
 {
     /**
-     * Process an image upload.
+     * Store a file upload and return the path.
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function __invoke()
+    public function store()
     {
-        $maxUploadInBytes = config('canvas.upload_filesize');
+        $path = request()->file('upload')->store(sprintf('%s/%s', config('canvas.storage_path'), 'images'), [
+            'disk'       => config('canvas.storage_disk'),
+            'visibility' => 'public',
+        ]);
 
-        if (request()->image->getSize() <= $maxUploadInBytes) {
-            $path = request()->image->store(sprintf('%s/%s', config('canvas.storage_path'), 'images'), [
-                'disk'       => config('canvas.storage_disk'),
-                'visibility' => 'public',
-            ]);
-
-            return response()->json(Storage::disk(config('canvas.storage_disk'))->url($path), 200);
-        } else {
-            $errorMessage = sprintf('%s %s', __('canvas::posts.forms.editor.images.errors.size'), $this->formatBytes($maxUploadInBytes));
-
-            return response()->json($errorMessage, 422);
-        }
+        return response()->json(Storage::disk(config('canvas.storage_disk'))->url($path), 200);
     }
 
     /**
-     * Format bytes into a human-readable string.
+     * Delete a file from storage.
      *
-     * @param $bytes
-     * @param int $precision
-     * @return string
-     * @link https://stackoverflow.com/a/2510540
+     * @return \Illuminate\Http\JsonResponse
      */
-    private function formatBytes($bytes, $precision = 2)
+    public function destroy()
     {
-        $base = log($bytes, 1024);
-        $suffixes = ['', 'KB', 'MB', 'GB', 'TB'];
+        // todo: find a way to parse the request payload into a real path, then the DELETE endpoint will work properly
+        Storage::disk(config('canvas.storage_disk'))->delete(request()->getContent());
 
-        return round(pow(1024, $base - floor($base)), $precision).' '.$suffixes[floor($base)];
+        return response()->json([], 204);
     }
 }

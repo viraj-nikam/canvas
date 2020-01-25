@@ -1,53 +1,26 @@
 <template>
     <div v-cloak>
-        <input
-            hidden
-            type="file"
-            class="custom-file-input"
-            :id="'imageUpload' + _uid"
-            accept="image/*"
-            @change="uploadSelectedImage"
-        />
+        <div v-if="unsplashKey">
+            <div class="input-group border-bottom">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" class="icon-search">
+                    <circle cx="10" cy="10" r="7" class="fill-bg"/>
+                    <path class="primary" d="M16.32 14.9l1.1 1.1c.4-.02.83.13 1.14.44l3 3a1.5 1.5 0 0 1-2.12 2.12l-3-3a1.5 1.5 0 0 1-.44-1.14l-1.1-1.1a8 8 0 1 1 1.41-1.41zM10 16a6 6 0 1 0 0-12 6 6 0 0 0 0 12z"/>
+                </svg>
+                <input
+                    v-model="searchKeyword"
+                    type="text"
+                    autofocus
+                    class="form-control border-0 bg-transparent"
+                    :placeholder="trans.posts.forms.editor.images.picker.placeholder"
+                />
+            </div>
 
-        <p class="mb-0">
-            {{ trans.posts.forms.editor.images.picker.greeting }}
-
-            <label :for="'imageUpload' + _uid" class="text-success" style="cursor:pointer">
-                {{ trans.posts.forms.editor.images.picker.action }}
-            </label>
-
-            {{ trans.posts.forms.editor.images.picker.item }}
-
-            <span v-if="unsplash">{{ trans.posts.forms.editor.images.picker.operator }}</span>
-
-            <a
-                v-if="unsplash"
-                href="#"
-                @click.prevent="openUnsplash"
-                class="text-success text-decoration-none">
-                {{ trans.posts.forms.editor.images.picker.unsplash }}
-            </a>
-        </p>
-
-        <p v-if="exceedsMaxUploadSize" class="text-danger font-italic">
-            {{ uploadSizeErrorMessage }}
-        </p>
-
-        <div v-if="showUnsplash">
-            <input
-                type="text"
-                class="form-control-lg form-control border-0 px-0 bg-transparent"
-                v-if="unsplash"
-                v-model="searchQuery"
-                ref="searchKeyword"
-                :placeholder="trans.posts.forms.editor.images.picker.placeholder"
-            />
-
-            <div v-if="!isSearchingUnsplash && unsplashImages.length">
-                <div class="card-columns">
-                    <div class="card border-0" v-for="image in unsplashImages">
+            <div v-if="unsplashImages.length">
+                <div class="card-columns mt-3">
+                    <div v-for="(image, $index) in unsplashImages" :key="$index" class="card border-0">
                         <img
-                            v-bind:src="image.urls.small"
+                            :src="image.urls.small"
+                            :alt="image.alt_description"
                             class="card-img"
                             style="cursor: pointer"
                             @click="closeUnsplashAndInsertImage(image)"
@@ -55,55 +28,39 @@
                     </div>
                 </div>
 
-                <div class="d-flex pt-3">
-                    <button
-                        class="btn btn-link btn-block font-weight-bold text-muted text-decoration-none"
-                        type="button"
-                        @click="closeUnsplash"
-                        @submit.prevent>
-                        {{ trans.buttons.general.cancel }}
-                    </button>
-                    <button
-                        class="btn btn-success btn-block font-weight-bold mt-0"
-                        type="button"
-                        @click="fetchImages(unsplashPage + 1)"
-                        v-if="unsplashImages.length === perPage"
-                        @submit.prevent>
-                        {{ trans.buttons.general.next }}
-                    </button>
-                </div>
+                <infinite-loading :identifier="infiniteId" @infinite="fetchImages" spinner="spiral">
+                        <span slot="no-more">
+                            no more to load :)
+                        </span>
+                    <div slot="no-results"></div>
+                </infinite-loading>
             </div>
-
-            <p v-if="!isSearchingUnsplash && !unsplashImages.length" class="text-center text-muted py-4">
-                 {{ trans.posts.forms.editor.images.picker.search.empty }}
-            </p>
         </div>
     </div>
 </template>
 
 <script>
-    import _ from "lodash";
+    import _ from "lodash"
+    import Unsplash, {toJson} from 'unsplash-js'
+    import InfiniteLoading from 'vue-infinite-loading'
 
     export default {
         name: 'image-picker',
 
-        props: {
-            imageUrl: {
-                type: String,
-                required: false,
-            },
+        components: {
+            InfiniteLoading
         },
 
         data() {
             return {
-                showUnsplash: false,
-                searchQuery: '',
-                unsplashPage: 1,
+                searchKeyword: '',
+                unsplashKey: Canvas.unsplash,
+                page: 1,
                 perPage: 12,
                 unsplashImages: [],
-                isSearchingUnsplash: false,
+                infiniteId: +new Date(),
+                isSearching: false,
                 selectedUnsplashImage: null,
-                unsplash: Canvas.unsplash,
                 exceedsMaxUploadSize: false,
                 uploadSizeErrorMessage: '',
                 path: Canvas.path,
@@ -112,76 +69,38 @@
         },
 
         watch: {
-            searchQuery: _.debounce(function (e) {
+            searchKeyword: _.debounce(function (e) {
                 this.fetchImages()
             }, 1000),
         },
 
         methods: {
-            fetchImages(page = 1) {
-                if (!this.unsplash) {
-                    return alert(this.trans.posts.forms.editor.images.picker.key)
-                }
+            fetchImages($state) {
+                console.log($state)
+                let modalClasses = ['modal-xl', 'modal-dialog-scrollable']
+                this.$parent.$refs.modal.classList.add(...modalClasses)
+                this.isSearching = true
 
-                this.isSearchingUnsplash = true
-                this.unsplashPage = page
+                const unsplash = new Unsplash({accessKey: this.unsplashKey})
+                unsplash.search.photos(this.searchKeyword, this.page, this.perPage)
+                    .then(toJson)
+                    .then(json => {
+                        if (!_.isEmpty(json.results)) {
+                            this.unsplashImages.push(...json.results)
+                            this.isSearching = false
+                            this.page += 1;
 
-                this.request()
-                    .get(
-                        'https://api.unsplash.com/search/photos?client_id=' +
-                        this.unsplash +
-                        '&orientation=landscape&per_page=' +
-                        this.perPage +
-                        '&query=' +
-                        this.searchQuery +
-                        '&page=' +
-                        page
-                    )
-                    .then(response => {
-                        this.unsplashImages = response.data.results
-                        this.isSearchingUnsplash = false
-                    })
-                    .catch(error => {
-                        this.isSearchingUnsplash = false
-                    })
-            },
-
-            openUnsplash() {
-                let featuredImageModal = document.querySelector('#featuredImageModal')
-                if (featuredImageModal) {
-                    featuredImageModal.classList.add('modal-lg')
-                }
-
-                let imageModal = document.querySelector('#imageModal')
-                if (imageModal) {
-                    imageModal.classList.add('modal-lg')
-                }
-
-                let currentImage = document.querySelector('#currentImage')
-                if (currentImage) {
-                    currentImage.classList.add('d-none')
-                }
-
-                let searchTerms = [
-                    'animal',
-                    'art',
-                    'city',
-                    'emotion',
-                    'nature',
-                    'smile',
-                    'tech',
-                ]
-
-                this.searchQuery =
-                    searchTerms[Math.floor(Math.random() * searchTerms.length)]
-                this.showUnsplash = true
-
-                this.$nextTick(() => {
-                    this.$refs.searchKeyword.focus()
-                })
+                            $state.loaded();
+                        } else {
+                            $state.complete();
+                        }
+                    });
             },
 
             closeUnsplashAndInsertImage(image) {
+                const unsplash = new Unsplash({accessKey: this.unsplashKey});
+                unsplash.photos.downloadPhoto(image);
+
                 this.selectedUnsplashImage = image
 
                 this.$emit('changed', {
@@ -218,12 +137,12 @@
                     currentImage.classList.remove('d-none')
                 }
 
-                this.searchQuery = ''
+                this.searchKeyword = ''
                 this.showUnsplash = false
                 this.selectedUnsplashImage = null
             },
 
-            uploadSelectedImage(event) {
+            uploadImage(event) {
                 let file = event.target.files[0]
                 let formData = new FormData()
 

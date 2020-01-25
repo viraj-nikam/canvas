@@ -90,17 +90,15 @@ Canvas exposes a simple UI at `/canvas` by default. This can be changed by updat
 | Storage
 |--------------------------------------------------------------------------
 |
-| This is the storage disk Canvas will use to put file uploads. You may
+| This is the storage disk Canvas will use to put file uploads, you may
 | use any of the disks defined in the config/filesystems.php file and
-| you may also change the maximum upload size from its 3MB default.  
+| you may also configure the path where files are to be stored.
 |
 */
 
 'storage_disk' => env('CANVAS_STORAGE_DISK', 'local'),
 
 'storage_path' => env('CANVAS_STORAGE_PATH', 'public/canvas'),
-
-'upload_filesize' => env('CANVAS_UPLOAD_FILESIZE', 3145728),
 ```
 
 ### Publishing
