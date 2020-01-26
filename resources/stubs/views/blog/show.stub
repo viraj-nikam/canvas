@@ -80,13 +80,15 @@
     </div>
 
     @isset($data['meta']['canonical_link'])
-        <div class="post">
-            <hr>
-
-            <p class="text-center font-italic pt-3 my-5">
-                {{ __('canvas::blog.buttons.canonical') }} <a href="{{ url($data['meta']['canonical_link']) }}" target="_blank" class="text-dark" rel="noopener">{{ parse_url($data['meta']['canonical_link'])['host'] }}</a>
-            </p>
-        </div>
+        @isset(parse_url($data['meta']['canonical_link'])['host'])
+            <div class="post">
+                <hr>
+                <p class="text-center font-italic pt-3 my-5">
+                {{ __('canvas::blog.buttons.canonical') }} <a href="{{ $data['meta']['canonical_link'] }}" target="_blank" class="text-dark" rel="noopener"> {{parse_url($data['meta']['canonical_link'])['host']}}
+                </a>
+                </p>
+            </div>
+        @endisset
     @endisset
 
     <div class="read-more mt-5 container-fluid">
