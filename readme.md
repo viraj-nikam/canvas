@@ -210,11 +210,6 @@ Finally, just create `index.blade.php` and `show.blade.php` inside a `/views/blo
 
 Just run `php artisan canvas:setup` after installing Canvas. Then, navigate your browser to `http://your-app.test/blog` or any other URL that is assigned to your application. This command scaffolds a default frontend for your entire blog!
 
-If you want test data from the application, use the `--data` option:
-```bash
-php artisan canvas:setup --data
-```
-
 ### Want access to the entire [Unsplash](https://unsplash.com) library?
 
 Set up a new application at [https://unsplash.com/oauth/applications](https://unsplash.com/oauth/applications), grab your access key, and update `config/canvas.php`:

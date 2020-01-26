@@ -29,10 +29,7 @@ $factory->define(\Canvas\View::class, function (Faker\Generator $faker) {
 
     return [
         'post_id' => function () {
-            $post = \Canvas\Post::inRandomOrder()->first();
-            if(is_null($post))
-                $post = factory(\Canvas\Post::class)->create();
-            return $post->id;
+            return factory(\Canvas\Post::class)->create()->id;
         },
         'ip'      => $faker->ipv4,
         'agent'   => $user_agents->random(),

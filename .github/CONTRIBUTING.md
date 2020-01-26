@@ -86,15 +86,54 @@ php artisan storage:link
 php artisan canvas:setup
 ```
 
+The view stats are a core component to the project, so it's best to have a large dataset in place when developing. Assuming you passed the `--data` option during the setup process above, you'll already have posts populating the database. In which case, you can add the following snippets to your Laravel app:
 
-If you want test data from the application, use the `--data` option:
-```bash
-php artisan canvas:install
-php artisan storage:link
-php artisan canvas:setup --data
+```php
+// In the `run()` method of the `DatabaseSeeder`
+$this->call(CanvasViewsTableSeeder::class);
+
+// Create a new class named `CanvasViewsTableSeeder` and add this to the `run()` method:
+factory(\Canvas\View::class, 2500)->create();
+
+// Create a new factory named `ViewFactory` and add this definition:
+$factory->define(\Canvas\View::class, function (\Faker\Generator $faker) {
+    $referers = collect([
+        'https://google.com',
+        'https://twitter.com',
+        'https://facebook.com',
+        'https://medium.com',
+        'https://laravel-news.com',
+        'https://reddit.com',
+        'https://wordpress.com',
+        'https://news.ycombinator.com',
+        'https://hackernoon.com',
+        'https://dev.to',
+        'https://www.sitepoint.com',
+    ]);
+    
+    $user_agents = collect([
+        'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:69.0) Gecko/20100101 Firefox/69.0',
+        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36',
+        'Mozilla/5.0 (Windows NT 10.0; rv:68.0) Gecko/20100101 Firefox/68.0',
+        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.2 Safari/605.1.15',
+        'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101 Firefox/68.0',
+        'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
+    ]);
+    
+    $timestamp = today()->subDays(rand(0, 30))->toDateTimeString();
+    
+    return [
+        'post_id'    => \Canvas\Post::all()->pluck('id')->random(),
+        'ip'         => $faker->ipv4,
+        'agent'      => $user_agents->random(),
+        'referer'    => $referers->random(),
+        'created_at' => $timestamp,
+        'updated_at' => $timestamp,
+    ];
+});
 ```
 
-
+You can now run `php artisan db:seed` and you will have a substantial amount of views for each post.
 
 ### Developing
 

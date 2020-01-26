@@ -29,7 +29,6 @@ class CanvasServiceProvider extends ServiceProvider
         $this->registerPublishing();
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'canvas');
         $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'canvas');
-        $this->loadFactoriesFrom(__DIR__.'/Storage/factories');
     }
 
     /**

@@ -15,7 +15,7 @@ class SetupCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'canvas:setup {--data : Specifies that demo data should be seeded}';
+    protected $signature = 'canvas:setup';
 
     /**
      * The console command description.
@@ -50,52 +50,7 @@ class SetupCommand extends Command
         $this->buildController();
         $this->registerRoutes();
 
-        // Optionally seed the database with demo data
-        if ($this->option('data')) {
-            if (\App\User::find(1)) {
-                $this->seed();
-            } else {
-                $this->error('No users found. Please create a user and re-run the setup.');
-            }
-        }
-
         $this->info('Setup complete. Head over to <comment>'.url('/blog').'</comment> to get started.');
-    }
-
-        /**
-     * Run the demo data seeder.
-     *
-     * @return void
-     * @throws \Exception
-     */
-    private function seed()
-    {
-
-        // Seed the users data
-        $users = factory(\App\User::class, 5)->create();
-        
-        // Seed the posts data
-        $posts = factory(\Canvas\Post::class, 50)->create();
-
-        // Seed the tags data
-        $tags = factory(\Canvas\Tag::class, 15)->create();
-
-        // Seed the topics data
-        $topics = factory(\Canvas\Topic::class, 10)->create();
-
-        // Associate tags and topics with the posts
-        $posts->each(function ($post) use ($tags, $topics) {
-            $post->tags()->attach(
-                $tags->random(rand(1, 3))->pluck('id')->toArray()
-            );
-
-            $post->topic()->attach(
-                $topics->random(1)->pluck('id')->toArray()
-            );
-        });
-
-        // Seed the Canvas View data
-        factory(\Canvas\View::class, 2500)->create();
     }
 
     /**
