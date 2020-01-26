@@ -7,17 +7,22 @@
 
 ## Table of Contents
 
-- [Introduction](#introduction)
-- [Installation](#installation)
-- [Usage](#usage)
-	- [Configuration](#configuration)
-	- [Publishing](#publishing)
-- [Options](#options)
-- [Updates](#updates)
-- [Testing](#testing)
-- [Translate](#translate)
-- [License](#license)
-- [Credits](#credits)
+- [Canvas](#canvas)
+  - [Table of Contents](#table-of-contents)
+  - [Introduction](#introduction)
+  - [Installation](#installation)
+  - [Usage](#usage)
+    - [Configuration](#configuration)
+    - [Publishing](#publishing)
+  - [Options](#options)
+    - [Want to get started fast?](#want-to-get-started-fast)
+    - [Want access to the entire Unsplash library?](#want-access-to-the-entire-unsplash-library)
+    - [Want a weekly summary?](#want-a-weekly-summary)
+  - [Updates](#updates)
+  - [Testing](#testing)
+  - [Translate](#translate)
+  - [License](#license)
+  - [Credits](#credits)
 
 ## Introduction
 
@@ -204,6 +209,11 @@ Finally, just create `index.blade.php` and `show.blade.php` inside a `/views/blo
 ### Want to get started fast?
 
 Just run `php artisan canvas:setup` after installing Canvas. Then, navigate your browser to `http://your-app.test/blog` or any other URL that is assigned to your application. This command scaffolds a default frontend for your entire blog!
+
+If you want test data from the application, use the `--data` option:
+```bash
+php artisan canvas:setup --data
+```
 
 ### Want access to the entire [Unsplash](https://unsplash.com) library?
 
