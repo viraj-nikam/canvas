@@ -7,7 +7,10 @@ $factory->define(\Canvas\Tag::class, function (Faker\Generator $faker) {
         'slug'    => $faker->slug,
         'name'    => $faker->word,
         'user_id' => function () {
-            return factory(\Illuminate\Foundation\Auth\User::class)->create()->id;
+            $user =\App\User::inRandomOrder()->first();
+            if(is_null($user))
+                $user = factory(\App\User::class)->create();
+            return $user->id;
         },
     ];
 });
