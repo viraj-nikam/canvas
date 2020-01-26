@@ -26,6 +26,7 @@
                 </div>
                 <div class="modal-body">
                     <file-pond
+                        v-if="!isSearching && !unsplashImages.length"
                         name="upload"
                         ref="pond"
                         max-files="1"
@@ -33,10 +34,9 @@
                         accepted-file-types="image/jpeg, image/png"
                         :server="getServerOptions"
                         :allow-multiple="false"
-                        :files="myFiles"
-                        @init="handleFilePondInit"/>
+                        :files="selectedImagesForPond"/>
 
-                    <div v-if="unsplashKey && searchKeyword">
+                    <div v-if="unsplashKey && unsplashImages.length">
                         <div class="card-columns mt-3">
                             <div v-for="(image, $index) in unsplashImages" :key="$index" class="card border-0">
                                 <img
@@ -47,10 +47,10 @@
                                     @click="selectUnsplashImage(image)"
                                 />
                             </div>
-
-                            <infinite-loading :identifier="infiniteId" @infinite="fetchUnsplashImages" spinner="spiral">
-                            </infinite-loading>
                         </div>
+
+                        <infinite-loading :identifier="infiniteId" @infinite="fetchUnsplashImages" spinner="spiral">
+                        </infinite-loading>
                     </div>
 
                     <div v-if="selectedImageUrl" class="form-group row">
@@ -100,13 +100,20 @@
     import _ from "lodash"
     import Unsplash, {toJson} from 'unsplash-js'
     import InfiniteLoading from 'vue-infinite-loading'
-    import vueFilePond from 'vue-filepond';
-    import 'filepond/dist/filepond.min.css';
-    import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css';
-    import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
-    import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
+    import vueFilePond from 'vue-filepond'
 
-    const FilePond = vueFilePond(FilePondPluginFileValidateType, FilePondPluginImagePreview);
+    import 'filepond/dist/filepond.min.css'
+    import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css'
+
+    import FilePondPluginImageValidateSize from 'filepond-plugin-image-validate-size'
+    import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type'
+    import FilePondPluginImagePreview from 'filepond-plugin-image-preview'
+
+    const FilePond = vueFilePond(
+        FilePondPluginFileValidateType,
+        FilePondPluginImagePreview,
+        FilePondPluginImageValidateSize,
+    );
 
     export default {
         name: 'image-modal',
@@ -118,7 +125,6 @@
 
         data() {
             return {
-                myFiles: [],
                 searchKeyword: '',
                 unsplashKey: Canvas.unsplash,
                 unsplashPage: 1,
@@ -128,6 +134,7 @@
                 isSearching: false,
                 blot: null,
                 selectedImageUrl: null,
+                selectedImagesForPond: [],
                 selectedImageLayout: 'default',
                 selectedImageCaption: '',
                 galleryModalClasses: [
@@ -144,30 +151,29 @@
         mounted() {
             this.$parent.$on('openingImageModal', data => {
                 if (!_.isEmpty(data)) {
-                    this.myFiles = !_.isEmpty(data.url) ? [data.url] : []
+                    this.selectedImagesForPond = !_.isEmpty(data.url) ? [data.url] : []
                     this.selectedImageCaption = data.caption
                     this.selectedImageUrl = data.url
                     this.selectedImageLayout = data.layout || 'default'
                     this.blot = data.existingBlot
-
                 }
 
                 this.isReady = true
             })
         },
 
+        watch: {
+            searchKeyword: _.debounce(function (e) {
+                this.fetchUnsplashImages()
+            }, 1000),
+        },
+
         methods: {
-            handleFilePondInit: function() {
-                console.log('FilePond has initialized')
-
-                // FilePond instance methods are available on `this.$refs.pond`
-            },
-
             fetchUnsplashImages($state) {
                 this.$refs.modal.classList.add(...this.galleryModalClasses)
 
                 const unsplash = new Unsplash({accessKey: this.unsplashKey})
-                unsplash.search.photos('beach', this.unsplashPage, this.unsplashPerPage)
+                unsplash.search.photos(this.searchKeyword, this.unsplashPage, this.unsplashPerPage)
                     .then(toJson)
                     .then(json => {
                         if (!_.isEmpty(json.results)) {
