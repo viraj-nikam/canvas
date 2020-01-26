@@ -17,7 +17,7 @@
                         />
                     </div>
 
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" @click.prevent="resetComponent">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" @click.prevent="clearAndResetComponent">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" class="icon-close-circle">
                             <circle cx="12" cy="12" r="10" class="primary"/>
                             <path class="fill-bg" d="M13.41 12l2.83 2.83a1 1 0 0 1-1.41 1.41L12 13.41l-2.83 2.83a1 1 0 1 1-1.41-1.41L10.59 12 7.76 9.17a1 1 0 0 1 1.41-1.41L12 10.59l2.83-2.83a1 1 0 0 1 1.41 1.41L13.41 12z"/>
@@ -36,8 +36,8 @@
                         :allow-multiple="false"
                         :files="selectedImagesForPond"/>
 
-                    <div v-if="unsplashKey && unsplashImages.length">
-                        <div class="card-columns mt-3">
+                    <div v-if="unsplashKey">
+                        <div v-if="unsplashImages.length" class="card-columns mt-3">
                             <div v-for="(image, $index) in unsplashImages" :key="$index" class="card border-0">
                                 <img
                                     :src="image.urls.small"
@@ -49,7 +49,11 @@
                             </div>
                         </div>
 
-                        <infinite-loading :identifier="infiniteId" @infinite="fetchUnsplashImages" spinner="spiral">
+                        <!--TODO: right now the changes are being reflected in search, but infinite scrolling is not working-->
+
+                        <infinite-loading v-if="isSearching" :identifier="infiniteId" @infinite="fetchUnsplashImages" spinner="spiral">
+                            <span slot="no-more"></span>
+                            <div slot="no-results"></div>
                         </infinite-loading>
                     </div>
 
@@ -128,7 +132,7 @@
                 searchKeyword: '',
                 unsplashKey: Canvas.unsplash,
                 unsplashPage: 1,
-                unsplashPerPage: 9,
+                unsplashPerPage: 20,
                 unsplashImages: [],
                 infiniteId: +new Date(),
                 isSearching: false,
@@ -163,15 +167,25 @@
         },
 
         watch: {
-            searchKeyword: _.debounce(function (e) {
-                this.fetchUnsplashImages()
+            searchKeyword: _.debounce(function (val) {
+                if (val === '') {
+                    this.isSearching = false
+                    this.unsplashPage = 1
+                    this.unsplashImages = []
+                    this.infiniteId += 1
+                    this.$refs.modal.classList.remove(...this.galleryModalClasses)
+                } else {
+                    this.isSearching = true
+                    this.unsplashPage = 1
+                    this.unsplashImages = []
+                    this.infiniteId += 1
+                    this.$refs.modal.classList.add(...this.galleryModalClasses)
+                }
             }, 1000),
         },
 
         methods: {
             fetchUnsplashImages($state) {
-                this.$refs.modal.classList.add(...this.galleryModalClasses)
-
                 const unsplash = new Unsplash({accessKey: this.unsplashKey})
                 unsplash.search.photos(this.searchKeyword, this.unsplashPage, this.unsplashPerPage)
                     .then(toJson)
@@ -208,42 +222,6 @@
                 })
             },
 
-            uploadImage(event) {
-                let file = event.target.files[0]
-                let formData = new FormData()
-
-                this.exceedsMaxUploadSize = false;
-
-                formData.append('image', file, file.name)
-
-                this.$emit('isUploading')
-
-                this.request()
-                    .post('/api/media/uploads', formData)
-                    .then(response => {
-                        this.$emit('changed', {
-                            url: response.data,
-                        })
-                    })
-                    .catch(error => {
-                        // Add any error debugging...
-                        this.exceedsMaxUploadSize = true;
-                        this.uploadSizeErrorMessage = error.response.data
-                    })
-            },
-
-            clear() {
-                this.blot = null
-                this.selectedImageUrl = null
-                this.selectedImageLayout = 'default'
-                this.selectedImageCaption = ''
-            },
-
-            updateImage({url, caption}) {
-                this.selectedImageUrl = url
-                this.selectedImageCaption = caption ? caption : ''
-            },
-
             applyImage() {
                 if (!this.selectedImageUrl) {
                     return
@@ -256,10 +234,15 @@
                     layout: this.selectedImageLayout,
                 })
 
-                this.clear()
+                this.clearAndResetComponent()
             },
 
-            resetComponent() {
+            clearAndResetComponent() {
+                this.blot = null
+                this.selectedImageUrl = null
+                this.selectedImageLayout = 'default'
+                this.selectedImageCaption = ''
+                this.isSearching = false
                 this.unsplashImages = []
                 this.unsplashPage = 1
                 this.searchKeyword = ''
