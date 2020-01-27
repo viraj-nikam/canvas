@@ -114,10 +114,7 @@ select.input {
     font-family: $font-family-sans-serif;
 }
 
-[v-cloak] {
-    display: none;
-}
-
+@import 'vue';
 @import 'nprogress';
 @import 'multiselect';
 @import 'switch';

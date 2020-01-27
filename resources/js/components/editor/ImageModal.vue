@@ -26,7 +26,7 @@
                 </div>
                 <div class="modal-body pb-0">
                     <file-pond
-                        v-if="!isSearching && !unsplashImages.length && !selectedImageUrl"
+                        v-if="!isSearchingUnsplash && !unsplashImages.length && !selectedImageUrl"
                         name="upload"
                         ref="pond"
                         max-files="1"
@@ -51,25 +51,26 @@
                             </div>
                         </div>
 
-                        <infinite-loading v-if="isSearching" :identifier="infiniteId" @infinite="fetchUnsplashImages" spinner="spiral">
+                        <infinite-loading v-if="isSearchingUnsplash" :identifier="infiniteId" @infinite="fetchUnsplashImages" spinner="spiral">
                             <span slot="no-more"></span>
                             <div slot="no-results"></div>
                         </infinite-loading>
                     </div>
 
-                    <div v-if="!isSearching && !unsplashImages.length" class="form-group row">
-                        <div class="col-lg-12">
-                            <div v-if="selectedImageUrl" class="selected-image">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close" @click.prevent="clearAndResetComponent">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" class="icon-close-circle">
-                                        <circle cx="12" cy="12" r="10" class="primary"/>
-                                        <path class="fill-bg" d="M13.41 12l2.83 2.83a1 1 0 0 1-1.41 1.41L12 13.41l-2.83 2.83a1 1 0 1 1-1.41-1.41L10.59 12 7.76 9.17a1 1 0 0 1 1.41-1.41L12 10.59l2.83-2.83a1 1 0 0 1 1.41 1.41L13.41 12z"/>
-                                    </svg>
-                                </button>
-                                <img :src="selectedImageUrl" class="w-100 rounded"/>
-                            </div>
+                    <div v-if="!isSearchingUnsplash && !unsplashImages.length">
+                        <div v-if="selectedImageUrl" class="selected-image">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" @click.prevent="clearAndResetComponent">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" class="icon-close-circle">
+                                    <circle cx="12" cy="12" r="10" class="primary"/>
+                                    <path class="fill-bg" d="M13.41 12l2.83 2.83a1 1 0 0 1-1.41 1.41L12 13.41l-2.83 2.83a1 1 0 1 1-1.41-1.41L10.59 12 7.76 9.17a1 1 0 0 1 1.41-1.41L12 10.59l2.83-2.83a1 1 0 0 1 1.41 1.41L13.41 12z"/>
+                                </svg>
+                            </button>
+                            <img :src="selectedImageUrl" class="w-100 rounded mb-3"/>
+                        </div>
 
-                            <div class="input-group py-2">
+                        <div class="col-12" :hidden="!selectedImagesForPond.length && !selectedImageUrl">
+                            <div class="form-group row">
+                                <label class="font-weight-bold text-uppercase text-muted small">Caption</label>
                                 <input
                                     type="text"
                                     class="form-control border-0 px-0 bg-transparent"
@@ -78,7 +79,8 @@
                                     ref="caption"/>
                             </div>
 
-                            <div class="input-group py-2">
+                            <div class="form-group row mt-2" :hidden="!selectedImagesForPond.length && !selectedImageUrl">
+                                <label class="font-weight-bold text-uppercase text-muted small">Layout</label>
                                 <select
                                     class="custom-select border-0 px-0 bg-transparent"
                                     v-model="selectedImageLayout">
@@ -141,7 +143,7 @@
                 unsplashPerPage: 20,
                 unsplashImages: [],
                 infiniteId: +new Date(),
-                isSearching: false,
+                isSearchingUnsplash: false,
                 blot: null,
                 selectedImageUrl: null,
                 selectedImagesForPond: [],
@@ -170,13 +172,13 @@
         watch: {
             searchKeyword: _.debounce(function (val) {
                 if (val === '') {
-                    this.isSearching = false
+                    this.isSearchingUnsplash = false
                     this.unsplashPage = 1
                     this.unsplashImages = []
                     this.infiniteId += 1
                     this.$refs.modal.classList.remove(...this.galleryModalClasses)
                 } else {
-                    this.isSearching = true
+                    this.isSearchingUnsplash = true
                     this.unsplashPage = 1
                     this.unsplashImages = []
                     this.infiniteId += 1
@@ -234,6 +236,7 @@
                     ' <a href="https://unsplash.com" target="_blank">Unsplash</a>'
             },
 
+            // SelectedFilePondImage
             processedFromFilePond() {
                 console.log('i just added an image')
                 console.log(document.getElementsByName('upload')[0].value) // returns a path
@@ -287,7 +290,7 @@
                 this.selectedImageUrl = null
                 this.selectedImageLayout = 'default'
                 this.selectedImageCaption = ''
-                this.isSearching = false
+                this.isSearchingUnsplash = false
                 this.unsplashImages = []
                 this.unsplashPage = 1
                 this.searchKeyword = ''
@@ -346,7 +349,7 @@
 
     .selected-image button {
         position: absolute;
-        top: 10px;
-        right: 25px;
+        top: 25px;
+        right: 27px;
     }
 </style>
