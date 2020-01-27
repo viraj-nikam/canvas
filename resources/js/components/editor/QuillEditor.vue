@@ -77,6 +77,7 @@
             <image-modal
                 ref="imageModal"
                 @addingImage="insertImage"
+                @removingImage="removeImage"
             />
 
             <html-modal
@@ -273,6 +274,14 @@
                 )
 
                 this.editor.setSelection(range.index + 1, Quill.sources.SILENT)
+            },
+
+            removeImage({existingBlot}) {
+                let range = this.editor.getSelection(true)
+
+                existingBlot.remove()
+
+                this.editor.setSelection(range.index - 1, Quill.sources.SILENT)
             },
 
             insertHTML({content}) {

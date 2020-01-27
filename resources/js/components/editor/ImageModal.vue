@@ -17,16 +17,16 @@
                         />
                     </div>
 
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" @click.prevent="clearAndResetComponent">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" @click.prevent="closeModal">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" class="icon-close-circle">
                             <circle cx="12" cy="12" r="10" class="primary"/>
                             <path class="fill-bg" d="M13.41 12l2.83 2.83a1 1 0 0 1-1.41 1.41L12 13.41l-2.83 2.83a1 1 0 1 1-1.41-1.41L10.59 12 7.76 9.17a1 1 0 0 1 1.41-1.41L12 10.59l2.83-2.83a1 1 0 0 1 1.41 1.41L13.41 12z"/>
                         </svg>
                     </button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body pb-0">
                     <file-pond
-                        v-if="!isSearching && !unsplashImages.length"
+                        v-if="!isSearching && !unsplashImages.length && !selectedImageUrl"
                         name="upload"
                         ref="pond"
                         max-files="1"
@@ -34,9 +34,11 @@
                         accepted-file-types="image/jpeg, image/png"
                         :server="getServerOptions"
                         :allow-multiple="false"
-                        :files="selectedImagesForPond"/>
+                        :files="selectedImagesForPond"
+                        @processfile="processedFromFilePond"
+                        @removefile="removedFromFilePond"/>
 
-                    <div v-if="unsplashKey">
+                    <div v-if="unsplashKey && !selectedImageUrl">
                         <div v-if="unsplashImages.length" class="card-columns mt-3">
                             <div v-for="(image, $index) in unsplashImages" :key="$index" class="card border-0">
                                 <img
@@ -49,44 +51,44 @@
                             </div>
                         </div>
 
-                        <!--TODO: right now the changes are being reflected in search, but infinite scrolling is not working-->
-
                         <infinite-loading v-if="isSearching" :identifier="infiniteId" @infinite="fetchUnsplashImages" spinner="spiral">
-                            <span slot="no-more">
-                                nothing more to load
-                            </span>
-                            <div slot="no-results">
-                                <p>got no results at all</p>
-                            </div>
+                            <span slot="no-more"></span>
+                            <div slot="no-results"></div>
                         </infinite-loading>
                     </div>
 
-                    <div v-if="selectedImageUrl" class="form-group row">
+                    <div v-if="!isSearching && !unsplashImages.length" class="form-group row">
                         <div class="col-lg-12">
-                            <div id="currentImage">
-                                <img :src="selectedImageUrl" class="w-100"/>
+                            <div v-if="selectedImageUrl" class="selected-image">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close" @click.prevent="clearAndResetComponent">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" class="icon-close-circle">
+                                        <circle cx="12" cy="12" r="10" class="primary"/>
+                                        <path class="fill-bg" d="M13.41 12l2.83 2.83a1 1 0 0 1-1.41 1.41L12 13.41l-2.83 2.83a1 1 0 1 1-1.41-1.41L10.59 12 7.76 9.17a1 1 0 0 1 1.41-1.41L12 10.59l2.83-2.83a1 1 0 0 1 1.41 1.41L13.41 12z"/>
+                                    </svg>
+                                </button>
+                                <img :src="selectedImageUrl" class="w-100 rounded"/>
+                            </div>
 
-                                <div class="input-group py-2">
-                                    <input
-                                        type="text"
-                                        class="form-control border-0 px-0 bg-transparent"
-                                        v-model="selectedImageCaption"
-                                        :placeholder="trans.posts.forms.editor.images.picker.uploader.caption.placeholder"
-                                        ref="caption"/>
-                                </div>
+                            <div class="input-group py-2">
+                                <input
+                                    type="text"
+                                    class="form-control border-0 px-0 bg-transparent"
+                                    v-model="selectedImageCaption"
+                                    :placeholder="trans.posts.forms.editor.images.picker.uploader.caption.placeholder"
+                                    ref="caption"/>
+                            </div>
 
-                                <div class="input-group py-2">
-                                    <select
-                                        class="custom-select border-0 px-0 bg-transparent"
-                                        v-model="selectedImageLayout">
-                                        <option value="default">
-                                            {{ trans.posts.forms.editor.images.picker.uploader.layout.default }}
-                                        </option>
-                                        <option value="wide">
-                                            {{ trans.posts.forms.editor.images.picker.uploader.layout.wide }}
-                                        </option>
-                                    </select>
-                                </div>
+                            <div class="input-group py-2">
+                                <select
+                                    class="custom-select border-0 px-0 bg-transparent"
+                                    v-model="selectedImageLayout">
+                                    <option value="default">
+                                        {{ trans.posts.forms.editor.images.picker.uploader.layout.default }}
+                                    </option>
+                                    <option value="wide">
+                                        {{ trans.posts.forms.editor.images.picker.uploader.layout.wide }}
+                                    </option>
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -94,7 +96,7 @@
                 <div v-if="!unsplashImages.length" class="modal-footer">
                     <button
                         class="btn btn-link btn-block text-muted font-weight-bold text-decoration-none"
-                        @click="applyImage"
+                        @click="clickDone"
                         data-dismiss="modal">
                         {{ trans.buttons.general.done }}
                     </button>
@@ -145,12 +147,7 @@
                 selectedImagesForPond: [],
                 selectedImageLayout: 'default',
                 selectedImageCaption: '',
-                galleryModalClasses: [
-                    'modal-xl',
-                    'modal-dialog-scrollable'
-                ],
-                exceedsMaxUploadSize: false,
-                uploadSizeErrorMessage: '',
+                galleryModalClasses: ['modal-xl', 'modal-dialog-scrollable'],
                 path: Canvas.path,
                 trans: JSON.parse(Canvas.lang),
             }
@@ -207,27 +204,72 @@
 
             selectUnsplashImage(image) {
                 const unsplash = new Unsplash({accessKey: this.unsplashKey});
+
+                // We must trigger a download to properly attribute traffic to the source
+                // https://help.unsplash.com/en/articles/2511258-guideline-triggering-a-download
                 unsplash.photos.downloadPhoto(image);
 
                 this.selectedUnsplashImage = image
+                this.selectedImageUrl = image.urls.regular
+                this.selectedImageCaption = this.buildImageCaption(image)
+                this.unsplashImages = []
+                this.unsplashPage = 1
+                this.searchKeyword = ''
+                this.$refs.modal.classList.remove(...this.galleryModalClasses)
 
                 this.$emit('changed', {
-                    url: this.selectedUnsplashImage.urls.regular,
-                    caption:
-                        this.trans.posts.forms.editor.images.picker.caption.by +
-                        ' <a href="' +
-                        this.selectedUnsplashImage.user.links.html +
-                        '" target="_blank">' +
-                        this.selectedUnsplashImage.user.name +
-                        '</a> ' +
-                        this.trans.posts.forms.editor.images.picker.caption.on +
-                        ' <a href="https://unsplash.com" target="_blank">Unsplash</a>',
+                    url: image.urls.regular,
+                    caption: this.buildImageCaption(image),
                 })
             },
 
-            applyImage() {
+            buildImageCaption(image) {
+                return this.trans.posts.forms.editor.images.picker.caption.by +
+                    ' <a href="' +
+                    image.user.links.html +
+                    '" target="_blank">' +
+                    image.user.name +
+                    '</a> ' +
+                    this.trans.posts.forms.editor.images.picker.caption.on +
+                    ' <a href="https://unsplash.com" target="_blank">Unsplash</a>'
+            },
+
+            processedFromFilePond() {
+                console.log('i just added an image')
+                console.log(document.getElementsByName('upload')[0].value) // returns a path
+            },
+
+            removedFromFilePond() {
+                console.log('i just removed an image')
+                console.log(document.getElementsByName('upload')[0].value) // returns empty
+            },
+
+            clickDone() {
+
+                /**
+                 * TODO: this gets called when a user clicks on an existing post image and wants
+                 * to remove it by clicking the X on the image. This ALSO gets called when a
+                 * user clicks Done and used FilePond to upload.
+                 *
+                 * Disable caption until an image is selected?
+                 * Disable layout until an image is selected?
+                 *
+                 * Can't set the selectedImageUrl to the FilePond upload url because that
+                 * that'll disable FilePond and prevent image removal. Need to listen
+                 * for when FilePond has added it's image and then set it somehow.
+                 *
+                 * Maybe check for the hidden input existence and use it if it's there?
+                 *
+                 * FilePond hidden input selector:
+                 * document.getElementsByName('upload')[0].value
+                 *
+                 * Also need to make the editor play nicer with where it drops the selection
+                 * cursor after adding/removing images.
+                 */
                 if (!this.selectedImageUrl) {
-                    return
+                    this.$emit('removingImage', {
+                        existingBlot: this.blot
+                    })
                 }
 
                 this.$emit('addingImage', {
@@ -241,7 +283,7 @@
             },
 
             clearAndResetComponent() {
-                this.blot = null
+                this.selectedImagesForPond = []
                 this.selectedImageUrl = null
                 this.selectedImageLayout = 'default'
                 this.selectedImageCaption = ''
@@ -250,8 +292,12 @@
                 this.unsplashPage = 1
                 this.searchKeyword = ''
                 this.$refs.modal.classList.remove(...this.galleryModalClasses)
-                this.$refs.modal.hide
             },
+
+            closeModal() {
+                this.clearAndResetComponent()
+                this.$refs.modal.hide
+            }
         },
 
         computed: {
@@ -296,5 +342,11 @@
 
     .filepond--item-panel {
         border-radius: $border-radius;
+    }
+
+    .selected-image button {
+        position: absolute;
+        top: 10px;
+        right: 25px;
     }
 </style>
