@@ -52,8 +52,12 @@
                         <!--TODO: right now the changes are being reflected in search, but infinite scrolling is not working-->
 
                         <infinite-loading v-if="isSearching" :identifier="infiniteId" @infinite="fetchUnsplashImages" spinner="spiral">
-                            <span slot="no-more"></span>
-                            <div slot="no-results"></div>
+                            <span slot="no-more">
+                                nothing more to load
+                            </span>
+                            <div slot="no-results">
+                                <p>got no results at all</p>
+                            </div>
                         </infinite-loading>
                     </div>
 
@@ -193,7 +197,6 @@
                         if (!_.isEmpty(json.results)) {
                             this.unsplashImages.push(...json.results)
                             this.unsplashPage += 1;
-                            this.isSearching = false
 
                             $state.loaded()
                         } else {
