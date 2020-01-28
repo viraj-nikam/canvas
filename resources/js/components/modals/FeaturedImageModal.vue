@@ -230,17 +230,8 @@
             },
 
             clickDone() {
-                if (!_.isEmpty(this.selectedImageUrl)) {
-                    this.activePost.featured_image = this.selectedImageUrl
-                } else {
-                    this.activePost.featured_image = ''
-                }
-
-                if (!_.isEmpty(this.selectedImageCaption)) {
-                    this.activePost.featured_image_caption = this.selectedImageCaption
-                } else {
-                    this.activePost.featured_image_caption = ''
-                }
+                this.activePost.featured_image = !_.isEmpty(this.selectedImageUrl) ? this.selectedImageUrl : ''
+                this.activePost.featured_image_caption = !_.isEmpty(this.selectedImageCaption) ? this.selectedImageCaption : ''
 
                 this.$parent.save()
             },

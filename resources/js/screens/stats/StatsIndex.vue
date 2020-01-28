@@ -165,9 +165,9 @@
                         },
                     })
                     .then(response => {
-                        if (!_.isEmpty(response.data) && !_.isEmpty(response.data.data)) {
+                        if (!_.isEmpty(response.data) && !_.isEmpty(response.data.posts.data)) {
                             this.page += 1;
-                            this.posts.push(...response.data.data)
+                            this.posts.push(...response.data.posts.data)
 
                             $state.loaded();
                         } else {

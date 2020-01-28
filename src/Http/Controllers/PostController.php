@@ -20,22 +20,21 @@ class PostController extends Controller
      */
     public function index(): JsonResponse
     {
+        $publishedCount = Post::forCurrentUser()->published()->count();
+        $draftCount = Post::forCurrentUser()->draft()->count();
+
         if (request()->query('postType') == 'draft') {
-            return response()->json(
-                Post::forCurrentUser()
-                    ->draft()
-                    ->latest()
-                    ->withCount('views')
-                    ->paginate(), 200
-            );
+            return response()->json([
+                'posts'          => Post::forCurrentUser()->draft()->latest()->withCount('views')->paginate(),
+                'draftCount'     => $draftCount,
+                'publishedCount' => $publishedCount,
+            ], 200);
         } else {
-            return response()->json(
-                Post::forCurrentUser()
-                    ->published()
-                    ->latest()
-                    ->withCount('views')
-                    ->paginate(), 200
-            );
+            return response()->json([
+                'posts'          => Post::forCurrentUser()->published()->latest()->withCount('views')->paginate(),
+                'draftCount'     => $draftCount,
+                'publishedCount' => $publishedCount,
+            ], 200);
         }
     }
 
@@ -177,7 +176,7 @@ class PostController extends Controller
         if ($incomingTopic) {
             $topic = Topic::where('slug', $incomingTopic['slug'])->first();
 
-            if (! $topic) {
+            if (!$topic) {
                 $topic = Topic::create([
                     'id'      => $id = Uuid::uuid4(),
                     'name'    => $incomingTopic['name'],
@@ -186,7 +185,7 @@ class PostController extends Controller
                 ]);
             }
 
-            return collect((string) $topic->id)->toArray();
+            return collect((string)$topic->id)->toArray();
         } else {
             return [];
         }
@@ -206,7 +205,7 @@ class PostController extends Controller
             return collect($incomingTags)->map(function ($incomingTag) use ($tags) {
                 $tag = $tags->where('slug', $incomingTag['slug'])->first();
 
-                if (! $tag) {
+                if (!$tag) {
                     $tag = Tag::create([
                         'id'      => $id = Uuid::uuid4(),
                         'name'    => $incomingTag['name'],
@@ -215,7 +214,7 @@ class PostController extends Controller
                     ]);
                 }
 
-                return (string) $tag->id;
+                return (string)$tag->id;
             })->toArray();
         } else {
             return [];

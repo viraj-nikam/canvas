@@ -14,8 +14,8 @@
                     <h1>{{ trans.posts.header }}</h1>
 
                     <select name="" id="" v-model="postType" @change="changeType" class="my-auto bg-transparent appearance-none border-0 text-muted">
-                        <option value="published">{{ trans.nav.context.published }}</option>
-                        <option value="draft">{{ trans.nav.context.draft }}</option>
+                        <option value="published">{{ trans.nav.context.published }} ({{ publishedCount }})</option>
+                        <option value="draft">{{ trans.nav.context.draft }} ({{ draftCount }})</option>
                     </select>
                 </div>
 
@@ -95,6 +95,8 @@
             return {
                 page: 1,
                 posts: [],
+                publishedCount: 0,
+                draftCount: 0,
                 postType: 'published',
                 infiniteId: +new Date(),
                 trans: JSON.parse(Canvas.lang),
@@ -111,9 +113,11 @@
                         },
                     })
                     .then(response => {
-                        if (!_.isEmpty(response.data) && !_.isEmpty(response.data.data)) {
+                        if (!_.isEmpty(response.data) && !_.isEmpty(response.data.posts.data)) {
                             this.page += 1;
-                            this.posts.push(...response.data.data)
+                            this.posts.push(...response.data.posts.data)
+                            this.publishedCount = response.data.publishedCount
+                            this.draftCount = response.data.draftCount
 
                             $state.loaded();
                         } else {
