@@ -15,6 +15,7 @@ return [
         'create'   => 'New post',
         'edit'     => 'Edit post',
         'ready'    => 'Ready to publish?',
+        'small'    => 'Publish?',
         'publish'  => 'Publish now',
         'later'    => 'Schedule for later',
         'schedule' => 'Schedule to publish',

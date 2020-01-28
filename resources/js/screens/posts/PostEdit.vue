@@ -22,7 +22,8 @@
 
             <template slot="action">
                 <a v-if="isDraft" href="#" class="btn btn-sm btn-outline-success font-weight-bold my-auto" @click="showPublishModal">
-                    {{ trans.buttons.posts.ready }}
+                    <span class="d-block d-lg-none">{{ trans.buttons.posts.small }}</span>
+                    <span class="d-none d-lg-block">{{ trans.buttons.posts.ready }}</span>
                 </a>
 
                 <a v-else href="#" class="btn btn-sm btn-outline-success font-weight-bold my-auto" @click="save">
