@@ -253,6 +253,10 @@
                 $(this.$refs.htmlModal.$el).modal('show')
             },
 
+            /**
+             * TODO: Need to make the editor play nicer with where it drops the selection
+             * cursor after adding images.
+             */
             insertImage({url, caption, existingBlot, layout}) {
                 let values = {
                     url: url,
@@ -276,6 +280,10 @@
                 this.editor.setSelection(range.index + 1, Quill.sources.SILENT)
             },
 
+            /**
+             * TODO: Need to make the editor play nicer with where it drops the selection
+             * cursor after removing images.
+             */
             removeImage({existingBlot}) {
                 let range = this.editor.getSelection(true)
 

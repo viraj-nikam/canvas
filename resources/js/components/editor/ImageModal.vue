@@ -2,7 +2,7 @@
     <div class="modal fade" tabindex="-1" role="dialog" data-backdrop="static">
         <div class="modal-dialog" ref="modal" role="document">
             <div class="modal-content">
-                <div class="modal-header d-flex align-items-center justify-content-between">
+                <div v-if="!selectedImageUrl" class="modal-header d-flex align-items-center justify-content-between">
                     <div v-if="unsplashKey" class="input-group">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" class="icon-search">
                             <circle cx="10" cy="10" r="7" class="fill-bg"/>
@@ -129,12 +129,6 @@
         FilePondPluginImageValidateSize,
     );
 
-    /**
-     * TODO: When a user uses FilePond, and THEN begins to search, a mix-up occurs
-     *
-     * TODO: Need to make the editor play nicer with where it drops the selection
-     * cursor after adding/removing images.
-     */
     export default {
         name: 'image-modal',
 
@@ -153,7 +147,7 @@
                 unsplashImages: [],
                 infiniteId: +new Date(),
                 isSearchingUnsplash: false,
-                blot: null,
+                selectedImageBlot: null,
                 selectedImageUrl: null,
                 selectedImagesForPond: [],
                 selectedImageLayout: 'default',
@@ -167,17 +161,11 @@
         mounted() {
             this.$parent.$on('openingImageModal', data => {
                 if (!_.isEmpty(data)) {
-
-                    if (!_.isEmpty(data.url)) {
-                        this.isReadyToAcceptUploads = false
-                    } else {
-                        this.isReadyToAcceptUploads = true
-                    }
-
                     this.selectedImageCaption = data.caption
                     this.selectedImageUrl = data.url
                     this.selectedImageLayout = data.layout || 'default'
-                    this.blot = data.existingBlot
+                    this.selectedImageBlot = data.existingBlot
+                    this.isReadyToAcceptUploads = _.isEmpty(data.url);
                 }
             })
         },
@@ -267,13 +255,13 @@
                     this.clearAndResetComponent()
 
                     this.$emit('removingImage', {
-                        existingBlot: this.blot
+                        existingBlot: this.selectedImageBlot
                     })
                 } else {
                     this.$emit('addingImage', {
                         url: this.selectedImageUrl,
                         caption: this.selectedImageCaption,
-                        existingBlot: this.blot,
+                        existingBlot: this.selectedImageBlot,
                         layout: this.selectedImageLayout,
                     })
 
@@ -334,7 +322,7 @@
     }
 
     .filepond--panel-root {
-        background-color: $gray-500;
+        background-color: $gray-400;
     }
 
     .filepond--panel-root {
