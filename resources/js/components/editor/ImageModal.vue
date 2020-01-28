@@ -161,7 +161,7 @@
         mounted() {
             this.$parent.$on('openingImageModal', data => {
                 if (!_.isEmpty(data)) {
-                    this.selectedImageCaption = data.caption
+                    this.selectedImageCaption = _.isEmpty(data.caption) ? '' : data.caption
                     this.selectedImageUrl = data.url
                     this.selectedImageLayout = data.layout || 'default'
                     this.selectedImageBlot = data.existingBlot
@@ -252,21 +252,21 @@
 
             clickDone() {
                 if (!this.selectedImageUrl) {
-                    this.clearAndResetComponent()
-
-                    this.$emit('removingImage', {
-                        existingBlot: this.selectedImageBlot
-                    })
+                    if (!_.isEmpty(this.selectedImageBlot)) {
+                        this.$emit('removingImage', {
+                            existingBlot: this.selectedImageBlot
+                        })
+                    }
                 } else {
                     this.$emit('addingImage', {
                         url: this.selectedImageUrl,
-                        caption: this.selectedImageCaption,
+                        caption: this.selectedImageCaption ?? '',
                         existingBlot: this.selectedImageBlot,
                         layout: this.selectedImageLayout,
                     })
-
-                    this.clearAndResetComponent()
                 }
+
+                this.clearAndResetComponent()
             },
 
             clearAndResetComponent() {
