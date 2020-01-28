@@ -2,6 +2,13 @@
 
 ## [Unreleased](https://github.com/cnvs/canvas/compare/master...develop)
 
+## Changed
+- Updated the modal animations ([66bb4ac](https://github.com/cnvs/canvas/commit/66bb4ac83bffb33346cc6cc127a062b01da9c5c2))
+- Comprehensive refactor of the image/featured image modals to utilize [FilePond](https://pqina.nl/filepond) and [vue-infinite-loading](https://peachscript.github.io/vue-infinite-loading)
+
+## Added
+- Included a small Publish button for mobile devices ([c0f73e9](https://github.com/cnvs/canvas/commit/c0f73e9dd2e62951aaa29316fe1d3586b1bbac35))
+
 ## [5.1.1](https://github.com/cnvs/canvas/compare/v5.0.0...v5.1.1) (January 22, 2020)
 
 ## Fixed
