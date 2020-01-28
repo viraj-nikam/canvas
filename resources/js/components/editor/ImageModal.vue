@@ -26,7 +26,7 @@
                 </div>
                 <div class="modal-body pb-0">
                     <file-pond
-                        v-if="!isSearchingUnsplash && !unsplashImages.length && !selectedImageUrl"
+                        v-if="!isSearchingUnsplash && !unsplashImages.length && isReadyToAcceptUploads"
                         name="upload"
                         ref="pond"
                         max-files="1"
@@ -53,12 +53,14 @@
 
                         <infinite-loading v-if="isSearchingUnsplash" :identifier="infiniteId" @infinite="fetchUnsplashImages" spinner="spiral">
                             <span slot="no-more"></span>
-                            <div slot="no-results"></div>
+                            <div slot="no-results" class="mb-3">
+                                No images found for "{{ searchKeyword }}"
+                            </div>
                         </infinite-loading>
                     </div>
 
                     <div v-if="!isSearchingUnsplash && !unsplashImages.length">
-                        <div v-if="selectedImageUrl" class="selected-image">
+                        <div v-if="selectedImageUrl && !selectedImagesForPond.length && !isReadyToAcceptUploads" class="selected-image">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close" @click.prevent="clearAndResetComponent">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" class="icon-close-circle">
                                     <circle cx="12" cy="12" r="10" class="primary"/>
@@ -127,6 +129,12 @@
         FilePondPluginImageValidateSize,
     );
 
+    /**
+     * TODO: When a user uses FilePond, and THEN begins to search, a mix-up occurs
+     *
+     * TODO: Need to make the editor play nicer with where it drops the selection
+     * cursor after adding/removing images.
+     */
     export default {
         name: 'image-modal',
 
@@ -137,10 +145,11 @@
 
         data() {
             return {
+                isReadyToAcceptUploads: true,
                 searchKeyword: '',
                 unsplashKey: Canvas.unsplash,
                 unsplashPage: 1,
-                unsplashPerPage: 20,
+                unsplashPerPage: 12,
                 unsplashImages: [],
                 infiniteId: +new Date(),
                 isSearchingUnsplash: false,
@@ -158,26 +167,32 @@
         mounted() {
             this.$parent.$on('openingImageModal', data => {
                 if (!_.isEmpty(data)) {
-                    this.selectedImagesForPond = !_.isEmpty(data.url) ? [data.url] : []
+
+                    if (!_.isEmpty(data.url)) {
+                        this.isReadyToAcceptUploads = false
+                    } else {
+                        this.isReadyToAcceptUploads = true
+                    }
+
                     this.selectedImageCaption = data.caption
                     this.selectedImageUrl = data.url
                     this.selectedImageLayout = data.layout || 'default'
                     this.blot = data.existingBlot
                 }
-
-                this.isReady = true
             })
         },
 
         watch: {
             searchKeyword: _.debounce(function (val) {
                 if (val === '') {
+                    this.isReadyToAcceptUploads = !this.selectedImageUrl;
                     this.isSearchingUnsplash = false
                     this.unsplashPage = 1
                     this.unsplashImages = []
                     this.infiniteId += 1
                     this.$refs.modal.classList.remove(...this.galleryModalClasses)
                 } else {
+                    this.isReadyToAcceptUploads = false
                     this.isSearchingUnsplash = true
                     this.unsplashPage = 1
                     this.unsplashImages = []
@@ -236,53 +251,34 @@
                     ' <a href="https://unsplash.com" target="_blank">Unsplash</a>'
             },
 
-            // SelectedFilePondImage
             processedFromFilePond() {
-                console.log('i just added an image')
-                console.log(document.getElementsByName('upload')[0].value) // returns a path
+                this.isReadyToAcceptUploads = true
+                this.selectedImageUrl = document.getElementsByName('upload')[0].value
             },
 
             removedFromFilePond() {
-                console.log('i just removed an image')
-                console.log(document.getElementsByName('upload')[0].value) // returns empty
+                this.isReadyToAcceptUploads = true
+                this.selectedImagesForPond = []
+                this.selectedImageUrl = null
             },
 
             clickDone() {
-
-                /**
-                 * TODO: this gets called when a user clicks on an existing post image and wants
-                 * to remove it by clicking the X on the image. This ALSO gets called when a
-                 * user clicks Done and used FilePond to upload.
-                 *
-                 * Disable caption until an image is selected?
-                 * Disable layout until an image is selected?
-                 *
-                 * Can't set the selectedImageUrl to the FilePond upload url because that
-                 * that'll disable FilePond and prevent image removal. Need to listen
-                 * for when FilePond has added it's image and then set it somehow.
-                 *
-                 * Maybe check for the hidden input existence and use it if it's there?
-                 *
-                 * FilePond hidden input selector:
-                 * document.getElementsByName('upload')[0].value
-                 *
-                 * Also need to make the editor play nicer with where it drops the selection
-                 * cursor after adding/removing images.
-                 */
                 if (!this.selectedImageUrl) {
+                    this.clearAndResetComponent()
+
                     this.$emit('removingImage', {
                         existingBlot: this.blot
                     })
+                } else {
+                    this.$emit('addingImage', {
+                        url: this.selectedImageUrl,
+                        caption: this.selectedImageCaption,
+                        existingBlot: this.blot,
+                        layout: this.selectedImageLayout,
+                    })
+
+                    this.clearAndResetComponent()
                 }
-
-                this.$emit('addingImage', {
-                    url: this.selectedImageUrl,
-                    caption: this.selectedImageCaption,
-                    existingBlot: this.blot,
-                    layout: this.selectedImageLayout,
-                })
-
-                this.clearAndResetComponent()
             },
 
             clearAndResetComponent() {
@@ -290,6 +286,7 @@
                 this.selectedImageUrl = null
                 this.selectedImageLayout = 'default'
                 this.selectedImageCaption = ''
+                this.isReadyToAcceptUploads = true
                 this.isSearchingUnsplash = false
                 this.unsplashImages = []
                 this.unsplashPage = 1
@@ -327,7 +324,8 @@
 <style lang="scss">
     @import '../../../../resources/sass/variables';
 
-    .filepond--file-action-button {
+    .filepond--drop-label,
+    .filepond--drop-label label {
         cursor: pointer;
     }
 
@@ -345,6 +343,15 @@
 
     .filepond--item-panel {
         border-radius: $border-radius;
+    }
+
+    [data-filepond-item-state*='error'] .filepond--item-panel,
+    [data-filepond-item-state*='invalid'] .filepond--item-panel {
+        background-color: $red;
+    }
+
+    [data-filepond-item-state='processing-complete'] .filepond--item-panel {
+        background-color: $green;
     }
 
     .selected-image button {

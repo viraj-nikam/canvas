@@ -66,6 +66,17 @@ input:-webkit-autofill:active {
   display: none;
 }
 
+.fade-enter-active,
+.fade-leave-active {
+  -webkit-transition: opacity 0.5s;
+  transition: opacity 0.5s;
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+
 #nprogress {
   pointer-events: none;
 }

@@ -10,11 +10,11 @@
                         </div>
 
                         <div v-if="post.isSaving">
-                            <span class="pl-2">{{ trans.nav.notify.saving }}</span>
+                            <span>{{ trans.nav.notify.saving }}</span>
                         </div>
 
                         <div v-if="post.hasSuccess">
-                            <span class="pl-2 text-success">{{ trans.nav.notify.success }}</span>
+                            <span class="text-success">{{ trans.nav.notify.success }}</span>
                         </div>
                     </li>
                 </ul>
