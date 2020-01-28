@@ -111,7 +111,7 @@
     import $ from 'jquery'
     import NProgress from 'nprogress'
     import PageHeader from '../../components/PageHeader'
-    import ProfileModal from '../../components/ProfileModal'
+    import ProfileModal from '../../components/modals/ProfileModal'
 
     export default {
         name: 'settings-show',

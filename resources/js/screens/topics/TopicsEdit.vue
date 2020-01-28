@@ -80,7 +80,7 @@
     import $ from 'jquery'
     import NProgress from 'nprogress'
     import PageHeader from '../../components/PageHeader'
-    import DeleteModal from '../../components/DeleteModal'
+    import DeleteModal from '../../components/modals/DeleteModal'
 
     export default {
         name: 'topics-edit',

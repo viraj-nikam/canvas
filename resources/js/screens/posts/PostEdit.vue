@@ -117,14 +117,14 @@
     import $ from 'jquery'
     import {mapGetters} from 'vuex'
     import NProgress from 'nprogress'
-    import SeoModal from '../../components/SeoModal'
+    import SeoModal from '../../components/modals/SeoModal'
     import PageHeader from '../../components/PageHeader'
-    import DeleteModal from '../../components/DeleteModal'
+    import DeleteModal from '../../components/modals/DeleteModal'
     import VueTextAreaAutosize from 'vue-textarea-autosize'
-    import PublishModal from '../../components/PublishModal'
-    import SettingsModal from '../../components/SettingsModal'
+    import PublishModal from '../../components/modals/PublishModal'
+    import SettingsModal from '../../components/modals/SettingsModal'
     import QuillEditor from '../../components/editor/QuillEditor'
-    import FeaturedImageModal from '../../components/FeaturedImageModal'
+    import FeaturedImageModal from '../../components/modals/FeaturedImageModal'
 
     Vue.use(VueTextAreaAutosize)
 

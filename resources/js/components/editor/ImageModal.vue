@@ -27,7 +27,7 @@
                 <div class="modal-body pb-0">
                     <file-pond
                         v-if="!isSearchingUnsplash && !unsplashImages.length && isReadyToAcceptUploads"
-                        name="upload"
+                        name="imagePond"
                         ref="pond"
                         max-files="1"
                         :label-idle="getPlaceholderLabel"
@@ -40,11 +40,11 @@
 
                     <div v-if="unsplashKey && !selectedImageUrl">
                         <div v-if="unsplashImages.length" class="card-columns mt-3">
-                            <div v-for="(image, $index) in unsplashImages" :key="$index" class="card border-0">
+                            <div v-for="(image, $index) in unsplashImages" :key="$index" class="card border-0 bg-transparent">
                                 <img
                                     :src="image.urls.small"
                                     :alt="image.alt_description"
-                                    class="card-img"
+                                    class="card-img bg-transparent"
                                     style="cursor: pointer"
                                     @click="selectUnsplashImage(image)"
                                 />
@@ -241,7 +241,7 @@
 
             processedFromFilePond() {
                 this.isReadyToAcceptUploads = true
-                this.selectedImageUrl = document.getElementsByName('upload')[0].value
+                this.selectedImageUrl = document.getElementsByName('imagePond')[0].value
             },
 
             removedFromFilePond() {

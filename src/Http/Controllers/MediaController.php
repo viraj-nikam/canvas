@@ -14,7 +14,8 @@ class MediaController extends Controller
      */
     public function store()
     {
-        $path = request()->file('upload')->storePublicly($this->baseStoragePath(), [
+        $file = request()->file('imagePond') ?? request()->file('featuredImagePond');
+        $path = $file->storePublicly($this->baseStoragePath(), [
             'disk' => config('canvas.storage_disk'),
         ]);
 
