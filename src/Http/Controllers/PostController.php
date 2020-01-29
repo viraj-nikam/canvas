@@ -94,12 +94,9 @@ class PostController extends Controller
             'featured_image_caption' => request('featured_image_caption', null),
             'user_id'                => request()->user()->id,
             'meta'                   => [
-                'meta_description'    => request('meta.meta_description', null),
-                'og_title'            => request('meta.og_title', null),
-                'og_description'      => request('meta.og_description', null),
-                'twitter_title'       => request('meta.twitter_title', null),
-                'twitter_description' => request('meta.twitter_description', null),
-                'canonical_link'      => request('meta.canonical_link', null),
+                'description'    => request('meta.meta_description', null),
+                'title'          => request('meta.og_title', null),
+                'canonical_link' => request('meta.canonical_link', null),
             ],
         ];
 
@@ -176,7 +173,7 @@ class PostController extends Controller
         if ($incomingTopic) {
             $topic = Topic::where('slug', $incomingTopic['slug'])->first();
 
-            if (! $topic) {
+            if (!$topic) {
                 $topic = Topic::create([
                     'id'      => $id = Uuid::uuid4(),
                     'name'    => $incomingTopic['name'],
@@ -185,7 +182,7 @@ class PostController extends Controller
                 ]);
             }
 
-            return collect((string) $topic->id)->toArray();
+            return collect((string)$topic->id)->toArray();
         } else {
             return [];
         }
@@ -205,7 +202,7 @@ class PostController extends Controller
             return collect($incomingTags)->map(function ($incomingTag) use ($tags) {
                 $tag = $tags->where('slug', $incomingTag['slug'])->first();
 
-                if (! $tag) {
+                if (!$tag) {
                     $tag = Tag::create([
                         'id'      => $id = Uuid::uuid4(),
                         'name'    => $incomingTag['name'],
@@ -214,7 +211,7 @@ class PostController extends Controller
                     ]);
                 }
 
-                return (string) $tag->id;
+                return (string)$tag->id;
             })->toArray();
         } else {
             return [];

@@ -112,11 +112,19 @@ input:-webkit-autofill:active {
   display: none;
 }
 
+.multiselect__tags > input {
+  margin-bottom: 10px;
+}
+
+.multiselect__input {
+  background-color: #f7fafc;
+}
+
 .multiselect__tags {
-  background-color: transparent;
+  border-radius: 0.5rem;
+  background-color: #f7fafc;
   border: none;
-  padding-left: 0;
-  padding-right: 0;
+  padding-left: 0.75rem;
 }
 
 .multiselect__tag,
@@ -131,15 +139,16 @@ input:-webkit-autofill:active {
 .multiselect__input,
 .multiselect__single {
   padding: 0;
-  border-radius: 0;
+}
+
+.multiselect__single {
   background-color: transparent;
 }
 
 .multiselect__input:focus::-webkit-input-placeholder, .multiselect__input::-webkit-input-placeholder {
   color: #7A889B;
-  opacity: 1;
   padding-top: 0;
-  line-height: 1;
+  line-height: 1.6;
   font-size: 16px;
 }
 
@@ -149,14 +158,13 @@ input:-webkit-autofill:active {
 .multiselect__input::-webkit-input-placeholder,
 .multiselect__placeholder {
   color: #7A889B;
-  opacity: 1;
   padding-top: 0;
-  line-height: 1;
+  line-height: 1.6;
   font-size: 16px;
 }
 
 .multiselect__input {
-  line-height: 1;
+  line-height: 1.6;
 }
 
 .multiselect__tag {

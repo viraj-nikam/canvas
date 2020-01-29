@@ -77,33 +77,20 @@ return [
             ],
         ],
         'seo'      => [
-            'header'    => 'SEO & Social',
-            'meta'      => 'Meta Description',
-            'facebook'  => [
-                'title'       => [
-                    'label'       => 'Facebook Card Title',
-                    'placeholder' => 'Title in Facebook Card',
-                ],
-                'description' => [
-                    'label'       => 'Facebook Card Description',
-                    'placeholder' => 'Description in Facebook Card',
-                ],
+            'header'      => 'SEO settings',
+            'title'       => [
+                'label'       => 'SEO Title',
+                'placeholder' => 'Meta title for your post',
             ],
-            'twitter'   => [
-                'title'       => [
-                    'label'       => 'Twitter Card Title',
-                    'placeholder' => 'Title in Twitter Card',
-                ],
-                'description' => [
-                    'label'       => 'Twitter Card Description',
-                    'placeholder' => 'Description in Twitter Card',
-                ],
+            'description' => [
+                'label'       => 'SEO Description',
+                'placeholder' => 'Meta description for your post',
             ],
-            'canonical' => [
-                'label'       => 'Canonical',
+            'canonical'   => [
+                'label'       => 'Canonical Link',
                 'placeholder' => 'Canonical URL of original source',
             ],
-            'sync'      => [
+            'sync'        => [
                 'title'       => 'Sync with the post title',
                 'description' => 'Sync with the post summary',
             ],
@@ -116,7 +103,7 @@ return [
             ],
             'summary' => [
                 'label'       => 'Summary',
-                'placeholder' => 'A descriptive summary..',
+                'placeholder' => 'A descriptive summary...',
             ],
             'topic'   => [
                 'label' => 'Topic',

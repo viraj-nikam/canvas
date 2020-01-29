@@ -22,7 +22,7 @@ return [
         'stats'    => 'View stats',
         'settings' => 'General settings',
         'image'    => 'Featured image',
-        'seo'      => 'SEO & Social',
+        'seo'      => 'SEO settings',
     ],
 
 ];

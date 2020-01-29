@@ -2,11 +2,17 @@
     <div class="modal fade" id="settingsModal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <div class="modal-body">
-                    <p class="font-weight-bold lead">
-                        {{ trans.posts.forms.settings.header }}
-                    </p>
+                <div class="modal-header d-flex align-items-center justify-content-between border-0">
+                    <h4 class="modal-title">{{ trans.posts.forms.settings.header }}</h4>
 
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" class="icon-close-circle">
+                            <circle cx="12" cy="12" r="10" class="primary"/>
+                            <path class="fill-bg" d="M13.41 12l2.83 2.83a1 1 0 0 1-1.41 1.41L12 13.41l-2.83 2.83a1 1 0 1 1-1.41-1.41L10.59 12 7.76 9.17a1 1 0 0 1 1.41-1.41L12 10.59l2.83-2.83a1 1 0 0 1 1.41 1.41L13.41 12z"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="modal-body">
                     <div class="form-group row">
                         <div class="col-12">
                             <label class="font-weight-bold text-uppercase text-muted small">{{ trans.posts.forms.settings.slug.label }}</label>
@@ -24,7 +30,8 @@
                             </a>
                             <input
                                 type="text"
-                                class="form-control border-0 px-0 bg-transparent"
+                                :class="!Canvas.darkMode ? 'bg-light': 'bg-darker'"
+                                class="form-control border-0"
                                 @input="update"
                                 name="slug"
                                 v-model="activePost.slug"
@@ -42,7 +49,8 @@
                                 rows="1"
                                 id="settings"
                                 name="summary"
-                                class="form-control border-0 px-0 bg-transparent resize-none"
+                                :class="!Canvas.darkMode ? 'bg-light': 'bg-darker'"
+                                class="form-control resize-none border-0"
                                 v-model="activePost.summary"
                                 @input="update"
                                 :placeholder="trans.posts.forms.settings.summary.placeholder">
@@ -135,3 +143,9 @@
         },
     }
 </script>
+
+<style lang="scss">
+    .bg-darker {
+        background-color: #71809630;
+    }
+</style>

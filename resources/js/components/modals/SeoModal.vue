@@ -2,48 +2,27 @@
     <div class="modal fade" id="seoModal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <div class="modal-body">
-                    <p class="font-weight-bold lead">
-                        {{ trans.posts.forms.seo.header }}
-                    </p>
+                <div class="modal-header d-flex align-items-center justify-content-between border-0">
+                    <h4 class="modal-title">{{ trans.posts.forms.seo.header }}</h4>
 
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" class="icon-close-circle">
+                            <circle cx="12" cy="12" r="10" class="primary"/>
+                            <path class="fill-bg" d="M13.41 12l2.83 2.83a1 1 0 0 1-1.41 1.41L12 13.41l-2.83 2.83a1 1 0 1 1-1.41-1.41L10.59 12 7.76 9.17a1 1 0 0 1 1.41-1.41L12 10.59l2.83-2.83a1 1 0 0 1 1.41 1.41L13.41 12z"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="modal-body">
                     <div class="form-group row">
                         <div class="col-12">
                             <label class="font-weight-bold text-uppercase text-muted small">
-                                {{ trans.posts.forms.seo.meta }}
-                                <a
-                                    href="#"
-                                    class="text-decoration-none"
-                                    v-tooltip="{ placement: 'right' }"
-                                    :title="trans.posts.forms.seo.sync.description"
-                                    @click.prevent="syncMetaDescription()">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-refresh" width="25">
-                                        <circle cx="12" cy="12" r="10" style="fill:none"/>
-                                        <path class="primary" d="M8.52 7.11a5.98 5.98 0 0 1 8.98 2.5 1 1 0 1 1-1.83.8 4 4 0 0 0-5.7-1.86l.74.74A1 1 0 0 1 10 11H7a1 1 0 0 1-1-1V7a1 1 0 0 1 1.7-.7l.82.81zm5.51 8.34l-.74-.74A1 1 0 0 1 14 13h3a1 1 0 0 1 1 1v3a1 1 0 0 1-1.7.7l-.82-.81A5.98 5.98 0 0 1 6.5 14.4a1 1 0 1 1 1.83-.8 4 4 0 0 0 5.7 1.85z"/>
-                                    </svg>
-                                </a>
-                            </label>
-                            <textarea
-                                rows="1"
-                                id="meta_description"
-                                name="meta_description"
-                                class="form-control border-0 px-0 bg-transparent"
-                                @input="update"
-                                v-model="activePost.meta.meta_description"
-                                :placeholder="trans.posts.forms.seo.meta">
-                            </textarea>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <div class="col-12">
-                            <label class="font-weight-bold text-uppercase text-muted small">
-                                {{ trans.posts.forms.seo.facebook.title.label }}
+                                {{ trans.posts.forms.seo.title.label }}
                                 <a
                                     href="#"
                                     class="text-decoration-none"
                                     v-tooltip="{ placement: 'right' }"
                                     :title="trans.posts.forms.seo.sync.title"
-                                    @click.prevent="syncOgTitle()">
+                                    @click.prevent="syncTitle">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-refresh" width="25">
                                         <circle cx="12" cy="12" r="10" style="fill:none"/>
                                         <path class="primary" d="M8.52 7.11a5.98 5.98 0 0 1 8.98 2.5 1 1 0 1 1-1.83.8 4 4 0 0 0-5.7-1.86l.74.74A1 1 0 0 1 10 11H7a1 1 0 0 1-1-1V7a1 1 0 0 1 1.7-.7l.82.81zm5.51 8.34l-.74-.74A1 1 0 0 1 14 13h3a1 1 0 0 1 1 1v3a1 1 0 0 1-1.7.7l-.82-.81A5.98 5.98 0 0 1 6.5 14.4a1 1 0 1 1 1.83-.8 4 4 0 0 0 5.7 1.85z"/>
@@ -51,26 +30,27 @@
                                 </a>
                             </label>
                             <input
-                                name="og_title"
+                                name="title"
                                 type="text"
                                 @input="update"
-                                class="form-control border-0 px-0 bg-transparent"
-                                :title="trans.posts.forms.seo.facebook.title.label"
-                                v-model="activePost.meta.og_title"
-                                :placeholder="trans.posts.forms.seo.facebook.title.placeholder"
+                                :class="!Canvas.darkMode ? 'bg-light': 'bg-darker'"
+                                class="form-control border-0"
+                                :title="trans.posts.forms.seo.title.label"
+                                v-model="activePost.meta.title"
+                                :placeholder="trans.posts.forms.seo.title.placeholder"
                             />
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-12">
                             <label class="font-weight-bold text-uppercase text-muted small">
-                                {{ trans.posts.forms.seo.facebook.description.label }}
+                                {{ trans.posts.forms.seo.description.label }}
                                 <a
                                     href="#"
                                     class="text-decoration-none"
                                     v-tooltip="{ placement: 'right' }"
                                     :title="trans.posts.forms.seo.sync.description"
-                                    @click.prevent="syncOgDescription()">
+                                    @click.prevent="syncDescription">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-refresh" width="25">
                                         <circle cx="12" cy="12" r="10" style="fill:none"/>
                                         <path class="primary" d="M8.52 7.11a5.98 5.98 0 0 1 8.98 2.5 1 1 0 1 1-1.83.8 4 4 0 0 0-5.7-1.86l.74.74A1 1 0 0 1 10 11H7a1 1 0 0 1-1-1V7a1 1 0 0 1 1.7-.7l.82.81zm5.51 8.34l-.74-.74A1 1 0 0 1 14 13h3a1 1 0 0 1 1 1v3a1 1 0 0 1-1.7.7l-.82-.81A5.98 5.98 0 0 1 6.5 14.4a1 1 0 1 1 1.83-.8 4 4 0 0 0 5.7 1.85z"/>
@@ -78,67 +58,14 @@
                                 </a>
                             </label>
                             <textarea
-                                id="og_description"
                                 rows="1"
-                                name="og_description"
-                                class="form-control border-0 px-0 bg-transparent"
+                                id="description"
+                                name="description"
+                                :class="!Canvas.darkMode ? 'bg-light': 'bg-darker'"
+                                class="form-control border-0"
                                 @input="update"
-                                v-model="activePost.meta.og_description"
-                                :placeholder="trans.posts.forms.seo.facebook.description.placeholder">
-                            </textarea>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <div class="col-12">
-                            <label class="font-weight-bold text-uppercase text-muted small">
-                                {{ trans.posts.forms.seo.twitter.title.label }}
-                                <a
-                                    href="#"
-                                    class="text-decoration-none"
-                                    v-tooltip="{ placement: 'right' }"
-                                    :title="trans.posts.forms.seo.sync.title"
-                                    @click.prevent="syncTwitterTitle()">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-refresh" width="25">
-                                        <circle cx="12" cy="12" r="10" style="fill:none"/>
-                                        <path class="primary" d="M8.52 7.11a5.98 5.98 0 0 1 8.98 2.5 1 1 0 1 1-1.83.8 4 4 0 0 0-5.7-1.86l.74.74A1 1 0 0 1 10 11H7a1 1 0 0 1-1-1V7a1 1 0 0 1 1.7-.7l.82.81zm5.51 8.34l-.74-.74A1 1 0 0 1 14 13h3a1 1 0 0 1 1 1v3a1 1 0 0 1-1.7.7l-.82-.81A5.98 5.98 0 0 1 6.5 14.4a1 1 0 1 1 1.83-.8 4 4 0 0 0 5.7 1.85z"/>
-                                    </svg>
-                                </a>
-                            </label>
-                            <input
-                                type="text"
-                                class="form-control border-0 px-0 bg-transparent"
-                                name="twitter_title"
-                                @input="update"
-                                v-model="activePost.meta.twitter_title"
-                                :title="trans.posts.forms.seo.twitter.title.label"
-                                :placeholder="trans.posts.forms.seo.twitter.title.placeholder"
-                            />
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <div class="col-12">
-                            <label class="font-weight-bold text-uppercase text-muted small">
-                                {{ trans.posts.forms.seo.twitter.description.label }}
-                                <a
-                                    href="#"
-                                    class="text-decoration-none"
-                                    v-tooltip="{ placement: 'right' }"
-                                    :title="trans.posts.forms.seo.sync.description"
-                                    @click.prevent="syncTwitterDescription()">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-refresh" width="25">
-                                        <circle cx="12" cy="12" r="10" style="fill:none"/>
-                                        <path class="primary" d="M8.52 7.11a5.98 5.98 0 0 1 8.98 2.5 1 1 0 1 1-1.83.8 4 4 0 0 0-5.7-1.86l.74.74A1 1 0 0 1 10 11H7a1 1 0 0 1-1-1V7a1 1 0 0 1 1.7-.7l.82.81zm5.51 8.34l-.74-.74A1 1 0 0 1 14 13h3a1 1 0 0 1 1 1v3a1 1 0 0 1-1.7.7l-.82-.81A5.98 5.98 0 0 1 6.5 14.4a1 1 0 1 1 1.83-.8 4 4 0 0 0 5.7 1.85z"/>
-                                    </svg>
-                                </a>
-                            </label>
-                            <textarea
-                                id="twitter_description"
-                                rows="1"
-                                name="twitter_description"
-                                class="form-control border-0 px-0 bg-transparent"
-                                @input="update"
-                                v-model="activePost.meta.twitter_description"
-                                :placeholder="trans.posts.forms.seo.twitter.description.placeholder">
+                                v-model="activePost.meta.description"
+                                :placeholder="trans.posts.forms.seo.description.placeholder">
                             </textarea>
                         </div>
                     </div>
@@ -150,7 +77,8 @@
                             <input
                                 type="text"
                                 @input="update"
-                                class="form-control border-0 px-0 bg-transparent"
+                                :class="!Canvas.darkMode ? 'bg-light': 'bg-darker'"
+                                class="form-control border-0"
                                 name="canonical_link"
                                 v-model="activePost.meta.canonical_link"
                                 :title="trans.posts.forms.seo.canonical.label"
@@ -190,9 +118,7 @@
 
         mounted() {
             $('#seoModal').on('shown.bs.modal', function () {
-                autosize($('#meta_description'))
-                autosize($('#og_description'))
-                autosize($('#twitter_description'))
+                autosize($('#description'))
             })
         },
 
@@ -207,30 +133,21 @@
                 this.$parent.save()
             }, 3000),
 
-            syncMetaDescription() {
-                this.activePost.meta.meta_description = this.activePost.summary
+            syncDescription() {
+                this.activePost.meta.description = this.activePost.summary
                 this.$parent.save()
             },
 
-            syncOgTitle() {
-                this.activePost.meta.og_title = this.activePost.title
-                this.$parent.save()
-            },
-
-            syncOgDescription() {
-                this.activePost.meta.og_description = this.activePost.summary
-                this.$parent.save()
-            },
-
-            syncTwitterTitle() {
-                this.activePost.meta.twitter_title = this.activePost.title
-                this.$parent.save()
-            },
-
-            syncTwitterDescription() {
-                this.activePost.meta.twitter_description = this.activePost.summary
+            syncTitle() {
+                this.activePost.meta.title = this.activePost.title
                 this.$parent.save()
             },
         },
     }
 </script>
+
+<style lang="scss">
+    .bg-darker {
+        background-color: #71809630;
+    }
+</style>

@@ -1,5 +1,6 @@
 @import 'variables';
 @import 'overrides';
+@import 'multiselect';
 
 $body-bg: rgb(38, 50, 56);
 $body-color: rgb(195, 211, 222);
@@ -29,6 +30,8 @@ $modal-content-bg: $body-bg;
 
 $custom-control-indicator-bg: $text-muted;
 
+$bg-darker: #71809630;
+
 .ql-editor {
     color: $body-color;
 }
@@ -56,6 +59,42 @@ select.input {
 
 .multiselect__input, .multiselect__single {
     color: $input-color;
+}
+
+.multiselect__input {
+    background-color: transparent;
+}
+
+.multiselect__tags {
+    border-radius: $border-radius;
+    background-color: $bg-darker;
+    border: none;
+    padding-left: .75rem;
+}
+
+.multiselect__option--selected {
+    color: $body-color;
+    background-color: $bg-darker;
+}
+
+.form-control:focus {
+    background-color: $bg-darker !important;
+}
+
+.bg-transparent:focus {
+    background-color: transparent !important;
+}
+
+.filepond--panel-root {
+    background-color: $bg-darker !important;
+}
+
+.filepond--drop-label {
+    color: $body-color !important;
+}
+
+.filepond--drop-label svg path {
+    fill: $body-color;
 }
 
 #sidebarControls.active {
@@ -116,7 +155,6 @@ select.input {
 
 @import 'vue';
 @import 'nprogress';
-@import 'multiselect';
 @import 'switch';
 
 @import '~bootstrap/scss/functions';
