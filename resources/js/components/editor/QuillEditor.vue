@@ -139,6 +139,8 @@
         },
 
         methods: {
+            // TODO: Remove the HTML modal/blot and replace with video embeds and link embeds
+
             createEditor() {
                 Quill.register(ImageBlot, true)
                 Quill.register(DividerBlot, true)

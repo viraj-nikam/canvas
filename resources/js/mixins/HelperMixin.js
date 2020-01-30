@@ -1,3 +1,5 @@
+import md5 from 'md5'
+
 export default {
     computed: {
         Canvas() {
@@ -6,13 +8,6 @@ export default {
     },
 
     methods: {
-        /**
-         * Generate a URL friendly "slug" from a given string.
-         *
-         * @param text
-         * @return string
-         * @source https://gist.github.com/mathewbyrne/1280286
-         */
         slugify(text) {
             return text
                 .toString()
@@ -22,12 +17,6 @@ export default {
                 .replace(/--+/g, '-')
         },
 
-        /**
-         * Return a number formatted with a suffix.
-         *
-         * @param number
-         * @returns {string}
-         */
         suffixedNumber(number) {
             let formatted = ''
             let suffix = ''
@@ -56,13 +45,6 @@ export default {
             return formatted + suffix
         },
 
-        /**
-         * Returns a word in plural form.
-         *
-         * @param string
-         * @param count
-         * @returns {string}
-         */
         plural(string, count) {
             if (count > 1 || count === 0) {
                 return ' ' + string + 's'
@@ -71,36 +53,20 @@ export default {
             }
         },
 
-        /**
-         * Trim a given string.
-         *
-         * @return {string}
-         */
         trim(string, length = 70) {
             return _.truncate(string, {
                 length: length,
             })
         },
 
-        /**
-         * Convert URL strings to data URLs.
-         *
-         * @param url
-         * @param callback
-         * @link https://stackoverflow.com/a/43015238
-         */
-        dataUrl(url, callback) {
-            var xhr = new XMLHttpRequest();
-            xhr.onload = function() {
-                var reader = new FileReader();
-                reader.onloadend = function() {
-                    callback(reader.result);
-                }
-                reader.readAsDataURL(xhr.response);
-            };
-            xhr.open('GET', url);
-            xhr.responseType = 'blob';
-            xhr.send();
+        defaultGravatar(email, size = 200) {
+            let hash = md5(email.trim().toLowerCase())
+
+            return 'https://secure.gravatar.com/avatar/' + hash + '?s=' + size
+        },
+
+        mediaUploadPath() {
+            return '/' + Canvas.path + '/api/media/uploads'
         }
     },
 }

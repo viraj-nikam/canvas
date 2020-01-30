@@ -3,7 +3,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header d-flex align-items-center justify-content-between border-0">
-                    <h4 class="modal-title">{{ Canvas.user.name }}</h4>
+                    <h4 class="modal-title">{{ user.name }}</h4>
 
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" class="icon-close-circle">
@@ -14,29 +14,37 @@
                 </div>
                 <div class="modal-body">
                     <file-pond
+                        v-if="isReadyToAcceptUploads"
                         name="profileImagePond"
                         ref="pond"
                         max-files="1"
+                        className="w-50"
                         :label-idle="getPlaceholderLabel"
                         accepted-file-types="image/jpeg, image/png"
+                        imagePreviewHeight="170"
+                        imageCropAspectRatio="1:1"
+                        imageResizeTargetWidth="200"
+                        imageResizeTargetHeight="200"
+                        stylePanelLayout="compact circle"
+                        styleLoadIndicatorPosition="center bottom"
+                        styleProgressIndicatorPosition="center bottom"
+                        styleButtonProcessItemPosition="center bottom"
+                        styleButtonRemoveItemPosition="center bottom"
                         :server="getServerOptions"
                         :allow-multiple="false"
                         :files="selectedImagesForPond"
                         @processfile="processedFromFilePond"
                         @removefile="removedFromFilePond"/>
 
-                    <input
-                        hidden
-                        type="file"
-                        ref="file"
-                        accept="image/*"
-                    />
-                    <div class="d-flex justify-content-center bg-black">
-                        <img
-                            :src="avatar"
-                            class="w-50 rounded-circle shadow-inner my-3 h-100"
-                            style="cursor:pointer"
-                        />
+                    <div v-if="!isReadyToAcceptUploads" class="d-flex justify-content-center bg-black">
+                        <button @click.prevent="clearAvatar" type="button" class="close position-absolute" style="top:205px" data-dismiss="modal" aria-label="Close">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" class="icon-close-circle">
+                                <circle cx="12" cy="12" r="10" class="primary"/>
+                                <path class="fill-bg" d="M13.41 12l2.83 2.83a1 1 0 0 1-1.41 1.41L12 13.41l-2.83 2.83a1 1 0 1 1-1.41-1.41L10.59 12 7.76 9.17a1 1 0 0 1 1.41-1.41L12 10.59l2.83-2.83a1 1 0 0 1 1.41 1.41L13.41 12z"/>
+                            </svg>
+                        </button>
+
+                        <img :src="avatar" class="w-50 rounded-circle shadow-inner mb-3 h-100"/>
                     </div>
 
                     <div class="form-group row">
@@ -83,6 +91,7 @@
                                 href="#"
                                 class="btn btn-success btn-block font-weight-bold mt-0"
                                 aria-label="Save"
+                                data-dismiss="modal"
                                 @click.prevent="clickSave">
                                 {{ trans.buttons.general.save }}
                             </a>
@@ -110,11 +119,13 @@
     import FilePondPluginImageValidateSize from 'filepond-plugin-image-validate-size'
     import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type'
     import FilePondPluginImagePreview from 'filepond-plugin-image-preview'
+    import FilePondPluginImageExifOrientation from 'filepond-plugin-image-exif-orientation'
 
     const FilePond = vueFilePond(
         FilePondPluginFileValidateType,
         FilePondPluginImagePreview,
         FilePondPluginImageValidateSize,
+        FilePondPluginImageExifOrientation
     );
 
     export default {
@@ -134,30 +145,20 @@
         data() {
             return {
                 selectedImagesForPond: [],
+                isReadyToAcceptUploads: false,
                 username: this.form.username,
                 summary: this.form.summary,
                 avatar: this.form.avatar,
                 path: Canvas.path,
+                user: Canvas.user,
                 trans: JSON.parse(Canvas.lang),
             }
         },
 
-        mounted() {
-            // let url = null
-            this.dataUrl(this.avatar, function(base) {
-                console.log(base)
-            })
-
-            // this.$refs.pond.addFile(url)
-        },
-
         methods: {
             processedFromFilePond() {
-                let imgUrl = document.getElementsByName('profileImagePond')[0].value
-
                 this.isReadyToAcceptUploads = true
-                this.avatar = imgUrl
-                this.$root.$emit('updateAvatar', imgUrl)
+                this.avatar = document.getElementsByName('profileImagePond')[0].value
             },
 
             removedFromFilePond() {
@@ -167,39 +168,48 @@
             },
 
             clickSave() {
+                if (_.isEmpty(this.avatar)) {
+                    this.avatar = this.defaultGravatar(this.user.email, 500)
+                }
+
                 let data = {
                     username: this.username,
                     summary: this.summary,
                     avatar: this.avatar,
                 }
 
+                this.$root.$emit('updateAvatar', this.avatar)
                 this.$parent.saveData(data, true)
+
+
             },
+
+            clearAvatar() {
+                this.avatar = null
+                this.isReadyToAcceptUploads = true
+            }
         },
 
         computed: {
             getServerOptions() {
                 return {
-                    url: this.getUploadPath,
+                    url: this.mediaUploadPath(),
                     headers: {
-                        'X-CSRF-TOKEN': document.head.querySelector('meta[name="csrf-token"]').content
+                        'X-CSRF-TOKEN': this.getToken()
                     }
                 }
             },
 
-            getUploadPath() {
-                return '/' + this.path + '/api/media/uploads'
-            },
-
             getPlaceholderLabel() {
-                return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="35" class="icon-cloud-upload mr-3"><path class="secondary" d="M18 14.97c0-.76-.3-1.51-.88-2.1l-3-3a3 3 0 0 0-4.24 0l-3 3A3 3 0 0 0 6 15a4 4 0 0 1-.99-7.88 5.5 5.5 0 0 1 10.86-.82A4.49 4.49 0 0 1 22 10.5a4.5 4.5 0 0 1-4 4.47z"/><path class="secondary" d="M11 14.41V21a1 1 0 0 0 2 0v-6.59l1.3 1.3a1 1 0 0 0 1.4-1.42l-3-3a1 1 0 0 0-1.4 0l-3 3a1 1 0 0 0 1.4 1.42l1.3-1.3z"/></svg> Drop files or click here to upload'
+                return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="35" class="icon-cloud-upload"><path class="secondary" d="M18 14.97c0-.76-.3-1.51-.88-2.1l-3-3a3 3 0 0 0-4.24 0l-3 3A3 3 0 0 0 6 15a4 4 0 0 1-.99-7.88 5.5 5.5 0 0 1 10.86-.82A4.49 4.49 0 0 1 22 10.5a4.5 4.5 0 0 1-4 4.47z"/><path class="secondary" d="M11 14.41V21a1 1 0 0 0 2 0v-6.59l1.3 1.3a1 1 0 0 0 1.4-1.42l-3-3a1 1 0 0 0-1.4 0l-3 3a1 1 0 0 0 1.4 1.42l1.3-1.3z"/></svg><br/> Drop files or click here to upload'
             },
         }
     }
 </script>
 
-<style lang="scss">
-    .bg-darker {
-        background-color: #71809630;
+<style scoped lang="scss">
+    .filepond--wrapper {
+        display: flex;
+        justify-content: center;
     }
 </style>

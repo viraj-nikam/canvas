@@ -124,11 +124,13 @@
     import FilePondPluginImageValidateSize from 'filepond-plugin-image-validate-size'
     import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type'
     import FilePondPluginImagePreview from 'filepond-plugin-image-preview'
+    import FilePondPluginImageExifOrientation from 'filepond-plugin-image-exif-orientation'
 
     const FilePond = vueFilePond(
         FilePondPluginFileValidateType,
         FilePondPluginImagePreview,
         FilePondPluginImageValidateSize,
+        FilePondPluginImageExifOrientation
     );
 
     export default {
@@ -293,15 +295,11 @@
         computed: {
             getServerOptions() {
                 return {
-                    url: this.getUploadPath,
+                    url: this.mediaUploadPath(),
                     headers: {
-                        'X-CSRF-TOKEN': document.head.querySelector('meta[name="csrf-token"]').content
+                        'X-CSRF-TOKEN': this.getToken()
                     }
                 }
-            },
-
-            getUploadPath() {
-                return '/' + this.path + '/api/media/uploads'
             },
 
             getPlaceholderLabel() {

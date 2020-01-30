@@ -190,12 +190,17 @@
                         this.form.isSaving = false
                         this.form.errors = error.response.data.errors
                     })
+
+                setTimeout(() => {
+                    this.form.hasSuccess = false
+                    this.form.isSaving = false
+                }, 3000)
             },
 
             toggleDigest() {
                 this.saveData({
                     digest: this.form.digest
-                })
+                }, false)
             },
 
             toggleDarkMode() {
@@ -207,6 +212,8 @@
                     opacity: 0,
                     backgroundColor: 'rgb(38, 50, 56)'
                 }, 300, function() {
+
+                    // todo: There has to be a better way to swap stylesheets than this
                     if (isDark) {
                         $('#baseStylesheet').attr('href', '/vendor/canvas/css/app-dark.css')
                         $('#highlightStylesheet').attr('href', '//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.17.1/build/styles/sunburst.min.css')

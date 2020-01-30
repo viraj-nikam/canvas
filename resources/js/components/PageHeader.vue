@@ -68,7 +68,7 @@
             return {
                 user: Canvas.user,
                 avatar: this.$root.avatar,
-                token: document.head.querySelector('meta[name="csrf-token"]').content,
+                token: this.getToken(),
                 trans: JSON.parse(Canvas.lang),
             }
         },
