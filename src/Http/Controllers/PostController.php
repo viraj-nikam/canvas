@@ -162,13 +162,13 @@ class PostController extends Controller
     }
 
     /**
-     * Attach or create a topic given an incoming array.
+     * Attach or create a given topic.
      *
-     * @param array $incomingTopic
+     * @param $incomingTopic
      * @return array
      * @throws Exception
      */
-    private function syncTopic(array $incomingTopic): array
+    private function syncTopic($incomingTopic): array
     {
         if ($incomingTopic) {
             $topic = Topic::where('slug', $incomingTopic['slug'])->first();
