@@ -14,7 +14,8 @@ class MediaController extends Controller
      */
     public function store()
     {
-        $file = request()->file('imagePond') ?? request()->file('featuredImagePond');
+        // TODO: refactor this on the client side to avoid chaining requests
+        $file = request()->file('editorImagePond') ?? request()->file('featuredImagePond') ?? request()->file('profileImagePond');
         $path = $file->storePublicly($this->baseStoragePath(), [
             'disk' => config('canvas.storage_disk'),
         ]);

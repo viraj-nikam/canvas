@@ -81,5 +81,26 @@ export default {
                 length: length,
             })
         },
+
+        /**
+         * Convert URL strings to data URLs.
+         *
+         * @param url
+         * @param callback
+         * @link https://stackoverflow.com/a/43015238
+         */
+        dataUrl(url, callback) {
+            var xhr = new XMLHttpRequest();
+            xhr.onload = function() {
+                var reader = new FileReader();
+                reader.onloadend = function() {
+                    callback(reader.result);
+                }
+                reader.readAsDataURL(xhr.response);
+            };
+            xhr.open('GET', url);
+            xhr.responseType = 'blob';
+            xhr.send();
+        }
     },
 }

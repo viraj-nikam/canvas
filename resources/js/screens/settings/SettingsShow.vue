@@ -164,7 +164,7 @@
                     })
             },
 
-            saveData(data, withNotification, hidesModal) {
+            saveData(data, withNotification) {
                 this.form.errors = []
 
                 if (withNotification) {
@@ -185,10 +185,6 @@
                         this.form.avatar = response.data.avatar
                         this.form.digest = response.data.digest
                         this.form.darkMode = response.data.dark_mode
-
-                        if (hidesModal) {
-                            this.hideProfileModal()
-                        }
                     })
                     .catch(error => {
                         this.form.isSaving = false

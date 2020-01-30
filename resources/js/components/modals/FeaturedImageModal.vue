@@ -75,7 +75,8 @@
                                 <label class="font-weight-bold text-uppercase text-muted small">Caption</label>
                                 <input
                                     type="text"
-                                    class="form-control border-0 px-0 bg-transparent"
+                                    :class="!Canvas.darkMode ? 'bg-light': 'bg-darker'"
+                                    class="form-control border-0"
                                     v-model="selectedImageCaption"
                                     :placeholder="trans.posts.forms.editor.images.picker.uploader.caption.placeholder"
                                     ref="caption"/>
@@ -276,44 +277,3 @@
         }
     }
 </script>
-
-<style lang="scss">
-    @import '../../../sass/variables';
-
-    .filepond--drop-label,
-    .filepond--drop-label label {
-        cursor: pointer;
-    }
-
-    .filepond--panel-root {
-        background-color: $gray-100;
-    }
-
-    .filepond--panel-root {
-        border-radius: $border-radius;
-    }
-
-    .filepond--item-panel {
-        border-radius: $border-radius;
-    }
-
-    .filepond--panel-top:after,
-    .filepond--panel-bottom:before{
-        height: 0;
-    }
-
-    [data-filepond-item-state*='error'] .filepond--item-panel,
-    [data-filepond-item-state*='invalid'] .filepond--item-panel {
-        background-color: $red;
-    }
-
-    [data-filepond-item-state='processing-complete'] .filepond--item-panel {
-        background-color: $green;
-    }
-
-    .selected-image button {
-        position: absolute;
-        top: 25px;
-        right: 27px;
-    }
-</style>

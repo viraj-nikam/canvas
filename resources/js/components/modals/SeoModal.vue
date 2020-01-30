@@ -58,9 +58,10 @@
                                 </a>
                             </label>
                             <textarea
-                                rows="1"
+                                rows="4"
                                 id="description"
                                 name="description"
+                                style="resize: none"
                                 :class="!Canvas.darkMode ? 'bg-light': 'bg-darker'"
                                 class="form-control border-0"
                                 @input="update"
@@ -102,8 +103,6 @@
 
 <script>
     import _ from 'lodash'
-    import $ from 'jquery'
-    import autosize from 'autosize'
     import {mapState} from 'vuex'
     import Tooltip from '../../directives/Tooltip'
 
@@ -114,12 +113,6 @@
             return {
                 trans: JSON.parse(Canvas.lang),
             }
-        },
-
-        mounted() {
-            $('#seoModal').on('shown.bs.modal', function () {
-                autosize($('#description'))
-            })
         },
 
         computed: mapState(['activePost']),

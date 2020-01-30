@@ -70,7 +70,7 @@ return [
             'header' => 'Featured image',
         ],
         'publish'  => [
-            'header'  => 'Publish date (m/d/y h:m)',
+            'header'  => 'Publishing',
             'subtext' => [
                 'details'  => 'Post scheduling uses a 24-hour time format and is utilizing the',
                 'timezone' => 'timezone',

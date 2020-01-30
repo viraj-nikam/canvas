@@ -46,9 +46,10 @@
                         <div class="col-12">
                             <label class="font-weight-bold text-uppercase text-muted small">{{ trans.posts.forms.settings.summary.label }}</label>
                             <textarea
-                                rows="1"
+                                rows="4"
                                 id="settings"
                                 name="summary"
+                                style="resize: none"
                                 :class="!Canvas.darkMode ? 'bg-light': 'bg-darker'"
                                 class="form-control resize-none border-0"
                                 v-model="activePost.summary"
@@ -82,8 +83,6 @@
 
 <script>
     import _ from 'lodash'
-    import $ from 'jquery'
-    import autosize from 'autosize'
     import {mapState} from 'vuex'
     import TagSelect from '../TagSelect'
     import TopicSelect from '../TopicSelect'
@@ -123,10 +122,6 @@
         computed: mapState(['activePost']),
 
         mounted() {
-            $('#settingsModal').on('shown.bs.modal', function () {
-                autosize($('#settings'))
-            })
-
             this.allTags = this.tags
             this.allTopics = this.topics
         },
@@ -143,9 +138,3 @@
         },
     }
 </script>
-
-<style lang="scss">
-    .bg-darker {
-        background-color: #71809630;
-    }
-</style>

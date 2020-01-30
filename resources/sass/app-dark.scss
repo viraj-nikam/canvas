@@ -97,6 +97,10 @@ select.input {
     fill: $body-color;
 }
 
+.bg-darker {
+    background-color: #71809630;
+}
+
 #sidebarControls.active {
     background-color: $body-bg;
 }
@@ -156,6 +160,7 @@ select.input {
 @import 'vue';
 @import 'nprogress';
 @import 'switch';
+@import 'filepond';
 
 @import '~bootstrap/scss/functions';
 @import '~bootstrap/scss/variables';

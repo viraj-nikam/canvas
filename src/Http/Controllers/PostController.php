@@ -94,8 +94,8 @@ class PostController extends Controller
             'featured_image_caption' => request('featured_image_caption', null),
             'user_id'                => request()->user()->id,
             'meta'                   => [
-                'description'    => request('meta.meta_description', null),
-                'title'          => request('meta.og_title', null),
+                'description'    => request('meta.description', null),
+                'title'          => request('meta.title', null),
                 'canonical_link' => request('meta.canonical_link', null),
             ],
         ];
