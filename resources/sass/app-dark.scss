@@ -101,11 +101,11 @@ select.input {
     background-color: #71809630;
 }
 
-#sidebarControls.active {
+.sidebar-controls.active {
     background-color: $body-bg;
 }
 
-#sidebarControls .secondary {
+.sidebar-controls .secondary {
     fill: $body-color;
 }
 

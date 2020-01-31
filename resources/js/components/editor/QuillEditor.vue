@@ -1,15 +1,19 @@
 <template>
     <div v-cloak>
-        <div class="position-relative">
-            <div id="sidebarControls">
-                <button
-                    class="btn btn-outline-light btn-circle border"
-                    type="button"
-                    @click="openSidebarControls">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="26" viewBox="0 0 24 24" class="icon-add-circle">
-                        <circle cx="12" cy="12" r="10" style="fill:none"/>
-                        <path class="secondary" d="M13 11h4a1 1 0 0 1 0 2h-4v4a1 1 0 0 1-2 0v-4H7a1 1 0 0 1 0-2h4V7a1 1 0 0 1 2 0v4z"/>
-                    </svg>
+        <div class="position-relative" v-closable="{exclude: ['toggle'],handler: 'handleClicksOutsideEditor'}">
+            <div class="sidebar-controls" ref="sidebarControls">
+                <button @click="toggleSidebarControls" ref="toggle" class="btn btn-outline-light btn-circle border" type="button">
+                    <span v-if="controlIsActive">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="26" viewBox="0 0 24 24" class="icon-close">
+                            <path class="secondary" fill-rule="evenodd" d="M15.78 14.36a1 1 0 0 1-1.42 1.42l-2.82-2.83-2.83 2.83a1 1 0 1 1-1.42-1.42l2.83-2.82L7.3 8.7a1 1 0 0 1 1.42-1.42l2.83 2.83 2.82-2.83a1 1 0 0 1 1.42 1.42l-2.83 2.83 2.83 2.82z"/>
+                        </svg>
+                    </span>
+                    <span v-else>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="26" viewBox="0 0 24 24" class="icon-add-circle">
+                            <circle cx="12" cy="12" r="10" style="fill:none"/>
+                            <path class="secondary" d="M13 11h4a1 1 0 0 1 0 2h-4v4a1 1 0 0 1-2 0v-4H7a1 1 0 0 1 0-2h4V7a1 1 0 0 1 2 0v4z"/>
+                        </svg>
+                    </span>
                 </button>
                 <div class="controls pl-3 d-none">
                     <button
@@ -19,6 +23,22 @@
                         <svg xmlns="http://www.w3.org/2000/svg" width="26" viewBox="0 0 24 24" class="icon-camera">
                             <path class="secondary" d="M6.59 6l2.7-2.7A1 1 0 0 1 10 3h4a1 1 0 0 1 .7.3L17.42 6H20a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8c0-1.1.9-2 2-2h2.59zM19 10a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-7 8a5 5 0 1 0 0-10 5 5 0 0 0 0 10z"/>
                             <path class="secondary" d="M12 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                        </svg>
+                    </button>
+                    <button
+                        class="btn btn-outline-light btn-circle border mr-1"
+                        type="button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="26" viewBox="0 0 24 24" class="icon-play">
+                            <circle cx="12" cy="12" r="10" class="secondary"/>
+                            <path class="fill-bg" d="M15.51 11.14a1 1 0 0 1 0 1.72l-5 3A1 1 0 0 1 9 15V9a1 1 0 0 1 1.51-.86l5 3z"/>
+                        </svg>
+                    </button>
+                    <button
+                        class="btn btn-outline-light btn-circle border mr-1"
+                        type="button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="26" viewBox="0 0 24 24" class="icon-code">
+                            <rect width="18" height="18" x="3" y="3" class="fill-bg" rx="2"/>
+                            <path class="secondary" d="M8.7 13.3a1 1 0 0 1-1.4 1.4l-2-2a1 1 0 0 1 0-1.4l2-2a1 1 0 1 1 1.4 1.4L7.42 12l1.3 1.3zm6.6 0l1.29-1.3-1.3-1.3a1 1 0 1 1 1.42-1.4l2 2a1 1 0 0 1 0 1.4l-2 2a1 1 0 0 1-1.42-1.4zm-3.32 3.9a1 1 0 0 1-1.96-.4l2-10a1 1 0 0 1 1.96.4l-2 10z"/>
                         </svg>
                     </button>
                     <button
@@ -74,6 +94,7 @@
     import ImageBlot from './ImageBlot'
     import ImageModal from './ImageModal'
     import DividerBlot from './DividerBlot'
+    import Closable from '../../../js/directives/Closable'
 
     export default {
         name: 'quill-editor',
@@ -85,12 +106,17 @@
             },
         },
 
+        directives: {
+              Closable
+        },
+
         components: {
             ImageModal
         },
 
         data() {
             return {
+                controlIsActive: false,
                 editor: null,
                 trans: JSON.parse(Canvas.lang),
             }
@@ -153,6 +179,7 @@
                 this.editor.root.innerHTML = this.$store.getters.activePost.body
 
                 this.editor.on('text-change', (delta, oldContents, source) => {
+                    this.controlIsActive = false
                     this.$store.dispatch(
                         'updatePostBody',
                         this.editor.getText() ? this.editor.root.innerHTML : ''
@@ -174,11 +201,18 @@
                 })
             },
 
+            handleClicksOutsideEditor() {
+                if (this.$refs.sidebarControls.classList.contains('active')) {
+                    this.$refs.sidebarControls.classList.toggle('active')
+                    this.controlIsActive = false
+                }
+            },
+
             initSideControls() {
                 let Block = Quill.import('blots/block')
 
                 this.editor.on(Quill.events.EDITOR_CHANGE, (eventType, range) => {
-                    let sidebarControls = document.getElementById('sidebarControls')
+                    let sidebarControls = this.$refs.sidebarControls
 
                     if (eventType !== Quill.events.SELECTION_CHANGE) return
 
@@ -212,10 +246,16 @@
                 })
             },
 
-            openSidebarControls() {
-                document.getElementById('sidebarControls').classList.toggle('active')
-
+            toggleSidebarControls() {
                 this.editor.focus()
+
+                if (this.$refs.sidebarControls.classList.contains('active')) {
+                    this.$refs.sidebarControls.classList.toggle('active')
+                    this.controlIsActive = false
+                } else {
+                    this.$refs.sidebarControls.classList.toggle('active')
+                    this.controlIsActive = true
+                }
             },
 
             showImageModal(data = null) {
@@ -400,7 +440,7 @@
         line-height: 1.42857;
     }
 
-    #sidebarControls {
+    .sidebar-controls {
         margin-top: -8px;
         top: 0;
         display: none;
@@ -409,18 +449,18 @@
         left: -60px;
     }
 
-    #sidebarControls button:hover {
+    .sidebar-controls button:hover {
         background-color: transparent;
     }
 
-    #sidebarControls button:focus {
+    .sidebar-controls button:focus {
         -webkit-box-shadow: none;
         -moz-box-shadow: none;
         box-shadow: none;
         outline: none;
     }
 
-    #sidebarControls.active .controls {
+    .sidebar-controls.active .controls {
         display: inline-block !important;
     }
 
@@ -450,7 +490,7 @@
     }
 
     @media (max-width: 1200px) {
-        #sidebarControls {
+        .sidebar-controls {
             display: none !important;
         }
     }
