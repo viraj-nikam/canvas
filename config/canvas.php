@@ -36,15 +36,17 @@ return [
     | Storage
     |--------------------------------------------------------------------------
     |
-    | This is the storage disk Canvas will use to put file uploads, you may
+    | This is the storage disk Canvas will use to put file uploads. You may
     | use any of the disks defined in the config/filesystems.php file and
-    | you may also configure the path where files are to be stored.
+    | you may also change the maximum upload size from its 3MB default.
     |
     */
 
     'storage_disk' => env('CANVAS_STORAGE_DISK', 'local'),
 
     'storage_path' => env('CANVAS_STORAGE_PATH', 'public/canvas'),
+
+    'upload_filesize' => env('CANVAS_UPLOAD_FILESIZE', 3145728),
 
     /*
     |--------------------------------------------------------------------------

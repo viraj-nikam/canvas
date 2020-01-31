@@ -22,15 +22,6 @@
                         </svg>
                     </button>
                     <button
-                        class="btn btn-outline-light btn-circle border mr-1"
-                        type="button"
-                        @click="showHTMLModal">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="26" viewBox="0 0 24 24" class="icon-code">
-                            <rect width="18" height="18" x="3" y="3" style="fill:none" rx="2"/>
-                            <path class="secondary" d="M8.7 13.3a1 1 0 0 1-1.4 1.4l-2-2a1 1 0 0 1 0-1.4l2-2a1 1 0 1 1 1.4 1.4L7.42 12l1.3 1.3zm6.6 0l1.29-1.3-1.3-1.3a1 1 0 1 1 1.42-1.4l2 2a1 1 0 0 1 0 1.4l-2 2a1 1 0 0 1-1.42-1.4zm-3.32 3.9a1 1 0 0 1-1.96-.4l2-10a1 1 0 0 1 1.96.4l-2 10z"/>
-                        </svg>
-                    </button>
-                    <button
                         class="btn btn-outline-light btn-circle border mr-2"
                         type="button"
                         @click="insertDivider">
@@ -55,15 +46,6 @@
                         </svg>
                     </button>
                     <button
-                        class="btn btn-outline-light border border-bottom-0 py-2"
-                        type="button"
-                        @click="showHTMLModal">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="26" viewBox="0 0 24 24" class="icon-code">
-                            <rect width="18" height="18" x="3" y="3" style="fill:none" rx="2"/>
-                            <path class="secondary" d="M8.7 13.3a1 1 0 0 1-1.4 1.4l-2-2a1 1 0 0 1 0-1.4l2-2a1 1 0 1 1 1.4 1.4L7.42 12l1.3 1.3zm6.6 0l1.29-1.3-1.3-1.3a1 1 0 1 1 1.42-1.4l2 2a1 1 0 0 1 0 1.4l-2 2a1 1 0 0 1-1.42-1.4zm-3.32 3.9a1 1 0 0 1-1.96-.4l2-10a1 1 0 0 1 1.96.4l-2 10z"/>
-                        </svg>
-                    </button>
-                    <button
                         class="btn btn-outline-light border border-bottom-0 border-right-0 py-2"
                         type="button"
                         @click="insertDivider">
@@ -79,11 +61,6 @@
                 @addingImage="insertImage"
                 @removingImage="removeImage"
             />
-
-            <html-modal
-                ref="htmlModal"
-                @addingHTML="insertHTML"
-            />
         </div>
     </div>
 </template>
@@ -94,9 +71,7 @@
     import Quill from 'quill'
     import {mapState} from 'vuex'
     import Parchment from 'parchment'
-    import HTMLBlot from './HTMLBlot'
     import ImageBlot from './ImageBlot'
-    import HTMLModal from './HTMLModal'
     import ImageModal from './ImageModal'
     import DividerBlot from './DividerBlot'
 
@@ -111,8 +86,7 @@
         },
 
         components: {
-            'html-modal': HTMLModal,
-            'image-modal': ImageModal,
+            ImageModal
         },
 
         data() {
@@ -144,7 +118,6 @@
             createEditor() {
                 Quill.register(ImageBlot, true)
                 Quill.register(DividerBlot, true)
-                Quill.register(HTMLBlot, true)
 
                 const icons = Quill.import('ui/icons')
                 icons.header[3] = require('!html-loader!quill/assets/icons/header-3.svg')
@@ -251,10 +224,6 @@
                 $(this.$refs.imageModal.$el).modal('show')
             },
 
-            showHTMLModal() {
-                $(this.$refs.htmlModal.$el).modal('show')
-            },
-
             /**
              * TODO: Need to make the editor play nicer with where it drops the selection
              * cursor after adding images.
@@ -292,21 +261,6 @@
                 existingBlot.remove()
 
                 this.editor.setSelection(range.index - 1, Quill.sources.SILENT)
-            },
-
-            insertHTML({content}) {
-                let range = this.editor.getSelection(true)
-
-                this.editor.insertEmbed(
-                    range.index,
-                    'html',
-                    {
-                        content: content,
-                    },
-                    Quill.sources.USER
-                )
-
-                this.editor.setSelection(range.index + 1, Quill.sources.SILENT)
             },
 
             insertDivider() {

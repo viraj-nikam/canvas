@@ -30,10 +30,11 @@
                         name="editorImagePond"
                         ref="pond"
                         max-files="1"
+                        :maxFileSize="maxUploadFilesize"
                         :iconRemove="getRemoveIcon"
                         :iconRetry="getRetryIcon"
                         :label-idle="getPlaceholderLabel"
-                        accepted-file-types="image/jpeg, image/png"
+                        accepted-file-types="image/jpeg,image/png,image/gif"
                         :server="getServerOptions"
                         :allow-multiple="false"
                         :files="selectedImagesForPond"
@@ -127,11 +128,13 @@
     import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type'
     import FilePondPluginImagePreview from 'filepond-plugin-image-preview'
     import FilePondPluginImageExifOrientation from 'filepond-plugin-image-exif-orientation'
+    import FilePondPluginFileValidateSize from 'filepond-plugin-file-validate-size'
 
     const FilePond = vueFilePond(
         FilePondPluginFileValidateType,
         FilePondPluginImagePreview,
         FilePondPluginImageValidateSize,
+        FilePondPluginFileValidateSize,
         FilePondPluginImageExifOrientation
     );
 
@@ -159,6 +162,7 @@
                 selectedImageLayout: 'default',
                 selectedImageCaption: '',
                 galleryModalClasses: ['modal-xl', 'modal-dialog-scrollable'],
+                maxUploadFilesize: Canvas.maxUpload,
                 path: Canvas.path,
                 trans: JSON.parse(Canvas.lang),
             }

@@ -18,11 +18,12 @@
                         name="profileImagePond"
                         ref="pond"
                         max-files="1"
+                        :maxFileSize="maxUploadFilesize"
                         :iconRemove="getRemoveIcon"
                         :iconRetry="getRetryIcon"
                         className="w-50"
                         :label-idle="getPlaceholderLabel"
-                        accepted-file-types="image/jpeg, image/png"
+                        accepted-file-types="image/jpeg,image/png,image/gif"
                         imagePreviewHeight="170"
                         imageCropAspectRatio="1:1"
                         imageResizeTargetWidth="200"
@@ -122,11 +123,13 @@
     import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type'
     import FilePondPluginImagePreview from 'filepond-plugin-image-preview'
     import FilePondPluginImageExifOrientation from 'filepond-plugin-image-exif-orientation'
+    import FilePondPluginFileValidateSize from 'filepond-plugin-file-validate-size'
 
     const FilePond = vueFilePond(
         FilePondPluginFileValidateType,
         FilePondPluginImagePreview,
         FilePondPluginImageValidateSize,
+        FilePondPluginFileValidateSize,
         FilePondPluginImageExifOrientation
     );
 
@@ -151,6 +154,7 @@
                 username: this.form.username,
                 summary: this.form.summary,
                 avatar: this.form.avatar,
+                maxUploadFilesize: Canvas.maxUpload,
                 path: Canvas.path,
                 user: Canvas.user,
                 trans: JSON.parse(Canvas.lang),
