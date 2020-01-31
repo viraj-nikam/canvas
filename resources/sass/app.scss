@@ -1,7 +1,10 @@
 @import 'variables';
 @import 'overrides';
 
+$body-color: $gray-900;
+
 $link-color: $gray-900;
+$link-hover-color: $gray-900;
 
 $text-muted: $gray-500;
 
@@ -40,6 +43,10 @@ $custom-control-indicator-bg: $text-muted;
 
 .fill-bg {
     fill: $white;
+}
+
+.fill-body-color {
+    fill: $body-color;
 }
 
 .font-serif {

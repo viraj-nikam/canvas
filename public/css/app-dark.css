@@ -159,10 +159,6 @@ select.input {
   background-color: #263238;
 }
 
-.sidebar-controls .secondary {
-  fill: #c3d3de;
-}
-
 .shadow-inner {
   box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
 }
@@ -173,10 +169,6 @@ select.input {
 
 .navbar-mini {
   background-color: #263238;
-}
-
-.navbar-mini svg path {
-  fill: #c3d3de;
 }
 
 .navbar-mini button:hover {
@@ -201,6 +193,10 @@ select.input {
 
 .fill-bg {
   fill: #263238;
+}
+
+.fill-body-color {
+  fill: #c3d3de;
 }
 
 .font-serif {
