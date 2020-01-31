@@ -15,16 +15,16 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="form-group row">
-                        <div class="col-12">
-                            <p class="text-muted">
-                                {{ trans.posts.forms.publish.subtext.details }}
+                    <p class="text-muted">
+                        {{ trans.posts.forms.publish.subtext.details }}
 
-                                <span class="font-weight-bold">{{ Canvas.timezone }}</span>
+                        <span class="font-weight-bold">{{ Canvas.timezone }}</span>
 
-                                {{ trans.posts.forms.publish.subtext.timezone }}. (m/d/y h:m)
-                            </p>
+                        {{ trans.posts.forms.publish.subtext.timezone }}. (m/d/y h:m)
+                    </p>
 
+                    <div class="row">
+                        <div class="col-sm-6 col-12 pb-sm-0 pb-3 pr-sm-0 d-flex justify-content-center justify-content-sm-start">
                             <div class="d-flex align-items-center">
                                 <select :class="!Canvas.darkMode ? 'bg-light': 'bg-darker'" class="w-auto custom-select custom-select-sm border-0" v-model="components.month">
                                     <option v-for="value in Array.from({ length: 12 }, (_, i) => String(i + 1).padStart(2, '0'))" :value="value">
@@ -45,8 +45,10 @@
                                         {{ value }}
                                     </option>
                                 </select>
-
-                                <span class="pl-3"> </span>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-12 pl-sm-0 d-flex justify-content-center justify-content-sm-start">
+                            <div class="d-flex align-items-center">
                                 <select :class="!Canvas.darkMode ? 'bg-light': 'bg-darker'" class="w-auto custom-select custom-select-sm border-0" v-model="components.hour">
                                     <option v-for="value in Array.from({ length: 24 }, (_, i) => String(i).padStart(2, '0'))" :value="value">
                                         {{ value }}
@@ -60,15 +62,15 @@
                                     </option>
                                 </select>
                             </div>
-
-                            <p class="mt-3 text-success font-italic" v-if="isScheduled">
-                                Your post will publish at
-                                {{ moment(this.activePost.published_at).format('h:mm A') }}
-                                on
-                                {{ moment(this.activePost.published_at).format('MMMM DD, YYYY') }}.
-                            </p>
                         </div>
                     </div>
+
+                    <p class="mt-3 text-success font-italic" v-if="isScheduled">
+                        Your post will publish at
+                        {{ moment(this.activePost.published_at).format('h:mm A') }}
+                        on
+                        {{ moment(this.activePost.published_at).format('MMMM DD, YYYY') }}.
+                    </p>
                 </div>
                 <div class="modal-footer">
                     <div class="row w-100">
