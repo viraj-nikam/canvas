@@ -26,7 +26,7 @@
                         </svg>
                     </button>
                     <button
-                        @click="showEmbedLinkModal"
+                        @click="showEmbedVideoModal"
                         class="btn btn-outline-light btn-circle border mr-1"
                         type="button">
                         <svg xmlns="http://www.w3.org/2000/svg" width="26" viewBox="0 0 24 24" class="icon-play">
@@ -35,7 +35,7 @@
                         </svg>
                     </button>
                     <button
-                        @click="showEmbedVideoModal"
+                        @click="showEmbedLinkModal"
                         class="btn btn-outline-light btn-circle border mr-1"
                         type="button">
                         <svg xmlns="http://www.w3.org/2000/svg" width="26" viewBox="0 0 24 24" class="icon-code">
@@ -101,10 +101,12 @@
                 @addingImage="insertImage"
                 @removingImage="removeImage"
             />
+
             <embed-link-modal
                 ref="embedLinkModal"
                 @addingEmbeddedLink="insertEmbedLink"
             />
+
             <embed-video-modal
                 ref="embedVideoModal"
                 @addingEmbeddedVideo="insertEmbedVideo"
