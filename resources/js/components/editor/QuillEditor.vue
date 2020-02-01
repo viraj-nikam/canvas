@@ -17,15 +17,16 @@
                 </button>
                 <div class="controls pl-3 d-none">
                     <button
+                        @click="showImageModal"
                         class="btn btn-outline-light btn-circle border mr-1"
-                        type="button"
-                        @click="showImageModal">
+                        type="button">
                         <svg xmlns="http://www.w3.org/2000/svg" width="26" viewBox="0 0 24 24" class="icon-camera">
                             <path class="fill-body-color" d="M6.59 6l2.7-2.7A1 1 0 0 1 10 3h4a1 1 0 0 1 .7.3L17.42 6H20a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8c0-1.1.9-2 2-2h2.59zM19 10a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-7 8a5 5 0 1 0 0-10 5 5 0 0 0 0 10z"/>
                             <path class="fill-body-color" d="M12 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
                         </svg>
                     </button>
                     <button
+                        @click="showEmbedLinkModal"
                         class="btn btn-outline-light btn-circle border mr-1"
                         type="button">
                         <svg xmlns="http://www.w3.org/2000/svg" width="26" viewBox="0 0 24 24" class="icon-play">
@@ -34,6 +35,7 @@
                         </svg>
                     </button>
                     <button
+                        @click="showEmbedVideoModal"
                         class="btn btn-outline-light btn-circle border mr-1"
                         type="button">
                         <svg xmlns="http://www.w3.org/2000/svg" width="26" viewBox="0 0 24 24" class="icon-code">
@@ -42,9 +44,9 @@
                         </svg>
                     </button>
                     <button
+                        @click="insertDivider"
                         class="btn btn-outline-light btn-circle border mr-2"
-                        type="button"
-                        @click="insertDivider">
+                        type="button">
                         <svg xmlns="http://www.w3.org/2000/svg" width="26" viewBox="0 0 24 24" class="icon-dots-horizontal">
                             <path class="fill-body-color" fill-rule="evenodd" d="M5 14a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm7 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm7 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/>
                         </svg>
@@ -57,15 +59,16 @@
             <nav class="navbar fixed-bottom navbar-expand-sm mt-5 d-xl-none p-0 navbar-mini">
                 <div class="btn-group d-flex justify-content-center">
                     <button
+                        @click="showImageModal"
                         class="btn btn-outline-light border border-bottom-0 border-left-0 py-2"
-                        type="button"
-                        @click="showImageModal">
+                        type="button">
                         <svg xmlns="http://www.w3.org/2000/svg" width="26" viewBox="0 0 24 24" class="icon-camera">
                             <path class="fill-body-color" d="M6.59 6l2.7-2.7A1 1 0 0 1 10 3h4a1 1 0 0 1 .7.3L17.42 6H20a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8c0-1.1.9-2 2-2h2.59zM19 10a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-7 8a5 5 0 1 0 0-10 5 5 0 0 0 0 10z"/>
                             <path class="fill-body-color" d="M12 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
                         </svg>
                     </button>
                     <button
+                        @click="showEmbedVideoModal"
                         class="btn btn-outline-light border border-bottom-0 border-left-0 py-2"
                         type="button">
                         <svg xmlns="http://www.w3.org/2000/svg" width="26" viewBox="0 0 24 24" class="icon-play">
@@ -74,6 +77,7 @@
                         </svg>
                     </button>
                     <button
+                        @click="showEmbedLinkModal"
                         class="btn btn-outline-light border border-bottom-0 border-left-0 py-2"
                         type="button">
                         <svg xmlns="http://www.w3.org/2000/svg" width="26" viewBox="0 0 24 24" class="icon-code">
@@ -82,9 +86,9 @@
                         </svg>
                     </button>
                     <button
+                        @click="insertDivider"
                         class="btn btn-outline-light border border-bottom-0 border-right-0 py-2"
-                        type="button"
-                        @click="insertDivider">
+                        type="button">
                         <svg xmlns="http://www.w3.org/2000/svg" width="26" viewBox="0 0 24 24" class="icon-dots-horizontal">
                             <path class="fill-body-color" fill-rule="evenodd" d="M5 14a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm7 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm7 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/>
                         </svg>
@@ -97,6 +101,14 @@
                 @addingImage="insertImage"
                 @removingImage="removeImage"
             />
+            <embed-link-modal
+                ref="embedLinkModal"
+                @addingEmbeddedLink="insertEmbedLink"
+            />
+            <embed-video-modal
+                ref="embedVideoModal"
+                @addingEmbeddedVideo="insertEmbedVideo"
+            />
         </div>
     </div>
 </template>
@@ -108,8 +120,11 @@
     import {mapState} from 'vuex'
     import Parchment from 'parchment'
     import ImageBlot from './ImageBlot'
+    import TweetBlot from './TweetBlot'
     import ImageModal from './ImageModal'
     import DividerBlot from './DividerBlot'
+    import EmbedLinkModal from './EmbedLinkModal'
+    import EmbedVideoModal from './EmbedVideoModal'
     import Closable from '../../../js/directives/Closable'
 
     export default {
@@ -123,10 +138,12 @@
         },
 
         directives: {
-              Closable
+            Closable
         },
 
         components: {
+            EmbedLinkModal,
+            EmbedVideoModal,
             ImageModal
         },
 
@@ -158,6 +175,7 @@
             createEditor() {
                 Quill.register(ImageBlot, true)
                 Quill.register(DividerBlot, true)
+                Quill.register(TweetBlot, true)
 
                 const icons = Quill.import('ui/icons')
                 icons.header[3] = require('!html-loader!quill/assets/icons/header-3.svg')
@@ -278,10 +296,18 @@
                 $(this.$refs.imageModal.$el).modal('show')
             },
 
-            /**
-             * TODO: Need to make the editor play nicer with where it drops the selection
-             * cursor after adding images.
-             */
+            showEmbedLinkModal(data = null) {
+                this.$emit('openingEmbedLinkModal', data)
+
+                $(this.$refs.embedLinkModal.$el).modal('show')
+            },
+
+            showEmbedVideoModal(data = null) {
+                this.$emit('openingEmbedVideoModal', data)
+
+                $(this.$refs.embedVideoModal.$el).modal('show')
+            },
+
             insertImage({url, caption, existingBlot, layout}) {
                 let values = {
                     url: url,
@@ -305,10 +331,6 @@
                 this.editor.setSelection(range.index + 1, Quill.sources.SILENT)
             },
 
-            /**
-             * TODO: Need to make the editor play nicer with where it drops the selection
-             * cursor after removing images.
-             */
             removeImage({existingBlot}) {
                 let range = this.editor.getSelection(true)
 
@@ -317,12 +339,20 @@
                 this.editor.setSelection(range.index - 1, Quill.sources.SILENT)
             },
 
+            insertEmbedLink({link}) {
+                console.log(link)
+            },
+
+            insertEmbedVideo({link}) {
+                console.log(link)
+            },
+
             insertDivider() {
                 let range = this.editor.getSelection(true)
 
-                this.editor.insertText(range.index, '\n', Quill.sources.USER)
+                this.editor.insertText(range.index, '', Quill.sources.USER)
                 this.editor.insertEmbed(
-                    range.index + 1,
+                    range.index,
                     'divider',
                     true,
                     Quill.sources.USER
@@ -426,7 +456,7 @@
 
     .ql-container hr {
         border: none;
-        margin: 3em 0 4em 0;
+        margin: 2em 0 3em 0;
         letter-spacing: 1em;
         text-align: center;
     }
@@ -495,6 +525,11 @@
         position: relative;
         left: 50%;
         margin-left: -50vw;
+    }
+
+    div.tweet {
+        display: flex;
+        justify-content: center;
     }
 
     @media screen and (max-width: 1024px) {
