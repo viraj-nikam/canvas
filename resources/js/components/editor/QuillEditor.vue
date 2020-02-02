@@ -122,6 +122,7 @@
     import {mapState} from 'vuex'
     import Parchment from 'parchment'
     import ImageBlot from './ImageBlot'
+    import VideoBlot from './VideoBlot'
     import TweetBlot from './TweetBlot'
     import ImageModal from './ImageModal'
     import DividerBlot from './DividerBlot'
@@ -191,6 +192,7 @@
                 Quill.register(ImageBlot, true)
                 Quill.register(DividerBlot, true)
                 Quill.register(TweetBlot, true)
+                Quill.register(VideoBlot, true)
 
                 const icons = Quill.import('ui/icons')
                 icons.header[3] = require('!html-loader!quill/assets/icons/header-3.svg')
@@ -366,7 +368,15 @@
             },
 
             insertEmbedVideo({link}) {
-                console.log(link)
+                let range = this.editor.getSelection(true)
+
+                this.editor.insertEmbed(
+                    range.index,
+                    'video',
+                    link,
+                    Quill.sources.USER
+                )
+                this.editor.setSelection(range.index + 1, Quill.sources.SILENT)
             },
 
             insertDivider() {

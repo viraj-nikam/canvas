@@ -12,7 +12,7 @@
                         :class="!Canvas.darkMode ? 'bg-light': 'bg-darker'"
                         class="form-control border-0"
                         name="link"
-                        placeholder="https://www.youtube.com/watch?v=jNQXAC9IVRw"/>
+                        placeholder="https://www.youtube.com/embed/jNQXAC9IVRw"/>
                 </div>
             </div>
         </div>

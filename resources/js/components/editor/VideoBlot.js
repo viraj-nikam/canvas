@@ -5,7 +5,9 @@ let BlockEmbed = Quill.import('blots/block/embed')
 class VideoBlot extends BlockEmbed {
     static create(url) {
         let node = super.create();
+
         node.setAttribute('src', url);
+
         // Set non-format related attributes with static values
         node.setAttribute('frameborder', '0');
         node.setAttribute('allowfullscreen', true);
@@ -45,3 +47,5 @@ class VideoBlot extends BlockEmbed {
 
 VideoBlot.blotName = 'video';
 VideoBlot.tagName = 'iframe';
+
+export default VideoBlot
