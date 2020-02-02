@@ -161,6 +161,19 @@
             this.editor = this.createEditor()
 
             this.handleEditorValue()
+
+            // Render any Tweets inside the editor
+            let tweets = document.querySelectorAll('div.ql-tweet')
+            for (let i = 0; i <tweets.length; i++) {
+                while (tweets[i].firstChild) {
+                    tweets[i].removeChild(tweets[i].firstChild)
+                }
+
+                twttr.widgets.createTweet(tweets[i].dataset.id, tweets[i], {
+                    theme: !Canvas.darkMode ? 'light': 'dark'
+                })
+            }
+
             this.handleClicksInsideEditor()
             this.initSideControls()
         },
@@ -329,7 +342,6 @@
                     values,
                     Quill.sources.USER
                 )
-
                 this.editor.setSelection(range.index + 1, Quill.sources.SILENT)
             },
 
@@ -342,7 +354,15 @@
             },
 
             insertEmbedLink({link}) {
-                console.log(link)
+                let range = this.editor.getSelection(true)
+
+                this.editor.insertEmbed(
+                    range.index,
+                    'tweet',
+                    link,
+                    Quill.sources.USER
+                )
+                this.editor.setSelection(range.index + 1, Quill.sources.SILENT)
             },
 
             insertEmbedVideo({link}) {
@@ -529,7 +549,7 @@
         margin-left: -50vw;
     }
 
-    div.tweet {
+    div.ql-tweet {
         display: flex;
         justify-content: center;
     }

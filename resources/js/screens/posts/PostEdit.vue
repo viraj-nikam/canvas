@@ -76,7 +76,7 @@
                     />
                 </div>
 
-                <quill-editor/>
+                <quill-editor></quill-editor>
             </div>
         </main>
 
