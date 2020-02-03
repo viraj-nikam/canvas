@@ -3,7 +3,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-body">
-                    <p>Paste a YouTube, Vine, Vimeo, or other video link and press enter</p>
+                    <p>Paste a video link (ie. YouTube, Vimeo) and press enter</p>
                     <input
                         type="text"
                         ref="link"
@@ -12,7 +12,7 @@
                         :class="!Canvas.darkMode ? 'bg-light': 'bg-darker'"
                         class="form-control border-0"
                         name="link"
-                        placeholder="https://www.youtube.com/embed/jNQXAC9IVRw"/>
+                        placeholder="https://youtu.be/jNQXAC9IVRw"/>
                 </div>
             </div>
         </div>

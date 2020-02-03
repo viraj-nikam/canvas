@@ -27,7 +27,7 @@ class TweetBlot extends BlockEmbed {
     }
 
     static sanitize(url) {
-        if (url.indexOf("?") !== -1) {
+        if (url.indexOf('?') !== -1) {
             url = url.substring(0, url.indexOf('?'));
         }
 

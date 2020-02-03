@@ -376,6 +376,7 @@
                     link,
                     Quill.sources.USER
                 )
+
                 this.editor.setSelection(range.index + 1, Quill.sources.SILENT)
             },
 
@@ -562,6 +563,21 @@
     div.ql-tweet {
         display: flex;
         justify-content: center;
+    }
+
+    div.ql-video {
+        position: relative;
+        overflow: hidden;
+        padding-top: 56.25%;
+    }
+
+    div.ql-video iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: 0;
     }
 
     @media screen and (max-width: 1024px) {
