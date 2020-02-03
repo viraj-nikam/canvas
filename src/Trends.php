@@ -58,7 +58,7 @@ trait Trends
         ])->count();
 
         if ($viewsLastMonth != 0) {
-            $difference = bcsub($viewsLastMonth, $viewsThisMonth);
+            $difference = (int) $viewsLastMonth - (int) $viewsThisMonth;
             $growth = ($difference / $viewsLastMonth) * 100;
         } else {
             $growth = $viewsThisMonth * 100;
