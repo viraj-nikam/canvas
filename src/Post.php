@@ -152,6 +152,16 @@ class Post extends Model
     }
 
     /**
+     * Get the visits relationship.
+     *
+     * @return HasMany
+     */
+    public function visits(): HasMany
+    {
+        return $this->hasMany(Visit::class);
+    }
+
+    /**
      * Check to see if the post is published.
      *
      * @return bool

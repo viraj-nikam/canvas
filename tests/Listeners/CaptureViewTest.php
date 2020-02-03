@@ -2,16 +2,16 @@
 
 namespace Canvas\Tests\Listeners;
 
-use Canvas\Listeners\StoreViewData;
+use Canvas\Listeners\CaptureView;
 use Canvas\Post;
 use Canvas\Tests\TestCase;
 
-class StoreViewDataTest extends TestCase
+class CaptureViewTest extends TestCase
 {
     /**
      * The listener instance.
      *
-     * @var StoreViewData
+     * @var CaptureView
      */
     protected $instance;
 
@@ -22,7 +22,7 @@ class StoreViewDataTest extends TestCase
     {
         parent::setUp();
 
-        $this->instance = new StoreViewData();
+        $this->instance = new CaptureView();
     }
 
     /** @test */

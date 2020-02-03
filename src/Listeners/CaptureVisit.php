@@ -5,7 +5,7 @@ namespace Canvas\Listeners;
 use Canvas\Events\PostViewed;
 use Canvas\Post;
 
-class StoreViewData
+class CaptureVisit
 {
     /**
      * Handle the event.
@@ -15,15 +15,15 @@ class StoreViewData
      */
     public function handle(PostViewed $event)
     {
-        if (! $this->wasRecentlyViewed($event->post)) {
-            $view_data = [
+        if ($this->visitIsUnique($event->post)) {
+            $visit_data = [
                 'post_id' => $event->post->id,
                 'ip'      => request()->getClientIp(),
                 'agent'   => request()->header('user_agent'),
                 'referer' => $this->validUrl((string) request()->header('referer')),
             ];
 
-            $event->post->views()->create($view_data);
+            $event->post->visits()->create($visit_data);
 
             $this->storeInSession($event->post);
         }
@@ -35,11 +35,11 @@ class StoreViewData
      * @param Post $post
      * @return bool
      */
-    private function wasRecentlyViewed(Post $post): bool
+    private function visitIsUnique(Post $post): bool
     {
-        $viewed = session()->get('viewed_posts', []);
+        $visited = session()->get('visited_posts', []);
 
-        return array_key_exists($post->id, $viewed);
+        return ! array_key_exists($post->id, $visited);
     }
 
     /**
@@ -50,7 +50,7 @@ class StoreViewData
      */
     private function storeInSession(Post $post)
     {
-        session()->put("viewed_posts.{$post->id}", time());
+        session()->put("visited_posts.{$post->id}", time());
     }
 
     /**

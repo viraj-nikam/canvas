@@ -2,11 +2,12 @@
 
 namespace Canvas\Http\Middleware;
 
+use Carbon\Carbon;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-class ViewThrottle
+class Session
 {
     /**
      * The number of seconds until a view expires.
@@ -24,10 +25,15 @@ class ViewThrottle
      */
     public function handle(Request $request, Closure $next)
     {
-        $posts = $this->getViewedPosts();
+        $viewedPosts = $this->getViewedPostsInSession();
+        $visitedPosts = $this->getVisitedPostsInSession();
 
-        if (! is_null($posts)) {
-            $this->pruneExpiredViews($posts);
+        if (! is_null($viewedPosts)) {
+            $this->pruneExpiredViews($viewedPosts);
+        }
+
+        if (! is_null($visitedPosts)) {
+            $this->pruneExpiredVisits($visitedPosts);
         }
 
         return $next($request);
@@ -38,9 +44,19 @@ class ViewThrottle
      *
      * @return array|null
      */
-    private function getViewedPosts()
+    private function getViewedPostsInSession()
     {
         return session()->get('viewed_posts', null);
+    }
+
+    /**
+     * Get the visited posts in session.
+     *
+     * @return array|null
+     */
+    private function getVisitedPostsInSession()
+    {
+        return session()->get('visited_posts', null);
     }
 
     /**
@@ -54,6 +70,21 @@ class ViewThrottle
         foreach (collect($posts) as $key => $value) {
             if ($value < time() - self::EXPIRES_IN) {
                 session()->forget('viewed_posts.'.$key);
+            }
+        }
+    }
+
+    /**
+     * Prune expired posts from the session.
+     *
+     * @param array $posts
+     * @return void
+     */
+    private function pruneExpiredVisits(array $posts)
+    {
+        foreach (collect($posts) as $key => $value) {
+            if (! Carbon::parse($value)->isToday()) {
+                session()->forget('visited_posts.'.$key);
             }
         }
     }

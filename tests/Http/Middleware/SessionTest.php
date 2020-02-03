@@ -2,16 +2,16 @@
 
 namespace Canvas\Tests\Middleware;
 
-use Canvas\Http\Middleware\ViewThrottle;
+use Canvas\Http\Middleware\Session;
 use Canvas\Post;
 use Canvas\Tests\TestCase;
 
-class ViewThrottleTest extends TestCase
+class SessionTest extends TestCase
 {
     /**
      * The middleware instance.
      *
-     * @var ViewThrottle
+     * @var Session
      */
     protected $instance;
 
@@ -22,7 +22,7 @@ class ViewThrottleTest extends TestCase
     {
         parent::setUp();
 
-        $this->instance = new ViewThrottle();
+        $this->instance = new Session();
     }
 
     /** @test */
@@ -42,5 +42,24 @@ class ViewThrottleTest extends TestCase
 
         $this->assertArrayHasKey($post_1->id, session()->get('viewed_posts'));
         $this->assertArrayNotHasKey($post_2->id, session()->get('viewed_posts'));
+    }
+
+    /** @test */
+    public function filter_expired_visits_in_session()
+    {
+        $post_1 = factory(Post::class)->create();
+        $key_1 = 'visited_posts.'.$post_1->id;
+
+        session()->put($key_1, now()->timestamp);
+
+        $post_2 = factory(Post::class)->create();
+        $key_2 = 'visited_posts.'.$post_2->id;
+
+        session()->put($key_2, now()->subDay()->timestamp);
+
+        $this->invokeMethod($this->instance, 'pruneExpiredVisits', [session()->get('visited_posts')]);
+
+        $this->assertArrayHasKey($post_1->id, session()->get('visited_posts'));
+        $this->assertArrayNotHasKey($post_2->id, session()->get('visited_posts'));
     }
 }
