@@ -57,7 +57,7 @@ class CaptureVisit
     private function storeInSession(Post $post, string $ip)
     {
         session()->put("visited_posts.{$post->id}", [
-            'timestamp' => time(),
+            'timestamp' => now()->timestamp,
             'ip'        => $ip,
         ]);
     }

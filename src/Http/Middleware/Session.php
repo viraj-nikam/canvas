@@ -68,7 +68,7 @@ class Session
     private function pruneExpiredViews(array $posts)
     {
         foreach (collect($posts) as $key => $value) {
-            if ($value < time() - self::EXPIRES_IN) {
+            if ($value < now()->subSeconds(self::EXPIRES_IN)->timestamp) {
                 session()->forget('viewed_posts.'.$key);
             }
         }

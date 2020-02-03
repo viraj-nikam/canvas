@@ -52,7 +52,7 @@ class CaptureView
      */
     private function storeInSession(Post $post)
     {
-        session()->put("viewed_posts.{$post->id}", time());
+        session()->put("viewed_posts.{$post->id}", now()->timestamp);
     }
 
     /**
