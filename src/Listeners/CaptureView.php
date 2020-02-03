@@ -8,7 +8,9 @@ use Canvas\Post;
 class CaptureView
 {
     /**
-     * Handle the event.
+     * A view is captured when a user loads a post for the first time
+     * in a given hour. The ID of the post is stored in session to
+     * be validated against until it "expires" and is pruned.
      *
      * @param PostViewed $event
      * @return void
