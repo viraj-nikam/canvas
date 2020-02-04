@@ -13,30 +13,30 @@ trait Trends
     /**
      * Return an array of view counts for a given number of days.
      *
-     * @param Collection $views
-     * @param int $days
+     * @param Collection $data
+     * @param int $daysToLookBack
      * @return array
      */
-    public function getViewCounts(Collection $views, int $days = 1): array
+    public function getDataPoints(Collection $data, int $daysToLookBack = 1): array
     {
-        // Filter the view data to only include created_at date strings
-        $filtered_views = collect();
-        $views->sortBy('created_at')->each(function ($item, $key) use ($filtered_views) {
-            $filtered_views->push($item->created_at->toDateString());
+        // Filter the data to only include created_at date strings
+        $filtered = collect();
+        $data->sortBy('created_at')->each(function ($item, $key) use ($filtered) {
+            $filtered->push($item->created_at->toDateString());
         });
 
         // Count the unique values and assign to their respective keys
-        $unique_views = array_count_values($filtered_views->toArray());
+        $unique = array_count_values($filtered->toArray());
 
         // Create a [X] day range to hold the default date values
-        $period = $this->generateDateRange(today()->subDays($days), CarbonInterval::day(), $days);
+        $period = $this->generateDateRange(today()->subDays($daysToLookBack), CarbonInterval::day(), $daysToLookBack);
 
-        // Compare the view data and date range arrays, assigning view counts where applicable
+        // Compare the data and date range arrays, assigning counts where applicable
         $total = collect();
 
         foreach ($period as $date) {
-            if (array_key_exists($date, $unique_views)) {
-                $total->put($date, $unique_views[$date]);
+            if (array_key_exists($date, $unique)) {
+                $total->put($date, $unique[$date]);
             } else {
                 $total->put($date, 0);
             }
@@ -45,27 +45,33 @@ trait Trends
         return $total->toArray();
     }
 
-    public function compareMonthToMonth(Collection $views)
+    /**
+     * Compare values of a data collection to evaluate month over month change.
+     *
+     * @param Collection $data
+     * @return array
+     */
+    public function compareMonthToMonth(Collection $data)
     {
-        $viewsLastMonth = $views->whereBetween('created_at', [
+        $dataCountLastMonth = $data->whereBetween('created_at', [
             today()->subMonth()->startOfMonth()->toDateTimeString(),
             today()->subMonth()->endOfMonth()->toDateTimeString(),
         ])->count();
 
-        $viewsThisMonth = $views->whereBetween('created_at', [
+        $dataCountThisMonth = $data->whereBetween('created_at', [
             today()->startOfMonth()->toDateTimeString(),
             today()->endOfMonth()->toDateTimeString(),
         ])->count();
 
-        if ($viewsLastMonth != 0) {
-            $difference = (int) $viewsLastMonth - (int) $viewsThisMonth;
-            $growth = ($difference / $viewsLastMonth) * 100;
+        if ($dataCountLastMonth != 0) {
+            $difference = (int) $dataCountLastMonth - (int) $dataCountThisMonth;
+            $growth = ($difference / $dataCountLastMonth) * 100;
         } else {
-            $growth = $viewsThisMonth * 100;
+            $growth = $dataCountThisMonth * 100;
         }
 
         return [
-            'direction'  => $viewsThisMonth > $viewsLastMonth ? 'up' : 'down',
+            'direction'  => $dataCountThisMonth > $dataCountLastMonth ? 'up' : 'down',
             'percentage' => number_format($growth),
         ];
     }

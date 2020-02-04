@@ -88,7 +88,7 @@ The view stats are a core component to the project, so it's best to have a large
 
 ```php
 // In the `run()` method of the `DatabaseSeeder`
-$this->call(CanvasViewsTableSeeder::class);
+$this->call(CanvasTableSeeders::class);
 
 // Create a new class named `CanvasViewsTableSeeder` and add this to the `run()` method:
 factory(\Canvas\View::class, 2500)->create();

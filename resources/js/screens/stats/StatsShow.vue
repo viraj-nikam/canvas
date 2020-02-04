@@ -34,21 +34,73 @@
                         </p>
                         <h1>{{ post.title }}</h1>
                     </div>
+                </div>
 
-                    <div class="col-md-4 mt-auto">
+                <p class="lead mt-4">Lifetime Summary</p>
+                <div class="d-flex justify-content-start border-bottom pb-4">
+                    <div class="mr-5">
+                        <p class="mb-0 small text-muted text-uppercase font-weight-bold">
+                            Total Views
+                        </p>
+                        <h3 class="mt-1">
+                            {{ suffixedNumber(viewCount) }}
+                        </h3>
+                    </div>
+
+                    <div>
+                        <p class="mb-0 small text-muted text-uppercase font-weight-bold">
+                            Average Reading Time
+                        </p>
+                        <h3 class="mt-1">
+                            {{ readTime }}
+                        </h3>
+                    </div>
+                </div>
+
+                <p class="lead mt-4">Monthly Summary</p>
+                <div class="d-flex justify-content-start">
+                    <div class="mr-5">
+                        <p class="mb-0 small text-muted text-uppercase font-weight-bold">
+                            Views
+                        </p>
+                        <h3 class="mt-1">
+                            {{ suffixedNumber(viewCount) }}
+                        </h3>
                         <p class="text-muted text-md-right">
-                            <span v-if="trendingUp">
+                            <span v-if="viewsAreTrendingUp">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" class="icon-arrow-thick-up-circle"><circle cx="12" cy="12" r="10" class="primary"/><path class="fill-bg" d="M14 12v5a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-5H8a1 1 0 0 1-.7-1.7l4-4a1 1 0 0 1 1.4 0l4 4A1 1 0 0 1 16 12h-2z"/></svg>
                             </span>
-                            <span v-if="!trendingUp">
+                            <span v-if="!viewsAreTrendingUp">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" class="icon-arrow-thick-down-circle"><circle cx="12" cy="12" r="10" class="primary"/><path class="fill-bg" d="M10 12V7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v5h2a1 1 0 0 1 .7 1.7l-4 4a1 1 0 0 1-1.4 0l-4-4A1 1 0 0 1 8 12h2z"/></svg>
                             </span>
-                            {{ trendPercentage }}% {{ trans.stats.trend }}
+                            {{ viewMonthOverMonthPercentage }}% {{ trans.stats.trend }}
+                        </p>
+                    </div>
+
+                    <div>
+                        <p class="mb-0 small text-muted text-uppercase font-weight-bold">
+                            Visitors
+                        </p>
+                        <h3 class="mt-1">
+                            {{ suffixedNumber(visitCount) }}
+                        </h3>
+                        <p class="text-muted text-md-right">
+                            <span v-if="visitsAreTrendingUp">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" class="icon-arrow-thick-up-circle"><circle cx="12" cy="12" r="10" class="primary"/><path class="fill-bg" d="M14 12v5a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-5H8a1 1 0 0 1-.7-1.7l4-4a1 1 0 0 1 1.4 0l4 4A1 1 0 0 1 16 12h-2z"/></svg>
+                            </span>
+                            <span v-if="!visitsAreTrendingUp">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" class="icon-arrow-thick-down-circle"><circle cx="12" cy="12" r="10" class="primary"/><path class="fill-bg" d="M10 12V7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v5h2a1 1 0 0 1 .7 1.7l-4 4a1 1 0 0 1-1.4 0l-4-4A1 1 0 0 1 8 12h2z"/></svg>
+                            </span>
+                            {{ visitMonthOverMonthPercentage }}% {{ trans.stats.trend }}
                         </p>
                     </div>
                 </div>
 
-                <line-chart :views="JSON.parse(views)" class="mt-4 mb-3" />
+                <line-chart
+                    :views="JSON.parse(viewTrend)"
+                    :visits="JSON.parse(visitTrend)"
+                    class="mt-5 mb-3"
+                />
 
                 <div class="row justify-content-between">
                     <div class="col-md-5 mt-4">
@@ -142,10 +194,16 @@
             return {
                 id: this.$route.params.id,
                 post: null,
-                views: null,
+                viewCount: 0,
+                viewTrend: {},
+                visitCount: 0,
+                visitTrend: {},
+                readTime: null,
                 popularReadingTimes: null,
-                trendDirection: null,
-                trendPercentage: null,
+                viewMonthOverMonthDirection: null,
+                viewMonthOverMonthPercentage: null,
+                visitMonthOverMonthDirection: null,
+                visitMonthOverMonthPercentage: null,
                 traffic: null,
                 isReady: false,
                 trans: JSON.parse(Canvas.lang),
@@ -158,11 +216,17 @@
                     .get('/api/stats/' + vm.id)
                     .then(response => {
                         vm.post = response.data.post
-                        vm.views = response.data.views
+                        vm.viewCount = response.data.view_count
+                        vm.viewTrend = response.data.view_trend
+                        vm.visitCount = response.data.visit_count
+                        vm.visitTrend = response.data.visit_trend
                         vm.traffic = Array.isArray(response.data.traffic) ? null : response.data.traffic
                         vm.popularReadingTimes = Array.isArray(response.data.popular_reading_times) ? null : response.data.popular_reading_times
-                        vm.trendDirection = response.data.trend.direction
-                        vm.trendPercentage = response.data.trend.percentage
+                        vm.readTime = response.data.read_time
+                        vm.viewMonthOverMonthDirection = response.data.view_month_over_month.direction
+                        vm.viewMonthOverMonthPercentage = response.data.view_month_over_month.percentage
+                        vm.visitMonthOverMonthDirection = response.data.visit_month_over_month.direction
+                        vm.visitMonthOverMonthPercentage = response.data.visit_month_over_month.percentage
 
                         vm.isReady = true
 
@@ -175,8 +239,12 @@
         },
 
         computed: {
-            trendingUp() {
-                return this.trendDirection === 'up'
+            viewsAreTrendingUp() {
+                return this.viewMonthOverMonthDirection === 'up'
+            },
+
+            visitsAreTrendingUp() {
+                return this.visitMonthOverMonthDirection === 'up'
             }
         }
     }

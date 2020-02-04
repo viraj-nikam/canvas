@@ -258,7 +258,7 @@ class Post extends Model
         $array = array_count_values($collection->toArray());
 
         // Only return the top N referrers with their view count
-        $sliced = array_slice($array, 0, 8, true);
+        $sliced = array_slice($array, 0, 10, true);
 
         // Sort the array in a descending order
         arsort($sliced);
