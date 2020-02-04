@@ -19,30 +19,36 @@
                     <div v-if="posts.length">
                         <div class="card-deck mt-4">
                             <div class="card shadow bg-transparent">
-                                <div class="card-body">
-                                    <p class="card-title small text-muted text-uppercase font-weight-bold">
-                                        Views (30 days)
+                                <div class="card-header pb-0 bg-transparent d-flex justify-content-between align-middle border-0">
+                                    <p class="font-weight-bold text-muted text-uppercase">Views</p>
+                                    <p>
+                                        <span class="badge badge-pill badge-success p-2 font-weight-bold">Last 30 days</span>
                                     </p>
+                                </div>
+                                <div class="card-body pt-0 pb-2">
                                     <p class="card-text display-4">
                                         {{ suffixedNumber(viewCount) }}
                                     </p>
                                 </div>
                             </div>
                             <div class="card shadow bg-transparent">
-                                <div class="card-body">
-                                    <p class="card-title small text-muted text-uppercase font-weight-bold">
-                                        Visitors (30 days)
+                                <div class="card-header pb-0 bg-transparent d-flex justify-content-between align-middle border-0">
+                                    <p class="font-weight-bold text-muted text-uppercase">Visitors</p>
+                                    <p>
+                                        <span class="badge badge-pill badge-primary p-2 font-weight-bold">Last 30 days</span>
                                     </p>
+                                </div>
+                                <div class="card-body pt-0 pb-2">
                                     <p class="card-text display-4">
                                         {{ suffixedNumber(visitCount) }}
                                     </p>
                                 </div>
                             </div>
                             <div class="card shadow bg-transparent">
-                                <div class="card-body">
-                                    <p class="card-title small text-muted text-uppercase font-weight-bold">
-                                        {{ trans.stats.cards.publishing.title }}
-                                    </p>
+                                <div class="card-header pb-0 bg-transparent border-0">
+                                    <p class="font-weight-bold text-muted text-uppercase">{{ trans.stats.cards.publishing.title }}</p>
+                                </div>
+                                <div class="card-body pt-0 pb-2">
                                     <ul>
                                         <li>
                                             {{ publishedCount }}
@@ -193,3 +199,17 @@
         }
     }
 </script>
+
+<style lang="scss" scoped>
+    @import '../../../../resources/sass/variables';
+
+    .badge-success {
+        background-color: $green-500;
+        color: darken($green, 20%);
+    }
+
+    .badge-primary {
+        background-color: $blue-500;
+        color: darken($blue, 35%);
+    }
+</style>
