@@ -6,6 +6,7 @@ use Canvas\Mail\WeeklyDigest;
 use Canvas\Post;
 use Canvas\UserMeta;
 use Canvas\View;
+use Canvas\Visit;
 use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Foundation\Auth\User;
@@ -25,7 +26,7 @@ class DigestCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Send the weekly digest email';
+    protected $description = 'Send the weekly email digest';
 
     /**
      * Execute the console command.
@@ -42,10 +43,10 @@ class DigestCommand extends Command
             // Verify that the user has enabled emails
             if (UserMeta::where('user_id', $user->id)->pluck('digest')->first()) {
                 // Gather the post IDs for a given user
-                $post_ids = Post::where('user_id', $user->id)->pluck('id');
+                $post_ids = Post::where('user_id', $user->id)->published()->pluck('id');
 
-                // Compile view count data for a user's posts
-                $data = collect($this->compileViewData($post_ids->toArray(), 7));
+                // Compile tracking data for a user's posts
+                $data = collect($this->compileTrackingData($post_ids->toArray(), 7));
 
                 // Get the email of the user to notify
                 $data->put('email', $user->email);
@@ -70,36 +71,58 @@ class DigestCommand extends Command
      * @param int $days
      * @return array
      */
-    private function compileViewData(array $post_ids, int $days): array
+    private function compileTrackingData(array $post_ids, int $days): array
     {
         $data = collect();
-        $post_data = collect();
+        $postData = collect();
 
         foreach ($post_ids as $post_id) {
+            $views = View::select('created_at')
+                         ->where('post_id', $post_id)
+                         ->whereBetween('created_at', [
+                             today()->subDays($days)->startOfDay()->toDateTimeString(),
+                             today()->endOfDay()->toDateTimeString(),
+                         ])->get();
 
-            // Get the post view count for a given number of days
-            $post_views = View::whereBetween('created_at', [
-                now()->subDays($days)->toDateTimeString(),
-                now()->toDateTimeString(),
-            ])->where('post_id', $post_id)->count();
+            $visits = Visit::select('created_at')
+                           ->where('post_id', $post_id)
+                           ->whereBetween('created_at', [
+                               today()->subDays($days)->startOfDay()->toDateTimeString(),
+                               today()->endOfDay()->toDateTimeString(),
+                           ])->get();
 
             // Only collect view data if any is available
-            if ($post_views) {
+            if (array_sum([$views->count(), $visits->count()]) > 0) {
                 $post = Post::find($post_id);
-                $post_data->put($post->title, $post_views);
+                $postData->put($post->id, [
+                    'title'  => $post->title,
+                    'views'  => $views->count(),
+                    'visits' => $visits->count(),
+                ]);
             }
         }
 
-        $data->put('posts', $post_data);
+        $data->put('posts', $postData);
 
         // Find the views belonging to a user for a given number of days
-        $views = View::whereBetween('created_at', [
-            now()->subDays($days)->toDateTimeString(),
-            now()->toDateTimeString(),
-        ])->whereIn('post_id', $post_ids)
-            ->select('created_at')->get();
+        $viewCountForMonth = View::select('created_at')
+                                 ->whereIn('post_id', $post_ids)
+                                 ->whereBetween('created_at', [
+                                     today()->subDays($days)->startOfDay()->toDateTimeString(),
+                                     today()->endOfDay()->toDateTimeString(),
+                                 ])
+                                 ->count();
 
-        $data->put('total_views', $views->count());
+        $visitCountForMonth = Visit::select('created_at')
+                                   ->whereIn('post_id', $post_ids)
+                                   ->whereBetween('created_at', [
+                                       today()->subDays($days)->startOfDay()->toDateTimeString(),
+                                       now()->endOfDay()->toDateTimeString(),
+                                   ])
+                                   ->count();
+
+        $data->put('total_views', $viewCountForMonth);
+        $data->put('total_visits', $visitCountForMonth);
 
         return $data->toArray();
     }

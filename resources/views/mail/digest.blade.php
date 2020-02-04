@@ -3,15 +3,18 @@
 
 {{ __('canvas::mail.digest.from') }} {{ $data['start_date'] }} {{ __('canvas::mail.digest.to') }} {{ $data['end_date'] }}, {{ __('canvas::mail.digest.data') }}:
 
-# {{ number_format($data['total_views']) }}
-
-{{ __('canvas::mail.digest.views') }}
+@component('mail::table')
+|                                 |                               |
+|---------------------------------|-------------------------------|
+| **+{{ $data['total_views'] }}** | **+{{ $data['total_visits'] }}** |
+| Views                           | Visits                        |
+@endcomponent
 
 @component('mail::table')
-|                | {{ __('canvas::mail.digest.views_this_week') }} |
-| -------------- | -----------------------------------------------:|
-@foreach($data['posts'] as $title => $views)
-| *{{ $title }}* | **+{{ number_format($views) }}**                |
+|                        | Visits                                    | Views                                    |
+| ---------------------- | ----------------------------------------- | ----------------------------------------:|
+@foreach($data['posts'] as $post)
+| *{{ $post['title'] }}* | **+{{ number_format($post['visits']) }}** | **+{{ number_format($post['views']) }}** |
 @endforeach
 @endcomponent
 
