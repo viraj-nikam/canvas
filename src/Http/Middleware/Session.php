@@ -83,6 +83,7 @@ class Session
     private function pruneExpiredVisits(array $posts)
     {
         foreach (collect($posts) as $key => $value) {
+            dd($value);
             if (! Carbon::parse($value['timestamp'])->isToday()) {
                 session()->forget('visited_posts.'.$key);
             }
