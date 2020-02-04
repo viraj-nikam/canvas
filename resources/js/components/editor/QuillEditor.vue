@@ -121,9 +121,9 @@
     import Quill from 'quill'
     import {mapState} from 'vuex'
     import Parchment from 'parchment'
+    import LinkBlot from './LinkBlot'
     import ImageBlot from './ImageBlot'
     import VideoBlot from './VideoBlot'
-    import TweetBlot from './TweetBlot'
     import ImageModal from './ImageModal'
     import DividerBlot from './DividerBlot'
     import EmbedLinkModal from './EmbedLinkModal'
@@ -191,7 +191,7 @@
             createEditor() {
                 Quill.register(ImageBlot, true)
                 Quill.register(DividerBlot, true)
-                Quill.register(TweetBlot, true)
+                Quill.register(LinkBlot, true)
                 Quill.register(VideoBlot, true)
 
                 const icons = Quill.import('ui/icons')
@@ -344,6 +344,7 @@
                     values,
                     Quill.sources.USER
                 )
+
                 this.editor.setSelection(range.index + 1, Quill.sources.SILENT)
             },
 
@@ -355,25 +356,26 @@
                 this.editor.setSelection(range.index - 1, Quill.sources.SILENT)
             },
 
-            insertEmbedLink({link}) {
+            insertEmbedLink({url}) {
                 let range = this.editor.getSelection(true)
 
                 this.editor.insertEmbed(
                     range.index,
-                    'tweet',
-                    link,
+                    'link',
+                    url,
                     Quill.sources.USER
                 )
+
                 this.editor.setSelection(range.index + 1, Quill.sources.SILENT)
             },
 
-            insertEmbedVideo({link}) {
+            insertEmbedVideo({url}) {
                 let range = this.editor.getSelection(true)
 
                 this.editor.insertEmbed(
                     range.index,
                     'video',
-                    link,
+                    url,
                     Quill.sources.USER
                 )
 
@@ -390,6 +392,7 @@
                     true,
                     Quill.sources.USER
                 )
+
                 this.editor.setSelection(range.index + 2, Quill.sources.SILENT)
             },
 

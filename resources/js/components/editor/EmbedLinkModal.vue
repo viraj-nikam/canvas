@@ -35,7 +35,7 @@
         methods: {
             addLink() {
                 this.$emit('addingEmbeddedLink', {
-                    link: this.link,
+                    url: this.link,
                 })
 
                 $(this.$refs.modal).modal('hide')

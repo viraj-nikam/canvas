@@ -20,7 +20,7 @@
                         <div class="card-deck mt-4">
                             <div class="card shadow bg-transparent">
                                 <div class="card-header pb-0 bg-transparent d-flex justify-content-between align-middle border-0">
-                                    <p class="font-weight-bold text-muted text-uppercase">Views</p>
+                                    <p class="font-weight-bold text-muted small text-uppercase">Views</p>
                                     <p>
                                         <span class="badge badge-pill badge-success p-2 font-weight-bold">Last 30 days</span>
                                     </p>
@@ -33,7 +33,7 @@
                             </div>
                             <div class="card shadow bg-transparent">
                                 <div class="card-header pb-0 bg-transparent d-flex justify-content-between align-middle border-0">
-                                    <p class="font-weight-bold text-muted text-uppercase">Visitors</p>
+                                    <p class="font-weight-bold text-muted small text-uppercase">Visitors</p>
                                     <p>
                                         <span class="badge badge-pill badge-primary p-2 font-weight-bold">Last 30 days</span>
                                     </p>
@@ -46,7 +46,7 @@
                             </div>
                             <div class="card shadow bg-transparent">
                                 <div class="card-header pb-0 bg-transparent border-0">
-                                    <p class="font-weight-bold text-muted text-uppercase">{{ trans.stats.cards.publishing.title }}</p>
+                                    <p class="font-weight-bold text-muted small text-uppercase">{{ trans.stats.cards.publishing.title }}</p>
                                 </div>
                                 <div class="card-body pt-0 pb-2">
                                     <ul>

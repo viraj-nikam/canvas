@@ -2,25 +2,43 @@ import Quill from 'quill'
 
 let BlockEmbed = Quill.import('blots/block/embed')
 
+/**
+ * Supported embeddable link types:
+ *      YouTube
+ *      Vimeo
+ */
 class VideoBlot extends BlockEmbed {
     static create(url) {
         let node = super.create();
-        let iframe = document.createElement('iframe');
-
-        node.setAttribute('class', 'ql-video');
-
         let videoObj = parseVideo(url);
 
         if (videoObj.type === 'youtube') {
+            let iframe = document.createElement('iframe');
+
+            node.setAttribute('class', 'ql-video');
+
             iframe.setAttribute('src', '//www.youtube.com/embed/' + videoObj.id);
+            iframe.setAttribute('frameborder', 0);
+            iframe.setAttribute('allowfullscreen', true);
+
+            node.appendChild(iframe);
         } else if (videoObj.type === 'vimeo') {
+            let iframe = document.createElement('iframe');
+
+            node.setAttribute('class', 'ql-video');
+
             iframe.setAttribute('src', '//player.vimeo.com/video/' + videoObj.id);
+            iframe.setAttribute('frameborder', 0);
+            iframe.setAttribute('allowfullscreen', true);
+
+            node.appendChild(iframe);
+        } else {
+            let nodeDefault = document.createElement('p');
+            let textDeafult = document.createTextNode(url);
+
+            nodeDefault.appendChild(textDeafult)
+            node.appendChild(nodeDefault)
         }
-
-        iframe.setAttribute('frameborder', 0);
-        iframe.setAttribute('allowfullscreen', true);
-
-        node.appendChild(iframe);
 
         return node;
     }
