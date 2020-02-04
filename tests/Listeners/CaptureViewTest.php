@@ -30,18 +30,16 @@ class CaptureViewTest extends TestCase
     {
         $post = factory(Post::class)->create();
 
-        $key = 'viewed_posts.'.$post->id;
+        $this->invokeMethod($this->instance, 'storeInSession', [$post]);
 
-        session()->put($key, time());
-
-        $response = $this->invokeMethod($this->instance, 'wasRecentlyViewed', ['post' => $post]);
+        $response = $this->invokeMethod($this->instance, 'wasRecentlyViewed', [$post]);
 
         $this->assertTrue($response);
         $this->assertArrayHasKey($post->id, session()->get('viewed_posts'));
 
         session()->flush();
 
-        $response = $this->invokeMethod($this->instance, 'wasRecentlyViewed', ['post' => $post]);
+        $response = $this->invokeMethod($this->instance, 'wasRecentlyViewed', [$post]);
 
         $this->assertFalse($response);
     }
@@ -51,7 +49,7 @@ class CaptureViewTest extends TestCase
     {
         $post = factory(Post::class)->create();
 
-        $this->invokeMethod($this->instance, 'storeInSession', ['post' => $post]);
+        $this->invokeMethod($this->instance, 'storeInSession', [$post]);
 
         $this->assertArrayHasKey($post->id, session()->get('viewed_posts'));
     }

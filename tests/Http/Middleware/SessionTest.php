@@ -26,7 +26,7 @@ class SessionTest extends TestCase
     }
 
     /** @test */
-    public function filter_expired_views_in_session()
+    public function prunes_expired_views_in_session()
     {
         $post_1 = factory(Post::class)->create();
         $key_1 = 'viewed_posts.'.$post_1->id;
@@ -45,7 +45,7 @@ class SessionTest extends TestCase
     }
 
     /** @test */
-    public function filter_expired_visits_in_session()
+    public function prunes_expired_visits_in_session()
     {
         $ip = '127.0.0.1';
         $post_1 = factory(Post::class)->create();
