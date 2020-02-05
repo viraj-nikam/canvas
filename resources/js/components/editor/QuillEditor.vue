@@ -26,7 +26,7 @@
                         </svg>
                     </button>
                     <button
-                        @click="showEmbedVideoModal"
+                        @click="showVideoModal"
                         class="btn btn-outline-light btn-circle border mr-1"
                         type="button">
                         <svg xmlns="http://www.w3.org/2000/svg" width="26" viewBox="0 0 24 24" class="icon-play">
@@ -35,7 +35,16 @@
                         </svg>
                     </button>
                     <button
-                        @click="showEmbedLinkModal"
+                        @click="showLinkModal"
+                        class="btn btn-outline-light btn-circle border mr-1"
+                        type="button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="26" viewBox="0 0 24 24" class="icon-link">
+                            <path class="primary" d="M19.48 13.03l-.02-.03a1 1 0 1 1 1.75-.98A6 6 0 0 1 16 21h-4a6 6 0 1 1 0-12h1a1 1 0 0 1 0 2h-1a4 4 0 1 0 0 8h4a4 4 0 0 0 3.48-5.97z"/>
+                            <path class="primary" d="M4.52 10.97l.02.03a1 1 0 1 1-1.75.98A6 6 0 0 1 8 3h4a6 6 0 1 1 0 12h-1a1 1 0 0 1 0-2h1a4 4 0 1 0 0-8H8a4 4 0 0 0-3.48 5.97z"/>
+                        </svg>
+                    </button>
+                    <button
+                        @click="showEmbedModal"
                         class="btn btn-outline-light btn-circle border mr-1"
                         type="button">
                         <svg xmlns="http://www.w3.org/2000/svg" width="26" viewBox="0 0 24 24" class="icon-code">
@@ -68,7 +77,7 @@
                         </svg>
                     </button>
                     <button
-                        @click="showEmbedVideoModal"
+                        @click="showVideoModal"
                         class="btn btn-outline-light border border-bottom-0 border-left-0 py-2"
                         type="button">
                         <svg xmlns="http://www.w3.org/2000/svg" width="26" viewBox="0 0 24 24" class="icon-play">
@@ -77,7 +86,16 @@
                         </svg>
                     </button>
                     <button
-                        @click="showEmbedLinkModal"
+                        @click="showLinkModal"
+                        class="btn btn-outline-light border border-bottom-0 border-left-0 py-2"
+                        type="button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="26" viewBox="0 0 24 24" class="icon-link">
+                            <path class="primary" d="M19.48 13.03l-.02-.03a1 1 0 1 1 1.75-.98A6 6 0 0 1 16 21h-4a6 6 0 1 1 0-12h1a1 1 0 0 1 0 2h-1a4 4 0 1 0 0 8h4a4 4 0 0 0 3.48-5.97z"/>
+                            <path class="primary" d="M4.52 10.97l.02.03a1 1 0 1 1-1.75.98A6 6 0 0 1 8 3h4a6 6 0 1 1 0 12h-1a1 1 0 0 1 0-2h1a4 4 0 1 0 0-8H8a4 4 0 0 0-3.48 5.97z"/>
+                        </svg>
+                    </button>
+                    <button
+                        @click="showEmbedModal"
                         class="btn btn-outline-light border border-bottom-0 border-left-0 py-2"
                         type="button">
                         <svg xmlns="http://www.w3.org/2000/svg" width="26" viewBox="0 0 24 24" class="icon-code">
@@ -102,14 +120,19 @@
                 @removingImage="removeImage"
             />
 
-            <embed-link-modal
-                ref="embedLinkModal"
-                @addingEmbeddedLink="insertEmbedLink"
+            <video-modal
+                ref="videoModal"
+                @addingVideo="insertVideo"
             />
 
-            <embed-video-modal
-                ref="embedVideoModal"
-                @addingEmbeddedVideo="insertEmbedVideo"
+            <link-modal
+                ref="linkModal"
+                @addingLink="insertLink"
+            />
+
+            <embed-modal
+                ref="embedModal"
+                @addingEmbed="insertEmbed"
             />
         </div>
     </div>
@@ -122,12 +145,14 @@
     import {mapState} from 'vuex'
     import Parchment from 'parchment'
     import LinkBlot from './LinkBlot'
-    import ImageBlot from './ImageBlot'
+    import EmbedBlot from './EmbedBlot'
     import VideoBlot from './VideoBlot'
-    import ImageModal from './ImageModal'
+    import ImageBlot from './ImageBlot'
     import DividerBlot from './DividerBlot'
-    import EmbedLinkModal from './EmbedLinkModal'
-    import EmbedVideoModal from './EmbedVideoModal'
+    import LinkModal from './LinkModal'
+    import EmbedModal from './EmbedModal'
+    import VideoModal from './VideoModal'
+    import ImageModal from './ImageModal'
     import Closable from '../../../js/directives/Closable'
 
     export default {
@@ -145,8 +170,9 @@
         },
 
         components: {
-            EmbedLinkModal,
-            EmbedVideoModal,
+            LinkModal,
+            VideoModal,
+            EmbedModal,
             ImageModal
         },
 
@@ -193,6 +219,7 @@
                 Quill.register(DividerBlot, true)
                 Quill.register(LinkBlot, true)
                 Quill.register(VideoBlot, true)
+                Quill.register(EmbedBlot, true)
 
                 const icons = Quill.import('ui/icons')
                 icons.header[3] = require('!html-loader!quill/assets/icons/header-3.svg')
@@ -246,6 +273,14 @@
                         values.existingBlot = blot
 
                         this.showImageModal(values)
+                    }
+
+                    if (blot instanceof EmbedBlot) {
+                        let content = blot.value(blot.domNode)['embed']
+
+                        content.existingBlot = blot
+
+                        this.showEmbedModal(content)
                     }
                 })
             },
@@ -313,16 +348,22 @@
                 $(this.$refs.imageModal.$el).modal('show')
             },
 
-            showEmbedLinkModal(data = null) {
-                this.$emit('openingEmbedLinkModal', data)
+            showVideoModal(data = null) {
+                this.$emit('openingVideoModal', data)
 
-                $(this.$refs.embedLinkModal.$el).modal('show')
+                $(this.$refs.videoModal.$el).modal('show')
             },
 
-            showEmbedVideoModal(data = null) {
-                this.$emit('openingEmbedVideoModal', data)
+            showLinkModal(data = null) {
+                this.$emit('openingLinkModal', data)
 
-                $(this.$refs.embedVideoModal.$el).modal('show')
+                $(this.$refs.linkModal.$el).modal('show')
+            },
+
+            showEmbedModal(data = null) {
+                this.$emit('openingEmbedModal', data)
+
+                $(this.$refs.embedModal.$el).modal('show')
             },
 
             insertImage({url, caption, existingBlot, layout}) {
@@ -356,7 +397,7 @@
                 this.editor.setSelection(range.index - 1, Quill.sources.SILENT)
             },
 
-            insertEmbedLink({url}) {
+            insertLink({url}) {
                 let range = this.editor.getSelection(true)
 
                 this.editor.insertEmbed(
@@ -369,13 +410,33 @@
                 this.editor.setSelection(range.index + 1, Quill.sources.SILENT)
             },
 
-            insertEmbedVideo({url}) {
+            insertVideo({url}) {
                 let range = this.editor.getSelection(true)
 
                 this.editor.insertEmbed(
                     range.index,
                     'video',
                     url,
+                    Quill.sources.USER
+                )
+
+                this.editor.setSelection(range.index + 1, Quill.sources.SILENT)
+            },
+
+            insertEmbed({content, existingBlot}) {
+                let range = this.editor.getSelection(true)
+                let values = {
+                    content: content
+                }
+
+                if (existingBlot) {
+                    return existingBlot.replaceWith('embed', values)
+                }
+
+                this.editor.insertEmbed(
+                    range.index,
+                    'embed',
+                    values,
                     Quill.sources.USER
                 )
 
@@ -473,9 +534,10 @@
         font-family: $font-family-sans-serif, sans-serif;
     }
 
-    div.embedded_image:hover img {
+    div.embedded_image:hover img,
+    div.ql-embed:hover {
         cursor: pointer !important;
-        box-shadow: 0 0 0 3px #03a87c;
+        box-shadow: 0 0 0 3px $green;
     }
 
     div.embedded_image[data-layout="wide"] img {
