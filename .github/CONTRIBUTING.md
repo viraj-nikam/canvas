@@ -4,16 +4,14 @@ Hi! I'm really excited that you are interested in contributing to Canvas. The fo
 
 ## Table of Contents
 
-- [Contributing Guide](#contributing-guide)
-  - [Table of Contents](#table-of-contents)
-  - [Before you get started](#before-you-get-started)
-  - [Development Setup](#development-setup)
-    - [Git](#git)
-    - [Database](#database)
-    - [Authentication](#authentication)
-    - [Directories](#directories)
-    - [Installation](#installation)
-    - [Developing](#developing)
+- [OS Tools](#before-you-get-started)
+- [Development Setup](#development-setup)
+	- [Git](#git)
+	- [Database](#database)
+	- [Authentication](#authentication)
+	- [Directories](#directories)
+	- [Installation](#installation)
+	- [Developing](#developing)
 
 ## Before you get started
 
