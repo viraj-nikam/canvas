@@ -62,7 +62,7 @@ From your Laravel app, create the authentication system and run the following co
 composer require laravel/ui
 
 php artisan ui vue --auth
-php artisan:migrate
+php artisan migrate
 ```
 
 ### Directories
