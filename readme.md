@@ -7,22 +7,17 @@
 
 ## Table of Contents
 
-- [Canvas](#canvas)
-  - [Table of Contents](#table-of-contents)
-  - [Introduction](#introduction)
-  - [Installation](#installation)
-  - [Usage](#usage)
-    - [Configuration](#configuration)
-    - [Publishing](#publishing)
-  - [Options](#options)
-    - [Want to get started fast?](#want-to-get-started-fast)
-    - [Want access to the entire Unsplash library?](#want-access-to-the-entire-unsplash-library)
-    - [Want a weekly summary?](#want-a-weekly-summary)
-  - [Updates](#updates)
-  - [Testing](#testing)
-  - [Translate](#translate)
-  - [License](#license)
-  - [Credits](#credits)
+- [Introduction](#introduction)
+- [Installation](#installation)
+- [Usage](#usage)
+	- [Configuration](#configuration)
+	- [Publishing](#publishing)
+- [Options](#options)
+- [Updates](#updates)
+- [Testing](#testing)
+- [Translate](#translate)
+- [License](#license)
+- [Credits](#credits)
 
 ## Introduction
 
