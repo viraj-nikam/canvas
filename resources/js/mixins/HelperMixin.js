@@ -1,4 +1,5 @@
 import md5 from 'md5'
+import numeral from 'numeral'
 
 export default {
     computed: {
@@ -18,31 +19,11 @@ export default {
         },
 
         suffixedNumber(number) {
-            let formatted = ''
-            let suffix = ''
-
             if (number < 900) {
-                formatted = number
-                suffix = ''
-            } else if (number < 900000) {
-                let n_total = number / 1000
-                formatted = parseFloat(n_total.toFixed(1))
-                suffix = 'K'
-            } else if (number < 900000000) {
-                let n_total = number / 1000000
-                formatted = parseFloat(n_total.toFixed(1))
-                suffix = 'M'
-            } else if (number < 900000000000) {
-                let n_total = number / 1000000000
-                formatted = parseFloat(n_total.toFixed(1))
-                suffix = 'B'
+                return number
             } else {
-                let n_total = number / 1000000000000
-                formatted = parseFloat(n_total.toFixed(1))
-                suffix = 'T'
+                return numeral(number).format('0.0a')
             }
-
-            return formatted + suffix
         },
 
         plural(string, count) {

@@ -93,6 +93,7 @@ class StatsController extends Controller
                 'view_count'             => $views->count(),
                 'view_trend'             => json_encode($this->getDataPoints($views, self::DAYS_PRIOR)),
                 'view_month_over_month'  => $this->compareMonthToMonth($post->views),
+                'view_count_lifetime'    => View::where('post_id', $post->id)->count(),
                 'visit_count'            => $visits->count(),
                 'visit_trend'            => json_encode($this->getDataPoints($visits, self::DAYS_PRIOR)),
                 'visit_month_over_month' => $this->compareMonthToMonth($post->visits),

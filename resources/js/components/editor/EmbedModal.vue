@@ -66,10 +66,12 @@
 
         methods: {
             clickDone() {
-                this.$emit('addingEmbed', {
-                    content: this.content,
-                    existingBlot: this.blot,
-                })
+                if (!_.isEmpty(this.content)) {
+                    this.$emit('addingEmbed', {
+                        content: this.content,
+                        existingBlot: this.blot,
+                    })
+                }
 
                 this.blot = null
                 this.content = ''

@@ -36,63 +36,69 @@
                     </div>
                 </div>
 
-                <p class="lead mt-4">Lifetime Summary</p>
-                <div class="d-flex justify-content-start border-bottom pb-4">
-                    <div class="mr-5">
-                        <p class="mb-0 small text-muted text-uppercase font-weight-bold">
-                            Total Views
-                        </p>
-                        <h3 class="mt-1">
-                            {{ suffixedNumber(viewCount) }}
-                        </h3>
+                <div class="row justify-content-start mt-3">
+                    <div class="col-lg-6 col-12">
+                        <p class="lead mt-4 border-bottom">Lifetime Summary</p>
+                        <div class="d-flex">
+                            <div class="mr-5">
+                                <p class="mb-0 small text-muted text-uppercase font-weight-bold">
+                                    Total Views
+                                </p>
+                                <h3 class="mt-1">
+                                    {{ suffixedNumber(viewCountLifetime) }}
+                                </h3>
+                            </div>
+
+                            <div>
+                                <p class="mb-0 small text-muted text-uppercase font-weight-bold">
+                                    Average Reading Time
+                                </p>
+                                <h3 class="mt-1">
+                                    {{ readTime }}
+                                </h3>
+                            </div>
+                        </div>
                     </div>
 
-                    <div>
-                        <p class="mb-0 small text-muted text-uppercase font-weight-bold">
-                            Average Reading Time
-                        </p>
-                        <h3 class="mt-1">
-                            {{ readTime }}
-                        </h3>
-                    </div>
-                </div>
+                    <div class="col-lg-6 col-12">
+                        <p class="lead mt-4 border-bottom">Monthly Summary</p>
+                        <div class="d-flex">
+                            <div class="mr-5">
+                                <p class="mb-0 small text-muted text-uppercase font-weight-bold">
+                                    Views
+                                </p>
+                                <h3 class="my-1">
+                                    {{ suffixedNumber(viewCount) }}
+                                </h3>
+                                <p class="text-muted text-md-right">
+                                    <span v-if="viewsAreTrendingUp">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" class="icon-arrow-thick-up-circle"><circle cx="12" cy="12" r="10" class="primary"/><path class="fill-bg" d="M14 12v5a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-5H8a1 1 0 0 1-.7-1.7l4-4a1 1 0 0 1 1.4 0l4 4A1 1 0 0 1 16 12h-2z"/></svg>
+                                    </span>
+                                    <span v-if="!viewsAreTrendingUp">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" class="icon-arrow-thick-down-circle"><circle cx="12" cy="12" r="10" class="primary"/><path class="fill-bg" d="M10 12V7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v5h2a1 1 0 0 1 .7 1.7l-4 4a1 1 0 0 1-1.4 0l-4-4A1 1 0 0 1 8 12h2z"/></svg>
+                                    </span>
+                                    {{ viewMonthOverMonthPercentage }}% {{ trans.stats.trend }}
+                                </p>
+                            </div>
 
-                <p class="lead mt-4">Monthly Summary</p>
-                <div class="d-flex justify-content-start">
-                    <div class="mr-5">
-                        <p class="mb-0 small text-muted text-uppercase font-weight-bold">
-                            Views
-                        </p>
-                        <h3 class="mt-1">
-                            {{ suffixedNumber(viewCount) }}
-                        </h3>
-                        <p class="text-muted text-md-right">
-                            <span v-if="viewsAreTrendingUp">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" class="icon-arrow-thick-up-circle"><circle cx="12" cy="12" r="10" class="primary"/><path class="fill-bg" d="M14 12v5a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-5H8a1 1 0 0 1-.7-1.7l4-4a1 1 0 0 1 1.4 0l4 4A1 1 0 0 1 16 12h-2z"/></svg>
-                            </span>
-                            <span v-if="!viewsAreTrendingUp">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" class="icon-arrow-thick-down-circle"><circle cx="12" cy="12" r="10" class="primary"/><path class="fill-bg" d="M10 12V7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v5h2a1 1 0 0 1 .7 1.7l-4 4a1 1 0 0 1-1.4 0l-4-4A1 1 0 0 1 8 12h2z"/></svg>
-                            </span>
-                            {{ viewMonthOverMonthPercentage }}% {{ trans.stats.trend }}
-                        </p>
-                    </div>
-
-                    <div>
-                        <p class="mb-0 small text-muted text-uppercase font-weight-bold">
-                            Visitors
-                        </p>
-                        <h3 class="mt-1">
-                            {{ suffixedNumber(visitCount) }}
-                        </h3>
-                        <p class="text-muted text-md-right">
+                            <div>
+                                <p class="mb-0 small text-muted text-uppercase font-weight-bold">
+                                    Visitors
+                                </p>
+                                <h3 class="my-1">
+                                    {{ suffixedNumber(visitCount) }}
+                                </h3>
+                                <p class="text-muted text-md-right">
                             <span v-if="visitsAreTrendingUp">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" class="icon-arrow-thick-up-circle"><circle cx="12" cy="12" r="10" class="primary"/><path class="fill-bg" d="M14 12v5a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-5H8a1 1 0 0 1-.7-1.7l4-4a1 1 0 0 1 1.4 0l4 4A1 1 0 0 1 16 12h-2z"/></svg>
                             </span>
-                            <span v-if="!visitsAreTrendingUp">
+                                    <span v-if="!visitsAreTrendingUp">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" class="icon-arrow-thick-down-circle"><circle cx="12" cy="12" r="10" class="primary"/><path class="fill-bg" d="M10 12V7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v5h2a1 1 0 0 1 .7 1.7l-4 4a1 1 0 0 1-1.4 0l-4-4A1 1 0 0 1 8 12h2z"/></svg>
                             </span>
-                            {{ visitMonthOverMonthPercentage }}% {{ trans.stats.trend }}
-                        </p>
+                                    {{ visitMonthOverMonthPercentage }}% {{ trans.stats.trend }}
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -195,6 +201,7 @@
                 id: this.$route.params.id,
                 post: null,
                 viewCount: 0,
+                viewCountLifetime: 0,
                 viewTrend: {},
                 visitCount: 0,
                 visitTrend: {},
@@ -217,6 +224,7 @@
                     .then(response => {
                         vm.post = response.data.post
                         vm.viewCount = response.data.view_count
+                        vm.viewCountLifetime = response.data.view_count_lifetime
                         vm.viewTrend = response.data.view_trend
                         vm.visitCount = response.data.visit_count
                         vm.visitTrend = response.data.visit_trend
