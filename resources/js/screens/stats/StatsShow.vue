@@ -109,7 +109,7 @@
                 />
 
                 <div class="row justify-content-between">
-                    <div class="col-md-5 mt-4">
+                    <div class="col-md-6 mt-4">
                         <h5 class="text-muted small text-uppercase font-weight-bold border-bottom pb-2">
                             {{ trans.stats.details.views }}
                         </h5>
@@ -147,7 +147,7 @@
                         </p>
                     </div>
 
-                    <div class="col-md-5 mt-4">
+                    <div class="col-md-6 mt-4">
                         <h5 class="text-muted small text-uppercase font-weight-bold border-bottom pb-2">
                             {{ trans.stats.details.reading.header }}
                         </h5>
@@ -161,9 +161,7 @@
                                         </p>
                                     </div>
                                     <div class="ml-auto">
-                                        <span class="text-muted">{{
-                                            percentage + '%'
-                                        }}</span>
+                                        <span class="text-muted">{{ percentage + '%' }}</span>
                                     </div>
                                 </div>
                             </div>
