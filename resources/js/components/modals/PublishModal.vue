@@ -4,7 +4,7 @@
             <div class="modal-content">
                 <div class="modal-header d-flex align-items-center justify-content-between border-0">
                     <h4 class="modal-title">
-                        {{ trans.publishing }}
+                        {{ trans.app.publishing }}
                     </h4>
 
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -16,7 +16,7 @@
                 </div>
                 <div class="modal-body">
                     <p class="text-muted">
-                        {{ trans.post_scheduling_format }} <span class="font-weight-bold">{{ Canvas.timezone }}</span> {{ trans.timezone }}. (m/d/y h:m)
+                        {{ trans.app.post_scheduling_format }} <span class="font-weight-bold">{{ Canvas.timezone }}</span> {{ trans.app.timezone }}. (m/d/y h:m)
                     </p>
 
                     <div class="row">
@@ -62,18 +62,18 @@
                     </div>
 
                     <p class="mt-3 text-success font-italic" v-if="isScheduled">
-                        {{ trans.your_post_will_publish_at }} {{ moment(this.activePost.published_at).format('h:mm A') }} {{ trans.on }} {{ moment(this.activePost.published_at).format('MMMM DD, YYYY') }}.
+                        {{ trans.app.your_post_will_publish_at }} {{ moment(this.activePost.published_at).format('h:mm A') }} {{ trans.app.on }} {{ moment(this.activePost.published_at).format('MMMM DD, YYYY') }}.
                     </p>
                 </div>
                 <div class="modal-footer">
                     <div class="row w-100">
                         <div class="col-lg order-lg-last px-0">
                             <a href="#" v-if="shouldPublish" class="btn btn-success btn-block font-weight-bold mt-0" @click="scheduleOrPublish" data-dismiss="modal">
-                                {{ trans.publish_now }}
+                                {{ trans.app.publish_now }}
                             </a>
 
                             <a href="#" v-else class="btn btn-success btn-block font-weight-bold mt-0" @click="scheduleOrPublish">
-                                {{ trans.schedule_to_publish }}
+                                {{ trans.app.schedule_to_publish }}
                             </a>
                         </div>
 
@@ -84,7 +84,7 @@
                                 type="button"
                                 class="btn btn-link btn-block text-muted font-weight-bold text-decoration-none"
                                 data-dismiss="modal">
-                                {{ trans.cancel_scheduling }}
+                                {{ trans.app.cancel_scheduling }}
                             </button>
 
                             <button
@@ -92,7 +92,7 @@
                                 type="button"
                                 class="btn btn-link btn-block text-muted font-weight-bold text-decoration-none"
                                 data-dismiss="modal">
-                                {{ trans.cancel }}
+                                {{ trans.app.cancel }}
                             </button>
                         </div>
                     </div>

@@ -3,7 +3,7 @@
         <div class="modal-dialog" ref="modal" role="document">
             <div class="modal-content">
                 <div class="modal-header d-flex align-items-center justify-content-between border-0">
-                    <h4 class="modal-title">{{ trans.embed_content }}</h4>
+                    <h4 class="modal-title">{{ trans.app.embed_content }}</h4>
 
                     <button type="button" @click.prevent="closeModal" class="close" data-dismiss="modal" aria-label="Close">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" class="icon-close-circle">
@@ -23,7 +23,7 @@
                                 :class="!Canvas.darkMode ? 'bg-light': 'bg-darker'"
                                 class="form-control border-0"
                                 v-model="content"
-                                :placeholder="trans.paste_embed_code_to_include">
+                                :placeholder="trans.app.paste_embed_code_to_include">
                             </textarea>
                         </div>
                     </div>
@@ -33,7 +33,7 @@
                         class="btn btn-link btn-block text-muted font-weight-bold text-decoration-none"
                         @click="clickDone"
                         data-dismiss="modal">
-                        {{ trans.done }}
+                        {{ trans.app.done }}
                     </button>
                 </div>
             </div>
@@ -51,7 +51,7 @@
             return {
                 blot: null,
                 content: null,
-                trans: JSON.parse(Canvas.lang.app),
+                trans: JSON.parse(Canvas.lang),
             }
         },
 

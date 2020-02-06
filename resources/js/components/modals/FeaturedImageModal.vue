@@ -13,7 +13,7 @@
                             type="text"
                             autofocus
                             class="form-control border-0 bg-transparent"
-                            :placeholder="trans.search_free_photos"
+                            :placeholder="trans.app.search_free_photos"
                         />
                     </div>
 
@@ -57,7 +57,7 @@
                         <infinite-loading v-if="isSearchingUnsplash" :identifier="infiniteId" @infinite="fetchUnsplashImages" spinner="spiral">
                             <span slot="no-more"></span>
                             <div slot="no-results" class="mb-3">
-                                No images found for "{{ searchKeyword }}"
+                                {{ trans.app.no_images_found_for }} "{{ searchKeyword }}"
                             </div>
                         </infinite-loading>
                     </div>
@@ -81,7 +81,7 @@
                                     :class="!Canvas.darkMode ? 'bg-light': 'bg-darker'"
                                     class="form-control border-0"
                                     v-model="selectedImageCaption"
-                                    :placeholder="trans.type_caption_for_image"
+                                    :placeholder="trans.app.type_caption_for_image"
                                     ref="caption"/>
                             </div>
                         </div>
@@ -92,7 +92,7 @@
                         class="btn btn-link btn-block text-muted font-weight-bold text-decoration-none"
                         @click="clickDone"
                         data-dismiss="modal">
-                        {{ trans.done }}
+                        {{ trans.app.done }}
                     </button>
                 </div>
             </div>
@@ -217,7 +217,7 @@
             },
 
             buildImageCaption(image) {
-                return this.trans.photo_by + ' <a href="' + image.user.links.html + '" target="_blank">' + image.user.name + '</a> ' + this.trans.on + ' <a href="https://unsplash.com" target="_blank">Unsplash</a>'
+                return this.trans.app.photo_by + ' <a href="' + image.user.links.html + '" target="_blank">' + image.user.name + '</a> ' + this.trans.app.on + ' <a href="https://unsplash.com" target="_blank">Unsplash</a>'
             },
 
             processedFromFilePond() {

@@ -5,16 +5,16 @@
                 <ul class="navbar-nav mr-auto flex-row float-right">
                     <li class="text-muted font-weight-bold">
                         <div v-if="!post.isSaving && !post.hasSuccess">
-                            <span v-if="isDraft">{{ trans.nav.context.draft }}</span>
-                            <span v-if="!isDraft">{{ trans.nav.context.published }}</span>
+                            <span v-if="isDraft">{{ trans.app.draft }}</span>
+                            <span v-if="!isDraft">{{ trans.app.published }}</span>
                         </div>
 
                         <div v-if="post.isSaving">
-                            <span>{{ trans.nav.notify.saving }}</span>
+                            <span>{{ trans.app.saving }}</span>
                         </div>
 
                         <div v-if="post.hasSuccess">
-                            <span class="text-success">{{ trans.nav.notify.success }}</span>
+                            <span class="text-success">{{ trans.app.saved }}</span>
                         </div>
                     </li>
                 </ul>
@@ -22,12 +22,12 @@
 
             <template slot="action">
                 <a v-if="isDraft" href="#" class="btn btn-sm btn-outline-success font-weight-bold my-auto" @click="showPublishModal">
-                    <span class="d-block d-lg-none">{{ trans.buttons.posts.small }}</span>
-                    <span class="d-none d-lg-block">{{ trans.buttons.posts.ready }}</span>
+                    <span class="d-block d-lg-none">{{ trans.app.publish }}</span>
+                    <span class="d-none d-lg-block">{{ trans.app.ready_to_publish }}</span>
                 </a>
 
                 <a v-else href="#" class="btn btn-sm btn-outline-success font-weight-bold my-auto" @click="save">
-                    {{ trans.buttons.general.save }}
+                    {{ trans.app.save }}
                 </a>
             </template>
 
@@ -41,23 +41,23 @@
 
                     <div class="dropdown-menu dropdown-menu-right">
                         <router-link v-if="!isDraft" :to="{ name: 'stats-show', params: { id: id } }" class="dropdown-item">
-                            {{ trans.nav.controls.stats }}
+                            {{ trans.app.view_stats }}
                         </router-link>
                         <div v-if="!isDraft" class="dropdown-divider"></div>
                         <a href="#" class="dropdown-item" @click="showSettingsModal">
-                            {{ trans.nav.controls.settings }}
+                            {{ trans.app.general_settings }}
                         </a>
                         <a href="#" class="dropdown-item" @click="showFeaturedImageModal">
-                            {{ trans.nav.controls.image }}
+                            {{ trans.app.featured_image }}
                         </a>
                         <a href="#" class="dropdown-item" @click="showSeoModal">
-                            {{ trans.nav.controls.seo }}
+                            {{ trans.app.seo_settings }}
                         </a>
                         <a v-if="!isDraft" href="#" class="dropdown-item" @click.prevent="convertToDraft">
-                            {{ trans.buttons.general.draft }}
+                            {{ trans.app.convert_to_draft }}
                         </a>
                         <a v-if="id !== 'create'" href="#" class="dropdown-item text-danger" @click="showDeleteModal">
-                            {{ trans.buttons.general.delete }}
+                            {{ trans.app.delete }}
                         </a>
                     </div>
                 </div>
@@ -68,7 +68,7 @@
             <div class="col-xl-8 offset-xl-2 px-xl-5 col-md-12">
                 <div class="form-group row my-3">
                     <textarea-autosize
-                        :placeholder="trans.posts.forms.editor.title"
+                        :placeholder="trans.app.title"
                         class="form-control-lg form-control border-0 font-serif bg-transparent"
                         @input.native="update"
                         rows="1"
@@ -107,8 +107,8 @@
             v-if="isReady"
             ref="deleteModal"
             @delete="deletePost"
-            :header="trans.posts.delete.header"
-            :message="trans.posts.delete.warning"
+            :header="trans.app.delete"
+            :message="trans.app.deleted_posts_are_gone_forever"
         />
     </div>
 </template>

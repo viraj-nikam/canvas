@@ -3,7 +3,7 @@
         <page-header>
             <template slot="action">
                 <router-link :to="{ name: 'posts-create' }" class="btn btn-sm btn-outline-success font-weight-bold my-auto">
-                    {{ trans.buttons.posts.create }}
+                    {{ trans.app.new_post }}
                 </router-link>
             </template>
         </page-header>
@@ -11,11 +11,11 @@
         <main class="py-4">
             <div class="col-xl-10 offset-xl-1 px-xl-5 col-md-12">
                 <div class="d-flex justify-content-between my-3">
-                    <h1>{{ trans.posts.header }}</h1>
+                    <h1>{{ trans.app.posts_simple }}</h1>
 
                     <select name="" id="" v-model="postType" @change="changeType" class="my-auto bg-transparent appearance-none border-0 text-muted">
-                        <option value="published">{{ trans.nav.context.published }} ({{ publishedCount }})</option>
-                        <option value="draft">{{ trans.nav.context.draft }} ({{ draftCount }})</option>
+                        <option value="published">{{ trans.app.published }} ({{ publishedCount }})</option>
+                        <option value="draft">{{ trans.app.draft }} ({{ draftCount }})</option>
                     </select>
                 </div>
 
@@ -31,20 +31,15 @@
                                 {{ trim(post.summary, 200) }}
                             </p>
                             <p class="text-muted mb-0">
-                                            <span v-if="isPublished(post)">
-                                                {{ trans.posts.details.published}}
-                                                {{ moment(post.published_at).fromNow() }}
-                                            </span>
+                                <span v-if="isPublished(post)">
+                                    {{ trans.app.published}} {{ moment(post.published_at).fromNow() }}
+                                </span>
 
-                                <span v-if="isDraft(post)" class="text-danger">
-                                                {{ trans.posts.details.draft }}
-                                            </span>
+                                <span v-if="isDraft(post)" class="text-danger">{{ trans.app.draft }}</span>
 
-                                <span v-if="isScheduled(post)" class="text-danger">
-                                                {{ trans.posts.details.scheduled }}
-                                            </span>
-                                ― {{ trans.posts.details.updated }}
-                                {{ moment(post.updated_at).fromNow() }}
+                                <span v-if="isScheduled(post)" class="text-danger">{{ trans.app.scheduled }}</span>
+
+                                ― {{ trans.app.updated }} {{ moment(post.updated_at).fromNow() }}
                             </p>
                         </div>
                         <div class="ml-auto d-none d-lg-block pl-3">
@@ -64,10 +59,7 @@
                         <span slot="no-more"></span>
                         <div slot="no-results" class="text-left">
                             <p class="mt-2">
-                                {{ trans.posts.empty.description }}
-                                <router-link to="/posts/create" class="text-success text-decoration-none">
-                                    {{ trans.posts.empty.action }}
-                                </router-link>
+                                {{ trans.app.you_have_no_posts }}
                             </p>
                         </div>
                     </infinite-loading>

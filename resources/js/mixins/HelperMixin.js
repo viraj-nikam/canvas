@@ -27,7 +27,7 @@ export default {
         },
 
         plural(string, count) {
-            if (count > 1 || count === 0) {
+            if (Number(count) > 1 || Number(count) === 0) {
                 return ' ' + string + 's'
             } else {
                 return ' ' + string

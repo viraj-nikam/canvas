@@ -4,15 +4,19 @@
             <template slot="status">
                 <ul class="navbar-nav mr-auto flex-row float-right">
                     <li class="text-muted font-weight-bold">
-                        <span v-if="form.isSaving">{{ trans.nav.notify.saving }}</span>
-                        <span v-if="form.hasSuccess" class="text-success">{{ trans.nav.notify.success }}</span>
+                        <span v-if="form.isSaving">{{ trans.app.saving }}</span>
+                        <span v-if="form.hasSuccess" class="text-success">{{ trans.app.saved }}</span>
                     </li>
                 </ul>
             </template>
 
             <template slot="action">
-                <a href="#" class="btn btn-sm btn-outline-success font-weight-bold my-auto" :class="{ disabled: form.name === '' }" @click="saveTag" :aria-label="trans.buttons.general.save">
-                    {{ trans.buttons.general.save }}
+                <a
+                    href="#" class="btn btn-sm btn-outline-success font-weight-bold my-auto"
+                    :class="{ disabled: form.name === '' }"
+                    @click="saveTag"
+                    :aria-label="trans.app.save">
+                    {{ trans.app.save }}
                 </a>
             </template>
 
@@ -25,7 +29,7 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                         <a href="#" class="dropdown-item text-danger" @click="showDeleteModal">
-                            {{ trans.buttons.general.delete }}
+                            {{ trans.app.delete }}
                         </a>
                     </div>
                 </div>
@@ -45,7 +49,7 @@
                             title="Name"
                             @keyup.enter="saveTag"
                             class="form-control-lg form-control border-0 px-0 bg-transparent"
-                            :placeholder="trans.tags.forms.placeholder"
+                            :placeholder="trans.app.give_your_tag_a_name"
                         />
 
                         <div v-if="form.errors.name" class="invalid-feedback d-block">
@@ -56,7 +60,7 @@
                 <div class="form-group">
                     <div class="col-lg-12">
                         <p class="lead text-muted">
-                            <span v-if="!form.slug" class="text-success">{{ trans.tags.forms.slug }}</span>
+                            <span v-if="!form.slug" class="text-success">{{ trans.app.give_your_tag_a_name_slug }}</span>
                             <span v-else class="text-success">{{ form.slug }}</span>
                         </p>
                         <div v-if="form.errors.slug" class="invalid-feedback d-block">
@@ -70,8 +74,8 @@
         <delete-modal
             ref="deleteModal"
             @delete="deleteTag"
-            :header="trans.tags.delete.header"
-            :message="trans.tags.delete.warning">
+            :header="trans.app.delete"
+            :message="trans.app.deleted_tags_are_gone_forever">
         </delete-modal>
     </div>
 </template>

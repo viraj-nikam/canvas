@@ -4,8 +4,8 @@
             <template slot="status">
                 <ul class="navbar-nav mr-auto flex-row float-right">
                     <li class="text-muted font-weight-bold">
-                        <span v-if="form.isSaving">{{ trans.nav.notify.saving }}</span>
-                        <span v-if="form.hasSuccess" class="text-success">{{ trans.nav.notify.success}}</span>
+                        <span v-if="form.isSaving">{{ trans.app.saving }}</span>
+                        <span v-if="form.hasSuccess" class="text-success">{{ trans.app.saved }}</span>
                     </li>
                 </ul>
             </template>
@@ -14,23 +14,23 @@
         <main class="py-4">
             <div class="col-xl-10 offset-xl-1 px-xl-5 col-md-12 my-3">
                 <div class="d-flex justify-content-between my-3">
-                    <h1>{{ trans.settings.header }}</h1>
+                    <h1>{{ trans.app.your_profile }}</h1>
                 </div>
 
                 <div class="mt-2" v-if="isReady">
                     <div class="d-flex border-top py-3 align-items-center">
                         <div class="mr-auto py-1">
                             <p class="mb-1 font-weight-bold text-lg lead">
-                                {{ trans.settings.profile.label }}
+                                {{ trans.app.your_profile }}
                             </p>
                             <p class="mb-1 d-none d-lg-block">
-                                {{ trans.settings.profile.description }}
+                                {{ trans.app.choose_a_unique_username }}
                             </p>
                         </div>
                         <div class="ml-auto pl-3">
                             <div class="align-middle">
                                 <button class="btn btn-sm btn-outline-success font-weight-bold" @click="showProfileModal">
-                                    {{ trans.buttons.settings.profile }}
+                                    {{ trans.app.edit_profile }}
                                 </button>
                             </div>
                         </div>
@@ -39,10 +39,10 @@
                     <div class="d-flex border-top py-3 align-items-center">
                         <div class="mr-auto py-1">
                             <p class="mb-1 font-weight-bold text-lg lead">
-                                {{ trans.settings.digest.label }}
+                                {{ trans.app.weekly_digest }}
                             </p>
                             <p class="mb-1 d-none d-lg-block">
-                                {{ trans.settings.digest.description }}
+                                {{ trans.app.toggle_digest }}
                             </p>
                         </div>
                         <div class="ml-auto pl-3">
@@ -58,7 +58,7 @@
                                             v-model="form.digest"
                                         />
                                         <label for="digest" class="mb-0 sr-only">
-                                            {{ trans.settings.digest.label }}
+                                            {{ trans.app.weekly_digest }}
                                         </label>
                                     </span>
                                 </div>
@@ -69,10 +69,10 @@
                     <div class="d-flex border-top py-3 align-items-center">
                         <div class="mr-auto py-1">
                             <p class="mb-1 font-weight-bold text-lg lead">
-                                {{ trans.settings.appearance.label }}
+                                {{ trans.app.dark_mode }}
                             </p>
                             <p class="mb-1 d-none d-lg-block">
-                                {{ trans.settings.appearance.description }}
+                                {{ trans.app.toggle_dark_mode }}
                             </p>
                         </div>
                         <div class="ml-auto pl-3">
@@ -88,7 +88,7 @@
                                             v-model="form.darkMode"
                                         />
                                         <label for="darkMode" class="mb-0 sr-only">
-                                            {{ trans.settings.appearance.label }}
+                                            {{ trans.app.dark_mode }}
                                         </label>
                                     </span>
                                 </div>

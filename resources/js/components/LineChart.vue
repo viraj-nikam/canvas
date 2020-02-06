@@ -37,13 +37,14 @@
         },
 
         mounted() {
+            let ref = this
             let chartData = {
                 type: 'line',
                 data: {
                     labels: Object.keys(this.views),
                     datasets: [
                         {
-                            label: 'Visits',
+                            label: this.trans.app.visits,
                             data: Object.values(this.visits),
                             backgroundColor: [
                                 'rgba(158, 213, 237, 0.5)',
@@ -54,7 +55,7 @@
                             borderWidth: 3,
                         },
                         {
-                            label: 'Views',
+                            label: this.trans.app.views,
                             data: Object.values(this.views),
                             backgroundColor: [
                                 'rgba(3, 168, 124, .5)',
@@ -97,9 +98,9 @@
                         callbacks: {
                             label: function (tooltipItem, data) {
                                 if (tooltipItem.datasetIndex === 0) {
-                                    return ' ' + tooltipItem.value + ' unique visitors'
+                                    return ref.uniqueVisitorLabel(tooltipItem.value)
                                 } else if (tooltipItem.datasetIndex === 1) {
-                                    return ' ' + tooltipItem.value + ' views'
+                                    return ref.viewLabel(tooltipItem.value)
                                 }
                             },
                             labelTextColor: function (tooltipItem, data) {
@@ -159,7 +160,15 @@
                     data: chartData.data,
                     options: chartData.options,
                 });
+            },
+
+            viewLabel(value) {
+                return ' ' + value + this.plural(this.trans.app.view, value)
+            },
+
+            uniqueVisitorLabel(value) {
+                return ' ' + value + ' ' + this.trans.app.unique + this.plural(this.trans.app.visitor, value)
             }
-        }
+        },
     }
 </script>

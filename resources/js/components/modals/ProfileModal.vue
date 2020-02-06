@@ -53,7 +53,7 @@
                     <div class="form-group row">
                         <div class="col-12">
                             <label class="font-weight-bold text-uppercase text-muted small">
-                                {{ trans.username }}
+                                {{ trans.app.username }}
                             </label>
                             <input
                                 name="username"
@@ -72,7 +72,7 @@
                     <div class="form-group row">
                         <div class="col-12">
                             <label class="font-weight-bold text-uppercase text-muted small">
-                                {{ trans.summary }}
+                                {{ trans.app.summary }}
                             </label>
                             <textarea
                                 rows="4"
@@ -82,7 +82,7 @@
                                 :class="!Canvas.darkMode ? 'bg-light': 'bg-darker'"
                                 class="form-control border-0"
                                 v-model="summary"
-                                :placeholder="trans.tell_us_about_yourself">
+                                :placeholder="trans.app.tell_us_about_yourself">
                             </textarea>
                         </div>
                     </div>
@@ -96,14 +96,14 @@
                                 aria-label="Save"
                                 data-dismiss="modal"
                                 @click.prevent="clickSave">
-                                {{ trans.save }}
+                                {{ trans.app.save }}
                             </a>
                         </div>
                         <div class="col-lg order-lg-first px-0">
                             <button
                                 class="btn btn-link btn-block font-weight-bold text-muted text-decoration-none"
                                 data-dismiss="modal">
-                                {{ trans.cancel }}
+                                {{ trans.app.cancel }}
                             </button>
                         </div>
                     </div>

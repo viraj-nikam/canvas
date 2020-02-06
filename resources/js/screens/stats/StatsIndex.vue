@@ -3,7 +3,7 @@
         <page-header>
             <template slot="action">
                 <router-link :to="{ name: 'posts-create' }" class="btn btn-sm btn-outline-success font-weight-bold my-auto">
-                    {{ trans.buttons.posts.create }}
+                    {{ trans.app.new_post }}
                 </router-link>
             </template>
         </page-header>
@@ -11,8 +11,8 @@
         <main class="py-4">
             <div class="col-xl-10 offset-xl-1 px-xl-5 col-md-12">
                 <div class="my-3">
-                    <h1>{{ trans.stats.header }}</h1>
-                    <p v-if="isReady && posts.length">{{ trans.stats.subtext }}</p>
+                    <h1>{{ trans.app.stats }}</h1>
+                    <p v-if="isReady && posts.length">{{ trans.app.click_to_see_insights }}</p>
                 </div>
 
                 <div v-if="isReady" v-cloak>
@@ -20,9 +20,9 @@
                         <div class="card-deck mt-4">
                             <div class="card shadow bg-transparent">
                                 <div class="card-header pb-0 bg-transparent d-flex justify-content-between align-middle border-0">
-                                    <p class="font-weight-bold text-muted small text-uppercase">Views</p>
+                                    <p class="font-weight-bold text-muted small text-uppercase">{{ trans.app.views }}</p>
                                     <p>
-                                        <span class="badge badge-pill badge-success p-2 font-weight-bold">Last 30 days</span>
+                                        <span class="badge badge-pill badge-success p-2 font-weight-bold">{{ trans.app.last_thirty_days }}</span>
                                     </p>
                                 </div>
                                 <div class="card-body pt-0 pb-2">
@@ -33,9 +33,11 @@
                             </div>
                             <div class="card shadow bg-transparent">
                                 <div class="card-header pb-0 bg-transparent d-flex justify-content-between align-middle border-0">
-                                    <p class="font-weight-bold text-muted small text-uppercase">Visitors</p>
+                                    <p class="font-weight-bold text-muted small text-uppercase">{{ trans.app.visitors }}</p>
                                     <p>
-                                        <span class="badge badge-pill badge-primary p-2 font-weight-bold">Last 30 days</span>
+                                        <span class="badge badge-pill badge-primary p-2 font-weight-bold">
+                                            {{ trans.app.last_thirty_days }}
+                                        </span>
                                     </p>
                                 </div>
                                 <div class="card-body pt-0 pb-2">
@@ -46,18 +48,12 @@
                             </div>
                             <div class="card shadow bg-transparent">
                                 <div class="card-header pb-0 bg-transparent border-0">
-                                    <p class="font-weight-bold text-muted small text-uppercase">{{ trans.stats.cards.publishing.title }}</p>
+                                    <p class="font-weight-bold text-muted small text-uppercase">{{ trans.app.publishing }}</p>
                                 </div>
                                 <div class="card-body pt-0 pb-2">
                                     <ul>
-                                        <li>
-                                            {{ publishedCount }}
-                                            {{ trans.stats.cards.publishing.details.published }}
-                                        </li>
-                                        <li>
-                                            {{ draftCount }}
-                                            {{ trans.stats.cards.publishing.details.drafts }}
-                                        </li>
+                                        <li>{{ publishedCount }} {{ trans.app.published_posts }}</li>
+                                        <li>{{ draftCount }} {{ trans.app.drafts }}</li>
                                     </ul>
                                 </div>
                             </div>
@@ -80,21 +76,17 @@
                                     <p class="text-muted mb-2">
                                         {{ post.read_time }} ―
                                         <router-link :to="{name: 'posts-edit', params: { id: post.id }}" class="text-decoration-none text-muted">
-                                            {{ trans.buttons.posts.edit }}
+                                            {{ trans.app.edit_post }}
                                         </router-link>
                                         ―
                                         <router-link :to="{name: 'stats-show', params: { id: post.id }}" class="text-decoration-none text-muted">
-                                            {{ trans.buttons.stats.show }}
+                                            {{ trans.app.view_stats }}
                                         </router-link>
                                     </p>
                                 </div>
                                 <div class="ml-auto d-none d-lg-block">
-                                            <span class="text-muted mr-3">
-                                                {{ suffixedNumber(post.views_count) }}
-                                                {{ trans.stats.views }}
-                                            </span>
-                                    {{ trans.stats.details.created }}
-                                    {{ moment(post.created_at).fromNow() }}
+                                    <span class="text-muted mr-3">{{ suffixedNumber(post.views_count) }} {{ trans.app.views }}</span>
+                                    {{ trans.app.created }} {{ moment(post.created_at).fromNow() }}
                                 </div>
                             </div>
                         </div>
@@ -106,7 +98,7 @@
                     </div>
 
                     <div v-else>
-                        <p class="mt-4">{{ trans.stats.empty }}</p>
+                        <p class="mt-4">{{ trans.app.there_are_no_published_posts }}</p>
                     </div>
                 </div>
             </div>

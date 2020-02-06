@@ -3,7 +3,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-body">
-                    <p>{{ trans.paste_a_video_link }}</p>
+                    <p>{{ trans.app.paste_a_video_link }}</p>
                     <input
                         type="text"
                         ref="link"
