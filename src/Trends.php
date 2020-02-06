@@ -48,20 +48,14 @@ trait Trends
     /**
      * Compare values of a data collection to evaluate month over month change.
      *
-     * @param Collection $data
+     * @param Collection $current
+     * @param Collection $previous
      * @return array
      */
-    public function compareMonthToMonth(Collection $data)
+    public function compareMonthToMonth(Collection $current, Collection $previous)
     {
-        $dataCountLastMonth = $data->whereBetween('created_at', [
-            today()->subMonth()->startOfMonth()->toDateTimeString(),
-            today()->subMonth()->endOfMonth()->toDateTimeString(),
-        ])->count();
-
-        $dataCountThisMonth = $data->whereBetween('created_at', [
-            today()->startOfMonth()->toDateTimeString(),
-            today()->endOfMonth()->toDateTimeString(),
-        ])->count();
+        $dataCountLastMonth = $previous->count();
+        $dataCountThisMonth = $current->count();
 
         if ($dataCountLastMonth != 0) {
             $difference = (int) $dataCountLastMonth - (int) $dataCountThisMonth;
