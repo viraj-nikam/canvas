@@ -23,7 +23,7 @@ class SettingsController extends Controller
         return response()->json([
             'username'  => $metaData->username ?? null,
             'summary'   => $metaData->summary ?? null,
-            'avatar'    => optional($metaData)->avatar && ! empty(optional($metaData)->avatar) ? $metaData->avatar : "https://secure.gravatar.com/avatar/{$emailHash}?s=500",
+            'avatar'    => optional($metaData)->avatar && !empty(optional($metaData)->avatar) ? $metaData->avatar : "https://secure.gravatar.com/avatar/{$emailHash}?s=500",
             'digest'    => $metaData->digest ?? false,
             'dark_mode' => $metaData->dark_mode ?? 0,
         ]);
@@ -48,7 +48,7 @@ class SettingsController extends Controller
         ];
 
         $messages = [
-            'unique' => __('canvas::validation.unique'),
+            'unique' => __('canvas::app.validation_unique'),
         ];
 
         validator($data, [

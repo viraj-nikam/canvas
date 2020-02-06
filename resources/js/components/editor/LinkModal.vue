@@ -3,7 +3,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-body">
-                    <p>Paste a link to embed content from another site (ie. Twitter) and press enter</p>
+                    <p>{{ trans.paste_a_link_to_embed_content }}</p>
                     <input
                         type="text"
                         ref="link"

@@ -13,7 +13,7 @@
                             type="text"
                             autofocus
                             class="form-control border-0 bg-transparent"
-                            :placeholder="trans.posts.forms.editor.images.picker.placeholder"
+                            :placeholder="trans.search_free_photos"
                         />
                     </div>
 
@@ -57,7 +57,7 @@
                         <infinite-loading v-if="isSearchingUnsplash" :identifier="infiniteId" @infinite="fetchUnsplashImages" spinner="spiral">
                             <span slot="no-more"></span>
                             <div slot="no-results" class="mb-3">
-                                No images found for "{{ searchKeyword }}"
+                                {{ trans.no_images_found_for }} "{{ searchKeyword }}"
                             </div>
                         </infinite-loading>
                     </div>
@@ -75,27 +75,27 @@
 
                         <div class="col-12" :hidden="!selectedImagesForPond.length && !selectedImageUrl">
                             <div class="form-group row">
-                                <label class="font-weight-bold text-uppercase text-muted small">Caption</label>
+                                <label class="font-weight-bold text-uppercase text-muted small">{{ trans.caption }}</label>
                                 <input
                                     type="text"
                                     :class="!Canvas.darkMode ? 'bg-light': 'bg-darker'"
                                     class="form-control border-0"
                                     v-model="selectedImageCaption"
-                                    :placeholder="trans.posts.forms.editor.images.picker.uploader.caption.placeholder"
+                                    :placeholder="trans.type_caption_for_image"
                                     ref="caption"/>
                             </div>
 
                             <div class="form-group row mt-2" :hidden="!selectedImagesForPond.length && !selectedImageUrl">
-                                <label class="font-weight-bold text-uppercase text-muted small">Layout</label>
+                                <label class="font-weight-bold text-uppercase text-muted small">{{ trans.layout }}</label>
                                 <select
                                     :class="!Canvas.darkMode ? 'bg-light': 'bg-darker'"
                                     class="custom-select border-0"
                                     v-model="selectedImageLayout">
                                     <option value="default">
-                                        {{ trans.posts.forms.editor.images.picker.uploader.layout.default }}
+                                        {{ trans.default_layout }}
                                     </option>
                                     <option value="wide">
-                                        {{ trans.posts.forms.editor.images.picker.uploader.layout.wide }}
+                                        {{ trans.wide_image }}
                                     </option>
                                 </select>
                             </div>
@@ -107,7 +107,7 @@
                         class="btn btn-link btn-block text-muted font-weight-bold text-decoration-none"
                         @click="clickDone"
                         data-dismiss="modal">
-                        {{ trans.buttons.general.done }}
+                        {{ trans.done }}
                     </button>
                 </div>
             </div>
@@ -164,7 +164,7 @@
                 galleryModalClasses: ['modal-xl', 'modal-dialog-scrollable'],
                 maxUploadFilesize: Canvas.maxUpload,
                 path: Canvas.path,
-                trans: JSON.parse(Canvas.lang),
+                trans: JSON.parse(Canvas.lang.app),
             }
         },
 
@@ -239,14 +239,7 @@
             },
 
             buildImageCaption(image) {
-                return this.trans.posts.forms.editor.images.picker.caption.by +
-                    ' <a href="' +
-                    image.user.links.html +
-                    '" target="_blank">' +
-                    image.user.name +
-                    '</a> ' +
-                    this.trans.posts.forms.editor.images.picker.caption.on +
-                    ' <a href="https://unsplash.com" target="_blank">Unsplash</a>'
+                return this.trans.photo_by + ' <a href="' + image.user.links.html + '" target="_blank">' + image.user.name + '</a> ' + this.trans.on + ' <a href="https://unsplash.com" target="_blank">Unsplash</a>'
             },
 
             processedFromFilePond() {

@@ -3,7 +3,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header d-flex align-items-center justify-content-between border-0">
-                    <h4 class="modal-title">{{ trans.posts.forms.seo.header }}</h4>
+                    <h4 class="modal-title">{{ trans.seo_settings }}</h4>
 
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" class="icon-close-circle">
@@ -16,12 +16,12 @@
                     <div class="form-group row">
                         <div class="col-12">
                             <label class="font-weight-bold text-uppercase text-muted small">
-                                {{ trans.posts.forms.seo.title.label }}
+                                {{ trans.meta_title }}
                                 <a
                                     href="#"
                                     class="text-decoration-none"
                                     v-tooltip="{ placement: 'right' }"
-                                    :title="trans.posts.forms.seo.sync.title"
+                                    :title="trans.sync_with_post_title"
                                     @click.prevent="syncTitle">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-refresh" width="25">
                                         <circle cx="12" cy="12" r="10" style="fill:none"/>
@@ -35,21 +35,21 @@
                                 @input="update"
                                 :class="!Canvas.darkMode ? 'bg-light': 'bg-darker'"
                                 class="form-control border-0"
-                                :title="trans.posts.forms.seo.title.label"
+                                :title="trans.meta_title"
                                 v-model="activePost.meta.title"
-                                :placeholder="trans.posts.forms.seo.title.placeholder"
+                                :placeholder="trans.meta_title_placeholder"
                             />
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-12">
                             <label class="font-weight-bold text-uppercase text-muted small">
-                                {{ trans.posts.forms.seo.description.label }}
+                                {{ trans.meta_description }}
                                 <a
                                     href="#"
                                     class="text-decoration-none"
                                     v-tooltip="{ placement: 'right' }"
-                                    :title="trans.posts.forms.seo.sync.description"
+                                    :title="trans.sync_with_post_description"
                                     @click.prevent="syncDescription">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-refresh" width="25">
                                         <circle cx="12" cy="12" r="10" style="fill:none"/>
@@ -66,14 +66,14 @@
                                 class="form-control border-0"
                                 @input="update"
                                 v-model="activePost.meta.description"
-                                :placeholder="trans.posts.forms.seo.description.placeholder">
+                                :placeholder="trans.meta_description_placeholder">
                             </textarea>
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-12">
                             <label class="font-weight-bold text-uppercase text-muted small">
-                                {{ trans.posts.forms.seo.canonical.label }}
+                                {{ trans.canonical_link }}
                             </label>
                             <input
                                 type="text"
@@ -82,8 +82,8 @@
                                 class="form-control border-0"
                                 name="canonical_link"
                                 v-model="activePost.meta.canonical_link"
-                                :title="trans.posts.forms.seo.canonical.label"
-                                :placeholder="trans.posts.forms.seo.canonical.placeholder"
+                                :title="trans.canonical_link"
+                                :placeholder="trans.canonical_link_placeholder"
                             />
                         </div>
                     </div>
@@ -93,7 +93,7 @@
                         type="button"
                         class="btn btn-link btn-block font-weight-bold text-muted text-decoration-none"
                         data-dismiss="modal">
-                        {{ trans.buttons.general.done }}
+                        {{ trans.done }}
                     </button>
                 </div>
             </div>

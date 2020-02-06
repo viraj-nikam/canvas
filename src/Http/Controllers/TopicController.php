@@ -68,8 +68,8 @@ class TopicController extends Controller
         ];
 
         $messages = [
-            'required' => __('canvas::validation.required'),
-            'unique'   => __('canvas::validation.unique'),
+            'required' => __('canvas::app.validation_required'),
+            'unique'   => __('canvas::app.validation_unique'),
         ];
 
         validator($data, [

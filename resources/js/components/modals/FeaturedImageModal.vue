@@ -13,7 +13,7 @@
                             type="text"
                             autofocus
                             class="form-control border-0 bg-transparent"
-                            :placeholder="trans.posts.forms.editor.images.picker.placeholder"
+                            :placeholder="trans.search_free_photos"
                         />
                     </div>
 
@@ -81,7 +81,7 @@
                                     :class="!Canvas.darkMode ? 'bg-light': 'bg-darker'"
                                     class="form-control border-0"
                                     v-model="selectedImageCaption"
-                                    :placeholder="trans.posts.forms.editor.images.picker.uploader.caption.placeholder"
+                                    :placeholder="trans.type_caption_for_image"
                                     ref="caption"/>
                             </div>
                         </div>
@@ -92,7 +92,7 @@
                         class="btn btn-link btn-block text-muted font-weight-bold text-decoration-none"
                         @click="clickDone"
                         data-dismiss="modal">
-                        {{ trans.buttons.general.done }}
+                        {{ trans.done }}
                     </button>
                 </div>
             </div>
@@ -217,14 +217,7 @@
             },
 
             buildImageCaption(image) {
-                return this.trans.posts.forms.editor.images.picker.caption.by +
-                    ' <a href="' +
-                    image.user.links.html +
-                    '" target="_blank">' +
-                    image.user.name +
-                    '</a> ' +
-                    this.trans.posts.forms.editor.images.picker.caption.on +
-                    ' <a href="https://unsplash.com" target="_blank">Unsplash</a>'
+                return this.trans.photo_by + ' <a href="' + image.user.links.html + '" target="_blank">' + image.user.name + '</a> ' + this.trans.on + ' <a href="https://unsplash.com" target="_blank">Unsplash</a>'
             },
 
             processedFromFilePond() {

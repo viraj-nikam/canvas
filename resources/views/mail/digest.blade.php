@@ -1,17 +1,17 @@
 @component('mail::message')
-# {{ __('canvas::mail.digest.summary') }} {{ $data['end_date'] }}
+# {{ __('canvas::app.your_weekly_writer_summary', ['end_date' => $data['end_date']]) }}
 
-{{ __('canvas::mail.digest.from') }} {{ $data['start_date'] }} {{ __('canvas::mail.digest.to') }} {{ $data['end_date'] }}, {{ __('canvas::mail.digest.data') }}:
+{{ __('canvas::app.your_posts_received', ['start_date' => $data['start_date'], 'end_date' => $data['end_date']]) }}
 
 @component('mail::table')
-|                                 |                               |
-|---------------------------------|-------------------------------|
+|                                 |                                  |
+|---------------------------------|----------------------------------|
 | **+{{ $data['total_views'] }}** | **+{{ $data['total_visits'] }}** |
-| Views                           | Visits                        |
+| {{ __('canvas::app.views') }}   | {{ __('canvas::app.visits') }}   |
 @endcomponent
 
 @component('mail::table')
-|                        | Visits                                    | Views                                    |
+|                        | {{ __('canvas::app.visits') }}            | {{ __('canvas::app.views') }}            |
 | ---------------------- | ----------------------------------------- | ----------------------------------------:|
 @foreach($data['posts'] as $post)
 | *{{ $post['title'] }}* | **+{{ number_format($post['visits']) }}** | **+{{ number_format($post['views']) }}** |
@@ -19,7 +19,7 @@
 @endcomponent
 
 @component('mail::button', ['url' => url(config('canvas.path'))])
-{{ __('canvas::buttons.stats.index') }}
+{{ __('canvas::app.see_all_stats') }}
 @endcomponent
 
 Thanks,<br>

@@ -235,7 +235,7 @@
                     },
                     theme: 'bubble',
                     scrollingContainer: 'html, body',
-                    placeholder: this.trans.posts.forms.editor.body,
+                    placeholder: this.trans.tell_your_story,
                 })
 
                 /**
@@ -246,7 +246,7 @@
                 let tooltip = quill.theme.tooltip
                 let input = tooltip.root.querySelector('input[data-link]')
 
-                input.dataset.link = this.trans.posts.forms.editor.link
+                input.dataset.link = this.trans.paste_or_type_a_link
 
                 return quill
             },

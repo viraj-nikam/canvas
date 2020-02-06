@@ -3,7 +3,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-body">
-                    <p>Paste a video link (ie. YouTube, Vimeo) and press enter</p>
+                    <p>{{ trans.paste_a_video_link }}</p>
                     <input
                         type="text"
                         ref="link"

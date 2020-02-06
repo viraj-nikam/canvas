@@ -30,8 +30,8 @@
 <div id="canvas">
     @if(!$assetsUpToDate)
        <div class="alert alert-danger border-0 text-center rounded-0">
-           The assets for Canvas are not up-to-date with the installed version.
-           To update, run:<br/><code>php artisan canvas:publish</code>
+           {{ __('canvas::app.assets_are_not_up_to_date') }}
+           {{ __('canvas::app.to_update_run') }}<br/><code>php artisan canvas:publish</code>
        </div>
     @endif
 

@@ -23,12 +23,12 @@
                                 class="btn btn-danger btn-block font-weight-bold mt-0"
                                 aria-label="Delete"
                                 @click.prevent="confirmProceed()">
-                                {{ trans.buttons.general.delete }}
+                                {{ trans.delete }}
                             </a>
                         </div>
                         <div class="col-lg order-lg-first px-0">
                             <button class="btn btn-link btn-block font-weight-bold text-muted text-decoration-none" data-dismiss="modal">
-                                {{ trans.buttons.general.cancel }}
+                                {{ trans.cancel }}
                             </button>
                         </div>
                     </div>
