@@ -65,7 +65,7 @@
                         <div class="d-flex">
                             <div class="mr-5">
                                 <p class="mb-0 small text-muted text-uppercase font-weight-bold">
-                                    {{ trans.app.views_simple }}
+                                    {{ trans.app.views }}
                                 </p>
                                 <h3 class="my-1">
                                     {{ suffixedNumber(viewCount) }}

@@ -163,11 +163,19 @@
             },
 
             viewLabel(value) {
-                return ' ' + value + this.plural(this.trans.app.view, value)
+                if (Number(value) === 1) {
+                    return value + ' ' + this.trans.app.view
+                } else {
+                    return value + ' ' + this.trans.app.views_simple
+                }
             },
 
             uniqueVisitorLabel(value) {
-                return ' ' + value + ' ' + this.trans.app.unique + this.plural(this.trans.app.visitor, value)
+                if (Number(value) === 1) {
+                    return value + ' ' + this.trans.app.unique_visit
+                } else {
+                    return value + ' ' + this.trans.app.unique_visits
+                }
             }
         },
     }

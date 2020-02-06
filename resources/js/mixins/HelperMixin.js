@@ -26,14 +26,6 @@ export default {
             }
         },
 
-        plural(string, count) {
-            if (Number(count) > 1 || Number(count) === 0) {
-                return ' ' + string + 's'
-            } else {
-                return ' ' + string
-            }
-        },
-
         trim(string, length = 70) {
             return _.truncate(string, {
                 length: length,
