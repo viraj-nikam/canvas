@@ -53,7 +53,7 @@ class DigestCommand extends Command
 
                 // Get the weekly digest date ranges
                 $data->put('start_date', now()->subDays(7)->format('M d'));
-                $data->put('end_date', now()->format('M d, Y'));
+                $data->put('end_date', now()->format('M d'));
 
                 try {
                     Mail::send(new WeeklyDigest($data->toArray()));

@@ -1,7 +1,7 @@
 @component('mail::message')
-# {{ __('canvas::app.your_weekly_writer_summary', ['end_date' => $data['end_date']]) }}
+# {{ __('canvas::app.your_weekly_writer_summary_for') }} {{ $data['end_date'] }}
 
-{{ __('canvas::app.your_posts_received', ['start_date' => $data['start_date'], 'end_date' => $data['end_date']]) }}
+{{ __('canvas::app.from') }} {{ $data['start_date'] }} {{ __('canvas::app.to') }} {{ $data['end_date'] }} {{ __('canvas::app.your_posts_received') }}
 
 @component('mail::table')
 |                                 |                                  |
