@@ -32,9 +32,14 @@
                     <infinite-loading @infinite="fetchData" spinner="spiral">
                         <span slot="no-more"></span>
                         <div slot="no-results" class="text-left">
-                            <p class="mt-2">
-                                {{ trans.app.you_have_no_tags }}
-                            </p>
+                            <div class="mt-5">
+                                <p class="lead text-center text-muted mt-5 pt-5">
+                                    {{ trans.app.you_have_no_tags }}
+                                </p>
+                                <p class="lead text-center text-muted mt-1">
+                                    {{ trans.app.write_on_the_go }}
+                                </p>
+                            </div>
                         </div>
                     </infinite-loading>
                 </div>

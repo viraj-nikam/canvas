@@ -97,8 +97,13 @@
                         </infinite-loading>
                     </div>
 
-                    <div v-else>
-                        <p class="mt-4">{{ trans.app.there_are_no_published_posts }}</p>
+                    <div v-else class="mt-5">
+                        <p class="lead text-center text-muted mt-5 pt-5">
+                            {{ trans.app.you_have_no_published_posts }}
+                        </p>
+                        <p class="lead text-center text-muted mt-1">
+                            {{ trans.app.stats_are_made_available }}
+                        </p>
                     </div>
                 </div>
             </div>
