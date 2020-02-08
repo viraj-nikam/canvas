@@ -29,7 +29,7 @@ class UserMeta extends Model
      * @var array
      */
     protected $casts = [
-        'digest'    => 'boolean',
+        'digest' => 'boolean',
         'dark_mode' => 'boolean',
     ];
 

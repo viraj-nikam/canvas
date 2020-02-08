@@ -47,12 +47,12 @@ class StatsController extends Controller
                        ])->get();
 
         return response()->json([
-            'view_count'      => $views->count(),
-            'view_trend'      => json_encode($this->getDataPoints($views, self::DAYS_PRIOR)),
-            'visit_count'     => $visits->count(),
-            'visit_trend'     => json_encode($this->getDataPoints($visits, self::DAYS_PRIOR)),
+            'view_count' => $views->count(),
+            'view_trend' => json_encode($this->getDataPoints($views, self::DAYS_PRIOR)),
+            'visit_count' => $visits->count(),
+            'visit_trend' => json_encode($this->getDataPoints($visits, self::DAYS_PRIOR)),
             'published_count' => $published->count(),
-            'draft_count'     => Post::forCurrentUser()->draft()->count(),
+            'draft_count' => Post::forCurrentUser()->draft()->count(),
         ]);
     }
 
@@ -92,16 +92,16 @@ class StatsController extends Controller
             ]);
 
             return response()->json([
-                'post'                   => $post,
-                'read_time'              => $post->read_time,
-                'popular_reading_times'  => $post->popular_reading_times,
-                'traffic'                => $post->top_referers,
-                'view_count'             => $currentMonthlyViews->count(),
-                'view_trend'             => json_encode($this->getDataPoints($lastThirtyDays, self::DAYS_PRIOR)),
-                'view_month_over_month'  => $this->compareMonthToMonth($currentMonthlyViews, $previousMonthlyViews),
-                'view_count_lifetime'    => $views->count(),
-                'visit_count'            => $currentMonthlyVisits->count(),
-                'visit_trend'            => json_encode($this->getDataPoints($visits, self::DAYS_PRIOR)),
+                'post' => $post,
+                'read_time' => $post->read_time,
+                'popular_reading_times' => $post->popular_reading_times,
+                'traffic' => $post->top_referers,
+                'view_count' => $currentMonthlyViews->count(),
+                'view_trend' => json_encode($this->getDataPoints($lastThirtyDays, self::DAYS_PRIOR)),
+                'view_month_over_month' => $this->compareMonthToMonth($currentMonthlyViews, $previousMonthlyViews),
+                'view_count_lifetime' => $views->count(),
+                'visit_count' => $currentMonthlyVisits->count(),
+                'visit_trend' => json_encode($this->getDataPoints($visits, self::DAYS_PRIOR)),
                 'visit_month_over_month' => $this->compareMonthToMonth($currentMonthlyVisits, $previousMonthlyVisits),
             ]);
         } else {

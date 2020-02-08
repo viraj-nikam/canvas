@@ -59,12 +59,12 @@ abstract class TestCase extends OrchestraTestCase
         $config->set('database.default', 'sqlite');
 
         $config->set('database.connections.sqlite', [
-            'driver'   => 'sqlite',
+            'driver' => 'sqlite',
             'database' => ':memory:',
-            'prefix'   => '',
+            'prefix' => '',
         ]);
 
-        $config->set('view.paths', [dirname(__DIR__).'/resources/views']);
+        $config->set('view.paths', [dirname(__DIR__) . '/resources/views']);
 
         $config->set('auth.providers.users.model', User::class);
     }
@@ -76,8 +76,8 @@ abstract class TestCase extends OrchestraTestCase
     protected function setUpDatabase($app): void
     {
         $this->loadLaravelMigrations();
-        $this->loadMigrationsFrom(dirname(__DIR__).'/database/migrations');
-        $this->loadFactoriesUsing($this->app, __DIR__.'/../src/Storage/factories');
+        $this->loadMigrationsFrom(dirname(__DIR__) . '/database/migrations');
+        $this->loadFactoriesUsing($this->app, __DIR__ . '/../src/Storage/factories');
 
         $this->artisan('migrate');
     }

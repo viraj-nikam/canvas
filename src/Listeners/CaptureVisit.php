@@ -22,9 +22,9 @@ class CaptureVisit
         if ($this->visitIsUnique($event->post, $ip)) {
             $visit_data = [
                 'post_id' => $event->post->id,
-                'ip'      => $ip,
-                'agent'   => request()->header('user_agent'),
-                'referer' => $this->validUrl((string) request()->header('referer')),
+                'ip' => $ip,
+                'agent' => request()->header('user_agent'),
+                'referer' => $this->validUrl((string)request()->header('referer')),
             ];
 
             $event->post->visits()->create($visit_data);
@@ -58,7 +58,7 @@ class CaptureVisit
     {
         session()->put("visited_posts.{$post->id}", [
             'timestamp' => now()->timestamp,
-            'ip'        => $ip,
+            'ip' => $ip,
         ]);
     }
 

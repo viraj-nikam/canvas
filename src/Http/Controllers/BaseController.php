@@ -16,7 +16,7 @@ class BaseController extends Controller
     {
         return view('canvas::layout', [
             'assetsUpToDate' => Canvas::assetsUpToDate(),
-            'scripts'        => Canvas::scriptVariables(),
+            'scripts' => Canvas::scriptVariables(),
         ]);
     }
 }

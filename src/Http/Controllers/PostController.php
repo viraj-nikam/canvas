@@ -25,14 +25,14 @@ class PostController extends Controller
 
         if (request()->query('postType') == 'draft') {
             return response()->json([
-                'posts'          => Post::forCurrentUser()->draft()->latest()->withCount('views')->paginate(),
-                'draftCount'     => $draftCount,
+                'posts' => Post::forCurrentUser()->draft()->latest()->withCount('views')->paginate(),
+                'draftCount' => $draftCount,
                 'publishedCount' => $publishedCount,
             ], 200);
         } else {
             return response()->json([
-                'posts'          => Post::forCurrentUser()->published()->latest()->withCount('views')->paginate(),
-                'draftCount'     => $draftCount,
+                'posts' => Post::forCurrentUser()->published()->latest()->withCount('views')->paginate(),
+                'draftCount' => $draftCount,
                 'publishedCount' => $publishedCount,
             ], 200);
         }
@@ -55,17 +55,17 @@ class PostController extends Controller
                 $uuid = Uuid::uuid4();
 
                 return response()->json([
-                    'post'   => Post::make([
-                        'id'   => $uuid->toString(),
+                    'post' => Post::make([
+                        'id' => $uuid->toString(),
                         'slug' => "post-{$uuid->toString()}",
                     ]),
-                    'tags'   => $tags,
+                    'tags' => $tags,
                     'topics' => $topics,
                 ]);
             } else {
                 return response()->json([
-                    'post'   => Post::forCurrentUser()->with('tags:name,slug', 'topic:name,slug')->find($id),
-                    'tags'   => $tags,
+                    'post' => Post::forCurrentUser()->with('tags:name,slug', 'topic:name,slug')->find($id),
+                    'tags' => $tags,
                     'topics' => $topics,
                 ]);
             }
@@ -84,30 +84,30 @@ class PostController extends Controller
     public function store(string $id): JsonResponse
     {
         $data = [
-            'id'                     => request('id'),
-            'slug'                   => request('slug'),
-            'title'                  => request('title', 'Title'),
-            'summary'                => request('summary', null),
-            'body'                   => request('body', null),
-            'published_at'           => request('published_at', null),
-            'featured_image'         => request('featured_image', null),
+            'id' => request('id'),
+            'slug' => request('slug'),
+            'title' => request('title', 'Title'),
+            'summary' => request('summary', null),
+            'body' => request('body', null),
+            'published_at' => request('published_at', null),
+            'featured_image' => request('featured_image', null),
             'featured_image_caption' => request('featured_image_caption', null),
-            'user_id'                => request()->user()->id,
-            'meta'                   => [
-                'description'    => request('meta.description', null),
-                'title'          => request('meta.title', null),
+            'user_id' => request()->user()->id,
+            'meta' => [
+                'description' => request('meta.description', null),
+                'title' => request('meta.title', null),
                 'canonical_link' => request('meta.canonical_link', null),
             ],
         ];
 
         $messages = [
             'required' => __('canvas::app.validation_required'),
-            'unique'   => __('canvas::app.validation_unique'),
+            'unique' => __('canvas::app.validation_unique'),
         ];
 
         validator($data, [
             'user_id' => 'required',
-            'slug'    => [
+            'slug' => [
                 'required',
                 'alpha_dash',
                 Rule::unique('canvas_posts')->where(function ($query) use ($data) {
@@ -173,16 +173,16 @@ class PostController extends Controller
         if ($incomingTopic) {
             $topic = Topic::where('slug', $incomingTopic['slug'])->first();
 
-            if (! $topic) {
+            if (!$topic) {
                 $topic = Topic::create([
-                    'id'      => $id = Uuid::uuid4(),
-                    'name'    => $incomingTopic['name'],
-                    'slug'    => $incomingTopic['slug'],
+                    'id' => $id = Uuid::uuid4(),
+                    'name' => $incomingTopic['name'],
+                    'slug' => $incomingTopic['slug'],
                     'user_id' => request()->user()->id,
                 ]);
             }
 
-            return collect((string) $topic->id)->toArray();
+            return collect((string)$topic->id)->toArray();
         } else {
             return [];
         }
@@ -202,16 +202,16 @@ class PostController extends Controller
             return collect($incomingTags)->map(function ($incomingTag) use ($tags) {
                 $tag = $tags->where('slug', $incomingTag['slug'])->first();
 
-                if (! $tag) {
+                if (!$tag) {
                     $tag = Tag::create([
-                        'id'      => $id = Uuid::uuid4(),
-                        'name'    => $incomingTag['name'],
-                        'slug'    => $incomingTag['slug'],
+                        'id' => $id = Uuid::uuid4(),
+                        'name' => $incomingTag['name'],
+                        'slug' => $incomingTag['slug'],
                         'user_id' => request()->user()->id,
                     ]);
                 }
 
-                return (string) $tag->id;
+                return (string)$tag->id;
             })->toArray();
         } else {
             return [];

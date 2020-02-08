@@ -20,9 +20,9 @@ class TagController extends Controller
     {
         return response()->json(
             Tag::forCurrentUser()
-                ->latest()
-                ->withCount('posts')
-                ->paginate(), 200
+               ->latest()
+               ->withCount('posts')
+               ->paginate(), 200
         );
     }
 
@@ -61,15 +61,15 @@ class TagController extends Controller
     public function store(string $id): JsonResponse
     {
         $data = [
-            'id'      => request('id'),
-            'name'    => request('name'),
-            'slug'    => request('slug'),
+            'id' => request('id'),
+            'name' => request('name'),
+            'slug' => request('slug'),
             'user_id' => request()->user()->id,
         ];
 
         $messages = [
             'required' => __('canvas::app.validation_required'),
-            'unique'   => __('canvas::app.validation_unique'),
+            'unique' => __('canvas::app.validation_unique'),
         ];
 
         validator($data, [

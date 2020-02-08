@@ -95,8 +95,8 @@ class DigestCommand extends Command
             if (array_sum([$views->count(), $visits->count()]) > 0) {
                 $post = Post::find($post_id);
                 $postData->put($post->id, [
-                    'title'  => $post->title,
-                    'views'  => $views->count(),
+                    'title' => $post->title,
+                    'views' => $views->count(),
                     'visits' => $visits->count(),
                 ]);
             }
