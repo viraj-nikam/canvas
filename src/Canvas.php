@@ -19,14 +19,15 @@ class Canvas
         $emailHash = md5(trim(Str::lower(request()->user()->email)));
 
         return [
-            'lang'      => self::compileLanguageFile(config('app.locale')),
-            'path'      => config('canvas.path'),
-            'timezone'  => config('app.timezone'),
-            'unsplash'  => config('canvas.unsplash.access_key'),
-            'user'      => auth()->user()->only(['name', 'email']),
-            'avatar'    => optional($metaData)->avatar && ! empty(optional($metaData)->avatar) ? $metaData->avatar : "https://secure.gravatar.com/avatar/{$emailHash}?s=500",
-            'darkMode'  => optional($metaData)->dark_mode,
+            'avatar' => optional($metaData)->avatar && !empty(optional($metaData)->avatar) ? $metaData->avatar : "https://secure.gravatar.com/avatar/{$emailHash}?s=500",
+            'darkMode' => optional($metaData)->dark_mode,
+            'lang' => self::compileLanguageFile(config('app.locale')),
+            'locale' => config('app.locale'),
             'maxUpload' => config('canvas.upload_filesize'),
+            'path' => config('canvas.path'),
+            'timezone' => config('app.timezone'),
+            'unsplash' => config('canvas.unsplash.access_key'),
+            'user' => auth()->user()->only(['name', 'email']),
         ];
     }
 
@@ -39,11 +40,11 @@ class Canvas
     {
         $path = public_path('vendor/canvas/mix-manifest.json');
 
-        if (! File::exists($path)) {
-            throw new RuntimeException(__('canvas::app.assets_are_not_up_to_date').__('canvas::app.to_update_run').' php artisan canvas:publish');
+        if (!File::exists($path)) {
+            throw new RuntimeException(__('canvas::app.assets_are_not_up_to_date') . __('canvas::app.to_update_run') . ' php artisan canvas:publish');
         }
 
-        return File::get($path) === File::get(__DIR__.'/../public/mix-manifest.json');
+        return File::get($path) === File::get(__DIR__ . '/../public/mix-manifest.json');
     }
 
     /**
@@ -55,7 +56,7 @@ class Canvas
      */
     private static function compileLanguageFile(string $locale): string
     {
-        $langDirectory = dirname(__DIR__, 1).'/resources/lang';
+        $langDirectory = dirname(__DIR__, 1) . '/resources/lang';
         $file = "{$langDirectory}/{$locale}/app.php";
         $lines = collect();
         $lines->put('app', include $file);

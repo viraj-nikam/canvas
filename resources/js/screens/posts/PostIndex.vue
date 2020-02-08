@@ -32,14 +32,14 @@
                             </p>
                             <p class="text-muted mb-0">
                                 <span v-if="isPublished(post)">
-                                    {{ trans.app.published}} {{ moment(post.published_at).fromNow() }}
+                                    {{ trans.app.published}} {{ moment(post.published_at).locale(Canvas.locale).fromNow() }}
                                 </span>
 
                                 <span v-if="isDraft(post)" class="text-danger">{{ trans.app.draft }}</span>
 
                                 <span v-if="isScheduled(post)" class="text-danger">{{ trans.app.scheduled }}</span>
 
-                                ― {{ trans.app.updated }} {{ moment(post.updated_at).fromNow() }}
+                                ― {{ trans.app.updated }} {{ moment(post.updated_at).locale(Canvas.locale).fromNow() }}
                             </p>
                         </div>
                         <div class="ml-auto d-none d-lg-block pl-3">

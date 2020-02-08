@@ -86,7 +86,7 @@
                                 </div>
                                 <div class="ml-auto d-none d-lg-block">
                                     <span class="text-muted mr-3">{{ suffixedNumber(post.views_count) }} {{ trans.app.views }}</span>
-                                    {{ trans.app.created }} {{ moment(post.created_at).fromNow() }}
+                                    {{ trans.app.created }} {{ moment(post.created_at).locale(Canvas.locale).fromNow() }}
                                 </div>
                             </div>
                         </div>

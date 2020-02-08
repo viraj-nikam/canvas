@@ -25,7 +25,7 @@
                         </div>
                         <div class="ml-auto">
                             <span class="text-muted mr-3">{{ topic.posts_count }} {{ trans.app.posts }}</span>
-                            <span class="d-none d-md-inline-block">{{ trans.app.created }} {{ moment(topic.created_at).fromNow() }}</span>
+                            <span class="d-none d-md-inline-block">{{ trans.app.created }} {{ moment(topic.created_at).locale(Canvas.locale).fromNow() }}</span>
                         </div>
                     </div>
 
