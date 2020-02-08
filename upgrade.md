@@ -7,7 +7,9 @@
 
 ## Upgrading to 5.2.0 from 5.1
 
-> **Before starting:** The `meta` field for posts will now only support a title, description, and canonical link. The og_* and twitter_* tags were unnecessarily specific, so they were removed. If you use those tags in your frontend templates, simply update them with the new title and description fields.
+> **Important:** The `Canvas\Http\Middleware\ViewThrottle` middleware was renamed to `Canvas\Http\Middleware\Session`. Update any usages of this class.
+
+> **Important:** The `meta` field for posts will now only support a title, description, and canonical link. The `og_*` and `twitter_*` tags were unnecessarily specific, so they were deprecated. If you use those tags in your frontend templates, simply update them with the new title and description fields.
 
 ### Updating dependencies
 
