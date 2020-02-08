@@ -1,5 +1,44 @@
 # Upgrade Guide
 
+## Table of Contents
+
+- [Upgrading to 5.2.0 from 5.1](#upgrading-to-520-from-51)
+- [Upgrading to 5.1.0 from 5.0](#upgrading-to-510-from-50)
+
+## Upgrading to 5.2.0 from 5.1
+
+> **Before starting:** The `meta` field for posts will now only support a title, description, and canonical link. The og_* and twitter_* tags were unnecessarily specific, so they were removed. If you use those tags in your frontend templates, simply update them with the new title and description fields.
+
+### Updating dependencies
+
+Update your `cnvs/canvas` dependency to `^5.2` in your `composer.json` file. Upgrade the package to the latest version:
+
+```bash
+composer update
+```
+
+### Migrations
+
+Run the new migrations using the `migrate` Artisan command:
+
+```bash
+php artisan migrate
+```
+
+### Assets
+
+Re-publish the assets using the `canvas:publish` Artisan command:
+
+```bash
+php artisan canvas:publish
+```
+
+Clear any cached views using the `view:clear` Artisan command:
+
+```bash
+php artisan view:clear
+```
+
 ## Upgrading to 5.1.0 from 5.0
 
 ### Updating dependencies
