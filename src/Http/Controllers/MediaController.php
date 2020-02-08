@@ -2,6 +2,7 @@
 
 namespace Canvas\Http\Controllers;
 
+use Illuminate\Http\UploadedFile;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Storage;
 
@@ -14,13 +15,18 @@ class MediaController extends Controller
      */
     public function store()
     {
-        // TODO: refactor this on the client side to avoid chaining requests
-        $file = request()->file('editorImagePond') ?? request()->file('featuredImagePond') ?? request()->file('profileImagePond');
-        $path = $file->storePublicly($this->baseStoragePath(), [
-            'disk' => config('canvas.storage_disk'),
-        ]);
+        $payload = request()->file();
 
-        return Storage::disk(config('canvas.storage_disk'))->url($path);
+        // We only expect single file uploads at this time
+        $file = reset($payload);
+
+        if ($file instanceof UploadedFile) {
+            $path = $file->storePublicly($this->baseStoragePath(), [
+                'disk' => config('canvas.storage_disk'),
+            ]);
+
+            return Storage::disk(config('canvas.storage_disk'))->url($path);
+        }
     }
 
     /**
