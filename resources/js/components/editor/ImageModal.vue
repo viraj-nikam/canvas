@@ -3,8 +3,8 @@
         <div class="modal-dialog" ref="modal" role="document">
             <div class="modal-content">
                 <div v-if="!selectedImageUrl" class="modal-header d-flex align-items-center justify-content-between">
-                    <div v-if="unsplashKey" class="input-group">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" class="icon-search">
+                    <div v-if="unsplashKey" class="input-group align-items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" class="icon-search float-left position-absolute">
                             <circle cx="10" cy="10" r="7" class="fill-bg"/>
                             <path class="primary" d="M16.32 14.9l1.1 1.1c.4-.02.83.13 1.14.44l3 3a1.5 1.5 0 0 1-2.12 2.12l-3-3a1.5 1.5 0 0 1-.44-1.14l-1.1-1.1a8 8 0 1 1 1.41-1.41zM10 16a6 6 0 1 0 0-12 6 6 0 0 0 0 12z"/>
                         </svg>
@@ -12,6 +12,7 @@
                             v-model="searchKeyword"
                             type="text"
                             autofocus
+                            style="padding-left:32px"
                             class="form-control border-0 bg-transparent"
                             :placeholder="trans.app.search_free_photos"
                         />
