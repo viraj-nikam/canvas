@@ -40,7 +40,7 @@
                         @removefile="removedFromFilePond"/>
 
                     <div v-if="!isReadyToAcceptUploads" class="d-flex justify-content-center bg-black">
-                        <button @click.prevent="clearAvatar" type="button" class="close position-absolute" style="top:205px" data-dismiss="modal" aria-label="Close">
+                        <button @click.prevent="clearAvatar" type="button" class="close position-absolute d-block align-self-center" data-dismiss="modal" aria-label="Close">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" class="icon-trash">
                                 <path class="primary" d="M5 5h14l-.89 15.12a2 2 0 0 1-2 1.88H7.9a2 2 0 0 1-2-1.88L5 5zm5 5a1 1 0 0 0-1 1v6a1 1 0 0 0 2 0v-6a1 1 0 0 0-1-1zm4 0a1 1 0 0 0-1 1v6a1 1 0 0 0 2 0v-6a1 1 0 0 0-1-1z"/>
                                 <path class="primary" d="M8.59 4l1.7-1.7A1 1 0 0 1 11 2h2a1 1 0 0 1 .7.3L15.42 4H19a1 1 0 0 1 0 2H5a1 1 0 1 1 0-2h3.59z"/>

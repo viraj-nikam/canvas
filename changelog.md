@@ -2,6 +2,11 @@
 
 ## [Unreleased](https://github.com/cnvs/canvas/compare/master...develop)
 
+## [5.2.2](https://github.com/cnvs/canvas/compare/v5.2.1...v5.2.2) (February 9, 2020)
+
+### Fixed
+- Fixed a Safari-related bug ([e42ce62](https://github.com/cnvs/canvas/commit/e42ce624a2b2827332384a86089fa956fb6a6f4c))
+
 ## [5.2.1](https://github.com/cnvs/canvas/compare/v5.2.0...v5.2.1) (February 9, 2020)
 
 ### Fixed
