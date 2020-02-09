@@ -22,7 +22,13 @@
  */
 
 /*!
- * FilePond 4.9.5
+ * FilePond 4.10.0
+ * Licensed under MIT, https://opensource.org/licenses/MIT/
+ * Please visit https://pqina.nl/filepond/ for details.
+ */
+
+/*!
+ * FilePondPluginFileValidateSize 2.2.0
  * Licensed under MIT, https://opensource.org/licenses/MIT/
  * Please visit https://pqina.nl/filepond/ for details.
  */
@@ -40,7 +46,7 @@
  */
 
 /*!
- * FilePondPluginImagePreview 4.6.0
+ * FilePondPluginImagePreview 4.6.1
  * Licensed under MIT, https://opensource.org/licenses/MIT/
  * Please visit https://pqina.nl/filepond/ for details.
  */
@@ -110,6 +116,14 @@
  * vue-infinite-loading v2.4.4
  * (c) 2016-2019 PeachScript
  * MIT License
+ */
+
+/*! @preserve
+ * numeral.js
+ * version : 2.0.6
+ * author : Adam Draper
+ * license : MIT
+ * http://adamwdraper.github.com/Numeral-js/
  */
 
 /**

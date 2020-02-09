@@ -2,6 +2,8 @@
 
 ## [Unreleased](https://github.com/cnvs/canvas/compare/master...develop)
 
+## [5.2.0](https://github.com/cnvs/canvas/compare/v5.1.1...v5.2.0) (February 9, 2020)
+
 ### Fixed
 - Fixed the translations based on locale ([#595](https://github.com/cnvs/canvas/issues/595), [01ec767](https://github.com/cnvs/canvas/commit/01ec767e9cdc9faedc7395f517aa2898d1342385))
 - Fixed a parse error for canonical URLs ([#610](https://github.com/cnvs/canvas/issues/610), [f706204](https://github.com/cnvs/canvas/commit/f706204d21414d10277360900519e69de80b9236))
