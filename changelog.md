@@ -2,6 +2,11 @@
 
 ## [Unreleased](https://github.com/cnvs/canvas/compare/master...develop)
 
+## [5.2.1](https://github.com/cnvs/canvas/compare/v5.2.0...v5.2.1) (February 9, 2020)
+
+### Fixed
+- Fixed a bug on referer attributes ([9631885](https://github.com/cnvs/canvas/commit/9631885e1d1cb8330556172d4fc4132d73d38459))
+
 ## [5.2.0](https://github.com/cnvs/canvas/compare/v5.1.1...v5.2.0) (February 9, 2020)
 
 ### Fixed

@@ -248,7 +248,7 @@ class Post extends Model
         $collection = collect();
         $data->each(function ($item, $key) use ($collection) {
             if (empty(parse_url($item->referer)['host'])) {
-                $collection->push(__('canvas::app.referer_unknown'));
+                $collection->push(__('canvas::app.other'));
             } else {
                 $collection->push(parse_url($item->referer)['host']);
             }
