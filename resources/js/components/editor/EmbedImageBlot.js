@@ -2,7 +2,7 @@ import Quill from 'quill'
 
 let BlockEmbed = Quill.import('blots/block/embed')
 
-class ImageBlot extends BlockEmbed {
+class EmbedImageBlot extends BlockEmbed {
     static create(value) {
         let node = super.create()
 
@@ -36,8 +36,8 @@ class ImageBlot extends BlockEmbed {
     }
 }
 
-ImageBlot.tagName = 'div'
-ImageBlot.blotName = 'captioned-image'
-ImageBlot.className = 'embedded_image'
+EmbedImageBlot.tagName = 'div'
+EmbedImageBlot.blotName = 'embed-image'
+EmbedImageBlot.className = 'embedded_image'
 
-export default ImageBlot
+export default EmbedImageBlot

@@ -126,12 +126,12 @@
         margin: 0 auto 30px;
     }
 
-    div.embedded_image[data-layout=wide] {
+    div.embedded_image[data-layout="wide"] {
         display: flex;
         justify-content: center;
     }
 
-    div.post.serif.mt-4.pb-3 > div.embedded_image[data-layout=wide] {
+    div.post.serif.mt-4.pb-3 > div.embedded_image[data-layout="wide"] {
         width: 100vw;
         position: relative;
         left: 50%;

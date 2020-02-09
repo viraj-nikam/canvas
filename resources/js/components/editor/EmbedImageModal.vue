@@ -140,7 +140,7 @@
     );
 
     export default {
-        name: 'image-modal',
+        name: 'embed-image-modal',
 
         components: {
             InfiniteLoading,
@@ -170,7 +170,7 @@
         },
 
         mounted() {
-            this.$parent.$on('openingImageModal', data => {
+            this.$parent.$on('openingEmbedImageModal', data => {
                 if (!_.isEmpty(data)) {
                     this.selectedImageCaption = _.isEmpty(data.caption) ? '' : data.caption
                     this.selectedImageUrl = data.url
@@ -257,12 +257,12 @@
             clickDone() {
                 if (!this.selectedImageUrl) {
                     if (!_.isEmpty(this.selectedImageBlot)) {
-                        this.$emit('removingImage', {
+                        this.$emit('removingEmbedImage', {
                             existingBlot: this.selectedImageBlot
                         })
                     }
                 } else {
-                    this.$emit('addingImage', {
+                    this.$emit('addingEmbedImage', {
                         url: this.selectedImageUrl,
                         caption: this.selectedImageCaption ?? '',
                         existingBlot: this.selectedImageBlot,

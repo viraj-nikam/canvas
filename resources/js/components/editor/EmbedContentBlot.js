@@ -2,7 +2,7 @@ import Quill from 'quill'
 
 let BlockEmbed = Quill.import('blots/block/embed')
 
-class EmbedBlot extends BlockEmbed {
+class EmbedContentBlot extends BlockEmbed {
     static create(value) {
         let node = super.create()
 
@@ -19,8 +19,8 @@ class EmbedBlot extends BlockEmbed {
     }
 }
 
-EmbedBlot.blotName = 'embed'
-EmbedBlot.tagName = 'div'
-EmbedBlot.className = 'ql-embed'
+EmbedContentBlot.tagName = 'div'
+EmbedContentBlot.blotName = 'embed-content'
+EmbedContentBlot.className = 'ql-embed-content'
 
-export default EmbedBlot
+export default EmbedContentBlot

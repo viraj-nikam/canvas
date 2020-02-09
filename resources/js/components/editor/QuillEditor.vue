@@ -17,7 +17,7 @@
                 </button>
                 <div class="controls pl-3 d-none">
                     <button
-                        @click="showImageModal"
+                        @click="showEmbedImageModal"
                         class="btn btn-outline-light btn-circle border mr-1"
                         type="button">
                         <svg xmlns="http://www.w3.org/2000/svg" width="26" viewBox="0 0 24 24" class="icon-camera">
@@ -26,7 +26,7 @@
                         </svg>
                     </button>
                     <button
-                        @click="showVideoModal"
+                        @click="showEmbedVideoModal"
                         class="btn btn-outline-light btn-circle border mr-1"
                         type="button">
                         <svg xmlns="http://www.w3.org/2000/svg" width="26" viewBox="0 0 24 24" class="icon-play">
@@ -35,7 +35,7 @@
                         </svg>
                     </button>
                     <button
-                        @click="showLinkModal"
+                        @click="showEmbedLinkModal"
                         class="btn btn-outline-light btn-circle border mr-1"
                         type="button">
                         <svg xmlns="http://www.w3.org/2000/svg" width="26" viewBox="0 0 24 24" class="icon-link">
@@ -44,7 +44,7 @@
                         </svg>
                     </button>
                     <button
-                        @click="showEmbedModal"
+                        @click="showEmbedContentModal"
                         class="btn btn-outline-light btn-circle border mr-1"
                         type="button">
                         <svg xmlns="http://www.w3.org/2000/svg" width="26" viewBox="0 0 24 24" class="icon-code">
@@ -68,7 +68,7 @@
             <nav class="navbar fixed-bottom navbar-expand-sm mt-5 d-xl-none p-0 navbar-mini">
                 <div class="btn-group d-flex justify-content-center">
                     <button
-                        @click="showImageModal"
+                        @click="showEmbedImageModal"
                         class="btn btn-outline-light border border-bottom-0 border-left-0 py-2"
                         type="button">
                         <svg xmlns="http://www.w3.org/2000/svg" width="26" viewBox="0 0 24 24" class="icon-camera">
@@ -77,7 +77,7 @@
                         </svg>
                     </button>
                     <button
-                        @click="showVideoModal"
+                        @click="showEmbedVideoModal"
                         class="btn btn-outline-light border border-bottom-0 border-left-0 py-2"
                         type="button">
                         <svg xmlns="http://www.w3.org/2000/svg" width="26" viewBox="0 0 24 24" class="icon-play">
@@ -86,7 +86,7 @@
                         </svg>
                     </button>
                     <button
-                        @click="showLinkModal"
+                        @click="showEmbedLinkModal"
                         class="btn btn-outline-light border border-bottom-0 border-left-0 py-2"
                         type="button">
                         <svg xmlns="http://www.w3.org/2000/svg" width="26" viewBox="0 0 24 24" class="icon-link">
@@ -95,7 +95,7 @@
                         </svg>
                     </button>
                     <button
-                        @click="showEmbedModal"
+                        @click="showEmbedContentModal"
                         class="btn btn-outline-light border border-bottom-0 border-left-0 py-2"
                         type="button">
                         <svg xmlns="http://www.w3.org/2000/svg" width="26" viewBox="0 0 24 24" class="icon-code">
@@ -114,25 +114,25 @@
                 </div>
             </nav>
 
-            <image-modal
-                ref="imageModal"
-                @addingImage="insertImage"
-                @removingImage="removeImage"
+            <embed-image-modal
+                ref="embedImageModal"
+                @addingEmbedImage="insertEmbedImage"
+                @removingEmbedImage="removeEmbedImage"
             />
 
-            <video-modal
-                ref="videoModal"
-                @addingVideo="insertVideo"
+            <embed-video-modal
+                ref="embedVideoModal"
+                @addingEmbedVideo="insertEmbedVideo"
             />
 
-            <link-modal
-                ref="linkModal"
-                @addingLink="insertLink"
+            <embed-link-modal
+                ref="embedLinkModal"
+                @addingEmbedLink="insertEmbedLink"
             />
 
-            <embed-modal
-                ref="embedModal"
-                @addingEmbed="insertEmbed"
+            <embed-content-modal
+                ref="embedContentModal"
+                @addingEmbedContent="insertEmbedContent"
             />
         </div>
     </div>
@@ -144,15 +144,15 @@
     import Quill from 'quill'
     import {mapState} from 'vuex'
     import Parchment from 'parchment'
-    import LinkBlot from './LinkBlot'
-    import EmbedBlot from './EmbedBlot'
-    import VideoBlot from './VideoBlot'
-    import ImageBlot from './ImageBlot'
+    import EmbedContentBlot from './EmbedContentBlot'
+    import EmbedVideoBlot from './EmbedVideoBlot'
+    import EmbedImageBlot from './EmbedImageBlot'
+    import EmbedLinkModal from './EmbedLinkModal'
+    import EmbedContentModal from './EmbedContentModal'
+    import EmbedVideoModal from './EmbedVideoModal'
+    import EmbedImageModal from './EmbedImageModal'
     import DividerBlot from './DividerBlot'
-    import LinkModal from './LinkModal'
-    import EmbedModal from './EmbedModal'
-    import VideoModal from './VideoModal'
-    import ImageModal from './ImageModal'
+    import EmbedLinkBlot from './EmbedLinkBlot'
     import Closable from '../../../js/directives/Closable'
 
     export default {
@@ -170,10 +170,10 @@
         },
 
         components: {
-            LinkModal,
-            VideoModal,
-            EmbedModal,
-            ImageModal
+            EmbedLinkModal,
+            EmbedVideoModal,
+            EmbedContentModal,
+            EmbedImageModal
         },
 
         data() {
@@ -215,11 +215,11 @@
 
         methods: {
             createEditor() {
-                Quill.register(ImageBlot, true)
                 Quill.register(DividerBlot, true)
-                Quill.register(LinkBlot, true)
-                Quill.register(VideoBlot, true)
-                Quill.register(EmbedBlot, true)
+                Quill.register(EmbedLinkBlot, true)
+                Quill.register(EmbedImageBlot, true)
+                Quill.register(EmbedVideoBlot, true)
+                Quill.register(EmbedContentBlot, true)
 
                 const icons = Quill.import('ui/icons')
                 icons.header[3] = require('!html-loader!quill/assets/icons/header-3.svg')
@@ -267,20 +267,20 @@
                 this.editor.root.addEventListener('click', event => {
                     let blot = Parchment.find(event.target, true)
 
-                    if (blot instanceof ImageBlot) {
-                        let values = blot.value(blot.domNode)['captioned-image']
+                    if (blot instanceof EmbedImageBlot) {
+                        let values = blot.value(blot.domNode)['embed-image']
 
                         values.existingBlot = blot
 
-                        this.showImageModal(values)
+                        this.showEmbedImageModal(values)
                     }
 
-                    if (blot instanceof EmbedBlot) {
-                        let content = blot.value(blot.domNode)['embed']
+                    if (blot instanceof EmbedContentBlot) {
+                        let content = blot.value(blot.domNode)['embed-content']
 
                         content.existingBlot = blot
 
-                        this.showEmbedModal(content)
+                        this.showEmbedContentModal(content)
                     }
                 })
             },
@@ -342,31 +342,31 @@
                 }
             },
 
-            showImageModal(data = null) {
-                this.$emit('openingImageModal', data)
+            showEmbedImageModal(data = null) {
+                this.$emit('openingEmbedImageModal', data)
 
-                $(this.$refs.imageModal.$el).modal('show')
+                $(this.$refs.embedImageModal.$el).modal('show')
             },
 
-            showVideoModal(data = null) {
-                this.$emit('openingVideoModal', data)
+            showEmbedVideoModal(data = null) {
+                this.$emit('openingEmbedVideoModal', data)
 
-                $(this.$refs.videoModal.$el).modal('show')
+                $(this.$refs.embedVideoModal.$el).modal('show')
             },
 
-            showLinkModal(data = null) {
-                this.$emit('openingLinkModal', data)
+            showEmbedLinkModal(data = null) {
+                this.$emit('openingEmbedLinkModal', data)
 
-                $(this.$refs.linkModal.$el).modal('show')
+                $(this.$refs.embedLinkModal.$el).modal('show')
             },
 
-            showEmbedModal(data = null) {
-                this.$emit('openingEmbedModal', data)
+            showEmbedContentModal(data = null) {
+                this.$emit('openingEmbedContentModal', data)
 
-                $(this.$refs.embedModal.$el).modal('show')
+                $(this.$refs.embedContentModal.$el).modal('show')
             },
 
-            insertImage({url, caption, existingBlot, layout}) {
+            insertEmbedImage({url, caption, existingBlot, layout}) {
                 let values = {
                     url: url,
                     caption: caption,
@@ -374,14 +374,14 @@
                 }
 
                 if (existingBlot) {
-                    return existingBlot.replaceWith('captioned-image', values)
+                    return existingBlot.replaceWith('embed-image', values)
                 }
 
                 let range = this.editor.getSelection(true)
 
                 this.editor.insertEmbed(
                     range.index,
-                    'captioned-image',
+                    'embed-image',
                     values,
                     Quill.sources.USER
                 )
@@ -389,7 +389,7 @@
                 this.editor.setSelection(range.index + 1, Quill.sources.SILENT)
             },
 
-            removeImage({existingBlot}) {
+            removeEmbedImage({existingBlot}) {
                 let range = this.editor.getSelection(true)
 
                 existingBlot.remove()
@@ -397,12 +397,12 @@
                 this.editor.setSelection(range.index - 1, Quill.sources.SILENT)
             },
 
-            insertLink({url}) {
+            insertEmbedLink({url}) {
                 let range = this.editor.getSelection(true)
 
                 this.editor.insertEmbed(
                     range.index,
-                    'link',
+                    'embed-link',
                     url,
                     Quill.sources.USER
                 )
@@ -410,12 +410,12 @@
                 this.editor.setSelection(range.index + 1, Quill.sources.SILENT)
             },
 
-            insertVideo({url}) {
+            insertEmbedVideo({url}) {
                 let range = this.editor.getSelection(true)
 
                 this.editor.insertEmbed(
                     range.index,
-                    'video',
+                    'embed-video',
                     url,
                     Quill.sources.USER
                 )
@@ -423,19 +423,19 @@
                 this.editor.setSelection(range.index + 1, Quill.sources.SILENT)
             },
 
-            insertEmbed({content, existingBlot}) {
+            insertEmbedContent({content, existingBlot}) {
                 let range = this.editor.getSelection(true)
                 let values = {
                     content: content
                 }
 
                 if (existingBlot) {
-                    return existingBlot.replaceWith('embed', values)
+                    return existingBlot.replaceWith('embed-content', values)
                 }
 
                 this.editor.insertEmbed(
                     range.index,
-                    'embed',
+                    'embed-content',
                     values,
                     Quill.sources.USER
                 )
@@ -534,7 +534,7 @@
         font-family: $font-family-sans-serif, sans-serif;
     }
 
-    div.ql-embed {
+    div.ql-embed-content {
         // This is here because we have no way to control the dimensions
         // of the content being embedded, so hide any overlap to avoid
         // breaking either the editor or the screen.
@@ -542,7 +542,7 @@
     }
 
     div.embedded_image:hover img,
-    div.ql-embed:hover {
+    div.ql-embed-content:hover {
         cursor: pointer !important;
         box-shadow: 0 0 0 3px $green;
     }
@@ -552,7 +552,7 @@
         margin: 0 auto 30px;
     }
 
-    div.embedded_image[data-layout=wide] {
+    div.embedded_image[data-layout="wide"] {
         width: 100vw;
         position: relative;
         left: 50%;
@@ -625,7 +625,7 @@
         margin-top: 26.4px !important;
     }
 
-    div.embedded_image[data-laout='wide'] {
+    div.embedded_image[data-layout="wide"] {
         width: 100vw;
         position: relative;
         left: 50%;
@@ -653,7 +653,7 @@
     }
 
     @media screen and (max-width: 1024px) {
-        .embedded_image[data-layout='wide'] img {
+        .embedded_image[data-layout="wide"] img {
             max-width: 100%;
         }
     }
