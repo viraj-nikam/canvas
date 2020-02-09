@@ -26,7 +26,8 @@ Route::prefix('api')->group(function () {
     Route::delete('/topics/{id}', 'TopicController@destroy');
 
     // Media routes...
-    Route::post('/media/uploads', 'MediaController');
+    Route::post('/media/uploads', 'MediaController@store');
+    Route::delete('/media/uploads', 'MediaController@destroy');
 
     // Settings routes...
     Route::get('/settings', 'SettingsController@show');

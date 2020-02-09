@@ -1,41 +1,63 @@
 <template>
     <div v-cloak>
-        <div class="position-relative">
-            <div id="sidebarControls">
-                <button
-                    class="btn btn-outline-light btn-circle border"
-                    type="button"
-                    @click="openSidebarControls">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="26" viewBox="0 0 24 24" class="icon-add-circle">
-                        <circle cx="12" cy="12" r="10" style="fill:none"/>
-                        <path class="secondary" d="M13 11h4a1 1 0 0 1 0 2h-4v4a1 1 0 0 1-2 0v-4H7a1 1 0 0 1 0-2h4V7a1 1 0 0 1 2 0v4z"/>
-                    </svg>
+        <div class="position-relative" v-closable="{exclude: ['toggle'],handler: 'handleClicksOutsideEditor'}">
+            <div class="sidebar-controls" ref="sidebarControls">
+                <button @click="toggleSidebarControls" ref="toggle" class="btn btn-outline-light btn-circle border" type="button">
+                    <span v-if="controlIsActive">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="26" viewBox="0 0 24 24" class="icon-close">
+                            <path class="fill-body-color" fill-rule="evenodd" d="M15.78 14.36a1 1 0 0 1-1.42 1.42l-2.82-2.83-2.83 2.83a1 1 0 1 1-1.42-1.42l2.83-2.82L7.3 8.7a1 1 0 0 1 1.42-1.42l2.83 2.83 2.82-2.83a1 1 0 0 1 1.42 1.42l-2.83 2.83 2.83 2.82z"/>
+                        </svg>
+                    </span>
+                    <span v-else>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="26" viewBox="0 0 24 24" class="icon-add-circle">
+                            <circle cx="12" cy="12" r="10" style="fill:none"/>
+                            <path class="fill-body-color" d="M13 11h4a1 1 0 0 1 0 2h-4v4a1 1 0 0 1-2 0v-4H7a1 1 0 0 1 0-2h4V7a1 1 0 0 1 2 0v4z"/>
+                        </svg>
+                    </span>
                 </button>
                 <div class="controls pl-3 d-none">
                     <button
+                        @click="showImageModal"
                         class="btn btn-outline-light btn-circle border mr-1"
-                        type="button"
-                        @click="showImageModal">
+                        type="button">
                         <svg xmlns="http://www.w3.org/2000/svg" width="26" viewBox="0 0 24 24" class="icon-camera">
-                            <path class="secondary" d="M6.59 6l2.7-2.7A1 1 0 0 1 10 3h4a1 1 0 0 1 .7.3L17.42 6H20a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8c0-1.1.9-2 2-2h2.59zM19 10a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-7 8a5 5 0 1 0 0-10 5 5 0 0 0 0 10z"/>
-                            <path class="secondary" d="M12 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                            <path class="fill-body-color" d="M6.59 6l2.7-2.7A1 1 0 0 1 10 3h4a1 1 0 0 1 .7.3L17.42 6H20a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8c0-1.1.9-2 2-2h2.59zM19 10a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-7 8a5 5 0 1 0 0-10 5 5 0 0 0 0 10z"/>
+                            <path class="fill-body-color" d="M12 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
                         </svg>
                     </button>
                     <button
+                        @click="showVideoModal"
                         class="btn btn-outline-light btn-circle border mr-1"
-                        type="button"
-                        @click="showHTMLModal">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="26" viewBox="0 0 24 24" class="icon-code">
-                            <rect width="18" height="18" x="3" y="3" style="fill:none" rx="2"/>
-                            <path class="secondary" d="M8.7 13.3a1 1 0 0 1-1.4 1.4l-2-2a1 1 0 0 1 0-1.4l2-2a1 1 0 1 1 1.4 1.4L7.42 12l1.3 1.3zm6.6 0l1.29-1.3-1.3-1.3a1 1 0 1 1 1.42-1.4l2 2a1 1 0 0 1 0 1.4l-2 2a1 1 0 0 1-1.42-1.4zm-3.32 3.9a1 1 0 0 1-1.96-.4l2-10a1 1 0 0 1 1.96.4l-2 10z"/>
+                        type="button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="26" viewBox="0 0 24 24" class="icon-play">
+                            <circle cx="12" cy="12" r="10" class="fill-body-color"/>
+                            <path class="fill-bg" d="M15.51 11.14a1 1 0 0 1 0 1.72l-5 3A1 1 0 0 1 9 15V9a1 1 0 0 1 1.51-.86l5 3z"/>
                         </svg>
                     </button>
                     <button
+                        @click="showLinkModal"
+                        class="btn btn-outline-light btn-circle border mr-1"
+                        type="button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="26" viewBox="0 0 24 24" class="icon-link">
+                            <path class="fill-body-color" d="M19.48 13.03l-.02-.03a1 1 0 1 1 1.75-.98A6 6 0 0 1 16 21h-4a6 6 0 1 1 0-12h1a1 1 0 0 1 0 2h-1a4 4 0 1 0 0 8h4a4 4 0 0 0 3.48-5.97z"/>
+                            <path class="fill-body-color" d="M4.52 10.97l.02.03a1 1 0 1 1-1.75.98A6 6 0 0 1 8 3h4a6 6 0 1 1 0 12h-1a1 1 0 0 1 0-2h1a4 4 0 1 0 0-8H8a4 4 0 0 0-3.48 5.97z"/>
+                        </svg>
+                    </button>
+                    <button
+                        @click="showEmbedModal"
+                        class="btn btn-outline-light btn-circle border mr-1"
+                        type="button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="26" viewBox="0 0 24 24" class="icon-code">
+                            <rect width="18" height="18" x="3" y="3" class="fill-bg" rx="2"/>
+                            <path class="fill-body-color" d="M8.7 13.3a1 1 0 0 1-1.4 1.4l-2-2a1 1 0 0 1 0-1.4l2-2a1 1 0 1 1 1.4 1.4L7.42 12l1.3 1.3zm6.6 0l1.29-1.3-1.3-1.3a1 1 0 1 1 1.42-1.4l2 2a1 1 0 0 1 0 1.4l-2 2a1 1 0 0 1-1.42-1.4zm-3.32 3.9a1 1 0 0 1-1.96-.4l2-10a1 1 0 0 1 1.96.4l-2 10z"/>
+                        </svg>
+                    </button>
+                    <button
+                        @click="insertDivider"
                         class="btn btn-outline-light btn-circle border mr-2"
-                        type="button"
-                        @click="insertDivider">
+                        type="button">
                         <svg xmlns="http://www.w3.org/2000/svg" width="26" viewBox="0 0 24 24" class="icon-dots-horizontal">
-                            <path class="secondary" fill-rule="evenodd" d="M5 14a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm7 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm7 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/>
+                            <path class="fill-body-color" fill-rule="evenodd" d="M5 14a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm7 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm7 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/>
                         </svg>
                     </button>
                 </div>
@@ -46,29 +68,47 @@
             <nav class="navbar fixed-bottom navbar-expand-sm mt-5 d-xl-none p-0 navbar-mini">
                 <div class="btn-group d-flex justify-content-center">
                     <button
+                        @click="showImageModal"
                         class="btn btn-outline-light border border-bottom-0 border-left-0 py-2"
-                        type="button"
-                        @click="showImageModal">
+                        type="button">
                         <svg xmlns="http://www.w3.org/2000/svg" width="26" viewBox="0 0 24 24" class="icon-camera">
-                            <path class="secondary" d="M6.59 6l2.7-2.7A1 1 0 0 1 10 3h4a1 1 0 0 1 .7.3L17.42 6H20a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8c0-1.1.9-2 2-2h2.59zM19 10a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-7 8a5 5 0 1 0 0-10 5 5 0 0 0 0 10z"/>
-                            <path class="secondary" d="M12 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                            <path class="fill-body-color" d="M6.59 6l2.7-2.7A1 1 0 0 1 10 3h4a1 1 0 0 1 .7.3L17.42 6H20a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8c0-1.1.9-2 2-2h2.59zM19 10a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-7 8a5 5 0 1 0 0-10 5 5 0 0 0 0 10z"/>
+                            <path class="fill-body-color" d="M12 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
                         </svg>
                     </button>
                     <button
-                        class="btn btn-outline-light border border-bottom-0 py-2"
-                        type="button"
-                        @click="showHTMLModal">
+                        @click="showVideoModal"
+                        class="btn btn-outline-light border border-bottom-0 border-left-0 py-2"
+                        type="button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="26" viewBox="0 0 24 24" class="icon-play">
+                            <circle cx="12" cy="12" r="10" class="fill-body-color"/>
+                            <path class="fill-bg" d="M15.51 11.14a1 1 0 0 1 0 1.72l-5 3A1 1 0 0 1 9 15V9a1 1 0 0 1 1.51-.86l5 3z"/>
+                        </svg>
+                    </button>
+                    <button
+                        @click="showLinkModal"
+                        class="btn btn-outline-light border border-bottom-0 border-left-0 py-2"
+                        type="button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="26" viewBox="0 0 24 24" class="icon-link">
+                            <path class="fill-body-color" d="M19.48 13.03l-.02-.03a1 1 0 1 1 1.75-.98A6 6 0 0 1 16 21h-4a6 6 0 1 1 0-12h1a1 1 0 0 1 0 2h-1a4 4 0 1 0 0 8h4a4 4 0 0 0 3.48-5.97z"/>
+                            <path class="fill-body-color" d="M4.52 10.97l.02.03a1 1 0 1 1-1.75.98A6 6 0 0 1 8 3h4a6 6 0 1 1 0 12h-1a1 1 0 0 1 0-2h1a4 4 0 1 0 0-8H8a4 4 0 0 0-3.48 5.97z"/>
+                        </svg>
+                    </button>
+                    <button
+                        @click="showEmbedModal"
+                        class="btn btn-outline-light border border-bottom-0 border-left-0 py-2"
+                        type="button">
                         <svg xmlns="http://www.w3.org/2000/svg" width="26" viewBox="0 0 24 24" class="icon-code">
-                            <rect width="18" height="18" x="3" y="3" style="fill:none" rx="2"/>
-                            <path class="secondary" d="M8.7 13.3a1 1 0 0 1-1.4 1.4l-2-2a1 1 0 0 1 0-1.4l2-2a1 1 0 1 1 1.4 1.4L7.42 12l1.3 1.3zm6.6 0l1.29-1.3-1.3-1.3a1 1 0 1 1 1.42-1.4l2 2a1 1 0 0 1 0 1.4l-2 2a1 1 0 0 1-1.42-1.4zm-3.32 3.9a1 1 0 0 1-1.96-.4l2-10a1 1 0 0 1 1.96.4l-2 10z"/>
+                            <rect width="18" height="18" x="3" y="3" class="fill-bg" rx="2"/>
+                            <path class="fill-body-color" d="M8.7 13.3a1 1 0 0 1-1.4 1.4l-2-2a1 1 0 0 1 0-1.4l2-2a1 1 0 1 1 1.4 1.4L7.42 12l1.3 1.3zm6.6 0l1.29-1.3-1.3-1.3a1 1 0 1 1 1.42-1.4l2 2a1 1 0 0 1 0 1.4l-2 2a1 1 0 0 1-1.42-1.4zm-3.32 3.9a1 1 0 0 1-1.96-.4l2-10a1 1 0 0 1 1.96.4l-2 10z"/>
                         </svg>
                     </button>
                     <button
+                        @click="insertDivider"
                         class="btn btn-outline-light border border-bottom-0 border-right-0 py-2"
-                        type="button"
-                        @click="insertDivider">
+                        type="button">
                         <svg xmlns="http://www.w3.org/2000/svg" width="26" viewBox="0 0 24 24" class="icon-dots-horizontal">
-                            <path class="secondary" fill-rule="evenodd" d="M5 14a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm7 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm7 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/>
+                            <path class="fill-body-color" fill-rule="evenodd" d="M5 14a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm7 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm7 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/>
                         </svg>
                     </button>
                 </div>
@@ -77,11 +117,22 @@
             <image-modal
                 ref="imageModal"
                 @addingImage="insertImage"
+                @removingImage="removeImage"
             />
 
-            <html-modal
-                ref="htmlModal"
-                @addingHTML="insertHTML"
+            <video-modal
+                ref="videoModal"
+                @addingVideo="insertVideo"
+            />
+
+            <link-modal
+                ref="linkModal"
+                @addingLink="insertLink"
+            />
+
+            <embed-modal
+                ref="embedModal"
+                @addingEmbed="insertEmbed"
             />
         </div>
     </div>
@@ -93,11 +144,16 @@
     import Quill from 'quill'
     import {mapState} from 'vuex'
     import Parchment from 'parchment'
-    import HTMLBlot from './HTMLBlot'
+    import LinkBlot from './LinkBlot'
+    import EmbedBlot from './EmbedBlot'
+    import VideoBlot from './VideoBlot'
     import ImageBlot from './ImageBlot'
-    import HTMLModal from './HTMLModal'
-    import ImageModal from './ImageModal'
     import DividerBlot from './DividerBlot'
+    import LinkModal from './LinkModal'
+    import EmbedModal from './EmbedModal'
+    import VideoModal from './VideoModal'
+    import ImageModal from './ImageModal'
+    import Closable from '../../../js/directives/Closable'
 
     export default {
         name: 'quill-editor',
@@ -109,14 +165,21 @@
             },
         },
 
+        directives: {
+            Closable
+        },
+
         components: {
-            'html-modal': HTMLModal,
-            'image-modal': ImageModal,
+            LinkModal,
+            VideoModal,
+            EmbedModal,
+            ImageModal
         },
 
         data() {
             return {
                 editor: null,
+                controlIsActive: false,
                 trans: JSON.parse(Canvas.lang),
             }
         },
@@ -125,6 +188,19 @@
             this.editor = this.createEditor()
 
             this.handleEditorValue()
+
+            // Render any Tweets inside the editor
+            let tweets = document.querySelectorAll('div.ql-tweet')
+            for (let i = 0; i <tweets.length; i++) {
+                while (tweets[i].firstChild) {
+                    tweets[i].removeChild(tweets[i].firstChild)
+                }
+
+                twttr.widgets.createTweet(tweets[i].dataset.id, tweets[i], {
+                    theme: !Canvas.darkMode ? 'light': 'dark'
+                })
+            }
+
             this.handleClicksInsideEditor()
             this.initSideControls()
         },
@@ -141,7 +217,9 @@
             createEditor() {
                 Quill.register(ImageBlot, true)
                 Quill.register(DividerBlot, true)
-                Quill.register(HTMLBlot, true)
+                Quill.register(LinkBlot, true)
+                Quill.register(VideoBlot, true)
+                Quill.register(EmbedBlot, true)
 
                 const icons = Quill.import('ui/icons')
                 icons.header[3] = require('!html-loader!quill/assets/icons/header-3.svg')
@@ -157,7 +235,7 @@
                     },
                     theme: 'bubble',
                     scrollingContainer: 'html, body',
-                    placeholder: this.trans.posts.forms.editor.body,
+                    placeholder: this.trans.app.tell_your_story,
                 })
 
                 /**
@@ -168,7 +246,7 @@
                 let tooltip = quill.theme.tooltip
                 let input = tooltip.root.querySelector('input[data-link]')
 
-                input.dataset.link = this.trans.posts.forms.editor.link
+                input.dataset.link = this.trans.app.paste_or_type_a_link
 
                 return quill
             },
@@ -177,6 +255,7 @@
                 this.editor.root.innerHTML = this.$store.getters.activePost.body
 
                 this.editor.on('text-change', (delta, oldContents, source) => {
+                    this.controlIsActive = false
                     this.$store.dispatch(
                         'updatePostBody',
                         this.editor.getText() ? this.editor.root.innerHTML : ''
@@ -195,14 +274,29 @@
 
                         this.showImageModal(values)
                     }
+
+                    if (blot instanceof EmbedBlot) {
+                        let content = blot.value(blot.domNode)['embed']
+
+                        content.existingBlot = blot
+
+                        this.showEmbedModal(content)
+                    }
                 })
+            },
+
+            handleClicksOutsideEditor() {
+                if (this.$refs.sidebarControls.classList.contains('active')) {
+                    this.$refs.sidebarControls.classList.toggle('active')
+                    this.controlIsActive = false
+                }
             },
 
             initSideControls() {
                 let Block = Quill.import('blots/block')
 
                 this.editor.on(Quill.events.EDITOR_CHANGE, (eventType, range) => {
-                    let sidebarControls = document.getElementById('sidebarControls')
+                    let sidebarControls = this.$refs.sidebarControls
 
                     if (eventType !== Quill.events.SELECTION_CHANGE) return
 
@@ -236,10 +330,16 @@
                 })
             },
 
-            openSidebarControls() {
-                document.getElementById('sidebarControls').classList.toggle('active')
-
+            toggleSidebarControls() {
                 this.editor.focus()
+
+                if (this.$refs.sidebarControls.classList.contains('active')) {
+                    this.$refs.sidebarControls.classList.toggle('active')
+                    this.controlIsActive = false
+                } else {
+                    this.$refs.sidebarControls.classList.toggle('active')
+                    this.controlIsActive = true
+                }
             },
 
             showImageModal(data = null) {
@@ -248,8 +348,22 @@
                 $(this.$refs.imageModal.$el).modal('show')
             },
 
-            showHTMLModal() {
-                $(this.$refs.htmlModal.$el).modal('show')
+            showVideoModal(data = null) {
+                this.$emit('openingVideoModal', data)
+
+                $(this.$refs.videoModal.$el).modal('show')
+            },
+
+            showLinkModal(data = null) {
+                this.$emit('openingLinkModal', data)
+
+                $(this.$refs.linkModal.$el).modal('show')
+            },
+
+            showEmbedModal(data = null) {
+                this.$emit('openingEmbedModal', data)
+
+                $(this.$refs.embedModal.$el).modal('show')
             },
 
             insertImage({url, caption, existingBlot, layout}) {
@@ -275,15 +389,54 @@
                 this.editor.setSelection(range.index + 1, Quill.sources.SILENT)
             },
 
-            insertHTML({content}) {
+            removeImage({existingBlot}) {
+                let range = this.editor.getSelection(true)
+
+                existingBlot.remove()
+
+                this.editor.setSelection(range.index - 1, Quill.sources.SILENT)
+            },
+
+            insertLink({url}) {
                 let range = this.editor.getSelection(true)
 
                 this.editor.insertEmbed(
                     range.index,
-                    'html',
-                    {
-                        content: content,
-                    },
+                    'link',
+                    url,
+                    Quill.sources.USER
+                )
+
+                this.editor.setSelection(range.index + 1, Quill.sources.SILENT)
+            },
+
+            insertVideo({url}) {
+                let range = this.editor.getSelection(true)
+
+                this.editor.insertEmbed(
+                    range.index,
+                    'video',
+                    url,
+                    Quill.sources.USER
+                )
+
+                this.editor.setSelection(range.index + 1, Quill.sources.SILENT)
+            },
+
+            insertEmbed({content, existingBlot}) {
+                let range = this.editor.getSelection(true)
+                let values = {
+                    content: content
+                }
+
+                if (existingBlot) {
+                    return existingBlot.replaceWith('embed', values)
+                }
+
+                this.editor.insertEmbed(
+                    range.index,
+                    'embed',
+                    values,
                     Quill.sources.USER
                 )
 
@@ -293,13 +446,14 @@
             insertDivider() {
                 let range = this.editor.getSelection(true)
 
-                this.editor.insertText(range.index, '\n', Quill.sources.USER)
+                this.editor.insertText(range.index, '', Quill.sources.USER)
                 this.editor.insertEmbed(
-                    range.index + 1,
+                    range.index,
                     'divider',
                     true,
                     Quill.sources.USER
                 )
+
                 this.editor.setSelection(range.index + 2, Quill.sources.SILENT)
             },
 
@@ -380,9 +534,17 @@
         font-family: $font-family-sans-serif, sans-serif;
     }
 
-    div.embedded_image:hover img {
+    div.ql-embed {
+        // This is here because we have no way to control the dimensions
+        // of the content being embedded, so hide any overlap to avoid
+        // breaking either the editor or the screen.
+        overflow: hidden;
+    }
+
+    div.embedded_image:hover img,
+    div.ql-embed:hover {
         cursor: pointer !important;
-        box-shadow: 0 0 0 3px #03a87c;
+        box-shadow: 0 0 0 3px $green;
     }
 
     div.embedded_image[data-layout="wide"] img {
@@ -399,7 +561,7 @@
 
     .ql-container hr {
         border: none;
-        margin: 3em 0 4em 0;
+        margin: 2em 0 3em 0;
         letter-spacing: 1em;
         text-align: center;
     }
@@ -427,7 +589,7 @@
         line-height: 1.42857;
     }
 
-    #sidebarControls {
+    .sidebar-controls {
         margin-top: -8px;
         top: 0;
         display: none;
@@ -436,18 +598,18 @@
         left: -60px;
     }
 
-    #sidebarControls button:hover {
+    .sidebar-controls button:hover {
         background-color: transparent;
     }
 
-    #sidebarControls button:focus {
+    .sidebar-controls button:focus {
         -webkit-box-shadow: none;
         -moz-box-shadow: none;
         box-shadow: none;
         outline: none;
     }
 
-    #sidebarControls.active .controls {
+    .sidebar-controls.active .controls {
         display: inline-block !important;
     }
 
@@ -470,6 +632,26 @@
         margin-left: -50vw;
     }
 
+    div.ql-tweet {
+        display: flex;
+        justify-content: center;
+    }
+
+    div.ql-video {
+        position: relative;
+        overflow: hidden;
+        padding-top: 56.25%;
+    }
+
+    div.ql-video iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: 0;
+    }
+
     @media screen and (max-width: 1024px) {
         .embedded_image[data-layout='wide'] img {
             max-width: 100%;
@@ -477,7 +659,7 @@
     }
 
     @media (max-width: 1200px) {
-        #sidebarControls {
+        .sidebar-controls {
             display: none !important;
         }
     }

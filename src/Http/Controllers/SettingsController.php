@@ -21,10 +21,10 @@ class SettingsController extends Controller
         $emailHash = md5(trim(Str::lower(request()->user()->email)));
 
         return response()->json([
-            'username'  => $metaData->username ?? null,
-            'summary'   => $metaData->summary ?? null,
-            'avatar'    => optional($metaData)->avatar && ! empty(optional($metaData)->avatar) ? $metaData->avatar : "https://secure.gravatar.com/avatar/{$emailHash}?s=500",
-            'digest'    => $metaData->digest ?? false,
+            'username' => $metaData->username ?? null,
+            'summary' => $metaData->summary ?? null,
+            'avatar' => optional($metaData)->avatar && ! empty(optional($metaData)->avatar) ? $metaData->avatar : "https://secure.gravatar.com/avatar/{$emailHash}?s=500",
+            'digest' => $metaData->digest ?? false,
             'dark_mode' => $metaData->dark_mode ?? 0,
         ]);
     }
@@ -39,20 +39,20 @@ class SettingsController extends Controller
         $metaData = UserMeta::forCurrentUser()->first() ?? new UserMeta();
 
         $data = [
-            'user_id'   => request()->user()->id,
-            'username'  => request('username') ?? $metaData->username,
-            'summary'   => request('summary') ?? $metaData->summary,
-            'avatar'    => request('avatar') ?? $metaData->avatar,
-            'digest'    => request('digest') ?? $metaData->digest,
+            'user_id' => request()->user()->id,
+            'username' => request('username') ?? $metaData->username,
+            'summary' => request('summary') ?? $metaData->summary,
+            'avatar' => request('avatar') ?? $metaData->avatar,
+            'digest' => request('digest') ?? $metaData->digest,
             'dark_mode' => request('dark_mode') ?? $metaData->dark_mode,
         ];
 
         $messages = [
-            'unique' => __('canvas::validation.unique'),
+            'unique' => __('canvas::app.validation_unique'),
         ];
 
         validator($data, [
-            'user_id'  => 'required',
+            'user_id' => 'required',
             'username' => [
                 'nullable',
                 'alpha_dash',

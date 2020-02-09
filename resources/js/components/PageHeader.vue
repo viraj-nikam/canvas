@@ -35,23 +35,23 @@
                         <div class="dropdown-divider"></div>
 
                         <router-link to="/posts" class="dropdown-item">
-                            <span>{{ trans.nav.user.posts }}</span>
+                            <span>{{ trans.app.posts_simple }}</span>
                         </router-link>
                         <router-link to="/tags" class="dropdown-item">
-                            <span>{{ trans.nav.user.tags }}</span>
+                            <span>{{ trans.app.tags }}</span>
                         </router-link>
                         <router-link to="/topics" class="dropdown-item">
-                            <span>{{ trans.nav.user.topics }}</span>
+                            <span>{{ trans.app.topics }}</span>
                         </router-link>
                         <router-link to="/stats" class="dropdown-item">
-                            <span>{{ trans.nav.user.stats }}</span>
+                            <span>{{ trans.app.stats }}</span>
                         </router-link>
                         <div class="dropdown-divider"></div>
                         <router-link to="/settings" class="dropdown-item">
-                            <span>Settings</span>
+                            <span>{{ trans.app.settings }}</span>
                         </router-link>
                         <a href="" class="dropdown-item" @click.prevent="sessionLogout">
-                            {{ trans.nav.user.logout }}
+                            {{ trans.app.sign_out }}
                         </a>
                     </div>
                 </div>
@@ -68,7 +68,7 @@
             return {
                 user: Canvas.user,
                 avatar: this.$root.avatar,
-                token: document.head.querySelector('meta[name="csrf-token"]').content,
+                token: this.getToken(),
                 trans: JSON.parse(Canvas.lang),
             }
         },

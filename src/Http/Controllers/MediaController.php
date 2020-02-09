@@ -2,47 +2,58 @@
 
 namespace Canvas\Http\Controllers;
 
+use Illuminate\Http\UploadedFile;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Storage;
 
 class MediaController extends Controller
 {
     /**
-     * Process an image upload.
+     * Stores a given file and returns the path.
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return mixed
      */
-    public function __invoke()
+    public function store()
     {
-        $maxUploadInBytes = config('canvas.upload_filesize');
+        $payload = request()->file();
 
-        if (request()->image->getSize() <= $maxUploadInBytes) {
-            $path = request()->image->store(sprintf('%s/%s', config('canvas.storage_path'), 'images'), [
-                'disk'       => config('canvas.storage_disk'),
-                'visibility' => 'public',
+        // We only expect single file uploads at this time
+        $file = reset($payload);
+
+        if ($file instanceof UploadedFile) {
+            $path = $file->storePublicly($this->baseStoragePath(), [
+                'disk' => config('canvas.storage_disk'),
             ]);
 
-            return response()->json(Storage::disk(config('canvas.storage_disk'))->url($path), 200);
-        } else {
-            $errorMessage = sprintf('%s %s', __('canvas::posts.forms.editor.images.errors.size'), $this->formatBytes($maxUploadInBytes));
-
-            return response()->json($errorMessage, 422);
+            return Storage::disk(config('canvas.storage_disk'))->url($path);
         }
     }
 
     /**
-     * Format bytes into a human-readable string.
+     * Deletes a given file from storage.
      *
-     * @param $bytes
-     * @param int $precision
-     * @return string
-     * @link https://stackoverflow.com/a/2510540
+     * @return \Illuminate\Http\JsonResponse
      */
-    private function formatBytes($bytes, $precision = 2)
+    public function destroy()
     {
-        $base = log($bytes, 1024);
-        $suffixes = ['', 'KB', 'MB', 'GB', 'TB'];
+        $file = pathinfo(request()->getContent());
+        $storagePath = $this->baseStoragePath();
+        $path = "{$storagePath}/{$file['basename']}";
 
-        return round(pow(1024, $base - floor($base)), $precision).' '.$suffixes[floor($base)];
+        $fileDeleted = Storage::disk(config('canvas.storage_disk'))->delete($path);
+
+        if ($fileDeleted) {
+            return response()->json([], 204);
+        }
+    }
+
+    /**
+     * Return the storage path url.
+     *
+     * @return string
+     */
+    private function baseStoragePath(): string
+    {
+        return sprintf('%s/%s', config('canvas.storage_path'), 'images');
     }
 }

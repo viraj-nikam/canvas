@@ -61,15 +61,15 @@ class TopicController extends Controller
     public function store(string $id): JsonResponse
     {
         $data = [
-            'id'      => request('id'),
-            'name'    => request('name'),
-            'slug'    => request('slug'),
+            'id' => request('id'),
+            'name' => request('name'),
+            'slug' => request('slug'),
             'user_id' => request()->user()->id,
         ];
 
         $messages = [
-            'required' => __('canvas::validation.required'),
-            'unique'   => __('canvas::validation.unique'),
+            'required' => __('canvas::app.validation_required'),
+            'unique' => __('canvas::app.validation_unique'),
         ];
 
         validator($data, [

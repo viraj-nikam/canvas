@@ -88,8 +88,8 @@ class CanvasServiceProvider extends ServiceProvider
     private function routeConfiguration()
     {
         return [
-            'namespace'  => 'Canvas\Http\Controllers',
-            'prefix'     => config('canvas.path'),
+            'namespace' => 'Canvas\Http\Controllers',
+            'prefix' => config('canvas.path'),
             'middleware' => config('canvas.middleware'),
         ];
     }

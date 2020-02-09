@@ -11,22 +11,11 @@ export const mutations = {
         payload.body = _.get(data, 'body', '')
         payload.published_at = _.get(data, 'published_at', '')
         payload.featured_image = _.get(data, 'featured_image', '')
-        payload.featured_image_caption = _.get(
-            data,
-            'featured_image_caption',
-            ''
-        )
+        payload.featured_image_caption = _.get(data, 'featured_image_caption', '')
 
         payload.meta = {}
-        payload.meta.meta_description = _.get(data, 'meta.meta_description', '')
-        payload.meta.og_title = _.get(data, 'meta.og_title', '')
-        payload.meta.og_description = _.get(data, 'meta.og_description', '')
-        payload.meta.twitter_title = _.get(data, 'meta.twitter_title', '')
-        payload.meta.twitter_description = _.get(
-            data,
-            'meta.twitter_description',
-            ''
-        )
+        payload.meta.description = _.get(data, 'meta.description', '')
+        payload.meta.title = _.get(data, 'meta.title', '')
         payload.meta.canonical_link = _.get(data, 'meta.canonical_link', '')
 
         payload.topic = _.get(data, 'topic.0', [])

@@ -15,13 +15,14 @@
 
     @if($scripts['darkMode'])
         <link rel="stylesheet" id="baseStylesheet" type="text/css" href="{{ mix('css/app-dark.css', 'vendor/canvas') }}">
-        <link rel="stylesheet" id="highlightStylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.17.1/build/styles/sunburst.min.css">
+        <link rel="stylesheet" id="highlightStylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/styles/sunburst.min.css">
     @else
         <link rel="stylesheet" id="baseStylesheet" type="text/css" href="{{ mix('css/app.css', 'vendor/canvas') }}">
-        <link rel="stylesheet" id="highlightStylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.17.1/build/styles/github.min.css">
+        <link rel="stylesheet" id="highlightStylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/styles/github.min.css">
     @endif
 
-    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.17.1/build/highlight.min.js"></script>
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/highlight.min.js"></script>
+    <script src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
     <link rel="shortcut icon" href="{{ mix('favicon.ico', 'vendor/canvas') }}">
 </head>
@@ -29,8 +30,8 @@
 <div id="canvas">
     @if(!$assetsUpToDate)
        <div class="alert alert-danger border-0 text-center rounded-0">
-           The assets for Canvas are not up-to-date with the installed version.
-           To update, run:<br/><code>php artisan canvas:publish</code>
+           {{ __('canvas::app.assets_are_not_up_to_date') }}
+           {{ __('canvas::app.to_update_run') }}<br/><code>php artisan canvas:publish</code>
        </div>
     @endif
 

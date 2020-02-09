@@ -23,29 +23,29 @@ class PostTest extends TestCase
     {
         $user_1 = factory(\Illuminate\Foundation\Auth\User::class)->create();
         $post_1 = $this->actingAs($user_1)->withoutMiddleware()->post('/canvas/api/posts/create', [
-            'id'    => Uuid::uuid4(),
-            'slug'  => 'a-new-hope',
+            'id' => Uuid::uuid4(),
+            'slug' => 'a-new-hope',
             'topic' => [],
-            'tags'  => [],
+            'tags' => [],
         ]);
 
         $user_2 = factory(\Illuminate\Foundation\Auth\User::class)->create();
         $post_2 = $this->actingAs($user_2)->withoutMiddleware()->post('/canvas/api/posts/create', [
-            'id'    => Uuid::uuid4(),
-            'slug'  => 'a-new-hope',
+            'id' => Uuid::uuid4(),
+            'slug' => 'a-new-hope',
             'topic' => [],
-            'tags'  => [],
+            'tags' => [],
         ]);
 
         $this->assertDatabaseHas('canvas_posts', [
-            'id'      => $post_1->decodeResponseJson()['id'],
-            'slug'    => $post_1->decodeResponseJson()['slug'],
+            'id' => $post_1->decodeResponseJson()['id'],
+            'slug' => $post_1->decodeResponseJson()['slug'],
             'user_id' => $post_1->decodeResponseJson()['user_id'],
         ]);
 
         $this->assertDatabaseHas('canvas_posts', [
-            'id'      => $post_2->decodeResponseJson()['id'],
-            'slug'    => $post_2->decodeResponseJson()['slug'],
+            'id' => $post_2->decodeResponseJson()['id'],
+            'slug' => $post_2->decodeResponseJson()['slug'],
             'user_id' => $post_2->decodeResponseJson()['user_id'],
         ]);
     }

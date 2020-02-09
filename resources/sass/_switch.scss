@@ -1,3 +1,5 @@
+@import 'variables';
+
 // @author Cory LaViska
 // @link https://codepen.io/claviska/pen/KyWmjY
 
@@ -8,9 +10,9 @@ $input-height-sm: 1.9375rem;
 $input-btn-focus-width: .2rem;
 $custom-control-indicator-disabled-bg: #e9ecef;
 $custom-control-description-disabled-color: #868e96;
-$white: white;
+$white: $white;
 $theme-colors: (
-    'success': #03a87c
+    'success': $green
 );
 
 $switch-height: calc(#{$input-height} * .8);

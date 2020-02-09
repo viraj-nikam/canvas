@@ -3,7 +3,7 @@
         <page-header>
             <template slot="action">
                 <router-link :to="{ name: 'posts-create' }" class="btn btn-sm btn-outline-success font-weight-bold my-auto">
-                    {{ trans.buttons.posts.create }}
+                    {{ trans.app.new_post }}
                 </router-link>
             </template>
         </page-header>
@@ -11,11 +11,11 @@
         <main class="py-4">
             <div class="col-xl-10 offset-xl-1 px-xl-5 col-md-12">
                 <div class="d-flex justify-content-between my-3">
-                    <h1>{{ trans.posts.header }}</h1>
+                    <h1>{{ trans.app.posts_simple }}</h1>
 
                     <select name="" id="" v-model="postType" @change="changeType" class="my-auto bg-transparent appearance-none border-0 text-muted">
-                        <option value="published">{{ trans.nav.context.published }}</option>
-                        <option value="draft">{{ trans.nav.context.draft }}</option>
+                        <option value="published">{{ trans.app.published }} ({{ publishedCount }})</option>
+                        <option value="draft">{{ trans.app.draft }} ({{ draftCount }})</option>
                     </select>
                 </div>
 
@@ -31,20 +31,15 @@
                                 {{ trim(post.summary, 200) }}
                             </p>
                             <p class="text-muted mb-0">
-                                            <span v-if="isPublished(post)">
-                                                {{ trans.posts.details.published}}
-                                                {{ moment(post.published_at).fromNow() }}
-                                            </span>
+                                <span v-if="isPublished(post)">
+                                    {{ trans.app.published}} {{ moment(post.published_at).locale(Canvas.locale).fromNow() }}
+                                </span>
 
-                                <span v-if="isDraft(post)" class="text-danger">
-                                                {{ trans.posts.details.draft }}
-                                            </span>
+                                <span v-if="isDraft(post)" class="text-danger">{{ trans.app.draft }}</span>
 
-                                <span v-if="isScheduled(post)" class="text-danger">
-                                                {{ trans.posts.details.scheduled }}
-                                            </span>
-                                ― {{ trans.posts.details.updated }}
-                                {{ moment(post.updated_at).fromNow() }}
+                                <span v-if="isScheduled(post)" class="text-danger">{{ trans.app.scheduled }}</span>
+
+                                ― {{ trans.app.updated }} {{ moment(post.updated_at).locale(Canvas.locale).fromNow() }}
                             </p>
                         </div>
                         <div class="ml-auto d-none d-lg-block pl-3">
@@ -63,12 +58,15 @@
                     <infinite-loading :identifier="infiniteId" @infinite="fetchData" spinner="spiral">
                         <span slot="no-more"></span>
                         <div slot="no-results" class="text-left">
-                            <p class="mt-2">
-                                {{ trans.posts.empty.description }}
-                                <router-link to="/posts/create" class="text-success text-decoration-none">
-                                    {{ trans.posts.empty.action }}
-                                </router-link>
-                            </p>
+                            <div class="mt-5">
+                                <p class="lead text-center text-muted mt-5 pt-5">
+                                    <span v-if="postType === 'published'">{{ trans.app.you_have_no_published_posts }}</span>
+                                    <span v-else>{{ trans.app.you_have_no_draft_posts }}</span>
+                                </p>
+                                <p class="lead text-center text-muted mt-1">
+                                    {{ trans.app.write_on_the_go }}
+                                </p>
+                            </div>
                         </div>
                     </infinite-loading>
                 </div>
@@ -95,6 +93,8 @@
             return {
                 page: 1,
                 posts: [],
+                publishedCount: 0,
+                draftCount: 0,
                 postType: 'published',
                 infiniteId: +new Date(),
                 trans: JSON.parse(Canvas.lang),
@@ -111,9 +111,11 @@
                         },
                     })
                     .then(response => {
-                        if (!_.isEmpty(response.data) && !_.isEmpty(response.data.data)) {
+                        if (!_.isEmpty(response.data) && !_.isEmpty(response.data.posts.data)) {
                             this.page += 1;
-                            this.posts.push(...response.data.data)
+                            this.posts.push(...response.data.posts.data)
+                            this.publishedCount = response.data.publishedCount
+                            this.draftCount = response.data.draftCount
 
                             $state.loaded();
                         } else {

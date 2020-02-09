@@ -5,6 +5,7 @@ namespace Canvas\Http\Controllers;
 use Canvas\Post;
 use Canvas\Trends;
 use Canvas\View;
+use Canvas\Visit;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
 
@@ -13,7 +14,7 @@ class StatsController extends Controller
     use Trends;
 
     /**
-     * Number of days to compile stats.
+     * Number of days to compile a stat range.
      *
      * @const int
      */
@@ -31,7 +32,6 @@ class StatsController extends Controller
                          ->latest()
                          ->get();
 
-        // Get views for the last [X] days
         $views = View::select('created_at')
                      ->whereIn('post_id', $published->pluck('id'))
                      ->whereBetween('created_at', [
@@ -39,11 +39,20 @@ class StatsController extends Controller
                          today()->endOfDay()->toDateTimeString(),
                      ])->get();
 
+        $visits = Visit::select('created_at')
+                       ->whereIn('post_id', $published->pluck('id'))
+                       ->whereBetween('created_at', [
+                           today()->subDays(self::DAYS_PRIOR)->startOfDay()->toDateTimeString(),
+                           today()->endOfDay()->toDateTimeString(),
+                       ])->get();
+
         return response()->json([
-            'view_count'      => $views->count(),
-            'view_trend'      => json_encode($this->getViewCounts($views, self::DAYS_PRIOR)),
+            'view_count' => $views->count(),
+            'view_trend' => json_encode($this->getDataPoints($views, self::DAYS_PRIOR)),
+            'visit_count' => $visits->count(),
+            'visit_trend' => json_encode($this->getDataPoints($visits, self::DAYS_PRIOR)),
             'published_count' => $published->count(),
-            'draft_count'     => Post::forCurrentUser()->draft()->count(),
+            'draft_count' => Post::forCurrentUser()->draft()->count(),
         ]);
     }
 
@@ -58,12 +67,42 @@ class StatsController extends Controller
         $post = Post::forCurrentUser()->find($id);
 
         if ($post && $post->published) {
+            $views = View::where('post_id', $post->id)->get();
+            $previousMonthlyViews = $views->whereBetween('created_at', [
+                today()->subMonth()->startOfMonth()->startOfDay()->toDateTimeString(),
+                today()->subMonth()->endOfMonth()->endOfDay()->toDateTimeString(),
+            ]);
+            $currentMonthlyViews = $views->whereBetween('created_at', [
+                today()->startOfMonth()->startOfDay()->toDateTimeString(),
+                today()->endOfMonth()->endOfDay()->toDateTimeString(),
+            ]);
+            $lastThirtyDays = $views->whereBetween('created_at', [
+                today()->subDays(self::DAYS_PRIOR)->startOfDay()->toDateTimeString(),
+                today()->endOfDay()->toDateTimeString(),
+            ]);
+
+            $visits = Visit::where('post_id', $post->id)->get();
+            $previousMonthlyVisits = $visits->whereBetween('created_at', [
+                today()->subMonth()->startOfMonth()->startOfDay()->toDateTimeString(),
+                today()->subMonth()->endOfMonth()->endOfDay()->toDateTimeString(),
+            ]);
+            $currentMonthlyVisits = $visits->whereBetween('created_at', [
+                today()->startOfMonth()->startOfDay()->toDateTimeString(),
+                today()->endOfMonth()->endOfDay()->toDateTimeString(),
+            ]);
+
             return response()->json([
-                'post'                  => $post,
+                'post' => $post,
+                'read_time' => $post->read_time,
                 'popular_reading_times' => $post->popular_reading_times,
-                'traffic'               => $post->top_referers,
-                'trend'                 => $this->compareMonthToMonth($post->views),
-                'views'                 => json_encode($this->getViewCounts($post->views, self::DAYS_PRIOR)),
+                'traffic' => $post->top_referers,
+                'view_count' => $currentMonthlyViews->count(),
+                'view_trend' => json_encode($this->getDataPoints($lastThirtyDays, self::DAYS_PRIOR)),
+                'view_month_over_month' => $this->compareMonthToMonth($currentMonthlyViews, $previousMonthlyViews),
+                'view_count_lifetime' => $views->count(),
+                'visit_count' => $currentMonthlyVisits->count(),
+                'visit_trend' => json_encode($this->getDataPoints($visits, self::DAYS_PRIOR)),
+                'visit_month_over_month' => $this->compareMonthToMonth($currentMonthlyVisits, $previousMonthlyVisits),
             ]);
         } else {
             return response()->json(null, 301);

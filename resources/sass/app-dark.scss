@@ -1,5 +1,6 @@
 @import 'variables';
 @import 'overrides';
+@import 'multiselect';
 
 $body-bg: rgb(38, 50, 56);
 $body-color: rgb(195, 211, 222);
@@ -28,6 +29,8 @@ $input-placeholder-color: $gray-600;
 $modal-content-bg: $body-bg;
 
 $custom-control-indicator-bg: $text-muted;
+
+$bg-darker: #71809630;
 
 .ql-editor {
     color: $body-color;
@@ -58,12 +61,48 @@ select.input {
     color: $input-color;
 }
 
-#sidebarControls.active {
-    background-color: $body-bg;
+.multiselect__input {
+    background-color: transparent;
 }
 
-#sidebarControls .secondary {
+.multiselect__tags {
+    border-radius: $border-radius;
+    background-color: $bg-darker;
+    border: none;
+    padding-left: .75rem;
+}
+
+.multiselect__option--selected {
+    color: $body-color;
+    background-color: $bg-darker;
+}
+
+.form-control:focus {
+    background-color: $bg-darker !important;
+}
+
+.bg-transparent:focus {
+    background-color: transparent !important;
+}
+
+.filepond--panel-root {
+    background-color: $bg-darker !important;
+}
+
+.filepond--drop-label {
+    color: $body-color !important;
+}
+
+.filepond--drop-label svg path {
     fill: $body-color;
+}
+
+.bg-darker {
+    background-color: #71809630;
+}
+
+.sidebar-controls.active {
+    background-color: $body-bg;
 }
 
 .shadow-inner {
@@ -76,10 +115,6 @@ select.input {
 
 .navbar-mini {
     background-color: $body-bg;
-}
-
-.navbar-mini svg path {
-    fill: $body-color;
 }
 
 .navbar-mini button:hover {
@@ -106,6 +141,10 @@ select.input {
     fill: $body-bg;
 }
 
+.fill-body-color {
+    fill: $body-color;
+}
+
 .font-serif {
     font-family: $font-family-serif;
 }
@@ -114,13 +153,10 @@ select.input {
     font-family: $font-family-sans-serif;
 }
 
-[v-cloak] {
-    display: none;
-}
-
+@import 'vue';
 @import 'nprogress';
-@import 'multiselect';
 @import 'switch';
+@import 'filepond';
 
 @import '~bootstrap/scss/functions';
 @import '~bootstrap/scss/variables';

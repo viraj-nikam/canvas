@@ -1,8 +1,8 @@
 <template>
     <multiselect
         v-model="value"
-        :placeholder="trans.topics.forms.select"
-        :tag-placeholder="trans.topics.forms.tag"
+        :placeholder="trans.app.select_a_topic"
+        :tag-placeholder="trans.app.add_a_new_topic"
         :options="options"
         :multiple="false"
         :taggable="true"
@@ -15,7 +15,6 @@
 </template>
 
 <script>
-    import _ from 'lodash'
     import Multiselect from 'vue-multiselect'
 
     export default {

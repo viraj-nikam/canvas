@@ -2,6 +2,25 @@
 
 ## [Unreleased](https://github.com/cnvs/canvas/compare/master...develop)
 
+## [5.2.0](https://github.com/cnvs/canvas/compare/v5.1.1...v5.2.0) (February 9, 2020)
+
+### Fixed
+- Fixed the translations based on locale ([#595](https://github.com/cnvs/canvas/issues/595), [01ec767](https://github.com/cnvs/canvas/commit/01ec767e9cdc9faedc7395f517aa2898d1342385))
+- Fixed a parse error for canonical URLs ([#610](https://github.com/cnvs/canvas/issues/610), [f706204](https://github.com/cnvs/canvas/commit/f706204d21414d10277360900519e69de80b9236))
+
+### Changed
+- Removed the `og_*` and `twitter_*` tags from SEO meta
+- Cleanup and refactor of all language files
+- Comprehensive refactor of the image/featured image modals to utilize [FilePond](https://pqina.nl/filepond) and [vue-infinite-loading](https://peachscript.github.io/vue-infinite-loading)
+- Updated the modal animations ([66bb4ac](https://github.com/cnvs/canvas/commit/66bb4ac83bffb33346cc6cc127a062b01da9c5c2))
+- UI/UX improvements
+
+### Added
+- Added support for Visitor tracking
+- Added a mini Publish button for mobile devices ([c0f73e9](https://github.com/cnvs/canvas/commit/c0f73e9dd2e62951aaa29316fe1d3586b1bbac35))
+- Added infinite loading to Unsplash image searches
+- Enhancements to link/video embedding in the editor
+
 ## [5.1.1](https://github.com/cnvs/canvas/compare/v5.0.0...v5.1.1) (January 22, 2020)
 
 ## Fixed

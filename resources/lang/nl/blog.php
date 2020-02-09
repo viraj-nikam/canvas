@@ -1,36 +1,34 @@
 <?php
 
 return [
-
-    'title'   => 'Blog',
     'buttons' => [
-        'learn'     => 'Learn More',
-        'continue'  => 'Lees verder...',
-        'next'      => 'Lees dit ook',
-        'enjoy'     => 'Dit zul je ook leuk vinden',
-        'edit'      => 'Bericht aanpassen',
-        'stats'     => 'Bekijk statisieken',
+        'learn' => 'Learn More',
+        'continue' => 'Lees verder...',
+        'next' => 'Lees dit ook',
+        'enjoy' => 'Dit zul je ook leuk vinden',
+        'edit' => 'Bericht aanpassen',
+        'stats' => 'Bekijk statisieken',
         'canonical' => 'Dit bericht is orginieel gepubliceerd op',
     ],
-    'empty'   => [
+    'empty' => [
         'description' => 'Geen berichten gevonden, begin bij',
-        'action'      => 'een nieuw bericht toevoegen',
+        'action' => 'een nieuw bericht toevoegen',
     ],
-    'nav'     => [
+    'nav' => [
         'user' => [
-            'posts'  => 'Berichten',
-            'tags'   => 'Labels',
+            'posts' => 'Berichten',
+            'tags' => 'Labels',
             'topics' => 'Onderwerpen',
-            'stats'  => 'Statistieken',
-            'login'  => 'Login',
+            'stats' => 'Statistieken',
+            'login' => 'Login',
             'logout' => 'Loguit',
         ],
     ],
-    'posts'   => [
+    'posts' => [
         'label' => 'Recente berichten',
     ],
-    'tags'    => [
+    'tags' => [
         'label' => 'Labels',
     ],
-
+    'title' => 'Blog',
 ];
