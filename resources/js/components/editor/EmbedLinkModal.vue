@@ -3,7 +3,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-body">
-                    <p>{{ trans.app.paste_a_video_link }}</p>
+                    <p>{{ trans.app.paste_a_link_to_embed_content }}</p>
                     <input
                         type="text"
                         ref="link"
@@ -12,7 +12,7 @@
                         :class="!Canvas.darkMode ? 'bg-light': 'bg-darker'"
                         class="form-control border-0"
                         name="link"
-                        placeholder="https://youtu.be/jNQXAC9IVRw"/>
+                        placeholder="https://twitter.com/jack/status/20"/>
                 </div>
             </div>
         </div>
@@ -23,7 +23,7 @@
     import $ from 'jquery'
 
     export default {
-        name: 'video-modal',
+        name: 'embed-link-modal',
 
         data() {
             return {
@@ -34,7 +34,7 @@
 
         methods: {
             addLink() {
-                this.$emit('addingVideo', {
+                this.$emit('addingEmbedLink', {
                     url: this.link,
                 })
 

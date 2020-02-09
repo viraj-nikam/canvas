@@ -2,6 +2,11 @@
 
 ## [Unreleased](https://github.com/cnvs/canvas/compare/master...develop)
 
+## [5.2.3](https://github.com/cnvs/canvas/compare/v5.2.2...v5.2.3) (February 9, 2020)
+
+### Fixed
+- Fixed broken editor/embed links ([#624](https://github.com/cnvs/canvas/issues/624))
+
 ## [5.2.2](https://github.com/cnvs/canvas/compare/v5.2.1...v5.2.2) (February 9, 2020)
 
 ### Fixed

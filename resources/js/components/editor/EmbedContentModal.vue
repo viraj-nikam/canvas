@@ -45,7 +45,7 @@
     import _ from "lodash";
 
     export default {
-        name: 'embed-modal',
+        name: 'embed-content-modal',
 
         data() {
             return {
@@ -56,7 +56,7 @@
         },
 
         mounted() {
-            this.$parent.$on('openingEmbedModal', data => {
+            this.$parent.$on('openingEmbedContentModal', data => {
                 if (!_.isEmpty(data)) {
                     this.blot = data.existingBlot
                     this.content = data.content
@@ -67,7 +67,7 @@
         methods: {
             clickDone() {
                 if (!_.isEmpty(this.content)) {
-                    this.$emit('addingEmbed', {
+                    this.$emit('addingEmbedContent', {
                         content: this.content,
                         existingBlot: this.blot,
                     })

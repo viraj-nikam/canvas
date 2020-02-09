@@ -8,7 +8,7 @@ let BlockEmbed = Quill.import('blots/block/embed');
  *      Twitter
  *      Transistor
  */
-class LinkBlot extends BlockEmbed {
+class EmbedLinkBlot extends BlockEmbed {
     static create(value) {
         let node = super.create();
 
@@ -57,7 +57,7 @@ class LinkBlot extends BlockEmbed {
     }
 }
 
-LinkBlot.blotName = 'link';
-LinkBlot.tagName = 'div';
+EmbedLinkBlot.tagName = 'div';
+EmbedLinkBlot.blotName = 'embed-link';
 
-export default LinkBlot
+export default EmbedLinkBlot

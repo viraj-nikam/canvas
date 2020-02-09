@@ -7,7 +7,7 @@ let BlockEmbed = Quill.import('blots/block/embed')
  *      YouTube
  *      Vimeo
  */
-class VideoBlot extends BlockEmbed {
+class EmbedVideoBlot extends BlockEmbed {
     static create(url) {
         let node = super.create();
         let videoObj = parseVideo(url);
@@ -78,7 +78,8 @@ function parseVideo(url) {
     };
 }
 
-VideoBlot.blotName = 'video';
-VideoBlot.tagName = 'div';
+EmbedVideoBlot.tagName = 'div';
+EmbedVideoBlot.blotName = 'embed-video';
+EmbedVideoBlot.className = 'ql-embed-video'
 
-export default VideoBlot
+export default EmbedVideoBlot
