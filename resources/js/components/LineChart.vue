@@ -23,6 +23,11 @@
                 type: Object,
                 required: true,
             },
+
+            visits: {
+                type: Object,
+                required: true,
+            },
         },
 
         data() {
@@ -32,13 +37,25 @@
         },
 
         mounted() {
+            let ref = this
             let chartData = {
                 type: 'line',
                 data: {
                     labels: Object.keys(this.views),
                     datasets: [
                         {
-                            label: this.trans.stats.cards.views.title,
+                            label: this.trans.app.visits,
+                            data: Object.values(this.visits),
+                            backgroundColor: [
+                                'rgba(158, 213, 237, 0.5)',
+                            ],
+                            borderColor: [
+                                'rgb(84, 175, 204)',
+                            ],
+                            borderWidth: 3,
+                        },
+                        {
+                            label: this.trans.app.views,
                             data: Object.values(this.views),
                             backgroundColor: [
                                 'rgba(3, 168, 124, .5)',
@@ -46,7 +63,7 @@
                             borderColor: [
                                 '#03a87c',
                             ],
-                            borderWidth: 3
+                            borderWidth: 3,
                         }
                     ]
                 },
@@ -69,21 +86,33 @@
                     elements: {
                         point: {
                             radius: 0,
-                            backgroundColor: "#03a87c",
+                            backgroundColor: '#03a87c',
                             borderColor: '#03a87c'
                         }
                     },
                     tooltips: {
                         mode: 'index',
+                        displayColors: false,
                         intersect: false,
+                        position: 'nearest',
                         callbacks: {
                             label: function (tooltipItem, data) {
-                                return ' ' +
-                                    tooltipItem.value +
-                                    ' views on ' +
-                                    moment(tooltipItem.label, 'YYYY-MM-DD').format('MMM Do')
+                                if (tooltipItem.datasetIndex === 0) {
+                                    return ref.uniqueVisitorLabel(tooltipItem.value)
+                                } else if (tooltipItem.datasetIndex === 1) {
+                                    return ref.viewLabel(tooltipItem.value)
+                                }
                             },
-                            title: () => null
+                            labelTextColor: function (tooltipItem, data) {
+                                if (tooltipItem.datasetIndex === 0) {
+                                    return 'rgb(84, 175, 204)';
+                                } else if (tooltipItem.datasetIndex === 1) {
+                                    return '#03a87c';
+                                }
+                            },
+                            title: function(tooltipItem) {
+                                return moment(tooltipItem[0].label, 'YYYY-MM-DD').format('dddd, MMMM Do YYYY')
+                            }
                         }
                     },
                     scales: {
@@ -131,7 +160,23 @@
                     data: chartData.data,
                     options: chartData.options,
                 });
+            },
+
+            viewLabel(value) {
+                if (Number(value) === 1) {
+                    return value + ' ' + this.trans.app.view
+                } else {
+                    return value + ' ' + this.trans.app.views_simple
+                }
+            },
+
+            uniqueVisitorLabel(value) {
+                if (Number(value) === 1) {
+                    return value + ' ' + this.trans.app.unique_visit
+                } else {
+                    return value + ' ' + this.trans.app.unique_visits
+                }
             }
-        }
+        },
     }
 </script>

@@ -3,7 +3,7 @@
         <page-header>
             <template slot="action">
                 <router-link :to="{ name: 'tags-create' }" class="btn btn-sm btn-outline-success font-weight-bold my-auto">
-                    {{ trans.buttons.tags.create }}
+                    {{ trans.app.new_tag }}
                 </router-link>
             </template>
         </page-header>
@@ -11,7 +11,7 @@
         <main class="py-4">
             <div class="col-xl-10 offset-xl-1 px-xl-5 col-md-12">
                 <div class="d-flex justify-content-between my-3">
-                    <h1>{{ trans.tags.header }}</h1>
+                    <h1>{{ trans.app.tags }}</h1>
                 </div>
 
                 <div class="mt-2">
@@ -24,20 +24,22 @@
                             </p>
                         </div>
                         <div class="ml-auto">
-                            <span class="text-muted mr-3">{{ tag.posts_count }} {{ trans.tags.posts }}</span>
-                            <span class="d-none d-md-inline-block">{{ trans.tags.details.created }} {{ moment(tag.created_at).fromNow() }}</span>
+                            <span class="text-muted mr-3">{{ tag.posts_count }} {{ trans.app.posts }}</span>
+                            <span class="d-none d-md-inline-block">{{ trans.app.created }} {{ moment(tag.created_at).locale(Canvas.locale).fromNow() }}</span>
                         </div>
                     </div>
 
                     <infinite-loading @infinite="fetchData" spinner="spiral">
                         <span slot="no-more"></span>
                         <div slot="no-results" class="text-left">
-                            <p class="mt-2">
-                                {{ trans.tags.empty.description }}
-                                <router-link to="/tags/create" class="text-success text-decoration-none">
-                                    {{ trans.tags.empty.action }}
-                                </router-link>
-                            </p>
+                            <div class="mt-5">
+                                <p class="lead text-center text-muted mt-5 pt-5">
+                                    {{ trans.app.you_have_no_tags }}
+                                </p>
+                                <p class="lead text-center text-muted mt-1">
+                                    {{ trans.app.write_on_the_go }}
+                                </p>
+                            </div>
                         </div>
                     </infinite-loading>
                 </div>

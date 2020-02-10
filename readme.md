@@ -92,7 +92,7 @@ Canvas exposes a simple UI at `/canvas` by default. This can be changed by updat
 |
 | This is the storage disk Canvas will use to put file uploads. You may
 | use any of the disks defined in the config/filesystems.php file and
-| you may also change the maximum upload size from its 3MB default.  
+| you may also change the maximum upload size from its 3MB default.
 |
 */
 
@@ -122,7 +122,7 @@ Route::get('tag/{slug}', 'BlogController@getPostsByTag');
 Route::get('topic/{slug}', 'BlogController@getPostsByTopic');
 
 // Find a single post
-Route::middleware('Canvas\Http\Middleware\ViewThrottle')->get('{slug}', 'BlogController@findPostBySlug');
+Route::middleware('Canvas\Http\Middleware\Session')->get('{slug}', 'BlogController@findPostBySlug');
 ```
 
 Add the corresponding methods inside of a new `BlogController`:
@@ -185,7 +185,7 @@ public function findPostBySlug(string $slug)
             'meta'   => $post->meta,
         ];
 
-        // IMPORTANT: You must include this event for Canvas to store view data
+        // IMPORTANT: This event must be called for tracking visitor/view traffic
         event(new \Canvas\Events\PostViewed($post));
 
         return view('blog.show', compact('data'));

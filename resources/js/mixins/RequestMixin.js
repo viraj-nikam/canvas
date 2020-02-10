@@ -2,16 +2,14 @@ import axios from 'axios'
 
 export default {
     methods: {
-        /**
-         * Create a base Axios request and configure the defaults.
-         *
-         * @returns {AxiosInstance}
-         */
+        getToken() {
+            return document.head.querySelector('meta[name="csrf-token"]').content
+        },
+
         request() {
             let instance = axios.create()
-            let token = document.head.querySelector('meta[name="csrf-token"]')
 
-            instance.defaults.headers.common['X-CSRF-TOKEN'] = token.content
+            instance.defaults.headers.common['X-CSRF-TOKEN'] = this.getToken()
             instance.defaults.baseURL = '/' + Canvas.path
 
             const requestHandler = request => {
@@ -52,18 +50,13 @@ export default {
 
         logout() {
             let instance = axios.create()
-            let token = document.head.querySelector('meta[name="csrf-token"]')
 
-            instance.defaults.headers.common['X-CSRF-TOKEN'] = token.content
+            instance.defaults.headers.common['X-CSRF-TOKEN'] = this.getToken()
             instance.defaults.baseURL = '/'
 
-            axios
-                .post('/logout', {
-                    _token: token,
-                })
-                .then(response => {
-                    window.location.href = '/login'
-                })
+            instance.post('/logout').then(response => {
+                window.location.href = '/login'
+            })
         }
     },
 }

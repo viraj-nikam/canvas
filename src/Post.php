@@ -152,6 +152,16 @@ class Post extends Model
     }
 
     /**
+     * Get the visits relationship.
+     *
+     * @return HasMany
+     */
+    public function visits(): HasMany
+    {
+        return $this->hasMany(Visit::class);
+    }
+
+    /**
      * Check to see if the post is published.
      *
      * @return bool
@@ -174,7 +184,7 @@ class Post extends Model
         // Divide by the average number of words per minute
         $minutes = ceil($words / 250);
 
-        return sprintf('%d %s %s', $minutes, Str::plural(__('canvas::stats.details.reading.time'), $minutes), __('canvas::stats.details.reading.read'));
+        return sprintf('%d %s %s', $minutes, Str::plural(__('canvas::app.min'), $minutes), __('canvas::app.read'));
     }
 
     /**
@@ -238,7 +248,7 @@ class Post extends Model
         $collection = collect();
         $data->each(function ($item, $key) use ($collection) {
             if (empty(parse_url($item->referer)['host'])) {
-                $collection->push(__('canvas::stats.details.referer.other'));
+                $collection->push(__('canvas::app.other'));
             } else {
                 $collection->push(parse_url($item->referer)['host']);
             }
@@ -248,7 +258,7 @@ class Post extends Model
         $array = array_count_values($collection->toArray());
 
         // Only return the top N referrers with their view count
-        $sliced = array_slice($array, 0, 8, true);
+        $sliced = array_slice($array, 0, 10, true);
 
         // Sort the array in a descending order
         arsort($sliced);

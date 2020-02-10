@@ -1,36 +1,34 @@
 <?php
 
 return [
-
-    'title'   => 'Blog',
     'buttons' => [
-        'learn'     => 'Daha Fazla Öğren',
-        'continue'  => 'Okumaya devam et...',
-        'next'      => 'Sonrakini oku',
-        'enjoy'     => 'Hoşunuza gidebilir',
-        'edit'      => 'Yazıyı düzenle',
-        'stats'     => 'İstatistikleri görüntüle',
+        'learn' => 'Daha Fazla Öğren',
+        'continue' => 'Okumaya devam et...',
+        'next' => 'Sonrakini oku',
+        'enjoy' => 'Hoşunuza gidebilir',
+        'edit' => 'Yazıyı düzenle',
+        'stats' => 'İstatistikleri görüntüle',
         'canonical' => 'Bu yazının asıl kaynağı',
     ],
-    'empty'   => [
+    'empty' => [
         'description' => 'Mevcut yazı bulunamadı, katılımda bulunmak için',
-        'action'      => 'yeni bir yazı ekleyin',
+        'action' => 'yeni bir yazı ekleyin',
     ],
-    'nav'     => [
+    'nav' => [
         'user' => [
-            'posts'  => 'Yazılar',
-            'tags'   => 'Etiketler',
+            'posts' => 'Yazılar',
+            'tags' => 'Etiketler',
             'topics' => 'Konular',
-            'stats'  => 'İstatistikler',
-            'login'  => 'Oturum aç',
+            'stats' => 'İstatistikler',
+            'login' => 'Oturum aç',
             'logout' => 'Oturumu kapat',
         ],
     ],
-    'posts'   => [
+    'posts' => [
         'label' => 'Yakın zamanda paylaşılanlar',
     ],
-    'tags'    => [
+    'tags' => [
         'label' => 'Etiketler',
     ],
-
+    'title' => 'Blog',
 ];

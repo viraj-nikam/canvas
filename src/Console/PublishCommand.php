@@ -28,12 +28,12 @@ class PublishCommand extends Command
     public function handle()
     {
         $this->callSilent('vendor:publish', [
-            '--tag'   => 'canvas-config',
+            '--tag' => 'canvas-config',
             '--force' => $this->option('force'),
         ]);
 
         $this->callSilent('vendor:publish', [
-            '--tag'   => 'canvas-assets',
+            '--tag' => 'canvas-assets',
             '--force' => true,
         ]);
 
