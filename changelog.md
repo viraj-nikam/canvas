@@ -2,6 +2,11 @@
 
 ## [Unreleased](https://github.com/cnvs/canvas/compare/master...develop)
 
+## [5.2.4](https://github.com/cnvs/canvas/compare/v5.2.3...v5.2.4) (February 10, 2020)
+
+### Fixed
+- Fix for the incorrect middleware on the route stub ([#625](https://github.com/cnvs/canvas/issues/625))
+
 ## [5.2.3](https://github.com/cnvs/canvas/compare/v5.2.2...v5.2.3) (February 9, 2020)
 
 ### Fixed
