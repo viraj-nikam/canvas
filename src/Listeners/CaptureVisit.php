@@ -44,10 +44,11 @@ class CaptureVisit
     {
         $visit = session()->get("visited_posts.{$post->id}", []);
 
-        if(array_key_exists('ip', $visit))
-                return $visit['ip'] != $ip;
-        else
+        if(array_key_exists('ip', $visit)){
+            return $visit['ip'] != $ip;
+        }else{
             return false;
+        }
     }
 
 
