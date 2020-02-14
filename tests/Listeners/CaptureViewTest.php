@@ -5,9 +5,12 @@ namespace Canvas\Tests\Listeners;
 use Canvas\Listeners\CaptureView;
 use Canvas\Post;
 use Canvas\Tests\TestCase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class CaptureViewTest extends TestCase
 {
+    use RefreshDatabase;
+
     /**
      * The listener instance.
      *

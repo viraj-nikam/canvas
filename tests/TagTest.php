@@ -2,10 +2,13 @@
 
 namespace Canvas\Tests;
 
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Ramsey\Uuid\Uuid;
 
 class TagTest extends TestCase
 {
+    use RefreshDatabase;
+
     /** @test */
     public function allow_tags_to_share_the_same_slug_with_unique_users()
     {

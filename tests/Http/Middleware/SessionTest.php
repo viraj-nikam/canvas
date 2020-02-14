@@ -5,9 +5,12 @@ namespace Canvas\Tests\Middleware;
 use Canvas\Http\Middleware\Session;
 use Canvas\Post;
 use Canvas\Tests\TestCase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class SessionTest extends TestCase
 {
+    use RefreshDatabase;
+
     /**
      * The middleware instance.
      *
@@ -29,12 +32,12 @@ class SessionTest extends TestCase
     public function prunes_expired_views_in_session()
     {
         $post_1 = factory(Post::class)->create();
-        $key_1 = 'viewed_posts.'.$post_1->id;
+        $key_1 = 'viewed_posts.' . $post_1->id;
 
         session()->put($key_1, now()->timestamp);
 
         $post_2 = factory(Post::class)->create();
-        $key_2 = 'viewed_posts.'.$post_2->id;
+        $key_2 = 'viewed_posts.' . $post_2->id;
 
         session()->put($key_2, now()->subHours(2)->timestamp);
 
@@ -49,7 +52,7 @@ class SessionTest extends TestCase
     {
         $ip = '127.0.0.1';
         $post_1 = factory(Post::class)->create();
-        $key_1 = 'visited_posts.'.$post_1->id;
+        $key_1 = 'visited_posts.' . $post_1->id;
 
         session()->put($key_1, [
             'timestamp' => now()->timestamp,
@@ -57,7 +60,7 @@ class SessionTest extends TestCase
         ]);
 
         $post_2 = factory(Post::class)->create();
-        $key_2 = 'visited_posts.'.$post_2->id;
+        $key_2 = 'visited_posts.' . $post_2->id;
 
         session()->put($key_2, [
             'timestamp' => now()->subDay()->timestamp,
