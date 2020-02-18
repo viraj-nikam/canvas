@@ -5,7 +5,7 @@ namespace Canvas;
 use Canvas\Console\DigestCommand;
 use Canvas\Console\InstallCommand;
 use Canvas\Console\PublishCommand;
-use Canvas\Console\SetupCommand;
+use Canvas\Console\UiCommand;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Support\Facades\Route;
@@ -47,7 +47,7 @@ class CanvasServiceProvider extends ServiceProvider
             DigestCommand::class,
             InstallCommand::class,
             PublishCommand::class,
-            SetupCommand::class,
+            UiCommand::class,
         ]);
     }
 

@@ -6,7 +6,7 @@ use Illuminate\Console\Command;
 use Illuminate\Console\DetectsApplicationNamespace;
 use Illuminate\Support\Facades\Route;
 
-class SetupCommand extends Command
+class UiCommand extends Command
 {
     use DetectsApplicationNamespace;
 
@@ -15,14 +15,14 @@ class SetupCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'canvas:setup';
+    protected $signature = 'canvas:ui';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Scaffold the frontend controller, views, and routes';
+    protected $description = 'Build the front-end scaffolding';
 
     /**
      * The views that need to be exported.
@@ -50,7 +50,7 @@ class SetupCommand extends Command
         $this->buildController();
         $this->registerRoutes();
 
-        $this->info('Setup complete. Head over to <comment>'.url('/blog').'</comment> to get started.');
+        $this->info('Front-end installed successfully. Head over to <comment>'.url('/blog').'</comment> to get started.');
     }
 
     /**

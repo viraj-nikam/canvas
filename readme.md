@@ -203,7 +203,7 @@ Finally, just create `index.blade.php` and `show.blade.php` inside a `/views/blo
 
 ### Want to get started fast?
 
-Just run `php artisan canvas:setup` after installing Canvas. Then, navigate your browser to `http://your-app.test/blog` or any other URL that is assigned to your application. This command scaffolds a default frontend for your entire blog!
+Just run `php artisan canvas:ui` after installing Canvas. Then, navigate your browser to `http://your-app.test/blog` or any other URL that is assigned to your application. This command scaffolds a default frontend for your entire blog!
 
 ### Want access to the entire [Unsplash](https://unsplash.com) library?
 
