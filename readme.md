@@ -105,7 +105,7 @@ Canvas exposes a simple UI at `/canvas` by default. This can be changed by updat
 
 ### Publishing
 
-> **Note:** If you'd rather have the following setup run automatically, just use [this command](#want-to-get-started-fast) to scaffold a Medium-inspired frontend. Aside from general post listings, you'll get localized content, reading suggestions and more!
+> **Note:** If you'd rather have your front-end generated automatically, just use [this command](#want-to-get-started-fast) to get started.
 
 Canvas takes care of the backend while giving you the freedom to display the final content however you choose. A very simple setup would include a controller, some views, and a few routes. Take a look at the following example:
 
@@ -203,7 +203,7 @@ Finally, just create `index.blade.php` and `show.blade.php` inside a `/views/blo
 
 ### Want to get started fast?
 
-Just run `php artisan canvas:ui` after installing Canvas. Then, navigate your browser to `http://your-app.test/blog` or any other URL that is assigned to your application. This command scaffolds a default frontend for your entire blog!
+Just run `php artisan canvas:ui` after installing Canvas. Then, navigate your browser to `http://your-app.test/blog` or any other URL that is assigned to your application.
 
 ### Want access to the entire [Unsplash](https://unsplash.com) library?
 
