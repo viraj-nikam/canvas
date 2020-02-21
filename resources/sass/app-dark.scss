@@ -1,7 +1,7 @@
-@import 'fonts';
-@import 'variables';
-@import 'overrides';
-@import 'multiselect';
+@import 'utilities/fonts';
+@import 'utilities/variables';
+@import 'vendor-extensions/bootstrap';
+@import 'vendor-extensions/multiselect';
 
 $body-bg: rgb(38, 50, 56);
 $body-color: rgb(195, 211, 222);
@@ -154,10 +154,10 @@ select.input {
     font-family: $font-family-sans-serif;
 }
 
-@import 'vue';
-@import 'nprogress';
-@import 'switch';
-@import 'filepond';
+@import 'vendor-extensions/vue';
+@import 'vendor-extensions/nprogress';
+@import 'vendor-extensions/switch';
+@import 'vendor-extensions/filepond';
 
 @import '~bootstrap/scss/functions';
 @import '~bootstrap/scss/variables';

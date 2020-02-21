@@ -198,7 +198,7 @@
 </script>
 
 <style lang="scss" scoped>
-    @import '../../../../resources/sass/variables';
+    @import '../../../sass/utilities/variables';
 
     .badge-success {
         background-color: $green-500;

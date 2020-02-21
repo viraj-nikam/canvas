@@ -33,7 +33,9 @@
     <router-view></router-view>
 </div>
 
-@javascript('Canvas', $scripts)
+<script>
+    window.Canvas = @json($scripts);
+</script>
 
 <script type="text/javascript" src="{{ mix('js/app.js', 'vendor/canvas') }}"></script>
 </body>
