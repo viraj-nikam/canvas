@@ -14,7 +14,7 @@ class StatsController extends Controller
     use Tracker;
 
     /**
-     * Number of days to see stats for.
+     * Number of days to get stats for.
      *
      * @const int
      */
@@ -48,9 +48,9 @@ class StatsController extends Controller
 
         return response()->json([
             'view_count' => $views->count(),
-            'view_trend' => json_encode($this->getViewsForDays($views, self::DAYS)),
+            'view_trend' => json_encode($this->countTrackedDataForDays($views, self::DAYS)),
             'visit_count' => $visits->count(),
-            'visit_trend' => json_encode($this->getViewsForDays($visits, self::DAYS)),
+            'visit_trend' => json_encode($this->countTrackedDataForDays($visits, self::DAYS)),
             'published_count' => $published->count(),
             'draft_count' => Post::forCurrentUser()->draft()->count(),
         ]);
@@ -97,11 +97,11 @@ class StatsController extends Controller
                 'popular_reading_times' => $post->popular_reading_times,
                 'traffic' => $post->top_referers,
                 'view_count' => $currentMonthlyViews->count(),
-                'view_trend' => json_encode($this->getViewsForDays($lastThirtyDays, self::DAYS)),
+                'view_trend' => json_encode($this->countTrackedDataForDays($lastThirtyDays, self::DAYS)),
                 'view_month_over_month' => $this->compareMonthToMonth($currentMonthlyViews, $previousMonthlyViews),
                 'view_count_lifetime' => $views->count(),
                 'visit_count' => $currentMonthlyVisits->count(),
-                'visit_trend' => json_encode($this->getViewsForDays($visits, self::DAYS)),
+                'visit_trend' => json_encode($this->countTrackedDataForDays($visits, self::DAYS)),
                 'visit_month_over_month' => $this->compareMonthToMonth($currentMonthlyVisits, $previousMonthlyVisits),
             ]);
         } else {
