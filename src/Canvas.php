@@ -58,6 +58,7 @@ class Canvas
     {
         $langDirectory = dirname(__DIR__, 1).'/resources/lang';
         $file = "{$langDirectory}/{$locale}/app.php";
+
         $lines = collect();
         $lines->put('app', include $file);
 

@@ -20,11 +20,21 @@ class PostsTags extends Pivot
      */
     protected $guarded = [];
 
+    /**
+     * Get the posts relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function posts()
     {
         return $this->belongsTo(Post::class);
     }
 
+    /**
+     * Get the tags relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function tags()
     {
         return $this->belongsTo(Tag::class);

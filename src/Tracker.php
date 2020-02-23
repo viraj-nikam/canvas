@@ -8,7 +8,7 @@ use DateInterval;
 use DatePeriod;
 use Illuminate\Support\Collection;
 
-trait Trends
+trait Tracker
 {
     /**
      * Return an array of view counts for a given number of days.
@@ -17,7 +17,7 @@ trait Trends
      * @param int $daysToLookBack
      * @return array
      */
-    public function getDataPoints(Collection $data, int $daysToLookBack = 1): array
+    public function getViewsForDays(Collection $data, int $daysToLookBack = 1): array
     {
         // Filter the data to only include created_at date strings
         $filtered = collect();
@@ -52,7 +52,7 @@ trait Trends
      * @param Collection $previous
      * @return array
      */
-    public function compareMonthToMonth(Collection $current, Collection $previous)
+    public function compareMonthToMonth(Collection $current, Collection $previous): array
     {
         $dataCountLastMonth = $previous->count();
         $dataCountThisMonth = $current->count();

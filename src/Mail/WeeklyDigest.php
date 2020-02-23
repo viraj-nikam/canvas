@@ -11,7 +11,7 @@ class WeeklyDigest extends Mailable
     use Queueable, SerializesModels;
 
     /**
-     * Weekly stats data for a user.
+     * Data to pass to the email.
      *
      * @var array
      */
@@ -35,9 +35,10 @@ class WeeklyDigest extends Mailable
      */
     public function build()
     {
-        return $this->subject(sprintf('%s: %s - %s', __('canvas::app.stats_for_your_posts'), $this->data['start_date'], $this->data['end_date']))
+        $subject = sprintf('%s: %s - %s', __('canvas::app.stats_for_your_posts'), $this->data['startDate'], $this->data['endDate']);
+
+        return $this->subject($subject)
                     ->from(config('mail.from.address'), config('mail.from.name'))
-                    ->to($this->data['email'])
                     ->markdown('canvas::mail.digest');
     }
 }

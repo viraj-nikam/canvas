@@ -58,7 +58,7 @@ class Topic extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function posts(): BelongsToMany
+    public function posts()
     {
         return $this->belongsToMany(Post::class, 'canvas_posts_topics', 'topic_id', 'post_id');
     }
@@ -69,7 +69,7 @@ class Topic extends Model
      * @param Builder $query
      * @return Builder
      */
-    public function scopeForCurrentUser($query): Builder
+    public function scopeForCurrentUser($query)
     {
         return $query->where('user_id', request()->user()->id ?? null);
     }
