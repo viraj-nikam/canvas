@@ -42,9 +42,15 @@ class CaptureVisit
      */
     private function visitIsUnique(Post $post, string $ip): bool
     {
-        $visit = session()->get("visited_posts.{$post->id}");
+        $visits = session()->get('visited_posts', []);
 
-        return $visit['ip'] != $ip;
+        if (array_key_exists($post->id, $visits)) {
+            $visit = $visits[$post->id];
+
+            return $visit['ip'] != $ip;
+        } else {
+             return true;
+        }
     }
 
     /**

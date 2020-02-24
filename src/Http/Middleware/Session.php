@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Collection;
 
 class Session
 {
@@ -14,7 +15,7 @@ class Session
      *
      * @const int
      */
-    private const EXPIRES_IN = 3600;
+    private const VIEW_EXPIRES_IN = 3600;
 
     /**
      * Handle the incoming request.
@@ -28,11 +29,11 @@ class Session
         $viewedPosts = $this->getViewedPostsInSession();
         $visitedPosts = $this->getVisitedPostsInSession();
 
-        if (! is_null($viewedPosts)) {
+        if ($viewedPosts->isNotEmpty()) {
             $this->pruneExpiredViews($viewedPosts);
         }
 
-        if (! is_null($visitedPosts)) {
+        if ($visitedPosts->isNotEmpty()) {
             $this->pruneExpiredVisits($visitedPosts);
         }
 
@@ -42,47 +43,47 @@ class Session
     /**
      * Get the viewed posts in session.
      *
-     * @return array|null
+     * @return Collection
      */
     private function getViewedPostsInSession()
     {
-        return session()->get('viewed_posts', null);
+        return collect(session()->get('viewed_posts'));
     }
 
     /**
      * Get the visited posts in session.
      *
-     * @return array|null
+     * @return Collection
      */
     private function getVisitedPostsInSession()
     {
-        return session()->get('visited_posts', null);
+        return collect(session()->get('visited_posts'));
     }
 
     /**
-     * Prune expired posts from the session.
+     * Prune expired views from the session.
      *
-     * @param array $posts
+     * @param Collection $posts
      * @return void
      */
-    private function pruneExpiredViews(array $posts)
+    private function pruneExpiredViews(Collection $posts)
     {
-        foreach (collect($posts) as $key => $value) {
-            if ($value < now()->subSeconds(self::EXPIRES_IN)->timestamp) {
+        foreach ($posts as $key => $value) {
+            if ($value < now()->subSeconds(self::VIEW_EXPIRES_IN)->timestamp) {
                 session()->forget('viewed_posts.'.$key);
             }
         }
     }
 
     /**
-     * Prune expired posts from the session.
+     * Prune expired visits from the session.
      *
-     * @param array $posts
+     * @param Collection $posts
      * @return void
      */
-    private function pruneExpiredVisits(array $posts)
+    private function pruneExpiredVisits(Collection $posts)
     {
-        foreach (collect($posts) as $key => $value) {
+        foreach ($posts as $key => $value) {
             if (! Carbon::createFromTimestamp($value['timestamp'])->isToday()) {
                 session()->forget('visited_posts.'.$key);
             }

@@ -41,7 +41,7 @@ class SessionTest extends TestCase
 
         session()->put($key_2, now()->subHours(2)->timestamp);
 
-        $this->invokeMethod($this->instance, 'pruneExpiredViews', [session()->get('viewed_posts')]);
+        $this->invokeMethod($this->instance, 'pruneExpiredViews', [collect(session()->get('viewed_posts'))]);
 
         $this->assertArrayHasKey($post_1->id, session()->get('viewed_posts'));
         $this->assertArrayNotHasKey($post_2->id, session()->get('viewed_posts'));
@@ -67,7 +67,7 @@ class SessionTest extends TestCase
             'ip' => $ip,
         ]);
 
-        $this->invokeMethod($this->instance, 'pruneExpiredVisits', [session()->get('visited_posts')]);
+        $this->invokeMethod($this->instance, 'pruneExpiredVisits', [collect(session()->get('visited_posts'))]);
 
         $this->assertArrayHasKey($post_1->id, session()->get('visited_posts'));
         $this->assertArrayNotHasKey($post_2->id, session()->get('visited_posts'));
