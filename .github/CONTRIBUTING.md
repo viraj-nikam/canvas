@@ -81,7 +81,7 @@ Now that the projects are linked, run the following installation steps:
 ```bash
 php artisan canvas:install
 php artisan storage:link
-php artisan canvas:setup
+php artisan canvas:ui
 ```
 
 Statistics are a core component to the app, so it's best to have a large dataset in place when developing. To generate some, add the following snippets to your Laravel app:
