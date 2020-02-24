@@ -81,16 +81,10 @@ Now that the projects are linked, run the following installation steps:
 ```bash
 php artisan canvas:install
 php artisan storage:link
-php artisan canvas:setup
+php artisan canvas:ui
 ```
 
 Statistics are a core component to the app, so it's best to have a large dataset in place when developing. To generate some, add the following snippets to your Laravel app:
-
-In the `run()` method of the `DatabaseSeeder`:
-
-```php
-$this->call(CanvasTrackingDataSeeder::class);
-```
 
 Create a new class named `CanvasTrackingDataSeeder` and add this to the `run()` method:
 
@@ -102,41 +96,23 @@ factory(\Canvas\View::class, 2500)->create();
 factory(\Canvas\Visit::class, 2500)->create();
 ```
 
+In the `run()` method of the `DatabaseSeeder`:
+
+```php
+$this->call(CanvasTrackingDataSeeder::class);
+```
+
 Create a new factory named `ViewFactory` and add this definition:
 
 ```php
 $factory->define(\Canvas\View::class, function (\Faker\Generator $faker) {
-    $referers = collect([
-        'https://google.com',
-        'https://twitter.com',
-        'https://facebook.com',
-        'https://medium.com',
-        'https://laravel-news.com',
-        'https://reddit.com',
-        'https://wordpress.com',
-        'https://news.ycombinator.com',
-        'https://hackernoon.com',
-        'https://dev.to',
-        'https://www.sitepoint.com',
-    ]);
-
-    $user_agents = collect([
-        'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:69.0) Gecko/20100101 Firefox/69.0',
-        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36',
-        'Mozilla/5.0 (Windows NT 10.0; rv:68.0) Gecko/20100101 Firefox/68.0',
-        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.2 Safari/605.1.15',
-        'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101 Firefox/68.0',
-        'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
-
-    ]);
-
     $timestamp = today()->subDays(rand(0, 60))->toDateTimeString();
 
     return [
         'post_id'    => \Canvas\Post::all()->pluck('id')->random(),
-        'ip'         => $faker->ipv4,
-        'agent'      => $user_agents->random(),
-        'referer'    => $referers->random(),
+        'ip' => $faker->ipv4,
+        'agent' => $faker->userAgent,
+        'referer' => $faker->url,
         'created_at' => $timestamp,
         'updated_at' => $timestamp,
     ];
@@ -147,37 +123,13 @@ Create a new factory named `VisitFactory` and add this definition:
 
 ```php
 $factory->define(\Canvas\Visit::class, function (\Faker\Generator $faker) {
-    $referers = collect([
-        'https://google.com',
-        'https://twitter.com',
-        'https://facebook.com',
-        'https://medium.com',
-        'https://laravel-news.com',
-        'https://reddit.com',
-        'https://wordpress.com',
-        'https://news.ycombinator.com',
-        'https://hackernoon.com',
-        'https://dev.to',
-        'https://www.sitepoint.com',
-    ]);
-
-    $user_agents = collect([
-        'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:69.0) Gecko/20100101 Firefox/69.0',
-        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36',
-        'Mozilla/5.0 (Windows NT 10.0; rv:68.0) Gecko/20100101 Firefox/68.0',
-        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.2 Safari/605.1.15',
-        'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101 Firefox/68.0',
-        'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
-
-    ]);
-
     $timestamp = today()->subDays(rand(0, 60))->toDateTimeString();
 
     return [
-        'post_id'    => \Canvas\Post::all()->pluck('id')->random(),
-        'ip'         => $faker->ipv4,
-        'agent'      => $user_agents->random(),
-        'referer'    => $referers->random(),
+        'post_id' => \Canvas\Post::all()->pluck('id')->random(),
+        'ip' => $faker->ipv4,
+        'agent' => $faker->userAgent,
+        'referer' => $faker->url,
         'created_at' => $timestamp,
         'updated_at' => $timestamp,
     ];

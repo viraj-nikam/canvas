@@ -1,4 +1,11 @@
-@import 'variables';
+/*
+ * Vue MultiSelect Component
+ *
+ * @author Damian Dulisz
+ * @link https://github.com/shentao/vue-multiselect
+ */
+
+@import '../utilities/variables';
 @import '~vue-multiselect/dist/vue-multiselect.min.css';
 
 .multiselect__select {

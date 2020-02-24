@@ -5,7 +5,7 @@ namespace Canvas\Http\Controllers;
 use Canvas\Canvas;
 use Illuminate\Routing\Controller;
 
-class BaseController extends Controller
+class ViewController extends Controller
 {
     /**
      * Return the SPA with global variables.

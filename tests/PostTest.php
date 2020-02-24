@@ -3,11 +3,14 @@
 namespace Canvas\Tests;
 
 use Canvas\Post;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Str;
 use Ramsey\Uuid\Uuid;
 
 class PostTest extends TestCase
 {
+    use RefreshDatabase;
+
     /** @test */
     public function calculate_human_friendly_read_time()
     {

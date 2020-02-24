@@ -2,6 +2,15 @@
 
 ## [Unreleased](https://github.com/cnvs/canvas/compare/master...develop)
 
+## [5.2.5](https://github.com/cnvs/canvas/compare/v5.2.4...v5.2.5) (February 24, 2020)
+
+### Fixed
+- Fix for a bad array offset when using PHP 7.4 ([#635](https://github.com/cnvs/canvas/issues/635))
+- Fixed zero-decimals with an optional parameter ([33d1692](https://github.com/cnvs/canvas/commit/33d16924beb425b6157a9ec65d7fe7ee5a21d2d2))
+
+### Changed
+- Refactored the `canvas:setup` Artisan command ([0dfb717](https://github.com/cnvs/canvas/commit/0dfb717a832590bc1c133a9fb6f611fdbaf172b0))
+
 ## [5.2.4](https://github.com/cnvs/canvas/compare/v5.2.3...v5.2.4) (February 10, 2020)
 
 ### Fixed

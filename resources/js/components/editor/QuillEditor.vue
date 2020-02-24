@@ -465,7 +465,7 @@
 </script>
 
 <style lang="scss">
-    @import '../../../../resources/sass/variables';
+    @import '../../../sass/utilities/variables';
     @import '~quill/dist/quill.bubble.css';
 
     .ql-container {

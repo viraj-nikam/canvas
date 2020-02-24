@@ -19,10 +19,10 @@ export default {
         },
 
         suffixedNumber(number) {
-            if (number < 900) {
+            if (number < 999) {
                 return number
             } else {
-                return numeral(number).format('0.0a')
+                return numeral(number).format('0.[0]a')
             }
         },
 
