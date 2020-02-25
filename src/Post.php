@@ -5,10 +5,7 @@ namespace Canvas;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Str;
@@ -89,7 +86,7 @@ class Post extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function tags(): BelongsToMany
+    public function tags()
     {
         return $this->belongsToMany(
             Tag::class,
@@ -104,7 +101,7 @@ class Post extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function topic(): BelongsToMany
+    public function topic()
     {
         return $this->belongsToMany(
             Topic::class,
@@ -119,7 +116,7 @@ class Post extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user(): BelongsTo
+    public function user()
     {
         return $this->belongsTo(User::class);
     }
@@ -129,7 +126,7 @@ class Post extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOneThrough
      */
-    public function userMeta(): HasOneThrough
+    public function userMeta()
     {
         return $this->hasOneThrough(
             UserMeta::class,
@@ -146,7 +143,7 @@ class Post extends Model
      *
      * @return HasMany
      */
-    public function views(): HasMany
+    public function views()
     {
         return $this->hasMany(View::class);
     }
@@ -156,7 +153,7 @@ class Post extends Model
      *
      * @return HasMany
      */
-    public function visits(): HasMany
+    public function visits()
     {
         return $this->hasMany(Visit::class);
     }
@@ -272,7 +269,7 @@ class Post extends Model
      * @param Builder $query
      * @return Builder
      */
-    public function scopePublished($query): Builder
+    public function scopePublished($query)
     {
         return $query->where('published_at', '<=', now()->toDateTimeString());
     }
@@ -283,7 +280,7 @@ class Post extends Model
      * @param Builder $query
      * @return Builder
      */
-    public function scopeDraft($query): Builder
+    public function scopeDraft($query)
     {
         return $query->where('published_at', null)->orWhere('published_at', '>', now()->toDateTimeString());
     }
@@ -294,7 +291,7 @@ class Post extends Model
      * @param Builder $query
      * @return Builder
      */
-    public function scopeForCurrentUser($query): Builder
+    public function scopeForCurrentUser($query)
     {
         return $query->where('user_id', request()->user()->id ?? null);
     }
@@ -305,7 +302,7 @@ class Post extends Model
      * @param $query
      * @return Builder
      */
-    public function scopeWithUserMeta($query): Builder
+    public function scopeWithUserMeta($query)
     {
         return $query->with('userMeta');
     }

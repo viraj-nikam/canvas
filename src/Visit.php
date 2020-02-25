@@ -3,7 +3,6 @@
 namespace Canvas;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Visit extends Model
 {
@@ -26,7 +25,7 @@ class Visit extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function post(): BelongsTo
+    public function post()
     {
         return $this->belongsTo(Post::class);
     }

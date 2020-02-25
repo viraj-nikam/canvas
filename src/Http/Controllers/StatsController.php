@@ -3,7 +3,7 @@
 namespace Canvas\Http\Controllers;
 
 use Canvas\Post;
-use Canvas\Trends;
+use Canvas\Tracker;
 use Canvas\View;
 use Canvas\Visit;
 use Illuminate\Http\JsonResponse;
@@ -11,14 +11,14 @@ use Illuminate\Routing\Controller;
 
 class StatsController extends Controller
 {
-    use Trends;
+    use Tracker;
 
     /**
-     * Number of days to compile a stat range.
+     * Number of days to get stats for.
      *
      * @const int
      */
-    private const DAYS_PRIOR = 30;
+    private const DAYS = 30;
 
     /**
      * Get all the stats.
@@ -35,22 +35,22 @@ class StatsController extends Controller
         $views = View::select('created_at')
                      ->whereIn('post_id', $published->pluck('id'))
                      ->whereBetween('created_at', [
-                         today()->subDays(self::DAYS_PRIOR)->startOfDay()->toDateTimeString(),
+                         today()->subDays(self::DAYS)->startOfDay()->toDateTimeString(),
                          today()->endOfDay()->toDateTimeString(),
                      ])->get();
 
         $visits = Visit::select('created_at')
                        ->whereIn('post_id', $published->pluck('id'))
                        ->whereBetween('created_at', [
-                           today()->subDays(self::DAYS_PRIOR)->startOfDay()->toDateTimeString(),
+                           today()->subDays(self::DAYS)->startOfDay()->toDateTimeString(),
                            today()->endOfDay()->toDateTimeString(),
                        ])->get();
 
         return response()->json([
             'view_count' => $views->count(),
-            'view_trend' => json_encode($this->getDataPoints($views, self::DAYS_PRIOR)),
+            'view_trend' => json_encode($this->countTrackedDataForDays($views, self::DAYS)),
             'visit_count' => $visits->count(),
-            'visit_trend' => json_encode($this->getDataPoints($visits, self::DAYS_PRIOR)),
+            'visit_trend' => json_encode($this->countTrackedDataForDays($visits, self::DAYS)),
             'published_count' => $published->count(),
             'draft_count' => Post::forCurrentUser()->draft()->count(),
         ]);
@@ -77,7 +77,7 @@ class StatsController extends Controller
                 today()->endOfMonth()->endOfDay()->toDateTimeString(),
             ]);
             $lastThirtyDays = $views->whereBetween('created_at', [
-                today()->subDays(self::DAYS_PRIOR)->startOfDay()->toDateTimeString(),
+                today()->subDays(self::DAYS)->startOfDay()->toDateTimeString(),
                 today()->endOfDay()->toDateTimeString(),
             ]);
 
@@ -97,11 +97,11 @@ class StatsController extends Controller
                 'popular_reading_times' => $post->popular_reading_times,
                 'traffic' => $post->top_referers,
                 'view_count' => $currentMonthlyViews->count(),
-                'view_trend' => json_encode($this->getDataPoints($lastThirtyDays, self::DAYS_PRIOR)),
+                'view_trend' => json_encode($this->countTrackedDataForDays($lastThirtyDays, self::DAYS)),
                 'view_month_over_month' => $this->compareMonthToMonth($currentMonthlyViews, $previousMonthlyViews),
                 'view_count_lifetime' => $views->count(),
                 'visit_count' => $currentMonthlyVisits->count(),
-                'visit_trend' => json_encode($this->getDataPoints($visits, self::DAYS_PRIOR)),
+                'visit_trend' => json_encode($this->countTrackedDataForDays($visits, self::DAYS)),
                 'visit_month_over_month' => $this->compareMonthToMonth($currentMonthlyVisits, $previousMonthlyVisits),
             ]);
         } else {

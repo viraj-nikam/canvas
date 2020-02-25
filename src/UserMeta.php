@@ -4,7 +4,6 @@ namespace Canvas;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User;
 
 class UserMeta extends Model
@@ -38,7 +37,7 @@ class UserMeta extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user(): BelongsTo
+    public function user()
     {
         return $this->belongsTo(User::class);
     }
@@ -49,7 +48,7 @@ class UserMeta extends Model
      * @param Builder $query
      * @return Builder
      */
-    public function scopeForCurrentUser($query): Builder
+    public function scopeForCurrentUser($query)
     {
         return $query->where('user_id', request()->user()->id ?? null);
     }
