@@ -105,7 +105,7 @@ Canvas exposes a simple UI at `/canvas` by default. This can be changed by updat
 
 ### Frontend
 
-While Canvas does not dictate a specific design for your frontend, it does provide a basic starting point using Bootstrap and Vue. The scaffolding is located in the `cnvs/studio` Composer package, which may be installed using Composer:
+While Canvas does not dictate a specific design for your frontend, it does provide a basic starting point using [Bootstrap](https://getbootstrap.com) and [Vue](https://vuejs.org). The scaffolding is located in the `cnvs/studio` Composer package, which may be installed using Composer:
 
 ```bash
 composer require cnvs/studio
