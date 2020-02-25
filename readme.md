@@ -9,10 +9,11 @@
 
 - [Introduction](#introduction)
 - [Installation](#installation)
-- [Usage](#usage)
-	- [Configuration](#configuration)
-	- [Frontend](#frontend)
-- [Options](#options)
+- [Configuration](#configuration)
+- [Available Options](#available-options)
+    - [Frontend](#frontend)
+    - [Unsplash](#unsplash)
+    - [Weekly Digest](#weekly-digest)
 - [Updates](#updates)
 - [Testing](#testing)
 - [Translate](#translate)
@@ -47,9 +48,7 @@ Create a symbolic link to ensure file uploads are publicly accessible from the w
 php artisan storage:link
 ```
 
-## Usage
-
-### Configuration
+## Configuration
 
 After publishing Canvas's assets, a primary configuration file will be located at `config/canvas.php`. This file allows you to customize various aspects of how your application uses the package.
 
@@ -103,9 +102,13 @@ Canvas exposes a simple UI at `/canvas` by default. This can be changed by updat
 'upload_filesize' => env('CANVAS_UPLOAD_FILESIZE', 3145728),
 ```
 
+## Available Options
+
+> **Note:** The following features are completely optional, you are not required to use them.
+
 ### Frontend
 
-While Canvas does not dictate a specific design for your frontend, it does provide a basic starting point using [Bootstrap](https://getbootstrap.com) and [Vue](https://vuejs.org). The scaffolding is located in the `cnvs/studio` Composer package, which may be installed using Composer:
+While Canvas does not dictate a specific design for your frontend, it does provide a basic starting point using [Bootstrap](https://getbootstrap.com) and [Vue](https://vuejs.org) that will be helpful for many applications. The scaffolding is located in the `cnvs/studio` Composer package, which may be installed using Composer:
 
 ```bash
 composer require cnvs/studio
@@ -129,13 +132,9 @@ yarn
 yarn dev
 ```
 
-## Options
+### Unsplash
 
-> **Note:** The following components are optional features, you are not required to use them.
-
-### Want access to the entire [Unsplash](https://unsplash.com) library?
-
-Set up a new application at [https://unsplash.com/oauth/applications](https://unsplash.com/oauth/applications), grab your access key, and update `config/canvas.php`:
+**Want access to the entire [Unsplash](https://unsplash.com) library?** Set up a new application at [https://unsplash.com/oauth/applications](https://unsplash.com/oauth/applications), grab your access key, and update `config/canvas.php`:
 
 ```php
 /*
@@ -154,9 +153,9 @@ Set up a new application at [https://unsplash.com/oauth/applications](https://un
 ]
 ```
 
-### Want a weekly summary?
+### Weekly Digest
 
-Canvas allows users to receive a weekly summary of their authored content. Once your application is [configured for sending mail](https://laravel.com/docs/master/mail), update `config/canvas.php`:
+**Want a weekly summary?** Canvas allows users to receive a weekly summary of their authored content. Once your application is [configured for sending mail](https://laravel.com/docs/master/mail), update `config/canvas.php`:
 
 ```php
 /*
