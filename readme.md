@@ -5,26 +5,17 @@
 <a href="https://packagist.org/packages/cnvs/canvas"><img src="https://poser.pugx.org/cnvs/canvas/v/stable"></a>
 <a href="https://packagist.org/packages/cnvs/canvas"><img src="https://poser.pugx.org/cnvs/canvas/license"></a>
 
-## Table of Contents
-
-- [Introduction](#introduction)
-- [Installation](#installation)
-- [Configuration](#configuration)
-- [Available Options](#available-options)
-    - [Frontend](#frontend)
-    - [Unsplash](#unsplash)
-    - [Weekly Digest](#weekly-digest)
-- [Updates](#updates)
-- [Testing](#testing)
-- [Translate](#translate)
-- [License](#license)
-- [Credits](#credits)
-
 ## Introduction
 
 A [Laravel](https://laravel.com) publishing platform. Canvas is a fully open source package to extend your existing application and get you up-and-running with a blog in 
 just a few minutes. In addition to a distraction-free writing experience, you can view monthly trends on your content, 
 get insights into reader traffic and more!
+
+## Requirements
+
+- PHP >= 7.2
+- Laravel >= 6.0
+- One of the [four supported databases](https://laravel.com/docs/master/database#introduction) by Laravel
 
 ## Installation
 
