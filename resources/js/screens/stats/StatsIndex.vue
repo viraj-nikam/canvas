@@ -12,12 +12,12 @@
             <div class="col-xl-10 offset-xl-1 px-xl-5 col-md-12">
                 <div class="my-3">
                     <h1>{{ trans.app.stats }}</h1>
-                    <p v-if="isReady && posts.length">{{ trans.app.click_to_see_insights }}</p>
+                    <p class="text-secondary" v-if="isReady && posts.length">{{ trans.app.click_to_see_insights }}</p>
                 </div>
 
                 <div v-if="isReady" v-cloak>
                     <div v-if="posts.length">
-                        <div class="card-deck mt-4">
+                        <div class="card-deck mt-5">
                             <div class="card shadow bg-transparent">
                                 <div class="card-header pb-0 bg-transparent d-flex justify-content-between align-middle border-0">
                                     <p class="font-weight-bold text-muted small text-uppercase">{{ trans.app.views }}</p>
@@ -66,28 +66,27 @@
                         />
 
                         <div class="mt-5">
-                            <div v-for="(post, $index) in posts" :key="$index" class="d-flex border-top py-3 align-items-center">
-                                <div class="mr-auto">
-                                    <p class="mb-1 mt-2">
-                                        <router-link :to="{name: 'stats-show', params: { id: post.id }}" class="font-weight-bold text-lg lead text-decoration-none">
+                            <div v-for="(post, $index) in posts" :key="$index">
+                                <router-link :to="{name: 'stats-show', params: { id: post.id }}" class="text-decoration-none">
+                                    <div class="d-flex border-top py-3 align-items-center">
+                                        <div class="mr-auto">
+                                            <p class="mb-1 mt-2">
+                                        <span class="font-weight-bold text-lg lead">
                                             {{ post.title }}
-                                        </router-link>
-                                    </p>
-                                    <p class="text-muted mb-2">
-                                        {{ post.read_time }} ―
-                                        <router-link :to="{name: 'posts-edit', params: { id: post.id }}" class="text-decoration-none text-muted">
-                                            {{ trans.app.edit_post }}
-                                        </router-link>
-                                        ―
-                                        <router-link :to="{name: 'stats-show', params: { id: post.id }}" class="text-decoration-none text-muted">
-                                            {{ trans.app.view_stats }}
-                                        </router-link>
-                                    </p>
-                                </div>
-                                <div class="ml-auto d-none d-lg-block">
-                                    <span class="text-muted mr-3">{{ suffixedNumber(post.views_count) }} {{ trans.app.views }}</span>
-                                    {{ trans.app.created }} {{ moment(post.created_at).locale(Canvas.locale).fromNow() }}
-                                </div>
+                                        </span>
+                                            </p>
+                                            <p class="text-muted mb-2">
+                                                {{ post.read_time }} ― {{ trans.app.published }} {{ moment(post.published_at).locale(Canvas.locale).fromNow() }}
+                                            </p>
+                                        </div>
+                                        <div class="ml-auto d-none d-lg-block">
+                                            <span class="text-muted mr-3">{{ suffixedNumber(post.views_count) }} {{ trans.app.views }}</span>
+                                            <span class="mr-3">{{ trans.app.created }} {{ moment(post.created_at).locale(Canvas.locale).fromNow() }}</span>
+                                        </div>
+
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="25" viewBox="0 0 24 24" class="icon-cheveron-right-circle"><circle cx="12" cy="12" r="10" style="fill:none"/><path class="primary" d="M10.3 8.7a1 1 0 0 1 1.4-1.4l4 4a1 1 0 0 1 0 1.4l-4 4a1 1 0 0 1-1.4-1.4l3.29-3.3-3.3-3.3z"/></svg>
+                                    </div>
+                                </router-link>
                             </div>
                         </div>
 

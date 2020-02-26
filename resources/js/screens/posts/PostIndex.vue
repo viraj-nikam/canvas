@@ -20,39 +20,43 @@
                 </div>
 
                 <div class="mt-2">
-                    <div v-for="(post, $index) in posts" :key="$index" class="d-flex border-top py-3 align-items-center">
-                        <div class="mr-auto py-1">
-                            <p class="mb-1">
-                                <router-link :to="{name: 'posts-edit', params: { id: post.id }}" class="font-weight-bold text-lg lead text-decoration-none">
-                                    {{ post.title }}
-                                </router-link>
-                            </p>
-                            <p class="mb-1" v-if="post.summary">
-                                {{ trim(post.summary, 200) }}
-                            </p>
-                            <p class="text-muted mb-0">
-                                <span v-if="isPublished(post)">
-                                    {{ trans.app.published}} {{ moment(post.published_at).locale(Canvas.locale).fromNow() }}
-                                </span>
+                    <div v-for="(post, $index) in posts" :key="$index">
+                        <router-link :to="{name: 'posts-edit', params: { id: post.id }}" class="text-decoration-none">
+                            <div class="d-flex border-top py-3 align-items-center">
+                                <div class="mr-auto py-1">
+                                    <p class="mb-1">
+                                    <span class="font-weight-bold text-lg lead">
+                                        {{ post.title }}
+                                    </span>
+                                    </p>
+                                    <p class="mb-1" v-if="post.summary">
+                                        {{ trim(post.summary, 200) }}
+                                    </p>
+                                    <p class="text-muted mb-0">
+                                        <span v-if="isPublished(post)">
+                                            {{ trans.app.published}} {{ moment(post.published_at).locale(Canvas.locale).fromNow() }}
+                                        </span>
 
-                                <span v-if="isDraft(post)" class="text-danger">{{ trans.app.draft }}</span>
+                                        <span v-if="isDraft(post)" class="text-danger">{{ trans.app.draft }}</span>
 
-                                <span v-if="isScheduled(post)" class="text-danger">{{ trans.app.scheduled }}</span>
+                                        <span v-if="isScheduled(post)" class="text-danger">{{ trans.app.scheduled }}</span>
 
-                                ― {{ trans.app.updated }} {{ moment(post.updated_at).locale(Canvas.locale).fromNow() }}
-                            </p>
-                        </div>
-                        <div class="ml-auto d-none d-lg-block pl-3">
-                            <router-link :to="{name: 'posts-edit', params: { id: post.id }}">
-                                <div v-if="post.featured_image" id="featuredImage" class="mr-2 ml-3 shadow-inner" :style="{backgroundImage:'url(' + post.featured_image +')',}"></div>
-                                <div v-else class="mx-3 align-middle">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="45" viewBox="0 0 24 24" class="icon-camera">
-                                        <path class="primary" d="M6.59 6l2.7-2.7A1 1 0 0 1 10 3h4a1 1 0 0 1 .7.3L17.42 6H20a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8c0-1.1.9-2 2-2h2.59zM19 10a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-7 8a5 5 0 1 0 0-10 5 5 0 0 0 0 10z"/>
-                                        <path class="primary" d="M12 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-                                    </svg>
+                                        ― {{ trans.app.updated }} {{ moment(post.updated_at).locale(Canvas.locale).fromNow() }}
+                                    </p>
                                 </div>
-                            </router-link>
-                        </div>
+                                <div class="ml-auto d-none d-lg-block pl-3">
+                                    <router-link :to="{name: 'posts-edit', params: { id: post.id }}">
+                                        <div v-if="post.featured_image" id="featuredImage" class="mr-2 ml-3 shadow-inner" :style="{backgroundImage:'url(' + post.featured_image +')',}"></div>
+                                        <div v-else class="mx-3 align-middle">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="45" viewBox="0 0 24 24" class="icon-camera">
+                                                <path class="primary" d="M6.59 6l2.7-2.7A1 1 0 0 1 10 3h4a1 1 0 0 1 .7.3L17.42 6H20a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8c0-1.1.9-2 2-2h2.59zM19 10a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-7 8a5 5 0 1 0 0-10 5 5 0 0 0 0 10z"/>
+                                                <path class="primary" d="M12 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                                            </svg>
+                                        </div>
+                                    </router-link>
+                                </div>
+                            </div>
+                        </router-link>
                     </div>
 
                     <infinite-loading :identifier="infiniteId" @infinite="fetchData" spinner="spiral">
