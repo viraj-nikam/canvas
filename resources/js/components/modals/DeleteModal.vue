@@ -2,18 +2,17 @@
     <div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <div class="modal-header d-flex align-items-center justify-content-between border-0">
-                    <h4 class="modal-title">{{ header }}</h4>
-
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" class="icon-close-circle">
-                            <circle cx="12" cy="12" r="10" class="primary"/>
-                            <path class="fill-bg" d="M13.41 12l2.83 2.83a1 1 0 0 1-1.41 1.41L12 13.41l-2.83 2.83a1 1 0 1 1-1.41-1.41L10.59 12 7.76 9.17a1 1 0 0 1 1.41-1.41L12 10.59l2.83-2.83a1 1 0 0 1 1.41 1.41L13.41 12z"/>
-                        </svg>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p>{{ message }}</p>
+                <div class="modal-body py-4">
+                    <div class="d-flex justify-content-center mx-auto d-lg-none d-block">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="40" class="icon-important pb-2 mr-md-3"><path class="fill-warning-secondary" d="M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20z"/><path class="fill-warning-primary" d="M12 18a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm1-5.9c-.13 1.2-1.88 1.2-2 0l-.5-5a1 1 0 0 1 1-1.1h1a1 1 0 0 1 1 1.1l-.5 5z"/></svg>
+                    </div>
+                    <div class="media">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="40" class="icon-important d-none d-lg-block mr-md-3"><path class="fill-warning-secondary" d="M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20z"/><path class="fill-warning-primary" d="M12 18a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm1-5.9c-.13 1.2-1.88 1.2-2 0l-.5-5a1 1 0 0 1 1-1.1h1a1 1 0 0 1 1 1.1l-.5 5z"/></svg>
+                        <div class="media-body">
+                            <p class="lead mb-1 text-center text-lg-left">{{ header }}</p>
+                            <p class="text-secondary text-center text-lg-left">{{ message }}</p>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <div class="row w-100">

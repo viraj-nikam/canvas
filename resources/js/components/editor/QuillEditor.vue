@@ -186,7 +186,6 @@
 
         mounted() {
             this.editor = this.createEditor()
-
             this.handleEditorValue()
 
             // Render any Tweets inside the editor
@@ -471,7 +470,7 @@
     .ql-container {
         font-size: 1.1rem;
         line-height: 2;
-        font-family: $font-family-serif, serif;
+        font-family: $font-family-serif;
         margin: 0;
         height: 100%;
         position: relative;
@@ -479,7 +478,7 @@
     }
 
     .ql-editor {
-        font-family: $font-family-serif, serif;
+        font-family: $font-family-serif;
         font-size: 1.1rem;
         line-height: 2;
         padding: 0;
