@@ -1,4 +1,4 @@
-name: tests
+name: build
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
     - cron: '0 0 * * *'
 
 jobs:
-  tests:
+  build:
 
     runs-on: ubuntu-latest
     strategy:
