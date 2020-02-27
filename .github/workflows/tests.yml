@@ -42,5 +42,5 @@ jobs:
       - name: Install dependencies
         run: composer require "illuminate/support=${{ matrix.laravel }}" "orchestra/testbench=${{ matrix.testbench }}" "doctrine/dbal=${{ matrix.dbal }}" --prefer-dist --no-interaction --no-suggest
 
-      - name: Run tests
+      - name: Run test suite
         run: vendor/bin/phpunit --verbose
