@@ -75,7 +75,7 @@
                                             {{ post.title }}
                                         </span>
                                             </p>
-                                            <p class="text-muted mb-2">
+                                            <p class="text-secondary mb-2">
                                                 {{ post.read_time }} ― {{ trans.app.published }} {{ moment(post.published_at).locale(Canvas.locale).fromNow() }}
                                             </p>
                                         </div>

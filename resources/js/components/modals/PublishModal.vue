@@ -2,20 +2,9 @@
     <div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <div class="modal-header d-flex align-items-center justify-content-between border-0">
-                    <h4 class="modal-title">
-                        {{ trans.app.publishing }}
-                    </h4>
-
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" class="icon-close-circle">
-                            <circle cx="12" cy="12" r="10" class="primary"/>
-                            <path class="fill-bg" d="M13.41 12l2.83 2.83a1 1 0 0 1-1.41 1.41L12 13.41l-2.83 2.83a1 1 0 1 1-1.41-1.41L10.59 12 7.76 9.17a1 1 0 0 1 1.41-1.41L12 10.59l2.83-2.83a1 1 0 0 1 1.41 1.41L13.41 12z"/>
-                        </svg>
-                    </button>
-                </div>
                 <div class="modal-body">
-                    <p class="text-muted">
+                    <p class="lead mb-1 text-center text-lg-left">{{ trans.app.publishing }}</p>
+                    <p class="text-secondary">
                         {{ trans.app.post_scheduling_format }} <span class="font-weight-bold">{{ Canvas.timezone }}</span> {{ trans.app.timezone }}. (m/d/y h:m)
                     </p>
 
