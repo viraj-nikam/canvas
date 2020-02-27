@@ -19,7 +19,7 @@ jobs:
         laravel: [^6.0]
         dependency-version: [prefer-lowest, prefer-stable]
         dbal: [^2.10]
-        testbench: [^4.0, ^5.0]
+        testbench: [^4.0]
 #        include:
 #          - laravel: ^6.0
 #            testbench: ^4.0
