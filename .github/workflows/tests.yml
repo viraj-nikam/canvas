@@ -20,9 +20,9 @@ jobs:
         dependency-version: [prefer-lowest, prefer-stable]
         dbal: [^2.10]
         testbench: [^4.0, ^5.0]
-        include:
-          - laravel: ^6.0
-            testbench: ^4.0
+#        include:
+#          - laravel: ^6.0
+#            testbench: ^4.0
 
     name: P${{ matrix.php }} — L${{ matrix.laravel }} — ${{ matrix.dependency-version }}
 
@@ -44,7 +44,9 @@ jobs:
           coverage: none
 
       - name: Install dependencies
-        run: composer require "illuminate/support=${{ matrix.laravel }}" "orchestra/testbench=${{ matrix.testbench }}" "doctrine/dbal=${{ matrix.dbal }}" --prefer-dist --no-interaction --no-suggest
+        run: |
+            composer require "illuminate/support=${{ matrix.laravel }}" "orchestra/testbench=${{ matrix.testbench }}" "doctrine/dbal=${{ matrix.dbal }}" --prefer-dist --no-interaction --no-suggest
+            composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction --no-suggest
 
       - name: Run tests
         run: vendor/bin/phpunit --verbose
