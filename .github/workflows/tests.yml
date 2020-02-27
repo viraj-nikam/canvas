@@ -20,9 +20,6 @@ jobs:
         dependency-version: [prefer-lowest, prefer-stable]
         dbal: [^2.10]
         testbench: [^4.0]
-#        include:
-#          - laravel: ^6.0
-#            testbench: ^4.0
 
     name: P${{ matrix.php }} — L${{ matrix.laravel }} — ${{ matrix.dependency-version }}
 
