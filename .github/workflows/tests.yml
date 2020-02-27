@@ -17,25 +17,21 @@ jobs:
       matrix:
         php: [7.2, 7.3, 7.4]
         laravel: [^6.0]
+        dependency-version: [prefer-lowest, prefer-stable]
         dbal: [^2.10]
         testbench: [^4.0]
 
-    name: PHP${{ matrix.php }} — Laravel${{ matrix.laravel }}
+    name: P${{ matrix.php }} — L${{ matrix.laravel }} — ${{ matrix.dependency-version }}
 
     steps:
       - name: Checkout package
         uses: actions/checkout@v2
 
-      - name: Get Composer Cache Directory
-        id: composer-cache
-        run: |
-          echo "::set-output name=dir::$(composer config cache-files-dir)"
-      - uses: actions/cache@v1
+      - name: Cache dependencies
+        uses: actions/cache@v1
         with:
-          path: ${{ steps.composer-cache.outputs.dir }}
-          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-composer-
+          path: ~/.composer/cache/files
+          key: dependencies-laravel-${{ matrix.laravel }}-php-${{ matrix.php }}-composer-${{ hashFiles('composer.json') }}
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
