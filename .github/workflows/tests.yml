@@ -17,8 +17,8 @@ jobs:
       matrix:
         php: [7.2, 7.3, 7.4]
         laravel: [^6.0, ^7.0]
-        dbal: [^2.10]
-        testbench: [^4.0]
+        dbal: [^2.6]
+        testbench: [^4.0, ^5.0]
 
     name: PHP${{ matrix.php }} — Laravel${{ matrix.laravel }}
 
@@ -42,5 +42,5 @@ jobs:
       - name: Install dependencies
         run: composer require "illuminate/support=${{ matrix.laravel }}" "orchestra/testbench=${{ matrix.testbench }}" "doctrine/dbal=${{ matrix.dbal }}" --prefer-dist --no-interaction --no-suggest
 
-      - name: Run test suite
+      - name: Run tests
         run: vendor/bin/phpunit --verbose
