@@ -15,15 +15,16 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php: [7.4, 7.3, 7.2]
-        laravel: [7.*, 6.*]
+        php: [7.2, 7.3, 7.4]
+        laravel: [^6.0, ^7.0]
         dbal: [^2.10]
-        testbench: [5.*, 4.*]
         include:
-          - laravel: 7.*
-            testbench: 5.*
+          - laravel: ^7.0
+            testbench: ^5.0
+          - laravel: ^6.0
+            testbench: ^4.0
 
-    name: P${{ matrix.php }} — L${{ matrix.laravel }}
+    name: PHP ${{ matrix.php }} on Laravel ${{ matrix.laravel }}
 
     steps:
       - name: Checkout package
