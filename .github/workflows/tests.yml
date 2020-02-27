@@ -16,10 +16,13 @@ jobs:
       fail-fast: true
       matrix:
         php: [7.2, 7.3, 7.4]
-        laravel: [^6.0]
+        laravel: [^6.0, ^7.0]
         dependency-version: [prefer-lowest, prefer-stable]
         dbal: [^2.10]
-        testbench: [^4.0]
+        testbench: [^4.0, ^5.0]
+        include:
+          - laravel: 7.*
+            testbench: 5.*
 
     name: P${{ matrix.php }} — L${{ matrix.laravel }} — ${{ matrix.dependency-version }}
 
