@@ -21,8 +21,8 @@ jobs:
         dbal: [^2.10]
         testbench: [^4.0, ^5.0]
         include:
-            - laravel: 6.*
-              testbench: 4.*
+          - laravel: ^6.0
+            testbench: ^4.0
 
     name: P${{ matrix.php }} — L${{ matrix.laravel }} — ${{ matrix.dependency-version }}
 
