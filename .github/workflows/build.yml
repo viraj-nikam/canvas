@@ -19,9 +19,9 @@ jobs:
         laravel: [^6.0, ^7.0]
         dbal: [^2.10]
         testbench: [^4.0, ^5.0]
-          - include:
-              - laravel: ^7.0
-                testbench: ^5.0
+        include:
+          - laravel: ^7.0
+            testbench: ^5.0
 
     name: P${{ matrix.php }} — L${{ matrix.laravel }}
 
