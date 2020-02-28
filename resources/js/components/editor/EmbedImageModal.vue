@@ -117,7 +117,8 @@
 </template>
 
 <script>
-    import _ from "lodash"
+    import isEmpty from "lodash/isEmpty"
+    import debounce from "lodash/debounce"
     import Unsplash, {toJson} from 'unsplash-js'
     import InfiniteLoading from 'vue-infinite-loading'
     import vueFilePond from 'vue-filepond'
@@ -171,18 +172,18 @@
 
         mounted() {
             this.$parent.$on('openingEmbedImageModal', data => {
-                if (!_.isEmpty(data)) {
-                    this.selectedImageCaption = _.isEmpty(data.caption) ? '' : data.caption
+                if (!isEmpty(data)) {
+                    this.selectedImageCaption = isEmpty(data.caption) ? '' : data.caption
                     this.selectedImageUrl = data.url
                     this.selectedImageLayout = data.layout || 'default'
                     this.selectedImageBlot = data.existingBlot
-                    this.isReadyToAcceptUploads = _.isEmpty(data.url);
+                    this.isReadyToAcceptUploads = isEmpty(data.url);
                 }
             })
         },
 
         watch: {
-            searchKeyword: _.debounce(function (val) {
+            searchKeyword: debounce(function (val) {
                 if (val === '') {
                     this.isReadyToAcceptUploads = !this.selectedImageUrl;
                     this.isSearchingUnsplash = false
@@ -207,7 +208,7 @@
                 unsplash.search.photos(this.searchKeyword, this.unsplashPage, this.unsplashPerPage)
                     .then(toJson)
                     .then(json => {
-                        if (!_.isEmpty(json.results)) {
+                        if (!isEmpty(json.results)) {
                             this.unsplashImages.push(...json.results)
                             this.unsplashPage += 1;
 
@@ -256,7 +257,7 @@
 
             clickDone() {
                 if (!this.selectedImageUrl) {
-                    if (!_.isEmpty(this.selectedImageBlot)) {
+                    if (!isEmpty(this.selectedImageBlot)) {
                         this.$emit('removingEmbedImage', {
                             existingBlot: this.selectedImageBlot
                         })

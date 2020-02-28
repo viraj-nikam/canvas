@@ -81,6 +81,7 @@
 
 <script>
     import moment from 'moment'
+    import isEmpty from 'lodash/isEmpty'
     import NProgress from 'nprogress'
     import InfiniteLoading from 'vue-infinite-loading'
     import PageHeader from '../../components/PageHeader'
@@ -115,7 +116,7 @@
                         },
                     })
                     .then(response => {
-                        if (!_.isEmpty(response.data) && !_.isEmpty(response.data.posts.data)) {
+                        if (!isEmpty(response.data) && !isEmpty(response.data.posts.data)) {
                             this.page += 1;
                             this.posts.push(...response.data.posts.data)
                             this.publishedCount = response.data.publishedCount

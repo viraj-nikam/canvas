@@ -59,6 +59,7 @@
 
 <script>
     import NProgress from 'nprogress'
+    import isEmpty from 'lodash/isEmpty'
     import InfiniteLoading from 'vue-infinite-loading'
     import PageHeader from '../../components/PageHeader'
 
@@ -87,7 +88,7 @@
                         },
                     })
                     .then(response => {
-                        if (!_.isEmpty(response.data) && !_.isEmpty(response.data.data)) {
+                        if (!isEmpty(response.data) && !isEmpty(response.data.data)) {
                             this.page += 1;
                             this.topics.push(...response.data.data)
 

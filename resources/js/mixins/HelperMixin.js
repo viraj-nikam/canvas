@@ -1,4 +1,5 @@
 import md5 from 'md5'
+import truncate from 'lodash/truncate'
 import numeral from 'numeral'
 
 export default {
@@ -27,7 +28,7 @@ export default {
         },
 
         trim(string, length = 70) {
-            return _.truncate(string, {
+            return truncate(string, {
                 length: length,
             })
         },

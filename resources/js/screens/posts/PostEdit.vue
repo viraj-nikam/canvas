@@ -116,6 +116,7 @@
 <script>
     import Vue from 'vue'
     import $ from 'jquery'
+    import debounce from 'lodash/debounce'
     import {mapGetters} from 'vuex'
     import NProgress from 'nprogress'
     import SeoModal from '../../components/modals/SeoModal'
@@ -206,7 +207,7 @@
                 }, 3000)
             },
 
-            update: _.debounce(function (e) {
+            update: debounce(function (e) {
                 this.save()
             }, 3000),
 
