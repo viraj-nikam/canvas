@@ -102,7 +102,7 @@
 </template>
 
 <script>
-    import _ from 'lodash'
+    import debounce from 'lodash/debounce'
     import {mapState} from 'vuex'
     import Tooltip from '../../directives/Tooltip'
 
@@ -122,7 +122,7 @@
         },
 
         methods: {
-            update: _.debounce(function (e) {
+            update: debounce(function (e) {
                 this.$parent.save()
             }, 3000),
 

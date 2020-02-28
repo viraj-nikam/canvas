@@ -50,7 +50,7 @@
                         </div>
                     </div>
 
-                    <p class="mt-3 text-success font-italic" v-if="isScheduled">
+                    <p class="mt-3 text-success font-italic" v-if="isScheduled(this.activePost.published_at)">
                         {{ trans.app.your_post_will_publish_at }} {{ moment(this.activePost.published_at).format('h:mm A') }} {{ trans.app.on }} {{ moment(this.activePost.published_at).format('MMMM DD, YYYY') }}.
                     </p>
                 </div>
@@ -68,7 +68,7 @@
 
                         <div class="col-lg order-lg-first px-0">
                             <button
-                                v-if="isScheduled"
+                                v-if="isScheduled(this.activePost.published_at)"
                                 @click="cancelScheduling"
                                 type="button"
                                 class="btn btn-link btn-block text-muted font-weight-bold text-decoration-none"
@@ -122,19 +122,7 @@
                         .slice(0, 19)
                         .replace('T', ' ')
                 )
-            },
-
-            isScheduled() {
-                return (
-                    this.activePost.published_at &&
-                    moment(this.result).isAfter(
-                        moment(new Date())
-                            .format()
-                            .slice(0, 19)
-                            .replace('T', ' ')
-                    )
-                )
-            },
+            }
         },
 
         mounted() {

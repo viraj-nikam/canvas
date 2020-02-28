@@ -1,25 +1,25 @@
-import _ from 'lodash'
+import get from 'lodash/get'
 
 export const mutations = {
     setActivePost(state, data) {
         let payload = {}
 
-        payload.id = _.get(data, 'id', 'create')
-        payload.title = _.get(data, 'title', '')
-        payload.slug = _.get(data, 'slug', '')
-        payload.summary = _.get(data, 'summary', '')
-        payload.body = _.get(data, 'body', '')
-        payload.published_at = _.get(data, 'published_at', '')
-        payload.featured_image = _.get(data, 'featured_image', '')
-        payload.featured_image_caption = _.get(data, 'featured_image_caption', '')
+        payload.id = get(data, 'id', 'create')
+        payload.title = get(data, 'title', '')
+        payload.slug = get(data, 'slug', '')
+        payload.summary = get(data, 'summary', '')
+        payload.body = get(data, 'body', '')
+        payload.published_at = get(data, 'published_at', '')
+        payload.featured_image = get(data, 'featured_image', '')
+        payload.featured_image_caption = get(data, 'featured_image_caption', '')
 
         payload.meta = {}
-        payload.meta.description = _.get(data, 'meta.description', '')
-        payload.meta.title = _.get(data, 'meta.title', '')
-        payload.meta.canonical_link = _.get(data, 'meta.canonical_link', '')
+        payload.meta.description = get(data, 'meta.description', '')
+        payload.meta.title = get(data, 'meta.title', '')
+        payload.meta.canonical_link = get(data, 'meta.canonical_link', '')
 
-        payload.topic = _.get(data, 'topic.0', [])
-        payload.tags = _.get(data, 'tags', [])
+        payload.topic = get(data, 'topic.0', [])
+        payload.tags = get(data, 'tags', [])
         payload.errors = []
         payload.isSaving = false
         payload.hasSuccess = false
@@ -73,7 +73,7 @@ export const mutations = {
             .catch(error => {
                 // Add any error debugging...
             })
-    },
+    }
 }
 
 export default {

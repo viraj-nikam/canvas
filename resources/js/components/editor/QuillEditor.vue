@@ -139,11 +139,11 @@
 </template>
 
 <script>
-    import _ from 'lodash'
     import $ from 'jquery'
     import Quill from 'quill'
     import {mapState} from 'vuex'
     import Parchment from 'parchment'
+    import debounce from "lodash/debounce"
     import EmbedContentBlot from './EmbedContentBlot'
     import EmbedVideoBlot from './EmbedVideoBlot'
     import EmbedImageBlot from './EmbedImageBlot'
@@ -456,7 +456,7 @@
                 this.editor.setSelection(range.index + 2, Quill.sources.SILENT)
             },
 
-            update: _.debounce(function (e) {
+            update: debounce(function (e) {
                 this.$parent.save()
             }, 3000),
         },

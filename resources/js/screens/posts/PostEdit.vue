@@ -5,8 +5,8 @@
                 <ul class="navbar-nav mr-auto flex-row float-right">
                     <li class="text-muted font-weight-bold">
                         <div v-if="!post.isSaving && !post.hasSuccess">
-                            <span v-if="isDraft">{{ trans.app.draft }}</span>
-                            <span v-if="!isDraft">{{ trans.app.published }}</span>
+                            <span v-if="isDraft(post.published_at)">{{ trans.app.draft }}</span>
+                            <span v-if="!isDraft(post.published_at)">{{ trans.app.published }}</span>
                         </div>
 
                         <div v-if="post.isSaving">
@@ -21,7 +21,7 @@
             </template>
 
             <template slot="action">
-                <a v-if="isDraft" href="#" class="btn btn-sm btn-outline-success font-weight-bold my-auto" @click="showPublishModal">
+                <a v-if="isDraft(post.published_at)" href="#" class="btn btn-sm btn-outline-success font-weight-bold my-auto" @click="showPublishModal">
                     <span class="d-block d-lg-none">{{ trans.app.publish }}</span>
                     <span class="d-none d-lg-block">{{ trans.app.ready_to_publish }}</span>
                 </a>
@@ -40,10 +40,10 @@
                     </a>
 
                     <div class="dropdown-menu dropdown-menu-right">
-                        <router-link v-if="!isDraft" :to="{ name: 'stats-show', params: { id: id } }" class="dropdown-item">
+                        <router-link v-if="!isDraft(post.published_at)" :to="{ name: 'stats-show', params: { id: id } }" class="dropdown-item">
                             {{ trans.app.view_stats }}
                         </router-link>
-                        <div v-if="!isDraft" class="dropdown-divider"></div>
+                        <div v-if="!isDraft(post.published_at)" class="dropdown-divider"></div>
                         <a href="#" class="dropdown-item" @click="showSettingsModal">
                             {{ trans.app.general_settings }}
                         </a>
@@ -53,7 +53,7 @@
                         <a href="#" class="dropdown-item" @click="showSeoModal">
                             {{ trans.app.seo_settings }}
                         </a>
-                        <a v-if="!isDraft" href="#" class="dropdown-item" @click.prevent="convertToDraft">
+                        <a v-if="!isDraft(post.published_at)" href="#" class="dropdown-item" @click.prevent="convertToDraft">
                             {{ trans.app.convert_to_draft }}
                         </a>
                         <a v-if="id !== 'create'" href="#" class="dropdown-item text-danger" @click="showDeleteModal">
@@ -116,6 +116,7 @@
 <script>
     import Vue from 'vue'
     import $ from 'jquery'
+    import debounce from 'lodash/debounce'
     import {mapGetters} from 'vuex'
     import NProgress from 'nprogress'
     import SeoModal from '../../components/modals/SeoModal'
@@ -181,10 +182,6 @@
             next()
         },
 
-        computed: {
-            ...mapGetters(['isDraft']),
-        },
-
         methods: {
             save() {
                 this.post.errors = []
@@ -206,7 +203,7 @@
                 }, 3000)
             },
 
-            update: _.debounce(function (e) {
+            update: debounce(function (e) {
                 this.save()
             }, 3000),
 
