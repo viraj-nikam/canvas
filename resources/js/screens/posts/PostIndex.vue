@@ -33,13 +33,13 @@
                                         {{ trim(post.summary, 200) }}
                                     </p>
                                     <p class="text-muted mb-0">
-                                        <span v-if="isPublished(post)">
+                                        <span v-if="isPublished(post.published_at)">
                                             {{ trans.app.published}} {{ moment(post.published_at).locale(Canvas.locale).fromNow() }}
                                         </span>
 
-                                        <span v-if="isDraft(post)" class="text-danger">{{ trans.app.draft }}</span>
+                                        <span v-if="isDraft(post.published_at) && !isScheduled(post.published_at)" class="text-danger">{{ trans.app.draft }}</span>
 
-                                        <span v-if="isScheduled(post)" class="text-danger">{{ trans.app.scheduled }}</span>
+                                        <span v-if="isScheduled(post.published_at)" class="text-danger">{{ trans.app.scheduled }}</span>
 
                                         ― {{ trans.app.updated }} {{ moment(post.updated_at).locale(Canvas.locale).fromNow() }}
                                     </p>
@@ -133,28 +133,6 @@
                         // Add any error debugging...
                         NProgress.done()
                     })
-            },
-
-            isDraft(post) {
-                return post.published_at == null || post.published_at === ''
-            },
-
-            isScheduled(post) {
-                return moment(post.published_at).isAfter(
-                    moment(new Date())
-                        .format()
-                        .slice(0, 19)
-                        .replace('T', ' ')
-                )
-            },
-
-            isPublished(post) {
-                return moment(post.published_at).isBefore(
-                    moment(new Date())
-                        .format()
-                        .slice(0, 19)
-                        .replace('T', ' ')
-                )
             },
 
             changeType() {

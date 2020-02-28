@@ -1,6 +1,8 @@
 import md5 from 'md5'
 import truncate from 'lodash/truncate'
+import isEmpty from 'lodash/isEmpty'
 import numeral from 'numeral'
+import moment from "moment";
 
 export default {
     computed: {
@@ -10,6 +12,21 @@ export default {
     },
 
     methods: {
+        isDraft(date) {
+            return (isEmpty(date) || this.isScheduled(date))
+        },
+
+        isScheduled(date) {
+            return moment(date).isAfter(
+                moment(new Date()).format().slice(0, 19).replace('T', ' ')
+            )
+        },
+
+        isPublished(date) {
+            return moment(date).isBefore(
+                moment(new Date()).format().slice(0, 19).replace('T', ' '))
+        },
+
         slugify(text) {
             return text
                 .toString()
