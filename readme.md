@@ -8,8 +8,7 @@
 ## Introduction
 
 A [Laravel](https://laravel.com) publishing platform. Canvas is a fully open source package to extend your existing application and get you up-and-running with a blog in 
-just a few minutes. In addition to a distraction-free writing experience, you can view monthly trends on your content, 
-get insights into reader traffic and more!
+just a few minutes. In addition to a distraction-free writing experience, you can view monthly trends on your content, get insights into reader traffic and more!
 
 ## Requirements
 
@@ -174,7 +173,7 @@ Since the weekly digest runs on [Laravel's Scheduler](https://laravel.com/docs/m
 
 ## Updates
 
-Canvas releases are versioned as `MAJOR.MINOR.PATCH` numbers
+Canvas loosely follows [Semantic Versioning](https://semver.org/) and increments versions as `MAJOR.MINOR.PATCH` numbers
 - A major or minor version _can contain breaking changes_, so follow the [upgrade guide](.github/CHANGELOG.md) for a step-by-step breakdown
 - Patch versions will remain backwards compatible, so you can safely update the package by following the steps below:
 
