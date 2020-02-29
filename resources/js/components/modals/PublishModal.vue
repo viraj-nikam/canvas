@@ -4,7 +4,7 @@
             <div class="modal-content">
                 <div class="modal-body">
                     <p class="lead mb-1 text-center text-lg-left">{{ trans.app.publishing }}</p>
-                    <p class="text-secondary">
+                    <p class="text-secondary text-center text-lg-left">
                         {{ trans.app.post_scheduling_format }} <span class="font-weight-bold">{{ Canvas.timezone }}</span> {{ trans.app.timezone }}. (m/d/y h:m)
                     </p>
 

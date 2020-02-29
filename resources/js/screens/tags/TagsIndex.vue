@@ -18,7 +18,7 @@
                 <div class="mt-5">
                     <div v-for="(tag, $index) in tags" :key="$index">
                         <router-link :to="{name: 'tags-edit', params: { id: tag.id }}" class="text-decoration-none">
-                            <div class="border-top py-3">
+                            <div v-hover="{class: Canvas.darkMode ? `hover-bg-dark` : `hover-bg-light`}" class="container border-top py-3">
                                 <div class="d-flex align-items-center">
                                     <div class="mr-auto">
                                         <p class="mb-0 py-1">
@@ -60,6 +60,7 @@
 <script>
     import NProgress from 'nprogress'
     import isEmpty from 'lodash/isEmpty'
+    import Hover from "../../directives/Hover";
     import InfiniteLoading from 'vue-infinite-loading'
     import PageHeader from '../../components/PageHeader'
 
@@ -69,6 +70,10 @@
         components: {
             InfiniteLoading,
             PageHeader,
+        },
+
+        directives: {
+            Hover
         },
 
         data() {

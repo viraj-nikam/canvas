@@ -22,7 +22,7 @@
                 <div class="mt-2">
                     <div v-for="(post, $index) in posts" :key="$index">
                         <router-link :to="{name: 'posts-edit', params: { id: post.id }}" class="text-decoration-none">
-                            <div class="d-flex border-top py-3 align-items-center">
+                            <div v-hover="{class: Canvas.darkMode ? `hover-bg-dark` : `hover-bg-light`}" class="container d-flex border-top py-3 align-items-center">
                                 <div class="mr-auto py-1">
                                     <p class="mb-1">
                                     <span class="font-weight-bold text-lg lead">
@@ -80,9 +80,9 @@
 </template>
 
 <script>
-    import moment from 'moment'
     import isEmpty from 'lodash/isEmpty'
     import NProgress from 'nprogress'
+    import Hover from "../../directives/Hover";
     import InfiniteLoading from 'vue-infinite-loading'
     import PageHeader from '../../components/PageHeader'
 
@@ -92,6 +92,10 @@
         components: {
             InfiniteLoading,
             PageHeader,
+        },
+
+        directives: {
+            Hover
         },
 
         data() {

@@ -68,12 +68,12 @@
                         <div class="mt-5">
                             <div v-for="(post, $index) in posts" :key="$index">
                                 <router-link :to="{name: 'stats-show', params: { id: post.id }}" class="text-decoration-none">
-                                    <div class="d-flex border-top py-3 align-items-center">
+                                    <div v-hover="{class: Canvas.darkMode ? `hover-bg-dark` : `hover-bg-light`}" class="container d-flex border-top py-3 align-items-center">
                                         <div class="mr-auto">
                                             <p class="mb-1 mt-2">
-                                        <span class="font-weight-bold text-lg lead">
-                                            {{ post.title }}
-                                        </span>
+                                                <span class="font-weight-bold text-lg lead">
+                                                    {{ post.title }}
+                                                </span>
                                             </p>
                                             <p class="text-secondary mb-2">
                                                 {{ post.read_time }} ― {{ trans.app.published }} {{ moment(post.published_at).locale(Canvas.locale).fromNow() }}
@@ -114,6 +114,7 @@
     import NProgress from 'nprogress'
     import isEmpty from 'lodash/isEmpty'
     import InfiniteLoading from 'vue-infinite-loading'
+    import Hover from "../../directives/Hover";
     import LineChart from '../../components/LineChart'
     import PageHeader from '../../components/PageHeader'
 
@@ -124,6 +125,10 @@
             LineChart,
             InfiniteLoading,
             PageHeader,
+        },
+
+        directives: {
+            Hover
         },
 
         data() {

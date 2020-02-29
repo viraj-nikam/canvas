@@ -18,7 +18,7 @@
                 <div class="mt-5">
                     <div v-for="(topic, $index) in topics" :key="$index">
                         <router-link :to="{name: 'topics-edit', params: { id: topic.id }}" class="text-decoration-none">
-                            <div class="border-top py-3">
+                            <div v-hover="{class: Canvas.darkMode ? `hover-bg-dark` : `hover-bg-light`}" class="container border-top py-3">
                                 <div class="d-flex align-items-center">
                                     <div class="mr-auto">
                                         <p class="mb-0 py-1">
@@ -32,7 +32,10 @@
                                         <span class="mr-3">{{ trans.app.created }} {{ moment(topic.created_at).locale(Canvas.locale).fromNow() }}</span>
                                     </div>
 
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="25" viewBox="0 0 24 24" class="icon-cheveron-right-circle"><circle cx="12" cy="12" r="10" style="fill:none"/><path class="primary" d="M10.3 8.7a1 1 0 0 1 1.4-1.4l4 4a1 1 0 0 1 0 1.4l-4 4a1 1 0 0 1-1.4-1.4l3.29-3.3-3.3-3.3z"/></svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="25" viewBox="0 0 24 24" class="icon-cheveron-right-circle">
+                                        <circle cx="12" cy="12" r="10" style="fill:none"/>
+                                        <path class="primary" d="M10.3 8.7a1 1 0 0 1 1.4-1.4l4 4a1 1 0 0 1 0 1.4l-4 4a1 1 0 0 1-1.4-1.4l3.29-3.3-3.3-3.3z"/>
+                                    </svg>
                                 </div>
                             </div>
                         </router-link>
@@ -60,6 +63,7 @@
 <script>
     import NProgress from 'nprogress'
     import isEmpty from 'lodash/isEmpty'
+    import Hover from "../../directives/Hover";
     import InfiniteLoading from 'vue-infinite-loading'
     import PageHeader from '../../components/PageHeader'
 
@@ -69,6 +73,10 @@
         components: {
             InfiniteLoading,
             PageHeader,
+        },
+
+        directives: {
+            Hover
         },
 
         data() {
