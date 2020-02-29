@@ -19,7 +19,7 @@ get insights into reader traffic and more!
 
 ## Installation
 
-> **Note:** Canvas requires you to have user authentication in place prior to installation. Please see the [official guide](https://laravel.com/docs/6.x/authentication#introduction) to get started.   
+> **Note:** Canvas requires you to have user authentication in place prior to installation. Please see the [official guide](https://laravel.com/docs/master/authentication#introduction) to get started.   
 
 You may use composer to install Canvas into your Laravel project:
 
