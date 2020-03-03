@@ -11,48 +11,13 @@ use Illuminate\Support\Collection;
 trait Tracker
 {
     /**
-     * Return a date => total array for a given number of days.
-     *
-     * @param Collection $data
-     * @param int $days
-     * @return array
-     */
-    public function countTrackedDataForDays(Collection $data, int $days = 1): array
-    {
-        // Filter the data to only include created_at date strings
-        $filtered = collect();
-        $data->sortBy('created_at')->each(function ($item, $key) use ($filtered) {
-            $filtered->push($item->created_at->toDateString());
-        });
-
-        // Count the unique values and assign to their respective keys
-        $unique = array_count_values($filtered->toArray());
-
-        // Create a day range to hold the default date values
-        $period = $this->generateDateRange(today()->subDays($days), CarbonInterval::day(), $days);
-
-        // Compare the data and date range arrays, assigning counts where applicable
-        $total = collect();
-
-        foreach ($period as $date) {
-            if (array_key_exists($date, $unique)) {
-                $total->put($date, $unique[$date]);
-            } else {
-                $total->put($date, 0);
-            }
-        }
-
-        return $total->toArray();
-    }
-
-    /**
      * Get post-specific tracking data along with totals.
      *
      * @param array $postIDs
      * @param int $days
      * @return array
      */
-    public function getTrackedDataForPosts(array $postIDs, int $days): array
+    public function getTrackedData(array $postIDs, int $days): array
     {
         $totalViews = View::whereIn('post_id', $postIDs)
                           ->whereBetween('created_at', [
@@ -90,11 +55,52 @@ trait Tracker
         $data->put('totals', [
             'views' => $totalViews->count(),
             'visits' => $totalVisits->count(),
-            'startDate' => now()->subDays(self::DAYS)->format('M d'),
+            'startDate' => now()->subDays($days)->format('M d'),
             'endDate' => now()->format('M d'),
         ]);
 
         return $data->toArray();
+    }
+
+    /**
+     * Return an array of tracking data for a given number of days.
+     *
+     * eg.  [
+     *          2020-01-24 => 25,
+     *          2020-01-25 => 13,
+     *          ...
+     *      ]
+     *
+     * @param Collection $data
+     * @param int $days
+     * @return array
+     */
+    public function countTrackedData(Collection $data, int $days = 1): array
+    {
+        // Filter the data to only include created_at date strings
+        $filtered = collect();
+        $data->sortBy('created_at')->each(function ($item, $key) use ($filtered) {
+            $filtered->push($item->created_at->toDateString());
+        });
+
+        // Count the unique values and assign to their respective keys
+        $unique = array_count_values($filtered->toArray());
+
+        // Create a day range to hold the default date values
+        $period = $this->generateDateRange(today()->subDays($days), CarbonInterval::day(), $days);
+
+        // Compare the data and date range arrays, assigning counts where applicable
+        $total = collect();
+
+        foreach ($period as $date) {
+            if (array_key_exists($date, $unique)) {
+                $total->put($date, $unique[$date]);
+            } else {
+                $total->put($date, 0);
+            }
+        }
+
+        return $total->toArray();
     }
 
     /**
@@ -111,7 +117,7 @@ trait Tracker
         $dataCountLastMonth = $previous->count();
 
         if ($dataCountLastMonth != 0) {
-            $difference = (int) $dataCountLastMonth - (int) $dataCountThisMonth;
+            $difference = (int) $dataCountThisMonth - (int) $dataCountLastMonth;
             $growth = ($difference / $dataCountLastMonth) * 100;
         } else {
             $growth = $dataCountThisMonth * 100;

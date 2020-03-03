@@ -49,7 +49,7 @@ class DigestCommand extends Command
             if ($this->userHasEnabledMail($user)) {
                 $postIDs = Post::where('user_id', $user->id)->published()->pluck('id');
 
-                $data = collect($this->getTrackedDataForPosts($postIDs->toArray(), self::DAYS));
+                $data = collect($this->getTrackedData($postIDs->toArray(), self::DAYS));
 
                 try {
                     Mail::to($user->email)->send(new WeeklyDigest($data->toArray()));
