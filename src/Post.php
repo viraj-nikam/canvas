@@ -2,12 +2,12 @@
 
 namespace Canvas;
 
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Str;
 
 class Post extends Model
@@ -206,7 +206,7 @@ class Post extends Model
         $popular_reading_times = collect();
         foreach ($filtered as $key => $value) {
             // Use each given time to create a 60 min range
-            $start_time = Carbon::createFromTimeString($key);
+            $start_time = Date::createFromTimeString($key);
             $end_time = $start_time->copy()->addMinutes(60);
 
             // Find the percentage based on the value

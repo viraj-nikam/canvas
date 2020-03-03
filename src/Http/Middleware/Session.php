@@ -2,11 +2,11 @@
 
 namespace Canvas\Http\Middleware;
 
-use Carbon\Carbon;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Date;
 
 class Session
 {
@@ -84,7 +84,7 @@ class Session
     private function pruneExpiredVisits(Collection $posts)
     {
         foreach ($posts as $key => $value) {
-            if (! Carbon::createFromTimestamp($value['timestamp'])->isToday()) {
+            if (! Date::createFromTimestamp($value['timestamp'])->isToday()) {
                 session()->forget('visited_posts.'.$key);
             }
         }

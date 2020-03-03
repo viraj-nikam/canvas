@@ -2,10 +2,10 @@
 
 namespace Canvas;
 
-use Carbon\Carbon;
 use Carbon\CarbonInterval;
 use DateInterval;
 use DatePeriod;
+use DateTimeInterface;
 use Illuminate\Support\Collection;
 
 trait Tracker
@@ -126,13 +126,13 @@ trait Tracker
     /**
      * Generate a date range array of formatted strings.
      *
-     * @param Carbon $start_date
+     * @param DateTimeInterface $start_date
      * @param DateInterval $interval
      * @param int $recurrences
      * @param int $exclusive
      * @return array
      */
-    private function generateDateRange(Carbon $start_date, DateInterval $interval, int $recurrences, int $exclusive = 1): array
+    private function generateDateRange(DateTimeInterface $start_date, DateInterval $interval, int $recurrences, int $exclusive = 1): array
     {
         $period = new DatePeriod($start_date, $interval, $recurrences, $exclusive);
         $dates = collect();
