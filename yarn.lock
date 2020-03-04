@@ -2024,9 +2024,9 @@ create-hmac@^1.1.0, create-hmac@^1.1.2, create-hmac@^1.1.4:
     sha.js "^2.4.8"
 
 cross-env@^7.0:
-  version "7.0.0"
-  resolved "https://registry.yarnpkg.com/cross-env/-/cross-env-7.0.0.tgz#5a3b2ddce51ec713ea58f2fb79ce22e65b4f5479"
-  integrity sha512-rV6M9ldNgmwP7bx5u6rZsTbYidzwvrwIYZnT08hSGLcQCcggofgFW+sNe7IhA1SRauPS0QuLbbX+wdNtpqE5CQ==
+  version "7.0.1"
+  resolved "https://registry.yarnpkg.com/cross-env/-/cross-env-7.0.1.tgz#c8e03412ea0e1370fe3f0066929a70b8e1e90c39"
+  integrity sha512-1+DmLosu38kC4s1H4HzNkcolwdANifu9+5bE6uKQCV4L6jvVdV9qdRAk8vV3GoWRe0x4z+K2fFhgoDMqwNsPqQ==
   dependencies:
     cross-spawn "^7.0.1"
 
@@ -2497,9 +2497,9 @@ ee-first@1.1.1:
   integrity sha1-WQxhFWsK4vTwJVcyoViyZrxWsh0=
 
 electron-to-chromium@^1.3.363:
-  version "1.3.366"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.366.tgz#89515c246eb70d62fd66cdbc94c70b6a6e92c1dd"
-  integrity sha512-MWtwlJaX/MqAH4V7j4pFasq2O4OIH7MltGTEVvzyeuUW+CPYsx+fuVg/MSBrTL4PzZjHidOixaELNy75/XFK1g==
+  version "1.3.367"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.367.tgz#48abffcaa6591051b612ae70ddc657763ede2662"
+  integrity sha512-GCHQreWs4zhKA48FNXCjvpV4kTnKoLu2PSAfKX394g34NPvTs2pPh1+jzWitNwhmOYI8zIqt36ulRVRZUgqlfA==
 
 elliptic@^6.0.0:
   version "6.5.2"
@@ -6649,9 +6649,9 @@ terser@^3.11.0:
     source-map-support "~0.5.10"
 
 terser@^4.1.2, terser@^4.4.3:
-  version "4.6.5"
-  resolved "https://registry.yarnpkg.com/terser/-/terser-4.6.5.tgz#b76abd191add1738ed963606d69d45735d496081"
-  integrity sha512-LqajFf1pIGw6IeZmNuLa9Wq0Vu48wcPu3jEnuoIFx9KrW+tGuhc72Mi9ZDfbazzFtMOD9gifhmQdRxc4i4jfcg==
+  version "4.6.6"
+  resolved "https://registry.yarnpkg.com/terser/-/terser-4.6.6.tgz#da2382e6cafbdf86205e82fb9a115bd664d54863"
+  integrity sha512-4lYPyeNmstjIIESr/ysHg2vUPRGf2tzF9z2yYwnowXVuVzLEamPN1Gfrz7f8I9uEPuHcbFlW4PLIAsJoxXyJ1g==
   dependencies:
     commander "^2.20.0"
     source-map "~0.6.1"
