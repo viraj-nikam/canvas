@@ -38,7 +38,7 @@
         </page-header>
 
         <main v-if="isReady" class="py-4" v-cloak>
-            <div class="col-xl-8 offset-xl-2 px-xl-5 col-md-12 mt-5">
+            <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12 mt-5">
                 <div class="form-group mb-5">
                     <div class="col-lg-12">
                         <input

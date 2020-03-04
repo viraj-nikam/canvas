@@ -1,6 +1,6 @@
 <template>
     <div class="shadow">
-        <div class="col-xl-10 offset-xl-1 px-xl-5 col-md-12">
+        <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12">
             <nav class="navbar justify-content-between flex-nowrap flex-row py-2 px-0">
                 <router-link to="/" class="navbar-brand">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 110.981" width="30">

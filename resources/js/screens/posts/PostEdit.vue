@@ -65,7 +65,7 @@
         </page-header>
 
         <main class="py-4" v-if="isReady">
-            <div class="col-xl-8 offset-xl-2 px-xl-5 col-md-12">
+            <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12">
                 <div class="form-group row my-3">
                     <textarea-autosize
                         :placeholder="trans.app.title"

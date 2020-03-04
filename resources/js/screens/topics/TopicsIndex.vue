@@ -9,7 +9,7 @@
         </page-header>
 
         <main class="py-4">
-            <div class="col-xl-10 offset-xl-1 px-xl-5 col-md-12">
+            <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12">
                 <div class="my-3">
                     <h1>{{ trans.app.topics }}</h1>
                     <p class="text-secondary" v-if="topics.length">{{ trans.app.topics_are_great_for }}</p>
