@@ -120,18 +120,21 @@
                         },
                     })
                     .then(response => {
-                        if (!isEmpty(response.data) && !isEmpty(response.data.posts.data)) {
-                            this.page += 1;
-                            this.posts.push(...response.data.posts.data)
+                        if (!isEmpty(response.data)) {
                             this.publishedCount = response.data.publishedCount
                             this.draftCount = response.data.draftCount
 
-                            $state.loaded();
-                        } else {
-                            $state.complete();
-                        }
+                            if (!isEmpty(response.data.posts.data)) {
+                                this.page += 1;
+                                this.posts.push(...response.data.posts.data)
 
-                        NProgress.done()
+                                $state.loaded();
+                            } else {
+                                $state.complete();
+                            }
+
+                            NProgress.done()
+                        }
                     })
                     .catch(error => {
                         // Add any error debugging...
