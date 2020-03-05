@@ -18,13 +18,13 @@
                 <div class="mt-5">
                     <div v-for="(topic, $index) in topics" :key="$index">
                         <router-link :to="{name: 'topics-edit', params: { id: topic.id }}" class="text-decoration-none">
-                            <div v-hover="{class: Canvas.darkMode ? `hover-bg-dark` : `hover-bg-light`}" class="container border-top py-3">
+                            <div v-hover="{class: Canvas.darkMode ? `hover-bg-dark` : `hover-bg-light`}" class="border-top py-3">
                                 <div class="d-flex align-items-center">
-                                    <div class="mr-auto">
+                                    <div class="mr-auto pl-2">
                                         <p class="mb-0 py-1">
-                                <span class="font-weight-bold text-lg lead">
-                                    {{ topic.name }}
-                                </span>
+                                            <span class="font-weight-bold text-lg lead">
+                                                {{ topic.name }}
+                                            </span>
                                         </p>
                                     </div>
                                     <div class="ml-auto d-none d-md-inline-block">

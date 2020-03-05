@@ -68,8 +68,8 @@
                         <div class="mt-5">
                             <div v-for="(post, $index) in posts" :key="$index">
                                 <router-link :to="{name: 'stats-show', params: { id: post.id }}" class="text-decoration-none">
-                                    <div v-hover="{class: Canvas.darkMode ? `hover-bg-dark` : `hover-bg-light`}" class="container d-flex border-top py-3 align-items-center">
-                                        <div class="mr-auto">
+                                    <div v-hover="{class: Canvas.darkMode ? `hover-bg-dark` : `hover-bg-light`}" class="d-flex border-top py-3 align-items-center">
+                                        <div class="mr-auto pl-2">
                                             <p class="mb-1 mt-2">
                                                 <span class="font-weight-bold text-lg lead">
                                                     {{ post.title }}
