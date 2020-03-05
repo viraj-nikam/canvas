@@ -171,7 +171,7 @@ class PostController extends Controller
     private function syncTopic($incomingTopic): array
     {
         if ($incomingTopic) {
-            $topic = Topic::where('slug', $incomingTopic['slug'])->first();
+            $topic = Topic::forCurrentUser()->where('slug', $incomingTopic['slug'])->first();
 
             if (! $topic) {
                 $topic = Topic::create([
