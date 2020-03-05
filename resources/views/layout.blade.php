@@ -19,6 +19,9 @@
     <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/highlight.min.js"></script>
     <script src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Karla|Merriweather:400,700">
+
     <link rel="shortcut icon" href="{{ mix('favicon.ico', 'vendor/canvas') }}">
 </head>
 <body>
