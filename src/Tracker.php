@@ -52,8 +52,8 @@ trait Tracker
 
         $data = collect();
         $data->put('posts', $dataForPosts);
-        $data->put('startDate', now()->subDays($days)->format('M d'));
-        $data->put('endDate', now()->format('M d'));
+        $data->put('startDate', now()->subDays($days)->format('M j'));
+        $data->put('endDate', now()->format('M j'));
         $data->put('totals', [
             'views' => $totalViews->count(),
             'visits' => $totalVisits->count(),
@@ -125,7 +125,7 @@ trait Tracker
 
         return [
             'direction' => $dataCountThisMonth > $dataCountLastMonth ? 'up' : 'down',
-            'percentage' => number_format($growth),
+            'percentage' => number_format(abs($growth)),
         ];
     }
 

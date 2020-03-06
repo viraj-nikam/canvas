@@ -72,7 +72,7 @@
                                         <div class="mr-auto pl-2">
                                             <p class="mb-1 mt-2">
                                                 <span class="font-weight-bold text-lg lead">
-                                                    {{ post.title }}
+                                                    {{ trim(post.title, 45) }}
                                                 </span>
                                             </p>
                                             <p class="text-secondary mb-2">

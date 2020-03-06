@@ -67,15 +67,15 @@
                                 <p class="mb-0 small text-muted text-uppercase font-weight-bold">
                                     {{ trans.app.views }}
                                 </p>
-                                <h3 class="my-1">
+                                <h3 class="mt-1 mb-2">
                                     {{ suffixedNumber(viewCount) }}
                                 </h3>
-                                <p class="text-muted text-md-right">
+                                <p class="small text-muted">
                                     <span v-if="viewsAreTrendingUp">
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" class="icon-arrow-thick-up-circle"><circle cx="12" cy="12" r="10" class="primary"/><path class="fill-bg" d="M14 12v5a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-5H8a1 1 0 0 1-.7-1.7l4-4a1 1 0 0 1 1.4 0l4 4A1 1 0 0 1 16 12h-2z"/></svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="17" class="icon-arrow-thick-up-circle"><circle cx="12" cy="12" r="10" class="primary"/><path class="fill-bg" d="M14 12v5a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-5H8a1 1 0 0 1-.7-1.7l4-4a1 1 0 0 1 1.4 0l4 4A1 1 0 0 1 16 12h-2z"/></svg>
                                     </span>
-                                    <span v-if="!viewsAreTrendingUp">
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" class="icon-arrow-thick-down-circle"><circle cx="12" cy="12" r="10" class="primary"/><path class="fill-bg" d="M10 12V7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v5h2a1 1 0 0 1 .7 1.7l-4 4a1 1 0 0 1-1.4 0l-4-4A1 1 0 0 1 8 12h2z"/></svg>
+                                    <span v-else>
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="17" class="icon-arrow-thick-down-circle"><circle cx="12" cy="12" r="10" class="primary"/><path class="fill-bg" d="M10 12V7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v5h2a1 1 0 0 1 .7 1.7l-4 4a1 1 0 0 1-1.4 0l-4-4A1 1 0 0 1 8 12h2z"/></svg>
                                     </span>
                                     {{ viewMonthOverMonthPercentage }}% {{ trans.app.from_last_month }}
                                 </p>
@@ -85,16 +85,16 @@
                                 <p class="mb-0 small text-muted text-uppercase font-weight-bold">
                                     {{ trans.app.visitors }}
                                 </p>
-                                <h3 class="my-1">
+                                <h3 class="mt-1 mb-2">
                                     {{ suffixedNumber(visitCount) }}
                                 </h3>
-                                <p class="text-muted text-md-right">
-                            <span v-if="visitsAreTrendingUp">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" class="icon-arrow-thick-up-circle"><circle cx="12" cy="12" r="10" class="primary"/><path class="fill-bg" d="M14 12v5a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-5H8a1 1 0 0 1-.7-1.7l4-4a1 1 0 0 1 1.4 0l4 4A1 1 0 0 1 16 12h-2z"/></svg>
-                            </span>
-                                    <span v-if="!visitsAreTrendingUp">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" class="icon-arrow-thick-down-circle"><circle cx="12" cy="12" r="10" class="primary"/><path class="fill-bg" d="M10 12V7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v5h2a1 1 0 0 1 .7 1.7l-4 4a1 1 0 0 1-1.4 0l-4-4A1 1 0 0 1 8 12h2z"/></svg>
-                            </span>
+                                <p class="small text-muted">
+                                    <span v-if="visitsAreTrendingUp">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="17" class="icon-arrow-thick-up-circle"><circle cx="12" cy="12" r="10" class="primary"/><path class="fill-bg" d="M14 12v5a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-5H8a1 1 0 0 1-.7-1.7l4-4a1 1 0 0 1 1.4 0l4 4A1 1 0 0 1 16 12h-2z"/></svg>
+                                    </span>
+                                    <span v-else>
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="17" class="icon-arrow-thick-down-circle"><circle cx="12" cy="12" r="10" class="primary"/><path class="fill-bg" d="M10 12V7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v5h2a1 1 0 0 1 .7 1.7l-4 4a1 1 0 0 1-1.4 0l-4-4A1 1 0 0 1 8 12h2z"/></svg>
+                                    </span>
                                     {{ visitMonthOverMonthPercentage }}% {{ trans.app.from_last_month }}
                                 </p>
                             </div>

@@ -36,8 +36,8 @@ class TrackerTest extends TestCase
 
         $data = $this->getTrackedData([$post_1->id, $post_2->id], $days);
 
-        $this->assertEquals($data['startDate'], now()->subDays($days)->format('M d'));
-        $this->assertEquals($data['endDate'], now()->format('M d'));
+        $this->assertEquals($data['startDate'], now()->subDays($days)->format('M j'));
+        $this->assertEquals($data['endDate'], now()->format('M j'));
 
         $this->assertArrayHasKey('posts', $data);
         $this->assertArrayHasKey($post_1->id, $data['posts']);
@@ -117,7 +117,38 @@ class TrackerTest extends TestCase
     }
 
     /** @test */
-    public function evaluates_month_to_month_view_performance()
+    public function evaluates_month_to_month_decreased_view_performance()
+    {
+        factory(View::class, 2)->create([
+            'created_at' => today()->subMonth()->toDateString(),
+        ]);
+
+        factory(View::class, 1)->create([
+            'created_at' => today()->toDateString(),
+        ]);
+
+        $views = View::all();
+        $previousMonthlyViews = $views->whereBetween('created_at', [
+            today()->subMonth()->startOfMonth()->startOfDay()->toDateTimeString(),
+            today()->subMonth()->endOfMonth()->endOfDay()->toDateTimeString(),
+        ]);
+        $currentMonthlyViews = $views->whereBetween('created_at', [
+            today()->startOfMonth()->startOfDay()->toDateTimeString(),
+            today()->endOfMonth()->endOfDay()->toDateTimeString(),
+        ]);
+
+        $data = $this->compareMonthToMonth($currentMonthlyViews, $previousMonthlyViews);
+
+        $this->assertArrayHasKey('direction', $data);
+        $this->assertEquals($data['direction'], 'down');
+
+        $this->assertArrayHasKey('percentage', $data);
+        $this->assertFalse($data['percentage'] < 0);
+        $this->assertEquals($data['percentage'], '50');
+    }
+
+    /** @test */
+    public function evaluates_month_to_month_increased_view_performance()
     {
         factory(View::class, 1)->create([
             'created_at' => today()->subMonth()->toDateString(),
@@ -143,6 +174,7 @@ class TrackerTest extends TestCase
         $this->assertEquals($data['direction'], 'up');
 
         $this->assertArrayHasKey('percentage', $data);
+        $this->assertFalse($data['percentage'] < 0);
         $this->assertEquals($data['percentage'], '100');
     }
 

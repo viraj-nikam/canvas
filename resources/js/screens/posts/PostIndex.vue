@@ -26,11 +26,11 @@
                                 <div class="mr-auto pl-2 py-1">
                                     <p class="mb-1">
                                         <span class="font-weight-bold text-lg lead">
-                                            {{ post.title }}
+                                            {{ trim(post.title, 55) }}
                                         </span>
                                     </p>
                                     <p class="mb-1" v-if="post.summary">
-                                        {{ trim(post.summary, 200) }}
+                                        {{ trim(post.summary, 125) }}
                                     </p>
                                     <p class="text-muted mb-0">
                                         <span v-if="isPublished(post.published_at)">
@@ -54,7 +54,9 @@
                                     </div>
                                 </div>
 
-                                <svg xmlns="http://www.w3.org/2000/svg" width="25" viewBox="0 0 24 24" class="d-lg-none d-block icon-cheveron-right-circle"><circle cx="12" cy="12" r="10" style="fill:none"/><path class="primary" d="M10.3 8.7a1 1 0 0 1 1.4-1.4l4 4a1 1 0 0 1 0 1.4l-4 4a1 1 0 0 1-1.4-1.4l3.29-3.3-3.3-3.3z"/></svg>
+                                <div class="d-lg-none d-block pl-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="25" viewBox="0 0 24 24" class="icon-cheveron-right-circle"><circle cx="12" cy="12" r="10" style="fill:none"/><path class="primary" d="M10.3 8.7a1 1 0 0 1 1.4-1.4l4 4a1 1 0 0 1 0 1.4l-4 4a1 1 0 0 1-1.4-1.4l3.29-3.3-3.3-3.3z"/></svg>
+                                </div>
                             </div>
                         </router-link>
                     </div>
