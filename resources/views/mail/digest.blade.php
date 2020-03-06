@@ -1,12 +1,12 @@
 @component('mail::message')
-# {{ __('canvas::app.your_weekly_writer_summary_for') }} {{ $data['end_date'] }}
+# {{ __('canvas::app.your_weekly_writer_summary_for') }} {{ $data['endDate'] }}
 
-{{ __('canvas::app.from') }} {{ $data['start_date'] }} {{ __('canvas::app.to') }} {{ $data['end_date'] }} {{ __('canvas::app.your_posts_received') }}
+{{ __('canvas::app.from') }} {{ $data['startDate'] }} {{ __('canvas::app.to') }} {{ $data['endDate'] }} {{ __('canvas::app.your_posts_received') }}
 
 @component('mail::table')
 |                                 |                                  |
 |---------------------------------|----------------------------------|
-| **+{{ $data['total_views'] }}** | **+{{ $data['total_visits'] }}** |
+| **+{{ $data['totals']['views'] }}** | **+{{ $data['totals']['visits'] }}** |
 | {{ __('canvas::app.views') }}   | {{ __('canvas::app.visits') }}   |
 @endcomponent
 

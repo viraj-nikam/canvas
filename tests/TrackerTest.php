@@ -16,6 +16,8 @@ class TrackerTest extends TestCase
     /** @test */
     public function get_tracked_data_for_array_of_post_ids()
     {
+        $days = 7;
+
         $post_1 = factory(Post::class)->create();
         $post_1->views()->createMany(
             factory(View::class, 5)->make()->toArray()
@@ -32,19 +34,22 @@ class TrackerTest extends TestCase
             factory(Visit::class, 2)->make()->toArray()
         );
 
-        $data = $this->getTrackedData([$post_1->id, $post_2->id], 7);
+        $data = $this->getTrackedData([$post_1->id, $post_2->id], $days);
+
+        $this->assertEquals($data['startDate'], now()->subDays($days)->format('M d'));
+        $this->assertEquals($data['endDate'], now()->format('M d'));
 
         $this->assertArrayHasKey('posts', $data);
-
         $this->assertArrayHasKey($post_1->id, $data['posts']);
+        $this->assertArrayHasKey($post_2->id, $data['posts']);
+        $this->assertArrayHasKey('totals', $data);
+
         $this->assertEquals(5, $data['posts'][$post_1->id]['views']);
         $this->assertEquals(4, $data['posts'][$post_1->id]['visits']);
 
-        $this->assertArrayHasKey($post_2->id, $data['posts']);
         $this->assertEquals(3, $data['posts'][$post_2->id]['views']);
         $this->assertEquals(2, $data['posts'][$post_2->id]['visits']);
 
-        $this->assertArrayHasKey('totals', $data);
         $this->assertEquals($data['totals']['views'], array_sum([$post_1->views()->count(), $post_2->views()->count()]));
         $this->assertEquals($data['totals']['visits'], array_sum([$post_1->visits()->count(), $post_2->visits()->count()]));
     }

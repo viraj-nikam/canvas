@@ -52,11 +52,11 @@ trait Tracker
 
         $data = collect();
         $data->put('posts', $dataForPosts);
+        $data->put('startDate', now()->subDays($days)->format('M d'));
+        $data->put('endDate', now()->format('M d'));
         $data->put('totals', [
             'views' => $totalViews->count(),
             'visits' => $totalVisits->count(),
-            'startDate' => now()->subDays($days)->format('M d'),
-            'endDate' => now()->format('M d'),
         ]);
 
         return $data->toArray();
@@ -117,7 +117,7 @@ trait Tracker
         $dataCountLastMonth = $previous->count();
 
         if ($dataCountLastMonth != 0) {
-            $difference = (int) $dataCountThisMonth - (int) $dataCountLastMonth;
+            $difference = (int)$dataCountThisMonth - (int)$dataCountLastMonth;
             $growth = ($difference / $dataCountLastMonth) * 100;
         } else {
             $growth = $dataCountThisMonth * 100;
