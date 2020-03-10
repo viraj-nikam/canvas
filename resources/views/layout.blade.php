@@ -19,12 +19,15 @@
     <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/highlight.min.js"></script>
     <script src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Karla|Merriweather:400,700">
+
     <link rel="shortcut icon" href="{{ mix('favicon.ico', 'vendor/canvas') }}">
 </head>
 <body>
 <div id="canvas">
     @if(!$assetsUpToDate)
-       <div class="alert alert-danger border-0 text-center rounded-0">
+       <div class="alert alert-danger border-0 text-center rounded-0 mb-0">
            {{ __('canvas::app.assets_are_not_up_to_date') }}
            {{ __('canvas::app.to_update_run') }}<br/><code>php artisan canvas:publish</code>
        </div>

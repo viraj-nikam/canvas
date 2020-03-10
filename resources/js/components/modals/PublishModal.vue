@@ -2,20 +2,9 @@
     <div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <div class="modal-header d-flex align-items-center justify-content-between border-0">
-                    <h4 class="modal-title">
-                        {{ trans.app.publishing }}
-                    </h4>
-
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" class="icon-close-circle">
-                            <circle cx="12" cy="12" r="10" class="primary"/>
-                            <path class="fill-bg" d="M13.41 12l2.83 2.83a1 1 0 0 1-1.41 1.41L12 13.41l-2.83 2.83a1 1 0 1 1-1.41-1.41L10.59 12 7.76 9.17a1 1 0 0 1 1.41-1.41L12 10.59l2.83-2.83a1 1 0 0 1 1.41 1.41L13.41 12z"/>
-                        </svg>
-                    </button>
-                </div>
                 <div class="modal-body">
-                    <p class="text-muted">
+                    <p class="lead mb-1 text-center text-lg-left">{{ trans.app.publishing }}</p>
+                    <p class="text-secondary text-center text-lg-left">
                         {{ trans.app.post_scheduling_format }} <span class="font-weight-bold">{{ Canvas.timezone }}</span> {{ trans.app.timezone }}. (m/d/y h:m)
                     </p>
 
@@ -61,7 +50,7 @@
                         </div>
                     </div>
 
-                    <p class="mt-3 text-success font-italic" v-if="isScheduled">
+                    <p class="mt-3 text-success font-italic" v-if="isScheduled(this.activePost.published_at)">
                         {{ trans.app.your_post_will_publish_at }} {{ moment(this.activePost.published_at).format('h:mm A') }} {{ trans.app.on }} {{ moment(this.activePost.published_at).format('MMMM DD, YYYY') }}.
                     </p>
                 </div>
@@ -79,7 +68,7 @@
 
                         <div class="col-lg order-lg-first px-0">
                             <button
-                                v-if="isScheduled"
+                                v-if="isScheduled(this.activePost.published_at)"
                                 @click="cancelScheduling"
                                 type="button"
                                 class="btn btn-link btn-block text-muted font-weight-bold text-decoration-none"
@@ -133,19 +122,7 @@
                         .slice(0, 19)
                         .replace('T', ' ')
                 )
-            },
-
-            isScheduled() {
-                return (
-                    this.activePost.published_at &&
-                    moment(this.result).isAfter(
-                        moment(new Date())
-                            .format()
-                            .slice(0, 19)
-                            .replace('T', ' ')
-                    )
-                )
-            },
+            }
         },
 
         mounted() {

@@ -139,11 +139,11 @@
 </template>
 
 <script>
-    import _ from 'lodash'
     import $ from 'jquery'
     import Quill from 'quill'
     import {mapState} from 'vuex'
     import Parchment from 'parchment'
+    import debounce from "lodash/debounce"
     import EmbedContentBlot from './EmbedContentBlot'
     import EmbedVideoBlot from './EmbedVideoBlot'
     import EmbedImageBlot from './EmbedImageBlot'
@@ -186,7 +186,6 @@
 
         mounted() {
             this.editor = this.createEditor()
-
             this.handleEditorValue()
 
             // Render any Tweets inside the editor
@@ -457,7 +456,7 @@
                 this.editor.setSelection(range.index + 2, Quill.sources.SILENT)
             },
 
-            update: _.debounce(function (e) {
+            update: debounce(function (e) {
                 this.$parent.save()
             }, 3000),
         },
@@ -471,7 +470,7 @@
     .ql-container {
         font-size: 1.1rem;
         line-height: 2;
-        font-family: $font-family-serif, serif;
+        font-family: $font-family-serif;
         margin: 0;
         height: 100%;
         position: relative;
@@ -479,7 +478,7 @@
     }
 
     .ql-editor {
-        font-family: $font-family-serif, serif;
+        font-family: $font-family-serif;
         font-size: 1.1rem;
         line-height: 2;
         padding: 0;

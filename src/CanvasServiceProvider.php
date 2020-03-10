@@ -5,7 +5,6 @@ namespace Canvas;
 use Canvas\Console\DigestCommand;
 use Canvas\Console\InstallCommand;
 use Canvas\Console\PublishCommand;
-use Canvas\Console\UiCommand;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Support\Facades\Route;
@@ -47,7 +46,6 @@ class CanvasServiceProvider extends ServiceProvider
             DigestCommand::class,
             InstallCommand::class,
             PublishCommand::class,
-            UiCommand::class,
         ]);
     }
 
@@ -123,7 +121,7 @@ class CanvasServiceProvider extends ServiceProvider
             ], 'canvas-config');
 
             $this->publishes([
-                __DIR__.'/../resources/stubs/providers/CanvasServiceProvider.stub' => app_path(
+                __DIR__.'/../resources/stubs/CanvasServiceProvider.stub' => app_path(
                     'Providers/CanvasServiceProvider.php'
                 ),
             ], 'canvas-provider');

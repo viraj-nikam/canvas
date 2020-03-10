@@ -9,24 +9,33 @@
         </page-header>
 
         <main class="py-4">
-            <div class="col-xl-10 offset-xl-1 px-xl-5 col-md-12">
-                <div class="d-flex justify-content-between my-3">
+            <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12">
+                <div class="my-3">
                     <h1>{{ trans.app.tags }}</h1>
+                    <p class="text-secondary" v-if="tags.length">{{ trans.app.tags_are_great_for }}</p>
                 </div>
 
-                <div class="mt-2">
-                    <div v-for="(tag, $index) in tags" :key="$index" class="d-flex border-top py-3 align-items-center">
-                        <div class="mr-auto">
-                            <p class="mb-0 py-1">
-                                <router-link :to="{name: 'tags-edit', params: { id: tag.id }}" class="font-weight-bold text-lg lead text-decoration-none">
-                                    {{ tag.name }}
-                                </router-link>
-                            </p>
-                        </div>
-                        <div class="ml-auto">
-                            <span class="text-muted mr-3">{{ tag.posts_count }} {{ trans.app.posts }}</span>
-                            <span class="d-none d-md-inline-block">{{ trans.app.created }} {{ moment(tag.created_at).locale(Canvas.locale).fromNow() }}</span>
-                        </div>
+                <div class="mt-5">
+                    <div v-for="(tag, $index) in tags" :key="$index">
+                        <router-link :to="{name: 'tags-edit', params: { id: tag.id }}" class="text-decoration-none">
+                            <div v-hover="{class: Canvas.darkMode ? `hover-bg-dark` : `hover-bg-light`}" class="border-top py-3">
+                                <div class="d-flex align-items-center">
+                                    <div class="mr-auto pl-2">
+                                        <p class="mb-0 py-1">
+                                            <span class="font-weight-bold text-lg lead">
+                                                {{ tag.name }}
+                                            </span>
+                                        </p>
+                                    </div>
+                                    <div class="ml-auto d-none d-md-inline-block">
+                                        <span class="text-muted mr-3">{{ tag.posts_count }} {{ trans.app.posts }}</span>
+                                        <span class="mr-3">{{ trans.app.created }} {{ moment(tag.created_at).locale(Canvas.locale).fromNow() }}</span>
+                                    </div>
+
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="25" viewBox="0 0 24 24" class="icon-cheveron-right-circle"><circle cx="12" cy="12" r="10" style="fill:none"/><path class="primary" d="M10.3 8.7a1 1 0 0 1 1.4-1.4l4 4a1 1 0 0 1 0 1.4l-4 4a1 1 0 0 1-1.4-1.4l3.29-3.3-3.3-3.3z"/></svg>
+                                </div>
+                            </div>
+                        </router-link>
                     </div>
 
                     <infinite-loading @infinite="fetchData" spinner="spiral">
@@ -50,6 +59,8 @@
 
 <script>
     import NProgress from 'nprogress'
+    import isEmpty from 'lodash/isEmpty'
+    import Hover from "../../directives/Hover";
     import InfiniteLoading from 'vue-infinite-loading'
     import PageHeader from '../../components/PageHeader'
 
@@ -59,6 +70,10 @@
         components: {
             InfiniteLoading,
             PageHeader,
+        },
+
+        directives: {
+            Hover
         },
 
         data() {
@@ -78,7 +93,7 @@
                         },
                     })
                     .then(response => {
-                        if (!_.isEmpty(response.data) && !_.isEmpty(response.data.data)) {
+                        if (!isEmpty(response.data) && !isEmpty(response.data.data)) {
                             this.page += 1;
                             this.tags.push(...response.data.data)
 

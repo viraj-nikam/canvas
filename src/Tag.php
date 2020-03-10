@@ -4,7 +4,6 @@ namespace Canvas;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Tag extends Model
@@ -58,7 +57,7 @@ class Tag extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function posts(): BelongsToMany
+    public function posts()
     {
         return $this->belongsToMany(Post::class, 'canvas_posts_tags', 'tag_id', 'post_id');
     }
@@ -69,7 +68,7 @@ class Tag extends Model
      * @param Builder $query
      * @return Builder
      */
-    public function scopeForCurrentUser($query): Builder
+    public function scopeForCurrentUser($query)
     {
         return $query->where('user_id', request()->user()->id ?? null);
     }

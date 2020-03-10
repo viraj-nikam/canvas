@@ -21,7 +21,7 @@ class MediaController extends Controller
         $file = reset($payload);
 
         if ($file instanceof UploadedFile) {
-            $path = $file->storePublicly($this->baseStoragePath(), [
+            $path = $file->storePublicly($this->getBaseStoragePath(), [
                 'disk' => config('canvas.storage_disk'),
             ]);
 
@@ -37,7 +37,7 @@ class MediaController extends Controller
     public function destroy()
     {
         $file = pathinfo(request()->getContent());
-        $storagePath = $this->baseStoragePath();
+        $storagePath = $this->getBaseStoragePath();
         $path = "{$storagePath}/{$file['basename']}";
 
         $fileDeleted = Storage::disk(config('canvas.storage_disk'))->delete($path);
@@ -52,7 +52,7 @@ class MediaController extends Controller
      *
      * @return string
      */
-    private function baseStoragePath(): string
+    private function getBaseStoragePath(): string
     {
         return sprintf('%s/%s', config('canvas.storage_path'), 'images');
     }

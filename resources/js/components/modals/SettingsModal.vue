@@ -82,7 +82,7 @@
 </template>
 
 <script>
-    import _ from 'lodash'
+    import debounce from 'lodash/debounce'
     import {mapState} from 'vuex'
     import TagSelect from '../TagSelect'
     import TopicSelect from '../TopicSelect'
@@ -132,7 +132,7 @@
                 this.$parent.save()
             },
 
-            update: _.debounce(function (e) {
+            update: debounce(function (e) {
                 this.$parent.save()
             }, 3000),
         },

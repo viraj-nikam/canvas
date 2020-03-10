@@ -42,7 +42,7 @@
 </template>
 
 <script>
-    import _ from "lodash";
+    import isEmpty from "lodash/isEmpty";
 
     export default {
         name: 'embed-content-modal',
@@ -57,7 +57,7 @@
 
         mounted() {
             this.$parent.$on('openingEmbedContentModal', data => {
-                if (!_.isEmpty(data)) {
+                if (!isEmpty(data)) {
                     this.blot = data.existingBlot
                     this.content = data.content
                 }
@@ -66,7 +66,7 @@
 
         methods: {
             clickDone() {
-                if (!_.isEmpty(this.content)) {
+                if (!isEmpty(this.content)) {
                     this.$emit('addingEmbedContent', {
                         content: this.content,
                         existingBlot: this.blot,

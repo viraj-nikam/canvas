@@ -102,7 +102,8 @@
 </template>
 
 <script>
-    import _ from "lodash"
+    import isEmpty from "lodash/isEmpty"
+    import debounce from "lodash/debounce"
     import {mapState} from 'vuex'
     import Unsplash, {toJson} from 'unsplash-js'
     import InfiniteLoading from 'vue-infinite-loading'
@@ -156,11 +157,11 @@
         mounted() {
             this.selectedImageUrl = this.activePost.featured_image
             this.selectedImageCaption = this.activePost.featured_image_caption
-            this.isReadyToAcceptUploads = _.isEmpty(this.activePost.featured_image);
+            this.isReadyToAcceptUploads = isEmpty(this.activePost.featured_image);
         },
 
         watch: {
-            searchKeyword: _.debounce(function (val) {
+            searchKeyword: debounce(function (val) {
                 if (val === '') {
                     this.isReadyToAcceptUploads = !this.selectedImageUrl;
                     this.isSearchingUnsplash = false
@@ -185,7 +186,7 @@
                 unsplash.search.photos(this.searchKeyword, this.unsplashPage, this.unsplashPerPage)
                     .then(toJson)
                     .then(json => {
-                        if (!_.isEmpty(json.results)) {
+                        if (!isEmpty(json.results)) {
                             this.unsplashImages.push(...json.results)
                             this.unsplashPage += 1;
 
@@ -233,8 +234,8 @@
             },
 
             clickDone() {
-                this.activePost.featured_image = !_.isEmpty(this.selectedImageUrl) ? this.selectedImageUrl : ''
-                this.activePost.featured_image_caption = !_.isEmpty(this.selectedImageCaption) ? this.selectedImageCaption : ''
+                this.activePost.featured_image = !isEmpty(this.selectedImageUrl) ? this.selectedImageUrl : ''
+                this.activePost.featured_image_caption = !isEmpty(this.selectedImageCaption) ? this.selectedImageCaption : ''
 
                 this.$parent.save()
             },

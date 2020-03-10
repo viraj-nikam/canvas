@@ -1,5 +1,6 @@
 @import 'utilities/fonts';
 @import 'utilities/variables';
+@import "utilities/base";
 @import 'vendor-extensions/bootstrap';
 @import 'vendor-extensions/multiselect';
 
@@ -15,9 +16,9 @@ $text-muted: $gray-600;
 $dropdown-bg: $body-bg;
 $dropdown-color: $body-color;
 $dropdown-link-color: $gray-300;
-$dropdown-link-hover-color: darken($gray-900, 5%);
-$dropdown-link-hover-bg: $gray-500;
-$dropdown-link-active-color: darken($gray-900, 5%);
+$dropdown-link-hover-color: $body-color;
+$dropdown-link-hover-bg: lighten($body-bg, 5%);
+$dropdown-link-active-color: $body-color;
 $dropdown-link-active-bg: $gray-500;
 $dropdown-border-color: $gray-700;
 $dropdown-divider-bg: $gray-800;
@@ -106,10 +107,6 @@ select.input {
     background-color: $body-bg;
 }
 
-.shadow-inner {
-    box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
-}
-
 .controls {
     background-color: $body-bg;
 }
@@ -144,14 +141,6 @@ select.input {
 
 .fill-body-color {
     fill: $body-color;
-}
-
-.font-serif {
-    font-family: $font-family-serif;
-}
-
-.font-sans {
-    font-family: $font-family-sans-serif;
 }
 
 @import 'vendor-extensions/vue';

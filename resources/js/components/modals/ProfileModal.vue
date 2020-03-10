@@ -115,10 +115,9 @@
 
 <script>
     import vueFilePond from 'vue-filepond'
-
+    import isEmpty from 'lodash/isEmpty'
     import 'filepond/dist/filepond.min.css'
     import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css'
-
     import FilePondPluginImageValidateSize from 'filepond-plugin-image-validate-size'
     import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type'
     import FilePondPluginImagePreview from 'filepond-plugin-image-preview'
@@ -174,7 +173,7 @@
             },
 
             clickSave() {
-                if (_.isEmpty(this.avatar)) {
+                if (isEmpty(this.avatar)) {
                     this.avatar = this.defaultGravatar(this.user.email, 500)
                 }
 

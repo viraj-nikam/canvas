@@ -12,7 +12,7 @@ $factory->define(\Canvas\Post::class, function (Faker\Generator $faker) {
         'featured_image' => $faker->imageUrl(),
         'featured_image_caption' => $faker->sentence,
         'user_id' => function () {
-            return factory(\Illuminate\Foundation\Auth\User::class)->create()->id;
+            return \Illuminate\Foundation\Auth\User::all()->first()->id ?? factory(\Illuminate\Foundation\Auth\User::class)->create()->id;
         },
         'meta' => [
             'title' => $faker->sentence,

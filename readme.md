@@ -1,33 +1,30 @@
-# Canvas
+<p align="center">
+    <a href="https://cnvs.io">
+        <img src=".github/HEADER.png">
+    </a>
+</p>
 
-<a href="https://travis-ci.org/cnvs/canvas"><img src="https://travis-ci.org/cnvs/canvas.svg?branch=master"></a>
+<p align="center">
+<a href="https://github.com/cnvs/canvas/actions"><img src="https://github.com/cnvs/canvas/workflows/build/badge.svg" alt="Build Status"></a>
 <a href="https://packagist.org/packages/cnvs/canvas"><img src="https://poser.pugx.org/cnvs/canvas/downloads"></a>
 <a href="https://packagist.org/packages/cnvs/canvas"><img src="https://poser.pugx.org/cnvs/canvas/v/stable"></a>
 <a href="https://packagist.org/packages/cnvs/canvas"><img src="https://poser.pugx.org/cnvs/canvas/license"></a>
-
-## Table of Contents
-
-- [Introduction](#introduction)
-- [Installation](#installation)
-- [Usage](#usage)
-	- [Configuration](#configuration)
-	- [Publishing](#publishing)
-- [Options](#options)
-- [Updates](#updates)
-- [Testing](#testing)
-- [Translate](#translate)
-- [License](#license)
-- [Credits](#credits)
+</p>
 
 ## Introduction
 
-A [Laravel](https://laravel.com) publishing platform. Canvas is a fully open source package to extend your existing application and get you up-and-running with a blog in 
-just a few minutes. In addition to a distraction-free writing experience, you can view monthly trends on your content, 
-get insights into reader traffic and more!
+Canvas is a fully open source package to extend your existing [Laravel](https://laravel.com) application and get you up-and-running with a blog in 
+just a few minutes. In addition to a distraction-free writing experience, you can view monthly trends on your content, get insights into reader traffic and more!
+
+## Requirements
+
+- PHP >= 7.2
+- Laravel >= 6.0
+- One of the [four supported databases](https://laravel.com/docs/master/database#introduction) by Laravel
 
 ## Installation
 
-> **Note:** Canvas requires you to have user authentication in place prior to installation. For Laravel 5.* based projects you may run the `make:auth` Artisan command to satisfy this requirement. For Laravel 6.* based projects please see the [official guide](https://laravel.com/docs/6.x/authentication#introduction) to get started.   
+> **Note:** Canvas requires you to have user authentication in place prior to installation. Please see the [official guide](https://laravel.com/docs/master/authentication#introduction) to get started.   
 
 You may use composer to install Canvas into your Laravel project:
 
@@ -47,9 +44,7 @@ Create a symbolic link to ensure file uploads are publicly accessible from the w
 php artisan storage:link
 ```
 
-## Usage
-
-### Configuration
+## Configuration
 
 After publishing Canvas's assets, a primary configuration file will be located at `config/canvas.php`. This file allows you to customize various aspects of how your application uses the package.
 
@@ -103,111 +98,39 @@ Canvas exposes a simple UI at `/canvas` by default. This can be changed by updat
 'upload_filesize' => env('CANVAS_UPLOAD_FILESIZE', 3145728),
 ```
 
-### Publishing
+## Available Options
 
-> **Note:** If you'd rather have your front-end generated automatically, just use [this command](#want-to-get-started-fast) to get started.
+> **Note:** The following features are completely optional, you are not required to use them.
 
-Canvas takes care of the backend while giving you the freedom to display the final content however you choose. A very simple setup would include a controller, some views, and a few routes. Take a look at the following example:
+### Frontend
 
-Define a few routes inside of `routes/web.php`:
+While Canvas does not dictate a specific design for your frontend, it does provide a basic starting point using [Bootstrap](https://getbootstrap.com) and [Vue](https://vuejs.org) that will be helpful for many applications. The scaffolding is located in the `cnvs/studio` Composer package, which may be installed using Composer:
 
-```php
-// Get all published posts
-Route::get('blog', 'BlogController@getPosts');
-
-// Get posts for a given tag
-Route::get('tag/{slug}', 'BlogController@getPostsByTag');
-
-// Get posts for a given topic
-Route::get('topic/{slug}', 'BlogController@getPostsByTopic');
-
-// Find a single post
-Route::middleware('Canvas\Http\Middleware\Session')->get('{slug}', 'BlogController@findPostBySlug');
+```bash
+composer require cnvs/studio
 ```
 
-Add the corresponding methods inside of a new `BlogController`:
+Once the `cnvs/studio` package has been installed, you may install the frontend scaffolding using the `studio:install` Artisan command:
 
-```php
-public function getPosts()
-{
-    $data = [
-        'posts' => \Canvas\Post::published()->orderByDesc('published_at')->simplePaginate(10),
-    ];
-
-    return view('blog.index', compact('data'));
-}
+```bash
+php artisan studio:install
 ```
 
-```php
-public function getPostsByTag(string $slug)
-{
-    if (\Canvas\Tag::where('slug', $slug)->first()) {
-        $data = [
-            'posts' => \Canvas\Post::whereHas('tags', function ($query) use ($slug) {
-                $query->where('slug', $slug);
-            })->published()->orderByDesc('published_at')->simplePaginate(10),
-        ];
+After installing the `cnvs/studio` Composer package and generating the frontend scaffolding, your `package.json` file will include the necessary dependencies to install and compile:
 
-        return view('blog.index', compact('data'));
-    } else {
-        abort(404);
-    }
-}
+```bash
+# Using NPM
+npm install
+npm run dev
+
+# Using Yarn
+yarn
+yarn dev
 ```
 
-```php
-public function getPostsByTopic(string $slug)
-{
-    if (\Canvas\Topic::where('slug', $slug)->first()) {
-        $data = [
-            'posts' => \Canvas\Post::whereHas('topic', function ($query) use ($slug) {
-                $query->where('slug', $slug);
-            })->published()->orderByDesc('published_at')->simplePaginate(10),
-        ];
+### Unsplash
 
-        return view('blog.index', compact('data'));
-    } else {
-        abort(404);
-    }
-}
-```
-
-```php
-public function findPostBySlug(string $slug)
-{
-    $posts = \Canvas\Post::with('tags', 'topic')->published()->get();
-    $post = $posts->firstWhere('slug', $slug);
-
-    if (optional($post)->published) {
-        $data = [
-            'author' => $post->user,
-            'post'   => $post,
-            'meta'   => $post->meta,
-        ];
-
-        // IMPORTANT: This event must be called for tracking visitor/view traffic
-        event(new \Canvas\Events\PostViewed($post));
-
-        return view('blog.show', compact('data'));
-    } else {
-        abort(404);
-    }
-}
-```
-
-Finally, just create `index.blade.php` and `show.blade.php` inside a `/views/blog` directory to display your data.
-
-## Options
-
-> **Note:** The following components are optional features, you are not required to use them.
-
-### Want to get started fast?
-
-Just run `php artisan canvas:ui` after installing Canvas. Then, navigate your browser to `http://your-app.test/blog` or any other URL that is assigned to your application.
-
-### Want access to the entire [Unsplash](https://unsplash.com) library?
-
-Set up a new application at [https://unsplash.com/oauth/applications](https://unsplash.com/oauth/applications), grab your access key, and update `config/canvas.php`:
+**Want access to the entire [Unsplash](https://unsplash.com) library?** Set up a new application at [https://unsplash.com/oauth/applications](https://unsplash.com/oauth/applications), grab your access key, and update `config/canvas.php`:
 
 ```php
 /*
@@ -226,9 +149,9 @@ Set up a new application at [https://unsplash.com/oauth/applications](https://un
 ]
 ```
 
-### Want a weekly summary?
+### Weekly Digest
 
-Canvas allows users to receive a weekly summary of their authored content. Once your application is [configured for sending mail](https://laravel.com/docs/master/mail), update `config/canvas.php`:
+**Want a weekly summary?** Canvas allows users to receive a weekly summary of their authored content. Once your application is [configured for sending mail](https://laravel.com/docs/master/mail), update `config/canvas.php`:
 
 ```php
 /*
@@ -256,8 +179,8 @@ Since the weekly digest runs on [Laravel's Scheduler](https://laravel.com/docs/m
 
 ## Updates
 
-Canvas releases are versioned as `MAJOR.MINOR.PATCH` numbers
-- A major or minor version _can contain breaking changes_, so follow the [upgrade guide](upgrade.md) for a step-by-step breakdown
+Canvas loosely follows [Semantic Versioning](https://semver.org/) and increments versions as `MAJOR.MINOR.PATCH` numbers
+- A major or minor version _can contain breaking changes_, so follow the [upgrade guide](.github/CHANGELOG.md) for a step-by-step breakdown
 - Patch versions will remain backwards compatible, so you can safely update the package by following the steps below:
 
 You may update your Canvas installation using composer:
@@ -277,6 +200,10 @@ Re-publish the assets using the `canvas:publish` Artisan command:
 ```bash
 php artisan canvas:publish
 ```
+
+## Contributing
+
+Thank you for considering contributing to Canvas! You can use the [contribution guide](.github/CONTRIBUTING.md) to assist you in setting up the package for development.
 
 ## Testing
 
