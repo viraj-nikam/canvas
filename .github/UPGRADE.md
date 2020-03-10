@@ -2,8 +2,35 @@
 
 ## Table of Contents
 
+- [Upgrading to 5.3.0 from 5.2](#upgrading-to-530-from-52)
 - [Upgrading to 5.2.0 from 5.1](#upgrading-to-520-from-51)
 - [Upgrading to 5.1.0 from 5.0](#upgrading-to-510-from-50)
+
+## Upgrading to 5.3.0 from 5.2
+
+> **Note:** The `5.3.0` minor update contains does not contain breaking changes.
+
+### Updating dependencies
+
+Update your `cnvs/canvas` dependency to `^5.3` in your `composer.json` file. Upgrade the package to the latest version:
+
+```bash
+composer update
+```
+
+### Assets
+
+Re-publish the assets using the `canvas:publish` Artisan command:
+
+```bash
+php artisan canvas:publish
+```
+
+Clear any cached views using the `view:clear` Artisan command:
+
+```bash
+php artisan view:clear
+```
 
 ## Upgrading to 5.2.0 from 5.1
 
