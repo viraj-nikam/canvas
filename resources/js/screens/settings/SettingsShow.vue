@@ -17,37 +17,38 @@
                     <h1>{{ trans.app.your_profile }}</h1>
                 </div>
 
-                <div class="mt-2" v-if="isReady">
-                    <div class="d-flex border-top py-3 align-items-center">
-                        <div class="mr-auto py-1">
-                            <p class="mb-1 font-weight-bold text-lg lead">
-                                {{ trans.app.your_profile }}
-                            </p>
-                            <p class="mb-1 d-none d-lg-block">
-                                {{ trans.app.choose_a_unique_username }}
-                            </p>
-                        </div>
-                        <div class="ml-auto pl-3">
-                            <div class="align-middle">
-                                <button class="btn btn-sm btn-outline-success font-weight-bold" @click="showProfileModal">
-                                    {{ trans.app.edit_profile }}
-                                </button>
+                <div class="mt-2 card shadow border-0" v-if="isReady">
+                    <div class="card-body p-0">
+                        <div class="d-flex p-3 align-items-center">
+                            <div class="mr-auto py-1">
+                                <p class="mb-1 font-weight-bold text-lg lead">
+                                    {{ trans.app.your_profile }}
+                                </p>
+                                <p class="mb-1 d-none d-lg-block">
+                                    {{ trans.app.choose_a_unique_username }}
+                                </p>
+                            </div>
+                            <div class="ml-auto pl-3">
+                                <div class="align-middle">
+                                    <button class="btn btn-sm btn-outline-success font-weight-bold" @click="showProfileModal">
+                                        {{ trans.app.edit_profile }}
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="d-flex border-top py-3 align-items-center">
-                        <div class="mr-auto py-1">
-                            <p class="mb-1 font-weight-bold text-lg lead">
-                                {{ trans.app.weekly_digest }}
-                            </p>
-                            <p class="mb-1 d-none d-lg-block">
-                                {{ trans.app.toggle_digest }}
-                            </p>
-                        </div>
-                        <div class="ml-auto pl-3">
-                            <div class="align-middle">
-                                <div class="form-group my-auto">
+                        <div class="d-flex border-top p-3 align-items-center">
+                            <div class="mr-auto py-1">
+                                <p class="mb-1 font-weight-bold text-lg lead">
+                                    {{ trans.app.weekly_digest }}
+                                </p>
+                                <p class="mb-1 d-none d-lg-block">
+                                    {{ trans.app.toggle_digest }}
+                                </p>
+                            </div>
+                            <div class="ml-auto pl-3">
+                                <div class="align-middle">
+                                    <div class="form-group my-auto">
                                     <span class="switch switch-sm">
                                         <input
                                             type="checkbox"
@@ -61,23 +62,23 @@
                                             {{ trans.app.weekly_digest }}
                                         </label>
                                     </span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="d-flex border-top py-3 align-items-center">
-                        <div class="mr-auto py-1">
-                            <p class="mb-1 font-weight-bold text-lg lead">
-                                {{ trans.app.dark_mode }}
-                            </p>
-                            <p class="mb-1 d-none d-lg-block">
-                                {{ trans.app.toggle_dark_mode }}
-                            </p>
-                        </div>
-                        <div class="ml-auto pl-3">
-                            <div class="align-middle">
-                                <div class="form-group my-auto">
+                        <div class="d-flex border-top p-3 align-items-center">
+                            <div class="mr-auto py-1">
+                                <p class="mb-1 font-weight-bold text-lg lead">
+                                    {{ trans.app.dark_mode }}
+                                </p>
+                                <p class="mb-1 d-none d-lg-block">
+                                    {{ trans.app.toggle_dark_mode }}
+                                </p>
+                            </div>
+                            <div class="ml-auto pl-3">
+                                <div class="align-middle">
+                                    <div class="form-group my-auto">
                                     <span class="switch switch-sm">
                                         <input
                                             type="checkbox"
@@ -91,6 +92,7 @@
                                             {{ trans.app.dark_mode }}
                                         </label>
                                     </span>
+                                    </div>
                                 </div>
                             </div>
                         </div>

@@ -24,7 +24,7 @@
 
     <link rel="shortcut icon" href="{{ mix('favicon.ico', 'vendor/canvas') }}">
 </head>
-<body>
+<body class="bg-light mb-5">
 <div id="canvas">
     @if(!$assetsUpToDate)
        <div class="alert alert-danger border-0 text-center rounded-0 mb-0">
