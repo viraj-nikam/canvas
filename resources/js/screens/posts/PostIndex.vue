@@ -24,7 +24,7 @@
                         <div v-for="(post, index) in posts" :key="index">
                             <router-link :to="{name: 'posts-edit', params: { id: post.id }}" class="text-decoration-none">
                                 <div
-                                    v-hover="{class: Canvas.darkMode ? `hover-bg-dark` : `hover-bg-light`}"
+                                    v-hover="{class: `row-hover`}"
                                     class="d-flex p-3 align-items-center"
                                     :class="{'border-top': index !== 0, 'rounded-top': index === 0, 'rounded-bottom': index === posts.length - 1}">
                                     <div class="mr-auto pl-2 py-1">

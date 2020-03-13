@@ -65,7 +65,7 @@
 
             <div ref="editor" class="mb-5"></div>
 
-            <nav class="navbar fixed-bottom navbar-expand-sm mt-5 d-xl-none p-0 navbar-mini">
+            <nav class="navbar fixed-bottom navbar-expand-sm mt-5 d-xl-none p-0 navbar-mini shadow">
                 <div class="btn-group d-flex justify-content-center">
                     <button
                         @click="showEmbedImageModal"
