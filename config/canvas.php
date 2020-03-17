@@ -23,11 +23,11 @@ return [
     | This is the User model that Canvas will use to associate
     | to the author of the post.
     |
-    | Default: null or Illuminate\Foundation\Auth\User::class
+    | Default: Illuminate\Foundation\Auth\User::class
     |
     */
 
-    'model' => null,
+    'user' => Illuminate\Foundation\Auth\User::class,
 
     /*
     |--------------------------------------------------------------------------
