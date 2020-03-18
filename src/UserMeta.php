@@ -39,7 +39,7 @@ class UserMeta extends Model
      */
     public function user()
     {
-        return $this->belongsTo(config('canvas.user', User::class));
+        return $this->belongsTo(config('canvas.user'));
     }
 
     /**
