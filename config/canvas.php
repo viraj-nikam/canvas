@@ -17,6 +17,19 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | User Model
+    |--------------------------------------------------------------------------
+    |
+    | Next, you may define a specific user model that your application will
+    | use for authentication. This will define the relationships between
+    | a user and their posts, tags, and topics that they author.
+    |
+    */
+
+    'user' => Illuminate\Foundation\Auth\User::class,
+
+    /*
+    |--------------------------------------------------------------------------
     | Route Middleware
     |--------------------------------------------------------------------------
     |
