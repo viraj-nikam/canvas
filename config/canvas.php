@@ -20,10 +20,9 @@ return [
     | User Model
     |--------------------------------------------------------------------------
     |
-    | This is the User model that Canvas will use to associate
-    | to the author of the post.
-    |
-    | Default: Illuminate\Foundation\Auth\User::class
+    | Next, you may define a specific user model that your application will
+    | use for authentication. This will define the relationships between
+    | a user and their posts, tags, and topics that they author.
     |
     */
 
