@@ -48,7 +48,7 @@ php artisan storage:link
 
 After publishing Canvas's assets, a primary configuration file will be located at `config/canvas.php`. This file allows you to customize various aspects of how your application uses the package.
 
-Canvas exposes a simple UI at `/canvas` by default. This can be changed by updating the `path` option:
+Canvas exposes its UI at `/canvas` by default. This can be changed by updating the `path` option:
 
 ```php
 /*
@@ -63,7 +63,28 @@ Canvas exposes a simple UI at `/canvas` by default. This can be changed by updat
 */
 
 'path' => env('CANVAS_PATH_NAME', 'canvas'),
+```
 
+If your application has a custom User model, define the fully-qualified path in the `user` option here:
+
+```php
+/*
+|--------------------------------------------------------------------------
+| User Model
+|--------------------------------------------------------------------------
+|
+| Next, you may define a specific user model that your application will
+| use for authentication. This will define the relationships between
+| a user and their posts, tags, and topics that they author.
+|
+*/
+
+'user' => Illuminate\Foundation\Auth\User::class,
+```
+
+Sometimes, you may want to limit user access to Canvas via a custom middleware. You can attach any additional middleware here:
+
+```php
 /*
 |--------------------------------------------------------------------------
 | Route Middleware
@@ -79,7 +100,11 @@ Canvas exposes a simple UI at `/canvas` by default. This can be changed by updat
     'web',
     'auth',
 ],
+```
 
+Canvas uses the storage disk for media uploads. You may configure the different filesystem options here:
+
+```php
 /*
 |--------------------------------------------------------------------------
 | Storage
