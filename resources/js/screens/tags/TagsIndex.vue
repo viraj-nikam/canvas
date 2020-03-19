@@ -45,8 +45,8 @@
                         <infinite-loading @infinite="fetchData" spinner="spiral">
                             <span slot="no-more"></span>
                             <div slot="no-results" class="text-left">
-                                <div class="mt-5">
-                                    <p class="lead text-center text-muted mt-5 pt-5">
+                                <div class="my-5">
+                                    <p class="lead text-center text-muted mt-5">
                                         {{ trans.app.you_have_no_tags }}
                                     </p>
                                     <p class="lead text-center text-muted mt-1">
