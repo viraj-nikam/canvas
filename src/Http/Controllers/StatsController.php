@@ -51,8 +51,6 @@ class StatsController extends Controller
             'view_trend' => json_encode($this->countTrackedData($views, self::DAYS)),
             'visit_count' => $visits->count(),
             'visit_trend' => json_encode($this->countTrackedData($visits, self::DAYS)),
-            'published_count' => $published->count(),
-            'draft_count' => Post::forCurrentUser()->draft()->count(),
         ]);
     }
 

@@ -1,5 +1,5 @@
 <template>
-    <div class="shadow">
+    <div class="shadow page-header">
         <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12">
             <nav class="navbar justify-content-between flex-nowrap flex-row py-2 px-0">
                 <router-link to="/" class="navbar-brand">

@@ -3,10 +3,10 @@
 @import "utilities/base";
 @import 'vendor-extensions/bootstrap';
 
+$body-bg: $gray-100;
 $body-color: $gray-900;
 
-$link-color: $gray-900;
-$link-hover-color: $gray-900;
+$link-color: $body-color;
 
 $text-muted: $gray-500;
 
@@ -15,8 +15,12 @@ $dropdown-link-active-bg: $gray-100;
 
 $custom-control-indicator-bg: $text-muted;
 
-.controls {
+.page-header {
     background-color: $white;
+}
+
+.controls {
+    background-color: $body-bg;
 }
 
 .navbar-mini {
@@ -45,6 +49,10 @@ $custom-control-indicator-bg: $text-muted;
 
 .fill-body-color {
     fill: $body-color;
+}
+
+.row-hover {
+    background-color: $gray-100;
 }
 
 @import 'vendor-extensions/vue';
