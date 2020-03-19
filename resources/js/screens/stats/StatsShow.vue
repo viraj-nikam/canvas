@@ -27,7 +27,7 @@
         <main class="py-4" v-if="isReady">
             <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12">
                 <div class="row justify-content-between">
-                    <div class="col-md-8">
+                    <div class="col-md-8 my-3">
                         <p class="text-muted mb-0">
                             {{ trans.app.published }}
                             {{ moment(post.published_at).format('MMM D, YYYY') }}
@@ -36,67 +36,71 @@
                     </div>
                 </div>
 
-                <div class="row justify-content-start mt-3">
-                    <div class="col-lg-6 col-12">
-                        <p class="lead mt-4 border-bottom">{{ trans.app.lifetime_summary }}</p>
-                        <div class="d-flex">
-                            <div class="mr-5">
-                                <p class="mb-0 small text-muted text-uppercase font-weight-bold">
-                                    {{ trans.app.total_views }}
-                                </p>
-                                <h3 class="mt-1">
-                                    {{ suffixedNumber(viewCountLifetime) }}
-                                </h3>
-                            </div>
+                <div class="card-deck mt-3">
+                    <div class="card shadow border-0">
+                        <div class="card-body p-3">
+                            <p class="lead border-bottom">{{ trans.app.lifetime_summary }}</p>
+                            <div class="d-flex">
+                                <div class="mr-5">
+                                    <p class="mb-0 small text-muted text-uppercase font-weight-bold">
+                                        {{ trans.app.total_views }}
+                                    </p>
+                                    <h3 class="mt-1">
+                                        {{ suffixedNumber(viewCountLifetime) }}
+                                    </h3>
+                                </div>
 
-                            <div>
-                                <p class="mb-0 small text-muted text-uppercase font-weight-bold">
-                                    {{ trans.app.average_reading_time }}
-                                </p>
-                                <h3 class="mt-1">
-                                    {{ readTime }}
-                                </h3>
+                                <div>
+                                    <p class="mb-0 small text-muted text-uppercase font-weight-bold">
+                                        {{ trans.app.average_reading_time }}
+                                    </p>
+                                    <h3 class="mt-1">
+                                        {{ readTime }}
+                                    </h3>
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-lg-6 col-12">
-                        <p class="lead mt-4 border-bottom">{{ trans.app.monthly_summary }}</p>
-                        <div class="d-flex">
-                            <div class="mr-5">
-                                <p class="mb-0 small text-muted text-uppercase font-weight-bold">
-                                    {{ trans.app.views }}
-                                </p>
-                                <h3 class="mt-1 mb-2">
-                                    {{ suffixedNumber(viewCount) }}
-                                </h3>
-                                <p class="small text-muted">
+                    <div class="card shadow border-0">
+                        <div class="card-body p-3">
+                            <p class="lead border-bottom">{{ trans.app.monthly_summary }}</p>
+                            <div class="d-flex">
+                                <div class="mr-5">
+                                    <p class="mb-0 small text-muted text-uppercase font-weight-bold">
+                                        {{ trans.app.views }}
+                                    </p>
+                                    <h3 class="mt-1 mb-2">
+                                        {{ suffixedNumber(viewCount) }}
+                                    </h3>
+                                    <p class="small text-muted">
                                     <span v-if="viewsAreTrendingUp">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="17" class="icon-arrow-thick-up-circle"><circle cx="12" cy="12" r="10" class="primary"/><path class="fill-bg" d="M14 12v5a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-5H8a1 1 0 0 1-.7-1.7l4-4a1 1 0 0 1 1.4 0l4 4A1 1 0 0 1 16 12h-2z"/></svg>
                                     </span>
-                                    <span v-else>
+                                        <span v-else>
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="17" class="icon-arrow-thick-down-circle"><circle cx="12" cy="12" r="10" class="primary"/><path class="fill-bg" d="M10 12V7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v5h2a1 1 0 0 1 .7 1.7l-4 4a1 1 0 0 1-1.4 0l-4-4A1 1 0 0 1 8 12h2z"/></svg>
                                     </span>
-                                    {{ viewMonthOverMonthPercentage }}% {{ trans.app.from_last_month }}
-                                </p>
-                            </div>
+                                        {{ viewMonthOverMonthPercentage }}% {{ trans.app.from_last_month }}
+                                    </p>
+                                </div>
 
-                            <div>
-                                <p class="mb-0 small text-muted text-uppercase font-weight-bold">
-                                    {{ trans.app.visitors }}
-                                </p>
-                                <h3 class="mt-1 mb-2">
-                                    {{ suffixedNumber(visitCount) }}
-                                </h3>
-                                <p class="small text-muted">
+                                <div>
+                                    <p class="mb-0 small text-muted text-uppercase font-weight-bold">
+                                        {{ trans.app.visitors }}
+                                    </p>
+                                    <h3 class="mt-1 mb-2">
+                                        {{ suffixedNumber(visitCount) }}
+                                    </h3>
+                                    <p class="small text-muted">
                                     <span v-if="visitsAreTrendingUp">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="17" class="icon-arrow-thick-up-circle"><circle cx="12" cy="12" r="10" class="primary"/><path class="fill-bg" d="M14 12v5a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-5H8a1 1 0 0 1-.7-1.7l4-4a1 1 0 0 1 1.4 0l4 4A1 1 0 0 1 16 12h-2z"/></svg>
                                     </span>
-                                    <span v-else>
+                                        <span v-else>
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="17" class="icon-arrow-thick-down-circle"><circle cx="12" cy="12" r="10" class="primary"/><path class="fill-bg" d="M10 12V7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v5h2a1 1 0 0 1 .7 1.7l-4 4a1 1 0 0 1-1.4 0l-4-4A1 1 0 0 1 8 12h2z"/></svg>
                                     </span>
-                                    {{ visitMonthOverMonthPercentage }}% {{ trans.app.from_last_month }}
-                                </p>
+                                        {{ visitMonthOverMonthPercentage }}% {{ trans.app.from_last_month }}
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>

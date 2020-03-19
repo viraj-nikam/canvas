@@ -12,13 +12,13 @@
             <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12">
                 <div class="my-3">
                     <h1>{{ trans.app.stats }}</h1>
-                    <p class="text-secondary" v-if="isReady && posts.length">{{ trans.app.click_to_see_insights }}</p>
+                    <p class="text-secondary">{{ trans.app.click_to_see_insights }}</p>
                 </div>
 
-                <div v-if="isReady" v-cloak>
+                <div v-if="isReady">
                     <div v-if="posts.length">
                         <div class="card-deck mt-5">
-                            <div class="card shadow bg-transparent">
+                            <div class="card shadow border-0">
                                 <div class="card-header pb-0 bg-transparent d-flex justify-content-between align-middle border-0">
                                     <p class="font-weight-bold text-muted small text-uppercase">{{ trans.app.views }}</p>
                                     <p>
@@ -31,7 +31,7 @@
                                     </p>
                                 </div>
                             </div>
-                            <div class="card shadow bg-transparent">
+                            <div class="card shadow border-0">
                                 <div class="card-header pb-0 bg-transparent d-flex justify-content-between align-middle border-0">
                                     <p class="font-weight-bold text-muted small text-uppercase">{{ trans.app.visitors }}</p>
                                     <p>
@@ -46,17 +46,6 @@
                                     </p>
                                 </div>
                             </div>
-                            <div class="card shadow bg-transparent">
-                                <div class="card-header pb-0 bg-transparent border-0">
-                                    <p class="font-weight-bold text-muted small text-uppercase">{{ trans.app.publishing }}</p>
-                                </div>
-                                <div class="card-body pt-0 pb-2">
-                                    <ul>
-                                        <li>{{ publishedCount }} {{ trans.app.published_posts }}</li>
-                                        <li>{{ draftCount }} {{ trans.app.drafts }}</li>
-                                    </ul>
-                                </div>
-                            </div>
                         </div>
 
                         <line-chart
@@ -65,35 +54,40 @@
                             class="mt-5"
                         />
 
-                        <div class="mt-5">
-                            <div v-for="(post, $index) in posts" :key="$index">
-                                <router-link :to="{name: 'stats-show', params: { id: post.id }}" class="text-decoration-none">
-                                    <div v-hover="{class: Canvas.darkMode ? `hover-bg-dark` : `hover-bg-light`}" class="d-flex border-top py-3 align-items-center">
-                                        <div class="mr-auto pl-2">
-                                            <p class="mb-1 mt-2">
+                        <div class="mt-5 card shadow border-0">
+                            <div class="card-body p-0">
+                                <div v-for="(post, index) in posts" :key="index">
+                                    <router-link :to="{name: 'stats-show', params: { id: post.id }}" class="text-decoration-none">
+                                        <div
+                                            v-hover="{class: `row-hover`}"
+                                            class="d-flex p-3 align-items-center"
+                                            :class="{'border-top': index !== 0, 'rounded-top': index === 0, 'rounded-bottom': index === posts.length - 1}">
+                                            <div class="mr-auto pl-2">
+                                                <p class="mb-1 mt-2">
                                                 <span class="font-weight-bold text-lg lead">
                                                     {{ trim(post.title, 45) }}
                                                 </span>
-                                            </p>
-                                            <p class="text-secondary mb-2">
-                                                {{ post.read_time }} ― {{ trans.app.published }} {{ moment(post.published_at).locale(Canvas.locale).fromNow() }}
-                                            </p>
-                                        </div>
-                                        <div class="ml-auto d-none d-lg-block">
-                                            <span class="text-muted mr-3">{{ suffixedNumber(post.views_count) }} {{ trans.app.views }}</span>
-                                            <span class="mr-3">{{ trans.app.created }} {{ moment(post.created_at).locale(Canvas.locale).fromNow() }}</span>
-                                        </div>
+                                                </p>
+                                                <p class="text-secondary mb-2">
+                                                    {{ post.read_time }} ― {{ trans.app.published }} {{ moment(post.published_at).locale(Canvas.locale).fromNow() }}
+                                                </p>
+                                            </div>
+                                            <div class="ml-auto d-none d-lg-block">
+                                                <span class="text-muted mr-3">{{ suffixedNumber(post.views_count) }} {{ trans.app.views }}</span>
+                                                <span class="mr-3">{{ trans.app.created }} {{ moment(post.created_at).locale(Canvas.locale).fromNow() }}</span>
+                                            </div>
 
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="25" viewBox="0 0 24 24" class="icon-cheveron-right-circle"><circle cx="12" cy="12" r="10" style="fill:none"/><path class="primary" d="M10.3 8.7a1 1 0 0 1 1.4-1.4l4 4a1 1 0 0 1 0 1.4l-4 4a1 1 0 0 1-1.4-1.4l3.29-3.3-3.3-3.3z"/></svg>
-                                    </div>
-                                </router-link>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="25" viewBox="0 0 24 24" class="icon-cheveron-right-circle"><circle cx="12" cy="12" r="10" style="fill:none"/><path class="primary" d="M10.3 8.7a1 1 0 0 1 1.4-1.4l4 4a1 1 0 0 1 0 1.4l-4 4a1 1 0 0 1-1.4-1.4l3.29-3.3-3.3-3.3z"/></svg>
+                                        </div>
+                                    </router-link>
+                                </div>
+
+                                <infinite-loading @infinite="fetchPosts" spinner="spiral">
+                                    <span slot="no-more"></span>
+                                    <div slot="no-results"></div>
+                                </infinite-loading>
                             </div>
                         </div>
-
-                        <infinite-loading @infinite="fetchPosts" spinner="spiral">
-                            <span slot="no-more"></span>
-                            <div slot="no-results"></div>
-                        </infinite-loading>
                     </div>
 
                     <div v-else class="mt-5">
@@ -135,8 +129,6 @@
             return {
                 page: 1,
                 posts: [],
-                publishedCount: 0,
-                draftCount: 0,
                 viewCount: 0,
                 viewTrend: {},
                 visitCount: 0,
@@ -160,15 +152,12 @@
                         this.viewTrend = response.data.view_trend
                         this.visitCount = response.data.visit_count
                         this.visitTrend = response.data.visit_trend
-                        this.publishedCount = response.data.published_count
-                        this.draftCount = response.data.draft_count
 
                         this.isReady = true;
                         NProgress.done()
                     })
                     .catch(error => {
                         // Add any error debugging...
-
                         NProgress.done()
                     })
             },
@@ -189,12 +178,9 @@
                         } else {
                             $state.complete();
                         }
-
-                        NProgress.done()
                     })
                     .catch(error => {
                         // Add any error debugging...
-
                         NProgress.done()
                     })
             },
