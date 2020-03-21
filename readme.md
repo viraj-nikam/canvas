@@ -248,7 +248,8 @@ Canvas is open-sourced software licensed under the [MIT license](license).
 
 ## Credits
 
-- [The team](https://github.com/orgs/cnvs/people) that continues to support and develop this project
-- Logo design and branding by [Katerina Limpitsouni](https://twitter.com/NinaLimpi) 
-- Thanks to [Mohamed Said](https://twitter.com/themsaid) and his open source project [Wink](https://github.com/writingink/wink)
-- Anyone who has [contributed a patch](https://github.com/cnvs/canvas/pulls) or [made a helpful suggestion](https://github.com/cnvs/canvas/issues)
+- [@austintoddj](https://github.com/austintoddj)
+- [@talvbansal](https://github.com/talvbansal)
+- [@reliq](https://github.com/reliq)
+- [@themsaid](https://github.com/themsaid)
+- [@NinaLimpi](https://twitter.com/NinaLimpi) 
