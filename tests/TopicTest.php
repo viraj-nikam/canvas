@@ -12,14 +12,14 @@ class TopicTest extends TestCase
     /** @test */
     public function allow_topics_to_share_the_same_slug_with_unique_users()
     {
-        $user_1 = factory(\Illuminate\Foundation\Auth\User::class)->create();
+        $user_1 = factory(config('canvas.user'))->create();
         $topic_1 = $this->actingAs($user_1)->withoutMiddleware()->post('/canvas/api/topics/create', [
             'id' => Uuid::uuid4(),
             'name' => 'Return of the Jedi',
             'slug' => 'return-of-the-jedi',
         ]);
 
-        $user_2 = factory(\Illuminate\Foundation\Auth\User::class)->create();
+        $user_2 = factory(config('canvas.user'))->create();
         $topic_2 = $this->actingAs($user_2)->withoutMiddleware()->post('/canvas/api/topics/create', [
             'id' => Uuid::uuid4(),
             'name' => 'Return of the Jedi',
