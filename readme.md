@@ -65,7 +65,7 @@ Canvas exposes its UI at `/canvas` by default. This can be changed by updating t
 'path' => env('CANVAS_PATH_NAME', 'canvas'),
 ```
 
-If your application has a custom User model, define the fully-qualified path in the `user` option here:
+If your application has a custom User model, define the fully-qualified path in the `user` option:
 
 ```php
 /*
@@ -82,7 +82,7 @@ If your application has a custom User model, define the fully-qualified path in 
 'user' => Illuminate\Foundation\Auth\User::class,
 ```
 
-Sometimes, you may want to limit user access to Canvas via a custom middleware. You can attach any additional middleware here:
+Sometimes, you may want to apply role or permission-based access to Canvas. You can create and attach any additional middleware here:
 
 ```php
 /*

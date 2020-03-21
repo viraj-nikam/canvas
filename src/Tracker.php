@@ -19,22 +19,13 @@ trait Tracker
      */
     public function getTrackedData(array $postIDs, int $days): array
     {
-        $totalViews = View::whereIn('post_id', $postIDs)
-                          ->whereBetween('created_at', [
-                              today()->subDays($days)->startOfDay()->toDateTimeString(),
-                              today()->endOfDay()->toDateTimeString(),
-                          ])
-                          ->get();
+        $startDate = today()->subDays($days)->startOfDay();
+        $endDate = today()->endOfDay();
 
-        $totalVisits = Visit::whereIn('post_id', $postIDs)
-                            ->whereBetween('created_at', [
-                                today()->subDays($days)->startOfDay()->toDateTimeString(),
-                                now()->endOfDay()->toDateTimeString(),
-                            ])
-                            ->get();
+        $totalViews = View::forPostsInRange($postIDs, $startDate->toDateTimeString(), $endDate->toDateTimeString())->get();
+        $totalVisits = Visit::forPostsInRange($postIDs, $startDate->toDateTimeString(), $endDate->toDateTimeString())->get();
 
-        $dataForPosts = collect();
-
+        $data = collect();
         foreach ($postIDs as $postID) {
             $viewCount = $totalViews->where('post_id', $postID)->count();
             $visitCount = $totalVisits->where('post_id', $postID)->count();
@@ -42,7 +33,7 @@ trait Tracker
             // Only collect view data if any exists
             if (array_sum([$viewCount, $visitCount]) > 0) {
                 $post = Post::find($postID);
-                $dataForPosts->put($post->id, [
+                $data->put($post->id, [
                     'title' => $post->title,
                     'views' => $viewCount,
                     'visits' => $visitCount,
@@ -50,26 +41,26 @@ trait Tracker
             }
         }
 
-        $data = collect();
-        $data->put('posts', $dataForPosts);
-        $data->put('startDate', now()->subDays($days)->format('M j'));
-        $data->put('endDate', now()->format('M j'));
-        $data->put('totals', [
-            'views' => $totalViews->count(),
-            'visits' => $totalVisits->count(),
-        ]);
-
-        return $data->toArray();
+        return collect([
+            'posts' => $data,
+            'startDate' => $startDate->format('M j'),
+            'endDate' => $endDate->format('M j'),
+            'totals' => [
+                'views' => $totalViews->count(),
+                'visits' => $totalVisits->count(),
+            ],
+        ])->toArray();
     }
 
     /**
-     * Return an array of tracking data for a given number of days.
+     * Return an array of tracking data for a given number of days compatible with Chart.js.
      *
-     * eg.  [
-     *          2020-01-24 => 25,
-     *          2020-01-25 => 13,
-     *          ...
-     *      ]
+     * output:
+     * [
+     *      2020-01-24 => 25,
+     *      2020-01-25 => 13,
+     *      ...
+     * ]
      *
      * @param Collection $data
      * @param int $days
@@ -117,7 +108,7 @@ trait Tracker
         $dataCountLastMonth = $previous->count();
 
         if ($dataCountLastMonth != 0) {
-            $difference = (int) $dataCountThisMonth - (int) $dataCountLastMonth;
+            $difference = (int)$dataCountThisMonth - (int)$dataCountLastMonth;
             $growth = ($difference / $dataCountLastMonth) * 100;
         } else {
             $growth = $dataCountThisMonth * 100;
