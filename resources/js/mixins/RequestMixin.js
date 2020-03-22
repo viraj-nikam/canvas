@@ -2,10 +2,20 @@ import axios from 'axios'
 
 export default {
     methods: {
+        /**
+         * Return the CSRF token on the page.
+         *
+         * @returns {string}
+         */
         getToken() {
             return document.head.querySelector('meta[name="csrf-token"]').content
         },
 
+        /**
+         * Create a base request.
+         *
+         * @returns {AxiosInstance}
+         */
         request() {
             let instance = axios.create()
 
@@ -48,6 +58,11 @@ export default {
             return instance
         },
 
+        /**
+         * Log out of the application.
+         *
+         * @returns void
+         */
         logout() {
             let instance = axios.create()
 
