@@ -23,7 +23,7 @@
                         :iconRetry="getRetryIcon"
                         className="w-50"
                         :label-idle="getPlaceholderLabel"
-                        accepted-file-types="image/jpeg,image/png,image/gif"
+                        accepted-file-types="image/*"
                         imagePreviewHeight="170"
                         imageCropAspectRatio="1:1"
                         imageResizeTargetWidth="200"
