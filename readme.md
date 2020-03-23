@@ -65,7 +65,7 @@ Canvas exposes its UI at `/canvas` by default. This can be changed by updating t
 'path' => env('CANVAS_PATH_NAME', 'canvas'),
 ```
 
-If your application has a custom User model, define the fully-qualified path in the `user` option here:
+If your application has a custom User model, define the fully-qualified path in the `user` option:
 
 ```php
 /*
@@ -82,7 +82,7 @@ If your application has a custom User model, define the fully-qualified path in 
 'user' => Illuminate\Foundation\Auth\User::class,
 ```
 
-Sometimes, you may want to limit user access to Canvas via a custom middleware. You can attach any additional middleware here:
+Sometimes, you may want to apply role or permission-based access to Canvas. You can create and attach any additional middleware here:
 
 ```php
 /*
@@ -248,7 +248,8 @@ Canvas is open-sourced software licensed under the [MIT license](license).
 
 ## Credits
 
-- [The team](https://github.com/orgs/cnvs/people) that continues to support and develop this project
-- Logo design and branding by [Katerina Limpitsouni](https://twitter.com/NinaLimpi) 
-- Thanks to [Mohamed Said](https://twitter.com/themsaid) and his open source project [Wink](https://github.com/writingink/wink)
-- Anyone who has [contributed a patch](https://github.com/cnvs/canvas/pulls) or [made a helpful suggestion](https://github.com/cnvs/canvas/issues)
+- [@austintoddj](https://github.com/austintoddj)
+- [@talvbansal](https://github.com/talvbansal)
+- [@reliq](https://github.com/reliq)
+- [@themsaid](https://github.com/themsaid)
+- [@NinaLimpi](https://twitter.com/NinaLimpi) 

@@ -18,13 +18,13 @@ class PostTest extends TestCase
 
         $minutes = ceil(str_word_count($post->body) / 250);
 
-        $this->assertSame($post->readTime, sprintf('%d %s %s', $minutes, Str::plural('min', $minutes), 'read'));
+        $this->assertSame($post->readTime, sprintf('%d %s %s', $minutes, Str::plural(__('canvas::app.min'), $minutes), __('canvas::app.read')));
     }
 
     /** @test */
     public function allow_posts_to_share_the_same_slug_with_unique_users()
     {
-        $user_1 = factory(\Illuminate\Foundation\Auth\User::class)->create();
+        $user_1 = factory(config('canvas.user'))->create();
         $post_1 = $this->actingAs($user_1)->withoutMiddleware()->post('/canvas/api/posts/create', [
             'id' => Uuid::uuid4(),
             'slug' => 'a-new-hope',
@@ -32,7 +32,7 @@ class PostTest extends TestCase
             'tags' => [],
         ]);
 
-        $user_2 = factory(\Illuminate\Foundation\Auth\User::class)->create();
+        $user_2 = factory(config('canvas.user'))->create();
         $post_2 = $this->actingAs($user_2)->withoutMiddleware()->post('/canvas/api/posts/create', [
             'id' => Uuid::uuid4(),
             'slug' => 'a-new-hope',

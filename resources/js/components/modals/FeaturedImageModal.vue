@@ -35,7 +35,7 @@
                         :iconRemove="getRemoveIcon"
                         :iconRetry="getRetryIcon"
                         :label-idle="getPlaceholderLabel"
-                        accepted-file-types="image/jpeg,image/png,image/gif"
+                        accepted-file-types="image/*"
                         :server="getServerOptions"
                         :allow-multiple="false"
                         :files="selectedImagesForPond"
@@ -44,7 +44,7 @@
 
                     <div v-if="unsplashKey && !selectedImageUrl">
                         <div v-if="unsplashImages.length" class="card-columns mt-3">
-                            <div v-for="(image, $index) in unsplashImages" :key="$index" class="card border-0 bg-transparent">
+                            <div v-for="(image, index) in unsplashImages" :key="index" class="card border-0 bg-transparent">
                                 <img
                                     :src="image.urls.small"
                                     :alt="image.alt_description"

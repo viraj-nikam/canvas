@@ -4,7 +4,6 @@ namespace Canvas\Tests;
 
 use Canvas\CanvasServiceProvider;
 use Illuminate\Foundation\Application;
-use Illuminate\Foundation\Auth\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
 use ReflectionClass;
@@ -66,7 +65,7 @@ abstract class TestCase extends OrchestraTestCase
 
         $config->set('view.paths', [dirname(__DIR__).'/resources/views']);
 
-        $config->set('auth.providers.users.model', User::class);
+        $config->set('auth.providers.users.model', config('canvas.user'));
     }
 
     /**
