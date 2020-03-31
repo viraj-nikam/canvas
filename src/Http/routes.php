@@ -38,6 +38,10 @@ Route::prefix('api')->group(function () {
         Route::get('/', 'SettingsController@show');
         Route::post('/', 'SettingsController@update');
     });
+
+    Route::prefix('locale')->group(function () {
+        Route::post('/', 'LocaleController@update');
+    });
 });
 
 Route::get('/{view?}', 'ViewController')->where('view', '(.*)')->name('canvas');

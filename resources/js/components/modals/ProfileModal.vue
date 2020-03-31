@@ -158,8 +158,16 @@
                 maxUploadFilesize: Canvas.maxUpload,
                 path: Canvas.path,
                 user: Canvas.user,
-                trans: JSON.parse(Canvas.lang),
+                trans: JSON.parse(Canvas.translations),
             }
+        },
+
+        mounted() {
+            this.$parent.$on('openingProfileModal', data => {
+                if (!isEmpty(data)) {
+                    this.trans = data.trans
+                }
+            })
         },
 
         methods: {
