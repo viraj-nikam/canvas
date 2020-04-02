@@ -7,7 +7,6 @@ use Canvas\Console\InstallCommand;
 use Canvas\Console\PublishCommand;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Events\Dispatcher;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
 class CanvasServiceProvider extends ServiceProvider
@@ -73,23 +72,7 @@ class CanvasServiceProvider extends ServiceProvider
      */
     private function registerRoutes()
     {
-        Route::group($this->routeConfiguration(), function () {
-            $this->loadRoutesFrom(__DIR__.'/Http/routes.php');
-        });
-    }
-
-    /**
-     * Get the Canvas route group configuration array.
-     *
-     * @return array
-     */
-    private function routeConfiguration()
-    {
-        return [
-            'namespace' => 'Canvas\Http\Controllers',
-            'prefix' => config('canvas.path'),
-            'middleware' => config('canvas.middleware'),
-        ];
+        $this->loadRoutesFrom(__DIR__.'/Http/routes.php');
     }
 
     /**

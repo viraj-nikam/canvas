@@ -112,7 +112,7 @@ class PostController extends Controller
                 'alpha_dash',
                 Rule::unique('canvas_posts')->where(function ($query) use ($data) {
                     return $query->where('slug', $data['slug'])->where('user_id', $data['user_id']);
-                })->ignore($id),
+                })->ignore($this->isNewPost($id) ? null : $id),
             ],
         ], $messages)->validate();
 

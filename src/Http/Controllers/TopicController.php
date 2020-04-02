@@ -79,7 +79,7 @@ class TopicController extends Controller
                 'alpha_dash',
                 Rule::unique('canvas_topics')->where(function ($query) use ($data) {
                     return $query->where('slug', $data['slug'])->where('user_id', $data['user_id']);
-                })->ignore($id)->whereNull('deleted_at'),
+                })->ignore($this->isNewTopic($id) ? null : $id)->whereNull('deleted_at'),
             ],
         ], $messages)->validate();
 
