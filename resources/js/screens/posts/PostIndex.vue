@@ -13,7 +13,7 @@
                 <div class="d-flex justify-content-between my-3">
                     <h1>{{ trans.app.posts_simple }}</h1>
 
-                    <select name="" id="" v-model="postType" @change="changeType" class="my-auto ml-auto w-auto bg-transparent custom-select border-0">
+                    <select name="" id="" v-model="type" @change="changeType" class="my-auto ml-auto w-auto bg-transparent custom-select border-0">
                         <option value="published">{{ trans.app.published }} ({{ publishedCount }})</option>
                         <option value="draft">{{ trans.app.draft }} ({{ draftCount }})</option>
                     </select>
@@ -70,7 +70,7 @@
                             <div slot="no-results" class="text-left">
                                 <div class="my-5">
                                     <p class="lead text-center text-muted mt-5">
-                                        <span v-if="postType === 'published'">{{ trans.app.you_have_no_published_posts }}</span>
+                                        <span v-if="type === 'published'">{{ trans.app.you_have_no_published_posts }}</span>
                                         <span v-else>{{ trans.app.you_have_no_draft_posts }}</span>
                                     </p>
                                     <p class="lead text-center text-muted mt-1">
@@ -111,7 +111,7 @@
                 posts: [],
                 publishedCount: 0,
                 draftCount: 0,
-                postType: 'published',
+                type: 'published',
                 infiniteId: +new Date(),
                 trans: JSON.parse(Canvas.translations),
             }
@@ -123,7 +123,7 @@
                     .get('/api/posts', {
                         params: {
                             page: this.page,
-                            postType: this.postType,
+                            type: this.type,
                         },
                     })
                     .then(response => {
