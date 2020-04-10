@@ -11,7 +11,7 @@ use Illuminate\Validation\Rule;
 class SettingsController extends Controller
 {
     /**
-     * Get user settings.
+     * Display the specified resource.
      *
      * @return JsonResponse
      */
@@ -31,7 +31,7 @@ class SettingsController extends Controller
     }
 
     /**
-     * Save user settings.
+     * Update the specified resource in storage.
      *
      * @return JsonResponse
      */

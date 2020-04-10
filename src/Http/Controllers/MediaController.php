@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Storage;
 class MediaController extends Controller
 {
     /**
-     * Stores a given file and returns the path.
+     * Store a newly created resource in storage.
      *
      * @return mixed
      */
@@ -30,7 +30,7 @@ class MediaController extends Controller
     }
 
     /**
-     * Deletes a given file from storage.
+     * Remove the specified resource from storage.
      *
      * @return \Illuminate\Http\JsonResponse
      */

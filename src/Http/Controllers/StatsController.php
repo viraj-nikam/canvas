@@ -21,7 +21,7 @@ class StatsController extends Controller
     private const DAYS = 30;
 
     /**
-     * Get all the stats.
+     * Display a listing of the resource.
      *
      * @return JsonResponse
      */
@@ -55,7 +55,7 @@ class StatsController extends Controller
     }
 
     /**
-     * Get stats for a single post.
+     * Display the specified resource.
      *
      * @param string $id
      * @return JsonResponse
@@ -103,7 +103,7 @@ class StatsController extends Controller
                 'visit_month_over_month' => $this->compareMonthToMonth($currentMonthlyVisits, $previousMonthlyVisits),
             ]);
         } else {
-            return response()->json(null, 301);
+            return response()->json(null, 404);
         }
     }
 }
