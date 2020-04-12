@@ -59,7 +59,7 @@ class Canvas
         $translations = collect();
 
         foreach ($locales as $locale) {
-            $translations->put($locale, Str::ucfirst($locale, $locale));
+            $translations->put($locale, Str::ucfirst($locale));
         }
 
         return $translations->toArray();
