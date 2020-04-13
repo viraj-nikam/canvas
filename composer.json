@@ -17,7 +17,6 @@
     "require": {
         "php": "^7.2",
         "ext-json": "*",
-        "ext-intl": "*",
         "doctrine/dbal": "^2.10",
         "laravel/framework": "^6.0|^7.0"
     },
