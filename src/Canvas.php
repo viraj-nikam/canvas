@@ -4,7 +4,6 @@ namespace Canvas;
 
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
-use Locale;
 use RuntimeException;
 
 class Canvas
@@ -60,7 +59,7 @@ class Canvas
         $translations = collect();
 
         foreach ($locales as $locale) {
-            $translations->put($locale, Str::ucfirst(Locale::getDisplayName($locale, $locale)));
+            $translations->put($locale, Str::upper($locale));
         }
 
         return $translations->toArray();

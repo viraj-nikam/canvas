@@ -14,43 +14,45 @@ use Ramsey\Uuid\Uuid;
 class PostController extends Controller
 {
     /**
-     * Get all the posts.
+     * Display a listing of the resource.
      *
      * @return JsonResponse
      */
     public function index(): JsonResponse
     {
-        $publishedCount = Post::forCurrentUser()->published()->count();
-        $draftCount = Post::forCurrentUser()->draft()->count();
+        switch (request()->query('type')) {
+            case 'draft':
+                return response()->json([
+                    'posts' => Post::forCurrentUser()->draft()->latest()->withCount('views')->paginate(),
+                    'draftCount' => Post::forCurrentUser()->draft()->count(),
+                    'publishedCount' => Post::forCurrentUser()->published()->count(),
+                ], 200);
+                break;
 
-        if (request()->query('postType') == 'draft') {
-            return response()->json([
-                'posts' => Post::forCurrentUser()->draft()->latest()->withCount('views')->paginate(),
-                'draftCount' => $draftCount,
-                'publishedCount' => $publishedCount,
-            ], 200);
-        } else {
-            return response()->json([
-                'posts' => Post::forCurrentUser()->published()->latest()->withCount('views')->paginate(),
-                'draftCount' => $draftCount,
-                'publishedCount' => $publishedCount,
-            ], 200);
+            case 'published':
+                return response()->json([
+                    'posts' => Post::forCurrentUser()->published()->latest()->withCount('views')->paginate(),
+                    'draftCount' => Post::forCurrentUser()->draft()->count(),
+                    'publishedCount' => Post::forCurrentUser()->published()->count(),
+                ], 200);
+                break;
+
+            default:
+                return response()->json([], 404);
+                break;
         }
     }
 
     /**
-     * Get a single post or return a UUID to create one.
+     * Display the specified resource.
      *
-     * @param null $id
+     * @param $id
      * @return JsonResponse
      * @throws Exception
      */
-    public function show($id = null): JsonResponse
+    public function show($id): JsonResponse
     {
-        if (Post::forCurrentUser()->pluck('id')->contains($id) || $this->isNewPost($id)) {
-            $tags = Tag::forCurrentUser()->get(['name', 'slug']);
-            $topics = Topic::forCurrentUser()->get(['name', 'slug']);
-
+        if (Post::forCurrentUser()->pluck('id')->contains($id)) {
             if ($this->isNewPost($id)) {
                 $uuid = Uuid::uuid4();
 
@@ -59,23 +61,23 @@ class PostController extends Controller
                         'id' => $uuid->toString(),
                         'slug' => "post-{$uuid->toString()}",
                     ]),
-                    'tags' => $tags,
-                    'topics' => $topics,
+                    'tags' => Tag::forCurrentUser()->get(['name', 'slug']),
+                    'topics' => Topic::forCurrentUser()->get(['name', 'slug']),
                 ]);
             } else {
                 return response()->json([
                     'post' => Post::forCurrentUser()->with('tags:name,slug', 'topic:name,slug')->find($id),
-                    'tags' => $tags,
-                    'topics' => $topics,
+                    'tags' => Tag::forCurrentUser()->get(['name', 'slug']),
+                    'topics' => Topic::forCurrentUser()->get(['name', 'slug']),
                 ]);
             }
         } else {
-            return response()->json(null, 301);
+            return response()->json(null, 404);
         }
     }
 
     /**
-     * Create or update a post.
+     * Store a newly created resource in storage.
      *
      * @param string $id
      * @return JsonResponse
@@ -116,7 +118,7 @@ class PostController extends Controller
             ],
         ], $messages)->validate();
 
-        $post = $id !== 'create' ? Post::forCurrentUser()->find($id) : new Post(['id' => request('id')]);
+        $post = $this->isNewPost($id) ? new Post(['id' => request('id')]) : Post::forCurrentUser()->find($id);
 
         $post->fill($data);
         $post->meta = $data['meta'];
@@ -130,11 +132,11 @@ class PostController extends Controller
             $this->syncTags(request('tags'))
         );
 
-        return response()->json($post->refresh());
+        return response()->json($post->refresh(), 201);
     }
 
     /**
-     * Delete a post.
+     * Remove the specified resource from storage.
      *
      * @param string $id
      * @return mixed
@@ -146,12 +148,14 @@ class PostController extends Controller
         if ($post) {
             $post->delete();
 
-            return response()->json([], 204);
+            return response()->json(null, 204);
+        } else {
+            return response()->json(null, 404);
         }
     }
 
     /**
-     * Return true if we're creating a new post.
+     * Return true if the given ID is for a new post.
      *
      * @param string $id
      * @return bool
@@ -162,7 +166,7 @@ class PostController extends Controller
     }
 
     /**
-     * Attach or create a given topic.
+     * Sync the topic assigned to the post.
      *
      * @param $incomingTopic
      * @return array
@@ -175,7 +179,7 @@ class PostController extends Controller
 
             if (! $topic) {
                 $topic = Topic::create([
-                    'id' => $id = Uuid::uuid4(),
+                    'id' => $id = Uuid::uuid4()->toString(),
                     'name' => $incomingTopic['name'],
                     'slug' => $incomingTopic['slug'],
                     'user_id' => request()->user()->id,
@@ -189,7 +193,7 @@ class PostController extends Controller
     }
 
     /**
-     * Attach or create tags given an incoming array.
+     * Sync the tags assigned to the post.
      *
      * @param array $incomingTags
      * @return array
@@ -204,7 +208,7 @@ class PostController extends Controller
 
                 if (! $tag) {
                     $tag = Tag::create([
-                        'id' => $id = Uuid::uuid4(),
+                        'id' => $id = Uuid::uuid4()->toString(),
                         'name' => $incomingTag['name'],
                         'slug' => $incomingTag['slug'],
                         'user_id' => request()->user()->id,

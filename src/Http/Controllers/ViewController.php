@@ -8,7 +8,7 @@ use Illuminate\Routing\Controller;
 class ViewController extends Controller
 {
     /**
-     * Return the SPA with global variables.
+     * Handle the incoming request.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
