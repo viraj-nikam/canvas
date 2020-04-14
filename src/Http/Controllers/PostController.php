@@ -38,7 +38,7 @@ class PostController extends Controller
                 break;
 
             default:
-                return response()->json([], 404);
+                return response()->json(null, 404);
                 break;
         }
     }
@@ -52,27 +52,27 @@ class PostController extends Controller
      */
     public function show($id): JsonResponse
     {
-        if (Post::forCurrentUser()->pluck('id')->contains($id)) {
-            if ($this->isNewPost($id)) {
-                $uuid = Uuid::uuid4();
+        if ($this->isNewPost($id)) {
+            $uuid = Uuid::uuid4();
 
-                return response()->json([
-                    'post' => Post::make([
-                        'id' => $uuid->toString(),
-                        'slug' => "post-{$uuid->toString()}",
-                    ]),
-                    'tags' => Tag::forCurrentUser()->get(['name', 'slug']),
-                    'topics' => Topic::forCurrentUser()->get(['name', 'slug']),
-                ]);
-            } else {
+            return response()->json([
+                'post' => Post::make([
+                    'id' => $uuid->toString(),
+                    'slug' => "post-{$uuid->toString()}",
+                ]),
+                'tags' => Tag::forCurrentUser()->get(['name', 'slug']),
+                'topics' => Topic::forCurrentUser()->get(['name', 'slug']),
+            ]);
+        } else {
+            if (Post::forCurrentUser()->pluck('id')->contains($id)) {
                 return response()->json([
                     'post' => Post::forCurrentUser()->with('tags:name,slug', 'topic:name,slug')->find($id),
                     'tags' => Tag::forCurrentUser()->get(['name', 'slug']),
                     'topics' => Topic::forCurrentUser()->get(['name', 'slug']),
                 ]);
+            } else {
+                return response()->json(null, 404);
             }
-        } else {
-            return response()->json(null, 404);
         }
     }
 
