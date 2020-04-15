@@ -12,7 +12,7 @@ use Ramsey\Uuid\Uuid;
 class TagController extends Controller
 {
     /**
-     * Get all the tags.
+     * Display a listing of the resource.
      *
      * @return JsonResponse
      */
@@ -27,33 +27,27 @@ class TagController extends Controller
     }
 
     /**
-     * Get a single tag or return a UUID to create one.
+     * Display the specified resource.
      *
-     * @param null $id
+     * @param $id
      * @return JsonResponse
      * @throws Exception
      */
-    public function show($id = null): JsonResponse
+    public function show($id): JsonResponse
     {
-        if (Tag::forCurrentUser()->pluck('id')->contains($id) || $this->isNewTag($id)) {
-            if ($this->isNewTag($id)) {
-                return response()->json(Tag::make([
-                    'id' => Uuid::uuid4(),
-                ]), 200);
-            } else {
-                $tag = Tag::find($id);
+        if ($this->isNewTag($id)) {
+            return response()->json(Tag::make([
+                'id' => Uuid::uuid4(),
+            ]), 200);
+        } else {
+            $tag = Tag::forCurrentUser()->find($id);
 
-                if ($tag) {
-                    return response()->json($tag, 200);
-                } else {
-                    return response()->json(null, 301);
-                }
-            }
+            return $tag ? response()->json($tag, 200) : response()->json(null, 404);
         }
     }
 
     /**
-     * Create or update a tag.
+     * Store a newly created resource in storage.
      *
      * @param string $id
      * @return JsonResponse
@@ -84,13 +78,13 @@ class TagController extends Controller
         ], $messages)->validate();
 
         if ($this->isNewTag($id)) {
-            if ($tag = Tag::onlyTrashed()->where('slug', $data['slug'])->first()) {
+            if ($tag = Tag::forCurrentUser()->onlyTrashed()->where('slug', $data['slug'])->first()) {
                 $tag->restore();
             } else {
                 $tag = new Tag(['id' => $data['id']]);
             }
         } else {
-            $tag = Tag::find($id);
+            $tag = Tag::forCurrentUser()->find($id);
         }
 
         $tag->fill($data);
@@ -100,24 +94,26 @@ class TagController extends Controller
     }
 
     /**
-     * Delete a tag.
+     * Remove the specified resource from storage.
      *
      * @param string $id
      * @return mixed
      */
     public function destroy(string $id)
     {
-        $tag = Tag::find($id);
+        $tag = Tag::forCurrentUser()->find($id);
 
         if ($tag) {
             $tag->delete();
 
-            return response()->json([], 204);
+            return response()->json(null, 204);
+        } else {
+            return response()->json(null, 404);
         }
     }
 
     /**
-     * Return true if we're creating a new tag.
+     * Return true if the given ID is for a new tag.
      *
      * @param string $id
      * @return bool

@@ -143,7 +143,7 @@ class PostController extends Controller
      */
     public function destroy(string $id)
     {
-        $post = Post::find($id);
+        $post = Post::forCurrentUser()->find($id);
 
         if ($post) {
             $post->delete();
