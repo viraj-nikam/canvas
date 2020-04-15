@@ -4,6 +4,7 @@ namespace Canvas\Tests;
 
 use Canvas\CanvasServiceProvider;
 use Illuminate\Foundation\Application;
+use Illuminate\Foundation\Testing\TestResponse as LegacyTestResponse;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Testing\TestResponse;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
