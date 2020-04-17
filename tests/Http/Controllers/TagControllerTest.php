@@ -91,7 +91,6 @@ class TagControllerTest extends TestCase
     public function store_a_newly_created_resource_in_storage()
     {
         $user_1 = factory(config('canvas.user'))->create();
-        $user_2 = factory(config('canvas.user'))->create();
 
         $data = [
             'name' => 'Return of the Jedi',

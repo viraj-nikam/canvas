@@ -79,11 +79,11 @@ class PostController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param string $id
+     * @param $id
      * @return JsonResponse
      * @throws Exception
      */
-    public function store(string $id): JsonResponse
+    public function store($id): JsonResponse
     {
         $data = [
             'id' => request('id'),
@@ -138,10 +138,10 @@ class PostController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param string $id
+     * @param $id
      * @return mixed
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
         $post = Post::forCurrentUser()->find($id);
 
@@ -157,10 +157,10 @@ class PostController extends Controller
     /**
      * Return true if the given ID is for a new post.
      *
-     * @param string $id
+     * @param $id
      * @return bool
      */
-    private function isNewPost(string $id): bool
+    private function isNewPost($id): bool
     {
         return $id === 'create';
     }

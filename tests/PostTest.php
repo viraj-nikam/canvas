@@ -2,7 +2,10 @@
 
 namespace Canvas\Tests;
 
+use Canvas\Http\Middleware\Session;
 use Canvas\Post;
+use Illuminate\Auth\Middleware\Authorize;
+use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Str;
 use Ramsey\Uuid\Uuid;
@@ -10,6 +13,16 @@ use Ramsey\Uuid\Uuid;
 class PostTest extends TestCase
 {
     use RefreshDatabase;
+
+    /**
+     * @return void
+     */
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->withoutMiddleware([Authorize::class, Session::class, VerifyCsrfToken::class]);
+    }
 
     /** @test */
     public function calculate_human_friendly_read_time()
@@ -25,7 +38,7 @@ class PostTest extends TestCase
     public function allow_posts_to_share_the_same_slug_with_unique_users()
     {
         $user_1 = factory(config('canvas.user'))->create();
-        $post_1 = $this->actingAs($user_1)->withoutMiddleware()->post('/canvas/api/posts/create', [
+        $post_1 = $this->actingAs($user_1)->post('/canvas/api/posts/create', [
             'id' => Uuid::uuid4(),
             'slug' => 'a-new-hope',
             'topic' => [],
@@ -33,7 +46,7 @@ class PostTest extends TestCase
         ]);
 
         $user_2 = factory(config('canvas.user'))->create();
-        $post_2 = $this->actingAs($user_2)->withoutMiddleware()->post('/canvas/api/posts/create', [
+        $post_2 = $this->actingAs($user_2)->post('/canvas/api/posts/create', [
             'id' => Uuid::uuid4(),
             'slug' => 'a-new-hope',
             'topic' => [],
@@ -41,15 +54,15 @@ class PostTest extends TestCase
         ]);
 
         $this->assertDatabaseHas('canvas_posts', [
-            'id' => $post_1->decodeResponseJson()['id'],
-            'slug' => $post_1->decodeResponseJson()['slug'],
-            'user_id' => $post_1->decodeResponseJson()['user_id'],
+            'id' => $post_1->decodeResponseJson('id'),
+            'slug' => $post_1->decodeResponseJson('slug'),
+            'user_id' => $post_1->decodeResponseJson('user_id'),
         ]);
 
         $this->assertDatabaseHas('canvas_posts', [
-            'id' => $post_2->decodeResponseJson()['id'],
-            'slug' => $post_2->decodeResponseJson()['slug'],
-            'user_id' => $post_2->decodeResponseJson()['user_id'],
+            'id' => $post_2->decodeResponseJson('id'),
+            'slug' => $post_2->decodeResponseJson('slug'),
+            'user_id' => $post_2->decodeResponseJson('user_id'),
         ]);
     }
 }

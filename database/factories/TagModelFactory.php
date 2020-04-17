@@ -7,7 +7,7 @@ $factory->define(\Canvas\Tag::class, function (Faker\Generator $faker) {
         'slug' => $faker->slug,
         'name' => $faker->word,
         'user_id' => function () {
-            return factory(\Illuminate\Foundation\Auth\User::class)->create()->id;
+            return factory(config('canvas.user'))->create()->id;
         },
     ];
 });

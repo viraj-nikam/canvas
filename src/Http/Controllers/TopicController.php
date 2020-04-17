@@ -49,10 +49,10 @@ class TopicController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param string $id
+     * @param $id
      * @return JsonResponse
      */
-    public function store(string $id): JsonResponse
+    public function store($id): JsonResponse
     {
         $data = [
             'id' => request('id'),
@@ -96,10 +96,10 @@ class TopicController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param string $id
+     * @param $id
      * @return mixed
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
         $topic = Topic::forCurrentUser()->find($id);
 
@@ -115,10 +115,10 @@ class TopicController extends Controller
     /**
      * Return true if the given ID is for a new topic.
      *
-     * @param string $id
+     * @param $id
      * @return bool
      */
-    private function isNewTopic(string $id): bool
+    private function isNewTopic($id): bool
     {
         return $id === 'create';
     }
