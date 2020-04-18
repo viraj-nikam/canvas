@@ -30,6 +30,7 @@ class TagControllerTest extends TestCase
     {
         $user_1 = factory(config('canvas.user'))->create();
         $user_2 = factory(config('canvas.user'))->create();
+
         $tag = factory(Tag::class)->create([
             'user_id' => $user_1->id,
             'name' => 'A New Hope',
@@ -37,7 +38,7 @@ class TagControllerTest extends TestCase
         ]);
 
         $this->actingAs($user_1)
-             ->get('canvas/api/tags')
+             ->getJson('canvas/api/tags')
              ->assertSuccessful()
              ->assertJsonExactFragment($tag->id, 'data.0.id')
              ->assertJsonExactFragment($tag->name, 'data.0.name')
@@ -47,7 +48,7 @@ class TagControllerTest extends TestCase
              ->assertJsonExactFragment(1, 'total');
 
         $this->actingAs($user_2)
-             ->get('canvas/api/tags')
+             ->getJson('canvas/api/tags')
              ->assertSuccessful()
              ->assertJsonExactFragment(0, 'total');
     }
@@ -65,13 +66,13 @@ class TagControllerTest extends TestCase
         ]);
 
         $response = $this->actingAs($user_1)
-                         ->get('canvas/api/tags/create')
+                         ->getJson('canvas/api/tags/create')
                          ->assertSuccessful();
 
         $this->assertArrayHasKey('id', $response->decodeResponseJson());
 
         $this->actingAs($user_1)
-             ->get("canvas/api/tags/{$tag->id}")
+             ->getJson("canvas/api/tags/{$tag->id}")
              ->assertSuccessful()
              ->assertJsonExactFragment($tag->id, 'id')
              ->assertJsonExactFragment($tag->name, 'name')
@@ -79,30 +80,32 @@ class TagControllerTest extends TestCase
              ->assertJsonExactFragment($tag->slug, 'slug');
 
         $this->actingAs($user_1)
-             ->get('canvas/api/tags/not-a-tag')
+             ->getJson('canvas/api/tags/not-a-tag')
              ->assertNotFound();
 
         $this->actingAs($user_2)
-             ->get("canvas/api/tags/{$tag->id}")
+             ->getJson("canvas/api/tags/{$tag->id}")
              ->assertNotFound();
     }
 
     /** @test */
     public function store_a_newly_created_resource_in_storage()
     {
-        $user_1 = factory(config('canvas.user'))->create();
+        $user = factory(config('canvas.user'))->create();
 
         $data = [
             'name' => 'Return of the Jedi',
             'slug' => 'return-of-the-jedi',
         ];
 
-        $this->actingAs($user_1)
-             ->post('canvas/api/tags/create', $data)
+        $this->actingAs($user)
+             ->postJson('canvas/api/tags/create', $data)
              ->assertSuccessful()
              ->assertJsonExactFragment($data['name'], 'name')
              ->assertJsonExactFragment($data['slug'], 'slug')
-             ->assertJsonExactFragment($user_1->id, 'user_id');
+             ->assertJsonExactFragment($user->id, 'user_id');
+
+        // todo: store/update an invalid tag
     }
 
     /** @test */
@@ -118,11 +121,11 @@ class TagControllerTest extends TestCase
         ]);
 
         $this->actingAs($user_2)
-             ->delete("canvas/api/tags/{$tag->id}")
+             ->deleteJson("canvas/api/tags/{$tag->id}")
              ->assertNotFound();
 
         $this->actingAs($user_1)
-             ->delete("canvas/api/tags/{$tag->id}")
+             ->deleteJson("canvas/api/tags/{$tag->id}")
              ->assertSuccessful()
              ->assertNoContent();
     }

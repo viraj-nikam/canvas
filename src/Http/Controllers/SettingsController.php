@@ -2,11 +2,11 @@
 
 namespace Canvas\Http\Controllers;
 
+use Canvas\Http\Requests\SettingsRequest;
 use Canvas\UserMeta;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Str;
-use Illuminate\Validation\Rule;
 
 class SettingsController extends Controller
 {
@@ -22,7 +22,7 @@ class SettingsController extends Controller
 
         return response()->json([
             'avatar' => optional($metaData)->avatar ?? "https://secure.gravatar.com/avatar/{$emailHash}?s=500",
-            'dark_mode' => optional($metaData)->dark_mode ?? 0,
+            'dark_mode' => optional($metaData)->dark_mode ?? false,
             'digest' => optional($metaData)->digest ?? false,
             'summary' => optional($metaData)->summary ?? null,
             'locale' => optional($metaData)->locale ?? null,
@@ -33,39 +33,27 @@ class SettingsController extends Controller
     /**
      * Update the specified resource in storage.
      *
+     * @param SettingsRequest $request
      * @return JsonResponse
      */
-    public function update(): JsonResponse
+    public function update(SettingsRequest $request): JsonResponse
     {
         $metaData = UserMeta::forCurrentUser()->first() ?? new UserMeta();
 
-        $data = [
-            'avatar' => request('avatar') ?? $metaData->avatar,
-            'dark_mode' => request('dark_mode') ?? $metaData->dark_mode,
-            'digest' => request('digest') ?? $metaData->digest,
-            'locale' => request('locale') ?? $metaData->locale,
+        $data = $request->validated();
+
+        $metaData->fill([
+            'avatar' => $data['avatar'] ?? $metaData->avatar,
+            'dark_mode' => $data['dark_mode'] ?? $metaData->dark_mode,
+            'digest' => $data['digest'] ?? $metaData->digest,
+            'locale' => $data['locale'] ?? $metaData->locale,
             'user_id' => request()->user()->id,
-            'username' => request('username') ?? $metaData->username,
-            'summary' => request('summary') ?? $metaData->summary,
-        ];
-
-        $messages = [
-            'unique' => __('canvas::app.validation_unique'),
-        ];
-
-        validator($data, [
-            'user_id' => 'required',
-            'username' => [
-                'nullable',
-                'alpha_dash',
-                Rule::unique('canvas_user_meta')->ignore($data['user_id'], 'user_id'),
-            ],
-        ], $messages)->validate();
-
-        $metaData->fill($data);
+            'username' => $data['username'] ?? $metaData->username,
+            'summary' => $data['summary'] ?? $metaData->summary,
+        ]);
 
         $metaData->save();
 
-        return response()->json($metaData->refresh());
+        return response()->json($metaData->refresh(), 201);
     }
 }

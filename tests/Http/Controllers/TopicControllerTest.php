@@ -37,7 +37,7 @@ class TopicControllerTest extends TestCase
         ]);
 
         $this->actingAs($user_1)
-             ->get('canvas/api/topics')
+             ->getJson('canvas/api/topics')
              ->assertSuccessful()
              ->assertJsonExactFragment($topic->id, 'data.0.id')
              ->assertJsonExactFragment($topic->name, 'data.0.name')
@@ -47,7 +47,7 @@ class TopicControllerTest extends TestCase
              ->assertJsonExactFragment(1, 'total');
 
         $this->actingAs($user_2)
-             ->get('canvas/api/topics')
+             ->getJson('canvas/api/topics')
              ->assertSuccessful()
              ->assertJsonExactFragment(0, 'total');
     }
@@ -65,13 +65,13 @@ class TopicControllerTest extends TestCase
         ]);
 
         $response = $this->actingAs($user_1)
-                         ->get('canvas/api/topics/create')
+                         ->getJson('canvas/api/topics/create')
                          ->assertSuccessful();
 
         $this->assertArrayHasKey('id', $response->decodeResponseJson());
 
         $this->actingAs($user_1)
-             ->get("canvas/api/topics/{$topic->id}")
+             ->getJson("canvas/api/topics/{$topic->id}")
              ->assertSuccessful()
              ->assertJsonExactFragment($topic->id, 'id')
              ->assertJsonExactFragment($topic->name, 'name')
@@ -79,31 +79,32 @@ class TopicControllerTest extends TestCase
              ->assertJsonExactFragment($topic->slug, 'slug');
 
         $this->actingAs($user_1)
-             ->get('canvas/api/topics/not-a-topic')
+             ->getJson('canvas/api/topics/not-a-topic')
              ->assertNotFound();
 
         $this->actingAs($user_2)
-             ->get("canvas/api/topics/{$topic->id}")
+             ->getJson("canvas/api/topics/{$topic->id}")
              ->assertNotFound();
     }
 
     /** @test */
     public function store_a_newly_created_resource_in_storage()
     {
-        $user_1 = factory(config('canvas.user'))->create();
-        $user_2 = factory(config('canvas.user'))->create();
+        $user = factory(config('canvas.user'))->create();
 
         $data = [
             'name' => 'Return of the Jedi',
             'slug' => 'return-of-the-jedi',
         ];
 
-        $this->actingAs($user_1)
-             ->post('canvas/api/topics/create', $data)
+        $this->actingAs($user)
+             ->postJson('canvas/api/topics/create', $data)
              ->assertSuccessful()
              ->assertJsonExactFragment($data['name'], 'name')
              ->assertJsonExactFragment($data['slug'], 'slug')
-             ->assertJsonExactFragment($user_1->id, 'user_id');
+             ->assertJsonExactFragment($user->id, 'user_id');
+
+        // todo: store/update an invalid topic
     }
 
     /** @test */
@@ -119,11 +120,11 @@ class TopicControllerTest extends TestCase
         ]);
 
         $this->actingAs($user_2)
-             ->delete("canvas/api/topics/{$topic->id}")
+             ->deleteJson("canvas/api/topics/{$topic->id}")
              ->assertNotFound();
 
         $this->actingAs($user_1)
-             ->delete("canvas/api/topics/{$topic->id}")
+             ->deleteJson("canvas/api/topics/{$topic->id}")
              ->assertSuccessful()
              ->assertNoContent();
     }

@@ -10,7 +10,7 @@ $factory->define(\Canvas\UserMeta::class, function (Faker\Generator $faker) {
         'user_id' => function () {
             return factory(config('canvas.user'))->create()->id;
         },
-        'username' => $faker->userName,
+        'username' => Str::slug($faker->userName),
         'summary' => $faker->sentence,
         'avatar' => md5(trim(Str::lower($faker->email))),
         'dark_mode' => $faker->numberBetween(0, 1),

@@ -26,14 +26,14 @@ class TopicTest extends TestCase
     public function allow_topics_to_share_the_same_slug_with_unique_users()
     {
         $user_1 = factory(config('canvas.user'))->create();
-        $topic_1 = $this->actingAs($user_1)->post('/canvas/api/topics/create', [
+        $topic_1 = $this->actingAs($user_1)->postJson('/canvas/api/topics/create', [
             'id' => Uuid::uuid4(),
             'name' => 'Return of the Jedi',
             'slug' => 'return-of-the-jedi',
         ]);
 
         $user_2 = factory(config('canvas.user'))->create();
-        $topic_2 = $this->actingAs($user_2)->post('/canvas/api/topics/create', [
+        $topic_2 = $this->actingAs($user_2)->postJson('/canvas/api/topics/create', [
             'id' => Uuid::uuid4(),
             'name' => 'Return of the Jedi',
             'slug' => 'return-of-the-jedi',

@@ -26,14 +26,14 @@ class TagTest extends TestCase
     public function allow_tags_to_share_the_same_slug_with_unique_users()
     {
         $user_1 = factory(config('canvas.user'))->create();
-        $tag_1 = $this->actingAs($user_1)->post('/canvas/api/tags/create', [
+        $tag_1 = $this->actingAs($user_1)->postJson('/canvas/api/tags/create', [
             'id' => Uuid::uuid4(),
             'name' => 'Empire Strikes Back',
             'slug' => 'empire-strikes-back',
         ]);
 
         $user_2 = factory(config('canvas.user'))->create();
-        $tag_2 = $this->actingAs($user_2)->post('/canvas/api/tags/create', [
+        $tag_2 = $this->actingAs($user_2)->postJson('/canvas/api/tags/create', [
             'id' => Uuid::uuid4(),
             'name' => 'Empire Strikes Back',
             'slug' => 'empire-strikes-back',
