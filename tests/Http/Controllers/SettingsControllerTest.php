@@ -70,6 +70,27 @@ class SettingsControllerTest extends TestCase
     /** @test */
     public function store_a_newly_created_resource_in_storage()
     {
+        $user = factory(config('canvas.user'))->create();
+
+        $response = $this->actingAs($user)
+                         ->postJson('canvas/api/settings', [
+                             'user_id' => $user->id,
+                         ])
+                         ->assertSuccessful();
+
+        $this->assertArrayHasKey('avatar', $response->decodeResponseJson());
+        $this->assertArrayHasKey('dark_mode', $response->decodeResponseJson());
+        $this->assertArrayHasKey('digest', $response->decodeResponseJson());
+        $this->assertArrayHasKey('summary', $response->decodeResponseJson());
+        $this->assertArrayHasKey('locale', $response->decodeResponseJson());
+        $this->assertArrayHasKey('username', $response->decodeResponseJson());
+
+        $this->assertEquals($user->id, $response->decodeResponseJson('user_id'));
+    }
+
+    /** @test */
+    public function update_an_existing_resource_in_storage()
+    {
         $userMeta = factory(UserMeta::class)->create();
 
         $response = $this->actingAs($userMeta->user)
@@ -89,7 +110,7 @@ class SettingsControllerTest extends TestCase
     }
 
     /** @test */
-    public function validate_unique_usernames()
+    public function users_cant_take_existing_usernames()
     {
         $userMeta = factory(UserMeta::class)->create();
 
