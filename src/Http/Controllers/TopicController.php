@@ -2,6 +2,7 @@
 
 namespace Canvas\Http\Controllers;
 
+use Canvas\Helpers;
 use Canvas\Http\Requests\StoreTopic;
 use Canvas\Topic;
 use Exception;
@@ -11,6 +12,8 @@ use Ramsey\Uuid\Uuid;
 
 class TopicController extends Controller
 {
+    use Helpers;
+
     /**
      * Display a listing of the resource.
      *
@@ -35,7 +38,7 @@ class TopicController extends Controller
      */
     public function show($id): JsonResponse
     {
-        if ($this->isNewTopic($id)) {
+        if ($this->isFresh($id)) {
             return response()->json(Topic::make([
                 'id' => Uuid::uuid4()->toString(),
             ]), 200);
@@ -58,7 +61,7 @@ class TopicController extends Controller
         $topic = Topic::forCurrentUser()->find($id);
 
         if (! $topic) {
-            if ($tag = Topic::forCurrentUser()->onlyTrashed()->where('slug', $request->slug)->first()) {
+            if ($tag = Topic::forCurrentUser()->onlyTrashed()->where('slug', request('slug'))->first()) {
                 $tag->restore();
             } else {
                 $topic = new Topic(['id' => $id]);
@@ -67,8 +70,8 @@ class TopicController extends Controller
 
         $topic->fill([
             'id' => $id,
-            'name' => $request->name,
-            'slug' => $request->slug,
+            'name' => request('name'),
+            'slug' => request('slug'),
             'user_id' => request()->user()->id,
         ]);
 
@@ -94,16 +97,5 @@ class TopicController extends Controller
         } else {
             return response()->json(null, 404);
         }
-    }
-
-    /**
-     * Return true if the given ID is for a new topic.
-     *
-     * @param $id
-     * @return bool
-     */
-    private function isNewTopic($id): bool
-    {
-        return $id === 'create';
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Canvas\Http\Controllers;
 
+use Canvas\Helpers;
 use Canvas\Http\Requests\StorePost;
 use Canvas\Post;
 use Canvas\Tag;
@@ -13,6 +14,8 @@ use Ramsey\Uuid\Uuid;
 
 class PostController extends Controller
 {
+    use Helpers;
+
     /**
      * Display a listing of the resource.
      *
@@ -52,7 +55,7 @@ class PostController extends Controller
      */
     public function show($id): JsonResponse
     {
-        if ($this->isNewPost($id)) {
+        if ($this->isFresh($id)) {
             $uuid = Uuid::uuid4();
 
             return response()->json([
@@ -90,17 +93,17 @@ class PostController extends Controller
 
         $post->fill([
             'id' => $id,
-            'slug' => $request->slug ?? $post->slug,
-            'title' => $request->title ?? __('canvas::app.title'),
-            'summary' => $request->summary ?? $post->summary,
-            'body' => $request->body ?? $post->body,
-            'published_at' => $request->published_at ?? $post->published_at,
-            'featured_image' => $request->featured_image ?? $post->featured_image,
-            'featured_image_caption' => $request->featured_image_caption ?? $post->featured_image_caption,
+            'slug' => request('slug', $post->slug),
+            'title' => request('title', __('canvas::app.title')),
+            'summary' => request('summary', $post->summary),
+            'body' => request('body', $post->body),
+            'published_at' => request('published_at', $post->published_at),
+            'featured_image' => request('featured_image', $post->featured_image),
+            'featured_image_caption' => request('featured_image_caption', $post->featured_image_caption),
             'meta' => [
-                'title' => $request->meta['title'] ?? optional($post->meta)['title'],
-                'description' => $request->meta['description'] ?? optional($post->meta)['title'],
-                'canonical_link' => $request->meta['canonical_link'] ?? optional($post->meta)['title'],
+                'title' => request('meta.title', optional($post->meta)['title']),
+                'description' => request('meta.description', optional($post->meta)['description']),
+                'canonical_link' => request('meta.canonical_link', optional($post->meta)['canonical_link']),
             ],
             'user_id' => request()->user()->id,
         ]);
@@ -108,11 +111,11 @@ class PostController extends Controller
         $post->save();
 
         $post->topic()->sync(
-            $this->syncTopic($request->topic ?? [])
+            $this->syncTopic(request('topic', []))
         );
 
         $post->tags()->sync(
-            $this->syncTags($request->tags ?? [])
+            $this->syncTags(request('tags', []))
         );
 
         return response()->json($post->refresh(), 201);
@@ -138,17 +141,6 @@ class PostController extends Controller
     }
 
     /**
-     * Return true if the given ID is for a new post.
-     *
-     * @param $id
-     * @return bool
-     */
-    private function isNewPost($id): bool
-    {
-        return $id === 'create';
-    }
-
-    /**
      * Sync the topic assigned to the post.
      *
      * @param $incomingTopic
@@ -157,10 +149,10 @@ class PostController extends Controller
      */
     private function syncTopic($incomingTopic): array
     {
-        if ($incomingTopic) {
+        if (collect($incomingTopic)->isNotEmpty()) {
             $topic = Topic::forCurrentUser()->where('slug', $incomingTopic['slug'])->first();
 
-            if (! $topic) {
+            if (!$topic) {
                 $topic = Topic::create([
                     'id' => $id = Uuid::uuid4()->toString(),
                     'name' => $incomingTopic['name'],
@@ -169,7 +161,7 @@ class PostController extends Controller
                 ]);
             }
 
-            return collect((string) $topic->id)->toArray();
+            return collect((string)$topic->id)->toArray();
         } else {
             return [];
         }
@@ -178,18 +170,18 @@ class PostController extends Controller
     /**
      * Sync the tags assigned to the post.
      *
-     * @param array $incomingTags
+     * @param $incomingTags
      * @return array
      */
-    private function syncTags(array $incomingTags): array
+    private function syncTags($incomingTags): array
     {
-        if ($incomingTags) {
+        if (collect($incomingTags)->isNotEmpty()) {
             $tags = Tag::forCurrentUser()->get(['id', 'name', 'slug']);
 
             return collect($incomingTags)->map(function ($incomingTag) use ($tags) {
                 $tag = $tags->where('slug', $incomingTag['slug'])->first();
 
-                if (! $tag) {
+                if (!$tag) {
                     $tag = Tag::create([
                         'id' => $id = Uuid::uuid4()->toString(),
                         'name' => $incomingTag['name'],
@@ -198,7 +190,7 @@ class PostController extends Controller
                     ]);
                 }
 
-                return (string) $tag->id;
+                return (string)$tag->id;
             })->toArray();
         } else {
             return [];

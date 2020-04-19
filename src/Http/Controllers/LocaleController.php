@@ -13,6 +13,6 @@ class LocaleController extends Controller
      */
     public function __invoke()
     {
-        return collect(['app' => trans('canvas::app', [], request('locale'))])->toJson();
+        return collect(['app' => trans('canvas::app', [], request('locale', config('app.locale')))])->toJson();
     }
 }

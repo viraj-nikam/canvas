@@ -2,6 +2,7 @@
 
 namespace Canvas\Http\Controllers;
 
+use Canvas\Helpers;
 use Canvas\Http\Requests\StoreTag;
 use Canvas\Tag;
 use Exception;
@@ -11,6 +12,8 @@ use Ramsey\Uuid\Uuid;
 
 class TagController extends Controller
 {
+    use Helpers;
+
     /**
      * Display a listing of the resource.
      *
@@ -35,7 +38,7 @@ class TagController extends Controller
      */
     public function show($id): JsonResponse
     {
-        if ($this->isNewTag($id)) {
+        if ($this->isFresh($id)) {
             return response()->json(Tag::make([
                 'id' => Uuid::uuid4()->toString(),
             ]), 200);
@@ -58,7 +61,7 @@ class TagController extends Controller
         $tag = Tag::forCurrentUser()->find($id);
 
         if (! $tag) {
-            if ($tag = Tag::forCurrentUser()->onlyTrashed()->where('slug', $request->slug)->first()) {
+            if ($tag = Tag::forCurrentUser()->onlyTrashed()->where('slug', request('slug'))->first()) {
                 $tag->restore();
             } else {
                 $tag = new Tag(['id' => $id]);
@@ -67,8 +70,8 @@ class TagController extends Controller
 
         $tag->fill([
             'id' => $id,
-            'name' => $request->name,
-            'slug' => $request->slug,
+            'name' => request('name'),
+            'slug' => request('slug'),
             'user_id' => request()->user()->id,
         ]);
 
@@ -94,16 +97,5 @@ class TagController extends Controller
         } else {
             return response()->json(null, 404);
         }
-    }
-
-    /**
-     * Return true if the given ID is for a new tag.
-     *
-     * @param $id
-     * @return bool
-     */
-    private function isNewTag($id): bool
-    {
-        return $id === 'create';
     }
 }

@@ -41,13 +41,13 @@ class SettingsController extends Controller
         $metaData = UserMeta::forCurrentUser()->first() ?? new UserMeta();
 
         $metaData->fill([
-            'avatar' => $request->avatar ?? $metaData->avatar,
-            'dark_mode' => $request->dark_mode ?? $metaData->dark_mode,
-            'digest' => $request->digest ?? $metaData->digest,
-            'locale' => request('locale') ?? $metaData->locale,
+            'avatar' => request('avatar', $metaData->avatar),
+            'dark_mode' => request('dark_mode', $metaData->dark_mode),
+            'digest' => request('digest', $metaData->digest),
+            'locale' => request('locale', $metaData->locale),
             'user_id' => request()->user()->id,
-            'username' => $request->username ?? $metaData->username,
-            'summary' => $request->summary ?? $metaData->summary,
+            'username' => request('username', $metaData->username),
+            'summary' => request('summary', $metaData->summary),
         ]);
 
         $metaData->save();
