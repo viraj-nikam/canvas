@@ -23,12 +23,8 @@ class PostTest extends TestCase
         $this->withoutMiddleware([Authorize::class, Session::class, VerifyCsrfToken::class]);
     }
 
-    /**
-     * A human friendly estimated reading time is returned.
-     *
-     * @return void
-     */
-    public function test_human_friendly_read_time()
+    /** @test */
+    public function human_friendly_read_time()
     {
         $post = factory(Post::class)->create();
 
@@ -37,12 +33,8 @@ class PostTest extends TestCase
         $this->assertEquals($post->readTime, sprintf('%d %s %s', $minutes, Str::plural(__('canvas::app.min'), $minutes), __('canvas::app.read')));
     }
 
-    /**
-     * Posts with unique users can share the same slug.
-     *
-     * @return void
-     */
-    public function test_posts_can_share_the_same_slug_with_unique_users()
+    /** @test */
+    public function posts_can_share_the_same_slug_with_unique_users()
     {
         $data = [
             'slug' => 'a-new-post',

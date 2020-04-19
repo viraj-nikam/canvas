@@ -6,7 +6,6 @@ use Canvas\Listeners\CaptureVisit;
 use Canvas\Post;
 use Canvas\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use ReflectionException;
 
 class CaptureVisitTest extends TestCase
 {
@@ -29,13 +28,8 @@ class CaptureVisitTest extends TestCase
         $this->instance = new CaptureVisit();
     }
 
-    /**
-     * A post visit can be evaluated as unique.
-     *
-     * @throws ReflectionException
-     * @return void
-     */
-    public function test_unique_post_visit()
+    /** @test */
+    public function check_if_visit_is_unique()
     {
         $post = factory(Post::class)->create();
         $ip = '127.0.0.1';
@@ -54,13 +48,8 @@ class CaptureVisitTest extends TestCase
         $this->assertTrue($response);
     }
 
-    /**
-     * A post visit can be stored in session.
-     *
-     * @throws ReflectionException
-     * @return void
-     */
-    public function test_visited_post_stored_in_session()
+    /** @test */
+    public function store_post_in_session()
     {
         $post = factory(Post::class)->create();
         $ip = '127.0.0.1';

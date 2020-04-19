@@ -25,18 +25,13 @@ class SettingsControllerTest extends TestCase
         $this->registerAssertJsonExactFragmentMacro();
     }
 
-    /**
-     * Fresh resource defaults are returned.
-     *
-     * @return void
-     */
-    public function test_a_new_specified_resource()
+    /** @test */
+    public function settings_can_be_listed()
     {
+        // New settings...
         $user = factory(config('canvas.user'))->create();
 
-        $response = $this->actingAs($user)
-                         ->getJson('canvas/api/settings')
-                         ->assertSuccessful();
+        $response = $this->actingAs($user)->getJson('canvas/api/settings')->assertSuccessful();
 
         $this->assertArrayHasKey('avatar', $response->decodeResponseJson());
         $this->assertArrayHasKey('dark_mode', $response->decodeResponseJson());
@@ -44,24 +39,15 @@ class SettingsControllerTest extends TestCase
         $this->assertArrayHasKey('summary', $response->decodeResponseJson());
         $this->assertArrayHasKey('locale', $response->decodeResponseJson());
         $this->assertArrayHasKey('username', $response->decodeResponseJson());
-    }
 
-    /**
-     * An existing resource is returned.
-     *
-     * @return void
-     */
-    public function test_an_existing_specified_resource()
-    {
+        // Existing settings...
         $userMeta = factory(UserMeta::class)->create([
             'dark_mode' => 1,
             'digest' => 0,
             'locale' => 'en',
         ]);
 
-        $response = $this->actingAs($userMeta->user)
-                         ->getJson('canvas/api/settings')
-                         ->assertSuccessful();
+        $response = $this->actingAs($userMeta->user)->getJson('canvas/api/settings')->assertSuccessful();
 
         $this->assertArrayHasKey('avatar', $response->decodeResponseJson());
         $this->assertArrayHasKey('dark_mode', $response->decodeResponseJson());
@@ -75,20 +61,15 @@ class SettingsControllerTest extends TestCase
         $this->assertEquals($userMeta->locale, $response->decodeResponseJson('locale'));
     }
 
-    /**
-     * A fresh resource can be stored.
-     *
-     * @return void
-     */
-    public function test_a_new_resource_can_be_stored()
+    /** @test */
+    public function settings_can_be_stored()
     {
+        // New settings...
         $user = factory(config('canvas.user'))->create();
 
-        $response = $this->actingAs($user)
-                         ->postJson('canvas/api/settings', [
-                             'user_id' => $user->id,
-                         ])
-                         ->assertSuccessful();
+        $response = $this->actingAs($user)->postJson('canvas/api/settings', [
+            'user_id' => $user->id,
+        ])->assertSuccessful();
 
         $this->assertArrayHasKey('avatar', $response->decodeResponseJson());
         $this->assertArrayHasKey('dark_mode', $response->decodeResponseJson());
@@ -98,22 +79,13 @@ class SettingsControllerTest extends TestCase
         $this->assertArrayHasKey('username', $response->decodeResponseJson());
 
         $this->assertEquals($user->id, $response->decodeResponseJson('user_id'));
-    }
 
-    /**
-     * An existing resource can be updated.
-     *
-     * @return void
-     */
-    public function test_an_existing_resource_can_be_updated()
-    {
+        // Existing settings...
         $userMeta = factory(UserMeta::class)->create();
 
-        $response = $this->actingAs($userMeta->user)
-                         ->postJson('canvas/api/settings', [
-                             'user_id' => $userMeta->user_id,
-                         ])
-                         ->assertSuccessful();
+        $response = $this->actingAs($userMeta->user)->postJson('canvas/api/settings', [
+            'user_id' => $userMeta->user_id,
+        ])->assertSuccessful();
 
         $this->assertArrayHasKey('avatar', $response->decodeResponseJson());
         $this->assertArrayHasKey('dark_mode', $response->decodeResponseJson());
@@ -125,12 +97,8 @@ class SettingsControllerTest extends TestCase
         $this->assertEquals($userMeta->user_id, $response->decodeResponseJson('user_id'));
     }
 
-    /**
-     * A username is unique to a user.
-     *
-     * @return void
-     */
-    public function test_usernames_must_be_unique()
+    /** @test */
+    public function usernames_are_unique_to_a_user()
     {
         $userMeta = factory(UserMeta::class)->create();
 
@@ -138,12 +106,10 @@ class SettingsControllerTest extends TestCase
             'username' => 'an-existing-username',
         ]);
 
-        $response = $this->actingAs($userMeta->user)
-                         ->postJson('canvas/api/settings', [
-                             'user_id' => $userMeta->user->id,
-                             'username' => 'an-existing-username',
-                         ])
-                         ->assertStatus(422);
+        $response = $this->actingAs($userMeta->user)->postJson('canvas/api/settings', [
+            'user_id' => $userMeta->user->id,
+            'username' => 'an-existing-username',
+        ])->assertStatus(422);
 
         $this->assertArrayHasKey('username', $response->decodeResponseJson('errors'));
     }

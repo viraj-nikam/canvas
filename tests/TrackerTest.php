@@ -13,12 +13,8 @@ class TrackerTest extends TestCase
 {
     use RefreshDatabase, Tracker;
 
-    /**
-     * Tracked data is returned for given array of post IDs.
-     *
-     * @return void
-     */
-    public function test_tracked_data_can_be_listed()
+    /** @test */
+    public function tracked_data_can_be_listed()
     {
         $days = 7;
 
@@ -58,12 +54,8 @@ class TrackerTest extends TestCase
         $this->assertEquals($data['totals']['visits'], array_sum([$post_1->visits()->count(), $post_2->visits()->count()]));
     }
 
-    /**
-     * Visit statistics are returned for a given number of days.
-     *
-     * @return void
-     */
-    public function test_visit_statistics()
+    /** @test */
+    public function visits_can_be_tracked()
     {
         $days = 30;
         $visits_today = 10;
@@ -78,12 +70,8 @@ class TrackerTest extends TestCase
         $this->assertEquals($visits_today, $data[today()->toDateString()]);
     }
 
-    /**
-     * View statistics are returned for a given number of days.
-     *
-     * @return void
-     */
-    public function test_view_statistics()
+    /** @test */
+    public function views_can_be_tracked()
     {
         $days = 30;
         $views_today = 10;
@@ -98,12 +86,8 @@ class TrackerTest extends TestCase
         $this->assertEquals($views_today, $data[today()->toDateString()]);
     }
 
-    /**
-     * Month over month increased visitor performance is evaluated.
-     *
-     * @return void
-     */
-    public function test_month_to_month_increased_visitor_performance()
+    /** @test */
+    public function month_to_month_increased_visitor_performance()
     {
         factory(Visit::class, 1)->create([
             'created_at' => today()->subMonthWithoutOverflow()->toDateString(),
@@ -132,12 +116,8 @@ class TrackerTest extends TestCase
         $this->assertEquals($data['percentage'], '100');
     }
 
-    /**
-     * Month over month decreased visitor performance is evaluated.
-     *
-     * @return void
-     */
-    public function test_month_to_month_decreased_visitor_performance()
+    /** @test */
+    public function month_to_month_decreased_visitor_performance()
     {
         factory(Visit::class, 2)->create([
             'created_at' => today()->subMonthWithoutOverflow()->toDateString(),
@@ -166,12 +146,8 @@ class TrackerTest extends TestCase
         $this->assertEquals($data['percentage'], '50');
     }
 
-    /**
-     * Month over month increased view performance is evaluated.
-     *
-     * @return void
-     */
-    public function test_month_to_month_increased_view_performance()
+    /** @test */
+    public function month_to_month_increased_view_performance()
     {
         factory(View::class, 1)->create([
             'created_at' => today()->subMonthWithoutOverflow()->toDateString(),
@@ -200,12 +176,8 @@ class TrackerTest extends TestCase
         $this->assertEquals($data['percentage'], '100');
     }
 
-    /**
-     * Month over month decreased view performance is evaluated.
-     *
-     * @return void
-     */
-    public function test_month_to_month_decreased_view_performance()
+    /** @test */
+    public function month_to_month_decreased_view_performance()
     {
         factory(View::class, 2)->create([
             'created_at' => today()->subMonthWithoutOverflow()->toDateString(),
@@ -234,12 +206,8 @@ class TrackerTest extends TestCase
         $this->assertEquals($data['percentage'], '50');
     }
 
-    /**
-     * A date range for a given number of days is returned.
-     *
-     * @return void
-     */
-    public function test_a_generated_date_range()
+    /** @test */
+    public function generate_date_range()
     {
         $days = 30;
         $startDate = today()->subDays($days);

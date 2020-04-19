@@ -86,7 +86,7 @@ class PostController extends Controller
      */
     public function store(StorePost $request, $id): JsonResponse
     {
-        $post = Post::forCurrentUser()->find($id) ?? new Post(['id' => request('id')]);
+        $post = Post::forCurrentUser()->find($id) ?? new Post(['id' => $id]);
 
         $post->fill([
             'id' => $id,

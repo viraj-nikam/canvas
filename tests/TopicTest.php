@@ -23,12 +23,8 @@ class TopicTest extends TestCase
         $this->withoutMiddleware([Authorize::class, Session::class, VerifyCsrfToken::class]);
     }
 
-    /**
-     * Topics with unique users can share the same slug.
-     *
-     * @return void
-     */
-    public function test_topics_can_share_the_same_slug_with_unique_users()
+    /** @test */
+    public function topics_can_share_the_same_slug_with_unique_users()
     {
         $data = [
             'id' => Uuid::uuid4()->toString(),
