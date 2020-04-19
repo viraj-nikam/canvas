@@ -36,7 +36,8 @@ class PostControllerTest extends TestCase
              ->assertSuccessful()
              ->assertJsonExactFragment(1, 'posts.total')
              ->assertJsonExactFragment(0, 'draftCount')
-             ->assertJsonExactFragment(1, 'publishedCount');
+             ->assertJsonExactFragment(1, 'publishedCount')
+             ->assertJsonExactFragment(0, 'views_count');
 
         // Draft posts
         $draft = factory(Post::class)->create([
@@ -47,7 +48,8 @@ class PostControllerTest extends TestCase
              ->assertSuccessful()
              ->assertJsonExactFragment(1, 'posts.total')
              ->assertJsonExactFragment(1, 'draftCount')
-             ->assertJsonExactFragment(0, 'publishedCount');
+             ->assertJsonExactFragment(0, 'publishedCount')
+             ->assertJsonExactFragment(0, 'views_count');
     }
 
     /** @test */
