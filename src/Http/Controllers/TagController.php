@@ -2,11 +2,11 @@
 
 namespace Canvas\Http\Controllers;
 
+use Canvas\Http\Requests\StoreTag;
 use Canvas\Tag;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
-use Illuminate\Validation\Rule;
 use Ramsey\Uuid\Uuid;
 
 class TagController extends Controller
@@ -37,7 +37,7 @@ class TagController extends Controller
     {
         if ($this->isNewTag($id)) {
             return response()->json(Tag::make([
-                'id' => Uuid::uuid4(),
+                'id' => Uuid::uuid4()->toString(),
             ]), 200);
         } else {
             $tag = Tag::forCurrentUser()->find($id);
@@ -49,45 +49,29 @@ class TagController extends Controller
     /**
      * Store a newly created resource in storage.
      *
+     * @param StoreTag $request
      * @param $id
      * @return JsonResponse
      */
-    public function store($id): JsonResponse
+    public function store(StoreTag $request, $id): JsonResponse
     {
-        $data = [
-            'id' => request('id'),
-            'name' => request('name'),
-            'slug' => request('slug'),
-            'user_id' => request()->user()->id,
-        ];
+        $tag = Tag::forCurrentUser()->find($id);
 
-        $messages = [
-            'required' => __('canvas::app.validation_required'),
-            'unique' => __('canvas::app.validation_unique'),
-        ];
-
-        validator($data, [
-            'name' => 'required',
-            'slug' => [
-                'required',
-                'alpha_dash',
-                Rule::unique('canvas_tags')->where(function ($query) use ($data) {
-                    return $query->where('slug', $data['slug'])->where('user_id', $data['user_id']);
-                })->ignore($this->isNewTag($id) ? null : $id)->whereNull('deleted_at'),
-            ],
-        ], $messages)->validate();
-
-        if ($this->isNewTag($id)) {
-            if ($tag = Tag::forCurrentUser()->onlyTrashed()->where('slug', $data['slug'])->first()) {
+        if (!$tag) {
+            if ($tag = Tag::forCurrentUser()->onlyTrashed()->where('slug', $request->slug)->first()) {
                 $tag->restore();
             } else {
-                $tag = new Tag(['id' => $data['id']]);
+                $tag = new Tag(['id' => $id]);
             }
-        } else {
-            $tag = Tag::forCurrentUser()->find($id);
         }
 
-        $tag->fill($data);
+        $tag->fill([
+            'id' => $id,
+            'name' => $request->name,
+            'slug' => $request->slug,
+            'user_id' => request()->user()->id,
+        ]);
+
         $tag->save();
 
         return response()->json($tag->refresh(), 201);

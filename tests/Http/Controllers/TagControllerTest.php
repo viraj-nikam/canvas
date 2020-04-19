@@ -8,6 +8,7 @@ use Canvas\Tests\TestCase;
 use Illuminate\Auth\Middleware\Authorize;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Ramsey\Uuid\Uuid;
 
 class TagControllerTest extends TestCase
 {
@@ -25,16 +26,20 @@ class TagControllerTest extends TestCase
         $this->registerAssertJsonExactFragmentMacro();
     }
 
-    /** @test */
-    public function display_a_listing_of_the_resource()
+    /**
+     * A user can display a listing of the resource.
+     *
+     * @return void
+     */
+    public function test_a_listing_of_the_resource()
     {
         $user_1 = factory(config('canvas.user'))->create();
         $user_2 = factory(config('canvas.user'))->create();
 
         $tag = factory(Tag::class)->create([
             'user_id' => $user_1->id,
-            'name' => 'A New Hope',
-            'slug' => 'a-new-hope',
+            'name' => 'A new tag',
+            'slug' => 'a-new-tag',
         ]);
 
         $this->actingAs($user_1)
@@ -53,75 +58,167 @@ class TagControllerTest extends TestCase
              ->assertJsonExactFragment(0, 'total');
     }
 
-    /** @test */
-    public function display_the_specified_resource()
+    /**
+     * A fresh UUID is returned.
+     *
+     * @return void
+     */
+    public function test_a_new_specified_resource()
     {
-        $user_1 = factory(config('canvas.user'))->create();
-        $user_2 = factory(config('canvas.user'))->create();
+        $user = factory(config('canvas.user'))->create();
 
-        $tag = factory(Tag::class)->create([
-            'user_id' => $user_1->id,
-            'name' => 'Empire Strikes Back',
-            'slug' => 'empire-strikes-back',
-        ]);
-
-        $response = $this->actingAs($user_1)
+        $response = $this->actingAs($user)
                          ->getJson('canvas/api/tags/create')
                          ->assertSuccessful();
 
         $this->assertArrayHasKey('id', $response->decodeResponseJson());
+    }
 
-        $this->actingAs($user_1)
+    /**
+     * An existing resource is returned.
+     *
+     * @return void
+     */
+    public function test_an_existing_specified_resource()
+    {
+        $user = factory(config('canvas.user'))->create();
+
+        $tag = factory(Tag::class)->create([
+            'user_id' => $user->id,
+            'name' => 'A new tag',
+            'slug' => 'a-new-tag',
+        ]);
+
+        $this->actingAs($user)
              ->getJson("canvas/api/tags/{$tag->id}")
              ->assertSuccessful()
              ->assertJsonExactFragment($tag->id, 'id')
              ->assertJsonExactFragment($tag->name, 'name')
-             ->assertJsonExactFragment($user_1->id, 'user_id')
+             ->assertJsonExactFragment($user->id, 'user_id')
              ->assertJsonExactFragment($tag->slug, 'slug');
-
-        $this->actingAs($user_1)
-             ->getJson('canvas/api/tags/not-a-tag')
-             ->assertNotFound();
-
-        $this->actingAs($user_2)
-             ->getJson("canvas/api/tags/{$tag->id}")
-             ->assertNotFound();
     }
 
-    /** @test */
-    public function store_a_newly_created_resource_in_storage()
+    /**
+     * A user receives a 404 if the resource doesn't exist.
+     *
+     * @return void
+     */
+    public function test_a_not_found_resource()
     {
         $user = factory(config('canvas.user'))->create();
 
-        $data = [
-            'name' => 'Return of the Jedi',
-            'slug' => 'return-of-the-jedi',
-        ];
-
         $this->actingAs($user)
-             ->postJson('canvas/api/tags/create', $data)
-             ->assertSuccessful()
-             ->assertJsonExactFragment($data['name'], 'name')
-             ->assertJsonExactFragment($data['slug'], 'slug')
-             ->assertJsonExactFragment($user->id, 'user_id');
-
-        // todo: store/update an invalid tag
+             ->getJson('canvas/api/tags/not-a-tag')
+             ->assertNotFound();
     }
 
-    /** @test */
-    public function remove_the_specified_resource_from_storage()
+    /**
+     * A user cannot access resources that don't belong to them.
+     *
+     * @return void
+     */
+    public function test_restricted_access()
     {
         $user_1 = factory(config('canvas.user'))->create();
         $user_2 = factory(config('canvas.user'))->create();
 
         $tag = factory(Tag::class)->create([
             'user_id' => $user_1->id,
-            'name' => 'The Clone Wars',
-            'slug' => 'the-clone-wars',
+            'name' => 'A tag for user 1',
+            'slug' => 'a-tag-for-user-1',
+        ]);
+
+        $this->actingAs($user_2)
+             ->getJson("canvas/api/tags/{$tag->id}")
+             ->assertNotFound();
+    }
+
+    /**
+     * A fresh resource can be stored.
+     *
+     * @return void
+     */
+    public function test_a_new_resource_can_be_stored()
+    {
+        $user = factory(config('canvas.user'))->create();
+
+        $data = [
+            'id' => Uuid::uuid4()->toString(),
+            'name' => 'A new tag',
+            'slug' => 'a-new-tag',
+        ];
+
+        $this->actingAs($user)
+             ->postJson("canvas/api/tags/{$data['id']}", $data)
+             ->assertSuccessful()
+             ->assertJsonExactFragment($data['name'], 'name')
+             ->assertJsonExactFragment($data['slug'], 'slug')
+             ->assertJsonExactFragment($user->id, 'user_id');
+    }
+
+    /**
+     * An existing resource can be updated.
+     *
+     * @return void
+     */
+    public function test_an_existing_resource_can_be_updated()
+    {
+        $tag = factory(Tag::class)->create();
+
+        $data = [
+            'name' => 'A new tag',
+            'slug' => 'a-new-tag',
+        ];
+
+        $this->actingAs($tag->user)
+             ->postJson("canvas/api/tags/{$tag->id}", $data)
+             ->assertSuccessful()
+             ->assertJsonExactFragment($data['name'], 'name')
+             ->assertJsonExactFragment($data['slug'], 'slug')
+             ->assertJsonExactFragment($tag->user->id, 'user_id');
+    }
+
+    /**
+     * An existing resource can be updated.
+     *
+     * @return void
+     */
+    public function test_a_tag_with_an_invalid_slug_will_not_be_stored()
+    {
+        $tag = factory(Tag::class)->create();
+
+        $response = $this->actingAs($tag->user)
+             ->postJson("canvas/api/tags/{$tag->id}", [
+                 'name' => 'A new tag',
+                 'slug' => 'a new.slug',
+             ])
+             ->assertStatus(422);
+
+        $this->assertArrayHasKey('slug', $response->decodeResponseJson('errors'));
+    }
+
+    /**
+     * An existing resource can be removed from storage.
+     *
+     * @return void
+     */
+    public function test_a_specified_resource_can_be_removed_from_storage()
+    {
+        $user_1 = factory(config('canvas.user'))->create();
+        $user_2 = factory(config('canvas.user'))->create();
+
+        $tag = factory(Tag::class)->create([
+            'user_id' => $user_1->id,
+            'name' => 'A new tag',
+            'slug' => 'a-new-tag',
         ]);
 
         $this->actingAs($user_2)
              ->deleteJson("canvas/api/tags/{$tag->id}")
+             ->assertNotFound();
+
+        $this->actingAs($user_1)
+             ->deleteJson("canvas/api/tags/not-a-tag")
              ->assertNotFound();
 
         $this->actingAs($user_1)

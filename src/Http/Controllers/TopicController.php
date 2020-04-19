@@ -2,6 +2,7 @@
 
 namespace Canvas\Http\Controllers;
 
+use Canvas\Http\Requests\StoreTopic;
 use Canvas\Topic;
 use Exception;
 use Illuminate\Http\JsonResponse;
@@ -37,7 +38,7 @@ class TopicController extends Controller
     {
         if ($this->isNewTopic($id)) {
             return response()->json(Topic::make([
-                'id' => Uuid::uuid4(),
+                'id' => Uuid::uuid4()->toString(),
             ]), 200);
         } else {
             $topic = Topic::forCurrentUser()->find($id);
@@ -49,45 +50,29 @@ class TopicController extends Controller
     /**
      * Store a newly created resource in storage.
      *
+     * @param StoreTopic $request
      * @param $id
      * @return JsonResponse
      */
-    public function store($id): JsonResponse
+    public function store(StoreTopic $request, $id): JsonResponse
     {
-        $data = [
-            'id' => request('id'),
-            'name' => request('name'),
-            'slug' => request('slug'),
-            'user_id' => request()->user()->id,
-        ];
+        $topic = Topic::forCurrentUser()->find($id);
 
-        $messages = [
-            'required' => __('canvas::app.validation_required'),
-            'unique' => __('canvas::app.validation_unique'),
-        ];
-
-        validator($data, [
-            'name' => 'required',
-            'slug' => [
-                'required',
-                'alpha_dash',
-                Rule::unique('canvas_topics')->where(function ($query) use ($data) {
-                    return $query->where('slug', $data['slug'])->where('user_id', $data['user_id']);
-                })->ignore($this->isNewTopic($id) ? null : $id)->whereNull('deleted_at'),
-            ],
-        ], $messages)->validate();
-
-        if ($this->isNewTopic($id)) {
-            if ($topic = Topic::forCurrentUser()->onlyTrashed()->where('slug', request('slug'))->first()) {
-                $topic->restore();
+        if (!$topic) {
+            if ($tag = Topic::forCurrentUser()->onlyTrashed()->where('slug', $request->slug)->first()) {
+                $tag->restore();
             } else {
-                $topic = new Topic(['id' => request('id')]);
+                $topic = new Topic(['id' => $id]);
             }
-        } else {
-            $topic = Topic::forCurrentUser()->find($id);
         }
 
-        $topic->fill($data);
+        $topic->fill([
+            'id' => $id,
+            'name' => $request->name,
+            'slug' => $request->slug,
+            'user_id' => request()->user()->id,
+        ]);
+
         $topic->save();
 
         return response()->json($topic->refresh(), 201);

@@ -6,8 +6,12 @@ use Canvas\Tests\TestCase;
 
 class RouteTest extends TestCase
 {
-    /** @test */
-    public function named_route()
+    /**
+     * The named route should match the configured one.
+     *
+     * @return void
+     */
+    public function test_named_route()
     {
         $this->assertEquals(
             url(config('canvas.path')),

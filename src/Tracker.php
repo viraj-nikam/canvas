@@ -53,14 +53,8 @@ trait Tracker
     }
 
     /**
-     * Return an array of tracking data for a given number of days compatible with Chart.js.
-     *
-     * output:
-     * [
-     *      2020-01-24 => 25,
-     *      2020-01-25 => 13,
-     *      ...
-     * ]
+     * Return date string and their related counts for a given number of days.
+     * example: [ Y-m-d => count ]
      *
      * @param Collection $data
      * @param int $days

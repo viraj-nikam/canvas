@@ -25,8 +25,12 @@ class SettingsControllerTest extends TestCase
         $this->registerAssertJsonExactFragmentMacro();
     }
 
-    /** @test */
-    public function display_a_listing_of_a_new_resource()
+    /**
+     * Fresh resource defaults are returned.
+     *
+     * @return void
+     */
+    public function test_a_new_specified_resource()
     {
         $user = factory(config('canvas.user'))->create();
 
@@ -42,8 +46,12 @@ class SettingsControllerTest extends TestCase
         $this->assertArrayHasKey('username', $response->decodeResponseJson());
     }
 
-    /** @test */
-    public function display_a_listing_of_an_existing_resource()
+    /**
+     * An existing resource is returned.
+     *
+     * @return void
+     */
+    public function test_an_existing_specified_resource()
     {
         $userMeta = factory(UserMeta::class)->create([
             'dark_mode' => 1,
@@ -67,8 +75,12 @@ class SettingsControllerTest extends TestCase
         $this->assertEquals($userMeta->locale, $response->decodeResponseJson('locale'));
     }
 
-    /** @test */
-    public function store_a_newly_created_resource_in_storage()
+    /**
+     * A fresh resource can be stored.
+     *
+     * @return void
+     */
+    public function test_a_new_resource_can_be_stored()
     {
         $user = factory(config('canvas.user'))->create();
 
@@ -88,8 +100,12 @@ class SettingsControllerTest extends TestCase
         $this->assertEquals($user->id, $response->decodeResponseJson('user_id'));
     }
 
-    /** @test */
-    public function update_an_existing_resource_in_storage()
+    /**
+     * An existing resource can be updated.
+     *
+     * @return void
+     */
+    public function test_an_existing_resource_can_be_updated()
     {
         $userMeta = factory(UserMeta::class)->create();
 
@@ -109,8 +125,12 @@ class SettingsControllerTest extends TestCase
         $this->assertEquals($userMeta->user_id, $response->decodeResponseJson('user_id'));
     }
 
-    /** @test */
-    public function users_cant_take_existing_usernames()
+    /**
+     * A username is unique to a user.
+     *
+     * @return void
+     */
+    public function test_usernames_must_be_unique()
     {
         $userMeta = factory(UserMeta::class)->create();
 

@@ -5,7 +5,7 @@ namespace Canvas\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class SettingsRequest extends FormRequest
+class StorePost extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,11 +25,12 @@ class SettingsRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_id' => 'required',
-            'username' => [
-                'nullable',
+            'slug' => [
+                'required',
                 'alpha_dash',
-                Rule::unique('canvas_user_meta')->ignore(request()->user()->id, 'user_id'),
+                Rule::unique('canvas_posts')->where(function ($query) {
+                    return $query->where('slug', request('slug'))->where('user_id', request()->user()->id);
+                })->ignore($this->route('id') === 'create' ? null : $this->route('id'))->whereNull('deleted_at'),
             ],
         ];
     }
@@ -42,6 +43,7 @@ class SettingsRequest extends FormRequest
     public function messages()
     {
         return [
+            'required' => __('canvas::app.validation_required'),
             'unique' => __('canvas::app.validation_unique'),
         ];
     }

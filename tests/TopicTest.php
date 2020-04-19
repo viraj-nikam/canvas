@@ -3,6 +3,7 @@
 namespace Canvas\Tests;
 
 use Canvas\Http\Middleware\Session;
+use Canvas\Topic;
 use Illuminate\Auth\Middleware\Authorize;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -22,33 +23,33 @@ class TopicTest extends TestCase
         $this->withoutMiddleware([Authorize::class, Session::class, VerifyCsrfToken::class]);
     }
 
-    /** @test */
-    public function allow_topics_to_share_the_same_slug_with_unique_users()
+    /**
+     * Topics with unique users can share the same slug.
+     *
+     * @return void
+     */
+    public function test_topics_can_share_the_same_slug_with_unique_users()
     {
-        $user_1 = factory(config('canvas.user'))->create();
-        $topic_1 = $this->actingAs($user_1)->postJson('/canvas/api/topics/create', [
+        $data = [
             'id' => Uuid::uuid4()->toString(),
-            'name' => 'Return of the Jedi',
-            'slug' => 'return-of-the-jedi',
-        ]);
+            'name' => 'A new topic',
+            'slug' => 'a-new-topic',
+        ];
 
-        $user_2 = factory(config('canvas.user'))->create();
-        $topic_2 = $this->actingAs($user_2)->postJson('/canvas/api/topics/create', [
-            'id' => Uuid::uuid4()->toString(),
-            'name' => 'Return of the Jedi',
-            'slug' => 'return-of-the-jedi',
-        ]);
-
+        $topic_1 = factory(Topic::class)->create();
+        $response = $this->actingAs($topic_1->user)->postJson("/canvas/api/topics/{$topic_1->id}", $data);
         $this->assertDatabaseHas('canvas_topics', [
-            'id' => $topic_1->decodeResponseJson('id'),
-            'slug' => $topic_1->decodeResponseJson('slug'),
-            'user_id' => $topic_1->decodeResponseJson('user_id'),
+            'id' => $response->decodeResponseJson('id'),
+            'slug' => $response->decodeResponseJson('slug'),
+            'user_id' => $response->decodeResponseJson('user_id'),
         ]);
 
+        $topic_2 = factory(Topic::class)->create();
+        $response = $this->actingAs($topic_2->user)->postJson("/canvas/api/topics/{$topic_2->id}", $data);
         $this->assertDatabaseHas('canvas_topics', [
-            'id' => $topic_2->decodeResponseJson('id'),
-            'slug' => $topic_2->decodeResponseJson('slug'),
-            'user_id' => $topic_2->decodeResponseJson('user_id'),
+            'id' => $response->decodeResponseJson('id'),
+            'slug' => $response->decodeResponseJson('slug'),
+            'user_id' => $response->decodeResponseJson('user_id'),
         ]);
     }
 }

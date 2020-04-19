@@ -6,6 +6,7 @@ use Canvas\Listeners\CaptureView;
 use Canvas\Post;
 use Canvas\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use ReflectionException;
 
 class CaptureViewTest extends TestCase
 {
@@ -28,8 +29,13 @@ class CaptureViewTest extends TestCase
         $this->instance = new CaptureView();
     }
 
-    /** @test */
-    public function check_if_a_post_was_recently_viewed()
+    /**
+     * Check if a post was recently viewed.
+     *
+     * @throws ReflectionException
+     * @return void
+     */
+    public function test_recently_viewed()
     {
         $post = factory(Post::class)->create();
 
@@ -47,8 +53,13 @@ class CaptureViewTest extends TestCase
         $this->assertFalse($response);
     }
 
-    /** @test */
-    public function store_a_post_id_in_session()
+    /**
+     * A post view can be stored in session.
+     *
+     * @throws ReflectionException
+     * @return void
+     */
+    public function test_viewed_post_stored_in_session()
     {
         $post = factory(Post::class)->create();
 

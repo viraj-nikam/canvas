@@ -8,7 +8,6 @@ use Illuminate\Auth\Middleware\Authorize;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Str;
-use Ramsey\Uuid\Uuid;
 
 class PostTest extends TestCase
 {
@@ -24,45 +23,45 @@ class PostTest extends TestCase
         $this->withoutMiddleware([Authorize::class, Session::class, VerifyCsrfToken::class]);
     }
 
-    /** @test */
-    public function calculate_human_friendly_read_time()
+    /**
+     * A human friendly estimated reading time is returned.
+     *
+     * @return void
+     */
+    public function test_human_friendly_read_time()
     {
         $post = factory(Post::class)->create();
 
         $minutes = ceil(str_word_count($post->body) / 250);
 
-        $this->assertSame($post->readTime, sprintf('%d %s %s', $minutes, Str::plural(__('canvas::app.min'), $minutes), __('canvas::app.read')));
+        $this->assertEquals($post->readTime, sprintf('%d %s %s', $minutes, Str::plural(__('canvas::app.min'), $minutes), __('canvas::app.read')));
     }
 
-    /** @test */
-    public function allow_posts_to_share_the_same_slug_with_unique_users()
+    /**
+     * Posts with unique users can share the same slug.
+     *
+     * @return void
+     */
+    public function test_posts_can_share_the_same_slug_with_unique_users()
     {
-        $user_1 = factory(config('canvas.user'))->create();
-        $post_1 = $this->actingAs($user_1)->postJson('/canvas/api/posts/create', [
-            'id' => Uuid::uuid4()->toString(),
-            'slug' => 'a-new-hope',
-            'topic' => [],
-            'tags' => [],
-        ]);
+        $data = [
+            'slug' => 'a-new-post',
+        ];
 
-        $user_2 = factory(config('canvas.user'))->create();
-        $post_2 = $this->actingAs($user_2)->postJson('/canvas/api/posts/create', [
-            'id' => Uuid::uuid4()->toString(),
-            'slug' => 'a-new-hope',
-            'topic' => [],
-            'tags' => [],
-        ]);
-
+        $post_1 = factory(Post::class)->create();
+        $response = $this->actingAs($post_1->user)->postJson("/canvas/api/posts/{$post_1->id}", $data);
         $this->assertDatabaseHas('canvas_posts', [
-            'id' => $post_1->decodeResponseJson('id'),
-            'slug' => $post_1->decodeResponseJson('slug'),
-            'user_id' => $post_1->decodeResponseJson('user_id'),
+            'id' => $response->decodeResponseJson('id'),
+            'slug' => $response->decodeResponseJson('slug'),
+            'user_id' => $response->decodeResponseJson('user_id'),
         ]);
 
+        $post_2 = factory(Post::class)->create();
+        $response = $this->actingAs($post_2->user)->postJson("/canvas/api/posts/{$post_2->id}", $data);
         $this->assertDatabaseHas('canvas_posts', [
-            'id' => $post_2->decodeResponseJson('id'),
-            'slug' => $post_2->decodeResponseJson('slug'),
-            'user_id' => $post_2->decodeResponseJson('user_id'),
+            'id' => $response->decodeResponseJson('id'),
+            'slug' => $response->decodeResponseJson('slug'),
+            'user_id' => $response->decodeResponseJson('user_id'),
         ]);
     }
 }

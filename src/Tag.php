@@ -63,6 +63,16 @@ class Tag extends Model
     }
 
     /**
+     * Get the user relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo(config('canvas.user', \Illuminate\Foundation\Auth\User::class));
+    }
+
+    /**
      * Scope a query to only include posts for the current logged in user.
      *
      * @param Builder $query

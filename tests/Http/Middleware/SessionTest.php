@@ -6,6 +6,7 @@ use Canvas\Http\Middleware\Session;
 use Canvas\Post;
 use Canvas\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use ReflectionException;
 
 class SessionTest extends TestCase
 {
@@ -28,8 +29,13 @@ class SessionTest extends TestCase
         $this->instance = new Session();
     }
 
-    /** @test */
-    public function prunes_expired_views_in_session()
+    /**
+     * Views that more than 60 minutes old are pruned from session.
+     *
+     * @throws ReflectionException
+     * @return void
+     */
+    public function test_expired_views_can_be_pruned_from_session()
     {
         $post_1 = factory(Post::class)->create();
         $key_1 = 'viewed_posts.'.$post_1->id;
@@ -47,8 +53,13 @@ class SessionTest extends TestCase
         $this->assertArrayNotHasKey($post_2->id, session()->get('viewed_posts'));
     }
 
-    /** @test */
-    public function prunes_expired_visits_in_session()
+    /**
+     * Visits that more than 24 hours old are pruned from session.
+     *
+     * @throws ReflectionException
+     * @return void
+     */
+    public function test_expired_visits_can_be_pruned_from_session()
     {
         $ip = '127.0.0.1';
         $post_1 = factory(Post::class)->create();

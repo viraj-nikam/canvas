@@ -3,6 +3,7 @@
 namespace Canvas\Tests;
 
 use Canvas\Http\Middleware\Session;
+use Canvas\Tag;
 use Illuminate\Auth\Middleware\Authorize;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -22,33 +23,33 @@ class TagTest extends TestCase
         $this->withoutMiddleware([Authorize::class, Session::class, VerifyCsrfToken::class]);
     }
 
-    /** @test */
-    public function allow_tags_to_share_the_same_slug_with_unique_users()
+    /**
+     * Tags with unique users can share the same slug.
+     *
+     * @return void
+     */
+    public function test_tags_can_share_the_same_slug_with_unique_users()
     {
-        $user_1 = factory(config('canvas.user'))->create();
-        $tag_1 = $this->actingAs($user_1)->postJson('/canvas/api/tags/create', [
+        $data = [
             'id' => Uuid::uuid4()->toString(),
-            'name' => 'Empire Strikes Back',
-            'slug' => 'empire-strikes-back',
-        ]);
+            'name' => 'A new tag',
+            'slug' => 'a-new-tag',
+        ];
 
-        $user_2 = factory(config('canvas.user'))->create();
-        $tag_2 = $this->actingAs($user_2)->postJson('/canvas/api/tags/create', [
-            'id' => Uuid::uuid4()->toString(),
-            'name' => 'Empire Strikes Back',
-            'slug' => 'empire-strikes-back',
-        ]);
-
+        $tag_1 = factory(Tag::class)->create();
+        $response = $this->actingAs($tag_1->user)->postJson("/canvas/api/tags/{$tag_1->id}", $data);
         $this->assertDatabaseHas('canvas_tags', [
-            'id' => $tag_1->decodeResponseJson('id'),
-            'slug' => $tag_1->decodeResponseJson('slug'),
-            'user_id' => $tag_1->decodeResponseJson('user_id'),
+            'id' => $response->decodeResponseJson('id'),
+            'slug' => $response->decodeResponseJson('slug'),
+            'user_id' => $response->decodeResponseJson('user_id'),
         ]);
 
+        $tag_2 = factory(Tag::class)->create();
+        $response = $this->actingAs($tag_2->user)->postJson("/canvas/api/tags/{$tag_2->id}", $data);
         $this->assertDatabaseHas('canvas_tags', [
-            'id' => $tag_2->decodeResponseJson('id'),
-            'slug' => $tag_2->decodeResponseJson('slug'),
-            'user_id' => $tag_2->decodeResponseJson('user_id'),
+            'id' => $response->decodeResponseJson('id'),
+            'slug' => $response->decodeResponseJson('slug'),
+            'user_id' => $response->decodeResponseJson('user_id'),
         ]);
     }
 }

@@ -2,13 +2,13 @@
 
 namespace Canvas\Http\Controllers;
 
+use Canvas\Http\Requests\StorePost;
 use Canvas\Post;
 use Canvas\Tag;
 use Canvas\Topic;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
-use Illuminate\Validation\Rule;
 use Ramsey\Uuid\Uuid;
 
 class PostController extends Controller
@@ -79,57 +79,40 @@ class PostController extends Controller
     /**
      * Store a newly created resource in storage.
      *
+     * @param StorePost $request
      * @param $id
      * @return JsonResponse
      * @throws Exception
      */
-    public function store($id): JsonResponse
+    public function store(StorePost $request, $id): JsonResponse
     {
-        $data = [
-            'id' => request('id'),
-            'slug' => request('slug'),
-            'title' => request('title', 'Title'),
-            'summary' => request('summary', null),
-            'body' => request('body', null),
-            'published_at' => request('published_at', null),
-            'featured_image' => request('featured_image', null),
-            'featured_image_caption' => request('featured_image_caption', null),
-            'user_id' => request()->user()->id,
+        $post = Post::forCurrentUser()->find($id) ?? new Post(['id' => request('id')]);
+
+        $post->fill([
+            'id' => $id,
+            'slug' => $request->slug ?? $post->slug,
+            'title' => $request->title ?? __('canvas::app.title'),
+            'summary' => $request->summary ?? $post->summary,
+            'body' => $request->body ?? $post->body,
+            'published_at' => $request->published_at ?? $post->published_at,
+            'featured_image' => $request->featured_image ?? $post->featured_image,
+            'featured_image_caption' => $request->featured_image_caption ?? $post->featured_image_caption,
             'meta' => [
-                'description' => request('meta.description', null),
-                'title' => request('meta.title', null),
-                'canonical_link' => request('meta.canonical_link', null),
+                'title' => $request->meta['title'] ?? optional($post->meta)['title'],
+                'description' => $request->meta['description'] ?? optional($post->meta)['title'],
+                'canonical_link' => $request->meta['canonical_link'] ?? optional($post->meta)['title'],
             ],
-        ];
+            'user_id' => request()->user()->id,
+        ]);
 
-        $messages = [
-            'required' => __('canvas::app.validation_required'),
-            'unique' => __('canvas::app.validation_unique'),
-        ];
-
-        validator($data, [
-            'user_id' => 'required',
-            'slug' => [
-                'required',
-                'alpha_dash',
-                Rule::unique('canvas_posts')->where(function ($query) use ($data) {
-                    return $query->where('slug', $data['slug'])->where('user_id', $data['user_id']);
-                })->ignore($this->isNewPost($id) ? null : $id),
-            ],
-        ], $messages)->validate();
-
-        $post = $this->isNewPost($id) ? new Post(['id' => request('id')]) : Post::forCurrentUser()->find($id);
-
-        $post->fill($data);
-        $post->meta = $data['meta'];
         $post->save();
 
         $post->topic()->sync(
-            $this->syncTopic(request('topic'))
+            $this->syncTopic($request->topic ?? [])
         );
 
         $post->tags()->sync(
-            $this->syncTags(request('tags'))
+            $this->syncTags($request->tags ?? [])
         );
 
         return response()->json($post->refresh(), 201);
@@ -177,7 +160,7 @@ class PostController extends Controller
         if ($incomingTopic) {
             $topic = Topic::forCurrentUser()->where('slug', $incomingTopic['slug'])->first();
 
-            if (! $topic) {
+            if (!$topic) {
                 $topic = Topic::create([
                     'id' => $id = Uuid::uuid4()->toString(),
                     'name' => $incomingTopic['name'],
@@ -186,7 +169,7 @@ class PostController extends Controller
                 ]);
             }
 
-            return collect((string) $topic->id)->toArray();
+            return collect((string)$topic->id)->toArray();
         } else {
             return [];
         }
@@ -206,7 +189,7 @@ class PostController extends Controller
             return collect($incomingTags)->map(function ($incomingTag) use ($tags) {
                 $tag = $tags->where('slug', $incomingTag['slug'])->first();
 
-                if (! $tag) {
+                if (!$tag) {
                     $tag = Tag::create([
                         'id' => $id = Uuid::uuid4()->toString(),
                         'name' => $incomingTag['name'],
@@ -215,7 +198,7 @@ class PostController extends Controller
                     ]);
                 }
 
-                return (string) $tag->id;
+                return (string)$tag->id;
             })->toArray();
         } else {
             return [];

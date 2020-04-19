@@ -2,7 +2,7 @@
 
 namespace Canvas\Http\Controllers;
 
-use Canvas\Http\Requests\SettingsRequest;
+use Canvas\Http\Requests\StoreSettings;
 use Canvas\UserMeta;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
@@ -33,23 +33,21 @@ class SettingsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param SettingsRequest $request
+     * @param StoreSettings $request
      * @return JsonResponse
      */
-    public function update(SettingsRequest $request): JsonResponse
+    public function update(StoreSettings $request): JsonResponse
     {
         $metaData = UserMeta::forCurrentUser()->first() ?? new UserMeta();
 
-        $data = $request->validated();
-
         $metaData->fill([
-            'avatar' => $data['avatar'] ?? $metaData->avatar,
-            'dark_mode' => $data['dark_mode'] ?? $metaData->dark_mode,
-            'digest' => $data['digest'] ?? $metaData->digest,
-            'locale' => $data['locale'] ?? $metaData->locale,
+            'avatar' => $request->avatar ?? $metaData->avatar,
+            'dark_mode' => $request->dark_mode ?? $metaData->dark_mode,
+            'digest' => $request->digest ?? $metaData->digest,
+            'locale' => request('locale') ?? $metaData->locale,
             'user_id' => request()->user()->id,
-            'username' => $data['username'] ?? $metaData->username,
-            'summary' => $data['summary'] ?? $metaData->summary,
+            'username' => $request->username ?? $metaData->username,
+            'summary' => $request->summary ?? $metaData->summary,
         ]);
 
         $metaData->save();
