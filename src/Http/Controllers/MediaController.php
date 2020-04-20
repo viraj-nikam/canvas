@@ -17,15 +17,19 @@ class MediaController extends Controller
     {
         $payload = request()->file();
 
-        // We only expect single file uploads at this time
-        $file = reset($payload);
+        if ($payload) {
+            // Only single file uploads are supported at this time
+            $file = reset($payload);
 
-        if ($file instanceof UploadedFile) {
-            $path = $file->storePublicly($this->getBaseStoragePath(), [
-                'disk' => config('canvas.storage_disk'),
-            ]);
+            if ($file instanceof UploadedFile) {
+                $path = $file->storePublicly($this->getBaseStoragePath(), [
+                    'disk' => config('canvas.storage_disk'),
+                ]);
 
-            return Storage::disk(config('canvas.storage_disk'))->url($path);
+                return Storage::disk(config('canvas.storage_disk'))->url($path);
+            }
+        } else {
+            return response()->json(null, 400);
         }
     }
 
@@ -36,14 +40,22 @@ class MediaController extends Controller
      */
     public function destroy()
     {
-        $file = pathinfo(request()->getContent());
-        $storagePath = $this->getBaseStoragePath();
-        $path = "{$storagePath}/{$file['basename']}";
+        $payload = request()->file();
 
-        $fileDeleted = Storage::disk(config('canvas.storage_disk'))->delete($path);
+        if ($payload) {
+            // Only single file deletes are supported at this time
+            $file = reset($payload);
 
-        if ($fileDeleted) {
-            return response()->json([], 204);
+            $storagePath = $this->getBaseStoragePath();
+            $path = "{$storagePath}/{$file->name}";
+
+            $fileDeleted = Storage::disk(config('canvas.storage_disk'))->delete($path);
+
+            if ($fileDeleted) {
+                return response()->json(null, 204);
+            }
+        } else {
+            return response()->json(null, 400);
         }
     }
 

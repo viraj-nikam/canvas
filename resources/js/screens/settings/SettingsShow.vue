@@ -278,7 +278,7 @@
 
             updateLocale() {
                 this.request()
-                    .post('/api/locale', { locale: this.form.locale })
+                    .get('/api/locale/' + this.form.locale)
                     .then(response => {
                         this.trans = response.data
                         this.$root.Canvas.translations = JSON.stringify(response.data)

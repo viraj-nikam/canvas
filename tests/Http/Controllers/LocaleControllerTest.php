@@ -28,10 +28,9 @@ class LocaleControllerTest extends TestCase
     public function translations_can_be_fetched()
     {
         $user = factory(config('canvas.user'))->create();
+        $code = config('app.locale');
 
-        $response = $this->actingAs($user)->postJson('canvas/api/locale', [
-            'locale', config('app.locale'),
-        ])->assertSuccessful();
+        $response = $this->actingAs($user)->getJson("canvas/api/locale/{$code}")->assertSuccessful();
 
         $this->assertArrayHasKey('app', $response->decodeResponseJson());
     }

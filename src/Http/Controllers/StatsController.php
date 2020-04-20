@@ -14,13 +14,6 @@ class StatsController extends Controller
     use Tracker;
 
     /**
-     * Number of days to get stats for.
-     *
-     * @const int
-     */
-    private const DAYS = 30;
-
-    /**
      * Display a listing of the resource.
      *
      * @return JsonResponse
@@ -35,22 +28,22 @@ class StatsController extends Controller
         $views = View::select('created_at')
                      ->whereIn('post_id', $published->pluck('id'))
                      ->whereBetween('created_at', [
-                         today()->subDays(self::DAYS)->startOfDay()->toDateTimeString(),
+                         today()->subDays(30)->startOfDay()->toDateTimeString(),
                          today()->endOfDay()->toDateTimeString(),
                      ])->get();
 
         $visits = Visit::select('created_at')
                        ->whereIn('post_id', $published->pluck('id'))
                        ->whereBetween('created_at', [
-                           today()->subDays(self::DAYS)->startOfDay()->toDateTimeString(),
+                           today()->subDays(30)->startOfDay()->toDateTimeString(),
                            today()->endOfDay()->toDateTimeString(),
                        ])->get();
 
         return response()->json([
             'view_count' => $views->count(),
-            'view_trend' => json_encode($this->countTrackedData($views, self::DAYS)),
+            'view_trend' => json_encode($this->countTrackedData($views, 30)),
             'visit_count' => $visits->count(),
-            'visit_trend' => json_encode($this->countTrackedData($visits, self::DAYS)),
+            'visit_trend' => json_encode($this->countTrackedData($visits, 30)),
         ]);
     }
 
@@ -75,7 +68,7 @@ class StatsController extends Controller
                 today()->endOfMonth()->endOfDay()->toDateTimeString(),
             ]);
             $lastThirtyDays = $views->whereBetween('created_at', [
-                today()->subDays(self::DAYS)->startOfDay()->toDateTimeString(),
+                today()->subDays(30)->startOfDay()->toDateTimeString(),
                 today()->endOfDay()->toDateTimeString(),
             ]);
 
@@ -95,11 +88,11 @@ class StatsController extends Controller
                 'popular_reading_times' => $post->popular_reading_times,
                 'traffic' => $post->top_referers,
                 'view_count' => $currentMonthlyViews->count(),
-                'view_trend' => json_encode($this->countTrackedData($lastThirtyDays, self::DAYS)),
+                'view_trend' => json_encode($this->countTrackedData($lastThirtyDays, 30)),
                 'view_month_over_month' => $this->compareMonthToMonth($currentMonthlyViews, $previousMonthlyViews),
                 'view_count_lifetime' => $views->count(),
                 'visit_count' => $currentMonthlyVisits->count(),
-                'visit_trend' => json_encode($this->countTrackedData($visits, self::DAYS)),
+                'visit_trend' => json_encode($this->countTrackedData($visits, 30)),
                 'visit_month_over_month' => $this->compareMonthToMonth($currentMonthlyVisits, $previousMonthlyVisits),
             ]);
         } else {

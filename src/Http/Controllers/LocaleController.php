@@ -9,10 +9,11 @@ class LocaleController extends Controller
     /**
      * Handle the incoming request.
      *
+     * @param string $code
      * @return string
      */
-    public function __invoke()
+    public function __invoke(string $code)
     {
-        return collect(['app' => trans('canvas::app', [], request('locale', config('app.locale')))])->toJson();
+        return collect(['app' => trans('canvas::app', [], $code)])->toJson();
     }
 }

@@ -42,7 +42,7 @@ Route::namespace('Canvas\Http\Controllers')->group(function () {
             });
 
             Route::prefix('locale')->group(function () {
-                Route::post('/', 'LocaleController');
+                Route::get('{code}', 'LocaleController');
             });
         });
 

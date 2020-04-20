@@ -20,14 +20,14 @@ class CaptureVisit
         $ip = request()->getClientIp();
 
         if ($this->visitIsUnique($event->post, $ip)) {
-            $visit_data = [
+            $data = [
                 'post_id' => $event->post->id,
                 'ip' => $ip,
                 'agent' => request()->header('user_agent'),
                 'referer' => $this->validUrl((string) request()->header('referer')),
             ];
 
-            $event->post->visits()->create($visit_data);
+            $event->post->visits()->create($data);
 
             $this->storeInSession($event->post, $ip);
         }
@@ -69,7 +69,7 @@ class CaptureVisit
     }
 
     /**
-     * Return only value URLs.
+     * Return only valid URLs.
      *
      * @param string $url
      * @return mixed
