@@ -2,11 +2,11 @@
 
 namespace Canvas\Http\Controllers;
 
-use Canvas\Http\Requests\StoreSettings;
 use Canvas\UserMeta;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 
 class SettingsController extends Controller
 {
@@ -33,14 +33,13 @@ class SettingsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param StoreSettings $request
      * @return JsonResponse
      */
-    public function update(StoreSettings $request): JsonResponse
+    public function update(): JsonResponse
     {
         $metaData = UserMeta::forCurrentUser()->first() ?? new UserMeta();
 
-        $metaData->fill([
+        $data = [
             'avatar' => request('avatar', $metaData->avatar),
             'dark_mode' => request('dark_mode', $metaData->dark_mode),
             'digest' => request('digest', $metaData->digest),
@@ -48,7 +47,25 @@ class SettingsController extends Controller
             'user_id' => request()->user()->id,
             'username' => request('username', $metaData->username),
             'summary' => request('summary', $metaData->summary),
-        ]);
+        ];
+
+        $rules = [
+            'user_id' => 'required',
+            'username' => [
+                'nullable',
+                'alpha_dash',
+                Rule::unique('canvas_user_meta')->ignore(request()->user()->id, 'user_id'),
+            ],
+        ];
+
+        $messages = [
+            'required' => __('canvas::app.validation_required'),
+            'unique' => __('canvas::app.validation_unique'),
+        ];
+
+        validator($data, $rules, $messages)->validate();
+
+        $metaData->fill($data);
 
         $metaData->save();
 

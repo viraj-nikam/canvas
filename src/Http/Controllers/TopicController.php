@@ -3,11 +3,11 @@
 namespace Canvas\Http\Controllers;
 
 use Canvas\Helpers;
-use Canvas\Http\Requests\StoreTopic;
 use Canvas\Topic;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
+use Illuminate\Validation\Rule;
 use Ramsey\Uuid\Uuid;
 
 class TopicController extends Controller
@@ -23,9 +23,9 @@ class TopicController extends Controller
     {
         return response()->json(
             Topic::forCurrentUser()
-                 ->latest()
-                 ->withCount('posts')
-                 ->paginate(), 200
+               ->latest()
+               ->withCount('posts')
+               ->paginate(), 200
         );
     }
 
@@ -52,28 +52,47 @@ class TopicController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param StoreTopic $request
      * @param $id
      * @return JsonResponse
      */
-    public function store(StoreTopic $request, $id): JsonResponse
+    public function store($id): JsonResponse
     {
+        $data = [
+            'id' => $id,
+            'name' => request('name'),
+            'slug' => request('slug'),
+            'user_id' => request()->user()->id,
+        ];
+
+        $rules = [
+            'name' => 'required',
+            'slug' => [
+                'required',
+                'alpha_dash',
+                Rule::unique('canvas_topics')->where(function ($query) use ($data) {
+                    return $query->where('slug', $data['slug'])->where('user_id', $data['user_id']);
+                })->ignore($id)->whereNull('deleted_at'),
+            ],
+        ];
+
+        $messages = [
+            'required' => __('canvas::app.validation_required'),
+            'unique' => __('canvas::app.validation_unique'),
+        ];
+
+        validator($data, $rules, $messages)->validate();
+
         $topic = Topic::forCurrentUser()->find($id);
 
-        if (! $topic) {
-            if ($tag = Topic::forCurrentUser()->onlyTrashed()->where('slug', request('slug'))->first()) {
-                $tag->restore();
+        if (!$topic) {
+            if ($topic = Topic::forCurrentUser()->onlyTrashed()->where('slug', request('slug'))->first()) {
+                $topic->restore();
             } else {
                 $topic = new Topic(['id' => $id]);
             }
         }
 
-        $topic->fill([
-            'id' => $id,
-            'name' => request('name'),
-            'slug' => request('slug'),
-            'user_id' => request()->user()->id,
-        ]);
+        $topic->fill($data);
 
         $topic->save();
 

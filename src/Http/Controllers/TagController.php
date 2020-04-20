@@ -3,11 +3,11 @@
 namespace Canvas\Http\Controllers;
 
 use Canvas\Helpers;
-use Canvas\Http\Requests\StoreTag;
 use Canvas\Tag;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
+use Illuminate\Validation\Rule;
 use Ramsey\Uuid\Uuid;
 
 class TagController extends Controller
@@ -52,15 +52,39 @@ class TagController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param StoreTag $request
      * @param $id
      * @return JsonResponse
      */
-    public function store(StoreTag $request, $id): JsonResponse
+    public function store($id): JsonResponse
     {
+        $data = [
+            'id' => $id,
+            'name' => request('name'),
+            'slug' => request('slug'),
+            'user_id' => request()->user()->id,
+        ];
+
+        $rules = [
+            'name' => 'required',
+            'slug' => [
+                'required',
+                'alpha_dash',
+                Rule::unique('canvas_tags')->where(function ($query) use ($data) {
+                    return $query->where('slug', $data['slug'])->where('user_id', $data['user_id']);
+                })->ignore($id)->whereNull('deleted_at'),
+            ],
+        ];
+
+        $messages = [
+            'required' => __('canvas::app.validation_required'),
+            'unique' => __('canvas::app.validation_unique'),
+        ];
+
+        validator($data, $rules, $messages)->validate();
+
         $tag = Tag::forCurrentUser()->find($id);
 
-        if (! $tag) {
+        if (!$tag) {
             if ($tag = Tag::forCurrentUser()->onlyTrashed()->where('slug', request('slug'))->first()) {
                 $tag->restore();
             } else {
@@ -68,12 +92,7 @@ class TagController extends Controller
             }
         }
 
-        $tag->fill([
-            'id' => $id,
-            'name' => request('name'),
-            'slug' => request('slug'),
-            'user_id' => request()->user()->id,
-        ]);
+        $tag->fill($data);
 
         $tag->save();
 

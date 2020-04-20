@@ -3,13 +3,13 @@
 namespace Canvas\Http\Controllers;
 
 use Canvas\Helpers;
-use Canvas\Http\Requests\StorePost;
 use Canvas\Post;
 use Canvas\Tag;
 use Canvas\Topic;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
+use Illuminate\Validation\Rule;
 use Ramsey\Uuid\Uuid;
 
 class PostController extends Controller
@@ -82,16 +82,15 @@ class PostController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param StorePost $request
      * @param $id
      * @return JsonResponse
      * @throws Exception
      */
-    public function store(StorePost $request, $id): JsonResponse
+    public function store($id): JsonResponse
     {
         $post = Post::forCurrentUser()->find($id) ?? new Post(['id' => $id]);
 
-        $post->fill([
+        $data = [
             'id' => $id,
             'slug' => request('slug', $post->slug),
             'title' => request('title', __('canvas::app.title')),
@@ -106,7 +105,26 @@ class PostController extends Controller
                 'canonical_link' => request('meta.canonical_link', optional($post->meta)['canonical_link']),
             ],
             'user_id' => request()->user()->id,
-        ]);
+        ];
+
+        $rules = [
+            'slug' => [
+                'required',
+                'alpha_dash',
+                Rule::unique('canvas_posts')->where(function ($query) {
+                    return $query->where('slug', request('slug'))->where('user_id', request()->user()->id);
+                })->ignore($id)->whereNull('deleted_at'),
+            ],
+        ];
+
+        $messages = [
+            'required' => __('canvas::app.validation_required'),
+            'unique' => __('canvas::app.validation_unique'),
+        ];
+
+        validator($data, $rules, $messages)->validate();
+
+        $post->fill($data);
 
         $post->save();
 
