@@ -38,8 +38,12 @@ class MediaControllerTest extends TestCase
         ])->assertStatus(400);
 
         $this->actingAs($user)->postJson('canvas/api/media/uploads', [
-            UploadedFile::fake()->image('photo.jpg'),
+            $file = UploadedFile::fake()->image('photo.jpg'),
         ])->assertSuccessful();
+
+        $path = sprintf('%s/%s/%s', config('canvas.storage_path'), 'images', $file->hashName());
+
+        Storage::disk(config('canvas.storage_disk'))->assertExists($path);
     }
 
     /** @test */
@@ -54,7 +58,11 @@ class MediaControllerTest extends TestCase
         ])->assertStatus(400);
 
         $this->actingAs($user)->deleteJson('canvas/api/media/uploads', [
-            UploadedFile::fake()->image('photo.jpg'),
+            $file = UploadedFile::fake()->image('photo.jpg'),
         ])->assertSuccessful();
+
+        $path = sprintf('%s/%s/%s', config('canvas.storage_path'), 'images', $file->hashName());
+
+        Storage::disk(config('canvas.storage_disk'))->assertMissing($path);
     }
 }
