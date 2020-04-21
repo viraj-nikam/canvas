@@ -3,6 +3,7 @@
 namespace Canvas\Tests\Controllers;
 
 use Canvas\Http\Middleware\Session;
+use Canvas\Post;
 use Canvas\Tag;
 use Canvas\Tests\TestCase;
 use Illuminate\Auth\Middleware\Authorize;
@@ -179,5 +180,39 @@ class TagControllerTest extends TestCase
             'id' => $tag->id,
             'slug' => $tag->slug,
         ]);
+    }
+
+    /** @test */
+    public function de_sync_post_relationship()
+    {
+        $user = factory(config('canvas.user'))->create();
+        $tag = factory(Tag::class)->create();
+        $post = factory(Post::class)->create([
+            'user_id' => $user->id,
+            'slug' => 'a-new-post',
+        ]);
+
+        $tag->posts()->sync([$post->id]);
+
+        $this->assertDatabaseHas('canvas_posts_tags', [
+            'post_id' => $post->id,
+            'tag_id' => $tag->id,
+        ]);
+
+        $this->assertCount(1, $tag->posts);
+
+        $this->actingAs($user)->deleteJson("canvas/api/posts/{$post->id}")->assertSuccessful()->assertNoContent();
+
+        $this->assertSoftDeleted('canvas_posts', [
+            'id' => $post->id,
+            'slug' => $post->slug,
+        ]);
+
+        $this->assertDatabaseMissing('canvas_posts_tags', [
+            'post_id' => $post->id,
+            'tag_id' => $tag->id,
+        ]);
+
+        $this->assertCount(0, $tag->refresh()->posts);
     }
 }

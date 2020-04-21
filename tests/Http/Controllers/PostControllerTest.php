@@ -4,7 +4,10 @@ namespace Canvas\Tests\Controllers;
 
 use Canvas\Http\Middleware\Session;
 use Canvas\Post;
+use Canvas\PostsTags;
+use Canvas\Tag;
 use Canvas\Tests\TestCase;
+use Canvas\Topic;
 use Illuminate\Auth\Middleware\Authorize;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -211,5 +214,55 @@ class PostControllerTest extends TestCase
             'id' => $post->id,
             'slug' => $post->slug,
         ]);
+    }
+
+    /** @test */
+    public function de_sync_related_taxonomy()
+    {
+        $user = factory(config('canvas.user'))->create();
+
+        $post = factory(Post::class)->create([
+            'user_id' => $user->id,
+            'slug' => 'a-new-post',
+        ]);
+
+        $tag = factory(Tag::class)->create();
+        $post->tags()->sync([$tag->id]);
+
+        $this->assertDatabaseHas('canvas_posts_tags', [
+            'post_id' => $post->id,
+            'tag_id' => $tag->id,
+        ]);
+
+        $this->assertCount(1, $post->tags);
+
+        $topic = factory(Topic::class)->create();
+        $post->topic()->sync([$topic->id]);
+        $this->assertCount(1, $post->topic);
+
+        $this->assertDatabaseHas('canvas_posts_topics', [
+            'post_id' => $post->id,
+            'topic_id' => $topic->id,
+        ]);
+
+        $this->actingAs($user)->deleteJson("canvas/api/posts/{$post->id}")->assertSuccessful()->assertNoContent();
+
+        $this->assertSoftDeleted('canvas_posts', [
+            'id' => $post->id,
+            'slug' => $post->slug,
+        ]);
+
+        $this->assertDatabaseMissing('canvas_posts_tags', [
+            'post_id' => $post->id,
+            'tag_id' => $tag->id,
+        ]);
+
+        $this->assertDatabaseMissing('canvas_posts_topics', [
+            'post_id' => $post->id,
+            'topic_id' => $tag->id,
+        ]);
+
+        $this->assertCount(0, $post->refresh()->tags);
+        $this->assertCount(0, $post->refresh()->topic);
     }
 }

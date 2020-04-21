@@ -3,6 +3,7 @@
 namespace Canvas\Tests\Controllers;
 
 use Canvas\Http\Middleware\Session;
+use Canvas\Post;
 use Canvas\Tests\TestCase;
 use Canvas\Topic;
 use Illuminate\Auth\Middleware\Authorize;
@@ -179,5 +180,39 @@ class TopicControllerTest extends TestCase
             'id' => $topic->id,
             'slug' => $topic->slug,
         ]);
+    }
+
+    /** @test */
+    public function de_sync_post_relationship()
+    {
+        $user = factory(config('canvas.user'))->create();
+        $topic = factory(Topic::class)->create();
+        $post = factory(Post::class)->create([
+            'user_id' => $user->id,
+            'slug' => 'a-new-post',
+        ]);
+
+        $topic->posts()->sync([$post->id]);
+
+        $this->assertDatabaseHas('canvas_posts_topics', [
+            'post_id' => $post->id,
+            'topic_id' => $topic->id,
+        ]);
+
+        $this->assertCount(1, $topic->posts);
+
+        $this->actingAs($user)->deleteJson("canvas/api/posts/{$post->id}")->assertSuccessful()->assertNoContent();
+
+        $this->assertSoftDeleted('canvas_posts', [
+            'id' => $post->id,
+            'slug' => $post->slug,
+        ]);
+
+        $this->assertDatabaseMissing('canvas_posts_topics', [
+            'post_id' => $post->id,
+            'topic_id' => $topic->id,
+        ]);
+
+        $this->assertCount(0, $topic->refresh()->posts);
     }
 }
