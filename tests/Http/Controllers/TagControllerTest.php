@@ -98,6 +98,10 @@ class TagControllerTest extends TestCase
             'slug' => 'a-tag-for-user-1',
         ]);
 
+        $this->actingAs($user_1)
+             ->getJson("canvas/api/tags/{$tag->id}")
+             ->assertSuccessful();
+
         $this->actingAs($user_2)->getJson("canvas/api/tags/{$tag->id}")->assertNotFound();
     }
 
@@ -142,11 +146,11 @@ class TagControllerTest extends TestCase
         $tag = factory(Tag::class)->create();
 
         $response = $this->actingAs($tag->user)
-             ->postJson("canvas/api/tags/{$tag->id}", [
-                 'name' => 'A new tag',
-                 'slug' => 'a new.slug',
-             ])
-             ->assertStatus(422);
+                         ->postJson("canvas/api/tags/{$tag->id}", [
+                             'name' => 'A new tag',
+                             'slug' => 'a new.slug',
+                         ])
+                         ->assertStatus(422);
 
         $this->assertArrayHasKey('slug', $response->decodeResponseJson('errors'));
     }
@@ -163,13 +167,9 @@ class TagControllerTest extends TestCase
             'slug' => 'a-new-tag',
         ]);
 
-        $this->actingAs($user_2)
-             ->deleteJson("canvas/api/tags/{$tag->id}")
-             ->assertNotFound();
+        $this->actingAs($user_2)->deleteJson("canvas/api/tags/{$tag->id}")->assertNotFound();
 
-        $this->actingAs($user_1)
-             ->deleteJson('canvas/api/tags/not-a-tag')
-             ->assertNotFound();
+        $this->actingAs($user_1)->deleteJson('canvas/api/tags/not-a-tag')->assertNotFound();
 
         $this->actingAs($user_1)
              ->deleteJson("canvas/api/tags/{$tag->id}")

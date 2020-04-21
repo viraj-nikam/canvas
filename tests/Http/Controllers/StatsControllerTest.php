@@ -50,6 +50,8 @@ class StatsControllerTest extends TestCase
     {
         $post = factory(Post::class)->create();
 
+        $this->actingAs($post->user)->getJson('canvas/api/stats/not-a-post')->assertNotFound();
+
         $response = $this->actingAs($post->user)
                          ->getJson("canvas/api/stats/{$post->id}")
                          ->assertSuccessful()

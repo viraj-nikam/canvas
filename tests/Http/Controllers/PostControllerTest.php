@@ -31,7 +31,7 @@ class PostControllerTest extends TestCase
     /** @test */
     public function posts_can_be_listed()
     {
-        // Published posts
+        // Published posts...
         $published = factory(Post::class)->create();
         $this->actingAs($published->user)
              ->getJson('canvas/api/posts?type=published')
@@ -41,7 +41,7 @@ class PostControllerTest extends TestCase
              ->assertJsonExactFragment(1, 'publishedCount')
              ->assertJsonExactFragment(0, 'views_count');
 
-        // Draft posts
+        // Draft posts...
         $draft = factory(Post::class)->create([
             'published_at' => now()->addMonth(),
         ]);
@@ -52,6 +52,9 @@ class PostControllerTest extends TestCase
              ->assertJsonExactFragment(1, 'draftCount')
              ->assertJsonExactFragment(0, 'publishedCount')
              ->assertJsonExactFragment(0, 'views_count');
+
+        // No type given...
+        $this->actingAs($published->user)->getJson('canvas/api/posts')->assertNotFound();
     }
 
     /** @test */
@@ -91,6 +94,7 @@ class PostControllerTest extends TestCase
             'user_id' => $user_1->id,
         ]);
 
+        $this->actingAs($user_1)->getJson("canvas/api/posts/{$post->id}")->assertSuccessful();
         $this->actingAs($user_2)->getJson("canvas/api/posts/{$post->id}")->assertNotFound();
     }
 

@@ -81,10 +81,8 @@ class SettingsControllerTest extends TestCase
         $this->assertEquals($user->id, $response->decodeResponseJson('user_id'));
 
         // Existing settings...
-        $userMeta = factory(UserMeta::class)->create();
-
-        $response = $this->actingAs($userMeta->user)->postJson('canvas/api/settings', [
-            'user_id' => $userMeta->user_id,
+        $response = $this->actingAs($user)->postJson('canvas/api/settings', [
+            'username' => 'a-new-username',
         ])->assertSuccessful();
 
         $this->assertArrayHasKey('avatar', $response->decodeResponseJson());
@@ -94,7 +92,9 @@ class SettingsControllerTest extends TestCase
         $this->assertArrayHasKey('locale', $response->decodeResponseJson());
         $this->assertArrayHasKey('username', $response->decodeResponseJson());
 
-        $this->assertEquals($userMeta->user_id, $response->decodeResponseJson('user_id'));
+        $settings = UserMeta::forCurrentUser()->first();
+
+        $this->assertEquals($settings->username, $response->decodeResponseJson('username'));
     }
 
     /** @test */

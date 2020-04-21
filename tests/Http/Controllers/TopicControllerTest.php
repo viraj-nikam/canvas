@@ -98,6 +98,7 @@ class TopicControllerTest extends TestCase
             'slug' => 'a-topic-for-user-1',
         ]);
 
+        $this->actingAs($user_1)->getJson("canvas/api/topics/{$topic->id}")->assertSuccessful();
         $this->actingAs($user_2)->getJson("canvas/api/topics/{$topic->id}")->assertNotFound();
     }
 
