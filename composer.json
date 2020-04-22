@@ -28,7 +28,10 @@
     "autoload": {
         "psr-4": {
             "Canvas\\": "src/"
-        }
+        },
+        "files": [
+            "src/helpers.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {

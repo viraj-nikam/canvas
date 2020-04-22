@@ -2,7 +2,6 @@
 
 namespace Canvas\Http\Controllers;
 
-use Canvas\Helpers;
 use Canvas\Tag;
 use Exception;
 use Illuminate\Http\JsonResponse;
@@ -12,8 +11,6 @@ use Ramsey\Uuid\Uuid;
 
 class TagController extends Controller
 {
-    use Helpers;
-
     /**
      * Display a listing of the resource.
      *
@@ -38,7 +35,7 @@ class TagController extends Controller
      */
     public function show($id): JsonResponse
     {
-        if ($this->isFresh($id)) {
+        if (is_fresh($id)) {
             return response()->json(Tag::make([
                 'id' => Uuid::uuid4()->toString(),
             ]), 200);

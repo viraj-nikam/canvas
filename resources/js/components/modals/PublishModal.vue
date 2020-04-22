@@ -126,6 +126,9 @@
         },
 
         mounted() {
+            console.log(this.activePost.published_at)
+            console.log(moment(new Date()).format().slice(0, 19).replace('T', ' '))
+
             this.generateDatePicker(
                 this.activePost.published_at ||
                 moment(new Date())

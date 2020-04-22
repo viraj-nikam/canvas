@@ -2,7 +2,6 @@
 
 namespace Canvas\Http\Controllers;
 
-use Canvas\Helpers;
 use Canvas\Topic;
 use Exception;
 use Illuminate\Http\JsonResponse;
@@ -12,8 +11,6 @@ use Ramsey\Uuid\Uuid;
 
 class TopicController extends Controller
 {
-    use Helpers;
-
     /**
      * Display a listing of the resource.
      *
@@ -38,7 +35,7 @@ class TopicController extends Controller
      */
     public function show($id): JsonResponse
     {
-        if ($this->isFresh($id)) {
+        if (is_fresh($id)) {
             return response()->json(Topic::make([
                 'id' => Uuid::uuid4()->toString(),
             ]), 200);

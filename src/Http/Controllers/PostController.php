@@ -2,7 +2,6 @@
 
 namespace Canvas\Http\Controllers;
 
-use Canvas\Helpers;
 use Canvas\Post;
 use Canvas\Tag;
 use Canvas\Topic;
@@ -14,8 +13,6 @@ use Ramsey\Uuid\Uuid;
 
 class PostController extends Controller
 {
-    use Helpers;
-
     /**
      * Display a listing of the resource.
      *
@@ -55,7 +52,7 @@ class PostController extends Controller
      */
     public function show($id): JsonResponse
     {
-        if ($this->isFresh($id)) {
+        if (is_fresh($id)) {
             $uuid = Uuid::uuid4();
 
             return response()->json([

@@ -1,16 +1,13 @@
 <?php
 
-namespace Canvas;
-
-trait Helpers
-{
+if (!function_exists('is_fresh')) {
     /**
      * Return true if the given ID is for a new resource.
      *
      * @param string $id
      * @return bool
      */
-    public function isFresh(string $id): bool
+    function is_fresh(string $id): bool
     {
         return $id === 'create';
     }
