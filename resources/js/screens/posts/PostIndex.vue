@@ -13,7 +13,7 @@
                 <div class="d-flex justify-content-between my-3">
                     <h1>{{ trans.app.posts_simple }}</h1>
 
-                    <select name="" id="" v-model="type" @change="changeType" class="my-auto ml-auto w-auto bg-transparent custom-select border-0">
+                    <select name="" id="" v-model="type" @change="changeType" :class="!Canvas.darkMode ? 'bg-light': 'bg-darker'" class="my-auto ml-auto w-auto custom-select border-0">
                         <option value="published">{{ trans.app.published }} ({{ publishedCount }})</option>
                         <option value="draft">{{ trans.app.draft }} ({{ draftCount }})</option>
                     </select>

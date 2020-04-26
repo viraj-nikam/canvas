@@ -126,9 +126,6 @@
         },
 
         mounted() {
-            console.log(this.activePost.published_at)
-            console.log(moment(new Date()).format().slice(0, 19).replace('T', ' '))
-
             this.generateDatePicker(
                 this.activePost.published_at ||
                 moment(new Date())
@@ -170,14 +167,14 @@
 
         methods: {
             generateDatePicker(val) {
-                let date = moment(val + ' Z').utc()
+                let date = new Date(val)
 
                 this.components = {
-                    month: date.format('MM'),
-                    day: date.format('DD'),
-                    year: date.format('YYYY'),
-                    hour: date.format('HH'),
-                    minute: date.format('mm'),
+                    month: date.getMonth(),
+                    day: date.getDay(),
+                    year: date.getFullYear(),
+                    hour: date.getHours(),
+                    minute: date.getMinutes(),
                 }
             },
 
