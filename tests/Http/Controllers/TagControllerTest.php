@@ -125,11 +125,15 @@ class TagControllerTest extends TestCase
              ->assertJsonExactFragment($user->id, 'user_id');
 
         // Update an existing tag...
-        $tag = factory(Tag::class)->create();
+        $tag = factory(Tag::class)->create([
+            'name' => 'Another tag',
+            'slug' => 'another-tag',
+            'user_id' => $user->id,
+        ]);
 
         $data = [
-            'name' => 'A new tag',
-            'slug' => 'a-new-tag',
+            'name' => 'An updated tag',
+            'slug' => 'an-updated-tag',
         ];
 
         $this->actingAs($tag->user)

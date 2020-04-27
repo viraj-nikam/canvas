@@ -122,11 +122,15 @@ class TopicControllerTest extends TestCase
              ->assertJsonExactFragment($user->id, 'user_id');
 
         // Update an existing topic...
-        $topic = factory(Topic::class)->create();
+        $topic = factory(Topic::class)->create([
+            'name' => 'Another topic',
+            'slug' => 'another-topic',
+            'user_id' => $user->id,
+        ]);
 
         $data = [
-            'name' => 'A new topic',
-            'slug' => 'a-new-topic',
+            'name' => 'An updated topic',
+            'slug' => 'an-updated-topic',
         ];
 
         $this->actingAs($topic->user)

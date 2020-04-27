@@ -34,6 +34,7 @@ class TopicTest extends TestCase
 
         $topic_1 = factory(Topic::class)->create();
         $response = $this->actingAs($topic_1->user)->postJson("/canvas/api/topics/{$topic_1->id}", $data);
+
         $this->assertDatabaseHas('canvas_topics', [
             'id' => $response->decodeResponseJson('id'),
             'slug' => $response->decodeResponseJson('slug'),
@@ -42,6 +43,7 @@ class TopicTest extends TestCase
 
         $topic_2 = factory(Topic::class)->create();
         $response = $this->actingAs($topic_2->user)->postJson("/canvas/api/topics/{$topic_2->id}", $data);
+
         $this->assertDatabaseHas('canvas_topics', [
             'id' => $response->decodeResponseJson('id'),
             'slug' => $response->decodeResponseJson('slug'),
