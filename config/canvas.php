@@ -1,6 +1,7 @@
 <?php
 
 return [
+    
     /*
     |--------------------------------------------------------------------------
     | Base Domain
@@ -8,6 +9,7 @@ return [
     |
     | This is the domain where Canvas will be accessible from. You are free to
     | to change this domain to a sub-domain you like.
+    |
     */
     
     'domain' => env('CANVAS_PATH_DOMAIN', env('APP_URL')),
