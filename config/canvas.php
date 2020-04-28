@@ -10,7 +10,6 @@ return [
     | to change this domain to a sub-domain you like.
     |
     */
-    
     'domain' => env('CANVAS_PATH_DOMAIN', env('APP_URL')),
 
     /*
