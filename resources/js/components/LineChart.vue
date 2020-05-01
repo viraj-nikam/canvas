@@ -88,7 +88,7 @@ export default {
                     intersect: false,
                     position: "nearest",
                     callbacks: {
-                        label: function (tooltipItem, data) {
+                        label: function (tooltipItem) {
                             if (tooltipItem.datasetIndex === 0) {
                                 return ref.uniqueVisitorLabel(
                                     tooltipItem.value
@@ -97,7 +97,7 @@ export default {
                                 return ref.viewLabel(tooltipItem.value);
                             }
                         },
-                        labelTextColor: function (tooltipItem, data) {
+                        labelTextColor: function (tooltipItem) {
                             if (tooltipItem.datasetIndex === 0) {
                                 return "rgb(84, 175, 204)";
                             } else if (tooltipItem.datasetIndex === 1) {
@@ -136,7 +136,7 @@ export default {
                                 display: true,
                                 autoSkip: true,
                                 maxTicksLimit: 8,
-                                callback: function (value, index, values) {
+                                callback: function (value) {
                                     return moment(value, "YYYY-MM-DD").format(
                                         "MMM Do"
                                     );
@@ -158,7 +158,7 @@ export default {
         createChart(chartId, chartData) {
             const ctx = document.getElementById(chartId);
 
-            const myChart = new Chart(ctx, {
+            new Chart(ctx, {
                 type: chartData.type,
                 data: chartData.data,
                 options: chartData.options,

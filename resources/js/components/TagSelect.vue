@@ -51,7 +51,7 @@ export default {
     },
 
     methods: {
-        onChange(value, id) {
+        onChange(value) {
             this.$store.dispatch("setPostTags", value);
 
             this.update();
@@ -61,7 +61,7 @@ export default {
             const tag = {
                 name: searchQuery,
                 slug: this.slugify(searchQuery),
-                user_id: Canvas.user.id,
+                user_id: window.Canvas.user.id,
             };
 
             this.options.push(tag);

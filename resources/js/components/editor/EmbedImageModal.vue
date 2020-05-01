@@ -163,7 +163,7 @@
                                 <input
                                     type="text"
                                     :class="
-                                        !Canvas.darkMode
+                                        !window.Canvas.darkMode
                                             ? 'bg-light'
                                             : 'bg-darker'
                                     "
@@ -189,7 +189,7 @@
                                 >
                                 <select
                                     :class="
-                                        !Canvas.darkMode
+                                        !window.Canvas.darkMode
                                             ? 'bg-light'
                                             : 'bg-darker'
                                     "
@@ -257,7 +257,7 @@ export default {
         return {
             isReadyToAcceptUploads: true,
             searchKeyword: "",
-            unsplashKey: Canvas.unsplash,
+            unsplashKey: window.Canvas.unsplash,
             unsplashPage: 1,
             unsplashPerPage: 12,
             unsplashImages: [],
@@ -269,8 +269,8 @@ export default {
             selectedImageLayout: "default",
             selectedImageCaption: "",
             galleryModalClasses: ["modal-xl", "modal-dialog-scrollable"],
-            maxUploadFilesize: Canvas.maxUpload,
-            path: Canvas.path,
+            maxUploadFilesize: window.Canvas.maxUpload,
+            path: window.Canvas.path,
             trans: JSON.parse(window.Canvas.translations),
         };
     },

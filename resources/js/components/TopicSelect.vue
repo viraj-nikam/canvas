@@ -24,7 +24,7 @@ export default {
             required: false,
         },
         assigned: {
-            type: Object | Array,
+            type: [Object, Array],
             required: false,
         },
     },
@@ -51,7 +51,7 @@ export default {
     },
 
     methods: {
-        onChange(value, id) {
+        onChange(value) {
             this.$store.dispatch("setPostTopic", value);
 
             this.update();
@@ -68,7 +68,7 @@ export default {
             this.value = {
                 name: topic.name,
                 slug: topic.slug,
-                user_id: Canvas.user.id,
+                user_id: window.Canvas.user.id,
             };
 
             this.$store.dispatch("setPostTopic", this.value);

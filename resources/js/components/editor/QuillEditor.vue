@@ -352,8 +352,8 @@ export default {
                 tweets[i].removeChild(tweets[i].firstChild);
             }
 
-            twttr.widgets.createTweet(tweets[i].dataset.id, tweets[i], {
-                theme: !Canvas.darkMode ? "light" : "dark",
+            window.twttr.widgets.createTweet(tweets[i].dataset.id, tweets[i], {
+                theme: !window.Canvas.darkMode ? "light" : "dark",
             });
         }
 
@@ -364,7 +364,7 @@ export default {
     computed: mapState(["activePost"]),
 
     watch: {
-        "activePost.body"(val) {
+        "activePost.body"() {
             this.update();
         },
     },
@@ -410,7 +410,7 @@ export default {
         handleEditorValue() {
             this.editor.root.innerHTML = this.$store.getters.activePost.body;
 
-            this.editor.on("text-change", (delta, oldContents, source) => {
+            this.editor.on("text-change", () => {
                 this.controlIsActive = false;
                 this.$store.dispatch(
                     "updatePostBody",
@@ -459,7 +459,7 @@ export default {
                 if (range == null) return;
 
                 if (range.length === 0) {
-                    let [block, offset] = this.editor.scroll.descendant(
+                    let [block] = this.editor.scroll.descendant(
                         Block,
                         range.index
                     );
@@ -617,7 +617,7 @@ export default {
             this.editor.setSelection(range.index + 2, Quill.sources.SILENT);
         },
 
-        update: debounce(function (e) {
+        update: debounce(function () {
             this.$parent.save();
         }, 3000),
     },

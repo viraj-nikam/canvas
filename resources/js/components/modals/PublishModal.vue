@@ -9,7 +9,7 @@
                     <p class="text-secondary text-center text-lg-left">
                         {{ trans.app.post_scheduling_format }}
                         <span class="font-weight-bold">{{
-                            Canvas.timezone
+                            window.Canvas.timezone
                         }}</span>
                         {{ trans.app.timezone }}. (m/d/y h:m)
                     </p>
@@ -21,7 +21,7 @@
                             <div class="d-flex align-items-center">
                                 <select
                                     :class="
-                                        !Canvas.darkMode
+                                        !window.Canvas.darkMode
                                             ? 'bg-light'
                                             : 'bg-darker'
                                     "
@@ -35,6 +35,7 @@
                                                 String(i + 1).padStart(2, '0')
                                         )"
                                         :value="value"
+                                        v-bind:key="value"
                                     >
                                         {{ value }}
                                     </option>
@@ -43,7 +44,7 @@
                                 <span class="px-1">/</span>
                                 <select
                                     :class="
-                                        !Canvas.darkMode
+                                        !window.Canvas.darkMode
                                             ? 'bg-light'
                                             : 'bg-darker'
                                     "
@@ -57,6 +58,7 @@
                                                 String(i + 1).padStart(2, '0')
                                         )"
                                         :value="value"
+                                        v-bind:key="value"
                                     >
                                         {{ value }}
                                     </option>
@@ -65,7 +67,7 @@
                                 <span class="px-1">/</span>
                                 <select
                                     :class="
-                                        !Canvas.darkMode
+                                        !window.Canvas.darkMode
                                             ? 'bg-light'
                                             : 'bg-darker'
                                     "
@@ -81,6 +83,7 @@
                                                 10
                                         )"
                                         :value="value"
+                                        v-bind:key="value"
                                     >
                                         {{ value }}
                                     </option>
@@ -93,7 +96,7 @@
                             <div class="d-flex align-items-center">
                                 <select
                                     :class="
-                                        !Canvas.darkMode
+                                        !window.Canvas.darkMode
                                             ? 'bg-light'
                                             : 'bg-darker'
                                     "
@@ -106,6 +109,7 @@
                                             (_, i) => String(i).padStart(2, '0')
                                         )"
                                         :value="value"
+                                        v-bind:key="value"
                                     >
                                         {{ value }}
                                     </option>
@@ -114,7 +118,7 @@
                                 <span class="px-1">:</span>
                                 <select
                                     :class="
-                                        !Canvas.darkMode
+                                        !window.Canvas.darkMode
                                             ? 'bg-light'
                                             : 'bg-darker'
                                     "
@@ -127,6 +131,7 @@
                                             (_, i) => String(i).padStart(2, '0')
                                         )"
                                         :value="value"
+                                        v-bind:key="value"
                                     >
                                         {{ value }}
                                     </option>
