@@ -59,11 +59,7 @@
                                             >
                                             <span class="mr-3"
                                                 >{{ trans.app.created }}
-                                                {{
-                                                    moment(topic.created_at)
-                                                        .locale(Canvas.locale)
-                                                        .fromNow()
-                                                }}</span
+                                                {{ topic.created_at }}</span
                                             >
                                         </div>
 

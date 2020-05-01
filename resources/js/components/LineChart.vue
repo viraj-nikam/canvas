@@ -1,22 +1,13 @@
 <template>
-    <div style="height: 300px;">
-        <canvas id="stats" />
-    </div>
+    <canvas id="stats"></canvas>
 </template>
 
 <script>
-import Vue from "vue";
-import moment from "moment";
 import Chart from "chart.js";
-
-Vue.prototype.moment = moment;
+import parse from "date-fns/parse";
 
 export default {
     name: "line-chart",
-
-    components: {
-        Chart,
-    },
 
     props: {
         views: {
@@ -36,7 +27,7 @@ export default {
         };
     },
 
-    mounted() {
+    created() {
         let ref = this;
         let chartData = {
             type: "line",
@@ -105,10 +96,7 @@ export default {
                             }
                         },
                         title: function (tooltipItem) {
-                            return moment(
-                                tooltipItem[0].label,
-                                "YYYY-MM-DD"
-                            ).format("dddd, MMMM Do YYYY");
+                            return this.titleDate(tooltipItem[0].label);
                         },
                     },
                 },
@@ -137,9 +125,7 @@ export default {
                                 autoSkip: true,
                                 maxTicksLimit: 8,
                                 callback: function (value) {
-                                    return moment(value, "YYYY-MM-DD").format(
-                                        "MMM Do"
-                                    );
+                                    return this.tickDate(value);
                                 },
                             },
                             gridLines: {
@@ -180,6 +166,20 @@ export default {
                 return value + " " + this.trans.app.unique_visits;
             }
         },
+
+        titleDate(date) {
+            return parse(date, "dddd, MMMM Do YYYY", new Date());
+        },
+
+        tickDate(date) {
+            return parse(date, "MMM Do", new Date());
+        },
     },
 };
 </script>
+
+<style lang="scss" scoped>
+#stats {
+    height: 300px;
+}
+</style>

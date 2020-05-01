@@ -145,17 +145,9 @@
                         v-if="isScheduled(this.activePost.published_at)"
                     >
                         {{ trans.app.your_post_will_publish_at }}
-                        {{
-                            moment(this.activePost.published_at).format(
-                                "h:mm A"
-                            )
-                        }}
+                        {{ this.activePost.published_at }}
                         {{ trans.app.on }}
-                        {{
-                            moment(this.activePost.published_at).format(
-                                "MMMM DD, YYYY"
-                            )
-                        }}.
+                        {{ this.activePost.published_at }}.
                     </p>
                 </div>
                 <div class="modal-footer">
@@ -209,7 +201,7 @@
 </template>
 
 <script>
-import moment from "moment";
+import isBefore from "date-fns/isBefore";
 import { mapState } from "vuex";
 
 export default {
@@ -233,17 +225,12 @@ export default {
         ...mapState(["activePost"]),
 
         shouldPublish() {
-            return moment(this.result).isBefore(
-                moment(new Date()).format().slice(0, 19).replace("T", " ")
-            );
+            return isBefore(new Date(this.result), new Date());
         },
     },
 
     mounted() {
-        this.generateDatePicker(
-            this.activePost.published_at ||
-                moment(new Date()).format().slice(0, 19).replace("T", " ")
-        );
+        this.generateDatePicker(this.activePost.published_at || new Date());
     },
 
     watch: {
@@ -267,12 +254,6 @@ export default {
             },
 
             deep: true,
-        },
-    },
-
-    filters: {
-        moment: function (date) {
-            return moment.tz(date).format("YYYY-MM-DD hh:mm:ss");
         },
     },
 

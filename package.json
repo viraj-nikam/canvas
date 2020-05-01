@@ -1,20 +1,17 @@
 {
     "private": true,
     "scripts": {
-        "dev": "npm run development",
-        "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
+        "dev": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
         "lint": "eslint --ext .js,.vue resources/js/",
         "lint-fix": "eslint --ext .js,.vue resources/js/ --fix",
-        "prod": "npm run production",
-        "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "watch": "npm run development -- --watch",
-        "watch-poll": "npm run watch -- --watch-poll"
+        "prod": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+        "watch": "npm run dev -- --watch"
     },
     "dependencies": {
         "axios": "^0.19.0",
         "bootstrap": "^4.4.0",
         "chart.js": "^2.9.3",
+        "cross-env": "^7.0.2",
         "date-fns": "^2.12.0",
         "filepond": "^4.13.5",
         "filepond-plugin-file-validate-size": "^2.2.0",
@@ -26,8 +23,6 @@
         "laravel-mix": "^5.0",
         "lodash": "^4.17.5",
         "md5": "^2.2.1",
-        "moment": "^2.24.0",
-        "moment-timezone": "^0.5.27",
         "nprogress": "^0.2.0",
         "numeral": "^2.0.6",
         "parchment": "^1.1.4",

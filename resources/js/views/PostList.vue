@@ -75,11 +75,7 @@
                                                 "
                                             >
                                                 {{ trans.app.published }}
-                                                {{
-                                                    moment(post.published_at)
-                                                        .locale(Canvas.locale)
-                                                        .fromNow()
-                                                }}
+                                                {{ post.published_at }}
                                             </span>
 
                                             <span
@@ -106,11 +102,7 @@
                                             >
 
                                             ― {{ trans.app.updated }}
-                                            {{
-                                                moment(post.updated_at)
-                                                    .locale(Canvas.locale)
-                                                    .fromNow()
-                                            }}
+                                            {{ post.updated_at }}
                                         </p>
                                     </div>
                                     <div class="ml-auto d-none d-lg-block pl-3">

@@ -114,15 +114,7 @@
                                                 <p class="text-secondary mb-2">
                                                     {{ post.read_time }} ―
                                                     {{ trans.app.published }}
-                                                    {{
-                                                        moment(
-                                                            post.published_at
-                                                        )
-                                                            .locale(
-                                                                Canvas.locale
-                                                            )
-                                                            .fromNow()
-                                                    }}
+                                                    {{ post.published_at }}
                                                 </p>
                                             </div>
                                             <div
@@ -138,13 +130,7 @@
                                                 >
                                                 <span class="mr-3"
                                                     >{{ trans.app.created }}
-                                                    {{
-                                                        moment(post.created_at)
-                                                            .locale(
-                                                                Canvas.locale
-                                                            )
-                                                            .fromNow()
-                                                    }}</span
+                                                    {{ post.created_at }}</span
                                                 >
                                             </div>
 
