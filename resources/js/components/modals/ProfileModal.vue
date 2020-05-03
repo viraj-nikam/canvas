@@ -1,24 +1,11 @@
 <template>
-    <div
-        class="modal fade"
-        id="profileModal"
-        tabindex="-1"
-        role="dialog"
-        aria-hidden="true"
-    >
+    <div class="modal fade" id="profileModal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <div
-                    class="modal-header d-flex align-items-center justify-content-between border-0"
-                >
+                <div class="modal-header d-flex align-items-center justify-content-between border-0">
                     <h4 class="modal-title">{{ user.name }}</h4>
 
-                    <button
-                        type="button"
-                        class="close"
-                        data-dismiss="modal"
-                        aria-label="Close"
-                    >
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 24 24"
@@ -91,43 +78,31 @@
                             </svg>
                         </button>
 
-                        <img
-                            :src="avatar"
-                            class="w-50 rounded-circle shadow-inner h-100"
-                        />
+                        <img :src="avatar" class="w-50 rounded-circle shadow-inner h-100" />
                     </div>
 
                     <div class="form-group row mt-3">
                         <div class="col-12">
-                            <label
-                                class="font-weight-bold text-uppercase text-muted small"
-                            >
+                            <label class="font-weight-bold text-uppercase text-muted small">
                                 {{ trans.app.username }}
                             </label>
                             <input
                                 name="username"
                                 type="text"
-                                :class="
-                                    !Canvas.darkMode ? 'bg-light' : 'bg-darker'
-                                "
+                                :class="!Canvas.darkMode ? 'bg-light' : 'bg-darker'"
                                 class="form-control border-0"
                                 title="Username"
                                 v-model="username"
                                 placeholder="Choose a username..."
                             />
-                            <div
-                                v-if="form.errors.username"
-                                class="invalid-feedback d-block"
-                            >
+                            <div v-if="form.errors.username" class="invalid-feedback d-block">
                                 <strong>{{ form.errors.username[0] }}</strong>
                             </div>
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-12">
-                            <label
-                                class="font-weight-bold text-uppercase text-muted small"
-                            >
+                            <label class="font-weight-bold text-uppercase text-muted small">
                                 {{ trans.app.summary }}
                             </label>
                             <textarea
@@ -135,9 +110,7 @@
                                 id="summary"
                                 name="summary"
                                 style="resize: none;"
-                                :class="
-                                    !Canvas.darkMode ? 'bg-light' : 'bg-darker'
-                                "
+                                :class="!Canvas.darkMode ? 'bg-light' : 'bg-darker'"
                                 class="form-control border-0"
                                 v-model="summary"
                                 :placeholder="trans.app.tell_us_about_yourself"
@@ -175,15 +148,15 @@
 </template>
 
 <script>
-import vueFilePond from "vue-filepond";
-import isEmpty from "lodash/isEmpty";
-import "filepond/dist/filepond.min.css";
-import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css";
-import FilePondPluginImageValidateSize from "filepond-plugin-image-validate-size";
-import FilePondPluginFileValidateType from "filepond-plugin-file-validate-type";
-import FilePondPluginImagePreview from "filepond-plugin-image-preview";
-import FilePondPluginImageExifOrientation from "filepond-plugin-image-exif-orientation";
-import FilePondPluginFileValidateSize from "filepond-plugin-file-validate-size";
+import vueFilePond from 'vue-filepond';
+import isEmpty from 'lodash/isEmpty';
+import 'filepond/dist/filepond.min.css';
+import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css';
+import FilePondPluginImageValidateSize from 'filepond-plugin-image-validate-size';
+import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
+import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
+import FilePondPluginImageExifOrientation from 'filepond-plugin-image-exif-orientation';
+import FilePondPluginFileValidateSize from 'filepond-plugin-file-validate-size';
 
 const FilePond = vueFilePond(
     FilePondPluginFileValidateType,
@@ -194,7 +167,7 @@ const FilePond = vueFilePond(
 );
 
 export default {
-    name: "profile-modal",
+    name: 'profile-modal',
 
     props: {
         form: {
@@ -222,7 +195,7 @@ export default {
     },
 
     mounted() {
-        this.$parent.$on("openingProfileModal", (data) => {
+        this.$parent.$on('openingProfileModal', (data) => {
             if (!isEmpty(data)) {
                 this.trans = data.trans;
             }
@@ -232,9 +205,7 @@ export default {
     methods: {
         processedFromFilePond() {
             this.isReadyToAcceptUploads = true;
-            this.avatar = document.getElementsByName(
-                "profileImagePond"
-            )[0].value;
+            this.avatar = document.getElementsByName('profileImagePond')[0].value;
         },
 
         removedFromFilePond() {
@@ -254,7 +225,7 @@ export default {
                 avatar: this.avatar,
             };
 
-            this.$root.$emit("updateAvatar", this.avatar);
+            this.$root.$emit('updateAvatar', this.avatar);
             this.$parent.saveData(data, true);
         },
 
@@ -269,7 +240,7 @@ export default {
             return {
                 url: this.mediaUploadPath(),
                 headers: {
-                    "X-CSRF-TOKEN": this.getToken(),
+                    'X-CSRF-TOKEN': this.getToken(),
                 },
             };
         },

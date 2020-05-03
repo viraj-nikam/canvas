@@ -27,18 +27,13 @@
                                 <div
                                     class="card-header pb-0 bg-transparent d-flex justify-content-between align-middle border-0"
                                 >
-                                    <p
-                                        class="font-weight-bold text-muted small text-uppercase"
-                                    >
+                                    <p class="font-weight-bold text-muted small text-uppercase">
                                         {{ trans.app.views }}
                                     </p>
                                     <p>
-                                        <span
-                                            class="badge badge-pill badge-success p-2 font-weight-bold"
-                                            >{{
-                                                trans.app.last_thirty_days
-                                            }}</span
-                                        >
+                                        <span class="badge badge-pill badge-success p-2 font-weight-bold">{{
+                                            trans.app.last_thirty_days
+                                        }}</span>
                                     </p>
                                 </div>
                                 <div class="card-body pt-0 pb-2">
@@ -51,15 +46,11 @@
                                 <div
                                     class="card-header pb-0 bg-transparent d-flex justify-content-between align-middle border-0"
                                 >
-                                    <p
-                                        class="font-weight-bold text-muted small text-uppercase"
-                                    >
+                                    <p class="font-weight-bold text-muted small text-uppercase">
                                         {{ trans.app.visitors }}
                                     </p>
                                     <p>
-                                        <span
-                                            class="badge badge-pill badge-primary p-2 font-weight-bold"
-                                        >
+                                        <span class="badge badge-pill badge-primary p-2 font-weight-bold">
                                             {{ trans.app.last_thirty_days }}
                                         </span>
                                     </p>
@@ -72,18 +63,11 @@
                             </div>
                         </div>
 
-                        <!--                        <line-chart-->
-                        <!--                            :views="JSON.parse(viewTrend)"-->
-                        <!--                            :visits="JSON.parse(visitTrend)"-->
-                        <!--                            class="mt-5"-->
-                        <!--                        />-->
+                        <line-chart :views="JSON.parse(viewTrend)" :visits="JSON.parse(visitTrend)" class="mt-5" />
 
                         <div class="mt-5 card shadow border-0">
                             <div class="card-body p-0">
-                                <div
-                                    v-for="(post, index) in posts"
-                                    :key="index"
-                                >
+                                <div v-for="(post, index) in posts" :key="index">
                                     <router-link
                                         :to="{
                                             name: 'post-stats',
@@ -97,50 +81,27 @@
                                             :class="{
                                                 'border-top': index !== 0,
                                                 'rounded-top': index === 0,
-                                                'rounded-bottom':
-                                                    index === posts.length - 1,
+                                                'rounded-bottom': index === posts.length - 1,
                                             }"
                                         >
                                             <div class="mr-auto pl-2">
                                                 <p class="mb-1 mt-2">
-                                                    <span
-                                                        class="font-weight-bold text-lg lead"
-                                                    >
-                                                        {{
-                                                            trimmedTitle(
-                                                                post.title
-                                                            )
-                                                        }}
+                                                    <span class="font-weight-bold text-lg lead">
+                                                        {{ trimmedTitle(post.title) }}
                                                     </span>
                                                 </p>
                                                 <p class="text-secondary mb-2">
                                                     {{ post.read_time }} ―
                                                     {{ trans.app.published }}
-                                                    {{
-                                                        timeFromNow(
-                                                            post.published_at
-                                                        )
-                                                    }}
+                                                    {{ timeFromNow(post.published_at) }}
                                                 </p>
                                             </div>
-                                            <div
-                                                class="ml-auto d-none d-lg-block"
-                                            >
+                                            <div class="ml-auto d-none d-lg-block">
                                                 <span class="text-muted mr-3"
-                                                    >{{
-                                                        formatCount(
-                                                            post.views_count
-                                                        )
-                                                    }}
-                                                    {{ trans.app.views }}</span
+                                                    >{{ formatCount(post.views_count) }} {{ trans.app.views }}</span
                                                 >
                                                 <span class="mr-3"
-                                                    >{{ trans.app.created }}
-                                                    {{
-                                                        timeFromNow(
-                                                            post.created_at
-                                                        )
-                                                    }}</span
+                                                    >{{ trans.app.created }} {{ timeFromNow(post.created_at) }}</span
                                                 >
                                             </div>
 
@@ -150,12 +111,7 @@
                                                 viewBox="0 0 24 24"
                                                 class="icon-cheveron-right-circle"
                                             >
-                                                <circle
-                                                    cx="12"
-                                                    cy="12"
-                                                    r="10"
-                                                    style="fill: none;"
-                                                />
+                                                <circle cx="12" cy="12" r="10" style="fill: none;" />
                                                 <path
                                                     class="primary"
                                                     d="M10.3 8.7a1 1 0 0 1 1.4-1.4l4 4a1 1 0 0 1 0 1.4l-4 4a1 1 0 0 1-1.4-1.4l3.29-3.3-3.3-3.3z"
@@ -165,10 +121,7 @@
                                     </router-link>
                                 </div>
 
-                                <infinite-loading
-                                    @infinite="fetchPosts"
-                                    spinner="spiral"
-                                >
+                                <infinite-loading @infinite="fetchPosts" spinner="spiral">
                                     <span slot="no-more"></span>
                                     <div slot="no-results"></div>
                                 </infinite-loading>
@@ -195,18 +148,18 @@
 </template>
 
 <script>
-import NProgress from "nprogress";
-import isEmpty from "lodash/isEmpty";
-import InfiniteLoading from "vue-infinite-loading";
-import Hover from "../directives/Hover";
-import LineChart from "../components/LineChart";
-import { suffixedNumber, trim } from "../utils/strings";
-import formatDistance from "date-fns/formatDistance";
-import request from "../utils/request";
-import PageHeader from "../components/PageHeader";
+import NProgress from 'nprogress';
+import isEmpty from 'lodash/isEmpty';
+import InfiniteLoading from 'vue-infinite-loading';
+import Hover from '../directives/Hover';
+import LineChart from '../components/LineChart';
+import { suffixedNumber, trim } from '../utils/strings';
+import formatDistance from 'date-fns/formatDistance';
+import request from '../utils/request';
+import PageHeader from '../components/PageHeader';
 
 export default {
-    name: "all-stats",
+    name: 'all-stats',
 
     components: {
         LineChart,
@@ -239,7 +192,7 @@ export default {
     methods: {
         fetchStats() {
             request
-                .get("/api/stats")
+                .get('/api/stats')
                 .then((response) => {
                     this.viewCount = response.data.view_count;
                     this.viewTrend = response.data.view_trend;
@@ -256,17 +209,14 @@ export default {
 
         fetchPosts($state) {
             request
-                .get("/api/posts", {
+                .get('/api/posts', {
                     params: {
                         page: this.page,
-                        type: "published",
+                        type: 'published',
                     },
                 })
                 .then((response) => {
-                    if (
-                        !isEmpty(response.data) &&
-                        !isEmpty(response.data.posts.data)
-                    ) {
+                    if (!isEmpty(response.data) && !isEmpty(response.data.posts.data)) {
                         this.page += 1;
                         this.posts.push(...response.data.posts.data);
 
@@ -298,7 +248,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "../../sass/utilities/variables";
+@import '../../sass/utilities/variables';
 
 .badge-success {
     background-color: $green-500;

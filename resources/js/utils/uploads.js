@@ -1,5 +1,5 @@
 const uploadPath = () => {
-    return "/" + window.Canvas.path + "/api/media/uploads";
+    return '/' + window.Canvas.path + '/api/media/uploads';
 };
 
 export default {

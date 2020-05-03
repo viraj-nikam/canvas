@@ -1,16 +1,16 @@
-import NProgress from "nprogress";
-import router from "./router";
-import Vue from "vue";
+import NProgress from 'nprogress';
+import router from './router';
+import Vue from 'vue';
 
-require("bootstrap");
+require('bootstrap');
 
-window.Popper = require("popper.js").default;
+window.Popper = require('popper.js').default;
 
 Vue.config.productionTip = false;
 
 NProgress.configure({
     showSpinner: false,
-    easing: "ease",
+    easing: 'ease',
     speed: 300,
 });
 
@@ -20,6 +20,6 @@ router.beforeEach((to, from, next) => {
 });
 
 new Vue({
-    el: "#canvas",
+    el: '#canvas',
     router,
 });

@@ -1,16 +1,8 @@
 <template>
-    <div
-        class="modal fade"
-        tabindex="-1"
-        role="dialog"
-        aria-hidden="true"
-        data-backdrop="static"
-    >
+    <div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
         <div class="modal-dialog" ref="modal" role="document">
             <div class="modal-content">
-                <div
-                    class="modal-header d-flex align-items-center justify-content-between border-0"
-                >
+                <div class="modal-header d-flex align-items-center justify-content-between border-0">
                     <h4 class="modal-title">{{ trans.app.embed_content }}</h4>
 
                     <button
@@ -42,14 +34,10 @@
                                 id="embed"
                                 name="embed"
                                 style="resize: none;"
-                                :class="
-                                    !Canvas.darkMode ? 'bg-light' : 'bg-darker'
-                                "
+                                :class="!Canvas.darkMode ? 'bg-light' : 'bg-darker'"
                                 class="form-control border-0"
                                 v-model="content"
-                                :placeholder="
-                                    trans.app.paste_embed_code_to_include
-                                "
+                                :placeholder="trans.app.paste_embed_code_to_include"
                             >
                             </textarea>
                         </div>
@@ -70,10 +58,10 @@
 </template>
 
 <script>
-import isEmpty from "lodash/isEmpty";
+import isEmpty from 'lodash/isEmpty';
 
 export default {
-    name: "embed-content-modal",
+    name: 'embed-content-modal',
 
     data() {
         return {
@@ -84,7 +72,7 @@ export default {
     },
 
     mounted() {
-        this.$parent.$on("openingEmbedContentModal", (data) => {
+        this.$parent.$on('openingEmbedContentModal', (data) => {
             if (!isEmpty(data)) {
                 this.blot = data.existingBlot;
                 this.content = data.content;
@@ -95,14 +83,14 @@ export default {
     methods: {
         clickDone() {
             if (!isEmpty(this.content)) {
-                this.$emit("addingEmbedContent", {
+                this.$emit('addingEmbedContent', {
                     content: this.content,
                     existingBlot: this.blot,
                 });
             }
 
             this.blot = null;
-            this.content = "";
+            this.content = '';
         },
 
         closeModal() {

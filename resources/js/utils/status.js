@@ -1,4 +1,4 @@
-import isEmpty from "lodash/isEmpty";
+import isEmpty from 'lodash/isEmpty';
 
 const isDraft = (date) => {
     return isEmpty(date) || isScheduled(date);

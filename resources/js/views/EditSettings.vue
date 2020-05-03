@@ -5,18 +5,14 @@
                 <ul class="navbar-nav mr-auto flex-row float-right">
                     <li class="text-muted font-weight-bold">
                         <span v-if="form.isSaving">{{ trans.app.saving }}</span>
-                        <span v-if="form.hasSuccess" class="text-success">{{
-                            trans.app.saved
-                        }}</span>
+                        <span v-if="form.hasSuccess" class="text-success">{{ trans.app.saved }}</span>
                     </li>
                 </ul>
             </template>
         </page-header>
 
         <main class="py-4">
-            <div
-                class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12 my-3"
-            >
+            <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12 my-3">
                 <div class="d-flex justify-content-between my-3">
                     <h1>{{ trans.app.your_profile }}</h1>
                 </div>
@@ -65,10 +61,7 @@
                                                 :checked="form.digest"
                                                 v-model="form.digest"
                                             />
-                                            <label
-                                                for="digest"
-                                                class="mb-0 sr-only"
-                                            >
+                                            <label for="digest" class="mb-0 sr-only">
                                                 {{ trans.app.weekly_digest }}
                                             </label>
                                         </span>
@@ -98,10 +91,7 @@
                                                 :checked="form.darkMode"
                                                 v-model="form.darkMode"
                                             />
-                                            <label
-                                                for="darkMode"
-                                                class="mb-0 sr-only"
-                                            >
+                                            <label for="darkMode" class="mb-0 sr-only">
                                                 {{ trans.app.dark_mode }}
                                             </label>
                                         </span>
@@ -116,9 +106,7 @@
                                     {{ trans.app.locale }}
                                 </p>
                                 <p class="mb-1 d-none d-lg-block">
-                                    {{
-                                        trans.app.select_your_language_or_region
-                                    }}
+                                    {{ trans.app.select_your_language_or_region }}
                                 </p>
                             </div>
                             <div class="ml-auto pl-3">
@@ -126,26 +114,17 @@
                                     <div class="form-group row mt-3">
                                         <div class="col-12">
                                             <select
-                                                :class="
-                                                    !window.Canvas.darkMode
-                                                        ? 'bg-light'
-                                                        : 'bg-darker'
-                                                "
+                                                :class="!window.Canvas.darkMode ? 'bg-light' : 'bg-darker'"
                                                 class="custom-select border-0"
                                                 @change="updateLocale"
                                                 v-model="form.locale"
                                                 name="locale"
                                             >
                                                 <option
-                                                    v-for="(locale,
-                                                    code) in window.Canvas
-                                                        .languageCodes"
+                                                    v-for="(locale, code) in window.Canvas.languageCodes"
                                                     :key="code"
                                                     :value="code"
-                                                    :selected="
-                                                        window.Canvas.locale ===
-                                                        code
-                                                    "
+                                                    :selected="window.Canvas.locale === code"
                                                 >
                                                     {{ locale }}
                                                 </option>
@@ -165,13 +144,13 @@
 </template>
 
 <script>
-import $ from "jquery";
-import NProgress from "nprogress";
-import PageHeader from "../components/PageHeader";
-import ProfileModal from "../components/modals/ProfileModal";
+import $ from 'jquery';
+import NProgress from 'nprogress';
+import PageHeader from '../components/PageHeader';
+import ProfileModal from '../components/modals/ProfileModal';
 
 export default {
-    name: "edit-settings",
+    name: 'edit-settings',
 
     components: {
         PageHeader,
@@ -204,7 +183,7 @@ export default {
     methods: {
         fetchData() {
             this.request()
-                .get("/api/settings")
+                .get('/api/settings')
                 .then((response) => {
                     this.form.username = response.data.username;
                     this.form.summary = response.data.summary;
@@ -230,7 +209,7 @@ export default {
             }
 
             this.request()
-                .post("/api/settings", data)
+                .post('/api/settings', data)
                 .then((response) => {
                     if (withNotification) {
                         this.form.isSaving = false;
@@ -265,34 +244,28 @@ export default {
 
         toggleDarkMode() {
             window.Canvas.darkMode = this.form.darkMode;
-            let screen = $("#canvas");
+            let screen = $('#canvas');
             let isDark = this.form.darkMode;
 
             screen.animate(
                 {
                     opacity: 0,
-                    backgroundColor: "rgb(38, 50, 56)",
+                    backgroundColor: 'rgb(38, 50, 56)',
                 },
                 300,
                 function () {
                     // todo: There has to be a better way to swap stylesheets than this
                     if (isDark) {
-                        $("#baseStylesheet").attr(
-                            "href",
-                            "/vendor/canvas/css/app-dark.css"
-                        );
-                        $("#highlightStylesheet").attr(
-                            "href",
-                            "//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.17.1/build/styles/sunburst.min.css"
+                        $('#baseStylesheet').attr('href', '/vendor/canvas/css/app-dark.css');
+                        $('#highlightStylesheet').attr(
+                            'href',
+                            '//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.17.1/build/styles/sunburst.min.css'
                         );
                     } else {
-                        $("#baseStylesheet").attr(
-                            "href",
-                            "/vendor/canvas/css/app.css"
-                        );
-                        $("#highlightStylesheet").attr(
-                            "href",
-                            "//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.17.1/build/styles/github.min.css"
+                        $('#baseStylesheet').attr('href', '/vendor/canvas/css/app.css');
+                        $('#highlightStylesheet').attr(
+                            'href',
+                            '//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.17.1/build/styles/github.min.css'
                         );
                     }
                 }
@@ -301,7 +274,7 @@ export default {
             screen.animate(
                 {
                     opacity: 1,
-                    backgroundColor: "rgb(38, 50, 56)",
+                    backgroundColor: 'rgb(38, 50, 56)',
                 },
                 300,
                 function () {
@@ -318,18 +291,16 @@ export default {
         },
 
         showProfileModal() {
-            this.$emit("openingProfileModal", { trans: this.trans });
-            $(this.$refs.profileModal.$el).modal("show");
+            this.$emit('openingProfileModal', { trans: this.trans });
+            $(this.$refs.profileModal.$el).modal('show');
         },
 
         updateLocale() {
             this.request()
-                .get("/api/locale/" + this.form.locale)
+                .get('/api/locale/' + this.form.locale)
                 .then((response) => {
                     this.trans = response.data;
-                    this.$root.Canvas.translations = JSON.stringify(
-                        response.data
-                    );
+                    this.$root.Canvas.translations = JSON.stringify(response.data);
                     this.$root.Canvas.locale = this.form.locale;
                 })
                 .catch(() => {

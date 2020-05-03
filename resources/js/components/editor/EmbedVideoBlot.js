@@ -1,6 +1,6 @@
-import Quill from "quill";
+import Quill from 'quill';
 
-let BlockEmbed = Quill.import("blots/block/embed");
+let BlockEmbed = Quill.import('blots/block/embed');
 
 /**
  * Supported embeddable link types:
@@ -12,34 +12,28 @@ class EmbedVideoBlot extends BlockEmbed {
         let node = super.create();
         let videoObj = parseVideo(url);
 
-        if (videoObj.type === "youtube") {
-            let iframe = document.createElement("iframe");
+        if (videoObj.type === 'youtube') {
+            let iframe = document.createElement('iframe');
 
-            node.setAttribute("class", "ql-video");
+            node.setAttribute('class', 'ql-video');
 
-            iframe.setAttribute(
-                "src",
-                "//www.youtube.com/embed/" + videoObj.id
-            );
-            iframe.setAttribute("frameborder", 0);
-            iframe.setAttribute("allowfullscreen", true);
+            iframe.setAttribute('src', '//www.youtube.com/embed/' + videoObj.id);
+            iframe.setAttribute('frameborder', 0);
+            iframe.setAttribute('allowfullscreen', true);
 
             node.appendChild(iframe);
-        } else if (videoObj.type === "vimeo") {
-            let iframe = document.createElement("iframe");
+        } else if (videoObj.type === 'vimeo') {
+            let iframe = document.createElement('iframe');
 
-            node.setAttribute("class", "ql-video");
+            node.setAttribute('class', 'ql-video');
 
-            iframe.setAttribute(
-                "src",
-                "//player.vimeo.com/video/" + videoObj.id
-            );
-            iframe.setAttribute("frameborder", 0);
-            iframe.setAttribute("allowfullscreen", true);
+            iframe.setAttribute('src', '//player.vimeo.com/video/' + videoObj.id);
+            iframe.setAttribute('frameborder', 0);
+            iframe.setAttribute('allowfullscreen', true);
 
             node.appendChild(iframe);
         } else {
-            let nodeDefault = document.createElement("p");
+            let nodeDefault = document.createElement('p');
             let textDeafult = document.createTextNode(url);
 
             nodeDefault.appendChild(textDeafult);
@@ -74,7 +68,7 @@ function parseVideo(url) {
         /(http:|https:|)\/\/(player.|www.)?(vimeo\.com|youtu(be\.com|\.be|be\.googleapis\.com))\/(video\/|embed\/|watch\?v=|v\/)?([A-Za-z0-9._%-]*)(&\S+)?/
     );
 
-    let type = RegExp.$3.indexOf("youtu") > -1 ? "youtube" : "vimeo";
+    let type = RegExp.$3.indexOf('youtu') > -1 ? 'youtube' : 'vimeo';
 
     return {
         type: type,
@@ -82,8 +76,8 @@ function parseVideo(url) {
     };
 }
 
-EmbedVideoBlot.tagName = "div";
-EmbedVideoBlot.blotName = "embed-video";
-EmbedVideoBlot.className = "ql-embed-video";
+EmbedVideoBlot.tagName = 'div';
+EmbedVideoBlot.blotName = 'embed-video';
+EmbedVideoBlot.className = 'ql-embed-video';
 
 export default EmbedVideoBlot;

@@ -5,9 +5,7 @@
                 <ul class="navbar-nav mr-auto flex-row float-right">
                     <li class="text-muted font-weight-bold">
                         <span v-if="form.isSaving">{{ trans.app.saving }}</span>
-                        <span v-if="form.hasSuccess" class="text-success">{{
-                            trans.app.saved
-                        }}</span>
+                        <span v-if="form.hasSuccess" class="text-success">{{ trans.app.saved }}</span>
                     </li>
                 </ul>
             </template>
@@ -48,15 +46,8 @@
                             />
                         </svg>
                     </a>
-                    <div
-                        class="dropdown-menu dropdown-menu-right"
-                        aria-labelledby="dropdownMenuButton"
-                    >
-                        <a
-                            href="#"
-                            class="dropdown-item text-danger"
-                            @click="showDeleteModal"
-                        >
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                        <a href="#" class="dropdown-item text-danger" @click="showDeleteModal">
                             {{ trans.app.delete }}
                         </a>
                     </div>
@@ -65,9 +56,7 @@
         </page-header>
 
         <main v-if="isReady" class="py-4" v-cloak>
-            <div
-                class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12 mt-5"
-            >
+            <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12 mt-5">
                 <div class="form-group mb-5">
                     <div class="col-lg-12">
                         <input
@@ -82,10 +71,7 @@
                             :placeholder="trans.app.give_your_topic_a_name"
                         />
 
-                        <div
-                            v-if="form.errors.name"
-                            class="invalid-feedback d-block"
-                        >
+                        <div v-if="form.errors.name" class="invalid-feedback d-block">
                             <strong>{{ form.errors.name[0] }}</strong>
                         </div>
                     </div>
@@ -96,14 +82,9 @@
                             <span v-if="!form.slug" class="text-success">{{
                                 trans.app.give_your_topic_a_name_slug
                             }}</span>
-                            <span v-else class="text-success">{{
-                                form.slug
-                            }}</span>
+                            <span v-else class="text-success">{{ form.slug }}</span>
                         </p>
-                        <div
-                            v-if="form.errors.slug"
-                            class="invalid-feedback d-block"
-                        >
+                        <div v-if="form.errors.slug" class="invalid-feedback d-block">
                             <strong>{{ form.errors.slug[0] }}</strong>
                         </div>
                     </div>
@@ -122,13 +103,13 @@
 </template>
 
 <script>
-import $ from "jquery";
-import NProgress from "nprogress";
-import PageHeader from "../components/PageHeader";
-import DeleteModal from "../components/modals/DeleteModal";
+import $ from 'jquery';
+import NProgress from 'nprogress';
+import PageHeader from '../components/PageHeader';
+import DeleteModal from '../components/modals/DeleteModal';
 
 export default {
-    name: "edit-topic",
+    name: 'edit-topic',
 
     components: {
         PageHeader,
@@ -138,11 +119,11 @@ export default {
     data() {
         return {
             topic: null,
-            id: this.$route.params.id || "create",
+            id: this.$route.params.id || 'create',
             form: {
-                id: "",
-                name: "",
-                slug: "",
+                id: '',
+                name: '',
+                slug: '',
                 errors: [],
                 isSaving: false,
                 hasSuccess: false,
@@ -157,7 +138,7 @@ export default {
     },
 
     watch: {
-        "form.name"(val) {
+        'form.name'(val) {
             this.form.slug = this.slugify(val);
         },
     },
@@ -165,12 +146,12 @@ export default {
     methods: {
         fetchData() {
             this.request()
-                .get("/api/topics/" + this.id)
+                .get('/api/topics/' + this.id)
                 .then((response) => {
                     this.topic = response.data;
                     this.form.id = response.data.id;
 
-                    if (this.id !== "create") {
+                    if (this.id !== 'create') {
                         this.form.name = response.data.name;
                         this.form.slug = response.data.slug;
                     }
@@ -180,7 +161,7 @@ export default {
                     NProgress.done();
                 })
                 .catch(() => {
-                    this.$router.push({ name: "topics" });
+                    this.$router.push({ name: 'topics' });
                 });
         },
 
@@ -190,7 +171,7 @@ export default {
             this.form.hasSuccess = false;
 
             this.request()
-                .post("/api/topics/" + this.id, this.form)
+                .post('/api/topics/' + this.id, this.form)
                 .then((response) => {
                     this.form.isSaving = false;
                     this.form.hasSuccess = true;
@@ -210,17 +191,17 @@ export default {
 
         deleteTopic() {
             this.request()
-                .delete("/api/topics/" + this.id)
+                .delete('/api/topics/' + this.id)
                 .then(() => {
-                    $(this.$refs.deleteModal.$el).modal("hide");
+                    $(this.$refs.deleteModal.$el).modal('hide');
 
-                    this.$router.push({ name: "topics" });
+                    this.$router.push({ name: 'topics' });
                 })
                 .catch(() => {});
         },
 
         showDeleteModal() {
-            $(this.$refs.deleteModal.$el).modal("show");
+            $(this.$refs.deleteModal.$el).modal('show');
         },
     },
 };

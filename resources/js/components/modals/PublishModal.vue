@@ -8,9 +8,7 @@
                     </p>
                     <p class="text-secondary text-center text-lg-left">
                         {{ trans.app.post_scheduling_format }}
-                        <span class="font-weight-bold">{{
-                            window.Canvas.timezone
-                        }}</span>
+                        <span class="font-weight-bold">{{ window.Canvas.timezone }}</span>
                         {{ trans.app.timezone }}. (m/d/y h:m)
                     </p>
 
@@ -20,19 +18,13 @@
                         >
                             <div class="d-flex align-items-center">
                                 <select
-                                    :class="
-                                        !window.Canvas.darkMode
-                                            ? 'bg-light'
-                                            : 'bg-darker'
-                                    "
+                                    :class="!window.Canvas.darkMode ? 'bg-light' : 'bg-darker'"
                                     class="w-auto custom-select custom-select-sm border-0"
                                     v-model="components.month"
                                 >
                                     <option
-                                        v-for="value in Array.from(
-                                            { length: 12 },
-                                            (_, i) =>
-                                                String(i + 1).padStart(2, '0')
+                                        v-for="value in Array.from({ length: 12 }, (_, i) =>
+                                            String(i + 1).padStart(2, '0')
                                         )"
                                         :value="value"
                                         v-bind:key="value"
@@ -43,19 +35,13 @@
 
                                 <span class="px-1">/</span>
                                 <select
-                                    :class="
-                                        !window.Canvas.darkMode
-                                            ? 'bg-light'
-                                            : 'bg-darker'
-                                    "
+                                    :class="!window.Canvas.darkMode ? 'bg-light' : 'bg-darker'"
                                     class="w-auto custom-select custom-select-sm border-0"
                                     v-model="components.day"
                                 >
                                     <option
-                                        v-for="value in Array.from(
-                                            { length: 31 },
-                                            (_, i) =>
-                                                String(i + 1).padStart(2, '0')
+                                        v-for="value in Array.from({ length: 31 }, (_, i) =>
+                                            String(i + 1).padStart(2, '0')
                                         )"
                                         :value="value"
                                         v-bind:key="value"
@@ -66,21 +52,14 @@
 
                                 <span class="px-1">/</span>
                                 <select
-                                    :class="
-                                        !window.Canvas.darkMode
-                                            ? 'bg-light'
-                                            : 'bg-darker'
-                                    "
+                                    :class="!window.Canvas.darkMode ? 'bg-light' : 'bg-darker'"
                                     class="w-auto custom-select custom-select-sm border-0"
                                     v-model="components.year"
                                 >
                                     <option
                                         v-for="value in Array.from(
                                             { length: 15 },
-                                            (_, i) =>
-                                                i +
-                                                new Date().getFullYear() -
-                                                10
+                                            (_, i) => i + new Date().getFullYear() - 10
                                         )"
                                         :value="value"
                                         v-bind:key="value"
@@ -90,23 +69,16 @@
                                 </select>
                             </div>
                         </div>
-                        <div
-                            class="col-sm-6 col-12 pl-sm-0 d-flex justify-content-center justify-content-sm-start"
-                        >
+                        <div class="col-sm-6 col-12 pl-sm-0 d-flex justify-content-center justify-content-sm-start">
                             <div class="d-flex align-items-center">
                                 <select
-                                    :class="
-                                        !window.Canvas.darkMode
-                                            ? 'bg-light'
-                                            : 'bg-darker'
-                                    "
+                                    :class="!window.Canvas.darkMode ? 'bg-light' : 'bg-darker'"
                                     class="w-auto custom-select custom-select-sm border-0"
                                     v-model="components.hour"
                                 >
                                     <option
-                                        v-for="value in Array.from(
-                                            { length: 24 },
-                                            (_, i) => String(i).padStart(2, '0')
+                                        v-for="value in Array.from({ length: 24 }, (_, i) =>
+                                            String(i).padStart(2, '0')
                                         )"
                                         :value="value"
                                         v-bind:key="value"
@@ -117,18 +89,13 @@
 
                                 <span class="px-1">:</span>
                                 <select
-                                    :class="
-                                        !window.Canvas.darkMode
-                                            ? 'bg-light'
-                                            : 'bg-darker'
-                                    "
+                                    :class="!window.Canvas.darkMode ? 'bg-light' : 'bg-darker'"
                                     class="w-auto custom-select custom-select-sm border-0"
                                     v-model="components.minute"
                                 >
                                     <option
-                                        v-for="value in Array.from(
-                                            { length: 60 },
-                                            (_, i) => String(i).padStart(2, '0')
+                                        v-for="value in Array.from({ length: 60 }, (_, i) =>
+                                            String(i).padStart(2, '0')
                                         )"
                                         :value="value"
                                         v-bind:key="value"
@@ -140,10 +107,7 @@
                         </div>
                     </div>
 
-                    <p
-                        class="mt-3 text-success font-italic"
-                        v-if="isScheduled(this.activePost.published_at)"
-                    >
+                    <p class="mt-3 text-success font-italic" v-if="isScheduled(this.activePost.published_at)">
                         {{ trans.app.your_post_will_publish_at }}
                         {{ this.activePost.published_at }}
                         {{ trans.app.on }}
@@ -201,28 +165,28 @@
 </template>
 
 <script>
-import isBefore from "date-fns/isBefore";
-import { mapState } from "vuex";
+import isBefore from 'date-fns/isBefore';
+import { mapState } from 'vuex';
 
 export default {
-    name: "publish-modal",
+    name: 'publish-modal',
 
     data() {
         return {
             components: {
-                day: "",
-                month: "",
-                year: "",
-                hour: "",
-                minute: "",
+                day: '',
+                month: '',
+                year: '',
+                hour: '',
+                minute: '',
             },
-            result: "",
+            result: '',
             trans: JSON.parse(window.Canvas.translations),
         };
     },
 
     computed: {
-        ...mapState(["activePost"]),
+        ...mapState(['activePost']),
 
         shouldPublish() {
             return isBefore(new Date(this.result), new Date());
@@ -242,15 +206,15 @@ export default {
             handler: function () {
                 this.result =
                     this.components.year +
-                    "-" +
+                    '-' +
                     this.components.month +
-                    "-" +
+                    '-' +
                     this.components.day +
-                    " " +
+                    ' ' +
                     this.components.hour +
-                    ":" +
+                    ':' +
                     this.components.minute +
-                    ":00";
+                    ':00';
             },
 
             deep: true,
@@ -283,7 +247,7 @@ export default {
         },
 
         cancelScheduling() {
-            this.activePost.published_at = "";
+            this.activePost.published_at = '';
             this.$parent.save();
         },
     },

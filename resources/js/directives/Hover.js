@@ -7,11 +7,11 @@
  */
 const Hover = {
     bind: function (el, binding) {
-        el.addEventListener("mouseenter", function () {
+        el.addEventListener('mouseenter', function () {
             el.classList.add(binding.value.class);
         });
 
-        el.addEventListener("mouseleave", function () {
+        el.addEventListener('mouseleave', function () {
             el.classList.remove(binding.value.class);
         });
     },

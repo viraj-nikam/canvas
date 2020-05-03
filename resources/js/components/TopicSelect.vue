@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import Multiselect from "vue-multiselect";
+import Multiselect from 'vue-multiselect';
 
 export default {
     props: {
@@ -37,8 +37,8 @@ export default {
         const allTopics = this.topics.map((obj) => {
             let filtered = {};
 
-            filtered["name"] = obj.name;
-            filtered["slug"] = obj.slug;
+            filtered['name'] = obj.name;
+            filtered['slug'] = obj.slug;
 
             return filtered;
         });
@@ -52,7 +52,7 @@ export default {
 
     methods: {
         onChange(value) {
-            this.$store.dispatch("setPostTopic", value);
+            this.$store.dispatch('setPostTopic', value);
 
             this.update();
         },
@@ -71,7 +71,7 @@ export default {
                 user_id: window.Canvas.user.id,
             };
 
-            this.$store.dispatch("setPostTopic", this.value);
+            this.$store.dispatch('setPostTopic', this.value);
 
             this.update();
         },

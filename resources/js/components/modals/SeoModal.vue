@@ -2,17 +2,10 @@
     <div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <div
-                    class="modal-header d-flex align-items-center justify-content-between border-0"
-                >
+                <div class="modal-header d-flex align-items-center justify-content-between border-0">
                     <h4 class="modal-title">{{ trans.app.seo_settings }}</h4>
 
-                    <button
-                        type="button"
-                        class="close"
-                        data-dismiss="modal"
-                        aria-label="Close"
-                    >
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 24 24"
@@ -30,9 +23,7 @@
                 <div class="modal-body">
                     <div class="form-group row">
                         <div class="col-12">
-                            <label
-                                class="font-weight-bold text-uppercase text-muted small"
-                            >
+                            <label class="font-weight-bold text-uppercase text-muted small">
                                 {{ trans.app.meta_title }}
                                 <a
                                     href="#"
@@ -47,12 +38,7 @@
                                         class="icon-refresh"
                                         width="25"
                                     >
-                                        <circle
-                                            cx="12"
-                                            cy="12"
-                                            r="10"
-                                            style="fill: none;"
-                                        />
+                                        <circle cx="12" cy="12" r="10" style="fill: none;" />
                                         <path
                                             class="primary"
                                             d="M8.52 7.11a5.98 5.98 0 0 1 8.98 2.5 1 1 0 1 1-1.83.8 4 4 0 0 0-5.7-1.86l.74.74A1 1 0 0 1 10 11H7a1 1 0 0 1-1-1V7a1 1 0 0 1 1.7-.7l.82.81zm5.51 8.34l-.74-.74A1 1 0 0 1 14 13h3a1 1 0 0 1 1 1v3a1 1 0 0 1-1.7.7l-.82-.81A5.98 5.98 0 0 1 6.5 14.4a1 1 0 1 1 1.83-.8 4 4 0 0 0 5.7 1.85z"
@@ -64,9 +50,7 @@
                                 name="title"
                                 type="text"
                                 @input="update"
-                                :class="
-                                    !Canvas.darkMode ? 'bg-light' : 'bg-darker'
-                                "
+                                :class="!Canvas.darkMode ? 'bg-light' : 'bg-darker'"
                                 class="form-control border-0"
                                 :title="trans.app.meta_title"
                                 v-model="activePost.meta.title"
@@ -76,17 +60,13 @@
                     </div>
                     <div class="form-group row">
                         <div class="col-12">
-                            <label
-                                class="font-weight-bold text-uppercase text-muted small"
-                            >
+                            <label class="font-weight-bold text-uppercase text-muted small">
                                 {{ trans.app.meta_description }}
                                 <a
                                     href="#"
                                     class="text-decoration-none"
                                     v-tooltip="{ placement: 'right' }"
-                                    :title="
-                                        trans.app.sync_with_post_description
-                                    "
+                                    :title="trans.app.sync_with_post_description"
                                     @click.prevent="syncDescription"
                                 >
                                     <svg
@@ -95,12 +75,7 @@
                                         class="icon-refresh"
                                         width="25"
                                     >
-                                        <circle
-                                            cx="12"
-                                            cy="12"
-                                            r="10"
-                                            style="fill: none;"
-                                        />
+                                        <circle cx="12" cy="12" r="10" style="fill: none;" />
                                         <path
                                             class="primary"
                                             d="M8.52 7.11a5.98 5.98 0 0 1 8.98 2.5 1 1 0 1 1-1.83.8 4 4 0 0 0-5.7-1.86l.74.74A1 1 0 0 1 10 11H7a1 1 0 0 1-1-1V7a1 1 0 0 1 1.7-.7l.82.81zm5.51 8.34l-.74-.74A1 1 0 0 1 14 13h3a1 1 0 0 1 1 1v3a1 1 0 0 1-1.7.7l-.82-.81A5.98 5.98 0 0 1 6.5 14.4a1 1 0 1 1 1.83-.8 4 4 0 0 0 5.7 1.85z"
@@ -113,39 +88,29 @@
                                 id="description"
                                 name="description"
                                 style="resize: none;"
-                                :class="
-                                    !Canvas.darkMode ? 'bg-light' : 'bg-darker'
-                                "
+                                :class="!Canvas.darkMode ? 'bg-light' : 'bg-darker'"
                                 class="form-control border-0"
                                 @input="update"
                                 v-model="activePost.meta.description"
-                                :placeholder="
-                                    trans.app.meta_description_placeholder
-                                "
+                                :placeholder="trans.app.meta_description_placeholder"
                             >
                             </textarea>
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-12">
-                            <label
-                                class="font-weight-bold text-uppercase text-muted small"
-                            >
+                            <label class="font-weight-bold text-uppercase text-muted small">
                                 {{ trans.app.canonical_link }}
                             </label>
                             <input
                                 type="text"
                                 @input="update"
-                                :class="
-                                    !Canvas.darkMode ? 'bg-light' : 'bg-darker'
-                                "
+                                :class="!Canvas.darkMode ? 'bg-light' : 'bg-darker'"
                                 class="form-control border-0"
                                 name="canonical_link"
                                 v-model="activePost.meta.canonical_link"
                                 :title="trans.app.canonical_link"
-                                :placeholder="
-                                    trans.app.canonical_link_placeholder
-                                "
+                                :placeholder="trans.app.canonical_link_placeholder"
                             />
                         </div>
                     </div>
@@ -165,12 +130,12 @@
 </template>
 
 <script>
-import debounce from "lodash/debounce";
-import { mapState } from "vuex";
-import Tooltip from "../../directives/Tooltip";
+import debounce from 'lodash/debounce';
+import { mapState } from 'vuex';
+import Tooltip from '../../directives/Tooltip';
 
 export default {
-    name: "seo-modal",
+    name: 'seo-modal',
 
     data() {
         return {
@@ -178,7 +143,7 @@ export default {
         };
     },
 
-    computed: mapState(["activePost"]),
+    computed: mapState(['activePost']),
 
     directives: {
         Tooltip,

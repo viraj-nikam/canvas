@@ -1,4 +1,4 @@
-import $ from "jquery";
+import $ from 'jquery';
 
 /**
  * The Tooltip directive provides simple tooltip functionality using the Bootstrap
@@ -34,8 +34,8 @@ const defaultOptions = {
     html: false,
     placement: top,
     selector: false,
-    title: "",
-    trigger: "hover",
+    title: '',
+    trigger: 'hover',
     offset: 0,
 };
 

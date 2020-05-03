@@ -3,11 +3,11 @@
 </template>
 
 <script>
-import Chart from "chart.js";
-import parse from "date-fns/parse";
+import Chart from 'chart.js';
+import parse from 'date-fns/parse';
 
 export default {
-    name: "line-chart",
+    name: 'line-chart',
 
     props: {
         views: {
@@ -30,22 +30,22 @@ export default {
     mounted() {
         let ref = this;
         let chartData = {
-            type: "line",
+            type: 'line',
             data: {
                 labels: Object.keys(this.views),
                 datasets: [
                     {
                         label: this.trans.app.visits,
                         data: Object.values(this.visits),
-                        backgroundColor: ["rgba(158, 213, 237, 0.5)"],
-                        borderColor: ["rgb(84, 175, 204)"],
+                        backgroundColor: ['rgba(158, 213, 237, 0.5)'],
+                        borderColor: ['rgb(84, 175, 204)'],
                         borderWidth: 3,
                     },
                     {
                         label: this.trans.app.views,
                         data: Object.values(this.views),
-                        backgroundColor: ["rgba(3, 168, 124, .5)"],
-                        borderColor: ["#03a87c"],
+                        backgroundColor: ['rgba(3, 168, 124, .5)'],
+                        borderColor: ['#03a87c'],
                         borderWidth: 3,
                     },
                 ],
@@ -58,7 +58,7 @@ export default {
                     duration: 0,
                 },
                 hover: {
-                    mode: "nearest",
+                    mode: 'nearest',
                     intersect: true,
                     animationDuration: 0,
                 },
@@ -69,30 +69,28 @@ export default {
                 elements: {
                     point: {
                         radius: 0,
-                        backgroundColor: "#03a87c",
-                        borderColor: "#03a87c",
+                        backgroundColor: '#03a87c',
+                        borderColor: '#03a87c',
                     },
                 },
                 tooltips: {
-                    mode: "index",
+                    mode: 'index',
                     displayColors: false,
                     intersect: false,
-                    position: "nearest",
+                    position: 'nearest',
                     callbacks: {
                         label: function (tooltipItem) {
                             if (tooltipItem.datasetIndex === 0) {
-                                return ref.uniqueVisitorLabel(
-                                    tooltipItem.value
-                                );
+                                return ref.uniqueVisitorLabel(tooltipItem.value);
                             } else if (tooltipItem.datasetIndex === 1) {
                                 return ref.viewLabel(tooltipItem.value);
                             }
                         },
                         labelTextColor: function (tooltipItem) {
                             if (tooltipItem.datasetIndex === 0) {
-                                return "rgb(84, 175, 204)";
+                                return 'rgb(84, 175, 204)';
                             } else if (tooltipItem.datasetIndex === 1) {
-                                return "#03a87c";
+                                return '#03a87c';
                             }
                         },
                         title: function (tooltipItem) {
@@ -104,7 +102,7 @@ export default {
                     yAxes: [
                         {
                             ticks: {
-                                fontColor: "#718096",
+                                fontColor: '#718096',
                                 beginAtZero: true,
                                 padding: 25,
                                 display: true,
@@ -113,14 +111,14 @@ export default {
                             },
                             gridLines: {
                                 borderDash: [8, 4],
-                                color: "#718096",
+                                color: '#718096',
                             },
                         },
                     ],
                     xAxes: [
                         {
                             ticks: {
-                                fontColor: "#718096",
+                                fontColor: '#718096',
                                 display: true,
                                 autoSkip: true,
                                 maxTicksLimit: 8,
@@ -137,7 +135,7 @@ export default {
             },
         };
 
-        this.createChart("stats", chartData);
+        this.createChart('stats', chartData);
     },
 
     methods: {
@@ -151,26 +149,26 @@ export default {
 
         viewLabel(val) {
             if (Number(val) === 1) {
-                return val + " " + this.trans.app.view;
+                return val + ' ' + this.trans.app.view;
             } else {
-                return val + " " + this.trans.app.views_simple;
+                return val + ' ' + this.trans.app.views_simple;
             }
         },
 
         uniqueVisitorLabel(val) {
             if (Number(val) === 1) {
-                return val + " " + this.trans.app.unique_visit;
+                return val + ' ' + this.trans.app.unique_visit;
             } else {
-                return val + " " + this.trans.app.unique_visits;
+                return val + ' ' + this.trans.app.unique_visits;
             }
         },
 
         formatTitleDate(date) {
-            return parse(date, "dddd, MMMM Do YYYY", new Date());
+            return parse(date, 'dddd, MMMM Do YYYY', new Date());
         },
 
         formatTickDate(date) {
-            return parse(date, "MMM Do", new Date());
+            return parse(date, 'MMM Do', new Date());
         },
     },
 };

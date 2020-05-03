@@ -1,12 +1,5 @@
 <template>
-    <div
-        class="modal fade"
-        ref="modal"
-        tabindex="-1"
-        role="dialog"
-        aria-hidden="true"
-        v-cloak
-    >
+    <div class="modal fade" ref="modal" tabindex="-1" role="dialog" aria-hidden="true" v-cloak>
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-body">
@@ -28,26 +21,26 @@
 </template>
 
 <script>
-import $ from "jquery";
+import $ from 'jquery';
 
 export default {
-    name: "embed-video-modal",
+    name: 'embed-video-modal',
 
     data() {
         return {
-            link: "",
+            link: '',
             trans: JSON.parse(window.Canvas.translations),
         };
     },
 
     methods: {
         addLink() {
-            this.$emit("addingEmbedVideo", {
+            this.$emit('addingEmbedVideo', {
                 url: this.link,
             });
 
-            $(this.$refs.modal).modal("hide");
-            this.link = "";
+            $(this.$refs.modal).modal('hide');
+            this.link = '';
         },
     },
 };

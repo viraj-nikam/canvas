@@ -5,12 +5,8 @@
                 <ul class="navbar-nav mr-auto flex-row float-right">
                     <li class="text-muted font-weight-bold">
                         <div v-if="!post.isSaving && !post.hasSuccess">
-                            <span v-if="isDraft(post.published_at)">{{
-                                trans.app.draft
-                            }}</span>
-                            <span v-if="!isDraft(post.published_at)">{{
-                                trans.app.published
-                            }}</span>
+                            <span v-if="isDraft(post.published_at)">{{ trans.app.draft }}</span>
+                            <span v-if="!isDraft(post.published_at)">{{ trans.app.published }}</span>
                         </div>
 
                         <div v-if="post.isSaving">
@@ -18,9 +14,7 @@
                         </div>
 
                         <div v-if="post.hasSuccess">
-                            <span class="text-success">{{
-                                trans.app.saved
-                            }}</span>
+                            <span class="text-success">{{ trans.app.saved }}</span>
                         </div>
                     </li>
                 </ul>
@@ -33,20 +27,11 @@
                     class="btn btn-sm btn-outline-success font-weight-bold my-auto"
                     @click="showPublishModal"
                 >
-                    <span class="d-block d-lg-none">{{
-                        trans.app.publish
-                    }}</span>
-                    <span class="d-none d-lg-block">{{
-                        trans.app.ready_to_publish
-                    }}</span>
+                    <span class="d-block d-lg-none">{{ trans.app.publish }}</span>
+                    <span class="d-none d-lg-block">{{ trans.app.ready_to_publish }}</span>
                 </a>
 
-                <a
-                    v-else
-                    href="#"
-                    class="btn btn-sm btn-outline-success font-weight-bold my-auto"
-                    @click="save"
-                >
+                <a v-else href="#" class="btn btn-sm btn-outline-success font-weight-bold my-auto" @click="save">
                     {{ trans.app.save }}
                 </a>
             </template>
@@ -84,22 +69,11 @@
                         >
                             {{ trans.app.view_stats }}
                         </router-link>
-                        <div
-                            v-if="!isDraft(post.published_at)"
-                            class="dropdown-divider"
-                        ></div>
-                        <a
-                            href="#"
-                            class="dropdown-item"
-                            @click="showSettingsModal"
-                        >
+                        <div v-if="!isDraft(post.published_at)" class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item" @click="showSettingsModal">
                             {{ trans.app.general_settings }}
                         </a>
-                        <a
-                            href="#"
-                            class="dropdown-item"
-                            @click="showFeaturedImageModal"
-                        >
+                        <a href="#" class="dropdown-item" @click="showFeaturedImageModal">
                             {{ trans.app.featured_image }}
                         </a>
                         <a href="#" class="dropdown-item" @click="showSeoModal">
@@ -113,12 +87,7 @@
                         >
                             {{ trans.app.convert_to_draft }}
                         </a>
-                        <a
-                            v-if="id !== 'create'"
-                            href="#"
-                            class="dropdown-item text-danger"
-                            @click="showDeleteModal"
-                        >
+                        <a v-if="id !== 'create'" href="#" class="dropdown-item text-danger" @click="showDeleteModal">
                             {{ trans.app.delete }}
                         </a>
                     </div>
@@ -140,10 +109,7 @@
                 </div>
 
                 <div class="form-group my-4">
-                    <div
-                        class="rounded shadow"
-                        :class="!Canvas.darkMode ? 'bg-white' : 'bg-darker'"
-                    >
+                    <div class="rounded shadow" :class="!Canvas.darkMode ? 'bg-white' : 'bg-darker'">
                         <quill-editor></quill-editor>
                     </div>
                 </div>
@@ -152,13 +118,7 @@
 
         <publish-modal v-if="isReady" ref="publishModal" />
 
-        <settings-modal
-            v-if="isReady"
-            ref="settingsModal"
-            :post="post"
-            :tags="tags"
-            :topics="topics"
-        />
+        <settings-modal v-if="isReady" ref="settingsModal" :post="post" :tags="tags" :topics="topics" />
 
         <featured-image-modal v-if="isReady" ref="featuredImageModal" />
 
@@ -175,23 +135,23 @@
 </template>
 
 <script>
-import Vue from "vue";
-import $ from "jquery";
-import debounce from "lodash/debounce";
-import NProgress from "nprogress";
-import SeoModal from "../components/modals/SeoModal";
-import PageHeader from "../components/PageHeader";
-import DeleteModal from "../components/modals/DeleteModal";
-import VueTextAreaAutosize from "vue-textarea-autosize";
-import PublishModal from "../components/modals/PublishModal";
-import SettingsModal from "../components/modals/SettingsModal";
-import QuillEditor from "../components/editor/QuillEditor";
-import FeaturedImageModal from "../components/modals/FeaturedImageModal";
+import Vue from 'vue';
+import $ from 'jquery';
+import debounce from 'lodash/debounce';
+import NProgress from 'nprogress';
+import SeoModal from '../components/modals/SeoModal';
+import PageHeader from '../components/PageHeader';
+import DeleteModal from '../components/modals/DeleteModal';
+import VueTextAreaAutosize from 'vue-textarea-autosize';
+import PublishModal from '../components/modals/PublishModal';
+import SettingsModal from '../components/modals/SettingsModal';
+import QuillEditor from '../components/editor/QuillEditor';
+import FeaturedImageModal from '../components/modals/FeaturedImageModal';
 
 Vue.use(VueTextAreaAutosize);
 
 export default {
-    name: "edit-post",
+    name: 'edit-post',
 
     components: {
         PublishModal,
@@ -208,7 +168,7 @@ export default {
             post: {},
             tags: [],
             topics: [],
-            id: this.$route.params.id || "create",
+            id: this.$route.params.id || 'create',
             isReady: false,
             trans: JSON.parse(window.Canvas.translations),
         };
@@ -217,9 +177,9 @@ export default {
     beforeRouteEnter(to, from, next) {
         next((vm) => {
             vm.request()
-                .get("/api/posts/" + vm.id)
+                .get('/api/posts/' + vm.id)
                 .then((response) => {
-                    vm.$store.dispatch("setActivePost", response.data.post);
+                    vm.$store.dispatch('setActivePost', response.data.post);
 
                     vm.post = vm.$store.getters.activePost;
                     vm.tags = response.data.tags;
@@ -229,7 +189,7 @@ export default {
                     NProgress.done();
                 })
                 .catch(() => {
-                    vm.$router.push({ name: "posts" });
+                    vm.$router.push({ name: 'posts' });
                 });
         });
     },
@@ -248,11 +208,11 @@ export default {
             this.post.isSaving = true;
             this.post.hasSuccess = false;
 
-            if (this.id === "create") {
+            if (this.id === 'create') {
                 this.id = this.post.id;
             }
 
-            this.$store.dispatch("saveActivePost", {
+            this.$store.dispatch('saveActivePost', {
                 data: this.post,
                 id: this.id,
             });
@@ -268,34 +228,34 @@ export default {
         }, 3000),
 
         convertToDraft() {
-            this.post.published_at = "";
+            this.post.published_at = '';
             this.save();
         },
 
         deletePost() {
-            this.$store.dispatch("deletePost", this.post.id);
+            this.$store.dispatch('deletePost', this.post.id);
 
-            $(this.$refs.deleteModal.$el).modal("hide");
+            $(this.$refs.deleteModal.$el).modal('hide');
         },
 
         showPublishModal() {
-            $(this.$refs.publishModal.$el).modal("show");
+            $(this.$refs.publishModal.$el).modal('show');
         },
 
         showSettingsModal() {
-            $(this.$refs.settingsModal.$el).modal("show");
+            $(this.$refs.settingsModal.$el).modal('show');
         },
 
         showFeaturedImageModal() {
-            $(this.$refs.featuredImageModal.$el).modal("show");
+            $(this.$refs.featuredImageModal.$el).modal('show');
         },
 
         showSeoModal() {
-            $(this.$refs.seoModal.$el).modal("show");
+            $(this.$refs.seoModal.$el).modal('show');
         },
 
         showDeleteModal() {
-            $(this.$refs.deleteModal.$el).modal("show");
+            $(this.$refs.deleteModal.$el).modal('show');
         },
     },
 };

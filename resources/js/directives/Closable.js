@@ -41,15 +41,15 @@ const Closable = {
             }
         };
         // Register click/touchstart event listeners on the whole page
-        document.addEventListener("click", handleOutsideClick);
-        document.addEventListener("touchstart", handleOutsideClick);
+        document.addEventListener('click', handleOutsideClick);
+        document.addEventListener('touchstart', handleOutsideClick);
     },
 
     unbind() {
         // If the element that has v-closable is removed, then
         // unbind click/touchstart listeners from the whole page
-        document.removeEventListener("click", handleOutsideClick);
-        document.removeEventListener("touchstart", handleOutsideClick);
+        document.removeEventListener('click', handleOutsideClick);
+        document.removeEventListener('touchstart', handleOutsideClick);
     },
 };
 

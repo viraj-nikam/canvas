@@ -16,9 +16,9 @@ mix.options({
         uglifyOptions: {
             compress: {
                 drop_console: true,
-            }
-        }
-    }
+            },
+        },
+    },
 });
 
 mix.setPublicPath('public')

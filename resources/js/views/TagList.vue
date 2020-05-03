@@ -36,32 +36,23 @@
                                     :class="{
                                         'border-top': index !== 0,
                                         'rounded-top': index === 0,
-                                        'rounded-bottom':
-                                            index === tags.length - 1,
+                                        'rounded-bottom': index === tags.length - 1,
                                     }"
                                 >
                                     <div class="d-flex align-items-center">
                                         <div class="mr-auto pl-2">
                                             <p class="mb-0 py-1">
-                                                <span
-                                                    class="font-weight-bold text-lg lead"
-                                                >
+                                                <span class="font-weight-bold text-lg lead">
                                                     {{ tag.name }}
                                                 </span>
                                             </p>
                                         </div>
-                                        <div
-                                            class="ml-auto d-none d-md-inline-block"
-                                        >
+                                        <div class="ml-auto d-none d-md-inline-block">
                                             <span class="text-muted mr-3"
-                                                >{{ tag.posts_count }}
-                                                {{ trans.app.posts }}</span
+                                                >{{ tag.posts_count }} {{ trans.app.posts }}</span
                                             >
                                             <span class="mr-3"
-                                                >{{ trans.app.created }}
-                                                {{
-                                                    createdAt(tag.created_at)
-                                                }}</span
+                                                >{{ trans.app.created }} {{ createdAt(tag.created_at) }}</span
                                             >
                                         </div>
 
@@ -71,12 +62,7 @@
                                             viewBox="0 0 24 24"
                                             class="icon-cheveron-right-circle"
                                         >
-                                            <circle
-                                                cx="12"
-                                                cy="12"
-                                                r="10"
-                                                style="fill: none;"
-                                            />
+                                            <circle cx="12" cy="12" r="10" style="fill: none;" />
                                             <path
                                                 class="primary"
                                                 d="M10.3 8.7a1 1 0 0 1 1.4-1.4l4 4a1 1 0 0 1 0 1.4l-4 4a1 1 0 0 1-1.4-1.4l3.29-3.3-3.3-3.3z"
@@ -87,10 +73,7 @@
                             </router-link>
                         </div>
 
-                        <infinite-loading
-                            @infinite="fetchData"
-                            spinner="spiral"
-                        >
+                        <infinite-loading @infinite="fetchData" spinner="spiral">
                             <span slot="no-more"></span>
                             <div slot="no-results" class="text-left">
                                 <div class="my-5">
@@ -111,16 +94,16 @@
 </template>
 
 <script>
-import NProgress from "nprogress";
-import isEmpty from "lodash/isEmpty";
-import Hover from "../directives/Hover";
-import request from "../utils/request";
-import formatDistance from "date-fns/formatDistance";
-import InfiniteLoading from "vue-infinite-loading";
-import PageHeader from "../components/PageHeader";
+import NProgress from 'nprogress';
+import isEmpty from 'lodash/isEmpty';
+import Hover from '../directives/Hover';
+import request from '../utils/request';
+import formatDistance from 'date-fns/formatDistance';
+import InfiniteLoading from 'vue-infinite-loading';
+import PageHeader from '../components/PageHeader';
 
 export default {
-    name: "tag-list",
+    name: 'tag-list',
 
     components: {
         InfiniteLoading,
@@ -142,16 +125,13 @@ export default {
     methods: {
         fetchData($state) {
             request
-                .get("/api/tags", {
+                .get('/api/tags', {
                     params: {
                         page: this.page,
                     },
                 })
                 .then((response) => {
-                    if (
-                        !isEmpty(response.data) &&
-                        !isEmpty(response.data.data)
-                    ) {
+                    if (!isEmpty(response.data) && !isEmpty(response.data.data)) {
                         this.page += 1;
                         this.tags.push(...response.data.data);
 

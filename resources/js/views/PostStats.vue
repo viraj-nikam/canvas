@@ -2,10 +2,7 @@
     <div>
         <page-header>
             <template slot="action">
-                <router-link
-                    to="/stats"
-                    class="btn btn-sm btn-outline-success font-weight-bold my-auto ml-auto"
-                >
+                <router-link to="/stats" class="btn btn-sm btn-outline-success font-weight-bold my-auto ml-auto">
                     {{ trans.app.see_all_stats }}
                 </router-link>
             </template>
@@ -36,10 +33,7 @@
                     </a>
 
                     <div class="dropdown-menu dropdown-menu-right">
-                        <router-link
-                            :to="{ name: 'posts-edit', params: { id: id } }"
-                            class="dropdown-item"
-                        >
+                        <router-link :to="{ name: 'posts-edit', params: { id: id } }" class="dropdown-item">
                             {{ trans.app.edit_post }}
                         </router-link>
                     </div>
@@ -67,9 +61,7 @@
                             </p>
                             <div class="d-flex">
                                 <div class="mr-5">
-                                    <p
-                                        class="mb-0 small text-muted text-uppercase font-weight-bold"
-                                    >
+                                    <p class="mb-0 small text-muted text-uppercase font-weight-bold">
                                         {{ trans.app.total_views }}
                                     </p>
                                     <h3 class="mt-1">
@@ -78,9 +70,7 @@
                                 </div>
 
                                 <div>
-                                    <p
-                                        class="mb-0 small text-muted text-uppercase font-weight-bold"
-                                    >
+                                    <p class="mb-0 small text-muted text-uppercase font-weight-bold">
                                         {{ trans.app.average_reading_time }}
                                     </p>
                                     <h3 class="mt-1">
@@ -98,9 +88,7 @@
                             </p>
                             <div class="d-flex">
                                 <div class="mr-5">
-                                    <p
-                                        class="mb-0 small text-muted text-uppercase font-weight-bold"
-                                    >
+                                    <p class="mb-0 small text-muted text-uppercase font-weight-bold">
                                         <a
                                             href="#"
                                             v-tooltip="{ placement: 'top' }"
@@ -114,10 +102,7 @@
                                                 viewBox="0 0 24 24"
                                                 class="icon-help"
                                             >
-                                                <path
-                                                    class="primary"
-                                                    d="M12 22a10 10 0 1 1 0-20 10 10 0 0 1 0 20z"
-                                                />
+                                                <path class="primary" d="M12 22a10 10 0 1 1 0-20 10 10 0 0 1 0 20z" />
                                                 <path
                                                     class="fill-bg"
                                                     d="M12 19.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm1-5.5a1 1 0 0 1-2 0v-1.41a1 1 0 0 1 .55-.9L14 10.5C14.64 10.08 15 9.53 15 9c0-1.03-1.3-2-3-2-1.35 0-2.49.62-2.87 1.43a1 1 0 0 1-1.8-.86C8.05 6.01 9.92 5 12 5c2.7 0 5 1.72 5 4 0 1.3-.76 2.46-2.05 3.24L13 13.2V14z"
@@ -136,12 +121,7 @@
                                                 width="17"
                                                 class="icon-arrow-thick-up-circle"
                                             >
-                                                <circle
-                                                    cx="12"
-                                                    cy="12"
-                                                    r="10"
-                                                    class="primary"
-                                                />
+                                                <circle cx="12" cy="12" r="10" class="primary" />
                                                 <path
                                                     class="fill-bg"
                                                     d="M14 12v5a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-5H8a1 1 0 0 1-.7-1.7l4-4a1 1 0 0 1 1.4 0l4 4A1 1 0 0 1 16 12h-2z"
@@ -155,12 +135,7 @@
                                                 width="17"
                                                 class="icon-arrow-thick-down-circle"
                                             >
-                                                <circle
-                                                    cx="12"
-                                                    cy="12"
-                                                    r="10"
-                                                    class="primary"
-                                                />
+                                                <circle cx="12" cy="12" r="10" class="primary" />
                                                 <path
                                                     class="fill-bg"
                                                     d="M10 12V7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v5h2a1 1 0 0 1 .7 1.7l-4 4a1 1 0 0 1-1.4 0l-4-4A1 1 0 0 1 8 12h2z"
@@ -173,9 +148,7 @@
                                 </div>
 
                                 <div>
-                                    <p
-                                        class="mb-0 small text-muted text-uppercase font-weight-bold"
-                                    >
+                                    <p class="mb-0 small text-muted text-uppercase font-weight-bold">
                                         <a
                                             href="#"
                                             v-tooltip="{ placement: 'top' }"
@@ -189,10 +162,7 @@
                                                 viewBox="0 0 24 24"
                                                 class="icon-help"
                                             >
-                                                <path
-                                                    class="primary"
-                                                    d="M12 22a10 10 0 1 1 0-20 10 10 0 0 1 0 20z"
-                                                />
+                                                <path class="primary" d="M12 22a10 10 0 1 1 0-20 10 10 0 0 1 0 20z" />
                                                 <path
                                                     class="fill-bg"
                                                     d="M12 19.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm1-5.5a1 1 0 0 1-2 0v-1.41a1 1 0 0 1 .55-.9L14 10.5C14.64 10.08 15 9.53 15 9c0-1.03-1.3-2-3-2-1.35 0-2.49.62-2.87 1.43a1 1 0 0 1-1.8-.86C8.05 6.01 9.92 5 12 5c2.7 0 5 1.72 5 4 0 1.3-.76 2.46-2.05 3.24L13 13.2V14z"
@@ -211,12 +181,7 @@
                                                 width="17"
                                                 class="icon-arrow-thick-up-circle"
                                             >
-                                                <circle
-                                                    cx="12"
-                                                    cy="12"
-                                                    r="10"
-                                                    class="primary"
-                                                />
+                                                <circle cx="12" cy="12" r="10" class="primary" />
                                                 <path
                                                     class="fill-bg"
                                                     d="M14 12v5a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-5H8a1 1 0 0 1-.7-1.7l4-4a1 1 0 0 1 1.4 0l4 4A1 1 0 0 1 16 12h-2z"
@@ -230,12 +195,7 @@
                                                 width="17"
                                                 class="icon-arrow-thick-down-circle"
                                             >
-                                                <circle
-                                                    cx="12"
-                                                    cy="12"
-                                                    r="10"
-                                                    class="primary"
-                                                />
+                                                <circle cx="12" cy="12" r="10" class="primary" />
                                                 <path
                                                     class="fill-bg"
                                                     d="M10 12V7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v5h2a1 1 0 0 1 .7 1.7l-4 4a1 1 0 0 1-1.4 0l-4-4A1 1 0 0 1 8 12h2z"
@@ -251,25 +211,16 @@
                     </div>
                 </div>
 
-                <line-chart
-                    :views="JSON.parse(viewTrend)"
-                    :visits="JSON.parse(visitTrend)"
-                    class="mt-5 mb-3"
-                />
+                <line-chart :views="JSON.parse(viewTrend)" :visits="JSON.parse(visitTrend)" class="mt-5 mb-3" />
 
                 <div class="row justify-content-between">
                     <div class="col-md-6 mt-4">
-                        <h5
-                            class="text-muted small text-uppercase font-weight-bold border-bottom pb-2"
-                        >
+                        <h5 class="text-muted small text-uppercase font-weight-bold border-bottom pb-2">
                             {{ trans.app.views_by_traffic_source }}
                         </h5>
 
                         <div v-if="traffic">
-                            <div
-                                v-for="(views, host) in traffic"
-                                v-bind:key="views"
-                            >
+                            <div v-for="(views, host) in traffic" v-bind:key="views">
                                 <div class="d-flex py-2 align-items-center">
                                     <div class="mr-auto">
                                         <div v-if="host === trans.app.other">
@@ -279,8 +230,7 @@
                                                     :style="
                                                         Canvas.darkMode === true
                                                             ? {
-                                                                  filter:
-                                                                      'invert(100%)',
+                                                                  filter: 'invert(100%)',
                                                               }
                                                             : ''
                                                     "
@@ -293,10 +243,7 @@
                                                         placement: 'right',
                                                     }"
                                                     class="text-decoration-none"
-                                                    :title="
-                                                        trans.app
-                                                            .referer_unknown
-                                                    "
+                                                    :title="trans.app.referer_unknown"
                                                 >
                                                     {{ host }}
                                                     <svg
@@ -336,8 +283,7 @@
                                     </div>
                                     <div class="ml-auto">
                                         <span class="text-muted"
-                                            >{{ suffixedNumber(views) }}
-                                            {{ trans.app.views }}</span
+                                            >{{ suffixedNumber(views) }} {{ trans.app.views }}</span
                                         >
                                     </div>
                                 </div>
@@ -349,18 +295,12 @@
                     </div>
 
                     <div class="col-md-6 mt-4">
-                        <h5
-                            class="text-muted small text-uppercase font-weight-bold border-bottom pb-2"
-                        >
+                        <h5 class="text-muted small text-uppercase font-weight-bold border-bottom pb-2">
                             {{ trans.app.popular_reading_times }}
                         </h5>
 
                         <div v-if="popularReadingTimes">
-                            <div
-                                v-for="(percentage,
-                                time) in popularReadingTimes"
-                                v-bind:key="percentage"
-                            >
+                            <div v-for="(percentage, time) in popularReadingTimes" v-bind:key="percentage">
                                 <div class="d-flex py-2 align-items-center">
                                     <div class="mr-auto">
                                         <p class="mb-0 py-1">
@@ -368,9 +308,7 @@
                                         </p>
                                     </div>
                                     <div class="ml-auto">
-                                        <span class="text-muted">{{
-                                            percentage + "%"
-                                        }}</span>
+                                        <span class="text-muted">{{ percentage + '%' }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -386,13 +324,13 @@
 </template>
 
 <script>
-import NProgress from "nprogress";
-import Tooltip from "../directives/Tooltip";
-import LineChart from "../components/LineChart";
-import PageHeader from "../components/PageHeader";
+import NProgress from 'nprogress';
+import Tooltip from '../directives/Tooltip';
+import LineChart from '../components/LineChart';
+import PageHeader from '../components/PageHeader';
 
 export default {
-    name: "post-stats",
+    name: 'post-stats',
 
     components: {
         LineChart,
@@ -427,7 +365,7 @@ export default {
     beforeRouteEnter(to, from, next) {
         next((vm) => {
             vm.request()
-                .get("/api/stats/" + vm.id)
+                .get('/api/stats/' + vm.id)
                 .then((response) => {
                     vm.post = response.data.post;
                     vm.viewCount = response.data.view_count;
@@ -435,41 +373,33 @@ export default {
                     vm.viewTrend = response.data.view_trend;
                     vm.visitCount = response.data.visit_count;
                     vm.visitTrend = response.data.visit_trend;
-                    vm.traffic = Array.isArray(response.data.traffic)
-                        ? null
-                        : response.data.traffic;
-                    vm.popularReadingTimes = Array.isArray(
-                        response.data.popular_reading_times
-                    )
+                    vm.traffic = Array.isArray(response.data.traffic) ? null : response.data.traffic;
+                    vm.popularReadingTimes = Array.isArray(response.data.popular_reading_times)
                         ? null
                         : response.data.popular_reading_times;
                     vm.readTime = response.data.read_time;
-                    vm.viewMonthOverMonthDirection =
-                        response.data.view_month_over_month.direction;
-                    vm.viewMonthOverMonthPercentage =
-                        response.data.view_month_over_month.percentage;
-                    vm.visitMonthOverMonthDirection =
-                        response.data.visit_month_over_month.direction;
-                    vm.visitMonthOverMonthPercentage =
-                        response.data.visit_month_over_month.percentage;
+                    vm.viewMonthOverMonthDirection = response.data.view_month_over_month.direction;
+                    vm.viewMonthOverMonthPercentage = response.data.view_month_over_month.percentage;
+                    vm.visitMonthOverMonthDirection = response.data.visit_month_over_month.direction;
+                    vm.visitMonthOverMonthPercentage = response.data.visit_month_over_month.percentage;
 
                     vm.isReady = true;
 
                     NProgress.done();
                 })
                 .catch(() => {
-                    vm.$router.push({ name: "stats" });
+                    vm.$router.push({ name: 'stats' });
                 });
         });
     },
 
     computed: {
         viewsAreTrendingUp() {
-            return this.viewMonthOverMonthDirection === "up";
+            return this.viewMonthOverMonthDirection === 'up';
         },
 
         visitsAreTrendingUp() {
-            return this.visitMonthOverMonthDirection === "up";
+            return this.visitMonthOverMonthDirection === 'up';
         },
     },
 };

@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import Multiselect from "vue-multiselect";
+import Multiselect from 'vue-multiselect';
 
 export default {
     props: {
@@ -37,8 +37,8 @@ export default {
         const allTags = this.tags.map((obj) => {
             let filtered = {};
 
-            filtered["name"] = obj.name;
-            filtered["slug"] = obj.slug;
+            filtered['name'] = obj.name;
+            filtered['slug'] = obj.slug;
 
             return filtered;
         });
@@ -52,7 +52,7 @@ export default {
 
     methods: {
         onChange(value) {
-            this.$store.dispatch("setPostTags", value);
+            this.$store.dispatch('setPostTags', value);
 
             this.update();
         },
@@ -67,7 +67,7 @@ export default {
             this.options.push(tag);
             this.value.push(tag);
 
-            this.$store.dispatch("setPostTags", this.value);
+            this.$store.dispatch('setPostTags', this.value);
 
             this.update();
         },
