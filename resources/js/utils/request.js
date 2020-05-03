@@ -3,9 +3,9 @@ import axios from "axios";
 const request = axios.create({
     baseURL: "/" + window.Canvas.path,
     headers: {
-        // 'Access-Control-Allow-Origin': '*',
-        // 'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS',
-        // 'Access-Control-Allow-Headers': 'Origin, Content-Type, X-Auth-Token',
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, POST, PATCH, PUT, DELETE",
+        "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token",
         "X-Requested-With": "XMLHttpRequest",
         "X-CSRF-TOKEN": document.head.querySelector('meta[name="csrf-token"]')
             .content,
@@ -17,7 +17,8 @@ request.interceptors.request.use(
         return config;
     },
     (error) => {
-        console.log(error);
+        console.log("err" + error);
+
         Promise.reject(error);
     }
 );
@@ -25,11 +26,7 @@ request.interceptors.response.use(
     (response) => response,
     (error) => {
         console.log("err" + error);
-        // Message({
-        //   message: error.message,
-        //   type: 'error',
-        //   duration: 5000
-        // })
+
         return Promise.reject(error);
     }
 );

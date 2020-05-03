@@ -3,7 +3,7 @@
         <page-header>
             <template slot="action">
                 <router-link
-                    :to="{ name: 'posts-create' }"
+                    :to="{ name: 'create-post' }"
                     class="btn btn-sm btn-outline-success font-weight-bold my-auto"
                 >
                     {{ trans.app.new_post }}
@@ -43,7 +43,7 @@
                                 </div>
                                 <div class="card-body pt-0 pb-2">
                                     <p class="card-text display-4">
-                                        {{ suffixedNumber(viewCount) }}
+                                        {{ formatCount(viewCount) }}
                                     </p>
                                 </div>
                             </div>
@@ -66,17 +66,17 @@
                                 </div>
                                 <div class="card-body pt-0 pb-2">
                                     <p class="card-text display-4">
-                                        {{ suffixedNumber(visitCount) }}
+                                        {{ formatCount(visitCount) }}
                                     </p>
                                 </div>
                             </div>
                         </div>
 
-                        <line-chart
-                            :views="JSON.parse(viewTrend)"
-                            :visits="JSON.parse(visitTrend)"
-                            class="mt-5"
-                        />
+                        <!--                        <line-chart-->
+                        <!--                            :views="JSON.parse(viewTrend)"-->
+                        <!--                            :visits="JSON.parse(visitTrend)"-->
+                        <!--                            class="mt-5"-->
+                        <!--                        />-->
 
                         <div class="mt-5 card shadow border-0">
                             <div class="card-body p-0">
@@ -86,7 +86,7 @@
                                 >
                                     <router-link
                                         :to="{
-                                            name: 'stats-show',
+                                            name: 'post-stats',
                                             params: { id: post.id },
                                         }"
                                         class="text-decoration-none"
@@ -107,14 +107,20 @@
                                                         class="font-weight-bold text-lg lead"
                                                     >
                                                         {{
-                                                            trim(post.title, 45)
+                                                            trimmedTitle(
+                                                                post.title
+                                                            )
                                                         }}
                                                     </span>
                                                 </p>
                                                 <p class="text-secondary mb-2">
                                                     {{ post.read_time }} ―
                                                     {{ trans.app.published }}
-                                                    {{ post.published_at }}
+                                                    {{
+                                                        timeFromNow(
+                                                            post.published_at
+                                                        )
+                                                    }}
                                                 </p>
                                             </div>
                                             <div
@@ -122,7 +128,7 @@
                                             >
                                                 <span class="text-muted mr-3"
                                                     >{{
-                                                        suffixedNumber(
+                                                        formatCount(
                                                             post.views_count
                                                         )
                                                     }}
@@ -130,7 +136,11 @@
                                                 >
                                                 <span class="mr-3"
                                                     >{{ trans.app.created }}
-                                                    {{ post.created_at }}</span
+                                                    {{
+                                                        timeFromNow(
+                                                            post.created_at
+                                                        )
+                                                    }}</span
                                                 >
                                             </div>
 
@@ -190,6 +200,9 @@ import isEmpty from "lodash/isEmpty";
 import InfiniteLoading from "vue-infinite-loading";
 import Hover from "../directives/Hover";
 import LineChart from "../components/LineChart";
+import { suffixedNumber, trim } from "../utils/strings";
+import formatDistance from "date-fns/formatDistance";
+import request from "../utils/request";
 import PageHeader from "../components/PageHeader";
 
 export default {
@@ -218,14 +231,14 @@ export default {
         };
     },
 
-    mounted() {
+    created() {
         this.fetchStats();
         this.fetchPosts();
     },
 
     methods: {
         fetchStats() {
-            this.request()
+            request
                 .get("/api/stats")
                 .then((response) => {
                     this.viewCount = response.data.view_count;
@@ -242,7 +255,7 @@ export default {
         },
 
         fetchPosts($state) {
-            this.request()
+            request
                 .get("/api/posts", {
                     params: {
                         page: this.page,
@@ -265,6 +278,20 @@ export default {
                 .catch(() => {
                     NProgress.done();
                 });
+        },
+
+        trimmedTitle(str) {
+            return trim(str, 45);
+        },
+
+        formatCount(val) {
+            return suffixedNumber(val);
+        },
+
+        timeFromNow(date) {
+            return formatDistance(new Date(date), new Date(), {
+                addSuffix: true,
+            });
         },
     },
 };

@@ -27,7 +27,7 @@ export default {
         };
     },
 
-    created() {
+    mounted() {
         let ref = this;
         let chartData = {
             type: "line",
@@ -96,7 +96,7 @@ export default {
                             }
                         },
                         title: function (tooltipItem) {
-                            return this.titleDate(tooltipItem[0].label);
+                            return ref.formatTitleDate(tooltipItem[0].label);
                         },
                     },
                 },
@@ -125,7 +125,7 @@ export default {
                                 autoSkip: true,
                                 maxTicksLimit: 8,
                                 callback: function (value) {
-                                    return this.tickDate(value);
+                                    return ref.formatTickDate(value);
                                 },
                             },
                             gridLines: {
@@ -142,36 +142,34 @@ export default {
 
     methods: {
         createChart(chartId, chartData) {
-            const ctx = document.getElementById(chartId);
-
-            new Chart(ctx, {
+            new Chart(document.getElementById(chartId), {
                 type: chartData.type,
                 data: chartData.data,
                 options: chartData.options,
             });
         },
 
-        viewLabel(value) {
-            if (Number(value) === 1) {
-                return value + " " + this.trans.app.view;
+        viewLabel(val) {
+            if (Number(val) === 1) {
+                return val + " " + this.trans.app.view;
             } else {
-                return value + " " + this.trans.app.views_simple;
+                return val + " " + this.trans.app.views_simple;
             }
         },
 
-        uniqueVisitorLabel(value) {
-            if (Number(value) === 1) {
-                return value + " " + this.trans.app.unique_visit;
+        uniqueVisitorLabel(val) {
+            if (Number(val) === 1) {
+                return val + " " + this.trans.app.unique_visit;
             } else {
-                return value + " " + this.trans.app.unique_visits;
+                return val + " " + this.trans.app.unique_visits;
             }
         },
 
-        titleDate(date) {
+        formatTitleDate(date) {
             return parse(date, "dddd, MMMM Do YYYY", new Date());
         },
 
-        tickDate(date) {
+        formatTickDate(date) {
             return parse(date, "MMM Do", new Date());
         },
     },

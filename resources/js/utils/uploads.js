@@ -1,9 +1,4 @@
-/**
- * Return the media upload path.
- *
- * @returns {string}
- */
-export const uploadPath = () => {
+const uploadPath = () => {
     return "/" + window.Canvas.path + "/api/media/uploads";
 };
 

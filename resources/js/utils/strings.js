@@ -8,7 +8,7 @@ import numeral from "numeral";
  * @returns {string}
  * @link https://gist.github.com/mathewbyrne/1280286#gistcomment-2588056
  */
-export const slugify = (str) => {
+export function slugify(str) {
     let text = str.toString().toLowerCase().trim();
 
     const sets = [
@@ -49,37 +49,18 @@ export const slugify = (str) => {
         .replace(/--+/g, "-") // Replace multiple - with single -
         .replace(/^-+/, "") // Trim - from start of text
         .replace(/-+$/, ""); // Trim - from end of text
-};
+}
 
-/**
- * Return numbers with their appropriate suffix.
- *
- * @param num
- * @returns {*}
- */
-export const suffixedNumber = (num) => {
+export function suffixedNumber(num) {
     if (num < 999) {
         return num;
     } else {
         return numeral(num).format("0.[0]a");
     }
-};
+}
 
-/**
- * Trim a string to a given length.
- *
- * @param str
- * @param length
- * @returns {string}
- */
-export const trim = (str, length = 70) => {
+export function trim(str, length = 70) {
     return truncate(str, {
         length: length,
     });
-};
-
-export default {
-    slugify,
-    suffixedNumber,
-    trim,
-};
+}
