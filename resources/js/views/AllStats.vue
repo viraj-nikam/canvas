@@ -23,7 +23,7 @@
                 <div v-if="isReady">
                     <div v-if="posts.length">
                         <div class="card-deck mt-5">
-                            <div class="card shadow border-0">
+                            <div class="card shadow">
                                 <div
                                     class="card-header pb-0 bg-transparent d-flex justify-content-between align-middle border-0"
                                 >
@@ -42,7 +42,7 @@
                                     </p>
                                 </div>
                             </div>
-                            <div class="card shadow border-0">
+                            <div class="card shadow">
                                 <div
                                     class="card-header pb-0 bg-transparent d-flex justify-content-between align-middle border-0"
                                 >
@@ -65,7 +65,7 @@
 
                         <line-chart :views="JSON.parse(viewTrend)" :visits="JSON.parse(visitTrend)" class="mt-5" />
 
-                        <div class="mt-5 card shadow border-0">
+                        <div class="mt-5 card shadow">
                             <div class="card-body p-0">
                                 <div v-for="(post, index) in posts" :key="index">
                                     <router-link
@@ -93,7 +93,7 @@
                                                 <p class="text-secondary mb-2">
                                                     {{ post.read_time }} ―
                                                     {{ trans.app.published }}
-                                                    {{ moment(post.published_at).format('MMM D, YYYY') }}
+                                                    {{ formatFromNow(post.published_at) }}
                                                 </p>
                                             </div>
                                             <div class="ml-auto d-none d-lg-block">
@@ -101,7 +101,7 @@
                                                     >{{ formatCount(post.views_count) }} {{ trans.app.views }}</span
                                                 >
                                                 <span class="mr-3"
-                                                    >{{ trans.app.created }} {{ timeFromNow(post.created_at) }}</span
+                                                    >{{ trans.app.created }} {{ formatFromNow(post.created_at) }}</span
                                                 >
                                             </div>
 
@@ -152,6 +152,7 @@ import NProgress from 'nprogress';
 import isEmpty from 'lodash/isEmpty';
 import InfiniteLoading from 'vue-infinite-loading';
 import Hover from '../directives/Hover';
+import moment from 'moment';
 import LineChart from '../components/LineChart';
 import { suffixedNumber, trim } from '../utils/strings';
 import request from '../utils/request';
@@ -235,6 +236,10 @@ export default {
 
         formatCount(val) {
             return suffixedNumber(val);
+        },
+
+        formatFromNow(date) {
+            return moment(date).format('MMM D, YYYY');
         },
     },
 };

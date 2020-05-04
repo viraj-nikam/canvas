@@ -5,11 +5,8 @@
 </template>
 
 <script>
-import Vue from 'vue';
 import moment from 'moment';
 import Chart from 'chart.js';
-
-Vue.prototype.moment = moment;
 
 export default {
     name: 'line-chart',
@@ -28,13 +25,13 @@ export default {
 
     data() {
         return {
-            trans: JSON.parse(window.Canvas.translations),
+            trans: JSON.parse(window.Canvas.locale.translations),
         };
     },
 
     mounted() {
         let ref = this;
-        let chartData = {
+        this.createChart('stats', {
             type: 'line',
             data: {
                 labels: Object.keys(this.views),
@@ -99,7 +96,7 @@ export default {
                             }
                         },
                         title: function (tooltipItem) {
-                            return moment(tooltipItem[0].label, 'YYYY-MM-DD').format('dddd, MMMM Do YYYY');
+                            return ref.formatTitleDate(tooltipItem[0].label);
                         },
                     },
                 },
@@ -128,7 +125,7 @@ export default {
                                 autoSkip: true,
                                 maxTicksLimit: 8,
                                 callback: function (value) {
-                                    return moment(value, 'YYYY-MM-DD').format('MMM Do');
+                                    return ref.formatTickDate(value);
                                 },
                             },
                             gridLines: {
@@ -138,9 +135,7 @@ export default {
                     ],
                 },
             },
-        };
-
-        this.createChart('stats', chartData);
+        });
     },
 
     methods: {
@@ -166,6 +161,14 @@ export default {
             } else {
                 return value + ' ' + this.trans.app.unique_visits;
             }
+        },
+
+        formatTitleDate(date) {
+            return moment(date, 'YYYY-MM-DD').format('dddd, MMMM Do YYYY');
+        },
+
+        formatTickDate(date) {
+            return moment(date, 'YYYY-MM-DD').format('MMM Do');
         },
     },
 };
