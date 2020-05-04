@@ -93,7 +93,7 @@
                                                 <p class="text-secondary mb-2">
                                                     {{ post.read_time }} ―
                                                     {{ trans.app.published }}
-                                                    {{ timeFromNow(post.published_at) }}
+                                                    {{ moment(post.published_at).format('MMM D, YYYY') }}
                                                 </p>
                                             </div>
                                             <div class="ml-auto d-none d-lg-block">
@@ -154,7 +154,6 @@ import InfiniteLoading from 'vue-infinite-loading';
 import Hover from '../directives/Hover';
 import LineChart from '../components/LineChart';
 import { suffixedNumber, trim } from '../utils/strings';
-import formatDistance from 'date-fns/formatDistance';
 import request from '../utils/request';
 import PageHeader from '../components/PageHeader';
 
@@ -180,7 +179,7 @@ export default {
             visitCount: 0,
             visitTrend: {},
             isReady: false,
-            trans: JSON.parse(window.Canvas.translations),
+            trans: JSON.parse(window.Canvas.locale.translations),
         };
     },
 
@@ -236,12 +235,6 @@ export default {
 
         formatCount(val) {
             return suffixedNumber(val);
-        },
-
-        timeFromNow(date) {
-            return formatDistance(new Date(date), new Date(), {
-                addSuffix: true,
-            });
         },
     },
 };

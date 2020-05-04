@@ -170,7 +170,7 @@ export default {
             topics: [],
             id: this.$route.params.id || 'create',
             isReady: false,
-            trans: JSON.parse(window.Canvas.translations),
+            trans: JSON.parse(window.Canvas.locale.translations),
         };
     },
 

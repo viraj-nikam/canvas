@@ -29,7 +29,7 @@ export default {
     data() {
         return {
             link: '',
-            trans: JSON.parse(window.Canvas.translations),
+            trans: JSON.parse(window.Canvas.locale.translations),
         };
     },
 

@@ -172,7 +172,7 @@ export default {
             },
             user: window.Canvas.user,
             isReady: false,
-            trans: JSON.parse(window.Canvas.translations),
+            trans: JSON.parse(window.Canvas.locale.translations),
         };
     },
 

@@ -114,7 +114,7 @@ export default {
         return {
             page: 1,
             topics: [],
-            trans: JSON.parse(window.Canvas.translations),
+            trans: JSON.parse(window.Canvas.locale.translations),
         };
     },
 

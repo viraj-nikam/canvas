@@ -144,7 +144,7 @@ export default {
         return {
             allTags: [],
             allTopics: [],
-            trans: JSON.parse(window.Canvas.translations),
+            trans: JSON.parse(window.Canvas.locale.translations),
         };
     },
 

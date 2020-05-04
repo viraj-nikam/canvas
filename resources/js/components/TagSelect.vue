@@ -46,7 +46,7 @@ export default {
         return {
             options: allTags,
             value: this.tagged ? this.tagged : [],
-            trans: JSON.parse(window.Canvas.translations),
+            trans: JSON.parse(window.Canvas.locale.translations),
         };
     },
 

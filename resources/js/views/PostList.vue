@@ -170,7 +170,7 @@ export default {
             draftCount: 0,
             type: 'published',
             infiniteId: +new Date(),
-            trans: JSON.parse(window.Canvas.translations),
+            trans: JSON.parse(window.Canvas.locale.translations),
         };
     },
 

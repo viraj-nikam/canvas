@@ -67,7 +67,7 @@ export default {
         return {
             blot: null,
             content: null,
-            trans: JSON.parse(window.Canvas.translations),
+            trans: JSON.parse(window.Canvas.locale.translations),
         };
     },
 

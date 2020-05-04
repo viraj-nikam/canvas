@@ -220,7 +220,7 @@ export default {
         return {
             editor: null,
             controlIsActive: false,
-            trans: JSON.parse(window.Canvas.translations),
+            trans: JSON.parse(window.Canvas.locale.translations),
         };
     },
 

@@ -51,9 +51,7 @@
                                             <span class="text-muted mr-3"
                                                 >{{ tag.posts_count }} {{ trans.app.posts }}</span
                                             >
-                                            <span class="mr-3"
-                                                >{{ trans.app.created }} {{ createdAt(tag.created_at) }}</span
-                                            >
+                                            <span class="mr-3">{{ trans.app.created }} {{ tag.created_at }}</span>
                                         </div>
 
                                         <svg
@@ -98,7 +96,6 @@ import NProgress from 'nprogress';
 import isEmpty from 'lodash/isEmpty';
 import Hover from '../directives/Hover';
 import request from '../utils/request';
-import formatDistance from 'date-fns/formatDistance';
 import InfiniteLoading from 'vue-infinite-loading';
 import PageHeader from '../components/PageHeader';
 
@@ -118,7 +115,7 @@ export default {
         return {
             page: 1,
             tags: [],
-            trans: JSON.parse(window.Canvas.translations),
+            trans: JSON.parse(window.Canvas.locale.translations),
         };
     },
 
@@ -145,12 +142,6 @@ export default {
                 .catch(() => {
                     NProgress.done();
                 });
-        },
-
-        createdAt(date) {
-            return formatDistance(new Date(date), new Date(), {
-                addSuffix: true,
-            });
         },
     },
 };

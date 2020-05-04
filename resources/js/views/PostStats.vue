@@ -358,7 +358,7 @@ export default {
             visitMonthOverMonthPercentage: null,
             traffic: null,
             isReady: false,
-            trans: JSON.parse(window.Canvas.translations),
+            trans: JSON.parse(window.Canvas.locale.translations),
         };
     },
 

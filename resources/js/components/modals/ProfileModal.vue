@@ -190,7 +190,7 @@ export default {
             maxUploadFilesize: window.Canvas.maxUpload,
             path: window.Canvas.path,
             user: window.Canvas.user,
-            trans: JSON.parse(window.Canvas.translations),
+            trans: JSON.parse(window.Canvas.locale.translations),
         };
     },
 

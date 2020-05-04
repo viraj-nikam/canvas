@@ -46,7 +46,7 @@ export default {
         return {
             options: allTopics,
             value: this.assigned ? this.assigned : [],
-            trans: JSON.parse(window.Canvas.translations),
+            trans: JSON.parse(window.Canvas.locale.translations),
         };
     },
 

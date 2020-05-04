@@ -1,10 +1,15 @@
 <template>
-    <canvas id="stats"></canvas>
+    <div style="height: 300px;">
+        <canvas id="stats" />
+    </div>
 </template>
 
 <script>
+import Vue from 'vue';
+import moment from 'moment';
 import Chart from 'chart.js';
-import parse from 'date-fns/parse';
+
+Vue.prototype.moment = moment;
 
 export default {
     name: 'line-chart',
@@ -94,7 +99,7 @@ export default {
                             }
                         },
                         title: function (tooltipItem) {
-                            return ref.formatTitleDate(tooltipItem[0].label);
+                            return moment(tooltipItem[0].label, 'YYYY-MM-DD').format('dddd, MMMM Do YYYY');
                         },
                     },
                 },
@@ -123,7 +128,7 @@ export default {
                                 autoSkip: true,
                                 maxTicksLimit: 8,
                                 callback: function (value) {
-                                    return ref.formatTickDate(value);
+                                    return moment(value, 'YYYY-MM-DD').format('MMM Do');
                                 },
                             },
                             gridLines: {
@@ -147,35 +152,21 @@ export default {
             });
         },
 
-        viewLabel(val) {
-            if (Number(val) === 1) {
-                return val + ' ' + this.trans.app.view;
+        viewLabel(value) {
+            if (Number(value) === 1) {
+                return value + ' ' + this.trans.app.view;
             } else {
-                return val + ' ' + this.trans.app.views_simple;
+                return value + ' ' + this.trans.app.views_simple;
             }
         },
 
-        uniqueVisitorLabel(val) {
-            if (Number(val) === 1) {
-                return val + ' ' + this.trans.app.unique_visit;
+        uniqueVisitorLabel(value) {
+            if (Number(value) === 1) {
+                return value + ' ' + this.trans.app.unique_visit;
             } else {
-                return val + ' ' + this.trans.app.unique_visits;
+                return value + ' ' + this.trans.app.unique_visits;
             }
-        },
-
-        formatTitleDate(date) {
-            return parse(date, 'dddd, MMMM Do YYYY', new Date());
-        },
-
-        formatTickDate(date) {
-            return parse(date, 'MMM Do', new Date());
         },
     },
 };
 </script>
-
-<style lang="scss" scoped>
-#stats {
-    height: 300px;
-}
-</style>

@@ -90,7 +90,7 @@ export default {
         return {
             user: window.Canvas.user,
             avatar: window.Canvas.avatar,
-            trans: JSON.parse(window.Canvas.translations),
+            trans: JSON.parse(window.Canvas.locale.translations),
         };
     },
 

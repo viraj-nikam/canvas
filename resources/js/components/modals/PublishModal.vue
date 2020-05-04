@@ -165,7 +165,6 @@
 </template>
 
 <script>
-import isBefore from 'date-fns/isBefore';
 import { mapState } from 'vuex';
 
 export default {
@@ -181,7 +180,7 @@ export default {
                 minute: '',
             },
             result: '',
-            trans: JSON.parse(window.Canvas.translations),
+            trans: JSON.parse(window.Canvas.locale.translations),
         };
     },
 
@@ -189,7 +188,7 @@ export default {
         ...mapState(['activePost']),
 
         shouldPublish() {
-            return isBefore(new Date(this.result), new Date());
+            return true;
         },
     },
 
