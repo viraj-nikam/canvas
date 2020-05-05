@@ -1,19 +1,13 @@
 import isEmpty from 'lodash/isEmpty';
 
-const isDraft = (date) => {
+export function isDraft(date) {
     return isEmpty(date) || isScheduled(date);
-};
+}
 
-const isScheduled = (date) => {
+export function isScheduled(date) {
     return new Date(date) > new Date();
-};
+}
 
-const isPublished = (date) => {
+export function isPublished(date) {
     return new Date(date) < new Date();
-};
-
-export default {
-    isDraft,
-    isScheduled,
-    isPublished,
-};
+}
