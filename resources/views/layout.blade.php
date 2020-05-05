@@ -32,8 +32,6 @@
            {{ __('canvas::app.to_update_run') }}<br/><code>php artisan canvas:publish</code>
        </div>
     @endif
-
-    <router-view></router-view>
 </div>
 
 <script>

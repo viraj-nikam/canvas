@@ -21,12 +21,14 @@ class Canvas
         return [
             'avatar' => optional($metaData)->avatar && ! empty(optional($metaData)->avatar) ? $metaData->avatar : "https://secure.gravatar.com/avatar/{$emailHash}?s=500",
             'darkMode' => optional($metaData)->dark_mode,
-            'languageCodes' => self::getAvailableLanguageCodes(),
-            'locale' => optional($metaData)->locale ?? config('app.locale'),
+            'locale' => [
+                'codes' => self::getAvailableLanguageCodes(),
+                'current' => optional($metaData)->locale ?? config('app.locale'),
+                'translations' => collect(['app' => trans('canvas::app', [], optional($metaData)->locale)])->toJson(),
+            ],
             'maxUpload' => config('canvas.upload_filesize'),
             'path' => config('canvas.path'),
             'timezone' => config('app.timezone'),
-            'translations' => collect(['app' => trans('canvas::app', [], optional($metaData)->locale)])->toJson(),
             'unsplash' => config('canvas.unsplash.access_key'),
             'user' => auth()->user()->only(['name', 'email']),
         ];
