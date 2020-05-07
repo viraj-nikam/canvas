@@ -1,6 +1,5 @@
 import router from './router';
 import Vue from 'vue';
-import App from './components/App';
 
 require('bootstrap');
 
@@ -11,5 +10,4 @@ Vue.config.productionTip = false;
 new Vue({
     el: '#canvas',
     router,
-    ...App,
 });
