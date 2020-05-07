@@ -174,6 +174,12 @@ export default {
         };
     },
 
+    created() {
+        // todo: drop these in the header when the component loads and remove them after
+        // https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/highlight.min.js
+        // https://platform.twitter.com/widgets.js
+    },
+
     beforeRouteEnter(to, from, next) {
         next((vm) => {
             vm.request()

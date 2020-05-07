@@ -184,14 +184,16 @@ export default {
         };
     },
 
-    created() {
-        this.fetchStats();
-        this.fetchPosts();
+    async created() {
+        await this.fetchStats();
+        await this.fetchPosts();
+        NProgress.done();
+        this.isReady = true;
     },
 
     methods: {
         fetchStats() {
-            request
+            return request
                 .get('/api/stats')
                 .then((response) => {
                     this.viewCount = response.data.view_count;
@@ -199,8 +201,7 @@ export default {
                     this.visitCount = response.data.visit_count;
                     this.visitTrend = response.data.visit_trend;
 
-                    this.isReady = true;
-                    NProgress.done();
+                    NProgress.inc();
                 })
                 .catch(() => {
                     NProgress.done();
@@ -208,7 +209,7 @@ export default {
         },
 
         fetchPosts($state) {
-            request
+            return request
                 .get('/api/posts', {
                     params: {
                         page: this.page,
@@ -223,6 +224,10 @@ export default {
                         $state.loaded();
                     } else {
                         $state.complete();
+                    }
+
+                    if (isEmpty($state)) {
+                        NProgress.inc();
                     }
                 })
                 .catch(() => {

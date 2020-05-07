@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import { FETCH_POST, POST_DELETE, POST_EDIT, POST_EDIT_TAGS, POST_EDIT_TOPIC, POST_RESET_STATE } from '../actions.type';
 import { SET_POST, SET_TAGS, SET_TOPIC, RESET_STATE } from '../mutations.type';
+import request from '../../utils/request';
 
 const initialState = {
     post: {
@@ -25,27 +26,43 @@ const initialState = {
 export const state = { ...initialState };
 
 export const actions = {
-    // eslint-disable-next-line no-unused-vars
-    [FETCH_POST](context, payload) {
-        // todo: add a GET request to fetch the post
-
-        context.commit(SET_POST, payload);
+    async [FETCH_POST](context, id) {
+        request
+            .get('/api/posts/' + id)
+            .then((response) => {
+                context.commit(SET_POST, response.data.post);
+            })
+            .catch((errors) => {
+                console.log(errors);
+            });
     },
     // eslint-disable-next-line no-unused-vars
-    [POST_EDIT]({ context, payload }) {
-        // todo: add a POST request to save the post
+    [POST_EDIT]({ context, id, payload }) {
+        request
+            .post('/api/posts/' + id, payload)
+            .then((response) => {
+                console.log(response.data);
+            })
+            .catch((errors) => {
+                console.log(errors);
+            });
+    },
+    [POST_EDIT_TAGS]({ context, tags }) {
+        context.commit(SET_TAGS, tags);
+    },
+    [POST_EDIT_TOPIC]({ context, topic }) {
+        context.commit(SET_TOPIC, topic);
     },
     // eslint-disable-next-line no-unused-vars
-    [POST_EDIT_TAGS]({ context, payload }) {
-        context.commit(SET_TAGS, payload);
-    },
-    // eslint-disable-next-line no-unused-vars
-    [POST_EDIT_TOPIC]({ context, payload }) {
-        context.commit(SET_TOPIC, payload);
-    },
-    // eslint-disable-next-line no-unused-vars
-    [POST_DELETE]({ context, payload }) {
-        // todo: add a DELETE request to destroy the post
+    [POST_DELETE]({ context, id }) {
+        request
+            .delete('/api/posts/' + id, id)
+            .then((response) => {
+                console.log(response.data);
+            })
+            .catch((errors) => {
+                console.log(errors);
+            });
     },
     [POST_RESET_STATE]({ commit }) {
         commit(RESET_STATE);
