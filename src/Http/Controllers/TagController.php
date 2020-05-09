@@ -19,7 +19,7 @@ class TagController extends Controller
     public function index(): JsonResponse
     {
         return response()->json(
-            Tag::forCurrentUser()
+            Tag::forUser(request()->user())
                ->latest()
                ->withCount('posts')
                ->paginate(), 200
@@ -40,7 +40,7 @@ class TagController extends Controller
                 'id' => Uuid::uuid4()->toString(),
             ]), 200);
         } else {
-            $tag = Tag::forCurrentUser()->find($id);
+            $tag = Tag::forUser(request()->user())->find($id);
 
             return $tag ? response()->json($tag, 200) : response()->json(null, 404);
         }
@@ -79,10 +79,10 @@ class TagController extends Controller
 
         validator($data, $rules, $messages)->validate();
 
-        $tag = Tag::forCurrentUser()->find($id);
+        $tag = Tag::forUser(request()->user())->find($id);
 
         if (! $tag) {
-            if ($tag = Tag::forCurrentUser()->onlyTrashed()->where('slug', request('slug'))->first()) {
+            if ($tag = Tag::forUser(request()->user())->onlyTrashed()->where('slug', request('slug'))->first()) {
                 $tag->restore();
             } else {
                 $tag = new Tag(['id' => $id]);
@@ -104,7 +104,7 @@ class TagController extends Controller
      */
     public function destroy($id)
     {
-        $tag = Tag::forCurrentUser()->find($id);
+        $tag = Tag::forUser(request()->user())->find($id);
 
         if ($tag) {
             $tag->delete();

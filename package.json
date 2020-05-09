@@ -8,15 +8,21 @@
         "lint-fix": "eslint --ext .js,.vue resources/js/ --fix",
         "prod": "yarn lint-fix && yarn format && yarn production",
         "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+        "test": "jest",
         "watch": "yarn development -- --watch"
     },
     "devDependencies": {
+        "@babel/core": "^7.9.6",
+        "@babel/preset-env": "^7.9.6",
+        "@types/jest": "^25.2.1",
+        "@vue/test-utils": "^1.0.2",
         "axios": "^0.19.2",
+        "babel-core": "^7.0.0-bridge.0",
         "babel-eslint": "^10.1.0",
         "bootstrap": "^4.4.1",
         "chart.js": "^2.9.3",
         "cross-env": "^7.0.2",
-        "eslint": "^6.8.0",
+        "eslint": "^7.0.0",
         "eslint-config-prettier": "^6.11.0",
         "eslint-loader": "^4.0.2",
         "eslint-plugin-prettier": "^3.1.3",
@@ -27,6 +33,8 @@
         "filepond-plugin-image-exif-orientation": "^1.0.8",
         "filepond-plugin-image-preview": "^4.6.2",
         "filepond-plugin-image-validate-size": "^1.2.3",
+        "jest": "^26.0.1",
+        "jest-serializer-vue": "^2.0.2",
         "jquery": "^3.5.1",
         "laravel-mix": "^5.0.4",
         "lodash": "^4.17.5",
@@ -46,6 +54,7 @@
         "vue": "^2.6.11",
         "vue-filepond": "^6.0.2",
         "vue-infinite-loading": "^2.4.5",
+        "vue-jest": "^3.0.5",
         "vue-multiselect": "^2.1.6",
         "vue-router": "^3.1.6",
         "vue-template-compiler": "^2.6.11",
@@ -53,5 +62,38 @@
         "vuex": "^3.3.0",
         "vuex-router-sync": "^5.0.0",
         "webpack-bundle-analyzer": "^3.7.0"
+    },
+    "jest": {
+        "moduleFileExtensions": [
+            "js",
+            "vue"
+        ],
+        "moduleNameMapper": {
+            "^@/(.*)$": "<rootDir>/resources/js/components/$1"
+        },
+        "transform": {
+            "^.+\\.js$": "<rootDir>/node_modules/babel-jest",
+            ".*\\.(vue)$": "<rootDir>/node_modules/vue-jest"
+        },
+        "transformIgnorePatterns": ["<rootDir>/node_modules/"],
+        "snapshotSerializers": [
+            "<rootDir>/node_modules/jest-serializer-vue"
+        ]
+    },
+    "babel": {
+        "env": {
+            "test": {
+                "presets": [
+                    [
+                        "@babel/preset-env",
+                        {
+                            "targets": {
+                                "node": "current"
+                            }
+                        }
+                    ]
+                ]
+            }
+        }
     }
 }

@@ -17,7 +17,7 @@ class SettingsController extends Controller
      */
     public function show(): JsonResponse
     {
-        $metaData = UserMeta::forCurrentUser()->first();
+        $metaData = UserMeta::forUser(request()->user())->first();
         $emailHash = md5(trim(Str::lower(request()->user()->email)));
 
         return response()->json([
@@ -37,7 +37,7 @@ class SettingsController extends Controller
      */
     public function update(): JsonResponse
     {
-        $metaData = UserMeta::forCurrentUser()->first() ?? new UserMeta();
+        $metaData = UserMeta::forUser(request()->user())->first() ?? new UserMeta();
 
         $data = [
             'avatar' => request('avatar', $metaData->avatar),

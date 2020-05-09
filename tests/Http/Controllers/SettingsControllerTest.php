@@ -92,7 +92,7 @@ class SettingsControllerTest extends TestCase
         $this->assertArrayHasKey('locale', $response->decodeResponseJson());
         $this->assertArrayHasKey('username', $response->decodeResponseJson());
 
-        $settings = UserMeta::forCurrentUser()->first();
+        $settings = UserMeta::forUser($user)->first();
 
         $this->assertEquals($settings->username, $response->decodeResponseJson('username'));
     }

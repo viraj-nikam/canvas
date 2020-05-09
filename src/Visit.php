@@ -2,7 +2,9 @@
 
 namespace Canvas;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Visit extends Model
 {
@@ -23,23 +25,23 @@ class Visit extends Model
     /**
      * Get the post relationship.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
-    public function post()
+    public function post(): BelongsTo
     {
         return $this->belongsTo(Post::class);
     }
 
     /**
-     * Scope a query to include a range of visits for a given array of posts.
+     * Scope a query to filter post visits within a given date range.
      *
      * @param $query
      * @param $postIDs
      * @param $startDate
      * @param $endDate
-     * @return mixed
+     * @return Builder
      */
-    public function scopeForPostsInRange($query, $postIDs, $startDate, $endDate)
+    public function scopeForPostsInRange($query, $postIDs, $startDate, $endDate): Builder
     {
         return $query->whereIn('post_id', $postIDs)
                      ->whereBetween('created_at', [

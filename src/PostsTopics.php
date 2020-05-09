@@ -2,6 +2,7 @@
 
 namespace Canvas;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
 class PostsTopics extends Pivot
@@ -23,9 +24,9 @@ class PostsTopics extends Pivot
     /**
      * Get the posts relationship.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
-    public function posts()
+    public function posts(): BelongsTo
     {
         return $this->belongsTo(Post::class);
     }
@@ -33,9 +34,9 @@ class PostsTopics extends Pivot
     /**
      * Get the topic relationship.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
-    public function topic()
+    public function topic(): BelongsTo
     {
         return $this->belongsTo(Topic::class);
     }

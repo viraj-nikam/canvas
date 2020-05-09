@@ -4,6 +4,8 @@ namespace Canvas;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Foundation\Auth\User;
 
 class UserMeta extends Model
 {
@@ -34,21 +36,22 @@ class UserMeta extends Model
     /**
      * Get the user relationship.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
-    public function user()
+    public function user(): BelongsTo
     {
-        return $this->belongsTo(config('canvas.user', \Illuminate\Foundation\Auth\User::class));
+        return $this->belongsTo(config('canvas.user', User::class));
     }
 
     /**
-     * Scope a query to only include posts for the current logged in user.
+     * Scope a query to only include meta for a given user.
      *
-     * @param Builder $query
+     * @param $query
+     * @param $user
      * @return Builder
      */
-    public function scopeForCurrentUser($query)
+    public function scopeForUser($query, $user): Builder
     {
-        return $query->where('user_id', request()->user()->id ?? null);
+        return $query->where('user_id', $user->id);
     }
 }

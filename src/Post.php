@@ -4,7 +4,10 @@ namespace Canvas;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Date;
@@ -79,14 +82,16 @@ class Post extends Model
      *
      * @var array
      */
-    protected $appends = ['read_time'];
+    protected $appends = [
+        'read_time'
+    ];
 
     /**
      * Get the tags relationship.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return BelongsToMany
      */
-    public function tags()
+    public function tags(): BelongsToMany
     {
         return $this->belongsToMany(
             Tag::class,
@@ -99,9 +104,9 @@ class Post extends Model
     /**
      * Get the topic relationship.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return BelongsToMany
      */
-    public function topic()
+    public function topic(): BelongsToMany
     {
         return $this->belongsToMany(
             Topic::class,
@@ -114,23 +119,23 @@ class Post extends Model
     /**
      * Get the user relationship.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
-    public function user()
+    public function user(): BelongsTo
     {
-        return $this->belongsTo(config('canvas.user', \Illuminate\Foundation\Auth\User::class));
+        return $this->belongsTo(config('canvas.user', User::class));
     }
 
     /**
      * Get the user meta relationship.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOneThrough
+     * @return HasOneThrough
      */
-    public function userMeta()
+    public function userMeta(): HasOneThrough
     {
         return $this->hasOneThrough(
             UserMeta::class,
-            User::class,
+            config('canvas.user', User::class),
             'id',       // Foreign key on users table...
             'user_id',  // Foreign key on posts table...
             'user_id',  // Local key on posts table...
@@ -143,7 +148,7 @@ class Post extends Model
      *
      * @return HasMany
      */
-    public function views()
+    public function views(): HasMany
     {
         return $this->hasMany(View::class);
     }
@@ -153,7 +158,7 @@ class Post extends Model
      *
      * @return HasMany
      */
-    public function visits()
+    public function visits(): HasMany
     {
         return $this->hasMany(Visit::class);
     }
@@ -269,7 +274,7 @@ class Post extends Model
      * @param Builder $query
      * @return Builder
      */
-    public function scopePublished($query)
+    public function scopePublished($query): Builder
     {
         return $query->where('published_at', '<=', now()->toDateTimeString());
     }
@@ -280,20 +285,21 @@ class Post extends Model
      * @param Builder $query
      * @return Builder
      */
-    public function scopeDraft($query)
+    public function scopeDraft($query): Builder
     {
         return $query->where('published_at', null)->orWhere('published_at', '>', now()->toDateTimeString());
     }
 
     /**
-     * Scope a query to only include posts for the current logged in user.
+     * Scope a query to only include posts for a given user.
      *
-     * @param Builder $query
+     * @param $query
+     * @param $user
      * @return Builder
      */
-    public function scopeForCurrentUser($query)
+    public function scopeForUser($query, $user): Builder
     {
-        return $query->where('user_id', request()->user()->id ?? null);
+        return $query->where('user_id', $user->id);
     }
 
     /**
@@ -302,7 +308,7 @@ class Post extends Model
      * @param $query
      * @return Builder
      */
-    public function scopeWithUserMeta($query)
+    public function scopeWithUserMeta($query): Builder
     {
         return $query->with('userMeta');
     }

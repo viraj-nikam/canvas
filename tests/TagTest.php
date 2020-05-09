@@ -3,6 +3,7 @@
 namespace Canvas\Tests;
 
 use Canvas\Http\Middleware\Session;
+use Canvas\Post;
 use Canvas\Tag;
 use Illuminate\Auth\Middleware\Authorize;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
@@ -49,5 +50,37 @@ class TagTest extends TestCase
             'slug' => $response->decodeResponseJson('slug'),
             'user_id' => $response->decodeResponseJson('user_id'),
         ]);
+    }
+
+    /** @test */
+    public function posts_relationship()
+    {
+        $tag = factory(Tag::class)->create();
+        $post = factory(Post::class)->create();
+
+        $post->tags()->sync($tag);
+
+        $this->assertCount(1, $post->tags);
+        $this->assertInstanceOf(Post::class, $tag->posts->first());
+    }
+
+    /** @test */
+    public function user_relationship()
+    {
+        $tag = factory(Tag::class)->create();
+
+        $this->assertInstanceOf(config('canvas.user'), $tag->user);
+    }
+
+    /** @test */
+    public function for_user_scope()
+    {
+        $user = factory(config('canvas.user'))->create();
+
+        $tag = factory(Tag::class)->create([
+            'user_id' => $user->id
+        ]);
+
+        $this->assertEquals(1, $tag->forUser($user)->count());
     }
 }

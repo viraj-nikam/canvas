@@ -15,7 +15,7 @@ class Canvas
      */
     public static function scriptVariables()
     {
-        $metaData = UserMeta::forCurrentUser()->first();
+        $metaData = UserMeta::forUser(request()->user())->first();
         $emailHash = md5(trim(Str::lower(request()->user()->email)));
 
         return [

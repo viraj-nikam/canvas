@@ -23,17 +23,17 @@ class PostController extends Controller
         switch (request()->query('type')) {
             case 'draft':
                 return response()->json([
-                    'posts' => Post::forCurrentUser()->draft()->latest()->withCount('views')->paginate(),
-                    'draftCount' => Post::forCurrentUser()->draft()->count(),
-                    'publishedCount' => Post::forCurrentUser()->published()->count(),
+                    'posts' => Post::forUser(request()->user())->draft()->latest()->withCount('views')->paginate(),
+                    'draftCount' => Post::forUser(request()->user())->draft()->count(),
+                    'publishedCount' => Post::forUser(request()->user())->published()->count(),
                 ], 200);
                 break;
 
             case 'published':
                 return response()->json([
-                    'posts' => Post::forCurrentUser()->published()->latest()->withCount('views')->paginate(),
-                    'draftCount' => Post::forCurrentUser()->draft()->count(),
-                    'publishedCount' => Post::forCurrentUser()->published()->count(),
+                    'posts' => Post::forUser(request()->user())->published()->latest()->withCount('views')->paginate(),
+                    'draftCount' => Post::forUser(request()->user())->draft()->count(),
+                    'publishedCount' => Post::forUser(request()->user())->published()->count(),
                 ], 200);
                 break;
 
@@ -60,15 +60,15 @@ class PostController extends Controller
                     'id' => $uuid->toString(),
                     'slug' => "post-{$uuid->toString()}",
                 ]),
-                'tags' => Tag::forCurrentUser()->get(['name', 'slug']),
-                'topics' => Topic::forCurrentUser()->get(['name', 'slug']),
+                'tags' => Tag::forUser(request()->user())->get(['name', 'slug']),
+                'topics' => Topic::forUser(request()->user())->get(['name', 'slug']),
             ]);
         } else {
-            if (Post::forCurrentUser()->pluck('id')->contains($id)) {
+            if (Post::forUser(request()->user())->pluck('id')->contains($id)) {
                 return response()->json([
-                    'post' => Post::forCurrentUser()->with('tags:name,slug', 'topic:name,slug')->find($id),
-                    'tags' => Tag::forCurrentUser()->get(['name', 'slug']),
-                    'topics' => Topic::forCurrentUser()->get(['name', 'slug']),
+                    'post' => Post::forUser(request()->user())->with('tags:name,slug', 'topic:name,slug')->find($id),
+                    'tags' => Tag::forUser(request()->user())->get(['name', 'slug']),
+                    'topics' => Topic::forUser(request()->user())->get(['name', 'slug']),
                 ]);
             } else {
                 return response()->json(null, 404);
@@ -85,7 +85,7 @@ class PostController extends Controller
      */
     public function store($id): JsonResponse
     {
-        $post = Post::forCurrentUser()->find($id) ?? new Post(['id' => $id]);
+        $post = Post::forUser(request()->user())->find($id) ?? new Post(['id' => $id]);
 
         $data = [
             'id' => $id,
@@ -144,7 +144,7 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        $post = Post::forCurrentUser()->find($id);
+        $post = Post::forUser(request()->user())->find($id);
 
         if ($post) {
             $post->delete();
@@ -165,7 +165,7 @@ class PostController extends Controller
     private function syncTopic($incomingTopic): array
     {
         if (collect($incomingTopic)->isNotEmpty()) {
-            $topic = Topic::forCurrentUser()->where('slug', $incomingTopic['slug'])->first();
+            $topic = Topic::forUser(request()->user())->where('slug', $incomingTopic['slug'])->first();
 
             if (! $topic) {
                 $topic = Topic::create([
@@ -191,7 +191,7 @@ class PostController extends Controller
     private function syncTags($incomingTags): array
     {
         if (collect($incomingTags)->isNotEmpty()) {
-            $tags = Tag::forCurrentUser()->get(['id', 'name', 'slug']);
+            $tags = Tag::forUser(request()->user())->get(['id', 'name', 'slug']);
 
             return collect($incomingTags)->map(function ($incomingTag) use ($tags) {
                 $tag = $tags->where('slug', $incomingTag['slug'])->first();

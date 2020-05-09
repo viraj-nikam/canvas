@@ -3,6 +3,7 @@
 namespace Canvas\Tests;
 
 use Canvas\Http\Middleware\Session;
+use Canvas\Post;
 use Canvas\Topic;
 use Illuminate\Auth\Middleware\Authorize;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
@@ -49,5 +50,37 @@ class TopicTest extends TestCase
             'slug' => $response->decodeResponseJson('slug'),
             'user_id' => $response->decodeResponseJson('user_id'),
         ]);
+    }
+
+    /** @test */
+    public function posts_relationship()
+    {
+        $topic = factory(Topic::class)->create();
+        $post = factory(Post::class)->create();
+
+        $post->topic()->sync($topic);
+
+        $this->assertCount(1, $topic->posts);
+        $this->assertInstanceOf(Post::class, $topic->posts->first());
+    }
+
+    /** @test */
+    public function user_relationship()
+    {
+        $topic = factory(Topic::class)->create();
+
+        $this->assertInstanceOf(config('canvas.user'), $topic->user);
+    }
+
+    /** @test */
+    public function for_user_scope()
+    {
+        $user = factory(config('canvas.user'))->create();
+
+        $topic = factory(Topic::class)->create([
+            'user_id' => $user->id
+        ]);
+
+        $this->assertEquals(1, $topic->forUser($user)->count());
     }
 }
