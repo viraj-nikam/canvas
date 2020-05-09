@@ -1,12 +1,12 @@
 <template>
     <div>
-        <page-header>
+        <page-header :user="Canvas.user" :avatar="Canvas.avatar" :trans="Canvas.locale.translations">
             <template slot="action">
                 <router-link
                     :to="{ name: 'create-post' }"
                     class="btn btn-sm btn-outline-success font-weight-bold my-auto"
                 >
-                    {{ trans.app.new_post }}
+                    {{ i18n.new_post }}
                 </router-link>
             </template>
         </page-header>
@@ -14,9 +14,9 @@
         <main class="py-4">
             <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12">
                 <div class="my-3">
-                    <h1>{{ trans.app.stats }}</h1>
+                    <h1>{{ i18n.stats }}</h1>
                     <p class="text-secondary">
-                        {{ trans.app.click_to_see_insights }}
+                        {{ i18n.click_to_see_insights }}
                     </p>
                 </div>
 
@@ -28,11 +28,11 @@
                                     class="card-header pb-0 bg-transparent d-flex justify-content-between align-middle border-0"
                                 >
                                     <p class="font-weight-bold text-muted small text-uppercase">
-                                        {{ trans.app.views }}
+                                        {{ i18n.views }}
                                     </p>
                                     <p>
                                         <span class="badge badge-pill badge-success p-2 font-weight-bold">{{
-                                            trans.app.last_thirty_days
+                                            i18n.last_thirty_days
                                         }}</span>
                                     </p>
                                 </div>
@@ -47,11 +47,11 @@
                                     class="card-header pb-0 bg-transparent d-flex justify-content-between align-middle border-0"
                                 >
                                     <p class="font-weight-bold text-muted small text-uppercase">
-                                        {{ trans.app.visitors }}
+                                        {{ i18n.visitors }}
                                     </p>
                                     <p>
                                         <span class="badge badge-pill badge-primary p-2 font-weight-bold">
-                                            {{ trans.app.last_thirty_days }}
+                                            {{ i18n.last_thirty_days }}
                                         </span>
                                     </p>
                                 </div>
@@ -92,16 +92,16 @@
                                                 </p>
                                                 <p class="text-secondary mb-2">
                                                     {{ post.read_time }} ―
-                                                    {{ trans.app.published }}
+                                                    {{ i18n.published }}
                                                     {{ formatFromNow(post.published_at) }}
                                                 </p>
                                             </div>
                                             <div class="ml-auto d-none d-lg-block">
                                                 <span class="text-muted mr-3"
-                                                    >{{ formatCount(post.views_count) }} {{ trans.app.views }}</span
+                                                    >{{ formatCount(post.views_count) }} {{ i18n.views }}</span
                                                 >
                                                 <span class="mr-3"
-                                                    >{{ trans.app.created }} {{ formatFromNow(post.created_at) }}</span
+                                                    >{{ i18n.created }} {{ formatFromNow(post.created_at) }}</span
                                                 >
                                             </div>
 
@@ -133,10 +133,10 @@
                         <div class="card-body p-0">
                             <div class="my-5">
                                 <p class="lead text-center text-muted mt-5">
-                                    {{ trans.app.you_have_no_published_posts }}
+                                    {{ i18n.you_have_no_published_posts }}
                                 </p>
                                 <p class="lead text-center text-muted mt-1">
-                                    {{ trans.app.stats_are_made_available }}
+                                    {{ i18n.stats_are_made_available }}
                                 </p>
                             </div>
                         </div>
@@ -157,6 +157,7 @@ import LineChart from '../components/LineChart';
 import { suffixedNumber, trim } from '../utils/strings';
 import request from '../utils/request';
 import PageHeader from '../components/PageHeader';
+import BaseMixin from '../mixins/BaseMixin';
 
 export default {
     name: 'all-stats',
@@ -171,6 +172,8 @@ export default {
         Hover,
     },
 
+    mixins: [BaseMixin],
+
     data() {
         return {
             page: 1,
@@ -180,13 +183,13 @@ export default {
             visitCount: 0,
             visitTrend: {},
             isReady: false,
-            trans: JSON.parse(window.Canvas.locale.translations),
         };
     },
 
     async created() {
         await this.fetchStats();
         await this.fetchPosts();
+
         NProgress.done();
         this.isReady = true;
     },
@@ -245,6 +248,14 @@ export default {
 
         formatFromNow(date) {
             return moment(date).format('MMM D, YYYY');
+        },
+    },
+
+    computed: {
+        i18n() {
+            let parsed = JSON.parse(this.Canvas.locale.translations);
+
+            return parsed.app;
         },
     },
 };

@@ -75,7 +75,9 @@
             "^.+\\.js$": "<rootDir>/node_modules/babel-jest",
             ".*\\.(vue)$": "<rootDir>/node_modules/vue-jest"
         },
-        "transformIgnorePatterns": ["<rootDir>/node_modules/"],
+        "transformIgnorePatterns": [
+            "<rootDir>/node_modules/"
+        ],
         "snapshotSerializers": [
             "<rootDir>/node_modules/jest-serializer-vue"
         ]

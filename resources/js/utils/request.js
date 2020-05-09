@@ -24,7 +24,20 @@ request.interceptors.request.use(
 request.interceptors.response.use(
     (response) => response,
     (error) => {
-        console.log('err' + error);
+        switch (error.response.status) {
+            case 405:
+            case 401: {
+                let instance = axios.create();
+
+                instance.defaults.baseURL = '/';
+
+                return instance.post('/logout').then(() => {
+                    window.location.href = '/login';
+                });
+            }
+            default:
+                break;
+        }
 
         return Promise.reject(error);
     }

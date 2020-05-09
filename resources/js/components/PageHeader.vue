@@ -57,23 +57,23 @@
                         <div class="dropdown-divider"></div>
 
                         <router-link to="/posts" class="dropdown-item">
-                            <span>{{ trans.app.posts_simple }}</span>
+                            <span>{{ i18n.posts_simple }}</span>
                         </router-link>
                         <router-link to="/tags" class="dropdown-item">
-                            <span>{{ trans.app.tags }}</span>
+                            <span>{{ i18n.tags }}</span>
                         </router-link>
                         <router-link to="/topics" class="dropdown-item">
-                            <span>{{ trans.app.topics }}</span>
+                            <span>{{ i18n.topics }}</span>
                         </router-link>
                         <router-link to="/stats" class="dropdown-item">
-                            <span>{{ trans.app.stats }}</span>
+                            <span>{{ i18n.stats }}</span>
                         </router-link>
                         <div class="dropdown-divider"></div>
                         <router-link to="/settings" class="dropdown-item">
-                            <span>{{ trans.app.settings }}</span>
+                            <span>{{ i18n.settings }}</span>
                         </router-link>
                         <a href="" class="dropdown-item" @click.prevent="logout">
-                            {{ trans.app.sign_out }}
+                            {{ i18n.sign_out }}
                         </a>
                     </div>
                 </div>
@@ -83,20 +83,45 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
     name: 'page-header',
 
-    data() {
-        return {
-            user: window.Canvas.user,
-            avatar: window.Canvas.avatar,
-            trans: JSON.parse(window.Canvas.locale.translations),
-        };
+    props: {
+        user: {
+            type: Object,
+            required: true,
+        },
+
+        avatar: {
+            type: String,
+            required: true,
+        },
+
+        trans: {
+            type: String,
+            required: true,
+        },
+    },
+
+    computed: {
+        i18n() {
+            let parsed = JSON.parse(this.trans);
+
+            return parsed.app;
+        },
     },
 
     methods: {
         logout() {
-            //
+            let instance = axios.create();
+
+            instance.defaults.baseURL = '/';
+
+            instance.post('/logout').then(() => {
+                window.location.href = '/login';
+            });
         },
     },
 };
