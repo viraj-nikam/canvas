@@ -10,7 +10,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 
-class MediaControllerTest extends TestCase
+class UploadsControllerTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -33,11 +33,11 @@ class MediaControllerTest extends TestCase
 
         $user = factory(config('canvas.user'))->create();
 
-        $this->actingAs($user)->postJson('canvas/api/media/uploads', [
+        $this->actingAs($user)->postJson('canvas/api/uploads', [
             null,
         ])->assertStatus(400);
 
-        $this->actingAs($user)->postJson('canvas/api/media/uploads', [
+        $this->actingAs($user)->postJson('canvas/api/uploads', [
             $file = UploadedFile::fake()->image('photo.jpg'),
         ])->assertSuccessful();
 
@@ -53,11 +53,11 @@ class MediaControllerTest extends TestCase
 
         $user = factory(config('canvas.user'))->create();
 
-        $this->actingAs($user)->deleteJson('canvas/api/media/uploads', [
+        $this->actingAs($user)->deleteJson('canvas/api/uploads', [
             null,
         ])->assertStatus(400);
 
-        $this->actingAs($user)->deleteJson('canvas/api/media/uploads', [
+        $this->actingAs($user)->deleteJson('canvas/api/uploads', [
             $file = UploadedFile::fake()->image('photo.jpg'),
         ])->assertSuccessful();
 

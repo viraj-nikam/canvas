@@ -5,17 +5,17 @@ use Illuminate\Support\Facades\Route;
 Route::namespace('Canvas\Http\Controllers')->group(function () {
     Route::prefix(config('canvas.path'))->middleware(config('canvas.middleware'))->group(function () {
         Route::prefix('api')->group(function () {
-            Route::prefix('app')->group(function () {
-                Route::get('/', 'AppController');
+            Route::prefix('config')->group(function () {
+                Route::get('/', 'ConfigController');
             });
 
             Route::prefix('locale')->group(function () {
                 Route::get('{code}', 'LocaleController');
             });
 
-            Route::prefix('media')->group(function () {
-                Route::post('uploads', 'MediaController@store');
-                Route::delete('uploads', 'MediaController@destroy');
+            Route::prefix('uploads')->group(function () {
+                Route::post('/', 'UploadsController@store');
+                Route::delete('/', 'UploadsController@destroy');
             });
 
             Route::prefix('posts')->group(function () {

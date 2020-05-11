@@ -6,7 +6,7 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Storage;
 
-class MediaController extends Controller
+class UploadsController extends Controller
 {
     /**
      * Store a newly created resource in storage.

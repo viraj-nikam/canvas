@@ -6,7 +6,7 @@ use Canvas\UserMeta;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Str;
 
-class AppController extends Controller
+class ConfigController extends Controller
 {
     /**
      * Handle the incoming request.

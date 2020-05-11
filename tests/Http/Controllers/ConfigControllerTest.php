@@ -8,7 +8,7 @@ use Illuminate\Auth\Middleware\Authorize;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class AppControllerTest extends TestCase
+class ConfigControllerTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -25,11 +25,11 @@ class AppControllerTest extends TestCase
     }
 
     /** @test */
-    public function basic_app_information_can_be_fetched()
+    public function basic_config_information_can_be_fetched()
     {
         $user = factory(config('canvas.user'))->create();
 
-        $response = $this->actingAs($user)->getJson('canvas/api/app')->assertSuccessful();
+        $response = $this->actingAs($user)->getJson('canvas/api/config')->assertSuccessful();
 
         $this->assertArrayHasKey('codes', $response->decodeResponseJson('locale'));
         $this->assertArrayHasKey('current', $response->decodeResponseJson('locale'));
