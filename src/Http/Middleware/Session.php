@@ -38,7 +38,7 @@ class Session
      *
      * @return Collection
      */
-    private function getViewedPostsInSession()
+    private function getViewedPostsInSession(): Collection
     {
         return collect(session()->get('viewed_posts'));
     }
@@ -48,7 +48,7 @@ class Session
      *
      * @return Collection
      */
-    private function getVisitedPostsInSession()
+    private function getVisitedPostsInSession(): Collection
     {
         return collect(session()->get('visited_posts'));
     }
