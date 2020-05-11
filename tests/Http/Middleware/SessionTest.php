@@ -1,6 +1,6 @@
 <?php
 
-namespace Canvas\Tests\Middleware;
+namespace Canvas\Tests\Http\Middleware;
 
 use Canvas\Http\Middleware\Session;
 use Canvas\Post;

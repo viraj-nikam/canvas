@@ -23,7 +23,7 @@
 </head>
 <body class="mb-5">
 <div id="canvas">
-    @if(!$assetsUpToDate)
+    @if(!assets_up_to_date())
        <div class="alert alert-danger border-0 text-center rounded-0 mb-0">
            {{ __('canvas::app.assets_are_not_up_to_date') }}
            {{ __('canvas::app.to_update_run') }}<br/><code>php artisan canvas:publish</code>
@@ -32,10 +32,6 @@
 
     <router-view></router-view>
 </div>
-
-<script>
-    window.Canvas = @json($scripts);
-</script>
 
 <script type="text/javascript" src="{{ mix('js/app.js', 'vendor/canvas') }}"></script>
 </body>

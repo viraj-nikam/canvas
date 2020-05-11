@@ -2,7 +2,6 @@
 
 namespace Canvas\Http\Controllers;
 
-use Canvas\Canvas;
 use Illuminate\Routing\Controller;
 
 class ViewController extends Controller
@@ -14,9 +13,6 @@ class ViewController extends Controller
      */
     public function __invoke()
     {
-        return view('canvas::layout', [
-            'assetsUpToDate' => Canvas::assetsUpToDate(),
-            'scripts' => Canvas::scriptVariables(),
-        ]);
+        return view('canvas::layout');
     }
 }

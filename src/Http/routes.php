@@ -5,9 +5,17 @@ use Illuminate\Support\Facades\Route;
 Route::namespace('Canvas\Http\Controllers')->group(function () {
     Route::prefix(config('canvas.path'))->middleware(config('canvas.middleware'))->group(function () {
         Route::prefix('api')->group(function () {
-            Route::prefix('stats')->group(function () {
-                Route::get('/', 'StatsController@index');
-                Route::get('{id}', 'StatsController@show');
+            Route::prefix('app')->group(function () {
+                Route::get('/', 'AppController');
+            });
+
+            Route::prefix('locale')->group(function () {
+                Route::get('{code}', 'LocaleController');
+            });
+
+            Route::prefix('media')->group(function () {
+                Route::post('uploads', 'MediaController@store');
+                Route::delete('uploads', 'MediaController@destroy');
             });
 
             Route::prefix('posts')->group(function () {
@@ -15,6 +23,11 @@ Route::namespace('Canvas\Http\Controllers')->group(function () {
                 Route::get('{id?}', 'PostController@show');
                 Route::post('{id}', 'PostController@store');
                 Route::delete('{id}', 'PostController@destroy');
+            });
+
+            Route::prefix('stats')->group(function () {
+                Route::get('/', 'StatsController@index');
+                Route::get('{id}', 'StatsController@show');
             });
 
             Route::prefix('tags')->group(function () {
@@ -31,18 +44,9 @@ Route::namespace('Canvas\Http\Controllers')->group(function () {
                 Route::delete('{id}', 'TopicController@destroy');
             });
 
-            Route::prefix('media')->group(function () {
-                Route::post('uploads', 'MediaController@store');
-                Route::delete('uploads', 'MediaController@destroy');
-            });
-
-            Route::prefix('settings')->group(function () {
-                Route::get('/', 'SettingsController@show');
-                Route::post('/', 'SettingsController@update');
-            });
-
-            Route::prefix('locale')->group(function () {
-                Route::get('{code}', 'LocaleController');
+            Route::prefix('users')->group(function () {
+                Route::get('{id}', 'UserController@show');
+                Route::post('{id}', 'UserController@update');
             });
         });
 

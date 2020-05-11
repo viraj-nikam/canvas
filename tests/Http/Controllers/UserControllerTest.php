@@ -1,6 +1,6 @@
 <?php
 
-namespace Canvas\Tests\Controllers;
+namespace Canvas\Tests\Http\Controllers;
 
 use Canvas\Http\Middleware\Session;
 use Canvas\Tests\TestCase;
@@ -9,7 +9,7 @@ use Illuminate\Auth\Middleware\Authorize;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class SettingsControllerTest extends TestCase
+class UserControllerTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -26,12 +26,12 @@ class SettingsControllerTest extends TestCase
     }
 
     /** @test */
-    public function settings_can_be_listed()
+    public function user_details_can_be_listed()
     {
         // New settings...
         $user = factory(config('canvas.user'))->create();
 
-        $response = $this->actingAs($user)->getJson('canvas/api/settings')->assertSuccessful();
+        $response = $this->actingAs($user)->getJson("canvas/api/users/{$user->id}")->assertSuccessful();
 
         $this->assertArrayHasKey('avatar', $response->decodeResponseJson());
         $this->assertArrayHasKey('dark_mode', $response->decodeResponseJson());
@@ -47,7 +47,7 @@ class SettingsControllerTest extends TestCase
             'locale' => 'en',
         ]);
 
-        $response = $this->actingAs($userMeta->user)->getJson('canvas/api/settings')->assertSuccessful();
+        $response = $this->actingAs($userMeta->user)->getJson("canvas/api/users/{$userMeta->user_id}")->assertSuccessful();
 
         $this->assertArrayHasKey('avatar', $response->decodeResponseJson());
         $this->assertArrayHasKey('dark_mode', $response->decodeResponseJson());
@@ -62,12 +62,12 @@ class SettingsControllerTest extends TestCase
     }
 
     /** @test */
-    public function settings_can_be_stored()
+    public function user_details_can_be_stored()
     {
         // New settings...
         $user = factory(config('canvas.user'))->create();
 
-        $response = $this->actingAs($user)->postJson('canvas/api/settings', [
+        $response = $this->actingAs($user)->postJson("canvas/api/users/{$user->id}", [
             'user_id' => $user->id,
         ])->assertSuccessful();
 
@@ -81,7 +81,7 @@ class SettingsControllerTest extends TestCase
         $this->assertEquals($user->id, $response->decodeResponseJson('user_id'));
 
         // Existing settings...
-        $response = $this->actingAs($user)->postJson('canvas/api/settings', [
+        $response = $this->actingAs($user)->postJson("canvas/api/users/{$user->id}", [
             'username' => 'a-new-username',
         ])->assertSuccessful();
 
@@ -106,11 +106,21 @@ class SettingsControllerTest extends TestCase
             'username' => 'an-existing-username',
         ]);
 
-        $response = $this->actingAs($userMeta->user)->postJson('canvas/api/settings', [
+        $response = $this->actingAs($userMeta->user)->postJson("canvas/api/users/{$userMeta->user_id}", [
             'user_id' => $userMeta->user->id,
             'username' => 'an-existing-username',
         ])->assertStatus(422);
 
         $this->assertArrayHasKey('username', $response->decodeResponseJson('errors'));
+    }
+
+    /** @test */
+    public function users_cannot_access_another_user_account()
+    {
+        $user_1 = factory(config('canvas.user'))->create();
+        $user_2 = factory(config('canvas.user'))->create();
+
+        $this->actingAs($user_2)->getJson("canvas/api/users/{$user_1->id}")->assertNotFound();
+        $this->actingAs($user_1)->postJson("canvas/api/users/{$user_2->id}")->assertNotFound();
     }
 }
