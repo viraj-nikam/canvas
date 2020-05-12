@@ -8,7 +8,7 @@
 
     <title>{{ config('app.name') }} ― Canvas</title>
 
-    @if($scripts['darkMode'])
+    @if($dark)
         <link rel="stylesheet" id="baseStylesheet" type="text/css" href="{{ mix('css/app-dark.css', 'vendor/canvas') }}">
         <link rel="stylesheet" id="highlightStylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/styles/sunburst.min.css">
     @else
