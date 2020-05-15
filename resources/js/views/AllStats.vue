@@ -1,13 +1,12 @@
 <template>
     <div>
-        <page-header :user="Canvas.user" :avatar="Canvas.avatar" :trans="Canvas.locale.translations">
+        <page-header :user="user" :avatar="avatar" :trans="translations">
             <template slot="action">
                 <router-link
                     :to="{ name: 'create-post' }"
                     class="btn btn-sm btn-outline-success font-weight-bold my-auto"
+                    >{{ i18n.new_post }}</router-link
                 >
-                    {{ i18n.new_post }}
-                </router-link>
             </template>
         </page-header>
 
@@ -15,9 +14,7 @@
             <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12">
                 <div class="my-3">
                     <h1>{{ i18n.stats }}</h1>
-                    <p class="text-secondary">
-                        {{ i18n.click_to_see_insights }}
-                    </p>
+                    <p class="text-secondary">{{ i18n.click_to_see_insights }}</p>
                 </div>
 
                 <div v-if="isReady">
@@ -27,38 +24,30 @@
                                 <div
                                     class="card-header pb-0 bg-transparent d-flex justify-content-between align-middle border-0"
                                 >
-                                    <p class="font-weight-bold text-muted small text-uppercase">
-                                        {{ i18n.views }}
-                                    </p>
+                                    <p class="font-weight-bold text-muted small text-uppercase">{{ i18n.views }}</p>
                                     <p>
-                                        <span class="badge badge-pill badge-success p-2 font-weight-bold">{{
-                                            i18n.last_thirty_days
-                                        }}</span>
+                                        <span class="badge badge-pill badge-success p-2 font-weight-bold">
+                                            {{ i18n.last_thirty_days }}
+                                        </span>
                                     </p>
                                 </div>
                                 <div class="card-body pt-0 pb-2">
-                                    <p class="card-text display-4">
-                                        {{ formatCount(viewCount) }}
-                                    </p>
+                                    <p class="card-text display-4">{{ formatCount(viewCount) }}</p>
                                 </div>
                             </div>
                             <div class="card shadow">
                                 <div
                                     class="card-header pb-0 bg-transparent d-flex justify-content-between align-middle border-0"
                                 >
-                                    <p class="font-weight-bold text-muted small text-uppercase">
-                                        {{ i18n.visitors }}
-                                    </p>
+                                    <p class="font-weight-bold text-muted small text-uppercase">{{ i18n.visitors }}</p>
                                     <p>
-                                        <span class="badge badge-pill badge-primary p-2 font-weight-bold">
-                                            {{ i18n.last_thirty_days }}
-                                        </span>
+                                        <span class="badge badge-pill badge-primary p-2 font-weight-bold">{{
+                                            i18n.last_thirty_days
+                                        }}</span>
                                     </p>
                                 </div>
                                 <div class="card-body pt-0 pb-2">
-                                    <p class="card-text display-4">
-                                        {{ formatCount(visitCount) }}
-                                    </p>
+                                    <p class="card-text display-4">{{ formatCount(visitCount) }}</p>
                                 </div>
                             </div>
                         </div>
@@ -86,9 +75,9 @@
                                         >
                                             <div class="mr-auto pl-2">
                                                 <p class="mb-1 mt-2">
-                                                    <span class="font-weight-bold text-lg lead">
-                                                        {{ trimmedTitle(post.title) }}
-                                                    </span>
+                                                    <span class="font-weight-bold text-lg lead">{{
+                                                        trimmedTitle(post.title)
+                                                    }}</span>
                                                 </p>
                                                 <p class="text-secondary mb-2">
                                                     {{ post.read_time }} ―
@@ -132,12 +121,8 @@
                     <div v-else class="card shadow border-0 mt-5">
                         <div class="card-body p-0">
                             <div class="my-5">
-                                <p class="lead text-center text-muted mt-5">
-                                    {{ i18n.you_have_no_published_posts }}
-                                </p>
-                                <p class="lead text-center text-muted mt-1">
-                                    {{ i18n.stats_are_made_available }}
-                                </p>
+                                <p class="lead text-center text-muted mt-5">{{ i18n.you_have_no_published_posts }}</p>
+                                <p class="lead text-center text-muted mt-1">{{ i18n.stats_are_made_available }}</p>
                             </div>
                         </div>
                     </div>
@@ -153,11 +138,11 @@ import isEmpty from 'lodash/isEmpty';
 import InfiniteLoading from 'vue-infinite-loading';
 import Hover from '../directives/Hover';
 import moment from 'moment';
+import store from '../store';
 import LineChart from '../components/LineChart';
 import { suffixedNumber, trim } from '../utils/strings';
-import request from '../utils/request';
 import PageHeader from '../components/PageHeader';
-import BaseMixin from '../mixins/BaseMixin';
+import { mapGetters } from 'vuex';
 
 export default {
     name: 'all-stats',
@@ -171,8 +156,6 @@ export default {
     directives: {
         Hover,
     },
-
-    mixins: [BaseMixin],
 
     data() {
         return {
@@ -194,9 +177,33 @@ export default {
         this.isReady = true;
     },
 
+    computed: {
+        // todo: is this a namespace issue?
+        // todo: is this a lifecycle issue?
+        ...mapGetters(['config']),
+
+        i18n() {
+            let parsed = JSON.parse(store.getters.config.translations);
+
+            return parsed.app;
+        },
+
+        user() {
+            return store.getters.config.user;
+        },
+
+        avatar() {
+            return store.getters.config.avatar;
+        },
+
+        translations() {
+            return store.getters.config.translations;
+        },
+    },
+
     methods: {
         fetchStats() {
-            return request
+            return this.request()
                 .get('/api/stats')
                 .then((response) => {
                     this.viewCount = response.data.view_count;
@@ -212,7 +219,7 @@ export default {
         },
 
         fetchPosts($state) {
-            return request
+            return this.request()
                 .get('/api/posts', {
                     params: {
                         page: this.page,
@@ -248,14 +255,6 @@ export default {
 
         formatFromNow(date) {
             return moment(date).format('MMM D, YYYY');
-        },
-    },
-
-    computed: {
-        i18n() {
-            let parsed = JSON.parse(this.Canvas.locale.translations);
-
-            return parsed.app;
         },
     },
 };

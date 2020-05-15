@@ -21,7 +21,7 @@ export default router;
 
 function createRouter() {
     const router = new Router({
-        base: window.Canvas.path,
+        base: store.getters.config.path,
         mode: 'history',
         routes,
     });

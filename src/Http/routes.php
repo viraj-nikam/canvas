@@ -5,10 +5,6 @@ use Illuminate\Support\Facades\Route;
 Route::namespace('Canvas\Http\Controllers')->group(function () {
     Route::prefix(config('canvas.path'))->middleware(config('canvas.middleware'))->group(function () {
         Route::prefix('api')->group(function () {
-            Route::prefix('config')->group(function () {
-                Route::get('/', 'ConfigController');
-            });
-
             Route::prefix('locale')->group(function () {
                 Route::get('{code}', 'LocaleController');
             });

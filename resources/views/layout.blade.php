@@ -8,7 +8,7 @@
 
     <title>{{ config('app.name') }} ― Canvas</title>
 
-    @if($dark)
+    @if($config['darkMode'])
         <link rel="stylesheet" id="baseStylesheet" type="text/css" href="{{ mix('css/app-dark.css', 'vendor/canvas') }}">
         <link rel="stylesheet" id="highlightStylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/styles/sunburst.min.css">
     @else
@@ -32,6 +32,10 @@
 
     <router-view></router-view>
 </div>
+
+<script>
+    window.Canvas = @json($config);
+</script>
 
 <script type="text/javascript" src="{{ mix('js/app.js', 'vendor/canvas') }}"></script>
 </body>

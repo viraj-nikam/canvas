@@ -95,7 +95,6 @@
 import NProgress from 'nprogress';
 import isEmpty from 'lodash/isEmpty';
 import Hover from '../directives/Hover';
-import request from '../utils/request';
 import InfiniteLoading from 'vue-infinite-loading';
 import PageHeader from '../components/PageHeader';
 
@@ -121,7 +120,7 @@ export default {
 
     methods: {
         fetchData($state) {
-            request
+            this.request()
                 .get('/api/tags', {
                     params: {
                         page: this.page,
