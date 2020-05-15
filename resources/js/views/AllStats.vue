@@ -4,7 +4,8 @@
             <template slot="action">
                 <router-link
                     :to="{ name: 'create-post' }"
-                    class="btn btn-sm btn-outline-success font-weight-bold my-auto">{{ i18n.new_post }}
+                    class="btn btn-sm btn-outline-success font-weight-bold my-auto"
+                    >{{ i18n.new_post }}
                 </router-link>
             </template>
         </page-header>
@@ -51,11 +52,7 @@
                             </div>
                         </div>
 
-                        <line-chart
-                            :views="JSON.parse(viewTrend)"
-                            :visits="JSON.parse(visitTrend)"
-                            class="mt-5"
-                        />
+                        <line-chart :views="JSON.parse(viewTrend)" :visits="JSON.parse(visitTrend)" class="mt-5" />
 
                         <div class="mt-5 card shadow">
                             <div class="card-body p-0">
@@ -78,7 +75,7 @@
                                         >
                                             <div class="mr-auto pl-2">
                                                 <p class="mb-1 mt-2">
-                            <span class="font-weight-bold text-lg lead">{{
+                                                    <span class="font-weight-bold text-lg lead">{{
                                                         trimmedTitle(post.title)
                                                     }}</span>
                                                 </p>
@@ -89,12 +86,12 @@
                                                 </p>
                                             </div>
                                             <div class="ml-auto d-none d-lg-block">
-                                                <span
-                                                    class="text-muted mr-3"
-                                                >{{ formatCount(post.views_count) }} {{ i18n.views }}</span>
-                                                <span
-                                                    class="mr-3"
-                                                >{{ i18n.created }} {{ formatFromNow(post.created_at) }}</span>
+                                                <span class="text-muted mr-3"
+                                                    >{{ formatCount(post.views_count) }} {{ i18n.views }}</span
+                                                >
+                                                <span class="mr-3"
+                                                    >{{ i18n.created }} {{ formatFromNow(post.created_at) }}</span
+                                                >
                                             </div>
 
                                             <svg
@@ -103,7 +100,7 @@
                                                 viewBox="0 0 24 24"
                                                 class="icon-cheveron-right-circle"
                                             >
-                                                <circle cx="12" cy="12" r="10" style="fill: none;"/>
+                                                <circle cx="12" cy="12" r="10" style="fill: none;" />
                                                 <path
                                                     class="primary"
                                                     d="M10.3 8.7a1 1 0 0 1 1.4-1.4l4 4a1 1 0 0 1 0 1.4l-4 4a1 1 0 0 1-1.4-1.4l3.29-3.3-3.3-3.3z"
@@ -136,143 +133,143 @@
 </template>
 
 <script>
-    import NProgress from 'nprogress';
-    import isEmpty from 'lodash/isEmpty';
-    import InfiniteLoading from 'vue-infinite-loading';
-    import Hover from '../directives/Hover';
-    import moment from 'moment';
-    import store from '../store';
-    import LineChart from '../components/LineChart';
-    import { suffixedNumber, trim } from '../utils/strings';
-    import PageHeader from '../components/PageHeader';
-    import { mapGetters } from 'vuex';
+import NProgress from 'nprogress';
+import isEmpty from 'lodash/isEmpty';
+import InfiniteLoading from 'vue-infinite-loading';
+import Hover from '../directives/Hover';
+import moment from 'moment';
+import store from '../store';
+import LineChart from '../components/LineChart';
+import { suffixedNumber, trim } from '../utils/strings';
+import PageHeader from '../components/PageHeader';
+import { mapGetters } from 'vuex';
 
-    export default {
-        name: 'all-stats',
+export default {
+    name: 'all-stats',
 
-        components: {
-            LineChart,
-            InfiniteLoading,
-            PageHeader,
+    components: {
+        LineChart,
+        InfiniteLoading,
+        PageHeader,
+    },
+
+    directives: {
+        Hover,
+    },
+
+    data() {
+        return {
+            page: 1,
+            posts: [],
+            viewCount: 0,
+            viewTrend: {},
+            visitCount: 0,
+            visitTrend: {},
+            isReady: false,
+        };
+    },
+
+    async created() {
+        await this.fetchStats();
+        await this.fetchPosts();
+
+        NProgress.done();
+        this.isReady = true;
+    },
+
+    computed: {
+        // todo: is this a namespace issue?
+        // todo: is this a lifecycle issue?
+        ...mapGetters(['config']),
+
+        i18n() {
+            let parsed = JSON.parse(store.getters.config.translations);
+
+            return parsed.app;
         },
 
-        directives: {
-            Hover,
+        user() {
+            return store.getters.config.user;
         },
 
-        data() {
-            return {
-                page: 1,
-                posts: [],
-                viewCount: 0,
-                viewTrend: {},
-                visitCount: 0,
-                visitTrend: {},
-                isReady: false,
-            };
+        avatar() {
+            return store.getters.config.avatar;
         },
 
-        async created() {
-            await this.fetchStats();
-            await this.fetchPosts();
+        translations() {
+            return store.getters.config.translations;
+        },
+    },
 
-            NProgress.done();
-            this.isReady = true;
+    methods: {
+        fetchStats() {
+            return this.request()
+                .get('/api/stats')
+                .then((response) => {
+                    this.viewCount = response.data.view_count;
+                    this.viewTrend = response.data.view_trend;
+                    this.visitCount = response.data.visit_count;
+                    this.visitTrend = response.data.visit_trend;
+
+                    NProgress.inc();
+                })
+                .catch(() => {
+                    NProgress.done();
+                });
         },
 
-        computed: {
-            // todo: is this a namespace issue?
-            // todo: is this a lifecycle issue?
-            ...mapGetters([ 'config' ]),
+        fetchPosts($state) {
+            return this.request()
+                .get('/api/posts', {
+                    params: {
+                        page: this.page,
+                        type: 'published',
+                    },
+                })
+                .then((response) => {
+                    if (!isEmpty(response.data) && !isEmpty(response.data.posts.data)) {
+                        this.page += 1;
+                        this.posts.push(...response.data.posts.data);
 
-            i18n() {
-                let parsed = JSON.parse(store.getters.config.translations);
+                        $state.loaded();
+                    } else {
+                        $state.complete();
+                    }
 
-                return parsed.app;
-            },
-
-            user() {
-                return store.getters.config.user;
-            },
-
-            avatar() {
-                return store.getters.config.avatar;
-            },
-
-            translations() {
-                return store.getters.config.translations;
-            },
-        },
-
-        methods: {
-            fetchStats() {
-                return this.request()
-                    .get('/api/stats')
-                    .then((response) => {
-                        this.viewCount = response.data.view_count;
-                        this.viewTrend = response.data.view_trend;
-                        this.visitCount = response.data.visit_count;
-                        this.visitTrend = response.data.visit_trend;
-
+                    if (isEmpty($state)) {
                         NProgress.inc();
-                    })
-                    .catch(() => {
-                        NProgress.done();
-                    });
-            },
-
-            fetchPosts($state) {
-                return this.request()
-                    .get('/api/posts', {
-                        params: {
-                            page: this.page,
-                            type: 'published',
-                        },
-                    })
-                    .then((response) => {
-                        if (!isEmpty(response.data) && !isEmpty(response.data.posts.data)) {
-                            this.page += 1;
-                            this.posts.push(...response.data.posts.data);
-
-                            $state.loaded();
-                        } else {
-                            $state.complete();
-                        }
-
-                        if (isEmpty($state)) {
-                            NProgress.inc();
-                        }
-                    })
-                    .catch(() => {
-                        NProgress.done();
-                    });
-            },
-
-            trimmedTitle(str) {
-                return trim(str, 45);
-            },
-
-            formatCount(val) {
-                return suffixedNumber(val);
-            },
-
-            formatFromNow(date) {
-                return moment(date).format('MMM D, YYYY');
-            },
+                    }
+                })
+                .catch(() => {
+                    NProgress.done();
+                });
         },
-    };
+
+        trimmedTitle(str) {
+            return trim(str, 45);
+        },
+
+        formatCount(val) {
+            return suffixedNumber(val);
+        },
+
+        formatFromNow(date) {
+            return moment(date).format('MMM D, YYYY');
+        },
+    },
+};
 </script>
 
 <style lang="scss" scoped>
-    @import '../../sass/utilities/variables';
+@import '../../sass/utilities/variables';
 
-    .badge-success {
-        background-color: $green-500;
-        color: darken($green, 20%);
-    }
+.badge-success {
+    background-color: $green-500;
+    color: darken($green, 20%);
+}
 
-    .badge-primary {
-        background-color: $blue-500;
-        color: darken($blue, 35%);
-    }
+.badge-primary {
+    background-color: $blue-500;
+    color: darken($blue, 35%);
+}
 </style>
