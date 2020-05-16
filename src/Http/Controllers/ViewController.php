@@ -58,6 +58,7 @@ class ViewController extends Controller
         $emailHash = md5(trim(Str::lower(request()->user()->email)));
 
         return [
+            'id' => auth()->user()->id,
             'name' => auth()->user()->name,
             'email' => auth()->user()->email,
             'avatar' => optional($metaData)->avatar && ! empty(optional($metaData)->avatar) ? $metaData->avatar : "https://secure.gravatar.com/avatar/{$emailHash}?s=500",

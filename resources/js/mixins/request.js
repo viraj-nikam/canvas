@@ -3,14 +3,10 @@ import store from '../store';
 
 export default {
     methods: {
-        getToken() {
-            return document.head.querySelector('meta[name="csrf-token"]').content;
-        },
-
         request() {
             let instance = axios.create();
 
-            instance.defaults.headers.common['X-CSRF-TOKEN'] = this.getToken();
+            instance.defaults.headers.common['X-CSRF-TOKEN'] = document.head.querySelector('meta[name="csrf-token"]').content;
             instance.defaults.baseURL = '/' + store.state.config.path;
 
             const requestHandler = (request) => {

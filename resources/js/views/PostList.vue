@@ -24,17 +24,17 @@
                         :class="bgColor"
                         class="my-auto ml-auto w-auto custom-select border-0"
                     >
-                        <option value="published">{{ i18n.published }} ({{ publishedCount }})</option>
-                        <option value="draft">{{ i18n.draft }} ({{ draftCount }})</option>
+                        <option value="published">{{ i18n.published }} ({{ suffixedNumber(publishedCount) }})</option>
+                        <option value="draft">{{ i18n.draft }} ({{ suffixedNumber(draftCount) }})</option>
                     </select>
                 </div>
 
-                <div class="mt-2 card shadow border-0">
+                <div class="mt-2 card shadow">
                     <div class="card-body p-0">
                         <div v-for="(post, index) in posts" :key="index">
                             <router-link
                                 :to="{
-                                    name: 'posts-edit',
+                                    name: 'edit-post',
                                     params: { id: post.id },
                                 }"
                                 class="text-decoration-none"
@@ -150,6 +150,7 @@ import PageHeader from '../components/PageHeader';
 import store from '../store';
 import strings from '../mixins/strings';
 import i18n from '../mixins/i18n';
+import status from '../mixins/status'
 
 export default {
     name: 'post-list',
@@ -159,7 +160,7 @@ export default {
         PageHeader,
     },
 
-    mixins: [strings, i18n],
+    mixins: [status, strings, i18n],
 
     directives: {
         Hover,
@@ -185,7 +186,7 @@ export default {
 
     computed: {
         bgColor() {
-            return store.state.user.darkMode ? 'bg-dark' : 'bg-light';
+            return store.state.user.darkMode ? 'bg-darker' : 'bg-light';
         },
     },
 

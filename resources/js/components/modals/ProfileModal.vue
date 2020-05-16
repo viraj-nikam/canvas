@@ -169,13 +169,6 @@ const FilePond = vueFilePond(
 export default {
     name: 'profile-modal',
 
-    props: {
-        form: {
-            type: Object,
-            required: true,
-        },
-    },
-
     components: {
         FilePond,
     },

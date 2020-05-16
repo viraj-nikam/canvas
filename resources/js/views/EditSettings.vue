@@ -4,8 +4,8 @@
             <template slot="status">
                 <ul class="navbar-nav mr-auto flex-row float-right">
                     <li class="text-muted font-weight-bold">
-                        <span v-if="form.isSaving">{{ trans.app.saving }}</span>
-                        <span v-if="form.hasSuccess" class="text-success">{{ trans.app.saved }}</span>
+<!--                        <span v-if="form.isSaving">{{ i18n.saving }}</span>-->
+<!--                        <span v-if="form.hasSuccess" class="text-success">{{ i18n.saved }}</span>-->
                     </li>
                 </ul>
             </template>
@@ -14,18 +14,18 @@
         <main class="py-4">
             <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12 my-3">
                 <div class="d-flex justify-content-between my-3">
-                    <h1>{{ trans.app.your_profile }}</h1>
+                    <h1>{{ i18n.your_profile }}</h1>
                 </div>
 
-                <div class="mt-2 card shadow border-0" v-if="isReady">
+                <div class="mt-2 card shadow" v-if="isReady">
                     <div class="card-body p-0">
                         <div class="d-flex p-3 align-items-center">
                             <div class="mr-auto py-1">
                                 <p class="mb-1 font-weight-bold text-lg lead">
-                                    {{ trans.app.your_profile }}
+                                    {{ i18n.your_profile }}
                                 </p>
                                 <p class="mb-1 d-none d-lg-block">
-                                    {{ trans.app.choose_a_unique_username }}
+                                    {{ i18n.choose_a_unique_username }}
                                 </p>
                             </div>
                             <div class="ml-auto pl-3">
@@ -34,7 +34,7 @@
                                         class="btn btn-sm btn-outline-success font-weight-bold"
                                         @click="showProfileModal"
                                     >
-                                        {{ trans.app.edit_profile }}
+                                        {{ i18n.edit_profile }}
                                     </button>
                                 </div>
                             </div>
@@ -43,10 +43,10 @@
                         <div class="d-flex border-top p-3 align-items-center">
                             <div class="mr-auto py-1">
                                 <p class="mb-1 font-weight-bold text-lg lead">
-                                    {{ trans.app.weekly_digest }}
+                                    {{ i18n.weekly_digest }}
                                 </p>
                                 <p class="mb-1 d-none d-lg-block">
-                                    {{ trans.app.toggle_digest }}
+                                    {{ i18n.toggle_digest }}
                                 </p>
                             </div>
                             <div class="ml-auto pl-3">
@@ -58,11 +58,11 @@
                                                 class="switch"
                                                 id="digest"
                                                 @change="toggleDigest"
-                                                :checked="form.digest"
-                                                v-model="form.digest"
+                                                :checked="user.digest"
+                                                v-model="user.digest"
                                             />
                                             <label for="digest" class="mb-0 sr-only">
-                                                {{ trans.app.weekly_digest }}
+                                                {{ i18n.weekly_digest }}
                                             </label>
                                         </span>
                                     </div>
@@ -73,10 +73,10 @@
                         <div class="d-flex border-top p-3 align-items-center">
                             <div class="mr-auto py-1">
                                 <p class="mb-1 font-weight-bold text-lg lead">
-                                    {{ trans.app.dark_mode }}
+                                    {{ i18n.dark_mode }}
                                 </p>
                                 <p class="mb-1 d-none d-lg-block">
-                                    {{ trans.app.toggle_dark_mode }}
+                                    {{ i18n.toggle_dark_mode }}
                                 </p>
                             </div>
                             <div class="ml-auto pl-3">
@@ -88,11 +88,11 @@
                                                 class="switch"
                                                 id="darkMode"
                                                 @change="toggleDarkMode"
-                                                :checked="form.darkMode"
-                                                v-model="form.darkMode"
+                                                :checked="user.darkMode"
+                                                v-model="user.darkMode"
                                             />
                                             <label for="darkMode" class="mb-0 sr-only">
-                                                {{ trans.app.dark_mode }}
+                                                {{ i18n.dark_mode }}
                                             </label>
                                         </span>
                                     </div>
@@ -103,10 +103,10 @@
                         <div class="d-flex border-top p-3 align-items-center">
                             <div class="mr-auto py-1">
                                 <p class="mb-1 font-weight-bold text-lg lead">
-                                    {{ trans.app.locale }}
+                                    {{ i18n.locale }}
                                 </p>
                                 <p class="mb-1 d-none d-lg-block">
-                                    {{ trans.app.select_your_language_or_region }}
+                                    {{ i18n.select_your_language_or_region }}
                                 </p>
                             </div>
                             <div class="ml-auto pl-3">
@@ -114,17 +114,17 @@
                                     <div class="form-group row mt-3">
                                         <div class="col-12">
                                             <select
-                                                :class="!window.Canvas.darkMode ? 'bg-light' : 'bg-darker'"
+                                                :class="bgColor"
                                                 class="custom-select border-0"
                                                 @change="updateLocale"
-                                                v-model="form.locale"
+                                                v-model="user.locale"
                                                 name="locale"
                                             >
                                                 <option
-                                                    v-for="(locale, code) in window.Canvas.languageCodes"
+                                                    v-for="(locale, code) in config.languageCodes"
                                                     :key="code"
                                                     :value="code"
-                                                    :selected="window.Canvas.locale === code"
+                                                    :selected="user.locale === code"
                                                 >
                                                     {{ locale }}
                                                 </option>
@@ -139,7 +139,7 @@
             </div>
         </main>
 
-        <profile-modal v-if="isReady" ref="profileModal" :form="form" />
+<!--        <profile-modal v-if="isReady" ref="profileModal" :form="form" />-->
     </div>
 </template>
 
@@ -148,6 +148,9 @@ import $ from 'jquery';
 import NProgress from 'nprogress';
 import PageHeader from '../components/PageHeader';
 import ProfileModal from '../components/modals/ProfileModal';
+import strings from "../mixins/strings";
+import i18n from "../mixins/i18n";
+import store from '../store';
 
 export default {
     name: 'edit-settings',
@@ -157,95 +160,47 @@ export default {
         ProfileModal,
     },
 
+    mixins: [strings, i18n],
+
     data() {
         return {
-            form: {
-                username: null,
-                summary: null,
-                avatar: null,
-                locale: window.Canvas.locale,
-                digest: false,
-                darkMode: 0,
-                errors: [],
-                isSaving: false,
-                hasSuccess: false,
-            },
-            user: window.Canvas.user,
             isReady: false,
-            trans: JSON.parse(window.Canvas.locale.translations),
         };
     },
 
-    mounted() {
-        this.fetchData();
+    async created() {
+        await store.dispatch('user/fetchUser', this.user.id)
+
+        NProgress.done();
+        this.isReady = true;
+    },
+
+    computed: {
+        user() {
+            return store.state.user
+        },
+
+        config() {
+            return store.state.config
+        },
+
+        bgColor() {
+            return store.state.user.darkMode ? 'bg-darker' : 'bg-light';
+        },
     },
 
     methods: {
-        fetchData() {
-            this.request()
-                .get('/api/settings')
-                .then((response) => {
-                    this.form.username = response.data.username;
-                    this.form.summary = response.data.summary;
-                    this.form.avatar = response.data.avatar;
-                    this.form.digest = response.data.digest;
-                    this.form.darkMode = response.data.dark_mode;
-
-                    this.isReady = true;
-
-                    NProgress.done();
-                })
-                .catch(() => {
-                    NProgress.done();
-                });
-        },
-
-        saveData(data, withNotification) {
-            this.form.errors = [];
-
-            if (withNotification) {
-                this.form.isSaving = true;
-                this.form.hasSuccess = false;
-            }
-
-            this.request()
-                .post('/api/settings', data)
-                .then((response) => {
-                    if (withNotification) {
-                        this.form.isSaving = false;
-                        this.form.hasSuccess = true;
-                    }
-
-                    this.form.username = response.data.username;
-                    this.form.summary = response.data.summary;
-                    this.form.avatar = response.data.avatar;
-                    this.form.digest = response.data.digest;
-                    this.form.darkMode = response.data.dark_mode;
-                })
-                .catch((error) => {
-                    this.form.isSaving = false;
-                    this.form.errors = error.response.data.errors;
-                });
-
-            setTimeout(() => {
-                this.form.hasSuccess = false;
-                this.form.isSaving = false;
-            }, 3000);
-        },
-
         toggleDigest() {
-            this.saveData(
-                {
-                    digest: this.form.digest,
-                },
-                false
-            );
+            store.dispatch('user/updateUser', this.user)
+        },
+
+        updateLocale() {
+            store.dispatch('config/updateI18n', this.user.locale)
+            store.dispatch('user/updateUser', this.user)
         },
 
         toggleDarkMode() {
-            window.Canvas.darkMode = this.form.darkMode;
             let screen = $('#canvas');
-            let isDark = this.form.darkMode;
 
             screen.animate(
                 {
@@ -255,7 +210,7 @@ export default {
                 300,
                 function () {
                     // todo: There has to be a better way to swap stylesheets than this
-                    if (isDark) {
+                    if (store.state.user.darkMode) {
                         $('#baseStylesheet').attr('href', '/vendor/canvas/css/app-dark.css');
                         $('#highlightStylesheet').attr(
                             'href',
@@ -282,38 +237,63 @@ export default {
                 }
             );
 
-            this.saveData(
-                {
-                    dark_mode: isDark,
-                },
-                false
-            );
+            store.dispatch('user/updateUser', this.user)
         },
 
         showProfileModal() {
-            this.$emit('openingProfileModal', { trans: this.trans });
             $(this.$refs.profileModal.$el).modal('show');
         },
+        // fetchData() {
+        //     this.request()
+        //         .get('/api/settings')
+        //         .then((response) => {
+        //             this.form.username = response.data.username;
+        //             this.form.summary = response.data.summary;
+        //             this.form.avatar = response.data.avatar;
+        //             this.form.digest = response.data.digest;
+        //             this.form.darkMode = response.data.dark_mode;
+        //
+        //             NProgress.inc();
+        //         })
+        //         .catch(() => {
+        //             NProgress.done();
+        //         });
+        // },
 
-        updateLocale() {
-            this.request()
-                .get('/api/locale/' + this.form.locale)
-                .then((response) => {
-                    this.trans = response.data;
-                    this.$root.Canvas.translations = JSON.stringify(response.data);
-                    this.$root.Canvas.locale = this.form.locale;
-                })
-                .catch(() => {
-                    //
-                });
-
-            this.saveData(
-                {
-                    locale: this.form.locale,
-                },
-                false
-            );
-        },
+        // saveData(data, withNotification) {
+        //     this.form.errors = [];
+        //
+        //     if (withNotification) {
+        //         this.form.isSaving = true;
+        //         this.form.hasSuccess = false;
+        //     }
+        //
+        //     this.request()
+        //         .post('/api/settings', data)
+        //         .then((response) => {
+        //             if (withNotification) {
+        //                 this.form.isSaving = false;
+        //                 this.form.hasSuccess = true;
+        //             }
+        //
+        //             this.form.username = response.data.username;
+        //             this.form.summary = response.data.summary;
+        //             this.form.avatar = response.data.avatar;
+        //             this.form.digest = response.data.digest;
+        //             this.form.darkMode = response.data.dark_mode;
+        //         })
+        //         .catch((error) => {
+        //             this.form.isSaving = false;
+        //             this.form.errors = error.response.data.errors;
+        //         });
+        //
+        //     setTimeout(() => {
+        //         this.form.hasSuccess = false;
+        //         this.form.isSaving = false;
+        //     }, 3000);
+        // },
+        //
+        //
     },
 };
 </script>

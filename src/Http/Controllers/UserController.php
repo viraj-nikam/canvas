@@ -24,7 +24,7 @@ class UserController extends Controller
 
             return response()->json([
                 'avatar' => optional($metaData)->avatar ?? "https://secure.gravatar.com/avatar/{$emailHash}?s=500",
-                'dark_mode' => optional($metaData)->dark_mode ?? false,
+                'darkMode' => optional($metaData)->dark_mode ?? false,
                 'digest' => optional($metaData)->digest ?? false,
                 'summary' => optional($metaData)->summary ?? null,
                 'locale' => optional($metaData)->locale ?? null,
@@ -48,7 +48,7 @@ class UserController extends Controller
 
             $data = [
                 'avatar' => request('avatar', $metaData->avatar),
-                'dark_mode' => request('dark_mode', $metaData->dark_mode),
+                'dark_mode' => request('darkMode', $metaData->dark_mode),
                 'digest' => request('digest', $metaData->digest),
                 'locale' => request('locale', $metaData->locale),
                 'user_id' => request()->user()->id,
