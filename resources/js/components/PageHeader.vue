@@ -80,15 +80,14 @@
 <script>
 import axios from 'axios';
 import store from '../store';
+import i18n from '../mixins/i18n';
 
 export default {
     name: 'page-header',
 
-    computed: {
-        i18n() {
-            return store.state.config.i18n;
-        },
+    mixins: [i18n],
 
+    computed: {
         name() {
             return store.state.user.name;
         },

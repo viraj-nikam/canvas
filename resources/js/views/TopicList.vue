@@ -3,10 +3,10 @@
         <page-header>
             <template slot="action">
                 <router-link
-                    :to="{ name: 'topics-create' }"
+                    :to="{ name: 'create-topic' }"
                     class="btn btn-sm btn-outline-success font-weight-bold my-auto"
                 >
-                    {{ trans.app.new_topic }}
+                    {{ i18n.new_topic }}
                 </router-link>
             </template>
         </page-header>
@@ -14,13 +14,13 @@
         <main class="py-4">
             <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12">
                 <div class="my-3">
-                    <h1>{{ trans.app.topics }}</h1>
+                    <h1>{{ i18n.topics }}</h1>
                     <p class="text-secondary">
-                        {{ trans.app.topics_are_great_for }}
+                        {{ i18n.topics_are_great_for }}
                     </p>
                 </div>
 
-                <div class="mt-5 card shadow border-0">
+                <div class="mt-5 card shadow">
                     <div class="card-body p-0">
                         <div v-for="(topic, index) in topics" :key="index">
                             <router-link
@@ -49,9 +49,12 @@
                                         </div>
                                         <div class="ml-auto d-none d-md-inline-block">
                                             <span class="text-muted mr-3"
-                                                >{{ topic.posts_count }} {{ trans.app.posts }}</span
+                                                >{{ suffixedNumber(topic.posts_count) }} {{ i18n.posts }}</span
                                             >
-                                            <span class="mr-3">{{ trans.app.created }} {{ topic.created_at }}</span>
+                                            <span class="mr-3"
+                                                >{{ i18n.created }}
+                                                {{ moment(topic.created_at).format('MMM D, YYYY') }}</span
+                                            >
                                         </div>
 
                                         <svg
@@ -76,10 +79,10 @@
                             <div slot="no-results" class="text-left">
                                 <div class="my-5">
                                     <p class="lead text-center text-muted mt-5">
-                                        {{ trans.app.you_have_no_topics }}
+                                        {{ i18n.you_have_no_topics }}
                                     </p>
                                     <p class="lead text-center text-muted mt-1">
-                                        {{ trans.app.write_on_the_go }}
+                                        {{ i18n.write_on_the_go }}
                                     </p>
                                 </div>
                             </div>
@@ -97,6 +100,8 @@ import isEmpty from 'lodash/isEmpty';
 import Hover from '../directives/Hover';
 import InfiniteLoading from 'vue-infinite-loading';
 import PageHeader from '../components/PageHeader';
+import strings from '../mixins/strings';
+import i18n from '../mixins/i18n';
 
 export default {
     name: 'topic-list',
@@ -106,6 +111,8 @@ export default {
         PageHeader,
     },
 
+    mixins: [strings, i18n],
+
     directives: {
         Hover,
     },
@@ -114,8 +121,14 @@ export default {
         return {
             page: 1,
             topics: [],
-            trans: JSON.parse(window.Canvas.locale.translations),
         };
+    },
+
+    async created() {
+        await this.fetchData();
+
+        NProgress.done();
+        this.isReady = true;
     },
 
     methods: {
@@ -136,7 +149,9 @@ export default {
                         $state.complete();
                     }
 
-                    NProgress.done();
+                    if (isEmpty($state)) {
+                        NProgress.inc();
+                    }
                 })
                 .catch(() => {
                     NProgress.done();

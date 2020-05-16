@@ -3,10 +3,10 @@
         <page-header>
             <template slot="action">
                 <router-link
-                    :to="{ name: 'posts-create' }"
+                    :to="{ name: 'create-post' }"
                     class="btn btn-sm btn-outline-success font-weight-bold my-auto"
                 >
-                    {{ trans.app.new_post }}
+                    {{ i18n.new_post }}
                 </router-link>
             </template>
         </page-header>
@@ -14,18 +14,18 @@
         <main class="py-4">
             <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12">
                 <div class="d-flex justify-content-between my-3">
-                    <h1>{{ trans.app.posts_simple }}</h1>
+                    <h1>{{ i18n.posts_simple }}</h1>
 
                     <select
                         name=""
                         id=""
                         v-model="type"
                         @change="changeType"
-                        :class="!Canvas.darkMode ? 'bg-light' : 'bg-darker'"
+                        :class="bgColor"
                         class="my-auto ml-auto w-auto custom-select border-0"
                     >
-                        <option value="published">{{ trans.app.published }} ({{ publishedCount }})</option>
-                        <option value="draft">{{ trans.app.draft }} ({{ draftCount }})</option>
+                        <option value="published">{{ i18n.published }} ({{ publishedCount }})</option>
+                        <option value="draft">{{ i18n.draft }} ({{ draftCount }})</option>
                     </select>
                 </div>
 
@@ -59,22 +59,22 @@
                                         </p>
                                         <p class="text-muted mb-0">
                                             <span v-if="isPublished(post.published_at)">
-                                                {{ trans.app.published }}
-                                                {{ post.published_at }}
+                                                {{ i18n.published }}
+                                                {{ moment(post.published_at).fromNow() }}
                                             </span>
 
                                             <span
                                                 v-if="isDraft(post.published_at) && !isScheduled(post.published_at)"
                                                 class="text-danger"
-                                                >{{ trans.app.draft }}</span
+                                                >{{ i18n.draft }}</span
                                             >
 
                                             <span v-if="isScheduled(post.published_at)" class="text-danger">{{
-                                                trans.app.scheduled
+                                                i18n.scheduled
                                             }}</span>
 
-                                            ― {{ trans.app.updated }}
-                                            {{ post.updated_at }}
+                                            ― {{ i18n.updated }}
+                                            {{ moment(post.updated_at).fromNow() }}
                                         </p>
                                     </div>
                                     <div class="ml-auto d-none d-lg-block pl-3">
@@ -125,13 +125,11 @@
                             <div slot="no-results" class="text-left">
                                 <div class="my-5">
                                     <p class="lead text-center text-muted mt-5">
-                                        <span v-if="type === 'published'">{{
-                                            trans.app.you_have_no_published_posts
-                                        }}</span>
-                                        <span v-else>{{ trans.app.you_have_no_draft_posts }}</span>
+                                        <span v-if="type === 'published'">{{ i18n.you_have_no_published_posts }}</span>
+                                        <span v-else>{{ i18n.you_have_no_draft_posts }}</span>
                                     </p>
                                     <p class="lead text-center text-muted mt-1">
-                                        {{ trans.app.write_on_the_go }}
+                                        {{ i18n.write_on_the_go }}
                                     </p>
                                 </div>
                             </div>
@@ -149,6 +147,9 @@ import NProgress from 'nprogress';
 import Hover from '../directives/Hover';
 import InfiniteLoading from 'vue-infinite-loading';
 import PageHeader from '../components/PageHeader';
+import store from '../store';
+import strings from '../mixins/strings';
+import i18n from '../mixins/i18n';
 
 export default {
     name: 'post-list',
@@ -157,6 +158,8 @@ export default {
         InfiniteLoading,
         PageHeader,
     },
+
+    mixins: [strings, i18n],
 
     directives: {
         Hover,
@@ -170,8 +173,20 @@ export default {
             draftCount: 0,
             type: 'published',
             infiniteId: +new Date(),
-            trans: JSON.parse(window.Canvas.locale.translations),
         };
+    },
+
+    async created() {
+        await this.fetchData();
+
+        NProgress.done();
+        this.isReady = true;
+    },
+
+    computed: {
+        bgColor() {
+            return store.state.user.darkMode ? 'bg-dark' : 'bg-light';
+        },
     },
 
     methods: {
@@ -197,7 +212,9 @@ export default {
                             $state.complete();
                         }
 
-                        NProgress.done();
+                        if (isEmpty($state)) {
+                            NProgress.inc();
+                        }
                     }
                 })
                 .catch(() => {

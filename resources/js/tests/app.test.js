@@ -4,10 +4,10 @@ document.body.innerHTML = '<div id="canvas"></div>';
 
 require('../app');
 
-it.skip('loads Popper', () => {
+it('loads Popper', () => {
     expect(window).toHaveProperty('Popper');
 });
 
-it.skip('loads Vue', () => {
+it('loads Vue', () => {
     expect(window).toHaveProperty('Vue');
 });

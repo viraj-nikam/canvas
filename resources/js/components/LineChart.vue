@@ -7,7 +7,7 @@
 <script>
 import moment from 'moment';
 import Chart from 'chart.js';
-import store from '../store';
+import i18n from '../mixins/i18n';
 
 export default {
     name: 'line-chart',
@@ -23,6 +23,8 @@ export default {
             required: true,
         },
     },
+
+    mixins: [i18n],
 
     mounted() {
         let ref = this;
@@ -91,7 +93,7 @@ export default {
                             }
                         },
                         title: function (tooltipItem) {
-                            return ref.formatTitleDate(tooltipItem[0].label);
+                            return moment(tooltipItem[0].label, 'YYYY-MM-DD').format('dddd, MMMM Do YYYY');
                         },
                     },
                 },
@@ -120,7 +122,7 @@ export default {
                                 autoSkip: true,
                                 maxTicksLimit: 8,
                                 callback: function (value) {
-                                    return ref.formatTickDate(value);
+                                    return moment(value, 'YYYY-MM-DD').format('MMM Do');
                                 },
                             },
                             gridLines: {
@@ -131,12 +133,6 @@ export default {
                 },
             },
         });
-    },
-
-    computed: {
-        i18n() {
-            return store.state.config.i18n;
-        },
     },
 
     methods: {
@@ -162,14 +158,6 @@ export default {
             } else {
                 return value + ' ' + this.i18n.unique_visits;
             }
-        },
-
-        formatTitleDate(date) {
-            return moment(date, 'YYYY-MM-DD').format('dddd, MMMM Do YYYY');
-        },
-
-        formatTickDate(date) {
-            return moment(date, 'YYYY-MM-DD').format('MMM Do');
         },
     },
 };

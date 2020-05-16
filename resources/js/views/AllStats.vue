@@ -32,7 +32,7 @@
                                     </p>
                                 </div>
                                 <div class="card-body pt-0 pb-2">
-                                    <p class="card-text display-4">{{ formatCount(viewCount) }}</p>
+                                    <p class="card-text display-4">{{ suffixedNumber(viewCount) }}</p>
                                 </div>
                             </div>
                             <div class="card shadow">
@@ -47,7 +47,7 @@
                                     </p>
                                 </div>
                                 <div class="card-body pt-0 pb-2">
-                                    <p class="card-text display-4">{{ formatCount(visitCount) }}</p>
+                                    <p class="card-text display-4">{{ suffixedNumber(visitCount) }}</p>
                                 </div>
                             </div>
                         </div>
@@ -76,21 +76,22 @@
                                             <div class="mr-auto pl-2">
                                                 <p class="mb-1 mt-2">
                                                     <span class="font-weight-bold text-lg lead">{{
-                                                        trimmedTitle(post.title)
+                                                        trim(post.title, 45)
                                                     }}</span>
                                                 </p>
                                                 <p class="text-secondary mb-2">
                                                     {{ post.read_time }} ―
                                                     {{ i18n.published }}
-                                                    {{ formatFromNow(post.published_at) }}
+                                                    {{ moment(post.published_at).format('MMM D, YYYY') }}
                                                 </p>
                                             </div>
                                             <div class="ml-auto d-none d-lg-block">
                                                 <span class="text-muted mr-3"
-                                                    >{{ formatCount(post.views_count) }} {{ i18n.views }}</span
+                                                    >{{ suffixedNumber(post.views_count) }} {{ i18n.views }}</span
                                                 >
                                                 <span class="mr-3"
-                                                    >{{ i18n.created }} {{ formatFromNow(post.created_at) }}</span
+                                                    >{{ i18n.created }}
+                                                    {{ moment(post.created_at).format('MMM D, YYYY') }}</span
                                                 >
                                             </div>
 
@@ -137,11 +138,10 @@ import NProgress from 'nprogress';
 import isEmpty from 'lodash/isEmpty';
 import InfiniteLoading from 'vue-infinite-loading';
 import Hover from '../directives/Hover';
-import moment from 'moment';
-import store from '../store';
 import LineChart from '../components/LineChart';
-import { suffixedNumber, trim } from '../utils/strings';
+import strings from '../mixins/strings';
 import PageHeader from '../components/PageHeader';
+import i18n from '../mixins/i18n';
 
 export default {
     name: 'all-stats',
@@ -151,6 +151,8 @@ export default {
         InfiniteLoading,
         PageHeader,
     },
+
+    mixins: [strings, i18n],
 
     directives: {
         Hover,
@@ -174,12 +176,6 @@ export default {
 
         NProgress.done();
         this.isReady = true;
-    },
-
-    computed: {
-        i18n() {
-            return store.state.config.i18n;
-        },
     },
 
     methods: {
@@ -224,18 +220,6 @@ export default {
                 .catch(() => {
                     NProgress.done();
                 });
-        },
-
-        trimmedTitle(str) {
-            return trim(str, 45);
-        },
-
-        formatCount(val) {
-            return suffixedNumber(val);
-        },
-
-        formatFromNow(date) {
-            return moment(date).format('MMM D, YYYY');
         },
     },
 };

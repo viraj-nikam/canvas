@@ -238,7 +238,7 @@ export default {
     computed: {
         getServerOptions() {
             return {
-                url: this.mediaUploadPath(),
+                url: '/' + window.Canvas.path + '/api/media/uploads',
                 headers: {
                     'X-CSRF-TOKEN': this.getToken(),
                 },
