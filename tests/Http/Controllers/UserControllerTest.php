@@ -34,7 +34,7 @@ class UserControllerTest extends TestCase
         $response = $this->actingAs($user)->getJson("canvas/api/users/{$user->id}")->assertSuccessful();
 
         $this->assertArrayHasKey('avatar', $response->decodeResponseJson());
-        $this->assertArrayHasKey('dark_mode', $response->decodeResponseJson());
+        $this->assertArrayHasKey('darkMode', $response->decodeResponseJson());
         $this->assertArrayHasKey('digest', $response->decodeResponseJson());
         $this->assertArrayHasKey('summary', $response->decodeResponseJson());
         $this->assertArrayHasKey('locale', $response->decodeResponseJson());
@@ -50,13 +50,13 @@ class UserControllerTest extends TestCase
         $response = $this->actingAs($userMeta->user)->getJson("canvas/api/users/{$userMeta->user_id}")->assertSuccessful();
 
         $this->assertArrayHasKey('avatar', $response->decodeResponseJson());
-        $this->assertArrayHasKey('dark_mode', $response->decodeResponseJson());
+        $this->assertArrayHasKey('darkMode', $response->decodeResponseJson());
         $this->assertArrayHasKey('digest', $response->decodeResponseJson());
         $this->assertArrayHasKey('summary', $response->decodeResponseJson());
         $this->assertArrayHasKey('locale', $response->decodeResponseJson());
         $this->assertArrayHasKey('username', $response->decodeResponseJson());
 
-        $this->assertEquals($userMeta->dark_mode, $response->decodeResponseJson('dark_mode'));
+        $this->assertEquals($userMeta->dark_mode, $response->decodeResponseJson('darkMode'));
         $this->assertEquals($userMeta->digest, $response->decodeResponseJson('digest'));
         $this->assertEquals($userMeta->locale, $response->decodeResponseJson('locale'));
     }
