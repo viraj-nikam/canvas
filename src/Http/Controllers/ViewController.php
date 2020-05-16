@@ -15,33 +15,19 @@ class ViewController extends Controller
      */
     public function __invoke()
     {
-        return view('canvas::layout')->with([
-            'config' => $this->getAppConfiguration(),
-        ]);
-    }
-
-    /**
-     * Return the global app configuration.
-     *
-     * @return array
-     */
-    private function getAppConfiguration(): array
-    {
         $metaData = UserMeta::forUser(auth()->user())->first();
-        $emailHash = md5(trim(Str::lower(request()->user()->email)));
 
-        return [
-            'avatar' => optional($metaData)->avatar && ! empty(optional($metaData)->avatar) ? $metaData->avatar : "https://secure.gravatar.com/avatar/{$emailHash}?s=500",
-            'darkMode' => optional($metaData)->dark_mode,
-            'languageCodes' => $this->getAvailableLanguageCodes(),
-            'locale' => optional($metaData)->locale ?? config('app.locale'),
-            'maxUpload' => config('canvas.upload_filesize'),
-            'path' => config('canvas.path'),
-            'timezone' => config('app.timezone'),
-            'translations' => collect(['app' => trans('canvas::app', [], optional($metaData)->locale)])->toJson(),
-            'unsplash' => config('canvas.unsplash.access_key'),
-            'user' => auth()->user()->only(['name', 'email']),
-        ];
+        return view('canvas::layout')->with([
+            'config' => [
+                'languageCodes' => $this->getAvailableLanguageCodes(),
+                'maxUpload' => config('canvas.upload_filesize'),
+                'path' => config('canvas.path'),
+                'timezone' => config('app.timezone'),
+                'translations' => collect(['app' => trans('canvas::app', [], optional($metaData)->locale)])->toJson(),
+                'unsplash' => config('canvas.unsplash.access_key'),
+                'user' => $this->getUserData(),
+            ],
+        ]);
     }
 
     /**
@@ -51,7 +37,7 @@ class ViewController extends Controller
      */
     private function getAvailableLanguageCodes(): array
     {
-        $locales = preg_grep('/^([^.])/', scandir(dirname(__DIR__, 3).'/resources/lang'));
+        $locales = preg_grep('/^([^.])/', scandir(dirname(__DIR__, 3) . '/resources/lang'));
         $translations = collect();
 
         foreach ($locales as $locale) {
@@ -59,5 +45,27 @@ class ViewController extends Controller
         }
 
         return $translations->toArray();
+    }
+
+    /**
+     * Return an array of user data.
+     *
+     * @return array
+     */
+    private function getUserData(): array
+    {
+        $metaData = UserMeta::forUser(auth()->user())->first();
+        $emailHash = md5(trim(Str::lower(request()->user()->email)));
+
+        return [
+            'name' => auth()->user()->name,
+            'email' => auth()->user()->email,
+            'avatar' => optional($metaData)->avatar && !empty(optional($metaData)->avatar) ? $metaData->avatar : "https://secure.gravatar.com/avatar/{$emailHash}?s=500",
+            'darkMode' => optional($metaData)->dark_mode,
+            'locale' => optional($metaData)->locale ?? config('app.locale'),
+            'username' => optional($metaData)->username,
+            'summary' => optional($metaData)->summary,
+            'digest' => optional($metaData)->digest,
+        ];
     }
 }

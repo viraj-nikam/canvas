@@ -83,13 +83,10 @@ const mutations = {
     },
 };
 
-const getters = {
-    post(state) {
-        return state;
-    },
-};
+const getters = {};
 
 export default {
+    namespaced: true,
     state,
     actions,
     mutations,

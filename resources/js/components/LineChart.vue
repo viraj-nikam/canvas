@@ -7,6 +7,7 @@
 <script>
 import moment from 'moment';
 import Chart from 'chart.js';
+import store from '../store';
 
 export default {
     name: 'line-chart',
@@ -23,12 +24,6 @@ export default {
         },
     },
 
-    data() {
-        return {
-            trans: JSON.parse(window.Canvas.locale.translations),
-        };
-    },
-
     mounted() {
         let ref = this;
         this.createChart('stats', {
@@ -37,14 +32,14 @@ export default {
                 labels: Object.keys(this.views),
                 datasets: [
                     {
-                        label: this.trans.app.visits,
+                        label: this.i18n.visits,
                         data: Object.values(this.visits),
                         backgroundColor: ['rgba(158, 213, 237, 0.5)'],
                         borderColor: ['rgb(84, 175, 204)'],
                         borderWidth: 3,
                     },
                     {
-                        label: this.trans.app.views,
+                        label: this.i18n.views,
                         data: Object.values(this.views),
                         backgroundColor: ['rgba(3, 168, 124, .5)'],
                         borderColor: ['#03a87c'],
@@ -138,6 +133,12 @@ export default {
         });
     },
 
+    computed: {
+        i18n() {
+            return store.state.config.i18n;
+        },
+    },
+
     methods: {
         createChart(chartId, chartData) {
             new Chart(document.getElementById(chartId), {
@@ -149,17 +150,17 @@ export default {
 
         viewLabel(value) {
             if (Number(value) === 1) {
-                return value + ' ' + this.trans.app.view;
+                return value + ' ' + this.i18n.view;
             } else {
-                return value + ' ' + this.trans.app.views_simple;
+                return value + ' ' + this.i18n.views_simple;
             }
         },
 
         uniqueVisitorLabel(value) {
             if (Number(value) === 1) {
-                return value + ' ' + this.trans.app.unique_visit;
+                return value + ' ' + this.i18n.unique_visit;
             } else {
-                return value + ' ' + this.trans.app.unique_visits;
+                return value + ' ' + this.i18n.unique_visits;
             }
         },
 

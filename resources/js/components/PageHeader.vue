@@ -41,18 +41,13 @@
                         aria-haspopup="true"
                         aria-expanded="false"
                     >
-                        <img
-                            :src="avatar"
-                            :alt="user.name"
-                            class="rounded-circle my-0 shadow-inner"
-                            style="width: 31px;"
-                        />
+                        <img :src="avatar" :alt="name" class="rounded-circle my-0 shadow-inner" style="width: 31px;" />
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                         <h6 class="dropdown-header">
-                            <strong>{{ user.name }}</strong>
+                            <strong>{{ name }}</strong>
                             <br />
-                            {{ user.email }}
+                            {{ email }}
                         </h6>
                         <div class="dropdown-divider"></div>
 
@@ -84,32 +79,26 @@
 
 <script>
 import axios from 'axios';
+import store from '../store';
 
 export default {
     name: 'page-header',
 
-    props: {
-        user: {
-            type: Object,
-            required: true,
-        },
-
-        avatar: {
-            type: String,
-            required: true,
-        },
-
-        trans: {
-            type: String,
-            required: true,
-        },
-    },
-
     computed: {
         i18n() {
-            let parsed = JSON.parse(this.trans);
+            return store.state.config.i18n;
+        },
 
-            return parsed.app;
+        name() {
+            return store.state.user.name;
+        },
+
+        email() {
+            return store.state.user.email;
+        },
+
+        avatar() {
+            return store.state.user.avatar;
         },
     },
 

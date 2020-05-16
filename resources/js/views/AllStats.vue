@@ -1,6 +1,6 @@
 <template>
     <div>
-        <page-header :user="user" :avatar="avatar" :trans="translations">
+        <page-header>
             <template slot="action">
                 <router-link
                     :to="{ name: 'create-post' }"
@@ -142,7 +142,6 @@ import store from '../store';
 import LineChart from '../components/LineChart';
 import { suffixedNumber, trim } from '../utils/strings';
 import PageHeader from '../components/PageHeader';
-import { mapGetters } from 'vuex';
 
 export default {
     name: 'all-stats',
@@ -178,26 +177,8 @@ export default {
     },
 
     computed: {
-        // todo: is this a namespace issue?
-        // todo: is this a lifecycle issue?
-        ...mapGetters(['config']),
-
         i18n() {
-            let parsed = JSON.parse(store.getters.config.translations);
-
-            return parsed.app;
-        },
-
-        user() {
-            return store.getters.config.user;
-        },
-
-        avatar() {
-            return store.getters.config.avatar;
-        },
-
-        translations() {
-            return store.getters.config.translations;
+            return store.state.config.i18n;
         },
     },
 

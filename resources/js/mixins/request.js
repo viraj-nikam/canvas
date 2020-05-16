@@ -11,7 +11,7 @@ export default {
             let instance = axios.create();
 
             instance.defaults.headers.common['X-CSRF-TOKEN'] = this.getToken();
-            instance.defaults.baseURL = '/' + store.getters.config.path;
+            instance.defaults.baseURL = '/' + store.state.config.path;
 
             const requestHandler = (request) => {
                 // Add any request modifiers...
