@@ -4,8 +4,8 @@
             <template slot="status">
                 <ul class="navbar-nav mr-auto flex-row float-right">
                     <li class="text-muted font-weight-bold">
-<!--                        <span v-if="form.isSaving">{{ i18n.saving }}</span>-->
-<!--                        <span v-if="form.hasSuccess" class="text-success">{{ i18n.saved }}</span>-->
+                        <span v-if="user.isSaving">{{ i18n.saving }}</span>
+                        <span v-if="user.hasSuccess" class="text-success">{{ i18n.saved }}</span>
                     </li>
                 </ul>
             </template>
@@ -17,7 +17,7 @@
                     <h1>{{ i18n.your_profile }}</h1>
                 </div>
 
-                <div class="mt-2 card shadow" v-if="isReady">
+                <div class="mt-2 card shadow" :class="borderColor" v-if="isReady">
                     <div class="card-body p-0">
                         <div class="d-flex p-3 align-items-center">
                             <div class="mr-auto py-1">
@@ -139,7 +139,7 @@
             </div>
         </main>
 
-<!--        <profile-modal v-if="isReady" ref="profileModal" :form="form" />-->
+        <profile-modal v-if="isReady" ref="profileModal" />
     </div>
 </template>
 
@@ -148,8 +148,8 @@ import $ from 'jquery';
 import NProgress from 'nprogress';
 import PageHeader from '../components/PageHeader';
 import ProfileModal from '../components/modals/ProfileModal';
-import strings from "../mixins/strings";
-import i18n from "../mixins/i18n";
+import strings from '../mixins/strings';
+import i18n from '../mixins/i18n';
 import store from '../store';
 
 export default {
@@ -169,7 +169,7 @@ export default {
     },
 
     async created() {
-        await store.dispatch('user/fetchUser', this.user.id)
+        await store.dispatch('user/fetchUser', this.user.id);
 
         NProgress.done();
         this.isReady = true;
@@ -177,26 +177,30 @@ export default {
 
     computed: {
         user() {
-            return store.state.user
+            return store.state.user;
         },
 
         config() {
-            return store.state.config
+            return store.state.config;
         },
 
         bgColor() {
             return store.state.user.darkMode ? 'bg-darker' : 'bg-light';
         },
+
+        borderColor() {
+            return store.state.user.darkMode ? 'border-0' : '';
+        },
     },
 
     methods: {
         toggleDigest() {
-            store.dispatch('user/updateUser', this.user)
+            store.dispatch('user/updateUser', this.user);
         },
 
         updateLocale() {
-            store.dispatch('config/updateI18n', this.user.locale)
-            store.dispatch('user/updateUser', this.user)
+            store.dispatch('config/updateI18n', this.user.locale);
+            store.dispatch('user/updateUser', this.user);
         },
 
         toggleDarkMode() {
@@ -209,7 +213,6 @@ export default {
                 },
                 300,
                 function () {
-                    // todo: There has to be a better way to swap stylesheets than this
                     if (store.state.user.darkMode) {
                         $('#baseStylesheet').attr('href', '/vendor/canvas/css/app-dark.css');
                         $('#highlightStylesheet').attr(
@@ -226,74 +229,21 @@ export default {
                 }
             );
 
+            store.dispatch('user/updateUser', this.user);
+
             screen.animate(
                 {
                     opacity: 1,
                     backgroundColor: 'rgb(38, 50, 56)',
                 },
                 300,
-                function () {
-                    //
-                }
+                function () {}
             );
-
-            store.dispatch('user/updateUser', this.user)
         },
 
         showProfileModal() {
             $(this.$refs.profileModal.$el).modal('show');
         },
-        // fetchData() {
-        //     this.request()
-        //         .get('/api/settings')
-        //         .then((response) => {
-        //             this.form.username = response.data.username;
-        //             this.form.summary = response.data.summary;
-        //             this.form.avatar = response.data.avatar;
-        //             this.form.digest = response.data.digest;
-        //             this.form.darkMode = response.data.dark_mode;
-        //
-        //             NProgress.inc();
-        //         })
-        //         .catch(() => {
-        //             NProgress.done();
-        //         });
-        // },
-
-        // saveData(data, withNotification) {
-        //     this.form.errors = [];
-        //
-        //     if (withNotification) {
-        //         this.form.isSaving = true;
-        //         this.form.hasSuccess = false;
-        //     }
-        //
-        //     this.request()
-        //         .post('/api/settings', data)
-        //         .then((response) => {
-        //             if (withNotification) {
-        //                 this.form.isSaving = false;
-        //                 this.form.hasSuccess = true;
-        //             }
-        //
-        //             this.form.username = response.data.username;
-        //             this.form.summary = response.data.summary;
-        //             this.form.avatar = response.data.avatar;
-        //             this.form.digest = response.data.digest;
-        //             this.form.darkMode = response.data.dark_mode;
-        //         })
-        //         .catch((error) => {
-        //             this.form.isSaving = false;
-        //             this.form.errors = error.response.data.errors;
-        //         });
-        //
-        //     setTimeout(() => {
-        //         this.form.hasSuccess = false;
-        //         this.form.isSaving = false;
-        //     }, 3000);
-        // },
-        //
-        //
     },
 };
 </script>

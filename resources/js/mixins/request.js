@@ -6,7 +6,9 @@ export default {
         request() {
             let instance = axios.create();
 
-            instance.defaults.headers.common['X-CSRF-TOKEN'] = document.head.querySelector('meta[name="csrf-token"]').content;
+            instance.defaults.headers.common['X-CSRF-TOKEN'] = document.head.querySelector(
+                'meta[name="csrf-token"]'
+            ).content;
             instance.defaults.baseURL = '/' + store.state.config.path;
 
             const requestHandler = (request) => {

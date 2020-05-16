@@ -1,4 +1,4 @@
-import request from "../../mixins/request";
+import request from '../../mixins/request';
 
 const initialState = {
     i18n: JSON.parse(window.Canvas.translations)['app'],
@@ -13,7 +13,8 @@ const state = { ...initialState };
 
 const actions = {
     updateI18n(context, code) {
-        request.methods.request()
+        request.methods
+            .request()
             .get('/api/locale/' + code)
             .then((response) => {
                 context.commit('UPDATE_I18N', response.data);
@@ -21,13 +22,13 @@ const actions = {
             .catch((errors) => {
                 console.log(errors);
             });
-    }
+    },
 };
 
 const mutations = {
     UPDATE_I18N(state, payload) {
-        state.i18n = payload.app
-    }
+        state.i18n = payload.app;
+    },
 };
 
 const getters = {};

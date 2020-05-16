@@ -26,7 +26,7 @@
                         name="profileImagePond"
                         ref="pond"
                         max-files="1"
-                        :maxFileSize="maxUploadFilesize"
+                        :maxFileSize="config.maxUpload"
                         :iconRemove="getRemoveIcon"
                         :iconRetry="getRetryIcon"
                         className="w-50"
@@ -51,7 +51,7 @@
                     <div
                         v-if="!isReadyToAcceptUploads"
                         class="d-flex justify-content-center rounded p-3 position-relative d-inline-block"
-                        :class="!Canvas.darkMode ? 'bg-light' : 'bg-darker'"
+                        :class="bgColor"
                     >
                         <button
                             @click.prevent="clearAvatar"
@@ -78,42 +78,42 @@
                             </svg>
                         </button>
 
-                        <img :src="avatar" class="w-50 rounded-circle shadow-inner h-100" />
+                        <img :src="user.avatar" class="w-50 rounded-circle shadow-inner h-100" />
                     </div>
 
                     <div class="form-group row mt-3">
                         <div class="col-12">
                             <label class="font-weight-bold text-uppercase text-muted small">
-                                {{ trans.app.username }}
+                                {{ i18n.username }}
                             </label>
                             <input
                                 name="username"
                                 type="text"
-                                :class="!Canvas.darkMode ? 'bg-light' : 'bg-darker'"
+                                :class="bgColor"
                                 class="form-control border-0"
                                 title="Username"
-                                v-model="username"
+                                v-model="user.username"
                                 placeholder="Choose a username..."
                             />
-                            <div v-if="form.errors.username" class="invalid-feedback d-block">
-                                <strong>{{ form.errors.username[0] }}</strong>
+                            <div v-if="user.errors.length" class="invalid-feedback d-block">
+                                <strong>{{ user.errors[0].username }}</strong>
                             </div>
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-12">
                             <label class="font-weight-bold text-uppercase text-muted small">
-                                {{ trans.app.summary }}
+                                {{ i18n.summary }}
                             </label>
                             <textarea
                                 rows="4"
                                 id="summary"
                                 name="summary"
                                 style="resize: none;"
-                                :class="!Canvas.darkMode ? 'bg-light' : 'bg-darker'"
+                                :class="bgColor"
                                 class="form-control border-0"
-                                v-model="summary"
-                                :placeholder="trans.app.tell_us_about_yourself"
+                                v-model="user.summary"
+                                :placeholder="i18n.tell_us_about_yourself"
                             >
                             </textarea>
                         </div>
@@ -127,9 +127,9 @@
                                 class="btn btn-success btn-block font-weight-bold mt-0"
                                 aria-label="Save"
                                 data-dismiss="modal"
-                                @click.prevent="clickSave"
+                                @click.prevent="updateProfile"
                             >
-                                {{ trans.app.save }}
+                                {{ i18n.save }}
                             </a>
                         </div>
                         <div class="col-lg order-lg-first px-0">
@@ -137,7 +137,7 @@
                                 class="btn btn-link btn-block font-weight-bold text-muted text-decoration-none"
                                 data-dismiss="modal"
                             >
-                                {{ trans.app.cancel }}
+                                {{ i18n.cancel }}
                             </button>
                         </div>
                     </div>
@@ -149,7 +149,6 @@
 
 <script>
 import vueFilePond from 'vue-filepond';
-import isEmpty from 'lodash/isEmpty';
 import 'filepond/dist/filepond.min.css';
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css';
 import FilePondPluginImageValidateSize from 'filepond-plugin-image-validate-size';
@@ -157,6 +156,8 @@ import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
 import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
 import FilePondPluginImageExifOrientation from 'filepond-plugin-image-exif-orientation';
 import FilePondPluginFileValidateSize from 'filepond-plugin-file-validate-size';
+import store from '../../store';
+import i18n from '../../mixins/i18n';
 
 const FilePond = vueFilePond(
     FilePondPluginFileValidateType,
@@ -173,69 +174,35 @@ export default {
         FilePond,
     },
 
+    mixins: [i18n],
+
     data() {
         return {
             selectedImagesForPond: [],
             isReadyToAcceptUploads: false,
-            username: this.form.username,
-            summary: this.form.summary,
-            avatar: this.form.avatar,
-            maxUploadFilesize: window.Canvas.maxUpload,
-            path: window.Canvas.path,
-            user: window.Canvas.user,
-            trans: JSON.parse(window.Canvas.locale.translations),
         };
     },
 
-    mounted() {
-        this.$parent.$on('openingProfileModal', (data) => {
-            if (!isEmpty(data)) {
-                this.trans = data.trans;
-            }
-        });
-    },
-
-    methods: {
-        processedFromFilePond() {
-            this.isReadyToAcceptUploads = true;
-            this.avatar = document.getElementsByName('profileImagePond')[0].value;
-        },
-
-        removedFromFilePond() {
-            this.isReadyToAcceptUploads = true;
-            this.selectedImagesForPond = [];
-            this.avatar = null;
-        },
-
-        clickSave() {
-            if (isEmpty(this.avatar)) {
-                this.avatar = this.defaultGravatar(this.user.email, 500);
-            }
-
-            let data = {
-                username: this.username,
-                summary: this.summary,
-                avatar: this.avatar,
-            };
-
-            this.$root.$emit('updateAvatar', this.avatar);
-            this.$parent.saveData(data, true);
-        },
-
-        clearAvatar() {
-            this.avatar = null;
-            this.isReadyToAcceptUploads = true;
-        },
-    },
-
     computed: {
+        user() {
+            return store.state.user;
+        },
+
+        config() {
+            return store.state.config;
+        },
+
         getServerOptions() {
             return {
-                url: '/' + window.Canvas.path + '/api/media/uploads',
+                url: '/' + this.config.path + '/api/media/uploads',
                 headers: {
-                    'X-CSRF-TOKEN': this.getToken(),
+                    'X-CSRF-TOKEN': document.head.querySelector('meta[name="csrf-token"]').content,
                 },
             };
+        },
+
+        bgColor() {
+            return store.state.user.darkMode ? 'bg-darker' : 'bg-light';
         },
 
         getRetryIcon() {
@@ -248,6 +215,28 @@ export default {
 
         getPlaceholderLabel() {
             return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="35" class="icon-cloud-upload"><path class="secondary" d="M18 14.97c0-.76-.3-1.51-.88-2.1l-3-3a3 3 0 0 0-4.24 0l-3 3A3 3 0 0 0 6 15a4 4 0 0 1-.99-7.88 5.5 5.5 0 0 1 10.86-.82A4.49 4.49 0 0 1 22 10.5a4.5 4.5 0 0 1-4 4.47z"/><path class="secondary" d="M11 14.41V21a1 1 0 0 0 2 0v-6.59l1.3 1.3a1 1 0 0 0 1.4-1.42l-3-3a1 1 0 0 0-1.4 0l-3 3a1 1 0 0 0 1.4 1.42l1.3-1.3z"/></svg><br/> Drop files or click here to upload';
+        },
+    },
+
+    methods: {
+        processedFromFilePond() {
+            // this.isReadyToAcceptUploads = true;
+            // this.avatar = document.getElementsByName('profileImagePond')[0].value;
+        },
+
+        removedFromFilePond() {
+            // this.isReadyToAcceptUploads = true;
+            // this.selectedImagesForPond = [];
+            // this.avatar = null;
+        },
+
+        updateProfile() {
+            store.dispatch('user/updateUser', this.user);
+        },
+
+        clearAvatar() {
+            // this.avatar = null;
+            // this.isReadyToAcceptUploads = true;
         },
     },
 };

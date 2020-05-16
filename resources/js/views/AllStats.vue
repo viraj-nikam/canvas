@@ -20,7 +20,7 @@
                 <div v-if="isReady">
                     <div v-if="posts.length">
                         <div class="card-deck mt-5">
-                            <div class="card shadow">
+                            <div class="card shadow" :class="borderColor">
                                 <div
                                     class="card-header pb-0 bg-transparent d-flex justify-content-between align-middle border-0"
                                 >
@@ -35,7 +35,7 @@
                                     <p class="card-text display-4">{{ suffixedNumber(viewCount) }}</p>
                                 </div>
                             </div>
-                            <div class="card shadow">
+                            <div class="card shadow" :class="borderColor">
                                 <div
                                     class="card-header pb-0 bg-transparent d-flex justify-content-between align-middle border-0"
                                 >
@@ -54,7 +54,7 @@
 
                         <line-chart :views="JSON.parse(viewTrend)" :visits="JSON.parse(visitTrend)" class="mt-5" />
 
-                        <div class="mt-5 card shadow">
+                        <div class="mt-5 card shadow" :class="borderColor">
                             <div class="card-body p-0">
                                 <div v-for="(post, index) in posts" :key="index">
                                     <router-link
@@ -119,7 +119,7 @@
                         </div>
                     </div>
 
-                    <div v-else class="card shadow border-0 mt-5">
+                    <div v-else class="card shadow mt-5" :class="borderColor">
                         <div class="card-body p-0">
                             <div class="my-5">
                                 <p class="lead text-center text-muted mt-5">{{ i18n.you_have_no_published_posts }}</p>
@@ -142,6 +142,7 @@ import LineChart from '../components/LineChart';
 import strings from '../mixins/strings';
 import PageHeader from '../components/PageHeader';
 import i18n from '../mixins/i18n';
+import store from '../store';
 
 export default {
     name: 'all-stats',
@@ -176,6 +177,12 @@ export default {
 
         NProgress.done();
         this.isReady = true;
+    },
+
+    computed: {
+        borderColor() {
+            return store.state.user.darkMode ? 'border-0' : '';
+        },
     },
 
     methods: {

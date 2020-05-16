@@ -29,7 +29,7 @@
                     </select>
                 </div>
 
-                <div class="mt-2 card shadow">
+                <div class="mt-2 card shadow" :class="borderColor">
                     <div class="card-body p-0">
                         <div v-for="(post, index) in posts" :key="index">
                             <router-link
@@ -150,7 +150,7 @@ import PageHeader from '../components/PageHeader';
 import store from '../store';
 import strings from '../mixins/strings';
 import i18n from '../mixins/i18n';
-import status from '../mixins/status'
+import status from '../mixins/status';
 
 export default {
     name: 'post-list',
@@ -187,6 +187,10 @@ export default {
     computed: {
         bgColor() {
             return store.state.user.darkMode ? 'bg-darker' : 'bg-light';
+        },
+
+        borderColor() {
+            return store.state.user.darkMode ? 'border-0' : '';
         },
     },
 

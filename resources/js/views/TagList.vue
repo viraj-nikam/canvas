@@ -20,7 +20,7 @@
                     </p>
                 </div>
 
-                <div class="mt-5 card shadow">
+                <div class="mt-5 card shadow" :class="borderColor">
                     <div class="card-body p-0">
                         <div v-for="(tag, index) in tags" :key="index">
                             <router-link
@@ -102,6 +102,7 @@ import InfiniteLoading from 'vue-infinite-loading';
 import PageHeader from '../components/PageHeader';
 import strings from '../mixins/strings';
 import i18n from '../mixins/i18n';
+import store from '../store';
 
 export default {
     name: 'tag-list',
@@ -129,6 +130,12 @@ export default {
 
         NProgress.done();
         this.isReady = true;
+    },
+
+    computed: {
+        borderColor() {
+            return store.state.user.darkMode ? 'border-0' : '';
+        },
     },
 
     methods: {
