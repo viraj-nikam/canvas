@@ -329,7 +329,7 @@ export default {
 
         getServerOptions() {
             return {
-                url: '/' + window.Canvas.path + '/api/media/uploads',
+                url: '/' + window.Canvas.path + '/api/uploads',
                 headers: {
                     'X-CSRF-TOKEN': this.getToken(),
                 },

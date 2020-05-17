@@ -194,7 +194,7 @@ export default {
 
         getServerOptions() {
             return {
-                url: '/' + this.config.path + '/api/media/uploads',
+                url: '/' + this.config.path + '/api/uploads',
                 headers: {
                     'X-CSRF-TOKEN': document.head.querySelector('meta[name="csrf-token"]').content,
                 },
@@ -220,14 +220,14 @@ export default {
 
     methods: {
         processedFromFilePond() {
-            // this.isReadyToAcceptUploads = true;
-            // this.avatar = document.getElementsByName('profileImagePond')[0].value;
+            this.isReadyToAcceptUploads = true;
+            store.dispatch('user/setAvatar', document.getElementsByName('profileImagePond')[0].value);
         },
 
         removedFromFilePond() {
-            // this.isReadyToAcceptUploads = true;
-            // this.selectedImagesForPond = [];
-            // this.avatar = null;
+            this.isReadyToAcceptUploads = true;
+            this.selectedImagesForPond = [];
+            store.dispatch('user/resetAvatar');
         },
 
         updateProfile() {
@@ -235,8 +235,8 @@ export default {
         },
 
         clearAvatar() {
-            // this.avatar = null;
-            // this.isReadyToAcceptUploads = true;
+            store.dispatch('user/setDefaultAvatar');
+            this.isReadyToAcceptUploads = true;
         },
     },
 };

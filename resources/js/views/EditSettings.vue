@@ -121,12 +121,12 @@
                                                 name="locale"
                                             >
                                                 <option
-                                                    v-for="(locale, code) in config.languageCodes"
+                                                    v-for="code in config.languageCodes"
                                                     :key="code"
                                                     :value="code"
                                                     :selected="user.locale === code"
                                                 >
-                                                    {{ locale }}
+                                                    {{ getLocaleDisplayName(code) }}
                                                 </option>
                                             </select>
                                         </div>
@@ -194,13 +194,19 @@ export default {
     },
 
     methods: {
+        getLocaleDisplayName(locale) {
+            let languageNames = new Intl.DisplayNames([store.state.user.locale], { type: 'language' });
+
+            return languageNames.of(locale);
+        },
+
         toggleDigest() {
-            store.dispatch('user/updateUser', this.user);
+            store.dispatch('user/updateUserSilently', this.user);
         },
 
         updateLocale() {
             store.dispatch('config/updateI18n', this.user.locale);
-            store.dispatch('user/updateUser', this.user);
+            store.dispatch('user/updateUserSilently', this.user);
         },
 
         toggleDarkMode() {
@@ -229,7 +235,7 @@ export default {
                 }
             );
 
-            store.dispatch('user/updateUser', this.user);
+            store.dispatch('user/updateUserSilently', this.user);
 
             screen.animate(
                 {

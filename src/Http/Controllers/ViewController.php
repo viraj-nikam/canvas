@@ -41,7 +41,7 @@ class ViewController extends Controller
         $translations = collect();
 
         foreach ($locales as $locale) {
-            $translations->put($locale, Str::upper($locale));
+            $translations->push($locale);
         }
 
         return $translations->toArray();

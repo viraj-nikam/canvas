@@ -1,4 +1,5 @@
 import request from '../../mixins/request';
+import md5 from 'md5';
 
 const initialState = {
     avatar: window.Canvas.user.avatar,
@@ -46,9 +47,39 @@ const actions = {
                 state.errors.push(errors.response.data.errors);
             });
     },
+
+    updateUserSilently(context, payload) {
+        request.methods
+            .request()
+            .post('/api/users/' + state.id, payload)
+            .then((response) => {
+                context.commit('UPDATE_USER', response.data);
+            })
+            .catch((errors) => {
+                state.errors.push(errors.response.data.errors);
+            });
+    },
+
+    setAvatar(context, payload) {
+        context.commit('SET_AVATAR', payload);
+    },
+
+    setDefaultAvatar(context) {
+        let hash = md5(state.email.trim().toLowerCase());
+
+        context.commit('SET_AVATAR', 'https://secure.gravatar.com/avatar/' + hash + '?s=200');
+    },
 };
 
 const mutations = {
+    SET_USER(state, user) {
+        state = user;
+    },
+
+    SET_AVATAR(state, url) {
+        state.avatar = url;
+    },
+
     SET_PENDING(state, bool) {
         state.isSaving = bool;
     },
@@ -59,10 +90,6 @@ const mutations = {
         setTimeout(() => {
             state.hasSuccess = !bool;
         }, 3000);
-    },
-
-    SET_USER(state, user) {
-        state = user;
     },
 
     UPDATE_USER(state, user) {

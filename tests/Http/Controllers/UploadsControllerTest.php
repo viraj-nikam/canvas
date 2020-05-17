@@ -53,8 +53,8 @@ class UploadsControllerTest extends TestCase
 
         $user = factory(config('canvas.user'))->create();
 
-        $this->actingAs($user)->deleteJson('canvas/api/uploads', [
-            null,
+        $this->actingAs($user)->delete('canvas/api/uploads', [
+            null
         ])->assertStatus(400);
 
         $this->actingAs($user)->deleteJson('canvas/api/uploads', [

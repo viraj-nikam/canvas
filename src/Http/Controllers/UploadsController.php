@@ -2,6 +2,7 @@
 
 namespace Canvas\Http\Controllers;
 
+use Exception;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Storage;
@@ -40,20 +41,15 @@ class UploadsController extends Controller
      */
     public function destroy()
     {
-        $payload = request()->file();
-
-        if ($payload) {
-            // Only single file deletes are supported at this time
-            $file = reset($payload);
+        if (!empty(request()->getContent())) {
+            $file = pathinfo(request()->getContent());
 
             $storagePath = $this->getBaseStoragePath();
-            $path = "{$storagePath}/{$file->name}";
+            $path = "{$storagePath}/{$file['basename']}";
 
-            $fileDeleted = Storage::disk(config('canvas.storage_disk'))->delete($path);
+            Storage::disk(config('canvas.storage_disk'))->delete($path);
 
-            if ($fileDeleted) {
-                return response()->json(null, 204);
-            }
+            return response()->json([], 204);
         } else {
             return response()->json(null, 400);
         }
