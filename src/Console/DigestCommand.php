@@ -40,9 +40,12 @@ class DigestCommand extends Command
 
         foreach ($recipients as $user) {
             if ($this->userHasEnabledMail($user)) {
+                $userMeta = UserMeta::forUser($user)->first();
                 $postIDs = Post::where('user_id', $user->id)->published()->pluck('id');
 
                 $data = collect($this->getTrackedData($postIDs->toArray(), 7));
+
+                $data->put('locale', optional($userMeta)->locale);
 
                 try {
                     Mail::to($user->email)->send(new WeeklyDigest($data->toArray()));

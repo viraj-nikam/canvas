@@ -54,6 +54,16 @@ class TagController extends Controller
      */
     public function store($id): JsonResponse
     {
+        $tag = Tag::forUser(request()->user())->find($id);
+
+        if (! $tag) {
+            if ($tag = Tag::forUser(request()->user())->onlyTrashed()->where('slug', request('slug'))->first()) {
+                $tag->restore();
+            } else {
+                $tag = new Tag(['id' => $id]);
+            }
+        }
+
         $data = [
             'id' => $id,
             'name' => request('name'),
@@ -73,21 +83,11 @@ class TagController extends Controller
         ];
 
         $messages = [
-            'required' => __('canvas::app.validation_required'),
-            'unique' => __('canvas::app.validation_unique'),
+            'required' => __('canvas::app.validation_required', [], optional($tag->userMeta)->locale),
+            'unique' => __('canvas::app.validation_unique', [], optional($tag->userMeta)->locale),
         ];
 
         validator($data, $rules, $messages)->validate();
-
-        $tag = Tag::forUser(request()->user())->find($id);
-
-        if (! $tag) {
-            if ($tag = Tag::forUser(request()->user())->onlyTrashed()->where('slug', request('slug'))->first()) {
-                $tag->restore();
-            } else {
-                $tag = new Tag(['id' => $id]);
-            }
-        }
 
         $tag->fill($data);
 

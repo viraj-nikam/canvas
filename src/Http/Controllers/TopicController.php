@@ -54,6 +54,16 @@ class TopicController extends Controller
      */
     public function store($id): JsonResponse
     {
+        $topic = Topic::forUser(request()->user())->find($id);
+
+        if (! $topic) {
+            if ($topic = Topic::forUser(request()->user())->onlyTrashed()->where('slug', request('slug'))->first()) {
+                $topic->restore();
+            } else {
+                $topic = new Topic(['id' => $id]);
+            }
+        }
+
         $data = [
             'id' => $id,
             'name' => request('name'),
@@ -73,21 +83,11 @@ class TopicController extends Controller
         ];
 
         $messages = [
-            'required' => __('canvas::app.validation_required'),
-            'unique' => __('canvas::app.validation_unique'),
+            'required' => __('canvas::app.validation_required', [], optional($topic->userMeta)->locale),
+            'unique' => __('canvas::app.validation_unique', [], optional($topic->userMeta)->locale),
         ];
 
         validator($data, $rules, $messages)->validate();
-
-        $topic = Topic::forUser(request()->user())->find($id);
-
-        if (! $topic) {
-            if ($topic = Topic::forUser(request()->user())->onlyTrashed()->where('slug', request('slug'))->first()) {
-                $topic->restore();
-            } else {
-                $topic = new Topic(['id' => $id]);
-            }
-        }
 
         $topic->fill($data);
 

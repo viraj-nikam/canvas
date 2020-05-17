@@ -30,15 +30,12 @@ trait Tracker
             $viewCount = $totalViews->where('post_id', $postID)->count();
             $visitCount = $totalVisits->where('post_id', $postID)->count();
 
-            // Only collect view data if any exists
-            if (array_sum([$viewCount, $visitCount]) > 0) {
-                $post = Post::find($postID);
-                $data->put($post->id, [
-                    'title' => $post->title,
-                    'views' => $viewCount,
-                    'visits' => $visitCount,
-                ]);
-            }
+            $post = Post::find($postID);
+            $data->put($post->id, [
+                'title' => $post->title,
+                'views' => $viewCount,
+                'visits' => $visitCount,
+            ]);
         }
 
         return collect([

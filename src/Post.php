@@ -137,8 +137,8 @@ class Post extends Model
             UserMeta::class,
             config('canvas.user', User::class),
             'id',       // Foreign key on users table...
-            'user_id',  // Foreign key on posts table...
-            'user_id',  // Local key on posts table...
+            'user_id',  // Foreign key on canvas_posts table...
+            'user_id',  // Local key on canvas_posts table...
             'id'        // Local key on users table...
         );
     }
@@ -170,7 +170,7 @@ class Post extends Model
      */
     public function getPublishedAttribute(): bool
     {
-        return ! is_null($this->published_at) && $this->published_at <= now()->toDateTimeString();
+        return !is_null($this->published_at) && $this->published_at <= now()->toDateTimeString();
     }
 
     /**
@@ -186,7 +186,11 @@ class Post extends Model
         // Divide by the average number of words per minute
         $minutes = ceil($words / 250);
 
-        return sprintf('%d %s %s', $minutes, Str::plural(__('canvas::app.min'), $minutes), __('canvas::app.read'));
+        return sprintf('%d %s %s',
+            $minutes,
+            Str::plural(__('canvas::app.min', [], optional($this->userMeta)->locale), $minutes),
+            __('canvas::app.read', [], optional($this->userMeta)->locale)
+        );
     }
 
     /**
@@ -250,7 +254,7 @@ class Post extends Model
         $collection = collect();
         $data->each(function ($item, $key) use ($collection) {
             if (empty(parse_url($item->referer)['host'])) {
-                $collection->push(__('canvas::app.other'));
+                $collection->push(__('canvas::app.other', [], optional($this->userMeta)->locale));
             } else {
                 $collection->push(parse_url($item->referer)['host']);
             }

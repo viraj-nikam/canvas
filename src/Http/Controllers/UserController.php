@@ -66,8 +66,8 @@ class UserController extends Controller
             ];
 
             $messages = [
-                'required' => __('canvas::app.validation_required'),
-                'unique' => __('canvas::app.validation_unique'),
+                'required' => __('canvas::app.validation_required', [], $metaData->locale),
+                'unique' => __('canvas::app.validation_unique', [], $metaData->locale),
             ];
 
             validator($data, $rules, $messages)->validate();

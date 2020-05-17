@@ -90,7 +90,7 @@ class PostController extends Controller
         $data = [
             'id' => $id,
             'slug' => request('slug', $post->slug),
-            'title' => request('title', __('canvas::app.title')),
+            'title' => request('title', __('canvas::app.title', [], optional($post->userMeta)->locale)),
             'summary' => request('summary', $post->summary),
             'body' => request('body', $post->body),
             'published_at' => request('published_at', $post->published_at),
@@ -115,8 +115,8 @@ class PostController extends Controller
         ];
 
         $messages = [
-            'required' => __('canvas::app.validation_required'),
-            'unique' => __('canvas::app.validation_unique'),
+            'required' => __('canvas::app.validation_required', [], optional($post->userMeta)->locale),
+            'unique' => __('canvas::app.validation_unique', [], optional($post->userMeta)->locale),
         ];
 
         validator($data, $rules, $messages)->validate();

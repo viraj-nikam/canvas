@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User;
 
@@ -73,6 +74,23 @@ class Topic extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(config('canvas.user', User::class));
+    }
+
+    /**
+     * Get the user meta relationship.
+     *
+     * @return HasOneThrough
+     */
+    public function userMeta(): HasOneThrough
+    {
+        return $this->hasOneThrough(
+            UserMeta::class,
+            config('canvas.user', User::class),
+            'id',       // Foreign key on users table...
+            'user_id',  // Foreign key on canvas_topics table...
+            'user_id',  // Local key on canvas_topics table...
+            'id'        // Local key on users table...
+        );
     }
 
     /**

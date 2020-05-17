@@ -5,6 +5,7 @@ namespace Canvas\Tests;
 use Canvas\Http\Middleware\Session;
 use Canvas\Post;
 use Canvas\Topic;
+use Canvas\UserMeta;
 use Illuminate\Auth\Middleware\Authorize;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -70,6 +71,18 @@ class TopicTest extends TestCase
         $topic = factory(Topic::class)->create();
 
         $this->assertInstanceOf(config('canvas.user'), $topic->user);
+    }
+
+    /** @test */
+    public function userMeta_relationship()
+    {
+        $topic = factory(Topic::class)->create();
+
+        factory(UserMeta::class)->create([
+            'user_id' => $topic->user->id,
+        ]);
+
+        $this->assertInstanceOf(UserMeta::class, $topic->userMeta);
     }
 
     /** @test */

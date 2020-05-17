@@ -5,6 +5,7 @@ namespace Canvas\Tests;
 use Canvas\Http\Middleware\Session;
 use Canvas\Post;
 use Canvas\Tag;
+use Canvas\UserMeta;
 use Illuminate\Auth\Middleware\Authorize;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -70,6 +71,18 @@ class TagTest extends TestCase
         $tag = factory(Tag::class)->create();
 
         $this->assertInstanceOf(config('canvas.user'), $tag->user);
+    }
+
+    /** @test */
+    public function userMeta_relationship()
+    {
+        $tag = factory(Tag::class)->create();
+
+        factory(UserMeta::class)->create([
+            'user_id' => $tag->user->id,
+        ]);
+
+        $this->assertInstanceOf(UserMeta::class, $tag->userMeta);
     }
 
     /** @test */

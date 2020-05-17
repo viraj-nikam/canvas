@@ -33,6 +33,7 @@ class PostControllerTest extends TestCase
     {
         // Published posts...
         $published = factory(Post::class)->create();
+
         $this->actingAs($published->user)
              ->getJson('canvas/api/posts?type=published')
              ->assertSuccessful()
