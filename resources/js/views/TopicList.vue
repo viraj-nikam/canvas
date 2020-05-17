@@ -25,7 +25,7 @@
                         <div v-for="(topic, index) in topics" :key="index">
                             <router-link
                                 :to="{
-                                    name: 'topics-edit',
+                                    name: 'edit-topic',
                                     params: { id: topic.id },
                                 }"
                                 class="text-decoration-none"
