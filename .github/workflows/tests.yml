@@ -24,7 +24,7 @@ jobs:
           - laravel: ^6.0
             testbench: ^4.0
 
-    name: Laravel ${{ matrix.laravel }} on PHP ${{ matrix.php }}
+    name: Laravel ${{ matrix.laravel }} on PHP ${{ matrix.php }} and ${{ matrix.database }}
 
     steps:
       - name: Checkout package
