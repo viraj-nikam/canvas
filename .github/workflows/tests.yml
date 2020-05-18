@@ -16,7 +16,6 @@ jobs:
       fail-fast: true
       matrix:
         php: [7.2, 7.3, 7.4]
-        database: [mysql, pgsql, sqlite, sqlsrv]
         laravel: [^6.0, ^7.0]
         include:
           - laravel: ^7.0
@@ -24,7 +23,7 @@ jobs:
           - laravel: ^6.0
             testbench: ^4.0
 
-    name: Laravel ${{ matrix.laravel }} on PHP ${{ matrix.php }} and ${{ matrix.database }}
+    name: Laravel ${{ matrix.laravel }} on PHP ${{ matrix.php }}
 
     steps:
       - name: Checkout package
