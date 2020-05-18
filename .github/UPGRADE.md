@@ -2,9 +2,65 @@
 
 ## Table of Contents
 
+- [Upgrading to 5.4.0 from 5.3](#upgrading-to-540-from-53)
 - [Upgrading to 5.3.0 from 5.2](#upgrading-to-530-from-52)
 - [Upgrading to 5.2.0 from 5.1](#upgrading-to-520-from-51)
 - [Upgrading to 5.1.0 from 5.0](#upgrading-to-510-from-50)
+
+## Upgrading to 5.4.0 from 5.3
+
+> Note: Exporting and re-importing your data allowed the migrations to be consolidated into one file and for the package to no longer require the `doctrine/dbal` dependency.
+
+### Export your data
+
+The first step will be to export the following tables to a SQL dump:
+
+- `canvas_posts`
+- `canvas_posts_tags`
+- `canvas_posts_topics`
+- `canvas_tags`
+- `canvas_topics`
+- `canvas_user_meta`
+- `canvas_views`
+- `canvas_visits`
+
+Once completed, you can drop the same tables from your database.
+
+> Optional: If you want to keep the `migrations` table as minimal as possible, you may delete all references to `_canvas` records.
+
+### Updating dependencies
+
+Update your `cnvs/canvas` dependency to `^5.4` in your `composer.json` file. Upgrade the package to the latest version:
+
+```bash
+composer update
+```
+
+### Migrations
+
+Run the new migrations using the `migrate` Artisan command:
+
+```bash
+php artisan migrate
+```
+
+### Import your data
+
+You may now import the SQL dump that you created above into your database.
+
+### Assets
+
+Re-publish the assets using the `canvas:publish` Artisan command:
+
+```bash
+php artisan canvas:publish
+```
+
+Clear any cached views using the `view:clear` Artisan command:
+
+```bash
+php artisan view:clear
+```
 
 ## Upgrading to 5.3.0 from 5.2
 
