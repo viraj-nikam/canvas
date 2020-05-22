@@ -207,7 +207,6 @@ export default {
                 .get('/api/posts', {
                     params: {
                         page: this.page,
-                        type: 'published',
                     },
                 })
                 .then((response) => {

@@ -282,9 +282,7 @@
                                         </div>
                                     </div>
                                     <div class="ml-auto">
-                                        <span class="text-muted"
-                                            >{{ suffixedNumber(views) }} {{ i18n.views }}</span
-                                        >
+                                        <span class="text-muted">{{ suffixedNumber(views) }} {{ i18n.views }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -327,8 +325,8 @@
 import NProgress from 'nprogress';
 import Tooltip from '../directives/Tooltip';
 import LineChart from '../components/LineChart';
-import i18n from "../mixins/i18n";
-import strings from "../mixins/strings";
+import i18n from '../mixins/i18n';
+import strings from '../mixins/strings';
 import PageHeader from '../components/PageHeader';
 
 export default {
