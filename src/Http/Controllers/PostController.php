@@ -20,27 +20,17 @@ class PostController extends Controller
      */
     public function index(): JsonResponse
     {
-        switch (request()->query('type')) {
-            case 'draft':
-                return response()->json([
-                    'posts' => Post::forUser(request()->user())->draft()->latest()->withCount('views')->paginate(),
-                    'draftCount' => Post::forUser(request()->user())->draft()->count(),
-                    'publishedCount' => Post::forUser(request()->user())->published()->count(),
-                ], 200);
-                break;
-
-            case 'published':
-                return response()->json([
-                    'posts' => Post::forUser(request()->user())->published()->latest()->withCount('views')->paginate(),
-                    'draftCount' => Post::forUser(request()->user())->draft()->count(),
-                    'publishedCount' => Post::forUser(request()->user())->published()->count(),
-                ], 200);
-                break;
-
-            default:
-                return response()->json(null, 404);
-                break;
+        if (request()->query('type') === 'draft') {
+            $postBuilder = Post::forUser(request()->user())->draft();
+        } else {
+            $postBuilder = Post::forUser(request()->user())->published();
         }
+
+        return response()->json([
+            'posts' => $postBuilder->latest()->withCount('views')->paginate(),
+            'draftCount' => Post::forUser(request()->user())->draft()->count(),
+            'publishedCount' => Post::forUser(request()->user())->published()->count(),
+        ], 200);
     }
 
     /**
@@ -52,7 +42,17 @@ class PostController extends Controller
      */
     public function show($id): JsonResponse
     {
-        if (is_fresh($id)) {
+        // todo: Adjust these to pull global taxonomy #750
+        $tags = Tag::forUser(request()->user())->get(['name', 'slug']);
+        $topics = Topic::forUser(request()->user())->get(['name', 'slug']);
+
+        if (Post::forUser(request()->user())->pluck('id')->contains($id)) {
+            return response()->json([
+                'post' => Post::forUser(request()->user())->with('tags:name,slug', 'topic:name,slug')->find($id),
+                'tags' => $tags,
+                'topics' => $topics,
+            ]);
+        } elseif (is_fresh($id)) {
             $uuid = Uuid::uuid4();
 
             return response()->json([
@@ -60,19 +60,11 @@ class PostController extends Controller
                     'id' => $uuid->toString(),
                     'slug' => "post-{$uuid->toString()}",
                 ]),
-                'tags' => Tag::forUser(request()->user())->get(['name', 'slug']),
-                'topics' => Topic::forUser(request()->user())->get(['name', 'slug']),
+                'tags' => $tags,
+                'topics' => $topics,
             ]);
         } else {
-            if (Post::forUser(request()->user())->pluck('id')->contains($id)) {
-                return response()->json([
-                    'post' => Post::forUser(request()->user())->with('tags:name,slug', 'topic:name,slug')->find($id),
-                    'tags' => Tag::forUser(request()->user())->get(['name', 'slug']),
-                    'topics' => Topic::forUser(request()->user())->get(['name', 'slug']),
-                ]);
-            } else {
-                return response()->json(null, 404);
-            }
+            return response()->json(null, 404);
         }
     }
 
@@ -125,13 +117,9 @@ class PostController extends Controller
 
         $post->save();
 
-        $post->topic()->sync(
-            $this->syncTopic(request('topic', []))
-        );
+        $post->topic()->sync($this->syncTopic(request('topic', [])));
 
-        $post->tags()->sync(
-            $this->syncTags(request('tags', []))
-        );
+        $post->tags()->sync($this->syncTags(request('tags', [])));
 
         return response()->json($post->refresh(), 201);
     }
@@ -144,15 +132,11 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        $post = Post::forUser(request()->user())->find($id);
+        $post = Post::forUser(request()->user())->findOrFail($id);
 
-        if ($post) {
-            $post->delete();
+        $post->delete();
 
-            return response()->json(null, 204);
-        } else {
-            return response()->json(null, 404);
-        }
+        return response()->json(null, 204);
     }
 
     /**

@@ -15,7 +15,7 @@ class ViewController extends Controller
      */
     public function __invoke()
     {
-        $metaData = UserMeta::forUser(auth()->user())->first();
+        $metaData = UserMeta::forUser(request()->user())->first();
 
         return view('canvas::layout')->with([
             'config' => [
@@ -54,13 +54,13 @@ class ViewController extends Controller
      */
     private function getUserData(): array
     {
-        $metaData = UserMeta::forUser(auth()->user())->first();
+        $metaData = UserMeta::forUser(request()->user())->first();
         $emailHash = md5(trim(Str::lower(request()->user()->email)));
 
         return [
-            'id' => auth()->user()->id,
-            'name' => auth()->user()->name,
-            'email' => auth()->user()->email,
+            'id' => request()->user()->id,
+            'name' => request()->user()->name,
+            'email' => request()->user()->email,
             'avatar' => optional($metaData)->avatar && ! empty(optional($metaData)->avatar) ? $metaData->avatar : "https://secure.gravatar.com/avatar/{$emailHash}?s=500",
             'darkMode' => optional($metaData)->dark_mode,
             'locale' => optional($metaData)->locale ?? config('app.locale'),

@@ -104,14 +104,10 @@ class TopicController extends Controller
      */
     public function destroy($id)
     {
-        $topic = Topic::forUser(request()->user())->find($id);
+        $topic = Topic::forUser(request()->user())->findOrFail($id);
 
-        if ($topic) {
-            $topic->delete();
+        $topic->delete();
 
-            return response()->json(null, 204);
-        } else {
-            return response()->json(null, 404);
-        }
+        return response()->json(null, 204);
     }
 }

@@ -3,7 +3,7 @@
         <page-header>
             <template slot="action">
                 <router-link to="/stats" class="btn btn-sm btn-outline-success font-weight-bold my-auto ml-auto">
-                    {{ trans.app.see_all_stats }}
+                    {{ i18n.see_all_stats }}
                 </router-link>
             </template>
 
@@ -33,8 +33,8 @@
                     </a>
 
                     <div class="dropdown-menu dropdown-menu-right">
-                        <router-link :to="{ name: 'posts-edit', params: { id: id } }" class="dropdown-item">
-                            {{ trans.app.edit_post }}
+                        <router-link :to="{ name: 'edit-post', params: { id: id } }" class="dropdown-item">
+                            {{ i18n.edit_post }}
                         </router-link>
                     </div>
                 </div>
@@ -46,8 +46,8 @@
                 <div class="row justify-content-between">
                     <div class="col-md-8 my-3">
                         <p class="text-muted mb-0">
-                            {{ trans.app.published }}
-                            {{ post.published_at }}
+                            {{ i18n.published }}
+                            {{ moment(post.published_at).fromNow() }}
                         </p>
                         <h1>{{ post.title }}</h1>
                     </div>
@@ -57,12 +57,12 @@
                     <div class="card shadow border-0">
                         <div class="card-body p-3">
                             <p class="lead border-bottom">
-                                {{ trans.app.lifetime_summary }}
+                                {{ i18n.lifetime_summary }}
                             </p>
                             <div class="d-flex">
                                 <div class="mr-5">
                                     <p class="mb-0 small text-muted text-uppercase font-weight-bold">
-                                        {{ trans.app.total_views }}
+                                        {{ i18n.total_views }}
                                     </p>
                                     <h3 class="mt-1">
                                         {{ suffixedNumber(viewCountLifetime) }}
@@ -71,7 +71,7 @@
 
                                 <div>
                                     <p class="mb-0 small text-muted text-uppercase font-weight-bold">
-                                        {{ trans.app.average_reading_time }}
+                                        {{ i18n.average_reading_time }}
                                     </p>
                                     <h3 class="mt-1">
                                         {{ readTime }}
@@ -84,7 +84,7 @@
                     <div class="card shadow border-0">
                         <div class="card-body p-3">
                             <p class="lead border-bottom">
-                                {{ trans.app.monthly_summary }}
+                                {{ i18n.monthly_summary }}
                             </p>
                             <div class="d-flex">
                                 <div class="mr-5">
@@ -93,9 +93,9 @@
                                             href="#"
                                             v-tooltip="{ placement: 'top' }"
                                             class="text-decoration-none"
-                                            :title="trans.app.views_info"
+                                            :title="i18n.views_info"
                                         >
-                                            {{ trans.app.views }}
+                                            {{ i18n.views }}
                                             <svg
                                                 xmlns="http://www.w3.org/2000/svg"
                                                 width="17"
@@ -143,7 +143,7 @@
                                             </svg>
                                         </span>
                                         {{ viewMonthOverMonthPercentage }}%
-                                        {{ trans.app.from_last_month }}
+                                        {{ i18n.from_last_month }}
                                     </p>
                                 </div>
 
@@ -153,9 +153,9 @@
                                             href="#"
                                             v-tooltip="{ placement: 'top' }"
                                             class="text-decoration-none"
-                                            :title="trans.app.visits_info"
+                                            :title="i18n.visits_info"
                                         >
-                                            {{ trans.app.visitors }}
+                                            {{ i18n.visitors }}
                                             <svg
                                                 xmlns="http://www.w3.org/2000/svg"
                                                 width="17"
@@ -203,7 +203,7 @@
                                             </svg>
                                         </span>
                                         {{ visitMonthOverMonthPercentage }}%
-                                        {{ trans.app.from_last_month }}
+                                        {{ i18n.from_last_month }}
                                     </p>
                                 </div>
                             </div>
@@ -216,14 +216,14 @@
                 <div class="row justify-content-between">
                     <div class="col-md-6 mt-4">
                         <h5 class="text-muted small text-uppercase font-weight-bold border-bottom pb-2">
-                            {{ trans.app.views_by_traffic_source }}
+                            {{ i18n.views_by_traffic_source }}
                         </h5>
 
                         <div v-if="traffic">
                             <div v-for="(views, host) in traffic" v-bind:key="views">
                                 <div class="d-flex py-2 align-items-center">
                                     <div class="mr-auto">
-                                        <div v-if="host === trans.app.other">
+                                        <div v-if="host === i18n.other">
                                             <p class="mb-0 py-1">
                                                 <img
                                                     :src="`https://favicons.githubusercontent.com/${host}`"
@@ -243,7 +243,7 @@
                                                         placement: 'right',
                                                     }"
                                                     class="text-decoration-none"
-                                                    :title="trans.app.referer_unknown"
+                                                    :title="i18n.referer_unknown"
                                                 >
                                                     {{ host }}
                                                     <svg
@@ -283,20 +283,20 @@
                                     </div>
                                     <div class="ml-auto">
                                         <span class="text-muted"
-                                            >{{ suffixedNumber(views) }} {{ trans.app.views }}</span
+                                            >{{ suffixedNumber(views) }} {{ i18n.views }}</span
                                         >
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <p v-else class="py-2 font-italic">
-                            {{ trans.app.waiting_until_more_data }}
+                            {{ i18n.waiting_until_more_data }}
                         </p>
                     </div>
 
                     <div class="col-md-6 mt-4">
                         <h5 class="text-muted small text-uppercase font-weight-bold border-bottom pb-2">
-                            {{ trans.app.popular_reading_times }}
+                            {{ i18n.popular_reading_times }}
                         </h5>
 
                         <div v-if="popularReadingTimes">
@@ -314,7 +314,7 @@
                             </div>
                         </div>
                         <p v-else class="py-2 font-italic">
-                            {{ trans.app.waiting_until_more_data }}
+                            {{ i18n.waiting_until_more_data }}
                         </p>
                     </div>
                 </div>
@@ -327,6 +327,8 @@
 import NProgress from 'nprogress';
 import Tooltip from '../directives/Tooltip';
 import LineChart from '../components/LineChart';
+import i18n from "../mixins/i18n";
+import strings from "../mixins/strings";
 import PageHeader from '../components/PageHeader';
 
 export default {
@@ -336,6 +338,8 @@ export default {
         LineChart,
         PageHeader,
     },
+
+    mixins: [i18n, strings],
 
     directives: {
         Tooltip,
@@ -358,7 +362,6 @@ export default {
             visitMonthOverMonthPercentage: null,
             traffic: null,
             isReady: false,
-            trans: JSON.parse(window.Canvas.locale.translations),
         };
     },
 
@@ -388,7 +391,7 @@ export default {
                     NProgress.done();
                 })
                 .catch(() => {
-                    vm.$router.push({ name: 'stats' });
+                    vm.$router.push({ name: 'all-stats' });
                 });
         });
     },

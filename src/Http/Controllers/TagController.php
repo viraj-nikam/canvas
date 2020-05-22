@@ -104,14 +104,10 @@ class TagController extends Controller
      */
     public function destroy($id)
     {
-        $tag = Tag::forUser(request()->user())->find($id);
+        $tag = Tag::forUser(request()->user())->findOrFail($id);
 
-        if ($tag) {
-            $tag->delete();
+        $tag->delete();
 
-            return response()->json(null, 204);
-        } else {
-            return response()->json(null, 404);
-        }
+        return response()->json(null, 204);
     }
 }
