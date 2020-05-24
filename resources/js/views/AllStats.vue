@@ -1,14 +1,6 @@
 <template>
     <div>
-        <page-header>
-            <template slot="action">
-                <router-link
-                    :to="{ name: 'create-post' }"
-                    class="btn btn-sm btn-outline-success font-weight-bold my-auto"
-                    >{{ i18n.new_post }}
-                </router-link>
-            </template>
-        </page-header>
+        <page-header></page-header>
 
         <main class="py-4">
             <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12">
@@ -20,7 +12,7 @@
                 <div v-if="isReady">
                     <div v-if="posts.length">
                         <div class="card-deck mt-5">
-                            <div class="card shadow" :class="borderColor">
+                            <div class="card shadow-lg" :class="borderColor">
                                 <div
                                     class="card-header pb-0 bg-transparent d-flex justify-content-between align-middle border-0"
                                 >
@@ -35,7 +27,7 @@
                                     <p class="card-text display-4">{{ suffixedNumber(viewCount) }}</p>
                                 </div>
                             </div>
-                            <div class="card shadow" :class="borderColor">
+                            <div class="card shadow-lg" :class="borderColor">
                                 <div
                                     class="card-header pb-0 bg-transparent d-flex justify-content-between align-middle border-0"
                                 >
@@ -54,7 +46,7 @@
 
                         <line-chart :views="JSON.parse(viewTrend)" :visits="JSON.parse(visitTrend)" class="mt-5" />
 
-                        <div class="mt-5 card shadow" :class="borderColor">
+                        <div class="mt-5 card shadow-lg" :class="borderColor">
                             <div class="card-body p-0">
                                 <div v-for="(post, index) in posts" :key="index">
                                     <router-link
@@ -181,7 +173,7 @@ export default {
 
     computed: {
         borderColor() {
-            return store.state.user.darkMode ? 'border-0' : '';
+            return store.state.user.darkMode ? 'border-0' : 'border-light';
         },
     },
 

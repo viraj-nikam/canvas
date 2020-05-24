@@ -23,10 +23,21 @@
                     <div class="input-group">
                         <div class="input-group-prepend mr-0 border-0">
                             <div class="input-group-text pr-0 border-0" :class="bgColor">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" class="icon-search"><circle cx="10" cy="10" r="7" style="fill:none"/><path class="fill-muted" d="M16.32 14.9l1.1 1.1c.4-.02.83.13 1.14.44l3 3a1.5 1.5 0 0 1-2.12 2.12l-3-3a1.5 1.5 0 0 1-.44-1.14l-1.1-1.1a8 8 0 1 1 1.41-1.41zM10 16a6 6 0 1 0 0-12 6 6 0 0 0 0 12z"/></svg>
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 24 24"
+                                    width="20"
+                                    class="icon-search"
+                                >
+                                    <circle cx="10" cy="10" r="7" style="fill: none;" />
+                                    <path
+                                        class="fill-muted"
+                                        d="M16.32 14.9l1.1 1.1c.4-.02.83.13 1.14.44l3 3a1.5 1.5 0 0 1-2.12 2.12l-3-3a1.5 1.5 0 0 1-.44-1.14l-1.1-1.1a8 8 0 1 1 1.41-1.41zM10 16a6 6 0 1 0 0-12 6 6 0 0 0 0 12z"
+                                    />
+                                </svg>
                             </div>
                         </div>
-                        <input class="form-control border-0" :class="bgColor" type="text" placeholder='Search Canvas (Press "/" to focus)'>
+                        <input class="form-control border-0" :class="bgColor" type="text" placeholder="Search..." />
                     </div>
                 </div>
 
@@ -56,6 +67,9 @@
                         </h6>
                         <div class="dropdown-divider"></div>
 
+                        <router-link :to="{ name: 'create-post' }" class="dropdown-item">
+                            <span>{{ i18n.new_post }}</span>
+                        </router-link>
                         <router-link to="/posts" class="dropdown-item">
                             <span>{{ i18n.posts_simple }}</span>
                         </router-link>

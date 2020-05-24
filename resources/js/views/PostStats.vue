@@ -1,17 +1,11 @@
 <template>
     <div>
         <page-header>
-            <template slot="action">
-                <router-link to="/stats" class="btn btn-sm btn-outline-success font-weight-bold my-auto ml-auto">
-                    {{ i18n.see_all_stats }}
-                </router-link>
-            </template>
-
             <template slot="menu">
                 <div class="dropdown">
                     <a
                         id="navbarDropdown"
-                        class="nav-link pr-0"
+                        class="nav-link pr-1"
                         href="#"
                         role="button"
                         data-toggle="dropdown"
@@ -54,7 +48,7 @@
                 </div>
 
                 <div class="card-deck mt-3">
-                    <div class="card shadow border-0">
+                    <div class="card shadow-lg" :class="borderColor">
                         <div class="card-body p-3">
                             <p class="lead border-bottom">
                                 {{ i18n.lifetime_summary }}
@@ -81,7 +75,7 @@
                         </div>
                     </div>
 
-                    <div class="card shadow border-0">
+                    <div class="card shadow-lg" :class="borderColor">
                         <div class="card-body p-3">
                             <p class="lead border-bottom">
                                 {{ i18n.monthly_summary }}
@@ -100,7 +94,7 @@
                                                 xmlns="http://www.w3.org/2000/svg"
                                                 width="17"
                                                 viewBox="0 0 24 24"
-                                                class="icon-help"
+                                                class="icon-help ml-1"
                                             >
                                                 <path class="primary" d="M12 22a10 10 0 1 1 0-20 10 10 0 0 1 0 20z" />
                                                 <path
@@ -119,7 +113,7 @@
                                                 xmlns="http://www.w3.org/2000/svg"
                                                 viewBox="0 0 24 24"
                                                 width="17"
-                                                class="icon-arrow-thick-up-circle"
+                                                class="icon-arrow-thick-up-circle mr-1"
                                             >
                                                 <circle cx="12" cy="12" r="10" class="primary" />
                                                 <path
@@ -133,7 +127,7 @@
                                                 xmlns="http://www.w3.org/2000/svg"
                                                 viewBox="0 0 24 24"
                                                 width="17"
-                                                class="icon-arrow-thick-down-circle"
+                                                class="icon-arrow-thick-down-circle mr-1"
                                             >
                                                 <circle cx="12" cy="12" r="10" class="primary" />
                                                 <path
@@ -160,7 +154,7 @@
                                                 xmlns="http://www.w3.org/2000/svg"
                                                 width="17"
                                                 viewBox="0 0 24 24"
-                                                class="icon-help"
+                                                class="icon-help ml-1"
                                             >
                                                 <path class="primary" d="M12 22a10 10 0 1 1 0-20 10 10 0 0 1 0 20z" />
                                                 <path
@@ -179,7 +173,7 @@
                                                 xmlns="http://www.w3.org/2000/svg"
                                                 viewBox="0 0 24 24"
                                                 width="17"
-                                                class="icon-arrow-thick-up-circle"
+                                                class="icon-arrow-thick-up-circle mr-1"
                                             >
                                                 <circle cx="12" cy="12" r="10" class="primary" />
                                                 <path
@@ -193,7 +187,7 @@
                                                 xmlns="http://www.w3.org/2000/svg"
                                                 viewBox="0 0 24 24"
                                                 width="17"
-                                                class="icon-arrow-thick-down-circle"
+                                                class="icon-arrow-thick-down-circle mr-1"
                                             >
                                                 <circle cx="12" cy="12" r="10" class="primary" />
                                                 <path
@@ -328,6 +322,7 @@ import LineChart from '../components/LineChart';
 import i18n from '../mixins/i18n';
 import strings from '../mixins/strings';
 import PageHeader from '../components/PageHeader';
+import store from '../store';
 
 export default {
     name: 'post-stats',
@@ -401,6 +396,10 @@ export default {
 
         visitsAreTrendingUp() {
             return this.visitMonthOverMonthDirection === 'up';
+        },
+
+        borderColor() {
+            return store.state.user.darkMode ? 'border-0' : 'border-light';
         },
     },
 };

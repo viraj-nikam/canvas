@@ -8,7 +8,7 @@
                     <h1>{{ i18n.settings }}</h1>
                 </div>
 
-                <div class="mt-2 card shadow-lg border-light" :class="borderColor" v-if="isReady">
+                <div class="mt-2 card shadow-lg" :class="borderColor" v-if="isReady">
                     <div class="card-body p-0">
                         <div class="d-flex p-3 align-items-center">
                             <div class="mr-auto py-1">
@@ -145,7 +145,7 @@ import PageHeader from '../components/PageHeader';
 import ProfileModal from '../components/modals/ProfileModal';
 import strings from '../mixins/strings';
 import i18n from '../mixins/i18n';
-import toast from "../mixins/toast";
+import toast from '../mixins/toast';
 import store from '../store';
 
 export default {
@@ -185,7 +185,7 @@ export default {
         },
 
         borderColor() {
-            return store.state.user.darkMode ? 'border-0' : '';
+            return store.state.user.darkMode ? 'border-0' : 'border-light';
         },
     },
 

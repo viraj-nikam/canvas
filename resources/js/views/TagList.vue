@@ -1,26 +1,33 @@
 <template>
     <div>
-        <page-header>
-            <template slot="action">
-                <router-link
-                    :to="{ name: 'create-tag' }"
-                    class="btn btn-sm btn-outline-success font-weight-bold my-auto"
-                >
-                    {{ i18n.new_tag }}
-                </router-link>
-            </template>
-        </page-header>
+        <page-header></page-header>
 
         <main class="py-4">
             <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12">
                 <div class="my-3">
-                    <h1>{{ i18n.tags }}</h1>
+                    <h1>
+                        {{ i18n.tags }}
+                        <router-link :to="{ name: 'create-tag' }">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 24 24"
+                                width="22"
+                                class="ml-2 icon-add-circle"
+                            >
+                                <circle cx="12" cy="12" r="10" class="fill-muted" />
+                                <path
+                                    class="fill-bg"
+                                    d="M13 11h4a1 1 0 0 1 0 2h-4v4a1 1 0 0 1-2 0v-4H7a1 1 0 0 1 0-2h4V7a1 1 0 0 1 2 0v4z"
+                                />
+                            </svg>
+                        </router-link>
+                    </h1>
                     <p class="text-secondary">
                         {{ i18n.tags_are_great_for }}
                     </p>
                 </div>
 
-                <div class="mt-5 card shadow" :class="borderColor">
+                <div class="mt-5 card shadow-lg" :class="borderColor">
                     <div class="card-body p-0">
                         <div v-for="(tag, index) in tags" :key="index">
                             <router-link
@@ -134,7 +141,7 @@ export default {
 
     computed: {
         borderColor() {
-            return store.state.user.darkMode ? 'border-0' : '';
+            return store.state.user.darkMode ? 'border-0' : 'border-light';
         },
     },
 

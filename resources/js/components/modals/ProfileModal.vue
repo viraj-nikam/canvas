@@ -2,24 +2,6 @@
     <div class="modal fade" id="profileModal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <div class="modal-header d-flex align-items-center justify-content-between border-0">
-                    <h4 class="modal-title">{{ user.name }}</h4>
-
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24"
-                            width="24"
-                            class="icon-close-circle"
-                        >
-                            <circle cx="12" cy="12" r="10" class="primary" />
-                            <path
-                                class="fill-bg"
-                                d="M13.41 12l2.83 2.83a1 1 0 0 1-1.41 1.41L12 13.41l-2.83 2.83a1 1 0 1 1-1.41-1.41L10.59 12 7.76 9.17a1 1 0 0 1 1.41-1.41L12 10.59l2.83-2.83a1 1 0 0 1 1.41 1.41L13.41 12z"
-                            />
-                        </svg>
-                    </button>
-                </div>
                 <div class="modal-body">
                     <file-pond
                         v-if="isReadyToAcceptUploads"
@@ -93,11 +75,11 @@
                                 class="form-control border-0"
                                 title="Username"
                                 v-model="user.username"
-                                placeholder="Choose a username..."
+                                :placeholder="i18n.choose_a_username"
                             />
-                            <div v-if="user.errors.length" class="invalid-feedback d-block">
-                                <strong>{{ user.errors[0].username }}</strong>
-                            </div>
+                            <!--                            <div v-if="usernameValidationError" class="invalid-feedback d-block">-->
+                            <!--                                <strong v-for="value in usernameValidationError">{{ value }}</strong>-->
+                            <!--                            </div>-->
                         </div>
                     </div>
                     <div class="form-group row">
@@ -126,7 +108,7 @@
                                 href="#"
                                 class="btn btn-success btn-block font-weight-bold mt-0"
                                 aria-label="Save"
-                                data-dismiss="modal"
+                                :disabled="usernameValidationError"
                                 @click.prevent="updateProfile"
                             >
                                 {{ i18n.save }}
@@ -158,6 +140,8 @@ import FilePondPluginImageExifOrientation from 'filepond-plugin-image-exif-orien
 import FilePondPluginFileValidateSize from 'filepond-plugin-file-validate-size';
 import store from '../../store';
 import i18n from '../../mixins/i18n';
+import get from 'lodash/get';
+import $ from 'jquery';
 
 const FilePond = vueFilePond(
     FilePondPluginFileValidateType,
@@ -205,6 +189,12 @@ export default {
             return store.state.user.darkMode ? 'bg-darker' : 'bg-light';
         },
 
+        usernameValidationError() {
+            let errors = Object.values(this.user.errors);
+
+            return get(errors.flat(1), '[0].username', null);
+        },
+
         getRetryIcon() {
             return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-refresh" width="26"><circle style="fill:none" cx="12" cy="12" r="10"/><path style="fill:white" d="M8.52 7.11a5.98 5.98 0 0 1 8.98 2.5 1 1 0 1 1-1.83.8 4 4 0 0 0-5.7-1.86l.74.74A1 1 0 0 1 10 11H7a1 1 0 0 1-1-1V7a1 1 0 0 1 1.7-.7l.82.81zm5.51 8.34l-.74-.74A1 1 0 0 1 14 13h3a1 1 0 0 1 1 1v3a1 1 0 0 1-1.7.7l-.82-.81A5.98 5.98 0 0 1 6.5 14.4a1 1 0 1 1 1.83-.8 4 4 0 0 0 5.7 1.85z"/></svg>';
         },
@@ -232,6 +222,8 @@ export default {
 
         updateProfile() {
             store.dispatch('user/updateUser', this.user);
+
+            $('#profileModal').modal('hide');
         },
 
         clearAvatar() {
