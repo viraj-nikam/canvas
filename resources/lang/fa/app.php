@@ -77,7 +77,6 @@ return [
     'save' => 'ذخیره',
     'save_changes' => 'ذخیره تغییرات',
     'saved' => 'ذخیره شد!',
-    'saving' => 'در حال ذخیره سازی ...',
     'schedule_for_later' => 'زمان بعدی برای بعد',
     'schedule_to_publish' => 'زمان بندی برای انتشار',
     'scheduled' => 'زمان بندی انجام شد',

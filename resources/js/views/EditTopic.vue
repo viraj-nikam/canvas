@@ -1,15 +1,6 @@
 <template>
     <div>
         <page-header>
-            <template slot="status">
-                <ul class="navbar-nav mr-auto flex-row float-right">
-                    <li class="text-muted font-weight-bold">
-                        <span v-if="form.isSaving">{{ trans.app.saving }}</span>
-                        <span v-if="form.hasSuccess" class="text-success">{{ trans.app.saved }}</span>
-                    </li>
-                </ul>
-            </template>
-
             <template slot="action">
                 <a
                     href="#"

@@ -125,8 +125,8 @@
                             <div slot="no-results" class="text-left">
                                 <div class="my-5">
                                     <p class="lead text-center text-muted mt-5">
-                                        <span v-if="type === 'draft'">{{ i18n.you_have_no_draft_posts }}</span>
-                                        <span v-else>{{ i18n.you_have_no_published_posts }}</span>
+                                        <span v-if="type === 'published'">{{ i18n.you_have_no_published_posts }}</span>
+                                        <span v-else>{{ i18n.you_have_no_draft_posts }}</span>
                                     </p>
                                     <p class="lead text-center text-muted mt-1">
                                         {{ i18n.write_on_the_go }}
@@ -172,7 +172,7 @@ export default {
             posts: [],
             publishedCount: 0,
             draftCount: 0,
-            type: '',
+            type: 'published',
             infiniteId: +new Date(),
         };
     },

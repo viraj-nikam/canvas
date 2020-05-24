@@ -77,7 +77,6 @@ return [
     'save' => 'Kayıt etmek',
     'save_changes' => 'Değişiklikleri Kaydet',
     'saved' => 'Kaydedilen!',
-    'saving' => 'Tasarruf ...',
     'schedule_for_later' => 'Daha sonra planla',
     'schedule_to_publish' => 'Yayınlama zamanlaması',
     'scheduled' => 'tarifeli',

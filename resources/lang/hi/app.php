@@ -77,7 +77,6 @@ return [
     'save' => 'सहेजें',
     'save_changes' => 'परिवर्तनों को सुरक्षित करें',
     'saved' => 'बचाया!',
-    'saving' => 'सहेजा जा रहा है ...',
     'schedule_for_later' => 'बाद के लिए शेड्यूल करें',
     'schedule_to_publish' => 'प्रकाशित करने की अनुसूची',
     'scheduled' => 'अनुसूचित',

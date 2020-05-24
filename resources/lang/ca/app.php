@@ -77,7 +77,6 @@ return [
     'save' => 'Guarda',
     'save_changes' => 'Guarda canvis',
     'saved' => 'Guardat!',
-    'saving' => 'S\està guardant...',
     'schedule_for_later' => 'Programa per més tard',
     'schedule_to_publish' => 'Programa per publicar',
     'scheduled' => 'Programat',

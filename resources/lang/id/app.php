@@ -77,7 +77,6 @@ return [
     'save' => 'Simpan',
     'save_changes' => 'Simpan perubahan',
     'saved' => 'Tersimpan!',
-    'saving' => 'Menyimpan...',
     'schedule_for_later' => 'Jadwalkan untuk nanti',
     'schedule_to_publish' => 'Jadwalkan untuk terbit',
     'scheduled' => 'Terjadwal',

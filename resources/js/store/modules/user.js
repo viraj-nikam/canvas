@@ -1,5 +1,7 @@
 import request from '../../mixins/request';
 import md5 from 'md5';
+import toast from "../../mixins/toast";
+import config from "./config";
 
 const initialState = {
     avatar: window.Canvas.user.avatar,
@@ -41,6 +43,8 @@ const actions = {
                 context.commit('SET_PENDING', false);
                 context.commit('SET_SUCCESS', true);
                 context.commit('UPDATE_USER', response.data);
+
+                toast.methods.toast(config.state.i18n.saved);
             })
             .catch((errors) => {
                 context.commit('SET_PENDING', false);

@@ -51,6 +51,10 @@ $custom-control-indicator-bg: $text-muted;
     fill: $body-color;
 }
 
+.fill-muted {
+    fill: $text-muted;
+}
+
 .row-hover {
     background-color: $gray-100;
 }

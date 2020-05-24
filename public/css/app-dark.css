@@ -226,6 +226,10 @@ select.input {
   fill: #B2BDC4;
 }
 
+.fill-muted {
+  fill: #5F717E;
+}
+
 .row-hover {
   background-color: #232A2D;
 }
@@ -243,7 +247,7 @@ select.input {
 }
 
 .fade-leave {
-  /* opacity: 1; */
+  opacity: 1;
 }
 
 .fade-leave-active {

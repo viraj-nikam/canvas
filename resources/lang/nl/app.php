@@ -77,7 +77,6 @@ return [
     'save' => 'Opslaan',
     'save_changes' => 'Wijzigingen opslaan',
     'saved' => 'Gered!',
-    'saving' => 'Besparing...',
     'schedule_for_later' => 'Plan voor later',
     'schedule_to_publish' => 'Schema om te publiceren',
     'scheduled' => 'geplande',

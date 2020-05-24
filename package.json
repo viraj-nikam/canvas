@@ -59,6 +59,7 @@
         "vue-router": "^3.1.6",
         "vue-template-compiler": "^2.6.11",
         "vue-textarea-autosize": "^1.1.1",
+        "vue-toasted": "^1.1.28",
         "vuex": "^3.3.0",
         "vuex-router-sync": "^5.0.0",
         "webpack-bundle-analyzer": "^3.7.0"

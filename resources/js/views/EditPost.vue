@@ -1,25 +1,6 @@
 <template>
     <div>
         <page-header>
-            <template slot="status">
-                <ul class="navbar-nav mr-auto flex-row float-right">
-                    <li class="text-muted font-weight-bold">
-                        <div v-if="!post.isSaving && !post.hasSuccess">
-                            <span v-if="isDraft(post.published_at)">{{ trans.app.draft }}</span>
-                            <span v-if="!isDraft(post.published_at)">{{ trans.app.published }}</span>
-                        </div>
-
-                        <div v-if="post.isSaving">
-                            <span>{{ trans.app.saving }}</span>
-                        </div>
-
-                        <div v-if="post.hasSuccess">
-                            <span class="text-success">{{ trans.app.saved }}</span>
-                        </div>
-                    </li>
-                </ul>
-            </template>
-
             <template slot="action">
                 <a
                     v-if="isDraft(post.published_at)"

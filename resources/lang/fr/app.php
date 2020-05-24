@@ -77,7 +77,6 @@ return [
     'save' => 'sauvegarder',
     'save_changes' => 'Sauvegarder les modifications',
     'saved' => 'Enregistré!',
-    'saving' => 'Économie...',
     'schedule_for_later' => 'Planifier pour plus tard',
     'schedule_to_publish' => 'Calendrier de publication',
     'scheduled' => 'Programmé',

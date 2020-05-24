@@ -78,6 +78,10 @@ input:-webkit-autofill:active {
   fill: #1a202c;
 }
 
+.fill-muted {
+  fill: #a0aec0;
+}
+
 .row-hover {
   background-color: #f7fafc;
 }
@@ -95,7 +99,7 @@ input:-webkit-autofill:active {
 }
 
 .fade-leave {
-  /* opacity: 1; */
+  opacity: 1;
 }
 
 .fade-leave-active {

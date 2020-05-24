@@ -77,7 +77,6 @@ return [
     'save' => 'Save',
     'save_changes' => 'Save changes',
     'saved' => 'Saved!',
-    'saving' => 'Saving...',
     'schedule_for_later' => 'Schedule for later',
     'schedule_to_publish' => 'Schedule to publish',
     'scheduled' => 'Scheduled',

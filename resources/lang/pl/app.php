@@ -77,7 +77,6 @@ return [
     'save' => 'Zaktualizuj',
     'save_changes' => 'Zaktualizuj zmiany',
     'saved' => 'Zaktualizowano!',
-    'saving' => 'Aktualizuje...',
     'schedule_for_later' => 'Zaplanuj na później',
     'schedule_to_publish' => 'Zaplanuj publikację',
     'scheduled' => 'Zaplanowany',

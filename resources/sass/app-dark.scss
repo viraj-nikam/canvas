@@ -104,7 +104,7 @@ select.input {
 }
 
 .bg-darker {
-    background-color: #71809630;
+    background-color: $bg-darker;
 }
 
 .sidebar-controls.active {
@@ -147,8 +147,12 @@ select.input {
     fill: $body-color;
 }
 
+.fill-muted {
+    fill: $text-muted;
+}
+
 .row-hover {
-    background-color: #232A2D;
+    background-color: $dropdown-link-hover-bg;
 }
 
 @import 'vendor-extensions/vue';

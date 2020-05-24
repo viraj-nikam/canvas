@@ -77,7 +77,6 @@ return [
     'save' => 'Сохранить',
     'save_changes' => 'Сохранить изменения',
     'saved' => 'Сохраненный!',
-    'saving' => 'Сохранение ...',
     'schedule_for_later' => 'Расписание на потом',
     'schedule_to_publish' => 'График публикации',
     'scheduled' => 'по расписанию',

@@ -77,7 +77,6 @@ return [
     'save' => 'حفظ',
     'save_changes' => 'حفظ التغييرات',
     'saved' => 'تم الحفظ!',
-    'saving' => 'إنقاذ...',
     'schedule_for_later' => 'الجدول الزمني لاحقا',
     'schedule_to_publish' => 'الجدول الزمني للنشر',
     'scheduled' => 'المقرر',

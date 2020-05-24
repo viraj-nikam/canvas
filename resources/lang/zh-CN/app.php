@@ -77,7 +77,6 @@ return [
     'save' => '保存',
     'save_changes' => '保存更改',
     'saved' => '保存了！',
-    'saving' => '保存...',
     'schedule_for_later' => '安排以后',
     'schedule_to_publish' => '计划发布',
     'scheduled' => '预定的',

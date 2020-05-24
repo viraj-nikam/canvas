@@ -7,6 +7,7 @@ const initialState = {
     path: window.Canvas.path,
     timezone: window.Canvas.timezone,
     unsplash: window.Canvas.unsplash,
+    version: window.Canvas.version
 };
 
 const state = { ...initialState };
