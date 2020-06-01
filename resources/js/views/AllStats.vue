@@ -48,7 +48,7 @@
 
                         <div class="mt-5 card shadow-lg" :class="borderColor">
                             <div class="card-body p-0">
-                                <div v-for="(post, index) in posts" :key="index">
+                                <div v-for="(post, index) in posts" :key="`${index}-${post.id}`">
                                     <router-link
                                         :to="{
                                             name: 'post-stats',

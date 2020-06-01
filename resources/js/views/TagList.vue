@@ -12,7 +12,7 @@
                                 xmlns="http://www.w3.org/2000/svg"
                                 viewBox="0 0 24 24"
                                 width="22"
-                                class="ml-2 icon-add-circle"
+                                class="ml-1 icon-add-circle"
                             >
                                 <circle cx="12" cy="12" r="10" class="fill-muted" />
                                 <path
@@ -29,7 +29,7 @@
 
                 <div class="mt-5 card shadow-lg" :class="borderColor">
                     <div class="card-body p-0">
-                        <div v-for="(tag, index) in tags" :key="index">
+                        <div v-for="(tag, index) in tags" :key="`${index}-${tag.id}`">
                             <router-link
                                 :to="{
                                     name: 'edit-tag',

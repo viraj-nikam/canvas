@@ -214,7 +214,7 @@
                         </h5>
 
                         <div v-if="traffic">
-                            <div v-for="(views, host) in traffic" v-bind:key="views">
+                            <div v-for="(views, host) in traffic" :key="`${host}-${views}`">
                                 <div class="d-flex py-2 align-items-center">
                                     <div class="mr-auto">
                                         <div v-if="host === i18n.other">
@@ -292,7 +292,7 @@
                         </h5>
 
                         <div v-if="popularReadingTimes">
-                            <div v-for="(percentage, time) in popularReadingTimes" v-bind:key="percentage">
+                            <div v-for="(percentage, time) in popularReadingTimes" :key="`${time}-${percentage}`">
                                 <div class="d-flex py-2 align-items-center">
                                     <div class="mr-auto">
                                         <p class="mb-0 py-1">
