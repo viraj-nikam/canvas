@@ -13,7 +13,7 @@
 
 ### Export your data
 
-The first step will be to export the following tables to a SQL dump:
+The first step will be to export all Canvas-related tables to a SQL dump:
 
 - `canvas_posts`
 - `canvas_posts_tags`
@@ -24,7 +24,7 @@ The first step will be to export the following tables to a SQL dump:
 - `canvas_views`
 - `canvas_visits`
 
-Once completed, you can drop the same tables from your database.
+Once completed, you can drop those tables from your database.
 
 > Optional: If you want to keep the `migrations` table as minimal as possible, you may delete all references to `_canvas` records.
 
