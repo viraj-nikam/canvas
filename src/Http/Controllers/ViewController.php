@@ -16,7 +16,6 @@ class ViewController extends Controller
     public function __invoke()
     {
         $metaData = UserMeta::forUser(request()->user())->first();
-        $dependencies = json_decode(file_get_contents(base_path('composer.lock')), true)['packages'];
 
         return view('canvas::layout')->with([
             'config' => [
@@ -24,10 +23,10 @@ class ViewController extends Controller
                 'maxUpload' => config('canvas.upload_filesize'),
                 'path' => config('canvas.path'),
                 'timezone' => config('app.timezone'),
-                'translations' => collect(['app' => trans('canvas::app', [], optional($metaData)->locale)])->toJson(),
+                'translations' => $this->getAvailableTranslations(optional($metaData)->locale),
                 'unsplash' => config('canvas.unsplash.access_key'),
                 'user' => $this->getUserData(),
-                'version' => collect($dependencies)->firstWhere('name', 'cnvs/canvas')['version'],
+                'version' => $this->getInstalledVersion(),
             ],
         ]);
     }
@@ -39,7 +38,7 @@ class ViewController extends Controller
      */
     private function getAvailableLanguageCodes(): array
     {
-        $locales = preg_grep('/^([^.])/', scandir(dirname(__DIR__, 3).'/resources/lang'));
+        $locales = preg_grep('/^([^.])/', scandir(dirname(__DIR__, 3) . '/resources/lang'));
         $translations = collect();
 
         foreach ($locales as $locale) {
@@ -47,6 +46,17 @@ class ViewController extends Controller
         }
 
         return $translations->toArray();
+    }
+
+    /**
+     * Return an encoded string of app translations.
+     *
+     * @param $locale
+     * @return string
+     */
+    private function getAvailableTranslations($locale): string
+    {
+        return collect(['app' => trans('canvas::app', [], $locale)])->toJson();
     }
 
     /**
@@ -59,16 +69,34 @@ class ViewController extends Controller
         $metaData = UserMeta::forUser(request()->user())->first();
         $emailHash = md5(trim(Str::lower(request()->user()->email)));
 
+        if (isset($metaData->avatar)) {
+            $avatar = $metaData->avatar;
+        } else {
+            $avatar = "https://secure.gravatar.com/avatar/{$emailHash}?s=500";
+        }
+
         return [
             'id' => request()->user()->id,
             'name' => request()->user()->name,
             'email' => request()->user()->email,
-            'avatar' => optional($metaData)->avatar && ! empty(optional($metaData)->avatar) ? $metaData->avatar : "https://secure.gravatar.com/avatar/{$emailHash}?s=500",
+            'avatar' => $avatar,
             'darkMode' => optional($metaData)->dark_mode,
             'locale' => optional($metaData)->locale ?? config('app.locale'),
             'username' => optional($metaData)->username,
             'summary' => optional($metaData)->summary,
             'digest' => optional($metaData)->digest,
         ];
+    }
+
+    /**
+     * Return the installed version.
+     *
+     * @return string
+     */
+    private function getInstalledVersion(): string
+    {
+        $dependencies = json_decode(file_get_contents(base_path('composer.lock')), true)['packages'];
+
+        return collect($dependencies)->firstWhere('name', 'cnvs/canvas')['version'];
     }
 }
