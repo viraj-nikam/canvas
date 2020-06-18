@@ -30,26 +30,26 @@ class TopicControllerTest extends TestCase
     /** @test */
     public function topics_can_be_listed()
     {
-        $user_1 = factory(config('canvas.user'))->create();
-        $user_2 = factory(config('canvas.user'))->create();
+        $userOne = factory(config('canvas.user'))->create();
+        $userTwo = factory(config('canvas.user'))->create();
 
         $topic = factory(Topic::class)->create([
-            'user_id' => $user_1->id,
+            'user_id' => $userOne->id,
             'name' => 'A new topic',
             'slug' => 'a-new-topic',
         ]);
 
-        $this->actingAs($user_1)
+        $this->actingAs($userOne)
              ->getJson('canvas/api/topics')
              ->assertSuccessful()
              ->assertJsonExactFragment($topic->id, 'data.0.id')
              ->assertJsonExactFragment($topic->name, 'data.0.name')
-             ->assertJsonExactFragment($user_1->id, 'data.0.user_id')
+             ->assertJsonExactFragment($userOne->id, 'data.0.user_id')
              ->assertJsonExactFragment($topic->slug, 'data.0.slug')
              ->assertJsonExactFragment($topic->posts->count(), 'data.0.posts_count')
              ->assertJsonExactFragment(1, 'total');
 
-        $this->actingAs($user_2)
+        $this->actingAs($userTwo)
              ->getJson('canvas/api/topics')
              ->assertSuccessful()
              ->assertJsonExactFragment(0, 'total');
@@ -89,17 +89,17 @@ class TopicControllerTest extends TestCase
     /** @test */
     public function only_topic_owners_can_access_topics()
     {
-        $user_1 = factory(config('canvas.user'))->create();
-        $user_2 = factory(config('canvas.user'))->create();
+        $userOne = factory(config('canvas.user'))->create();
+        $userTwo = factory(config('canvas.user'))->create();
 
         $topic = factory(Topic::class)->create([
-            'user_id' => $user_1->id,
+            'user_id' => $userOne->id,
             'name' => 'A topic for user 1',
             'slug' => 'a-topic-for-user-1',
         ]);
 
-        $this->actingAs($user_1)->getJson("canvas/api/topics/{$topic->id}")->assertSuccessful();
-        $this->actingAs($user_2)->getJson("canvas/api/topics/{$topic->id}")->assertNotFound();
+        $this->actingAs($userOne)->getJson("canvas/api/topics/{$topic->id}")->assertSuccessful();
+        $this->actingAs($userTwo)->getJson("canvas/api/topics/{$topic->id}")->assertNotFound();
     }
 
     /** @test */
@@ -159,24 +159,24 @@ class TopicControllerTest extends TestCase
     /** @test */
     public function topics_can_be_deleted()
     {
-        $user_1 = factory(config('canvas.user'))->create();
-        $user_2 = factory(config('canvas.user'))->create();
+        $userOne = factory(config('canvas.user'))->create();
+        $userTwo = factory(config('canvas.user'))->create();
 
         $topic = factory(Topic::class)->create([
-            'user_id' => $user_1->id,
+            'user_id' => $userOne->id,
             'name' => 'A new topic',
             'slug' => 'a-new-topic',
         ]);
 
-        $this->actingAs($user_2)
+        $this->actingAs($userTwo)
              ->deleteJson("canvas/api/topics/{$topic->id}")
              ->assertNotFound();
 
-        $this->actingAs($user_1)
+        $this->actingAs($userOne)
              ->deleteJson('canvas/api/topics/not-a-topic')
              ->assertNotFound();
 
-        $this->actingAs($user_1)
+        $this->actingAs($userOne)
              ->deleteJson("canvas/api/topics/{$topic->id}")
              ->assertSuccessful()
              ->assertNoContent();

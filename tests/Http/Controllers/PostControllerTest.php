@@ -85,15 +85,15 @@ class PostControllerTest extends TestCase
     /** @test */
     public function only_post_owners_can_access_posts()
     {
-        $user_1 = factory(config('canvas.user'))->create();
-        $user_2 = factory(config('canvas.user'))->create();
+        $userOne = factory(config('canvas.user'))->create();
+        $userTwo = factory(config('canvas.user'))->create();
 
         $post = factory(Post::class)->create([
-            'user_id' => $user_1->id,
+            'user_id' => $userOne->id,
         ]);
 
-        $this->actingAs($user_1)->getJson("canvas/api/posts/{$post->id}")->assertSuccessful();
-        $this->actingAs($user_2)->getJson("canvas/api/posts/{$post->id}")->assertNotFound();
+        $this->actingAs($userOne)->getJson("canvas/api/posts/{$post->id}")->assertSuccessful();
+        $this->actingAs($userTwo)->getJson("canvas/api/posts/{$post->id}")->assertNotFound();
     }
 
     /** @test */
@@ -197,19 +197,19 @@ class PostControllerTest extends TestCase
     /** @test */
     public function posts_can_be_deleted()
     {
-        $user_1 = factory(config('canvas.user'))->create();
-        $user_2 = factory(config('canvas.user'))->create();
+        $userOne = factory(config('canvas.user'))->create();
+        $userTwo = factory(config('canvas.user'))->create();
 
         $post = factory(Post::class)->create([
-            'user_id' => $user_1->id,
+            'user_id' => $userOne->id,
             'slug' => 'a-new-post',
         ]);
 
-        $this->actingAs($user_2)->deleteJson("canvas/api/posts/{$post->id}")->assertNotFound();
+        $this->actingAs($userTwo)->deleteJson("canvas/api/posts/{$post->id}")->assertNotFound();
 
-        $this->actingAs($user_1)->deleteJson('canvas/api/posts/not-a-post')->assertNotFound();
+        $this->actingAs($userOne)->deleteJson('canvas/api/posts/not-a-post')->assertNotFound();
 
-        $this->actingAs($user_1)->deleteJson("canvas/api/posts/{$post->id}")->assertSuccessful()->assertNoContent();
+        $this->actingAs($userOne)->deleteJson("canvas/api/posts/{$post->id}")->assertSuccessful()->assertNoContent();
 
         $this->assertSoftDeleted('canvas_posts', [
             'id' => $post->id,

@@ -117,10 +117,10 @@ class UserControllerTest extends TestCase
     /** @test */
     public function users_cannot_access_another_user_account()
     {
-        $user_1 = factory(config('canvas.user'))->create();
-        $user_2 = factory(config('canvas.user'))->create();
+        $userOne = factory(config('canvas.user'))->create();
+        $userTwo = factory(config('canvas.user'))->create();
 
-        $this->actingAs($user_2)->getJson("canvas/api/users/{$user_1->id}")->assertNotFound();
-        $this->actingAs($user_1)->postJson("canvas/api/users/{$user_2->id}")->assertNotFound();
+        $this->actingAs($userTwo)->getJson("canvas/api/users/{$userOne->id}")->assertNotFound();
+        $this->actingAs($userOne)->postJson("canvas/api/users/{$userTwo->id}")->assertNotFound();
     }
 }

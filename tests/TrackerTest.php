@@ -18,40 +18,40 @@ class TrackerTest extends TestCase
     {
         $days = 7;
 
-        $post_1 = factory(Post::class)->create();
-        $post_1->views()->createMany(
+        $postOne = factory(Post::class)->create();
+        $postOne->views()->createMany(
             factory(View::class, 5)->make()->toArray()
         );
-        $post_1->visits()->createMany(
+        $postOne->visits()->createMany(
             factory(Visit::class, 4)->make()->toArray()
         );
 
-        $post_2 = factory(Post::class)->create();
-        $post_2->views()->createMany(
+        $postTwo = factory(Post::class)->create();
+        $postTwo->views()->createMany(
             factory(View::class, 3)->make()->toArray()
         );
-        $post_2->visits()->createMany(
+        $postTwo->visits()->createMany(
             factory(Visit::class, 2)->make()->toArray()
         );
 
-        $data = $this->getTrackedData([$post_1->id, $post_2->id], $days);
+        $data = $this->getTrackedData([$postOne->id, $postTwo->id], $days);
 
         $this->assertEquals($data['startDate'], now()->subDays($days)->format('M j'));
         $this->assertEquals($data['endDate'], now()->format('M j'));
 
         $this->assertArrayHasKey('posts', $data);
-        $this->assertArrayHasKey($post_1->id, $data['posts']);
-        $this->assertArrayHasKey($post_2->id, $data['posts']);
+        $this->assertArrayHasKey($postOne->id, $data['posts']);
+        $this->assertArrayHasKey($postTwo->id, $data['posts']);
         $this->assertArrayHasKey('totals', $data);
 
-        $this->assertEquals(5, $data['posts'][$post_1->id]['views']);
-        $this->assertEquals(4, $data['posts'][$post_1->id]['visits']);
+        $this->assertEquals(5, $data['posts'][$postOne->id]['views']);
+        $this->assertEquals(4, $data['posts'][$postOne->id]['visits']);
 
-        $this->assertEquals(3, $data['posts'][$post_2->id]['views']);
-        $this->assertEquals(2, $data['posts'][$post_2->id]['visits']);
+        $this->assertEquals(3, $data['posts'][$postTwo->id]['views']);
+        $this->assertEquals(2, $data['posts'][$postTwo->id]['visits']);
 
-        $this->assertEquals($data['totals']['views'], array_sum([$post_1->views()->count(), $post_2->views()->count()]));
-        $this->assertEquals($data['totals']['visits'], array_sum([$post_1->visits()->count(), $post_2->visits()->count()]));
+        $this->assertEquals($data['totals']['views'], array_sum([$postOne->views()->count(), $postTwo->views()->count()]));
+        $this->assertEquals($data['totals']['visits'], array_sum([$postOne->visits()->count(), $postTwo->visits()->count()]));
     }
 
     /** @test */
