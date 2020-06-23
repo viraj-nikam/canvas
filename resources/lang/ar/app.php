@@ -79,7 +79,6 @@ return [
     'saved' => 'تم الحفظ!',
     'schedule_for_later' => 'الجدول الزمني لاحقا',
     'schedule_to_publish' => 'الجدول الزمني للنشر',
-    'scheduled' => 'المقرر',
     'search_free_photos' => 'ابحث عن صور عالية الدقة مجانًا',
     'see_all_stats' => 'رؤية جميع الإحصاءات',
     'select_a_topic' => 'اختر عنوانا...',

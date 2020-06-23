@@ -79,7 +79,6 @@ return [
     'saved' => 'Gered!',
     'schedule_for_later' => 'Plan voor later',
     'schedule_to_publish' => 'Schema om te publiceren',
-    'scheduled' => 'geplande',
     'search_free_photos' => 'Zoek naar gratis hoge resolutie foto\'s',
     'see_all_stats' => 'Bekijk alle statistieken',
     'select_a_topic' => 'Kies een onderwerp...',

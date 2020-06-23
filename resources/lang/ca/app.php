@@ -79,7 +79,6 @@ return [
     'saved' => 'Guardat!',
     'schedule_for_later' => 'Programa per més tard',
     'schedule_to_publish' => 'Programa per publicar',
-    'scheduled' => 'Programat',
     'search_free_photos' => 'Cerqueu fotografies gratuïtes d\'alta resolució',
     'see_all_stats' => 'Vegeu totes les estadístiques',
     'select_a_topic' => 'Sel·leccioneu un tema...',

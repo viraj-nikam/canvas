@@ -39,14 +39,14 @@
                                         'rounded-bottom': index === posts.length - 1,
                                     }"
                                 >
-                                    <div class="mr-auto pl-2 py-1">
-                                        <p class="mb-1">
+                                    <div class="col-md-8 col-sm-10 col-10 pl-2 py-1">
+                                        <p class="mb-0 text-truncate">
                                             <span class="font-weight-bold text-lg lead">
-                                                {{ trim(post.title, 55) }}
+                                                {{ post.title }}
                                             </span>
                                         </p>
-                                        <p class="mb-1" v-if="post.summary">
-                                            {{ trim(post.summary, 125) }}
+                                        <p class="mb-1 text-truncate" v-if="post.summary">
+                                            {{ post.summary }}
                                         </p>
                                         <p class="text-muted mb-0">
                                             <span v-if="isPublished(post.published_at)">
@@ -54,21 +54,17 @@
                                                 {{ moment(post.published_at).fromNow() }}
                                             </span>
 
-                                            <span
-                                                v-if="isDraft(post.published_at) && !isScheduled(post.published_at)"
-                                                class="text-danger"
-                                                >{{ i18n.draft }}</span
-                                            >
-
-                                            <span v-if="isScheduled(post.published_at)" class="text-danger">{{
-                                                i18n.scheduled
+                                            <span v-if="isDraft(post.published_at)" class="text-danger">{{
+                                                i18n.draft
                                             }}</span>
 
-                                            ― {{ i18n.updated }}
-                                            {{ moment(post.updated_at).fromNow() }}
+                                            <span class="d-none d-lg-inline">
+                                                ― {{ i18n.updated }}
+                                                {{ moment(post.updated_at).fromNow() }}
+                                            </span>
                                         </p>
                                     </div>
-                                    <div class="ml-auto d-none d-lg-block pl-3">
+                                    <div class="ml-auto d-none d-lg-inline pl-3">
                                         <div
                                             v-if="post.featured_image"
                                             id="featuredImage"
@@ -93,7 +89,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="d-lg-none d-block pl-3">
+                                    <div class="d-inline d-lg-none pl-3 ml-auto">
                                         <svg
                                             xmlns="http://www.w3.org/2000/svg"
                                             width="25"

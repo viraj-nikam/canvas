@@ -79,7 +79,6 @@ return [
     'saved' => 'Tersimpan!',
     'schedule_for_later' => 'Jadwalkan untuk nanti',
     'schedule_to_publish' => 'Jadwalkan untuk terbit',
-    'scheduled' => 'Terjadwal',
     'search_free_photos' => 'Pilih foto resolusi-tinggi gratis',
     'see_all_stats' => 'Lihat semua statistik',
     'select_a_topic' => 'Pilih topik...',

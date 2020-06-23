@@ -79,7 +79,6 @@ return [
     'saved' => 'ذخیره شد!',
     'schedule_for_later' => 'زمان بعدی برای بعد',
     'schedule_to_publish' => 'زمان بندی برای انتشار',
-    'scheduled' => 'زمان بندی انجام شد',
     'search_free_photos' => 'تصویر های با کیفیت را رایگان جستجو کنید',
     'see_all_stats' => 'مشاهده همه آمار',
     'select_a_topic' => 'یک موضوع انتخاب کنید...',

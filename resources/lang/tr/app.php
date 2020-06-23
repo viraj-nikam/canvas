@@ -79,7 +79,6 @@ return [
     'saved' => 'Kaydedilen!',
     'schedule_for_later' => 'Daha sonra planla',
     'schedule_to_publish' => 'Yayınlama zamanlaması',
-    'scheduled' => 'tarifeli',
     'search_free_photos' => 'Ücretsiz yüksek çözünürlüklü fotoğrafları arayın',
     'see_all_stats' => 'Tüm istatistikleri görün',
     'select_a_topic' => 'Bir konu seç...',

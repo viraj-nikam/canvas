@@ -79,7 +79,6 @@ return [
     'saved' => '保存了！',
     'schedule_for_later' => '安排以后',
     'schedule_to_publish' => '计划发布',
-    'scheduled' => '预定的',
     'search_free_photos' => '搜索免费的高分辨率照片',
     'see_all_stats' => '查看所有统计',
     'select_a_topic' => '选择一个话题...',

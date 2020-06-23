@@ -79,7 +79,6 @@ return [
     'saved' => '¡Guardado!',
     'schedule_for_later' => 'programar para más tarde',
     'schedule_to_publish' => 'Programar publicación',
-    'scheduled' => 'Programado',
     'search_free_photos' => 'Buscar fotos gratuitas de alta resolución',
     'see_all_stats' => 'Ver todas las estadísticas',
     'select_a_topic' => 'Elige un tema...',

@@ -79,7 +79,6 @@ return [
     'saved' => 'Сохраненный!',
     'schedule_for_later' => 'Расписание на потом',
     'schedule_to_publish' => 'График публикации',
-    'scheduled' => 'по расписанию',
     'search_free_photos' => 'Поиск бесплатных фотографий в высоком разрешении',
     'see_all_stats' => 'Посмотреть всю статистику',
     'select_a_topic' => 'Выберите тему...',

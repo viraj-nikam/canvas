@@ -79,7 +79,6 @@ return [
     'saved' => 'बचाया!',
     'schedule_for_later' => 'बाद के लिए शेड्यूल करें',
     'schedule_to_publish' => 'प्रकाशित करने की अनुसूची',
-    'scheduled' => 'अनुसूचित',
     'search_free_photos' => 'मुफ्त उच्च-रिज़ॉल्यूशन फ़ोटो खोजें',
     'see_all_stats' => 'सभी आँकड़े देखें',
     'select_a_topic' => 'एक विषय चुनॆं...',

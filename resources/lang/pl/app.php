@@ -79,7 +79,6 @@ return [
     'saved' => 'Zaktualizowano!',
     'schedule_for_later' => 'Zaplanuj na później',
     'schedule_to_publish' => 'Zaplanuj publikację',
-    'scheduled' => 'Zaplanowany',
     'search_free_photos' => 'Szukaj darmowych zdjeć wysokiej jakości',
     'see_all_stats' => 'Zobacz wszystkie statystyki',
     'select_a_topic' => 'Wybierz temat...',

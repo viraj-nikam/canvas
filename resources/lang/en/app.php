@@ -79,7 +79,6 @@ return [
     'saved' => 'Saved!',
     'schedule_for_later' => 'Schedule for later',
     'schedule_to_publish' => 'Schedule to publish',
-    'scheduled' => 'Scheduled',
     'search_free_photos' => 'Search free high-resolution photos',
     'see_all_stats' => 'See all stats',
     'select_a_topic' => 'Select a topic...',
