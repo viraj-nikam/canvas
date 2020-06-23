@@ -65,40 +65,42 @@
                                                 'rounded-bottom': index === posts.length - 1,
                                             }"
                                         >
-                                            <div class="mr-auto pl-2">
-                                                <p class="mb-1 mt-2">
-                                                    <span class="font-weight-bold text-lg lead">{{
-                                                        trim(post.title, 45)
-                                                    }}</span>
+                                            <div class="pl-2 col-md-6 col-10 text-truncate">
+                                                <p class="mb-1 mt-2 text-truncate">
+                                                    <span class="font-weight-bold text-lg lead">{{ post.title }}</span>
                                                 </p>
                                                 <p class="text-secondary mb-2">
-                                                    {{ post.read_time }} ―
+                                                    <span class="d-none d-lg-inline">
+                                                        {{ post.read_time }} ―
+                                                    </span>
                                                     {{ i18n.published }}
                                                     {{ moment(post.published_at).format('MMM D, YYYY') }}
                                                 </p>
                                             </div>
-                                            <div class="ml-auto d-none d-lg-block">
+                                            <div class="ml-auto">
+                                                <div class="d-none d-lg-inline">
                                                 <span class="text-muted mr-3"
-                                                    >{{ suffixedNumber(post.views_count) }} {{ i18n.views }}</span
+                                                >{{ suffixedNumber(post.views_count) }} {{ i18n.views }}</span
                                                 >
-                                                <span class="mr-3"
+                                                    <span class="mr-3"
                                                     >{{ i18n.created }}
                                                     {{ moment(post.created_at).format('MMM D, YYYY') }}</span
-                                                >
-                                            </div>
+                                                    >
+                                                </div>
 
-                                            <svg
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                width="25"
-                                                viewBox="0 0 24 24"
-                                                class="icon-cheveron-right-circle"
-                                            >
-                                                <circle cx="12" cy="12" r="10" style="fill: none;" />
-                                                <path
-                                                    class="primary"
-                                                    d="M10.3 8.7a1 1 0 0 1 1.4-1.4l4 4a1 1 0 0 1 0 1.4l-4 4a1 1 0 0 1-1.4-1.4l3.29-3.3-3.3-3.3z"
-                                                />
-                                            </svg>
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    width="25"
+                                                    viewBox="0 0 24 24"
+                                                    class="icon-cheveron-right-circle"
+                                                >
+                                                    <circle cx="12" cy="12" r="10" style="fill: none" />
+                                                    <path
+                                                        class="primary"
+                                                        d="M10.3 8.7a1 1 0 0 1 1.4-1.4l4 4a1 1 0 0 1 0 1.4l-4 4a1 1 0 0 1-1.4-1.4l3.29-3.3-3.3-3.3z"
+                                                    />
+                                                </svg>
+                                            </div>
                                         </div>
                                     </router-link>
                                 </div>
