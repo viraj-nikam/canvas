@@ -10,26 +10,34 @@
 
                 <div class="mt-2 card shadow-lg" :class="borderColor" v-if="isReady">
                     <div class="card-body p-0">
-                        <div class="d-flex p-3 align-items-center">
-                            <div class="mr-auto py-1">
-                                <p class="mb-1 font-weight-bold text-lg lead">
-                                    {{ i18n.your_profile }}
-                                </p>
-                                <p class="mb-1 d-none d-lg-block">
-                                    {{ i18n.choose_a_unique_username }}
-                                </p>
-                            </div>
-                            <div class="ml-auto pl-3">
-                                <div class="align-middle">
-                                    <button
-                                        class="btn btn-sm btn-outline-success font-weight-bold"
-                                        @click="showProfileModal"
-                                    >
-                                        {{ i18n.edit_profile }}
-                                    </button>
+                        <router-link :to="{name: 'edit-profile'}" class="text-decoration-none">
+                            <div class="d-flex p-3 align-items-center rounded-top" v-hover="{ class: `row-hover` }">
+                                <div class="mr-auto py-1">
+                                    <p class="mb-1 font-weight-bold text-lg lead">
+                                        {{ i18n.your_profile }}
+                                    </p>
+                                    <p class="mb-1 d-none d-lg-block">
+                                        {{ i18n.choose_a_unique_username }}
+                                    </p>
+                                </div>
+                                <div class="ml-auto pl-3">
+                                    <div class="align-middle">
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width="25"
+                                            viewBox="0 0 24 24"
+                                            class="icon-cheveron-right-circle"
+                                        >
+                                            <circle cx="12" cy="12" r="10" style="fill: none;"/>
+                                            <path
+                                                class="primary"
+                                                d="M10.3 8.7a1 1 0 0 1 1.4-1.4l4 4a1 1 0 0 1 0 1.4l-4 4a1 1 0 0 1-1.4-1.4l3.29-3.3-3.3-3.3z"
+                                            />
+                                        </svg>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </router-link>
 
                         <div class="d-flex border-top p-3 align-items-center">
                             <div class="mr-auto py-1">
@@ -133,119 +141,88 @@
         <div class="mt-3 d-flex justify-content-center">
             <p class="text-muted">{{ config.version }}</p>
         </div>
-
-        <profile-modal v-if="isReady" ref="profileModal" />
     </div>
 </template>
 
 <script>
-import $ from 'jquery';
-import NProgress from 'nprogress';
-import PageHeader from '../components/PageHeader';
-import ProfileModal from '../components/modals/ProfileModal';
-import strings from '../mixins/strings';
-import i18n from '../mixins/i18n';
-import toast from '../mixins/toast';
-import store from '../store';
+    import $ from 'jquery';
+    import NProgress from 'nprogress';
+    import PageHeader from '../components/PageHeader';
+    import strings from '../mixins/strings';
+    import i18n from '../mixins/i18n';
+    import toast from '../mixins/toast';
+    import Hover from '../directives/Hover';
+    import store from '../store';
 
-export default {
-    name: 'edit-settings',
+    export default {
+        name: 'edit-settings',
 
-    components: {
-        PageHeader,
-        ProfileModal,
-    },
-
-    mixins: [strings, toast, i18n],
-
-    data() {
-        return {
-            isReady: false,
-        };
-    },
-
-    async created() {
-        await store.dispatch('user/fetchUser', this.user.id);
-
-        NProgress.done();
-        this.isReady = true;
-    },
-
-    computed: {
-        user() {
-            return store.state.user;
+        components: {
+            PageHeader
         },
 
-        config() {
-            return store.state.config;
+        mixins: [ strings, toast, i18n ],
+
+        directives: {
+            Hover,
         },
 
-        bgColor() {
-            return store.state.user.darkMode ? 'bg-darker' : 'bg-light';
+        data() {
+            return {
+                isReady: false,
+            };
         },
 
-        borderColor() {
-            return store.state.user.darkMode ? 'border-0' : 'border-light';
-        },
-    },
+        async created() {
+            await store.dispatch('user/fetchUser', this.user.id);
 
-    methods: {
-        getLocaleDisplayName(locale) {
-            let languageNames = new Intl.DisplayNames([store.state.user.locale], { type: 'language' });
-
-            return languageNames.of(locale);
+            NProgress.done();
+            this.isReady = true;
         },
 
-        toggleDigest() {
-            store.dispatch('user/updateUserSilently', this.user);
+        computed: {
+            user() {
+                return store.state.user;
+            },
+
+            config() {
+                return store.state.config;
+            },
+
+            bgColor() {
+                return store.state.user.darkMode ? 'bg-darker' : 'bg-light';
+            },
+
+            borderColor() {
+                return store.state.user.darkMode ? 'border-0' : 'border-light';
+            },
         },
 
-        selectLocale() {
-            store.dispatch('config/updateI18n', this.user.locale);
-            store.dispatch('user/updateUserSilently', this.user);
-        },
+        methods: {
+            getLocaleDisplayName(locale) {
+                let languageNames = new Intl.DisplayNames([ store.state.user.locale ], { type: 'language' });
 
-        toggleDarkMode() {
-            let screen = $('#canvas');
+                return languageNames.of(locale);
+            },
 
-            screen.animate(
-                {
-                    opacity: 0,
-                    backgroundColor: 'rgb(38, 50, 56)',
-                },
-                300,
-                function () {
-                    if (store.state.user.darkMode) {
-                        $('#baseStylesheet').attr('href', '/vendor/canvas/css/app-dark.css');
-                        $('#highlightStylesheet').attr(
-                            'href',
-                            '//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.17.1/build/styles/sunburst.min.css'
-                        );
-                    } else {
-                        $('#baseStylesheet').attr('href', '/vendor/canvas/css/app.css');
-                        $('#highlightStylesheet').attr(
-                            'href',
-                            '//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.17.1/build/styles/github.min.css'
-                        );
-                    }
+            toggleDigest() {
+                store.dispatch('user/updateUserSilently', this.user);
+            },
+
+            selectLocale() {
+                store.dispatch('config/updateI18n', this.user.locale);
+                store.dispatch('user/updateUserSilently', this.user);
+            },
+
+            toggleDarkMode() {
+                store.dispatch('user/updateUserSilently', this.user);
+
+                if (this.user.darkMode === true) {
+                    document.body.setAttribute('data-theme', 'dark');
+                } else {
+                    document.body.removeAttribute('data-theme');
                 }
-            );
-
-            store.dispatch('user/updateUserSilently', this.user);
-
-            screen.animate(
-                {
-                    opacity: 1,
-                    backgroundColor: 'rgb(38, 50, 56)',
-                },
-                300,
-                function () {}
-            );
+            },
         },
-
-        showProfileModal() {
-            $(this.$refs.profileModal.$el).modal('show');
-        },
-    },
-};
+    };
 </script>

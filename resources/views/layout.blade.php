@@ -8,20 +8,14 @@
 
     <title>{{ config('app.name') }} ― Canvas</title>
 
-    @if($config['user']['darkMode'])
-        <link rel="stylesheet" id="baseStylesheet" type="text/css" href="{{ mix('css/app-dark.css', 'vendor/canvas') }}">
-        <link rel="stylesheet" id="highlightStylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.1.1/build/styles/sunburst.min.css">
-    @else
-        <link rel="stylesheet" id="baseStylesheet" type="text/css" href="{{ mix('css/app.css', 'vendor/canvas') }}">
-        <link rel="stylesheet" id="highlightStylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.1.1/build/styles/github.min.css">
-    @endif
+    <link  rel="stylesheet" type="text/css" href="{{ mix('css/app.css', 'vendor/canvas') }}">
 
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Karla|Merriweather:400,700">
 
     <link rel="shortcut icon" href="{{ mix('favicon.ico', 'vendor/canvas') }}">
 </head>
-<body class="mb-5">
+<body class="mb-5" @if($config['user']['darkMode']) data-theme="dark" @endif>
 <div id="canvas">
     @if(!assets_up_to_date())
        <div class="alert alert-danger border-0 text-center rounded-0 mb-0">
