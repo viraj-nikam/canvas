@@ -1,28 +1,26 @@
-@import url('https://fonts.googleapis.com/css?family=Karla&display=swap|Merriweather&display=swap');
 @import "utilities/variables";
 
 $body-bg: $white;
-$body-color: $gray-900;
+//$body-bg: rgb(38, 50, 56);
 
-$link-color: $body-color;
+$body-color: $gray-900;
+$body-color: #B2BDC4;
+
+//$bg-darker: #71809630;
+
+//$border-color: rgba(67, 72, 87, 1);
 
 $text-muted: $gray-500;
+//$text-muted: #5F717E;
+
+//$card-border-color: $gray-700;
+//$card-bg: lighten($body-bg, 5%);
+
+$custom-control-indicator-bg: $text-muted;
+//$custom-control-indicator-bg: $text-muted;
 
 $dropdown-link-active-color: darken($gray-900, 5%);
 $dropdown-link-active-bg: $gray-100;
-
-$custom-control-indicator-bg: $text-muted;
-
-//$bg-darker: #71809630;
-//
-//$body-bg: rgb(38, 50, 56);
-//$body-color: #B2BDC4;
-//$border-color: rgba(67, 72, 87, 1);
-//
-//$link-color: $body-color;
-//
-//$text-muted: #5F717E;
-//
 //$dropdown-bg: $body-bg;
 //$dropdown-color: $body-color;
 //$dropdown-link-color: $body-color;
@@ -32,16 +30,14 @@ $custom-control-indicator-bg: $text-muted;
 //$dropdown-link-active-bg: $gray-500;
 //$dropdown-border-color: #3E4850;
 //$dropdown-divider-bg: $gray-800;
-//
-//$card-border-color: $gray-700;
-//$card-bg: lighten($body-bg, 5%);
-//
+
 //$input-color: $gray-400;
 //$input-placeholder-color: $gray-600;
-//
+
+$link-color: $body-color;
+//$link-color: $body-color;
+
 //$modal-content-bg: $body-bg;
-//
-//$custom-control-indicator-bg: $text-muted;
 
 a, a:focus,
 input, input:focus,
@@ -82,8 +78,7 @@ input:-webkit-autofill:active {
 }
 
 .page-header {
-    background-color: $white;
-    //background-color: $body-bg;
+    background-color: $body-bg;
 }
 
 //.ql-editor {
