@@ -17,31 +17,31 @@
 </template>
 
 <script>
-    import PageHeader from '../components/PageHeader';
-    import store from '../store';
-    import NProgress from "nprogress";
+import PageHeader from '../components/PageHeader';
+import store from '../store';
+import NProgress from 'nprogress';
 
-    export default {
-        name: 'edit-profile',
+export default {
+    name: 'edit-profile',
 
-        components: {
-            PageHeader,
+    components: {
+        PageHeader,
+    },
+
+    mounted() {
+        NProgress.done();
+    },
+
+    data() {
+        return {
+            isReady: false,
+        };
+    },
+
+    computed: {
+        config() {
+            return store.state.config;
         },
-
-        mounted() {
-            NProgress.done();
-        },
-
-        data() {
-            return {
-                isReady: false,
-            };
-        },
-
-        computed: {
-            config() {
-                return store.state.config;
-            }
-        }
-    };
+    },
+};
 </script>

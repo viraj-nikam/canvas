@@ -159,10 +159,8 @@ export default {
         // todo: drop these in the header when the component loads and remove them after
         // https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/highlight.min.js
         // https://platform.twitter.com/widgets.js
-
         // dark styles
         // https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.1.1/build/styles/sunburst.min.css
-
         // light styles
         // https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.1.1/build/styles/github.min.css
     },

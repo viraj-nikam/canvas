@@ -10,7 +10,7 @@
 
                 <div class="mt-2 card shadow-lg" :class="borderColor" v-if="isReady">
                     <div class="card-body p-0">
-                        <router-link :to="{name: 'edit-profile'}" class="text-decoration-none">
+                        <router-link :to="{ name: 'edit-profile' }" class="text-decoration-none">
                             <div class="d-flex p-3 align-items-center rounded-top" v-hover="{ class: `row-hover` }">
                                 <div class="mr-auto py-1">
                                     <p class="mb-1 font-weight-bold text-lg lead">
@@ -28,7 +28,7 @@
                                             viewBox="0 0 24 24"
                                             class="icon-cheveron-right-circle"
                                         >
-                                            <circle cx="12" cy="12" r="10" style="fill: none;"/>
+                                            <circle cx="12" cy="12" r="10" style="fill: none;" />
                                             <path
                                                 class="primary"
                                                 d="M10.3 8.7a1 1 0 0 1 1.4-1.4l4 4a1 1 0 0 1 0 1.4l-4 4a1 1 0 0 1-1.4-1.4l3.29-3.3-3.3-3.3z"
@@ -145,84 +145,83 @@
 </template>
 
 <script>
-    import $ from 'jquery';
-    import NProgress from 'nprogress';
-    import PageHeader from '../components/PageHeader';
-    import strings from '../mixins/strings';
-    import i18n from '../mixins/i18n';
-    import toast from '../mixins/toast';
-    import Hover from '../directives/Hover';
-    import store from '../store';
+import NProgress from 'nprogress';
+import PageHeader from '../components/PageHeader';
+import strings from '../mixins/strings';
+import i18n from '../mixins/i18n';
+import toast from '../mixins/toast';
+import Hover from '../directives/Hover';
+import store from '../store';
 
-    export default {
-        name: 'edit-settings',
+export default {
+    name: 'edit-settings',
 
-        components: {
-            PageHeader
+    components: {
+        PageHeader,
+    },
+
+    mixins: [strings, toast, i18n],
+
+    directives: {
+        Hover,
+    },
+
+    data() {
+        return {
+            isReady: false,
+        };
+    },
+
+    async created() {
+        await store.dispatch('user/fetchUser', this.user.id);
+
+        NProgress.done();
+        this.isReady = true;
+    },
+
+    computed: {
+        user() {
+            return store.state.user;
         },
 
-        mixins: [ strings, toast, i18n ],
-
-        directives: {
-            Hover,
+        config() {
+            return store.state.config;
         },
 
-        data() {
-            return {
-                isReady: false,
-            };
+        bgColor() {
+            return store.state.user.darkMode ? 'bg-darker' : 'bg-light';
         },
 
-        async created() {
-            await store.dispatch('user/fetchUser', this.user.id);
+        borderColor() {
+            return store.state.user.darkMode ? 'border-0' : 'border-light';
+        },
+    },
 
-            NProgress.done();
-            this.isReady = true;
+    methods: {
+        getLocaleDisplayName(locale) {
+            let languageNames = new Intl.DisplayNames([store.state.user.locale], { type: 'language' });
+
+            return languageNames.of(locale);
         },
 
-        computed: {
-            user() {
-                return store.state.user;
-            },
-
-            config() {
-                return store.state.config;
-            },
-
-            bgColor() {
-                return store.state.user.darkMode ? 'bg-darker' : 'bg-light';
-            },
-
-            borderColor() {
-                return store.state.user.darkMode ? 'border-0' : 'border-light';
-            },
+        toggleDigest() {
+            store.dispatch('user/updateUserSilently', this.user);
         },
 
-        methods: {
-            getLocaleDisplayName(locale) {
-                let languageNames = new Intl.DisplayNames([ store.state.user.locale ], { type: 'language' });
-
-                return languageNames.of(locale);
-            },
-
-            toggleDigest() {
-                store.dispatch('user/updateUserSilently', this.user);
-            },
-
-            selectLocale() {
-                store.dispatch('config/updateI18n', this.user.locale);
-                store.dispatch('user/updateUserSilently', this.user);
-            },
-
-            toggleDarkMode() {
-                store.dispatch('user/updateUserSilently', this.user);
-
-                if (this.user.darkMode === true) {
-                    document.body.setAttribute('data-theme', 'dark');
-                } else {
-                    document.body.removeAttribute('data-theme');
-                }
-            },
+        selectLocale() {
+            store.dispatch('config/updateI18n', this.user.locale);
+            store.dispatch('user/updateUserSilently', this.user);
         },
-    };
+
+        toggleDarkMode() {
+            store.dispatch('user/updateUserSilently', this.user);
+
+            if (this.user.darkMode === true) {
+                document.body.setAttribute('data-theme', 'dark');
+            } else {
+                document.body.removeAttribute('data-theme');
+            }
+        },
+    },
+};
 </script>
