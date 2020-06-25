@@ -8,10 +8,10 @@
                     <h1>{{ i18n.settings }}</h1>
                 </div>
 
-                <div class="mt-2 card shadow-lg" :class="borderColor" v-if="isReady">
+                <div class="mt-2 card shadow-lg" v-if="isReady">
                     <div class="card-body p-0">
                         <router-link :to="{ name: 'edit-profile' }" class="text-decoration-none">
-                            <div class="d-flex p-3 align-items-center rounded-top" v-hover="{ class: `row-hover` }">
+                            <div class="d-flex p-3 align-items-center rounded-top" v-hover="{ class: `hover-bg` }">
                                 <div class="mr-auto py-1">
                                     <p class="mb-1 font-weight-bold text-lg lead">
                                         {{ i18n.your_profile }}
@@ -30,7 +30,7 @@
                                         >
                                             <circle cx="12" cy="12" r="10" style="fill: none;" />
                                             <path
-                                                class="primary"
+                                                class="fill-light-gray"
                                                 d="M10.3 8.7a1 1 0 0 1 1.4-1.4l4 4a1 1 0 0 1 0 1.4l-4 4a1 1 0 0 1-1.4-1.4l3.29-3.3-3.3-3.3z"
                                             />
                                         </svg>
@@ -113,7 +113,6 @@
                                     <div class="form-group row mt-3">
                                         <div class="col-12">
                                             <select
-                                                :class="bgColor"
                                                 class="custom-select border-0"
                                                 @change="selectLocale"
                                                 v-model="user.locale"
@@ -186,14 +185,6 @@ export default {
 
         config() {
             return store.state.config;
-        },
-
-        bgColor() {
-            return store.state.user.darkMode ? 'bg-darker' : 'bg-light';
-        },
-
-        borderColor() {
-            return store.state.user.darkMode ? 'border-0' : 'border-light';
         },
     },
 

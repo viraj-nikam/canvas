@@ -27,7 +27,7 @@
                     </p>
                 </div>
 
-                <div class="mt-5 card shadow-lg" :class="borderColor">
+                <div class="mt-5 card shadow-lg">
                     <div class="card-body p-0">
                         <div v-for="(topic, index) in topics" :key="`${index}-${topic.id}`">
                             <router-link
@@ -38,7 +38,7 @@
                                 class="text-decoration-none"
                             >
                                 <div
-                                    v-hover="{ class: `row-hover` }"
+                                    v-hover="{ class: `hover-bg` }"
                                     class="p-3"
                                     :class="{
                                         'border-top': index !== 0,
@@ -72,7 +72,7 @@
                                         >
                                             <circle cx="12" cy="12" r="10" style="fill: none;" />
                                             <path
-                                                class="primary"
+                                                class="fill-light-gray"
                                                 d="M10.3 8.7a1 1 0 0 1 1.4-1.4l4 4a1 1 0 0 1 0 1.4l-4 4a1 1 0 0 1-1.4-1.4l3.29-3.3-3.3-3.3z"
                                             />
                                         </svg>
@@ -137,12 +137,6 @@ export default {
 
         NProgress.done();
         this.isReady = true;
-    },
-
-    computed: {
-        borderColor() {
-            return store.state.user.darkMode ? 'border-0' : 'border-light';
-        },
     },
 
     methods: {

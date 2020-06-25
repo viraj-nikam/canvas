@@ -35,7 +35,7 @@
                             class="icon-dots-horizontal"
                         >
                             <path
-                                class="primary"
+                                class="fill-light-gray"
                                 fill-rule="evenodd"
                                 d="M5 14a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm7 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm7 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"
                             />
@@ -82,7 +82,6 @@
                     <textarea-autosize
                         :placeholder="trans.app.title"
                         class="form-control-lg form-control border-0 font-serif rounded shadow"
-                        :class="!Canvas.darkMode ? 'bg-white' : 'bg-darker'"
                         @input.native="update"
                         rows="1"
                         v-model="post.title"
@@ -90,7 +89,7 @@
                 </div>
 
                 <div class="form-group my-4">
-                    <div class="rounded shadow" :class="!Canvas.darkMode ? 'bg-white' : 'bg-darker'">
+                    <div class="rounded shadow">
                         <quill-editor></quill-editor>
                     </div>
                 </div>

@@ -12,7 +12,6 @@
                         id=""
                         v-model="type"
                         @change="changeType"
-                        :class="bgColor"
                         class="my-auto ml-auto w-auto custom-select border-0"
                     >
                         <option value="published">{{ i18n.published }} ({{ suffixedNumber(publishedCount) }})</option>
@@ -20,7 +19,7 @@
                     </select>
                 </div>
 
-                <div class="mt-2 card shadow-lg" :class="borderColor">
+                <div class="mt-2 card shadow-lg">
                     <div class="card-body p-0">
                         <div v-for="(post, index) in posts" :key="`${index}-${post.id}`">
                             <router-link
@@ -31,7 +30,7 @@
                                 class="text-decoration-none"
                             >
                                 <div
-                                    v-hover="{ class: `row-hover` }"
+                                    v-hover="{ class: `hover-bg` }"
                                     class="d-flex p-3 align-items-center"
                                     :class="{
                                         'border-top': index !== 0,
@@ -68,7 +67,7 @@
                                         <div
                                             v-if="post.featured_image"
                                             id="featuredImage"
-                                            class="mr-2 ml-3 shadow-inner"
+                                            class="mr-2 ml-3 shadow-inset"
                                             :style="{
                                                 backgroundImage: 'url(' + post.featured_image + ')',
                                             }"
@@ -81,10 +80,10 @@
                                                 class="icon-camera"
                                             >
                                                 <path
-                                                    class="primary"
+                                                    class="fill-light-gray"
                                                     d="M6.59 6l2.7-2.7A1 1 0 0 1 10 3h4a1 1 0 0 1 .7.3L17.42 6H20a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8c0-1.1.9-2 2-2h2.59zM19 10a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-7 8a5 5 0 1 0 0-10 5 5 0 0 0 0 10z"
                                                 />
-                                                <path class="primary" d="M12 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                                                <path class="fill-light-gray" d="M12 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
                                             </svg>
                                         </div>
                                     </div>
@@ -98,7 +97,7 @@
                                         >
                                             <circle cx="12" cy="12" r="10" style="fill: none;" />
                                             <path
-                                                class="primary"
+                                                class="fill-light-gray"
                                                 d="M10.3 8.7a1 1 0 0 1 1.4-1.4l4 4a1 1 0 0 1 0 1.4l-4 4a1 1 0 0 1-1.4-1.4l3.29-3.3-3.3-3.3z"
                                             />
                                         </svg>
@@ -169,16 +168,6 @@ export default {
 
         NProgress.done();
         this.isReady = true;
-    },
-
-    computed: {
-        bgColor() {
-            return store.state.user.darkMode ? 'bg-darker' : 'bg-light';
-        },
-
-        borderColor() {
-            return store.state.user.darkMode ? 'border-0' : 'border-light';
-        },
     },
 
     methods: {

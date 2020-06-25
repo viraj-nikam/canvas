@@ -18,7 +18,7 @@
                             width="24"
                             class="icon-close-circle"
                         >
-                            <circle cx="12" cy="12" r="10" class="primary" />
+                            <circle cx="12" cy="12" r="10" class="fill-light-gray" />
                             <path
                                 class="fill-bg"
                                 d="M13.41 12l2.83 2.83a1 1 0 0 1-1.41 1.41L12 13.41l-2.83 2.83a1 1 0 1 1-1.41-1.41L10.59 12 7.76 9.17a1 1 0 0 1 1.41-1.41L12 10.59l2.83-2.83a1 1 0 0 1 1.41 1.41L13.41 12z"
@@ -34,7 +34,6 @@
                                 id="embed"
                                 name="embed"
                                 style="resize: none;"
-                                :class="!Canvas.darkMode ? 'bg-light' : 'bg-darker'"
                                 class="form-control border-0"
                                 v-model="content"
                                 :placeholder="trans.app.paste_embed_code_to_include"

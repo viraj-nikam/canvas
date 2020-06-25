@@ -33,7 +33,6 @@
                     <div
                         v-if="!isReadyToAcceptUploads"
                         class="d-flex justify-content-center rounded p-3 position-relative d-inline-block"
-                        :class="bgColor"
                     >
                         <button
                             @click.prevent="clearAvatar"
@@ -50,17 +49,17 @@
                                 class="icon-trash m-3"
                             >
                                 <path
-                                    class="primary"
+                                    class="fill-light-gray"
                                     d="M5 5h14l-.89 15.12a2 2 0 0 1-2 1.88H7.9a2 2 0 0 1-2-1.88L5 5zm5 5a1 1 0 0 0-1 1v6a1 1 0 0 0 2 0v-6a1 1 0 0 0-1-1zm4 0a1 1 0 0 0-1 1v6a1 1 0 0 0 2 0v-6a1 1 0 0 0-1-1z"
                                 />
                                 <path
-                                    class="primary"
+                                    class="fill-light-gray"
                                     d="M8.59 4l1.7-1.7A1 1 0 0 1 11 2h2a1 1 0 0 1 .7.3L15.42 4H19a1 1 0 0 1 0 2H5a1 1 0 1 1 0-2h3.59z"
                                 />
                             </svg>
                         </button>
 
-                        <img :src="user.avatar" class="w-50 rounded-circle shadow-inner h-100" />
+                        <img :src="user.avatar" class="w-50 rounded-circle shadow-inset h-100" />
                     </div>
 
                     <div class="form-group row mt-3">
@@ -185,10 +184,6 @@ export default {
             };
         },
 
-        bgColor() {
-            return store.state.user.darkMode ? 'bg-darker' : 'bg-light';
-        },
-
         usernameValidationError() {
             let errors = Object.values(this.user.errors);
 
@@ -204,7 +199,7 @@ export default {
         },
 
         getPlaceholderLabel() {
-            return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="35" class="icon-cloud-upload"><path class="secondary" d="M18 14.97c0-.76-.3-1.51-.88-2.1l-3-3a3 3 0 0 0-4.24 0l-3 3A3 3 0 0 0 6 15a4 4 0 0 1-.99-7.88 5.5 5.5 0 0 1 10.86-.82A4.49 4.49 0 0 1 22 10.5a4.5 4.5 0 0 1-4 4.47z"/><path class="secondary" d="M11 14.41V21a1 1 0 0 0 2 0v-6.59l1.3 1.3a1 1 0 0 0 1.4-1.42l-3-3a1 1 0 0 0-1.4 0l-3 3a1 1 0 0 0 1.4 1.42l1.3-1.3z"/></svg><br/> Drop files or click here to upload';
+            return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="35" class="icon-cloud-upload"><path class="fill-dark-gray" d="M18 14.97c0-.76-.3-1.51-.88-2.1l-3-3a3 3 0 0 0-4.24 0l-3 3A3 3 0 0 0 6 15a4 4 0 0 1-.99-7.88 5.5 5.5 0 0 1 10.86-.82A4.49 4.49 0 0 1 22 10.5a4.5 4.5 0 0 1-4 4.47z"/><path class="fill-dark-gray" d="M11 14.41V21a1 1 0 0 0 2 0v-6.59l1.3 1.3a1 1 0 0 0 1.4-1.42l-3-3a1 1 0 0 0-1.4 0l-3 3a1 1 0 0 0 1.4 1.42l1.3-1.3z"/></svg><br/> Drop files or click here to upload';
         },
     },
 

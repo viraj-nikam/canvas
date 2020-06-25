@@ -22,7 +22,7 @@ $theme-colors: (
 $switch-height: calc(#{$input-height} * .8);
 $switch-height-sm: calc(#{$input-height-sm} * .8);
 $switch-border-radius: $switch-height;
-$switch-bg: $custom-control-indicator-bg;
+$switch-bg: $gray-500;
 $switch-checked-bg: map-get($theme-colors, 'success');
 $switch-disabled-bg: $custom-control-indicator-disabled-bg;
 $switch-disabled-color: $custom-control-description-disabled-color;

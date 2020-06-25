@@ -18,7 +18,6 @@
                         >
                             <div class="d-flex align-items-center">
                                 <select
-                                    :class="!window.Canvas.darkMode ? 'bg-light' : 'bg-darker'"
                                     class="w-auto custom-select custom-select-sm border-0"
                                     v-model="components.month"
                                 >
@@ -35,7 +34,6 @@
 
                                 <span class="px-1">/</span>
                                 <select
-                                    :class="!window.Canvas.darkMode ? 'bg-light' : 'bg-darker'"
                                     class="w-auto custom-select custom-select-sm border-0"
                                     v-model="components.day"
                                 >
@@ -52,7 +50,6 @@
 
                                 <span class="px-1">/</span>
                                 <select
-                                    :class="!window.Canvas.darkMode ? 'bg-light' : 'bg-darker'"
                                     class="w-auto custom-select custom-select-sm border-0"
                                     v-model="components.year"
                                 >
@@ -72,7 +69,6 @@
                         <div class="col-sm-6 col-12 pl-sm-0 d-flex justify-content-center justify-content-sm-start">
                             <div class="d-flex align-items-center">
                                 <select
-                                    :class="!window.Canvas.darkMode ? 'bg-light' : 'bg-darker'"
                                     class="w-auto custom-select custom-select-sm border-0"
                                     v-model="components.hour"
                                 >
@@ -89,7 +85,6 @@
 
                                 <span class="px-1">:</span>
                                 <select
-                                    :class="!window.Canvas.darkMode ? 'bg-light' : 'bg-darker'"
                                     class="w-auto custom-select custom-select-sm border-0"
                                     v-model="components.minute"
                                 >
@@ -252,9 +247,3 @@ export default {
     },
 };
 </script>
-
-<style lang="scss">
-.bg-darker {
-    background-color: #71809630;
-}
-</style>

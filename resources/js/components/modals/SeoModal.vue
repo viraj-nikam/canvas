@@ -12,7 +12,7 @@
                             width="24"
                             class="icon-close-circle"
                         >
-                            <circle cx="12" cy="12" r="10" class="primary" />
+                            <circle cx="12" cy="12" r="10" class="fill-light-gray" />
                             <path
                                 class="fill-bg"
                                 d="M13.41 12l2.83 2.83a1 1 0 0 1-1.41 1.41L12 13.41l-2.83 2.83a1 1 0 1 1-1.41-1.41L10.59 12 7.76 9.17a1 1 0 0 1 1.41-1.41L12 10.59l2.83-2.83a1 1 0 0 1 1.41 1.41L13.41 12z"
@@ -40,7 +40,7 @@
                                     >
                                         <circle cx="12" cy="12" r="10" style="fill: none;" />
                                         <path
-                                            class="primary"
+                                            class="fill-light-gray"
                                             d="M8.52 7.11a5.98 5.98 0 0 1 8.98 2.5 1 1 0 1 1-1.83.8 4 4 0 0 0-5.7-1.86l.74.74A1 1 0 0 1 10 11H7a1 1 0 0 1-1-1V7a1 1 0 0 1 1.7-.7l.82.81zm5.51 8.34l-.74-.74A1 1 0 0 1 14 13h3a1 1 0 0 1 1 1v3a1 1 0 0 1-1.7.7l-.82-.81A5.98 5.98 0 0 1 6.5 14.4a1 1 0 1 1 1.83-.8 4 4 0 0 0 5.7 1.85z"
                                         />
                                     </svg>
@@ -50,7 +50,6 @@
                                 name="title"
                                 type="text"
                                 @input="update"
-                                :class="!Canvas.darkMode ? 'bg-light' : 'bg-darker'"
                                 class="form-control border-0"
                                 :title="trans.app.meta_title"
                                 v-model="activePost.meta.title"
@@ -77,7 +76,7 @@
                                     >
                                         <circle cx="12" cy="12" r="10" style="fill: none;" />
                                         <path
-                                            class="primary"
+                                            class="fill-light-gray"
                                             d="M8.52 7.11a5.98 5.98 0 0 1 8.98 2.5 1 1 0 1 1-1.83.8 4 4 0 0 0-5.7-1.86l.74.74A1 1 0 0 1 10 11H7a1 1 0 0 1-1-1V7a1 1 0 0 1 1.7-.7l.82.81zm5.51 8.34l-.74-.74A1 1 0 0 1 14 13h3a1 1 0 0 1 1 1v3a1 1 0 0 1-1.7.7l-.82-.81A5.98 5.98 0 0 1 6.5 14.4a1 1 0 1 1 1.83-.8 4 4 0 0 0 5.7 1.85z"
                                         />
                                     </svg>
@@ -88,7 +87,6 @@
                                 id="description"
                                 name="description"
                                 style="resize: none;"
-                                :class="!Canvas.darkMode ? 'bg-light' : 'bg-darker'"
                                 class="form-control border-0"
                                 @input="update"
                                 v-model="activePost.meta.description"
@@ -105,7 +103,6 @@
                             <input
                                 type="text"
                                 @input="update"
-                                :class="!Canvas.darkMode ? 'bg-light' : 'bg-darker'"
                                 class="form-control border-0"
                                 name="canonical_link"
                                 v-model="activePost.meta.canonical_link"
@@ -166,9 +163,3 @@ export default {
     },
 };
 </script>
-
-<style lang="scss">
-.bg-darker {
-    background-color: #71809630;
-}
-</style>

@@ -9,7 +9,6 @@
                         ref="link"
                         @keyup.enter="addLink"
                         v-model="link"
-                        :class="!Canvas.darkMode ? 'bg-light' : 'bg-darker'"
                         class="form-control border-0"
                         name="link"
                         placeholder="https://youtu.be/jNQXAC9IVRw"

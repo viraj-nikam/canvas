@@ -1,23 +1,6 @@
 @import "utilities/variables";
-
-$body-bg: $white;
-//$body-bg: rgb(38, 50, 56);
-
-$body-color: $gray-900;
-$body-color: #B2BDC4;
-
-//$bg-darker: #71809630;
-
-//$border-color: rgba(67, 72, 87, 1);
-
-$text-muted: $gray-500;
-//$text-muted: #5F717E;
-
-//$card-border-color: $gray-700;
-//$card-bg: lighten($body-bg, 5%);
-
-$custom-control-indicator-bg: $text-muted;
-//$custom-control-indicator-bg: $text-muted;
+@import "themes/default";
+@import "themes/dark";
 
 $dropdown-link-active-color: darken($gray-900, 5%);
 $dropdown-link-active-bg: $gray-100;
@@ -30,12 +13,6 @@ $dropdown-link-active-bg: $gray-100;
 //$dropdown-link-active-bg: $gray-500;
 //$dropdown-border-color: #3E4850;
 //$dropdown-divider-bg: $gray-800;
-
-//$input-color: $gray-400;
-//$input-placeholder-color: $gray-600;
-
-$link-color: $body-color;
-//$link-color: $body-color;
 
 //$modal-content-bg: $body-bg;
 
@@ -65,142 +42,28 @@ input:-webkit-autofill:active {
     font-family: $font-family-sans-serif;
 }
 
-.fill-warning-primary {
-    fill: $red;
-}
-
-.fill-warning-secondary {
-    fill: $red-500;
-}
-
-.shadow-inner {
+.shadow-inset {
     box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
 }
 
 .page-header {
-    background-color: $body-bg;
+    background-color: transparent;
 }
 
-//.ql-editor {
-//    color: $body-color;
-//}
-//
-//div.ql-editor.ql-blank::before {
-//    color: $gray-600;
-//}
-//
-//select.input {
-//    color: $input-color;
-//}
-//
-//.multiselect__content-wrapper {
-//    background-color: $body-bg;
-//    border-color: $border-color;
-//}
-//
-//.multiselect--above .multiselect__content-wrapper {
-//    border-top-color: $border-color;
-//}
-//
-//.multiselect__content-wrapper ul li {
-//    color: $input-color;
-//}
-//
-//.multiselect__input, .multiselect__single {
-//    color: $input-color;
-//}
-//
-//.multiselect__input {
-//    background-color: transparent;
-//}
-//
-//.multiselect__tags {
-//    border-radius: $border-radius;
-//    background-color: $bg-darker;
-//    border: none;
-//    padding-left: .75rem;
-//}
-//
-//.multiselect__option--selected {
-//    color: $body-color;
-//    background-color: $bg-darker;
-//}
-//
-//.form-control:focus {
-//    background-color: $bg-darker !important;
-//}
-//
-//.bg-transparent:focus {
-//    background-color: transparent !important;
-//}
-//
-//.filepond--panel-root {
-//    background-color: $bg-darker !important;
-//}
-//
-//.filepond--drop-label {
-//    color: $body-color !important;
-//}
-//
-//.filepond--drop-label svg path {
-//    fill: $body-color;
-//}
-
-//.bg-darker {
-//    background-color: $bg-darker;
-//}
-
-//.sidebar-controls.active {
-//    background-color: $body-bg;
-//}
-
-.controls {
-    background-color: $body-bg;
+.fill-light-red {
+    fill: $red-500;
 }
 
-.navbar-mini {
-    background-color: $white;
-    //background-color: $body-bg;
+.fill-dark-red {
+    fill: $red;
 }
 
-//.navbar-mini button:hover {
-//    background-color: transparent;
-//}
-
-.primary {
+.fill-light-gray {
     fill: $gray-500;
 }
 
-.secondary {
+.fill-dark-gray {
     fill: $gray-700;
-}
-
-.logo-primary {
-    fill: $gray-500;
-    //fill: $gray-700;
-}
-
-.logo-secondary {
-    fill: $gray-700;
-    //fill: $gray-500;
-}
-
-.fill-bg {
-    fill: $white;
-    //fill: $body-bg;
-}
-
-.fill-body-color {
-    fill: $body-color;
-}
-
-.fill-muted {
-    fill: $text-muted;
-}
-
-.row-hover {
-    background-color: $gray-100;
-    //background-color: $dropdown-link-hover-bg;
 }
 
 @import 'utilities/vue';

@@ -19,7 +19,7 @@
                             class="icon-dots-horizontal"
                         >
                             <path
-                                class="primary"
+                                class="fill-light-gray"
                                 fill-rule="evenodd"
                                 d="M5 14a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm7 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm7 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"
                             />
@@ -48,7 +48,7 @@
                 </div>
 
                 <div class="card-deck mt-3">
-                    <div class="card shadow-lg" :class="borderColor">
+                    <div class="card shadow-lg">
                         <div class="card-body p-3">
                             <p class="lead border-bottom">
                                 {{ i18n.lifetime_summary }}
@@ -75,7 +75,7 @@
                         </div>
                     </div>
 
-                    <div class="card shadow-lg" :class="borderColor">
+                    <div class="card shadow-lg">
                         <div class="card-body p-3">
                             <p class="lead border-bottom">
                                 {{ i18n.monthly_summary }}
@@ -96,7 +96,7 @@
                                                 viewBox="0 0 24 24"
                                                 class="icon-help ml-1"
                                             >
-                                                <path class="primary" d="M12 22a10 10 0 1 1 0-20 10 10 0 0 1 0 20z" />
+                                                <path class="fill-light-gray" d="M12 22a10 10 0 1 1 0-20 10 10 0 0 1 0 20z" />
                                                 <path
                                                     class="fill-bg"
                                                     d="M12 19.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm1-5.5a1 1 0 0 1-2 0v-1.41a1 1 0 0 1 .55-.9L14 10.5C14.64 10.08 15 9.53 15 9c0-1.03-1.3-2-3-2-1.35 0-2.49.62-2.87 1.43a1 1 0 0 1-1.8-.86C8.05 6.01 9.92 5 12 5c2.7 0 5 1.72 5 4 0 1.3-.76 2.46-2.05 3.24L13 13.2V14z"
@@ -115,7 +115,7 @@
                                                 width="17"
                                                 class="icon-arrow-thick-up-circle mr-1"
                                             >
-                                                <circle cx="12" cy="12" r="10" class="primary" />
+                                                <circle cx="12" cy="12" r="10" class="fill-light-gray" />
                                                 <path
                                                     class="fill-bg"
                                                     d="M14 12v5a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-5H8a1 1 0 0 1-.7-1.7l4-4a1 1 0 0 1 1.4 0l4 4A1 1 0 0 1 16 12h-2z"
@@ -129,7 +129,7 @@
                                                 width="17"
                                                 class="icon-arrow-thick-down-circle mr-1"
                                             >
-                                                <circle cx="12" cy="12" r="10" class="primary" />
+                                                <circle cx="12" cy="12" r="10" class="fill-light-gray" />
                                                 <path
                                                     class="fill-bg"
                                                     d="M10 12V7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v5h2a1 1 0 0 1 .7 1.7l-4 4a1 1 0 0 1-1.4 0l-4-4A1 1 0 0 1 8 12h2z"
@@ -156,7 +156,7 @@
                                                 viewBox="0 0 24 24"
                                                 class="icon-help ml-1"
                                             >
-                                                <path class="primary" d="M12 22a10 10 0 1 1 0-20 10 10 0 0 1 0 20z" />
+                                                <path class="fill-light-gray" d="M12 22a10 10 0 1 1 0-20 10 10 0 0 1 0 20z" />
                                                 <path
                                                     class="fill-bg"
                                                     d="M12 19.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm1-5.5a1 1 0 0 1-2 0v-1.41a1 1 0 0 1 .55-.9L14 10.5C14.64 10.08 15 9.53 15 9c0-1.03-1.3-2-3-2-1.35 0-2.49.62-2.87 1.43a1 1 0 0 1-1.8-.86C8.05 6.01 9.92 5 12 5c2.7 0 5 1.72 5 4 0 1.3-.76 2.46-2.05 3.24L13 13.2V14z"
@@ -175,7 +175,7 @@
                                                 width="17"
                                                 class="icon-arrow-thick-up-circle mr-1"
                                             >
-                                                <circle cx="12" cy="12" r="10" class="primary" />
+                                                <circle cx="12" cy="12" r="10" class="fill-light-gray" />
                                                 <path
                                                     class="fill-bg"
                                                     d="M14 12v5a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-5H8a1 1 0 0 1-.7-1.7l4-4a1 1 0 0 1 1.4 0l4 4A1 1 0 0 1 16 12h-2z"
@@ -189,7 +189,7 @@
                                                 width="17"
                                                 class="icon-arrow-thick-down-circle mr-1"
                                             >
-                                                <circle cx="12" cy="12" r="10" class="primary" />
+                                                <circle cx="12" cy="12" r="10" class="fill-light-gray" />
                                                 <path
                                                     class="fill-bg"
                                                     d="M10 12V7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v5h2a1 1 0 0 1 .7 1.7l-4 4a1 1 0 0 1-1.4 0l-4-4A1 1 0 0 1 8 12h2z"
@@ -247,7 +247,7 @@
                                                         class="icon-help"
                                                     >
                                                         <path
-                                                            class="primary"
+                                                            class="fill-light-gray"
                                                             d="M12 22a10 10 0 1 1 0-20 10 10 0 0 1 0 20z"
                                                         />
                                                         <path
@@ -396,10 +396,6 @@ export default {
 
         visitsAreTrendingUp() {
             return this.visitMonthOverMonthDirection === 'up';
-        },
-
-        borderColor() {
-            return store.state.user.darkMode ? 'border-0' : 'border-light';
         },
     },
 };

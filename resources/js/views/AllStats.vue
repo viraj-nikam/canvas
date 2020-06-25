@@ -12,7 +12,7 @@
                 <div v-if="isReady">
                     <div v-if="posts.length">
                         <div class="card-deck mt-5">
-                            <div class="card shadow-lg" :class="borderColor">
+                            <div class="card shadow-lg">
                                 <div
                                     class="card-header pb-0 bg-transparent d-flex justify-content-between align-middle border-0"
                                 >
@@ -27,7 +27,7 @@
                                     <p class="card-text display-4">{{ suffixedNumber(viewCount) }}</p>
                                 </div>
                             </div>
-                            <div class="card shadow-lg" :class="borderColor">
+                            <div class="card shadow-lg">
                                 <div
                                     class="card-header pb-0 bg-transparent d-flex justify-content-between align-middle border-0"
                                 >
@@ -46,7 +46,7 @@
 
                         <line-chart :views="JSON.parse(viewTrend)" :visits="JSON.parse(visitTrend)" class="mt-5" />
 
-                        <div class="mt-5 card shadow-lg" :class="borderColor">
+                        <div class="mt-5 card shadow-lg">
                             <div class="card-body p-0">
                                 <div v-for="(post, index) in posts" :key="`${index}-${post.id}`">
                                     <router-link
@@ -57,7 +57,7 @@
                                         class="text-decoration-none"
                                     >
                                         <div
-                                            v-hover="{ class: `row-hover` }"
+                                            v-hover="{ class: `hover-bg` }"
                                             class="d-flex p-3 align-items-center"
                                             :class="{
                                                 'border-top': index !== 0,
@@ -94,7 +94,7 @@
                                                 >
                                                     <circle cx="12" cy="12" r="10" style="fill: none;" />
                                                     <path
-                                                        class="primary"
+                                                        class="fill-light-gray"
                                                         d="M10.3 8.7a1 1 0 0 1 1.4-1.4l4 4a1 1 0 0 1 0 1.4l-4 4a1 1 0 0 1-1.4-1.4l3.29-3.3-3.3-3.3z"
                                                     />
                                                 </svg>
@@ -111,7 +111,7 @@
                         </div>
                     </div>
 
-                    <div v-else class="card shadow mt-5" :class="borderColor">
+                    <div v-else class="card shadow mt-5">
                         <div class="card-body p-0">
                             <div class="my-5">
                                 <p class="lead text-center text-muted mt-5">{{ i18n.you_have_no_published_posts }}</p>
@@ -169,12 +169,6 @@ export default {
 
         NProgress.done();
         this.isReady = true;
-    },
-
-    computed: {
-        borderColor() {
-            return store.state.user.darkMode ? 'border-0' : 'border-light';
-        },
     },
 
     methods: {
