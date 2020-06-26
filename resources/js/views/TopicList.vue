@@ -1,30 +1,46 @@
 <template>
     <div>
-        <page-header></page-header>
+        <page-header>
+            <template slot="menu">
+                <div class="dropdown">
+                    <a
+                        id="navbarDropdown"
+                        class="nav-link pr-1"
+                        href="#"
+                        role="button"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            width="25"
+                            class="icon-dots-horizontal"
+                        >
+                            <path
+                                class="fill-light-gray"
+                                fill-rule="evenodd"
+                                d="M5 14a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm7 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm7 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"
+                            />
+                        </svg>
+                    </a>
+
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <router-link :to="{ name: 'create-topic' }" class="dropdown-item">
+                            {{ i18n.new_topic }}
+                        </router-link>
+                    </div>
+                </div>
+            </template>
+        </page-header>
 
         <main class="py-4">
             <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12">
                 <div class="my-3">
-                    <h1>
-                        {{ i18n.topics }}
-                        <router-link :to="{ name: 'create-topic' }">
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 24 24"
-                                width="22"
-                                class="ml-1 icon-add-circle"
-                            >
-                                <circle cx="12" cy="12" r="10" class="fill-muted" />
-                                <path
-                                    class="fill-bg"
-                                    d="M13 11h4a1 1 0 0 1 0 2h-4v4a1 1 0 0 1-2 0v-4H7a1 1 0 0 1 0-2h4V7a1 1 0 0 1 2 0v4z"
-                                />
-                            </svg>
-                        </router-link>
-                    </h1>
-                    <p class="text-secondary">
-                        {{ i18n.topics_are_great_for }}
-                    </p>
+                    <h1>{{ i18n.topics }}</h1>
+
+                    <p class="text-secondary">{{ i18n.topics_are_great_for }}</p>
                 </div>
 
                 <div class="mt-5 card shadow-lg">
@@ -109,7 +125,6 @@ import InfiniteLoading from 'vue-infinite-loading';
 import PageHeader from '../components/PageHeader';
 import strings from '../mixins/strings';
 import i18n from '../mixins/i18n';
-import store from '../store';
 
 export default {
     name: 'topic-list',

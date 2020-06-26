@@ -13,7 +13,6 @@ return [
     'canonical_link' => 'Link canônico',
     'canonical_link_placeholder' => 'URL canônico da fonte original',
     'caption' => 'Rubrica',
-    'choose_a_unique_username' => 'Escolha um nome de usuário exclusivo e compartilhe detalhes públicos sobre você.',
     'choose_a_username' => 'Escolha um nome de usuário...',
     'click_to_see_insights' => 'Clique em uma postagem abaixo para ver informações mais detalhadas.',
     'convert_to_draft' => 'Converter em rascunho',

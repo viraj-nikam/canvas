@@ -13,7 +13,6 @@ return [
     'canonical_link' => 'الرابط الكنسي',
     'canonical_link_placeholder' => 'URL الكنسي من المصدر الأصلي',
     'caption' => 'شرح',
-    'choose_a_unique_username' => 'اختر اسم مستخدم فريدًا وشارك التفاصيل العامة عن نفسك.',
     'choose_a_username' => 'اختر اسم للمستخدم...',
     'click_to_see_insights' => 'انقر على منشور أدناه للاطلاع على رؤى أكثر تفصيلاً.',
     'convert_to_draft' => 'تحويل إلى مشروع',

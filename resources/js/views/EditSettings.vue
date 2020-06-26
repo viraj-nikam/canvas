@@ -10,36 +10,7 @@
 
                 <div class="mt-2 card shadow-lg" v-if="isReady">
                     <div class="card-body p-0">
-                        <router-link :to="{ name: 'edit-profile' }" class="text-decoration-none">
-                            <div class="d-flex p-3 align-items-center rounded-top" v-hover="{ class: `hover-bg` }">
-                                <div class="mr-auto py-1">
-                                    <p class="mb-1 font-weight-bold text-lg lead">
-                                        {{ i18n.your_profile }}
-                                    </p>
-                                    <p class="mb-1 d-none d-lg-block">
-                                        {{ i18n.choose_a_unique_username }}
-                                    </p>
-                                </div>
-                                <div class="ml-auto pl-3">
-                                    <div class="align-middle">
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            width="25"
-                                            viewBox="0 0 24 24"
-                                            class="icon-cheveron-right-circle"
-                                        >
-                                            <circle cx="12" cy="12" r="10" style="fill: none;" />
-                                            <path
-                                                class="fill-light-gray"
-                                                d="M10.3 8.7a1 1 0 0 1 1.4-1.4l4 4a1 1 0 0 1 0 1.4l-4 4a1 1 0 0 1-1.4-1.4l3.29-3.3-3.3-3.3z"
-                                            />
-                                        </svg>
-                                    </div>
-                                </div>
-                            </div>
-                        </router-link>
-
-                        <div class="d-flex border-top p-3 align-items-center">
+                        <div class="d-flex rounded-top p-3 align-items-center">
                             <div class="mr-auto py-1">
                                 <p class="mb-1 font-weight-bold text-lg lead">
                                     {{ i18n.weekly_digest }}

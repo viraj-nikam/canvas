@@ -13,7 +13,6 @@ return [
     'canonical_link' => 'Enllaç canònic',
     'canonical_link_placeholder' => 'URL canònic de la font original',
     'caption' => 'Llegenda',
-    'choose_a_unique_username' => 'Escolliu un nom d\'usuari únic i compartiu detalls públics vostres.',
     'choose_a_username' => 'Escolliu un nom d\'usuari...',
     'click_to_see_insights' => 'Feu clic sobre una entrada d\'aquí sota per veuren més detalls.',
     'convert_to_draft' => 'Converteix en esborrany',

@@ -13,7 +13,6 @@ return [
     'canonical_link' => 'Kanonik Bağlantı',
     'canonical_link_placeholder' => 'Orijinal kaynağın kanonik URL\'si',
     'caption' => 'altyazı',
-    'choose_a_unique_username' => 'Benzersiz bir kullanıcı adı seçin ve kendinizle ilgili herkese açık ayrıntıları paylaşın.',
     'choose_a_username' => 'Bir kullanıcı adı seçin...',
     'click_to_see_insights' => 'Daha ayrıntılı bilgiler görmek için aşağıdaki bir gönderiyi tıklayın.',
     'convert_to_draft' => 'Taslağa dönüştür',

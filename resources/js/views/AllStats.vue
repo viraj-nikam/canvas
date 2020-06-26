@@ -134,7 +134,6 @@ import LineChart from '../components/LineChart';
 import strings from '../mixins/strings';
 import PageHeader from '../components/PageHeader';
 import i18n from '../mixins/i18n';
-import store from '../store';
 
 export default {
     name: 'all-stats',

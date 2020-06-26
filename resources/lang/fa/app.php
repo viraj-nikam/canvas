@@ -13,7 +13,6 @@ return [
     'canonical_link' => '(Canonical) لینک معیار',
     'canonical_link_placeholder' => 'لینک معیار (Canonical) از منبع اصلی',
     'caption' => 'عنوان',
-    'choose_a_unique_username' => 'یک نام کاربری منحصر به فرد انتخاب کنید و اطلاعات عمومی خودتان را به نمایش بگذارید.',
     'choose_a_username' => 'یک نام کاربری انتخاب کنید...',
     'click_to_see_insights' => 'روی نوشته زیر کلیک کنید تا جزئیات بیشتری را مشاهده کنید.',
     'convert_to_draft' => 'تبدیل به پیش نویس',

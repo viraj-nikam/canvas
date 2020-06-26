@@ -4203,7 +4203,7 @@ input[type=button].btn-block {
 .dropdown-item {
   display: block;
   width: 100%;
-  padding: 0.4rem 1.5rem;
+  padding: 0.25rem 1.5rem;
   clear: both;
   font-weight: 400;
   color: #1a202c;
@@ -4249,7 +4249,7 @@ input[type=button].btn-block {
 
 .dropdown-item-text {
   display: block;
-  padding: 0.4rem 1.5rem;
+  padding: 0.25rem 1.5rem;
   color: #1a202c;
 }
 

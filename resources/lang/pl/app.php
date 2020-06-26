@@ -13,7 +13,6 @@ return [
     'canonical_link' => 'Link Kanoniczny',
     'canonical_link_placeholder' => 'Kanoniczny adres URL oryginalnego źródła',
     'caption' => 'Podpis',
-    'choose_a_unique_username' => 'Wybierz unikalną nazwę użytkownika i udostępnij publiczne informacje o sobie.',
     'choose_a_username' => 'Wybierz nazwę użytkownika...',
     'click_to_see_insights' => 'Kliknij na wpis poniżej, aby zobaczyć bardziej szczegółowe informacje.',
     'convert_to_draft' => 'Konwertuj na wersję roboczą',

@@ -13,7 +13,6 @@ return [
     'canonical_link' => 'Canonieke link',
     'canonical_link_placeholder' => 'Canonieke URL van originele bron',
     'caption' => 'Onderschrift',
-    'choose_a_unique_username' => 'Kies een unieke gebruikersnaam en deel openbare gegevens over uzelf.',
     'choose_a_username' => 'Kies een gebruikersnaam...',
     'click_to_see_insights' => 'Klik op een bericht hieronder voor meer gedetailleerde inzichten.',
     'convert_to_draft' => 'Converteren naar concept',

@@ -147,10 +147,7 @@
                                 <label class="font-weight-bold text-uppercase text-muted small">{{
                                     trans.app.layout
                                 }}</label>
-                                <select
-                                    class="custom-select border-0"
-                                    v-model="selectedImageLayout"
-                                >
+                                <select class="custom-select border-0" v-model="selectedImageLayout">
                                     <option value="default">
                                         {{ trans.app.default_layout }}
                                     </option>

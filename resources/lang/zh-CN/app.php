@@ -13,7 +13,6 @@ return [
     'canonical_link' => 'Canonical Link',
     'canonical_link_placeholder' => '原始来源的规范网址',
     'caption' => '字幕',
-    'choose_a_unique_username' => '选择一个唯一的用户名并分享有关您自己的公开详细信息。',
     'choose_a_username' => '选择一个用户名...',
     'click_to_see_insights' => '单击下面的文章以查看更详细的见解。',
     'convert_to_draft' => '转换为草稿',

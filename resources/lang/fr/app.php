@@ -13,7 +13,6 @@ return [
     'canonical_link' => 'Lien canonique',
     'canonical_link_placeholder' => 'URL canonique de la source originale',
     'caption' => 'Légende',
-    'choose_a_unique_username' => 'Choisissez un nom d\'utilisateur unique et partagez les informations publiques vous concernant.',
     'choose_a_username' => 'Choisissez un nom d\'utilisateur...',
     'click_to_see_insights' => 'Cliquez sur un post ci-dessous pour voir des informations plus détaillées.',
     'convert_to_draft' => 'Convertir en brouillon',

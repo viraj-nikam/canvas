@@ -13,7 +13,6 @@ return [
     'canonical_link' => 'Tautan resmi',
     'canonical_link_placeholder' => 'URL resmi dari sumber asli',
     'caption' => 'Judul',
-    'choose_a_unique_username' => 'Pilih username yang unik dan bagikan detail publik tentang diri Anda.',
     'choose_a_username' => 'Pilih username...',
     'click_to_see_insights' => 'Klik pada posting di bawah ini untuk melihat wawasan yang lebih detail.',
     'convert_to_draft' => 'Konversi ke draft',

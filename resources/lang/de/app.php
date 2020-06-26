@@ -13,7 +13,6 @@ return [
     'canonical_link' => 'Canonical-Link-',
     'canonical_link_placeholder' => 'Canonical-Link zur Originalquelle',
     'caption' => 'Bildunterschrift',
-    'choose_a_unique_username' => 'Wähle einen eindeutigen Benutzernamen.',
     'choose_a_username' => 'Wähle einen Benutzernamen...',
     'click_to_see_insights' => 'Klicke auf einen Beitrag, um detailliertere Einblicke zu erhalten.',
     'convert_to_draft' => 'In Entwurf umwandeln',

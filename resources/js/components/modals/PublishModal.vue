@@ -33,10 +33,7 @@
                                 </select>
 
                                 <span class="px-1">/</span>
-                                <select
-                                    class="w-auto custom-select custom-select-sm border-0"
-                                    v-model="components.day"
-                                >
+                                <select class="w-auto custom-select custom-select-sm border-0" v-model="components.day">
                                     <option
                                         v-for="value in Array.from({ length: 31 }, (_, i) =>
                                             String(i + 1).padStart(2, '0')

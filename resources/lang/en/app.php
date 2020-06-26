@@ -13,7 +13,6 @@ return [
     'canonical_link' => 'Canonical Link',
     'canonical_link_placeholder' => 'Canonical URL of original source',
     'caption' => 'Caption',
-    'choose_a_unique_username' => 'Choose a unique username and share public details about yourself.',
     'choose_a_username' => 'Choose a username...',
     'click_to_see_insights' => 'Click on a post below to see more detailed insights.',
     'convert_to_draft' => 'Convert to draft',
