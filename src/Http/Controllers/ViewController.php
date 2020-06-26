@@ -69,7 +69,7 @@ class ViewController extends Controller
         $metaData = UserMeta::forUser(request()->user())->first();
         $emailHash = md5(trim(Str::lower(request()->user()->email)));
 
-        if (isset($metaData->avatar)) {
+        if (optional($metaData)->avatar) {
             $avatar = $metaData->avatar;
         } else {
             $avatar = "https://secure.gravatar.com/avatar/{$emailHash}?s=500";
