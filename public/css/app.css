@@ -88,7 +88,7 @@ body[data-theme=dark] .navbar-mini button:hover {
 }
 
 body[data-theme=dark] .hover-bg {
-  background-color: #232A2D;
+  background-color: #3b4d56;
 }
 
 body[data-theme=dark] .card {
@@ -112,7 +112,7 @@ body[data-theme=dark] .dropdown-menu {
 }
 
 body[data-theme=dark] .dropdown-menu .dropdown-item:hover {
-  background-color: #232A2D;
+  background-color: #3b4d56;
 }
 
 body[data-theme=dark] .dropdown-menu .dropdown-divider {
@@ -248,6 +248,10 @@ input:-webkit-autofill:active {
 
 .page-header {
   background-color: transparent;
+}
+
+.hover-light:hover {
+  opacity: 0.6;
 }
 
 .fill-light-red {

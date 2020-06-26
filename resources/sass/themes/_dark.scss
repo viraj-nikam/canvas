@@ -25,7 +25,7 @@ body[data-theme='dark'] {
     }
 
     .hover-bg {
-        background-color: #232A2D;
+        background-color: lighten($body--bg--dark, 10%);
     }
 
     .card {
@@ -48,7 +48,7 @@ body[data-theme='dark'] {
         border: 1px solid $gray-700;
 
         & .dropdown-item:hover {
-            background-color: #232A2D;
+            background-color: lighten($body--bg--dark, 10%);
         }
 
         & .dropdown-divider {

@@ -36,6 +36,10 @@ input:-webkit-autofill:active {
     background-color: transparent;
 }
 
+.hover-light:hover {
+    opacity: .6;
+}
+
 .fill-light-red {
     fill: $red-500;
 }

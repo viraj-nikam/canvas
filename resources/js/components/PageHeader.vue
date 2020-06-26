@@ -57,7 +57,12 @@
                         aria-haspopup="true"
                         aria-expanded="false"
                     >
-                        <img :src="avatar" :alt="name" class="rounded-circle my-0 shadow-inset" style="width: 31px;" />
+                        <img
+                            :src="avatar"
+                            :alt="name"
+                            class="rounded-circle my-0 shadow-inset hover-light"
+                            style="width: 33px;"
+                        />
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                         <h6 class="dropdown-header">
