@@ -71,6 +71,10 @@ body[data-theme=dark] a:hover {
   color: #B2BDC4;
 }
 
+body[data-theme=dark] a.btn {
+  color: #fff;
+}
+
 body[data-theme=dark] .text-muted {
   color: #5F717E;
 }

@@ -8,6 +8,10 @@ body[data-theme='dark'] {
         color: $body--color--dark;
     }
 
+    a.btn {
+        color: $white;
+    }
+
     .text-muted {
         color: $text--muted--dark;
     }
