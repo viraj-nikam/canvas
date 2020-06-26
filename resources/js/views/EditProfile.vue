@@ -9,16 +9,11 @@
                 </div>
             </div>
         </main>
-
-        <div class="mt-3 d-flex justify-content-center">
-            <p class="text-muted">{{ config.version }}</p>
-        </div>
     </div>
 </template>
 
 <script>
 import PageHeader from '../components/PageHeader';
-import store from '../store';
 import NProgress from 'nprogress';
 
 export default {
@@ -30,18 +25,6 @@ export default {
 
     mounted() {
         NProgress.done();
-    },
-
-    data() {
-        return {
-            isReady: false,
-        };
-    },
-
-    computed: {
-        config() {
-            return store.state.config;
-        },
     },
 };
 </script>

@@ -29,6 +29,7 @@ body[data-theme='dark'] {
     }
 
     .card {
+        border: none !important;
         background-color: lighten($body--bg--dark, 5%);
     }
 
@@ -38,6 +39,21 @@ body[data-theme='dark'] {
 
     .border-bottom {
         border-bottom: 1px solid $gray-700 !important;
+    }
+
+    .dropdown-menu {
+        background-color: $body--bg--dark;
+        color: $body--color--dark;
+        box-shadow: $box-shadow-lg;
+        border: 1px solid $gray-700;
+
+        & .dropdown-item:hover {
+            background-color: #232A2D;
+        }
+
+        & .dropdown-divider {
+            border-top: 1px solid $gray-700;
+        }
     }
 
     .ql-editor {

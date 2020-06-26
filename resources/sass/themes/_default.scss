@@ -9,7 +9,12 @@ body {
     }
 
     .card {
-        border: none !important;
+        border: 1px solid $gray-200 !important;
+    }
+
+    .dropdown-menu {
+        border: 1px solid $gray-200;
+        box-shadow: $box-shadow-lg;
     }
 
     .border-top {
