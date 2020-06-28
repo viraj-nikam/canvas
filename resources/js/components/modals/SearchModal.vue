@@ -1,6 +1,6 @@
 <template>
     <div class="modal fade mh-100" tabindex="-1" role="dialog" aria-hidden="true" v-cloak>
-        <div class="modal-dialog mt-5 modal-dialog-scrollable modal-lg" role="document">
+        <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-body p-0">
                     <div class="input-group">
@@ -29,7 +29,7 @@
                             :default-all="false"
                             :style="results.length > 0 ? 'border-radius: 0' : ''"
                             class="form-control form-control-lg border-0"
-                            placeholder="Search"
+                            placeholder="Search Canvas"
                             event-name="search"
                         >
                         </vue-fuse>
