@@ -37,6 +37,10 @@ body[data-theme='dark'] {
         background-color: lighten($body--bg--dark, 5%);
     }
 
+    .modal-content {
+        background-color: $body--bg--dark;
+    }
+
     .border-top {
         border-top: 1px solid $gray-700 !important;
     }
