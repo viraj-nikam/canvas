@@ -21,6 +21,7 @@
                                     :iconRemove="getRemoveIcon"
                                     :iconRetry="getRetryIcon"
                                     :label-idle="getPlaceholderLabel"
+                                    className="w-75"
                                     accepted-file-types="image/*"
                                     imagePreviewHeight="170"
                                     imageCropAspectRatio="1:1"
@@ -38,36 +39,17 @@
                                     @removefile="removedFromFilePond"
                                 />
 
-                                <div
-                                    v-if="!isReadyToAcceptUploads"
-                                    class="d-flex justify-content-center rounded p-3 position-relative d-inline-block"
-                                >
-                                    <button
-                                        @click.prevent="clearAvatar"
-                                        type="button"
-                                        class="close position-absolute hover-light"
-                                        style="top: 0; right: 0;"
-                                        data-dismiss="modal"
-                                        aria-label="Close"
-                                    >
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            viewBox="0 0 24 24"
-                                            width="25"
-                                            class="icon-trash m-3"
-                                        >
-                                            <path
-                                                class="fill-light-gray"
-                                                d="M5 5h14l-.89 15.12a2 2 0 0 1-2 1.88H7.9a2 2 0 0 1-2-1.88L5 5zm5 5a1 1 0 0 0-1 1v6a1 1 0 0 0 2 0v-6a1 1 0 0 0-1-1zm4 0a1 1 0 0 0-1 1v6a1 1 0 0 0 2 0v-6a1 1 0 0 0-1-1z"
-                                            />
-                                            <path
-                                                class="fill-light-gray"
-                                                d="M8.59 4l1.7-1.7A1 1 0 0 1 11 2h2a1 1 0 0 1 .7.3L15.42 4H19a1 1 0 0 1 0 2H5a1 1 0 1 1 0-2h3.59z"
-                                            />
-                                        </svg>
-                                    </button>
+                                <div v-if="!isReadyToAcceptUploads" class="text-center rounded p-3">
+                                    <img :src="user.avatar" class="rounded-circle w-75 shadow-inset" />
 
-                                    <img :src="user.avatar" class="w-75 rounded-circle shadow-inset" />
+                                    <p class="mt-3 mb-0">
+                                        <a
+                                            href=""
+                                            @click.prevent="clearAvatar"
+                                            class="text-decoration-none text-success"
+                                            >Clear avatar</a
+                                        >
+                                    </p>
                                 </div>
                             </div>
                             <div class="col-md-8 order-md-first my-auto">
@@ -115,6 +97,7 @@
                             <div class="col-md">
                                 <a
                                     href="#"
+                                    onclick="this.blur()"
                                     class="btn btn-success btn-block font-weight-bold mt-0"
                                     aria-label="Save"
                                     @click.prevent="updateProfile"
@@ -228,7 +211,7 @@ export default {
         removedFromFilePond() {
             this.isReadyToAcceptUploads = true;
             this.selectedImagesForPond = [];
-            store.dispatch('user/resetAvatar');
+            store.dispatch('user/setDefaultAvatar');
         },
 
         updateProfile() {
@@ -247,5 +230,9 @@ export default {
 .filepond--wrapper {
     display: flex;
     justify-content: center;
+}
+
+.filepond--root {
+    margin-bottom: 0;
 }
 </style>

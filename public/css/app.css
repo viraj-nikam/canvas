@@ -41,6 +41,10 @@ body .custom-select {
   background-color: #f7fafc !important;
 }
 
+body .filepond--panel-root {
+  background-color: #f7fafc !important;
+}
+
 body .hover-bg {
   background-color: #f7fafc;
 }
