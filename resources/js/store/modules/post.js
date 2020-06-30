@@ -1,6 +1,4 @@
 import Vue from 'vue';
-import { FETCH_POST, POST_DELETE, POST_EDIT, POST_EDIT_TAGS, POST_EDIT_TOPIC, POST_RESET_STATE } from '../actions.type';
-import { SET_POST, SET_TAGS, SET_TOPIC, RESET_STATE } from '../mutations.type';
 
 const initialState = {
     id: '',
@@ -23,18 +21,18 @@ const initialState = {
 const state = { ...initialState };
 
 const actions = {
-    async [FETCH_POST](context, id) {
+    async fetchPost(context, id) {
         this.request()
             .get('/api/posts/' + id)
             .then((response) => {
-                context.commit(SET_POST, response.data.post);
+                context.commit('SET_POST', response.data.post);
             })
             .catch((errors) => {
                 console.log(errors);
             });
     },
-    // eslint-disable-next-line no-unused-vars
-    [POST_EDIT]({ context, id, payload }) {
+
+    updatePost({ id, payload }) {
         this.request()
             .post('/api/posts/' + id, payload)
             .then((response) => {
@@ -44,14 +42,16 @@ const actions = {
                 console.log(errors);
             });
     },
-    [POST_EDIT_TAGS]({ context, tags }) {
-        context.commit(SET_TAGS, tags);
+
+    setTags({ context, tags }) {
+        context.commit('SET_TAGS', tags);
     },
-    [POST_EDIT_TOPIC]({ context, topic }) {
-        context.commit(SET_TOPIC, topic);
+
+    setTopic({ context, topic }) {
+        context.commit('SET_TOPIC', topic);
     },
-    // eslint-disable-next-line no-unused-vars
-    [POST_DELETE]({ context, id }) {
+
+    deletePost({ id }) {
         this.request()
             .delete('/api/posts/' + id, id)
             .then((response) => {
@@ -61,22 +61,26 @@ const actions = {
                 console.log(errors);
             });
     },
-    [POST_RESET_STATE]({ commit }) {
-        commit(RESET_STATE);
+
+    resetPost({ commit }) {
+        commit('RESET_STATE');
     },
 };
 
 const mutations = {
-    [SET_POST](state, post) {
+    SET_POST(state, post) {
         state = post;
     },
-    [SET_TAGS](state, tags) {
+
+    SET_TAGS(state, tags) {
         state.tags = tags;
     },
-    [SET_TOPIC](state, topic) {
+
+    SET_TOPIC(state, topic) {
         state.topic = topic;
     },
-    [RESET_STATE]() {
+
+    RESET_STATE() {
         for (let f in state) {
             Vue.set(state, f, initialState[f]);
         }
