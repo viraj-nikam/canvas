@@ -65,12 +65,12 @@
                                                 'rounded-bottom': index === posts.length - 1,
                                             }"
                                         >
-                                            <div class="pl-2 col-md-6 col-10">
+                                            <div class="pl-2 col-md-6 col-sm-8 col-10">
                                                 <p class="mb-1 mt-2 text-truncate">
                                                     <span class="font-weight-bold text-lg lead">{{ post.title }}</span>
                                                 </p>
                                                 <p class="text-secondary mb-2">
-                                                    <span class="d-none d-lg-inline"> {{ post.read_time }} ― </span>
+                                                    <span class="d-none d-md-inline"> {{ post.read_time }} ― </span>
                                                     {{ i18n.published }}
                                                     {{ moment(post.published_at).format('MMM D, YYYY') }}
                                                 </p>

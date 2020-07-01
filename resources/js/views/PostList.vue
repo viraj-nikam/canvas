@@ -71,7 +71,7 @@
                                         'rounded-bottom': index === posts.length - 1,
                                     }"
                                 >
-                                    <div class="col-md-8 col-sm-10 col-10 pl-2 py-1">
+                                    <div class="pl-2 col-md-8 col-sm-10 col-10 py-1">
                                         <p class="mb-0 text-truncate">
                                             <span class="font-weight-bold text-lg lead">
                                                 {{ post.title }}
