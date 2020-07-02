@@ -75,6 +75,7 @@ class CaptureView
     private function cleanUrl(string $url)
     {
         $url = parse_url($url);
-        return $url['scheme'] . '://' . $url['host'];
+
+        return $url['scheme'].'://'.$url['host'];
     }
 }
