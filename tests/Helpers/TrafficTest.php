@@ -10,7 +10,7 @@ use Canvas\Tests\TestCase;
 class TrafficTest extends TestCase
 {
     /** @test */
-    public function total_visits_can_be_calculated()
+    public function it_can_calculate_total_visits()
     {
         $days = 30;
         $visitsToday = 10;
@@ -26,7 +26,7 @@ class TrafficTest extends TestCase
     }
 
     /** @test */
-    public function total_views_can_be_calculated()
+    public function it_can_calculate_total_views()
     {
         $days = 30;
         $viewsToday = 10;
@@ -42,7 +42,7 @@ class TrafficTest extends TestCase
     }
 
     /** @test */
-    public function month_over_month_increased_visitor_performance()
+    public function it_can_calculate_month_over_month_increased_visitor_performance()
     {
         factory(Visit::class, 1)->create([
             'created_at' => today()->subMonthWithoutOverflow()->toDateString(),
@@ -72,7 +72,7 @@ class TrafficTest extends TestCase
     }
 
     /** @test */
-    public function month_over_month_decreased_visitor_performance()
+    public function it_can_calculate_month_over_month_decreased_visitor_performance()
     {
         factory(Visit::class, 2)->create([
             'created_at' => today()->subMonthWithoutOverflow()->toDateString(),
@@ -102,7 +102,7 @@ class TrafficTest extends TestCase
     }
 
     /** @test */
-    public function month_over_month_increased_view_performance()
+    public function it_can_calculate_month_over_month_increased_view_performance()
     {
         factory(View::class, 1)->create([
             'created_at' => today()->subMonthWithoutOverflow()->toDateString(),
@@ -132,7 +132,7 @@ class TrafficTest extends TestCase
     }
 
     /** @test */
-    public function month_over_month_decreased_view_performance()
+    public function it_can_calculate_month_over_month_decreased_view_performance()
     {
         factory(View::class, 2)->create([
             'created_at' => today()->subMonthWithoutOverflow()->toDateString(),

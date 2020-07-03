@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Mail;
 class DigestCommandTest extends TestCase
 {
     /** @test */
-    public function an_email_can_be_sent()
+    public function it_can_send_the_weekly_digest()
     {
         Mail::fake();
 
@@ -61,7 +61,7 @@ class DigestCommandTest extends TestCase
     }
 
     /** @test */
-    public function an_email_will_not_be_sent_if_digest_is_disabled()
+    public function it_will_not_send_an_email_if_digest_is_disabled()
     {
         Mail::fake();
 
