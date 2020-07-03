@@ -33,9 +33,10 @@ class DigestCommand extends Command
      */
     public function handle()
     {
-        $recipients = User::whereIn('id', Post::published()->pluck('user_id')->unique())->get();
         $startDate = today()->subDays(7)->startOfDay();
         $endDate = today()->endOfDay();
+
+        $recipients = User::whereIn('id', Post::published()->pluck('user_id')->unique())->get();
 
         foreach ($recipients as $user) {
             $meta = UserMeta::forUser($user)->first();
