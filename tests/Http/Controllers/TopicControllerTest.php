@@ -28,58 +28,42 @@ class TopicControllerTest extends TestCase
     }
 
     /** @test */
-    public function topics_can_be_listed()
+    public function it_can_fetch_topics()
     {
-        $userOne = factory(config('canvas.user'))->create();
-        $userTwo = factory(config('canvas.user'))->create();
+        $topic = factory(Topic::class)->create();
 
-        $topic = factory(Topic::class)->create([
-            'user_id' => $userOne->id,
-            'name' => 'A new topic',
-            'slug' => 'a-new-topic',
-        ]);
-
-        $this->actingAs($userOne)
+        $this->actingAs($topic->user)
              ->getJson('canvas/api/topics')
              ->assertSuccessful()
              ->assertJsonExactFragment($topic->id, 'data.0.id')
              ->assertJsonExactFragment($topic->name, 'data.0.name')
-             ->assertJsonExactFragment($userOne->id, 'data.0.user_id')
+             ->assertJsonExactFragment($topic->user->id, 'data.0.user_id')
              ->assertJsonExactFragment($topic->slug, 'data.0.slug')
              ->assertJsonExactFragment($topic->posts->count(), 'data.0.posts_count')
              ->assertJsonExactFragment(1, 'total');
-
-        $this->actingAs($userTwo)
-             ->getJson('canvas/api/topics')
-             ->assertSuccessful()
-             ->assertJsonExactFragment(0, 'total');
     }
 
     /** @test */
-    public function topics_can_be_fetched()
+    public function it_can_fetch_a_new_topic()
     {
-        // Fetch topic defaults...
         $user = factory(config('canvas.user'))->create();
 
         $response = $this->actingAs($user)->getJson('canvas/api/topics/create')->assertSuccessful();
 
         $this->assertArrayHasKey('id', $response->decodeResponseJson());
+    }
 
-        // Fetch an existing topic...
-        $user = factory(config('canvas.user'))->create();
+    /** @test */
+    public function it_can_fetch_an_existing_topic()
+    {
+        $topic = factory(Topic::class)->create();
 
-        $topic = factory(Topic::class)->create([
-            'user_id' => $user->id,
-            'name' => 'A new topic',
-            'slug' => 'a-new-topic',
-        ]);
-
-        $this->actingAs($user)
+        $this->actingAs($topic->user)
              ->getJson("canvas/api/topics/{$topic->id}")
              ->assertSuccessful()
              ->assertJsonExactFragment($topic->id, 'id')
              ->assertJsonExactFragment($topic->name, 'name')
-             ->assertJsonExactFragment($user->id, 'user_id')
+             ->assertJsonExactFragment($topic->user->id, 'user_id')
              ->assertJsonExactFragment($topic->slug, 'slug');
     }
 
@@ -92,7 +76,7 @@ class TopicControllerTest extends TestCase
     }
 
     /** @test */
-    public function only_topic_owners_can_access_topics()
+    public function it_returns_404_if_post_belongs_to_another_user()
     {
         $userOne = factory(config('canvas.user'))->create();
         $userTwo = factory(config('canvas.user'))->create();
@@ -103,14 +87,16 @@ class TopicControllerTest extends TestCase
             'slug' => 'a-topic-for-user-1',
         ]);
 
-        $this->actingAs($userOne)->getJson("canvas/api/topics/{$topic->id}")->assertSuccessful();
+        $this->actingAs($userOne)
+             ->getJson("canvas/api/topics/{$topic->id}")
+             ->assertSuccessful();
+
         $this->actingAs($userTwo)->getJson("canvas/api/topics/{$topic->id}")->assertNotFound();
     }
 
     /** @test */
-    public function topics_can_be_stored()
+    public function it_can_create_a_new_topic()
     {
-        // Create a new topic...
         $user = factory(config('canvas.user'))->create();
 
         $data = [
@@ -125,13 +111,12 @@ class TopicControllerTest extends TestCase
              ->assertJsonExactFragment($data['name'], 'name')
              ->assertJsonExactFragment($data['slug'], 'slug')
              ->assertJsonExactFragment($user->id, 'user_id');
+    }
 
-        // Update an existing topic...
-        $topic = factory(Topic::class)->create([
-            'name' => 'Another topic',
-            'slug' => 'another-topic',
-            'user_id' => $user->id,
-        ]);
+    /** @test */
+    public function it_can_update_an_existing_topic()
+    {
+        $topic = factory(Topic::class)->create();
 
         $data = [
             'name' => 'An updated topic',
@@ -147,7 +132,7 @@ class TopicControllerTest extends TestCase
     }
 
     /** @test */
-    public function invalid_slugs_will_not_be_stored()
+    public function it_will_not_store_an_invalid_slug()
     {
         $topic = factory(Topic::class)->create();
 
@@ -162,7 +147,7 @@ class TopicControllerTest extends TestCase
     }
 
     /** @test */
-    public function topics_can_be_deleted()
+    public function it_can_delete_a_topic()
     {
         $userOne = factory(config('canvas.user'))->create();
         $userTwo = factory(config('canvas.user'))->create();
@@ -173,13 +158,9 @@ class TopicControllerTest extends TestCase
             'slug' => 'a-new-topic',
         ]);
 
-        $this->actingAs($userTwo)
-             ->deleteJson("canvas/api/topics/{$topic->id}")
-             ->assertNotFound();
+        $this->actingAs($userTwo)->deleteJson("canvas/api/topics/{$topic->id}")->assertNotFound();
 
-        $this->actingAs($userOne)
-             ->deleteJson('canvas/api/topics/not-a-topic')
-             ->assertNotFound();
+        $this->actingAs($userOne)->deleteJson('canvas/api/topics/not-a-topic')->assertNotFound();
 
         $this->actingAs($userOne)
              ->deleteJson("canvas/api/topics/{$topic->id}")
@@ -193,7 +174,7 @@ class TopicControllerTest extends TestCase
     }
 
     /** @test */
-    public function de_sync_post_relationship()
+    public function it_can_de_sync_the_post_relationship()
     {
         $user = factory(config('canvas.user'))->create();
         $topic = factory(Topic::class)->create();

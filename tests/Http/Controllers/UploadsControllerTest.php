@@ -27,7 +27,7 @@ class UploadsControllerTest extends TestCase
     }
 
     /** @test */
-    public function media_can_be_stored()
+    public function it_can_store_media()
     {
         Storage::fake(config('canvas.storage_disk'));
 
@@ -47,7 +47,7 @@ class UploadsControllerTest extends TestCase
     }
 
     /** @test */
-    public function media_can_be_deleted()
+    public function it_can_delete_media()
     {
         Storage::fake(config('canvas.storage_disk'));
 

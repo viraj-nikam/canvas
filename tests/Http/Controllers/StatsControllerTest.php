@@ -26,7 +26,7 @@ class StatsControllerTest extends TestCase
     }
 
     /** @test */
-    public function stats_can_be_listed()
+    public function it_can_fetch_stats()
     {
         $user = factory(config('canvas.user'))->create();
 
@@ -46,11 +46,9 @@ class StatsControllerTest extends TestCase
     }
 
     /** @test */
-    public function stats_can_be_fetched()
+    public function it_can_fetch_stats_for_a_published_post()
     {
         $post = factory(Post::class)->create();
-
-        $this->actingAs($post->user)->getJson('canvas/api/stats/not-a-post')->assertNotFound();
 
         $response = $this->actingAs($post->user)
                          ->getJson("canvas/api/stats/{$post->id}")
@@ -101,14 +99,6 @@ class StatsControllerTest extends TestCase
     }
 
     /** @test */
-    public function it_returns_404_if_no_post_is_found()
-    {
-        $user = factory(config('canvas.user'))->create();
-
-        $this->actingAs($user)->getJson('canvas/api/stats/not-a-post')->assertNotFound();
-    }
-
-    /** @test */
     public function it_returns_404_if_post_is_not_published()
     {
         $post = factory(Post::class)->create([
@@ -116,5 +106,13 @@ class StatsControllerTest extends TestCase
         ]);
 
         $this->actingAs($post->user)->getJson("canvas/api/stats/{$post->id}")->assertNotFound();
+    }
+
+    /** @test */
+    public function it_returns_404_if_no_post_is_found()
+    {
+        $user = factory(config('canvas.user'))->create();
+
+        $this->actingAs($user)->getJson('canvas/api/stats/not-a-post')->assertNotFound();
     }
 }

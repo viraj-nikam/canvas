@@ -25,7 +25,7 @@ class LocaleControllerTest extends TestCase
     }
 
     /** @test */
-    public function translations_can_be_fetched()
+    public function it_can_fetch_translations_for_a_given_locale()
     {
         $user = factory(config('canvas.user'))->create();
         $code = config('app.locale');

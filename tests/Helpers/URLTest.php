@@ -30,8 +30,10 @@ class URLTest extends TestCase
     /** @test */
     public function it_can_generate_a_gravatar()
     {
-        $response = URL::trim('https://www.example.com?string-to-trim');
+        $response = URL::gravatar('user@example.com', 250);
 
-        $this->assertSame($response, 'www.example.com');
+        $this->assertIsString($response);
+        $this->assertStringContainsString('secure.gravatar.com', $response);
+        $this->assertStringContainsString('s=250', $response);
     }
 }

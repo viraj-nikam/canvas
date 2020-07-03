@@ -29,24 +29,29 @@ class PostControllerTest extends TestCase
     }
 
     /** @test */
-    public function posts_can_be_listed()
+    public function it_can_fetch_published_posts()
     {
-        // Post list defaults to published...
-        $published = factory(Post::class)->create();
+        $post = factory(Post::class)->create([
+            'published_at' => now()->subMonth(),
+        ]);
 
-        $this->actingAs($published->user)
+        $this->actingAs($post->user)
              ->getJson('canvas/api/posts')
              ->assertSuccessful()
              ->assertJsonExactFragment(1, 'posts.total')
              ->assertJsonExactFragment(0, 'draftCount')
              ->assertJsonExactFragment(1, 'publishedCount')
              ->assertJsonExactFragment(0, 'views_count');
+    }
 
-        // Request query type set to draft...
-        $draft = factory(Post::class)->create([
+    /** @test */
+    public function it_can_fetch_draft_posts()
+    {
+        $post = factory(Post::class)->create([
             'published_at' => now()->addMonth(),
         ]);
-        $this->actingAs($draft->user)
+
+        $this->actingAs($post->user)
              ->getJson('canvas/api/posts?type=draft')
              ->assertSuccessful()
              ->assertJsonExactFragment(1, 'posts.total')
@@ -56,10 +61,10 @@ class PostControllerTest extends TestCase
     }
 
     /** @test */
-    public function posts_can_be_fetched()
+    public function it_can_fetch_a_new_post()
     {
-        // Fetch post defaults...
         $user = factory(config('canvas.user'))->create();
+
         $response = $this->actingAs($user)->getJson('canvas/api/posts/create')->assertSuccessful();
 
         $this->assertArrayHasKey('id', $response->decodeResponseJson('post'));
@@ -67,9 +72,13 @@ class PostControllerTest extends TestCase
         $this->assertArrayHasKey('read_time', $response->decodeResponseJson('post'));
         $this->assertArrayHasKey('tags', $response->decodeResponseJson());
         $this->assertArrayHasKey('topics', $response->decodeResponseJson());
+    }
 
-        // Fetch an existing post...
+    /** @test */
+    public function it_can_fetch_an_existing_post()
+    {
         $post = factory(Post::class)->create();
+
         $this->actingAs($post->user)
              ->getJson("canvas/api/posts/{$post->id}")
              ->assertSuccessful()
@@ -88,7 +97,7 @@ class PostControllerTest extends TestCase
     }
 
     /** @test */
-    public function only_post_owners_can_access_posts()
+    public function it_returns_404_if_post_belongs_to_another_user()
     {
         $userOne = factory(config('canvas.user'))->create();
         $userTwo = factory(config('canvas.user'))->create();
@@ -102,9 +111,8 @@ class PostControllerTest extends TestCase
     }
 
     /** @test */
-    public function posts_can_be_stored()
+    public function it_can_store_a_new_post()
     {
-        // Create a new post...
         $user = factory(config('canvas.user'))->create();
 
         $data = [
@@ -123,8 +131,11 @@ class PostControllerTest extends TestCase
         $this->assertArrayHasKey('slug', $response);
         $this->assertArrayHasKey('title', $response);
         $this->assertArrayHasKey('user_id', $response);
+    }
 
-        // Update an existing post...
+    /** @test */
+    public function it_can_update_an_existing_post()
+    {
         $post = factory(Post::class)->create([
             'title' => 'Original Title',
             'slug' => 'original-slug',
@@ -144,7 +155,7 @@ class PostControllerTest extends TestCase
     }
 
     /** @test */
-    public function sync_related_taxonomy()
+    public function it_can_sync_related_taxonomy()
     {
         $user = factory(config('canvas.user'))->create();
 
@@ -188,7 +199,7 @@ class PostControllerTest extends TestCase
     }
 
     /** @test */
-    public function invalid_slugs_will_not_be_stored()
+    public function it_will_not_store_an_invalid_slug()
     {
         $post = factory(Post::class)->create();
 
@@ -200,7 +211,7 @@ class PostControllerTest extends TestCase
     }
 
     /** @test */
-    public function posts_can_be_deleted()
+    public function it_can_delete_a_post()
     {
         $userOne = factory(config('canvas.user'))->create();
         $userTwo = factory(config('canvas.user'))->create();
@@ -223,7 +234,7 @@ class PostControllerTest extends TestCase
     }
 
     /** @test */
-    public function de_sync_related_taxonomy()
+    public function it_can_de_sync_related_taxonomy()
     {
         $user = factory(config('canvas.user'))->create();
 

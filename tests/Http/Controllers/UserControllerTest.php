@@ -26,9 +26,8 @@ class UserControllerTest extends TestCase
     }
 
     /** @test */
-    public function user_details_can_be_listed()
+    public function it_can_fetch_new_user_meta_data()
     {
-        // New settings...
         $user = factory(config('canvas.user'))->create();
 
         $response = $this->actingAs($user)->getJson("canvas/api/users/{$user->id}")->assertSuccessful();
@@ -39,8 +38,11 @@ class UserControllerTest extends TestCase
         $this->assertArrayHasKey('summary', $response->decodeResponseJson());
         $this->assertArrayHasKey('locale', $response->decodeResponseJson());
         $this->assertArrayHasKey('username', $response->decodeResponseJson());
+    }
 
-        // Existing settings...
+    /** @test */
+    public function it_can_fetch_existing_user_meta_data()
+    {
         $userMeta = factory(UserMeta::class)->create([
             'dark_mode' => 1,
             'digest' => 0,
@@ -62,9 +64,8 @@ class UserControllerTest extends TestCase
     }
 
     /** @test */
-    public function user_details_can_be_stored()
+    public function it_can_store_user_meta_data()
     {
-        // New settings...
         $user = factory(config('canvas.user'))->create();
 
         $response = $this->actingAs($user)->postJson("canvas/api/users/{$user->id}", [
@@ -79,10 +80,15 @@ class UserControllerTest extends TestCase
         $this->assertArrayHasKey('username', $response->decodeResponseJson());
 
         $this->assertEquals($user->id, $response->decodeResponseJson('user_id'));
+    }
 
-        // Existing settings...
+    /** @test */
+    public function it_can_update_user_meta_data()
+    {
+        $user = factory(config('canvas.user'))->create();
+
         $response = $this->actingAs($user)->postJson("canvas/api/users/{$user->id}", [
-            'username' => 'a-new-username',
+            'user_id' => $user->id,
         ])->assertSuccessful();
 
         $this->assertArrayHasKey('avatar', $response->decodeResponseJson());
@@ -92,13 +98,11 @@ class UserControllerTest extends TestCase
         $this->assertArrayHasKey('locale', $response->decodeResponseJson());
         $this->assertArrayHasKey('username', $response->decodeResponseJson());
 
-        $settings = UserMeta::forUser($user)->first();
-
-        $this->assertEquals($settings->username, $response->decodeResponseJson('username'));
+        $this->assertEquals($user->id, $response->decodeResponseJson('user_id'));
     }
 
     /** @test */
-    public function usernames_are_unique_to_a_user()
+    public function it_verifies_usernames_are_unique_to_a_user()
     {
         $userMeta = factory(UserMeta::class)->create();
 

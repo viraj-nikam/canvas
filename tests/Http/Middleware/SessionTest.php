@@ -29,7 +29,7 @@ class SessionTest extends TestCase
     }
 
     /** @test */
-    public function prune_expired_views()
+    public function it_can_prune_expired_views()
     {
         $recent = factory(Post::class)->create();
 
@@ -46,7 +46,7 @@ class SessionTest extends TestCase
     }
 
     /** @test */
-    public function prune_expired_visits()
+    public function it_can_prune_expired_visits()
     {
         $ip = '127.0.0.1';
 
