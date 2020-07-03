@@ -3,10 +3,10 @@
 namespace Canvas\Tests\Http\Controllers;
 
 use Canvas\Http\Middleware\Session;
-use Canvas\Post;
-use Canvas\Tag;
+use Canvas\Models\Post;
+use Canvas\Models\Tag;
 use Canvas\Tests\TestCase;
-use Canvas\Topic;
+use Canvas\Models\Topic;
 use Illuminate\Auth\Middleware\Authorize;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -77,8 +77,13 @@ class PostControllerTest extends TestCase
              ->assertJsonExactFragment($post->title, 'post.title')
              ->assertJsonExactFragment($post->user_id, 'post.user_id')
              ->assertJsonExactFragment($post->slug, 'post.slug');
+    }
 
-        // Post not found...
+    /** @test */
+    public function it_returns_404_if_no_post_is_found()
+    {
+        $user = factory(config('canvas.user'))->create();
+
         $this->actingAs($user)->getJson('canvas/api/posts/not-a-post')->assertNotFound();
     }
 

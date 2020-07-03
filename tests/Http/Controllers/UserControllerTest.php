@@ -4,7 +4,7 @@ namespace Canvas\Tests\Http\Controllers;
 
 use Canvas\Http\Middleware\Session;
 use Canvas\Tests\TestCase;
-use Canvas\UserMeta;
+use Canvas\Models\UserMeta;
 use Illuminate\Auth\Middleware\Authorize;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -115,7 +115,7 @@ class UserControllerTest extends TestCase
     }
 
     /** @test */
-    public function users_cannot_access_another_user_account()
+    public function it_returns_404_if_users_access_another_user_account()
     {
         $userOne = factory(config('canvas.user'))->create();
         $userTwo = factory(config('canvas.user'))->create();

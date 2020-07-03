@@ -2,9 +2,9 @@
 
 namespace Canvas\Http\Controllers;
 
-use Canvas\Post;
-use Canvas\Tag;
-use Canvas\Topic;
+use Canvas\Models\Post;
+use Canvas\Models\Tag;
+use Canvas\Models\Topic;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
@@ -42,7 +42,6 @@ class PostController extends Controller
      */
     public function show($id): JsonResponse
     {
-        // todo: Adjust these to pull global taxonomy #750
         $tags = Tag::forUser(request()->user())->get(['name', 'slug']);
         $topics = Topic::forUser(request()->user())->get(['name', 'slug']);
 
@@ -52,7 +51,7 @@ class PostController extends Controller
                 'tags' => $tags,
                 'topics' => $topics,
             ]);
-        } elseif (is_fresh($id)) {
+        } elseif ($id === 'create') {
             $uuid = Uuid::uuid4();
 
             return response()->json([

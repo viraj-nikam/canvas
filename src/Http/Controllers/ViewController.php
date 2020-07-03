@@ -2,7 +2,7 @@
 
 namespace Canvas\Http\Controllers;
 
-use Canvas\UserMeta;
+use Canvas\Models\UserMeta;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Str;
 

@@ -1,7 +1,7 @@
 <?php
 
 /* @var \Illuminate\Database\Eloquent\Factory $factory */
-$factory->define(\Canvas\Post::class, function (Faker\Generator $faker) {
+$factory->define(\Canvas\Models\Post::class, function (Faker\Generator $faker) {
     return [
         'id' => $faker->uuid,
         'slug' => $faker->slug,

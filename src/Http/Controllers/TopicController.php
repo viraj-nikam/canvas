@@ -2,7 +2,7 @@
 
 namespace Canvas\Http\Controllers;
 
-use Canvas\Topic;
+use Canvas\Models\Topic;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
@@ -35,7 +35,7 @@ class TopicController extends Controller
      */
     public function show($id): JsonResponse
     {
-        if (is_fresh($id)) {
+        if ($id === 'create') {
             return response()->json(Topic::make([
                 'id' => Uuid::uuid4()->toString(),
             ]), 200);

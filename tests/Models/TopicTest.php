@@ -1,11 +1,12 @@
 <?php
 
-namespace Canvas\Tests;
+namespace Canvas\Tests\Models;
 
 use Canvas\Http\Middleware\Session;
-use Canvas\Post;
-use Canvas\Topic;
-use Canvas\UserMeta;
+use Canvas\Models\Post;
+use Canvas\Models\Topic;
+use Canvas\Tests\TestCase;
+use Canvas\Models\UserMeta;
 use Illuminate\Auth\Middleware\Authorize;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Foundation\Testing\RefreshDatabase;

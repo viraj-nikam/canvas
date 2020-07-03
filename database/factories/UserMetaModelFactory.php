@@ -4,7 +4,7 @@
 
 use Illuminate\Support\Str;
 
-$factory->define(\Canvas\UserMeta::class, function (Faker\Generator $faker) {
+$factory->define(\Canvas\Models\UserMeta::class, function (Faker\Generator $faker) {
     return [
         'id' => $faker->randomNumber(),
         'user_id' => function () {

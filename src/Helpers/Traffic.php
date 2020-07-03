@@ -1,6 +1,6 @@
 <?php
 
-namespace Canvas;
+namespace Canvas\Helpers;
 
 use Carbon\CarbonInterval;
 use DateInterval;
@@ -8,60 +8,23 @@ use DatePeriod;
 use DateTimeInterface;
 use Illuminate\Support\Collection;
 
-trait Tracker
+class Traffic
 {
     /**
-     * Get post-specific tracking data along with totals.
+     * Given a collection of Views or Visits, return an array of formatted
+     * date strings and their related counts for a given number of days.
      *
-     * @param array $postIDs
-     * @param int $days
-     * @return array
-     */
-    public function getTrackedData(array $postIDs, int $days): array
-    {
-        $startDate = today()->subDays($days)->startOfDay();
-        $endDate = today()->endOfDay();
-
-        $totalViews = View::forPostsInRange($postIDs, $startDate->toDateTimeString(), $endDate->toDateTimeString())->get();
-        $totalVisits = Visit::forPostsInRange($postIDs, $startDate->toDateTimeString(), $endDate->toDateTimeString())->get();
-
-        $data = collect();
-        foreach ($postIDs as $postID) {
-            $viewCount = $totalViews->where('post_id', $postID)->count();
-            $visitCount = $totalVisits->where('post_id', $postID)->count();
-
-            $post = Post::find($postID);
-            $data->put($post->id, [
-                'title' => $post->title,
-                'views' => $viewCount,
-                'visits' => $visitCount,
-            ]);
-        }
-
-        return collect([
-            'posts' => $data,
-            'startDate' => $startDate->format('M j'),
-            'endDate' => $endDate->format('M j'),
-            'totals' => [
-                'views' => $totalViews->count(),
-                'visits' => $totalVisits->count(),
-            ],
-        ])->toArray();
-    }
-
-    /**
-     * Return date string and their related counts for a given number of days.
-     * example: [ Y-m-d => count ].
+     * example: [ Y-m-d => total ]
      *
      * @param Collection $data
      * @param int $days
      * @return array
      */
-    public function countTrackedData(Collection $data, int $days = 1): array
+    public static function calculateTotalForDays(Collection $data, int $days = 30): array
     {
         // Filter the data to only include created_at date strings
         $filtered = collect();
-        $data->sortBy('created_at')->each(function ($item, $key) use ($filtered) {
+        $data->sortBy('created_at')->each(function ($item) use ($filtered) {
             $filtered->push($item->created_at->toDateString());
         });
 
@@ -69,7 +32,7 @@ trait Tracker
         $unique = array_count_values($filtered->toArray());
 
         // Create a day range to hold the default date values
-        $period = $this->generateDateRange(today()->subDays($days), CarbonInterval::day(), $days);
+        $period = self::generateRange(today()->subDays($days), CarbonInterval::day(), $days);
 
         // Compare the data and date range arrays, assigning counts where applicable
         $total = collect();
@@ -93,13 +56,13 @@ trait Tracker
      * @param Collection $previous
      * @return array
      */
-    public function compareMonthToMonth(Collection $current, Collection $previous): array
+    public static function compareMonthOverMonth(Collection $current, Collection $previous): array
     {
         $dataCountThisMonth = $current->count();
         $dataCountLastMonth = $previous->count();
 
         if ($dataCountLastMonth != 0) {
-            $difference = (int) $dataCountThisMonth - (int) $dataCountLastMonth;
+            $difference = (int)$dataCountThisMonth - (int)$dataCountLastMonth;
             $growth = ($difference / $dataCountLastMonth) * 100;
         } else {
             $growth = $dataCountThisMonth * 100;
@@ -120,7 +83,7 @@ trait Tracker
      * @param int $exclusive
      * @return array
      */
-    private function generateDateRange(DateTimeInterface $start_date, DateInterval $interval, int $recurrences, int $exclusive = 1): array
+    private static function generateRange(DateTimeInterface $start_date, DateInterval $interval, int $recurrences, int $exclusive = 1): array
     {
         $period = new DatePeriod($start_date, $interval, $recurrences, $exclusive);
         $dates = collect();

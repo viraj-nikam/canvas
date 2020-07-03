@@ -1,18 +1,18 @@
 <?php
 
-namespace Canvas;
+namespace Canvas\Models;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class PostsTopics extends Pivot
+class PostsTags extends Pivot
 {
     /**
      * The table associated with the model.
      *
      * @var string
      */
-    protected $table = 'canvas_posts_topics';
+    protected $table = 'canvas_posts_tags';
 
     /**
      * The attributes that aren't mass assignable.
@@ -32,12 +32,12 @@ class PostsTopics extends Pivot
     }
 
     /**
-     * Get the topic relationship.
+     * Get the tags relationship.
      *
      * @return BelongsTo
      */
-    public function topic(): BelongsTo
+    public function tags(): BelongsTo
     {
-        return $this->belongsTo(Topic::class);
+        return $this->belongsTo(Tag::class);
     }
 }

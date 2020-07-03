@@ -17,7 +17,7 @@
 </head>
 <body class="mb-5" @if($config['user']['darkMode']) data-theme="dark" @endif>
 <div id="canvas">
-    @if(!assets_up_to_date())
+    @if(!\Canvas\Helpers\Asset::upToDate())
        <div class="alert alert-danger border-0 text-center rounded-0 mb-0">
            {{ __('canvas::app.assets_are_not_up_to_date') }}
            {{ __('canvas::app.to_update_run') }}<br/><code>php artisan canvas:publish</code>

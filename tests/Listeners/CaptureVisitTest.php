@@ -3,7 +3,7 @@
 namespace Canvas\Tests\Listeners;
 
 use Canvas\Listeners\CaptureVisit;
-use Canvas\Post;
+use Canvas\Models\Post;
 use Canvas\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 

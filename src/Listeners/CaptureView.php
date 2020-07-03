@@ -3,7 +3,7 @@
 namespace Canvas\Listeners;
 
 use Canvas\Events\PostViewed;
-use Canvas\Post;
+use Canvas\Models\Post;
 
 class CaptureView
 {

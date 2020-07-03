@@ -3,8 +3,8 @@
 namespace Canvas\Tests\Http\Controllers;
 
 use Canvas\Http\Middleware\Session;
-use Canvas\Post;
-use Canvas\Tag;
+use Canvas\Models\Post;
+use Canvas\Models\Tag;
 use Canvas\Tests\TestCase;
 use Illuminate\Auth\Middleware\Authorize;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
@@ -81,9 +81,14 @@ class TagControllerTest extends TestCase
              ->assertJsonExactFragment($tag->name, 'name')
              ->assertJsonExactFragment($user->id, 'user_id')
              ->assertJsonExactFragment($tag->slug, 'slug');
+    }
 
-        // Tag not found...
-        $this->actingAs($user)->getJson('canvas/api/tags/not-a-tag')->assertNotFound();
+    /** @test */
+    public function it_returns_404_if_no_tag_is_found()
+    {
+        $user = factory(config('canvas.user'))->create();
+
+        $this->actingAs($user)->getJson('canvas/api/tags/not-a-post')->assertNotFound();
     }
 
     /** @test */

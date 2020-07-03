@@ -1,6 +1,6 @@
 <?php
 
-namespace Canvas;
+namespace Canvas\Models;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User;
 
-class Tag extends Model
+class Topic extends Model
 {
     use SoftDeletes;
 
@@ -19,7 +19,7 @@ class Tag extends Model
      *
      * @var string
      */
-    protected $table = 'canvas_tags';
+    protected $table = 'canvas_topics';
 
     /**
      * The attributes that aren't mass assignable.
@@ -63,7 +63,7 @@ class Tag extends Model
      */
     public function posts(): BelongsToMany
     {
-        return $this->belongsToMany(Post::class, 'canvas_posts_tags', 'tag_id', 'post_id');
+        return $this->belongsToMany(Post::class, 'canvas_posts_topics', 'topic_id', 'post_id');
     }
 
     /**
@@ -87,14 +87,14 @@ class Tag extends Model
             UserMeta::class,
             config('canvas.user', User::class),
             'id',       // Foreign key on users table...
-            'user_id',  // Foreign key on canvas_tags table...
-            'user_id',  // Local key on canvas_tags table...
+            'user_id',  // Foreign key on canvas_topics table...
+            'user_id',  // Local key on canvas_topics table...
             'id'        // Local key on users table...
         );
     }
 
     /**
-     * Scope a query to only include tags for a given user.
+     * Scope a query to only include topics for a given user.
      *
      * @param $query
      * @param $user

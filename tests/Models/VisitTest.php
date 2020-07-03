@@ -1,15 +1,16 @@
 <?php
 
-namespace Canvas\Tests;
+namespace Canvas\Tests\Models;
 
 use Canvas\Http\Middleware\Session;
-use Canvas\Post;
-use Canvas\View;
+use Canvas\Models\Post;
+use Canvas\Tests\TestCase;
+use Canvas\Models\Visit;
 use Illuminate\Auth\Middleware\Authorize;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class ViewTest extends TestCase
+class VisitTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -28,12 +29,12 @@ class ViewTest extends TestCase
     {
         $post = factory(Post::class)->create();
 
-        factory(View::class)->create([
+        factory(Visit::class)->create([
             'post_id' => $post->id,
         ]);
 
-        $this->assertCount(1, $post->views);
-        $this->assertInstanceOf(View::class, $post->views->first());
+        $this->assertCount(1, $post->visits);
+        $this->assertInstanceOf(Visit::class, $post->visits->first());
     }
 
     /** @test */
@@ -41,16 +42,16 @@ class ViewTest extends TestCase
     {
         $post = factory(Post::class)->create();
 
-        $post->views()->create([
+        $post->visits()->create([
             'post_id' => $post->id,
             'created_at' => now()->subMonth(),
         ]);
 
-        $post->views()->createMany(
-            factory(View::class, 2)->make()->toArray()
+        $post->visits()->createMany(
+            factory(Visit::class, 2)->make()->toArray()
         );
 
-        $this->assertEquals(2, View::forPostsInRange(
+        $this->assertEquals(2, Visit::forPostsInRange(
             [$post->id],
             now()->subWeek()->toDateTimeString(),
             now()->endOfDay()->toDateTimeString())->count()

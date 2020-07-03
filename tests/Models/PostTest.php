@@ -1,14 +1,15 @@
 <?php
 
-namespace Canvas\Tests;
+namespace Canvas\Tests\Models;
 
 use Canvas\Http\Middleware\Session;
-use Canvas\Post;
-use Canvas\Tag;
-use Canvas\Topic;
-use Canvas\UserMeta;
-use Canvas\View;
-use Canvas\Visit;
+use Canvas\Models\Post;
+use Canvas\Models\Tag;
+use Canvas\Models\Topic;
+use Canvas\Models\UserMeta;
+use Canvas\Models\View;
+use Canvas\Models\Visit;
+use Canvas\Tests\TestCase;
 use Carbon\Carbon;
 use Illuminate\Auth\Middleware\Authorize;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;

@@ -3,9 +3,9 @@
 namespace Canvas\Tests\Http\Controllers;
 
 use Canvas\Http\Middleware\Session;
-use Canvas\Post;
+use Canvas\Models\Post;
 use Canvas\Tests\TestCase;
-use Canvas\Topic;
+use Canvas\Models\Topic;
 use Illuminate\Auth\Middleware\Authorize;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -81,9 +81,14 @@ class TopicControllerTest extends TestCase
              ->assertJsonExactFragment($topic->name, 'name')
              ->assertJsonExactFragment($user->id, 'user_id')
              ->assertJsonExactFragment($topic->slug, 'slug');
+    }
 
-        // Topic not found...
-        $this->actingAs($user)->getJson('canvas/api/topics/not-a-topic')->assertNotFound();
+    /** @test */
+    public function it_returns_404_if_no_topic_is_found()
+    {
+        $user = factory(config('canvas.user'))->create();
+
+        $this->actingAs($user)->getJson('canvas/api/topics/not-a-post')->assertNotFound();
     }
 
     /** @test */

@@ -1,93 +1,48 @@
 <?php
 
-namespace Canvas\Tests;
+namespace Canvas\Tests\Helpers;
 
-use Canvas\Post;
-use Canvas\Tracker;
-use Canvas\View;
-use Canvas\Visit;
-use Carbon\CarbonInterval;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Canvas\Helpers\Traffic;
+use Canvas\Models\View;
+use Canvas\Models\Visit;
+use Canvas\Tests\TestCase;
 
-class TrackerTest extends TestCase
+class TrafficTest extends TestCase
 {
-    use RefreshDatabase, Tracker;
-
     /** @test */
-    public function tracked_data_can_be_listed()
-    {
-        $days = 7;
-
-        $postOne = factory(Post::class)->create();
-        $postOne->views()->createMany(
-            factory(View::class, 5)->make()->toArray()
-        );
-        $postOne->visits()->createMany(
-            factory(Visit::class, 4)->make()->toArray()
-        );
-
-        $postTwo = factory(Post::class)->create();
-        $postTwo->views()->createMany(
-            factory(View::class, 3)->make()->toArray()
-        );
-        $postTwo->visits()->createMany(
-            factory(Visit::class, 2)->make()->toArray()
-        );
-
-        $data = $this->getTrackedData([$postOne->id, $postTwo->id], $days);
-
-        $this->assertEquals($data['startDate'], now()->subDays($days)->format('M j'));
-        $this->assertEquals($data['endDate'], now()->format('M j'));
-
-        $this->assertArrayHasKey('posts', $data);
-        $this->assertArrayHasKey($postOne->id, $data['posts']);
-        $this->assertArrayHasKey($postTwo->id, $data['posts']);
-        $this->assertArrayHasKey('totals', $data);
-
-        $this->assertEquals(5, $data['posts'][$postOne->id]['views']);
-        $this->assertEquals(4, $data['posts'][$postOne->id]['visits']);
-
-        $this->assertEquals(3, $data['posts'][$postTwo->id]['views']);
-        $this->assertEquals(2, $data['posts'][$postTwo->id]['visits']);
-
-        $this->assertEquals($data['totals']['views'], array_sum([$postOne->views()->count(), $postTwo->views()->count()]));
-        $this->assertEquals($data['totals']['visits'], array_sum([$postOne->visits()->count(), $postTwo->visits()->count()]));
-    }
-
-    /** @test */
-    public function visits_can_be_tracked()
+    public function total_visits_can_be_calculated()
     {
         $days = 30;
-        $visits_today = 10;
+        $visitsToday = 10;
 
-        $visits = factory(Visit::class, $visits_today)->create();
+        $visits = factory(Visit::class, $visitsToday)->create();
 
-        $data = $this->countTrackedData($visits, $days);
+        $data = Traffic::calculateTotalForDays($visits, $days);
 
         $this->assertCount($days, $data);
         $this->assertArrayHasKey(today()->toDateString(), $data);
         $this->assertArrayHasKey(today()->subDays($days - 1)->toDateString(), $data);
-        $this->assertEquals($visits_today, $data[today()->toDateString()]);
+        $this->assertEquals($visitsToday, $data[today()->toDateString()]);
     }
 
     /** @test */
-    public function views_can_be_tracked()
+    public function total_views_can_be_calculated()
     {
         $days = 30;
-        $views_today = 10;
+        $viewsToday = 10;
 
-        $views = factory(View::class, $views_today)->create();
+        $views = factory(View::class, $viewsToday)->create();
 
-        $data = $this->countTrackedData($views, $days);
+        $data = Traffic::calculateTotalForDays($views, $days);
 
         $this->assertCount($days, $data);
         $this->assertArrayHasKey(today()->toDateString(), $data);
         $this->assertArrayHasKey(today()->subDays($days - 1)->toDateString(), $data);
-        $this->assertEquals($views_today, $data[today()->toDateString()]);
+        $this->assertEquals($viewsToday, $data[today()->toDateString()]);
     }
 
     /** @test */
-    public function month_to_month_increased_visitor_performance()
+    public function month_over_month_increased_visitor_performance()
     {
         factory(Visit::class, 1)->create([
             'created_at' => today()->subMonthWithoutOverflow()->toDateString(),
@@ -107,17 +62,17 @@ class TrackerTest extends TestCase
             today()->endOfMonth()->endOfDay()->toDateTimeString(),
         ]);
 
-        $data = $this->compareMonthToMonth($currentMonthlyVisits, $previousMonthlyVisits);
+        $data = Traffic::compareMonthOverMonth($currentMonthlyVisits, $previousMonthlyVisits);
 
         $this->assertArrayHasKey('direction', $data);
-        $this->assertEquals($data['direction'], 'up');
+        $this->assertSame($data['direction'], 'up');
 
         $this->assertArrayHasKey('percentage', $data);
-        $this->assertEquals($data['percentage'], '100');
+        $this->assertSame($data['percentage'], '100');
     }
 
     /** @test */
-    public function month_to_month_decreased_visitor_performance()
+    public function month_over_month_decreased_visitor_performance()
     {
         factory(Visit::class, 2)->create([
             'created_at' => today()->subMonthWithoutOverflow()->toDateString(),
@@ -137,17 +92,17 @@ class TrackerTest extends TestCase
             today()->endOfMonth()->endOfDay()->toDateTimeString(),
         ]);
 
-        $data = $this->compareMonthToMonth($currentMonthlyVisits, $previousMonthlyVisits);
+        $data = Traffic::compareMonthOverMonth($currentMonthlyVisits, $previousMonthlyVisits);
 
         $this->assertArrayHasKey('direction', $data);
-        $this->assertEquals($data['direction'], 'down');
+        $this->assertSame($data['direction'], 'down');
 
         $this->assertArrayHasKey('percentage', $data);
-        $this->assertEquals($data['percentage'], '50');
+        $this->assertSame($data['percentage'], '50');
     }
 
     /** @test */
-    public function month_to_month_increased_view_performance()
+    public function month_over_month_increased_view_performance()
     {
         factory(View::class, 1)->create([
             'created_at' => today()->subMonthWithoutOverflow()->toDateString(),
@@ -167,17 +122,17 @@ class TrackerTest extends TestCase
             today()->endOfMonth()->endOfDay()->toDateTimeString(),
         ]);
 
-        $data = $this->compareMonthToMonth($currentMonthlyViews, $previousMonthlyViews);
+        $data = Traffic::compareMonthOverMonth($currentMonthlyViews, $previousMonthlyViews);
 
         $this->assertArrayHasKey('direction', $data);
-        $this->assertEquals($data['direction'], 'up');
+        $this->assertSame($data['direction'], 'up');
 
         $this->assertArrayHasKey('percentage', $data);
-        $this->assertEquals($data['percentage'], '100');
+        $this->assertSame($data['percentage'], '100');
     }
 
     /** @test */
-    public function month_to_month_decreased_view_performance()
+    public function month_over_month_decreased_view_performance()
     {
         factory(View::class, 2)->create([
             'created_at' => today()->subMonthWithoutOverflow()->toDateString(),
@@ -197,24 +152,12 @@ class TrackerTest extends TestCase
             today()->endOfMonth()->endOfDay()->toDateTimeString(),
         ]);
 
-        $data = $this->compareMonthToMonth($currentMonthlyViews, $previousMonthlyViews);
+        $data = Traffic::compareMonthOverMonth($currentMonthlyViews, $previousMonthlyViews);
 
         $this->assertArrayHasKey('direction', $data);
-        $this->assertEquals($data['direction'], 'down');
+        $this->assertSame($data['direction'], 'down');
 
         $this->assertArrayHasKey('percentage', $data);
-        $this->assertEquals($data['percentage'], '50');
-    }
-
-    /** @test */
-    public function generate_date_range()
-    {
-        $days = 30;
-        $startDate = today()->subDays($days);
-
-        $period = $this->generateDateRange($startDate, CarbonInterval::day(), $days);
-
-        $this->assertCount($days, $period);
-        $this->assertContains(today()->format('Y-m-d'), $period);
+        $this->assertSame($data['percentage'], '50');
     }
 }

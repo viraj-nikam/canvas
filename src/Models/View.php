@@ -1,19 +1,19 @@
 <?php
 
-namespace Canvas;
+namespace Canvas\Models;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Visit extends Model
+class View extends Model
 {
     /**
      * The table associated with the model.
      *
      * @var string
      */
-    protected $table = 'canvas_visits';
+    protected $table = 'canvas_views';
 
     /**
      * The attributes that aren't mass assignable.
@@ -33,7 +33,7 @@ class Visit extends Model
     }
 
     /**
-     * Scope a query to filter post visits within a given date range.
+     * Scope a query to filter post views within a given date range.
      *
      * @param $query
      * @param $postIDs
