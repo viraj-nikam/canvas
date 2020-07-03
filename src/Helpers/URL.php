@@ -2,12 +2,14 @@
 
 namespace Canvas\Helpers;
 
+use Illuminate\Support\Str;
+
 class URL
 {
     /**
      * Check if a given URL is valid.
      *
-     * @param string $url
+     * @param string|null $url
      * @return bool
      */
     public static function isValid(?string $url): bool
@@ -19,10 +21,24 @@ class URL
      * Trim a given URL.
      *
      * @param string $url
-     * @return string
+     * @return mixed
      */
     public static function trim(string $url)
     {
         return parse_url($url)['host'];
+    }
+
+    /**
+     * Generate a Gravatar for a given email.
+     *
+     * @param string $email
+     * @param int $size
+     * @return string
+     */
+    public static function gravatar(string $email, int $size = 500): string
+    {
+        $hash = md5(trim(Str::lower($email)));
+
+        return "https://secure.gravatar.com/avatar/{$hash}?s={$size}";
     }
 }

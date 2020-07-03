@@ -2,9 +2,9 @@
 
 namespace Canvas\Http\Controllers;
 
+use Canvas\Helpers\URL;
 use Canvas\Models\UserMeta;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Str;
 
 class ViewController extends Controller
 {
@@ -67,19 +67,12 @@ class ViewController extends Controller
     private function getUserData(): array
     {
         $metaData = UserMeta::forUser(request()->user())->first();
-        $emailHash = md5(trim(Str::lower(request()->user()->email)));
-
-        if (optional($metaData)->avatar) {
-            $avatar = $metaData->avatar;
-        } else {
-            $avatar = "https://secure.gravatar.com/avatar/{$emailHash}?s=500";
-        }
 
         return [
             'id' => request()->user()->id,
             'name' => request()->user()->name,
             'email' => request()->user()->email,
-            'avatar' => $avatar,
+            'avatar' => optional($metaData)->avatar ?? URL::gravatar(request()->user()->email),
             'darkMode' => optional($metaData)->dark_mode,
             'locale' => optional($metaData)->locale ?? config('app.locale'),
             'username' => optional($metaData)->username,

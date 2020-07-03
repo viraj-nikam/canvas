@@ -26,4 +26,12 @@ class URLTest extends TestCase
 
         $this->assertSame($response, 'www.example.com');
     }
+
+    /** @test */
+    public function it_can_generate_a_gravatar()
+    {
+        $response = URL::trim('https://www.example.com?string-to-trim');
+
+        $this->assertSame($response, 'www.example.com');
+    }
 }
