@@ -7,6 +7,7 @@ use Canvas\Models\Post;
 use Canvas\Models\UserMeta;
 use Exception;
 use Illuminate\Console\Command;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Mail;
 
@@ -47,8 +48,18 @@ class DigestCommand extends Command
 
             $posts = Post::forUser($user)
                          ->published()
-                         ->withCount('views')
-                         ->withCount('visits')
+                         ->withCount(['views' => function (Builder $query) use ($startDate, $endDate) {
+                             $query->whereBetween('created_at', [
+                                 $startDate,
+                                 $endDate,
+                             ]);
+                         }])
+                         ->withCount(['visits' => function (Builder $query) use ($startDate, $endDate) {
+                             $query->whereBetween('created_at', [
+                                 $startDate,
+                                 $endDate,
+                             ]);
+                         }])
                          ->get();
 
             $data = [

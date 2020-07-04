@@ -24,7 +24,7 @@
                                     </p>
                                 </div>
                                 <div class="card-body pt-0 pb-2">
-                                    <p class="card-text display-4">{{ suffixedNumber(viewCount) }}</p>
+                                    <p class="card-text display-4">{{ suffixedNumber(totalViews) }}</p>
                                 </div>
                             </div>
                             <div class="card shadow-lg">
@@ -39,12 +39,16 @@
                                     </p>
                                 </div>
                                 <div class="card-body pt-0 pb-2">
-                                    <p class="card-text display-4">{{ suffixedNumber(visitCount) }}</p>
+                                    <p class="card-text display-4">{{ suffixedNumber(totalVisits) }}</p>
                                 </div>
                             </div>
                         </div>
 
-                        <line-chart :views="JSON.parse(viewTrend)" :visits="JSON.parse(visitTrend)" class="mt-5" />
+                        <line-chart
+                            :views="JSON.parse(viewPlotPoints)"
+                            :visits="JSON.parse(visitPlotPoints)"
+                            class="mt-5"
+                        />
 
                         <div class="mt-5 card shadow-lg">
                             <div class="card-body p-0">
@@ -154,10 +158,10 @@ export default {
         return {
             page: 1,
             posts: [],
-            viewCount: 0,
-            viewTrend: {},
-            visitCount: 0,
-            visitTrend: {},
+            totalViews: 0,
+            totalVisits: 0,
+            viewPlotPoints: {},
+            visitPlotPoints: {},
             isReady: false,
         };
     },
@@ -175,10 +179,10 @@ export default {
             return this.request()
                 .get('/api/stats')
                 .then((response) => {
-                    this.viewCount = response.data.view_count;
-                    this.viewTrend = response.data.view_trend;
-                    this.visitCount = response.data.visit_count;
-                    this.visitTrend = response.data.visit_trend;
+                    this.totalViews = response.data.total_views;
+                    this.totalVisits = response.data.total_visits;
+                    this.viewPlotPoints = response.data.traffic.views;
+                    this.visitPlotPoints = response.data.traffic.visits;
 
                     NProgress.inc();
                 })

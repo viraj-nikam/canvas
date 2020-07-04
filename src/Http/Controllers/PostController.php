@@ -147,22 +147,22 @@ class PostController extends Controller
      */
     private function syncTopic($incomingTopic): array
     {
-        if (collect($incomingTopic)->isNotEmpty()) {
-            $topic = Topic::forUser(request()->user())->where('slug', $incomingTopic['slug'])->first();
-
-            if (! $topic) {
-                $topic = Topic::create([
-                    'id' => $id = Uuid::uuid4()->toString(),
-                    'name' => $incomingTopic['name'],
-                    'slug' => $incomingTopic['slug'],
-                    'user_id' => request()->user()->id,
-                ]);
-            }
-
-            return collect((string) $topic->id)->toArray();
-        } else {
+        if (collect($incomingTopic)->isEmpty()) {
             return [];
         }
+
+        $topic = Topic::forUser(request()->user())->where('slug', $incomingTopic['slug'])->first();
+
+        if (! $topic) {
+            $topic = Topic::create([
+                'id' => $id = Uuid::uuid4()->toString(),
+                'name' => $incomingTopic['name'],
+                'slug' => $incomingTopic['slug'],
+                'user_id' => request()->user()->id,
+            ]);
+        }
+
+        return collect((string) $topic->id)->toArray();
     }
 
     /**
@@ -173,25 +173,25 @@ class PostController extends Controller
      */
     private function syncTags($incomingTags): array
     {
-        if (collect($incomingTags)->isNotEmpty()) {
-            $tags = Tag::forUser(request()->user())->get(['id', 'name', 'slug']);
-
-            return collect($incomingTags)->map(function ($incomingTag) use ($tags) {
-                $tag = $tags->where('slug', $incomingTag['slug'])->first();
-
-                if (! $tag) {
-                    $tag = Tag::create([
-                        'id' => $id = Uuid::uuid4()->toString(),
-                        'name' => $incomingTag['name'],
-                        'slug' => $incomingTag['slug'],
-                        'user_id' => request()->user()->id,
-                    ]);
-                }
-
-                return (string) $tag->id;
-            })->toArray();
-        } else {
+        if (collect($incomingTags)->isEmpty()) {
             return [];
         }
+
+        $tags = Tag::forUser(request()->user())->get(['id', 'name', 'slug']);
+
+        return collect($incomingTags)->map(function ($incomingTag) use ($tags) {
+            $tag = $tags->where('slug', $incomingTag['slug'])->first();
+
+            if (! $tag) {
+                $tag = Tag::create([
+                    'id' => $id = Uuid::uuid4()->toString(),
+                    'name' => $incomingTag['name'],
+                    'slug' => $incomingTag['slug'],
+                    'user_id' => request()->user()->id,
+                ]);
+            }
+
+            return (string) $tag->id;
+        })->toArray();
     }
 }

@@ -101,6 +101,7 @@ export default {
         name() {
             return store.state.user.name;
         },
+
         email() {
             return store.state.user.email;
         },

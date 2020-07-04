@@ -59,7 +59,7 @@
                                         {{ i18n.total_views }}
                                     </p>
                                     <h3 class="mt-1">
-                                        {{ suffixedNumber(viewCountLifetime) }}
+                                        {{ suffixedNumber(totalViews) }}
                                     </h3>
                                 </div>
 
@@ -108,7 +108,7 @@
                                         </a>
                                     </p>
                                     <h3 class="mt-1 mb-2">
-                                        {{ suffixedNumber(viewCount) }}
+                                        {{ suffixedNumber(monthlyViews) }}
                                     </h3>
                                     <p class="small text-muted">
                                         <span v-if="viewsAreTrendingUp">
@@ -171,7 +171,7 @@
                                         </a>
                                     </p>
                                     <h3 class="mt-1 mb-2">
-                                        {{ suffixedNumber(visitCount) }}
+                                        {{ suffixedNumber(monthlyVisits) }}
                                     </h3>
                                     <p class="small text-muted">
                                         <span v-if="visitsAreTrendingUp">
@@ -211,7 +211,11 @@
                     </div>
                 </div>
 
-                <line-chart :views="JSON.parse(viewTrend)" :visits="JSON.parse(visitTrend)" class="mt-5 mb-3" />
+                <line-chart
+                    :views="JSON.parse(viewPlotPoints)"
+                    :visits="JSON.parse(visitPlotPoints)"
+                    class="mt-5 mb-3"
+                />
 
                 <div class="row justify-content-between">
                     <div class="col-md-6 mt-4">
@@ -219,8 +223,8 @@
                             {{ i18n.views_by_traffic_source }}
                         </h5>
 
-                        <div v-if="traffic">
-                            <div v-for="(views, host) in traffic" :key="`${host}-${views}`">
+                        <div v-if="topReferers">
+                            <div v-for="(views, host) in topReferers" :key="`${host}-${views}`">
                                 <div class="d-flex py-2 align-items-center">
                                     <div class="mr-auto">
                                         <div v-if="host === i18n.other">
@@ -228,7 +232,7 @@
                                                 <img
                                                     :src="`https://favicons.githubusercontent.com/${host}`"
                                                     :style="
-                                                        Canvas.darkMode === true
+                                                        user.darkMode === true
                                                             ? {
                                                                   filter: 'invert(100%)',
                                                               }
@@ -282,7 +286,9 @@
                                         </div>
                                     </div>
                                     <div class="ml-auto">
-                                        <span class="text-muted">{{ suffixedNumber(views) }} {{ i18n.views }}</span>
+                                        <span class="text-muted"
+                                            >{{ suffixedNumber(monthlyViews) }} {{ i18n.views }}</span
+                                        >
                                     </div>
                                 </div>
                             </div>
@@ -328,6 +334,7 @@ import LineChart from '../components/LineChart';
 import i18n from '../mixins/i18n';
 import strings from '../mixins/strings';
 import PageHeader from '../components/PageHeader';
+import store from '../store';
 
 export default {
     name: 'post-stats',
@@ -347,18 +354,18 @@ export default {
         return {
             id: this.$route.params.id,
             post: null,
-            viewCount: 0,
-            viewCountLifetime: 0,
-            viewTrend: {},
-            visitCount: 0,
-            visitTrend: {},
+            monthlyViews: 0,
+            monthlyVisits: 0,
+            totalViews: 0,
+            viewPlotPoints: {},
+            visitPlotPoints: {},
             readTime: null,
+            topReferers: null,
             popularReadingTimes: null,
             viewMonthOverMonthDirection: null,
             viewMonthOverMonthPercentage: null,
             visitMonthOverMonthDirection: null,
             visitMonthOverMonthPercentage: null,
-            traffic: null,
             isReady: false,
         };
     },
@@ -369,32 +376,37 @@ export default {
                 .get('/api/stats/' + vm.id)
                 .then((response) => {
                     vm.post = response.data.post;
-                    vm.viewCount = response.data.view_count;
-                    vm.viewCountLifetime = response.data.view_count_lifetime;
-                    vm.viewTrend = response.data.view_trend;
-                    vm.visitCount = response.data.visit_count;
-                    vm.visitTrend = response.data.visit_trend;
-                    vm.traffic = Array.isArray(response.data.traffic) ? null : response.data.traffic;
+                    vm.readTime = response.data.read_time;
                     vm.popularReadingTimes = Array.isArray(response.data.popular_reading_times)
                         ? null
                         : response.data.popular_reading_times;
-                    vm.readTime = response.data.read_time;
-                    vm.viewMonthOverMonthDirection = response.data.view_month_over_month.direction;
-                    vm.viewMonthOverMonthPercentage = response.data.view_month_over_month.percentage;
-                    vm.visitMonthOverMonthDirection = response.data.visit_month_over_month.direction;
-                    vm.visitMonthOverMonthPercentage = response.data.visit_month_over_month.percentage;
+                    vm.topReferers = Array.isArray(response.data.top_referers) ? null : response.data.top_referers;
+                    vm.monthlyViews = response.data.monthly_views;
+                    vm.monthlyVisits = response.data.monthly_visits;
+                    vm.totalViews = response.data.total_views;
+                    vm.viewPlotPoints = response.data.traffic.views;
+                    vm.visitPlotPoints = response.data.traffic.visits;
+                    vm.viewMonthOverMonthDirection = response.data.month_over_month_views.direction;
+                    vm.viewMonthOverMonthPercentage = response.data.month_over_month_views.percentage;
+                    vm.visitMonthOverMonthDirection = response.data.month_over_month_visits.direction;
+                    vm.visitMonthOverMonthPercentage = response.data.month_over_month_visits.percentage;
 
                     vm.isReady = true;
 
                     NProgress.done();
                 })
-                .catch(() => {
+                .catch((error) => {
+                    console.log(error);
                     vm.$router.push({ name: 'all-stats' });
                 });
         });
     },
 
     computed: {
+        user() {
+            return store.state.user;
+        },
+
         viewsAreTrendingUp() {
             return this.viewMonthOverMonthDirection === 'up';
         },
