@@ -13,6 +13,7 @@ const initialState = {
     username: window.Canvas.user.username,
     summary: window.Canvas.user.summary,
     digest: window.Canvas.user.digest,
+    admin: window.Canvas.user.admin,
     errors: [],
 };
 

@@ -33,12 +33,17 @@ class URL
      *
      * @param string $email
      * @param int $size
+     * @param string $default
+     * @param string $rating
      * @return string
      */
-    public static function gravatar(string $email, int $size = 500): string
+    public static function gravatar(string $email, int $size = 200, string $default = 'retro', string $rating = 'g'): string
     {
-        $hash = md5(trim(Str::lower($email)));
-
-        return "https://secure.gravatar.com/avatar/{$hash}?s={$size}";
+        return sprintf('https://secure.gravatar.com/avatar/%s?s=%s&d=%s&r=%s',
+            md5(trim(Str::lower($email))),
+            $size,
+            $default,
+            $rating
+        );
     }
 }

@@ -11,6 +11,7 @@ import TopicList from '../views/TopicList';
 import EditSettings from '../views/EditSettings';
 import EditUser from '../views/EditUser';
 import UserList from '../views/UserList';
+import store from '../store';
 
 Vue.use(Router);
 
@@ -48,31 +49,73 @@ export default [
         path: '/tags',
         name: 'tags',
         component: TagList,
+        beforeEnter: (to, from, next) => {
+            if (store.state.user.admin === 1) {
+                next();
+            } else {
+                next({ name: 'all-stats' });
+            }
+        },
     },
     {
         path: '/tags/create',
         name: 'create-tag',
         component: EditTag,
+        beforeEnter: (to, from, next) => {
+            if (store.state.user.admin === 1) {
+                next();
+            } else {
+                next({ name: 'all-stats' });
+            }
+        },
     },
     {
         path: '/tags/:id/edit',
         name: 'edit-tag',
         component: EditTag,
+        beforeEnter: (to, from, next) => {
+            if (store.state.user.admin === 1) {
+                next();
+            } else {
+                next({ name: 'all-stats' });
+            }
+        },
     },
     {
         path: '/topics',
         name: 'topics',
         component: TopicList,
+        beforeEnter: (to, from, next) => {
+            if (store.state.user.admin === 1) {
+                next();
+            } else {
+                next({ name: 'all-stats' });
+            }
+        },
     },
     {
         path: '/topics/create',
         name: 'create-topic',
         component: EditTopic,
+        beforeEnter: (to, from, next) => {
+            if (store.state.user.admin === 1) {
+                next();
+            } else {
+                next({ name: 'all-stats' });
+            }
+        },
     },
     {
         path: '/topics/:id/edit',
         name: 'edit-topic',
         component: EditTopic,
+        beforeEnter: (to, from, next) => {
+            if (store.state.user.admin === 1) {
+                next();
+            } else {
+                next({ name: 'all-stats' });
+            }
+        },
     },
     {
         path: '/settings',
@@ -83,11 +126,25 @@ export default [
         path: '/users',
         name: 'users',
         component: UserList,
+        beforeEnter: (to, from, next) => {
+            if (store.state.user.admin === 1) {
+                next();
+            } else {
+                next({ name: 'all-stats' });
+            }
+        },
     },
     {
         path: '/users/:id/edit',
         name: 'edit-user',
         component: EditUser,
+        beforeEnter: (to, from, next) => {
+            if (store.state.user.admin === 1 || store.state.user.id === to.params.id) {
+                next();
+            } else {
+                next({ name: 'all-stats' });
+            }
+        },
     },
     {
         path: '*',

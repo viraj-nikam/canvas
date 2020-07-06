@@ -25,7 +25,7 @@ class ViewController extends Controller
                 'timezone' => config('app.timezone'),
                 'translations' => $this->getAvailableTranslations(optional($meta)->locale),
                 'unsplash' => config('canvas.unsplash.access_key'),
-                'user' => $this->getUserData(request()->user, $meta),
+                'user' => $this->getUserData(request()->user(), $meta),
                 'version' => $this->getInstalledVersion(),
             ],
         ]);
@@ -72,7 +72,7 @@ class ViewController extends Controller
             'id' => $user->id,
             'name' => $user->name,
             'email' => $user->email,
-            'avatar' => optional($meta)->avatar ?? URL::gravatar($user->email),
+            'avatar' => empty(optional($meta)->avatar) ? URL::gravatar($user->email) : optional($meta)->avatar,
             'darkMode' => optional($meta)->dark_mode,
             'locale' => optional($meta)->locale ?? config('app.locale'),
             'username' => optional($meta)->username,

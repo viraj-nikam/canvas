@@ -29,31 +29,34 @@
                         aria-expanded="false"
                     >
                         <img
-                            :src="avatar"
-                            :alt="name"
+                            :src="user.avatar"
+                            :alt="user.name"
                             class="rounded-circle my-0 shadow-inset hover-light"
                             style="width: 33px;"
                         />
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                         <h6 class="dropdown-header">
-                            <strong>{{ name }}</strong>
+                            <strong>{{ user.name }}</strong>
                             <br />
-                            {{ email }}
+                            {{ user.email }}
                         </h6>
 
                         <div class="dropdown-divider"></div>
 
-                        <router-link :to="{ name: 'edit-profile' }" class="dropdown-item">
+                        <router-link :to="{ name: 'edit-user', params: { id: user.id } }" class="dropdown-item">
                             {{ i18n.your_profile }}
                         </router-link>
                         <router-link :to="{ name: 'posts' }" class="dropdown-item">
                             <span>{{ i18n.posts_simple }}</span>
                         </router-link>
-                        <router-link :to="{ name: 'tags' }" class="dropdown-item">
+                        <router-link v-if="user.admin" :to="{ name: 'users' }" class="dropdown-item">
+                            <span>Users</span>
+                        </router-link>
+                        <router-link v-if="user.admin" :to="{ name: 'tags' }" class="dropdown-item">
                             <span>{{ i18n.tags }}</span>
                         </router-link>
-                        <router-link :to="{ name: 'topics' }" class="dropdown-item">
+                        <router-link v-if="user.admin" :to="{ name: 'topics' }" class="dropdown-item">
                             <span>{{ i18n.topics }}</span>
                         </router-link>
                         <router-link :to="{ name: 'all-stats' }" class="dropdown-item">
@@ -94,16 +97,8 @@ export default {
     },
 
     computed: {
-        avatar() {
-            return store.state.user.avatar;
-        },
-
-        name() {
-            return store.state.user.name;
-        },
-
-        email() {
-            return store.state.user.email;
+        user() {
+            return store.state.user;
         },
     },
 
