@@ -42,8 +42,8 @@ class PostController extends Controller
      */
     public function show($id): JsonResponse
     {
-        $tags = Tag::forUser(request()->user())->get(['name', 'slug']);
-        $topics = Topic::forUser(request()->user())->get(['name', 'slug']);
+        $tags = Tag::get(['name', 'slug']);
+        $topics = Topic::get(['name', 'slug']);
 
         if (Post::forUser(request()->user())->pluck('id')->contains($id)) {
             return response()->json([
@@ -151,7 +151,7 @@ class PostController extends Controller
             return [];
         }
 
-        $topic = Topic::forUser(request()->user())->where('slug', $incomingTopic['slug'])->first();
+        $topic = Topic::where('slug', $incomingTopic['slug'])->first();
 
         if (! $topic) {
             $topic = Topic::create([
@@ -177,7 +177,7 @@ class PostController extends Controller
             return [];
         }
 
-        $tags = Tag::forUser(request()->user())->get(['id', 'name', 'slug']);
+        $tags = Tag::get(['id', 'name', 'slug']);
 
         return collect($incomingTags)->map(function ($incomingTag) use ($tags) {
             $tag = $tags->where('slug', $incomingTag['slug'])->first();

@@ -36,6 +36,12 @@ class TopicTest extends TestCase
         ];
 
         $topicOne = factory(Topic::class)->create();
+
+        factory(UserMeta::class)->create([
+            'user_id' => $topicOne->user->id,
+            'admin' => 1
+        ]);
+
         $response = $this->actingAs($topicOne->user)->postJson("/canvas/api/topics/{$topicOne->id}", $data);
 
         $this->assertDatabaseHas('canvas_topics', [
@@ -45,6 +51,12 @@ class TopicTest extends TestCase
         ]);
 
         $topicTwo = factory(Topic::class)->create();
+
+        factory(UserMeta::class)->create([
+            'user_id' => $topicTwo->user->id,
+            'admin' => 1
+        ]);
+
         $response = $this->actingAs($topicTwo->user)->postJson("/canvas/api/topics/{$topicTwo->id}", $data);
 
         $this->assertDatabaseHas('canvas_topics', [
@@ -84,17 +96,5 @@ class TopicTest extends TestCase
         ]);
 
         $this->assertInstanceOf(UserMeta::class, $topic->userMeta);
-    }
-
-    /** @test */
-    public function for_user_scope()
-    {
-        $user = factory(config('canvas.user'))->create();
-
-        $topic = factory(Topic::class)->create([
-            'user_id' => $user->id,
-        ]);
-
-        $this->assertEquals(1, $topic->forUser($user)->count());
     }
 }

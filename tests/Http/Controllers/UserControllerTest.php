@@ -43,13 +43,13 @@ class UserControllerTest extends TestCase
     /** @test */
     public function it_can_fetch_existing_user_meta_data()
     {
-        $userMeta = factory(UserMeta::class)->create([
+        $meta = factory(UserMeta::class)->create([
             'dark_mode' => 1,
             'digest' => 0,
             'locale' => 'en',
         ]);
 
-        $response = $this->actingAs($userMeta->user)->getJson("canvas/api/users/{$userMeta->user_id}")->assertSuccessful();
+        $response = $this->actingAs($meta->user)->getJson("canvas/api/users/{$meta->user_id}")->assertSuccessful();
 
         $this->assertArrayHasKey('avatar', $response->decodeResponseJson());
         $this->assertArrayHasKey('darkMode', $response->decodeResponseJson());
@@ -58,9 +58,9 @@ class UserControllerTest extends TestCase
         $this->assertArrayHasKey('locale', $response->decodeResponseJson());
         $this->assertArrayHasKey('username', $response->decodeResponseJson());
 
-        $this->assertEquals($userMeta->dark_mode, $response->decodeResponseJson('darkMode'));
-        $this->assertEquals($userMeta->digest, $response->decodeResponseJson('digest'));
-        $this->assertEquals($userMeta->locale, $response->decodeResponseJson('locale'));
+        $this->assertEquals($meta->dark_mode, $response->decodeResponseJson('darkMode'));
+        $this->assertEquals($meta->digest, $response->decodeResponseJson('digest'));
+        $this->assertEquals($meta->locale, $response->decodeResponseJson('locale'));
     }
 
     /** @test */
@@ -104,27 +104,17 @@ class UserControllerTest extends TestCase
     /** @test */
     public function it_verifies_usernames_are_unique_to_a_user()
     {
-        $userMeta = factory(UserMeta::class)->create();
+        $meta = factory(UserMeta::class)->create();
 
         factory(UserMeta::class)->create([
             'username' => 'an-existing-username',
         ]);
 
-        $response = $this->actingAs($userMeta->user)->postJson("canvas/api/users/{$userMeta->user_id}", [
-            'user_id' => $userMeta->user->id,
+        $response = $this->actingAs($meta->user)->postJson("canvas/api/users/{$meta->user_id}", [
+            'user_id' => $meta->user->id,
             'username' => 'an-existing-username',
         ])->assertStatus(422);
 
         $this->assertArrayHasKey('username', $response->decodeResponseJson('errors'));
-    }
-
-    /** @test */
-    public function it_returns_404_if_users_access_another_user_account()
-    {
-        $userOne = factory(config('canvas.user'))->create();
-        $userTwo = factory(config('canvas.user'))->create();
-
-        $this->actingAs($userTwo)->getJson("canvas/api/users/{$userOne->id}")->assertNotFound();
-        $this->actingAs($userOne)->postJson("canvas/api/users/{$userTwo->id}")->assertNotFound();
     }
 }

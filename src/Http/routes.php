@@ -1,5 +1,6 @@
 <?php
 
+use Canvas\Http\Middleware\Admin;
 use Illuminate\Support\Facades\Route;
 
 Route::namespace('Canvas\Http\Controllers')->group(function () {
@@ -26,14 +27,14 @@ Route::namespace('Canvas\Http\Controllers')->group(function () {
                 Route::get('{id}', 'StatsController@show');
             });
 
-            Route::prefix('tags')->group(function () {
+            Route::prefix('tags')->middleware([Admin::class])->group(function () {
                 Route::get('/', 'TagController@index');
                 Route::get('{id?}', 'TagController@show');
                 Route::post('{id}', 'TagController@store');
                 Route::delete('{id}', 'TagController@destroy');
             });
 
-            Route::prefix('topics')->group(function () {
+            Route::prefix('topics')->middleware([Admin::class])->group(function () {
                 Route::get('/', 'TopicController@index');
                 Route::get('{id?}', 'TopicController@show');
                 Route::post('{id}', 'TopicController@store');
@@ -41,6 +42,7 @@ Route::namespace('Canvas\Http\Controllers')->group(function () {
             });
 
             Route::prefix('users')->group(function () {
+                Route::get('/', 'UserController@index')->middleware([Admin::class]);
                 Route::get('{id}', 'UserController@show');
                 Route::post('{id}', 'UserController@update');
             });

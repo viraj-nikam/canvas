@@ -91,6 +91,7 @@ class CreateCanvasTables extends Migration
             $table->tinyInteger('dark_mode')->nullable();
             $table->tinyInteger('digest')->nullable();
             $table->string('locale')->nullable();
+            $table->tinyInteger('admin')->default(0);
             $table->timestamps();
         });
     }

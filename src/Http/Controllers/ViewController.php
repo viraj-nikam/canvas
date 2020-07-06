@@ -15,7 +15,7 @@ class ViewController extends Controller
      */
     public function __invoke()
     {
-        $metaData = UserMeta::forUser(request()->user())->first();
+        $meta = UserMeta::forUser(request()->user())->first();
 
         return view('canvas::layout')->with([
             'config' => [
@@ -23,9 +23,9 @@ class ViewController extends Controller
                 'maxUpload' => config('canvas.upload_filesize'),
                 'path' => config('canvas.path'),
                 'timezone' => config('app.timezone'),
-                'translations' => $this->getAvailableTranslations(optional($metaData)->locale),
+                'translations' => $this->getAvailableTranslations(optional($meta)->locale),
                 'unsplash' => config('canvas.unsplash.access_key'),
-                'user' => $this->getUserData(),
+                'user' => $this->getUserData(request()->user, $meta),
                 'version' => $this->getInstalledVersion(),
             ],
         ]);
@@ -38,7 +38,7 @@ class ViewController extends Controller
      */
     private function getAvailableLanguageCodes(): array
     {
-        $locales = preg_grep('/^([^.])/', scandir(dirname(__DIR__, 3).'/resources/lang'));
+        $locales = preg_grep('/^([^.])/', scandir(dirname(__DIR__, 3) . '/resources/lang'));
         $translations = collect();
 
         foreach ($locales as $locale) {
@@ -60,24 +60,25 @@ class ViewController extends Controller
     }
 
     /**
-     * Return an array of user data.
+     * Return an array of user metadata.
      *
+     * @param $user
+     * @param $meta
      * @return array
      */
-    private function getUserData(): array
+    private function getUserData($user, $meta): array
     {
-        $metaData = UserMeta::forUser(request()->user())->first();
-
         return [
-            'id' => request()->user()->id,
-            'name' => request()->user()->name,
-            'email' => request()->user()->email,
-            'avatar' => optional($metaData)->avatar ?? URL::gravatar(request()->user()->email),
-            'darkMode' => optional($metaData)->dark_mode,
-            'locale' => optional($metaData)->locale ?? config('app.locale'),
-            'username' => optional($metaData)->username,
-            'summary' => optional($metaData)->summary,
-            'digest' => optional($metaData)->digest,
+            'id' => $user->id,
+            'name' => $user->name,
+            'email' => $user->email,
+            'avatar' => optional($meta)->avatar ?? URL::gravatar($user->email),
+            'darkMode' => optional($meta)->dark_mode,
+            'locale' => optional($meta)->locale ?? config('app.locale'),
+            'username' => optional($meta)->username,
+            'summary' => optional($meta)->summary,
+            'digest' => optional($meta)->digest,
+            'admin' => optional($meta)->admin,
         ];
     }
 

@@ -2,7 +2,6 @@
 
 namespace Canvas\Models;
 
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -91,18 +90,6 @@ class Topic extends Model
             'user_id',  // Local key on canvas_topics table...
             'id'        // Local key on users table...
         );
-    }
-
-    /**
-     * Scope a query to only include topics for a given user.
-     *
-     * @param $query
-     * @param $user
-     * @return Builder
-     */
-    public function scopeForUser($query, $user): Builder
-    {
-        return $query->where('user_id', $user->id);
     }
 
     /**

@@ -5,6 +5,7 @@ namespace Canvas\Tests\Http\Controllers;
 use Canvas\Http\Middleware\Session;
 use Canvas\Models\Post;
 use Canvas\Models\Topic;
+use Canvas\Models\UserMeta;
 use Canvas\Tests\TestCase;
 use Illuminate\Auth\Middleware\Authorize;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
@@ -32,6 +33,11 @@ class TopicControllerTest extends TestCase
     {
         $topic = factory(Topic::class)->create();
 
+        factory(UserMeta::class)->create([
+            'user_id' => $topic->user->id,
+            'admin' => 1,
+        ]);
+
         $this->actingAs($topic->user)
              ->getJson('canvas/api/topics')
              ->assertSuccessful()
@@ -48,6 +54,11 @@ class TopicControllerTest extends TestCase
     {
         $user = factory(config('canvas.user'))->create();
 
+        factory(UserMeta::class)->create([
+            'user_id' => $user->id,
+            'admin' => 1,
+        ]);
+
         $response = $this->actingAs($user)->getJson('canvas/api/topics/create')->assertSuccessful();
 
         $this->assertArrayHasKey('id', $response->decodeResponseJson());
@@ -57,6 +68,11 @@ class TopicControllerTest extends TestCase
     public function it_can_fetch_an_existing_topic()
     {
         $topic = factory(Topic::class)->create();
+
+        factory(UserMeta::class)->create([
+            'user_id' => $topic->user->id,
+            'admin' => 1,
+        ]);
 
         $this->actingAs($topic->user)
              ->getJson("canvas/api/topics/{$topic->id}")
@@ -72,32 +88,23 @@ class TopicControllerTest extends TestCase
     {
         $user = factory(config('canvas.user'))->create();
 
-        $this->actingAs($user)->getJson('canvas/api/topics/not-a-post')->assertNotFound();
-    }
-
-    /** @test */
-    public function it_returns_404_if_post_belongs_to_another_user()
-    {
-        $userOne = factory(config('canvas.user'))->create();
-        $userTwo = factory(config('canvas.user'))->create();
-
-        $topic = factory(Topic::class)->create([
-            'user_id' => $userOne->id,
-            'name' => 'A topic for user 1',
-            'slug' => 'a-topic-for-user-1',
+        factory(UserMeta::class)->create([
+            'user_id' => $user->id,
+            'admin' => 1,
         ]);
 
-        $this->actingAs($userOne)
-             ->getJson("canvas/api/topics/{$topic->id}")
-             ->assertSuccessful();
-
-        $this->actingAs($userTwo)->getJson("canvas/api/topics/{$topic->id}")->assertNotFound();
+        $this->actingAs($user)->getJson('canvas/api/topics/not-a-topic')->assertNotFound();
     }
 
     /** @test */
     public function it_can_create_a_new_topic()
     {
         $user = factory(config('canvas.user'))->create();
+
+        factory(UserMeta::class)->create([
+            'user_id' => $user->id,
+            'admin' => 1,
+        ]);
 
         $data = [
             'id' => Uuid::uuid4()->toString(),
@@ -118,6 +125,11 @@ class TopicControllerTest extends TestCase
     {
         $topic = factory(Topic::class)->create();
 
+        factory(UserMeta::class)->create([
+            'user_id' => $topic->user->id,
+            'admin' => 1,
+        ]);
+
         $data = [
             'name' => 'An updated topic',
             'slug' => 'an-updated-topic',
@@ -136,6 +148,11 @@ class TopicControllerTest extends TestCase
     {
         $topic = factory(Topic::class)->create();
 
+        factory(UserMeta::class)->create([
+            'user_id' => $topic->user->id,
+            'admin' => 1,
+        ]);
+
         $response = $this->actingAs($topic->user)
                          ->postJson("canvas/api/topics/{$topic->id}", [
                              'name' => 'A new topic',
@@ -149,20 +166,21 @@ class TopicControllerTest extends TestCase
     /** @test */
     public function it_can_delete_a_topic()
     {
-        $userOne = factory(config('canvas.user'))->create();
-        $userTwo = factory(config('canvas.user'))->create();
-
         $topic = factory(Topic::class)->create([
-            'user_id' => $userOne->id,
             'name' => 'A new topic',
             'slug' => 'a-new-topic',
         ]);
 
-        $this->actingAs($userTwo)->deleteJson("canvas/api/topics/{$topic->id}")->assertNotFound();
+        factory(UserMeta::class)->create([
+            'user_id' => $topic->user->id,
+            'admin' => 1,
+        ]);
 
-        $this->actingAs($userOne)->deleteJson('canvas/api/topics/not-a-topic')->assertNotFound();
+        $this->actingAs($topic->user)
+             ->deleteJson('canvas/api/topics/asdfasdfasdf')
+             ->assertNotFound();
 
-        $this->actingAs($userOne)
+        $this->actingAs($topic->user)
              ->deleteJson("canvas/api/topics/{$topic->id}")
              ->assertSuccessful()
              ->assertNoContent();
@@ -176,10 +194,15 @@ class TopicControllerTest extends TestCase
     /** @test */
     public function it_can_de_sync_the_post_relationship()
     {
-        $user = factory(config('canvas.user'))->create();
         $topic = factory(Topic::class)->create();
+
+        factory(UserMeta::class)->create([
+            'user_id' => $topic->user->id,
+            'admin' => 1,
+        ]);
+
         $post = factory(Post::class)->create([
-            'user_id' => $user->id,
+            'user_id' => $topic->user->id,
             'slug' => 'a-new-post',
         ]);
 
@@ -192,7 +215,7 @@ class TopicControllerTest extends TestCase
 
         $this->assertCount(1, $topic->posts);
 
-        $this->actingAs($user)->deleteJson("canvas/api/posts/{$post->id}")->assertSuccessful()->assertNoContent();
+        $this->actingAs($topic->user)->deleteJson("canvas/api/posts/{$post->id}")->assertSuccessful()->assertNoContent();
 
         $this->assertSoftDeleted('canvas_posts', [
             'id' => $post->id,

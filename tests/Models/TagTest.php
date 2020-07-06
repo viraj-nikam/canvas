@@ -36,6 +36,12 @@ class TagTest extends TestCase
         ];
 
         $tagOne = factory(Tag::class)->create();
+
+        factory(UserMeta::class)->create([
+            'user_id' => $tagOne->user->id,
+            'admin' => 1
+        ]);
+
         $response = $this->actingAs($tagOne->user)->postJson("/canvas/api/tags/{$tagOne->id}", $data);
 
         $this->assertDatabaseHas('canvas_tags', [
@@ -45,6 +51,12 @@ class TagTest extends TestCase
         ]);
 
         $tagTwo = factory(Tag::class)->create();
+
+        factory(UserMeta::class)->create([
+            'user_id' => $tagTwo->user->id,
+            'admin' => 1
+        ]);
+
         $response = $this->actingAs($tagTwo->user)->postJson("/canvas/api/tags/{$tagTwo->id}", $data);
 
         $this->assertDatabaseHas('canvas_tags', [
@@ -84,17 +96,5 @@ class TagTest extends TestCase
         ]);
 
         $this->assertInstanceOf(UserMeta::class, $tag->userMeta);
-    }
-
-    /** @test */
-    public function for_user_scope()
-    {
-        $user = factory(config('canvas.user'))->create();
-
-        $tag = factory(Tag::class)->create([
-            'user_id' => $user->id,
-        ]);
-
-        $this->assertEquals(1, $tag->forUser($user)->count());
     }
 }

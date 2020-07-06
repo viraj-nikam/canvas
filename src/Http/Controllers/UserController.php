@@ -2,14 +2,25 @@
 
 namespace Canvas\Http\Controllers;
 
+use Canvas\Helpers\URL;
 use Canvas\Models\UserMeta;
+use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     *
+     * @return JsonResponse
+     */
+    public function index(): JsonResponse
+    {
+        return response()->json(resolve(config('canvas.user', User::class))::latest()->paginate(), 200);
+    }
+
     /**
      * Display the specified resource.
      *
@@ -18,20 +29,15 @@ class UserController extends Controller
      */
     public function show($id): JsonResponse
     {
-        if (request()->user()->id != $id) {
-            return response()->json(null, 404);
-        }
-
-        $metaData = UserMeta::where('user_id', $id)->first();
-        $emailHash = md5(trim(Str::lower(request()->user()->email)));
+        $meta = UserMeta::where('user_id', $id)->first();
 
         return response()->json([
-            'avatar' => optional($metaData)->avatar ?? "https://secure.gravatar.com/avatar/{$emailHash}?s=500",
-            'darkMode' => optional($metaData)->dark_mode ?? false,
-            'digest' => optional($metaData)->digest ?? false,
-            'summary' => optional($metaData)->summary ?? null,
-            'locale' => optional($metaData)->locale ?? null,
-            'username' => optional($metaData)->username ?? null,
+            'avatar' => optional($meta)->avatar ?? URL::gravatar(request()->user()->email),
+            'darkMode' => optional($meta)->dark_mode ?? false,
+            'digest' => optional($meta)->digest ?? false,
+            'summary' => optional($meta)->summary ?? null,
+            'locale' => optional($meta)->locale ?? null,
+            'username' => optional($meta)->username ?? null,
         ]);
     }
 
@@ -43,20 +49,16 @@ class UserController extends Controller
      */
     public function update($id): JsonResponse
     {
-        if (request()->user()->id != $id) {
-            return response()->json(null, 404);
-        }
-
-        $metaData = UserMeta::where('user_id', $id)->first() ?? new UserMeta();
+        $meta = UserMeta::where('user_id', $id)->first() ?? new UserMeta();
 
         $data = [
-            'avatar' => request('avatar', $metaData->avatar),
-            'dark_mode' => request('darkMode', $metaData->dark_mode),
-            'digest' => request('digest', $metaData->digest),
-            'locale' => request('locale', $metaData->locale),
+            'avatar' => request('avatar', $meta->avatar),
+            'dark_mode' => request('darkMode', $meta->dark_mode),
+            'digest' => request('digest', $meta->digest),
+            'locale' => request('locale', $meta->locale),
             'user_id' => request()->user()->id,
-            'username' => request('username', $metaData->username),
-            'summary' => request('summary', $metaData->summary),
+            'username' => request('username', $meta->username),
+            'summary' => request('summary', $meta->summary),
         ];
 
         $rules = [
@@ -69,16 +71,16 @@ class UserController extends Controller
         ];
 
         $messages = [
-            'required' => __('canvas::app.validation_required', [], $metaData->locale),
-            'unique' => __('canvas::app.validation_unique', [], $metaData->locale),
+            'required' => __('canvas::app.validation_required', [], $meta->locale),
+            'unique' => __('canvas::app.validation_unique', [], $meta->locale),
         ];
 
         validator($data, $rules, $messages)->validate();
 
-        $metaData->fill($data);
+        $meta->fill($data);
 
-        $metaData->save();
+        $meta->save();
 
-        return response()->json($metaData->refresh(), 201);
+        return response()->json($meta->refresh(), 201);
     }
 }

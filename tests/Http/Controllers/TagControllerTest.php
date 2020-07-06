@@ -5,6 +5,7 @@ namespace Canvas\Tests\Http\Controllers;
 use Canvas\Http\Middleware\Session;
 use Canvas\Models\Post;
 use Canvas\Models\Tag;
+use Canvas\Models\UserMeta;
 use Canvas\Tests\TestCase;
 use Illuminate\Auth\Middleware\Authorize;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
@@ -32,6 +33,11 @@ class TagControllerTest extends TestCase
     {
         $tag = factory(Tag::class)->create();
 
+        factory(UserMeta::class)->create([
+            'user_id' => $tag->user->id,
+            'admin' => 1,
+        ]);
+
         $this->actingAs($tag->user)
              ->getJson('canvas/api/tags')
              ->assertSuccessful()
@@ -48,6 +54,11 @@ class TagControllerTest extends TestCase
     {
         $user = factory(config('canvas.user'))->create();
 
+        factory(UserMeta::class)->create([
+            'user_id' => $user->id,
+            'admin' => 1,
+        ]);
+
         $response = $this->actingAs($user)->getJson('canvas/api/tags/create')->assertSuccessful();
 
         $this->assertArrayHasKey('id', $response->decodeResponseJson());
@@ -57,6 +68,11 @@ class TagControllerTest extends TestCase
     public function it_can_fetch_an_existing_tag()
     {
         $tag = factory(Tag::class)->create();
+
+        factory(UserMeta::class)->create([
+            'user_id' => $tag->user->id,
+            'admin' => 1,
+        ]);
 
         $this->actingAs($tag->user)
              ->getJson("canvas/api/tags/{$tag->id}")
@@ -72,32 +88,23 @@ class TagControllerTest extends TestCase
     {
         $user = factory(config('canvas.user'))->create();
 
-        $this->actingAs($user)->getJson('canvas/api/tags/not-a-post')->assertNotFound();
-    }
-
-    /** @test */
-    public function it_returns_404_if_post_belongs_to_another_user()
-    {
-        $userOne = factory(config('canvas.user'))->create();
-        $userTwo = factory(config('canvas.user'))->create();
-
-        $tag = factory(Tag::class)->create([
-            'user_id' => $userOne->id,
-            'name' => 'A tag for user 1',
-            'slug' => 'a-tag-for-user-1',
+        factory(UserMeta::class)->create([
+            'user_id' => $user->id,
+            'admin' => 1,
         ]);
 
-        $this->actingAs($userOne)
-             ->getJson("canvas/api/tags/{$tag->id}")
-             ->assertSuccessful();
-
-        $this->actingAs($userTwo)->getJson("canvas/api/tags/{$tag->id}")->assertNotFound();
+        $this->actingAs($user)->getJson('canvas/api/tags/not-a-tag')->assertNotFound();
     }
 
     /** @test */
     public function it_can_create_a_new_tag()
     {
         $user = factory(config('canvas.user'))->create();
+
+        factory(UserMeta::class)->create([
+            'user_id' => $user->id,
+            'admin' => 1,
+        ]);
 
         $data = [
             'id' => Uuid::uuid4()->toString(),
@@ -118,6 +125,11 @@ class TagControllerTest extends TestCase
     {
         $tag = factory(Tag::class)->create();
 
+        factory(UserMeta::class)->create([
+            'user_id' => $tag->user->id,
+            'admin' => 1,
+        ]);
+
         $data = [
             'name' => 'An updated tag',
             'slug' => 'an-updated-tag',
@@ -136,6 +148,11 @@ class TagControllerTest extends TestCase
     {
         $tag = factory(Tag::class)->create();
 
+        factory(UserMeta::class)->create([
+            'user_id' => $tag->user->id,
+            'admin' => 1,
+        ]);
+
         $response = $this->actingAs($tag->user)
                          ->postJson("canvas/api/tags/{$tag->id}", [
                              'name' => 'A new tag',
@@ -149,20 +166,21 @@ class TagControllerTest extends TestCase
     /** @test */
     public function it_can_delete_a_tag()
     {
-        $userOne = factory(config('canvas.user'))->create();
-        $userTwo = factory(config('canvas.user'))->create();
-
         $tag = factory(Tag::class)->create([
-            'user_id' => $userOne->id,
             'name' => 'A new tag',
             'slug' => 'a-new-tag',
         ]);
 
-        $this->actingAs($userTwo)->deleteJson("canvas/api/tags/{$tag->id}")->assertNotFound();
+        factory(UserMeta::class)->create([
+            'user_id' => $tag->user->id,
+            'admin' => 1,
+        ]);
 
-        $this->actingAs($userOne)->deleteJson('canvas/api/tags/not-a-tag')->assertNotFound();
+        $this->actingAs($tag->user)
+             ->deleteJson('canvas/api/tags/asdfasdfasdf')
+             ->assertNotFound();
 
-        $this->actingAs($userOne)
+        $this->actingAs($tag->user)
              ->deleteJson("canvas/api/tags/{$tag->id}")
              ->assertSuccessful()
              ->assertNoContent();
@@ -176,10 +194,15 @@ class TagControllerTest extends TestCase
     /** @test */
     public function it_can_de_sync_the_post_relationship()
     {
-        $user = factory(config('canvas.user'))->create();
         $tag = factory(Tag::class)->create();
+
+        factory(UserMeta::class)->create([
+            'user_id' => $tag->user->id,
+            'admin' => 1,
+        ]);
+
         $post = factory(Post::class)->create([
-            'user_id' => $user->id,
+            'user_id' => $tag->user->id,
             'slug' => 'a-new-post',
         ]);
 
@@ -192,7 +215,7 @@ class TagControllerTest extends TestCase
 
         $this->assertCount(1, $tag->posts);
 
-        $this->actingAs($user)->deleteJson("canvas/api/posts/{$post->id}")->assertSuccessful()->assertNoContent();
+        $this->actingAs($tag->user)->deleteJson("canvas/api/posts/{$post->id}")->assertSuccessful()->assertNoContent();
 
         $this->assertSoftDeleted('canvas_posts', [
             'id' => $post->id,

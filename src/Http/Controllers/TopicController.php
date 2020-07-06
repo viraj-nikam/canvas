@@ -19,10 +19,9 @@ class TopicController extends Controller
     public function index(): JsonResponse
     {
         return response()->json(
-            Topic::forUser(request()->user())
-               ->latest()
-               ->withCount('posts')
-               ->paginate(), 200
+            Topic::latest()
+                 ->withCount('posts')
+                 ->paginate(), 200
         );
     }
 
@@ -40,7 +39,7 @@ class TopicController extends Controller
                 'id' => Uuid::uuid4()->toString(),
             ]), 200);
         } else {
-            $topic = Topic::forUser(request()->user())->find($id);
+            $topic = Topic::find($id);
 
             return $topic ? response()->json($topic, 200) : response()->json(null, 404);
         }
@@ -54,10 +53,10 @@ class TopicController extends Controller
      */
     public function store($id): JsonResponse
     {
-        $topic = Topic::forUser(request()->user())->find($id);
+        $topic = Topic::find($id);
 
-        if (! $topic) {
-            if ($topic = Topic::forUser(request()->user())->onlyTrashed()->where('slug', request('slug'))->first()) {
+        if (!$topic) {
+            if ($topic = Topic::onlyTrashed()->where('slug', request('slug'))->first()) {
                 $topic->restore();
             } else {
                 $topic = new Topic(['id' => $id]);
@@ -104,7 +103,7 @@ class TopicController extends Controller
      */
     public function destroy($id)
     {
-        $topic = Topic::forUser(request()->user())->findOrFail($id);
+        $topic = Topic::findOrFail($id);
 
         $topic->delete();
 
