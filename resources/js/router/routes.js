@@ -9,7 +9,8 @@ import TagList from '../views/TagList';
 import EditTopic from '../views/EditTopic';
 import TopicList from '../views/TopicList';
 import EditSettings from '../views/EditSettings';
-import EditProfile from '../views/EditProfile';
+import EditUser from '../views/EditUser';
+import UserList from '../views/UserList';
 
 Vue.use(Router);
 
@@ -79,9 +80,14 @@ export default [
         component: EditSettings,
     },
     {
-        path: '/profile',
-        name: 'edit-profile',
-        component: EditProfile,
+        path: '/users',
+        name: 'users',
+        component: UserList,
+    },
+    {
+        path: '/users/:id/edit',
+        name: 'edit-user',
+        component: EditUser,
     },
     {
         path: '*',
