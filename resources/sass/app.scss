@@ -60,16 +60,6 @@ input::-webkit-search-cancel-button {
     fill: $gray-700;
 }
 
-.badge-success {
-    background-color: $green-500;
-    color: darken($green, 20%);
-}
-
-.badge-primary {
-    background-color: $blue-500;
-    color: darken($blue, 35%);
-}
-
 @import 'utilities/vue';
 @import 'utilities/nprogress';
 @import 'utilities/multiselect';

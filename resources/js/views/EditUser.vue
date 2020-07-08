@@ -135,7 +135,7 @@ import FilePondPluginFileValidateSize from 'filepond-plugin-file-validate-size';
 import i18n from '../mixins/i18n';
 import store from '../store';
 import get from 'lodash/get';
-import request from "../mixins/request";
+import request from '../mixins/request';
 
 const FilePond = vueFilePond(
     FilePondPluginFileValidateType,
@@ -166,20 +166,18 @@ export default {
     },
 
     watch: {
-        // '$route' (to) {
-        //     this.isReady = false;
-        //     store.dispatch('user/fetchUser', to.params.id);
-        //     NProgress.done();
-        //     this.isReady = true;
-        // }
+        $route(to) {
+            this.isReady = false;
+            this.fetchUser(to.params.id);
+            NProgress.done();
+            this.isReady = true;
+        },
     },
 
-    created() {
-        this.fetchUser(this.$route.params.id)
-
-        NProgress.done();
-
+    async created() {
+        await this.fetchUser(this.$route.params.id);
         this.isReady = true;
+        NProgress.done();
     },
 
     computed: {
@@ -197,9 +195,10 @@ export default {
         },
 
         usernameValidationError() {
-            let errors = Object.values(this.user.errors);
-
-            return get(errors.flat(1), '[0].username', null);
+            return [];
+            // let errors = Object.values(this.user.errors);
+            //
+            // return get(errors.flat(1), '[0].username', null);
         },
 
         getRetryIcon() {
@@ -217,7 +216,7 @@ export default {
 
     methods: {
         fetchUser(id) {
-                this.request()
+            return this.request()
                 .get('/api/users/' + id)
                 .then(({ data }) => {
                     this.user = data.user;
@@ -244,7 +243,7 @@ export default {
             store.dispatch('user/resetAvatar');
             this.isReadyToAcceptUploads = true;
         },
-    }
+    },
 };
 </script>
 

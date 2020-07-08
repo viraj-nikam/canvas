@@ -12,7 +12,7 @@
                     </p>
                 </div>
 
-                <div class="mt-5 card shadow-lg">
+                <div class="mt-5 card shadow-lg" v-if="isReady">
                     <div class="card-body p-0">
                         <div v-for="(user, index) in users" :key="`${index}-${user.id}`">
                             <router-link
@@ -42,7 +42,12 @@
                                         </p>
                                     </div>
                                     <div class="ml-auto d-none d-lg-inline pl-3">
-                                        <img :src="gravatar(user.email)" style="width: 57px; height: 57px;" class="mr-2 ml-3 shadow-inset rounded-circle" :alt="user.name">
+                                        <img
+                                            :src="gravatar(user.email)"
+                                            style="width: 57px; height: 57px;"
+                                            class="mr-2 ml-3 shadow-inset rounded-circle"
+                                            :alt="user.name"
+                                        />
                                     </div>
 
                                     <div class="d-inline d-lg-none pl-3 ml-auto">
@@ -52,7 +57,7 @@
                                             viewBox="0 0 24 24"
                                             class="icon-cheveron-right-circle"
                                         >
-                                            <circle cx="12" cy="12" r="10" style="fill: none;"/>
+                                            <circle cx="12" cy="12" r="10" style="fill: none;" />
                                             <path
                                                 class="fill-light-gray"
                                                 d="M10.3 8.7a1 1 0 0 1 1.4-1.4l4 4a1 1 0 0 1 0 1.4l-4 4a1 1 0 0 1-1.4-1.4l3.29-3.3-3.3-3.3z"
@@ -65,6 +70,7 @@
 
                         <infinite-loading @infinite="fetchData" spinner="spiral">
                             <span slot="no-more"></span>
+                            <div slot="no-results"></div>
                         </infinite-loading>
                     </div>
                 </div>
@@ -74,68 +80,68 @@
 </template>
 
 <script>
-    import PageHeader from '../components/PageHeader';
-    import InfiniteLoading from "vue-infinite-loading";
-    import i18n from "../mixins/i18n";
-    import Hover from "../directives/Hover";
-    import NProgress from "nprogress";
-    import isEmpty from "lodash/isEmpty";
-    import url from "../mixins/url";
+import PageHeader from '../components/PageHeader';
+import InfiniteLoading from 'vue-infinite-loading';
+import i18n from '../mixins/i18n';
+import Hover from '../directives/Hover';
+import NProgress from 'nprogress';
+import isEmpty from 'lodash/isEmpty';
+import url from '../mixins/url';
 
-    export default {
-        name: 'user-list',
+export default {
+    name: 'user-list',
 
-        components: {
-            InfiniteLoading,
-            PageHeader,
+    components: {
+        InfiniteLoading,
+        PageHeader,
+    },
+
+    mixins: [i18n, url],
+
+    directives: {
+        Hover,
+    },
+
+    data() {
+        return {
+            page: 1,
+            users: [],
+            isReady: false,
+        };
+    },
+
+    async created() {
+        await this.fetchData();
+        this.isReady = true;
+        NProgress.done();
+    },
+
+    methods: {
+        fetchData($state) {
+            return this.request()
+                .get('/api/users', {
+                    params: {
+                        page: this.page,
+                    },
+                })
+                .then(({ data }) => {
+                    if (!isEmpty(data) && !isEmpty(data.data)) {
+                        this.page += 1;
+                        this.users.push(...data.data);
+
+                        $state.loaded();
+                    } else {
+                        $state.complete();
+                    }
+
+                    if (isEmpty($state)) {
+                        NProgress.inc();
+                    }
+                })
+                .catch(() => {
+                    NProgress.done();
+                });
         },
-
-        mixins: [ i18n, url ],
-
-        directives: {
-            Hover,
-        },
-
-        data() {
-            return {
-                page: 1,
-                users: [],
-            };
-        },
-
-        created() {
-            this.fetchData();
-
-            NProgress.done();
-            this.isReady = true;
-        },
-
-        methods: {
-            fetchData($state) {
-                this.request()
-                    .get('/api/users', {
-                        params: {
-                            page: this.page,
-                        },
-                    })
-                    .then(({ data }) => {
-                        if (!isEmpty(data) && !isEmpty(data.data)) {
-                            this.page += 1;
-                            this.users.push(...data.data);
-
-                            $state.loaded();
-                        } else {
-                            $state.complete();
-                        }
-
-                        if (isEmpty($state)) {
-                            NProgress.inc();
-                        }
-                    })
-                    .catch(() => {
-                        NProgress.done();
-                    });
-            },
-        },
-    };
+    },
+};
 </script>

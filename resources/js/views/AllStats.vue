@@ -169,8 +169,8 @@ export default {
     async created() {
         await this.fetchStats();
         await this.fetchPosts();
-        NProgress.done();
         this.isReady = true;
+        NProgress.done();
     },
 
     methods: {
@@ -218,3 +218,17 @@ export default {
     },
 };
 </script>
+
+<style scoped lang="scss">
+    @import "../../sass/utilities/variables";
+
+    .badge-success {
+        background-color: $green-500;
+        color: darken($green, 20%);
+    }
+
+    .badge-primary {
+        background-color: $blue-500;
+        color: darken($blue, 35%);
+    }
+</style>

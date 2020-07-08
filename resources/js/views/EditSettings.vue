@@ -8,7 +8,7 @@
                     <h1>{{ i18n.settings }}</h1>
                 </div>
 
-                <div class="mt-2 card shadow-lg">
+                <div class="mt-2 card shadow-lg" v-if="isReady">
                     <div class="card-body p-0">
                         <div class="d-flex rounded-top p-3 align-items-center">
                             <div class="mr-auto py-1">
@@ -138,11 +138,12 @@ export default {
 
     data() {
         return {
-            //
+            isReady: false,
         };
     },
 
     created() {
+        this.isReady = true;
         NProgress.done();
     },
 

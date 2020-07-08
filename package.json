@@ -1,16 +1,13 @@
 {
     "private": true,
     "scripts": {
-        "dev": "yarn lint-fix && yarn format && yarn development",
-        "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+        "build": "yarn lint && yarn format && cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+        "dev": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
         "format": "prettier --write \"**/*.{css,js,vue}\"",
-        "lint": "eslint --ext .js,.vue resources/js/",
-        "lint-fix": "eslint --ext .js,.vue resources/js/ --fix",
-        "prod": "yarn lint-fix && yarn format && yarn production",
-        "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "watch": "yarn development --watch"
+        "lint": "eslint --ext .js,.vue resources/js/ --fix",
+        "watch": "yarn dev --watch"
     },
-    "devDependencies": {
+    "dependencies": {
         "axios": "^0.19.2",
         "babel-eslint": "^10.1.0",
         "bootstrap": "^4.5.0",

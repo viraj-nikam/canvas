@@ -1,8 +1,8 @@
 <template>
     <multiselect
         v-model="value"
-        :placeholder="trans.app.select_some_tags"
-        :tag-placeholder="trans.app.add_a_new_tag"
+        :placeholder="i18n.select_some_tags"
+        :tag-placeholder="i18n.add_a_new_tag"
         :options="options"
         :multiple="true"
         :taggable="true"
@@ -16,6 +16,7 @@
 
 <script>
 import Multiselect from 'vue-multiselect';
+import i18n from "../mixins/i18n";
 
 export default {
     props: {
@@ -29,28 +30,31 @@ export default {
         },
     },
 
+    mixins: [i18n],
+
     components: {
         Multiselect,
     },
 
     data() {
-        const allTags = this.tags.map((obj) => {
-            let filtered = {};
-
-            filtered['name'] = obj.name;
-            filtered['slug'] = obj.slug;
-
-            return filtered;
-        });
-
         return {
-            options: allTags,
+            options: this.fetchTags(),
             value: this.tagged ? this.tagged : [],
-            trans: JSON.parse(window.Canvas.locale.translations),
         };
     },
 
     methods: {
+        fetchTags() {
+            return this.tags.map((obj) => {
+                let filtered = {};
+
+                filtered['name'] = obj.name;
+                filtered['slug'] = obj.slug;
+
+                return filtered;
+            });
+        },
+
         onChange(value) {
             this.$store.dispatch('setPostTags', value);
 

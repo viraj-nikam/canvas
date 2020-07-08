@@ -1,6 +1,6 @@
 import axios from 'axios';
 import store from '../store';
-import VueRouter from "vue-router";
+import VueRouter from 'vue-router';
 
 export default {
     methods: {

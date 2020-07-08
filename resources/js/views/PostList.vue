@@ -35,7 +35,7 @@
             </template>
         </page-header>
 
-        <main class="py-4">
+        <main class="py-4" v-if="isReady">
             <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12">
                 <div class="d-flex justify-content-between my-3">
                     <h1>{{ i18n.posts_simple }}</h1>
@@ -192,19 +192,19 @@ export default {
             draftCount: 0,
             type: 'published',
             infiniteId: +new Date(),
+            isReady: false,
         };
     },
 
     async created() {
         await this.fetchData();
-
-        NProgress.done();
         this.isReady = true;
+        NProgress.done();
     },
 
     methods: {
         fetchData($state) {
-            this.request()
+            return this.request()
                 .get('/api/posts', {
                     params: {
                         page: this.page,

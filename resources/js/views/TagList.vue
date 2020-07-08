@@ -45,7 +45,7 @@
                     </p>
                 </div>
 
-                <div class="mt-5 card shadow-lg">
+                <div class="mt-5 card shadow-lg" v-if="isReady">
                     <div class="card-body p-0">
                         <div v-for="(tag, index) in tags" :key="`${index}-${tag.id}`">
                             <router-link
@@ -146,19 +146,19 @@ export default {
         return {
             page: 1,
             tags: [],
+            isReady: false,
         };
     },
 
     async created() {
         await this.fetchData();
-
-        NProgress.done();
         this.isReady = true;
+        NProgress.done();
     },
 
     methods: {
         fetchData($state) {
-            this.request()
+            return this.request()
                 .get('/api/tags', {
                     params: {
                         page: this.page,

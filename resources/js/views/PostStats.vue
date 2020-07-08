@@ -372,18 +372,20 @@ export default {
 
     async created() {
         await this.fetchStats();
-        NProgress.done();
         this.isReady = true;
+        NProgress.done();
     },
 
     methods: {
         fetchStats() {
-            this.request()
+            return this.request()
                 .get('/api/stats/' + this.id)
                 .then(({ data }) => {
                     this.post = data.post;
                     this.readTime = data.read_time;
-                    this.popularReadingTimes = Array.isArray(data.popular_reading_times) ? null : data.popular_reading_times;
+                    this.popularReadingTimes = Array.isArray(data.popular_reading_times)
+                        ? null
+                        : data.popular_reading_times;
                     this.topReferers = Array.isArray(data.top_referers) ? null : data.top_referers;
                     this.monthlyViews = data.monthly_views;
                     this.monthlyVisits = data.monthly_visits;
@@ -398,7 +400,7 @@ export default {
                 .catch(() => {
                     NProgress.done();
                 });
-        }
+        },
     },
 
     computed: {

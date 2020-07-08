@@ -43,7 +43,7 @@
                     <p class="text-secondary">{{ i18n.topics_are_great_for }}</p>
                 </div>
 
-                <div class="mt-5 card shadow-lg">
+                <div class="mt-5 card shadow-lg" v-if="isReady">
                     <div class="card-body p-0">
                         <div v-for="(topic, index) in topics" :key="`${index}-${topic.id}`">
                             <router-link
@@ -144,19 +144,19 @@ export default {
         return {
             page: 1,
             topics: [],
+            isReady: false,
         };
     },
 
     async created() {
         await this.fetchData();
-
-        NProgress.done();
         this.isReady = true;
+        NProgress.done();
     },
 
     methods: {
         fetchData($state) {
-            this.request()
+            return this.request()
                 .get('/api/topics', {
                     params: {
                         page: this.page,

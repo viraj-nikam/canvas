@@ -62,7 +62,7 @@ const actions = {
 
     resetState(context) {
         context.commit('RESET_STATE');
-    }
+    },
 };
 
 const mutations = {
@@ -85,7 +85,7 @@ const mutations = {
 
     RESET_STATE(state) {
         state = { ...initialState };
-    }
+    },
 };
 
 const getters = {};
