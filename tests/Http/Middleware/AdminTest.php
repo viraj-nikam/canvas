@@ -33,8 +33,8 @@ class AdminTest extends TestCase
      */
     public function it_restricts_access_to_non_admins($method, $endpoint)
     {
-        $meta = factory(UserMeta::class)->create();
+        $user = factory(config('canvas.user'))->create();
 
-        $this->actingAs($meta->user)->call($method, $endpoint)->assertForbidden();
+        $this->actingAs($user)->call($method, $endpoint)->assertForbidden();
     }
 }
