@@ -42,16 +42,4 @@ class UserMeta extends Model
     {
         return $this->belongsTo(config('canvas.user', User::class));
     }
-
-    /**
-     * Scope a query to only include meta for a given user.
-     *
-     * @param $query
-     * @param $user
-     * @return Builder
-     */
-    public function scopeForUser($query, $user): Builder
-    {
-        return $query->where('user_id', $user->id);
-    }
 }

@@ -42,7 +42,7 @@ class UserController extends Controller
      */
     public function update($id): JsonResponse
     {
-        $meta = UserMeta::where('user_id', $id)->first() ?? new UserMeta();
+        $meta = UserMeta::firstWhere('user_id', $id) ?? new UserMeta();
 
         $data = [
             'avatar' => request('avatar', $meta->avatar),

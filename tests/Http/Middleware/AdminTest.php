@@ -10,33 +10,31 @@ class AdminTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
-    public function it_restricts_tag_access_to_non_admins()
+    public function restrictedRoutesProvider()
     {
-        $meta = factory(UserMeta::class)->create();
-
-        $this->actingAs($meta->user)->getJson('canvas/api/tags')->assertForbidden();
-        $this->actingAs($meta->user)->getJson('canvas/api/tags/create')->assertForbidden();
-        $this->actingAs($meta->user)->postJson('canvas/api/tags/not-a-tag')->assertForbidden();
-        $this->actingAs($meta->user)->deleteJson('canvas/api/tags/not-a-tag')->assertForbidden();
+        return [
+            ['GET', 'canvas/api/tags'],
+            ['GET', 'canvas/api/topics'],
+            ['GET', 'canvas/api/users'],
+            ['GET', 'canvas/api/tags/create'],
+            ['GET', 'canvas/api/topics/create'],
+            ['POST', 'canvas/api/tags/not-a-tag'],
+            ['POST', 'canvas/api/topics/not-a-topic'],
+            ['DELETE', 'canvas/api/tags/not-a-tag'],
+            ['DELETE', 'canvas/api/topics/not-a-topic'],
+        ];
     }
 
-    /** @test */
-    public function it_restricts_topic_access_to_admins()
+    /**
+     * @test
+     * @dataProvider restrictedRoutesProvider
+     * @param $method
+     * @param $endpoint
+     */
+    public function it_restricts_access_to_non_admins($method, $endpoint)
     {
         $meta = factory(UserMeta::class)->create();
 
-        $this->actingAs($meta->user)->getJson('canvas/api/topics')->assertForbidden();
-        $this->actingAs($meta->user)->getJson('canvas/api/topics/create')->assertForbidden();
-        $this->actingAs($meta->user)->postJson('canvas/api/topics/not-a-topic')->assertForbidden();
-        $this->actingAs($meta->user)->deleteJson('canvas/api/topics/not-a-topic')->assertForbidden();
-    }
-
-    /** @test */
-    public function it_restricts_user_access_to_admins()
-    {
-        $meta = factory(UserMeta::class)->create();
-
-        $this->actingAs($meta->user)->getJson('canvas/api/users')->assertForbidden();
+        $this->actingAs($meta->user)->call($method, $endpoint)->assertForbidden();
     }
 }

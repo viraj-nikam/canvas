@@ -40,7 +40,7 @@ class DigestCommand extends Command
         $recipients = User::whereIn('id', Post::published()->pluck('user_id')->unique())->get();
 
         foreach ($recipients as $user) {
-            $meta = UserMeta::forUser($user)->first();
+            $meta = UserMeta::firstWhere('user_id', $user->id);
 
             if (optional($meta)->digest != true) {
                 continue;

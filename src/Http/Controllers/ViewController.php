@@ -15,7 +15,7 @@ class ViewController extends Controller
      */
     public function __invoke()
     {
-        $meta = UserMeta::forUser(request()->user())->first();
+        $meta = UserMeta::firstWhere('user_id', request()->user()->id);
 
         return view('canvas::layout')->with([
             'config' => [

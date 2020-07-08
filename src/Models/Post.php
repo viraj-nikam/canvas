@@ -212,24 +212,24 @@ class Post extends Model
         // Count the unique values and assign to their respective keys
         $filtered = array_count_values($collection->toArray());
 
-        $popular_reading_times = collect();
+        $popularReadingTimes = collect();
         foreach ($filtered as $key => $value) {
             // Use each given time to create a 60 min range
-            $start_time = Date::createFromTimeString($key);
-            $end_time = $start_time->copy()->addMinutes(60);
+            $start = Date::createFromTimeString($key);
+            $end = $start->copy()->addMinutes(60);
 
             // Find the percentage based on the value
             $percentage = number_format($value / $data->count() * 100, 2);
 
             // Get a human-readable hour range and floating percentage
-            $popular_reading_times->put(
-                sprintf('%s - %s', $start_time->format('g:i A'), $end_time->format('g:i A')),
+            $popularReadingTimes->put(
+                sprintf('%s - %s', $start->format('g:i A'), $end->format('g:i A')),
                 $percentage
             );
         }
 
         // Cast the collection to an array
-        $array = $popular_reading_times->toArray();
+        $array = $popularReadingTimes->toArray();
 
         // Only return the top 5 reading times and percentages
         $sliced = array_slice($array, 0, 5, true);

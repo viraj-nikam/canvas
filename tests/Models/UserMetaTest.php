@@ -50,16 +50,4 @@ class UserMetaTest extends TestCase
 
         $this->assertInstanceOf(config('canvas.user'), $meta->user);
     }
-
-    /** @test */
-    public function for_user_scope()
-    {
-        $user = factory(config('canvas.user'))->create();
-
-        $meta = factory(UserMeta::class)->create([
-            'user_id' => $user->id,
-        ]);
-
-        $this->assertEquals(1, $meta->forUser($user)->count());
-    }
 }

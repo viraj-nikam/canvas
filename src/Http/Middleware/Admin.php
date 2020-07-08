@@ -17,7 +17,7 @@ class Admin
      */
     public function handle(Request $request, Closure $next)
     {
-        $meta = UserMeta::where('user_id', $request->user()->id)->first();
+        $meta = UserMeta::firstWhere('user_id', $request->user()->id);
 
         return optional($meta)->admin == 1 ? $next($request) : response()->json(null, 403);
     }

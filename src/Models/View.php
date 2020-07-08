@@ -31,22 +31,4 @@ class View extends Model
     {
         return $this->belongsTo(Post::class);
     }
-
-    /**
-     * Scope a query to filter post views within a given date range.
-     *
-     * @param $query
-     * @param $postIDs
-     * @param $startDate
-     * @param $endDate
-     * @return Builder
-     */
-    public function scopeForPostsInRange($query, $postIDs, $startDate, $endDate): Builder
-    {
-        return $query->whereIn('post_id', $postIDs)
-                     ->whereBetween('created_at', [
-                         $startDate,
-                         $endDate,
-                     ]);
-    }
 }

@@ -24,18 +24,18 @@ class StatsController extends Controller
                      ->get();
 
         $views = View::select('created_at')
-                     ->forPostsInRange(
-                         $posts->pluck('id'),
+                     ->whereIn('post_id', $posts->pluck('id'))
+                     ->whereBetween('created_at', [
                          today()->subDays(30)->startOfDay()->toDateTimeString(),
-                         today()->endOfDay()->toDateTimeString()
-                     )->get();
+                         today()->endOfDay()->toDateTimeString(),
+                     ])->get();
 
         $visits = Visit::select('created_at')
-                       ->forPostsInRange(
-                           $posts->pluck('id'),
+                       ->whereIn('post_id', $posts->pluck('id'))
+                       ->whereBetween('created_at', [
                            today()->subDays(30)->startOfDay()->toDateTimeString(),
-                           today()->endOfDay()->toDateTimeString()
-                       )->get();
+                           today()->endOfDay()->toDateTimeString(),
+                       ])->get();
 
         return response()->json([
             'posts' => $posts,
@@ -58,7 +58,7 @@ class StatsController extends Controller
     {
         $post = Post::forUser(request()->user())->find($id);
 
-        if (! $post || ! $post->published) {
+        if (!$post || !$post->published) {
             return response()->json(null, 404);
         }
 

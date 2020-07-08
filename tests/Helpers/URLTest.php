@@ -30,10 +30,15 @@ class URLTest extends TestCase
     /** @test */
     public function it_can_generate_a_gravatar()
     {
-        $response = URL::gravatar('user@example.com', 250);
+        $size = 80;
+        $default = 'identicon';
+        $rating = 'pg';
+        $response = URL::gravatar('user@example.com', $size, $default, $rating);
 
         $this->assertIsString($response);
         $this->assertStringContainsString('secure.gravatar.com', $response);
-        $this->assertStringContainsString('s=250', $response);
+        $this->assertStringContainsString(sprintf('s=%s', $size), $response);
+        $this->assertStringContainsString(sprintf('d=%s', $default), $response);
+        $this->assertStringContainsString(sprintf('r=%s', $rating), $response);
     }
 }

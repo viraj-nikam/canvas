@@ -151,7 +151,7 @@ class PostController extends Controller
             return [];
         }
 
-        $topic = Topic::where('slug', $incomingTopic['slug'])->first();
+        $topic = Topic::firstWhere('slug', $incomingTopic['slug']);
 
         if (! $topic) {
             $topic = Topic::create([
@@ -180,7 +180,7 @@ class PostController extends Controller
         $tags = Tag::get(['id', 'name', 'slug']);
 
         return collect($incomingTags)->map(function ($incomingTag) use ($tags) {
-            $tag = $tags->where('slug', $incomingTag['slug'])->first();
+            $tag = $tags->firstWhere('slug', $incomingTag['slug']);
 
             if (! $tag) {
                 $tag = Tag::create([
