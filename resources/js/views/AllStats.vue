@@ -169,7 +169,6 @@ export default {
     async created() {
         await this.fetchStats();
         await this.fetchPosts();
-
         NProgress.done();
         this.isReady = true;
     },
@@ -178,11 +177,11 @@ export default {
         fetchStats() {
             return this.request()
                 .get('/api/stats')
-                .then((response) => {
-                    this.totalViews = response.data.total_views;
-                    this.totalVisits = response.data.total_visits;
-                    this.viewPlotPoints = response.data.traffic.views;
-                    this.visitPlotPoints = response.data.traffic.visits;
+                .then(({ data }) => {
+                    this.totalViews = data.total_views;
+                    this.totalVisits = data.total_visits;
+                    this.viewPlotPoints = data.traffic.views;
+                    this.visitPlotPoints = data.traffic.visits;
 
                     NProgress.inc();
                 })
@@ -198,10 +197,10 @@ export default {
                         page: this.page,
                     },
                 })
-                .then((response) => {
-                    if (!isEmpty(response.data) && !isEmpty(response.data.posts.data)) {
+                .then(({ data }) => {
+                    if (!isEmpty(data) && !isEmpty(data.posts.data)) {
                         this.page += 1;
-                        this.posts.push(...response.data.posts.data);
+                        this.posts.push(...data.posts.data);
 
                         $state.loaded();
                     } else {
@@ -219,17 +218,3 @@ export default {
     },
 };
 </script>
-
-<style lang="scss" scoped>
-@import '../../sass/utilities/variables';
-
-.badge-success {
-    background-color: $green-500;
-    color: darken($green, 20%);
-}
-
-.badge-primary {
-    background-color: $blue-500;
-    color: darken($blue, 35%);
-}
-</style>

@@ -23,7 +23,11 @@ class TagTest extends TestCase
     {
         parent::setUp();
 
-        $this->withoutMiddleware([Authorize::class, Session::class, VerifyCsrfToken::class]);
+        $this->withoutMiddleware([
+            Authorize::class,
+            Session::class,
+            VerifyCsrfToken::class,
+        ]);
     }
 
     /** @test */

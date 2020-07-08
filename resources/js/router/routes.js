@@ -15,6 +15,8 @@ import store from '../store';
 
 Vue.use(Router);
 
+let auth = store.state.auth;
+
 export default [
     {
         path: '/',
@@ -50,7 +52,7 @@ export default [
         name: 'tags',
         component: TagList,
         beforeEnter: (to, from, next) => {
-            if (store.state.user.admin === 1) {
+            if (auth.admin === 1) {
                 next();
             } else {
                 next({ name: 'all-stats' });
@@ -62,7 +64,7 @@ export default [
         name: 'create-tag',
         component: EditTag,
         beforeEnter: (to, from, next) => {
-            if (store.state.user.admin === 1) {
+            if (auth.admin === 1) {
                 next();
             } else {
                 next({ name: 'all-stats' });
@@ -74,7 +76,7 @@ export default [
         name: 'edit-tag',
         component: EditTag,
         beforeEnter: (to, from, next) => {
-            if (store.state.user.admin === 1) {
+            if (auth.admin === 1) {
                 next();
             } else {
                 next({ name: 'all-stats' });
@@ -86,7 +88,7 @@ export default [
         name: 'topics',
         component: TopicList,
         beforeEnter: (to, from, next) => {
-            if (store.state.user.admin === 1) {
+            if (auth.admin === 1) {
                 next();
             } else {
                 next({ name: 'all-stats' });
@@ -98,7 +100,7 @@ export default [
         name: 'create-topic',
         component: EditTopic,
         beforeEnter: (to, from, next) => {
-            if (store.state.user.admin === 1) {
+            if (auth.admin === 1) {
                 next();
             } else {
                 next({ name: 'all-stats' });
@@ -110,7 +112,7 @@ export default [
         name: 'edit-topic',
         component: EditTopic,
         beforeEnter: (to, from, next) => {
-            if (store.state.user.admin === 1) {
+            if (auth.admin === 1) {
                 next();
             } else {
                 next({ name: 'all-stats' });
@@ -127,7 +129,7 @@ export default [
         name: 'users',
         component: UserList,
         beforeEnter: (to, from, next) => {
-            if (store.state.user.admin === 1) {
+            if (auth.admin === 1) {
                 next();
             } else {
                 next({ name: 'all-stats' });
@@ -139,7 +141,7 @@ export default [
         name: 'edit-user',
         component: EditUser,
         beforeEnter: (to, from, next) => {
-            if (store.state.user.admin === 1 || store.state.user.id === to.params.id) {
+            if (auth.admin === 1 || auth.id === to.params.id) {
                 next();
             } else {
                 next({ name: 'all-stats' });

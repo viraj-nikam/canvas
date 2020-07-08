@@ -2,7 +2,7 @@
     <div>
         <page-header></page-header>
 
-        <main class="py-4">
+        <main class="py-4" v-if="isReady">
             <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12 my-3">
                 <div class="d-flex justify-content-between my-3">
                     <h1>{{ user.name }}</h1>
@@ -40,7 +40,7 @@
                                 />
 
                                 <div v-if="!isReadyToAcceptUploads" class="text-center rounded p-3">
-                                    <img :src="user.avatar" class="rounded-circle w-75 shadow-inset" />
+                                    <img :src="meta.avatar" class="rounded-circle w-75 shadow-inset" />
 
                                     <p class="mt-3 mb-0">
                                         <a
@@ -63,7 +63,7 @@
                                             type="text"
                                             class="form-control border-0"
                                             title="Username"
-                                            v-model="user.username"
+                                            v-model="meta.username"
                                             :placeholder="i18n.choose_a_username"
                                         />
                                         <div v-if="usernameValidationError" class="invalid-feedback d-block">
@@ -84,7 +84,7 @@
                                             name="summary"
                                             style="resize: none;"
                                             class="form-control border-0"
-                                            v-model="user.summary"
+                                            v-model="meta.summary"
                                             :placeholder="i18n.tell_us_about_yourself"
                                         >
                                         </textarea>
@@ -135,6 +135,7 @@ import FilePondPluginFileValidateSize from 'filepond-plugin-file-validate-size';
 import i18n from '../mixins/i18n';
 import store from '../store';
 import get from 'lodash/get';
+import request from "../mixins/request";
 
 const FilePond = vueFilePond(
     FilePondPluginFileValidateType,
@@ -152,24 +153,36 @@ export default {
         FilePond,
     },
 
-    mixins: [i18n],
+    mixins: [i18n, request],
 
     data() {
         return {
+            user: null,
+            meta: null,
             selectedImagesForPond: [],
             isReadyToAcceptUploads: false,
+            isReady: false,
         };
     },
 
-    mounted() {
+    watch: {
+        // '$route' (to) {
+        //     this.isReady = false;
+        //     store.dispatch('user/fetchUser', to.params.id);
+        //     NProgress.done();
+        //     this.isReady = true;
+        // }
+    },
+
+    created() {
+        this.fetchUser(this.$route.params.id)
+
         NProgress.done();
+
+        this.isReady = true;
     },
 
     computed: {
-        user() {
-            return store.state.user;
-        },
-
         config() {
             return store.state.config;
         },
@@ -203,6 +216,15 @@ export default {
     },
 
     methods: {
+        fetchUser(id) {
+                this.request()
+                .get('/api/users/' + id)
+                .then(({ data }) => {
+                    this.user = data.user;
+                    this.meta = data.meta;
+                });
+        },
+
         processedFromFilePond() {
             this.isReadyToAcceptUploads = true;
             store.dispatch('user/setAvatar', document.getElementsByName('profileImagePond')[0].value);
@@ -211,7 +233,7 @@ export default {
         removedFromFilePond() {
             this.isReadyToAcceptUploads = true;
             this.selectedImagesForPond = [];
-            store.dispatch('user/setDefaultAvatar');
+            store.dispatch('user/resetAvatar');
         },
 
         updateProfile() {
@@ -219,10 +241,10 @@ export default {
         },
 
         clearAvatar() {
-            store.dispatch('user/setDefaultAvatar');
+            store.dispatch('user/resetAvatar');
             this.isReadyToAcceptUploads = true;
         },
-    },
+    }
 };
 </script>
 

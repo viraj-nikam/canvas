@@ -222,7 +222,7 @@ export default {
         },
 
         clearAvatar() {
-            store.dispatch('user/setDefaultAvatar');
+            store.dispatch('user/resetAvatar');
             this.isReadyToAcceptUploads = true;
         },
     },

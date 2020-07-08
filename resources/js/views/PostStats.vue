@@ -370,36 +370,35 @@ export default {
         };
     },
 
-    beforeRouteEnter(to, from, next) {
-        next((vm) => {
-            vm.request()
-                .get('/api/stats/' + vm.id)
-                .then((response) => {
-                    vm.post = response.data.post;
-                    vm.readTime = response.data.read_time;
-                    vm.popularReadingTimes = Array.isArray(response.data.popular_reading_times)
-                        ? null
-                        : response.data.popular_reading_times;
-                    vm.topReferers = Array.isArray(response.data.top_referers) ? null : response.data.top_referers;
-                    vm.monthlyViews = response.data.monthly_views;
-                    vm.monthlyVisits = response.data.monthly_visits;
-                    vm.totalViews = response.data.total_views;
-                    vm.viewPlotPoints = response.data.traffic.views;
-                    vm.visitPlotPoints = response.data.traffic.visits;
-                    vm.viewMonthOverMonthDirection = response.data.month_over_month_views.direction;
-                    vm.viewMonthOverMonthPercentage = response.data.month_over_month_views.percentage;
-                    vm.visitMonthOverMonthDirection = response.data.month_over_month_visits.direction;
-                    vm.visitMonthOverMonthPercentage = response.data.month_over_month_visits.percentage;
+    async created() {
+        await this.fetchStats();
+        NProgress.done();
+        this.isReady = true;
+    },
 
-                    vm.isReady = true;
-
-                    NProgress.done();
+    methods: {
+        fetchStats() {
+            this.request()
+                .get('/api/stats/' + this.id)
+                .then(({ data }) => {
+                    this.post = data.post;
+                    this.readTime = data.read_time;
+                    this.popularReadingTimes = Array.isArray(data.popular_reading_times) ? null : data.popular_reading_times;
+                    this.topReferers = Array.isArray(data.top_referers) ? null : data.top_referers;
+                    this.monthlyViews = data.monthly_views;
+                    this.monthlyVisits = data.monthly_visits;
+                    this.totalViews = data.total_views;
+                    this.viewPlotPoints = data.traffic.views;
+                    this.visitPlotPoints = data.traffic.visits;
+                    this.viewMonthOverMonthDirection = data.month_over_month_views.direction;
+                    this.viewMonthOverMonthPercentage = data.month_over_month_views.percentage;
+                    this.visitMonthOverMonthDirection = data.month_over_month_visits.direction;
+                    this.visitMonthOverMonthPercentage = data.month_over_month_visits.percentage;
                 })
-                .catch((error) => {
-                    console.log(error);
-                    vm.$router.push({ name: 'all-stats' });
+                .catch(() => {
+                    NProgress.done();
                 });
-        });
+        }
     },
 
     computed: {

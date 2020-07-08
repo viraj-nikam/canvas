@@ -2,10 +2,10 @@
 
 namespace Canvas\Tests\Http\Controllers;
 
+use Canvas\Http\Middleware\Admin;
 use Canvas\Http\Middleware\Session;
 use Canvas\Models\Post;
 use Canvas\Models\Topic;
-use Canvas\Models\UserMeta;
 use Canvas\Tests\TestCase;
 use Illuminate\Auth\Middleware\Authorize;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
@@ -23,7 +23,12 @@ class TopicControllerTest extends TestCase
     {
         parent::setUp();
 
-        $this->withoutMiddleware([Authorize::class, Session::class, VerifyCsrfToken::class]);
+        $this->withoutMiddleware([
+            Authorize::class,
+            Admin::class,
+            Session::class,
+            VerifyCsrfToken::class
+        ]);
 
         $this->registerAssertJsonExactFragmentMacro();
     }
@@ -32,11 +37,6 @@ class TopicControllerTest extends TestCase
     public function it_can_fetch_topics()
     {
         $topic = factory(Topic::class)->create();
-
-        factory(UserMeta::class)->create([
-            'user_id' => $topic->user->id,
-            'admin' => 1,
-        ]);
 
         $this->actingAs($topic->user)
              ->getJson('canvas/api/topics')
@@ -54,11 +54,6 @@ class TopicControllerTest extends TestCase
     {
         $user = factory(config('canvas.user'))->create();
 
-        factory(UserMeta::class)->create([
-            'user_id' => $user->id,
-            'admin' => 1,
-        ]);
-
         $response = $this->actingAs($user)->getJson('canvas/api/topics/create')->assertSuccessful();
 
         $this->assertArrayHasKey('id', $response->decodeResponseJson());
@@ -68,11 +63,6 @@ class TopicControllerTest extends TestCase
     public function it_can_fetch_an_existing_topic()
     {
         $topic = factory(Topic::class)->create();
-
-        factory(UserMeta::class)->create([
-            'user_id' => $topic->user->id,
-            'admin' => 1,
-        ]);
 
         $this->actingAs($topic->user)
              ->getJson("canvas/api/topics/{$topic->id}")
@@ -88,11 +78,6 @@ class TopicControllerTest extends TestCase
     {
         $user = factory(config('canvas.user'))->create();
 
-        factory(UserMeta::class)->create([
-            'user_id' => $user->id,
-            'admin' => 1,
-        ]);
-
         $this->actingAs($user)->getJson('canvas/api/topics/not-a-topic')->assertNotFound();
     }
 
@@ -100,11 +85,6 @@ class TopicControllerTest extends TestCase
     public function it_can_create_a_new_topic()
     {
         $user = factory(config('canvas.user'))->create();
-
-        factory(UserMeta::class)->create([
-            'user_id' => $user->id,
-            'admin' => 1,
-        ]);
 
         $data = [
             'id' => Uuid::uuid4()->toString(),
@@ -125,11 +105,6 @@ class TopicControllerTest extends TestCase
     {
         $topic = factory(Topic::class)->create();
 
-        factory(UserMeta::class)->create([
-            'user_id' => $topic->user->id,
-            'admin' => 1,
-        ]);
-
         $data = [
             'name' => 'An updated topic',
             'slug' => 'an-updated-topic',
@@ -147,11 +122,6 @@ class TopicControllerTest extends TestCase
     public function it_will_not_store_an_invalid_slug()
     {
         $topic = factory(Topic::class)->create();
-
-        factory(UserMeta::class)->create([
-            'user_id' => $topic->user->id,
-            'admin' => 1,
-        ]);
 
         $response = $this->actingAs($topic->user)
                          ->postJson("canvas/api/topics/{$topic->id}", [
@@ -171,13 +141,8 @@ class TopicControllerTest extends TestCase
             'slug' => 'a-new-topic',
         ]);
 
-        factory(UserMeta::class)->create([
-            'user_id' => $topic->user->id,
-            'admin' => 1,
-        ]);
-
         $this->actingAs($topic->user)
-             ->deleteJson('canvas/api/topics/asdfasdfasdf')
+             ->deleteJson('canvas/api/topics/not-a-topic')
              ->assertNotFound();
 
         $this->actingAs($topic->user)
@@ -195,11 +160,6 @@ class TopicControllerTest extends TestCase
     public function it_can_de_sync_the_post_relationship()
     {
         $topic = factory(Topic::class)->create();
-
-        factory(UserMeta::class)->create([
-            'user_id' => $topic->user->id,
-            'admin' => 1,
-        ]);
 
         $post = factory(Post::class)->create([
             'user_id' => $topic->user->id,

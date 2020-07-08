@@ -17,8 +17,8 @@ const actions = {
         request.methods
             .request()
             .get('/api/locale/' + code)
-            .then((response) => {
-                context.commit('UPDATE_I18N', response.data);
+            .then(({ data }) => {
+                context.commit('UPDATE_I18N', data);
             })
             .catch((errors) => {
                 console.log(errors);

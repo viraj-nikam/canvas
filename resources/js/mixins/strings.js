@@ -1,5 +1,4 @@
 import numeral from 'numeral';
-import truncate from 'lodash/truncate';
 
 export default {
     methods: {
@@ -9,12 +8,6 @@ export default {
             } else {
                 return numeral(num).format('0.[0]a');
             }
-        },
-
-        trim(str, length = 70) {
-            return truncate(str, {
-                length: length,
-            });
         },
 
         /**

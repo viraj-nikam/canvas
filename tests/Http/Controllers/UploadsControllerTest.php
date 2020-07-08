@@ -21,9 +21,11 @@ class UploadsControllerTest extends TestCase
     {
         parent::setUp();
 
-        $this->withoutMiddleware([Authorize::class, Session::class, VerifyCsrfToken::class]);
-
-        $this->registerAssertJsonExactFragmentMacro();
+        $this->withoutMiddleware([
+            Authorize::class,
+            Session::class,
+            VerifyCsrfToken::class,
+        ]);
     }
 
     /** @test */

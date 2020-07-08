@@ -1,19 +1,19 @@
 import request from '../../mixins/request';
-import md5 from 'md5';
 import toast from '../../mixins/toast';
 import config from './config';
+import url from '../../mixins/url';
 
 const initialState = {
-    avatar: window.Canvas.user.avatar,
-    darkMode: window.Canvas.user.darkMode,
-    locale: window.Canvas.user.locale,
-    id: window.Canvas.user.id,
-    name: window.Canvas.user.name,
-    email: window.Canvas.user.email,
-    username: window.Canvas.user.username,
-    summary: window.Canvas.user.summary,
-    digest: window.Canvas.user.digest,
-    admin: window.Canvas.user.admin,
+    avatar: '',
+    darkMode: 0,
+    locale: '',
+    id: null,
+    name: '',
+    email: '',
+    username: '',
+    summary: '',
+    digest: 0,
+    admin: 0,
     errors: [],
 };
 
@@ -24,8 +24,8 @@ const actions = {
         request.methods
             .request()
             .get('/api/users/' + id)
-            .then((response) => {
-                context.commit('SET_USER', response.data);
+            .then(({ data }) => {
+                context.commit('SET_USER', data);
             });
     },
 
@@ -33,8 +33,8 @@ const actions = {
         request.methods
             .request()
             .post('/api/users/' + state.id, payload)
-            .then((response) => {
-                context.commit('UPDATE_USER', response.data);
+            .then(({ data }) => {
+                context.commit('SET_USER', data);
 
                 toast.methods.toast(config.state.i18n.saved);
             })
@@ -47,8 +47,8 @@ const actions = {
         request.methods
             .request()
             .post('/api/users/' + state.id, payload)
-            .then((response) => {
-                context.commit('UPDATE_USER', response.data);
+            .then(({ data }) => {
+                context.commit('SET_USER', data);
             });
     },
 
@@ -56,25 +56,36 @@ const actions = {
         context.commit('SET_AVATAR', payload);
     },
 
-    setDefaultAvatar(context) {
-        let hash = md5(state.email.trim().toLowerCase());
-
-        context.commit('SET_AVATAR', 'https://secure.gravatar.com/avatar/' + hash + '?s=200');
+    resetAvatar(context) {
+        context.commit('SET_AVATAR', url.methods.gravatar(state.email));
     },
+
+    resetState(context) {
+        context.commit('RESET_STATE');
+    }
 };
 
 const mutations = {
-    SET_USER(state, user) {
-        state = user;
+    SET_USER(state, data) {
+        state.avatar = data.meta.avatar;
+        state.darkMode = data.meta.dark_mode;
+        state.locale = data.meta.locale;
+        state.id = data.user.id;
+        state.name = data.user.name;
+        state.email = data.user.email;
+        state.username = data.meta.username;
+        state.summary = data.meta.summary;
+        state.digest = data.meta.digest;
+        state.admin = data.meta.admin;
     },
 
     SET_AVATAR(state, url) {
         state.avatar = url;
     },
 
-    UPDATE_USER(state, user) {
-        state = user;
-    },
+    RESET_STATE(state) {
+        state = { ...initialState };
+    }
 };
 
 const getters = {};

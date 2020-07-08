@@ -2,10 +2,10 @@
 
 namespace Canvas\Tests\Http\Controllers;
 
+use Canvas\Http\Middleware\Admin;
 use Canvas\Http\Middleware\Session;
 use Canvas\Models\Post;
 use Canvas\Models\Tag;
-use Canvas\Models\UserMeta;
 use Canvas\Tests\TestCase;
 use Illuminate\Auth\Middleware\Authorize;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
@@ -23,7 +23,12 @@ class TagControllerTest extends TestCase
     {
         parent::setUp();
 
-        $this->withoutMiddleware([Authorize::class, Session::class, VerifyCsrfToken::class]);
+        $this->withoutMiddleware([
+            Authorize::class,
+            Admin::class,
+            Session::class,
+            VerifyCsrfToken::class
+        ]);
 
         $this->registerAssertJsonExactFragmentMacro();
     }
@@ -32,11 +37,6 @@ class TagControllerTest extends TestCase
     public function it_can_fetch_tags()
     {
         $tag = factory(Tag::class)->create();
-
-        factory(UserMeta::class)->create([
-            'user_id' => $tag->user->id,
-            'admin' => 1,
-        ]);
 
         $this->actingAs($tag->user)
              ->getJson('canvas/api/tags')
@@ -54,11 +54,6 @@ class TagControllerTest extends TestCase
     {
         $user = factory(config('canvas.user'))->create();
 
-        factory(UserMeta::class)->create([
-            'user_id' => $user->id,
-            'admin' => 1,
-        ]);
-
         $response = $this->actingAs($user)->getJson('canvas/api/tags/create')->assertSuccessful();
 
         $this->assertArrayHasKey('id', $response->decodeResponseJson());
@@ -68,11 +63,6 @@ class TagControllerTest extends TestCase
     public function it_can_fetch_an_existing_tag()
     {
         $tag = factory(Tag::class)->create();
-
-        factory(UserMeta::class)->create([
-            'user_id' => $tag->user->id,
-            'admin' => 1,
-        ]);
 
         $this->actingAs($tag->user)
              ->getJson("canvas/api/tags/{$tag->id}")
@@ -88,11 +78,6 @@ class TagControllerTest extends TestCase
     {
         $user = factory(config('canvas.user'))->create();
 
-        factory(UserMeta::class)->create([
-            'user_id' => $user->id,
-            'admin' => 1,
-        ]);
-
         $this->actingAs($user)->getJson('canvas/api/tags/not-a-tag')->assertNotFound();
     }
 
@@ -100,11 +85,6 @@ class TagControllerTest extends TestCase
     public function it_can_create_a_new_tag()
     {
         $user = factory(config('canvas.user'))->create();
-
-        factory(UserMeta::class)->create([
-            'user_id' => $user->id,
-            'admin' => 1,
-        ]);
 
         $data = [
             'id' => Uuid::uuid4()->toString(),
@@ -125,11 +105,6 @@ class TagControllerTest extends TestCase
     {
         $tag = factory(Tag::class)->create();
 
-        factory(UserMeta::class)->create([
-            'user_id' => $tag->user->id,
-            'admin' => 1,
-        ]);
-
         $data = [
             'name' => 'An updated tag',
             'slug' => 'an-updated-tag',
@@ -147,11 +122,6 @@ class TagControllerTest extends TestCase
     public function it_will_not_store_an_invalid_slug()
     {
         $tag = factory(Tag::class)->create();
-
-        factory(UserMeta::class)->create([
-            'user_id' => $tag->user->id,
-            'admin' => 1,
-        ]);
 
         $response = $this->actingAs($tag->user)
                          ->postJson("canvas/api/tags/{$tag->id}", [
@@ -171,13 +141,8 @@ class TagControllerTest extends TestCase
             'slug' => 'a-new-tag',
         ]);
 
-        factory(UserMeta::class)->create([
-            'user_id' => $tag->user->id,
-            'admin' => 1,
-        ]);
-
         $this->actingAs($tag->user)
-             ->deleteJson('canvas/api/tags/asdfasdfasdf')
+             ->deleteJson('canvas/api/tags/not-a-tag')
              ->assertNotFound();
 
         $this->actingAs($tag->user)
@@ -195,11 +160,6 @@ class TagControllerTest extends TestCase
     public function it_can_de_sync_the_post_relationship()
     {
         $tag = factory(Tag::class)->create();
-
-        factory(UserMeta::class)->create([
-            'user_id' => $tag->user->id,
-            'admin' => 1,
-        ]);
 
         $post = factory(Post::class)->create([
             'user_id' => $tag->user->id,

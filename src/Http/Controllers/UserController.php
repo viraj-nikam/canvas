@@ -2,7 +2,6 @@
 
 namespace Canvas\Http\Controllers;
 
-use Canvas\Helpers\URL;
 use Canvas\Models\UserMeta;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\JsonResponse;
@@ -18,7 +17,7 @@ class UserController extends Controller
      */
     public function index(): JsonResponse
     {
-        return response()->json(resolve(config('canvas.user', User::class))::latest()->paginate(), 200);
+        return response()->json(resolve(config('canvas.user', User::class))->latest()->paginate(), 200);
     }
 
     /**
@@ -29,15 +28,9 @@ class UserController extends Controller
      */
     public function show($id): JsonResponse
     {
-        $meta = UserMeta::where('user_id', $id)->first();
-
         return response()->json([
-            'avatar' => optional($meta)->avatar ?? URL::gravatar(request()->user()->email),
-            'darkMode' => optional($meta)->dark_mode ?? false,
-            'digest' => optional($meta)->digest ?? false,
-            'summary' => optional($meta)->summary ?? null,
-            'locale' => optional($meta)->locale ?? null,
-            'username' => optional($meta)->username ?? null,
+            'user' => resolve(config('canvas.user', User::class))->find($id),
+            'meta' => UserMeta::firstWhere('user_id', $id),
         ]);
     }
 

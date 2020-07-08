@@ -8,7 +8,7 @@
                     <h1>{{ i18n.settings }}</h1>
                 </div>
 
-                <div class="mt-2 card shadow-lg" v-if="isReady">
+                <div class="mt-2 card shadow-lg">
                     <div class="card-body p-0">
                         <div class="d-flex rounded-top p-3 align-items-center">
                             <div class="mr-auto py-1">
@@ -28,8 +28,8 @@
                                                 class="switch"
                                                 id="digest"
                                                 @change="toggleDigest"
-                                                :checked="user.digest"
-                                                v-model="user.digest"
+                                                :checked="auth.digest"
+                                                v-model="auth.digest"
                                             />
                                             <label for="digest" class="mb-0 sr-only">
                                                 {{ i18n.weekly_digest }}
@@ -58,8 +58,8 @@
                                                 class="switch"
                                                 id="darkMode"
                                                 @change="toggleDarkMode"
-                                                :checked="user.darkMode"
-                                                v-model="user.darkMode"
+                                                :checked="auth.darkMode"
+                                                v-model="auth.darkMode"
                                             />
                                             <label for="darkMode" class="mb-0 sr-only">
                                                 {{ i18n.dark_mode }}
@@ -86,14 +86,14 @@
                                             <select
                                                 class="custom-select border-0"
                                                 @change="selectLocale"
-                                                v-model="user.locale"
+                                                v-model="auth.locale"
                                                 name="locale"
                                             >
                                                 <option
                                                     v-for="code in config.languageCodes"
                                                     :key="code"
                                                     :value="code"
-                                                    :selected="user.locale === code"
+                                                    :selected="auth.locale === code"
                                                 >
                                                     {{ getLocaleDisplayName(code) }}
                                                 </option>
@@ -138,20 +138,17 @@ export default {
 
     data() {
         return {
-            isReady: false,
+            //
         };
     },
 
-    async created() {
-        await store.dispatch('user/fetchUser', this.user.id);
-
+    created() {
         NProgress.done();
-        this.isReady = true;
     },
 
     computed: {
-        user() {
-            return store.state.user;
+        auth() {
+            return store.state.auth;
         },
 
         config() {
@@ -161,22 +158,22 @@ export default {
 
     methods: {
         getLocaleDisplayName(locale) {
-            let languageNames = new Intl.DisplayNames([store.state.user.locale], { type: 'language' });
+            let languageNames = new Intl.DisplayNames([locale], { type: 'language' });
 
             return languageNames.of(locale);
         },
 
         toggleDigest() {
-            store.dispatch('user/updateUserSilently', this.user);
+            store.dispatch('user/updateUserSilently', this.auth);
         },
 
         selectLocale() {
-            store.dispatch('config/updateI18n', this.user.locale);
-            store.dispatch('user/updateUserSilently', this.user);
+            store.dispatch('config/updateI18n', this.auth.locale);
+            store.dispatch('user/updateUserSilently', this.auth);
         },
 
         toggleDarkMode() {
-            store.dispatch('user/updateUserSilently', this.user);
+            store.dispatch('user/updateUserSilently', this.auth);
 
             if (this.user.darkMode === true) {
                 document.body.setAttribute('data-theme', 'dark');
