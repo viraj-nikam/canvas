@@ -115,73 +115,69 @@
 </template>
 
 <script>
-import NProgress from 'nprogress';
-import PageHeader from '../components/PageHeader';
-import strings from '../mixins/strings';
-import i18n from '../mixins/i18n';
-import toast from '../mixins/toast';
-import Hover from '../directives/Hover';
-import store from '../store';
+    import NProgress from 'nprogress';
+    import PageHeader from '../components/PageHeader';
+    import i18n from '../mixins/i18n';
+    import Hover from '../directives/Hover';
+    import store from '../store';
 
-export default {
-    name: 'edit-settings',
+    export default {
+        name: 'edit-settings',
 
-    components: {
-        PageHeader,
-    },
-
-    mixins: [strings, toast, i18n],
-
-    directives: {
-        Hover,
-    },
-
-    data() {
-        return {
-            isReady: false,
-        };
-    },
-
-    created() {
-        this.isReady = true;
-        NProgress.done();
-    },
-
-    computed: {
-        auth() {
-            return store.state.auth;
+        components: {
+            PageHeader,
         },
 
-        config() {
-            return store.state.config;
-        },
-    },
+        mixins: [ i18n ],
 
-    methods: {
-        getLocaleDisplayName(locale) {
-            let languageNames = new Intl.DisplayNames([locale], { type: 'language' });
-
-            return languageNames.of(locale);
+        directives: {
+            Hover,
         },
 
-        toggleDigest() {
-            store.dispatch('user/updateUserSilently', this.auth);
+        data() {
+            return {
+                isReady: false,
+            };
         },
 
-        selectLocale() {
-            store.dispatch('config/updateI18n', this.auth.locale);
-            store.dispatch('user/updateUserSilently', this.auth);
+        created() {
+            this.isReady = true;
+            NProgress.done();
         },
 
-        toggleDarkMode() {
-            store.dispatch('user/updateUserSilently', this.auth);
+        computed: {
+            auth() {
+                return store.state.auth;
+            },
 
-            if (this.user.darkMode === true) {
-                document.body.setAttribute('data-theme', 'dark');
-            } else {
-                document.body.removeAttribute('data-theme');
-            }
+            config() {
+                return store.state.config;
+            },
         },
-    },
-};
+
+        methods: {
+            getLocaleDisplayName(locale) {
+                return i18n.methods.getDisplayName(locale)
+            },
+
+            toggleDigest() {
+                store.dispatch('auth/updateDigest', this.auth);
+            },
+
+            selectLocale() {
+                store.dispatch('config/updateI18n', this.auth.locale);
+                store.dispatch('auth/updateLocale', this.auth);
+            },
+
+            toggleDarkMode() {
+                store.dispatch('auth/updateDarkMode', this.auth);
+
+                if (this.auth.darkMode === true) {
+                    document.body.setAttribute('data-theme', 'dark');
+                } else {
+                    document.body.removeAttribute('data-theme');
+                }
+            },
+        },
+    };
 </script>
