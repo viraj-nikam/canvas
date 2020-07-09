@@ -4,11 +4,15 @@
 
         <main class="py-4" v-if="isReady">
             <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12 my-3">
-                <div class="d-flex justify-content-between my-3">
+                <div class="my-3">
                     <h1>{{ user.name }}</h1>
+
+                    <p class="text-secondary">
+                        Last updated {{ moment(user.updated_at).fromNow() }}
+                    </p>
                 </div>
 
-                <div class="mt-2 card shadow-lg">
+                <div class="mt-5 card shadow-lg">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-4 order-md-last my-auto">

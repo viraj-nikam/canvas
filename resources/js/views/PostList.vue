@@ -116,7 +116,7 @@
                                                     class="fill-light-gray"
                                                     d="M6.59 6l2.7-2.7A1 1 0 0 1 10 3h4a1 1 0 0 1 .7.3L17.42 6H20a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8c0-1.1.9-2 2-2h2.59zM19 10a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-7 8a5 5 0 1 0 0-10 5 5 0 0 0 0 10z"
                                                 />
-                                                <path class="fill-light-gray" d="M12 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                                                <path class="fill-light-gray" d="M12 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
                                             </svg>
                                         </div>
                                     </div>
@@ -128,7 +128,7 @@
                                             viewBox="0 0 24 24"
                                             class="icon-cheveron-right-circle"
                                         >
-                                            <circle cx="12" cy="12" r="10" style="fill: none;" />
+                                            <circle cx="12" cy="12" r="10" style="fill: none;"/>
                                             <path
                                                 class="fill-light-gray"
                                                 d="M10.3 8.7a1 1 0 0 1 1.4-1.4l4 4a1 1 0 0 1 0 1.4l-4 4a1 1 0 0 1-1.4-1.4l3.29-3.3-3.3-3.3z"
@@ -161,96 +161,96 @@
 </template>
 
 <script>
-import isEmpty from 'lodash/isEmpty';
-import NProgress from 'nprogress';
-import Hover from '../directives/Hover';
-import InfiniteLoading from 'vue-infinite-loading';
-import PageHeader from '../components/PageHeader';
-import strings from '../mixins/strings';
-import i18n from '../mixins/i18n';
-import status from '../mixins/status';
+    import isEmpty from 'lodash/isEmpty';
+    import NProgress from 'nprogress';
+    import Hover from '../directives/Hover';
+    import InfiniteLoading from 'vue-infinite-loading';
+    import PageHeader from '../components/PageHeader';
+    import strings from '../mixins/strings';
+    import i18n from '../mixins/i18n';
+    import status from '../mixins/status';
 
-export default {
-    name: 'post-list',
+    export default {
+        name: 'post-list',
 
-    components: {
-        InfiniteLoading,
-        PageHeader,
-    },
-
-    mixins: [status, strings, i18n],
-
-    directives: {
-        Hover,
-    },
-
-    data() {
-        return {
-            page: 1,
-            posts: [],
-            publishedCount: 0,
-            draftCount: 0,
-            type: 'published',
-            infiniteId: +new Date(),
-            isReady: false,
-        };
-    },
-
-    async created() {
-        await this.fetchData();
-        this.isReady = true;
-        NProgress.done();
-    },
-
-    methods: {
-        fetchData($state) {
-            return this.request()
-                .get('/api/posts', {
-                    params: {
-                        page: this.page,
-                        type: this.type,
-                    },
-                })
-                .then((response) => {
-                    if (!isEmpty(response.data)) {
-                        this.publishedCount = response.data.publishedCount;
-                        this.draftCount = response.data.draftCount;
-
-                        if (!isEmpty(response.data.posts.data)) {
-                            this.page += 1;
-                            this.posts.push(...response.data.posts.data);
-
-                            $state.loaded();
-                        } else {
-                            $state.complete();
-                        }
-
-                        if (isEmpty($state)) {
-                            NProgress.inc();
-                        }
-                    }
-                })
-                .catch(() => {
-                    NProgress.done();
-                });
+        components: {
+            InfiniteLoading,
+            PageHeader,
         },
 
-        changeType() {
-            this.page = 1;
-            this.posts = [];
-            this.infiniteId += 1;
+        mixins: [ status, strings, i18n ],
+
+        directives: {
+            Hover,
         },
-    },
-};
+
+        data() {
+            return {
+                page: 1,
+                posts: [],
+                publishedCount: 0,
+                draftCount: 0,
+                type: 'published',
+                infiniteId: +new Date(),
+                isReady: false,
+            };
+        },
+
+        created() {
+            this.fetchData();
+            this.isReady = true;
+            NProgress.done();
+        },
+
+        methods: {
+            fetchData($state) {
+                if ($state) {
+                    return this.request()
+                        .get('/api/posts', {
+                            params: {
+                                page: this.page,
+                                type: this.type,
+                            },
+                        })
+                        .then(({ data }) => {
+                            if (!isEmpty(data) && !isEmpty(data.posts.data)) {
+                                this.publishedCount = data.publishedCount;
+                                this.draftCount = data.draftCount;
+
+                                this.page += 1;
+                                this.posts.push(...data.posts.data);
+
+                                $state.loaded();
+                            } else {
+                                $state.complete();
+                            }
+
+                            if (isEmpty($state)) {
+                                NProgress.inc();
+                            }
+                        })
+                        .catch(() => {
+                            NProgress.done();
+                        });
+                }
+            },
+
+            changeType() {
+                this.page = 1;
+                this.posts = [];
+                this.infiniteId += 1;
+            },
+        },
+    };
 </script>
 
 <style scoped>
-#featuredImage {
-    background-size: cover;
-    width: 57px;
-    height: 57px;
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    border-radius: 50%;
-}
+    #featuredImage {
+        background-size: cover;
+        width: 57px;
+        height: 57px;
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        border-radius: 50%;
+    }
 </style>

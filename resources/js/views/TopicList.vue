@@ -148,37 +148,39 @@ export default {
         };
     },
 
-    async created() {
-        await this.fetchData();
+    created() {
+        this.fetchData();
         this.isReady = true;
         NProgress.done();
     },
 
     methods: {
         fetchData($state) {
-            return this.request()
-                .get('/api/topics', {
-                    params: {
-                        page: this.page,
-                    },
-                })
-                .then((response) => {
-                    if (!isEmpty(response.data) && !isEmpty(response.data.data)) {
-                        this.page += 1;
-                        this.topics.push(...response.data.data);
+            if ($state) {
+                return this.request()
+                    .get('/api/topics', {
+                        params: {
+                            page: this.page,
+                        },
+                    })
+                    .then((response) => {
+                        if (!isEmpty(response.data) && !isEmpty(response.data.data)) {
+                            this.page += 1;
+                            this.topics.push(...response.data.data);
 
-                        $state.loaded();
-                    } else {
-                        $state.complete();
-                    }
+                            $state.loaded();
+                        } else {
+                            $state.complete();
+                        }
 
-                    if (isEmpty($state)) {
-                        NProgress.inc();
-                    }
-                })
-                .catch(() => {
-                    NProgress.done();
-                });
+                        if (isEmpty($state)) {
+                            NProgress.inc();
+                        }
+                    })
+                    .catch(() => {
+                        NProgress.done();
+                    });
+            }
         },
     },
 };
