@@ -3,7 +3,7 @@
 use Canvas\Http\Middleware\Admin;
 use Illuminate\Support\Facades\Route;
 
-Route::namespace('Canvas\Http\Controllers')->group(function () {
+Route::domain(config('canvas.domain'))->namespace('Canvas\Http\Controllers')->group(function () {
     Route::prefix(config('canvas.path'))->middleware(config('canvas.middleware'))->group(function () {
         Route::prefix('api')->group(function () {
             Route::prefix('locale')->group(function () {
