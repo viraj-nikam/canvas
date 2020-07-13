@@ -16,8 +16,8 @@ class Asset
     {
         $path = public_path('vendor/canvas/mix-manifest.json');
         $message = sprintf('%s%s.  %s',
-            __('canvas::app.assets_are_not_up_to_date'),
-            __('canvas::app.to_update_run'),
+            trans('canvas::app.assets_are_not_up_to_date'),
+            trans('canvas::app.to_update_run'),
             'php artisan canvas:publish'
         );
 

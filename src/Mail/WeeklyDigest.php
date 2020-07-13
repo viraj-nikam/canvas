@@ -36,7 +36,7 @@ class WeeklyDigest extends Mailable
     public function build()
     {
         $subject = sprintf('%s: %s - %s',
-            __('canvas::app.stats_for_your_posts', [], $this->data['locale']),
+            trans('canvas::app.stats_for_your_posts', [], $this->data['locale']),
             $this->data['startDate'],
             $this->data['endDate']
         );

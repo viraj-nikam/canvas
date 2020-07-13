@@ -26,26 +26,6 @@ class TagController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param $id
-     * @return JsonResponse
-     * @throws Exception
-     */
-    public function show($id): JsonResponse
-    {
-        if ($id === 'create') {
-            return response()->json(Tag::make([
-                'id' => Uuid::uuid4()->toString(),
-            ]), 200);
-        } else {
-            $tag = Tag::find($id);
-
-            return $tag ? response()->json($tag, 200) : response()->json(null, 404);
-        }
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param $id
@@ -82,8 +62,8 @@ class TagController extends Controller
         ];
 
         $messages = [
-            'required' => __('canvas::app.validation_required', [], optional($tag->userMeta)->locale),
-            'unique' => __('canvas::app.validation_unique', [], optional($tag->userMeta)->locale),
+            'required' => trans('canvas::app.validation_required', [], optional($tag->userMeta)->locale),
+            'unique' => trans('canvas::app.validation_unique', [], optional($tag->userMeta)->locale),
         ];
 
         validator($data, $rules, $messages)->validate();
@@ -93,6 +73,26 @@ class TagController extends Controller
         $tag->save();
 
         return response()->json($tag->refresh(), 201);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param $id
+     * @return JsonResponse
+     * @throws Exception
+     */
+    public function show($id): JsonResponse
+    {
+        if ($id === 'create') {
+            return response()->json(Tag::make([
+                'id' => Uuid::uuid4()->toString(),
+            ]), 200);
+        } else {
+            $tag = Tag::find($id);
+
+            return $tag ? response()->json($tag, 200) : response()->json(null, 404);
+        }
     }
 
     /**

@@ -34,6 +34,62 @@ class PostController extends Controller
     }
 
     /**
+     * Store a newly created resource in storage.
+     *
+     * @param $id
+     * @return JsonResponse
+     * @throws Exception
+     */
+    public function store($id): JsonResponse
+    {
+        $post = Post::forUser(request()->user())->find($id) ?? new Post(['id' => $id]);
+
+        $data = [
+            'id' => $id,
+            'slug' => request('slug', $post->slug),
+            'title' => request('title', trans('canvas::app.title', [], optional($post->userMeta)->locale)),
+            'summary' => request('summary', $post->summary),
+            'body' => request('body', $post->body),
+            'published_at' => request('published_at', $post->published_at),
+            'featured_image' => request('featured_image', $post->featured_image),
+            'featured_image_caption' => request('featured_image_caption', $post->featured_image_caption),
+            'meta' => [
+                'title' => request('meta.title', optional($post->meta)['title']),
+                'description' => request('meta.description', optional($post->meta)['description']),
+                'canonical_link' => request('meta.canonical_link', optional($post->meta)['canonical_link']),
+            ],
+            'user_id' => request()->user()->id,
+        ];
+
+        $rules = [
+            'slug' => [
+                'required',
+                'alpha_dash',
+                Rule::unique('canvas_posts')->where(function ($query) {
+                    return $query->where('slug', request('slug'))->where('user_id', request()->user()->id);
+                })->ignore($id)->whereNull('deleted_at'),
+            ],
+        ];
+
+        $messages = [
+            'required' => trans('canvas::app.validation_required', [], optional($post->userMeta)->locale),
+            'unique' => trans('canvas::app.validation_unique', [], optional($post->userMeta)->locale),
+        ];
+
+        validator($data, $rules, $messages)->validate();
+
+        $post->fill($data);
+
+        $post->save();
+
+        $post->topic()->sync($this->syncTopic(request('topic', [])));
+
+        $post->tags()->sync($this->syncTags(request('tags', [])));
+
+        return response()->json($post->refresh(), 201);
+    }
+
+    /**
      * Display the specified resource.
      *
      * @param $id
@@ -65,62 +121,6 @@ class PostController extends Controller
         } else {
             return response()->json(null, 404);
         }
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param $id
-     * @return JsonResponse
-     * @throws Exception
-     */
-    public function store($id): JsonResponse
-    {
-        $post = Post::forUser(request()->user())->find($id) ?? new Post(['id' => $id]);
-
-        $data = [
-            'id' => $id,
-            'slug' => request('slug', $post->slug),
-            'title' => request('title', __('canvas::app.title', [], optional($post->userMeta)->locale)),
-            'summary' => request('summary', $post->summary),
-            'body' => request('body', $post->body),
-            'published_at' => request('published_at', $post->published_at),
-            'featured_image' => request('featured_image', $post->featured_image),
-            'featured_image_caption' => request('featured_image_caption', $post->featured_image_caption),
-            'meta' => [
-                'title' => request('meta.title', optional($post->meta)['title']),
-                'description' => request('meta.description', optional($post->meta)['description']),
-                'canonical_link' => request('meta.canonical_link', optional($post->meta)['canonical_link']),
-            ],
-            'user_id' => request()->user()->id,
-        ];
-
-        $rules = [
-            'slug' => [
-                'required',
-                'alpha_dash',
-                Rule::unique('canvas_posts')->where(function ($query) {
-                    return $query->where('slug', request('slug'))->where('user_id', request()->user()->id);
-                })->ignore($id)->whereNull('deleted_at'),
-            ],
-        ];
-
-        $messages = [
-            'required' => __('canvas::app.validation_required', [], optional($post->userMeta)->locale),
-            'unique' => __('canvas::app.validation_unique', [], optional($post->userMeta)->locale),
-        ];
-
-        validator($data, $rules, $messages)->validate();
-
-        $post->fill($data);
-
-        $post->save();
-
-        $post->topic()->sync($this->syncTopic(request('topic', [])));
-
-        $post->tags()->sync($this->syncTags(request('tags', [])));
-
-        return response()->json($post->refresh(), 201);
     }
 
     /**

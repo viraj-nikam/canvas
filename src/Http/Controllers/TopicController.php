@@ -26,26 +26,6 @@ class TopicController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param $id
-     * @return JsonResponse
-     * @throws Exception
-     */
-    public function show($id): JsonResponse
-    {
-        if ($id === 'create') {
-            return response()->json(Topic::make([
-                'id' => Uuid::uuid4()->toString(),
-            ]), 200);
-        } else {
-            $topic = Topic::find($id);
-
-            return $topic ? response()->json($topic, 200) : response()->json(null, 404);
-        }
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param $id
@@ -82,8 +62,8 @@ class TopicController extends Controller
         ];
 
         $messages = [
-            'required' => __('canvas::app.validation_required', [], optional($topic->userMeta)->locale),
-            'unique' => __('canvas::app.validation_unique', [], optional($topic->userMeta)->locale),
+            'required' => trans('canvas::app.validation_required', [], optional($topic->userMeta)->locale),
+            'unique' => trans('canvas::app.validation_unique', [], optional($topic->userMeta)->locale),
         ];
 
         validator($data, $rules, $messages)->validate();
@@ -93,6 +73,26 @@ class TopicController extends Controller
         $topic->save();
 
         return response()->json($topic->refresh(), 201);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param $id
+     * @return JsonResponse
+     * @throws Exception
+     */
+    public function show($id): JsonResponse
+    {
+        if ($id === 'create') {
+            return response()->json(Topic::make([
+                'id' => Uuid::uuid4()->toString(),
+            ]), 200);
+        } else {
+            $topic = Topic::find($id);
+
+            return $topic ? response()->json($topic, 200) : response()->json(null, 404);
+        }
     }
 
     /**

@@ -188,8 +188,8 @@ class Post extends Model
 
         return sprintf('%d %s %s',
             $minutes,
-            Str::plural(__('canvas::app.min', [], optional($this->userMeta)->locale), $minutes),
-            __('canvas::app.read', [], optional($this->userMeta)->locale)
+            Str::plural(trans('canvas::app.min', [], optional($this->userMeta)->locale), $minutes),
+            trans('canvas::app.read', [], optional($this->userMeta)->locale)
         );
     }
 
@@ -254,7 +254,7 @@ class Post extends Model
         $collection = collect();
         $data->each(function ($item, $key) use ($collection) {
             if (empty(parse_url($item->referer)['host'])) {
-                $collection->push(__('canvas::app.other', [], optional($this->userMeta)->locale));
+                $collection->push(trans('canvas::app.other', [], optional($this->userMeta)->locale));
             } else {
                 $collection->push(parse_url($item->referer)['host']);
             }

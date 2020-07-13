@@ -77,7 +77,7 @@ class PostTest extends TestCase
 
         $this->assertEquals(
             $post->readTime,
-            sprintf('%d %s %s', $minutes, Str::plural(__('canvas::app.min'), $minutes), __('canvas::app.read'))
+            sprintf('%d %s %s', $minutes, Str::plural(trans('canvas::app.min'), $minutes), trans('canvas::app.read'))
         );
     }
 
