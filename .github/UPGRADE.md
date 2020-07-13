@@ -60,6 +60,11 @@ For instance, I use [Sequel Pro](http://sequelpro.com). When I exported my data,
  the dump still contained `CREATE TABLE` statements. Sequel Pro will throw errors since those tables already exist,
  however they can be ignored since the import still inserts the data properly. 
 
+### Configuration
+
+The base path variable name in `config/canvas.php` changed to be consistent with the newly-added domain variable. 
+You'll need to make sure your `.env` file is up to date with the correct variable: `CANVAS_PATH`.
+ 
 ### Assets
 
 Re-publish the assets using the `canvas:publish` Artisan command:

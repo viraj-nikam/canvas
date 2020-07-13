@@ -1,20 +1,23 @@
 <?php
 
 return [
+
     /*
     |--------------------------------------------------------------------------
     | Base Domain
     |--------------------------------------------------------------------------
     |
-    | This is the domain where Canvas will be accessible from. You are free to
-    | to change this domain to a sub-domain you like.
+    | This is the subdomain where Canvas will be accessible from. If the
+    | setting is null, Canvas will reside under the same domain as the
+    | application. Otherwise, this will be used as the subdomain.
     |
     */
-    'domain' => env('CANVAS_ROUTE_DOMAIN', env('APP_URL')),
+
+    'domain' => env('CANVAS_DOMAIN', null),
 
     /*
     |--------------------------------------------------------------------------
-    | Base Route
+    | Base Path
     |--------------------------------------------------------------------------
     |
     | This is the URI path where Canvas will be accessible from. You are free
@@ -23,7 +26,7 @@ return [
     |
     */
 
-    'path' => env('CANVAS_PATH_NAME', 'canvas'),
+    'path' => env('CANVAS_PATH', 'canvas'),
 
     /*
     |--------------------------------------------------------------------------
