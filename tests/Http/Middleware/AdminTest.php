@@ -9,7 +9,10 @@ class AdminTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function restrictedRoutesProvider()
+    /**
+     * @return array
+     */
+    public function restrictedRoutesProvider(): array
     {
         return [
             ['GET', 'canvas/api/tags'],
