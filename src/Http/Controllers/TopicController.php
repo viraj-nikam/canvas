@@ -102,6 +102,20 @@ class TopicController extends Controller
     }
 
     /**
+     * Display the specified relationship.
+     *
+     * @param $id
+     * @return JsonResponse
+     * @throws Exception
+     */
+    public function showPosts($id): JsonResponse
+    {
+        $topic = Topic::with('posts')->find($id);
+
+        return $topic ? response()->json($topic->posts()->paginate(), 200) : response()->json(null, 200);
+    }
+
+    /**
      * Remove the specified resource from storage.
      *
      * @param $id

@@ -32,6 +32,7 @@ Route::domain(config('canvas.domain'))->namespace('Canvas\Http\Controllers')->gr
                 Route::get('/', 'TagController@index');
                 Route::get('create', 'TagController@create');
                 Route::get('{id}', 'TagController@show');
+                Route::get('{id}/posts', 'TagController@showPosts');
                 Route::post('{id}', 'TagController@store');
                 Route::delete('{id}', 'TagController@destroy');
             });
@@ -40,6 +41,7 @@ Route::domain(config('canvas.domain'))->namespace('Canvas\Http\Controllers')->gr
                 Route::get('/', 'TopicController@index');
                 Route::get('create', 'TopicController@create');
                 Route::get('{id}', 'TopicController@show');
+                Route::get('{id}/posts', 'TopicController@showPosts');
                 Route::post('{id}', 'TopicController@store');
                 Route::delete('{id}', 'TopicController@destroy');
             });

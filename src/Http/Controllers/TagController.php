@@ -102,6 +102,20 @@ class TagController extends Controller
     }
 
     /**
+     * Display the specified relationship.
+     *
+     * @param $id
+     * @return JsonResponse
+     * @throws Exception
+     */
+    public function showPosts($id): JsonResponse
+    {
+        $tag = Tag::with('posts')->find($id);
+
+        return $tag ? response()->json($tag->posts()->paginate(), 200) : response()->json(null, 200);
+    }
+
+    /**
      * Remove the specified resource from storage.
      *
      * @param $id

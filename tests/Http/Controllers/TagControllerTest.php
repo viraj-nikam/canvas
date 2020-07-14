@@ -74,6 +74,22 @@ class TagControllerTest extends TestCase
     }
 
     /** @test */
+    public function it_can_fetch_posts_for_an_existing_tag()
+    {
+        $tag = factory(Tag::class)->create();
+        $post = factory(Post::class)->create();
+
+        $tag->posts()->sync([$post->id]);
+
+        $response = $this->actingAs($tag->user)
+             ->getJson("canvas/api/tags/{$tag->id}/posts")
+             ->assertSuccessful();
+
+        $this->assertIsArray($response->decodeResponseJson('data'));
+        $this->assertCount(1, $response->decodeResponseJson('data'));
+    }
+
+    /** @test */
     public function it_returns_404_if_no_tag_is_found()
     {
         $user = factory(config('canvas.user'))->create();

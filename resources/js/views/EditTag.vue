@@ -2,7 +2,7 @@
     <div>
         <page-header>
             <template slot="menu" v-if="isReady">
-                <div class="dropdown" v-if="tag.id !== 'create'">
+                <div class="dropdown" v-if="id !== 'create'">
                     <a
                         id="navbarDropdown"
                         class="nav-link pr-0"
@@ -103,6 +103,70 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="mt-5 card shadow-lg" v-if="posts.length > 0">
+                    <div class="card-body p-0">
+                        <div v-for="(post, index) in posts" :key="`${index}-${post.id}`">
+                            <router-link
+                                :to="{
+                                            name: 'post-stats',
+                                            params: { id: post.id },
+                                        }"
+                                class="text-decoration-none"
+                            >
+                                <div
+                                    v-hover="{ class: `hover-bg` }"
+                                    class="d-flex p-3 align-items-center"
+                                    :class="{
+                                                'border-top': index !== 0,
+                                                'rounded-top': index === 0,
+                                                'rounded-bottom': index === posts.length - 1,
+                                            }"
+                                >
+                                    <div class="pl-2 col-md-6 col-sm-8 col-10">
+                                        <p class="mb-1 mt-2 text-truncate">
+                                            <span class="font-weight-bold text-lg lead">{{ post.title }}</span>
+                                        </p>
+                                        <p class="text-secondary mb-2">
+                                            <span class="d-none d-md-inline"> {{ post.read_time }} ― </span>
+                                            {{ i18n.published }}
+                                            {{ moment(post.published_at).format('MMM D, YYYY') }}
+                                        </p>
+                                    </div>
+                                    <div class="ml-auto">
+                                        <div class="d-none d-lg-inline">
+                                                    <span class="text-muted mr-3"
+                                                    >{{ suffixedNumber(post.views_count) }} {{ i18n.views }}</span
+                                                    >
+                                            <span class="mr-3"
+                                            >{{ i18n.created }}
+                                                        {{ moment(post.created_at).format('MMM D, YYYY') }}</span
+                                            >
+                                        </div>
+
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width="25"
+                                            viewBox="0 0 24 24"
+                                            class="icon-cheveron-right-circle"
+                                        >
+                                            <circle cx="12" cy="12" r="10" style="fill: none;" />
+                                            <path
+                                                class="fill-light-gray"
+                                                d="M10.3 8.7a1 1 0 0 1 1.4-1.4l4 4a1 1 0 0 1 0 1.4l-4 4a1 1 0 0 1-1.4-1.4l3.29-3.3-3.3-3.3z"
+                                            />
+                                        </svg>
+                                    </div>
+                                </div>
+                            </router-link>
+                        </div>
+
+                        <infinite-loading @infinite="fetchPosts" spinner="spiral">
+                            <span slot="no-more"></span>
+                            <div slot="no-results"></div>
+                        </infinite-loading>
+                    </div>
+                </div>
             </div>
         </main>
 
@@ -120,17 +184,25 @@
     import $ from 'jquery';
     import NProgress from 'nprogress';
     import PageHeader from '../components/PageHeader';
+    import Hover from '../directives/Hover';
     import DeleteModal from '../components/modals/DeleteModal';
     import i18n from "../mixins/i18n";
     import toast from '../mixins/toast';
+    import InfiniteLoading from 'vue-infinite-loading';
     import strings from "../mixins/strings";
+    import isEmpty from "lodash/isEmpty";
 
     export default {
         name: 'edit-tag',
 
         components: {
-            PageHeader,
             DeleteModal,
+            InfiniteLoading,
+            PageHeader,
+        },
+
+        directives: {
+            Hover,
         },
 
         mixins: [ i18n, strings, toast ],
@@ -139,6 +211,8 @@
             return {
                 id: this.$route.params.id || 'create',
                 tag: null,
+                page: 1,
+                posts: [],
                 errors: [],
                 isReady: false,
             };
@@ -146,6 +220,7 @@
 
         async created() {
             await this.fetchTag();
+            await this.fetchPosts();
             this.isReady = true;
             NProgress.done();
         },
@@ -166,6 +241,32 @@
                     })
                     .catch(() => {
                         this.$router.push({ name: 'tags' });
+                        NProgress.done();
+                    });
+            },
+
+            fetchPosts($state) {
+                return this.request()
+                    .get('/api/tags/' + this.id + '/posts', {
+                        params: {
+                            page: this.page,
+                        }
+                    })
+                    .then(({ data }) => {
+                        if (!isEmpty(data) && !isEmpty(data.data)) {
+                            this.page += 1;
+                            this.posts.push(...data.data);
+
+                            $state.loaded();
+                        } else {
+                            $state.complete();
+                        }
+
+                        if (isEmpty($state)) {
+                            NProgress.inc();
+                        }
+                    })
+                    .catch(() => {
                         NProgress.done();
                     });
             },

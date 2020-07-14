@@ -74,6 +74,22 @@ class TopicControllerTest extends TestCase
     }
 
     /** @test */
+    public function it_can_fetch_posts_for_an_existing_topic()
+    {
+        $topic = factory(Topic::class)->create();
+        $post = factory(Post::class)->create();
+
+        $topic->posts()->sync([$post->id]);
+
+        $response = $this->actingAs($topic->user)
+                         ->getJson("canvas/api/topics/{$topic->id}/posts")
+                         ->assertSuccessful();
+
+        $this->assertIsArray($response->decodeResponseJson('data'));
+        $this->assertCount(1, $response->decodeResponseJson('data'));
+    }
+
+    /** @test */
     public function it_returns_404_if_no_topic_is_found()
     {
         $user = factory(config('canvas.user'))->create();
