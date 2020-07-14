@@ -38,9 +38,9 @@
         <main class="py-4">
             <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12">
                 <div class="my-3">
-                    <h1>{{ i18n.tags }}</h1>
+                    <h2 class="mt-3">{{ i18n.tags }}</h2>
 
-                    <p class="text-secondary">
+                    <p class="mt-2 text-secondary">
                         {{ i18n.tags_are_great_for }}
                     </p>
                 </div>
@@ -67,7 +67,7 @@
                                     <div class="d-flex align-items-center">
                                         <div class="mr-auto pl-2">
                                             <p class="mb-0 py-1">
-                                                <span class="font-weight-bold text-lg lead">
+                                                <span class="font-weight-bold">
                                                     {{ tag.name }}
                                                 </span>
                                             </p>

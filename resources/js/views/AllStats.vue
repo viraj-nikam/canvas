@@ -5,8 +5,10 @@
         <main class="py-4">
             <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12">
                 <div class="my-3">
-                    <h1>{{ i18n.stats }}</h1>
-                    <p class="text-secondary">{{ i18n.click_to_see_insights }}</p>
+                    <h2 class="mt-3">{{ i18n.stats }}</h2>
+                    <p class="mt-2 text-secondary">
+                        {{ i18n.click_to_see_insights }}
+                    </p>
                 </div>
 
                 <div v-if="isReady">
@@ -71,7 +73,7 @@
                                         >
                                             <div class="pl-2 col-md-6 col-sm-8 col-10">
                                                 <p class="mb-1 mt-2 text-truncate">
-                                                    <span class="font-weight-bold text-lg lead">{{ post.title }}</span>
+                                                    <span class="font-weight-bold">{{ post.title }}</span>
                                                 </p>
                                                 <p class="text-secondary mb-2">
                                                     <span class="d-none d-md-inline"> {{ post.read_time }} ― </span>

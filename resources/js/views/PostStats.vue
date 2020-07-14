@@ -37,17 +37,15 @@
 
         <main class="py-4" v-if="isReady">
             <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12">
-                <div class="row justify-content-between">
-                    <div class="col-md-8 my-3">
-                        <p class="text-muted mb-0">
-                            {{ i18n.published }}
-                            {{ moment(post.published_at).fromNow() }}
-                        </p>
-                        <h1>{{ post.title }}</h1>
-                    </div>
+                <div class="my-3">
+                    <h2 class="mt-3">{{ post.title  }}</h2>
+                    <p class="mt-2 text-secondary">
+                        {{ i18n.published }}
+                        {{ moment(post.published_at).fromNow() }}
+                    </p>
                 </div>
 
-                <div class="card-deck mt-3">
+                <div class="card-deck mt-5">
                     <div class="card shadow-lg">
                         <div class="card-body p-3">
                             <p class="lead border-bottom">

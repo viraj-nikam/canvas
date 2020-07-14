@@ -5,10 +5,9 @@
         <main class="py-4">
             <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12">
                 <div class="my-3">
-                    <h1>Users</h1>
-
-                    <p class="text-secondary">
-                        Manage users and permissions
+                    <h2 class="mt-3">Users</h2>
+                    <p class="mt-2 text-secondary">
+                        Manage user roles and permissions.
                     </p>
                 </div>
 
