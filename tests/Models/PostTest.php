@@ -220,4 +220,28 @@ class PostTest extends TestCase
         $this->assertSame($meta->id, $post->withUserMeta()->first()->userMeta->id);
         $this->assertInstanceOf(UserMeta::class, Post::all()->first()->userMeta);
     }
+
+    /** @test */
+    public function it_will_detach_tags_and_topic_on_delete()
+    {
+        $tag = factory(Tag::class)->create();
+        $topic = factory(Topic::class)->create();
+        $post = factory(Post::class)->create();
+
+        $post->topic()->sync([$topic->id]);
+        $post->tags()->sync([$tag->id]);
+
+        $post->delete();
+
+        $this->assertEquals(0, $post->tags->count());
+        $this->assertEquals(0, $post->topic->count());
+        $this->assertDatabaseMissing('canvas_posts_tags', [
+            'post_id' => $post->id,
+            'tag_id' => $tag->id
+        ]);
+        $this->assertDatabaseMissing('canvas_posts_topics', [
+            'post_id' => $post->id,
+            'topic_id' => $topic->id
+        ]);
+    }
 }

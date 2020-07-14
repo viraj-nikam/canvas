@@ -140,7 +140,7 @@ import PageHeader from '../components/PageHeader';
 import i18n from '../mixins/i18n';
 
 export default {
-    name: 'all-stats',
+    name: 'stats',
 
     components: {
         LineChart,

@@ -101,4 +101,21 @@ class TopicTest extends TestCase
 
         $this->assertInstanceOf(UserMeta::class, $topic->userMeta);
     }
+
+    /** @test */
+    public function it_will_detach_posts_on_delete()
+    {
+        $tag = factory(Topic::class)->create();
+        $post = factory(Post::class)->create();
+
+        $tag->posts()->sync([$post->id]);
+
+        $tag->delete();
+
+        $this->assertEquals(0, $tag->posts->count());
+        $this->assertDatabaseMissing('canvas_posts_topics', [
+            'post_id' => $post->id,
+            'topic_id' => $tag->id
+        ]);
+    }
 }

@@ -38,7 +38,7 @@
                     <div v-for="book in results" :key="book.name">
                         <router-link
                             :to="{
-                                name: 'all-stats',
+                                name: 'stats',
                             }"
                             class="text-decoration-none"
                         >

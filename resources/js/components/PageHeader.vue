@@ -59,7 +59,7 @@
                         <router-link v-if="user.admin" :to="{ name: 'topics' }" class="dropdown-item">
                             <span>{{ i18n.topics }}</span>
                         </router-link>
-                        <router-link :to="{ name: 'all-stats' }" class="dropdown-item">
+                        <router-link :to="{ name: 'stats' }" class="dropdown-item">
                             <span>{{ i18n.stats }}</span>
                         </router-link>
 

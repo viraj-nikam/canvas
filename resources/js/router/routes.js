@@ -20,11 +20,12 @@ let auth = store.state.auth;
 export default [
     {
         path: '/',
+        name: 'home',
         redirect: '/stats',
     },
     {
         path: '/stats',
-        name: 'all-stats',
+        name: 'stats',
         component: AllStats,
     },
     {
@@ -55,7 +56,7 @@ export default [
             if (auth.admin === 1) {
                 next();
             } else {
-                next({ name: 'all-stats' });
+                next({ name: 'home' });
             }
         },
     },
@@ -67,7 +68,7 @@ export default [
             if (auth.admin === 1) {
                 next();
             } else {
-                next({ name: 'all-stats' });
+                next({ name: 'home' });
             }
         },
     },
@@ -79,7 +80,7 @@ export default [
             if (auth.admin === 1) {
                 next();
             } else {
-                next({ name: 'all-stats' });
+                next({ name: 'home' });
             }
         },
     },
@@ -91,7 +92,7 @@ export default [
             if (auth.admin === 1) {
                 next();
             } else {
-                next({ name: 'all-stats' });
+                next({ name: 'home' });
             }
         },
     },
@@ -103,7 +104,7 @@ export default [
             if (auth.admin === 1) {
                 next();
             } else {
-                next({ name: 'all-stats' });
+                next({ name: 'home' });
             }
         },
     },
@@ -115,7 +116,7 @@ export default [
             if (auth.admin === 1) {
                 next();
             } else {
-                next({ name: 'all-stats' });
+                next({ name: 'home' });
             }
         },
     },
@@ -132,7 +133,7 @@ export default [
             if (auth.admin === 1) {
                 next();
             } else {
-                next({ name: 'all-stats' });
+                next({ name: 'home' });
             }
         },
     },
@@ -144,7 +145,7 @@ export default [
             if (auth.admin === 1 || auth.id === to.params.id) {
                 next();
             } else {
-                next({ name: 'all-stats' });
+                next({ name: 'home' });
             }
         },
     },

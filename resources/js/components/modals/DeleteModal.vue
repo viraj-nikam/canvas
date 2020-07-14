@@ -49,7 +49,7 @@
                                 aria-label="Delete"
                                 @click.prevent="confirmProceed()"
                             >
-                                {{ trans.app.delete }}
+                                {{ i18n.delete }}
                             </a>
                         </div>
                         <div class="col-lg order-lg-first px-0">
@@ -57,7 +57,7 @@
                                 class="btn btn-link btn-block font-weight-bold text-muted text-decoration-none"
                                 data-dismiss="modal"
                             >
-                                {{ trans.app.cancel }}
+                                {{ i18n.cancel }}
                             </button>
                         </div>
                     </div>
@@ -68,6 +68,8 @@
 </template>
 
 <script>
+import i18n from "../../mixins/i18n";
+
 export default {
     name: 'delete-modal',
 
@@ -82,11 +84,7 @@ export default {
         },
     },
 
-    data() {
-        return {
-            trans: JSON.parse(window.Canvas.locale.translations),
-        };
-    },
+    mixins: [i18n],
 
     methods: {
         confirmProceed() {

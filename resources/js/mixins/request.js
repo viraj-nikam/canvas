@@ -21,7 +21,7 @@ export default {
                 // Add any error modifiers...
                 switch (error.response.status) {
                     case 404:
-                        VueRouter.push({ name: 'all-stats' });
+                        VueRouter.push({ name: 'home' });
                         break;
                     case 401:
                     case 405:

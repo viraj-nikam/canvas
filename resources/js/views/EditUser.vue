@@ -111,7 +111,7 @@
                             </div>
                             <div class="col-md">
                                 <router-link
-                                    :to="{ name: 'all-stats' }"
+                                    :to="{ name: 'stats' }"
                                     class="btn btn-link btn-block font-weight-bold text-muted text-decoration-none"
                                 >
                                     {{ i18n.cancel }}
