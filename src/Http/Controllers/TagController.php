@@ -26,6 +26,18 @@ class TagController extends Controller
     }
 
     /**
+     * Show the form for creating a new resource.
+     *
+     * @return JsonResponse
+     */
+    public function create(): JsonResponse
+    {
+        return response()->json(Tag::make([
+            'id' => Uuid::uuid4()->toString(),
+        ]), 200);
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param $id
@@ -84,15 +96,9 @@ class TagController extends Controller
      */
     public function show($id): JsonResponse
     {
-        if ($id === 'create') {
-            return response()->json(Tag::make([
-                'id' => Uuid::uuid4()->toString(),
-            ]), 200);
-        } else {
-            $tag = Tag::find($id);
+        $tag = Tag::find($id);
 
-            return $tag ? response()->json($tag, 200) : response()->json(null, 404);
-        }
+        return $tag ? response()->json($tag, 200) : response()->json(null, 404);
     }
 
     /**

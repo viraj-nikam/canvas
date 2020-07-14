@@ -17,7 +17,8 @@ Route::domain(config('canvas.domain'))->namespace('Canvas\Http\Controllers')->gr
 
             Route::prefix('posts')->group(function () {
                 Route::get('/', 'PostController@index');
-                Route::get('{id?}', 'PostController@show');
+                Route::get('create', 'PostController@create');
+                Route::get('{id}', 'PostController@show');
                 Route::post('{id}', 'PostController@store');
                 Route::delete('{id}', 'PostController@destroy');
             });
@@ -29,14 +30,16 @@ Route::domain(config('canvas.domain'))->namespace('Canvas\Http\Controllers')->gr
 
             Route::prefix('tags')->middleware([Admin::class])->group(function () {
                 Route::get('/', 'TagController@index');
-                Route::get('{id?}', 'TagController@show');
+                Route::get('create', 'TagController@create');
+                Route::get('{id}', 'TagController@show');
                 Route::post('{id}', 'TagController@store');
                 Route::delete('{id}', 'TagController@destroy');
             });
 
             Route::prefix('topics')->middleware([Admin::class])->group(function () {
                 Route::get('/', 'TopicController@index');
-                Route::get('{id?}', 'TopicController@show');
+                Route::get('create', 'TopicController@create');
+                Route::get('{id}', 'TopicController@show');
                 Route::post('{id}', 'TopicController@store');
                 Route::delete('{id}', 'TopicController@destroy');
             });

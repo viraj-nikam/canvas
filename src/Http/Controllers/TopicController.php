@@ -26,6 +26,18 @@ class TopicController extends Controller
     }
 
     /**
+     * Show the form for creating a new resource.
+     *
+     * @return JsonResponse
+     */
+    public function create(): JsonResponse
+    {
+        return response()->json(Topic::make([
+            'id' => Uuid::uuid4()->toString(),
+        ]), 200);
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param $id
@@ -84,15 +96,9 @@ class TopicController extends Controller
      */
     public function show($id): JsonResponse
     {
-        if ($id === 'create') {
-            return response()->json(Topic::make([
-                'id' => Uuid::uuid4()->toString(),
-            ]), 200);
-        } else {
-            $topic = Topic::find($id);
+        $topic = Topic::find($id);
 
-            return $topic ? response()->json($topic, 200) : response()->json(null, 404);
-        }
+        return $topic ? response()->json($topic, 200) : response()->json(null, 404);
     }
 
     /**

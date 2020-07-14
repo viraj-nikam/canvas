@@ -34,6 +34,25 @@ class PostController extends Controller
     }
 
     /**
+     * Show the form for creating a new resource.
+     *
+     * @return JsonResponse
+     */
+    public function create(): JsonResponse
+    {
+        $uuid = Uuid::uuid4();
+
+        return response()->json([
+            'post' => Post::make([
+                'id' => $uuid->toString(),
+                'slug' => "post-{$uuid->toString()}",
+            ]),
+            'tags' => Tag::get(['name', 'slug']),
+            'topics' => Topic::get(['name', 'slug']),
+        ]);
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param $id
@@ -98,25 +117,11 @@ class PostController extends Controller
      */
     public function show($id): JsonResponse
     {
-        $tags = Tag::get(['name', 'slug']);
-        $topics = Topic::get(['name', 'slug']);
-
         if (Post::forUser(request()->user())->pluck('id')->contains($id)) {
             return response()->json([
                 'post' => Post::forUser(request()->user())->with('tags:name,slug', 'topic:name,slug')->find($id),
-                'tags' => $tags,
-                'topics' => $topics,
-            ]);
-        } elseif ($id === 'create') {
-            $uuid = Uuid::uuid4();
-
-            return response()->json([
-                'post' => Post::make([
-                    'id' => $uuid->toString(),
-                    'slug' => "post-{$uuid->toString()}",
-                ]),
-                'tags' => $tags,
-                'topics' => $topics,
+                'tags' => Tag::get(['name', 'slug']),
+                'topics' => Topic::get(['name', 'slug']),
             ]);
         } else {
             return response()->json(null, 404);
