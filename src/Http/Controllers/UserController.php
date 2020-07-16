@@ -74,6 +74,9 @@ class UserController extends Controller
 
         $meta->save();
 
-        return response()->json($meta->refresh(), 201);
+        return response()->json([
+            'user' => $meta->user,
+            'meta' => $meta->refresh(),
+        ], 201);
     }
 }

@@ -1,10 +1,14 @@
 import request from "../../mixins/request";
+import isEmpty from "lodash/isEmpty";
+import url from "../../mixins/url";
 
 const initialState = {
     id: window.Canvas.user.id,
     name: window.Canvas.user.name,
     email: window.Canvas.user.email,
     avatar: window.Canvas.user.avatar,
+    username: window.Canvas.user.username,
+    summary: window.Canvas.user.summary,
     digest: window.Canvas.user.digest,
     darkMode: window.Canvas.user.darkMode,
     locale: window.Canvas.user.locale,
@@ -14,12 +18,18 @@ const initialState = {
 const state = { ...initialState };
 
 const actions = {
+    setAvatar(context, payload) {
+        let url = isEmpty(payload) ? url.methods.gravatar(state.email) : payload;
+
+        context.commit('SET_AVATAR', url);
+    },
+
     updateDigest(context, payload) {
         request.methods
             .request()
             .post('/api/users/' + state.id, payload)
             .then(({ data }) => {
-                context.commit('UPDATE_DIGEST', data);
+                context.commit('UPDATE_DIGEST', data.meta);
             })
             .catch((errors) => {
                 console.log(errors);
@@ -31,7 +41,7 @@ const actions = {
             .request()
             .post('/api/users/' + state.id, payload)
             .then(({ data }) => {
-                context.commit('UPDATE_LOCALE', data);
+                context.commit('UPDATE_LOCALE', data.meta);
             })
             .catch((errors) => {
                 console.log(errors);
@@ -43,7 +53,7 @@ const actions = {
             .request()
             .post('/api/users/' + state.id, payload)
             .then(({ data }) => {
-                context.commit('UPDATE_DARK_MODE', data);
+                context.commit('UPDATE_DARK_MODE', data.meta);
             })
             .catch((errors) => {
                 console.log(errors);
@@ -52,16 +62,20 @@ const actions = {
 };
 
 const mutations = {
-    UPDATE_DIGEST(state, payload) {
-        state.digest = payload.digest;
+    SET_AVATAR(state, url) {
+        state.avatar = url;
     },
 
-    UPDATE_LOCALE(state, payload) {
-        state.locale = payload.locale;
+    UPDATE_DIGEST(state, meta) {
+        state.digest = meta.digest;
     },
 
-    UPDATE_DARK_MODE(state, payload) {
-        state.darkMode = payload.dark_mode;
+    UPDATE_LOCALE(state, meta) {
+        state.locale = meta.locale;
+    },
+
+    UPDATE_DARK_MODE(state, meta) {
+        state.darkMode = meta.dark_mode;
     },
 };
 

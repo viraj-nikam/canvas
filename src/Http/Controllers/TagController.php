@@ -112,7 +112,7 @@ class TagController extends Controller
     {
         $tag = Tag::with('posts')->find($id);
 
-        return $tag ? response()->json($tag->posts()->paginate(), 200) : response()->json(null, 200);
+        return $tag ? response()->json($tag->posts()->withCount('views')->paginate(), 200) : response()->json(null, 200);
     }
 
     /**

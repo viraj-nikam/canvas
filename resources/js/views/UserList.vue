@@ -32,7 +32,7 @@
                                 >
                                     <div class="pl-2 col-md-8 col-sm-10 col-10 py-1">
                                         <p class="mb-0 text-truncate">
-                                            <span class="font-weight-bold text-lg lead">
+                                            <span class="font-weight-bold lead">
                                                 {{ user.name }}
                                             </span>
                                         </p>

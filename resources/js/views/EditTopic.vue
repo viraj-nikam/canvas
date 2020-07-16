@@ -125,7 +125,7 @@
                                 >
                                     <div class="pl-2 col-md-6 col-sm-8 col-10">
                                         <p class="mb-1 mt-2 text-truncate">
-                                            <span class="font-weight-bold text-lg lead">{{ post.title }}</span>
+                                            <span class="font-weight-bold lead">{{ post.title }}</span>
                                         </p>
                                         <p class="text-secondary mb-2">
                                             <span class="d-none d-md-inline"> {{ post.read_time }} ― </span>

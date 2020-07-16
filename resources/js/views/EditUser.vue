@@ -7,7 +7,7 @@
                 <div class="my-3">
                     <h2 class="mt-3">{{ user.name }}</h2>
                     <p class="mt-2 text-secondary">
-                        Manage user roles and permissions.
+                        Last updated {{ moment(user.updated_at).fromNow() }}
                     </p>
                 </div>
 
@@ -43,7 +43,7 @@
                                 />
 
                                 <div v-if="!isReadyToAcceptUploads" class="text-center rounded p-3">
-                                    <img :src="meta.avatar" class="rounded-circle w-75 shadow-inset" />
+                                    <img :src="avatar" class="rounded-circle w-75 shadow-inset" />
 
                                     <p class="mt-3 mb-0">
                                         <a
@@ -63,8 +63,10 @@
                                         </label>
                                         <input
                                             name="username"
+                                            :disabled="!isAuthUserProfile"
                                             type="text"
                                             class="form-control border-0"
+                                            :class="{ disabled: !isAuthUserProfile }"
                                             title="Username"
                                             v-model="meta.username"
                                             :placeholder="i18n.choose_a_username"
@@ -85,8 +87,10 @@
                                             rows="4"
                                             id="summary"
                                             name="summary"
+                                            :disabled="!isAuthUserProfile"
                                             style="resize: none;"
                                             class="form-control border-0"
+                                            :class="{ disabled: !isAuthUserProfile }"
                                             v-model="meta.summary"
                                             :placeholder="i18n.tell_us_about_yourself"
                                         >
@@ -100,8 +104,10 @@
                             <div class="col-md">
                                 <a
                                     href="#"
+                                    :disabled="!isAuthUserProfile"
                                     onclick="this.blur()"
                                     class="btn btn-success btn-block font-weight-bold mt-0"
+                                    :class="{ disabled: !isAuthUserProfile }"
                                     aria-label="Save"
                                     @click.prevent="updateProfile"
                                 >
@@ -128,6 +134,7 @@
 import PageHeader from '../components/PageHeader';
 import NProgress from 'nprogress';
 import vueFilePond from 'vue-filepond';
+import toast from '../mixins/toast';
 import 'filepond/dist/filepond.min.css';
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css';
 import FilePondPluginImageValidateSize from 'filepond-plugin-image-validate-size';
@@ -138,7 +145,10 @@ import FilePondPluginFileValidateSize from 'filepond-plugin-file-validate-size';
 import i18n from '../mixins/i18n';
 import store from '../store';
 import get from 'lodash/get';
+import isEmpty from 'lodash/isEmpty';
 import request from '../mixins/request';
+import url from "../mixins/url";
+import config from "../store/modules/config";
 
 const FilePond = vueFilePond(
     FilePondPluginFileValidateType,
@@ -156,7 +166,7 @@ export default {
         FilePond,
     },
 
-    mixins: [i18n, request],
+    mixins: [i18n, request, url, toast],
 
     data() {
         return {
@@ -186,6 +196,18 @@ export default {
     computed: {
         config() {
             return store.state.config;
+        },
+
+        auth() {
+            return store.state.auth;
+        },
+
+        avatar() {
+            return isEmpty(this.meta.avatar) ? url.methods.gravatar(this.user.email) : this.meta.avatar;
+        },
+
+        isAuthUserProfile() {
+            return this.auth.id === this.user.id;
         },
 
         getServerOptions() {
@@ -229,21 +251,33 @@ export default {
 
         processedFromFilePond() {
             this.isReadyToAcceptUploads = true;
-            store.dispatch('user/setAvatar', document.getElementsByName('profileImagePond')[0].value);
+            this.meta.avatar = document.getElementsByName('profileImagePond')[0].value;
         },
 
         removedFromFilePond() {
             this.isReadyToAcceptUploads = true;
+            this.meta.avatar = null;
             this.selectedImagesForPond = [];
-            store.dispatch('user/resetAvatar');
         },
 
         updateProfile() {
-            store.dispatch('user/updateUser', this.user);
+            this.request()
+                .post('/api/users/' + this.user.id, {...this.user, ...this.meta})
+                .then(({ data }) => {
+                    this.user = data.user;
+                    this.meta = data.meta;
+
+                    store.dispatch('auth/setAvatar', data.meta.avatar);
+
+                    toast.methods.toast(config.state.i18n.saved);
+                })
+                .catch((errors) => {
+                    console.log(errors);
+                });
         },
 
         clearAvatar() {
-            store.dispatch('user/resetAvatar');
+            this.meta.avatar = null;
             this.isReadyToAcceptUploads = true;
         },
     },

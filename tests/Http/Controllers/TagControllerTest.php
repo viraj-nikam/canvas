@@ -6,6 +6,7 @@ use Canvas\Http\Middleware\Admin;
 use Canvas\Http\Middleware\Session;
 use Canvas\Models\Post;
 use Canvas\Models\Tag;
+use Canvas\Models\View;
 use Canvas\Tests\TestCase;
 use Illuminate\Auth\Middleware\Authorize;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
@@ -78,6 +79,9 @@ class TagControllerTest extends TestCase
     {
         $tag = factory(Tag::class)->create();
         $post = factory(Post::class)->create();
+        factory(View::class)->create([
+            'post_id' => $post->id
+        ]);
 
         $tag->posts()->sync([$post->id]);
 
@@ -87,6 +91,8 @@ class TagControllerTest extends TestCase
 
         $this->assertIsArray($response->decodeResponseJson('data'));
         $this->assertCount(1, $response->decodeResponseJson('data'));
+        $this->assertArrayHasKey('views_count', $response->decodeResponseJson('data.0'));
+        $this->assertEquals(1, $response->decodeResponseJson('data.0.views_count'));
     }
 
     /** @test */

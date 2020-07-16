@@ -38,7 +38,7 @@
         <main class="py-4" v-if="isReady">
             <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12">
                 <div class="d-flex justify-content-between my-3">
-                    <h1>{{ i18n.posts_simple }}</h1>
+                    <h2 class="mt-3">{{ i18n.posts_simple }}</h2>
 
                     <select
                         name=""
@@ -52,7 +52,7 @@
                     </select>
                 </div>
 
-                <div class="mt-2 card shadow-lg">
+                <div class="mt-5 card shadow-lg">
                     <div class="card-body p-0">
                         <div v-for="(post, index) in posts" :key="`${index}-${post.id}`">
                             <router-link
@@ -73,7 +73,7 @@
                                 >
                                     <div class="pl-2 col-md-8 col-sm-10 col-10 py-1">
                                         <p class="mb-0 text-truncate">
-                                            <span class="font-weight-bold text-lg lead">
+                                            <span class="font-weight-bold lead">
                                                 {{ post.title }}
                                             </span>
                                         </p>

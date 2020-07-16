@@ -73,14 +73,23 @@ class UserControllerTest extends TestCase
             'user_id' => $user->id,
         ])->assertSuccessful();
 
-        $this->assertArrayHasKey('avatar', $response->decodeResponseJson());
-        $this->assertArrayHasKey('dark_mode', $response->decodeResponseJson());
-        $this->assertArrayHasKey('digest', $response->decodeResponseJson());
-        $this->assertArrayHasKey('summary', $response->decodeResponseJson());
-        $this->assertArrayHasKey('locale', $response->decodeResponseJson());
-        $this->assertArrayHasKey('username', $response->decodeResponseJson());
+        $this->assertArrayHasKey('user', $response->decodeResponseJson());
+        $this->assertArrayHasKey('meta', $response->decodeResponseJson());
+        $this->assertIsArray($response->decodeResponseJson('user'));
+        $this->assertIsArray($response->decodeResponseJson('meta'));
 
-        $this->assertEquals($user->id, $response->decodeResponseJson('user_id'));
+        $this->assertArrayHasKey('id', $response->decodeResponseJson('user'));
+        $this->assertArrayHasKey('name', $response->decodeResponseJson('user'));
+        $this->assertArrayHasKey('email', $response->decodeResponseJson('user'));
+
+        $this->assertArrayHasKey('avatar', $response->decodeResponseJson('meta'));
+        $this->assertArrayHasKey('dark_mode', $response->decodeResponseJson('meta'));
+        $this->assertArrayHasKey('digest', $response->decodeResponseJson('meta'));
+        $this->assertArrayHasKey('summary', $response->decodeResponseJson('meta'));
+        $this->assertArrayHasKey('locale', $response->decodeResponseJson('meta'));
+        $this->assertArrayHasKey('username', $response->decodeResponseJson('meta'));
+
+        $this->assertEquals($user->id, $response->decodeResponseJson('user.id'));
     }
 
     /** @test */
@@ -92,14 +101,23 @@ class UserControllerTest extends TestCase
             'user_id' => $user->id,
         ])->assertSuccessful();
 
-        $this->assertArrayHasKey('avatar', $response->decodeResponseJson());
-        $this->assertArrayHasKey('dark_mode', $response->decodeResponseJson());
-        $this->assertArrayHasKey('digest', $response->decodeResponseJson());
-        $this->assertArrayHasKey('summary', $response->decodeResponseJson());
-        $this->assertArrayHasKey('locale', $response->decodeResponseJson());
-        $this->assertArrayHasKey('username', $response->decodeResponseJson());
+        $this->assertArrayHasKey('user', $response->decodeResponseJson());
+        $this->assertArrayHasKey('meta', $response->decodeResponseJson());
+        $this->assertIsArray($response->decodeResponseJson('user'));
+        $this->assertIsArray($response->decodeResponseJson('meta'));
 
-        $this->assertEquals($user->id, $response->decodeResponseJson('user_id'));
+        $this->assertArrayHasKey('id', $response->decodeResponseJson('user'));
+        $this->assertArrayHasKey('name', $response->decodeResponseJson('user'));
+        $this->assertArrayHasKey('email', $response->decodeResponseJson('user'));
+
+        $this->assertArrayHasKey('avatar', $response->decodeResponseJson('meta'));
+        $this->assertArrayHasKey('dark_mode', $response->decodeResponseJson('meta'));
+        $this->assertArrayHasKey('digest', $response->decodeResponseJson('meta'));
+        $this->assertArrayHasKey('summary', $response->decodeResponseJson('meta'));
+        $this->assertArrayHasKey('locale', $response->decodeResponseJson('meta'));
+        $this->assertArrayHasKey('username', $response->decodeResponseJson('meta'));
+
+        $this->assertEquals($user->id, $response->decodeResponseJson('user.id'));
     }
 
     /** @test */

@@ -5,14 +5,14 @@
         <main class="py-4">
             <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12 my-3">
                 <div class="d-flex justify-content-between my-3">
-                    <h1>{{ i18n.settings }}</h1>
+                    <h2 class="mt-3">{{ i18n.settings }}</h2>
                 </div>
 
                 <div class="mt-2 card shadow-lg" v-if="isReady">
                     <div class="card-body p-0">
                         <div class="d-flex rounded-top p-3 align-items-center">
                             <div class="mr-auto py-1">
-                                <p class="mb-1 font-weight-bold text-lg lead">
+                                <p class="mb-1 font-weight-bold lead">
                                     {{ i18n.weekly_digest }}
                                 </p>
                                 <p class="mb-1 d-none d-lg-block">
@@ -42,7 +42,7 @@
 
                         <div class="d-flex border-top p-3 align-items-center">
                             <div class="mr-auto py-1">
-                                <p class="mb-1 font-weight-bold text-lg lead">
+                                <p class="mb-1 font-weight-bold lead">
                                     {{ i18n.dark_mode }}
                                 </p>
                                 <p class="mb-1 d-none d-lg-block">
@@ -72,7 +72,7 @@
 
                         <div class="d-flex border-top p-3 align-items-center">
                             <div class="mr-auto py-1">
-                                <p class="mb-1 font-weight-bold text-lg lead">
+                                <p class="mb-1 font-weight-bold lead">
                                     {{ i18n.locale }}
                                 </p>
                                 <p class="mb-1 d-none d-lg-block">

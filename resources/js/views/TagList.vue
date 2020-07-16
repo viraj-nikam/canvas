@@ -67,7 +67,7 @@
                                     <div class="d-flex align-items-center">
                                         <div class="mr-auto pl-2">
                                             <p class="mb-0 py-1">
-                                                <span class="font-weight-bold">
+                                                <span class="font-weight-bold lead">
                                                     {{ tag.name }}
                                                 </span>
                                             </p>

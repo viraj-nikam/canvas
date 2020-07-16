@@ -112,7 +112,7 @@ class TopicController extends Controller
     {
         $topic = Topic::with('posts')->find($id);
 
-        return $topic ? response()->json($topic->posts()->paginate(), 200) : response()->json(null, 200);
+        return $topic ? response()->json($topic->posts()->withCount('views')->paginate(), 200) : response()->json(null, 200);
     }
 
     /**
