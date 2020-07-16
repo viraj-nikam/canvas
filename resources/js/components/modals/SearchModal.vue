@@ -78,6 +78,8 @@
 import i18n from '../../mixins/i18n';
 import VueFuse from 'vue-fuse';
 import Hover from '../../directives/Hover';
+import isEmpty from "lodash/isEmpty";
+import NProgress from "nprogress";
 
 export default {
     name: 'search-modal',
@@ -93,6 +95,10 @@ export default {
     mixins: [i18n],
 
     created() {
+        this.fetchPosts();
+    },
+
+    mounted() {
         this.$on('search', (results) => {
             this.results = results;
         });
@@ -423,5 +429,18 @@ export default {
             ],
         };
     },
+
+    methods: {
+        fetchPosts() {
+            return this.request()
+                .get('/api/posts')
+                .then(({ data }) => {
+                    this.books.push(...data.posts.data);
+                })
+                .catch(() => {
+                    NProgress.done();
+                });
+        }
+    }
 };
 </script>

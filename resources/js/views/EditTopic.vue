@@ -41,7 +41,7 @@
                         <div class="form-group">
                             <div class="col-12 row">
                                 <label class="font-weight-bold text-uppercase text-muted small">
-                                    Name
+                                    {{ i18n.name }}
                                 </label>
                                 <input
                                     type="text"
@@ -294,7 +294,7 @@
                     .delete('/api/topics/' + this.id)
                     .then(() => {
                         $(this.$refs.deleteModal.$el).modal('hide');
-                        toast.methods.toast('Success');
+                        toast.methods.toast(this.i18n.success);
                         this.$router.push({ name: 'topics' });
                     })
                     .catch(() => {

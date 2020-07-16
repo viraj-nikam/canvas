@@ -51,6 +51,13 @@ Route::domain(config('canvas.domain'))->namespace('Canvas\Http\Controllers')->gr
                 Route::get('{id}', 'UserController@show');
                 Route::post('{id}', 'UserController@update');
             });
+
+            Route::prefix('search')->group(function () {
+                Route::get('posts', 'SearchController@showPosts');
+                Route::get('tags', 'SearchController@showTags')->middleware([Admin::class]);
+                Route::get('topics', 'SearchController@showTopics')->middleware([Admin::class]);
+                Route::get('users', 'SearchController@showUsers')->middleware([Admin::class]);
+            });
         });
 
         Route::get('/{view?}', 'ViewController')->where('view', '(.*)')->name('canvas');

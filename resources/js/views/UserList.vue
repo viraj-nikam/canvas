@@ -5,9 +5,9 @@
         <main class="py-4">
             <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12">
                 <div class="my-3">
-                    <h2 class="mt-3">Users</h2>
+                    <h2 class="mt-3">{{ i18n.users }}</h2>
                     <p class="mt-2 text-secondary">
-                        Manage user roles and permissions.
+                        {{ i18n.manage_user_roles }}
                     </p>
                 </div>
 

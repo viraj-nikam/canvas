@@ -7,7 +7,7 @@
                 <div class="my-3">
                     <h2 class="mt-3">{{ user.name }}</h2>
                     <p class="mt-2 text-secondary">
-                        Last updated {{ moment(user.updated_at).fromNow() }}
+                        {{ i18n.last_updated }} {{ moment(user.updated_at).fromNow() }}
                     </p>
                 </div>
 
