@@ -40,7 +40,7 @@
                                             {{ user.email }}
                                         </p>
                                     </div>
-                                    <div class="ml-auto d-none d-lg-inline pl-3">
+                                    <div class="ml-auto d-none d-md-inline pl-3">
                                         <img
                                             :src="gravatar(user.email)"
                                             style="width: 57px; height: 57px;"

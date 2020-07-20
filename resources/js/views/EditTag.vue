@@ -128,13 +128,22 @@
                                             <span class="font-weight-bold lead">{{ post.title }}</span>
                                         </p>
                                         <p class="text-secondary mb-2">
+                                            <span v-if="isPublished(post.published_at)">
                                             <span class="d-none d-md-inline"> {{ post.read_time }} ― </span>
                                             {{ i18n.published }}
                                             {{ moment(post.published_at).format('MMM D, YYYY') }}
+                                            </span>
+                                            <span v-if="isDraft(post.published_at)">
+                                                <span class="text-danger">{{  i18n.draft}}</span>
+                                            <span class="d-none d-md-inline">
+                                                ― {{ i18n.updated }}
+                                                {{ moment(post.updated_at).fromNow() }}
+                                            </span>
+                                            </span>
                                         </p>
                                     </div>
                                     <div class="ml-auto">
-                                        <div class="d-none d-lg-inline">
+                                        <div class="d-none d-md-inline">
                                                     <span class="text-muted mr-3"
                                                     >{{ suffixedNumber(post.views_count) }} {{ i18n.views }}</span
                                                     >
@@ -189,6 +198,7 @@
     import i18n from "../mixins/i18n";
     import toast from '../mixins/toast';
     import InfiniteLoading from 'vue-infinite-loading';
+    import status from '../mixins/status';
     import strings from "../mixins/strings";
     import isEmpty from "lodash/isEmpty";
 
@@ -205,7 +215,7 @@
             Hover,
         },
 
-        mixins: [ i18n, strings, toast ],
+        mixins: [ i18n, status, strings, toast ],
 
         data() {
             return {

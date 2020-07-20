@@ -90,13 +90,13 @@
                                                 i18n.draft
                                             }}</span>
 
-                                            <span class="d-none d-lg-inline">
+                                            <span class="d-none d-md-inline">
                                                 ― {{ i18n.updated }}
                                                 {{ moment(post.updated_at).fromNow() }}
                                             </span>
                                         </p>
                                     </div>
-                                    <div class="ml-auto d-none d-lg-inline pl-3">
+                                    <div class="ml-auto d-none d-md-inline pl-3">
                                         <div
                                             v-if="post.featured_image"
                                             id="featuredImage"

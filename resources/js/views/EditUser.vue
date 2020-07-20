@@ -2,7 +2,7 @@
     <div>
         <page-header></page-header>
 
-        <main class="py-4" v-if="isReady">
+        <main v-if="isReady" class="py-4">
             <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12 my-3">
                 <div class="my-3">
                     <h2 class="mt-3">{{ user.name }}</h2>
@@ -68,7 +68,7 @@
                                             class="form-control border-0"
                                             :class="{ disabled: !isAuthUserProfile }"
                                             title="Username"
-                                            v-model="meta.username"
+                                            v-model="username"
                                             :placeholder="i18n.choose_a_username"
                                         />
                                         <div v-if="usernameValidationError" class="invalid-feedback d-block">
@@ -91,7 +91,7 @@
                                             style="resize: none;"
                                             class="form-control border-0"
                                             :class="{ disabled: !isAuthUserProfile }"
-                                            v-model="meta.summary"
+                                            v-model="summary"
                                             :placeholder="i18n.tell_us_about_yourself"
                                         >
                                         </textarea>
@@ -172,6 +172,8 @@ export default {
         return {
             user: null,
             meta: null,
+            username: null,
+            summary: null,
             selectedImagesForPond: [],
             isReadyToAcceptUploads: false,
             isReady: false,
@@ -248,6 +250,8 @@ export default {
                 .then(({ data }) => {
                     this.user = data.user;
                     this.meta = data.meta;
+                    this.username = get('username', data.meta);
+                    this.summary = get('summary', data.meta);
                 });
         },
 
