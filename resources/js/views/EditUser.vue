@@ -68,7 +68,7 @@
                                             class="form-control border-0"
                                             :class="{ disabled: !isAuthUserProfile }"
                                             title="Username"
-                                            v-model="username"
+                                            v-model="meta.username"
                                             :placeholder="i18n.choose_a_username"
                                         />
                                         <div v-if="usernameValidationError" class="invalid-feedback d-block">
@@ -91,7 +91,7 @@
                                             style="resize: none;"
                                             class="form-control border-0"
                                             :class="{ disabled: !isAuthUserProfile }"
-                                            v-model="summary"
+                                            v-model="meta.summary"
                                             :placeholder="i18n.tell_us_about_yourself"
                                         >
                                         </textarea>
@@ -172,8 +172,6 @@ export default {
         return {
             user: null,
             meta: null,
-            username: null,
-            summary: null,
             selectedImagesForPond: [],
             isReadyToAcceptUploads: false,
             isReady: false,
@@ -250,8 +248,6 @@ export default {
                 .then(({ data }) => {
                     this.user = data.user;
                     this.meta = data.meta;
-                    this.username = get('username', data.meta);
-                    this.summary = get('summary', data.meta);
                 });
         },
 
