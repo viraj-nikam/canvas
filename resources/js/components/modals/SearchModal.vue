@@ -48,15 +48,15 @@
                         >
                             <div v-hover="{ class: `hover-bg` }" class="p-3">
                                 <div class="d-flex align-items-center">
-                                    <div class="mr-auto pl-2">
-                                        <p class="mb-0 py-1">
+                                    <div class="mr-auto pl-2 col-md-6 col-sm-8 col-10">
+                                        <p class="mb-0 py-1 text-truncate">
                                             <span class="font-weight-bold text-lg lead">
                                                 {{ entity.item.name }}
                                             </span>
                                         </p>
                                     </div>
 
-                                    <div class="ml-auto d-none d-md-inline-block">
+                                    <div class="ml-auto d-md-inline-block">
                                         <span class="mr-3 text-muted">{{ entity.item.type }}</span>
                                     </div>
 
@@ -85,6 +85,7 @@
 <script>
 import i18n from '../../mixins/i18n';
 import VueFuse from 'vue-fuse';
+import store from '../../store';
 import Hover from '../../directives/Hover';
 
 export default {
@@ -100,10 +101,20 @@ export default {
 
     mixins: [i18n],
 
+    computed: {
+        auth() {
+            return store.state.auth;
+        },
+    },
+
     async created() {
-        await this.fetchTags();
-        await this.fetchTopics();
-        await this.fetchUsers();
+        await this.fetchPosts();
+
+        if (this.auth.admin === 1) {
+            await this.fetchTags();
+            await this.fetchTopics();
+            await this.fetchUsers();
+        }
     },
 
     mounted() {
@@ -115,15 +126,22 @@ export default {
     data() {
         return {
             results: [],
-            posts: [],
-            tags: [],
-            topics: [],
-            users: [],
             searchIndex: []
         };
     },
 
     methods: {
+        fetchPosts() {
+            return this.request()
+                .get('/api/search/posts')
+                .then(({ data }) => {
+                    this.searchIndex.push(...data);
+                })
+                .catch(() => {
+                    // Add any error debugging...
+                });
+        },
+
         fetchTags() {
             return this.request()
                 .get('/api/search/tags')

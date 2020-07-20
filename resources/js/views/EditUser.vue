@@ -205,7 +205,7 @@ export default {
         },
 
         avatar() {
-            return isEmpty(this.meta.avatar) ? url.methods.gravatar(this.user.email) : this.meta.avatar;
+            return get('avatar', this.meta, url.methods.gravatar(this.user.email));
         },
 
         isAuthUserProfile() {

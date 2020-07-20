@@ -109,7 +109,7 @@
                         <div v-for="(post, index) in posts" :key="`${index}-${post.id}`">
                             <router-link
                                 :to="{
-                                            name: 'post-stats',
+                                            name: 'edit-post',
                                             params: { id: post.id },
                                         }"
                                 class="text-decoration-none"

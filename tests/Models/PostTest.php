@@ -202,6 +202,16 @@ class PostTest extends TestCase
         ]);
 
         $this->assertEquals(1, $post->forUser($user)->count());
+
+        factory(Post::class)->create([
+            'user_id' => 2,
+        ]);
+
+        $meta = factory(UserMeta::class)->create([
+            'admin' => 1
+        ]);
+
+        $this->assertEquals(2, $post->forUser($meta->user)->count());
     }
 
     /** @test */

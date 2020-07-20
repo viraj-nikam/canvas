@@ -2,6 +2,7 @@
 
 namespace Canvas\Http\Controllers;
 
+use Canvas\Models\Post;
 use Canvas\Models\Tag;
 use Canvas\Models\Topic;
 use Exception;
@@ -19,7 +20,17 @@ class SearchController extends Controller
      */
     public function showPosts(): JsonResponse
     {
-        //
+        $posts = Post::forUser(request()->user())->select('id', 'title')->latest()->get();
+
+        $posts->map(function ($post) {
+            $post['name'] = $post->title;
+            $post['type'] = 'Post';
+            $post['route'] = 'edit-post';
+
+            return $post;
+        });
+
+        return response()->json(collect($posts)->toArray(), 200);
     }
 
     /**

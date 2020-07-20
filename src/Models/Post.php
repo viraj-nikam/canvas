@@ -295,7 +295,7 @@ class Post extends Model
     }
 
     /**
-     * Scope a query to only include posts for a given user.
+     * Scope a query to restrict access based on permissions.
      *
      * @param $query
      * @param $user
@@ -303,7 +303,13 @@ class Post extends Model
      */
     public function scopeForUser($query, $user): Builder
     {
-        return $query->where('user_id', $user->id);
+        $meta = UserMeta::firstWhere('user_id', $user->id);
+
+        if (optional($meta)->admin) {
+            return $query;
+        } else {
+            return $query->where('user_id', $user->id);
+        }
     }
 
     /**
