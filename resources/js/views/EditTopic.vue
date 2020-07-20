@@ -227,7 +227,21 @@
 
         watch: {
             'topic.name'(val) {
-                this.topic.slug = this.slugify(val);
+                if (!isEmpty(val)) {
+                    this.topic.slug = this.slugify(val);
+                }
+            },
+
+            $route(to) {
+                this.isReady = false;
+                this.id = to.params.id;
+                this.topic = null;
+                this.page = 1;
+                this.posts = [];
+                this.fetchTopic();
+                this.fetchPosts();
+                this.isReady = true;
+                NProgress.done();
             },
         },
 

@@ -181,9 +181,11 @@ export default {
     watch: {
         $route(to) {
             this.isReady = false;
+            this.user = null;
+            this.meta = null;
             this.fetchUser(to.params.id);
-            NProgress.done();
             this.isReady = true;
+            NProgress.done();
         },
     },
 

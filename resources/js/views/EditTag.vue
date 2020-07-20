@@ -227,7 +227,21 @@
 
         watch: {
             'tag.name'(val) {
-                this.tag.slug = this.slugify(val);
+                if (!isEmpty(val)) {
+                    this.tag.slug = this.slugify(val);
+                }
+            },
+
+            $route(to) {
+                this.isReady = false;
+                this.id = to.params.id;
+                this.tag = null;
+                this.page = 1;
+                this.posts = [];
+                this.fetchTag();
+                this.fetchPosts();
+                this.isReady = true;
+                NProgress.done();
             },
         },
 
