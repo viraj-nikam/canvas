@@ -15,6 +15,11 @@ body {
     .dropdown-menu {
         border: 1px solid $gray-200;
         box-shadow: $box-shadow-lg;
+
+        & .dropdown-item:active {
+            color: $body--color;
+            background-color: $gray-100;
+        }
     }
 
     .border-top {

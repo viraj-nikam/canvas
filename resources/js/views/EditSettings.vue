@@ -4,11 +4,11 @@
 
         <main class="py-4">
             <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12 my-3">
-                <div class="d-flex justify-content-between my-3">
+                <div class="my-3">
                     <h2 class="mt-3">{{ i18n.settings }}</h2>
                 </div>
 
-                <div class="mt-2 card shadow-lg" v-if="isReady">
+                <div class="mt-5 card shadow-lg" v-if="isReady">
                     <div class="card-body p-0">
                         <div class="d-flex rounded-top p-3 align-items-center">
                             <div class="mr-auto py-1">

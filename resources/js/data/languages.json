@@ -25,7 +25,7 @@
     },
     "ar":{
         "name":"Arabic",
-        "nativeName":"العربية"
+        "nativeName":"عربى"
     },
     "an":{
         "name":"Aragonese",
@@ -100,7 +100,7 @@
         "nativeName":"ဗမာစာ"
     },
     "ca":{
-        "name":"Catalan; Valencian",
+        "name":"Catalan",
         "nativeName":"Català"
     },
     "ch":{
@@ -117,7 +117,7 @@
     },
     "zh-CN":{
         "name":"Chinese",
-        "nativeName":"中文 (Zhōngwén), 汉语, 漢語"
+        "nativeName":"中文"
     },
     "cv":{
         "name":"Chuvash",
@@ -153,7 +153,7 @@
     },
     "nl":{
         "name":"Dutch",
-        "nativeName":"Nederlands, Vlaams"
+        "nativeName":"Nederlands"
     },
     "en":{
         "name":"English",
@@ -185,7 +185,7 @@
     },
     "fr":{
         "name":"French",
-        "nativeName":"français, langue française"
+        "nativeName":"Français"
     },
     "ff":{
         "name":"Fula; Fulah; Pulaar; Pular",
@@ -201,7 +201,7 @@
     },
     "de":{
         "name":"German",
-        "nativeName":"Deutsch"
+        "nativeName":"Deutsche"
     },
     "el":{
         "name":"Greek, Modern",
@@ -233,7 +233,7 @@
     },
     "hi":{
         "name":"Hindi",
-        "nativeName":"हिन्दी, हिंदी"
+        "nativeName":"हिन्दी"
     },
     "ho":{
         "name":"Hiri Motu",
@@ -249,7 +249,7 @@
     },
     "id":{
         "name":"Indonesian",
-        "nativeName":"Bahasa Indonesia"
+        "nativeName":"bahasa Indonesia"
     },
     "ie":{
         "name":"Interlingue",
@@ -501,7 +501,7 @@
     },
     "pl":{
         "name":"Polish",
-        "nativeName":"polski"
+        "nativeName":"Polskie"
     },
     "ps":{
         "name":"Pashto, Pushto",
@@ -529,7 +529,7 @@
     },
     "ru":{
         "name":"Russian",
-        "nativeName":"русский язык"
+        "nativeName":"русский"
     },
     "sa":{
         "name":"Sanskrit (Saṁskṛta)",
@@ -588,8 +588,8 @@
         "nativeName":"Sesotho"
     },
     "es":{
-        "name":"Spanish; Castilian",
-        "nativeName":"español, castellano"
+        "name":"Spanish",
+        "nativeName":"Español"
     },
     "su":{
         "name":"Sundanese",
@@ -649,7 +649,7 @@
     },
     "tr":{
         "name":"Turkish",
-        "nativeName":"Türkçe"
+        "nativeName":"Türk"
     },
     "ts":{
         "name":"Tsonga",

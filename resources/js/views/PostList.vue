@@ -37,7 +37,7 @@
 
         <main class="py-4" v-if="isReady">
             <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12">
-                <div class="d-flex justify-content-between my-3">
+                <div class="d-flex justify-content-between my-3 align-items-end">
                     <h2 class="mt-3">{{ i18n.posts_simple }}</h2>
 
                     <select
@@ -45,7 +45,7 @@
                         id=""
                         v-model="type"
                         @change="changeType"
-                        class="my-auto ml-auto w-auto custom-select border-0"
+                        class="ml-auto w-auto custom-select border-0"
                     >
                         <option value="published">{{ i18n.published }} ({{ suffixedNumber(publishedCount) }})</option>
                         <option value="draft">{{ i18n.draft }} ({{ suffixedNumber(draftCount) }})</option>
