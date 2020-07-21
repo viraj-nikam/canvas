@@ -7,7 +7,7 @@
                 <div class="my-3">
                     <h2 class="mt-3">{{ user.name }}</h2>
                     <p class="mt-2 text-secondary">
-                        {{ i18n.last_updated }} {{ moment(meta.updated_at).fromNow() }}
+                        {{ i18n.last_updated }} {{ moment(userLastUpdated).fromNow() }}
                     </p>
                 </div>
 
@@ -43,7 +43,7 @@
                                 />
 
                                 <div v-if="!isReadyToAcceptUploads" class="text-center rounded p-3">
-                                    <img :src="avatar" class="rounded-circle w-75 shadow-inset" />
+                                    <img :src="avatarPath" class="rounded-circle w-75 shadow-inset" />
 
                                     <p class="mt-3 mb-0">
                                         <a
@@ -68,7 +68,7 @@
                                             class="form-control border-0"
                                             :class="{ disabled: !isAuthUserProfile }"
                                             title="Username"
-                                            v-model="meta.username"
+                                            v-model="username"
                                             :placeholder="i18n.choose_a_username"
                                         />
                                         <div v-if="usernameValidationError" class="invalid-feedback d-block">
@@ -91,7 +91,7 @@
                                             style="resize: none;"
                                             class="form-control border-0"
                                             :class="{ disabled: !isAuthUserProfile }"
-                                            v-model="meta.summary"
+                                            v-model="summary"
                                             :placeholder="i18n.tell_us_about_yourself"
                                         >
                                         </textarea>
@@ -171,7 +171,10 @@ export default {
     data() {
         return {
             user: null,
-            meta: null,
+            // meta: null,
+            username: null,
+            summary: null,
+            avatar: null,
             selectedImagesForPond: [],
             isReadyToAcceptUploads: false,
             isReady: false,
@@ -196,6 +199,10 @@ export default {
     },
 
     computed: {
+        userLastUpdated() {
+            return get('updated_at', this.meta, this.user.updated_at);
+        },
+
         config() {
             return store.state.config;
         },
@@ -204,8 +211,8 @@ export default {
             return store.state.auth;
         },
 
-        avatar() {
-            return get('avatar', this.meta, url.methods.gravatar(this.user.email));
+        avatarPath() {
+            return this.avatar || url.methods.gravatar(this.user.email);
         },
 
         isAuthUserProfile() {
@@ -222,7 +229,6 @@ export default {
         },
 
         usernameValidationError() {
-            return [];
             // let errors = Object.values(this.user.errors);
             //
             // return get(errors.flat(1), '[0].username', null);
@@ -247,18 +253,20 @@ export default {
                 .get('/api/users/' + id)
                 .then(({ data }) => {
                     this.user = data.user;
-                    this.meta = data.meta;
+                    this.summary = get('summary', data.meta, null);
+                    this.username = get('username', data.meta, null);
+                    this.avatar = get('avatar', data.meta, null);
                 });
         },
 
         processedFromFilePond() {
             this.isReadyToAcceptUploads = true;
-            this.meta.avatar = document.getElementsByName('profileImagePond')[0].value;
+            this.avatar = document.getElementsByName('profileImagePond')[0].value;
         },
 
         removedFromFilePond() {
             this.isReadyToAcceptUploads = true;
-            this.meta.avatar = null;
+            this.avatar = null;
             this.selectedImagesForPond = [];
         },
 
@@ -267,7 +275,9 @@ export default {
                 .post('/api/users/' + this.user.id, {...this.user, ...this.meta})
                 .then(({ data }) => {
                     this.user = data.user;
-                    this.meta = data.meta;
+                    this.summary = data.meta.summary;
+                    this.username = data.meta.username;
+                    this.avatar = data.meta.avatar;
 
                     store.dispatch('auth/setAvatar', data.meta.avatar);
 
@@ -279,7 +289,7 @@ export default {
         },
 
         clearAvatar() {
-            this.meta.avatar = null;
+            this.avatar = url.methods.gravatar(this.user.email);
             this.isReadyToAcceptUploads = true;
         },
     },

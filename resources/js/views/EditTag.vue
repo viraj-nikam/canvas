@@ -35,7 +35,14 @@
         </page-header>
 
         <main v-if="isReady" class="py-4">
-            <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12 my-3">
+            <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12">
+                <div class="my-3">
+                    <h2 class="mt-3">{{ tag.name || i18n.new_tag }}</h2>
+                    <p v-if="!creatingTag" class="mt-2 text-secondary">
+                        {{ i18n.last_updated }} {{ moment(tag.updated_at).fromNow() }}
+                    </p>
+                </div>
+
                 <div class="mt-5 card shadow-lg">
                     <div class="card-body">
                         <div class="form-group">
@@ -80,7 +87,7 @@
                             </div>
                         </div>
 
-                        <div class="row mt-3 mb-2">
+                        <div class="row mt-4 mb-2">
                             <div class="col-md">
                                 <a
                                     href="#"
@@ -253,6 +260,12 @@
                 this.isReady = true;
                 NProgress.done();
             },
+        },
+
+        computed: {
+            creatingTag() {
+                return this.$route.name === 'create-tag';
+            }
         },
 
         methods: {

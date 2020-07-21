@@ -35,7 +35,14 @@
         </page-header>
 
         <main v-if="isReady" class="py-4">
-            <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12 my-3">
+            <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12">
+                <div class="my-3">
+                    <h2 class="mt-3">{{ topic.name || i18n.new_topic }}</h2>
+                    <p v-if="!creatingTopic" class="mt-2 text-secondary">
+                        {{ i18n.last_updated }} {{ moment(topic.updated_at).fromNow() }}
+                    </p>
+                </div>
+
                 <div class="mt-5 card shadow-lg">
                     <div class="card-body">
                         <div class="form-group">
@@ -243,6 +250,12 @@
                 this.isReady = true;
                 NProgress.done();
             },
+        },
+
+        computed: {
+            creatingTopic() {
+                return this.$route.name === 'create-topic';
+            }
         },
 
         methods: {

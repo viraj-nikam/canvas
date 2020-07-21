@@ -40,9 +40,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer py-md-2 py-sm-0">
                     <div class="row w-100">
-                        <div class="col-lg order-lg-last px-0">
+                        <div class="col-lg order-lg-last px-0 py-md-1 py-sm-1">
                             <a
                                 href="#"
                                 class="btn btn-danger btn-block font-weight-bold mt-0"
@@ -52,7 +52,7 @@
                                 {{ i18n.delete }}
                             </a>
                         </div>
-                        <div class="col-lg order-lg-first px-0">
+                        <div class="col-lg order-lg-first px-0 py-md-1 py-sm-1 pt-2">
                             <button
                                 class="btn btn-link btn-block font-weight-bold text-muted text-decoration-none"
                                 data-dismiss="modal"
