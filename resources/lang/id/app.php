@@ -86,6 +86,7 @@ return [
     'select_a_topic' => 'Pilih topik...',
     'select_some_tags' => 'Pilih tag...',
     'select_your_language_or_region' => 'Pilih bahasa atau negara.',
+    'search_canvas' => 'Cari Canvas',
     'seo_settings' => 'Pengaturan SEO',
     'settings' => 'Pengaturan',
     'sign_out' => 'Keluar',

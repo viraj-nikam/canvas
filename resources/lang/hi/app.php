@@ -86,6 +86,7 @@ return [
     'select_a_topic' => 'एक विषय चुनॆं...',
     'select_some_tags' => 'कुछ टैग चुनें ...',
     'select_your_language_or_region' => 'अपनी भाषा या क्षेत्र चुनें।',
+    'search_canvas' => 'खोज कैनवस',
     'seo_settings' => 'एसईओ सेटिंग्स',
     'settings' => 'समायोजन',
     'sign_out' => 'प्रस्थान करें',

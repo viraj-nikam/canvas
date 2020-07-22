@@ -185,7 +185,10 @@ export default {
         $route(to) {
             this.isReady = false;
             this.user = null;
-            this.meta = null;
+            this.username =  null;
+            this.summary = null;
+            this.avatar = null;
+            // this.meta = null;
             this.fetchUser(to.params.id);
             this.isReady = true;
             NProgress.done();
@@ -252,10 +255,11 @@ export default {
             return this.request()
                 .get('/api/users/' + id)
                 .then(({ data }) => {
+                    console.log(data)
                     this.user = data.user;
-                    this.summary = get('summary', data.meta, null);
-                    this.username = get('username', data.meta, null);
-                    this.avatar = get('avatar', data.meta, null);
+                    this.summary = get(data.meta, 'summary', null);
+                    this.username = get(data.meta, 'username', null);
+                    this.avatar = get(data.meta, 'avatar', null);
                 });
         },
 

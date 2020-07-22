@@ -86,6 +86,7 @@ return [
     'select_a_topic' => 'Kies een onderwerp...',
     'select_some_tags' => 'Selecteer enkele tags ...',
     'select_your_language_or_region' => 'Selecteer uw taal of regio.',
+    'search_canvas' => 'Zoeken Canvas',
     'seo_settings' => 'SEO instellingen',
     'settings' => 'instellingen',
     'sign_out' => 'Afmelden',

@@ -86,6 +86,7 @@ return [
     'select_a_topic' => '选择一个话题...',
     'select_some_tags' => '选择一些标签...',
     'select_your_language_or_region' => '选择您的语言或地区。',
+    'search_canvas' => '搜索 Canvas',
     'seo_settings' => 'SEO设置',
     'settings' => '设定值',
     'sign_out' => '登出',

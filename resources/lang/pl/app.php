@@ -86,6 +86,7 @@ return [
     'select_a_topic' => 'Wybierz temat...',
     'select_some_tags' => 'Wybierz niektóre tagi ...',
     'select_your_language_or_region' => 'Wybierz język lub region.',
+    'search_canvas' => 'Szukaj Canvas',
     'seo_settings' => 'Ustawienie pozycjonowaniem SEO',
     'settings' => 'Ustawienia',
     'sign_out' => 'Wyloguj się',

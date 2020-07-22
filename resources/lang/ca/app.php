@@ -86,6 +86,7 @@ return [
     'select_a_topic' => 'Sel·leccioneu un tema...',
     'select_some_tags' => 'Cel·leccioneu algunes etiquetes...',
     'select_your_language_or_region' => 'Seleccioneu el vostre idioma o regió.',
+    'search_canvas' => 'Cerca Canvas',
     'seo_settings' => 'Configuracions SEO',
     'settings' => 'Configuracions',
     'sign_out' => 'Tanca sessió',

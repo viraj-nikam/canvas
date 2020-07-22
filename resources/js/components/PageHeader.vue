@@ -51,7 +51,7 @@
                             <span>{{ i18n.posts_simple }}</span>
                         </router-link>
                         <router-link v-if="user.admin" :to="{ name: 'users' }" class="dropdown-item">
-                            <span>Users</span>
+                            <span>{{ i18n.users }}</span>
                         </router-link>
                         <router-link v-if="user.admin" :to="{ name: 'tags' }" class="dropdown-item">
                             <span>{{ i18n.tags }}</span>

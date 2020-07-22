@@ -86,6 +86,7 @@ return [
     'select_a_topic' => 'Bir konu seç...',
     'select_some_tags' => 'Bazı etiketler seçin ...',
     'select_your_language_or_region' => 'Dilinizi veya bölgenizi seçin.',
+    'search_canvas' => 'Arama Canvas',
     'seo_settings' => 'SEO ayarları',
     'settings' => 'Ayarlar',
     'sign_out' => 'oturumu Kapat',

@@ -86,6 +86,7 @@ return [
     'select_a_topic' => 'یک موضوع انتخاب کنید...',
     'select_some_tags' => 'چند برچسب انتخاب کنید...',
     'select_your_language_or_region' => 'زبان یا منطقه خود را انتخاب کنید.',
+    'search_canvas' => 'Canvas جستجو کردن',
     'seo_settings' => 'تنظیمات سئو',
     'settings' => 'تنظیمات',
     'sign_out' => 'خروج',

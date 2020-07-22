@@ -30,7 +30,7 @@
                             :include-score="true"
                             :style="results.length > 0 ? 'border-radius: 0' : ''"
                             class="form-control form-control-lg border-0"
-                            placeholder="Search Canvas"
+                            :placeholder="i18n.search_canvas"
                             event-name="search"
                         >
                         </vue-fuse>
@@ -48,7 +48,7 @@
                         >
                             <div v-hover="{ class: `hover-bg` }" class="p-3">
                                 <div class="d-flex align-items-center">
-                                    <div class="mr-auto pl-2 col-md-6 col-sm-8 col-10">
+                                    <div class="mr-auto pl-2 col-md-8 col-sm-10 col-10">
                                         <p class="mb-0 py-1 text-truncate">
                                             <span class="font-weight-bold text-lg lead">
                                                 {{ entity.item.name }}

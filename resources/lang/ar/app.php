@@ -87,6 +87,7 @@ return [
     'select_some_tags' => 'حدد بعض العلامات ...',
     'select_your_language_or_region' => 'حدد لغتك أو منطقتك.',
     'seo_settings' => 'إعدادات كبار المسئولين الاقتصاديين',
+    'search_canvas' => 'Canvas بحث',
     'settings' => 'الإعدادات',
     'sign_out' => 'خروج',
     'slug' => 'سبيكة',
