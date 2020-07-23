@@ -3,7 +3,7 @@
         <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12">
             <nav class="navbar d-flex px-0 py-0">
                 <router-link to="/" class="navbar-brand pt-0 hover">
-                    canvas
+                    Canvas
                 </router-link>
 
                 <a @click="showSearchModal" href="#" class="hover-light ml-auto">
