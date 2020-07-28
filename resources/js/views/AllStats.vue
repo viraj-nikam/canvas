@@ -169,8 +169,10 @@ export default {
     },
 
     async created() {
-        await this.fetchStats();
-        await this.fetchPosts();
+        await Promise.all([
+            this.fetchStats(),
+            this.fetchPosts()
+        ])
         this.isReady = true;
         NProgress.done();
     },
