@@ -16,7 +16,7 @@
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 24 24"
                             width="25"
-                            class="icon-dots-horizontal hover-light"
+                            class="icon-dots-horizontal"
                         >
                             <path
                                 class="fill-light-gray"
@@ -72,15 +72,15 @@
                                     }"
                                 >
                                     <div class="pl-2 col-md-8 col-sm-10 col-10 py-1">
-                                        <p class="mb-0 text-truncate">
-                                            <span class="font-weight-bold lead">
+                                        <p class="text-truncate mb-0">
+                                            <span class="font-weight-bold">
                                                 {{ post.title }}
                                             </span>
                                         </p>
-                                        <p class="mb-1 text-truncate" v-if="post.summary">
+                                        <p class="text-truncate my-1" v-if="post.summary">
                                             {{ post.summary }}
                                         </p>
-                                        <p class="text-muted mb-0">
+                                        <p class="small text-secondary mt-1 mb-0">
                                             <span v-if="isPublished(post.published_at)">
                                                 {{ i18n.published }}
                                                 {{ moment(post.published_at).fromNow() }}
@@ -100,7 +100,7 @@
                                         <div
                                             v-if="post.featured_image"
                                             id="featuredImage"
-                                            class="mr-2 ml-3 shadow-inset"
+                                            class="mr-2 ml-3 shadow-inner"
                                             :style="{
                                                 backgroundImage: 'url(' + post.featured_image + ')',
                                             }"
@@ -121,7 +121,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="d-inline d-lg-none pl-3 ml-auto">
+                                    <div class="d-inline d-md-none pl-3 ml-auto">
                                         <svg
                                             xmlns="http://www.w3.org/2000/svg"
                                             width="25"

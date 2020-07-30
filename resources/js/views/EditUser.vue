@@ -43,7 +43,7 @@
                                 />
 
                                 <div v-if="!isReadyToAcceptUploads" class="text-center rounded p-3">
-                                    <img :src="avatarPath" class="rounded-circle w-75 shadow-inset" />
+                                    <img :src="avatarPath" class="rounded-circle w-75 shadow-inner" />
 
                                     <p class="mt-3 mb-0">
                                         <a

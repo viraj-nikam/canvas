@@ -1,12 +1,12 @@
 <template>
-    <div class="shadow">
+    <div class="border-bottom">
         <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12">
-            <nav class="navbar d-flex px-0 py-0">
+            <nav class="navbar d-flex px-0 py-1">
                 <router-link to="/" class="navbar-brand pt-0 hover">
-                    Canvas
+                    <svg xmlns="http://www.w3.org/2000/svg" width="35" viewBox="0 0 24 24" class="icon-collection"><rect width="20" height="12" x="2" y="10" class="fill-muted" rx="2"/><path class="fill-body-color" d="M20 8H4c0-1.1.9-2 2-2h12a2 2 0 0 1 2 2zm-2-4H6c0-1.1.9-2 2-2h8a2 2 0 0 1 2 2z"/></svg>
                 </router-link>
 
-                <a @click="showSearchModal" href="#" class="hover-light ml-auto">
+                <a @click="showSearchModal" href="#" class="ml-auto">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" class="icon-search pr-1">
                         <circle cx="10" cy="10" r="7" style="fill: none;" />
                         <path
@@ -31,7 +31,7 @@
                         <img
                             :src="user.avatar"
                             :alt="user.name"
-                            class="rounded-circle my-0 shadow-inset hover-light"
+                            class="rounded-circle my-0 shadow-inner"
                             style="width: 33px;"
                         />
                     </a>
@@ -119,12 +119,3 @@ export default {
     },
 };
 </script>
-
-<style scoped lang="scss">
-@import '../../sass/utilities/variables';
-
-.navbar-brand {
-    font-size: 2.5rem;
-    font-family: 'Caveat', serif;
-}
-</style>

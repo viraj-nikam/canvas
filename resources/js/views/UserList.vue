@@ -32,7 +32,7 @@
                                 >
                                     <div class="pl-2 col-md-8 col-sm-10 col-10 py-1">
                                         <p class="mb-0 text-truncate">
-                                            <span class="font-weight-bold lead">
+                                            <span class="font-weight-bold">
                                                 {{ user.name }}
                                             </span>
                                         </p>
@@ -44,7 +44,7 @@
                                         <img
                                             :src="gravatar(user.email)"
                                             style="width: 57px; height: 57px;"
-                                            class="mr-2 ml-3 shadow-inset rounded-circle"
+                                            class="mr-2 ml-3 shadow-inner rounded-circle"
                                             :alt="user.name"
                                         />
                                     </div>

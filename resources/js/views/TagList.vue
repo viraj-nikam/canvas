@@ -16,7 +16,7 @@
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 24 24"
                             width="25"
-                            class="icon-dots-horizontal hover-light"
+                            class="icon-dots-horizontal"
                         >
                             <path
                                 class="fill-light-gray"
@@ -67,7 +67,7 @@
                                     <div class="d-flex align-items-center">
                                         <div class="mr-auto pl-2">
                                             <p class="mb-0 py-1">
-                                                <span class="font-weight-bold lead">
+                                                <span class="font-weight-bold">
                                                     {{ tag.name }}
                                                 </span>
                                             </p>

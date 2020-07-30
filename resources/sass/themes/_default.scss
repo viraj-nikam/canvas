@@ -16,9 +16,14 @@ body {
         border: 1px solid $gray-200;
         box-shadow: $box-shadow-lg;
 
+        & .dropdown-item:hover {
+            color: $body--color;
+            background-color: $gray-200;
+        }
+
         & .dropdown-item:active {
             color: $body--color;
-            background-color: $gray-100;
+            background-color: $gray-200;
         }
     }
 
@@ -47,7 +52,7 @@ body {
     }
 
     .hover-bg {
-        background-color: $gray-100;
+        background-color: $gray-200;
     }
 
     .fill-bg {

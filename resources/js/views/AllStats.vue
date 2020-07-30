@@ -72,9 +72,7 @@
                                             }"
                                         >
                                             <div class="pl-2 col-md-6 col-sm-8 col-10">
-                                                <p class="mb-1 mt-2 text-truncate">
-                                                    <span class="font-weight-bold lead">{{ post.title }}</span>
-                                                </p>
+                                                <h5 class="text-truncate mt-2">{{ post.title }}</h5>
                                                 <p class="text-secondary mb-2">
                                                     <span class="d-none d-md-inline"> {{ post.read_time }} ― </span>
                                                     {{ i18n.published }}
@@ -83,7 +81,7 @@
                                             </div>
                                             <div class="ml-auto">
                                                 <div class="d-none d-md-inline">
-                                                    <span class="text-muted mr-3"
+                                                    <span class="text-muted  mr-3"
                                                         >{{ suffixedNumber(post.views_count) }} {{ i18n.views }}</span
                                                     >
                                                     <span class="mr-3"

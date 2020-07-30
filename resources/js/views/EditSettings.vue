@@ -12,10 +12,10 @@
                     <div class="card-body p-0">
                         <div class="d-flex rounded-top p-3 align-items-center">
                             <div class="mr-auto py-1">
-                                <p class="mb-1 font-weight-bold lead">
+                                <p class="mb-1 font-weight-bold">
                                     {{ i18n.weekly_digest }}
                                 </p>
-                                <p class="mb-1 d-none d-lg-block">
+                                <p class="mb-1 d-none d-lg-block text-secondary">
                                     {{ i18n.toggle_digest }}
                                 </p>
                             </div>
@@ -42,10 +42,10 @@
 
                         <div class="d-flex border-top p-3 align-items-center">
                             <div class="mr-auto py-1">
-                                <p class="mb-1 font-weight-bold lead">
+                                <p class="mb-1 font-weight-bold">
                                     {{ i18n.dark_mode }}
                                 </p>
-                                <p class="mb-1 d-none d-lg-block">
+                                <p class="mb-1 d-none d-lg-block text-secondary">
                                     {{ i18n.toggle_dark_mode }}
                                 </p>
                             </div>
@@ -72,10 +72,10 @@
 
                         <div class="d-flex border-top p-3 align-items-center">
                             <div class="mr-auto py-1">
-                                <p class="mb-1 font-weight-bold lead">
+                                <p class="mb-1 font-weight-bold">
                                     {{ i18n.locale }}
                                 </p>
-                                <p class="mb-1 d-none d-lg-block">
+                                <p class="mb-1 d-none d-lg-block text-secondary">
                                     {{ i18n.select_your_language_or_region }}
                                 </p>
                             </div>
@@ -109,7 +109,9 @@
         </main>
 
         <div class="mt-3 d-flex justify-content-center">
-            <p class="text-muted">{{ config.version }}</p>
+            <a :href="latestRelease.link" class="text-muted text-decoration-none">
+                {{ latestRelease.tag }}
+            </a>
         </div>
     </div>
 </template>
@@ -153,6 +155,13 @@
             config() {
                 return store.state.config;
             },
+
+            latestRelease() {
+                return {
+                    tag: this.config.version,
+                    link: `https://github.com/cnvs/canvas/releases/tag/${this.config.version}`
+                }
+            }
         },
 
         methods: {
