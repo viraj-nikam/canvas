@@ -38,10 +38,10 @@
         <main class="py-4" v-if="isReady">
             <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12">
                 <div class="my-3">
-                    <h2 class="mt-3">{{ post.title  }}</h2>
+                    <h2 class="mt-3">{{ data.post.title  }}</h2>
                     <p class="mt-2 text-secondary">
                         {{ i18n.published }}
-                        {{ moment(post.published_at).fromNow() }}
+                        {{ moment(data.post.published_at).fromNow() }}
                     </p>
                 </div>
 
@@ -57,7 +57,7 @@
                                         {{ i18n.total_views }}
                                     </p>
                                     <h3 class="mt-1">
-                                        {{ suffixedNumber(totalViews) }}
+                                        {{ suffixedNumber(data.totalViews) }}
                                     </h3>
                                 </div>
 
@@ -66,7 +66,7 @@
                                         {{ i18n.average_reading_time }}
                                     </p>
                                     <h3 class="mt-1">
-                                        {{ readTime }}
+                                        {{ data.readTime }}
                                     </h3>
                                 </div>
                             </div>
@@ -106,7 +106,7 @@
                                         </a>
                                     </p>
                                     <h3 class="mt-1 mb-2">
-                                        {{ suffixedNumber(monthlyViews) }}
+                                        {{ suffixedNumber(data.monthlyViews) }}
                                     </h3>
                                     <p class="small text-muted">
                                         <span v-if="viewsAreTrendingUp">
@@ -137,8 +137,8 @@
                                                 />
                                             </svg>
                                         </span>
-                                        {{ viewMonthOverMonthPercentage }}%
-                                        {{ i18n.from_last_month }}
+                                        {{ data.monthOverMonthViews.percentage }}%
+                                        {{ i18n.fromLastMonth }}
                                     </p>
                                 </div>
 
@@ -169,7 +169,7 @@
                                         </a>
                                     </p>
                                     <h3 class="mt-1 mb-2">
-                                        {{ suffixedNumber(monthlyVisits) }}
+                                        {{ suffixedNumber(data.monthlyVisits) }}
                                     </h3>
                                     <p class="small text-muted">
                                         <span v-if="visitsAreTrendingUp">
@@ -200,7 +200,7 @@
                                                 />
                                             </svg>
                                         </span>
-                                        {{ visitMonthOverMonthPercentage }}%
+                                        {{ data.monthOverMonthVisits.percentage }}%
                                         {{ i18n.from_last_month }}
                                     </p>
                                 </div>
@@ -210,8 +210,8 @@
                 </div>
 
                 <line-chart
-                    :views="JSON.parse(viewPlotPoints)"
-                    :visits="JSON.parse(visitPlotPoints)"
+                    :views="plotViewPoints"
+                    :visits="plotVisitPoints"
                     class="mt-5 mb-3"
                 />
 
@@ -221,22 +221,24 @@
                             {{ i18n.views_by_traffic_source }}
                         </h5>
 
-                        <div v-if="topReferers">
-                            <div v-for="(views, host) in topReferers" :key="`${host}-${views}`">
+                        <div v-if="data.topReferers">
+                            <div v-for="(views, host) in data.topReferers" :key="`${host}-${views}`">
                                 <div class="d-flex py-2 align-items-center">
                                     <div class="mr-auto">
                                         <div v-if="host === i18n.other">
                                             <p class="mb-0 py-1">
                                                 <img
-                                                    :src="`https://favicons.githubusercontent.com/${host}`"
+                                                    :src="getDefaultFavicon(host)"
                                                     :style="
-                                                        user.darkMode === true
+                                                        auth.darkMode === true
                                                             ? {
                                                                   filter: 'invert(100%)',
                                                               }
                                                             : ''
                                                     "
                                                     :alt="host"
+                                                    width="15"
+                                                    height="15"
                                                     class="mr-1"
                                                 />
                                                 <a
@@ -269,8 +271,10 @@
                                         <div v-else>
                                             <p class="mb-0 py-1">
                                                 <img
-                                                    :src="`https://favicons.githubusercontent.com/${host}`"
+                                                    :src="getDefaultFavicon(host)"
                                                     :alt="host"
+                                                    width="15"
+                                                    height="15"
                                                     class="mr-1"
                                                 />
                                                 <a
@@ -285,7 +289,7 @@
                                     </div>
                                     <div class="ml-auto">
                                         <span class="text-muted"
-                                            >{{ suffixedNumber(monthlyViews) }} {{ i18n.views }}</span
+                                            >{{ suffixedNumber(data.monthlyViews) }} {{ i18n.views }}</span
                                         >
                                     </div>
                                 </div>
@@ -301,8 +305,8 @@
                             {{ i18n.popular_reading_times }}
                         </h5>
 
-                        <div v-if="popularReadingTimes">
-                            <div v-for="(percentage, time) in popularReadingTimes" :key="`${time}-${percentage}`">
+                        <div v-if="data.popularReadingTimes">
+                            <div v-for="(percentage, time) in data.popularReadingTimes" :key="`${time}-${percentage}`">
                                 <div class="d-flex py-2 align-items-center">
                                     <div class="mr-auto">
                                         <p class="mb-0 py-1">
@@ -342,7 +346,10 @@ export default {
         PageHeader,
     },
 
-    mixins: [i18n, strings],
+    mixins: [
+        i18n,
+        strings
+    ],
 
     directives: {
         Tooltip,
@@ -351,25 +358,15 @@ export default {
     data() {
         return {
             id: this.$route.params.id,
-            post: null,
-            monthlyViews: 0,
-            monthlyVisits: 0,
-            totalViews: 0,
-            viewPlotPoints: {},
-            visitPlotPoints: {},
-            readTime: null,
-            topReferers: null,
-            popularReadingTimes: null,
-            viewMonthOverMonthDirection: null,
-            viewMonthOverMonthPercentage: null,
-            visitMonthOverMonthDirection: null,
-            visitMonthOverMonthPercentage: null,
+            data: null,
             isReady: false,
         };
     },
 
-    async created() {
-        await this.fetchStats();
+    async mounted() {
+        await Promise.all([
+            this.fetchStats()
+        ])
         this.isReady = true;
         NProgress.done();
     },
@@ -379,47 +376,39 @@ export default {
             return this.request()
                 .get('/api/stats/' + this.id)
                 .then(({ data }) => {
-                    this.post = data.post;
-                    this.readTime = data.read_time;
-                    this.popularReadingTimes = Array.isArray(data.popular_reading_times)
-                        ? null
-                        : data.popular_reading_times;
-                    this.topReferers = Array.isArray(data.top_referers) ? null : data.top_referers;
-                    this.monthlyViews = data.monthly_views;
-                    this.monthlyVisits = data.monthly_visits;
-                    this.totalViews = data.total_views;
-                    this.viewPlotPoints = data.traffic.views;
-                    this.visitPlotPoints = data.traffic.visits;
-                    this.viewMonthOverMonthDirection = data.month_over_month_views.direction;
-                    this.viewMonthOverMonthPercentage = data.month_over_month_views.percentage;
-                    this.visitMonthOverMonthDirection = data.month_over_month_visits.direction;
-                    this.visitMonthOverMonthPercentage = data.month_over_month_visits.percentage;
+                    this.data = data;
                 })
                 .catch(() => {
+                    this.$router.push({ name: 'stats' });
                     NProgress.done();
                 });
         },
+
+        getDefaultFavicon(host) {
+            return `https://favicons.githubusercontent.com/${host}`;
+        }
     },
 
     computed: {
-        user() {
-            return store.state.user;
+        auth() {
+            return store.state.auth;
         },
 
         viewsAreTrendingUp() {
-            return this.viewMonthOverMonthDirection === 'up';
+            return this.data.monthOverMonthViews.direction === 'up';
         },
 
         visitsAreTrendingUp() {
-            return this.visitMonthOverMonthDirection === 'up';
+            return this.data.monthOverMonthVisits.direction === 'up';
+        },
+
+        plotViewPoints() {
+            return JSON.parse(this.data.traffic.views);
+        },
+
+        plotVisitPoints() {
+            return JSON.parse(this.data.traffic.visits);
         },
     },
 };
 </script>
-
-<style scoped>
-img {
-    width: 15px;
-    height: 15px;
-}
-</style>

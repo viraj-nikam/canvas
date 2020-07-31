@@ -39,8 +39,8 @@ class StatsController extends Controller
 
         return response()->json([
             'posts' => $posts,
-            'total_views' => $views->count(),
-            'total_visits' => $visits->count(),
+            'totalViews' => $views->count(),
+            'totalVisits' => $visits->count(),
             'traffic' => [
                 'views' => json_encode(Traffic::calculateTotalForDays($views, 30)),
                 'visits' => json_encode(Traffic::calculateTotalForDays($visits, 30)),
@@ -88,14 +88,14 @@ class StatsController extends Controller
 
         return response()->json([
             'post' => $post,
-            'read_time' => $post->read_time,
-            'popular_reading_times' => $post->popular_reading_times,
-            'top_referers' => $post->top_referers,
-            'monthly_views' => $currentMonthlyViews->count(),
-            'total_views' => $views->count(),
-            'monthly_visits' => $currentMonthlyVisits->count(),
-            'month_over_month_views' => Traffic::compareMonthOverMonth($currentMonthlyViews, $previousMonthlyViews),
-            'month_over_month_visits' => Traffic::compareMonthOverMonth($currentMonthlyVisits, $previousMonthlyVisits),
+            'readTime' => $post->read_time,
+            'popularReadingTimes' => $post->popular_reading_times,
+            'topReferers' => $post->top_referers,
+            'monthlyViews' => $currentMonthlyViews->count(),
+            'totalViews' => $views->count(),
+            'monthlyVisits' => $currentMonthlyVisits->count(),
+            'monthOverMonthViews' => Traffic::compareMonthOverMonth($currentMonthlyViews, $previousMonthlyViews),
+            'monthOverMonthVisits' => Traffic::compareMonthOverMonth($currentMonthlyVisits, $previousMonthlyVisits),
             'traffic' => [
                 'views' => json_encode(Traffic::calculateTotalForDays($lastThirtyDays, 30)),
                 'visits' => json_encode(Traffic::calculateTotalForDays($visits, 30)),

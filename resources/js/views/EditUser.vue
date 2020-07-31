@@ -196,7 +196,9 @@ export default {
     },
 
     async created() {
-        await this.fetchUser(this.$route.params.id);
+        await Promise.all([
+            this.fetchUser(this.$route.params.id)
+        ])
         this.isReady = true;
         NProgress.done();
     },

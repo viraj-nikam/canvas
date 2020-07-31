@@ -26,7 +26,7 @@
                                     </p>
                                 </div>
                                 <div class="card-body pt-0 pb-2">
-                                    <p class="card-text display-4">{{ suffixedNumber(totalViews) }}</p>
+                                    <p class="card-text display-4">{{ suffixedNumber(data.totalViews) }}</p>
                                 </div>
                             </div>
                             <div class="card shadow-lg">
@@ -36,19 +36,19 @@
                                     <p class="font-weight-bold text-muted small text-uppercase">{{ i18n.visitors }}</p>
                                     <p>
                                         <span class="badge badge-pill badge-primary p-2 font-weight-bold">{{
-                                            i18n.last_thirty_days
-                                        }}</span>
+                                                i18n.last_thirty_days
+                                                                                                          }}</span>
                                     </p>
                                 </div>
                                 <div class="card-body pt-0 pb-2">
-                                    <p class="card-text display-4">{{ suffixedNumber(totalVisits) }}</p>
+                                    <p class="card-text display-4">{{ suffixedNumber(data.totalVisits) }}</p>
                                 </div>
                             </div>
                         </div>
 
                         <line-chart
-                            :views="JSON.parse(viewPlotPoints)"
-                            :visits="JSON.parse(visitPlotPoints)"
+                            :views="plotViewPoints"
+                            :visits="plotVisitPoints"
                             class="mt-5"
                         />
 
@@ -82,10 +82,10 @@
                                             <div class="ml-auto">
                                                 <div class="d-none d-md-inline">
                                                     <span class="text-muted  mr-3"
-                                                        >{{ suffixedNumber(post.views_count) }} {{ i18n.views }}</span
+                                                    >{{ suffixedNumber(post.views_count) }} {{ i18n.views }}</span
                                                     >
                                                     <span class="mr-3"
-                                                        >{{ i18n.created }}
+                                                    >{{ i18n.created }}
                                                         {{ moment(post.created_at).format('MMM D, YYYY') }}</span
                                                     >
                                                 </div>
@@ -96,7 +96,7 @@
                                                     viewBox="0 0 24 24"
                                                     class="icon-cheveron-right-circle"
                                                 >
-                                                    <circle cx="12" cy="12" r="10" style="fill: none;" />
+                                                    <circle cx="12" cy="12" r="10" style="fill: none;"/>
                                                     <path
                                                         class="fill-light-gray"
                                                         d="M10.3 8.7a1 1 0 0 1 1.4-1.4l4 4a1 1 0 0 1 0 1.4l-4 4a1 1 0 0 1-1.4-1.4l3.29-3.3-3.3-3.3z"
@@ -140,7 +140,7 @@ import PageHeader from '../components/PageHeader';
 import i18n from '../mixins/i18n';
 
 export default {
-    name: 'stats',
+    name: 'all-stats',
 
     components: {
         LineChart,
@@ -148,7 +148,10 @@ export default {
         PageHeader,
     },
 
-    mixins: [strings, i18n],
+    mixins: [
+        strings,
+        i18n
+    ],
 
     directives: {
         Hover,
@@ -158,10 +161,7 @@ export default {
         return {
             page: 1,
             posts: [],
-            totalViews: 0,
-            totalVisits: 0,
-            viewPlotPoints: {},
-            visitPlotPoints: {},
+            data: null,
             isReady: false,
         };
     },
@@ -175,16 +175,22 @@ export default {
         NProgress.done();
     },
 
+    computed: {
+        plotViewPoints() {
+            return JSON.parse(this.data.traffic.views);
+        },
+
+        plotVisitPoints() {
+            return JSON.parse(this.data.traffic.visits);
+        }
+    },
+
     methods: {
         fetchStats() {
             return this.request()
                 .get('/api/stats')
                 .then(({ data }) => {
-                    this.totalViews = data.total_views;
-                    this.totalVisits = data.total_visits;
-                    this.viewPlotPoints = data.traffic.views;
-                    this.visitPlotPoints = data.traffic.visits;
-
+                    this.data = data;
                     NProgress.inc();
                 })
                 .catch(() => {
@@ -222,15 +228,15 @@ export default {
 </script>
 
 <style scoped lang="scss">
-    @import "../../sass/utilities/variables";
+@import "../../sass/utilities/variables";
 
-    .badge-success {
-        background-color: $green-500;
-        color: darken($green, 20%);
-    }
+.badge-success {
+    background-color: $green-500;
+    color: darken($green, 20%);
+}
 
-    .badge-primary {
-        background-color: $blue-500;
-        color: darken($blue, 35%);
-    }
+.badge-primary {
+    background-color: $blue-500;
+    color: darken($blue, 35%);
+}
 </style>

@@ -236,8 +236,10 @@
         },
 
         async created() {
-            await this.fetchTag();
-            await this.fetchPosts();
+            await Promise.all([
+                this.fetchTag(),
+                this.fetchPosts()
+            ])
             this.isReady = true;
             NProgress.done();
         },

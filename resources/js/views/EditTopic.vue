@@ -157,7 +157,7 @@
                                             viewBox="0 0 24 24"
                                             class="icon-cheveron-right-circle"
                                         >
-                                            <circle cx="12" cy="12" r="10" style="fill: none;" />
+                                            <circle cx="12" cy="12" r="10" style="fill: none;"/>
                                             <path
                                                 class="fill-light-gray"
                                                 d="M10.3 8.7a1 1 0 0 1 1.4-1.4l4 4a1 1 0 0 1 0 1.4l-4 4a1 1 0 0 1-1.4-1.4l3.29-3.3-3.3-3.3z"
@@ -188,150 +188,152 @@
 </template>
 
 <script>
-    import $ from 'jquery';
-    import NProgress from 'nprogress';
-    import PageHeader from '../components/PageHeader';
-    import Hover from '../directives/Hover';
-    import DeleteModal from '../components/modals/DeleteModal';
-    import i18n from "../mixins/i18n";
-    import toast from '../mixins/toast';
-    import InfiniteLoading from 'vue-infinite-loading';
-    import strings from "../mixins/strings";
-    import isEmpty from "lodash/isEmpty";
+import $ from 'jquery';
+import NProgress from 'nprogress';
+import PageHeader from '../components/PageHeader';
+import Hover from '../directives/Hover';
+import DeleteModal from '../components/modals/DeleteModal';
+import i18n from "../mixins/i18n";
+import toast from '../mixins/toast';
+import InfiniteLoading from 'vue-infinite-loading';
+import strings from "../mixins/strings";
+import isEmpty from "lodash/isEmpty";
 
-    export default {
-        name: 'edit-topic',
+export default {
+    name: 'edit-topic',
 
-        components: {
-            DeleteModal,
-            InfiniteLoading,
-            PageHeader,
-        },
+    components: {
+        DeleteModal,
+        InfiniteLoading,
+        PageHeader,
+    },
 
-        directives: {
-            Hover,
-        },
+    directives: {
+        Hover,
+    },
 
-        mixins: [ i18n, strings, toast ],
+    mixins: [ i18n, strings, toast ],
 
-        data() {
-            return {
-                id: this.$route.params.id || 'create',
-                topic: null,
-                page: 1,
-                posts: [],
-                errors: [],
-                isReady: false,
-            };
-        },
+    data() {
+        return {
+            id: this.$route.params.id || 'create',
+            topic: null,
+            page: 1,
+            posts: [],
+            errors: [],
+            isReady: false,
+        };
+    },
 
-        async created() {
-            await this.fetchTopic();
-            await this.fetchPosts();
-            this.isReady = true;
-            NProgress.done();
-        },
+    async created() {
+        await Promise.all([
+            this.fetchTopic(),
+            this.fetchPosts()
+        ])
+        this.isReady = true;
+        NProgress.done();
+    },
 
-        watch: {
-            'topic.name'(val) {
-                if (!isEmpty(val)) {
-                    this.topic.slug = this.slugify(val);
-                }
-            },
-
-            $route(to) {
-                this.isReady = false;
-                this.id = to.params.id;
-                this.topic = null;
-                this.page = 1;
-                this.posts = [];
-                this.fetchTopic();
-                this.fetchPosts();
-                this.isReady = true;
-                NProgress.done();
-            },
-        },
-
-        computed: {
-            creatingTopic() {
-                return this.$route.name === 'create-topic';
+    watch: {
+        'topic.name'(val) {
+            if (!isEmpty(val)) {
+                this.topic.slug = this.slugify(val);
             }
         },
 
-        methods: {
-            fetchTopic() {
-                return this.request()
-                    .get('/api/topics/' + this.id)
-                    .then(({ data }) => {
-                        this.topic = data;
-                        NProgress.inc();
-                    })
-                    .catch(() => {
-                        this.$router.push({ name: 'topics' });
-                        NProgress.done();
-                    });
-            },
-
-            fetchPosts($state) {
-                return this.request()
-                    .get('/api/topics/' + this.id + '/posts', {
-                        params: {
-                            page: this.page,
-                        }
-                    })
-                    .then(({ data }) => {
-                        if (!isEmpty(data) && !isEmpty(data.data)) {
-                            this.page += 1;
-                            this.posts.push(...data.data);
-
-                            $state.loaded();
-                        } else {
-                            $state.complete();
-                        }
-
-                        if (isEmpty($state)) {
-                            NProgress.inc();
-                        }
-                    })
-                    .catch(() => {
-                        NProgress.done();
-                    });
-            },
-
-            saveTopic() {
-                this.errors = [];
-
-                this.request()
-                    .post('/api/topics/' + this.id, {
-                        name: this.topic.name,
-                        slug: this.topic.slug
-                    })
-                    .then(({ data }) => {
-                        this.id = data.id;
-                        this.topic = data;
-                        toast.methods.toast(this.i18n.saved);
-                    })
-                    .catch((error) => {
-                        this.errors = error.response.data.errors;
-                    });
-            },
-
-            deleteTopic() {
-                this.request()
-                    .delete('/api/topics/' + this.id)
-                    .then(() => {
-                        $(this.$refs.deleteModal.$el).modal('hide');
-                        toast.methods.toast(this.i18n.success);
-                        this.$router.push({ name: 'topics' });
-                    })
-                    .catch(() => {
-                        // Add any error debugging...
-                    });
-            },
-
-            showDeleteModal() {
-                $(this.$refs.deleteModal.$el).modal('show');
-            },
+        $route(to) {
+            this.isReady = false;
+            this.id = to.params.id;
+            this.topic = null;
+            this.page = 1;
+            this.posts = [];
+            this.fetchTopic();
+            this.fetchPosts();
+            this.isReady = true;
+            NProgress.done();
         },
-    };
+    },
+
+    computed: {
+        creatingTopic() {
+            return this.$route.name === 'create-topic';
+        }
+    },
+
+    methods: {
+        fetchTopic() {
+            return this.request()
+                .get('/api/topics/' + this.id)
+                .then(({ data }) => {
+                    this.topic = data;
+                    NProgress.inc();
+                })
+                .catch(() => {
+                    this.$router.push({ name: 'topics' });
+                    NProgress.done();
+                });
+        },
+
+        fetchPosts($state) {
+            return this.request()
+                .get('/api/topics/' + this.id + '/posts', {
+                    params: {
+                        page: this.page,
+                    }
+                })
+                .then(({ data }) => {
+                    if (!isEmpty(data) && !isEmpty(data.data)) {
+                        this.page += 1;
+                        this.posts.push(...data.data);
+
+                        $state.loaded();
+                    } else {
+                        $state.complete();
+                    }
+
+                    if (isEmpty($state)) {
+                        NProgress.inc();
+                    }
+                })
+                .catch(() => {
+                    NProgress.done();
+                });
+        },
+
+        saveTopic() {
+            this.errors = [];
+
+            this.request()
+                .post('/api/topics/' + this.id, {
+                    name: this.topic.name,
+                    slug: this.topic.slug
+                })
+                .then(({ data }) => {
+                    this.id = data.id;
+                    this.topic = data;
+                    toast.methods.toast(this.i18n.saved);
+                })
+                .catch((error) => {
+                    this.errors = error.response.data.errors;
+                });
+        },
+
+        deleteTopic() {
+            this.request()
+                .delete('/api/topics/' + this.id)
+                .then(() => {
+                    $(this.$refs.deleteModal.$el).modal('hide');
+                    toast.methods.toast(this.i18n.success);
+                    this.$router.push({ name: 'topics' });
+                })
+                .catch(() => {
+                    // Add any error debugging...
+                });
+        },
+
+        showDeleteModal() {
+            $(this.$refs.deleteModal.$el).modal('show');
+        },
+    },
+};
 </script>
