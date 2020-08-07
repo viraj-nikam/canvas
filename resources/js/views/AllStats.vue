@@ -36,8 +36,8 @@
                                     <p class="font-weight-bold text-muted small text-uppercase">{{ i18n.visitors }}</p>
                                     <p>
                                         <span class="badge badge-pill badge-primary p-2 font-weight-bold">{{
-                                                i18n.last_thirty_days
-                                                                                                          }}</span>
+                                            i18n.last_thirty_days
+                                        }}</span>
                                     </p>
                                 </div>
                                 <div class="card-body pt-0 pb-2">
@@ -46,11 +46,7 @@
                             </div>
                         </div>
 
-                        <line-chart
-                            :views="plotViewPoints"
-                            :visits="plotVisitPoints"
-                            class="mt-5"
-                        />
+                        <line-chart :views="plotViewPoints" :visits="plotVisitPoints" class="mt-5" />
 
                         <div class="mt-5 card shadow-lg">
                             <div class="card-body p-0">
@@ -81,11 +77,11 @@
                                             </div>
                                             <div class="ml-auto">
                                                 <div class="d-none d-md-inline">
-                                                    <span class="text-muted  mr-3"
-                                                    >{{ suffixedNumber(post.views_count) }} {{ i18n.views }}</span
+                                                    <span class="text-muted mr-3"
+                                                        >{{ suffixedNumber(post.views_count) }} {{ i18n.views }}</span
                                                     >
                                                     <span class="mr-3"
-                                                    >{{ i18n.created }}
+                                                        >{{ i18n.created }}
                                                         {{ moment(post.created_at).format('MMM D, YYYY') }}</span
                                                     >
                                                 </div>
@@ -96,7 +92,7 @@
                                                     viewBox="0 0 24 24"
                                                     class="icon-cheveron-right-circle"
                                                 >
-                                                    <circle cx="12" cy="12" r="10" style="fill: none;"/>
+                                                    <circle cx="12" cy="12" r="10" style="fill: none;" />
                                                     <path
                                                         class="fill-light-gray"
                                                         d="M10.3 8.7a1 1 0 0 1 1.4-1.4l4 4a1 1 0 0 1 0 1.4l-4 4a1 1 0 0 1-1.4-1.4l3.29-3.3-3.3-3.3z"
@@ -148,10 +144,7 @@ export default {
         PageHeader,
     },
 
-    mixins: [
-        strings,
-        i18n
-    ],
+    mixins: [strings, i18n],
 
     directives: {
         Hover,
@@ -167,10 +160,7 @@ export default {
     },
 
     async created() {
-        await Promise.all([
-            this.fetchStats(),
-            this.fetchPosts()
-        ])
+        await Promise.all([this.fetchStats(), this.fetchPosts()]);
         this.isReady = true;
         NProgress.done();
     },
@@ -182,7 +172,7 @@ export default {
 
         plotVisitPoints() {
             return JSON.parse(this.data.traffic.visits);
-        }
+        },
     },
 
     methods: {
@@ -228,7 +218,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "../../sass/utilities/variables";
+@import '../../sass/utilities/variables';
 
 .badge-success {
     background-color: $green-500;

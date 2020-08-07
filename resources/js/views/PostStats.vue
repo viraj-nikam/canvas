@@ -38,7 +38,7 @@
         <main class="py-4" v-if="isReady">
             <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12">
                 <div class="my-3">
-                    <h2 class="mt-3">{{ data.post.title  }}</h2>
+                    <h2 class="mt-3">{{ data.post.title }}</h2>
                     <p class="mt-2 text-secondary">
                         {{ i18n.published }}
                         {{ moment(data.post.published_at).fromNow() }}
@@ -209,11 +209,7 @@
                     </div>
                 </div>
 
-                <line-chart
-                    :views="plotViewPoints"
-                    :visits="plotVisitPoints"
-                    class="mt-5 mb-3"
-                />
+                <line-chart :views="plotViewPoints" :visits="plotVisitPoints" class="mt-5 mb-3" />
 
                 <div class="row justify-content-between">
                     <div class="col-md-6 mt-4">
@@ -346,10 +342,7 @@ export default {
         PageHeader,
     },
 
-    mixins: [
-        i18n,
-        strings
-    ],
+    mixins: [i18n, strings],
 
     directives: {
         Tooltip,
@@ -364,9 +357,7 @@ export default {
     },
 
     async mounted() {
-        await Promise.all([
-            this.fetchStats()
-        ])
+        await Promise.all([this.fetchStats()]);
         this.isReady = true;
         NProgress.done();
     },
@@ -386,7 +377,7 @@ export default {
 
         getDefaultFavicon(host) {
             return `https://favicons.githubusercontent.com/${host}`;
-        }
+        },
     },
 
     computed: {

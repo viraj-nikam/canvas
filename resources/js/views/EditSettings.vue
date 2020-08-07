@@ -117,76 +117,76 @@
 </template>
 
 <script>
-    import NProgress from 'nprogress';
-    import PageHeader from '../components/PageHeader';
-    import i18n from '../mixins/i18n';
-    import Hover from '../directives/Hover';
-    import store from '../store';
+import NProgress from 'nprogress';
+import PageHeader from '../components/PageHeader';
+import i18n from '../mixins/i18n';
+import Hover from '../directives/Hover';
+import store from '../store';
 
-    export default {
-        name: 'edit-settings',
+export default {
+    name: 'edit-settings',
 
-        components: {
-            PageHeader,
+    components: {
+        PageHeader,
+    },
+
+    mixins: [i18n],
+
+    directives: {
+        Hover,
+    },
+
+    data() {
+        return {
+            isReady: false,
+        };
+    },
+
+    created() {
+        this.isReady = true;
+        NProgress.done();
+    },
+
+    computed: {
+        auth() {
+            return store.state.auth;
         },
 
-        mixins: [ i18n ],
-
-        directives: {
-            Hover,
+        config() {
+            return store.state.config;
         },
 
-        data() {
+        latestRelease() {
             return {
-                isReady: false,
+                tag: this.config.version,
+                link: `https://github.com/cnvs/canvas/releases/tag/${this.config.version}`,
             };
         },
+    },
 
-        created() {
-            this.isReady = true;
-            NProgress.done();
+    methods: {
+        getLocaleDisplayName(locale) {
+            return i18n.methods.getDisplayName(locale);
         },
 
-        computed: {
-            auth() {
-                return store.state.auth;
-            },
+        toggleDigest() {
+            store.dispatch('auth/updateDigest', this.auth);
+        },
 
-            config() {
-                return store.state.config;
-            },
+        selectLocale() {
+            store.dispatch('config/updateI18n', this.auth.locale);
+            store.dispatch('auth/updateLocale', this.auth);
+        },
 
-            latestRelease() {
-                return {
-                    tag: this.config.version,
-                    link: `https://github.com/cnvs/canvas/releases/tag/${this.config.version}`
-                }
+        toggleDarkMode() {
+            store.dispatch('auth/updateDarkMode', this.auth);
+
+            if (this.auth.darkMode === true) {
+                document.body.setAttribute('data-theme', 'dark');
+            } else {
+                document.body.removeAttribute('data-theme');
             }
         },
-
-        methods: {
-            getLocaleDisplayName(locale) {
-                return i18n.methods.getDisplayName(locale)
-            },
-
-            toggleDigest() {
-                store.dispatch('auth/updateDigest', this.auth);
-            },
-
-            selectLocale() {
-                store.dispatch('config/updateI18n', this.auth.locale);
-                store.dispatch('auth/updateLocale', this.auth);
-            },
-
-            toggleDarkMode() {
-                store.dispatch('auth/updateDarkMode', this.auth);
-
-                if (this.auth.darkMode === true) {
-                    document.body.setAttribute('data-theme', 'dark');
-                } else {
-                    document.body.removeAttribute('data-theme');
-                }
-            },
-        },
-    };
+    },
+};
 </script>

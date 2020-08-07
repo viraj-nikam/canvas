@@ -116,19 +116,19 @@
                         <div v-for="(post, index) in posts" :key="`${index}-${post.id}`">
                             <router-link
                                 :to="{
-                                            name: 'edit-post',
-                                            params: { id: post.id },
-                                        }"
+                                    name: 'edit-post',
+                                    params: { id: post.id },
+                                }"
                                 class="text-decoration-none"
                             >
                                 <div
                                     v-hover="{ class: `hover-bg` }"
                                     class="d-flex p-3 align-items-center"
                                     :class="{
-                                                'border-top': index !== 0,
-                                                'rounded-top': index === 0,
-                                                'rounded-bottom': index === posts.length - 1,
-                                            }"
+                                        'border-top': index !== 0,
+                                        'rounded-top': index === 0,
+                                        'rounded-bottom': index === posts.length - 1,
+                                    }"
                                 >
                                     <div class="pl-2 col-md-6 col-sm-8 col-10">
                                         <p class="mb-1 mt-2 text-truncate">
@@ -136,27 +136,27 @@
                                         </p>
                                         <p class="text-secondary mb-2">
                                             <span v-if="isPublished(post.published_at)">
-                                            <span class="d-none d-md-inline"> {{ post.read_time }} ― </span>
-                                            {{ i18n.published }}
-                                            {{ moment(post.published_at).format('MMM D, YYYY') }}
+                                                <span class="d-none d-md-inline"> {{ post.read_time }} ― </span>
+                                                {{ i18n.published }}
+                                                {{ moment(post.published_at).format('MMM D, YYYY') }}
                                             </span>
                                             <span v-if="isDraft(post.published_at)">
-                                                <span class="text-danger">{{  i18n.draft}}</span>
-                                            <span class="d-none d-md-inline">
-                                                ― {{ i18n.updated }}
-                                                {{ moment(post.updated_at).fromNow() }}
-                                            </span>
+                                                <span class="text-danger">{{ i18n.draft }}</span>
+                                                <span class="d-none d-md-inline">
+                                                    ― {{ i18n.updated }}
+                                                    {{ moment(post.updated_at).fromNow() }}
+                                                </span>
                                             </span>
                                         </p>
                                     </div>
                                     <div class="ml-auto">
                                         <div class="d-none d-md-inline">
-                                                    <span class="text-muted mr-3"
-                                                    >{{ suffixedNumber(post.views_count) }} {{ i18n.views }}</span
-                                                    >
+                                            <span class="text-muted mr-3"
+                                                >{{ suffixedNumber(post.views_count) }} {{ i18n.views }}</span
+                                            >
                                             <span class="mr-3"
-                                            >{{ i18n.created }}
-                                                        {{ moment(post.created_at).format('MMM D, YYYY') }}</span
+                                                >{{ i18n.created }}
+                                                {{ moment(post.created_at).format('MMM D, YYYY') }}</span
                                             >
                                         </div>
 
@@ -197,153 +197,150 @@
 </template>
 
 <script>
-    import $ from 'jquery';
-    import NProgress from 'nprogress';
-    import PageHeader from '../components/PageHeader';
-    import Hover from '../directives/Hover';
-    import DeleteModal from '../components/modals/DeleteModal';
-    import i18n from "../mixins/i18n";
-    import toast from '../mixins/toast';
-    import InfiniteLoading from 'vue-infinite-loading';
-    import status from '../mixins/status';
-    import strings from "../mixins/strings";
-    import isEmpty from "lodash/isEmpty";
+import $ from 'jquery';
+import NProgress from 'nprogress';
+import PageHeader from '../components/PageHeader';
+import Hover from '../directives/Hover';
+import DeleteModal from '../components/modals/DeleteModal';
+import i18n from '../mixins/i18n';
+import toast from '../mixins/toast';
+import InfiniteLoading from 'vue-infinite-loading';
+import status from '../mixins/status';
+import strings from '../mixins/strings';
+import isEmpty from 'lodash/isEmpty';
 
-    export default {
-        name: 'edit-tag',
+export default {
+    name: 'edit-tag',
 
-        components: {
-            DeleteModal,
-            InfiniteLoading,
-            PageHeader,
-        },
+    components: {
+        DeleteModal,
+        InfiniteLoading,
+        PageHeader,
+    },
 
-        directives: {
-            Hover,
-        },
+    directives: {
+        Hover,
+    },
 
-        mixins: [ i18n, status, strings, toast ],
+    mixins: [i18n, status, strings, toast],
 
-        data() {
-            return {
-                id: this.$route.params.id || 'create',
-                tag: null,
-                page: 1,
-                posts: [],
-                errors: [],
-                isReady: false,
-            };
-        },
+    data() {
+        return {
+            id: this.$route.params.id || 'create',
+            tag: null,
+            page: 1,
+            posts: [],
+            errors: [],
+            isReady: false,
+        };
+    },
 
-        async created() {
-            await Promise.all([
-                this.fetchTag(),
-                this.fetchPosts()
-            ])
-            this.isReady = true;
-            NProgress.done();
-        },
+    async created() {
+        await Promise.all([this.fetchTag(), this.fetchPosts()]);
+        this.isReady = true;
+        NProgress.done();
+    },
 
-        watch: {
-            'tag.name'(val) {
-                if (!isEmpty(val)) {
-                    this.tag.slug = this.slugify(val);
-                }
-            },
-
-            $route(to) {
-                this.isReady = false;
-                this.id = to.params.id;
-                this.tag = null;
-                this.page = 1;
-                this.posts = [];
-                this.fetchTag();
-                this.fetchPosts();
-                this.isReady = true;
-                NProgress.done();
-            },
-        },
-
-        computed: {
-            creatingTag() {
-                return this.$route.name === 'create-tag';
+    watch: {
+        'tag.name'(val) {
+            if (!isEmpty(val)) {
+                this.tag.slug = this.slugify(val);
             }
         },
 
-        methods: {
-            fetchTag() {
-                return this.request()
-                    .get('/api/tags/' + this.id)
-                    .then(({ data }) => {
-                        this.tag = data;
-                        NProgress.inc();
-                    })
-                    .catch(() => {
-                        this.$router.push({ name: 'tags' });
-                        NProgress.done();
-                    });
-            },
-
-            fetchPosts($state) {
-                return this.request()
-                    .get('/api/tags/' + this.id + '/posts', {
-                        params: {
-                            page: this.page,
-                        }
-                    })
-                    .then(({ data }) => {
-                        if (!isEmpty(data) && !isEmpty(data.data)) {
-                            this.page += 1;
-                            this.posts.push(...data.data);
-
-                            $state.loaded();
-                        } else {
-                            $state.complete();
-                        }
-
-                        if (isEmpty($state)) {
-                            NProgress.inc();
-                        }
-                    })
-                    .catch(() => {
-                        NProgress.done();
-                    });
-            },
-
-            saveTag() {
-                this.errors = [];
-
-                this.request()
-                    .post('/api/tags/' + this.id, {
-                        name: this.tag.name,
-                        slug: this.tag.slug
-                    })
-                    .then(({ data }) => {
-                        this.id = data.id;
-                        this.tag = data;
-                        toast.methods.toast(this.i18n.saved);
-                    })
-                    .catch((error) => {
-                        this.errors = error.response.data.errors;
-                    });
-            },
-
-            deleteTag() {
-                this.request()
-                    .delete('/api/tags/' + this.id)
-                    .then(() => {
-                        $(this.$refs.deleteModal.$el).modal('hide');
-                        toast.methods.toast(this.i18n.success);
-                        this.$router.push({ name: 'tags' });
-                    })
-                    .catch(() => {
-                        // Add any error debugging...
-                    });
-            },
-
-            showDeleteModal() {
-                $(this.$refs.deleteModal.$el).modal('show');
-            },
+        $route(to) {
+            this.isReady = false;
+            this.id = to.params.id;
+            this.tag = null;
+            this.page = 1;
+            this.posts = [];
+            this.fetchTag();
+            this.fetchPosts();
+            this.isReady = true;
+            NProgress.done();
         },
-    };
+    },
+
+    computed: {
+        creatingTag() {
+            return this.$route.name === 'create-tag';
+        },
+    },
+
+    methods: {
+        fetchTag() {
+            return this.request()
+                .get('/api/tags/' + this.id)
+                .then(({ data }) => {
+                    this.tag = data;
+                    NProgress.inc();
+                })
+                .catch(() => {
+                    this.$router.push({ name: 'tags' });
+                    NProgress.done();
+                });
+        },
+
+        fetchPosts($state) {
+            return this.request()
+                .get('/api/tags/' + this.id + '/posts', {
+                    params: {
+                        page: this.page,
+                    },
+                })
+                .then(({ data }) => {
+                    if (!isEmpty(data) && !isEmpty(data.data)) {
+                        this.page += 1;
+                        this.posts.push(...data.data);
+
+                        $state.loaded();
+                    } else {
+                        $state.complete();
+                    }
+
+                    if (isEmpty($state)) {
+                        NProgress.inc();
+                    }
+                })
+                .catch(() => {
+                    NProgress.done();
+                });
+        },
+
+        saveTag() {
+            this.errors = [];
+
+            this.request()
+                .post('/api/tags/' + this.id, {
+                    name: this.tag.name,
+                    slug: this.tag.slug,
+                })
+                .then(({ data }) => {
+                    this.id = data.id;
+                    this.tag = data;
+                    toast.methods.toast(this.i18n.saved);
+                })
+                .catch((error) => {
+                    this.errors = error.response.data.errors;
+                });
+        },
+
+        deleteTag() {
+            this.request()
+                .delete('/api/tags/' + this.id)
+                .then(() => {
+                    $(this.$refs.deleteModal.$el).modal('hide');
+                    toast.methods.toast(this.i18n.success);
+                    this.$router.push({ name: 'tags' });
+                })
+                .catch(() => {
+                    // Add any error debugging...
+                });
+        },
+
+        showDeleteModal() {
+            $(this.$refs.deleteModal.$el).modal('show');
+        },
+    },
+};
 </script>

@@ -68,7 +68,7 @@
 </template>
 
 <script>
-import i18n from "../../mixins/i18n";
+import i18n from '../../mixins/i18n';
 
 export default {
     name: 'delete-modal',

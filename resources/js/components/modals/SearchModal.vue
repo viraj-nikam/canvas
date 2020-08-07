@@ -39,9 +39,9 @@
                     <div v-for="entity in results" :key="entity.item.id">
                         <router-link
                             :to="{
-                                    name: entity.item.route,
-                                    params: { id: entity.item.id },
-                                }"
+                                name: entity.item.route,
+                                params: { id: entity.item.id },
+                            }"
                             class="text-decoration-none"
                             @click="clearResults()"
                             data-dismiss="modal"
@@ -126,7 +126,7 @@ export default {
     data() {
         return {
             results: [],
-            searchIndex: []
+            searchIndex: [],
         };
     },
 
@@ -177,7 +177,7 @@ export default {
 
         clearResults() {
             this.results = [];
-        }
+        },
     },
 };
 </script>

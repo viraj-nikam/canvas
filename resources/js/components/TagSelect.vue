@@ -16,7 +16,7 @@
 
 <script>
 import Multiselect from 'vue-multiselect';
-import i18n from "../mixins/i18n";
+import i18n from '../mixins/i18n';
 
 export default {
     props: {

@@ -6,9 +6,7 @@
             <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12 my-3">
                 <div class="my-3">
                     <h2 class="mt-3">{{ user.name }}</h2>
-                    <p class="mt-2 text-secondary">
-                        {{ i18n.last_updated }} {{ moment(userLastUpdated).fromNow() }}
-                    </p>
+                    <p class="mt-2 text-secondary">{{ i18n.last_updated }} {{ moment(userLastUpdated).fromNow() }}</p>
                 </div>
 
                 <div class="mt-5 card shadow-lg">
@@ -147,8 +145,8 @@ import store from '../store';
 import get from 'lodash/get';
 import isEmpty from 'lodash/isEmpty';
 import request from '../mixins/request';
-import url from "../mixins/url";
-import config from "../store/modules/config";
+import url from '../mixins/url';
+import config from '../store/modules/config';
 
 const FilePond = vueFilePond(
     FilePondPluginFileValidateType,
@@ -185,7 +183,7 @@ export default {
         $route(to) {
             this.isReady = false;
             this.user = null;
-            this.username =  null;
+            this.username = null;
             this.summary = null;
             this.avatar = null;
             // this.meta = null;
@@ -196,9 +194,7 @@ export default {
     },
 
     async created() {
-        await Promise.all([
-            this.fetchUser(this.$route.params.id)
-        ])
+        await Promise.all([this.fetchUser(this.$route.params.id)]);
         this.isReady = true;
         NProgress.done();
     },
@@ -257,7 +253,7 @@ export default {
             return this.request()
                 .get('/api/users/' + id)
                 .then(({ data }) => {
-                    console.log(data)
+                    console.log(data);
                     this.user = data.user;
                     this.summary = get(data.meta, 'summary', null);
                     this.username = get(data.meta, 'username', null);
@@ -278,7 +274,7 @@ export default {
 
         updateProfile() {
             this.request()
-                .post('/api/users/' + this.user.id, {...this.user, ...this.meta})
+                .post('/api/users/' + this.user.id, { ...this.user, ...this.meta })
                 .then(({ data }) => {
                     this.user = data.user;
                     this.summary = data.meta.summary;

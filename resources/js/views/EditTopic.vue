@@ -116,19 +116,19 @@
                         <div v-for="(post, index) in posts" :key="`${index}-${post.id}`">
                             <router-link
                                 :to="{
-                                            name: 'edit-post',
-                                            params: { id: post.id },
-                                        }"
+                                    name: 'edit-post',
+                                    params: { id: post.id },
+                                }"
                                 class="text-decoration-none"
                             >
                                 <div
                                     v-hover="{ class: `hover-bg` }"
                                     class="d-flex p-3 align-items-center"
                                     :class="{
-                                                'border-top': index !== 0,
-                                                'rounded-top': index === 0,
-                                                'rounded-bottom': index === posts.length - 1,
-                                            }"
+                                        'border-top': index !== 0,
+                                        'rounded-top': index === 0,
+                                        'rounded-bottom': index === posts.length - 1,
+                                    }"
                                 >
                                     <div class="pl-2 col-md-6 col-sm-8 col-10">
                                         <p class="mb-1 mt-2 text-truncate">
@@ -142,12 +142,12 @@
                                     </div>
                                     <div class="ml-auto">
                                         <div class="d-none d-md-inline">
-                                                    <span class="text-muted mr-3"
-                                                    >{{ suffixedNumber(post.views_count) }} {{ i18n.views }}</span
-                                                    >
+                                            <span class="text-muted mr-3"
+                                                >{{ suffixedNumber(post.views_count) }} {{ i18n.views }}</span
+                                            >
                                             <span class="mr-3"
-                                            >{{ i18n.created }}
-                                                        {{ moment(post.created_at).format('MMM D, YYYY') }}</span
+                                                >{{ i18n.created }}
+                                                {{ moment(post.created_at).format('MMM D, YYYY') }}</span
                                             >
                                         </div>
 
@@ -157,7 +157,7 @@
                                             viewBox="0 0 24 24"
                                             class="icon-cheveron-right-circle"
                                         >
-                                            <circle cx="12" cy="12" r="10" style="fill: none;"/>
+                                            <circle cx="12" cy="12" r="10" style="fill: none;" />
                                             <path
                                                 class="fill-light-gray"
                                                 d="M10.3 8.7a1 1 0 0 1 1.4-1.4l4 4a1 1 0 0 1 0 1.4l-4 4a1 1 0 0 1-1.4-1.4l3.29-3.3-3.3-3.3z"
@@ -193,11 +193,11 @@ import NProgress from 'nprogress';
 import PageHeader from '../components/PageHeader';
 import Hover from '../directives/Hover';
 import DeleteModal from '../components/modals/DeleteModal';
-import i18n from "../mixins/i18n";
+import i18n from '../mixins/i18n';
 import toast from '../mixins/toast';
 import InfiniteLoading from 'vue-infinite-loading';
-import strings from "../mixins/strings";
-import isEmpty from "lodash/isEmpty";
+import strings from '../mixins/strings';
+import isEmpty from 'lodash/isEmpty';
 
 export default {
     name: 'edit-topic',
@@ -212,7 +212,7 @@ export default {
         Hover,
     },
 
-    mixins: [ i18n, strings, toast ],
+    mixins: [i18n, strings, toast],
 
     data() {
         return {
@@ -226,10 +226,7 @@ export default {
     },
 
     async created() {
-        await Promise.all([
-            this.fetchTopic(),
-            this.fetchPosts()
-        ])
+        await Promise.all([this.fetchTopic(), this.fetchPosts()]);
         this.isReady = true;
         NProgress.done();
     },
@@ -257,7 +254,7 @@ export default {
     computed: {
         creatingTopic() {
             return this.$route.name === 'create-topic';
-        }
+        },
     },
 
     methods: {
@@ -279,7 +276,7 @@ export default {
                 .get('/api/topics/' + this.id + '/posts', {
                     params: {
                         page: this.page,
-                    }
+                    },
                 })
                 .then(({ data }) => {
                     if (!isEmpty(data) && !isEmpty(data.data)) {
@@ -306,7 +303,7 @@ export default {
             this.request()
                 .post('/api/topics/' + this.id, {
                     name: this.topic.name,
-                    slug: this.topic.slug
+                    slug: this.topic.slug,
                 })
                 .then(({ data }) => {
                     this.id = data.id;

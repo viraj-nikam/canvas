@@ -12,6 +12,6 @@ export default {
             let language = require('../data/languages.json')[locale];
 
             return language.nativeName;
-        }
-    }
+        },
+    },
 };

@@ -1,6 +1,6 @@
-import request from "../../mixins/request";
-import isEmpty from "lodash/isEmpty";
-import url from "../../mixins/url";
+import request from '../../mixins/request';
+import isEmpty from 'lodash/isEmpty';
+import url from '../../mixins/url';
 
 const initialState = {
     id: window.Canvas.user.id,
