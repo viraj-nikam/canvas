@@ -72,15 +72,13 @@
                                     }"
                                 >
                                     <div class="pl-2 col-md-8 col-sm-10 col-10 py-1">
-                                        <p class="text-truncate mb-0">
-                                            <span class="font-weight-bold">
-                                                {{ post.title }}
-                                            </span>
+                                        <p class="text-truncate lead font-weight-bold mb-0">
+                                            {{ post.title }}
                                         </p>
-                                        <p class="text-truncate my-1" v-if="post.summary">
+                                        <p class="text-truncate text-secondary my-1" v-if="post.summary">
                                             {{ post.summary }}
                                         </p>
-                                        <p class="small text-secondary mt-1 mb-0">
+                                        <p class="text-secondary mt-1 mb-0">
                                             <span v-if="isPublished(post.published_at)">
                                                 {{ i18n.published }}
                                                 {{ moment(post.published_at).fromNow() }}

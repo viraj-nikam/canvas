@@ -12,7 +12,7 @@
                     <div class="card-body p-0">
                         <div class="d-flex rounded-top p-3 align-items-center">
                             <div class="mr-auto py-1">
-                                <p class="mb-1 font-weight-bold">
+                                <p class="mb-0 lead font-weight-bold">
                                     {{ i18n.weekly_digest }}
                                 </p>
                                 <p class="mb-1 d-none d-lg-block text-secondary">
@@ -42,9 +42,9 @@
 
                         <div class="d-flex border-top p-3 align-items-center">
                             <div class="mr-auto py-1">
-                                <p class="mb-1 font-weight-bold">
+                                <h5 class="mb-1">
                                     {{ i18n.dark_mode }}
-                                </p>
+                                </h5>
                                 <p class="mb-1 d-none d-lg-block text-secondary">
                                     {{ i18n.toggle_dark_mode }}
                                 </p>
@@ -72,9 +72,9 @@
 
                         <div class="d-flex border-top p-3 align-items-center">
                             <div class="mr-auto py-1">
-                                <p class="mb-1 font-weight-bold">
+                                <h5 class="mb-1">
                                     {{ i18n.locale }}
-                                </p>
+                                </h5>
                                 <p class="mb-1 d-none d-lg-block text-secondary">
                                     {{ i18n.select_your_language_or_region }}
                                 </p>

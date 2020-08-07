@@ -56,6 +56,7 @@ body[data-theme='dark'] {
         border: 1px solid $gray-700;
 
         & .dropdown-item:hover {
+            color: $body--color--dark;
             background-color: lighten($body--bg--dark, 10%);
         }
 

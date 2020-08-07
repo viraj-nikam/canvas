@@ -66,14 +66,10 @@
                                 >
                                     <div class="d-flex align-items-center">
                                         <div class="mr-auto pl-2">
-                                            <p class="mb-0 py-1">
-                                                <span class="font-weight-bold">
-                                                    {{ tag.name }}
-                                                </span>
-                                            </p>
+                                            <p class="mb-0 py-1 lead font-weight-bold text-truncate">{{ tag.name }}</p>
                                         </div>
                                         <div class="ml-auto d-none d-md-inline-block">
-                                            <span class="text-muted mr-3"
+                                            <span class="text-secondary mr-3"
                                                 >{{ suffixedNumber(tag.posts_count) }} {{ i18n.posts }}</span
                                             >
                                             <span class="mr-3"

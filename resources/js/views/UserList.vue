@@ -31,12 +31,10 @@
                                     }"
                                 >
                                     <div class="pl-2 col-md-8 col-sm-10 col-10 py-1">
-                                        <p class="mb-0 text-truncate">
-                                            <span class="font-weight-bold">
-                                                {{ user.name }}
-                                            </span>
+                                        <p class="mb-0 lead font-weight-bold text-truncate">
+                                            {{ user.name }}
                                         </p>
-                                        <p class="mb-1 text-muted">
+                                        <p class="mb-1 text-secondary">
                                             {{ user.email }}
                                         </p>
                                     </div>

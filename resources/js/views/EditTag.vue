@@ -131,8 +131,8 @@
                                     }"
                                 >
                                     <div class="pl-2 col-md-6 col-sm-8 col-10">
-                                        <p class="mb-1 mt-2 text-truncate">
-                                            <span class="font-weight-bold lead">{{ post.title }}</span>
+                                        <p class="mb-0 mt-2 lead font-weight-bold text-truncate">
+                                            {{ post.title }}
                                         </p>
                                         <p class="text-secondary mb-2">
                                             <span v-if="isPublished(post.published_at)">
@@ -151,7 +151,7 @@
                                     </div>
                                     <div class="ml-auto">
                                         <div class="d-none d-md-inline">
-                                            <span class="text-muted mr-3"
+                                            <span class="text-secondary mr-3"
                                                 >{{ suffixedNumber(post.views_count) }} {{ i18n.views }}</span
                                             >
                                             <span class="mr-3"

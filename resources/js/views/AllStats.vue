@@ -68,7 +68,7 @@
                                             }"
                                         >
                                             <div class="pl-2 col-md-6 col-sm-8 col-10">
-                                                <h5 class="text-truncate mt-2">{{ post.title }}</h5>
+                                                <p class="text-truncate lead font-weight-bold mt-2 mb-0">{{ post.title }}</p>
                                                 <p class="text-secondary mb-2">
                                                     <span class="d-none d-md-inline"> {{ post.read_time }} ― </span>
                                                     {{ i18n.published }}
