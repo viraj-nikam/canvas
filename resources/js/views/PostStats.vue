@@ -137,8 +137,7 @@
                                                 />
                                             </svg>
                                         </span>
-                                        {{ data.monthOverMonthViews.percentage }}%
-                                        {{ i18n.fromLastMonth }}
+                                        {{ data.monthOverMonthViews.percentage }}% {{ i18n.from_last_month }}
                                     </p>
                                 </div>
 
@@ -200,8 +199,7 @@
                                                 />
                                             </svg>
                                         </span>
-                                        {{ data.monthOverMonthVisits.percentage }}%
-                                        {{ i18n.from_last_month }}
+                                        {{ data.monthOverMonthVisits.percentage }}% {{ i18n.from_last_month }}
                                     </p>
                                 </div>
                             </div>
@@ -217,7 +215,7 @@
                             {{ i18n.views_by_traffic_source }}
                         </h5>
 
-                        <div v-if="data.topReferers.length > 0">
+                        <div v-if="Object.keys(data.topReferers).length > 0">
                             <div v-for="(views, host) in data.topReferers" :key="`${host}-${views}`">
                                 <div class="d-flex py-2 align-items-center">
                                     <div class="mr-auto">
@@ -301,7 +299,7 @@
                             {{ i18n.popular_reading_times }}
                         </h5>
 
-                        <div v-if="data.popularReadingTimes.length > 0">
+                        <div v-if="Object.keys(data.popularReadingTimes).length > 0">
                             <div v-for="(percentage, time) in data.popularReadingTimes" :key="`${time}-${percentage}`">
                                 <div class="d-flex py-2 align-items-center">
                                     <div class="mr-auto">
@@ -310,7 +308,7 @@
                                         </p>
                                     </div>
                                     <div class="ml-auto">
-                                        <span class="text-muted">{{ percentage + '%' }}</span>
+                                        <span class="text-muted">{{ `${percentage}%` }}</span>
                                     </div>
                                 </div>
                             </div>
