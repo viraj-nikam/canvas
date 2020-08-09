@@ -56,7 +56,7 @@ class TagController extends Controller
         }
 
         $data = [
-            'id' => $id,
+            'id' => $tag->id,
             'name' => request('name'),
             'slug' => request('slug'),
             'user_id' => request()->user()->id,

@@ -56,7 +56,7 @@ class TopicController extends Controller
         }
 
         $data = [
-            'id' => $id,
+            'id' => $topic->id,
             'name' => request('name'),
             'slug' => request('slug'),
             'user_id' => request()->user()->id,
