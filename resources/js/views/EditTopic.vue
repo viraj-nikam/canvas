@@ -46,7 +46,7 @@
                 <div class="mt-5 card shadow-lg">
                     <div class="card-body">
                         <div class="form-group">
-                            <div class="col-12 row">
+                            <div class="col-12 px-0">
                                 <label class="font-weight-bold text-uppercase text-muted small">
                                     {{ i18n.name }}
                                 </label>
@@ -67,7 +67,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-12 mt-3 row">
+                            <div class="col-12 mt-3 px-0">
                                 <label class="font-weight-bold text-uppercase text-muted small">
                                     {{ i18n.slug }}
                                 </label>
@@ -87,7 +87,7 @@
                             </div>
                         </div>
 
-                        <div class="row mt-3 mb-2">
+                        <div class="row mt-4 mb-2">
                             <div class="col-md">
                                 <a
                                     href="#"
@@ -233,9 +233,7 @@ export default {
 
     watch: {
         'topic.name'(val) {
-            if (!isEmpty(val)) {
-                this.topic.slug = this.slugify(val);
-            }
+            this.topic.slug = !isEmpty(val) ? this.slugify(val) : '';
         },
 
         $route(to) {

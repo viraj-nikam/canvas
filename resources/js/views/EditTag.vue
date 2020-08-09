@@ -46,7 +46,7 @@
                 <div class="mt-5 card shadow-lg">
                     <div class="card-body">
                         <div class="form-group">
-                            <div class="col-12 row">
+                            <div class="col-12 px-0">
                                 <label class="font-weight-bold text-uppercase text-muted small">
                                     {{ i18n.name }}
                                 </label>
@@ -67,7 +67,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-12 mt-3 row">
+                            <div class="col-12 mt-3 px-0">
                                 <label class="font-weight-bold text-uppercase text-muted small">
                                     {{ i18n.slug }}
                                 </label>
@@ -243,9 +243,7 @@ export default {
 
     watch: {
         'tag.name'(val) {
-            if (!isEmpty(val)) {
-                this.tag.slug = this.slugify(val);
-            }
+            this.tag.slug = !isEmpty(val) ? this.slugify(val) : '';
         },
 
         $route(to) {
