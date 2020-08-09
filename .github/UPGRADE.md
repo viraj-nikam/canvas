@@ -2,12 +2,12 @@
 
 ## Table of Contents
 
-- [Upgrading to 5.4.0 from 5.3](#upgrading-to-540-from-53)
+- [Upgrading to 6.0.0 from 5.3](#upgrading-to-600-from-53)
 - [Upgrading to 5.3.0 from 5.2](#upgrading-to-530-from-52)
 - [Upgrading to 5.2.0 from 5.1](#upgrading-to-520-from-51)
 - [Upgrading to 5.1.0 from 5.0](#upgrading-to-510-from-50)
 
-## Upgrading to 5.4.0 from 5.3
+## Upgrading to 6.0.0 from 5.3
 
 > Note: Exporting and re-importing your data allowed the migrations to be consolidated into one file as well as
 > removing the requirement of the `doctrine/dbal` dependency.
@@ -36,7 +36,7 @@ Once completed, you can drop those tables from your database.
 
 ### Updating dependencies
 
-Update your `cnvs/canvas` dependency to `^5.4` in your `composer.json` file. Upgrade the package to the latest version:
+Update your `cnvs/canvas` dependency to `^6.0` in your `composer.json` file. Upgrade the package to the latest version:
 
 ```bash
 composer update
