@@ -2,7 +2,7 @@
     <div class="border-bottom">
         <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12">
             <nav class="navbar d-flex px-0 py-1">
-                <router-link to="/" class="navbar-brand pt-0 hover">
+                <router-link :to="{name: 'home'}" class="navbar-brand pt-0 hover">
                     <svg xmlns="http://www.w3.org/2000/svg" width="35" viewBox="0 0 24 24" class="icon-collection">
                         <rect width="20" height="12" x="2" y="10" class="fill-muted" rx="2" />
                         <path
@@ -22,7 +22,41 @@
                     </svg>
                 </a>
 
-                <slot name="menu" />
+                <!-- Slot begin -->
+                <div class="dropdown">
+                    <a
+                        class="nav-link pr-1"
+                        href="#"
+                        role="button"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            width="25"
+                            class="icon-dots-horizontal"
+                        >
+                            <path
+                                class="fill-light-gray"
+                                fill-rule="evenodd"
+                                d="M5 14a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm7 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm7 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"
+                            />
+                        </svg>
+                    </a>
+
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <router-link
+                            v-if="$route.name === 'post-stats'"
+                            :to="{ name: 'edit-post', params: { id: $route.params.id } }"
+                            class="dropdown-item"
+                        >
+                            {{ i18n.edit_post }}
+                        </router-link>
+                    </div>
+                </div>
+                <!-- Slot end -->
 
                 <div class="dropdown ml-3" v-cloak>
                     <a
@@ -35,34 +69,34 @@
                         aria-expanded="false"
                     >
                         <img
-                            :src="user.avatar"
-                            :alt="user.name"
+                            :src="auth.avatar"
+                            :alt="auth.name"
                             class="rounded-circle my-0 shadow-inner"
                             style="width: 33px;"
                         />
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                         <h6 class="dropdown-header">
-                            <strong>{{ user.name }}</strong>
+                            <strong>{{ auth.name }}</strong>
                             <br />
-                            {{ user.email }}
+                            {{ auth.email }}
                         </h6>
 
                         <div class="dropdown-divider"></div>
 
-                        <router-link :to="{ name: 'edit-user', params: { id: user.id } }" class="dropdown-item">
+                        <router-link :to="{ name: 'edit-user', params: { id: auth.id } }" class="dropdown-item">
                             {{ i18n.your_profile }}
                         </router-link>
                         <router-link :to="{ name: 'posts' }" class="dropdown-item">
                             <span>{{ i18n.posts_simple }}</span>
                         </router-link>
-                        <router-link v-if="user.admin" :to="{ name: 'users' }" class="dropdown-item">
+                        <router-link v-if="auth.admin" :to="{ name: 'users' }" class="dropdown-item">
                             <span>{{ i18n.users }}</span>
                         </router-link>
-                        <router-link v-if="user.admin" :to="{ name: 'tags' }" class="dropdown-item">
+                        <router-link v-if="auth.admin" :to="{ name: 'tags' }" class="dropdown-item">
                             <span>{{ i18n.tags }}</span>
                         </router-link>
-                        <router-link v-if="user.admin" :to="{ name: 'topics' }" class="dropdown-item">
+                        <router-link v-if="auth.admin" :to="{ name: 'topics' }" class="dropdown-item">
                             <span>{{ i18n.topics }}</span>
                         </router-link>
                         <router-link :to="{ name: 'stats' }" class="dropdown-item">
@@ -89,7 +123,6 @@
 <script>
 import axios from 'axios';
 import SearchModal from './modals/SearchModal';
-import store from '../store';
 import i18n from '../mixins/i18n';
 import $ from 'jquery';
 
@@ -103,19 +136,15 @@ export default {
     },
 
     computed: {
-        user() {
-            return store.state.auth;
+        auth() {
+            return this.$store.state.auth;
         },
     },
 
     methods: {
         logout() {
-            let instance = axios.create();
-
-            instance.defaults.baseURL = '/';
-
-            instance.post('/logout').then(() => {
-                window.location.href = '/login';
+            axios.post('/logout').then(() => {
+                window.location.assign = '/login';
             });
         },
 

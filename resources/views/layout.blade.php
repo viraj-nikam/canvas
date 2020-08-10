@@ -13,16 +13,15 @@
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Karla|Merriweather:400,700">
 </head>
 <body class="mb-5" @if($config['user']['darkMode']) data-theme="dark" @endif>
-<div id="canvas">
-    @if(!\Canvas\Helpers\Asset::upToDate())
-       <div class="alert alert-danger border-0 text-center rounded-0 mb-0">
-           {{ trans('canvas::app.assets_are_not_up_to_date') }}
-           {{ trans('canvas::app.to_update_run') }}<br/><code>php artisan canvas:publish</code>
-       </div>
-    @endif
 
-    <router-view></router-view>
-</div>
+@if(!\Canvas\Helpers\Asset::upToDate())
+    <div class="alert alert-danger border-0 text-center rounded-0 mb-0">
+        {{ trans('canvas::app.assets_are_not_up_to_date') }}
+        {{ trans('canvas::app.to_update_run') }}<br/><code>php artisan canvas:publish</code>
+    </div>
+@endif
+
+<div id="canvas"></div>
 
 <script>
     window.Canvas = @json($config);

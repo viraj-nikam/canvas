@@ -85,7 +85,6 @@
 <script>
 import i18n from '../../mixins/i18n';
 import VueFuse from 'vue-fuse';
-import store from '../../store';
 import Hover from '../../directives/Hover';
 
 export default {
@@ -103,7 +102,7 @@ export default {
 
     computed: {
         auth() {
-            return store.state.auth;
+            return this.$store.state.auth;
         },
     },
 
