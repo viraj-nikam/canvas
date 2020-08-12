@@ -5,7 +5,9 @@ workspaceLocation: canvas/.workspace.json
 checkoutLocation: canvas
 
 tasks:
-  - init: |
+  - before: |
+      url=$(gp url 8000); sed -i'' "s#^APP_URL=http://localhost*#APP_URL=$url\nASSET_URL=$url#g" .env
+  init: |
       # Reload the bash profile to use composer-link()
       source ~/.bash_profile
 
@@ -42,7 +44,16 @@ tasks:
       # Create a symlink to the package assets
       cd public/vendor/canvas
       ln -s ../../../../canvas/public/* .
+
       cd /workspace/laravel
+
+      # Trust any proxy in a chain of proxies
+      php artisan vendor:publish --provider="Fideloper\Proxy\TrustedProxyServiceProvider"
+      sed -i 's/'proxies' => null/'proxies' => '**'/g' config/trustedproxy.php
+
+      php artisan config:clear
+      php artisan cache:clear
+      php artisan config:cache
     command:
       php artisan serve
 
