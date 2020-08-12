@@ -1,35 +1,11 @@
 image:
   file: Dockerfile
 
-github:
-  prebuilds:
-    # Enable for the master/default branch (defaults to true)
-    master: false
-    # Enable for all branches in this repo (defaults to false)
-    branches: true
-    # Enable for pull requests coming from this repo (defaults to true)
-    pullRequests: false
-    # Enable for pull requests coming from forks (defaults to false)
-    pullRequestsFromForks: false
-    # Add a "Review in Gitpod" button as a comment to pull requests (defaults to true)
-    addComment: false
-    # Add a "Review in Gitpod" button to pull requests (defaults to false)
-    addBadge: false
-    # Add a label once the prebuild is ready to pull requests (defaults to false)
-    addLabel: prebuilt-in-gitpod
-    # Register GitPod as a check to pull requests
-    addCheck: false
-
 workspaceLocation: canvas/.workspace.json
 checkoutLocation: canvas
 
 tasks:
-  - before: |
-      php -r "file_exists('.env') || copy('.env.example', '.env');"
-      export url=$(gp url 8000); sed -Ei "s|APP_URL=http://localhost|APP_URL=${url}|g" .env
-      export url=$(gp url 8000); sed -Ei "1i\ASSET_URL=${url}" .env
-
-    init: |
+  - init: |
       # Reload the bash profile to use composer-link()
       source ~/.bash_profile
 
@@ -75,8 +51,8 @@ tasks:
       sed -Ei "s|'proxies' => null|'proxies' => '**'|g" config/trustedproxy.php
 
       # Define the app environment URLs
-      #export url=$(gp url 8000); sed -Ei "s|APP_URL=http://localhost|APP_URL=${url}|g" .env
-      #export url=$(gp url 8000); sed -Ei "1i\ASSET_URL=${url}" .env
+      export url=$(gp url 8000); sed -Ei "s|APP_URL=http://localhost|APP_URL=${url}|g" .env
+      export url=$(gp url 8000); sed -Ei "1i\ASSET_URL=${url}" .env
 
       php artisan config:clear
       php artisan cache:clear
