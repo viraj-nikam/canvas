@@ -3,6 +3,8 @@ image:
 
 tasks:
   - init: |
+      source ~/.bash_profile
+
       cd /workspace
 
       # Create the Laravel app
