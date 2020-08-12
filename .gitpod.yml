@@ -13,6 +13,7 @@ tasks:
       # Create the database
       touch database/database.sqlite
       sed -i 's/DB_CONNECTION=mysql/DB_CONNECTION=sqlite/g' .env
+      sed -i 's/DB_DATABASE=laravel/#DB_DATABASE=laravel/g' .env
 
       # Set up basic authentication
       composer require laravel/ui
@@ -36,4 +37,6 @@ tasks:
       cd public/vendor/canvas
       ln -s ../../../../canvas/public/* .
 
-      cd /workspace/laravel
+      cd /workspace/canvas
+
+      command: yarn watch
