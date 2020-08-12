@@ -1,8 +1,9 @@
-# The Docker image to run your workspace in. Defaults to gitpod/workspace-full
 image:
   file: .gitpod.Dockerfile
 
-# Command to start on workspace startup (optional)
+workspaceLocation: canvas/.workspace.json
+checkoutLocation: canvas
+
 tasks:
   - init: |
       # Reload the bash profile to use composer-link()
@@ -41,12 +42,20 @@ tasks:
       # Create a symlink to the package assets
       cd public/vendor/canvas
       ln -s ../../../../canvas/public/* .
+      cd /workspace/laravel
+    command:
+      php artisan serve
 
-      cd /workspace/canvas
+  - init: |
+      # install dependencies
+      composer install
+      yarn
+    command: |
+      yarn watch
+    openMode: split-right
 
-    command: composer install && yarn && yarn watch
-
-# Ports to expose on workspace startup (optional)
 ports:
-  - port: 8080
+  - port: 3306
     onOpen: ignore
+  - port: 8000
+    onOpen: notify

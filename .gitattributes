@@ -5,7 +5,10 @@
 .editorconfig export-ignore
 .eslintrc.js export-ignore
 .gitattributes export-ignore
+.gitpod.Dockerfile export-ignore
+.gitpod.yml export-ignore
 .gitignore export-ignore
 .prettierignore export-ignore
 .prettierrc export-ignore
+.workspace.json export-ignore
 phpunit.xml.dist export-ignore
