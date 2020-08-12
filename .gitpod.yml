@@ -5,9 +5,6 @@ workspaceLocation: canvas/.workspace.json
 checkoutLocation: canvas
 
 tasks:
-  - before: |
-      url=$(gp url 8000); sed -i'' "s#^APP_URL=http://localhost*#APP_URL=$url\nASSET_URL=$url#g" .env
-
   - init: |
       # Reload the bash profile to use composer-link()
       source ~/.bash_profile
@@ -27,6 +24,7 @@ tasks:
       # Set up basic authentication
       composer require laravel/ui
       php artisan ui vue --auth
+      yarn && yarn dev
 
       # Run the database migrations
       php artisan migrate
@@ -50,7 +48,14 @@ tasks:
 
       # Trust any proxy in a chain of proxies
       php artisan vendor:publish --provider="Fideloper\Proxy\TrustedProxyServiceProvider"
-      sed -i 's/'proxies' => null/'proxies' => '**'/g' config/trustedproxy.php
+      # sed -i d config/trustedproxy.php
+      # sed -i 's/'proxies' => null/'proxies' => '**'/g' config/trustedproxy.php
+
+      # url=$(gp url 8000);
+      # sed -i'' "s#^APP_URL=http://localhost*#APP_URL=$url\nASSET_URL=$url#g" .env
+
+      url=$(gp url 8000); sed -i 's/APP_URL=http://localhost/APP_URL=$url/g' .env
+      url=$(gp url 8000); sed -i 's/\nASSET_URL=$url/g' .env
 
       php artisan config:clear
       php artisan cache:clear
