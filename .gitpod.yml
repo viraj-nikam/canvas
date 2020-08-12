@@ -50,10 +50,14 @@ tasks:
       php artisan vendor:publish --provider="Fideloper\Proxy\TrustedProxyServiceProvider"
       sed -Ei "s|'proxies' => null|'proxies' => '**'|g" config/trustedproxy.php
 
-      # Update the .env file
+      # Define base app URL
       export url=$(gp url 8000); sed -Ei "s|APP_URL=http://localhost|APP_URL=${url}|g" .env
+
+      # Define asset path
       export url=$(gp url 8000); sed -Ei "1i\ASSET_URL=${url}" .env
-      export key=$(gp env UNSPLASH_ACCESS_KEY); sed -Ei "1i\CANVAS_UNSPLASH_ACCESS_KEY=${key}" .env
+
+      # Define Unsplash access key
+      export key=$(gp env); sed -Ei "1i\${key}" .env
 
       php artisan config:clear
       php artisan cache:clear
