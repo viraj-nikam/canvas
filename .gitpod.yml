@@ -50,6 +50,7 @@ tasks:
       php artisan vendor:publish --provider="Fideloper\Proxy\TrustedProxyServiceProvider"
       sed -Ei "s|'proxies' => null|'proxies' => '**'|g" config/trustedproxy.php
 
+      # Define the app environment URLs
       export url=$(gp url 8000); sed -Ei "s|APP_URL=http://localhost|APP_URL=${url}|g" .env
       export url=$(gp url 8000); sed -Ei "1i\ASSET_URL=${url}" .env
 
