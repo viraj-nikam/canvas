@@ -42,4 +42,4 @@ tasks:
 
       cd /workspace/canvas
 
-    command: yarn watch
+    command: composer install && yarn && yarn watch
