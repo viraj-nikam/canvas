@@ -1,9 +1,8 @@
+# The Docker image to run your workspace in. Defaults to gitpod/workspace-full
 image:
   file: .gitpod.Dockerfile
 
-ports:
-  - port: 8080
-
+# Command to start on workspace startup (optional)
 tasks:
   - init: |
       # Reload the bash profile to use composer-link()
@@ -46,3 +45,8 @@ tasks:
       cd /workspace/canvas
 
     command: composer install && yarn && yarn watch
+
+# Ports to expose on workspace startup (optional)
+ports:
+  - port: 8080
+    onOpen: ignore
