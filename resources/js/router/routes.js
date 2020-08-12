@@ -1,16 +1,18 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import AllStats from '../components/AllStats';
-import PostStats from '../components/PostStats';
-import PostList from '../components/PostList';
-import EditPost from '../components/EditPost';
-import EditTag from '../components/EditTag';
-import TagList from '../components/TagList';
-import EditTopic from '../components/EditTopic';
-import TopicList from '../components/TopicList';
-import EditSettings from '../components/EditSettings';
-import EditUser from '../components/EditUser';
-import UserList from '../components/UserList';
+
+import AllStats from '../views/AllStats';
+import PostStats from '../views/PostStats';
+import PostList from '../views/PostList';
+import EditPost from '../views/EditPost';
+import EditTag from '../views/EditTag';
+import TagList from '../views/TagList';
+import EditTopic from '../views/EditTopic';
+import TopicList from '../views/TopicList';
+import EditSettings from '../views/EditSettings';
+import EditUser from '../views/EditUser';
+import UserList from '../views/UserList';
+
 import { store } from '../store';
 
 Vue.use(Router);

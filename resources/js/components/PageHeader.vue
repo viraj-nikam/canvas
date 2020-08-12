@@ -2,7 +2,7 @@
     <div class="border-bottom">
         <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12">
             <nav class="navbar d-flex px-0 py-1">
-                <router-link :to="{name: 'home'}" class="navbar-brand pt-0 hover">
+                <router-link :to="{ name: 'home' }" class="navbar-brand pt-0 hover">
                     <svg xmlns="http://www.w3.org/2000/svg" width="35" viewBox="0 0 24 24" class="icon-collection">
                         <rect width="20" height="12" x="2" y="10" class="fill-muted" rx="2" />
                         <path
@@ -22,41 +22,7 @@
                     </svg>
                 </a>
 
-                <!-- Slot begin -->
-                <div class="dropdown">
-                    <a
-                        class="nav-link pr-1"
-                        href="#"
-                        role="button"
-                        data-toggle="dropdown"
-                        aria-haspopup="true"
-                        aria-expanded="false"
-                    >
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24"
-                            width="25"
-                            class="icon-dots-horizontal"
-                        >
-                            <path
-                                class="fill-light-gray"
-                                fill-rule="evenodd"
-                                d="M5 14a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm7 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm7 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"
-                            />
-                        </svg>
-                    </a>
-
-                    <div class="dropdown-menu dropdown-menu-right">
-                        <router-link
-                            v-if="$route.name === 'post-stats'"
-                            :to="{ name: 'edit-post', params: { id: $route.params.id } }"
-                            class="dropdown-item"
-                        >
-                            {{ i18n.edit_post }}
-                        </router-link>
-                    </div>
-                </div>
-                <!-- Slot end -->
+                <slot name="menu"></slot>
 
                 <div class="dropdown ml-3" v-cloak>
                     <a
@@ -133,6 +99,12 @@ export default {
 
     components: {
         SearchModal,
+    },
+
+    data() {
+        return {
+            showActions: true,
+        };
     },
 
     computed: {

@@ -21,7 +21,9 @@
     </div>
 @endif
 
-<div id="canvas"></div>
+<div id="canvas">
+    <router-view></router-view>
+</div>
 
 <script>
     window.Canvas = @json($config);
