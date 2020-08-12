@@ -3,6 +3,7 @@ image:
 
 tasks:
   - init: |
+      # Reload the bash profile to use composer-link()
       source ~/.bash_profile
 
       cd /workspace
