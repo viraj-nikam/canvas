@@ -1,6 +1,9 @@
 image:
   file: .gitpod.Dockerfile
 
+ports:
+  - port: 8080
+
 tasks:
   - init: |
       # Reload the bash profile to use composer-link()
