@@ -116,7 +116,7 @@ export default {
     methods: {
         logout() {
             axios.post('/logout').then(() => {
-                window.location.assign = '/login';
+                window.location.href = '/login';
             });
         },
 
