@@ -56,9 +56,6 @@ tasks:
       # Define asset path
       export url=$(gp url 8000); sed -Ei "1i\ASSET_URL=${url}" .env
 
-      # Define Unsplash access key
-      export key=$(gp env); sed -Ei "1i\${key}" .env
-
       php artisan config:clear
       php artisan cache:clear
       php artisan config:cache
