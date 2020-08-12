@@ -6,27 +6,27 @@ checkoutLocation: canvas
 
 tasks:
   - init: |
-      # Reload the bash profile to use composer-link()
+      # Reload the .bash_profile to utilize composer-link()
       source ~/.bash_profile
 
       cd /workspace
 
-      # Create the Laravel app
+      # Create a new Laravel app
       composer create-project --prefer-dist laravel/laravel laravel
 
       cd laravel
 
-      # Create the database
+      # Create a new database
       touch database/database.sqlite
       sed -i 's/DB_CONNECTION=mysql/DB_CONNECTION=sqlite/g' .env
       sed -i 's/DB_DATABASE=laravel/#DB_DATABASE=laravel/g' .env
 
-      # Set up basic authentication
+      # Scaffold user authentication
       composer require laravel/ui
       php artisan ui vue --auth
       yarn && yarn dev
 
-      # Run the database migrations
+      # Run database migrations
       php artisan migrate
 
       # Link Canvas to the Laravel app
@@ -50,9 +50,10 @@ tasks:
       php artisan vendor:publish --provider="Fideloper\Proxy\TrustedProxyServiceProvider"
       sed -Ei "s|'proxies' => null|'proxies' => '**'|g" config/trustedproxy.php
 
-      # Define the app environment URLs
+      # Update the .env file
       export url=$(gp url 8000); sed -Ei "s|APP_URL=http://localhost|APP_URL=${url}|g" .env
       export url=$(gp url 8000); sed -Ei "1i\ASSET_URL=${url}" .env
+      export key=$(gp env UNSPLASH_ACCESS_KEY); sed -Ei "1i\CANVAS_UNSPLASH_ACCESS_KEY=${key}" .env
 
       php artisan config:clear
       php artisan cache:clear
