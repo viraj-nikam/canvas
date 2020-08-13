@@ -168,7 +168,7 @@ export default {
     data() {
         return {
             user: null,
-            // meta: null,
+            meta: null,
             username: null,
             summary: null,
             avatar: null,
@@ -185,7 +185,7 @@ export default {
             this.username = null;
             this.summary = null;
             this.avatar = null;
-            // this.meta = null;
+            this.meta = null;
             this.fetchUser(to.params.id);
             this.isReady = true;
             NProgress.done();
@@ -221,7 +221,7 @@ export default {
 
         getServerOptions() {
             return {
-                url: '/' + this.config.path + '/api/uploads',
+                url: `/${this.config.path}/api/uploads`,
                 headers: {
                     'X-CSRF-TOKEN': document.head.querySelector('meta[name="csrf-token"]').content,
                 },
@@ -250,9 +250,8 @@ export default {
     methods: {
         fetchUser(id) {
             return this.request()
-                .get('/api/users/' + id)
+                .get(`/api/users/${id}`)
                 .then(({ data }) => {
-                    console.log(data);
                     this.user = data.user;
                     this.summary = get(data.meta, 'summary', null);
                     this.username = get(data.meta, 'username', null);
@@ -273,7 +272,7 @@ export default {
 
         updateProfile() {
             this.request()
-                .post('/api/users/' + this.user.id, { ...this.user, ...this.meta })
+                .post(`/api/users/${this.user.id}`, { ...this.user, ...this.meta })
                 .then(({ data }) => {
                     this.user = data.user;
                     this.summary = data.meta.summary;

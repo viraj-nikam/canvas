@@ -6,6 +6,8 @@ checkoutLocation: canvas
 
 tasks:
   - init: |
+      # Initializing the Laravel app
+
       # Reload the .bash_profile to utilize composer-link()
       source ~/.bash_profile
 
@@ -14,16 +16,22 @@ tasks:
       # Create a new Laravel app
       composer create-project --prefer-dist laravel/laravel laravel
 
-      cd laravel
+      cd /workspace/laravel
 
       # Create a new database
       touch database/database.sqlite
+
+      # Update the .env database configuration
       sed -i 's/DB_CONNECTION=mysql/DB_CONNECTION=sqlite/g' .env
       sed -i 's/DB_DATABASE=laravel/#DB_DATABASE=laravel/g' .env
 
-      # Scaffold user authentication
+      # Require the Laravel UI package
       composer require laravel/ui
+
+      # Install default user authentication
       php artisan ui vue --auth
+
+      # Compile assets
       yarn && yarn dev
 
       # Run database migrations
@@ -56,6 +64,7 @@ tasks:
       # Define asset path
       export url=$(gp url 8000); sed -Ei "1i\ASSET_URL=${url}" .env
 
+      # Clear and cache the app configuration
       php artisan config:clear
       php artisan cache:clear
       php artisan config:cache
@@ -63,8 +72,12 @@ tasks:
       php artisan serve
 
   - init: |
-      # install dependencies
+      # Initializing the Canvas package
+
+      # Install core PHP dependencies
       composer install
+
+      # Install core JS dependencies
       yarn
     command: |
       yarn watch

@@ -25,11 +25,11 @@ composer-link() {composer config repositories.local '{"type": "path", "url": "'$
 
 ## Development Setup
 
-You can open a fully setup dev environment using Gitpod.
+You can open a completely prebuilt, ready-to-code development environment using Gitpod.
 
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/cnvs/canvas/tree/develop)
 
-Alternatively, see instructions below to manually setting up a dev environment.
+Alternatively, see instructions below to manually setting up an environment on your own machine.
 
 ### Git
 
@@ -67,9 +67,17 @@ DB_CONNECTION=sqlite
 From your Laravel app, create the authentication system and run the following commands:
 
 ```bash
+# Require the Laravel UI package
 composer require laravel/ui
 
+# Scaffold the frontend
 php artisan ui vue --auth
+
+# Install dependencies and compile assets
+npm install
+npm run dev
+
+# Run the migrations
 php artisan migrate
 ```
 
@@ -87,9 +95,11 @@ composer require cnvs/canvas @dev
 Now that the projects are linked, run the following installation steps:
 
 ```bash
+# Install the Canvas package
 php artisan canvas:install
+
+# Link the storage directory
 php artisan storage:link
-php artisan canvas:ui
 ```
 
 Statistics are a core component to the app, so it's best to have a large dataset in place when developing. To
@@ -101,8 +111,8 @@ Create a new class named `CanvasTrackingDataSeeder` and add this to the `run()` 
 \Illuminate\Support\Facades\DB::table('canvas_views')->truncate();
 \Illuminate\Support\Facades\DB::table('canvas_visits')->truncate();
 
-factory(\Canvas\View::class, 2500)->create();
-factory(\Canvas\Visit::class, 2500)->create();
+factory(\Canvas\Models\View::class, 2500)->create();
+factory(\Canvas\Models\Visit::class, 2500)->create();
 ```
 
 In the `run()` method of the `DatabaseSeeder`:
@@ -114,11 +124,11 @@ $this->call(CanvasTrackingDataSeeder::class);
 Create a new factory named `ViewFactory` and add this definition:
 
 ```php
-$factory->define(\Canvas\View::class, function (\Faker\Generator $faker) {
+$factory->define(\Canvas\Models\View::class, function (\Faker\Generator $faker) {
     $timestamp = today()->subDays(rand(0, 60))->toDateTimeString();
 
     return [
-        'post_id'    => \Canvas\Post::all()->pluck('id')->random(),
+        'post_id'    => \Canvas\Models\Post::all()->pluck('id')->random(),
         'ip' => $faker->ipv4,
         'agent' => $faker->userAgent,
         'referer' => $faker->url,
@@ -131,11 +141,11 @@ $factory->define(\Canvas\View::class, function (\Faker\Generator $faker) {
 Create a new factory named `VisitFactory` and add this definition:
 
 ```php
-$factory->define(\Canvas\Visit::class, function (\Faker\Generator $faker) {
+$factory->define(\Canvas\Models\Visit::class, function (\Faker\Generator $faker) {
     $timestamp = today()->subDays(rand(0, 60))->toDateTimeString();
 
     return [
-        'post_id' => \Canvas\Post::all()->pluck('id')->random(),
+        'post_id' => \Canvas\Models\Post::all()->pluck('id')->random(),
         'ip' => $faker->ipv4,
         'agent' => $faker->userAgent,
         'referer' => $faker->url,
