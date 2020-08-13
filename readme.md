@@ -50,12 +50,25 @@ php artisan storage:link
 
 After publishing Canvas's assets, a primary configuration file will be located at `config/canvas.php`. This file allows you to customize various aspects of how your application uses the package.
 
-Canvas exposes its UI at `/canvas` by default. This can be changed by updating the `path` option:
+Canvas exposes its UI at `/canvas` by default. This can be changed by updating either the `path` or `domain` option:
 
 ```php
 /*
 |--------------------------------------------------------------------------
-| Base Route
+| Base Domain
+|--------------------------------------------------------------------------
+|
+| This is the subdomain where Canvas will be accessible from. If the
+| setting is null, Canvas will reside under the same domain as the
+| application. Otherwise, this will be used as the subdomain.
+|
+*/
+
+'domain' => env('CANVAS_DOMAIN', null),
+
+/*
+|--------------------------------------------------------------------------
+| Base Path
 |--------------------------------------------------------------------------
 |
 | This is the URI path where Canvas will be accessible from. You are free
@@ -84,7 +97,8 @@ If your application has a custom User model, define the fully-qualified path in 
 'user' => Illuminate\Foundation\Auth\User::class,
 ```
 
-Sometimes, you may want to apply role or permission-based access to Canvas. You can create and attach any additional middleware here:
+Sometimes, you may want to apply custom roles or permissions when accessing Canvas. You can create and attach any
+ additional middleware here:
 
 ```php
 /*
