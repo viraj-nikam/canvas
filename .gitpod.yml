@@ -53,6 +53,9 @@ tasks:
       # Install core JS dependencies
       yarn
 
+      # Compile assets
+      yarn dev
+
       # Run database migrations
       php artisan migrate
 
@@ -90,9 +93,6 @@ tasks:
       php artisan config:clear
       php artisan cache:clear
       php artisan config:cache
-
-      # Compile assets
-      yarn dev
 
       # Serve the Laravel app
       php artisan serve
