@@ -87,7 +87,7 @@ tasks:
       php artisan config:clear
       php artisan cache:clear
       php artisan config:cache
-    command:
+    command: |
       cd /workspace/laravel
       php artisan serve
 
