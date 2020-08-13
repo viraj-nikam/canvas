@@ -77,6 +77,9 @@ tasks:
       php artisan vendor:publish --provider="Fideloper\Proxy\TrustedProxyServiceProvider"
       sed -Ei "s|'proxies' => null|'proxies' => '**'|g" config/trustedproxy.php
 
+    command: |
+      cd /workspace/laravel
+
       # Define base app URL
       export url=$(gp url 8000); sed -Ei "s|APP_URL=http://localhost|APP_URL=${url}|g" .env
 
@@ -87,8 +90,6 @@ tasks:
       php artisan config:clear
       php artisan cache:clear
       php artisan config:cache
-    command: |
-      cd /workspace/laravel
 
       # Compile assets
       yarn dev
@@ -104,8 +105,10 @@ tasks:
 
       # Install core JS dependencies
       yarn
+
     command: |
       yarn watch
+
     openMode: split-right
 
 ports:
