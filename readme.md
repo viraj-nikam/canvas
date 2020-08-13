@@ -5,6 +5,7 @@
 </p>
 
 <p align="center">
+<a href="https://gitpod.io/from-referrer/"><img src="https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod" alt="Build Status"></a>
 <a href="https://github.com/cnvs/canvas/actions"><img src="https://github.com/cnvs/canvas/workflows/build/badge.svg" alt="Build Status"></a>
 <a href="https://packagist.org/packages/cnvs/canvas"><img src="https://poser.pugx.org/cnvs/canvas/downloads"></a>
 <a href="https://packagist.org/packages/cnvs/canvas"><img src="https://poser.pugx.org/cnvs/canvas/v/stable"></a>

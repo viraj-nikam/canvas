@@ -25,6 +25,12 @@ composer-link() {composer config repositories.local '{"type": "path", "url": "'$
 
 ## Development Setup
 
+You can open a fully setup dev environment using Gitpod.
+
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/cnvs/canvas/tree/develop)
+
+Alternatively, see instructions below to manually setting up a dev environment.
+
 ### Git
 
 Fork the project on [https://github.com/cnvs/canvas](https://github.com/cnvs/canvas) to your own account. Then clone
