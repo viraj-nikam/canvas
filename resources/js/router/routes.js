@@ -52,7 +52,7 @@ export default [
         name: 'tags',
         component: TagList,
         beforeEnter: (to, from, next) => {
-            auth.userIsAdmin() ? next() : next({ name: 'home' });
+            auth.methods.userIsAdmin() ? next() : next({ name: 'home' });
         },
     },
     {
@@ -60,7 +60,7 @@ export default [
         name: 'create-tag',
         component: EditTag,
         beforeEnter: (to, from, next) => {
-            auth.userIsAdmin() ? next() : next({ name: 'home' });
+            auth.methods.userIsAdmin() ? next() : next({ name: 'home' });
         },
     },
     {
@@ -68,7 +68,7 @@ export default [
         name: 'edit-tag',
         component: EditTag,
         beforeEnter: (to, from, next) => {
-            auth.userIsAdmin() ? next() : next({ name: 'home' });
+            auth.methods.userIsAdmin() ? next() : next({ name: 'home' });
         },
     },
     {
@@ -76,7 +76,7 @@ export default [
         name: 'topics',
         component: TopicList,
         beforeEnter: (to, from, next) => {
-            auth.userIsAdmin() ? next() : next({ name: 'home' });
+            auth.methods.userIsAdmin() ? next() : next({ name: 'home' });
         },
     },
     {
@@ -84,7 +84,7 @@ export default [
         name: 'create-topic',
         component: EditTopic,
         beforeEnter: (to, from, next) => {
-            auth.userIsAdmin() ? next() : next({ name: 'home' });
+            auth.methods.userIsAdmin() ? next() : next({ name: 'home' });
         },
     },
     {
@@ -92,7 +92,7 @@ export default [
         name: 'edit-topic',
         component: EditTopic,
         beforeEnter: (to, from, next) => {
-            auth.userIsAdmin() ? next() : next({ name: 'home' });
+            auth.methods.userIsAdmin() ? next() : next({ name: 'home' });
         },
     },
     {
@@ -105,7 +105,7 @@ export default [
         name: 'users',
         component: UserList,
         beforeEnter: (to, from, next) => {
-            auth.userIsAdmin() ? next() : next({ name: 'home' });
+            auth.methods.userIsAdmin() ? next() : next({ name: 'home' });
         },
     },
     {
@@ -113,7 +113,7 @@ export default [
         name: 'edit-user',
         component: EditUser,
         beforeEnter: (to, from, next) => {
-            if (auth.userIsAdmin() || store.state.auth.id == to.params.id) {
+            if (auth.methods.userIsAdmin() || store.state.auth.id == to.params.id) {
                 next();
             } else {
                 next({ name: 'home' });
