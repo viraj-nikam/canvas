@@ -50,8 +50,8 @@ tasks:
       # Install default user authentication
       php artisan ui vue --auth
 
-      # Compile assets
-      yarn && yarn dev
+      # Install core JS dependencies
+      yarn
 
       # Run database migrations
       php artisan migrate
@@ -89,6 +89,11 @@ tasks:
       php artisan config:cache
     command: |
       cd /workspace/laravel
+
+      # Compile assets
+      yarn dev
+
+      # Serve the Laravel app
       php artisan serve
 
   - init: |
