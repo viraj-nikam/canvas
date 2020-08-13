@@ -4,6 +4,25 @@ image:
 workspaceLocation: canvas/.workspace.json
 checkoutLocation: canvas
 
+github:
+  prebuilds:
+    # Enable for the master/default branch (defaults to true)
+    master: false
+    # Enable for all branches in this repo (defaults to false)
+    branches: true
+    # Enable for pull requests coming from this repo (defaults to true)
+    pullRequests: true
+    # Enable for pull requests coming from forks (defaults to false)
+    pullRequestsFromForks: true
+    # add a check to pull requests (defaults to true)
+    addCheck: true
+    # add a "Review in Gitpod" button as a comment to pull requests (defaults to false)
+    addComment: true
+    # add a "Review in Gitpod" button to the pull request's description (defaults to false)
+    addBadge: false
+    # add a label once the prebuild is ready to pull requests (defaults to false)
+    addLabel: false
+
 tasks:
   - init: |
       # Initializing the Laravel app
@@ -69,6 +88,7 @@ tasks:
       php artisan cache:clear
       php artisan config:cache
     command:
+      cd /workspace/laravel
       php artisan serve
 
   - init: |
