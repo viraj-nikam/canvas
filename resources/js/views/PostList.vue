@@ -35,17 +35,17 @@
             </template>
         </page-header>
 
-        <main class="py-4" v-if="isReady">
+        <main v-if="isReady" class="py-4">
             <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12">
                 <div class="d-flex justify-content-between my-3 align-items-end">
                     <h2 class="mt-3">{{ i18n.posts_simple }}</h2>
 
                     <select
-                        name=""
-                        id=""
                         v-model="type"
-                        @change="changeType"
+                        id=""
+                        name=""
                         class="ml-auto w-auto custom-select border-0"
+                        @change="changeType"
                     >
                         <option value="published">{{ i18n.published }} ({{ suffixedNumber(publishedCount) }})</option>
                         <option value="draft">{{ i18n.draft }} ({{ suffixedNumber(draftCount) }})</option>
@@ -54,7 +54,7 @@
 
                 <div class="mt-5 card shadow-lg">
                     <div class="card-body p-0">
-                        <div v-for="(post, index) in posts" :key="`${index}-${post.id}`">
+                        <div :key="`${index}-${post.id}`" v-for="(post, index) in posts">
                             <router-link
                                 :to="{
                                     name: 'edit-post',
@@ -75,7 +75,7 @@
                                         <p class="text-truncate lead font-weight-bold mb-0">
                                             {{ post.title }}
                                         </p>
-                                        <p class="text-truncate text-secondary my-1" v-if="post.summary">
+                                        <p v-if="post.summary" class="text-truncate text-secondary my-1">
                                             {{ post.summary }}
                                         </p>
                                         <p class="text-secondary mt-1 mb-0">
@@ -96,13 +96,13 @@
                                     </div>
                                     <div class="ml-auto d-none d-md-inline pl-3">
                                         <div
-                                            v-if="post.featured_image"
                                             id="featuredImage"
+                                            v-if="post.featured_image"
                                             class="mr-2 ml-3 shadow-inner"
                                             :style="{
                                                 backgroundImage: 'url(' + post.featured_image + ')',
                                             }"
-                                        ></div>
+                                        />
                                         <div v-else class="mx-3 align-middle">
                                             <svg
                                                 xmlns="http://www.w3.org/2000/svg"
@@ -137,8 +137,8 @@
                             </router-link>
                         </div>
 
-                        <infinite-loading :identifier="infiniteId" @infinite="fetchData" spinner="spiral">
-                            <span slot="no-more"></span>
+                        <infinite-loading :identifier="infiniteId" spinner="spiral" @infinite="fetchData">
+                            <span slot="no-more" />
                             <div slot="no-results" class="text-left">
                                 <div class="my-5">
                                     <p class="lead text-center text-muted mt-5">
@@ -159,14 +159,14 @@
 </template>
 
 <script>
-import isEmpty from 'lodash/isEmpty';
-import NProgress from 'nprogress';
 import Hover from '../directives/Hover';
 import InfiniteLoading from 'vue-infinite-loading';
+import NProgress from 'nprogress';
 import PageHeader from '../components/PageHeader';
-import strings from '../mixins/strings';
 import i18n from '../mixins/i18n';
+import isEmpty from 'lodash/isEmpty';
 import status from '../mixins/status';
+import strings from '../mixins/strings';
 
 export default {
     name: 'post-list',
@@ -176,11 +176,11 @@ export default {
         PageHeader,
     },
 
-    mixins: [status, strings, i18n],
-
     directives: {
         Hover,
     },
+
+    mixins: [status, strings, i18n],
 
     data() {
         return {

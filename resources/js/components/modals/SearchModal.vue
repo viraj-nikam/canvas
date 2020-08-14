@@ -1,5 +1,5 @@
 <template>
-    <div class="modal fade mh-100" tabindex="-1" role="dialog" aria-hidden="true" v-cloak>
+    <div v-cloak class="modal fade mh-100" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-body p-0">
@@ -32,19 +32,18 @@
                             class="form-control form-control-lg border-0"
                             :placeholder="i18n.search_canvas"
                             event-name="search"
-                        >
-                        </vue-fuse>
+                        />
                     </div>
 
-                    <div v-for="entity in results" :key="entity.item.id">
+                    <div :key="entity.item.id" v-for="entity in results">
                         <router-link
                             :to="{
                                 name: entity.item.route,
                                 params: { id: entity.item.id },
                             }"
                             class="text-decoration-none"
-                            @click="clearResults()"
                             data-dismiss="modal"
+                            @click="clearResults()"
                         >
                             <div v-hover="{ class: `hover-bg` }" class="p-3">
                                 <div class="d-flex align-items-center">
@@ -83,9 +82,9 @@
 </template>
 
 <script>
-import i18n from '../../mixins/i18n';
-import VueFuse from 'vue-fuse';
 import Hover from '../../directives/Hover';
+import VueFuse from 'vue-fuse';
+import i18n from '../../mixins/i18n';
 
 export default {
     name: 'search-modal',
@@ -99,6 +98,13 @@ export default {
     },
 
     mixins: [i18n],
+
+    data() {
+        return {
+            results: [],
+            searchIndex: [],
+        };
+    },
 
     computed: {
         auth() {
@@ -120,13 +126,6 @@ export default {
         this.$on('search', (results) => {
             this.results = results;
         });
-    },
-
-    data() {
-        return {
-            results: [],
-            searchIndex: [],
-        };
     },
 
     methods: {

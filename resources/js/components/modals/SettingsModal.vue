@@ -27,10 +27,10 @@
                         <div class="col-12">
                             <label class="font-weight-bold text-uppercase text-muted small">{{ trans.app.slug }}</label>
                             <a
+                                v-tooltip="{ placement: 'right' }"
+                                v-if="activePost.title"
                                 href="#"
                                 class="text-decoration-none"
-                                v-if="activePost.title"
-                                v-tooltip="{ placement: 'right' }"
                                 :title="trans.app.sync_with_post_title"
                                 @click.prevent="syncSlug()"
                             >
@@ -48,13 +48,13 @@
                                 </svg>
                             </a>
                             <input
+                                v-model="activePost.slug"
                                 type="text"
                                 class="form-control border-0"
-                                @input="update"
                                 name="slug"
-                                v-model="activePost.slug"
                                 :title="trans.app.slug"
                                 :placeholder="trans.app.a_unique_slug"
+                                @input="update"
                             />
                             <div v-if="activePost.errors.slug" class="invalid-feedback d-block">
                                 <strong>{{ activePost.errors.slug[0] }}</strong>
@@ -67,16 +67,15 @@
                                 trans.app.summary
                             }}</label>
                             <textarea
-                                rows="4"
+                                v-model="activePost.summary"
                                 id="settings"
+                                rows="4"
                                 name="summary"
                                 style="resize: none;"
                                 class="form-control resize-none border-0"
-                                v-model="activePost.summary"
-                                @input="update"
                                 :placeholder="trans.app.a_descriptive_summary"
-                            >
-                            </textarea>
+                                @input="update"
+                            />
                         </div>
                     </div>
                     <div class="form-group row">
@@ -109,14 +108,23 @@
 </template>
 
 <script>
-import debounce from 'lodash/debounce';
 import { mapState } from 'vuex';
 import TagSelect from '../TagSelect';
-import TopicSelect from '../TopicSelect';
 import Tooltip from '../../directives/Tooltip';
+import TopicSelect from '../TopicSelect';
+import debounce from 'lodash/debounce';
 
 export default {
     name: 'settings-modal',
+
+    components: {
+        TagSelect,
+        TopicSelect,
+    },
+
+    directives: {
+        Tooltip,
+    },
 
     props: {
         tags: {
@@ -127,15 +135,6 @@ export default {
             type: Array,
             required: false,
         },
-    },
-
-    components: {
-        TagSelect,
-        TopicSelect,
-    },
-
-    directives: {
-        Tooltip,
     },
 
     data() {

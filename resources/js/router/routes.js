@@ -1,18 +1,18 @@
-import Vue from 'vue';
-import Router from 'vue-router';
-import AllStats from '../views/AllStats';
-import PostStats from '../views/PostStats';
-import PostList from '../views/PostList';
-import EditPost from '../views/EditPost';
-import EditTag from '../views/EditTag';
-import TagList from '../views/TagList';
-import EditTopic from '../views/EditTopic';
-import TopicList from '../views/TopicList';
-import EditSettings from '../views/EditSettings';
-import EditUser from '../views/EditUser';
-import UserList from '../views/UserList';
 import { store } from '../store';
-import auth from "../mixins/auth";
+import AllStats from '../views/AllStats';
+import EditPost from '../views/EditPost';
+import EditSettings from '../views/EditSettings';
+import EditTag from '../views/EditTag';
+import EditTopic from '../views/EditTopic';
+import EditUser from '../views/EditUser';
+import PostList from '../views/PostList';
+import PostStats from '../views/PostStats';
+import Router from 'vue-router';
+import TagList from '../views/TagList';
+import TopicList from '../views/TopicList';
+import UserList from '../views/UserList';
+import Vue from 'vue';
+import auth from '../mixins/auth';
 
 Vue.use(Router);
 

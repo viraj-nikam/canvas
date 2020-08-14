@@ -69,7 +69,14 @@ const actions = {
 
 const mutations = {
     SET_POST(state, post) {
-        state = post;
+        state.id = post.id;
+        state.title = post.title;
+        state.slug = post.slug;
+        state.summary = post.summary;
+        state.body = post.body;
+        state.published_at = post.published_at;
+        state.featured_image = post.featured_image;
+        state.featured_image_caption = post.featured_image_caption;
     },
 
     SET_TAGS(state, tags) {

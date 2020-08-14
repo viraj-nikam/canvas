@@ -50,6 +50,8 @@ class TopicController extends Controller
         if (! $topic) {
             if ($topic = Topic::onlyTrashed()->firstWhere('slug', request('slug'))) {
                 $topic->restore();
+
+                return response()->json($topic->refresh(), 201);
             } else {
                 $topic = new Topic(['id' => $id]);
             }

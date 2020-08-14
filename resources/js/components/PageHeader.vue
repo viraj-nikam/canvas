@@ -12,7 +12,7 @@
                     </svg>
                 </router-link>
 
-                <a @click="showSearchModal" href="#" class="ml-auto">
+                <a href="#" class="ml-auto" @click="showSearchModal">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" class="icon-search pr-1">
                         <circle cx="10" cy="10" r="7" style="fill: none;" />
                         <path
@@ -22,12 +22,12 @@
                     </svg>
                 </a>
 
-                <slot name="menu"></slot>
+                <slot name="menu" />
 
-                <div class="dropdown ml-3" v-cloak>
+                <div v-cloak class="dropdown ml-3">
                     <a
-                        href="#"
                         id="navbarDropdown"
+                        href="#"
                         class="nav-link px-0 text-secondary"
                         role="button"
                         data-toggle="dropdown"
@@ -48,7 +48,7 @@
                             {{ auth.email }}
                         </h6>
 
-                        <div class="dropdown-divider"></div>
+                        <div class="dropdown-divider" />
 
                         <router-link :to="{ name: 'edit-user', params: { id: auth.id } }" class="dropdown-item">
                             {{ i18n.your_profile }}
@@ -69,7 +69,7 @@
                             <span>{{ i18n.stats }}</span>
                         </router-link>
 
-                        <div class="dropdown-divider"></div>
+                        <div class="dropdown-divider" />
 
                         <router-link :to="{ name: 'edit-settings' }" class="dropdown-item">
                             <span>{{ i18n.settings }}</span>
@@ -82,24 +82,24 @@
             </nav>
         </div>
 
-        <search-modal ref="searchModal"></search-modal>
+        <search-modal ref="searchModal" />
     </div>
 </template>
 
 <script>
-import axios from 'axios';
-import SearchModal from './modals/SearchModal';
-import i18n from '../mixins/i18n';
 import $ from 'jquery';
+import SearchModal from './modals/SearchModal';
+import axios from 'axios';
+import i18n from '../mixins/i18n';
 
 export default {
     name: 'page-header',
 
-    mixins: [i18n],
-
     components: {
         SearchModal,
     },
+
+    mixins: [i18n],
 
     data() {
         return {

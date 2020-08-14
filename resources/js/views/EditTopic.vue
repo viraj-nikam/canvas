@@ -2,7 +2,7 @@
     <div>
         <page-header>
             <template slot="menu" v-if="isReady">
-                <div class="dropdown" v-if="id !== 'create'">
+                <div v-if="!creatingTopic" class="dropdown">
                     <a
                         id="navbarDropdown"
                         class="nav-link pr-0"
@@ -37,9 +37,9 @@
         <main v-if="isReady" class="py-4">
             <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12">
                 <div class="my-3">
-                    <h2 class="mt-3">{{ topic.name || i18n.new_topic }}</h2>
+                    <h2 class="mt-3">{{ $store.state.topic.name || i18n.new_topic }}</h2>
                     <p v-if="!creatingTopic" class="mt-2 text-secondary">
-                        {{ i18n.last_updated }} {{ moment(topic.updated_at).fromNow() }}
+                        {{ i18n.last_updated }} {{ moment($store.state.topic.updatedAt).fromNow() }}
                     </p>
                 </div>
 
@@ -51,19 +51,19 @@
                                     {{ i18n.name }}
                                 </label>
                                 <input
+                                    v-model="name"
                                     type="text"
                                     name="name"
                                     autofocus
                                     autocomplete="off"
-                                    v-model="topic.name"
                                     title="Name"
-                                    @keyup.enter="saveTopic"
                                     class="form-control border-0"
                                     :placeholder="i18n.give_your_topic_a_name"
+                                    @keyup.enter="saveTopic"
                                 />
 
-                                <div v-if="errors.name" class="invalid-feedback d-block">
-                                    <strong>{{ errors.name[0] }}</strong>
+                                <div v-if="$store.state.topic.errors.name" class="invalid-feedback d-block">
+                                    <strong>{{ $store.state.topic.errors.name[0] }}</strong>
                                 </div>
                             </div>
 
@@ -72,17 +72,17 @@
                                     {{ i18n.slug }}
                                 </label>
                                 <input
+                                    v-model="slug"
                                     type="text"
-                                    name="name"
+                                    name="slug"
                                     disabled
                                     autocomplete="off"
-                                    v-model="topic.slug"
                                     title="Slug"
                                     class="form-control border-0"
                                     :placeholder="i18n.give_your_topic_a_name_slug"
                                 />
-                                <div v-if="errors.slug" class="invalid-feedback d-block">
-                                    <strong>{{ errors.slug[0] }}</strong>
+                                <div v-if="$store.state.topic.errors.slug" class="invalid-feedback d-block">
+                                    <strong>{{ $store.state.topic.errors.slug[0] }}</strong>
                                 </div>
                             </div>
                         </div>
@@ -112,9 +112,9 @@
                     </div>
                 </div>
 
-                <div class="mt-5 card shadow-lg" v-if="posts.length > 0">
+                <div v-if="posts.length > 0" class="mt-5 card shadow-lg">
                     <div class="card-body p-0">
-                        <div v-for="(post, index) in posts" :key="`${index}-${post.id}`">
+                        <div :key="`${index}-${post.id}`" v-for="(post, index) in posts">
                             <router-link
                                 :to="{
                                     name: 'edit-post',
@@ -136,14 +136,23 @@
                                             {{ post.title }}
                                         </p>
                                         <p class="text-secondary mb-2">
-                                            <span class="d-none d-md-inline"> {{ post.read_time }} ― </span>
-                                            {{ i18n.published }}
-                                            {{ moment(post.published_at).format('MMM D, YYYY') }}
+                                            <span v-if="isPublished(post.published_at)">
+                                                <span class="d-none d-md-inline"> {{ post.read_time }} ― </span>
+                                                {{ i18n.published }}
+                                                {{ moment(post.published_at).format('MMM D, YYYY') }}
+                                            </span>
+                                            <span v-if="isDraft(post.published_at)">
+                                                <span class="text-danger">{{ i18n.draft }}</span>
+                                                <span class="d-none d-md-inline">
+                                                    ― {{ i18n.updated }}
+                                                    {{ moment(post.updated_at).fromNow() }}
+                                                </span>
+                                            </span>
                                         </p>
                                     </div>
                                     <div class="ml-auto">
                                         <div class="d-none d-md-inline">
-                                            <span class="text-muted mr-3"
+                                            <span class="text-secondary mr-3"
                                                 >{{ suffixedNumber(post.views_count) }} {{ i18n.views }}</span
                                             >
                                             <span class="mr-3"
@@ -169,9 +178,9 @@
                             </router-link>
                         </div>
 
-                        <infinite-loading @infinite="fetchPosts" spinner="spiral">
-                            <span slot="no-more"></span>
-                            <div slot="no-results"></div>
+                        <infinite-loading spinner="spiral" @infinite="fetchPosts">
+                            <span slot="no-more" />
+                            <div slot="no-results" />
                         </infinite-loading>
                     </div>
                 </div>
@@ -180,25 +189,25 @@
 
         <delete-modal
             ref="deleteModal"
-            @delete="deleteTopic"
             :header="i18n.delete"
             :message="i18n.deleted_topics_are_gone_forever"
-        >
-        </delete-modal>
+            @delete="deleteTopic"
+        />
     </div>
 </template>
 
 <script>
 import $ from 'jquery';
+import DeleteModal from '../components/modals/DeleteModal';
+import Hover from '../directives/Hover';
+import InfiniteLoading from 'vue-infinite-loading';
 import NProgress from 'nprogress';
 import PageHeader from '../components/PageHeader';
-import Hover from '../directives/Hover';
-import DeleteModal from '../components/modals/DeleteModal';
 import i18n from '../mixins/i18n';
-import toast from '../mixins/toast';
-import InfiniteLoading from 'vue-infinite-loading';
-import strings from '../mixins/strings';
 import isEmpty from 'lodash/isEmpty';
+import status from '../mixins/status';
+import strings from '../mixins/strings';
+import toast from '../mixins/toast';
 
 export default {
     name: 'edit-topic',
@@ -213,41 +222,17 @@ export default {
         Hover,
     },
 
-    mixins: [i18n, strings, toast],
+    mixins: [i18n, status, strings, toast],
 
     data() {
         return {
-            id: this.$route.params.id || 'create',
-            topic: null,
+            uri: this.$route.params.id || 'create',
+            name: null,
+            slug: null,
             page: 1,
             posts: [],
-            errors: [],
             isReady: false,
         };
-    },
-
-    async created() {
-        await Promise.all([this.fetchTopic(), this.fetchPosts()]);
-        this.isReady = true;
-        NProgress.done();
-    },
-
-    watch: {
-        'topic.name'(val) {
-            this.topic.slug = !isEmpty(val) ? this.slugify(val) : '';
-        },
-
-        $route(to) {
-            this.isReady = false;
-            this.id = to.params.id;
-            this.topic = null;
-            this.page = 1;
-            this.posts = [];
-            this.fetchTopic();
-            this.fetchPosts();
-            this.isReady = true;
-            NProgress.done();
-        },
     },
 
     computed: {
@@ -256,27 +241,47 @@ export default {
         },
 
         shouldDisableButton() {
-            return isEmpty(this.topic.slug);
+            return isEmpty(this.slug);
         },
+    },
+
+    watch: {
+        name(val) {
+            this.slug = !isEmpty(val) ? this.slugify(val) : '';
+        },
+
+        $route(to) {
+            this.isReady = false;
+            this.uri = to.params.id;
+            this.page = 1;
+            this.posts = [];
+            this.fetchPosts();
+            this.isReady = true;
+            NProgress.done();
+        },
+    },
+
+    async created() {
+        await Promise.all([this.fetchTopic(), this.fetchPosts()]);
+        this.name = this.$store.state.topic.name;
+        this.slug = this.$store.state.topic.slug;
+        this.isReady = true;
+        NProgress.done();
+    },
+
+    beforeDestroy() {
+        this.$store.dispatch('topic/resetTopic');
     },
 
     methods: {
         fetchTopic() {
-            return this.request()
-                .get('/api/topics/' + this.id)
-                .then(({ data }) => {
-                    this.topic = data;
-                    NProgress.inc();
-                })
-                .catch(() => {
-                    this.$router.push({ name: 'topics' });
-                    NProgress.done();
-                });
+            this.$store.dispatch('topic/fetchTopic', this.uri);
+            NProgress.inc();
         },
 
         fetchPosts($state) {
             return this.request()
-                .get('/api/topics/' + this.id + '/posts', {
+                .get(`/api/topics/${this.uri}/posts`, {
                     params: {
                         page: this.page,
                     },
@@ -285,7 +290,6 @@ export default {
                     if (!isEmpty(data) && !isEmpty(data.data)) {
                         this.page += 1;
                         this.posts.push(...data.data);
-
                         $state.loaded();
                     } else {
                         $state.complete();
@@ -301,34 +305,24 @@ export default {
         },
 
         saveTopic() {
-            this.errors = [];
+            let id = this.$store.state.topic.id;
 
-            this.request()
-                .post('/api/topics/' + this.id, {
-                    name: this.topic.name,
-                    slug: this.topic.slug,
-                })
-                .then(({ data }) => {
-                    this.id = data.id;
-                    this.topic = data;
-                    toast.methods.toast(this.i18n.saved);
-                })
-                .catch((error) => {
-                    this.errors = error.response.data.errors;
-                });
+            this.$store.dispatch('topic/updateTopic', {
+                id: id,
+                name: this.name,
+                slug: this.slug,
+            });
+
+            if (this.creatingTopic) {
+                this.$router.push({ name: 'edit-topic', params: { id: id } });
+            }
         },
 
         deleteTopic() {
-            this.request()
-                .delete('/api/topics/' + this.id)
-                .then(() => {
-                    $(this.$refs.deleteModal.$el).modal('hide');
-                    toast.methods.toast(this.i18n.success);
-                    this.$router.push({ name: 'topics' });
-                })
-                .catch(() => {
-                    // Add any error debugging...
-                });
+            this.$store.dispatch('topic/deleteTopic', this.uri);
+            $(this.$refs.deleteModal.$el).modal('hide');
+            this.$router.push({ name: 'topics' });
+            toast.methods.toast(this.i18n.success);
         },
 
         showDeleteModal() {

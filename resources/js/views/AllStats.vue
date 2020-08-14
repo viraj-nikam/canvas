@@ -1,6 +1,6 @@
 <template>
     <main>
-        <page-header></page-header>
+        <page-header />
 
         <div class="py-4">
             <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12">
@@ -50,7 +50,7 @@
 
                         <div class="mt-5 card shadow-lg">
                             <div class="card-body p-0">
-                                <div v-for="(post, index) in posts" :key="`${index}-${post.id}`">
+                                <div :key="`${index}-${post.id}`" v-for="(post, index) in posts">
                                     <router-link
                                         :to="{
                                             name: 'post-stats',
@@ -105,9 +105,9 @@
                                     </router-link>
                                 </div>
 
-                                <infinite-loading @infinite="fetchPosts" spinner="spiral">
-                                    <span slot="no-more"></span>
-                                    <div slot="no-results"></div>
+                                <infinite-loading spinner="spiral" @infinite="fetchPosts">
+                                    <span slot="no-more" />
+                                    <div slot="no-results" />
                                 </infinite-loading>
                             </div>
                         </div>
@@ -128,14 +128,14 @@
 </template>
 
 <script>
-import NProgress from 'nprogress';
-import isEmpty from 'lodash/isEmpty';
-import InfiniteLoading from 'vue-infinite-loading';
 import Hover from '../directives/Hover';
+import InfiniteLoading from 'vue-infinite-loading';
 import LineChart from '../components/LineChart';
-import strings from '../mixins/strings';
+import NProgress from 'nprogress';
 import PageHeader from '../components/PageHeader';
 import i18n from '../mixins/i18n';
+import isEmpty from 'lodash/isEmpty';
+import strings from '../mixins/strings';
 
 export default {
     name: 'all-stats',
@@ -146,11 +146,11 @@ export default {
         PageHeader,
     },
 
-    mixins: [strings, i18n],
-
     directives: {
         Hover,
     },
+
+    mixins: [strings, i18n],
 
     data() {
         return {
@@ -161,12 +161,6 @@ export default {
         };
     },
 
-    async created() {
-        await Promise.all([this.fetchStats(), this.fetchPosts()]);
-        this.isReady = true;
-        NProgress.done();
-    },
-
     computed: {
         plotViewPoints() {
             return JSON.parse(this.data.traffic.views);
@@ -175,6 +169,12 @@ export default {
         plotVisitPoints() {
             return JSON.parse(this.data.traffic.visits);
         },
+    },
+
+    async created() {
+        await Promise.all([this.fetchStats(), this.fetchPosts()]);
+        this.isReady = true;
+        NProgress.done();
     },
 
     methods: {

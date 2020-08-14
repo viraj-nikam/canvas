@@ -1,11 +1,13 @@
+import Vue from 'vue';
+import config from './config';
 import request from '../../mixins/request';
-import VueRouter from 'vue-router';
 import toast from '../../mixins/toast';
 
 const initialState = {
     id: '',
     name: '',
     slug: '',
+    updatedAt: '',
     errors: [],
 };
 
@@ -17,10 +19,8 @@ const actions = {
             .request()
             .get(`/api/tags/${id}`)
             .then(({ data }) => {
+                console.log(data);
                 context.commit('SET_TAG', data);
-            })
-            .catch(() => {
-                VueRouter.push({ name: 'tags' });
             });
     },
 
@@ -33,6 +33,7 @@ const actions = {
             })
             .then(({ data }) => {
                 context.commit('UPDATE_TAG', data);
+                toast.methods.toast(config.state.i18n.saved);
             })
             .catch((error) => {
                 state.errors = error.response.data.errors;
@@ -40,18 +41,11 @@ const actions = {
     },
 
     deleteTag(context, id) {
-        request.methods
-            .request()
-            .delete(`/api/tags/${id}`)
-            .then(() => {
-                VueRouter.push({ name: 'tags' });
-                toast.methods.toast(this.i18n.success);
+        request.methods.request().delete(`/api/tags/${id}`);
+    },
 
-                // todo: reset the state here?
-            })
-            .catch(() => {
-                // Add any error debugging...
-            });
+    resetTag({ commit }) {
+        commit('RESET_STATE');
     },
 };
 
@@ -60,15 +54,21 @@ const mutations = {
         state.id = tag.id;
         state.name = tag.name || '';
         state.slug = tag.slug || '';
+        state.updatedAt = tag.updated_at || '';
     },
 
     UPDATE_TAG(state, tag) {
         state.id = tag.id;
         state.name = tag.name;
         state.slug = tag.slug;
+        state.updatedAt = tag.updated_at || '';
     },
 
-    DELETE_TAG(state, tag) {},
+    RESET_STATE() {
+        for (let f in state) {
+            Vue.set(state, f, initialState[f]);
+        }
+    },
 };
 
 const getters = {

@@ -1,5 +1,5 @@
-import request from '../../mixins/request';
 import isEmpty from 'lodash/isEmpty';
+import request from '../../mixins/request';
 import url from '../../mixins/url';
 
 const initialState = {
@@ -19,9 +19,9 @@ const state = { ...initialState };
 
 const actions = {
     setAvatar(context, payload) {
-        let url = isEmpty(payload) ? url.methods.gravatar(state.email) : payload;
+        let path = isEmpty(payload) ? url.methods.gravatar(state.email) : payload;
 
-        context.commit('SET_AVATAR', url);
+        context.commit('SET_AVATAR', path);
     },
 
     updateDigest(context, payload) {

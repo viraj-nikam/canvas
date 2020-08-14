@@ -1,8 +1,8 @@
+import { store } from './store';
+import Vue from 'vue';
 import moment from 'moment';
 import request from './mixins/request';
 import router from './router';
-import Vue from 'vue';
-import { store } from './store';
 
 require('bootstrap');
 

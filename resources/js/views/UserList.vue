@@ -1,6 +1,6 @@
 <template>
     <div>
-        <page-header></page-header>
+        <page-header />
 
         <main class="py-4">
             <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12">
@@ -11,9 +11,9 @@
                     </p>
                 </div>
 
-                <div class="mt-5 card shadow-lg" v-if="isReady">
+                <div v-if="isReady" class="mt-5 card shadow-lg">
                     <div class="card-body p-0">
-                        <div v-for="(user, index) in users" :key="`${index}-${user.id}`">
+                        <div :key="`${index}-${user.id}`" v-for="(user, index) in users">
                             <router-link
                                 :to="{
                                     name: 'edit-user',
@@ -65,9 +65,9 @@
                             </router-link>
                         </div>
 
-                        <infinite-loading @infinite="fetchData" spinner="spiral">
-                            <span slot="no-more"></span>
-                            <div slot="no-results"></div>
+                        <infinite-loading spinner="spiral" @infinite="fetchData">
+                            <span slot="no-more" />
+                            <div slot="no-results" />
                         </infinite-loading>
                     </div>
                 </div>
@@ -77,11 +77,11 @@
 </template>
 
 <script>
-import PageHeader from '../components/PageHeader';
-import InfiniteLoading from 'vue-infinite-loading';
-import i18n from '../mixins/i18n';
 import Hover from '../directives/Hover';
+import InfiniteLoading from 'vue-infinite-loading';
 import NProgress from 'nprogress';
+import PageHeader from '../components/PageHeader';
+import i18n from '../mixins/i18n';
 import isEmpty from 'lodash/isEmpty';
 import url from '../mixins/url';
 
@@ -93,11 +93,11 @@ export default {
         PageHeader,
     },
 
-    mixins: [i18n, url],
-
     directives: {
         Hover,
     },
+
+    mixins: [i18n, url],
 
     data() {
         return {

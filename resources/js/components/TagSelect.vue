@@ -6,11 +6,11 @@
         :options="options"
         :multiple="true"
         :taggable="true"
-        @input="onChange"
-        @tag="addTag"
         label="name"
         track-by="slug"
         style="cursor: pointer;"
+        @input="onChange"
+        @tag="addTag"
     />
 </template>
 
@@ -19,6 +19,11 @@ import Multiselect from 'vue-multiselect';
 import i18n from '../mixins/i18n';
 
 export default {
+    components: {
+        Multiselect,
+    },
+
+    mixins: [i18n],
     props: {
         tags: {
             type: Array,
@@ -28,12 +33,6 @@ export default {
             type: Array,
             required: false,
         },
-    },
-
-    mixins: [i18n],
-
-    components: {
-        Multiselect,
     },
 
     data() {

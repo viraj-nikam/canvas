@@ -1,9 +1,9 @@
-import Vue from 'vue';
-import routes from './routes';
 import { store } from '../store';
+import { sync } from 'vuex-router-sync';
 import NProgress from 'nprogress';
 import Router from 'vue-router';
-import { sync } from 'vuex-router-sync';
+import Vue from 'vue';
+import routes from './routes';
 
 Vue.use(Router);
 

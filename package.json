@@ -17,6 +17,7 @@
         "eslint-config-prettier": "^6.11.0",
         "eslint-loader": "^4.0.2",
         "eslint-plugin-prettier": "^3.1.4",
+        "eslint-plugin-sort-imports-es6-autofix": "^0.5.0",
         "eslint-plugin-vue": "^6.2.2",
         "filepond": "^4.19.2",
         "filepond-plugin-file-validate-size": "^2.2.1",

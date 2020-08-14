@@ -36,7 +36,7 @@
             </template>
         </page-header>
 
-        <div class="py-4" v-if="isReady">
+        <div v-if="isReady" class="py-4">
             <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12">
                 <div class="my-3">
                     <h2 class="mt-3">{{ data.post.title }}</h2>
@@ -83,8 +83,8 @@
                                 <div class="mr-5">
                                     <p class="mb-0 small text-muted text-uppercase font-weight-bold">
                                         <a
-                                            href="#"
                                             v-tooltip="{ placement: 'top' }"
+                                            href="#"
                                             class="text-decoration-none"
                                             :title="i18n.views_info"
                                         >
@@ -145,8 +145,8 @@
                                 <div>
                                     <p class="mb-0 small text-muted text-uppercase font-weight-bold">
                                         <a
-                                            href="#"
                                             v-tooltip="{ placement: 'top' }"
+                                            href="#"
                                             class="text-decoration-none"
                                             :title="i18n.visits_info"
                                         >
@@ -217,7 +217,7 @@
                         </h5>
 
                         <div v-if="Object.keys(data.topReferers).length > 0">
-                            <div v-for="(views, host) in data.topReferers" :key="`${host}-${views}`">
+                            <div :key="`${host}-${views}`" v-for="(views, host) in data.topReferers">
                                 <div class="d-flex py-2 align-items-center">
                                     <div class="mr-auto">
                                         <div v-if="host === i18n.other">
@@ -237,10 +237,10 @@
                                                     class="mr-1"
                                                 />
                                                 <a
-                                                    href="#"
                                                     v-tooltip="{
                                                         placement: 'right',
                                                     }"
+                                                    href="#"
                                                     class="text-decoration-none"
                                                     :title="i18n.referer_unknown"
                                                 >
@@ -301,7 +301,7 @@
                         </h5>
 
                         <div v-if="Object.keys(data.popularReadingTimes).length > 0">
-                            <div v-for="(percentage, time) in data.popularReadingTimes" :key="`${time}-${percentage}`">
+                            <div :key="`${time}-${percentage}`" v-for="(percentage, time) in data.popularReadingTimes">
                                 <div class="d-flex py-2 align-items-center">
                                     <div class="mr-auto">
                                         <p class="mb-0 py-1">
@@ -325,11 +325,11 @@
 </template>
 
 <script>
-import NProgress from 'nprogress';
-import Tooltip from '../directives/Tooltip';
 import LineChart from '../components/LineChart';
-import i18n from '../mixins/i18n';
+import NProgress from 'nprogress';
 import PageHeader from '../components/PageHeader';
+import Tooltip from '../directives/Tooltip';
+import i18n from '../mixins/i18n';
 import strings from '../mixins/strings';
 
 export default {
@@ -340,11 +340,11 @@ export default {
         PageHeader,
     },
 
-    mixins: [i18n, strings],
-
     directives: {
         Tooltip,
     },
+
+    mixins: [i18n, strings],
 
     data() {
         return {
@@ -352,6 +352,28 @@ export default {
             data: null,
             isReady: false,
         };
+    },
+
+    computed: {
+        auth() {
+            return this.$store.state.auth;
+        },
+
+        viewsAreTrendingUp() {
+            return this.data.monthOverMonthViews.direction === 'up';
+        },
+
+        visitsAreTrendingUp() {
+            return this.data.monthOverMonthVisits.direction === 'up';
+        },
+
+        plotViewPoints() {
+            return JSON.parse(this.data.traffic.views);
+        },
+
+        plotVisitPoints() {
+            return JSON.parse(this.data.traffic.visits);
+        },
     },
 
     async mounted() {
@@ -375,28 +397,6 @@ export default {
 
         getDefaultFavicon(host) {
             return `https://favicons.githubusercontent.com/${host}`;
-        },
-    },
-
-    computed: {
-        auth() {
-            return this.$store.state.auth;
-        },
-
-        viewsAreTrendingUp() {
-            return this.data.monthOverMonthViews.direction === 'up';
-        },
-
-        visitsAreTrendingUp() {
-            return this.data.monthOverMonthVisits.direction === 'up';
-        },
-
-        plotViewPoints() {
-            return JSON.parse(this.data.traffic.views);
-        },
-
-        plotVisitPoints() {
-            return JSON.parse(this.data.traffic.visits);
         },
     },
 };

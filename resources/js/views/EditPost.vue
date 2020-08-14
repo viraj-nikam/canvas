@@ -50,7 +50,7 @@
                         >
                             {{ trans.app.view_stats }}
                         </router-link>
-                        <div v-if="!isDraft(post.published_at)" class="dropdown-divider"></div>
+                        <div v-if="!isDraft(post.published_at)" class="dropdown-divider" />
                         <a href="#" class="dropdown-item" @click="showSettingsModal">
                             {{ trans.app.general_settings }}
                         </a>
@@ -76,57 +76,57 @@
             </template>
         </page-header>
 
-        <main class="py-4" v-if="isReady">
+        <main v-if="isReady" class="py-4">
             <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12">
                 <div class="form-group my-3">
                     <textarea-autosize
+                        v-model="post.title"
                         :placeholder="trans.app.title"
                         class="form-control-lg form-control border-0 font-serif rounded shadow"
-                        @input.native="update"
                         rows="1"
-                        v-model="post.title"
+                        @input.native="update"
                     />
                 </div>
 
                 <div class="form-group my-4">
                     <div class="rounded shadow">
-                        <quill-editor></quill-editor>
+                        <quill-editor />
                     </div>
                 </div>
             </div>
         </main>
 
-        <publish-modal v-if="isReady" ref="publishModal" />
+        <publish-modal ref="publishModal" v-if="isReady" />
 
-        <settings-modal v-if="isReady" ref="settingsModal" :post="post" :tags="tags" :topics="topics" />
+        <settings-modal ref="settingsModal" v-if="isReady" :post="post" :tags="tags" :topics="topics" />
 
-        <featured-image-modal v-if="isReady" ref="featuredImageModal" />
+        <featured-image-modal ref="featuredImageModal" v-if="isReady" />
 
-        <seo-modal v-if="isReady" ref="seoModal" />
+        <seo-modal ref="seoModal" v-if="isReady" />
 
         <delete-modal
-            v-if="isReady"
             ref="deleteModal"
-            @delete="deletePost"
+            v-if="isReady"
             :header="trans.app.delete"
             :message="trans.app.deleted_posts_are_gone_forever"
+            @delete="deletePost"
         />
     </div>
 </template>
 
 <script>
-import Vue from 'vue';
 import $ from 'jquery';
-import debounce from 'lodash/debounce';
-import NProgress from 'nprogress';
-import SeoModal from '../components/modals/SeoModal';
-import PageHeader from '../components/PageHeader';
 import DeleteModal from '../components/modals/DeleteModal';
-import VueTextAreaAutosize from 'vue-textarea-autosize';
-import PublishModal from '../components/modals/PublishModal';
-import SettingsModal from '../components/modals/SettingsModal';
-import QuillEditor from '../components/editor/QuillEditor';
 import FeaturedImageModal from '../components/modals/FeaturedImageModal';
+import NProgress from 'nprogress';
+import PageHeader from '../components/PageHeader';
+import PublishModal from '../components/modals/PublishModal';
+import QuillEditor from '../components/editor/QuillEditor';
+import SeoModal from '../components/modals/SeoModal';
+import SettingsModal from '../components/modals/SettingsModal';
+import Vue from 'vue';
+import VueTextAreaAutosize from 'vue-textarea-autosize';
+import debounce from 'lodash/debounce';
 
 Vue.use(VueTextAreaAutosize);
 

@@ -43,6 +43,8 @@ import i18n from '../../mixins/i18n';
 export default {
     name: 'delete-modal',
 
+    mixins: [i18n],
+
     props: {
         header: {
             type: String,
@@ -53,8 +55,6 @@ export default {
             required: true,
         },
     },
-
-    mixins: [i18n],
 
     methods: {
         confirmProceed() {

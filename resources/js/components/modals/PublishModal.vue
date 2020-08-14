@@ -18,28 +18,28 @@
                         >
                             <div class="d-flex align-items-center">
                                 <select
-                                    class="w-auto custom-select custom-select-sm border-0"
                                     v-model="components.month"
+                                    class="w-auto custom-select custom-select-sm border-0"
                                 >
                                     <option
+                                        v-bind:key="value"
                                         v-for="value in Array.from({ length: 12 }, (_, i) =>
                                             String(i + 1).padStart(2, '0')
                                         )"
                                         :value="value"
-                                        v-bind:key="value"
                                     >
                                         {{ value }}
                                     </option>
                                 </select>
 
                                 <span class="px-1">/</span>
-                                <select class="w-auto custom-select custom-select-sm border-0" v-model="components.day">
+                                <select v-model="components.day" class="w-auto custom-select custom-select-sm border-0">
                                     <option
+                                        v-bind:key="value"
                                         v-for="value in Array.from({ length: 31 }, (_, i) =>
                                             String(i + 1).padStart(2, '0')
                                         )"
                                         :value="value"
-                                        v-bind:key="value"
                                     >
                                         {{ value }}
                                     </option>
@@ -47,16 +47,16 @@
 
                                 <span class="px-1">/</span>
                                 <select
-                                    class="w-auto custom-select custom-select-sm border-0"
                                     v-model="components.year"
+                                    class="w-auto custom-select custom-select-sm border-0"
                                 >
                                     <option
+                                        v-bind:key="value"
                                         v-for="value in Array.from(
                                             { length: 15 },
                                             (_, i) => i + new Date().getFullYear() - 10
                                         )"
                                         :value="value"
-                                        v-bind:key="value"
                                     >
                                         {{ value }}
                                     </option>
@@ -66,15 +66,15 @@
                         <div class="col-sm-6 col-12 pl-sm-0 d-flex justify-content-center justify-content-sm-start">
                             <div class="d-flex align-items-center">
                                 <select
-                                    class="w-auto custom-select custom-select-sm border-0"
                                     v-model="components.hour"
+                                    class="w-auto custom-select custom-select-sm border-0"
                                 >
                                     <option
+                                        v-bind:key="value"
                                         v-for="value in Array.from({ length: 24 }, (_, i) =>
                                             String(i).padStart(2, '0')
                                         )"
                                         :value="value"
-                                        v-bind:key="value"
                                     >
                                         {{ value }}
                                     </option>
@@ -82,15 +82,15 @@
 
                                 <span class="px-1">:</span>
                                 <select
-                                    class="w-auto custom-select custom-select-sm border-0"
                                     v-model="components.minute"
+                                    class="w-auto custom-select custom-select-sm border-0"
                                 >
                                     <option
+                                        v-bind:key="value"
                                         v-for="value in Array.from({ length: 60 }, (_, i) =>
                                             String(i).padStart(2, '0')
                                         )"
                                         :value="value"
-                                        v-bind:key="value"
                                     >
                                         {{ value }}
                                     </option>
@@ -99,7 +99,7 @@
                         </div>
                     </div>
 
-                    <p class="mt-3 text-success font-italic" v-if="isScheduled(this.activePost.published_at)">
+                    <p v-if="isScheduled(this.activePost.published_at)" class="mt-3 text-success font-italic">
                         {{ trans.app.your_post_will_publish_at }}
                         {{ this.activePost.published_at }}
                         {{ trans.app.on }}
@@ -110,18 +110,18 @@
                     <div class="row w-100">
                         <div class="col-lg order-lg-last px-0">
                             <a
-                                href="#"
                                 v-if="shouldPublish"
+                                href="#"
                                 class="btn btn-success btn-block font-weight-bold mt-0"
-                                @click="scheduleOrPublish"
                                 data-dismiss="modal"
+                                @click="scheduleOrPublish"
                             >
                                 {{ trans.app.publish_now }}
                             </a>
 
                             <a
-                                href="#"
                                 v-else
+                                href="#"
                                 class="btn btn-success btn-block font-weight-bold mt-0"
                                 @click="scheduleOrPublish"
                             >
@@ -132,10 +132,10 @@
                         <div class="col-lg order-lg-first px-0">
                             <button
                                 v-if="isScheduled(this.activePost.published_at)"
-                                @click="cancelScheduling"
                                 type="button"
                                 class="btn btn-link btn-block text-muted font-weight-bold text-decoration-none"
                                 data-dismiss="modal"
+                                @click="cancelScheduling"
                             >
                                 {{ trans.app.cancel_scheduling }}
                             </button>
@@ -184,10 +184,6 @@ export default {
         },
     },
 
-    mounted() {
-        this.generateDatePicker(this.activePost.published_at || new Date());
-    },
-
     watch: {
         value(val) {
             this.generateDatePicker(val);
@@ -210,6 +206,10 @@ export default {
 
             deep: true,
         },
+    },
+
+    mounted() {
+        this.generateDatePicker(this.activePost.published_at || new Date());
     },
 
     methods: {

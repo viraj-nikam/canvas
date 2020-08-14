@@ -5,12 +5,14 @@
 </template>
 
 <script>
-import moment from 'moment';
 import Chart from 'chart.js';
 import i18n from '../mixins/i18n';
+import moment from 'moment';
 
 export default {
     name: 'line-chart',
+
+    mixins: [i18n],
 
     props: {
         views: {
@@ -23,8 +25,6 @@ export default {
             required: true,
         },
     },
-
-    mixins: [i18n],
 
     mounted() {
         let ref = this;

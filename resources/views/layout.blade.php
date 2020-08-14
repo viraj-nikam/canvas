@@ -11,6 +11,7 @@
     <link rel="stylesheet" type="text/css" href="{{ mix('css/app.css', 'vendor/canvas') }}">
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Karla|Merriweather:400,700">
+    <link rel="shortcut icon" href="#"/>
 </head>
 <body class="mb-5" @if($config['user']['darkMode']) data-theme="dark" @endif>
 

@@ -1,9 +1,10 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import auth from './modules/auth';
 import config from './modules/config';
 import post from './modules/post';
-import auth from './modules/auth';
 import tag from './modules/tag';
+import topic from './modules/topic';
 
 Vue.use(Vuex);
 
@@ -13,5 +14,6 @@ export const store = new Vuex.Store({
         config,
         post,
         tag,
+        topic,
     },
 });

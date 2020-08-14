@@ -26,9 +26,9 @@
                             <label class="font-weight-bold text-uppercase text-muted small">
                                 {{ trans.app.meta_title }}
                                 <a
+                                    v-tooltip="{ placement: 'right' }"
                                     href="#"
                                     class="text-decoration-none"
-                                    v-tooltip="{ placement: 'right' }"
                                     :title="trans.app.sync_with_post_title"
                                     @click.prevent="syncTitle"
                                 >
@@ -47,13 +47,13 @@
                                 </a>
                             </label>
                             <input
+                                v-model="activePost.meta.title"
                                 name="title"
                                 type="text"
-                                @input="update"
                                 class="form-control border-0"
                                 :title="trans.app.meta_title"
-                                v-model="activePost.meta.title"
                                 :placeholder="trans.app.meta_title_placeholder"
+                                @input="update"
                             />
                         </div>
                     </div>
@@ -62,9 +62,9 @@
                             <label class="font-weight-bold text-uppercase text-muted small">
                                 {{ trans.app.meta_description }}
                                 <a
+                                    v-tooltip="{ placement: 'right' }"
                                     href="#"
                                     class="text-decoration-none"
-                                    v-tooltip="{ placement: 'right' }"
                                     :title="trans.app.sync_with_post_description"
                                     @click.prevent="syncDescription"
                                 >
@@ -83,16 +83,15 @@
                                 </a>
                             </label>
                             <textarea
-                                rows="4"
+                                v-model="activePost.meta.description"
                                 id="description"
+                                rows="4"
                                 name="description"
                                 style="resize: none;"
                                 class="form-control border-0"
-                                @input="update"
-                                v-model="activePost.meta.description"
                                 :placeholder="trans.app.meta_description_placeholder"
-                            >
-                            </textarea>
+                                @input="update"
+                            />
                         </div>
                     </div>
                     <div class="form-group row">
@@ -101,13 +100,13 @@
                                 {{ trans.app.canonical_link }}
                             </label>
                             <input
+                                v-model="activePost.meta.canonical_link"
                                 type="text"
-                                @input="update"
                                 class="form-control border-0"
                                 name="canonical_link"
-                                v-model="activePost.meta.canonical_link"
                                 :title="trans.app.canonical_link"
                                 :placeholder="trans.app.canonical_link_placeholder"
+                                @input="update"
                             />
                         </div>
                     </div>
@@ -127,12 +126,16 @@
 </template>
 
 <script>
-import debounce from 'lodash/debounce';
 import { mapState } from 'vuex';
 import Tooltip from '../../directives/Tooltip';
+import debounce from 'lodash/debounce';
 
 export default {
     name: 'seo-modal',
+
+    directives: {
+        Tooltip,
+    },
 
     data() {
         return {
@@ -141,10 +144,6 @@ export default {
     },
 
     computed: mapState(['activePost']),
-
-    directives: {
-        Tooltip,
-    },
 
     methods: {
         update: debounce(function () {

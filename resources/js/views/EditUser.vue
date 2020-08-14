@@ -1,6 +1,6 @@
 <template>
     <div>
-        <page-header></page-header>
+        <page-header />
 
         <main v-if="isReady && user" class="py-4">
             <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12 my-3">
@@ -14,25 +14,25 @@
                         <div class="row">
                             <div class="col-md-4 order-md-last my-auto">
                                 <file-pond
+                                    ref="pond"
                                     v-if="isReadyToAcceptUploads"
                                     name="profileImagePond"
-                                    ref="pond"
                                     max-files="1"
-                                    :maxFileSize="config.maxUpload"
-                                    :iconRemove="getRemoveIcon"
-                                    :iconRetry="getRetryIcon"
+                                    :max-file-size="config.maxUpload"
+                                    :icon-remove="getRemoveIcon"
+                                    :icon-retry="getRetryIcon"
                                     :label-idle="getPlaceholderLabel"
-                                    className="w-75"
+                                    class-name="w-75"
                                     accepted-file-types="image/*"
-                                    imagePreviewHeight="170"
-                                    imageCropAspectRatio="1:1"
-                                    imageResizeTargetWidth="200"
-                                    imageResizeTargetHeight="200"
-                                    stylePanelLayout="compact circle"
-                                    styleLoadIndicatorPosition="center bottom"
-                                    styleProgressIndicatorPosition="center bottom"
-                                    styleButtonProcessItemPosition="center bottom"
-                                    styleButtonRemoveItemPosition="center bottom"
+                                    image-preview-height="170"
+                                    image-crop-aspect-ratio="1:1"
+                                    image-resize-target-width="200"
+                                    image-resize-target-height="200"
+                                    style-panel-layout="compact circle"
+                                    style-load-indicator-position="center bottom"
+                                    style-progress-indicator-position="center bottom"
+                                    style-button-process-item-position="center bottom"
+                                    style-button-remove-item-position="center bottom"
                                     :server="getServerOptions"
                                     :allow-multiple="false"
                                     :files="selectedImagesForPond"
@@ -46,8 +46,8 @@
                                     <p class="mt-3 mb-0">
                                         <a
                                             href=""
-                                            @click.prevent="clearAvatar"
                                             class="text-decoration-none text-success"
+                                            @click.prevent="clearAvatar"
                                             >Clear avatar</a
                                         >
                                     </p>
@@ -60,17 +60,17 @@
                                             {{ i18n.username }}
                                         </label>
                                         <input
+                                            v-model="username"
                                             name="username"
                                             :disabled="!isAuthUserProfile"
                                             type="text"
                                             class="form-control border-0"
                                             :class="{ disabled: !isAuthUserProfile }"
                                             title="Username"
-                                            v-model="username"
                                             :placeholder="i18n.choose_a_username"
                                         />
                                         <div v-if="usernameValidationError" class="invalid-feedback d-block">
-                                            <strong v-for="value in usernameValidationError" :key="`${value}`">{{
+                                            <strong :key="`${value}`" v-for="value in usernameValidationError">{{
                                                 value
                                             }}</strong>
                                         </div>
@@ -82,17 +82,16 @@
                                             {{ i18n.summary }}
                                         </label>
                                         <textarea
-                                            rows="4"
+                                            v-model="summary"
                                             id="summary"
+                                            rows="4"
                                             name="summary"
                                             :disabled="!isAuthUserProfile"
                                             style="resize: none;"
                                             class="form-control border-0"
                                             :class="{ disabled: !isAuthUserProfile }"
-                                            v-model="summary"
                                             :placeholder="i18n.tell_us_about_yourself"
-                                        >
-                                        </textarea>
+                                        />
                                     </div>
                                 </div>
                             </div>
@@ -129,23 +128,21 @@
 </template>
 
 <script>
-import PageHeader from '../components/PageHeader';
-import NProgress from 'nprogress';
-import vueFilePond from 'vue-filepond';
-import toast from '../mixins/toast';
-import 'filepond/dist/filepond.min.css';
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css';
-import FilePondPluginImageValidateSize from 'filepond-plugin-image-validate-size';
-import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
-import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
-import FilePondPluginImageExifOrientation from 'filepond-plugin-image-exif-orientation';
+import 'filepond/dist/filepond.min.css';
 import FilePondPluginFileValidateSize from 'filepond-plugin-file-validate-size';
-import i18n from '../mixins/i18n';
+import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
+import FilePondPluginImageExifOrientation from 'filepond-plugin-image-exif-orientation';
+import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
+import FilePondPluginImageValidateSize from 'filepond-plugin-image-validate-size';
+import NProgress from 'nprogress';
+import PageHeader from '../components/PageHeader';
 import get from 'lodash/get';
-import isEmpty from 'lodash/isEmpty';
+import i18n from '../mixins/i18n';
 import request from '../mixins/request';
+import toast from '../mixins/toast';
 import url from '../mixins/url';
-import config from '../store/modules/config';
+import vueFilePond from 'vue-filepond';
 
 const FilePond = vueFilePond(
     FilePondPluginFileValidateType,
@@ -176,26 +173,6 @@ export default {
             isReadyToAcceptUploads: false,
             isReady: false,
         };
-    },
-
-    watch: {
-        $route(to) {
-            this.isReady = false;
-            this.user = null;
-            this.username = null;
-            this.summary = null;
-            this.avatar = null;
-            this.meta = null;
-            this.fetchUser(to.params.id);
-            this.isReady = true;
-            NProgress.done();
-        },
-    },
-
-    async created() {
-        await Promise.all([this.fetchUser(this.$route.params.id)]);
-        this.isReady = true;
-        NProgress.done();
     },
 
     computed: {
@@ -229,9 +206,9 @@ export default {
         },
 
         usernameValidationError() {
-            // let errors = Object.values(this.user.errors);
-            //
-            // return get(errors.flat(1), '[0].username', null);
+            let errors = Object.values(this.user.errors);
+
+            return get(errors.flat(1), '[0].username', null);
         },
 
         getRetryIcon() {
@@ -245,6 +222,26 @@ export default {
         getPlaceholderLabel() {
             return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="35" class="icon-cloud-upload"><path class="fill-dark-gray" d="M18 14.97c0-.76-.3-1.51-.88-2.1l-3-3a3 3 0 0 0-4.24 0l-3 3A3 3 0 0 0 6 15a4 4 0 0 1-.99-7.88 5.5 5.5 0 0 1 10.86-.82A4.49 4.49 0 0 1 22 10.5a4.5 4.5 0 0 1-4 4.47z"/><path class="fill-dark-gray" d="M11 14.41V21a1 1 0 0 0 2 0v-6.59l1.3 1.3a1 1 0 0 0 1.4-1.42l-3-3a1 1 0 0 0-1.4 0l-3 3a1 1 0 0 0 1.4 1.42l1.3-1.3z"/></svg><br/> Drop files or click here to upload';
         },
+    },
+
+    watch: {
+        $route(to) {
+            this.isReady = false;
+            this.user = null;
+            this.username = null;
+            this.summary = null;
+            this.avatar = null;
+            this.meta = null;
+            this.fetchUser(to.params.id);
+            this.isReady = true;
+            NProgress.done();
+        },
+    },
+
+    async created() {
+        await Promise.all([this.fetchUser(this.$route.params.id)]);
+        this.isReady = true;
+        NProgress.done();
     },
 
     methods: {
@@ -281,7 +278,7 @@ export default {
 
                     this.$store.dispatch('auth/setAvatar', data.meta.avatar);
 
-                    toast.methods.toast(config.state.i18n.saved);
+                    toast.methods.toast(this.config.state.i18n.saved);
                 })
                 .catch((errors) => {
                     console.log(errors);

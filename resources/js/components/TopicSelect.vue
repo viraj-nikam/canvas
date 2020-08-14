@@ -6,11 +6,11 @@
         :options="options"
         :multiple="false"
         :taggable="true"
-        @input="onChange"
-        @tag="addTopic"
         label="name"
         track-by="slug"
         style="cursor: pointer;"
+        @input="onChange"
+        @tag="addTopic"
     />
 </template>
 
@@ -18,6 +18,9 @@
 import Multiselect from 'vue-multiselect';
 
 export default {
+    components: {
+        Multiselect,
+    },
     props: {
         topics: {
             type: Array,
@@ -27,10 +30,6 @@ export default {
             type: [Object, Array],
             required: false,
         },
-    },
-
-    components: {
-        Multiselect,
     },
 
     data() {

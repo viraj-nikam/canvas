@@ -45,9 +45,9 @@
                     </p>
                 </div>
 
-                <div class="mt-5 card shadow-lg" v-if="isReady">
+                <div v-if="isReady" class="mt-5 card shadow-lg">
                     <div class="card-body p-0">
-                        <div v-for="(topic, index) in topics" :key="`${index}-${topic.id}`">
+                        <div :key="`${index}-${topic.id}`" v-for="(topic, index) in topics">
                             <router-link
                                 :to="{
                                     name: 'edit-topic',
@@ -97,8 +97,8 @@
                             </router-link>
                         </div>
 
-                        <infinite-loading @infinite="fetchData" spinner="spiral">
-                            <span slot="no-more"></span>
+                        <infinite-loading spinner="spiral" @infinite="fetchData">
+                            <span slot="no-more" />
                             <div slot="no-results" class="text-left">
                                 <div class="my-5">
                                     <p class="lead text-center text-muted mt-5">
@@ -118,13 +118,13 @@
 </template>
 
 <script>
-import NProgress from 'nprogress';
-import isEmpty from 'lodash/isEmpty';
 import Hover from '../directives/Hover';
 import InfiniteLoading from 'vue-infinite-loading';
+import NProgress from 'nprogress';
 import PageHeader from '../components/PageHeader';
-import strings from '../mixins/strings';
 import i18n from '../mixins/i18n';
+import isEmpty from 'lodash/isEmpty';
+import strings from '../mixins/strings';
 
 export default {
     name: 'topic-list',
@@ -134,11 +134,11 @@ export default {
         PageHeader,
     },
 
-    mixins: [strings, i18n],
-
     directives: {
         Hover,
     },
+
+    mixins: [strings, i18n],
 
     data() {
         return {

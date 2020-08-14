@@ -1,6 +1,6 @@
 <template>
     <div>
-        <page-header></page-header>
+        <page-header />
 
         <main class="py-4">
             <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12 my-3">
@@ -8,7 +8,7 @@
                     <h2 class="mt-3">{{ i18n.settings }}</h2>
                 </div>
 
-                <div class="mt-5 card shadow-lg" v-if="isReady">
+                <div v-if="isReady" class="mt-5 card shadow-lg">
                     <div class="card-body p-0">
                         <div class="d-flex rounded-top p-3 align-items-center">
                             <div class="mr-auto py-1">
@@ -24,12 +24,12 @@
                                     <div class="form-group my-auto">
                                         <span class="switch switch-sm">
                                             <input
+                                                v-model="auth.digest"
+                                                id="digest"
                                                 type="checkbox"
                                                 class="switch"
-                                                id="digest"
-                                                @change="toggleDigest"
                                                 :checked="auth.digest"
-                                                v-model="auth.digest"
+                                                @change="toggleDigest"
                                             />
                                             <label for="digest" class="mb-0 sr-only">
                                                 {{ i18n.weekly_digest }}
@@ -54,12 +54,12 @@
                                     <div class="form-group my-auto">
                                         <span class="switch switch-sm">
                                             <input
+                                                v-model="auth.darkMode"
+                                                id="darkMode"
                                                 type="checkbox"
                                                 class="switch"
-                                                id="darkMode"
-                                                @change="toggleDarkMode"
                                                 :checked="auth.darkMode"
-                                                v-model="auth.darkMode"
+                                                @change="toggleDarkMode"
                                             />
                                             <label for="darkMode" class="mb-0 sr-only">
                                                 {{ i18n.dark_mode }}
@@ -84,14 +84,14 @@
                                     <div class="form-group row mt-3">
                                         <div class="col-12">
                                             <select
-                                                class="custom-select border-0"
-                                                @change="selectLocale"
                                                 v-model="auth.locale"
+                                                class="custom-select border-0"
                                                 name="locale"
+                                                @change="selectLocale"
                                             >
                                                 <option
-                                                    v-for="code in config.languageCodes"
                                                     :key="code"
+                                                    v-for="code in config.languageCodes"
                                                     :value="code"
                                                     :selected="auth.locale === code"
                                                 >
@@ -117,10 +117,10 @@
 </template>
 
 <script>
+import Hover from '../directives/Hover';
 import NProgress from 'nprogress';
 import PageHeader from '../components/PageHeader';
 import i18n from '../mixins/i18n';
-import Hover from '../directives/Hover';
 
 export default {
     name: 'edit-settings',
@@ -129,21 +129,16 @@ export default {
         PageHeader,
     },
 
-    mixins: [i18n],
-
     directives: {
         Hover,
     },
+
+    mixins: [i18n],
 
     data() {
         return {
             isReady: false,
         };
-    },
-
-    created() {
-        this.isReady = true;
-        NProgress.done();
     },
 
     computed: {
@@ -161,6 +156,11 @@ export default {
                 link: `https://github.com/cnvs/canvas/releases/tag/${this.config.version}`,
             };
         },
+    },
+
+    created() {
+        this.isReady = true;
+        NProgress.done();
     },
 
     methods: {

@@ -2,7 +2,7 @@
     <div>
         <page-header>
             <template slot="menu" v-if="isReady">
-                <div class="dropdown" v-if="!creatingTag">
+                <div v-if="!creatingTag" class="dropdown">
                     <a
                         id="navbarDropdown"
                         class="nav-link pr-0"
@@ -34,12 +34,12 @@
             </template>
         </page-header>
 
-        <main v-if="isReady && tag" class="py-4">
+        <main v-if="isReady" class="py-4">
             <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12">
                 <div class="my-3">
-                    <h2 class="mt-3">{{ tag.name || i18n.new_tag }}</h2>
+                    <h2 class="mt-3">{{ $store.state.tag.name || i18n.new_tag }}</h2>
                     <p v-if="!creatingTag" class="mt-2 text-secondary">
-                        {{ i18n.last_updated }} {{ moment(tag.updated_at).fromNow() }}
+                        {{ i18n.last_updated }} {{ moment($store.state.tag.updatedAt).fromNow() }}
                     </p>
                 </div>
 
@@ -51,19 +51,19 @@
                                     {{ i18n.name }}
                                 </label>
                                 <input
+                                    v-model="name"
                                     type="text"
                                     name="name"
                                     autofocus
                                     autocomplete="off"
-                                    :value="name"
                                     title="Name"
-                                    @keyup.enter="saveTag"
                                     class="form-control border-0"
                                     :placeholder="i18n.give_your_tag_a_name"
+                                    @keyup.enter="saveTag"
                                 />
 
-                                <div v-if="tag.errors.name" class="invalid-feedback d-block">
-                                    <strong>{{ tag.errors.name[0] }}</strong>
+                                <div v-if="$store.state.tag.errors.name" class="invalid-feedback d-block">
+                                    <strong>{{ $store.state.tag.errors.name[0] }}</strong>
                                 </div>
                             </div>
 
@@ -72,17 +72,17 @@
                                     {{ i18n.slug }}
                                 </label>
                                 <input
+                                    v-model="slug"
                                     type="text"
                                     name="slug"
                                     disabled
                                     autocomplete="off"
-                                    :value="slug"
                                     title="Slug"
                                     class="form-control border-0"
                                     :placeholder="i18n.give_your_tag_a_name_slug"
                                 />
-                                <div v-if="tag.errors.slug" class="invalid-feedback d-block">
-                                    <strong>{{ tag.errors.slug[0] }}</strong>
+                                <div v-if="$store.state.tag.errors.slug" class="invalid-feedback d-block">
+                                    <strong>{{ $store.state.tag.errors.slug[0] }}</strong>
                                 </div>
                             </div>
                         </div>
@@ -112,9 +112,9 @@
                     </div>
                 </div>
 
-                <div class="mt-5 card shadow-lg" v-if="posts.length > 0">
+                <div v-if="posts.length > 0" class="mt-5 card shadow-lg">
                     <div class="card-body p-0">
-                        <div v-for="(post, index) in posts" :key="`${index}-${post.id}`">
+                        <div :key="`${index}-${post.id}`" v-for="(post, index) in posts">
                             <router-link
                                 :to="{
                                     name: 'edit-post',
@@ -178,9 +178,9 @@
                             </router-link>
                         </div>
 
-                        <infinite-loading @infinite="fetchPosts" spinner="spiral">
-                            <span slot="no-more"></span>
-                            <div slot="no-results"></div>
+                        <infinite-loading spinner="spiral" @infinite="fetchPosts">
+                            <span slot="no-more" />
+                            <div slot="no-results" />
                         </infinite-loading>
                     </div>
                 </div>
@@ -189,26 +189,25 @@
 
         <delete-modal
             ref="deleteModal"
-            @delete="deleteTag"
             :header="i18n.delete"
             :message="i18n.deleted_tags_are_gone_forever"
-        >
-        </delete-modal>
+            @delete="deleteTag"
+        />
     </div>
 </template>
 
 <script>
 import $ from 'jquery';
+import DeleteModal from '../components/modals/DeleteModal';
+import Hover from '../directives/Hover';
+import InfiniteLoading from 'vue-infinite-loading';
 import NProgress from 'nprogress';
 import PageHeader from '../components/PageHeader';
-import Hover from '../directives/Hover';
-import DeleteModal from '../components/modals/DeleteModal';
 import i18n from '../mixins/i18n';
-import toast from '../mixins/toast';
-import InfiniteLoading from 'vue-infinite-loading';
+import isEmpty from 'lodash/isEmpty';
 import status from '../mixins/status';
 import strings from '../mixins/strings';
-import isEmpty from 'lodash/isEmpty';
+import toast from '../mixins/toast';
 
 export default {
     name: 'edit-tag',
@@ -228,7 +227,6 @@ export default {
     data() {
         return {
             uri: this.$route.params.id || 'create',
-            tag: null,
             name: null,
             slug: null,
             page: 1,
@@ -237,52 +235,42 @@ export default {
         };
     },
 
-    async created() {
-        await Promise.all([this.fetchTag(), this.fetchPosts()]);
-        this.isReady = true;
-        NProgress.done();
-    },
-
-    watch: {
-        name(val) {
-            console.log(val);
-            this.slug = !isEmpty(val) ? this.slugify(val) : '';
-        },
-
-        $route(to) {
-            // this.isReady = false;
-            // this.id = to.params.id;
-            // this.name = null;
-            // this.slug = null;
-            // this.page = 1;
-            // this.posts = [];
-            // this.fetchTag();
-            // this.fetchPosts();
-            // this.isReady = true;
-            // NProgress.done();
-        },
-    },
-
     computed: {
-        tag() {
-            return this.$store.state.tag;
-        },
-
-        name() {
-            return this.tag.name || '';
-        },
-
-        slug() {
-            return this.tag.slug || '';
-        },
-
         creatingTag() {
             return this.$route.name === 'create-tag';
         },
 
         shouldDisableButton() {
-            return isEmpty(this.tag.slug);
+            return isEmpty(this.slug);
         },
+    },
+
+    watch: {
+        name(val) {
+            this.slug = !isEmpty(val) ? this.slugify(val) : '';
+        },
+
+        $route(to) {
+            this.isReady = false;
+            this.uri = to.params.id;
+            this.page = 1;
+            this.posts = [];
+            this.fetchPosts();
+            this.isReady = true;
+            NProgress.done();
+        },
+    },
+
+    async created() {
+        await Promise.all([this.fetchTag(), this.fetchPosts()]);
+        this.name = this.$store.state.tag.name;
+        this.slug = this.$store.state.tag.slug;
+        this.isReady = true;
+        NProgress.done();
+    },
+
+    beforeDestroy() {
+        this.$store.dispatch('tag/resetTag');
     },
 
     methods: {
@@ -317,22 +305,24 @@ export default {
         },
 
         saveTag() {
+            let id = this.$store.state.tag.id;
+
             this.$store.dispatch('tag/updateTag', {
-                id: this.uri,
+                id: id,
                 name: this.name,
                 slug: this.slug,
             });
 
             if (this.creatingTag) {
-                this.$router.push({ name: 'edit-tag', params: { id: data.id } });
+                this.$router.push({ name: 'edit-tag', params: { id: id } });
             }
-
-            toast.methods.toast(this.i18n.saved);
         },
 
         deleteTag() {
             this.$store.dispatch('tag/deleteTag', this.uri);
             $(this.$refs.deleteModal.$el).modal('hide');
+            this.$router.push({ name: 'tags' });
+            toast.methods.toast(this.i18n.success);
         },
 
         showDeleteModal() {

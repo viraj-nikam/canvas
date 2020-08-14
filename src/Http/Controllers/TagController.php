@@ -50,6 +50,8 @@ class TagController extends Controller
         if (! $tag) {
             if ($tag = Tag::onlyTrashed()->firstWhere('slug', request('slug'))) {
                 $tag->restore();
+
+                return response()->json($tag->refresh(), 201);
             } else {
                 $tag = new Tag(['id' => $id]);
             }
