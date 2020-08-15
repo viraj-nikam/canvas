@@ -1,5 +1,4 @@
 import { store } from '../store';
-import VueRouter from 'vue-router';
 import axios from 'axios';
 
 export default {
@@ -20,9 +19,6 @@ export default {
             const errorHandler = (error) => {
                 // Add any error modifiers...
                 switch (error.response.status) {
-                    case 404:
-                        VueRouter.push({ name: 'home' });
-                        break;
                     case 401:
                     case 405:
                         window.location.href = '/';

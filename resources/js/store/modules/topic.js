@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import config from './config';
 import request from '../../mixins/request';
+import router from 'vue-router';
 import toast from '../../mixins/toast';
 
 const initialState = {
@@ -14,17 +15,19 @@ const initialState = {
 const state = { ...initialState };
 
 const actions = {
-    fetchTag(context, id) {
+    fetchTopic(context, id) {
         request.methods
             .request()
             .get(`/api/topics/${id}`)
             .then(({ data }) => {
-                console.log(data);
                 context.commit('SET_TOPIC', data);
+            })
+            .catch(() => {
+                router.push({ name: 'topics' });
             });
     },
 
-    updateTag(context, payload) {
+    updateTopic(context, payload) {
         request.methods
             .request()
             .post(`/api/topics/${payload.id}`, {
@@ -36,15 +39,21 @@ const actions = {
                 toast.methods.toast(config.state.i18n.saved);
             })
             .catch((error) => {
+                // state.errors.push(...error.response.data.errors);
                 state.errors = error.response.data.errors;
             });
     },
 
-    deleteTag(context, id) {
-        request.methods.request().delete(`/api/topics/${id}`);
+    deleteTopic(context, id) {
+        request.methods
+            .request()
+            .delete(`/api/topics/${id}`)
+            .catch(() => {
+                router.push({ name: 'topics' });
+            });
     },
 
-    resetTag({ commit }) {
+    resetState({ commit }) {
         commit('RESET_STATE');
     },
 };
@@ -64,7 +73,7 @@ const mutations = {
         state.updatedAt = topic.updated_at || '';
     },
 
-    RESET_STATE() {
+    RESET_STATE(state) {
         for (let f in state) {
             Vue.set(state, f, initialState[f]);
         }

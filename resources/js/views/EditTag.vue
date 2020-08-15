@@ -250,12 +250,15 @@ export default {
             this.slug = !isEmpty(val) ? this.slugify(val) : '';
         },
 
-        $route(to) {
+        async $route(to) {
             this.isReady = false;
             this.uri = to.params.id;
+            this.name = null;
+            this.slug = null;
             this.page = 1;
             this.posts = [];
-            this.fetchPosts();
+            await Promise.all([this.fetchTag(), this.fetchPosts()]);
+            this.name = this.$store.state.tag.name;
             this.isReady = true;
             NProgress.done();
         },
@@ -264,13 +267,13 @@ export default {
     async created() {
         await Promise.all([this.fetchTag(), this.fetchPosts()]);
         this.name = this.$store.state.tag.name;
-        this.slug = this.$store.state.tag.slug;
         this.isReady = true;
         NProgress.done();
     },
 
-    beforeDestroy() {
-        this.$store.dispatch('tag/resetTag');
+    beforeRouteLeave(to, from, next) {
+        this.$store.dispatch('tag/resetState');
+        next();
     },
 
     methods: {
@@ -313,8 +316,9 @@ export default {
                 slug: this.slug,
             });
 
-            if (this.creatingTag) {
+            if (isEmpty(this.$store.state.tag.errors) && this.creatingTag) {
                 this.$router.push({ name: 'edit-tag', params: { id: id } });
+                NProgress.done();
             }
         },
 

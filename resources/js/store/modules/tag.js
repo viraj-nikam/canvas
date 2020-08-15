@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import config from './config';
 import request from '../../mixins/request';
+import router from 'vue-router';
 import toast from '../../mixins/toast';
 
 const initialState = {
@@ -19,8 +20,10 @@ const actions = {
             .request()
             .get(`/api/tags/${id}`)
             .then(({ data }) => {
-                console.log(data);
                 context.commit('SET_TAG', data);
+            })
+            .catch(() => {
+                router.push({ name: 'tags' });
             });
     },
 
@@ -36,15 +39,21 @@ const actions = {
                 toast.methods.toast(config.state.i18n.saved);
             })
             .catch((error) => {
+                // state.errors.push(...error.response.data.errors);
                 state.errors = error.response.data.errors;
             });
     },
 
     deleteTag(context, id) {
-        request.methods.request().delete(`/api/tags/${id}`);
+        request.methods
+            .request()
+            .delete(`/api/tags/${id}`)
+            .catch(() => {
+                router.push({ name: 'tags' });
+            });
     },
 
-    resetTag({ commit }) {
+    resetState({ commit }) {
         commit('RESET_STATE');
     },
 };
@@ -64,7 +73,7 @@ const mutations = {
         state.updatedAt = tag.updated_at || '';
     },
 
-    RESET_STATE() {
+    RESET_STATE(state) {
         for (let f in state) {
             Vue.set(state, f, initialState[f]);
         }

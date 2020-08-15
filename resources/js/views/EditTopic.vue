@@ -250,12 +250,15 @@ export default {
             this.slug = !isEmpty(val) ? this.slugify(val) : '';
         },
 
-        $route(to) {
+        async $route(to) {
             this.isReady = false;
             this.uri = to.params.id;
+            this.name = null;
+            this.slug = null;
             this.page = 1;
             this.posts = [];
-            this.fetchPosts();
+            await Promise.all([this.fetchTopic(), this.fetchPosts()]);
+            this.name = this.$store.state.topic.name;
             this.isReady = true;
             NProgress.done();
         },
@@ -264,13 +267,13 @@ export default {
     async created() {
         await Promise.all([this.fetchTopic(), this.fetchPosts()]);
         this.name = this.$store.state.topic.name;
-        this.slug = this.$store.state.topic.slug;
         this.isReady = true;
         NProgress.done();
     },
 
-    beforeDestroy() {
-        this.$store.dispatch('topic/resetTopic');
+    beforeRouteLeave(to, from, next) {
+        this.$store.dispatch('topic/resetState');
+        next();
     },
 
     methods: {
@@ -313,8 +316,9 @@ export default {
                 slug: this.slug,
             });
 
-            if (this.creatingTopic) {
+            if (isEmpty(this.$store.state.topic.errors) && this.creatingTopic) {
                 this.$router.push({ name: 'edit-topic', params: { id: id } });
+                NProgress.done();
             }
         },
 
