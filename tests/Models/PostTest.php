@@ -193,25 +193,43 @@ class PostTest extends TestCase
     }
 
     /** @test */
-    public function for_user_scope()
+    public function filter_by_scope()
     {
-        $user = factory(config('canvas.user'))->create();
+        $userOnePost = factory(Post::class)->create();
+        $userTwoPost = factory(Post::class)->create();
 
-        $post = factory(Post::class)->create([
-            'user_id' => $user->id,
-        ]);
-
-        $this->assertEquals(1, $post->forUser($user)->count());
-
-        factory(Post::class)->create([
-            'user_id' => 2,
-        ]);
-
-        $meta = factory(UserMeta::class)->create([
+        factory(UserMeta::class)->create([
+            'user_id' => $userTwoPost->user->id,
             'admin' => 1,
         ]);
 
-        $this->assertEquals(2, $post->forUser($meta->user)->count());
+        $this->assertEquals(1, Post::filterBy($userOnePost->user)->count());
+
+        factory(Post::class)->create([
+            'user_id' => $userOnePost->user->id,
+            'published_at' => now()->addWeek(),
+        ]);
+
+        $this->assertEquals(1, Post::filterBy($userOnePost->user, [
+            'scope' => 'user',
+            'type' => 'draft',
+        ])->count());
+
+        $this->assertEquals(1, Post::filterBy($userOnePost->user, [
+            'scope' => 'user',
+            'type' => 'published',
+        ])->count());
+
+
+//        factory(Post::class)->create([
+//            'user_id' => 2,
+//        ]);
+//
+//        $admin = factory(UserMeta::class)->create([
+//            'admin' => 1,
+//        ]);
+//
+//        $this->assertEquals(2, Post::filterBy($admin->user, ['scope' => 'all'])->count());
     }
 
     /** @test */

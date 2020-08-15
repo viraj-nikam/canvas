@@ -46,7 +46,7 @@ class DigestCommand extends Command
                 continue;
             }
 
-            $posts = Post::forUser($user)
+            $posts = Post::where('user_id', $user->id)
                          ->published()
                          ->withCount(['views' => function (Builder $query) use ($startDate, $endDate) {
                              $query->whereBetween('created_at', [

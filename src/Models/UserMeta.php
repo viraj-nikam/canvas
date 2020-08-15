@@ -30,6 +30,7 @@ class UserMeta extends Model
     protected $casts = [
         'digest' => 'boolean',
         'dark_mode' => 'boolean',
+        'admin' => 'boolean',
     ];
 
     /**

@@ -4,11 +4,24 @@
 
         <div class="py-4">
             <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12">
-                <div class="my-3">
-                    <h2 class="mt-3">{{ i18n.stats }}</h2>
-                    <p class="mt-2 text-secondary">
-                        {{ i18n.click_to_see_insights }}
-                    </p>
+                <div class="d-flex justify-content-between my-3 align-items-center">
+                    <div>
+                        <h2 class="mt-3">{{ i18n.stats }}</h2>
+                        <p class="mt-2 text-secondary">
+                            {{ i18n.click_to_see_insights }}
+                        </p>
+                    </div>
+
+                    <select
+                        v-model="scope"
+                        id=""
+                        name=""
+                        class="ml-auto w-auto custom-select border-0"
+                        @change="changeScope"
+                    >
+                        <option value="user">Your Stats</option>
+                        <option value="all">All Stats</option>
+                    </select>
                 </div>
 
                 <div v-if="isReady">
@@ -157,6 +170,8 @@ export default {
             page: 1,
             posts: [],
             data: null,
+            scope: 'user',
+            infiniteId: +new Date(),
             isReady: false,
         };
     },
@@ -180,7 +195,11 @@ export default {
     methods: {
         fetchStats() {
             return this.request()
-                .get('/api/stats')
+                .get('/api/stats', {
+                    params: {
+                        scope: this.scope,
+                    }
+                })
                 .then(({ data }) => {
                     this.data = data;
                     NProgress.inc();
@@ -214,6 +233,14 @@ export default {
                 .catch(() => {
                     NProgress.done();
                 });
+        },
+
+        async changeScope() {
+            this.page = 1;
+            this.posts = [];
+            await Promise.all([this.fetchStats(), this.fetchPosts()]);
+            this.infiniteId += 1;
+            NProgress.done();
         },
     },
 };

@@ -20,6 +20,7 @@ class SearchController extends Controller
      */
     public function showPosts(): JsonResponse
     {
+        // todo: how to tell if they are an admin?
         $posts = Post::forUser(request()->user())->select('id', 'title')->latest()->get();
 
         $posts->map(function ($post) {

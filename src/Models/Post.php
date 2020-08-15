@@ -295,21 +295,34 @@ class Post extends Model
     }
 
     /**
-     * Scope a query to restrict access based on permissions.
+     * Scope a query to include posts for a given set of filters.
+     *
+     * Supported: "scope", "type"
      *
      * @param $query
      * @param $user
+     * @param array $filters
      * @return Builder
      */
-    public function scopeForUser($query, $user): Builder
+    public function scopeFilterBy($query, $user, $filters = []): Builder
     {
-        $meta = UserMeta::firstWhere('user_id', $user->id);
-
-        if (optional($meta)->admin) {
+        if (!$filters) {
             return $query;
-        } else {
-            return $query->where('user_id', $user->id);
         }
+
+        $meta = UserMeta::where('user_id', $user->id)->first();
+
+        if (isset($filters['scope']) && $filters['scope'] === 'user' || !optional($meta)->admin) {
+            $query->where('user_id', $user->id);
+        }
+
+        if (isset($filters['type']) && $filters['type'] === 'draft') {
+            $query->draft();
+        } else {
+            $query->published();
+        }
+
+        return $query;
     }
 
     /**

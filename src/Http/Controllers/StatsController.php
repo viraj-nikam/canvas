@@ -18,10 +18,11 @@ class StatsController extends Controller
      */
     public function index(): JsonResponse
     {
-        $posts = Post::forUser(request()->user())
-                     ->published()
-                     ->latest()
-                     ->get();
+        if (request()->query('scope') === 'all') {
+            $posts = Post::published()->latest()->get();
+        } else {
+            $posts = Post::forUser(request()->user())->published()->latest()->get();
+        }
 
         $views = View::select('created_at')
                      ->whereIn('post_id', $posts->pluck('id'))

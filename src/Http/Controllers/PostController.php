@@ -20,16 +20,12 @@ class PostController extends Controller
      */
     public function index(): JsonResponse
     {
-        if (request()->query('type') === 'draft') {
-            $postBuilder = Post::forUser(request()->user())->draft();
-        } else {
-            $postBuilder = Post::forUser(request()->user())->published();
-        }
+        $postBuilder = Post::filterBy(request()->user(), request()->query())->latest()->withCount('views');
 
         return response()->json([
-            'posts' => $postBuilder->latest()->withCount('views')->paginate(),
-            'draftCount' => Post::forUser(request()->user())->draft()->count(),
-            'publishedCount' => Post::forUser(request()->user())->published()->count(),
+            'posts' => $postBuilder->paginate(),
+            'draftCount' => $postBuilder->draft()->count(),
+            'publishedCount' => $postBuilder->published()->count(),
         ], 200);
     }
 
@@ -61,7 +57,7 @@ class PostController extends Controller
      */
     public function store($id): JsonResponse
     {
-        $post = Post::forUser(request()->user())->find($id) ?? new Post(['id' => $id]);
+        $post = Post::filterBy(request()->user(), ['scope' => 'user'])->find($id) ?? new Post(['id' => $id]);
 
         $data = [
             'id' => $id,
@@ -117,7 +113,7 @@ class PostController extends Controller
      */
     public function show($id): JsonResponse
     {
-        if (Post::forUser(request()->user())->pluck('id')->contains($id)) {
+        if (Post::filterBy(request()->user(), ['scope' => 'user'])->pluck('id')->contains($id)) {
             return response()->json([
                 'post' => Post::forUser(request()->user())->with('tags:name,slug', 'topic:name,slug')->find($id),
                 'tags' => Tag::get(['name', 'slug']),
@@ -136,7 +132,7 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        $post = Post::forUser(request()->user())->findOrFail($id);
+        $post = Post::filterBy(request()->user(), ['scope' => 'user'])->findOrFail($id);
 
         $post->delete();
 
@@ -158,7 +154,7 @@ class PostController extends Controller
 
         $topic = Topic::firstWhere('slug', $incomingTopic['slug']);
 
-        if (! $topic) {
+        if (!$topic) {
             $topic = Topic::create([
                 'id' => $id = Uuid::uuid4()->toString(),
                 'name' => $incomingTopic['name'],
@@ -167,7 +163,7 @@ class PostController extends Controller
             ]);
         }
 
-        return collect((string) $topic->id)->toArray();
+        return collect((string)$topic->id)->toArray();
     }
 
     /**
@@ -187,7 +183,7 @@ class PostController extends Controller
         return collect($incomingTags)->map(function ($incomingTag) use ($tags) {
             $tag = $tags->firstWhere('slug', $incomingTag['slug']);
 
-            if (! $tag) {
+            if (!$tag) {
                 $tag = Tag::create([
                     'id' => $id = Uuid::uuid4()->toString(),
                     'name' => $incomingTag['name'],
@@ -196,7 +192,7 @@ class PostController extends Controller
                 ]);
             }
 
-            return (string) $tag->id;
+            return (string)$tag->id;
         })->toArray();
     }
 }
