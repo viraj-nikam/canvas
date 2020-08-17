@@ -24,7 +24,7 @@
                     </select>
                 </div>
 
-                <div v-if="isReady">
+                <div v-if="isReady && data">
                     <div v-if="posts.length">
                         <div class="card-deck mt-5">
                             <div class="card shadow-lg">
@@ -198,7 +198,7 @@ export default {
                 .get('/api/stats', {
                     params: {
                         scope: this.scope,
-                    }
+                    },
                 })
                 .then(({ data }) => {
                     this.data = data;
@@ -213,6 +213,7 @@ export default {
             return this.request()
                 .get('/api/posts', {
                     params: {
+                        scope: this.scope,
                         page: this.page,
                     },
                 })
@@ -236,6 +237,7 @@ export default {
         },
 
         async changeScope() {
+            this.data = null;
             this.page = 1;
             this.posts = [];
             await Promise.all([this.fetchStats(), this.fetchPosts()]);

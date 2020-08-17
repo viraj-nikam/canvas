@@ -52,6 +52,7 @@ export default [
         name: 'tags',
         component: TagList,
         beforeEnter: (to, from, next) => {
+            console.log(auth.methods.userIsAdmin());
             auth.methods.userIsAdmin() ? next() : next({ name: 'home' });
         },
     },
