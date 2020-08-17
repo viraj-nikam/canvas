@@ -7,6 +7,7 @@ use Canvas\Models\Tag;
 use Canvas\Models\Topic;
 use Exception;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Validation\Rule;
 use Ramsey\Uuid\Uuid;
@@ -16,25 +17,42 @@ class PostController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return JsonResponse
      */
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
     {
-        $postBuilder = Post::filterBy(request()->user(), request()->query())->latest()->withCount('views');
+        $type = $request->query('type');
+        $scope = $request->query('scope');
+
+        $posts = Post::when($scope, function ($query, $scope) use ($request) {
+            if ($scope === 'all') {
+                return $query;
+            }
+
+            return $query->where('user_id', $request->user()->id);
+        })->when($type, function ($query, $type) use ($request) {
+            if ($type === 'draft') {
+                return $query->draft();
+            }
+
+            return $query->published();
+        })->latest()->withCount('views')->paginate();
 
         return response()->json([
-            'posts' => $postBuilder->paginate(),
-            'draftCount' => $postBuilder->draft()->count(),
-            'publishedCount' => $postBuilder->published()->count(),
+            'posts' => $posts,
+            'draftCount' => Post::where('user_id', $request->user()->id)->draft()->count(),
+            'publishedCount' => Post::where('user_id', $request->user()->id)->published()->count(),
         ], 200);
     }
 
     /**
      * Show the form for creating a new resource.
      *
+     * @param Request $request
      * @return JsonResponse
      */
-    public function create(): JsonResponse
+    public function create(Request $request): JsonResponse
     {
         $uuid = Uuid::uuid4();
 
@@ -51,37 +69,38 @@ class PostController extends Controller
     /**
      * Store a newly created resource in storage.
      *
+     * @param Request $request
      * @param $id
      * @return JsonResponse
      * @throws Exception
      */
-    public function store($id): JsonResponse
+    public function store(Request $request, $id): JsonResponse
     {
-        $post = Post::filterBy(request()->user(), ['scope' => 'user'])->find($id) ?? new Post(['id' => $id]);
+        $post = Post::where('user_id', $request->user()->id)->find($id) ?? new Post(['id' => $id]);
 
         $data = [
             'id' => $id,
-            'slug' => request('slug', $post->slug),
-            'title' => request('title', trans('canvas::app.title', [], optional($post->userMeta)->locale)),
-            'summary' => request('summary', $post->summary),
-            'body' => request('body', $post->body),
-            'published_at' => request('published_at', $post->published_at),
-            'featured_image' => request('featured_image', $post->featured_image),
-            'featured_image_caption' => request('featured_image_caption', $post->featured_image_caption),
+            'slug' => $request->input('slug', $post->slug),
+            'title' => $request->input('title', trans('canvas::app.title', [], optional($post->userMeta)->locale)),
+            'summary' => $request->input('summary', $post->summary),
+            'body' => $request->input('body', $post->body),
+            'published_at' => $request->input('published_at', $post->published_at),
+            'featured_image' => $request->input('featured_image', $post->featured_image),
+            'featured_image_caption' => $request->input('featured_image_caption', $post->featured_image_caption),
             'meta' => [
-                'title' => request('meta.title', optional($post->meta)['title']),
-                'description' => request('meta.description', optional($post->meta)['description']),
-                'canonical_link' => request('meta.canonical_link', optional($post->meta)['canonical_link']),
+                'title' => $request->input('meta.title', optional($post->meta)['title']),
+                'description' => $request->input('meta.description', optional($post->meta)['description']),
+                'canonical_link' => $request->input('meta.canonical_link', optional($post->meta)['canonical_link']),
             ],
-            'user_id' => request()->user()->id,
+            'user_id' => $request->user()->id,
         ];
 
         $rules = [
             'slug' => [
                 'required',
                 'alpha_dash',
-                Rule::unique('canvas_posts')->where(function ($query) {
-                    return $query->where('slug', request('slug'))->where('user_id', request()->user()->id);
+                Rule::unique('canvas_posts')->where(function ($query) use ($request) {
+                    return $query->where('slug', $request->input('slug'))->where('user_id', $request->user()->id);
                 })->ignore($id)->whereNull('deleted_at'),
             ],
         ];
@@ -97,9 +116,9 @@ class PostController extends Controller
 
         $post->save();
 
-        $post->topic()->sync($this->syncTopic(request('topic', [])));
+        $post->topic()->sync($this->syncTopic($request->input('topic', [])));
 
-        $post->tags()->sync($this->syncTags(request('tags', [])));
+        $post->tags()->sync($this->syncTags($request->input('tags', [])));
 
         return response()->json($post->refresh(), 201);
     }
@@ -107,15 +126,15 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      *
+     * @param Request $request
      * @param $id
      * @return JsonResponse
-     * @throws Exception
      */
-    public function show($id): JsonResponse
+    public function show(Request $request, $id): JsonResponse
     {
-        if (Post::filterBy(request()->user(), ['scope' => 'user'])->pluck('id')->contains($id)) {
+        if (Post::where('user_id', $request->user()->id)->pluck('id')->contains($id)) {
             return response()->json([
-                'post' => Post::forUser(request()->user())->with('tags:name,slug', 'topic:name,slug')->find($id),
+                'post' => Post::where('user_id', $request->user()->id)->with('tags:name,slug', 'topic:name,slug')->find($id),
                 'tags' => Tag::get(['name', 'slug']),
                 'topics' => Topic::get(['name', 'slug']),
             ]);
@@ -127,12 +146,13 @@ class PostController extends Controller
     /**
      * Remove the specified resource from storage.
      *
+     * @param Request $request
      * @param $id
      * @return mixed
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        $post = Post::filterBy(request()->user(), ['scope' => 'user'])->findOrFail($id);
+        $post = Post::where('user_id', $request->user()->id)->findOrFail($id);
 
         $post->delete();
 

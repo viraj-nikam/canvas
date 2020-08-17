@@ -33,35 +33,7 @@ class SearchControllerTest extends TestCase
     }
 
     /** @test */
-    public function it_can_fetch_all_posts_for_an_admin_user()
-    {
-        $meta = factory(UserMeta::class)->create([
-            'admin' => 1,
-        ]);
-
-        factory(Post::class, 2)->create([
-            'user_id' => $meta->user->id,
-        ]);
-
-        factory(Post::class, 1)->create([
-            'user_id' => 2,
-            'published_at' => now()->addWeek(),
-        ]);
-
-        $response = $this->actingAs($meta->user)
-             ->getJson('canvas/api/search/posts')
-             ->assertSuccessful();
-
-        $this->assertCount(3, $response->decodeResponseJson());
-        $this->assertArrayHasKey('id', $response->decodeResponseJson()[0]);
-        $this->assertArrayHasKey('title', $response->decodeResponseJson()[0]);
-        $this->assertArrayHasKey('name', $response->decodeResponseJson()[0]);
-        $this->assertArrayHasKey('type', $response->decodeResponseJson()[0]);
-        $this->assertArrayHasKey('route', $response->decodeResponseJson()[0]);
-    }
-
-    /** @test */
-    public function it_can_only_fetch_user_posts_for_a_non_admin_user()
+    public function it_can_fetch_user_posts()
     {
         $meta = factory(UserMeta::class)->create([
             'admin' => 0,
@@ -91,7 +63,7 @@ class SearchControllerTest extends TestCase
     }
 
     /** @test */
-    public function it_can_fetch_tags()
+    public function it_can_fetch_tags_for_an_admin_user()
     {
         $meta = factory(UserMeta::class)->create([
             'admin' => 1,
@@ -115,7 +87,7 @@ class SearchControllerTest extends TestCase
     }
 
     /** @test */
-    public function it_can_fetch_topics()
+    public function it_can_fetch_topics_for_an_admin_user()
     {
         $meta = factory(UserMeta::class)->create([
             'admin' => 1,
@@ -139,7 +111,7 @@ class SearchControllerTest extends TestCase
     }
 
     /** @test */
-    public function it_can_fetch_users()
+    public function it_can_fetch_users_for_an_admin_user()
     {
         $meta = factory(UserMeta::class)->create([
             'admin' => 1,

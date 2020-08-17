@@ -193,46 +193,6 @@ class PostTest extends TestCase
     }
 
     /** @test */
-    public function filter_by_scope()
-    {
-        $userOnePost = factory(Post::class)->create();
-        $userTwoPost = factory(Post::class)->create();
-
-        factory(UserMeta::class)->create([
-            'user_id' => $userTwoPost->user->id,
-            'admin' => 1,
-        ]);
-
-        $this->assertEquals(1, Post::filterBy($userOnePost->user)->count());
-
-        factory(Post::class)->create([
-            'user_id' => $userOnePost->user->id,
-            'published_at' => now()->addWeek(),
-        ]);
-
-        $this->assertEquals(1, Post::filterBy($userOnePost->user, [
-            'scope' => 'user',
-            'type' => 'draft',
-        ])->count());
-
-        $this->assertEquals(1, Post::filterBy($userOnePost->user, [
-            'scope' => 'user',
-            'type' => 'published',
-        ])->count());
-
-
-//        factory(Post::class)->create([
-//            'user_id' => 2,
-//        ]);
-//
-//        $admin = factory(UserMeta::class)->create([
-//            'admin' => 1,
-//        ]);
-//
-//        $this->assertEquals(2, Post::filterBy($admin->user, ['scope' => 'all'])->count());
-    }
-
-    /** @test */
     public function with_user_meta_scope()
     {
         $user = factory(config('canvas.user'))->create();

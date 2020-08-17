@@ -5,9 +5,9 @@ namespace Canvas\Http\Controllers;
 use Canvas\Models\Post;
 use Canvas\Models\Tag;
 use Canvas\Models\Topic;
-use Exception;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
 class SearchController extends Controller
@@ -15,13 +15,12 @@ class SearchController extends Controller
     /**
      * Display the specified resource.
      *
+     * @param Request $request
      * @return JsonResponse
-     * @throws Exception
      */
-    public function showPosts(): JsonResponse
+    public function showPosts(Request $request): JsonResponse
     {
-        // todo: how to tell if they are an admin?
-        $posts = Post::forUser(request()->user())->select('id', 'title')->latest()->get();
+        $posts = Post::where('user_id', $request->user()->id)->select('id', 'title')->latest()->get();
 
         $posts->map(function ($post) {
             $post['name'] = $post->title;
@@ -37,10 +36,10 @@ class SearchController extends Controller
     /**
      * Display the specified resource.
      *
+     * @param Request $request
      * @return JsonResponse
-     * @throws Exception
      */
-    public function showTags(): JsonResponse
+    public function showTags(Request $request): JsonResponse
     {
         $tags = Tag::select('id', 'name')->latest()->get();
 
@@ -57,10 +56,10 @@ class SearchController extends Controller
     /**
      * Display the specified resource.
      *
+     * @param Request $request
      * @return JsonResponse
-     * @throws Exception
      */
-    public function showTopics(): JsonResponse
+    public function showTopics(Request $request): JsonResponse
     {
         $topics = Topic::select('id', 'name')->latest()->get();
 
@@ -77,10 +76,10 @@ class SearchController extends Controller
     /**
      * Display the specified resource.
      *
+     * @param Request $request
      * @return JsonResponse
-     * @throws Exception
      */
-    public function showUsers(): JsonResponse
+    public function showUsers(Request $request): JsonResponse
     {
         $users = resolve(config('canvas.user', User::class))->select('id', 'name')->latest()->get();
 

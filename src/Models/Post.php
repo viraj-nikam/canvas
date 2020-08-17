@@ -170,7 +170,7 @@ class Post extends Model
      */
     public function getPublishedAttribute(): bool
     {
-        return ! is_null($this->published_at) && $this->published_at <= now()->toDateTimeString();
+        return !is_null($this->published_at) && $this->published_at <= now()->toDateTimeString();
     }
 
     /**
@@ -292,37 +292,6 @@ class Post extends Model
     public function scopeDraft($query): Builder
     {
         return $query->where('published_at', null)->orWhere('published_at', '>', now()->toDateTimeString());
-    }
-
-    /**
-     * Scope a query to include posts for a given set of filters.
-     *
-     * Supported: "scope", "type"
-     *
-     * @param $query
-     * @param $user
-     * @param array $filters
-     * @return Builder
-     */
-    public function scopeFilterBy($query, $user, $filters = []): Builder
-    {
-        if (!$filters) {
-            return $query;
-        }
-
-        $meta = UserMeta::where('user_id', $user->id)->first();
-
-        if (isset($filters['scope']) && $filters['scope'] === 'user' || !optional($meta)->admin) {
-            $query->where('user_id', $user->id);
-        }
-
-        if (isset($filters['type']) && $filters['type'] === 'draft') {
-            $query->draft();
-        } else {
-            $query->published();
-        }
-
-        return $query;
     }
 
     /**

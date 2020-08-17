@@ -3,8 +3,8 @@
 namespace Canvas\Http\Controllers;
 
 use Canvas\Models\Tag;
-use Exception;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Validation\Rule;
 use Ramsey\Uuid\Uuid;
@@ -14,9 +14,10 @@ class TagController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return JsonResponse
      */
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
     {
         return response()->json(
             Tag::latest()
@@ -28,9 +29,10 @@ class TagController extends Controller
     /**
      * Show the form for creating a new resource.
      *
+     * @param Request $request
      * @return JsonResponse
      */
-    public function create(): JsonResponse
+    public function create(Request $request): JsonResponse
     {
         return response()->json(Tag::make([
             'id' => Uuid::uuid4()->toString(),
@@ -40,15 +42,16 @@ class TagController extends Controller
     /**
      * Store a newly created resource in storage.
      *
+     * @param Request $request
      * @param $id
      * @return JsonResponse
      */
-    public function store($id): JsonResponse
+    public function store(Request $request, $id): JsonResponse
     {
         $tag = Tag::find($id);
 
         if (! $tag) {
-            if ($tag = Tag::onlyTrashed()->firstWhere('slug', request('slug'))) {
+            if ($tag = Tag::onlyTrashed()->firstWhere('slug', $request->input('slug'))) {
                 $tag->restore();
 
                 return response()->json($tag->refresh(), 201);
@@ -59,9 +62,9 @@ class TagController extends Controller
 
         $data = [
             'id' => $tag->id,
-            'name' => request('name'),
-            'slug' => request('slug'),
-            'user_id' => request()->user()->id,
+            'name' => $request->input('name'),
+            'slug' => $request->input('slug'),
+            'user_id' => $request->user()->id,
         ];
 
         $rules = [
@@ -92,11 +95,11 @@ class TagController extends Controller
     /**
      * Display the specified resource.
      *
+     * @param Request $request
      * @param $id
      * @return JsonResponse
-     * @throws Exception
      */
-    public function show($id): JsonResponse
+    public function show(Request $request, $id): JsonResponse
     {
         $tag = Tag::find($id);
 
@@ -106,11 +109,11 @@ class TagController extends Controller
     /**
      * Display the specified relationship.
      *
+     * @param Request $request
      * @param $id
      * @return JsonResponse
-     * @throws Exception
      */
-    public function showPosts($id): JsonResponse
+    public function showPosts(Request $request, $id): JsonResponse
     {
         $tag = Tag::with('posts')->find($id);
 
@@ -120,10 +123,11 @@ class TagController extends Controller
     /**
      * Remove the specified resource from storage.
      *
+     * @param Request $request
      * @param $id
      * @return mixed
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         $tag = Tag::findOrFail($id);
 

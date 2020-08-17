@@ -4,6 +4,7 @@ namespace Canvas\Http\Controllers;
 
 use Canvas\Helpers\URL;
 use Canvas\Models\UserMeta;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
 class ViewController extends Controller
@@ -11,11 +12,12 @@ class ViewController extends Controller
     /**
      * Handle the incoming request.
      *
+     * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function __invoke()
+    public function __invoke(Request $request)
     {
-        $meta = UserMeta::firstWhere('user_id', request()->user()->id);
+        $meta = UserMeta::firstWhere('user_id', $request->user()->id);
 
         return view('canvas::layout')->with([
             'config' => [
@@ -25,7 +27,7 @@ class ViewController extends Controller
                 'timezone' => config('app.timezone'),
                 'translations' => $this->getAvailableTranslations(optional($meta)->locale),
                 'unsplash' => config('canvas.unsplash.access_key'),
-                'user' => $this->getUserData(request()->user(), $meta),
+                'user' => $this->getUserData($request->user(), $meta),
                 'version' => $this->getInstalledVersion(),
             ],
         ]);

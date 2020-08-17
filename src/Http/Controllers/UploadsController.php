@@ -2,6 +2,7 @@
 
 namespace Canvas\Http\Controllers;
 
+use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Storage;
@@ -11,11 +12,12 @@ class UploadsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
+     * @param Request $request
      * @return mixed
      */
-    public function store()
+    public function store(Request $request)
     {
-        $payload = request()->file();
+        $payload = $request->file();
 
         if ($payload) {
             // Only single file uploads are supported at this time
@@ -36,12 +38,13 @@ class UploadsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
+     * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy()
+    public function destroy(Request $request)
     {
-        if (! empty(request()->getContent())) {
-            $file = pathinfo(request()->getContent());
+        if (! empty($request->getContent())) {
+            $file = pathinfo($request->getContent());
 
             $storagePath = $this->getBaseStoragePath();
             $path = "{$storagePath}/{$file['basename']}";

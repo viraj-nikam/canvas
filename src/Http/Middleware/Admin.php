@@ -19,6 +19,6 @@ class Admin
     {
         $meta = UserMeta::firstWhere('user_id', $request->user()->id);
 
-        return optional($meta)->admin == 1 ? $next($request) : response()->json(null, 403);
+        return optional($meta)->admin ? $next($request) : response()->json(null, 403);
     }
 }

@@ -4,9 +4,11 @@ namespace Canvas\Http\Controllers;
 
 use Canvas\Helpers\Traffic;
 use Canvas\Models\Post;
+use Canvas\Models\UserMeta;
 use Canvas\Models\View;
 use Canvas\Models\Visit;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
 class StatsController extends Controller
@@ -14,15 +16,20 @@ class StatsController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return JsonResponse
      */
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
     {
-        if (request()->query('scope') === 'all') {
-            $posts = Post::published()->latest()->get();
-        } else {
-            $posts = Post::forUser(request()->user())->published()->latest()->get();
-        }
+        $scope = $request->query('scope');
+
+        $posts = Post::when($scope, function ($query, $scope) use ($request) {
+            if ($scope === 'all') {
+                return $query;
+            }
+
+            return $query->where('user_id', $request->user()->id);
+        })->published()->latest()->get();
 
         $views = View::select('created_at')
                      ->whereIn('post_id', $posts->pluck('id'))
@@ -52,12 +59,21 @@ class StatsController extends Controller
     /**
      * Display the specified resource.
      *
+     * @param Request $request
      * @param string $id
      * @return JsonResponse
      */
-    public function show(string $id): JsonResponse
+    public function show(Request $request, string $id): JsonResponse
     {
-        $post = Post::forUser(request()->user())->find($id);
+        $admin = optional(UserMeta::firstWhere('user_id', $request->user()->id))->admin;
+
+        $post = Post::when($admin, function ($query, $admin) use ($request) {
+            if ($admin) {
+                return $query;
+            }
+
+            return $query->where('user_id', $request->user()->id);
+        })->find($id);
 
         if (! $post || ! $post->published) {
             return response()->json(null, 404);
