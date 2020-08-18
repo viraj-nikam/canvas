@@ -27,7 +27,7 @@ const actions = {
     updateDigest(context, payload) {
         request.methods
             .request()
-            .post('/api/users/' + state.id, payload)
+            .post(`/api/users/${state.id}`, payload)
             .then(({ data }) => {
                 context.commit('UPDATE_DIGEST', data.meta);
             })
@@ -39,7 +39,7 @@ const actions = {
     updateLocale(context, payload) {
         request.methods
             .request()
-            .post('/api/users/' + state.id, payload)
+            .post(`/api/users/${state.id}`, payload)
             .then(({ data }) => {
                 context.commit('UPDATE_LOCALE', data.meta);
             })
@@ -51,7 +51,7 @@ const actions = {
     updateDarkMode(context, payload) {
         request.methods
             .request()
-            .post('/api/users/' + state.id, payload)
+            .post(`/api/users/${state.id}`, payload)
             .then(({ data }) => {
                 context.commit('UPDATE_DARK_MODE', data.meta);
             })

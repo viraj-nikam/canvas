@@ -2,7 +2,7 @@
     <div>
         <page-header />
 
-        <main v-if="isReady && user" class="py-4">
+        <main v-if="isReady && user && meta" class="py-4">
             <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12 my-3">
                 <div class="my-3">
                     <h2 class="mt-3">{{ user.name }}</h2>
@@ -41,7 +41,7 @@
                                 />
 
                                 <div v-if="!isReadyToAcceptUploads" class="text-center rounded p-3">
-                                    <img :src="avatarPath" class="rounded-circle w-75 shadow-inner" />
+                                    <img :src="avatarPath" class="rounded-circle w-75 shadow-inner" :alt="user.name" />
 
                                     <p class="mt-3 mb-0">
                                         <a
@@ -118,6 +118,45 @@
                                 >
                                     {{ i18n.cancel }}
                                 </router-link>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-5">
+                    <h2 class="mt-3">Roles</h2>
+                </div>
+
+                <div class="mt-3 card shadow-lg">
+                    <div class="card-body p-0">
+                        <div class="d-flex rounded-top p-3 align-items-center">
+                            <div class="mr-auto py-1">
+                                <p class="mb-0 lead font-weight-bold">
+                                    Admin
+                                </p>
+                                <p class="mb-1 d-none d-lg-block text-secondary">
+                                    Toggle admin privileges for this user
+                                </p>
+                            </div>
+                            <div class="ml-auto pl-3">
+                                <div class="align-middle">
+                                    <div class="form-group my-auto">
+                                        <span class="switch switch-sm">
+                                            <input
+                                                v-model="meta.admin"
+                                                id="admin"
+                                                type="checkbox"
+                                                class="switch"
+                                                :disabled="isAuthUserProfile"
+                                                :checked="meta.admin"
+                                                @change="toggleAdmin"
+                                            />
+                                            <label for="admin" class="mb-0 sr-only">
+                                                Toggle admin privileges for this user
+                                            </label>
+                                        </span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -206,9 +245,11 @@ export default {
         },
 
         usernameValidationError() {
-            let errors = Object.values(this.user.errors);
+            if (this.user.errors) {
+                let errors = Object.values(this.user.errors);
 
-            return get(errors.flat(1), '[0].username', null);
+                return get(errors.flat(1), '[0].username', null);
+            }
         },
 
         getRetryIcon() {
@@ -250,6 +291,7 @@ export default {
                 .get(`/api/users/${id}`)
                 .then(({ data }) => {
                     this.user = data.user;
+                    this.meta = data.meta;
                     this.summary = get(data.meta, 'summary', null);
                     this.username = get(data.meta, 'username', null);
                     this.avatar = get(data.meta, 'avatar', null);
@@ -288,6 +330,17 @@ export default {
         clearAvatar() {
             this.avatar = url.methods.gravatar(this.user.email);
             this.isReadyToAcceptUploads = true;
+        },
+
+        toggleAdmin() {
+            this.request()
+                .post(`/api/users/${this.user.id}`, { ...this.user, ...this.meta })
+                .then(({ data }) => {
+                    this.user = data.user;
+                })
+                .catch((errors) => {
+                    console.log(errors);
+                });
         },
     },
 };
