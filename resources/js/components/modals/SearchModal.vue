@@ -85,6 +85,7 @@
 import Hover from '../../directives/Hover';
 import VueFuse from 'vue-fuse';
 import i18n from '../../mixins/i18n';
+import auth from '../../mixins/auth';
 
 export default {
     name: 'search-modal',
@@ -97,7 +98,7 @@ export default {
         Hover,
     },
 
-    mixins: [i18n],
+    mixins: [auth, i18n],
 
     data() {
         return {
@@ -115,7 +116,7 @@ export default {
     async created() {
         await this.fetchPosts();
 
-        if (this.auth.admin === 1) {
+        if (auth.methods.userIsAdmin()) {
             await this.fetchTags();
             await this.fetchTopics();
             await this.fetchUsers();

@@ -118,6 +118,10 @@ body[data-theme=dark] .modal-content {
   background-color: #263238;
 }
 
+body[data-theme=dark] .modal-footer {
+  border-top: 1px solid #4A5568;
+}
+
 body[data-theme=dark] .border-top {
   border-top: 1px solid #4A5568 !important;
 }

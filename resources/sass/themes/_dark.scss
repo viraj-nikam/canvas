@@ -41,6 +41,10 @@ body[data-theme='dark'] {
         background-color: $body--bg--dark;
     }
 
+    .modal-footer {
+        border-top: 1px solid $gray-700;
+    }
+
     .border-top {
         border-top: 1px solid $gray-700 !important;
     }
