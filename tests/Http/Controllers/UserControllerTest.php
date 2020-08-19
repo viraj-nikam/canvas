@@ -10,6 +10,12 @@ use Illuminate\Auth\Middleware\Authorize;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
+/**
+ * Class UserControllerTest
+ *
+ * @package Canvas\Tests\Http\Controllers
+ * @covers \Canvas\Http\Controllers\UserController
+ */
 class UserControllerTest extends TestCase
 {
     use RefreshDatabase;

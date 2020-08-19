@@ -21,7 +21,7 @@ class StatsController extends Controller
      */
     public function index(Request $request): JsonResponse
     {
-        $scope = $request->query('scope');
+        $scope = $request->query('scope', 'published');
 
         $posts = Post::when($scope, function ($query, $scope) use ($request) {
             if ($scope === 'all') {

@@ -12,6 +12,12 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Ramsey\Uuid\Uuid;
 
+/**
+ * Class TopicTest
+ *
+ * @package Canvas\Tests\Models
+ * @covers \Canvas\Models\Topic
+ */
 class TopicTest extends TestCase
 {
     use RefreshDatabase;

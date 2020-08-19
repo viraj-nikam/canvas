@@ -22,8 +22,8 @@ class PostController extends Controller
      */
     public function index(Request $request): JsonResponse
     {
-        $type = $request->query('type');
-        $scope = $request->query('scope');
+        $type = $request->query('type', 'published');
+        $scope = $request->query('scope', 'user');
 
         $posts = Post::when($scope, function ($query, $scope) use ($request) {
             if ($scope === 'all') {

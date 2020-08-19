@@ -8,6 +8,12 @@ use Canvas\Models\Post;
 use Canvas\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
+/**
+ * Class CaptureViewTest
+ *
+ * @package Canvas\Tests\Listeners
+ * @covers \Canvas\Listeners\CaptureView
+ */
 class CaptureViewTest extends TestCase
 {
     use RefreshDatabase;

@@ -7,6 +7,12 @@ use Canvas\Models\View;
 use Canvas\Models\Visit;
 use Canvas\Tests\TestCase;
 
+/**
+ * Class TrafficTest
+ *
+ * @package Canvas\Tests\Helpers
+ * @covers \Canvas\Helpers\Traffic
+ */
 class TrafficTest extends TestCase
 {
     /** @test */

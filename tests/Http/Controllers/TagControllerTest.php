@@ -13,6 +13,12 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Ramsey\Uuid\Uuid;
 
+/**
+ * Class TagControllerTest
+ *
+ * @package Canvas\Tests\Http\Controllers
+ * @covers \Canvas\Http\Controllers\TagController
+ */
 class TagControllerTest extends TestCase
 {
     use RefreshDatabase;

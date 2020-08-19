@@ -13,6 +13,12 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Ramsey\Uuid\Uuid;
 
+/**
+ * Class TopicControllerTest
+ *
+ * @package Canvas\Tests\Http\Controllers
+ * @covers \Canvas\Http\Controllers\TopicController
+ */
 class TopicControllerTest extends TestCase
 {
     use RefreshDatabase;

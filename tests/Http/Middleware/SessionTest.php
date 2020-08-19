@@ -7,6 +7,12 @@ use Canvas\Models\Post;
 use Canvas\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
+/**
+ * Class SessionTest
+ *
+ * @package Canvas\Tests\Http\Middleware
+ * @covers \Canvas\Http\Middleware\Session
+ */
 class SessionTest extends TestCase
 {
     use RefreshDatabase;

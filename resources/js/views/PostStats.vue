@@ -1,7 +1,7 @@
 <template>
     <main>
         <page-header>
-            <template slot="menu">
+            <template v-if="isReady && auth.id == data.post.user_id" slot="menu">
                 <div class="dropdown">
                     <a
                         class="nav-link pr-0"
@@ -241,7 +241,7 @@
                                                         placement: 'right',
                                                     }"
                                                     href="#"
-                                                    class="text-decoration-none"
+                                                    class="text-decoration-none text-primary"
                                                     :title="i18n.referer_unknown"
                                                 >
                                                     {{ host }}
@@ -274,7 +274,7 @@
                                                 />
                                                 <a
                                                     :href="'http://' + host"
-                                                    class="text-decoration-none"
+                                                    class="text-decoration-none text-primary"
                                                     target="_blank"
                                                 >
                                                     {{ host }}

@@ -10,6 +10,12 @@ use Canvas\Models\Visit;
 use Canvas\Tests\TestCase;
 use Illuminate\Support\Facades\Mail;
 
+/**
+ * Class DigestCommandTest
+ *
+ * @package Canvas\Tests\Console
+ * @covers \Canvas\Console\DigestCommand
+ */
 class DigestCommandTest extends TestCase
 {
     /** @test */

@@ -10,6 +10,12 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 
+/**
+ * Class UploadsControllerTest
+ *
+ * @package Canvas\Tests\Http\Controllers
+ * @covers \Canvas\Http\Controllers\UploadsController
+ */
 class UploadsControllerTest extends TestCase
 {
     use RefreshDatabase;

@@ -16,6 +16,12 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Str;
 
+/**
+ * Class PostTest
+ *
+ * @package Canvas\Tests\Models
+ * @covers \Canvas\Models\Post
+ */
 class PostTest extends TestCase
 {
     use RefreshDatabase;

@@ -12,6 +12,12 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Ramsey\Uuid\Uuid;
 
+/**
+ * Class PostControllerTest
+ *
+ * @package Canvas\Tests\Http\Controllers
+ * @covers \Canvas\Http\Controllers\PostController
+ */
 class PostControllerTest extends TestCase
 {
     use RefreshDatabase;
@@ -33,39 +39,113 @@ class PostControllerTest extends TestCase
     }
 
     /** @test */
-    public function it_can_fetch_published_posts()
+    public function it_fetches_published_posts_by_default()
     {
         $post = factory(Post::class)->create([
-            'published_at' => now()->subMonth(),
+            'published_at' => now()->subDay(),
         ]);
 
         $this->actingAs($post->user)
              ->getJson('canvas/api/posts')
              ->assertSuccessful()
              ->assertJsonExactFragment(1, 'posts.total')
+             ->assertJsonExactFragment($post->id, 'posts.data.0.id')
              ->assertJsonExactFragment(0, 'draftCount')
              ->assertJsonExactFragment(1, 'publishedCount')
              ->assertJsonExactFragment(0, 'views_count');
     }
 
     /** @test */
-    public function it_can_fetch_draft_posts()
+    public function it_can_fetch_published_posts_with_a_given_query_param()
     {
         $post = factory(Post::class)->create([
-            'published_at' => now()->addMonth(),
+            'published_at' => now()->subDay(),
+        ]);
+
+        $this->actingAs($post->user)
+             ->getJson('canvas/api/posts?type=published')
+             ->assertSuccessful()
+             ->assertJsonExactFragment(1, 'posts.total')
+             ->assertJsonExactFragment($post->id, 'posts.data.0.id')
+             ->assertJsonExactFragment(0, 'draftCount')
+             ->assertJsonExactFragment(1, 'publishedCount')
+             ->assertJsonExactFragment(0, 'views_count');
+    }
+
+    /** @test */
+    public function it_can_fetch_draft_posts_with_a_given_query_param()
+    {
+        $post = factory(Post::class)->create([
+            'published_at' => now()->addDay(),
         ]);
 
         $this->actingAs($post->user)
              ->getJson('canvas/api/posts?type=draft')
              ->assertSuccessful()
              ->assertJsonExactFragment(1, 'posts.total')
+             ->assertJsonExactFragment($post->id, 'posts.data.0.id')
              ->assertJsonExactFragment(1, 'draftCount')
              ->assertJsonExactFragment(0, 'publishedCount')
              ->assertJsonExactFragment(0, 'views_count');
     }
 
     /** @test */
-    public function it_can_fetch_a_new_post()
+    public function it_fetches_user_posts_by_default()
+    {
+        $user = factory(config('canvas.user'))->create();
+
+        $post = factory(Post::class)->create([
+            'user_id' => $user->id,
+        ]);
+
+        $this->actingAs($user)
+             ->getJson('canvas/api/posts')
+             ->assertSuccessful()
+             ->assertJsonExactFragment(1, 'posts.total')
+             ->assertJsonExactFragment($post->user_id, 'posts.data.0.user_id')
+             ->assertJsonExactFragment(0, 'draftCount')
+             ->assertJsonExactFragment(1, 'publishedCount')
+             ->assertJsonExactFragment(0, 'views_count');
+    }
+
+    /** @test */
+    public function it_can_fetch_all_posts_with_a_given_query_param()
+    {
+        $user = factory(config('canvas.user'))->create();
+
+        $post = factory(Post::class)->create([
+            'user_id' => $user->id,
+        ]);
+
+        factory(Post::class, 3)->create();
+
+        $this->actingAs($post->user)
+             ->getJson('canvas/api/posts?scope=all')
+             ->assertSuccessful()
+             ->assertJsonExactFragment(4, 'posts.total')
+             ->assertJsonExactFragment(0, 'views_count');
+    }
+
+    /** @test */
+    public function it_can_fetch_user_posts_with_a_given_query_param()
+    {
+        $user = factory(config('canvas.user'))->create();
+
+        $post = factory(Post::class)->create([
+            'user_id' => $user->id,
+        ]);
+
+        factory(Post::class, 2)->create();
+
+        $this->actingAs($post->user)
+             ->getJson('canvas/api/posts?scope=user')
+             ->assertSuccessful()
+             ->assertJsonExactFragment(1, 'posts.total')
+             ->assertJsonExactFragment(0, 'views_count');
+    }
+
+    /** @test */
+    public function it_can_fetch_data_for_a_new_post()
     {
         $user = factory(config('canvas.user'))->create();
 

@@ -9,6 +9,12 @@ use Illuminate\Auth\Middleware\Authorize;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
+/**
+ * Class UserMetaTest
+ *
+ * @package Canvas\Tests\Models
+ * @covers \Canvas\Models\UserMeta
+ */
 class UserMetaTest extends TestCase
 {
     use RefreshDatabase;

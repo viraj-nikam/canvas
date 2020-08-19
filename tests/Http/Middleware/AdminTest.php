@@ -5,6 +5,12 @@ namespace Canvas\Tests\Http\Middleware;
 use Canvas\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
+/**
+ * Class AdminTest
+ *
+ * @package Canvas\Tests\Http\Middleware
+ * @covers \Canvas\Http\Middleware\Admin
+ */
 class AdminTest extends TestCase
 {
     use RefreshDatabase;
