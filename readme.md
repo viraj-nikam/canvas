@@ -221,7 +221,10 @@ Since the weekly digest runs on [Laravel's Scheduler](https://laravel.com/docs/m
 ## Updates
 
 Canvas loosely follows [Semantic Versioning](https://semver.org/) and increments versions as `MAJOR.MINOR.PATCH` numbers
-- A major or minor version _can contain breaking changes_, so follow the [upgrade guide](.github/UPGRADE.md) for a step-by-step breakdown
+- Major versions _can contain breaking changes_, so follow the [upgrade guide](.github/UPGRADE.md) for a step-by-step
+ breakdown
+- Minor versions _can contain breaking changes_, so follow the [upgrade guide](.github/UPGRADE.md) for a step-by-step
+   breakdown
 - Patch versions will remain backwards compatible, so you can safely update the package by following the steps below:
 
 You may update your Canvas installation using composer:
@@ -244,7 +247,14 @@ php artisan canvas:publish
 
 ## Contributing
 
-Thank you for considering contributing to Canvas! You can use the [contribution guide](.github/CONTRIBUTING.md) to assist you in setting up the package for development.
+Thank you for considering contributing to Canvas!
+
+You can open a completely prebuilt, ready-to-code development environment using Gitpod.
+                                                  
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/cnvs/canvas/tree/develop)
+                                                  
+Alternatively, you can use the [contribution guide](.github/CONTRIBUTING.md) to assist you in manually setting up an
+ environment on your own machine. 
 
 ## Testing
 
@@ -256,7 +266,11 @@ composer test
 
 ## Translate
 
-One of the goals for the team behind Canvas is to ensure proper localization across the app. If you come across any translation mistakes or issues and want to make a contribution, please [create a pull request](https://github.com/cnvs/canvas/pulls). If you don't see your native language included in the `resources/lang` directory, feel free to add it.
+One of the goals for the team behind Canvas is to ensure proper localization across the app. If you come across any
+ translation mistakes or issues and want to make a contribution, please [create a pull request](https://github.com
+ /cnvs/canvas/pulls). If you don't see your native language included in the `resources/lang` directory, feel free to
+  add it. Once you've added your new translation file, make sure the appropriate names are correct in the 
+ `resources/js/data/languages.json` file.
 
 ## License
 
