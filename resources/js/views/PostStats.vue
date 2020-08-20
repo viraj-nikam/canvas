@@ -325,12 +325,12 @@
 </template>
 
 <script>
+import { mapGetters, mapState } from 'vuex';
 import LineChart from '../components/LineChart';
 import NProgress from 'nprogress';
 import PageHeader from '../components/PageHeader';
 import Tooltip from '../directives/Tooltip';
 import strings from '../mixins/strings';
-import { mapGetters, mapState } from "vuex";
 
 export default {
     name: 'post-stats',

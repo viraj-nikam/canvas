@@ -28,7 +28,7 @@
 
                     <div class="dropdown-menu dropdown-menu-right">
                         <router-link :to="{ name: 'create-post' }" class="dropdown-item">
-                            {{ i18n.new_post }}
+                            {{ trans.new_post }}
                         </router-link>
                     </div>
                 </div>
@@ -38,7 +38,7 @@
         <main v-if="isReady" class="py-4">
             <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12">
                 <div class="d-flex justify-content-between my-3 align-items-end">
-                    <h2 class="mt-3">{{ i18n.posts_simple }}</h2>
+                    <h2 class="mt-3">{{ trans.posts_simple }}</h2>
 
                     <select
                         v-model="type"
@@ -47,8 +47,8 @@
                         class="ml-auto w-auto custom-select border-0"
                         @change="changeType"
                     >
-                        <option value="published">{{ i18n.published }} ({{ suffixedNumber(publishedCount) }})</option>
-                        <option value="draft">{{ i18n.draft }} ({{ suffixedNumber(draftCount) }})</option>
+                        <option value="published">{{ trans.published }} ({{ suffixedNumber(publishedCount) }})</option>
+                        <option value="draft">{{ trans.draft }} ({{ suffixedNumber(draftCount) }})</option>
                     </select>
                 </div>
 
@@ -80,16 +80,16 @@
                                         </p>
                                         <p class="text-secondary mt-1 mb-0">
                                             <span v-if="isPublished(post.published_at)">
-                                                {{ i18n.published }}
+                                                {{ trans.published }}
                                                 {{ moment(post.published_at).fromNow() }}
                                             </span>
 
                                             <span v-if="isDraft(post.published_at)" class="text-danger">{{
-                                                i18n.draft
+                                                trans.draft
                                             }}</span>
 
                                             <span class="d-none d-md-inline">
-                                                ― {{ i18n.updated }}
+                                                ― {{ trans.updated }}
                                                 {{ moment(post.updated_at).fromNow() }}
                                             </span>
                                         </p>
@@ -142,11 +142,11 @@
                             <div slot="no-results" class="text-left">
                                 <div class="my-5">
                                     <p class="lead text-center text-muted mt-5">
-                                        <span v-if="type === 'published'">{{ i18n.you_have_no_published_posts }}</span>
-                                        <span v-else>{{ i18n.you_have_no_draft_posts }}</span>
+                                        <span v-if="type === 'published'">{{ trans.you_have_no_published_posts }}</span>
+                                        <span v-else>{{ trans.you_have_no_draft_posts }}</span>
                                     </p>
                                     <p class="lead text-center text-muted mt-1">
-                                        {{ i18n.write_on_the_go }}
+                                        {{ trans.write_on_the_go }}
                                     </p>
                                 </div>
                             </div>
@@ -159,6 +159,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import Hover from '../directives/Hover';
 import InfiniteLoading from 'vue-infinite-loading';
 import NProgress from 'nprogress';
@@ -194,9 +195,9 @@ export default {
     },
 
     computed: {
-        i18n() {
-            return this.$store.state.settings.i18n;
-        },
+        ...mapGetters({
+            trans: 'settings/trans',
+        }),
     },
 
     created() {

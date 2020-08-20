@@ -6,7 +6,7 @@
             <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12 my-3">
                 <div class="my-3">
                     <h2 class="mt-3">{{ user.name }}</h2>
-                    <p class="mt-2 text-secondary">{{ i18n.last_updated }} {{ moment(userLastUpdated).fromNow() }}</p>
+                    <p class="mt-2 text-secondary">{{ trans.last_updated }} {{ moment(userLastUpdated).fromNow() }}</p>
                 </div>
 
                 <div class="mt-5 card shadow-lg">
@@ -18,7 +18,7 @@
                                     v-if="isReadyToAcceptUploads"
                                     name="profileImagePond"
                                     max-files="1"
-                                    :max-file-size="config.maxUpload"
+                                    :max-file-size="settings.maxUpload"
                                     :icon-remove="getRemoveIcon"
                                     :icon-retry="getRetryIcon"
                                     :label-idle="getPlaceholderLabel"
@@ -57,7 +57,7 @@
                                 <div class="form-group row">
                                     <div class="col-12">
                                         <label class="font-weight-bold text-uppercase text-muted small">
-                                            {{ i18n.username }}
+                                            {{ trans.username }}
                                         </label>
                                         <input
                                             v-model="username"
@@ -67,7 +67,7 @@
                                             class="form-control border-0"
                                             :class="{ disabled: !isAuthUserProfile }"
                                             title="Username"
-                                            :placeholder="i18n.choose_a_username"
+                                            :placeholder="trans.choose_a_username"
                                         />
                                         <div v-if="usernameValidationError" class="invalid-feedback d-block">
                                             <strong :key="`${value}`" v-for="value in usernameValidationError">{{
@@ -79,7 +79,7 @@
                                 <div class="form-group row">
                                     <div class="col-12">
                                         <label class="font-weight-bold text-uppercase text-muted small">
-                                            {{ i18n.summary }}
+                                            {{ trans.summary }}
                                         </label>
                                         <textarea
                                             v-model="summary"
@@ -90,7 +90,7 @@
                                             style="resize: none;"
                                             class="form-control border-0"
                                             :class="{ disabled: !isAuthUserProfile }"
-                                            :placeholder="i18n.tell_us_about_yourself"
+                                            :placeholder="trans.tell_us_about_yourself"
                                         />
                                     </div>
                                 </div>
@@ -108,7 +108,7 @@
                                     aria-label="Save"
                                     @click.prevent="updateProfile"
                                 >
-                                    {{ i18n.save }}
+                                    {{ trans.save }}
                                 </a>
                             </div>
                             <div class="col-md">
@@ -116,7 +116,7 @@
                                     :to="{ name: 'stats' }"
                                     class="btn btn-link btn-block font-weight-bold text-muted text-decoration-none"
                                 >
-                                    {{ i18n.cancel }}
+                                    {{ trans.cancel }}
                                 </router-link>
                             </div>
                         </div>
@@ -169,6 +169,7 @@
 <script>
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css';
 import 'filepond/dist/filepond.min.css';
+import { mapGetters, mapState } from 'vuex';
 import FilePondPluginFileValidateSize from 'filepond-plugin-file-validate-size';
 import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
 import FilePondPluginImageExifOrientation from 'filepond-plugin-image-exif-orientation';
@@ -214,20 +215,13 @@ export default {
     },
 
     computed: {
-        i18n() {
-            return this.$store.state.settings.i18n;
-        },
+        ...mapState(['settings', 'profile']),
+        ...mapGetters({
+            trans: 'settings/trans',
+        }),
 
         userLastUpdated() {
             return get('updated_at', this.meta, this.user.updated_at);
-        },
-
-        config() {
-            return this.$store.state.config;
-        },
-
-        auth() {
-            return this.$store.state.auth;
         },
 
         avatarPath() {
@@ -235,12 +229,12 @@ export default {
         },
 
         isAuthUserProfile() {
-            return this.auth.id === this.user.id;
+            return this.profile.id == this.user.id;
         },
 
         getServerOptions() {
             return {
-                url: `/${this.config.path}/api/uploads`,
+                url: `/${this.settings.path}/api/uploads`,
                 headers: {
                     'X-CSRF-TOKEN': document.head.querySelector('meta[name="csrf-token"]').content,
                 },
@@ -325,7 +319,7 @@ export default {
 
                     this.$store.dispatch('auth/setAvatar', data.meta.avatar);
 
-                    toast.methods.toast(this.config.state.i18n.saved);
+                    toast.methods.toast(this.trans.saved);
                 })
                 .catch((errors) => {
                     console.log(errors);

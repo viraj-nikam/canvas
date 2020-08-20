@@ -5,9 +5,9 @@
         <main class="py-4">
             <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12">
                 <div class="my-3">
-                    <h2 class="mt-3">{{ i18n.users }}</h2>
+                    <h2 class="mt-3">{{ trans.users }}</h2>
                     <p class="mt-2 text-secondary">
-                        {{ i18n.manage_user_roles }}
+                        {{ trans.manage_user_roles }}
                     </p>
                 </div>
 
@@ -77,6 +77,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import Hover from '../directives/Hover';
 import InfiniteLoading from 'vue-infinite-loading';
 import NProgress from 'nprogress';
@@ -107,9 +108,9 @@ export default {
     },
 
     computed: {
-        i18n() {
-            return this.$store.state.settings.i18n;
-        },
+        ...mapGetters({
+            trans: 'settings/trans',
+        }),
     },
 
     created() {

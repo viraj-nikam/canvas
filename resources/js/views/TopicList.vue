@@ -28,7 +28,7 @@
 
                     <div class="dropdown-menu dropdown-menu-right">
                         <router-link :to="{ name: 'create-topic' }" class="dropdown-item">
-                            {{ i18n.new_topic }}
+                            {{ trans.new_topic }}
                         </router-link>
                     </div>
                 </div>
@@ -38,10 +38,10 @@
         <main class="py-4">
             <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12">
                 <div class="my-3">
-                    <h2 class="mt-3">{{ i18n.topics }}</h2>
+                    <h2 class="mt-3">{{ trans.topics }}</h2>
 
                     <p class="mt-2 text-secondary">
-                        {{ i18n.topics_are_great_for }}
+                        {{ trans.topics_are_great_for }}
                     </p>
                 </div>
 
@@ -72,10 +72,10 @@
                                         </div>
                                         <div class="ml-auto d-none d-md-inline-block">
                                             <span class="text-secondary mr-3"
-                                                >{{ suffixedNumber(topic.posts_count) }} {{ i18n.posts }}</span
+                                                >{{ suffixedNumber(topic.posts_count) }} {{ trans.posts }}</span
                                             >
                                             <span class="mr-3"
-                                                >{{ i18n.created }}
+                                                >{{ trans.created }}
                                                 {{ moment(topic.created_at).format('MMM D, YYYY') }}</span
                                             >
                                         </div>
@@ -102,10 +102,10 @@
                             <div slot="no-results" class="text-left">
                                 <div class="my-5">
                                     <p class="lead text-center text-muted mt-5">
-                                        {{ i18n.you_have_no_topics }}
+                                        {{ trans.you_have_no_topics }}
                                     </p>
                                     <p class="lead text-center text-muted mt-1">
-                                        {{ i18n.write_on_the_go }}
+                                        {{ trans.write_on_the_go }}
                                     </p>
                                 </div>
                             </div>
@@ -118,6 +118,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import Hover from '../directives/Hover';
 import InfiniteLoading from 'vue-infinite-loading';
 import NProgress from 'nprogress';
@@ -148,9 +149,9 @@ export default {
     },
 
     computed: {
-        i18n() {
-            return this.$store.state.settings.i18n;
-        },
+        ...mapGetters({
+            trans: 'settings/trans',
+        }),
     },
 
     created() {

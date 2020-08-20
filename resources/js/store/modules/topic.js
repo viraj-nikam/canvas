@@ -35,7 +35,7 @@ const actions = {
             })
             .then(({ data }) => {
                 context.commit('UPDATE_TOPIC', data);
-                toast.methods.toast(context.rootState.settings.i18n.saved);
+                toast.methods.toast(context.rootState.settings.trans.saved);
             })
             .catch((error) => {
                 state.errors = error.response.data.errors;

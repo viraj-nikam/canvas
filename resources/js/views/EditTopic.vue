@@ -27,7 +27,7 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                         <a href="#" class="dropdown-item text-danger" @click="showDeleteModal">
-                            {{ i18n.delete }}
+                            {{ trans.delete }}
                         </a>
                     </div>
                 </div>
@@ -37,9 +37,9 @@
         <main v-if="isReady" class="py-4">
             <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12">
                 <div class="my-3">
-                    <h2 class="mt-3">{{ $store.state.topic.name || i18n.new_topic }}</h2>
+                    <h2 class="mt-3">{{ $store.state.topic.name || trans.new_topic }}</h2>
                     <p v-if="!creatingTopic" class="mt-2 text-secondary">
-                        {{ i18n.last_updated }} {{ moment($store.state.topic.updatedAt).fromNow() }}
+                        {{ trans.last_updated }} {{ moment($store.state.topic.updatedAt).fromNow() }}
                     </p>
                 </div>
 
@@ -48,7 +48,7 @@
                         <div class="form-group">
                             <div class="col-12 px-0">
                                 <label class="font-weight-bold text-uppercase text-muted small">
-                                    {{ i18n.name }}
+                                    {{ trans.name }}
                                 </label>
                                 <input
                                     v-model="name"
@@ -58,7 +58,7 @@
                                     autocomplete="off"
                                     title="Name"
                                     class="form-control border-0"
-                                    :placeholder="i18n.give_your_topic_a_name"
+                                    :placeholder="trans.give_your_topic_a_name"
                                     @keyup.enter="saveTopic"
                                 />
 
@@ -69,7 +69,7 @@
 
                             <div class="col-12 mt-3 px-0">
                                 <label class="font-weight-bold text-uppercase text-muted small">
-                                    {{ i18n.slug }}
+                                    {{ trans.slug }}
                                 </label>
                                 <input
                                     v-model="slug"
@@ -79,7 +79,7 @@
                                     autocomplete="off"
                                     title="Slug"
                                     class="form-control border-0"
-                                    :placeholder="i18n.give_your_topic_a_name_slug"
+                                    :placeholder="trans.give_your_topic_a_name_slug"
                                 />
                                 <div v-if="$store.state.topic.errors.slug" class="invalid-feedback d-block">
                                     <strong>{{ $store.state.topic.errors.slug[0] }}</strong>
@@ -97,7 +97,7 @@
                                     aria-label="Save"
                                     @click.prevent="saveTopic"
                                 >
-                                    {{ i18n.save }}
+                                    {{ trans.save }}
                                 </a>
                             </div>
                             <div class="col-md">
@@ -105,7 +105,7 @@
                                     :to="{ name: 'topics' }"
                                     class="btn btn-link btn-block font-weight-bold text-muted text-decoration-none"
                                 >
-                                    {{ i18n.cancel }}
+                                    {{ trans.cancel }}
                                 </router-link>
                             </div>
                         </div>
@@ -138,13 +138,13 @@
                                         <p class="text-secondary mb-2">
                                             <span v-if="isPublished(post.published_at)">
                                                 <span class="d-none d-md-inline"> {{ post.read_time }} ― </span>
-                                                {{ i18n.published }}
+                                                {{ trans.published }}
                                                 {{ moment(post.published_at).format('MMM D, YYYY') }}
                                             </span>
                                             <span v-if="isDraft(post.published_at)">
-                                                <span class="text-danger">{{ i18n.draft }}</span>
+                                                <span class="text-danger">{{ trans.draft }}</span>
                                                 <span class="d-none d-md-inline">
-                                                    ― {{ i18n.updated }}
+                                                    ― {{ trans.updated }}
                                                     {{ moment(post.updated_at).fromNow() }}
                                                 </span>
                                             </span>
@@ -153,10 +153,10 @@
                                     <div class="ml-auto">
                                         <div class="d-none d-md-inline">
                                             <span class="text-secondary mr-3"
-                                                >{{ suffixedNumber(post.views_count) }} {{ i18n.views }}</span
+                                                >{{ suffixedNumber(post.views_count) }} {{ trans.views }}</span
                                             >
                                             <span class="mr-3"
-                                                >{{ i18n.created }}
+                                                >{{ trans.created }}
                                                 {{ moment(post.created_at).format('MMM D, YYYY') }}</span
                                             >
                                         </div>
@@ -189,14 +189,15 @@
 
         <delete-modal
             ref="deleteModal"
-            :header="i18n.delete"
-            :message="i18n.deleted_topics_are_gone_forever"
+            :header="trans.delete"
+            :message="trans.deleted_topics_are_gone_forever"
             @delete="deleteTopic"
         />
     </section>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import $ from 'jquery';
 import DeleteModal from '../components/modals/DeleteModal';
 import Hover from '../directives/Hover';
@@ -235,16 +236,16 @@ export default {
     },
 
     computed: {
+        ...mapGetters({
+            trans: 'settings/trans',
+        }),
+
         creatingTopic() {
             return this.$route.name === 'create-topic';
         },
 
         shouldDisableButton() {
             return isEmpty(this.slug);
-        },
-
-        i18n() {
-            return this.$store.state.settings.i18n;
         },
     },
 
@@ -329,7 +330,7 @@ export default {
             this.$store.dispatch('topic/deleteTopic', this.uri);
             $(this.$refs.deleteModal.$el).modal('hide');
             this.$router.push({ name: 'topics' });
-            toast.methods.toast(this.i18n.success);
+            toast.methods.toast(this.trans.success);
         },
 
         showDeleteModal() {
