@@ -29,7 +29,7 @@
                             :to="{ name: 'edit-post', params: { id: $route.params.id } }"
                             class="dropdown-item"
                         >
-                            {{ i18n.edit_post }}
+                            {{ trans.edit_post }}
                         </router-link>
                     </div>
                 </div>
@@ -41,7 +41,7 @@
                 <div class="my-3">
                     <h2 class="mt-3">{{ data.post.title }}</h2>
                     <p class="mt-2 text-secondary">
-                        {{ i18n.published }}
+                        {{ trans.published }}
                         {{ moment(data.post.published_at).fromNow() }}
                     </p>
                 </div>
@@ -50,12 +50,12 @@
                     <div class="card shadow-lg">
                         <div class="card-body p-3">
                             <p class="lead border-bottom">
-                                {{ i18n.lifetime_summary }}
+                                {{ trans.lifetime_summary }}
                             </p>
                             <div class="d-flex">
                                 <div class="mr-5">
                                     <p class="mb-0 small text-muted text-uppercase font-weight-bold">
-                                        {{ i18n.total_views }}
+                                        {{ trans.total_views }}
                                     </p>
                                     <h3 class="mt-1">
                                         {{ suffixedNumber(data.totalViews) }}
@@ -64,7 +64,7 @@
 
                                 <div>
                                     <p class="mb-0 small text-muted text-uppercase font-weight-bold">
-                                        {{ i18n.average_reading_time }}
+                                        {{ trans.average_reading_time }}
                                     </p>
                                     <h3 class="mt-1">
                                         {{ data.readTime }}
@@ -77,7 +77,7 @@
                     <div class="card shadow-lg">
                         <div class="card-body p-3">
                             <p class="lead border-bottom">
-                                {{ i18n.monthly_summary }}
+                                {{ trans.monthly_summary }}
                             </p>
                             <div class="d-flex">
                                 <div class="mr-5">
@@ -86,9 +86,9 @@
                                             v-tooltip="{ placement: 'top' }"
                                             href="#"
                                             class="text-decoration-none"
-                                            :title="i18n.views_info"
+                                            :title="trans.views_info"
                                         >
-                                            {{ i18n.views }}
+                                            {{ trans.views }}
                                             <svg
                                                 xmlns="http://www.w3.org/2000/svg"
                                                 width="17"
@@ -138,7 +138,7 @@
                                                 />
                                             </svg>
                                         </span>
-                                        {{ data.monthOverMonthViews.percentage }}% {{ i18n.from_last_month }}
+                                        {{ data.monthOverMonthViews.percentage }}% {{ trans.from_last_month }}
                                     </p>
                                 </div>
 
@@ -148,9 +148,9 @@
                                             v-tooltip="{ placement: 'top' }"
                                             href="#"
                                             class="text-decoration-none"
-                                            :title="i18n.visits_info"
+                                            :title="trans.visits_info"
                                         >
-                                            {{ i18n.visitors }}
+                                            {{ trans.visitors }}
                                             <svg
                                                 xmlns="http://www.w3.org/2000/svg"
                                                 width="17"
@@ -200,7 +200,7 @@
                                                 />
                                             </svg>
                                         </span>
-                                        {{ data.monthOverMonthVisits.percentage }}% {{ i18n.from_last_month }}
+                                        {{ data.monthOverMonthVisits.percentage }}% {{ trans.from_last_month }}
                                     </p>
                                 </div>
                             </div>
@@ -213,14 +213,14 @@
                 <div class="row justify-content-between">
                     <div class="col-md-6 mt-4">
                         <h5 class="text-muted small text-uppercase font-weight-bold border-bottom pb-2">
-                            {{ i18n.views_by_traffic_source }}
+                            {{ trans.views_by_traffic_source }}
                         </h5>
 
                         <div v-if="Object.keys(data.topReferers).length > 0">
                             <div :key="`${host}-${views}`" v-for="(views, host) in data.topReferers">
                                 <div class="d-flex py-2 align-items-center">
                                     <div class="mr-auto">
-                                        <div v-if="host === i18n.other">
+                                        <div v-if="host === trans.other">
                                             <p class="mb-0 py-1">
                                                 <img
                                                     :src="getDefaultFavicon(host)"
@@ -242,7 +242,7 @@
                                                     }"
                                                     href="#"
                                                     class="text-decoration-none text-primary"
-                                                    :title="i18n.referer_unknown"
+                                                    :title="trans.referer_unknown"
                                                 >
                                                     {{ host }}
                                                     <svg
@@ -284,20 +284,20 @@
                                     </div>
                                     <div class="ml-auto">
                                         <span class="text-muted"
-                                            >{{ suffixedNumber(data.monthlyViews) }} {{ i18n.views }}</span
+                                            >{{ suffixedNumber(data.monthlyViews) }} {{ trans.views }}</span
                                         >
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <p v-else class="py-2 font-italic">
-                            {{ i18n.waiting_until_more_data }}
+                            {{ trans.waiting_until_more_data }}
                         </p>
                     </div>
 
                     <div class="col-md-6 mt-4">
                         <h5 class="text-muted small text-uppercase font-weight-bold border-bottom pb-2">
-                            {{ i18n.popular_reading_times }}
+                            {{ trans.popular_reading_times }}
                         </h5>
 
                         <div v-if="Object.keys(data.popularReadingTimes).length > 0">
@@ -315,7 +315,7 @@
                             </div>
                         </div>
                         <p v-else class="py-2 font-italic">
-                            {{ i18n.waiting_until_more_data }}
+                            {{ trans.waiting_until_more_data }}
                         </p>
                     </div>
                 </div>
@@ -330,6 +330,7 @@ import NProgress from 'nprogress';
 import PageHeader from '../components/PageHeader';
 import Tooltip from '../directives/Tooltip';
 import strings from '../mixins/strings';
+import { mapGetters, mapState } from "vuex";
 
 export default {
     name: 'post-stats',
@@ -354,12 +355,13 @@ export default {
     },
 
     computed: {
-        i18n() {
-            return this.$store.state.settings.i18n;
-        },
+        ...mapState(['profile']),
+        ...mapGetters({
+            trans: 'settings/trans',
+        }),
 
         canEditPost() {
-            return this.$store.state.profile.id == this.data.post.user_id;
+            return this.profile.id == this.data.post.user_id;
         },
 
         viewsAreTrendingUp() {
