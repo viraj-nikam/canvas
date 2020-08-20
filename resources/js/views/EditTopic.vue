@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <section>
         <page-header>
             <template slot="menu">
                 <div v-if="!creatingTopic" class="dropdown">
@@ -193,7 +193,7 @@
             :message="i18n.deleted_topics_are_gone_forever"
             @delete="deleteTopic"
         />
-    </div>
+    </section>
 </template>
 
 <script>
@@ -203,7 +203,6 @@ import Hover from '../directives/Hover';
 import InfiniteLoading from 'vue-infinite-loading';
 import NProgress from 'nprogress';
 import PageHeader from '../components/PageHeader';
-import i18n from '../mixins/i18n';
 import isEmpty from 'lodash/isEmpty';
 import status from '../mixins/status';
 import strings from '../mixins/strings';
@@ -222,7 +221,7 @@ export default {
         Hover,
     },
 
-    mixins: [i18n, status, strings, toast],
+    mixins: [status, strings, toast],
 
     data() {
         return {
@@ -242,6 +241,10 @@ export default {
 
         shouldDisableButton() {
             return isEmpty(this.slug);
+        },
+
+        i18n() {
+            return this.$store.state.settings.i18n;
         },
     },
 

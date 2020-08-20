@@ -30,7 +30,7 @@
                             :include-score="true"
                             :style="results.length > 0 ? 'border-radius: 0' : ''"
                             class="form-control form-control-lg border-0"
-                            :placeholder="i18n.search_canvas"
+                            :placeholder="trans.search_canvas"
                             event-name="search"
                         />
                     </div>
@@ -82,10 +82,9 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import Hover from '../../directives/Hover';
 import VueFuse from 'vue-fuse';
-import auth from '../../mixins/auth';
-import i18n from '../../mixins/i18n';
 
 export default {
     name: 'search-modal',
@@ -98,8 +97,6 @@ export default {
         Hover,
     },
 
-    mixins: [auth, i18n],
-
     data() {
         return {
             results: [],
@@ -108,15 +105,16 @@ export default {
     },
 
     computed: {
-        auth() {
-            return this.$store.state.auth;
-        },
+        ...mapGetters({
+            isAdmin: 'profile/isAdmin',
+            trans: 'settings/trans',
+        }),
     },
 
     async created() {
         await this.fetchPosts();
 
-        if (auth.methods.userIsAdmin()) {
+        if (this.isAdmin) {
             await this.fetchTags();
             await this.fetchTopics();
             await this.fetchUsers();

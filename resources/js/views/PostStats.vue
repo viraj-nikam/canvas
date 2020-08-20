@@ -1,7 +1,7 @@
 <template>
-    <main>
+    <section>
         <page-header>
-            <template slot="menu" v-if="isReady && auth.id == data.post.user_id">
+            <template slot="menu" v-if="isReady && canEditPost">
                 <div class="dropdown">
                     <a
                         class="nav-link pr-0"
@@ -36,7 +36,7 @@
             </template>
         </page-header>
 
-        <div v-if="isReady" class="py-4">
+        <main v-if="isReady" class="py-4">
             <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12">
                 <div class="my-3">
                     <h2 class="mt-3">{{ data.post.title }}</h2>
@@ -320,8 +320,8 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </main>
+        </main>
+    </section>
 </template>
 
 <script>
@@ -329,7 +329,6 @@ import LineChart from '../components/LineChart';
 import NProgress from 'nprogress';
 import PageHeader from '../components/PageHeader';
 import Tooltip from '../directives/Tooltip';
-import i18n from '../mixins/i18n';
 import strings from '../mixins/strings';
 
 export default {
@@ -344,7 +343,7 @@ export default {
         Tooltip,
     },
 
-    mixins: [i18n, strings],
+    mixins: [strings],
 
     data() {
         return {
@@ -355,8 +354,12 @@ export default {
     },
 
     computed: {
-        auth() {
-            return this.$store.state.auth;
+        i18n() {
+            return this.$store.state.settings.i18n;
+        },
+
+        canEditPost() {
+            return this.$store.state.profile.id == this.data.post.user_id;
         },
 
         viewsAreTrendingUp() {

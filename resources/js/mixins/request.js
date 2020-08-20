@@ -9,7 +9,7 @@ export default {
             instance.defaults.headers.common['X-CSRF-TOKEN'] = document.head.querySelector(
                 'meta[name="csrf-token"]'
             ).content;
-            instance.defaults.baseURL = '/' + store.state.config.path;
+            instance.defaults.baseURL = '/' + store.state.settings.path;
 
             const requestHandler = (request) => {
                 // Add any request modifiers...

@@ -1,14 +1,14 @@
 <template>
-    <main>
+    <section>
         <page-header />
 
-        <div class="py-4">
+        <main class="py-4">
             <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12">
                 <div class="d-flex justify-content-between my-3 align-items-center">
                     <div>
-                        <h2 class="mt-3">{{ i18n.stats }}</h2>
+                        <h2 class="mt-3">{{ trans.stats }}</h2>
                         <p class="mt-2 text-secondary">
-                            {{ i18n.click_to_see_insights }}
+                            {{ trans.click_to_see_insights }}
                         </p>
                     </div>
 
@@ -31,10 +31,10 @@
                                 <div
                                     class="card-header pb-0 bg-transparent d-flex justify-content-between align-middle border-0"
                                 >
-                                    <p class="font-weight-bold text-muted small text-uppercase">{{ i18n.views }}</p>
+                                    <p class="font-weight-bold text-muted small text-uppercase">{{ trans.views }}</p>
                                     <p>
                                         <span class="badge badge-pill badge-success p-2 font-weight-bold">
-                                            {{ i18n.last_thirty_days }}
+                                            {{ trans.last_thirty_days }}
                                         </span>
                                     </p>
                                 </div>
@@ -46,10 +46,10 @@
                                 <div
                                     class="card-header pb-0 bg-transparent d-flex justify-content-between align-middle border-0"
                                 >
-                                    <p class="font-weight-bold text-muted small text-uppercase">{{ i18n.visitors }}</p>
+                                    <p class="font-weight-bold text-muted small text-uppercase">{{ trans.visitors }}</p>
                                     <p>
                                         <span class="badge badge-pill badge-primary p-2 font-weight-bold">{{
-                                            i18n.last_thirty_days
+                                            trans.last_thirty_days
                                         }}</span>
                                     </p>
                                 </div>
@@ -86,17 +86,17 @@
                                                 </p>
                                                 <p class="text-secondary mb-2">
                                                     <span class="d-none d-md-inline"> {{ post.read_time }} ― </span>
-                                                    {{ i18n.published }}
+                                                    {{ trans.published }}
                                                     {{ moment(post.published_at).format('MMM D, YYYY') }}
                                                 </p>
                                             </div>
                                             <div class="ml-auto">
                                                 <div class="d-none d-md-inline">
                                                     <span class="text-muted mr-3"
-                                                        >{{ suffixedNumber(post.views_count) }} {{ i18n.views }}</span
+                                                        >{{ suffixedNumber(post.views_count) }} {{ trans.views }}</span
                                                     >
                                                     <span class="mr-3"
-                                                        >{{ i18n.created }}
+                                                        >{{ trans.created }}
                                                         {{ moment(post.created_at).format('MMM D, YYYY') }}</span
                                                     >
                                                 </div>
@@ -129,24 +129,24 @@
                     <div v-else class="card shadow mt-5">
                         <div class="card-body p-0">
                             <div class="my-5">
-                                <p class="lead text-center text-muted mt-5">{{ i18n.you_have_no_published_posts }}</p>
-                                <p class="lead text-center text-muted mt-1">{{ i18n.stats_are_made_available }}</p>
+                                <p class="lead text-center text-muted mt-5">{{ trans.you_have_no_published_posts }}</p>
+                                <p class="lead text-center text-muted mt-1">{{ trans.stats_are_made_available }}</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </main>
+        </main>
+    </section>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import Hover from '../directives/Hover';
 import InfiniteLoading from 'vue-infinite-loading';
 import LineChart from '../components/LineChart';
 import NProgress from 'nprogress';
 import PageHeader from '../components/PageHeader';
-import i18n from '../mixins/i18n';
 import isEmpty from 'lodash/isEmpty';
 import strings from '../mixins/strings';
 
@@ -163,7 +163,7 @@ export default {
         Hover,
     },
 
-    mixins: [strings, i18n],
+    mixins: [strings],
 
     data() {
         return {
@@ -177,6 +177,10 @@ export default {
     },
 
     computed: {
+        ...mapGetters({
+            trans: 'settings/trans',
+        }),
+
         plotViewPoints() {
             return JSON.parse(this.data.traffic.views);
         },

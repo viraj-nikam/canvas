@@ -21,7 +21,7 @@ export default router;
 
 function createRouter() {
     const router = new Router({
-        base: store.state.config.path,
+        base: store.state.settings.path,
         mode: 'history',
         routes,
     });

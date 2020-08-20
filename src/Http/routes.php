@@ -6,10 +6,6 @@ use Illuminate\Support\Facades\Route;
 Route::domain(config('canvas.domain'))->namespace('Canvas\Http\Controllers')->group(function () {
     Route::prefix(config('canvas.path'))->middleware(config('canvas.middleware'))->group(function () {
         Route::prefix('api')->group(function () {
-            Route::prefix('locale')->group(function () {
-                Route::get('{code}', 'LocaleController');
-            });
-
             Route::prefix('uploads')->group(function () {
                 Route::post('/', 'UploadsController@store');
                 Route::delete('/', 'UploadsController@destroy');

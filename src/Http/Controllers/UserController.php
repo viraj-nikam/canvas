@@ -81,6 +81,7 @@ class UserController extends Controller
         return response()->json([
             'user' => $meta->user,
             'meta' => $meta->refresh(),
+            'i18n' => collect(trans('canvas::app', [], $meta->locale))->toJson(),
         ], 201);
     }
 }

@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <section>
         <page-header>
             <template slot="menu">
                 <div class="dropdown">
@@ -112,7 +112,7 @@
                 </div>
             </div>
         </main>
-    </div>
+    </section>
 </template>
 
 <script>
@@ -120,7 +120,6 @@ import Hover from '../directives/Hover';
 import InfiniteLoading from 'vue-infinite-loading';
 import NProgress from 'nprogress';
 import PageHeader from '../components/PageHeader';
-import i18n from '../mixins/i18n';
 import isEmpty from 'lodash/isEmpty';
 import strings from '../mixins/strings';
 
@@ -136,7 +135,7 @@ export default {
         Hover,
     },
 
-    mixins: [strings, i18n],
+    mixins: [strings],
 
     data() {
         return {
@@ -144,6 +143,12 @@ export default {
             tags: [],
             isReady: false,
         };
+    },
+
+    computed: {
+        i18n() {
+            return this.$store.state.settings.i18n;
+        },
     },
 
     created() {

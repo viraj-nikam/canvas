@@ -1,5 +1,4 @@
 import Vue from 'vue';
-import config from './config';
 import request from '../../mixins/request';
 import router from 'vue-router';
 import toast from '../../mixins/toast';
@@ -36,7 +35,7 @@ const actions = {
             })
             .then(({ data }) => {
                 context.commit('UPDATE_TAG', data);
-                toast.methods.toast(config.state.i18n.saved);
+                toast.methods.toast(context.rootState.settings.i18n.saved);
             })
             .catch((error) => {
                 // state.errors.push(...error.response.data.errors);

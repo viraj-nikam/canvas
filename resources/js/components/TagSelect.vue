@@ -1,8 +1,8 @@
 <template>
     <multiselect
         v-model="value"
-        :placeholder="i18n.select_some_tags"
-        :tag-placeholder="i18n.add_a_new_tag"
+        :placeholder="trans.select_some_tags"
+        :tag-placeholder="trans.add_a_new_tag"
         :options="options"
         :multiple="true"
         :taggable="true"
@@ -15,15 +15,14 @@
 </template>
 
 <script>
+import { mapGetters, mapState } from 'vuex';
 import Multiselect from 'vue-multiselect';
-import i18n from '../mixins/i18n';
 
 export default {
     components: {
         Multiselect,
     },
 
-    mixins: [i18n],
     props: {
         tags: {
             type: Array,
@@ -40,6 +39,13 @@ export default {
             options: this.fetchTags(),
             value: this.tagged ? this.tagged : [],
         };
+    },
+
+    computed: {
+        ...mapState(['profile']),
+        ...mapGetters({
+            trans: 'settings/trans',
+        }),
     },
 
     methods: {
@@ -64,7 +70,7 @@ export default {
             const tag = {
                 name: searchQuery,
                 slug: this.slugify(searchQuery),
-                user_id: window.Canvas.user.id,
+                user_id: this.profile.id,
             };
 
             this.options.push(tag);

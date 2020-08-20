@@ -19,7 +19,7 @@
                                 aria-label="Delete"
                                 @click.prevent="confirmProceed()"
                             >
-                                {{ i18n.delete }}
+                                {{ trans.delete }}
                             </a>
                         </div>
                         <div class="col-lg order-lg-first px-0 py-md-1 py-sm-1 pt-2">
@@ -27,7 +27,7 @@
                                 class="btn btn-link btn-block font-weight-bold text-muted text-decoration-none"
                                 data-dismiss="modal"
                             >
-                                {{ i18n.cancel }}
+                                {{ trans.cancel }}
                             </button>
                         </div>
                     </div>
@@ -38,12 +38,10 @@
 </template>
 
 <script>
-import i18n from '../../mixins/i18n';
+import { mapGetters } from 'vuex';
 
 export default {
     name: 'delete-modal',
-
-    mixins: [i18n],
 
     props: {
         header: {
@@ -54,6 +52,12 @@ export default {
             type: String,
             required: true,
         },
+    },
+
+    computed: {
+        ...mapGetters({
+            trans: 'settings/trans',
+        }),
     },
 
     methods: {

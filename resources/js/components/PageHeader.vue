@@ -35,50 +35,47 @@
                         aria-expanded="false"
                     >
                         <img
-                            :src="$store.state.auth.avatar"
-                            :alt="$store.state.auth.name"
+                            :src="profile.avatar"
+                            :alt="profile.name"
                             class="rounded-circle my-0 shadow-inner"
                             style="width: 33px;"
                         />
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                         <h6 class="dropdown-header">
-                            <strong>{{ $store.state.auth.name }}</strong>
+                            <strong>{{ profile.name }}</strong>
                             <br />
-                            {{ $store.state.auth.email }}
+                            {{ profile.email }}
                         </h6>
 
                         <div class="dropdown-divider" />
 
-                        <router-link
-                            :to="{ name: 'edit-user', params: { id: $store.state.auth.id } }"
-                            class="dropdown-item"
-                        >
-                            {{ i18n.your_profile }}
+                        <router-link :to="{ name: 'edit-user', params: { id: profile.id } }" class="dropdown-item">
+                            {{ trans.your_profile }}
                         </router-link>
                         <router-link :to="{ name: 'posts' }" class="dropdown-item">
-                            <span>{{ i18n.posts_simple }}</span>
+                            <span>{{ trans.posts_simple }}</span>
                         </router-link>
-                        <router-link v-if="$store.state.auth.admin" :to="{ name: 'users' }" class="dropdown-item">
-                            <span>{{ i18n.users }}</span>
+                        <router-link v-if="isAdmin" :to="{ name: 'users' }" class="dropdown-item">
+                            <span>{{ trans.users }}</span>
                         </router-link>
-                        <router-link v-if="$store.state.auth.admin" :to="{ name: 'tags' }" class="dropdown-item">
-                            <span>{{ i18n.tags }}</span>
+                        <router-link v-if="isAdmin" :to="{ name: 'tags' }" class="dropdown-item">
+                            <span>{{ trans.tags }}</span>
                         </router-link>
-                        <router-link v-if="$store.state.auth.admin" :to="{ name: 'topics' }" class="dropdown-item">
-                            <span>{{ i18n.topics }}</span>
+                        <router-link v-if="isAdmin" :to="{ name: 'topics' }" class="dropdown-item">
+                            <span>{{ trans.topics }}</span>
                         </router-link>
                         <router-link :to="{ name: 'stats' }" class="dropdown-item">
-                            <span>{{ i18n.stats }}</span>
+                            <span>{{ trans.stats }}</span>
                         </router-link>
 
                         <div class="dropdown-divider" />
 
                         <router-link :to="{ name: 'edit-settings' }" class="dropdown-item">
-                            <span>{{ i18n.settings }}</span>
+                            <span>{{ trans.settings }}</span>
                         </router-link>
                         <a href="" class="dropdown-item" @click.prevent="logout">
-                            {{ i18n.sign_out }}
+                            {{ trans.sign_out }}
                         </a>
                     </div>
                 </div>
@@ -90,10 +87,10 @@
 </template>
 
 <script>
+import { mapGetters, mapState } from 'vuex';
 import $ from 'jquery';
 import SearchModal from './modals/SearchModal';
 import axios from 'axios';
-import i18n from '../mixins/i18n';
 
 export default {
     name: 'page-header',
@@ -102,12 +99,12 @@ export default {
         SearchModal,
     },
 
-    mixins: [i18n],
-
-    data() {
-        return {
-            showActions: true,
-        };
+    computed: {
+        ...mapState(['profile']),
+        ...mapGetters({
+            isAdmin: 'profile/isAdmin',
+            trans: 'settings/trans',
+        }),
     },
 
     methods: {

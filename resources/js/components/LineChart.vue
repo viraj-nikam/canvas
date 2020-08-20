@@ -5,14 +5,12 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import Chart from 'chart.js';
-import i18n from '../mixins/i18n';
 import moment from 'moment';
 
 export default {
     name: 'line-chart',
-
-    mixins: [i18n],
 
     props: {
         views: {
@@ -27,19 +25,23 @@ export default {
     },
 
     computed: {
+        ...mapGetters({
+            trans: 'settings/trans',
+        }),
+
         chartData() {
             return {
                 labels: Object.keys(this.views),
                 datasets: [
                     {
-                        label: this.i18n.visits,
+                        label: this.trans.visits,
                         data: Object.values(this.visits),
                         backgroundColor: ['rgba(158, 213, 237, 0.5)'],
                         borderColor: ['rgb(84, 175, 204)'],
                         borderWidth: 3,
                     },
                     {
-                        label: this.i18n.views,
+                        label: this.trans.views,
                         data: Object.values(this.views),
                         backgroundColor: ['rgba(3, 168, 124, .5)'],
                         borderColor: ['#03a87c'],
@@ -153,17 +155,17 @@ export default {
 
         viewLabel(value) {
             if (Number(value) === 1) {
-                return `${value} ${this.i18n.view}`;
+                return `${value} ${this.trans.view}`;
             } else {
-                return `${value} ${this.i18n.views_simple}`;
+                return `${value} ${this.trans.views_simple}`;
             }
         },
 
         uniqueVisitorLabel(value) {
             if (Number(value) === 1) {
-                return `${value} ${this.i18n.unique_visit}`;
+                return `${value} ${this.trans.unique_visit}`;
             } else {
-                return `${value} ${this.i18n.unique_visits}`;
+                return `${value} ${this.trans.unique_visits}`;
             }
         },
     },

@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <section>
         <page-header />
 
         <main class="py-4">
@@ -73,7 +73,7 @@
                 </div>
             </div>
         </main>
-    </div>
+    </section>
 </template>
 
 <script>
@@ -81,7 +81,6 @@ import Hover from '../directives/Hover';
 import InfiniteLoading from 'vue-infinite-loading';
 import NProgress from 'nprogress';
 import PageHeader from '../components/PageHeader';
-import i18n from '../mixins/i18n';
 import isEmpty from 'lodash/isEmpty';
 import url from '../mixins/url';
 
@@ -97,7 +96,7 @@ export default {
         Hover,
     },
 
-    mixins: [i18n, url],
+    mixins: [url],
 
     data() {
         return {
@@ -105,6 +104,12 @@ export default {
             users: [],
             isReady: false,
         };
+    },
+
+    computed: {
+        i18n() {
+            return this.$store.state.settings.i18n;
+        },
     },
 
     created() {

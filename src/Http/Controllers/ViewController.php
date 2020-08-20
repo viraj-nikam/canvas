@@ -58,7 +58,7 @@ class ViewController extends Controller
      */
     private function getAvailableTranslations($locale): string
     {
-        return collect(['app' => trans('canvas::app', [], $locale)])->toJson();
+        return collect(trans('canvas::app', [], $locale))->toJson();
     }
 
     /**

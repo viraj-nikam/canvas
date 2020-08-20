@@ -12,7 +12,6 @@ import TagList from '../views/TagList';
 import TopicList from '../views/TopicList';
 import UserList from '../views/UserList';
 import Vue from 'vue';
-import auth from '../mixins/auth';
 
 Vue.use(Router);
 
@@ -52,8 +51,7 @@ export default [
         name: 'tags',
         component: TagList,
         beforeEnter: (to, from, next) => {
-            console.log(auth.methods.userIsAdmin());
-            auth.methods.userIsAdmin() ? next() : next({ name: 'home' });
+            store.getters.profile.isAdmin ? next() : next({ name: 'home' });
         },
     },
     {
@@ -61,7 +59,7 @@ export default [
         name: 'create-tag',
         component: EditTag,
         beforeEnter: (to, from, next) => {
-            auth.methods.userIsAdmin() ? next() : next({ name: 'home' });
+            store.getters.profile.isAdmin ? next() : next({ name: 'home' });
         },
     },
     {
@@ -69,7 +67,7 @@ export default [
         name: 'edit-tag',
         component: EditTag,
         beforeEnter: (to, from, next) => {
-            auth.methods.userIsAdmin() ? next() : next({ name: 'home' });
+            store.getters.profile.isAdmin ? next() : next({ name: 'home' });
         },
     },
     {
@@ -77,7 +75,7 @@ export default [
         name: 'topics',
         component: TopicList,
         beforeEnter: (to, from, next) => {
-            auth.methods.userIsAdmin() ? next() : next({ name: 'home' });
+            store.getters.profile.isAdmin ? next() : next({ name: 'home' });
         },
     },
     {
@@ -85,7 +83,7 @@ export default [
         name: 'create-topic',
         component: EditTopic,
         beforeEnter: (to, from, next) => {
-            auth.methods.userIsAdmin() ? next() : next({ name: 'home' });
+            store.getters.profile.isAdmin ? next() : next({ name: 'home' });
         },
     },
     {
@@ -93,7 +91,7 @@ export default [
         name: 'edit-topic',
         component: EditTopic,
         beforeEnter: (to, from, next) => {
-            auth.methods.userIsAdmin() ? next() : next({ name: 'home' });
+            store.getters.profile.isAdmin ? next() : next({ name: 'home' });
         },
     },
     {
@@ -106,7 +104,7 @@ export default [
         name: 'users',
         component: UserList,
         beforeEnter: (to, from, next) => {
-            auth.methods.userIsAdmin() ? next() : next({ name: 'home' });
+            store.getters.profile.isAdmin ? next() : next({ name: 'home' });
         },
     },
     {
@@ -114,7 +112,7 @@ export default [
         name: 'edit-user',
         component: EditUser,
         beforeEnter: (to, from, next) => {
-            if (auth.methods.userIsAdmin() || store.state.auth.id == to.params.id) {
+            if (store.getters.profile.isAdmin || store.state.profile.id == to.params.id) {
                 next();
             } else {
                 next({ name: 'home' });

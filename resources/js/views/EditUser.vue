@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <section>
         <page-header />
 
         <main v-if="isReady" class="py-4">
@@ -163,7 +163,7 @@
                 </div>
             </div>
         </main>
-    </div>
+    </section>
 </template>
 
 <script>
@@ -177,7 +177,6 @@ import FilePondPluginImageValidateSize from 'filepond-plugin-image-validate-size
 import NProgress from 'nprogress';
 import PageHeader from '../components/PageHeader';
 import get from 'lodash/get';
-import i18n from '../mixins/i18n';
 import request from '../mixins/request';
 import toast from '../mixins/toast';
 import url from '../mixins/url';
@@ -199,7 +198,7 @@ export default {
         FilePond,
     },
 
-    mixins: [i18n, request, url, toast],
+    mixins: [request, url, toast],
 
     data() {
         return {
@@ -215,6 +214,10 @@ export default {
     },
 
     computed: {
+        i18n() {
+            return this.$store.state.settings.i18n;
+        },
+
         userLastUpdated() {
             return get('updated_at', this.meta, this.user.updated_at);
         },

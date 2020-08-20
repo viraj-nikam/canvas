@@ -1,8 +1,8 @@
 <template>
     <multiselect
         v-model="value"
-        :placeholder="trans.app.select_a_topic"
-        :tag-placeholder="trans.app.add_a_new_topic"
+        :placeholder="trans.select_a_topic"
+        :tag-placeholder="trans.add_a_new_topic"
         :options="options"
         :multiple="false"
         :taggable="true"
@@ -15,6 +15,7 @@
 </template>
 
 <script>
+import { mapGetters, mapState } from 'vuex';
 import Multiselect from 'vue-multiselect';
 
 export default {
@@ -45,8 +46,14 @@ export default {
         return {
             options: allTopics,
             value: this.assigned ? this.assigned : [],
-            trans: JSON.parse(window.Canvas.locale.translations),
         };
+    },
+
+    computed: {
+        ...mapState(['profile']),
+        ...mapGetters({
+            trans: 'settings/trans',
+        }),
     },
 
     methods: {
@@ -67,7 +74,7 @@ export default {
             this.value = {
                 name: topic.name,
                 slug: topic.slug,
-                user_id: window.Canvas.user.id,
+                user_id: this.profile.id,
             };
 
             this.$store.dispatch('setPostTopic', this.value);

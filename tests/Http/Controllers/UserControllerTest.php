@@ -49,7 +49,9 @@ class UserControllerTest extends TestCase
     /** @test */
     public function it_can_fetch_an_existing_user_with_meta_data()
     {
-        $meta = factory(UserMeta::class)->create();
+        $meta = factory(UserMeta::class)->create([
+            'locale' => 'en'
+        ]);
 
         $response = $this->actingAs($meta->user)->getJson("canvas/api/users/{$meta->user->id}")->assertSuccessful();
 
@@ -80,6 +82,7 @@ class UserControllerTest extends TestCase
 
         $this->assertArrayHasKey('user', $response->decodeResponseJson());
         $this->assertArrayHasKey('meta', $response->decodeResponseJson());
+        $this->assertArrayHasKey('i18n', $response->decodeResponseJson());
         $this->assertIsArray($response->decodeResponseJson('user'));
         $this->assertIsArray($response->decodeResponseJson('meta'));
 
@@ -108,6 +111,7 @@ class UserControllerTest extends TestCase
 
         $this->assertArrayHasKey('user', $response->decodeResponseJson());
         $this->assertArrayHasKey('meta', $response->decodeResponseJson());
+        $this->assertArrayHasKey('i18n', $response->decodeResponseJson());
         $this->assertIsArray($response->decodeResponseJson('user'));
         $this->assertIsArray($response->decodeResponseJson('meta'));
 
