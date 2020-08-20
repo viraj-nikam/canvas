@@ -1,7 +1,7 @@
 <template>
     <div>
         <page-header>
-            <template slot="menu" v-if="isReady">
+            <template slot="menu">
                 <div v-if="!creatingTag" class="dropdown">
                     <a
                         id="navbarDropdown"

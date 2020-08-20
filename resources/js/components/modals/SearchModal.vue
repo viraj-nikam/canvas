@@ -84,8 +84,8 @@
 <script>
 import Hover from '../../directives/Hover';
 import VueFuse from 'vue-fuse';
-import i18n from '../../mixins/i18n';
 import auth from '../../mixins/auth';
+import i18n from '../../mixins/i18n';
 
 export default {
     name: 'search-modal',

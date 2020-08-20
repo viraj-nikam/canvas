@@ -2,7 +2,7 @@
     <div>
         <page-header />
 
-        <main v-if="isReady && user && meta" class="py-4">
+        <main v-if="isReady" class="py-4">
             <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12 my-3">
                 <div class="my-3">
                     <h2 class="mt-3">{{ user.name }}</h2>
@@ -250,6 +250,8 @@ export default {
 
                 return get(errors.flat(1), '[0].username', null);
             }
+
+            return [];
         },
 
         getRetryIcon() {

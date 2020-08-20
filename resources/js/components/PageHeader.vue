@@ -35,34 +35,37 @@
                         aria-expanded="false"
                     >
                         <img
-                            :src="auth.avatar"
-                            :alt="auth.name"
+                            :src="$store.state.auth.avatar"
+                            :alt="$store.state.auth.name"
                             class="rounded-circle my-0 shadow-inner"
                             style="width: 33px;"
                         />
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                         <h6 class="dropdown-header">
-                            <strong>{{ auth.name }}</strong>
+                            <strong>{{ $store.state.auth.name }}</strong>
                             <br />
-                            {{ auth.email }}
+                            {{ $store.state.auth.email }}
                         </h6>
 
                         <div class="dropdown-divider" />
 
-                        <router-link :to="{ name: 'edit-user', params: { id: auth.id } }" class="dropdown-item">
+                        <router-link
+                            :to="{ name: 'edit-user', params: { id: $store.state.auth.id } }"
+                            class="dropdown-item"
+                        >
                             {{ i18n.your_profile }}
                         </router-link>
                         <router-link :to="{ name: 'posts' }" class="dropdown-item">
                             <span>{{ i18n.posts_simple }}</span>
                         </router-link>
-                        <router-link v-if="auth.admin" :to="{ name: 'users' }" class="dropdown-item">
+                        <router-link v-if="$store.state.auth.admin" :to="{ name: 'users' }" class="dropdown-item">
                             <span>{{ i18n.users }}</span>
                         </router-link>
-                        <router-link v-if="auth.admin" :to="{ name: 'tags' }" class="dropdown-item">
+                        <router-link v-if="$store.state.auth.admin" :to="{ name: 'tags' }" class="dropdown-item">
                             <span>{{ i18n.tags }}</span>
                         </router-link>
-                        <router-link v-if="auth.admin" :to="{ name: 'topics' }" class="dropdown-item">
+                        <router-link v-if="$store.state.auth.admin" :to="{ name: 'topics' }" class="dropdown-item">
                             <span>{{ i18n.topics }}</span>
                         </router-link>
                         <router-link :to="{ name: 'stats' }" class="dropdown-item">
@@ -105,12 +108,6 @@ export default {
         return {
             showActions: true,
         };
-    },
-
-    computed: {
-        auth() {
-            return this.$store.state.auth;
-        },
     },
 
     methods: {

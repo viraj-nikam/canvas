@@ -1,7 +1,7 @@
 <template>
     <main>
         <page-header>
-            <template v-if="isReady && auth.id == data.post.user_id" slot="menu">
+            <template slot="menu" v-if="isReady && auth.id == data.post.user_id">
                 <div class="dropdown">
                     <a
                         class="nav-link pr-0"

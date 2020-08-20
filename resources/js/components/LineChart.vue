@@ -26,11 +26,9 @@ export default {
         },
     },
 
-    mounted() {
-        let ref = this;
-        this.createChart('stats', {
-            type: 'line',
-            data: {
+    computed: {
+        chartData() {
+            return {
                 labels: Object.keys(this.views),
                 datasets: [
                     {
@@ -48,8 +46,13 @@ export default {
                         borderWidth: 3,
                     },
                 ],
-            },
-            options: {
+            };
+        },
+
+        chartOptions() {
+            let ref = this;
+
+            return {
                 legend: {
                     display: false,
                 },
@@ -131,32 +134,36 @@ export default {
                         },
                     ],
                 },
-            },
-        });
+            };
+        },
+    },
+
+    mounted() {
+        this.createChart();
     },
 
     methods: {
-        createChart(chartId, chartData) {
-            new Chart(document.getElementById(chartId), {
-                type: chartData.type,
-                data: chartData.data,
-                options: chartData.options,
+        createChart() {
+            new Chart(document.getElementById('stats'), {
+                type: 'line',
+                data: this.chartData,
+                options: this.chartOptions,
             });
         },
 
         viewLabel(value) {
             if (Number(value) === 1) {
-                return value + ' ' + this.i18n.view;
+                return `${value} ${this.i18n.view}`;
             } else {
-                return value + ' ' + this.i18n.views_simple;
+                return `${value} ${this.i18n.views_simple}`;
             }
         },
 
         uniqueVisitorLabel(value) {
             if (Number(value) === 1) {
-                return value + ' ' + this.i18n.unique_visit;
+                return `${value} ${this.i18n.unique_visit}`;
             } else {
-                return value + ' ' + this.i18n.unique_visits;
+                return `${value} ${this.i18n.unique_visits}`;
             }
         },
     },
