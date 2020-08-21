@@ -35,10 +35,9 @@ const actions = {
             })
             .then(({ data }) => {
                 context.commit('UPDATE_TAG', data);
-                toast.methods.toast(context.rootState.settings.trans.saved);
+                toast.methods.toast(context.rootGetters['settings/trans'].saved);
             })
             .catch((error) => {
-                // state.errors.push(...error.response.data.errors);
                 state.errors = error.response.data.errors;
             });
     },

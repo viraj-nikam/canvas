@@ -27,8 +27,8 @@ const actions = {
             .then((response) => {
                 context.commit('SET_POST', response.data.post);
             })
-            .catch((errors) => {
-                console.log(errors);
+            .catch(() => {
+                // Add any error debugging...
             });
     },
 
@@ -38,8 +38,8 @@ const actions = {
             .then((response) => {
                 console.log(response.data);
             })
-            .catch((errors) => {
-                console.log(errors);
+            .catch(() => {
+                // Add any error debugging...
             });
     },
 
@@ -57,8 +57,8 @@ const actions = {
             .then((response) => {
                 console.log(response.data);
             })
-            .catch((errors) => {
-                console.log(errors);
+            .catch(() => {
+                // Add any error debugging...
             });
     },
 

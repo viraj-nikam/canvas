@@ -23,8 +23,8 @@ const actions = {
             .then(({ data }) => {
                 context.commit('UPDATE_DIGEST', data.meta);
             })
-            .catch((errors) => {
-                console.log(errors);
+            .catch(() => {
+                // Add any error debugging...
             });
     },
 
@@ -35,8 +35,8 @@ const actions = {
             .then(({ data }) => {
                 context.commit('UPDATE_LOCALE', data);
             })
-            .catch((errors) => {
-                console.log(errors);
+            .catch(() => {
+                // Add any error debugging...
             });
     },
 
@@ -47,8 +47,8 @@ const actions = {
             .then(({ data }) => {
                 context.commit('UPDATE_DARK_MODE', data.meta);
             })
-            .catch((errors) => {
-                console.log(errors);
+            .catch(() => {
+                // Add any error debugging...
             });
     },
 };
