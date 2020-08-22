@@ -155,9 +155,9 @@ export default {
 
         viewLabel(value) {
             if (Number(value) === 1) {
-                return `${value} ${this.trans.view}`;
+                return `${value} ${this.trans.view.toLowerCase()}`;
             } else {
-                return `${value} ${this.trans.views_simple}`;
+                return `${value} ${this.trans.views.toLowerCase()}`;
             }
         },
 

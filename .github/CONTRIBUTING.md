@@ -27,13 +27,13 @@ composer-link() {composer config repositories.local '{"type": "path", "url": "'$
 
 You can open a completely prebuilt, ready-to-code development environment using Gitpod.
 
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/cnvs/canvas/tree/develop)
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/austintoddj/canvas/tree/develop)
 
 Alternatively, see instructions below to manually setting up an environment on your own machine.
 
 ### Git
 
-Fork the project on [https://github.com/cnvs/canvas](https://github.com/cnvs/canvas) to your own account. Then clone
+Fork the project on [https://github.com/austintoddj/canvas](https://github.com/austintoddj/canvas) to your own account. Then clone
  the fork with the following command:
 
 ```bash
@@ -87,7 +87,7 @@ From your Laravel app, link the local version of Canvas using the `composer-link
 
 ```bash
 composer-link ../canvas/
-composer require cnvs/canvas @dev
+composer require austintoddj/canvas @dev
 ```
 
 ### Installation
@@ -171,5 +171,5 @@ cd public/vendor/canvas
 ln -s ../../../../canvas/public/* .
 ```
 
-Once you've made your changes, [create a pull request](https://github.com/cnvs/canvas/compare) from your fork to
+Once you've made your changes, [create a pull request](https://github.com/austintoddj/canvas/compare) from your fork to
  the `develop` branch of the project repository.

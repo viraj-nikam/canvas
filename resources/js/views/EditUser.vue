@@ -124,7 +124,7 @@
                 </div>
 
                 <div class="mt-5">
-                    <h2 class="mt-3">Roles</h2>
+                    <h2 class="mt-3">{{ trans.role }}</h2>
                 </div>
 
                 <div class="mt-3 card shadow-lg">
@@ -132,10 +132,10 @@
                         <div class="d-flex rounded-top p-3 align-items-center">
                             <div class="mr-auto py-1">
                                 <p class="mb-0 lead font-weight-bold">
-                                    Admin
+                                    {{ trans.admin }}
                                 </p>
                                 <p class="mb-1 d-none d-lg-block text-secondary">
-                                    Toggle admin privileges for this user
+                                    {{ trans.grant_this_user_admin_privileges }}
                                 </p>
                             </div>
                             <div class="ml-auto pl-3">
@@ -152,7 +152,7 @@
                                                 @change="toggleAdmin"
                                             />
                                             <label for="admin" class="mb-0 sr-only">
-                                                Toggle admin privileges for this user
+                                                {{ trans.grant_this_user_admin_privileges }}
                                             </label>
                                         </span>
                                     </div>

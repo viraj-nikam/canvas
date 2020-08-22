@@ -70,7 +70,8 @@
                                         </div>
                                         <div class="ml-auto d-none d-md-inline-block">
                                             <span class="text-secondary mr-3"
-                                                >{{ suffixedNumber(tag.posts_count) }} {{ trans.posts }}</span
+                                                >{{ suffixedNumber(tag.posts_count) }}
+                                                {{ tag.posts_count == 1 ? trans.post : trans.posts }}</span
                                             >
                                             <span class="mr-3"
                                                 >{{ trans.created }}
