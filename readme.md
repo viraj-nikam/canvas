@@ -1,5 +1,5 @@
 <p align="center">
-    <a href="https://cnvs.io">
+    <a href="https://trycanvas.app">
         <img src=".github/HEADER.png">
     </a>
 </p>
@@ -31,7 +31,7 @@ just a few minutes. In addition to a distraction-free writing experience, you ca
 You may use composer to install Canvas into your Laravel project:
 
 ```bash
-composer require cnvs/canvas
+composer require austintoddj/canvas
 ```
 
 Publish the assets and primary configuration file using the `canvas:install` Artisan command:
@@ -145,19 +145,21 @@ Canvas uses the storage disk for media uploads. You may configure the different 
 
 ### Frontend
 
-While Canvas does not dictate a specific design for your frontend, it does provide a basic starting point using [Bootstrap](https://getbootstrap.com) and [Vue](https://vuejs.org) that will be helpful for many applications. The scaffolding is located in the `cnvs/studio` Composer package, which may be installed using Composer:
+While Canvas does not dictate a specific design for your frontend, it does provide a basic starting point using
+ [Bootstrap](https://getbootstrap.com) and [Vue](https://vuejs.org) that will be helpful for many applications. The
+  scaffolding is located in the `austintoddj/studio` Composer package, which may be installed using Composer:
 
 ```bash
-composer require cnvs/studio
+composer require austintoddj/studio
 ```
 
-Once the `cnvs/studio` package has been installed, you may install the frontend scaffolding using the `studio:install` Artisan command:
+Once the `austintoddj/studio` package has been installed, you may install the frontend scaffolding using the `studio:install` Artisan command:
 
 ```bash
 php artisan studio:install
 ```
 
-After installing the `cnvs/studio` Composer package and generating the frontend scaffolding, your `package.json` file will include the necessary dependencies to install and compile:
+After installing the `austintoddj/studio` Composer package and generating the frontend scaffolding, your `package.json` file will include the necessary dependencies to install and compile:
 
 ```bash
 # Using NPM
@@ -268,7 +270,7 @@ composer test
 
 One of the goals for the team behind Canvas is to ensure proper localization across the app. If you come across any
  translation mistakes or issues and want to make a contribution, please [create a pull request](https://github.com
- /cnvs/canvas/pulls). If you don't see your native language included in the `resources/lang` directory, feel free to
+ /austintoddj/canvas/pulls). If you don't see your native language included in the `resources/lang` directory, feel free to
   add it. Once you've added your new translation file, make sure the appropriate names are correct in the 
  `resources/js/data/languages.json` file.
 
@@ -278,8 +280,8 @@ Canvas is open-sourced software licensed under the [MIT license](license).
 
 ## Credits
 
-- [@austintoddj](https://github.com/austintoddj)
-- [@talvbansal](https://github.com/talvbansal)
-- [@reliq](https://github.com/reliq)
-- [@themsaid](https://github.com/themsaid)
+- [@austintoddj](https://twitter.com/austintoddj)
+- [@talvbansal](https://twitter.com/talv)
+- [@reliq](https://twitter.com/IAmReliq)
+- [@themsaid](https://twitter.com/themsaid)
 - [@NinaLimpi](https://twitter.com/NinaLimpi) 
