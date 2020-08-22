@@ -9,12 +9,12 @@
 
 ## Upgrading to 6.0.0 from 5.3
 
-> Note: Exporting and re-importing your data allowed the migrations to be consolidated into one file as well as
-> removing the requirement of the `doctrine/dbal` dependency.
+### Exporting your data
 
-### Export your data
+Exporting and re-importing your data allowed the migrations to be consolidated into one file as well as removing 
+the requirement of the `doctrine/dbal` dependency from the project.
 
-> Important: The process for migrating data will be unique based on your choice of IDE and database.  
+> Note: The process for migrating data will be unique based on your choice of IDE and database.
 
 The first step is to export all data in Canvas-related tables to a SQL dump. *The key here is to not allow the
  `DROP TABLE` or `CREATE TABLE` syntax into the export.* The one thing that you do need from this dump are the
@@ -36,7 +36,10 @@ Once completed, you can drop those tables from your database.
 
 ### Updating dependencies
 
-Update your `cnvs/canvas` dependency to `^6.0` in your `composer.json` file. Upgrade the package to the latest version:
+> Important: The package name has changed from `cnvs/canvas` to `austintoddj/canvas` 
+
+Update the new `austintoddj/canvas` dependency to `^6.0` in your `composer.json` file. Upgrade the package to the
+ latest version:
 
 ```bash
 composer update
@@ -50,7 +53,7 @@ Run the new migrations using the `migrate` Artisan command:
 php artisan migrate
 ```
 
-### Import your data
+### Importing your data
 
 You may now import the SQL dump that you created above into your database. Remember, your database and IDE will
  determine if you should run into any errors while performing this action. 
