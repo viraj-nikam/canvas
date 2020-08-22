@@ -153,11 +153,11 @@
                                     <div class="ml-auto">
                                         <div class="d-none d-md-inline">
                                             <span class="text-secondary mr-3"
-                                                >{{ suffixedNumber(post.views_count) }}
+                                            >{{ suffixedNumber(post.views_count) }}
                                                 {{ post.views_count == 1 ? trans.view : trans.views }}</span
                                             >
                                             <span class="mr-3"
-                                                >{{ trans.created }}
+                                            >{{ trans.created }}
                                                 {{ moment(post.created_at).format('MMM D, YYYY') }}</span
                                             >
                                         </div>
@@ -228,8 +228,8 @@ export default {
     data() {
         return {
             uri: this.$route.params.id || 'create',
-            name: null,
-            slug: null,
+            name: this.$store.state.topic.name || null,
+            slug: this.$store.state.topic.slug || null,
             page: 1,
             posts: [],
             isReady: false,
@@ -276,7 +276,7 @@ export default {
         NProgress.done();
     },
 
-    beforeRouteLeave(to, from, next) {
+    beforeRouteUpdate(to, from, next) {
         this.$store.dispatch('topic/resetState');
         next();
     },

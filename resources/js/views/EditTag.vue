@@ -228,8 +228,8 @@ export default {
     data() {
         return {
             uri: this.$route.params.id || 'create',
-            name: null,
-            slug: null,
+            name: this.$store.state.tag.name || null,
+            slug: this.$store.state.tag.slug || null,
             page: 1,
             posts: [],
             isReady: false,
@@ -276,7 +276,7 @@ export default {
         NProgress.done();
     },
 
-    beforeRouteLeave(to, from, next) {
+    beforeRouteUpdate(to, from, next) {
         this.$store.dispatch('tag/resetState');
         next();
     },
