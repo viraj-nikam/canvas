@@ -1,7 +1,6 @@
 import Vue from 'vue';
 import request from '../../mixins/request';
 import router from 'vue-router';
-import toast from '../../mixins/toast';
 
 const initialState = {
     id: '',
@@ -35,10 +34,15 @@ const actions = {
             })
             .then(({ data }) => {
                 context.commit('UPDATE_TOPIC', data);
-                toast.methods.toast(context.rootGetters['settings/trans'].saved);
+                Vue.toasted.show(context.rootGetters['settings/trans'].saved, {
+                    className: 'bg-success',
+                });
             })
             .catch((error) => {
                 state.errors = error.response.data.errors;
+                Vue.toasted.show(error.response.data.errors.slug[0], {
+                    className: 'bg-danger',
+                });
             });
     },
 
@@ -69,12 +73,13 @@ const mutations = {
         state.name = topic.name;
         state.slug = topic.slug;
         state.updatedAt = topic.updated_at || '';
+        state.errors = [];
     },
 
     RESET_STATE(state) {
-        for (let f in state) {
-            Vue.set(state, f, initialState[f]);
-        }
+        Object.keys(state).forEach((key) => {
+            Object.assign(state[key], initialState[key]);
+        });
     },
 };
 

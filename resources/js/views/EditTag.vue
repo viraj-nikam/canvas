@@ -61,10 +61,6 @@
                                     :placeholder="trans.give_your_tag_a_name"
                                     @keyup.enter="saveTag"
                                 />
-
-                                <div v-if="$store.state.tag.errors.name" class="invalid-feedback d-block">
-                                    <strong>{{ $store.state.tag.errors.name[0] }}</strong>
-                                </div>
                             </div>
 
                             <div class="col-12 mt-3 px-0">
@@ -81,9 +77,6 @@
                                     class="form-control border-0"
                                     :placeholder="trans.give_your_tag_a_name_slug"
                                 />
-                                <div v-if="$store.state.tag.errors.slug" class="invalid-feedback d-block">
-                                    <strong>{{ $store.state.tag.errors.slug[0] }}</strong>
-                                </div>
                             </div>
                         </div>
 
@@ -208,7 +201,6 @@ import PageHeader from '../components/PageHeader';
 import isEmpty from 'lodash/isEmpty';
 import status from '../mixins/status';
 import strings from '../mixins/strings';
-import toast from '../mixins/toast';
 
 export default {
     name: 'edit-tag',
@@ -223,7 +215,7 @@ export default {
         Hover,
     },
 
-    mixins: [status, strings, toast],
+    mixins: [status, strings],
 
     data() {
         return {
@@ -331,7 +323,9 @@ export default {
             this.$store.dispatch('tag/deleteTag', this.uri);
             $(this.$refs.deleteModal.$el).modal('hide');
             this.$router.push({ name: 'tags' });
-            toast.methods.toast(this.trans.success);
+            this.$toasted.show(this.trans.success, {
+                className: 'bg-success',
+            });
         },
 
         showDeleteModal() {

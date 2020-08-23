@@ -178,8 +178,6 @@ import FilePondPluginImageValidateSize from 'filepond-plugin-image-validate-size
 import NProgress from 'nprogress';
 import PageHeader from '../components/PageHeader';
 import get from 'lodash/get';
-import request from '../mixins/request';
-import toast from '../mixins/toast';
 import url from '../mixins/url';
 import vueFilePond from 'vue-filepond';
 
@@ -199,7 +197,7 @@ export default {
         FilePond,
     },
 
-    mixins: [request, url, toast],
+    mixins: [url],
 
     data() {
         return {
@@ -319,7 +317,9 @@ export default {
 
                     this.$store.dispatch('auth/setAvatar', data.meta.avatar);
 
-                    toast.methods.toast(this.trans.saved);
+                    this.$toasted.show(this.trans.saved, {
+                        className: 'bg-success',
+                    });
                 })
                 .catch((errors) => {
                     console.log(errors);

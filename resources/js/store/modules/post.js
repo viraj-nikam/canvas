@@ -88,9 +88,9 @@ const mutations = {
     },
 
     RESET_STATE() {
-        for (let f in state) {
-            Vue.set(state, f, initialState[f]);
-        }
+        Object.keys(state).forEach((key) => {
+            Object.assign(state[key], initialState[key]);
+        });
     },
 };
 
