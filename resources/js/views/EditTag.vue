@@ -37,9 +37,9 @@
         <main v-if="isReady" class="py-4">
             <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12">
                 <div class="my-3">
-                    <h2 class="mt-3">{{ $store.state.tag.name || trans.new_tag }}</h2>
+                    <h2 class="mt-3">{{ activeTag.name || trans.new_tag }}</h2>
                     <p v-if="!creatingTag" class="mt-2 text-secondary">
-                        {{ trans.last_updated }} {{ moment($store.state.tag.updatedAt).fromNow() }}
+                        {{ trans.last_updated }} {{ moment(activeTag.updatedAt).fromNow() }}
                     </p>
                 </div>
 
@@ -51,7 +51,7 @@
                                     {{ trans.name }}
                                 </label>
                                 <input
-                                    v-model="name"
+                                    v-model="localName"
                                     type="text"
                                     name="name"
                                     autofocus
@@ -68,7 +68,7 @@
                                     {{ trans.slug }}
                                 </label>
                                 <input
-                                    v-model="slug"
+                                    v-model="localSlug"
                                     type="text"
                                     name="slug"
                                     disabled
@@ -220,8 +220,8 @@ export default {
     data() {
         return {
             uri: this.$route.params.id || 'create',
-            name: this.$store.state.tag.name || null,
-            slug: this.$store.state.tag.slug || null,
+            localName: '',
+            localSlug: '',
             page: 1,
             posts: [],
             isReady: false,
@@ -230,6 +230,7 @@ export default {
 
     computed: {
         ...mapGetters({
+            activeTag: 'tag/activeTag',
             trans: 'settings/trans',
         }),
 
@@ -238,43 +239,49 @@ export default {
         },
 
         shouldDisableButton() {
-            return isEmpty(this.slug);
+            return isEmpty(this.localSlug);
         },
+
+        isSearching() {
+
+        }
     },
 
     watch: {
-        name(val) {
-            this.slug = !isEmpty(val) ? this.slugify(val) : '';
+        'localName'(val) {
+            this.localSlug = !isEmpty(val) ? this.slugify(val) : '';
         },
 
         async $route(to) {
-            this.isReady = false;
-            this.uri = to.params.id;
-            this.name = null;
-            this.slug = null;
-            this.page = 1;
-            this.posts = [];
-            await Promise.all([this.fetchTag(), this.fetchPosts()]);
-            this.name = this.$store.state.tag.name;
-            this.isReady = true;
-            NProgress.done();
+            if (this.uri === 'create' && to.params.id === this.activeTag.id) {
+                this.uri = to.params.id;
+            }
+
+            if (this.uri !== to.params.id) {
+                this.isReady = false;
+                this.uri = to.params.id;
+                this.page = 1;
+                this.posts = [];
+                await Promise.all([this.fetchTag(), this.fetchPosts()]);
+                this.localName = this.activeTag.name;
+                this.localSlug = this.activeTag.slug;
+                this.isReady = true;
+                NProgress.done();
+            }
         },
     },
 
     async created() {
         await Promise.all([this.fetchTag(), this.fetchPosts()]);
-        this.name = this.$store.state.tag.name;
+        this.localName = this.activeTag.name;
+        this.localSlug = this.activeTag.slug;
         this.isReady = true;
         NProgress.done();
     },
 
-    beforeRouteUpdate(to, from, next) {
-        this.$store.dispatch('tag/resetState');
-        next();
-    },
-
     methods: {
         fetchTag() {
+            this.$store.dispatch('tag/resetState');
             this.$store.dispatch('tag/fetchTag', this.uri);
             NProgress.inc();
         },
@@ -305,22 +312,22 @@ export default {
         },
 
         saveTag() {
-            let id = this.$store.state.tag.id;
+            let id = this.activeTag.id;
 
             this.$store.dispatch('tag/updateTag', {
-                id: id,
-                name: this.name,
-                slug: this.slug,
+                id: this.activeTag.id,
+                name: this.localName,
+                slug: this.localSlug
             });
 
-            if (isEmpty(this.$store.state.tag.errors) && this.creatingTag) {
+            if (isEmpty(this.activeTag.errors) && this.creatingTag) {
                 this.$router.push({ name: 'edit-tag', params: { id: id } });
                 NProgress.done();
             }
         },
 
         deleteTag() {
-            this.$store.dispatch('tag/deleteTag', this.uri);
+            this.$store.dispatch('tag/deleteTag', this.activeTag.id);
             $(this.$refs.deleteModal.$el).modal('hide');
             this.$router.push({ name: 'tags' });
             this.$toasted.show(this.trans.success, {

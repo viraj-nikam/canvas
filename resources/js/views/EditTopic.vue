@@ -37,9 +37,9 @@
         <main v-if="isReady" class="py-4">
             <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12">
                 <div class="my-3">
-                    <h2 class="mt-3">{{ $store.state.topic.name || trans.new_topic }}</h2>
+                    <h2 class="mt-3">{{ activeTopic.name || trans.new_topic }}</h2>
                     <p v-if="!creatingTopic" class="mt-2 text-secondary">
-                        {{ trans.last_updated }} {{ moment($store.state.topic.updatedAt).fromNow() }}
+                        {{ trans.last_updated }} {{ moment(activeTopic.updatedAt).fromNow() }}
                     </p>
                 </div>
 
@@ -51,7 +51,7 @@
                                     {{ trans.name }}
                                 </label>
                                 <input
-                                    v-model="name"
+                                    v-model="localName"
                                     type="text"
                                     name="name"
                                     autofocus
@@ -68,7 +68,7 @@
                                     {{ trans.slug }}
                                 </label>
                                 <input
-                                    v-model="slug"
+                                    v-model="localSlug"
                                     type="text"
                                     name="slug"
                                     disabled
@@ -220,8 +220,8 @@ export default {
     data() {
         return {
             uri: this.$route.params.id || 'create',
-            name: this.$store.state.topic.name || null,
-            slug: this.$store.state.topic.slug || null,
+            localName: '',
+            localSlug: '',
             page: 1,
             posts: [],
             isReady: false,
@@ -230,6 +230,7 @@ export default {
 
     computed: {
         ...mapGetters({
+            activeTopic: 'topic/activeTopic',
             trans: 'settings/trans',
         }),
 
@@ -238,43 +239,49 @@ export default {
         },
 
         shouldDisableButton() {
-            return isEmpty(this.slug);
+            return isEmpty(this.localSlug);
         },
+
+        isSearching() {
+
+        }
     },
 
     watch: {
-        name(val) {
-            this.slug = !isEmpty(val) ? this.slugify(val) : '';
+        'localName'(val) {
+            this.localSlug = !isEmpty(val) ? this.slugify(val) : '';
         },
 
         async $route(to) {
-            this.isReady = false;
-            this.uri = to.params.id;
-            this.name = null;
-            this.slug = null;
-            this.page = 1;
-            this.posts = [];
-            await Promise.all([this.fetchTopic(), this.fetchPosts()]);
-            this.name = this.$store.state.topic.name;
-            this.isReady = true;
-            NProgress.done();
+            if (this.uri === 'create' && to.params.id === this.activeTopic.id) {
+                this.uri = to.params.id;
+            }
+
+            if (this.uri !== to.params.id) {
+                this.isReady = false;
+                this.uri = to.params.id;
+                this.page = 1;
+                this.posts = [];
+                await Promise.all([this.fetchTopic(), this.fetchPosts()]);
+                this.localName = this.activeTopic.name;
+                this.localSlug = this.activeTopic.slug;
+                this.isReady = true;
+                NProgress.done();
+            }
         },
     },
 
     async created() {
         await Promise.all([this.fetchTopic(), this.fetchPosts()]);
-        this.name = this.$store.state.topic.name;
+        this.localName = this.activeTopic.name;
+        this.localSlug = this.activeTopic.slug;
         this.isReady = true;
         NProgress.done();
     },
 
-    beforeRouteUpdate(to, from, next) {
-        this.$store.dispatch('topic/resetState');
-        next();
-    },
-
     methods: {
         fetchTopic() {
+            this.$store.dispatch('topic/resetState');
             this.$store.dispatch('topic/fetchTopic', this.uri);
             NProgress.inc();
         },
@@ -305,22 +312,22 @@ export default {
         },
 
         saveTopic() {
-            let id = this.$store.state.topic.id;
+            let id = this.activeTopic.id;
 
             this.$store.dispatch('topic/updateTopic', {
-                id: id,
-                name: this.name,
-                slug: this.slug,
+                id: this.activeTopic.id,
+                name: this.localName,
+                slug: this.localSlug
             });
 
-            if (isEmpty(this.$store.state.topic.errors) && this.creatingTopic) {
+            if (isEmpty(this.activeTopic.errors) && this.creatingTopic) {
                 this.$router.push({ name: 'edit-topic', params: { id: id } });
                 NProgress.done();
             }
         },
 
         deleteTopic() {
-            this.$store.dispatch('topic/deleteTopic', this.uri);
+            this.$store.dispatch('topic/deleteTopic', this.activeTopic.id);
             $(this.$refs.deleteModal.$el).modal('hide');
             this.$router.push({ name: 'topics' });
             this.$toasted.show(this.trans.success, {

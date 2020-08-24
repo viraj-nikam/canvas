@@ -7,13 +7,9 @@ import EditTopic from '../views/EditTopic';
 import EditUser from '../views/EditUser';
 import PostList from '../views/PostList';
 import PostStats from '../views/PostStats';
-import Router from 'vue-router';
 import TagList from '../views/TagList';
 import TopicList from '../views/TopicList';
 import UserList from '../views/UserList';
-import Vue from 'vue';
-
-Vue.use(Router);
 
 export default [
     {

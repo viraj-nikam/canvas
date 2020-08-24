@@ -1,9 +1,8 @@
-import { store } from '../store';
-import { sync } from 'vuex-router-sync';
 import NProgress from 'nprogress';
 import Router from 'vue-router';
 import Vue from 'vue';
 import routes from './routes';
+import settings from '../store/modules/settings';
 
 Vue.use(Router);
 
@@ -15,13 +14,11 @@ NProgress.configure({
 
 const router = createRouter();
 
-sync(store, router);
-
 export default router;
 
 function createRouter() {
     const router = new Router({
-        base: store.state.settings.path,
+        base: settings.state.path,
         mode: 'history',
         routes,
     });

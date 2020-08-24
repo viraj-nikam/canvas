@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import request from '../../mixins/request';
-import router from 'vue-router';
+import router from '../../router';
 
 const initialState = {
     id: '',
@@ -50,6 +50,9 @@ const actions = {
         request.methods
             .request()
             .delete(`/api/tags/${id}`)
+            .then(() => {
+                context.commit('RESET_STATE');
+            })
             .catch(() => {
                 router.push({ name: 'tags' });
             });
@@ -77,14 +80,16 @@ const mutations = {
     },
 
     RESET_STATE(state) {
-        Object.keys(state).forEach((key) => {
-            Object.assign(state[key], initialState[key]);
-        });
+        for (let f in state) {
+            Vue.set(state, f, initialState[f]);
+        }
     },
 };
 
 const getters = {
-    //
+    activeTag(state) {
+        return state;
+    }
 };
 
 export default {
