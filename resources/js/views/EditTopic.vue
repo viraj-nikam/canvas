@@ -241,10 +241,6 @@ export default {
         shouldDisableButton() {
             return isEmpty(this.localSlug);
         },
-
-        isSearching() {
-
-        }
     },
 
     watch: {
