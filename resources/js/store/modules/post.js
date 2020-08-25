@@ -1,4 +1,6 @@
-import Vue from 'vue';
+import router from "../../router";
+import request from "../../mixins/request";
+import Vue from "vue";
 
 const initialState = {
     id: '',
@@ -21,25 +23,27 @@ const initialState = {
 const state = { ...initialState };
 
 const actions = {
-    async fetchPost(context, id) {
-        this.request()
-            .get('/api/posts/' + id)
+    fetchPost(context, id) {
+        request.methods
+            .request()
+            .get(`/api/posts/${id}`)
             .then((response) => {
                 context.commit('SET_POST', response.data.post);
             })
             .catch(() => {
-                // Add any error debugging...
+                router.push({ name: 'posts' });
             });
     },
 
-    updatePost({ id, payload }) {
-        this.request()
-            .post('/api/posts/' + id, payload)
-            .then((response) => {
-                console.log(response.data);
+    updatePost(context, payload) {
+        request.methods
+            .request()
+            .post(`/api/posts/${payload.id}`, payload)
+            .then(({ data }) => {
+                console.log(data);
             })
-            .catch(() => {
-                // Add any error debugging...
+            .catch((error) => {
+                console.log(error);
             });
     },
 
@@ -51,18 +55,19 @@ const actions = {
         context.commit('SET_TOPIC', topic);
     },
 
-    deletePost({ id }) {
-        this.request()
-            .delete('/api/posts/' + id, id)
-            .then((response) => {
-                console.log(response.data);
+    deletePost(context, id) {
+        request.methods
+            .request()
+            .delete(`/api/posts/${id}`)
+            .then(() => {
+                context.commit('RESET_STATE');
             })
             .catch(() => {
-                // Add any error debugging...
+                router.push({ name: 'posts' });
             });
     },
 
-    resetPost({ commit }) {
+    resetState({ commit }) {
         commit('RESET_STATE');
     },
 };
@@ -87,14 +92,18 @@ const mutations = {
         state.topic = topic;
     },
 
-    RESET_STATE() {
-        Object.keys(state).forEach((key) => {
-            Object.assign(state[key], initialState[key]);
-        });
+    RESET_STATE(state) {
+        for (let f in state) {
+            Vue.set(state, f, initialState[f]);
+        }
     },
 };
 
-const getters = {};
+const getters = {
+    activePost(state) {
+        return state;
+    }
+};
 
 export default {
     namespaced: true,

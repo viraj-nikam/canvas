@@ -2,15 +2,11 @@
     <div class="border-bottom">
         <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12">
             <nav class="navbar d-flex px-0 py-1">
-                <router-link :to="{ name: 'home' }" class="navbar-brand pt-0 hover">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="35" viewBox="0 0 24 24" class="icon-collection">
-                        <rect width="20" height="12" x="2" y="10" class="fill-muted" rx="2" />
-                        <path
-                            class="fill-body-color"
-                            d="M20 8H4c0-1.1.9-2 2-2h12a2 2 0 0 1 2 2zm-2-4H6c0-1.1.9-2 2-2h8a2 2 0 0 1 2 2z"
-                        />
-                    </svg>
+                <router-link :to="{ name: 'home' }" class="navbar-brand hover font-weight-bolder font-serif mr-3">
+                    Canvas
                 </router-link>
+
+                <slot name="status" />
 
                 <a href="#" class="ml-auto" @click="showSearchModal">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" class="icon-search pr-1">
@@ -22,7 +18,7 @@
                     </svg>
                 </a>
 
-                <slot name="menu" />
+                <slot name="options" />
 
                 <div v-cloak class="dropdown ml-3">
                     <a

@@ -1,7 +1,7 @@
 <template>
     <section>
         <page-header>
-            <template slot="menu">
+            <template slot="options">
                 <div class="dropdown">
                     <a
                         id="navbarDropdown"

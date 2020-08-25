@@ -16,7 +16,7 @@
                         v-model="scope"
                         id=""
                         name=""
-                        class="ml-auto w-auto custom-select border-0"
+                        class="ml-auto w-auto custom-select border-0 bg-light"
                         @change="changeScope"
                     >
                         <option value="user">Your Stats</option>

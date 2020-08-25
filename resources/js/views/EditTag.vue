@@ -1,7 +1,7 @@
 <template>
     <section>
         <page-header>
-            <template slot="menu">
+            <template slot="options">
                 <div v-if="!creatingTag" class="dropdown">
                     <a
                         id="navbarDropdown"

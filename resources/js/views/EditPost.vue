@@ -1,23 +1,34 @@
 <template>
-    <div>
+    <section>
         <page-header>
-            <template slot="action">
-                <a
-                    v-if="isDraft(post.published_at)"
-                    href="#"
-                    class="btn btn-sm btn-outline-success font-weight-bold my-auto"
-                    @click="showPublishModal"
-                >
-                    <span class="d-block d-lg-none">{{ trans.app.publish }}</span>
-                    <span class="d-none d-lg-block">{{ trans.app.ready_to_publish }}</span>
-                </a>
-
-                <a v-else href="#" class="btn btn-sm btn-outline-success font-weight-bold my-auto" @click="save">
-                    {{ trans.app.save }}
-                </a>
+            <template slot="status">
+                <ul class="navbar-nav mr-auto flex-row float-right">
+                    <li class="text-muted font-weight-bold">
+                        <div class="border-left pl-3">
+                            <span v-if="isDraft(activePost.published_at)">{{ trans.draft }}</span>
+                            <span v-if="!isDraft(activePost.published_at)">{{ trans.published }}</span>
+                        </div>
+                    </li>
+                </ul>
             </template>
 
-            <template slot="menu">
+            <!--            <template slot="action">-->
+            <!--                <a-->
+            <!--                    v-if="isDraft(post.published_at)"-->
+            <!--                    href="#"-->
+            <!--                    class="btn btn-sm btn-outline-success font-weight-bold my-auto"-->
+            <!--                    @click="showPublishModal"-->
+            <!--                >-->
+            <!--                    <span class="d-block d-lg-none">{{ trans.publish }}</span>-->
+            <!--                    <span class="d-none d-lg-block">{{ trans.ready_to_publish }}</span>-->
+            <!--                </a>-->
+
+            <!--                <a v-else href="#" class="btn btn-sm btn-outline-success font-weight-bold my-auto" @click="save">-->
+            <!--                    {{ trans.save }}-->
+            <!--                </a>-->
+            <!--            </template>-->
+
+            <template slot="options">
                 <div class="dropdown">
                     <a
                         id="navbarDropdown"
@@ -44,33 +55,22 @@
 
                     <div class="dropdown-menu dropdown-menu-right">
                         <router-link
-                            v-if="!isDraft(post.published_at)"
-                            :to="{ name: 'stats-show', params: { id: id } }"
+                            v-if="!isDraft(activePost.published_at)"
+                            :to="{ name: 'stats-show', params: { id: uri } }"
                             class="dropdown-item"
                         >
-                            {{ trans.app.view_stats }}
+                            {{ trans.view_stats }}
                         </router-link>
-                        <div v-if="!isDraft(post.published_at)" class="dropdown-divider" />
-                        <a href="#" class="dropdown-item" @click="showSettingsModal">
-                            {{ trans.app.general_settings }}
-                        </a>
-                        <a href="#" class="dropdown-item" @click="showFeaturedImageModal">
-                            {{ trans.app.featured_image }}
-                        </a>
-                        <a href="#" class="dropdown-item" @click="showSeoModal">
-                            {{ trans.app.seo_settings }}
-                        </a>
-                        <a
-                            v-if="!isDraft(post.published_at)"
-                            href="#"
-                            class="dropdown-item"
-                            @click.prevent="convertToDraft"
-                        >
-                            {{ trans.app.convert_to_draft }}
-                        </a>
-                        <a v-if="id !== 'create'" href="#" class="dropdown-item text-danger" @click="showDeleteModal">
-                            {{ trans.app.delete }}
-                        </a>
+                        <div v-if="!isDraft(activePost.published_at)" class="dropdown-divider"/>
+                        <a href="#" class="dropdown-item" @click="showSettingsModal"> {{ trans.general_settings }} </a>
+                        <a href="#" class="dropdown-item" @click="showFeaturedImageModal"> {{ trans.featured_image }} </a>
+                        <a href="#" class="dropdown-item" @click="showSeoModal"> {{ trans.seo_settings }} </a> <a
+                        v-if="!isDraft(activePost.published_at)"
+                        href="#"
+                        class="dropdown-item"
+                        @click.prevent="convertToDraft"
+                    > {{ trans.convert_to_draft }} </a>
+                        <a v-if="uri !== 'create'" href="#" class="dropdown-item text-danger" @click="showDeleteModal"> {{ trans.delete }} </a>
                     </div>
                 </div>
             </template>
@@ -80,38 +80,33 @@
             <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12">
                 <div class="form-group my-3">
                     <textarea-autosize
-                        v-model="post.title"
-                        :placeholder="trans.app.title"
-                        class="form-control-lg form-control border-0 font-serif rounded shadow"
+                        v-model="activePost.title"
+                        :placeholder="trans.title"
+                        style="font-size: 42px"
+                        class="w-100 form-control-lg border-0 font-serif bg-transparent px-0"
                         rows="1"
                         @input.native="update"
                     />
                 </div>
 
                 <div class="form-group my-4">
-                    <div class="rounded shadow">
-                        <quill-editor />
-                    </div>
+                    <!--                    <quill-editor/>-->
                 </div>
             </div>
         </main>
 
-        <publish-modal ref="publishModal" v-if="isReady" />
-
-        <settings-modal ref="settingsModal" v-if="isReady" :post="post" :tags="tags" :topics="topics" />
-
-        <featured-image-modal ref="featuredImageModal" v-if="isReady" />
-
-        <seo-modal ref="seoModal" v-if="isReady" />
-
+        <publish-modal ref="publishModal" v-if="isReady"/>
+        <settings-modal ref="settingsModal" v-if="isReady" :post="activePost" :tags="tags" :topics="topics"/>
+        <featured-image-modal ref="featuredImageModal" v-if="isReady"/>
+        <seo-modal ref="seoModal" v-if="isReady"/>
         <delete-modal
             ref="deleteModal"
             v-if="isReady"
-            :header="trans.app.delete"
-            :message="trans.app.deleted_posts_are_gone_forever"
+            :header="trans.delete"
+            :message="trans.deleted_posts_are_gone_forever"
             @delete="deletePost"
         />
-    </div>
+    </section>
 </template>
 
 <script>
@@ -127,6 +122,8 @@ import SettingsModal from '../components/modals/SettingsModal';
 import Vue from 'vue';
 import VueTextAreaAutosize from 'vue-textarea-autosize';
 import debounce from 'lodash/debounce';
+import status from "../mixins/status";
+import { mapGetters } from "vuex";
 
 Vue.use(VueTextAreaAutosize);
 
@@ -145,16 +142,30 @@ export default {
 
     data() {
         return {
-            post: {},
+            uri: this.$route.params.id || 'create',
             tags: [],
             topics: [],
-            id: this.$route.params.id || 'create',
             isReady: false,
-            trans: JSON.parse(window.Canvas.locale.translations),
         };
     },
 
-    created() {
+    mixins: [
+        status
+    ],
+
+    computed: {
+        ...mapGetters({
+            activePost: 'post/activePost',
+            trans: 'settings/trans',
+        }),
+    },
+
+    async created() {
+        await Promise.all([ this.fetchPost() ]);
+        this.isReady = true;
+        NProgress.done();
+
+
         // todo: drop these in the header when the component loads and remove them after
         // https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/highlight.min.js
         // https://platform.twitter.com/widgets.js
@@ -164,68 +175,76 @@ export default {
         // https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.1.1/build/styles/github.min.css
     },
 
-    beforeRouteEnter(to, from, next) {
-        next((vm) => {
-            vm.request()
-                .get('/api/posts/' + vm.id)
-                .then((response) => {
-                    vm.$store.dispatch('setActivePost', response.data.post);
+    // beforeRouteEnter(to, from, next) {
+    // next((vm) => {
+    //     vm.request()
+    //         .get(`/api/posts/${vm.id}`)
+    //         .then((response) => {
+    //             vm.$store.dispatch('setActivePost', response.data.post);
+    //
+    //             vm.post = vm.$store.getters.activePost;
+    //             vm.tags = response.data.tags;
+    //             vm.topics = response.data.topics;
+    //             vm.isReady = true;
+    //
+    //             NProgress.done();
+    //         })
+    //         .catch(() => {
+    //             vm.$router.push({ name: 'posts' });
+    //         });
+    // });
+    // },
 
-                    vm.post = vm.$store.getters.activePost;
-                    vm.tags = response.data.tags;
-                    vm.topics = response.data.topics;
-                    vm.isReady = true;
-
-                    NProgress.done();
-                })
-                .catch(() => {
-                    vm.$router.push({ name: 'posts' });
-                });
-        });
-    },
-
-    beforeRouteLeave(to, from, next) {
-        // Reset the form status to avoid it flashing on the next screen load
-        this.post.isSaving = false;
-        this.post.hasSuccess = false;
-
-        next();
-    },
+    // beforeRouteLeave(to, from, next) {
+    //     // Reset the form status to avoid it flashing on the next screen load
+    //     this.post.isSaving = false;
+    //     this.post.hasSuccess = false;
+    //
+    //     next();
+    // },
 
     methods: {
-        save() {
-            this.post.errors = [];
-            this.post.isSaving = true;
-            this.post.hasSuccess = false;
+        fetchPost() {
+            this.$store.dispatch('post/fetchPost', this.uri);
+            NProgress.inc();
+        },
 
-            if (this.id === 'create') {
-                this.id = this.post.id;
-            }
-
-            this.$store.dispatch('saveActivePost', {
-                data: this.post,
-                id: this.id,
-            });
-
-            setTimeout(() => {
-                this.post.hasSuccess = false;
-                this.post.isSaving = false;
-            }, 3000);
+        savePost() {
+            // this.post.errors = [];
+            // this.post.isSaving = true;
+            // this.post.hasSuccess = false;
+            //
+            // if (this.id === 'create') {
+            //     this.id = this.post.id;
+            // }
+            //
+            // this.$store.dispatch('saveActivePost', {
+            //     data: this.post,
+            //     id: this.id,
+            // });
+            //
+            // setTimeout(() => {
+            //     this.post.hasSuccess = false;
+            //     this.post.isSaving = false;
+            // }, 3000);
         },
 
         update: debounce(function () {
-            this.save();
+            // this.save();
         }, 3000),
 
         convertToDraft() {
-            this.post.published_at = '';
-            this.save();
+            // this.post.published_at = '';
+            // this.save();
         },
 
         deletePost() {
-            this.$store.dispatch('deletePost', this.post.id);
-
+            this.$store.dispatch('post/deletePost', this.activePost.id);
             $(this.$refs.deleteModal.$el).modal('hide');
+            this.$router.push({ name: 'posts' });
+            this.$toasted.show(this.trans.success, {
+                className: 'bg-success',
+            });
         },
 
         showPublishModal() {
@@ -250,9 +269,3 @@ export default {
     },
 };
 </script>
-
-<style scoped>
-textarea {
-    font-size: 42px;
-}
-</style>

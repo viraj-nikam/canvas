@@ -130,6 +130,10 @@ body[data-theme=dark] .border-bottom {
   border-bottom: 1px solid #4A5568 !important;
 }
 
+body[data-theme=dark] .border-left {
+  border-left: 1px solid #4A5568 !important;
+}
+
 body[data-theme=dark] .dropdown-menu {
   background-color: #263238;
   color: #B2BDC4;

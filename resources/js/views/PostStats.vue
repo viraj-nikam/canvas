@@ -1,7 +1,7 @@
 <template>
     <section>
         <page-header>
-            <template slot="menu" v-if="isReady && canEditPost">
+            <template slot="options" v-if="isReady && canEditPost">
                 <div class="dropdown">
                     <a
                         class="nav-link pr-0"

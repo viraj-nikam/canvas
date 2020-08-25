@@ -12,9 +12,9 @@
                     <div class="card-body p-0">
                         <div class="d-flex rounded-top p-3 align-items-center">
                             <div class="mr-auto py-1">
-                                <p class="mb-0 lead font-weight-bold">
+                                <h5 class="mb-1">
                                     {{ trans.weekly_digest }}
-                                </p>
+                                </h5>
                                 <p class="mb-1 d-none d-lg-block text-secondary">
                                     {{ trans.toggle_digest }}
                                 </p>
