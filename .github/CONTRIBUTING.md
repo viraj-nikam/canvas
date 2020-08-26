@@ -26,7 +26,7 @@ composer-link() {composer config repositories.local '{"type": "path", "url": "'$
 
 ### Git
 
-Fork the project on [https://github.com/cnvs/canvas](https://github.com/cnvs/canvas) to your own account. Then clone the fork with the following command:
+Fork the project on [https://github.com/austintoddj/canvas](https://github.com/austintoddj/canvas) to your own account. Then clone the fork with the following command:
 
 ```bash
 git clone https://github.com/your-account/canvas.git
@@ -71,7 +71,7 @@ From your Laravel app, link the local version of Canvas using the `composer-link
 
 ```bash
 composer-link ../canvas/
-composer require cnvs/canvas @dev
+composer require austintoddj/canvas @dev
 ```
 
 ### Installation
@@ -151,4 +151,4 @@ cd public/vendor/canvas
 ln -s ../../../../canvas/public/* .
 ```
 
-Once you've made your changes, [create a pull request](https://github.com/cnvs/canvas/compare) from your fork to the `develop` branch of the project repository.
+Once you've made your changes, [create a pull request](https://github.com/austintoddj/canvas/compare) from your fork to the `develop` branch of the project repository.
