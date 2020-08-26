@@ -137,7 +137,7 @@
                             </router-link>
                         </div>
 
-                        <infinite-loading :identifier="infiniteId" spinner="spiral" @infinite="fetchData">
+                        <infinite-loading :identifier="infiniteId" spinner="spiral" @infinite="fetchPosts">
                             <span slot="no-more" />
                             <div slot="no-results" class="text-left">
                                 <div class="my-5">
@@ -201,13 +201,13 @@ export default {
     },
 
     created() {
-        this.fetchData();
+        this.fetchPosts();
         this.isReady = true;
         NProgress.done();
     },
 
     methods: {
-        fetchData($state) {
+        fetchPosts($state) {
             if ($state) {
                 return this.request()
                     .get('/api/posts', {

@@ -160,8 +160,8 @@ export default {
         }),
     },
 
-    async created() {
-        await Promise.all([ this.fetchPost() ]);
+    created() {
+        this.fetchPost()
         this.isReady = true;
         NProgress.done();
 

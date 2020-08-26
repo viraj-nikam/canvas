@@ -6,7 +6,7 @@
             <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12 my-3">
                 <div class="my-3">
                     <h2 class="mt-3">
-                        {{ isAuthUserProfile ? trans.edit_profile : 'Edit user' }}
+                        {{ isAuthUserProfile ? trans.edit_profile : trans.edit_user }}
                     </h2>
                     <p class="mt-2 text-secondary">{{ trans.last_updated }} {{ moment(activeUser.updatedAt).fromNow() }}</p>
                 </div>

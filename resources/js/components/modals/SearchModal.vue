@@ -111,13 +111,13 @@ export default {
         }),
     },
 
-    async created() {
-        await this.fetchPosts();
+    created() {
+        this.fetchPosts();
 
         if (this.isAdmin) {
-            await this.fetchTags();
-            await this.fetchTopics();
-            await this.fetchUsers();
+            this.fetchTags();
+            this.fetchTopics();
+            this.fetchUsers();
         }
     },
 

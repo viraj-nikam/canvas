@@ -381,8 +381,8 @@ export default {
         },
     },
 
-    mounted() {
-        this.fetchStats();
+    async created() {
+        await Promise.all([this.fetchStats()]);
         this.isReady = true;
         NProgress.done();
     },

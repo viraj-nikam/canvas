@@ -192,9 +192,8 @@ export default {
         },
     },
 
-    created() {
-        this.fetchStats();
-        this.fetchPosts();
+    async created() {
+        await Promise.all([this.fetchStats(), this.fetchPosts()]);
         this.isReady = true;
         NProgress.done();
     },
@@ -243,12 +242,11 @@ export default {
                 });
         },
 
-        changeScope() {
+        async changeScope() {
             this.data = null;
             this.page = 1;
             this.posts = [];
-            this.fetchStats();
-            this.fetchPosts();
+            await Promise.all([this.fetchStats(), this.fetchPosts()]);
             this.infiniteId += 1;
             NProgress.done();
         },

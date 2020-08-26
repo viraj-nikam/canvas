@@ -35,7 +35,7 @@
         <main v-if="isReady" class="py-4">
             <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12">
                 <div class="my-3">
-                    <h2 class="mt-3">{{ activeTag.name || trans.new_tag }}</h2>
+                    <h2 class="mt-3">{{ creatingTag ? trans.new_tag : trans.edit_tag }}</h2>
                     <p v-if="!creatingTag" class="mt-2 text-secondary">
                         {{ trans.last_updated }} {{ moment(activeTag.updatedAt).fromNow() }}
                     </p>
@@ -238,7 +238,7 @@ export default {
             this.localSlug = !isEmpty(val) ? this.slugify(val) : '';
         },
 
-        $route(to) {
+        async $route(to) {
             if (this.uri === 'create' && to.params.id === this.activeTag.id) {
                 this.uri = to.params.id;
             }
@@ -248,8 +248,7 @@ export default {
                 this.uri = to.params.id;
                 this.page = 1;
                 this.posts = [];
-                this.fetchTag();
-                this.fetchPosts();
+                await Promise.all([this.fetchTag(), this.fetchPosts()]);
                 this.localName = this.activeTag.name;
                 this.localSlug = this.activeTag.slug;
                 this.isReady = true;
@@ -258,9 +257,8 @@ export default {
         },
     },
 
-    created() {
-        this.fetchTag();
-        this.fetchPosts();
+    async created() {
+        await Promise.all([this.fetchTag(), this.fetchPosts()]);
         this.localName = this.activeTag.name;
         this.localSlug = this.activeTag.slug;
         this.isReady = true;
