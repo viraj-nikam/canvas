@@ -3,7 +3,7 @@
     "description": "A Laravel publishing platform",
     "keywords": ["canvas", "laravel", "publishing", "platform"],
     "license": "MIT",
-    "homepage": "https://cnvs.io",
+    "homepage": "https://trycanvas.app",
     "support": {
         "issues": "https://github.com/austintoddj/canvas/issues",
         "source": "https://github.com/austintoddj/canvas"

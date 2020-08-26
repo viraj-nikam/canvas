@@ -1,6 +1,6 @@
 ## Sponsors
 
-[Canvas](https://cnvs.io) is a freely available, open source project that gives something back to the greater
+[Canvas](https://trycanvas.app) is a freely available, open source project that gives something back to the greater
  [Laravel](https://laravel.com) community. Since blog platforms dominate so much of the Internet today, it makes
  sense that there should be a simple, easy-to-use package that can drop into your application with little to no effort.
 
@@ -16,16 +16,16 @@ If you haven't already, [star the repo](https://github.com/austintoddj/canvas/st
 
 <tr>
     <td align="center" valign="center">
-        <a href="https://www.jetbrains.com"><img width="180px" src="https://github.com/austintoddj/art/blob/master/sponsors/jetbrains.png?raw=true"></a>
+        <a href="https://www.jetbrains.com"><img width="180px" src=".github/assets/jetbrains.png"></a>
     </td>
     <td align="center" valign="center">
-        <a href="https://digitalocean.com/?refcode=41cb45b3c7db"><img width="180px" src="https://github.com/austintoddj/art/blob/master/sponsors/digitalocean.png?raw=true"></a>
+        <a href="https://digitalocean.com/?refcode=41cb45b3c7db"><img width="180px" src=".github/assets/digitalocean.png"></a>
     </td>
     <td align="center" valign="center">
-        <a href="https://www.navicat.com"><img width="180px" src="https://github.com/austintoddj/art/blob/master/sponsors/navicat.png?raw=true"></a>
+        <a href="https://www.navicat.com"><img width="180px" src=".github/assets/navicat.png"></a>
     </td>
     <td align="center" valign="center">
-        <a href="https://readme.io"><img width="180px" src="https://github.com/austintoddj/art/blob/master/sponsors/readme.png?raw=true"></a>
+        <a href="https://readme.io"><img width="180px" src=".github/assets/readme.png"></a>
     </td>
 </tr>
 

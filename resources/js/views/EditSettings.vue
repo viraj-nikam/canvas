@@ -151,7 +151,7 @@ export default {
         latestRelease() {
             return {
                 tag: this.settings.version,
-                link: `https://github.com/cnvs/canvas/releases/tag/${this.settings.version}`,
+                link: `https://github.com/austintoddj/canvas/releases/tag/${this.settings.version}`,
             };
         },
     },

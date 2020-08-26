@@ -61,7 +61,7 @@ tasks:
 
       # Link Canvas to the Laravel app
       composer-link ../canvas/
-      composer require cnvs/canvas @dev
+      composer require austintoddj/canvas @dev
 
       # Install Canvas
       php artisan canvas:install

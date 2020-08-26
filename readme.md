@@ -1,14 +1,14 @@
 <p align="center">
     <a href="https://trycanvas.app">
-        <img src=".github/HEADER.png">
+        <img src=".github/assets/header.png">
     </a>
 </p>
 
 <p align="center">
 <a href="https://github.com/austintoddj/canvas/actions"><img src="https://github.com/austintoddj/canvas/workflows/build/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/cnvs/canvas"><img src="https://poser.pugx.org/cnvs/canvas/downloads"></a>
-<a href="https://packagist.org/packages/cnvs/canvas"><img src="https://poser.pugx.org/cnvs/canvas/v/stable"></a>
-<a href="https://packagist.org/packages/cnvs/canvas"><img src="https://poser.pugx.org/cnvs/canvas/license"></a>
+<a href="https://packagist.org/packages/austintoddj/canvas"><img src="https://poser.pugx.org/austintoddj/canvas/downloads"></a>
+<a href="https://packagist.org/packages/austintoddj/canvas"><img src="https://poser.pugx.org/austintoddj/canvas/v/stable"></a>
+<a href="https://packagist.org/packages/austintoddj/canvas"><img src="https://poser.pugx.org/austintoddj/canvas/license"></a>
 </p>
 
 ## Introduction
@@ -249,7 +249,7 @@ Thank you for considering contributing to Canvas!
 
 You can open a completely prebuilt, ready-to-code development environment using Gitpod.
                                                   
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/cnvs/canvas/tree/develop)
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/austintoddj/canvas/tree/develop)
                                                   
 Alternatively, you can use the [contribution guide](.github/CONTRIBUTING.md) to assist you in manually setting up an
  environment on your own machine. 
