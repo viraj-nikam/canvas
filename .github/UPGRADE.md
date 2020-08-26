@@ -2,12 +2,13 @@
 
 ## Table of Contents
 
-- [Upgrading to 6.0.0 from 5.3](#upgrading-to-600-from-53)
+- [Upgrading to 6.0.0 from 5.4](#upgrading-to-600-from-54)
+- [Upgrading to 5.4.0 from 5.3](#upgrading-to-540-from-53)
 - [Upgrading to 5.3.0 from 5.2](#upgrading-to-530-from-52)
 - [Upgrading to 5.2.0 from 5.1](#upgrading-to-520-from-51)
 - [Upgrading to 5.1.0 from 5.0](#upgrading-to-510-from-50)
 
-## Upgrading to 6.0.0 from 5.3
+## Upgrading to 6.0.0 from 5.4
 
 ### Exporting your data
 
@@ -36,10 +37,8 @@ Once completed, you can drop those tables from your database.
 
 ### Updating dependencies
 
-> Important: The package name has changed from `cnvs/canvas` to `austintoddj/canvas` 
-
-Update the new `austintoddj/canvas` dependency to `^6.0` in your `composer.json` file. Upgrade the package to the
- latest version:
+Update your `austintoddj/canvas` dependency to `^6.0` in your `composer.json` file. Upgrade the package to the latest
+ version:
 
 ```bash
 composer update
@@ -68,6 +67,39 @@ For instance, I use [Sequel Pro](http://sequelpro.com). When I exported my data,
 The base path variable name in `config/canvas.php` changed to be consistent with the newly-added domain variable. 
 You'll need to make sure your `.env` file is up to date with the correct variable: `CANVAS_PATH`.
  
+### Assets
+
+Re-publish the assets using the `canvas:publish` Artisan command:
+
+```bash
+php artisan canvas:publish
+```
+
+Clear any cached views using the `view:clear` Artisan command:
+
+```bash
+php artisan view:clear
+```
+
+## Upgrading to 5.4.0 from 5.3
+
+> **Important:** The package name has changed from `cnvs/canvas` to `austintoddj/canvas`
+
+Update the new `austintoddj/canvas` dependency to `^5.4` in your `composer.json` file. Upgrade the package to the
+ latest version:
+
+```bash
+composer update
+```
+
+### Migrations
+
+Run the new migrations using the `migrate` Artisan command:
+
+```bash
+php artisan migrate
+```
+
 ### Assets
 
 Re-publish the assets using the `canvas:publish` Artisan command:

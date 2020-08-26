@@ -5,9 +5,7 @@
 </p>
 
 <p align="center">
-<a href="https://github.com/cnvs/canvas/actions"><img src="https://github.com/cnvs/canvas/workflows/build/badge.svg" alt="Build Status"></a>
-<a href="https://gitpod.io/from-referrer/"><img src="https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo
-=gitpod" alt="GitPod"></a>
+<a href="https://github.com/austintoddj/canvas/actions"><img src="https://github.com/austintoddj/canvas/workflows/build/badge.svg" alt="Build Status"></a>
 <a href="https://packagist.org/packages/cnvs/canvas"><img src="https://poser.pugx.org/cnvs/canvas/downloads"></a>
 <a href="https://packagist.org/packages/cnvs/canvas"><img src="https://poser.pugx.org/cnvs/canvas/v/stable"></a>
 <a href="https://packagist.org/packages/cnvs/canvas"><img src="https://poser.pugx.org/cnvs/canvas/license"></a>
@@ -145,9 +143,7 @@ Canvas uses the storage disk for media uploads. You may configure the different 
 
 ### Frontend
 
-While Canvas does not dictate a specific design for your frontend, it does provide a basic starting point using
- [Bootstrap](https://getbootstrap.com) and [Vue](https://vuejs.org) that will be helpful for many applications. The
-  scaffolding is located in the `austintoddj/studio` Composer package, which may be installed using Composer:
+While Canvas does not dictate a specific design for your frontend, it does provide a basic starting point using [Bootstrap](https://getbootstrap.com) and [Vue](https://vuejs.org) that will be helpful for many applications. The scaffolding is located in the `austintoddj/studio` Composer package, which may be installed using Composer:
 
 ```bash
 composer require austintoddj/studio
@@ -268,11 +264,7 @@ composer test
 
 ## Translate
 
-One of the goals for the team behind Canvas is to ensure proper localization across the app. If you come across any
- translation mistakes or issues and want to make a contribution, please [create a pull request](https://github.com
- /austintoddj/canvas/pulls). If you don't see your native language included in the `resources/lang` directory, feel free to
-  add it. Once you've added your new translation file, make sure the appropriate names are correct in the 
- `resources/js/data/languages.json` file.
+One of the goals for the team behind Canvas is to ensure proper localization across the app. If you come across any translation mistakes or issues and want to make a contribution, please [create a pull request](https://github.com/austintoddj/canvas/pulls). If you don't see your native language included in the `resources/lang` directory, feel free to add it.
 
 ## License
 

@@ -6,8 +6,7 @@
 
 **Financial contributions will never be required to maintain this project**, they are however very much appreciated. If you've ever used Canvas in your daily work, either personally or professionally, and feel that it has made your life easier, consider supporting the project by buying a cup of coffee.
 
-If you haven't already, [star the repo](https://github.com/cnvs/canvas/stargazers) to show your support, it makes a
- huge difference. Thank you in advance. :-)
+If you haven't already, [star the repo](https://github.com/austintoddj/canvas/stargazers) to show your support, it makes a huge difference. Thank you in advance. :-)
 
 ---
 
@@ -17,16 +16,16 @@ If you haven't already, [star the repo](https://github.com/cnvs/canvas/stargazer
 
 <tr>
     <td align="center" valign="center">
-        <a href="https://www.jetbrains.com"><img width="180px" src="https://github.com/cnvs/art/blob/master/sponsors/jetbrains.png?raw=true"></a>
+        <a href="https://www.jetbrains.com"><img width="180px" src="https://github.com/austintoddj/art/blob/master/sponsors/jetbrains.png?raw=true"></a>
     </td>
     <td align="center" valign="center">
-        <a href="https://digitalocean.com/?refcode=41cb45b3c7db"><img width="180px" src="https://github.com/cnvs/art/blob/master/sponsors/digitalocean.png?raw=true"></a>
+        <a href="https://digitalocean.com/?refcode=41cb45b3c7db"><img width="180px" src="https://github.com/austintoddj/art/blob/master/sponsors/digitalocean.png?raw=true"></a>
     </td>
     <td align="center" valign="center">
-        <a href="https://www.navicat.com"><img width="180px" src="https://github.com/cnvs/art/blob/master/sponsors/navicat.png?raw=true"></a>
+        <a href="https://www.navicat.com"><img width="180px" src="https://github.com/austintoddj/art/blob/master/sponsors/navicat.png?raw=true"></a>
     </td>
     <td align="center" valign="center">
-        <a href="https://readme.io"><img width="180px" src="https://github.com/cnvs/art/blob/master/sponsors/readme.png?raw=true"></a>
+        <a href="https://readme.io"><img width="180px" src="https://github.com/austintoddj/art/blob/master/sponsors/readme.png?raw=true"></a>
     </td>
 </tr>
 

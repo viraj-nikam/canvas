@@ -33,8 +33,7 @@ Alternatively, see instructions below to manually setting up an environment on y
 
 ### Git
 
-Fork the project on [https://github.com/austintoddj/canvas](https://github.com/austintoddj/canvas) to your own account. Then clone
- the fork with the following command:
+Fork the project on [https://github.com/austintoddj/canvas](https://github.com/austintoddj/canvas) to your own account. Then clone the fork with the following command:
 
 ```bash
 git clone https://github.com/your-account/canvas.git
@@ -171,5 +170,4 @@ cd public/vendor/canvas
 ln -s ../../../../canvas/public/* .
 ```
 
-Once you've made your changes, [create a pull request](https://github.com/austintoddj/canvas/compare) from your fork to
- the `develop` branch of the project repository.
+Once you've made your changes, [create a pull request](https://github.com/austintoddj/canvas/compare) from your fork to the `develop` branch of the project repository.
