@@ -26,8 +26,8 @@ class CanvasServiceProvider extends ServiceProvider
         $this->registerRoutes();
         $this->registerMigrations();
         $this->registerPublishing();
-        $this->loadViewsFrom(__DIR__.'/../resources/views', 'canvas');
-        $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'canvas');
+        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'canvas');
+        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'canvas');
     }
 
     /**
@@ -38,9 +38,9 @@ class CanvasServiceProvider extends ServiceProvider
     public function register()
     {
         $this->mergeConfigFrom(
-    __DIR__.'/../config/canvas.php',
-    'canvas'
-);
+            __DIR__ . '/../config/canvas.php',
+            'canvas'
+        );
 
         $this->commands([
             DigestCommand::class,
@@ -64,62 +64,62 @@ class CanvasServiceProvider extends ServiceProvider
                 CaptureView::class,
                 CaptureVisit::class,
             ],
-];
+        ];
 
-                foreach ($mappings as $event => $listeners) {
-                    foreach ($listeners as $listener) {
-                        $events->listen($event, $listener);
-                    }
-                }
+        foreach ($mappings as $event => $listeners) {
+            foreach ($listeners as $listener) {
+                $events->listen($event, $listener);
             }
+        }
+    }
 
-            /**
-             * Register the package routes.
-             *
-             * @return void
-             */
-            private function registerRoutes()
-            {
-                $this->loadRoutesFrom(__DIR__.'/Http/routes.php');
-            }
+    /**
+     * Register the package routes.
+     *
+     * @return void
+     */
+    private function registerRoutes()
+    {
+        $this->loadRoutesFrom(__DIR__ . '/Http/routes.php');
+    }
 
-            /**
-             * Register the package's migrations.
-             *
-             * @return void
-             */
-            private function registerMigrations()
-            {
-                if ($this->app->runningInConsole()) {
-                    $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
-                }
-            }
+    /**
+     * Register the package's migrations.
+     *
+     * @return void
+     */
+    private function registerMigrations()
+    {
+        if ($this->app->runningInConsole()) {
+            $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+        }
+    }
 
-            /**
-             * Register the package's publishable resources.
-             *
-             * @return void
-             */
-            private function registerPublishing()
-            {
-                if ($this->app->runningInConsole()) {
-                    $this->publishes([
-                        __DIR__.'/../public' => public_path('vendor/canvas'),
-                    ], 'canvas-assets');
+    /**
+     * Register the package's publishable resources.
+     *
+     * @return void
+     */
+    private function registerPublishing()
+    {
+        if ($this->app->runningInConsole()) {
+            $this->publishes([
+                __DIR__ . '/../public' => public_path('vendor/canvas'),
+            ], 'canvas-assets');
 
-                    $this->publishes([
-                        __DIR__.'/../config/canvas.php' => config_path('canvas.php'),
-                    ], 'canvas-config');
+            $this->publishes([
+                __DIR__ . '/../config/canvas.php' => config_path('canvas.php'),
+            ], 'canvas-config');
 
-                    $this->publishes([
-                        __DIR__.'/../resources/lang' => resource_path('lang/vendor/canvas'),
-                    ], 'canvas-lang');
+            $this->publishes([
+                __DIR__ . '/../resources/lang' => resource_path('lang/vendor/canvas'),
+            ], 'canvas-lang');
 
-                    $this->publishes([
-                        __DIR__.'/../resources/stubs/CanvasServiceProvider.stub' => app_path(
-                            'Providers/CanvasServiceProvider.php'
-                        ),
-                    ], 'canvas-provider');
-                }
-            }
+            $this->publishes([
+                __DIR__ . '/../resources/stubs/CanvasServiceProvider.stub' => app_path(
+                    'Providers/CanvasServiceProvider.php'
+                ),
+            ], 'canvas-provider');
+        }
+    }
 }
