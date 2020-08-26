@@ -96,7 +96,7 @@
                             </router-link>
                         </div>
 
-                        <infinite-loading spinner="spiral" @infinite="fetchData">
+                        <infinite-loading spinner="spiral" @infinite="fetchTags">
                             <span slot="no-more" />
                             <div slot="no-results" class="text-left">
                                 <div class="my-5">
@@ -154,13 +154,13 @@ export default {
     },
 
     created() {
-        this.fetchData();
+        this.fetchTags();
         this.isReady = true;
         NProgress.done();
     },
 
     methods: {
-        fetchData($state) {
+        fetchTags($state) {
             if ($state) {
                 return this.request()
                     .get('/api/tags', {

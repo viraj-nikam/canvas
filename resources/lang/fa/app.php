@@ -7,6 +7,7 @@ return [
     'add_a_new_tag' => 'یک برچسب اضافه کنید',
     'add_a_new_topic' => 'یک موضوع اضافه کنید',
     'admin' => 'مدیر',
+    'all_stats' => 'تمامی آمار',
     'assets_are_not_up_to_date' => 'در ورژن نصب شده شما فایل های canvas بروز نیستند.',
     'average_reading_time' => 'میانگین زمان خواندن',
     'cancel' => 'لغو',
@@ -146,5 +147,6 @@ return [
     'your_post_will_publish_at' => 'نوشته شما منتشر خواهد شد در',
     'your_posts_received' => 'نوشته شما دریافت کرده:',
     'your_profile' => 'پروفایل شما',
+    'your_stats' => 'آمار شما',
     'your_weekly_writer_summary_for' => 'خلاصه هفتگی نویسنده برای',
 ];

@@ -13,14 +13,15 @@
                     </div>
 
                     <select
+                        v-if="isAdmin"
                         v-model="scope"
-                        id=""
-                        name=""
+                        id="scope"
+                        name="scope"
                         class="ml-auto w-auto custom-select border-0 bg-light"
                         @change="changeScope"
                     >
-                        <option value="user">Your Stats</option>
-                        <option value="all">All Stats</option>
+                        <option value="user">{{ trans.your_stats }}</option>
+                        <option value="all">{{ trans.all_stats }}</option>
                     </select>
                 </div>
 
@@ -178,6 +179,7 @@ export default {
 
     computed: {
         ...mapGetters({
+            isAdmin: 'profile/isAdmin',
             trans: 'settings/trans',
         }),
 
@@ -190,8 +192,9 @@ export default {
         },
     },
 
-    async created() {
-        await Promise.all([this.fetchStats(), this.fetchPosts()]);
+    created() {
+        this.fetchStats();
+        this.fetchPosts();
         this.isReady = true;
         NProgress.done();
     },
@@ -240,11 +243,12 @@ export default {
                 });
         },
 
-        async changeScope() {
+        changeScope() {
             this.data = null;
             this.page = 1;
             this.posts = [];
-            await Promise.all([this.fetchStats(), this.fetchPosts()]);
+            this.fetchStats();
+            this.fetchPosts();
             this.infiniteId += 1;
             NProgress.done();
         },

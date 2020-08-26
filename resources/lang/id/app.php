@@ -7,6 +7,7 @@ return [
     'add_a_new_tag' => 'Tambah tag baru',
     'add_a_new_topic' => 'Tambahkan sebagai topik baru',
     'admin' => 'Admin',
+    'all_stats' => 'Semua status',
     'assets_are_not_up_to_date' => 'Aset untuk Canvas tidak mutakhir dengan versi yang diinstal.',
     'average_reading_time' => 'Waktu baca rata-rata',
     'cancel' => 'Batal',
@@ -146,5 +147,6 @@ return [
     'your_post_will_publish_at' => 'Post anda akan diterbitkan pada',
     'your_posts_received' => 'Post anda mendapatkan:',
     'your_profile' => 'Profil anda',
+    'your_stats' => 'Statistik Anda',
     'your_weekly_writer_summary_for' => 'Ringkasan penulis mingguan Anda untuk',
 ];

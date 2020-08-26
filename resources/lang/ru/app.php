@@ -7,6 +7,7 @@ return [
     'add_a_new_tag' => 'Добавить новый тег',
     'add_a_new_topic' => 'Добавить это как новую тему',
     'admin' => 'Админ',
+    'all_stats' => 'Все характеристики',
     'assets_are_not_up_to_date' => 'Ресурсы для Canvas не соответствуют установленной версии.',
     'average_reading_time' => 'Среднее время чтения',
     'cancel' => 'Отмена',
@@ -146,5 +147,6 @@ return [
     'your_post_will_publish_at' => 'Ваш пост будет опубликован на',
     'your_posts_received' => 'ваши сообщения получили:',
     'your_profile' => 'Твой профиль',
+    'your_stats' => 'Ваша статистика',
     'your_weekly_writer_summary_for' => 'Ваше еженедельное резюме для писателя',
 ];

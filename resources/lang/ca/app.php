@@ -7,6 +7,7 @@ return [
     'add_a_new_tag' => 'Afegeix una etiqueta',
     'add_a_new_topic' => 'Afegeix això com a nou tema',
     'admin' => 'Administrador',
+    'all_stats' => 'Totes les estadístiques',
     'assets_are_not_up_to_date' => 'Els actius de Canvas no estan actualitzats amb la versió instal·lada.',
     'average_reading_time' => 'Temps promig de lectura',
     'cancel' => 'Cancel·la',
@@ -146,5 +147,6 @@ return [
     'your_post_will_publish_at' => 'La vostra entrada es publicarà el',
     'your_posts_received' => 'les vostres entrades han rebut:',
     'your_profile' => 'El vostre perfil',
+    'your_stats' => 'Les vostres estadístiques',
     'your_weekly_writer_summary_for' => 'El vostre resum setmanal d\'autor per',
 ];

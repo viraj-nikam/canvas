@@ -7,6 +7,7 @@ return [
     'add_a_new_tag' => '新增标签',
     'add_a_new_topic' => '将此添加为新主题',
     'admin' => '管理员',
+    'all_stats' => '所有统计',
     'assets_are_not_up_to_date' => 'Canvas的资产不是最新的已安装版本。',
     'average_reading_time' => '平均阅读时间',
     'cancel' => '取消',
@@ -146,5 +147,6 @@ return [
     'your_post_will_publish_at' => '您的帖子将发布在',
     'your_posts_received' => '您收到的帖子：',
     'your_profile' => '你的个人资料',
+    'your_stats' => '您的统计',
     'your_weekly_writer_summary_for' => '您的每周作家摘要',
 ];

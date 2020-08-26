@@ -277,8 +277,8 @@ export default {
     //     },
     // },
 
-    async created() {
-        await Promise.all([this.fetchUser()]);
+    created() {
+        this.fetchUser();
         this.isReady = true;
         NProgress.done();
     },

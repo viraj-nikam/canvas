@@ -7,6 +7,7 @@ return [
     'add_a_new_tag' => 'Add a new tag',
     'add_a_new_topic' => 'Add this as a new topic',
     'admin' => 'Admin',
+    'all_stats' => 'All stats',
     'assets_are_not_up_to_date' => 'The assets for Canvas are not up-to-date with the installed version.',
     'average_reading_time' => 'Average Reading Time',
     'cancel' => 'Cancel',
@@ -146,5 +147,6 @@ return [
     'your_post_will_publish_at' => 'Your post will publish at',
     'your_posts_received' => 'your posts received:',
     'your_profile' => 'Your profile',
+    'your_stats' => 'Your stats',
     'your_weekly_writer_summary_for' => 'Your weekly writer summary for',
 ];

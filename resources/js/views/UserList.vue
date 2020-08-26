@@ -65,7 +65,7 @@
                             </router-link>
                         </div>
 
-                        <infinite-loading spinner="spiral" @infinite="fetchData">
+                        <infinite-loading spinner="spiral" @infinite="fetchUsers">
                             <span slot="no-more" />
                             <div slot="no-results" />
                         </infinite-loading>
@@ -114,13 +114,13 @@ export default {
     },
 
     created() {
-        this.fetchData();
+        this.fetchUsers();
         this.isReady = true;
         NProgress.done();
     },
 
     methods: {
-        fetchData($state) {
+        fetchUsers($state) {
             if ($state) {
                 return this.request()
                     .get('/api/users', {

@@ -7,6 +7,7 @@ return [
     'add_a_new_tag' => 'Yeni bir etiket ekle',
     'add_a_new_topic' => 'Bunu yeni bir konu olarak ekle',
     'admin' => 'Yönetici',
+    'all_stats' => 'Tüm istatistikler',
     'assets_are_not_up_to_date' => 'Canvas\'ın varlıkları yüklü sürümle güncel değil.',
     'average_reading_time' => 'Ortalama Okuma Süresi',
     'cancel' => 'İptal etmek',
@@ -146,5 +147,6 @@ return [
     'your_post_will_publish_at' => 'Yayınınız şu adreste yayınlanacak:',
     'your_posts_received' => 'gönderileriniz alındı:',
     'your_profile' => 'Senin profil',
+    'your_stats' => 'İstatistikleriniz',
     'your_weekly_writer_summary_for' => 'İçin haftalık yazar özetiniz',
 ];

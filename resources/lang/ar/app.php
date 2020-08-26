@@ -7,6 +7,7 @@ return [
     'add_a_new_tag' => 'إضافة علامة جديدة',
     'add_a_new_topic' => 'أضف هذا كموضوع جديد',
     'admin' => 'مشرف',
+    'all_stats' => 'كل الولايات',
     'assets_are_not_up_to_date' => 'الأصول لـ Canvas غير محدّثة مع الإصدار المثبت.',
     'average_reading_time' => 'متوسط ​​وقت القراءة',
     'cancel' => 'إلغاء',
@@ -146,5 +147,6 @@ return [
     'your_post_will_publish_at' => 'سيتم نشر منشورك على',
     'your_posts_received' => 'تم تلقي مشاركاتك:',
     'your_profile' => 'ملفك الشخصي',
+    'your_stats' => 'إحصاءاتك',
     'your_weekly_writer_summary_for' => 'ملخص الكاتب الأسبوعي لـ',
 ];

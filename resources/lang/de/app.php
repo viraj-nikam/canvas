@@ -7,6 +7,7 @@ return [
     'add_a_new_tag' => 'Neuen Tag hinzufügen',
     'add_a_new_topic' => 'Neues Thema hinzufügen',
     'admin' => 'Administrator',
+    'all_stats' => 'Alle Statistiken',
     'assets_are_not_up_to_date' => 'Die Elemente für Canvas sind mit der installierten Version nicht auf dem neuesten Stand.',
     'average_reading_time' => 'Durchschnittliche Lesezeit',
     'cancel' => 'Abbrechen',
@@ -146,5 +147,6 @@ return [
     'your_post_will_publish_at' => 'Dein Beitrag wird veröffentlicht unter',
     'your_posts_received' => 'Deine Beiträge erhalten:',
     'your_profile' => 'Dein Profil',
+    'your_stats' => 'Deine Statistiken',
     'your_weekly_writer_summary_for' => 'Deine wöchentliche Zusammenstellung für',
 ];

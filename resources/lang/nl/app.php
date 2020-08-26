@@ -7,6 +7,7 @@ return [
     'add_a_new_tag' => 'Voeg een nieuwe tag toe',
     'add_a_new_topic' => 'Voeg dit toe als een nieuw onderwerp',
     'admin' => 'beheerder',
+    'all_stats' => 'Alle statistieken',
     'assets_are_not_up_to_date' => 'De middelen voor Canvas zijn niet up-to-date met de geïnstalleerde versie.',
     'average_reading_time' => 'Gemiddelde leestijd',
     'cancel' => 'annuleren',
@@ -146,5 +147,6 @@ return [
     'your_post_will_publish_at' => 'Je bericht wordt gepubliceerd op',
     'your_posts_received' => 'uw berichten ontvangen:',
     'your_profile' => 'Jouw profiel',
+    'your_stats' => 'Uw statistieken',
     'your_weekly_writer_summary_for' => 'Je wekelijkse schrijveroverzicht voor',
 ];

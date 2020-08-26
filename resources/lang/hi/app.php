@@ -7,6 +7,7 @@ return [
     'add_a_new_tag' => 'एक नया टैग जोड़ें',
     'add_a_new_topic' => 'इसे एक नए विषय के रूप में जोड़ें',
     'admin' => 'व्यवस्थापक',
+    'all_stats' => 'सभी आँकड़े',
     'assets_are_not_up_to_date' => 'कैनवास की संपत्ति स्थापित संस्करण के साथ अद्यतित नहीं है।',
     'average_reading_time' => 'औसत पढ़ने का समय',
     'cancel' => 'रद्द करना',
@@ -146,5 +147,6 @@ return [
     'your_post_will_publish_at' => 'आपकी पोस्ट प्रकाशित होगी',
     'your_posts_received' => 'आपके पोस्ट प्राप्त हुए:',
     'your_profile' => 'आपकी रूपरेखा',
+    'your_stats' => 'आपके आँकड़े',
     'your_weekly_writer_summary_for' => 'आपका साप्ताहिक लेखक सारांश',
 ];

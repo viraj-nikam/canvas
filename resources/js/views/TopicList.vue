@@ -98,7 +98,7 @@
                             </router-link>
                         </div>
 
-                        <infinite-loading spinner="spiral" @infinite="fetchData">
+                        <infinite-loading spinner="spiral" @infinite="fetchTopics">
                             <span slot="no-more" />
                             <div slot="no-results" class="text-left">
                                 <div class="my-5">
@@ -156,13 +156,13 @@ export default {
     },
 
     created() {
-        this.fetchData();
+        this.fetchTopics();
         this.isReady = true;
         NProgress.done();
     },
 
     methods: {
-        fetchData($state) {
+        fetchTopics($state) {
             if ($state) {
                 return this.request()
                     .get('/api/topics', {
