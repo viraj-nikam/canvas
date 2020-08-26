@@ -5,11 +5,13 @@
         <main v-if="isReady" class="py-4">
             <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12 my-3">
                 <div class="my-3">
-                    <h2 class="mt-3">{{ user.name }}</h2>
-                    <p class="mt-2 text-secondary">{{ trans.last_updated }} {{ moment(userLastUpdated).fromNow() }}</p>
+                    <h2 class="mt-3">
+                        {{ isAuthUserProfile ? trans.edit_profile : 'Edit user' }}
+                    </h2>
+                    <p class="mt-2 text-secondary">{{ trans.last_updated }} {{ moment(activeUser.updatedAt).fromNow() }}</p>
                 </div>
 
-                <div class="mt-5 card shadow-lg">
+                <div v-if="isAuthUserProfile" class="mt-5 card shadow-lg">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-4 order-md-last my-auto">
@@ -41,7 +43,7 @@
                                 />
 
                                 <div v-if="!isReadyToAcceptUploads" class="text-center rounded p-3">
-                                    <img :src="avatarPath" class="rounded-circle w-75 shadow-inner" :alt="user.name" />
+                                    <img :src="avatarPath" class="rounded-circle w-75 shadow-inner" :alt="activeUser.name" />
 
                                     <p class="mt-3 mb-0">
                                         <a
@@ -69,11 +71,6 @@
                                             title="Username"
                                             :placeholder="trans.choose_a_username"
                                         />
-                                        <div v-if="usernameValidationError" class="invalid-feedback d-block">
-                                            <strong :key="`${value}`" v-for="value in usernameValidationError">{{
-                                                value
-                                            }}</strong>
-                                        </div>
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -123,6 +120,10 @@
                     </div>
                 </div>
 
+                <div v-if="!isAuthUserProfile">
+                    Yay!
+                </div>
+
                 <div class="mt-5">
                     <h2 class="mt-3">{{ trans.role }}</h2>
                 </div>
@@ -143,12 +144,12 @@
                                     <div class="form-group my-auto">
                                         <span class="switch switch-sm">
                                             <input
-                                                v-model="meta.admin"
+                                                v-model="activeUser.admin"
                                                 id="admin"
                                                 type="checkbox"
                                                 class="switch"
                                                 :disabled="isAuthUserProfile"
-                                                :checked="meta.admin"
+                                                :checked="activeUser.admin"
                                                 @change="toggleAdmin"
                                             />
                                             <label for="admin" class="mb-0 sr-only">
@@ -177,7 +178,6 @@ import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
 import FilePondPluginImageValidateSize from 'filepond-plugin-image-validate-size';
 import NProgress from 'nprogress';
 import PageHeader from '../components/PageHeader';
-import get from 'lodash/get';
 import url from '../mixins/url';
 import vueFilePond from 'vue-filepond';
 
@@ -201,11 +201,10 @@ export default {
 
     data() {
         return {
-            user: null,
-            meta: null,
-            username: null,
-            summary: null,
-            avatar: null,
+            uri: this.$route.params.id,
+            username: '',
+            summary: '',
+            avatar: '',
             selectedImagesForPond: [],
             isReadyToAcceptUploads: false,
             isReady: false,
@@ -215,19 +214,21 @@ export default {
     computed: {
         ...mapState(['settings', 'profile']),
         ...mapGetters({
+            activeUser: 'user/activeUser',
             trans: 'settings/trans',
         }),
 
         userLastUpdated() {
-            return get('updated_at', this.meta, this.user.updated_at);
+            return this.activeUser.updatedAt;
         },
 
         avatarPath() {
-            return this.avatar || url.methods.gravatar(this.user.email);
+            return this.activeUser.avatar;
+            // return this.avatar || url.methods.gravatar(this.user.email);
         },
 
         isAuthUserProfile() {
-            return this.profile.id == this.user.id;
+            return this.profile.id === this.activeUser.id;
         },
 
         getServerOptions() {
@@ -240,11 +241,11 @@ export default {
         },
 
         usernameValidationError() {
-            if (this.user.errors) {
-                let errors = Object.values(this.user.errors);
-
-                return get(errors.flat(1), '[0].username', null);
-            }
+            // if (this.user.errors) {
+            //     let errors = Object.values(this.user.errors);
+            //
+            //     return get(errors.flat(1), '[0].username', null);
+            // }
 
             return [];
         },
@@ -262,37 +263,39 @@ export default {
         },
     },
 
-    watch: {
-        $route(to) {
-            this.isReady = false;
-            this.user = null;
-            this.username = null;
-            this.summary = null;
-            this.avatar = null;
-            this.meta = null;
-            this.fetchUser(to.params.id);
-            this.isReady = true;
-            NProgress.done();
-        },
-    },
+    // watch: {
+    //     $route(to) {
+    //         this.isReady = false;
+    //         this.user = null;
+    //         this.username = null;
+    //         this.summary = null;
+    //         this.avatar = null;
+    //         this.meta = null;
+    //         this.fetchUser(to.params.id);
+    //         this.isReady = true;
+    //         NProgress.done();
+    //     },
+    // },
 
     async created() {
-        await Promise.all([this.fetchUser(this.$route.params.id)]);
+        await Promise.all([this.fetchUser()]);
         this.isReady = true;
         NProgress.done();
     },
 
     methods: {
-        fetchUser(id) {
-            return this.request()
-                .get(`/api/users/${id}`)
-                .then(({ data }) => {
-                    this.user = data.user;
-                    this.meta = data.meta;
-                    this.summary = get(data.meta, 'summary', null);
-                    this.username = get(data.meta, 'username', null);
-                    this.avatar = get(data.meta, 'avatar', null);
-                });
+        fetchUser() {
+            this.$store.dispatch('user/fetchUser', this.uri);
+            NProgress.inc();
+            // return this.request()
+            //     .get(`/api/users/${this.uri}`)
+            //     .then(({ data }) => {
+            //         this.user = data.user;
+            //         this.meta = data.meta;
+            //         this.summary = get(data.meta, 'summary', null);
+            //         this.username = get(data.meta, 'username', null);
+            //         this.avatar = get(data.meta, 'avatar', null);
+            //     });
         },
 
         processedFromFilePond() {
@@ -307,23 +310,23 @@ export default {
         },
 
         updateProfile() {
-            this.request()
-                .post(`/api/users/${this.user.id}`, { ...this.user, ...this.meta })
-                .then(({ data }) => {
-                    this.user = data.user;
-                    this.summary = data.meta.summary;
-                    this.username = data.meta.username;
-                    this.avatar = data.meta.avatar;
-
-                    this.$store.dispatch('auth/setAvatar', data.meta.avatar);
-
-                    this.$toasted.show(this.trans.saved, {
-                        className: 'bg-success',
-                    });
-                })
-                .catch((errors) => {
-                    console.log(errors);
-                });
+            // this.request()
+            //     .post(`/api/users/${this.user.id}`, { ...this.user, ...this.meta })
+            //     .then(({ data }) => {
+            //         this.user = data.user;
+            //         this.summary = data.meta.summary;
+            //         this.username = data.meta.username;
+            //         this.avatar = data.meta.avatar;
+            //
+            //         this.$store.dispatch('auth/setAvatar', data.meta.avatar);
+            //
+            //         this.$toasted.show(this.trans.saved, {
+            //             className: 'bg-success',
+            //         });
+            //     })
+            //     .catch((errors) => {
+            //         console.log(errors);
+            //     });
         },
 
         clearAvatar() {
@@ -332,14 +335,14 @@ export default {
         },
 
         toggleAdmin() {
-            this.request()
-                .post(`/api/users/${this.user.id}`, { ...this.user, ...this.meta })
-                .then(({ data }) => {
-                    this.user = data.user;
-                })
-                .catch((errors) => {
-                    console.log(errors);
-                });
+            // this.request()
+            //     .post(`/api/users/${this.user.id}`, { ...this.user, ...this.meta })
+            //     .then(({ data }) => {
+            //         this.user = data.user;
+            //     })
+            //     .catch((errors) => {
+            //         console.log(errors);
+            //     });
         },
     },
 };

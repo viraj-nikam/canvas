@@ -12,9 +12,9 @@
                     <div class="card-body p-0">
                         <div class="d-flex rounded-top p-3 align-items-center">
                             <div class="mr-auto py-1">
-                                <h5 class="mb-1">
+                                <p class="mb-1 lead font-weight-bold text-truncate">
                                     {{ trans.weekly_digest }}
-                                </h5>
+                                </p>
                                 <p class="mb-1 d-none d-lg-block text-secondary">
                                     {{ trans.toggle_digest }}
                                 </p>
@@ -42,9 +42,9 @@
 
                         <div class="d-flex border-top p-3 align-items-center">
                             <div class="mr-auto py-1">
-                                <h5 class="mb-1">
+                                <p class="mb-1 lead font-weight-bold text-truncate">
                                     {{ trans.dark_mode }}
-                                </h5>
+                                </p>
                                 <p class="mb-1 d-none d-lg-block text-secondary">
                                     {{ trans.toggle_dark_mode }}
                                 </p>
@@ -72,9 +72,9 @@
 
                         <div class="d-flex border-top p-3 align-items-center">
                             <div class="mr-auto py-1">
-                                <h5 class="mb-1">
+                                <p class="mb-1 lead font-weight-bold text-truncate">
                                     {{ trans.locale }}
-                                </h5>
+                                </p>
                                 <p class="mb-1 d-none d-lg-block text-secondary">
                                     {{ trans.select_your_language_or_region }}
                                 </p>
