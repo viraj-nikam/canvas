@@ -152,9 +152,12 @@ Canvas uses the storage disk for media uploads. You may configure the different 
 
 > **Note:** The following features are completely optional, you are not required to use them.
 
-### Frontend
+### Studio
 
-While Canvas does not dictate a specific design for your frontend, it does provide a basic starting point using [Bootstrap](https://getbootstrap.com) and [Vue](https://vuejs.org) that will be helpful for many applications. The scaffolding is located in the `austintoddj/studio` Composer package, which may be installed using Composer:
+While Canvas does not dictate a specific design for your frontend, it does provide a basic starting point using
+ [Bootstrap](https://getbootstrap.com) and [Vue](https://vuejs.org) that will be helpful for many applications. The
+  scaffolding is located in the [`austintoddj/studio`](https://github.com/austintoddj/studio) Composer package, which
+   may be installed using Composer:
 
 ```bash
 composer require austintoddj/studio
@@ -178,7 +181,7 @@ yarn
 yarn dev
 ```
 
-### Unsplash
+### Unsplash Integration
 
 **Want access to the entire [Unsplash](https://unsplash.com) library?** Set up a new application at [https://unsplash.com/oauth/applications](https://unsplash.com/oauth/applications), grab your access key, and update `config/canvas.php`:
 
