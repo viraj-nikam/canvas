@@ -29,6 +29,7 @@ return [
     'done' => 'Bitti',
     'draft' => 'taslak',
     'drafts' => 'Taslaklar',
+    'drop_files_or_click_to_upload' => 'Dosyaları bırakın veya yüklemek için burayı tıklayın',
     'edit_post' => 'Gönderiyi düzenle',
     'edit_profile' => 'Profili Düzenle',
     'edit_tag' => 'Etiketi düzenle',

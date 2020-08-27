@@ -29,6 +29,7 @@ return [
     'done' => 'Gotowe',
     'draft' => 'Wersja robocza',
     'drafts' => 'Warcaby',
+    'drop_files_or_click_to_upload' => 'Upuść pliki lub kliknij tutaj, aby przesłać',
     'edit_post' => 'Edytuj wpisa',
     'edit_profile' => 'Edytuj profil',
     'edit_tag' => 'Edytuj tag',

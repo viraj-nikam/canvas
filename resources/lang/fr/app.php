@@ -29,6 +29,7 @@ return [
     'done' => 'Terminé',
     'draft' => 'Brouillon',
     'drafts' => 'Brouillons',
+    'drop_files_or_click_to_upload' => 'Déposez des fichiers ou cliquez ici pour télécharger',
     'edit_post' => 'Modifier le message',
     'edit_profile' => 'Editer le profil',
     'edit_tag' => 'Modifier la balise',

@@ -29,6 +29,7 @@ return [
     'done' => 'Selesai',
     'draft' => 'Konsep',
     'drafts' => 'Draf',
+    'drop_files_or_click_to_upload' => 'Jatuhkan file atau klik di sini untuk mengupload',
     'edit_post' => 'Ubah post',
     'edit_profile' => 'Ubah profil',
     'edit_tag' => 'Edit tag',

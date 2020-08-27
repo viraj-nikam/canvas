@@ -29,6 +29,7 @@ return [
     'done' => 'منجز',
     'draft' => 'مشروع',
     'drafts' => 'المسودات',
+    'drop_files_or_click_to_upload' => 'قم بإسقاط الملفات أو انقر هنا للتحميل',
     'edit_post' => 'تعديل المنشور',
     'edit_profile' => 'تعديل الملف الشخصي',
     'edit_tag' => 'تحرير العلامة',

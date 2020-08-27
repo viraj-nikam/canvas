@@ -29,6 +29,7 @@ return [
     'done' => 'Done',
     'draft' => 'Draft',
     'drafts' => 'Drafts',
+    'drop_files_or_click_to_upload' => 'Drop files or click here to upload',
     'edit_post' => 'Edit post',
     'edit_profile' => 'Edit profile',
     'edit_tag' => 'Edit tag',

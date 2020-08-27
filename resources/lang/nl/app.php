@@ -29,6 +29,7 @@ return [
     'done' => 'Gedaan',
     'draft' => 'Droogte',
     'drafts' => 'Concepten',
+    'drop_files_or_click_to_upload' => 'Zet bestanden neer of klik hier om te uploaden',
     'edit_post' => 'Bericht bewerken',
     'edit_profile' => 'Bewerk profiel',
     'edit_tag' => 'Bewerk label',

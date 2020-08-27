@@ -29,6 +29,7 @@ return [
     'done' => '完成',
     'draft' => '草案',
     'drafts' => '草稿',
+    'drop_files_or_click_to_upload' => '删除文件或单击此处上传',
     'edit_post' => '编辑帖子',
     'edit_profile' => '编辑个人资料',
     'edit_tag' => '编辑标签',

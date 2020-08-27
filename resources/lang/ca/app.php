@@ -29,6 +29,7 @@ return [
     'done' => 'Fet',
     'draft' => 'Esborrany',
     'drafts' => 'Esborrany(s)',
+    'drop_files_or_click_to_upload' => 'Desplegueu fitxers o feu clic aquí per carregar-los',
     'edit_post' => 'Editeu entrada',
     'edit_profile' => 'Editeu perfil',
     'edit_tag' => 'Edita l’etiqueta',

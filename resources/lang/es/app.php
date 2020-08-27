@@ -29,6 +29,7 @@ return [
     'done' => 'Hecho',
     'draft' => 'Borrador',
     'drafts' => 'Borradores',
+    'drop_files_or_click_to_upload' => 'Suelta archivos o haz clic aquí para subir',
     'edit_post' => 'Editar post',
     'edit_profile' => 'Editar perfil',
     'edit_tag' => 'Editar etiqueta',

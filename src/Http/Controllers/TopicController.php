@@ -45,6 +45,7 @@ class TopicController extends Controller
      * @param Request $request
      * @param $id
      * @return JsonResponse
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function store(Request $request, $id): JsonResponse
     {

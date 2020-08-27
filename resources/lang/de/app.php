@@ -29,6 +29,7 @@ return [
     'done' => 'Erledigt',
     'draft' => 'Entwurf',
     'drafts' => 'Entwürfe',
+    'drop_files_or_click_to_upload' => 'Legen Sie Dateien ab oder klicken Sie hier, um sie hochzuladen',
     'edit_post' => 'Beitrag bearbeiten',
     'edit_profile' => 'Profil bearbeiten',
     'edit_tag' => 'Tag bearbeiten',

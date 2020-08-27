@@ -2,16 +2,16 @@
     <section>
         <page-header />
 
-        <main v-if="isReady" class="py-4">
+        <main class="py-4">
             <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12 my-3">
-                <div class="my-3">
+                <div v-if="isReady" class="my-3">
                     <h2 class="mt-3">
                         {{ isAuthUserProfile ? trans.edit_profile : trans.edit_user }}
                     </h2>
-                    <p class="mt-2 text-secondary">{{ trans.last_updated }} {{ moment(activeUser.updatedAt).fromNow() }}</p>
+                    <p v-if="activeUser.updatedAt" class="mt-2 text-secondary">{{ trans.last_updated }} {{ moment(activeUser.updatedAt).fromNow() }}</p>
                 </div>
 
-                <div v-if="isAuthUserProfile" class="mt-5 card shadow-lg">
+                <div v-if="isReady && isAuthUserProfile" class="mt-5 card shadow-lg">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-4 order-md-last my-auto">
@@ -43,7 +43,7 @@
                                 />
 
                                 <div v-if="!isReadyToAcceptUploads" class="text-center rounded p-3">
-                                    <img :src="avatarPath" class="rounded-circle w-75 shadow-inner" :alt="activeUser.name" />
+                                    <img :src="activeUser.avatar" class="rounded-circle w-75 shadow-inner" :alt="activeUser.name" />
 
                                     <p class="mt-3 mb-0">
                                         <a
@@ -58,12 +58,13 @@
                             <div class="col-md-8 order-md-first my-auto">
                                 <div class="form-group row">
                                     <div class="col-12">
-                                        <label class="font-weight-bold text-uppercase text-muted small">
+                                        <label for="username" class="font-weight-bold text-uppercase text-muted small">
                                             {{ trans.username }}
                                         </label>
                                         <input
                                             v-model="username"
                                             name="username"
+                                            id="username"
                                             :disabled="!isAuthUserProfile"
                                             type="text"
                                             class="form-control border-0"
@@ -75,7 +76,7 @@
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-12">
-                                        <label class="font-weight-bold text-uppercase text-muted small">
+                                        <label for="summary" class="font-weight-bold text-uppercase text-muted small">
                                             {{ trans.summary }}
                                         </label>
                                         <textarea
@@ -103,7 +104,7 @@
                                     class="btn btn-success btn-block font-weight-bold mt-0"
                                     :class="{ disabled: !isAuthUserProfile }"
                                     aria-label="Save"
-                                    @click.prevent="updateProfile"
+                                    @click.prevent="updateUser"
                                 >
                                     {{ trans.save }}
                                 </a>
@@ -121,7 +122,7 @@
                 </div>
 
                 <div v-if="!isAuthUserProfile">
-                    Yay!
+                    editing {{ activeUser.name }}
                 </div>
 
                 <div class="mt-5">
@@ -142,9 +143,9 @@
                             <div class="ml-auto pl-3">
                                 <div class="align-middle">
                                     <div class="form-group my-auto">
-                                        <span class="switch switch-sm">
+                                        <span v-if="isReady" class="switch switch-sm">
                                             <input
-                                                v-model="activeUser.admin"
+                                                v-model="admin"
                                                 id="admin"
                                                 type="checkbox"
                                                 class="switch"
@@ -205,6 +206,7 @@ export default {
             username: '',
             summary: '',
             avatar: '',
+            admin: false,
             selectedImagesForPond: [],
             isReadyToAcceptUploads: false,
             isReady: false,
@@ -222,11 +224,6 @@ export default {
             return this.activeUser.updatedAt;
         },
 
-        avatarPath() {
-            return this.activeUser.avatar;
-            // return this.avatar || url.methods.gravatar(this.user.email);
-        },
-
         isAuthUserProfile() {
             return this.profile.id === this.activeUser.id;
         },
@@ -240,16 +237,6 @@ export default {
             };
         },
 
-        usernameValidationError() {
-            // if (this.user.errors) {
-            //     let errors = Object.values(this.user.errors);
-            //
-            //     return get(errors.flat(1), '[0].username', null);
-            // }
-
-            return [];
-        },
-
         getRetryIcon() {
             return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-refresh" width="26"><circle style="fill:none" cx="12" cy="12" r="10"/><path style="fill:white" d="M8.52 7.11a5.98 5.98 0 0 1 8.98 2.5 1 1 0 1 1-1.83.8 4 4 0 0 0-5.7-1.86l.74.74A1 1 0 0 1 10 11H7a1 1 0 0 1-1-1V7a1 1 0 0 1 1.7-.7l.82.81zm5.51 8.34l-.74-.74A1 1 0 0 1 14 13h3a1 1 0 0 1 1 1v3a1 1 0 0 1-1.7.7l-.82-.81A5.98 5.98 0 0 1 6.5 14.4a1 1 0 1 1 1.83-.8 4 4 0 0 0 5.7 1.85z"/></svg>';
         },
@@ -259,26 +246,32 @@ export default {
         },
 
         getPlaceholderLabel() {
-            return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="35" class="icon-cloud-upload"><path class="fill-dark-gray" d="M18 14.97c0-.76-.3-1.51-.88-2.1l-3-3a3 3 0 0 0-4.24 0l-3 3A3 3 0 0 0 6 15a4 4 0 0 1-.99-7.88 5.5 5.5 0 0 1 10.86-.82A4.49 4.49 0 0 1 22 10.5a4.5 4.5 0 0 1-4 4.47z"/><path class="fill-dark-gray" d="M11 14.41V21a1 1 0 0 0 2 0v-6.59l1.3 1.3a1 1 0 0 0 1.4-1.42l-3-3a1 1 0 0 0-1.4 0l-3 3a1 1 0 0 0 1.4 1.42l1.3-1.3z"/></svg><br/> Drop files or click here to upload';
+            return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="35" class="icon-cloud-upload"><path class="fill-dark-gray" d="M18 14.97c0-.76-.3-1.51-.88-2.1l-3-3a3 3 0 0 0-4.24 0l-3 3A3 3 0 0 0 6 15a4 4 0 0 1-.99-7.88 5.5 5.5 0 0 1 10.86-.82A4.49 4.49 0 0 1 22 10.5a4.5 4.5 0 0 1-4 4.47z"/><path class="fill-dark-gray" d="M11 14.41V21a1 1 0 0 0 2 0v-6.59l1.3 1.3a1 1 0 0 0 1.4-1.42l-3-3a1 1 0 0 0-1.4 0l-3 3a1 1 0 0 0 1.4 1.42l1.3-1.3z"/></svg><br/> ${this.trans.drop_files_or_click_to_upload}`;
         },
     },
 
-    // watch: {
-    //     $route(to) {
-    //         this.isReady = false;
-    //         this.user = null;
-    //         this.username = null;
-    //         this.summary = null;
-    //         this.avatar = null;
-    //         this.meta = null;
-    //         this.fetchUser(to.params.id);
-    //         this.isReady = true;
-    //         NProgress.done();
-    //     },
-    // },
+    watch: {
+        async $route(to) {
+            this.isReady = false;
+            this.uri = to.params.id;
+            await Promise.all([this.fetchUser()]);
+            this.username = this.activeUser.username;
+            this.summary = this.activeUser.summary;
+            this.admin = this.activeUser.admin;
+            this.isReady = true;
+            NProgress.done();
+        },
+    },
 
-    created() {
-        this.fetchUser();
+    async created() {
+        await Promise.all([this.fetchUser()]);
+
+        // TODO: The activeUser is not available at this point :sadpanda:
+
+        this.username = this.activeUser.username;
+        this.summary = this.activeUser.summary;
+        this.admin = this.activeUser.admin;
+        this.avatar = this.activeUser.avatar;
         this.isReady = true;
         NProgress.done();
     },
@@ -287,15 +280,6 @@ export default {
         fetchUser() {
             this.$store.dispatch('user/fetchUser', this.uri);
             NProgress.inc();
-            // return this.request()
-            //     .get(`/api/users/${this.uri}`)
-            //     .then(({ data }) => {
-            //         this.user = data.user;
-            //         this.meta = data.meta;
-            //         this.summary = get(data.meta, 'summary', null);
-            //         this.username = get(data.meta, 'username', null);
-            //         this.avatar = get(data.meta, 'avatar', null);
-            //     });
         },
 
         processedFromFilePond() {
@@ -309,40 +293,24 @@ export default {
             this.selectedImagesForPond = [];
         },
 
-        updateProfile() {
-            // this.request()
-            //     .post(`/api/users/${this.user.id}`, { ...this.user, ...this.meta })
-            //     .then(({ data }) => {
-            //         this.user = data.user;
-            //         this.summary = data.meta.summary;
-            //         this.username = data.meta.username;
-            //         this.avatar = data.meta.avatar;
-            //
-            //         this.$store.dispatch('auth/setAvatar', data.meta.avatar);
-            //
-            //         this.$toasted.show(this.trans.saved, {
-            //             className: 'bg-success',
-            //         });
-            //     })
-            //     .catch((errors) => {
-            //         console.log(errors);
-            //     });
+        updateUser() {
+            this.$store.dispatch('user/updateUser', {
+                id: this.uri,
+                username: this.username,
+                summary: this.summary,
+                avatar: this.avatar
+            });
         },
 
         clearAvatar() {
-            this.avatar = url.methods.gravatar(this.user.email);
+            this.$store.dispatch('user/resetAvatar');
             this.isReadyToAcceptUploads = true;
         },
 
         toggleAdmin() {
-            // this.request()
-            //     .post(`/api/users/${this.user.id}`, { ...this.user, ...this.meta })
-            //     .then(({ data }) => {
-            //         this.user = data.user;
-            //     })
-            //     .catch((errors) => {
-            //         console.log(errors);
-            //     });
+            this.$store.dispatch('user/updateAdmin', {
+                admin: this.admin,
+            });
         },
     },
 };

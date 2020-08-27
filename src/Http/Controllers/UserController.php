@@ -43,19 +43,27 @@ class UserController extends Controller
      * @param Request $request
      * @param $id
      * @return JsonResponse
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function update(Request $request, $id): JsonResponse
     {
-        $meta = UserMeta::firstWhere('user_id', $id) ?? new UserMeta();
+        $meta = UserMeta::firstWhere('user_id', $id);
+
+        if (!$meta) {
+            $meta = new UserMeta([
+                'user_id' => $id,
+            ]);
+        }
 
         $data = [
-            'avatar' => $request->input('avatar', $meta->avatar),
-            'dark_mode' => $request->input('darkMode', $meta->dark_mode),
-            'digest' => $request->input('digest', $meta->digest),
-            'locale' => $request->input('locale', $meta->locale),
-            'user_id' => $request->user()->id,
-            'username' => $request->input('username', $meta->username),
-            'summary' => $request->input('summary', $meta->summary),
+            'avatar' => $request->input('avatar', $meta->avatar ?? null),
+            'dark_mode' => $request->input('darkMode', $meta->dark_mode ?? false),
+            'digest' => $request->input('digest', $meta->digest ?? false),
+            'locale' => $request->input('locale', $meta->locale ?? null),
+            'user_id' => $meta->user_id,
+            'username' => $request->input('username', $meta->username ?? null),
+            'summary' => $request->input('summary', $meta->summary ?? null),
+            'admin' => $request->input('admin', $meta->admin ?? false),
         ];
 
         $rules = [
@@ -63,7 +71,7 @@ class UserController extends Controller
             'username' => [
                 'nullable',
                 'alpha_dash',
-                Rule::unique('canvas_user_meta')->ignore($request->user()->id, 'user_id'),
+                Rule::unique('canvas_user_meta')->ignore($meta->user_id, 'user_id'),
             ],
         ];
 
