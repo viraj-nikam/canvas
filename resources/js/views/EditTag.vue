@@ -45,7 +45,9 @@
                     <div class="card-body">
                         <div class="form-group">
                             <div class="col-12 px-0">
-                                <label class="font-weight-bold text-uppercase text-muted small"> {{ trans.name }} </label>
+                                <label class="font-weight-bold text-uppercase text-muted small">
+                                    {{ trans.name }}
+                                </label>
                                 <input
                                     v-model="localName"
                                     type="text"
@@ -60,7 +62,9 @@
                             </div>
 
                             <div class="col-12 mt-3 px-0">
-                                <label class="font-weight-bold text-uppercase text-muted small"> {{ trans.slug }} </label>
+                                <label class="font-weight-bold text-uppercase text-muted small">
+                                    {{ trans.slug }}
+                                </label>
                                 <input
                                     v-model="localSlug"
                                     type="text"
@@ -83,7 +87,9 @@
                                     :class="shouldDisableButton ? 'disabled' : ''"
                                     aria-label="Save"
                                     @click.prevent="saveTag"
-                                > {{ trans.save }} </a>
+                                >
+                                    {{ trans.save }}
+                                </a>
                             </div>
                             <div class="col-md">
                                 <router-link
@@ -125,7 +131,8 @@
                                                 <span class="d-none d-md-inline"> {{ post.read_time }} ― </span>
                                                 {{ trans.published }}
                                                 {{ moment(post.published_at).format('MMM D, YYYY') }}
-                                            </span> <span v-if="isDraft(post.published_at)">
+                                            </span>
+                                            <span v-if="isDraft(post.published_at)">
                                                 <span class="text-danger">{{ trans.draft }}</span>
                                                 <span class="d-none d-md-inline">
                                                     ― {{ trans.updated }}
@@ -137,12 +144,13 @@
                                     <div class="ml-auto">
                                         <div class="d-none d-md-inline">
                                             <span class="text-secondary mr-3"
-                                            >{{ suffixedNumber(post.views_count) }}
+                                                >{{ suffixedNumber(post.views_count) }}
                                                 {{ post.views_count == 1 ? trans.view : trans.views }}</span
-                                            > <span class="mr-3"
-                                        >{{ trans.created }}
+                                            >
+                                            <span class="mr-3"
+                                                >{{ trans.created }}
                                                 {{ moment(post.created_at).format('MMM D, YYYY') }}</span
-                                        >
+                                            >
                                         </div>
 
                                         <svg
@@ -151,7 +159,7 @@
                                             viewBox="0 0 24 24"
                                             class="icon-cheveron-right-circle"
                                         >
-                                            <circle cx="12" cy="12" r="10" style="fill: none;"/>
+                                            <circle cx="12" cy="12" r="10" style="fill: none" />
                                             <path
                                                 class="fill-light-gray"
                                                 d="M10.3 8.7a1 1 0 0 1 1.4-1.4l4 4a1 1 0 0 1 0 1.4l-4 4a1 1 0 0 1-1.4-1.4l3.29-3.3-3.3-3.3z"
@@ -163,8 +171,8 @@
                         </div>
 
                         <infinite-loading spinner="spiral" @infinite="fetchPosts">
-                            <span slot="no-more"/>
-                            <div slot="no-results"/>
+                            <span slot="no-more" />
+                            <div slot="no-results" />
                         </infinite-loading>
                     </div>
                 </div>
@@ -205,7 +213,7 @@ export default {
         Hover,
     },
 
-    mixins: [ status, strings ],
+    mixins: [status, strings],
 
     data() {
         return {
@@ -234,7 +242,7 @@ export default {
     },
 
     watch: {
-        'localName'(val) {
+        localName(val) {
             this.localSlug = !isEmpty(val) ? this.slugify(val) : '';
         },
 
@@ -274,7 +282,7 @@ export default {
 
         fetchPosts($state) {
             return this.request()
-                .get(`/api/tags/${ this.uri }/posts`, {
+                .get(`/api/tags/${this.uri}/posts`, {
                     params: {
                         page: this.page,
                     },
@@ -303,7 +311,7 @@ export default {
             this.$store.dispatch('tag/updateTag', {
                 id: this.activeTag.id,
                 name: this.localName,
-                slug: this.localSlug
+                slug: this.localSlug,
             });
 
             if (isEmpty(this.activeTag.errors) && this.creatingTag) {

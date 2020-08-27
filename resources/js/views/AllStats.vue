@@ -1,6 +1,6 @@
 <template>
     <section>
-        <page-header/>
+        <page-header />
 
         <main class="py-4">
             <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12">
@@ -13,9 +13,9 @@
                     </div>
 
                     <select
-                        v-if="isReady && isAdmin"
                         v-model="scope"
                         id="scope"
+                        v-if="isReady && isAdmin"
                         name="scope"
                         class="ml-auto w-auto custom-select border-0 bg-light"
                         @change="changeScope"
@@ -33,9 +33,9 @@
                             >
                                 <p class="font-weight-bold text-muted small text-uppercase">{{ trans.views }}</p>
                                 <p>
-                                        <span class="badge badge-pill badge-success p-2 font-weight-bold">
-                                            {{ trans.last_thirty_days }}
-                                        </span>
+                                    <span class="badge badge-pill badge-success p-2 font-weight-bold">
+                                        {{ trans.last_thirty_days }}
+                                    </span>
                                 </p>
                             </div>
                             <div class="card-body pt-0 pb-2">
@@ -48,9 +48,9 @@
                             >
                                 <p class="font-weight-bold text-muted small text-uppercase">{{ trans.visitors }}</p>
                                 <p>
-                                        <span class="badge badge-pill badge-primary p-2 font-weight-bold">{{
-                                                trans.last_thirty_days
-                                                                                                          }}</span>
+                                    <span class="badge badge-pill badge-primary p-2 font-weight-bold">{{
+                                        trans.last_thirty_days
+                                    }}</span>
                                 </p>
                             </div>
                             <div class="card-body pt-0 pb-2">
@@ -59,43 +59,46 @@
                         </div>
                     </div>
 
-                    <line-chart :views="plotViewPoints" :visits="plotVisitPoints" class="mt-5"/>
+                    <line-chart :views="plotViewPoints" :visits="plotVisitPoints" class="mt-5" />
 
                     <div class="mt-5 card shadow-lg">
                         <div class="card-body p-0">
                             <div :key="`${index}-${post.id}`" v-for="(post, index) in posts">
                                 <router-link
                                     :to="{
-                                            name: 'post-stats',
-                                            params: { id: post.id },
-                                        }"
+                                        name: 'post-stats',
+                                        params: { id: post.id },
+                                    }"
                                     class="text-decoration-none"
                                 >
                                     <div
                                         v-hover="{ class: `hover-bg` }"
                                         class="d-flex p-3 align-items-center"
                                         :class="{
-                                                'border-top': index !== 0,
-                                                'rounded-top': index === 0,
-                                                'rounded-bottom': index === posts.length - 1,
-                                            }"
+                                            'border-top': index !== 0,
+                                            'rounded-top': index === 0,
+                                            'rounded-bottom': index === posts.length - 1,
+                                        }"
                                     >
                                         <div class="pl-2 col-md-6 col-sm-8 col-10">
                                             <p class="text-truncate lead font-weight-bold mt-2 mb-0">
                                                 {{ post.title }}
                                             </p>
                                             <p class="text-secondary mb-2">
-                                                <span class="d-none d-md-inline"> {{ post.read_time }} ― </span> {{ trans.published }} {{ moment(post.published_at).format('MMM D, YYYY') }}
+                                                <span class="d-none d-md-inline"> {{ post.read_time }} ― </span>
+                                                {{ trans.published }}
+                                                {{ moment(post.published_at).format('MMM D, YYYY') }}
                                             </p>
                                         </div>
                                         <div class="ml-auto">
                                             <div class="d-none d-md-inline">
-                                                    <span class="text-muted mr-3"
+                                                <span class="text-muted mr-3"
                                                     >{{ suffixedNumber(post.views_count) }} {{ trans.views }}</span
-                                                    > <span class="mr-3"
-                                            >{{ trans.created }}
-                                                        {{ moment(post.created_at).format('MMM D, YYYY') }}</span
-                                            >
+                                                >
+                                                <span class="mr-3"
+                                                    >{{ trans.created }}
+                                                    {{ moment(post.created_at).format('MMM D, YYYY') }}</span
+                                                >
                                             </div>
 
                                             <svg
@@ -104,7 +107,7 @@
                                                 viewBox="0 0 24 24"
                                                 class="icon-cheveron-right-circle"
                                             >
-                                                <circle cx="12" cy="12" r="10" style="fill: none;"/>
+                                                <circle cx="12" cy="12" r="10" style="fill: none" />
                                                 <path
                                                     class="fill-light-gray"
                                                     d="M10.3 8.7a1 1 0 0 1 1.4-1.4l4 4a1 1 0 0 1 0 1.4l-4 4a1 1 0 0 1-1.4-1.4l3.29-3.3-3.3-3.3z"
@@ -116,8 +119,8 @@
                             </div>
 
                             <infinite-loading spinner="spiral" @infinite="fetchPosts">
-                                <span slot="no-more"/>
-                                <div slot="no-results"/>
+                                <span slot="no-more" />
+                                <div slot="no-results" />
                             </infinite-loading>
                         </div>
                     </div>
@@ -159,7 +162,7 @@ export default {
         Hover,
     },
 
-    mixins: [ strings ],
+    mixins: [strings],
 
     data() {
         return {
@@ -188,7 +191,7 @@ export default {
     },
 
     async created() {
-        await Promise.all([ this.fetchStats(), this.fetchPosts() ]);
+        await Promise.all([this.fetchStats(), this.fetchPosts()]);
         this.isReady = true;
         NProgress.done();
     },
@@ -241,7 +244,7 @@ export default {
             this.data = null;
             this.page = 1;
             this.posts = [];
-            await Promise.all([ this.fetchStats(), this.fetchPosts() ]);
+            await Promise.all([this.fetchStats(), this.fetchPosts()]);
             this.infiniteId += 1;
             NProgress.done();
         },

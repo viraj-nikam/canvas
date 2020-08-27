@@ -61,16 +61,23 @@
                         >
                             {{ trans.view_stats }}
                         </router-link>
-                        <div v-if="!isDraft(activePost.published_at)" class="dropdown-divider"/>
+                        <div v-if="!isDraft(activePost.published_at)" class="dropdown-divider" />
                         <a href="#" class="dropdown-item" @click="showSettingsModal"> {{ trans.general_settings }} </a>
-                        <a href="#" class="dropdown-item" @click="showFeaturedImageModal"> {{ trans.featured_image }} </a>
-                        <a href="#" class="dropdown-item" @click="showSeoModal"> {{ trans.seo_settings }} </a> <a
-                        v-if="!isDraft(activePost.published_at)"
-                        href="#"
-                        class="dropdown-item"
-                        @click.prevent="convertToDraft"
-                    > {{ trans.convert_to_draft }} </a>
-                        <a v-if="uri !== 'create'" href="#" class="dropdown-item text-danger" @click="showDeleteModal"> {{ trans.delete }} </a>
+                        <a href="#" class="dropdown-item" @click="showFeaturedImageModal">
+                            {{ trans.featured_image }}
+                        </a>
+                        <a href="#" class="dropdown-item" @click="showSeoModal"> {{ trans.seo_settings }} </a>
+                        <a
+                            v-if="!isDraft(activePost.published_at)"
+                            href="#"
+                            class="dropdown-item"
+                            @click.prevent="convertToDraft"
+                        >
+                            {{ trans.convert_to_draft }}
+                        </a>
+                        <a v-if="uri !== 'create'" href="#" class="dropdown-item text-danger" @click="showDeleteModal">
+                            {{ trans.delete }}
+                        </a>
                     </div>
                 </div>
             </template>
@@ -95,10 +102,10 @@
             </div>
         </main>
 
-        <publish-modal ref="publishModal" v-if="isReady"/>
-        <settings-modal ref="settingsModal" v-if="isReady" :post="activePost" :tags="tags" :topics="topics"/>
-        <featured-image-modal ref="featuredImageModal" v-if="isReady"/>
-        <seo-modal ref="seoModal" v-if="isReady"/>
+        <publish-modal ref="publishModal" v-if="isReady" />
+        <settings-modal ref="settingsModal" v-if="isReady" :post="activePost" :tags="tags" :topics="topics" />
+        <featured-image-modal ref="featuredImageModal" v-if="isReady" />
+        <seo-modal ref="seoModal" v-if="isReady" />
         <delete-modal
             ref="deleteModal"
             v-if="isReady"
@@ -110,6 +117,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import $ from 'jquery';
 import DeleteModal from '../components/modals/DeleteModal';
 import FeaturedImageModal from '../components/modals/FeaturedImageModal';
@@ -122,8 +130,7 @@ import SettingsModal from '../components/modals/SettingsModal';
 import Vue from 'vue';
 import VueTextAreaAutosize from 'vue-textarea-autosize';
 import debounce from 'lodash/debounce';
-import status from "../mixins/status";
-import { mapGetters } from "vuex";
+import status from '../mixins/status';
 
 Vue.use(VueTextAreaAutosize);
 
@@ -140,6 +147,8 @@ export default {
         SettingsModal,
     },
 
+    mixins: [status],
+
     data() {
         return {
             uri: this.$route.params.id || 'create',
@@ -149,10 +158,6 @@ export default {
         };
     },
 
-    mixins: [
-        status
-    ],
-
     computed: {
         ...mapGetters({
             activePost: 'post/activePost',
@@ -161,10 +166,9 @@ export default {
     },
 
     created() {
-        this.fetchPost()
+        this.fetchPost();
         this.isReady = true;
         NProgress.done();
-
 
         // todo: drop these in the header when the component loads and remove them after
         // https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/highlight.min.js

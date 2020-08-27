@@ -1,8 +1,8 @@
+import Vue from 'vue';
+import get from 'lodash/get';
 import request from '../../mixins/request';
 import router from '../../router';
-import Vue from "vue";
-import url from "../../mixins/url";
-import get from 'lodash/get';
+import url from '../../mixins/url';
 
 const initialState = {
     id: '',
@@ -13,7 +13,7 @@ const initialState = {
     summary: '',
     admin: false,
     updatedAt: '',
-    errors: []
+    errors: [],
 };
 
 const state = { ...initialState };
@@ -35,8 +35,9 @@ const actions = {
         request.methods
             .request()
             .post(`/api/users/${payload.id}`, {
-                name: payload.name,
-                slug: payload.slug,
+                username: payload.username,
+                summary: payload.summary,
+                avatar: payload.avatar,
             })
             .then(({ data }) => {
                 context.commit('UPDATE_USER', data);
@@ -46,12 +47,9 @@ const actions = {
             })
             .catch((error) => {
                 state.errors = error.response.data.errors;
-
-                console.log(error.response.data.errors);
-
-                // Vue.toasted.show(error.response.data.errors.slug[0], {
-                //     className: 'bg-danger',
-                // });
+                Vue.toasted.show(error.response.data.errors.username[0], {
+                    className: 'bg-danger',
+                });
             });
     },
 
@@ -59,7 +57,7 @@ const actions = {
         request.methods
             .request()
             .post(`/api/users/${state.id}`, {
-                admin: payload.admin
+                admin: payload.admin,
             })
             .then(({ data }) => {
                 context.commit('UPDATE_ADMIN', data);
@@ -70,7 +68,7 @@ const actions = {
     },
 
     resetAvatar({ commit }) {
-          commit('RESET_AVATAR');
+        commit('RESET_AVATAR');
     },
 
     resetState({ commit }) {
@@ -120,7 +118,7 @@ const mutations = {
 const getters = {
     activeUser(state) {
         return state;
-    }
+    },
 };
 
 export default {

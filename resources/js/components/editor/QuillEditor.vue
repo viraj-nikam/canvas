@@ -25,7 +25,7 @@
                 </span>
                 <span v-else>
                     <svg xmlns="http://www.w3.org/2000/svg" width="26" viewBox="0 0 24 24" class="icon-add-circle">
-                        <circle cx="12" cy="12" r="10" style="fill: none;" />
+                        <circle cx="12" cy="12" r="10" style="fill: none" />
                         <path
                             class="fill-body-color"
                             d="M13 11h4a1 1 0 0 1 0 2h-4v4a1 1 0 0 1-2 0v-4H7a1 1 0 0 1 0-2h4V7a1 1 0 0 1 2 0v4z"

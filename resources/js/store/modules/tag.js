@@ -89,7 +89,7 @@ const mutations = {
 const getters = {
     activeTag(state) {
         return state;
-    }
+    },
 };
 
 export default {

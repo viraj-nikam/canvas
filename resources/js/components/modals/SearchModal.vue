@@ -15,7 +15,7 @@
                                     width="20"
                                     class="icon-search"
                                 >
-                                    <circle cx="10" cy="10" r="7" style="fill: none;" />
+                                    <circle cx="10" cy="10" r="7" style="fill: none" />
                                     <path
                                         class="fill-muted"
                                         d="M16.32 14.9l1.1 1.1c.4-.02.83.13 1.14.44l3 3a1.5 1.5 0 0 1-2.12 2.12l-3-3a1.5 1.5 0 0 1-.44-1.14l-1.1-1.1a8 8 0 1 1 1.41-1.41zM10 16a6 6 0 1 0 0-12 6 6 0 0 0 0 12z"
@@ -65,7 +65,7 @@
                                         viewBox="0 0 24 24"
                                         class="icon-cheveron-right-circle"
                                     >
-                                        <circle cx="12" cy="12" r="10" style="fill: none;" />
+                                        <circle cx="12" cy="12" r="10" style="fill: none" />
                                         <path
                                             class="fill-light-gray"
                                             d="M10.3 8.7a1 1 0 0 1 1.4-1.4l4 4a1 1 0 0 1 0 1.4l-4 4a1 1 0 0 1-1.4-1.4l3.29-3.3-3.3-3.3z"

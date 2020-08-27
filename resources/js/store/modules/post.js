@@ -1,6 +1,6 @@
-import router from "../../router";
-import request from "../../mixins/request";
-import Vue from "vue";
+import Vue from 'vue';
+import request from '../../mixins/request';
+import router from '../../router';
 
 const initialState = {
     id: '',
@@ -102,7 +102,7 @@ const mutations = {
 const getters = {
     activePost(state) {
         return state;
-    }
+    },
 };
 
 export default {

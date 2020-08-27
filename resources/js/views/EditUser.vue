@@ -8,7 +8,9 @@
                     <h2 class="mt-3">
                         {{ isAuthUserProfile ? trans.edit_profile : trans.edit_user }}
                     </h2>
-                    <p v-if="activeUser.updatedAt" class="mt-2 text-secondary">{{ trans.last_updated }} {{ moment(activeUser.updatedAt).fromNow() }}</p>
+                    <p v-if="activeUser.updatedAt" class="mt-2 text-secondary">
+                        {{ trans.last_updated }} {{ moment(activeUser.updatedAt).fromNow() }}
+                    </p>
                 </div>
 
                 <div v-if="isReady && isAuthUserProfile" class="mt-5 card shadow-lg">
@@ -43,7 +45,11 @@
                                 />
 
                                 <div v-if="!isReadyToAcceptUploads" class="text-center rounded p-3">
-                                    <img :src="activeUser.avatar" class="rounded-circle w-75 shadow-inner" :alt="activeUser.name" />
+                                    <img
+                                        :src="activeUser.avatar"
+                                        class="rounded-circle w-75 shadow-inner"
+                                        :alt="activeUser.name"
+                                    />
 
                                     <p class="mt-3 mb-0">
                                         <a
@@ -63,8 +69,8 @@
                                         </label>
                                         <input
                                             v-model="username"
-                                            name="username"
                                             id="username"
+                                            name="username"
                                             :disabled="!isAuthUserProfile"
                                             type="text"
                                             class="form-control border-0"
@@ -85,7 +91,7 @@
                                             rows="4"
                                             name="summary"
                                             :disabled="!isAuthUserProfile"
-                                            style="resize: none;"
+                                            style="resize: none"
                                             class="form-control border-0"
                                             :class="{ disabled: !isAuthUserProfile }"
                                             :placeholder="trans.tell_us_about_yourself"
@@ -121,9 +127,7 @@
                     </div>
                 </div>
 
-                <div v-if="!isAuthUserProfile">
-                    editing {{ activeUser.name }}
-                </div>
+                <div v-if="!isAuthUserProfile">editing {{ activeUser.name }}</div>
 
                 <div class="mt-5">
                     <h2 class="mt-3">{{ trans.role }}</h2>
@@ -298,7 +302,7 @@ export default {
                 id: this.uri,
                 username: this.username,
                 summary: this.summary,
-                avatar: this.avatar
+                avatar: this.avatar,
             });
         },
 

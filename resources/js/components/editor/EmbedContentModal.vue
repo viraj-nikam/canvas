@@ -34,7 +34,7 @@
                                 id="embed"
                                 rows="6"
                                 name="embed"
-                                style="resize: none;"
+                                style="resize: none"
                                 class="form-control border-0"
                                 :placeholder="trans.app.paste_embed_code_to_include"
                             />

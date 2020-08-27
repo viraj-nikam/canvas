@@ -8,7 +8,7 @@
         :taggable="true"
         label="name"
         track-by="slug"
-        style="cursor: pointer;"
+        style="cursor: pointer"
         @input="onChange"
         @tag="addTopic"
     />

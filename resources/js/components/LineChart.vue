@@ -1,5 +1,5 @@
 <template>
-    <div style="height: 300px;">
+    <div style="height: 300px">
         <canvas id="stats" />
     </div>
 </template>

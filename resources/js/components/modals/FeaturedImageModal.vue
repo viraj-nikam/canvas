@@ -20,7 +20,7 @@
                             v-model="searchKeyword"
                             type="text"
                             autofocus
-                            style="padding-left: 32px;"
+                            style="padding-left: 32px"
                             class="form-control border-0 bg-transparent"
                             :placeholder="trans.app.search_free_photos"
                         />
@@ -76,7 +76,7 @@
                                     :src="image.urls.small"
                                     :alt="image.alt_description"
                                     class="card-img bg-transparent"
-                                    style="cursor: pointer;"
+                                    style="cursor: pointer"
                                     @click="selectUnsplashImage(image)"
                                 />
                             </div>
