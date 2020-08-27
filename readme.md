@@ -154,16 +154,14 @@ Canvas uses the storage disk for media uploads. You may configure the different 
 
 ### Studio
 
-While Canvas does not dictate a specific design for your frontend, it does provide a basic starting point using
- [Bootstrap](https://getbootstrap.com) and [Vue](https://vuejs.org) that will be helpful for many applications. The
-  scaffolding is located in the [`austintoddj/studio`](https://github.com/austintoddj/studio) Composer package, which
-   may be installed using Composer:
+**Want a beautiful, Medium.com-inspired frontend?** Run the following command to install the
+ [`austintoddj/studio`](https://github.com/austintoddj/studio) Composer package:
 
 ```bash
 composer require austintoddj/studio
 ```
 
-Once the `austintoddj/studio` package has been installed, you may install the frontend scaffolding using the `studio:install` Artisan command:
+Once Studio has been installed, you may generate the frontend scaffolding using the `studio:install` Artisan command:
 
 ```bash
 php artisan studio:install
