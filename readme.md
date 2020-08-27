@@ -16,7 +16,18 @@
 Canvas is a fully open source package to extend your existing [Laravel](https://laravel.com) application and get you up-and-running with a blog in 
 just a few minutes. In addition to a distraction-free writing experience, you can view monthly trends on your content, get insights into reader traffic and more!
 
-## Requirements
+## Table of Contents
+
+- [System Requirements](#system-requirements)
+- [Installation](#installation)
+- [Configuration](#configuration)
+- [Features](#features)
+- [Updates](#updates)
+- [Contributing](#contributing)
+- [License](#license)
+- [Credits](#credits)
+
+## System Requirements
 
 - PHP >= 7.2
 - Laravel >= 6.0
@@ -137,7 +148,7 @@ Canvas uses the storage disk for media uploads. You may configure the different 
 'upload_filesize' => env('CANVAS_UPLOAD_FILESIZE', 3145728),
 ```
 
-## Available Options
+## Features
 
 > **Note:** The following features are completely optional, you are not required to use them.
 
@@ -252,7 +263,10 @@ You can open a completely prebuilt, ready-to-code development environment using 
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/austintoddj/canvas/tree/develop)
                                                   
 Alternatively, you can use the [contribution guide](.github/CONTRIBUTING.md) to assist you in manually setting up an
- environment on your own machine. 
+ environment on your own machine.
+ 
+ One of the ongoing goals for Canvas is to make it as accessible as possible. If you come across any translation
+  mistakes or issues and want to make a contribution, please [create a pull request](https://github.com/austintoddj/canvas/pulls). If you don't see your native language included in the `resources/lang` directory, feel free to add it.
 
 ## Testing
 
@@ -261,10 +275,6 @@ Run the tests with:
 ```bash
 composer test
 ```
-
-## Translate
-
-One of the goals for the team behind Canvas is to ensure proper localization across the app. If you come across any translation mistakes or issues and want to make a contribution, please [create a pull request](https://github.com/austintoddj/canvas/pulls). If you don't see your native language included in the `resources/lang` directory, feel free to add it.
 
 ## License
 
