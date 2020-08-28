@@ -1,4 +1,3 @@
-import Vue from 'vue';
 import profile from './profile';
 import request from '../../mixins/request';
 
@@ -9,7 +8,11 @@ const initialState = {
 const state = { ...initialState };
 
 const actions = {
-    updateIndex(context) {
+    buildIndex(context, stale = false) {
+        if (stale) {
+            context.commit('RESET_STATE');
+        }
+
         request.methods
             .request()
             .get('/api/search/posts')
@@ -38,10 +41,6 @@ const actions = {
                 });
         }
     },
-
-    resetState({ commit }) {
-        commit('RESET_STATE');
-    },
 };
 
 const mutations = {
@@ -50,9 +49,7 @@ const mutations = {
     },
 
     RESET_STATE(state) {
-        for (let f in state) {
-            Vue.set(state, f, initialState[f]);
-        }
+        state.searchIndex = [];
     },
 };
 

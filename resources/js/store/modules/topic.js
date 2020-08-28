@@ -34,6 +34,7 @@ const actions = {
             })
             .then(({ data }) => {
                 context.commit('UPDATE_TOPIC', data);
+                context.dispatch('search/buildIndex', true, { root: true });
                 Vue.toasted.show(context.rootGetters['settings/trans'].saved, {
                     className: 'bg-success',
                 });
@@ -52,6 +53,11 @@ const actions = {
             .delete(`/api/topics/${id}`)
             .then(() => {
                 context.commit('RESET_STATE');
+                context.dispatch('search/buildIndex', true, { root: true });
+                Vue.toasted.show(context.rootGetters['settings/trans'].success, {
+                    className: 'bg-success',
+                });
+                router.push({ name: 'topics' });
             })
             .catch(() => {
                 router.push({ name: 'topics' });

@@ -25,7 +25,7 @@
                         </div>
                         <vue-fuse
                             :keys="['name']"
-                            :list="searchIndex"
+                            :list="search.searchIndex"
                             :default-all="false"
                             :include-score="true"
                             :style="results.length > 0 ? 'border-radius: 0' : ''"
@@ -101,7 +101,6 @@ export default {
     data() {
         return {
             results: [],
-            searchIndex: [],
         };
     },
 
@@ -115,9 +114,8 @@ export default {
 
     created() {
         if (isEmpty(this.search.searchIndex)) {
-            this.$store.dispatch('search/updateIndex');
+            this.$store.dispatch('search/buildIndex');
         }
-        this.searchIndex = this.search.searchIndex;
     },
 
     mounted() {

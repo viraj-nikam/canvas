@@ -306,8 +306,6 @@ export default {
         },
 
         saveTag() {
-            let id = this.activeTag.id;
-
             this.$store.dispatch('tag/updateTag', {
                 id: this.activeTag.id,
                 name: this.localName,
@@ -315,7 +313,7 @@ export default {
             });
 
             if (isEmpty(this.activeTag.errors) && this.creatingTag) {
-                this.$router.push({ name: 'edit-tag', params: { id: id } });
+                this.$router.push({ name: 'edit-tag', params: { id: this.activeTag.id } });
                 NProgress.done();
             }
         },
@@ -323,10 +321,6 @@ export default {
         deleteTag() {
             this.$store.dispatch('tag/deleteTag', this.activeTag.id);
             $(this.$refs.deleteModal.$el).modal('hide');
-            this.$router.push({ name: 'tags' });
-            this.$toasted.show(this.trans.success, {
-                className: 'bg-success',
-            });
         },
 
         showDeleteModal() {

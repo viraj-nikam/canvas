@@ -306,8 +306,6 @@ export default {
         },
 
         saveTopic() {
-            let id = this.activeTopic.id;
-
             this.$store.dispatch('topic/updateTopic', {
                 id: this.activeTopic.id,
                 name: this.localName,
@@ -315,7 +313,7 @@ export default {
             });
 
             if (isEmpty(this.activeTopic.errors) && this.creatingTopic) {
-                this.$router.push({ name: 'edit-topic', params: { id: id } });
+                this.$router.push({ name: 'edit-topic', params: { id: this.activeTopic.id } });
                 NProgress.done();
             }
         },
@@ -323,10 +321,6 @@ export default {
         deleteTopic() {
             this.$store.dispatch('topic/deleteTopic', this.activeTopic.id);
             $(this.$refs.deleteModal.$el).modal('hide');
-            this.$router.push({ name: 'topics' });
-            this.$toasted.show(this.trans.success, {
-                className: 'bg-success',
-            });
         },
 
         showDeleteModal() {

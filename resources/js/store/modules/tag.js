@@ -34,6 +34,7 @@ const actions = {
             })
             .then(({ data }) => {
                 context.commit('UPDATE_TAG', data);
+                context.dispatch('search/buildIndex', true, { root: true });
                 Vue.toasted.show(context.rootGetters['settings/trans'].saved, {
                     className: 'bg-success',
                 });
@@ -52,6 +53,11 @@ const actions = {
             .delete(`/api/tags/${id}`)
             .then(() => {
                 context.commit('RESET_STATE');
+                context.dispatch('search/buildIndex', true, { root: true });
+                Vue.toasted.show(context.rootGetters['settings/trans'].success, {
+                    className: 'bg-success',
+                });
+                router.push({ name: 'tags' });
             })
             .catch(() => {
                 router.push({ name: 'tags' });
