@@ -82,9 +82,10 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapState } from 'vuex';
 import Hover from '../../directives/Hover';
 import VueFuse from 'vue-fuse';
+import isEmpty from 'lodash/isEmpty';
 
 export default {
     name: 'search-modal',
@@ -105,6 +106,7 @@ export default {
     },
 
     computed: {
+        ...mapState(['search']),
         ...mapGetters({
             isAdmin: 'profile/isAdmin',
             trans: 'settings/trans',
@@ -112,15 +114,10 @@ export default {
     },
 
     created() {
-        // TODO: Use Vuex to contain search state and re-indexing
-
-        this.fetchPosts();
-
-        if (this.isAdmin) {
-            this.fetchTags();
-            this.fetchTopics();
-            this.fetchUsers();
+        if (isEmpty(this.search.searchIndex)) {
+            this.$store.dispatch('search/updateIndex');
         }
+        this.searchIndex = this.search.searchIndex;
     },
 
     mounted() {
@@ -130,50 +127,6 @@ export default {
     },
 
     methods: {
-        fetchPosts() {
-            return this.request()
-                .get('/api/search/posts')
-                .then(({ data }) => {
-                    this.searchIndex.push(...data);
-                })
-                .catch(() => {
-                    // Add any error debugging...
-                });
-        },
-
-        fetchTags() {
-            return this.request()
-                .get('/api/search/tags')
-                .then(({ data }) => {
-                    this.searchIndex.push(...data);
-                })
-                .catch(() => {
-                    // Add any error debugging...
-                });
-        },
-
-        fetchTopics() {
-            return this.request()
-                .get('/api/search/topics')
-                .then(({ data }) => {
-                    this.searchIndex.push(...data);
-                })
-                .catch(() => {
-                    // Add any error debugging...
-                });
-        },
-
-        fetchUsers() {
-            return this.request()
-                .get('/api/search/users')
-                .then(({ data }) => {
-                    this.searchIndex.push(...data);
-                })
-                .catch(() => {
-                    // Add any error debugging...
-                });
-        },
-
         clearResults() {
             this.results = [];
         },

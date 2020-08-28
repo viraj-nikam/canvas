@@ -122,7 +122,7 @@ export default {
         Tooltip,
     },
 
-    mixins: ['strings'],
+    mixins: [strings],
 
     props: {
         tags: {

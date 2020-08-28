@@ -163,6 +163,8 @@ import status from '../../mixins/status';
 export default {
     name: 'publish-modal',
 
+    mixins: [status],
+
     data() {
         return {
             components: {
@@ -187,8 +189,6 @@ export default {
             return true;
         },
     },
-
-    mixins: [status],
 
     watch: {
         value(val) {
