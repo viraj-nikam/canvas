@@ -128,11 +128,13 @@
 
                         <div class="col-12" :hidden="!selectedImagesForPond.length && !selectedImageUrl">
                             <div class="form-group row">
-                                <label for="caption" class="font-weight-bold text-uppercase text-muted small">Caption</label>
+                                <label for="caption" class="font-weight-bold text-uppercase text-muted small"
+                                    >Caption</label
+                                >
                                 <input
                                     v-model="selectedImageCaption"
-                                    ref="caption"
                                     id="caption"
+                                    ref="caption"
                                     type="text"
                                     class="form-control border-0"
                                     :placeholder="trans.type_caption_for_image"

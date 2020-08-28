@@ -158,7 +158,7 @@
 
 <script>
 import { mapGetters, mapState } from 'vuex';
-import status from "../../mixins/status";
+import status from '../../mixins/status';
 
 export default {
     name: 'publish-modal',
@@ -185,7 +185,7 @@ export default {
 
         shouldPublish() {
             return true;
-        }
+        },
     },
 
     mixins: [status],

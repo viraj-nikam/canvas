@@ -48,8 +48,8 @@
                             </label>
                             <input
                                 v-model="title"
-                                name="title"
                                 id="title"
+                                name="title"
                                 type="text"
                                 class="form-control border-0"
                                 :title="trans.meta_title"
@@ -102,8 +102,8 @@
                             </label>
                             <input
                                 v-model="canonicalLink"
-                                type="text"
                                 id="canonical_link"
+                                type="text"
                                 class="form-control border-0"
                                 name="canonical_link"
                                 :title="trans.canonical_link"

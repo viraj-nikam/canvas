@@ -1,10 +1,11 @@
-@import "../utilities/variables";
+@import '../utilities/variables';
 
 body {
     background-color: $body--bg;
     color: $body--color;
 
-    a, a:hover {
+    a,
+    a:hover {
         color: $body--color;
     }
 
@@ -43,7 +44,9 @@ body {
         background-color: $body--bg;
     }
 
-    .form-control, .input-group-text, .custom-select {
+    .form-control,
+    .input-group-text,
+    .custom-select {
         background-color: $gray-100 !important;
     }
 

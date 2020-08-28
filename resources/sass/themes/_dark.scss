@@ -1,10 +1,11 @@
-@import "../utilities/variables";
+@import '../utilities/variables';
 
 body[data-theme='dark'] {
     background-color: $body--bg--dark;
     color: $body--color--dark;
 
-    a, a:hover {
+    a,
+    a:hover {
         color: $body--color--dark;
     }
 
@@ -98,7 +99,8 @@ body[data-theme='dark'] {
         color: $gray-400;
     }
 
-    .multiselect__input, .multiselect__single {
+    .multiselect__input,
+    .multiselect__single {
         color: $gray-400;
     }
 
@@ -110,7 +112,7 @@ body[data-theme='dark'] {
         border-radius: $border-radius;
         background-color: #71809630;
         border: none;
-        padding-left: .75rem;
+        padding-left: 0.75rem;
     }
 
     .multiselect__option--selected {
@@ -138,7 +140,9 @@ body[data-theme='dark'] {
         fill: $body--color--dark;
     }
 
-    .form-control, .input-group-text, .custom-select {
+    .form-control,
+    .input-group-text,
+    .custom-select {
         color: $body--color--dark;
         background-color: #71809630 !important;
     }

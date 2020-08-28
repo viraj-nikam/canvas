@@ -56,8 +56,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import isEmpty from 'lodash/isEmpty';
-import { mapGetters } from "vuex";
 
 export default {
     name: 'embed-content-modal',

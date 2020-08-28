@@ -8,19 +8,19 @@
  */
 
 $font-size-base: 1rem;
-$font-size-sm: ($font-size-base * .875);
+$font-size-sm: ($font-size-base * 0.875);
 $input-height: 2.375rem;
 $input-height-sm: 1.9375rem;
-$input-btn-focus-width: .2rem;
+$input-btn-focus-width: 0.2rem;
 $custom-control-indicator-disabled-bg: #e9ecef;
 $custom-control-description-disabled-color: #868e96;
 $white: $white;
 $theme-colors: (
-    'success': $green
+    'success': $green,
 );
 
-$switch-height: calc(#{$input-height} * .8);
-$switch-height-sm: calc(#{$input-height-sm} * .8);
+$switch-height: calc(#{$input-height} * 0.8);
+$switch-height-sm: calc(#{$input-height-sm} * 0.8);
 $switch-border-radius: $switch-height;
 $switch-bg: $gray-500;
 $switch-checked-bg: map-get($theme-colors, 'success');
@@ -30,7 +30,7 @@ $switch-thumb-bg: $white;
 $switch-thumb-border-radius: 50%;
 $switch-thumb-padding: 2px;
 $switch-focus-box-shadow: none;
-$switch-transition: .2s all;
+$switch-transition: 0.2s all;
 
 .switch {
     font-size: $font-size-base;
@@ -58,7 +58,7 @@ $switch-transition: .2s all;
             outline: none;
             user-select: none;
             vertical-align: middle;
-            text-indent: calc(calc(#{$switch-height} * 2) + .5rem);
+            text-indent: calc(calc(#{$switch-height} * 2) + 0.5rem);
         }
 
         + label::before,
@@ -120,7 +120,7 @@ $switch-transition: .2s all;
                 min-width: calc(#{$switch-height-sm} * 2);
                 height: $switch-height-sm;
                 line-height: $switch-height-sm;
-                text-indent: calc(calc(#{$switch-height-sm} * 2) + .5rem);
+                text-indent: calc(calc(#{$switch-height-sm} * 2) + 0.5rem);
             }
 
             + label::before {

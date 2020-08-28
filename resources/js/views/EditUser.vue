@@ -8,8 +8,8 @@
                     <h2 class="mt-3">
                         {{ isAuthUserProfile ? trans.edit_profile : trans.edit_user }}
                     </h2>
-                    <p v-if="activeUser.updatedAt" class="mt-2 text-secondary">
-                        {{ trans.last_updated }} {{ moment(activeUser.updatedAt).fromNow() }}
+                    <p v-if="user.updatedAt" class="mt-2 text-secondary">
+                        {{ trans.last_updated }} {{ moment(user.updatedAt).fromNow() }}
                     </p>
                 </div>
 
@@ -17,12 +17,17 @@
                     <div v-if="isReady" class="card-body">
                         <div v-if="!isAuthUserProfile" class="row">
                             <div class="col-lg-2 text-center text-lg-left">
-                                <img :src="avatar" :alt="username" width="125" class="rounded-circle shadow-inner align-self-center">
+                                <img
+                                    :src="avatar"
+                                    :alt="username"
+                                    width="125"
+                                    class="rounded-circle shadow-inner align-self-center"
+                                />
                             </div>
                             <div class="col-lg-10 align-self-center text-center text-lg-left">
-                                <p class="my-0 lead font-weight-bold">{{ activeUser.name }}</p>
+                                <p class="my-0 lead font-weight-bold">{{ user.name }}</p>
                                 <p class="text-muted mb-1">
-                                    <a :href="`mailto:${activeUser.email}`" class="text-primary">{{ activeUser.email }}</a>
+                                    <a :href="`mailto:${user.email}`" class="text-primary">{{ user.email }}</a>
                                     <span v-if="username"> ― @{{ username }}</span>
                                 </p>
                                 <p class="mb-0 text-muted">{{ summary }}</p>
@@ -61,9 +66,9 @@
 
                                     <div v-if="!isReadyToAcceptUploads" class="text-center rounded p-3">
                                         <img
-                                            :src="activeUser.avatar"
+                                            :src="user.avatar"
                                             class="rounded-circle w-75 shadow-inner"
-                                            :alt="activeUser.name"
+                                            :alt="user.name"
                                         />
 
                                         <p class="mt-3 mb-0">
@@ -71,7 +76,7 @@
                                                 href=""
                                                 class="text-decoration-none text-success"
                                                 @click.prevent="clearAvatar"
-                                            >Clear avatar</a
+                                                >Clear avatar</a
                                             >
                                         </p>
                                     </div>
@@ -79,7 +84,10 @@
                                 <div class="col-md-8 order-md-first my-auto">
                                     <div class="form-group row">
                                         <div class="col-12">
-                                            <label for="username" class="font-weight-bold text-uppercase text-muted small">
+                                            <label
+                                                for="username"
+                                                class="font-weight-bold text-uppercase text-muted small"
+                                            >
                                                 {{ trans.username }}
                                             </label>
                                             <input
@@ -97,7 +105,10 @@
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-12">
-                                            <label for="summary" class="font-weight-bold text-uppercase text-muted small">
+                                            <label
+                                                for="summary"
+                                                class="font-weight-bold text-uppercase text-muted small"
+                                            >
                                                 {{ trans.summary }}
                                             </label>
                                             <textarea
@@ -168,7 +179,7 @@
                                                 type="checkbox"
                                                 class="switch"
                                                 :disabled="isAuthUserProfile"
-                                                :checked="activeUser.admin"
+                                                :checked="user.admin"
                                                 @change="toggleAdmin"
                                             />
                                             <label for="admin" class="mb-0 sr-only">
@@ -232,18 +243,17 @@ export default {
     },
 
     computed: {
-        ...mapState(['settings', 'profile']),
+        ...mapState(['settings', 'profile', 'user']),
         ...mapGetters({
-            activeUser: 'user/activeUser',
             trans: 'settings/trans',
         }),
 
         userLastUpdated() {
-            return this.activeUser.updatedAt;
+            return this.user.updatedAt;
         },
 
         isAuthUserProfile() {
-            return this.profile.id === this.activeUser.id;
+            return this.profile.id === this.user.id;
         },
 
         getServerOptions() {
@@ -273,9 +283,9 @@ export default {
             this.isReady = false;
             this.uri = to.params.id;
             await Promise.all([this.fetchUser()]);
-            this.username = this.activeUser.username;
-            this.summary = this.activeUser.summary;
-            this.admin = this.activeUser.admin;
+            this.username = this.user.username;
+            this.summary = this.user.summary;
+            this.admin = this.user.admin;
             this.isReady = true;
             NProgress.done();
         },
@@ -284,12 +294,16 @@ export default {
     async created() {
         await Promise.all([this.fetchUser()]);
 
-        // TODO: The activeUser is not available at this point :sadpanda:
+        // TODO: The user is not available at this point :sadpanda:
+        // console.log(this.user);
 
-        this.username = this.activeUser.username;
-        this.summary = this.activeUser.summary;
-        this.admin = this.activeUser.admin;
-        this.avatar = this.activeUser.avatar;
+        this.username = this.user.username;
+        this.summary = this.user.summary;
+        this.admin = this.user.admin;
+        this.avatar = this.user.avatar;
+
+        // console.log(this.avatar);
+
         this.isReady = true;
         NProgress.done();
     },

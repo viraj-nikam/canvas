@@ -133,8 +133,8 @@
                                 }}</label>
                                 <input
                                     v-model="selectedImageCaption"
-                                    ref="caption"
                                     id="caption"
+                                    ref="caption"
                                     type="text"
                                     class="form-control border-0"
                                     :placeholder="trans.type_caption_for_image"
@@ -184,12 +184,12 @@ import vueFilePond from 'vue-filepond';
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css';
 import 'filepond/dist/filepond.min.css';
 
+import { mapGetters, mapState } from 'vuex';
 import FilePondPluginFileValidateSize from 'filepond-plugin-file-validate-size';
 import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
 import FilePondPluginImageExifOrientation from 'filepond-plugin-image-exif-orientation';
 import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
 import FilePondPluginImageValidateSize from 'filepond-plugin-image-validate-size';
-import { mapGetters, mapState } from "vuex";
 
 const FilePond = vueFilePond(
     FilePondPluginFileValidateType,

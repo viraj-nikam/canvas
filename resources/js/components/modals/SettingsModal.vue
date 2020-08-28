@@ -77,9 +77,7 @@
                     </div>
                     <div class="form-group row">
                         <div class="col-12">
-                            <label class="font-weight-bold text-uppercase text-muted small">{{
-                                trans.topic
-                            }}</label>
+                            <label class="font-weight-bold text-uppercase text-muted small">{{ trans.topic }}</label>
                             <topic-select :topics="topics" :assigned="activePost.topic" />
                         </div>
                     </div>
@@ -109,8 +107,8 @@ import { mapGetters } from 'vuex';
 import TagSelect from '../TagSelect';
 import Tooltip from '../../directives/Tooltip';
 import TopicSelect from '../TopicSelect';
-import strings from "../../mixins/strings";
 import debounce from 'lodash/debounce';
+import strings from '../../mixins/strings';
 
 export default {
     name: 'settings-modal',
@@ -120,11 +118,11 @@ export default {
         TopicSelect,
     },
 
-    mixins: ['strings'],
-
     directives: {
         Tooltip,
     },
+
+    mixins: ['strings'],
 
     props: {
         tags: {

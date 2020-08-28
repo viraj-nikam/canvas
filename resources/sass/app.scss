@@ -1,12 +1,17 @@
-@import "utilities/variables";
-@import "themes/default";
-@import "themes/dark";
+@import 'utilities/variables';
+@import 'themes/default';
+@import 'themes/dark';
 
-a, a:focus,
-input, input:focus,
-button, button:focus,
-select, select:focus,
-textarea, textarea:focus {
+a,
+a:focus,
+input,
+input:focus,
+button,
+button:focus,
+select,
+select:focus,
+textarea,
+textarea:focus {
     -webkit-box-shadow: none !important;
     -moz-box-shadow: none !important;
     box-shadow: none !important;
@@ -33,7 +38,7 @@ input::-webkit-search-cancel-button {
 }
 
 .shadow-inner {
-    box-shadow: inset 0 2px 4px 0 rgba(0,0,0,.06);
+    box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
 }
 
 .page-header {
@@ -41,7 +46,7 @@ input::-webkit-search-cancel-button {
 }
 
 .hover-light:hover {
-    opacity: .6;
+    opacity: 0.6;
 }
 
 .fill-light-red {
