@@ -43,27 +43,6 @@
                         <path class="fill-body-color" d="M12 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
                     </svg>
                 </button>
-                <button class="btn btn-outline-light btn-circle border mr-1" type="button" @click="showEmbedVideoModal">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="26" viewBox="0 0 24 24" class="icon-play">
-                        <circle cx="12" cy="12" r="10" class="fill-body-color" />
-                        <path
-                            class="fill-bg"
-                            d="M15.51 11.14a1 1 0 0 1 0 1.72l-5 3A1 1 0 0 1 9 15V9a1 1 0 0 1 1.51-.86l5 3z"
-                        />
-                    </svg>
-                </button>
-                <button class="btn btn-outline-light btn-circle border mr-1" type="button" @click="showEmbedLinkModal">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="26" viewBox="0 0 24 24" class="icon-link">
-                        <path
-                            class="fill-body-color"
-                            d="M19.48 13.03l-.02-.03a1 1 0 1 1 1.75-.98A6 6 0 0 1 16 21h-4a6 6 0 1 1 0-12h1a1 1 0 0 1 0 2h-1a4 4 0 1 0 0 8h4a4 4 0 0 0 3.48-5.97z"
-                        />
-                        <path
-                            class="fill-body-color"
-                            d="M4.52 10.97l.02.03a1 1 0 1 1-1.75.98A6 6 0 0 1 8 3h4a6 6 0 1 1 0 12h-1a1 1 0 0 1 0-2h1a4 4 0 1 0 0-8H8a4 4 0 0 0-3.48 5.97z"
-                        />
-                    </svg>
-                </button>
                 <button
                     class="btn btn-outline-light btn-circle border mr-1"
                     type="button"
@@ -109,35 +88,6 @@
                 <button
                     class="btn btn-outline-light border border-bottom-0 border-left-0 py-2"
                     type="button"
-                    @click="showEmbedVideoModal"
-                >
-                    <svg xmlns="http://www.w3.org/2000/svg" width="26" viewBox="0 0 24 24" class="icon-play">
-                        <circle cx="12" cy="12" r="10" class="fill-body-color" />
-                        <path
-                            class="fill-bg"
-                            d="M15.51 11.14a1 1 0 0 1 0 1.72l-5 3A1 1 0 0 1 9 15V9a1 1 0 0 1 1.51-.86l5 3z"
-                        />
-                    </svg>
-                </button>
-                <button
-                    class="btn btn-outline-light border border-bottom-0 border-left-0 py-2"
-                    type="button"
-                    @click="showEmbedLinkModal"
-                >
-                    <svg xmlns="http://www.w3.org/2000/svg" width="26" viewBox="0 0 24 24" class="icon-link">
-                        <path
-                            class="fill-body-color"
-                            d="M19.48 13.03l-.02-.03a1 1 0 1 1 1.75-.98A6 6 0 0 1 16 21h-4a6 6 0 1 1 0-12h1a1 1 0 0 1 0 2h-1a4 4 0 1 0 0 8h4a4 4 0 0 0 3.48-5.97z"
-                        />
-                        <path
-                            class="fill-body-color"
-                            d="M4.52 10.97l.02.03a1 1 0 1 1-1.75.98A6 6 0 0 1 8 3h4a6 6 0 1 1 0 12h-1a1 1 0 0 1 0-2h1a4 4 0 1 0 0-8H8a4 4 0 0 0-3.48 5.97z"
-                        />
-                    </svg>
-                </button>
-                <button
-                    class="btn btn-outline-light border border-bottom-0 border-left-0 py-2"
-                    type="button"
                     @click="showEmbedContentModal"
                 >
                     <svg xmlns="http://www.w3.org/2000/svg" width="26" viewBox="0 0 24 24" class="icon-code">
@@ -170,16 +120,12 @@
             @removingEmbedImage="removeEmbedImage"
         />
 
-        <embed-video-modal ref="embedVideoModal" @addingEmbedVideo="insertEmbedVideo" />
-
-        <embed-link-modal ref="embedLinkModal" @addingEmbedLink="insertEmbedLink" />
-
         <embed-content-modal ref="embedContentModal" @addingEmbedContent="insertEmbedContent" />
     </div>
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapGetters } from 'vuex';
 import $ from 'jquery';
 import Closable from '../../../js/directives/Closable';
 import DividerBlot from './DividerBlot';
@@ -187,10 +133,6 @@ import EmbedContentBlot from './EmbedContentBlot';
 import EmbedContentModal from './EmbedContentModal';
 import EmbedImageBlot from './EmbedImageBlot';
 import EmbedImageModal from './EmbedImageModal';
-import EmbedLinkBlot from './EmbedLinkBlot';
-import EmbedLinkModal from './EmbedLinkModal';
-import EmbedVideoBlot from './EmbedVideoBlot';
-import EmbedVideoModal from './EmbedVideoModal';
 import Parchment from 'parchment';
 import Quill from 'quill';
 import debounce from 'lodash/debounce';
@@ -203,8 +145,6 @@ export default {
     },
 
     components: {
-        EmbedLinkModal,
-        EmbedVideoModal,
         EmbedContentModal,
         EmbedImageModal,
     },
@@ -220,34 +160,25 @@ export default {
         return {
             editor: null,
             controlIsActive: false,
-            trans: JSON.parse(window.Canvas.locale.translations),
         };
     },
 
-    computed: mapState(['activePost']),
+    computed: {
+        ...mapGetters({
+            activePost: 'post/activePost',
+            trans: 'settings/trans',
+        }),
+    },
 
     watch: {
         'activePost.body'() {
-            this.update();
+            // this.update();
         },
     },
 
     mounted() {
         this.editor = this.createEditor();
         this.handleEditorValue();
-
-        // Render any Tweets inside the editor
-        let tweets = document.querySelectorAll('div.ql-tweet');
-        for (let i = 0; i < tweets.length; i++) {
-            while (tweets[i].firstChild) {
-                tweets[i].removeChild(tweets[i].firstChild);
-            }
-
-            window.twttr.widgets.createTweet(tweets[i].dataset.id, tweets[i], {
-                theme: !window.Canvas.darkMode ? 'light' : 'dark',
-            });
-        }
-
         this.handleClicksInsideEditor();
         this.initSideControls();
     },
@@ -255,9 +186,7 @@ export default {
     methods: {
         createEditor() {
             Quill.register(DividerBlot, true);
-            Quill.register(EmbedLinkBlot, true);
             Quill.register(EmbedImageBlot, true);
-            Quill.register(EmbedVideoBlot, true);
             Quill.register(EmbedContentBlot, true);
 
             const icons = Quill.import('ui/icons');
@@ -274,7 +203,7 @@ export default {
                 },
                 theme: 'bubble',
                 scrollingContainer: 'html, body',
-                placeholder: this.trans.app.tell_your_story,
+                placeholder: this.trans.tell_your_story,
             });
 
             /**
@@ -285,7 +214,7 @@ export default {
             let tooltip = quill.theme.tooltip;
             let input = tooltip.root.querySelector('input[data-link]');
 
-            input.dataset.link = this.trans.app.paste_or_type_a_link;
+            input.dataset.link = this.trans.paste_or_type_a_link;
 
             return quill;
         },
@@ -385,18 +314,6 @@ export default {
             $(this.$refs.embedImageModal.$el).modal('show');
         },
 
-        showEmbedVideoModal(data = null) {
-            this.$emit('openingEmbedVideoModal', data);
-
-            $(this.$refs.embedVideoModal.$el).modal('show');
-        },
-
-        showEmbedLinkModal(data = null) {
-            this.$emit('openingEmbedLinkModal', data);
-
-            $(this.$refs.embedLinkModal.$el).modal('show');
-        },
-
         showEmbedContentModal(data = null) {
             this.$emit('openingEmbedContentModal', data);
 
@@ -429,22 +346,6 @@ export default {
             this.editor.setSelection(range.index - 1, Quill.sources.SILENT);
         },
 
-        insertEmbedLink({ url }) {
-            let range = this.editor.getSelection(true);
-
-            this.editor.insertEmbed(range.index, 'embed-link', url, Quill.sources.USER);
-
-            this.editor.setSelection(range.index + 1, Quill.sources.SILENT);
-        },
-
-        insertEmbedVideo({ url }) {
-            let range = this.editor.getSelection(true);
-
-            this.editor.insertEmbed(range.index, 'embed-video', url, Quill.sources.USER);
-
-            this.editor.setSelection(range.index + 1, Quill.sources.SILENT);
-        },
-
         insertEmbedContent({ content, existingBlot }) {
             let range = this.editor.getSelection(true);
             let values = {
@@ -470,7 +371,7 @@ export default {
         },
 
         update: debounce(function () {
-            this.$parent.save();
+            // this.$parent.save();
         }, 3000),
     },
 };

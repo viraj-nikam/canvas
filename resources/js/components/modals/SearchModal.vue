@@ -112,6 +112,8 @@ export default {
     },
 
     created() {
+        // TODO: Use Vuex to contain search state and re-indexing
+
         this.fetchPosts();
 
         if (this.isAdmin) {

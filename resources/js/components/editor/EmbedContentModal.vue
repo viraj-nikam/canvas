@@ -3,7 +3,7 @@
         <div ref="modal" class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header d-flex align-items-center justify-content-between border-0">
-                    <h4 class="modal-title">{{ trans.app.embed_content }}</h4>
+                    <h4 class="modal-title">{{ trans.embed_content }}</h4>
 
                     <button
                         type="button"
@@ -36,7 +36,7 @@
                                 name="embed"
                                 style="resize: none"
                                 class="form-control border-0"
-                                :placeholder="trans.app.paste_embed_code_to_include"
+                                :placeholder="trans.paste_embed_code_to_include"
                             />
                         </div>
                     </div>
@@ -47,7 +47,7 @@
                         data-dismiss="modal"
                         @click="clickDone"
                     >
-                        {{ trans.app.done }}
+                        {{ trans.done }}
                     </button>
                 </div>
             </div>
@@ -57,6 +57,7 @@
 
 <script>
 import isEmpty from 'lodash/isEmpty';
+import { mapGetters } from "vuex";
 
 export default {
     name: 'embed-content-modal',
@@ -65,8 +66,13 @@ export default {
         return {
             blot: null,
             content: null,
-            trans: JSON.parse(window.Canvas.locale.translations),
         };
+    },
+
+    computed: {
+        ...mapGetters({
+            trans: 'settings/trans',
+        }),
     },
 
     mounted() {

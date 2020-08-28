@@ -18,6 +18,7 @@ const initialState = {
     },
     tags: [],
     topic: [],
+    isSaving: false
 };
 
 const state = { ...initialState };

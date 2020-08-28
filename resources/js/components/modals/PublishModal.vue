@@ -4,12 +4,12 @@
             <div class="modal-content">
                 <div class="modal-body">
                     <p class="lead mb-1 text-center text-lg-left">
-                        {{ trans.app.publishing }}
+                        {{ trans.publishing }}
                     </p>
                     <p class="text-secondary text-center text-lg-left">
-                        {{ trans.app.post_scheduling_format }}
-                        <span class="font-weight-bold">{{ window.Canvas.timezone }}</span>
-                        {{ trans.app.timezone }}. (m/d/y h:m)
+                        {{ trans.post_scheduling_format }}
+                        <span class="font-weight-bold">{{ settings.timezone }}</span>
+                        {{ trans.timezone }}. (m/d/y h:m)
                     </p>
 
                     <div class="row">
@@ -99,11 +99,11 @@
                         </div>
                     </div>
 
-                    <p v-if="isScheduled(this.activePost.published_at)" class="mt-3 text-success font-italic">
-                        {{ trans.app.your_post_will_publish_at }}
-                        {{ this.activePost.published_at }}
-                        {{ trans.app.on }}
-                        {{ this.activePost.published_at }}.
+                    <p v-if="isScheduled(activePost.published_at)" class="mt-3 text-success font-italic">
+                        {{ trans.your_post_will_publish_at }}
+                        {{ activePost.published_at }}
+                        {{ trans.on }}
+                        {{ activePost.published_at }}.
                     </p>
                 </div>
                 <div class="modal-footer">
@@ -116,7 +116,7 @@
                                 data-dismiss="modal"
                                 @click="scheduleOrPublish"
                             >
-                                {{ trans.app.publish_now }}
+                                {{ trans.publish_now }}
                             </a>
 
                             <a
@@ -125,19 +125,19 @@
                                 class="btn btn-success btn-block font-weight-bold mt-0"
                                 @click="scheduleOrPublish"
                             >
-                                {{ trans.app.schedule_to_publish }}
+                                {{ trans.schedule_to_publish }}
                             </a>
                         </div>
 
                         <div class="col-lg order-lg-first px-0">
                             <button
-                                v-if="isScheduled(this.activePost.published_at)"
+                                v-if="isScheduled(activePost.published_at)"
                                 type="button"
                                 class="btn btn-link btn-block text-muted font-weight-bold text-decoration-none"
                                 data-dismiss="modal"
                                 @click="cancelScheduling"
                             >
-                                {{ trans.app.cancel_scheduling }}
+                                {{ trans.cancel_scheduling }}
                             </button>
 
                             <button
@@ -146,7 +146,7 @@
                                 class="btn btn-link btn-block text-muted font-weight-bold text-decoration-none"
                                 data-dismiss="modal"
                             >
-                                {{ trans.app.cancel }}
+                                {{ trans.cancel }}
                             </button>
                         </div>
                     </div>
@@ -157,7 +157,8 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapGetters, mapState } from 'vuex';
+import status from "../../mixins/status";
 
 export default {
     name: 'publish-modal',
@@ -172,17 +173,22 @@ export default {
                 minute: '',
             },
             result: '',
-            trans: JSON.parse(window.Canvas.locale.translations),
         };
     },
 
     computed: {
-        ...mapState(['activePost']),
+        ...mapState(['settings']),
+        ...mapGetters({
+            activePost: 'post/activePost',
+            trans: 'settings/trans',
+        }),
 
         shouldPublish() {
             return true;
-        },
+        }
     },
+
+    mixins: [status],
 
     watch: {
         value(val) {
@@ -233,13 +239,13 @@ export default {
         },
 
         scheduleOrPublish() {
-            this.activePost.published_at = this.result;
-            this.$parent.save();
+            // this.activePost.published_at = this.result;
+            // this.$parent.save();
         },
 
         cancelScheduling() {
-            this.activePost.published_at = '';
-            this.$parent.save();
+            // this.activePost.published_at = '';
+            // this.$parent.save();
         },
     },
 };

@@ -3,7 +3,7 @@
         <div ref="modal" class="modal-dialog" role="document">
             <div class="modal-content">
                 <div v-if="!selectedImageUrl" class="modal-header d-flex align-items-center justify-content-between">
-                    <div v-if="unsplashKey" class="input-group align-items-center">
+                    <div v-if="settings.unsplash" class="input-group align-items-center">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 24 24"
@@ -22,7 +22,7 @@
                             autofocus
                             style="padding-left: 32px"
                             class="form-control border-0 bg-transparent"
-                            :placeholder="trans.app.search_free_photos"
+                            :placeholder="trans.search_free_photos"
                         />
                     </div>
 
@@ -53,7 +53,7 @@
                         v-if="!isSearchingUnsplash && !unsplashImages.length && isReadyToAcceptUploads"
                         name="editorImagePond"
                         max-files="1"
-                        :max-file-size="maxUploadFilesize"
+                        :max-file-size="settings.maxUpload"
                         :icon-remove="getRemoveIcon"
                         :icon-retry="getRetryIcon"
                         :label-idle="getPlaceholderLabel"
@@ -65,7 +65,7 @@
                         @removefile="removedFromFilePond"
                     />
 
-                    <div v-if="unsplashKey && !selectedImageUrl">
+                    <div v-if="settings.unsplash && !selectedImageUrl">
                         <div v-if="unsplashImages.length" class="card-columns mt-3">
                             <div
                                 :key="index"
@@ -90,7 +90,7 @@
                         >
                             <span slot="no-more" />
                             <div slot="no-results" class="mb-3">
-                                {{ trans.app.no_images_found_for }} "{{ searchKeyword }}"
+                                {{ trans.no_images_found_for }} "{{ searchKeyword }}"
                             </div>
                         </infinite-loading>
                     </div>
@@ -128,15 +128,16 @@
 
                         <div class="col-12" :hidden="!selectedImagesForPond.length && !selectedImageUrl">
                             <div class="form-group row">
-                                <label class="font-weight-bold text-uppercase text-muted small">{{
-                                    trans.app.caption
+                                <label for="caption" class="font-weight-bold text-uppercase text-muted small">{{
+                                    trans.caption
                                 }}</label>
                                 <input
                                     v-model="selectedImageCaption"
                                     ref="caption"
+                                    id="caption"
                                     type="text"
                                     class="form-control border-0"
-                                    :placeholder="trans.app.type_caption_for_image"
+                                    :placeholder="trans.type_caption_for_image"
                                 />
                             </div>
 
@@ -144,15 +145,15 @@
                                 class="form-group row mt-2"
                                 :hidden="!selectedImagesForPond.length && !selectedImageUrl"
                             >
-                                <label class="font-weight-bold text-uppercase text-muted small">{{
-                                    trans.app.layout
+                                <label for="layout" class="font-weight-bold text-uppercase text-muted small">{{
+                                    trans.layout
                                 }}</label>
-                                <select v-model="selectedImageLayout" class="custom-select border-0">
+                                <select v-model="selectedImageLayout" id="layout" class="custom-select border-0">
                                     <option value="default">
-                                        {{ trans.app.default_layout }}
+                                        {{ trans.default_layout }}
                                     </option>
                                     <option value="wide">
-                                        {{ trans.app.wide_image }}
+                                        {{ trans.wide_image }}
                                     </option>
                                 </select>
                             </div>
@@ -165,7 +166,7 @@
                         data-dismiss="modal"
                         @click="clickDone"
                     >
-                        {{ trans.app.done }}
+                        {{ trans.done }}
                     </button>
                 </div>
             </div>
@@ -188,6 +189,7 @@ import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
 import FilePondPluginImageExifOrientation from 'filepond-plugin-image-exif-orientation';
 import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
 import FilePondPluginImageValidateSize from 'filepond-plugin-image-validate-size';
+import { mapGetters, mapState } from "vuex";
 
 const FilePond = vueFilePond(
     FilePondPluginFileValidateType,
@@ -209,7 +211,6 @@ export default {
         return {
             isReadyToAcceptUploads: true,
             searchKeyword: '',
-            unsplashKey: window.Canvas.unsplash,
             unsplashPage: 1,
             unsplashPerPage: 12,
             unsplashImages: [],
@@ -221,16 +222,19 @@ export default {
             selectedImageLayout: 'default',
             selectedImageCaption: '',
             galleryModalClasses: ['modal-xl', 'modal-dialog-scrollable'],
-            maxUploadFilesize: window.Canvas.maxUpload,
-            path: window.Canvas.path,
-            trans: JSON.parse(window.Canvas.locale.translations),
         };
     },
 
     computed: {
+        ...mapState(['settings']),
+        ...mapGetters({
+            activePost: 'post/activePost',
+            trans: 'settings/trans',
+        }),
+
         getServerOptions() {
             return {
-                url: '/' + window.Canvas.path + '/api/uploads',
+                url: `/${this.settings.path}/api/uploads`,
                 headers: {
                     'X-CSRF-TOKEN': this.getToken(),
                 },
@@ -284,7 +288,7 @@ export default {
 
     methods: {
         fetchUnsplashImages($state) {
-            const unsplash = new Unsplash({ accessKey: this.unsplashKey });
+            const unsplash = new Unsplash({ accessKey: this.settings.unsplash });
             unsplash.search
                 .photos(this.searchKeyword, this.unsplashPage, this.unsplashPerPage)
                 .then(toJson)
@@ -301,9 +305,9 @@ export default {
         },
 
         selectUnsplashImage(image) {
-            const unsplash = new Unsplash({ accessKey: this.unsplashKey });
+            const unsplash = new Unsplash({ accessKey: this.settings.unsplash });
 
-            // We must trigger a download to properly attribute traffic to the source
+            // Trigger a download to properly attribute traffic to the source
             // https://help.unsplash.com/en/articles/2511258-guideline-triggering-a-download
             unsplash.photos.downloadPhoto(image);
 
@@ -323,13 +327,13 @@ export default {
 
         buildImageCaption(image) {
             return (
-                this.trans.app.photo_by +
+                this.trans.photo_by +
                 ' <a href="' +
                 image.user.links.html +
                 '" target="_blank">' +
                 image.user.name +
                 '</a> ' +
-                this.trans.app.on +
+                this.trans.on +
                 ' <a href="https://unsplash.com" target="_blank">Unsplash</a>'
             );
         },

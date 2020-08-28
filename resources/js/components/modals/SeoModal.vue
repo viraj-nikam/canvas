@@ -3,7 +3,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header d-flex align-items-center justify-content-between border-0">
-                    <h4 class="modal-title">{{ trans.app.seo_settings }}</h4>
+                    <h4 class="modal-title">{{ trans.seo_settings }}</h4>
 
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <svg
@@ -23,13 +23,13 @@
                 <div class="modal-body">
                     <div class="form-group row">
                         <div class="col-12">
-                            <label class="font-weight-bold text-uppercase text-muted small">
-                                {{ trans.app.meta_title }}
+                            <label for="title" class="font-weight-bold text-uppercase text-muted small">
+                                {{ trans.meta_title }}
                                 <a
                                     v-tooltip="{ placement: 'right' }"
                                     href="#"
                                     class="text-decoration-none"
-                                    :title="trans.app.sync_with_post_title"
+                                    :title="trans.sync_with_post_title"
                                     @click.prevent="syncTitle"
                                 >
                                     <svg
@@ -47,25 +47,26 @@
                                 </a>
                             </label>
                             <input
-                                v-model="activePost.meta.title"
+                                v-model="title"
                                 name="title"
+                                id="title"
                                 type="text"
                                 class="form-control border-0"
-                                :title="trans.app.meta_title"
-                                :placeholder="trans.app.meta_title_placeholder"
+                                :title="trans.meta_title"
+                                :placeholder="trans.meta_title_placeholder"
                                 @input="update"
                             />
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-12">
-                            <label class="font-weight-bold text-uppercase text-muted small">
-                                {{ trans.app.meta_description }}
+                            <label for="description" class="font-weight-bold text-uppercase text-muted small">
+                                {{ trans.meta_description }}
                                 <a
                                     v-tooltip="{ placement: 'right' }"
                                     href="#"
                                     class="text-decoration-none"
-                                    :title="trans.app.sync_with_post_description"
+                                    :title="trans.sync_with_post_description"
                                     @click.prevent="syncDescription"
                                 >
                                     <svg
@@ -83,29 +84,30 @@
                                 </a>
                             </label>
                             <textarea
-                                v-model="activePost.meta.description"
+                                v-model="description"
                                 id="description"
                                 rows="4"
                                 name="description"
                                 style="resize: none"
                                 class="form-control border-0"
-                                :placeholder="trans.app.meta_description_placeholder"
+                                :placeholder="trans.meta_description_placeholder"
                                 @input="update"
                             />
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-12">
-                            <label class="font-weight-bold text-uppercase text-muted small">
-                                {{ trans.app.canonical_link }}
+                            <label for="canonical_link" class="font-weight-bold text-uppercase text-muted small">
+                                {{ trans.canonical_link }}
                             </label>
                             <input
-                                v-model="activePost.meta.canonical_link"
+                                v-model="canonicalLink"
                                 type="text"
+                                id="canonical_link"
                                 class="form-control border-0"
                                 name="canonical_link"
-                                :title="trans.app.canonical_link"
-                                :placeholder="trans.app.canonical_link_placeholder"
+                                :title="trans.canonical_link"
+                                :placeholder="trans.canonical_link_placeholder"
                                 @input="update"
                             />
                         </div>
@@ -117,7 +119,7 @@
                         class="btn btn-link btn-block font-weight-bold text-muted text-decoration-none"
                         data-dismiss="modal"
                     >
-                        {{ trans.app.done }}
+                        {{ trans.done }}
                     </button>
                 </div>
             </div>
@@ -126,7 +128,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapGetters } from 'vuex';
 import Tooltip from '../../directives/Tooltip';
 import debounce from 'lodash/debounce';
 
@@ -139,25 +141,32 @@ export default {
 
     data() {
         return {
-            trans: JSON.parse(window.Canvas.locale.translations),
+            title: '',
+            description: '',
+            canonicalLink: '',
         };
     },
 
-    computed: mapState(['activePost']),
+    computed: {
+        ...mapGetters({
+            activePost: 'post/activePost',
+            trans: 'settings/trans',
+        }),
+    },
 
     methods: {
         update: debounce(function () {
-            this.$parent.save();
+            // this.$parent.save();
         }, 3000),
 
-        syncDescription() {
-            this.activePost.meta.description = this.activePost.summary;
-            this.$parent.save();
+        syncTitle() {
+            // this.activePost.meta.title = this.activePost.title;
+            // this.$parent.save();
         },
 
-        syncTitle() {
-            this.activePost.meta.title = this.activePost.title;
-            this.$parent.save();
+        syncDescription() {
+            // this.activePost.meta.description = this.activePost.summary;
+            // this.$parent.save();
         },
     },
 };

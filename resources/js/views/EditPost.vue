@@ -4,9 +4,9 @@
             <template slot="status">
                 <ul class="navbar-nav mr-auto flex-row float-right">
                     <li class="text-muted font-weight-bold">
-                        <div class="border-left pl-3">
-                            <span v-if="isDraft(activePost.published_at)">{{ trans.draft }}</span>
-                            <span v-if="!isDraft(activePost.published_at)">{{ trans.published }}</span>
+                        <div v-if="activePost" class="border-left pl-3">
+                            <span v-if="isPublished(activePost.published_at)">{{ trans.published }}</span>
+                            <span v-else>{{ trans.draft }}</span>
                         </div>
                     </li>
                 </ul>
@@ -55,20 +55,20 @@
 
                     <div class="dropdown-menu dropdown-menu-right">
                         <router-link
-                            v-if="!isDraft(activePost.published_at)"
+                            v-if="isPublished(activePost.published_at)"
                             :to="{ name: 'stats-show', params: { id: uri } }"
                             class="dropdown-item"
                         >
                             {{ trans.view_stats }}
                         </router-link>
-                        <div v-if="!isDraft(activePost.published_at)" class="dropdown-divider" />
+                        <div v-if="isPublished(activePost.published_at)" class="dropdown-divider" />
                         <a href="#" class="dropdown-item" @click="showSettingsModal"> {{ trans.general_settings }} </a>
                         <a href="#" class="dropdown-item" @click="showFeaturedImageModal">
                             {{ trans.featured_image }}
                         </a>
                         <a href="#" class="dropdown-item" @click="showSeoModal"> {{ trans.seo_settings }} </a>
                         <a
-                            v-if="!isDraft(activePost.published_at)"
+                            v-if="isPublished(activePost.published_at)"
                             href="#"
                             class="dropdown-item"
                             @click.prevent="convertToDraft"
@@ -97,7 +97,7 @@
                 </div>
 
                 <div class="form-group my-4">
-                    <!--                    <quill-editor/>-->
+                    <!--<quill-editor/>-->
                 </div>
             </div>
         </main>
@@ -169,14 +169,6 @@ export default {
         this.fetchPost();
         this.isReady = true;
         NProgress.done();
-
-        // todo: drop these in the header when the component loads and remove them after
-        // https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/highlight.min.js
-        // https://platform.twitter.com/widgets.js
-        // dark styles
-        // https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.1.1/build/styles/sunburst.min.css
-        // light styles
-        // https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.1.1/build/styles/github.min.css
     },
 
     // beforeRouteEnter(to, from, next) {

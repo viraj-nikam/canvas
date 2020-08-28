@@ -4,7 +4,7 @@
             <div class="modal-content">
                 <div class="modal-header d-flex align-items-center justify-content-between border-0">
                     <h4 class="modal-title">
-                        {{ trans.app.general_settings }}
+                        {{ trans.general_settings }}
                     </h4>
 
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -25,13 +25,13 @@
                 <div class="modal-body">
                     <div class="form-group row">
                         <div class="col-12">
-                            <label class="font-weight-bold text-uppercase text-muted small">{{ trans.app.slug }}</label>
+                            <label class="font-weight-bold text-uppercase text-muted small">{{ trans.slug }}</label>
                             <a
                                 v-tooltip="{ placement: 'right' }"
                                 v-if="activePost.title"
                                 href="#"
                                 class="text-decoration-none"
-                                :title="trans.app.sync_with_post_title"
+                                :title="trans.sync_with_post_title"
                                 @click.prevent="syncSlug()"
                             >
                                 <svg
@@ -48,32 +48,29 @@
                                 </svg>
                             </a>
                             <input
-                                v-model="activePost.slug"
+                                v-model="slug"
                                 type="text"
                                 class="form-control border-0"
                                 name="slug"
-                                :title="trans.app.slug"
-                                :placeholder="trans.app.a_unique_slug"
+                                :title="trans.slug"
+                                :placeholder="trans.a_unique_slug"
                                 @input="update"
                             />
-                            <div v-if="activePost.errors.slug" class="invalid-feedback d-block">
-                                <strong>{{ activePost.errors.slug[0] }}</strong>
-                            </div>
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-12">
-                            <label class="font-weight-bold text-uppercase text-muted small">{{
-                                trans.app.summary
+                            <label for="settings" class="font-weight-bold text-uppercase text-muted small">{{
+                                trans.summary
                             }}</label>
                             <textarea
-                                v-model="activePost.summary"
+                                v-model="summary"
                                 id="settings"
                                 rows="4"
                                 name="summary"
                                 style="resize: none"
                                 class="form-control resize-none border-0"
-                                :placeholder="trans.app.a_descriptive_summary"
+                                :placeholder="trans.a_descriptive_summary"
                                 @input="update"
                             />
                         </div>
@@ -81,14 +78,14 @@
                     <div class="form-group row">
                         <div class="col-12">
                             <label class="font-weight-bold text-uppercase text-muted small">{{
-                                trans.app.topic
+                                trans.topic
                             }}</label>
                             <topic-select :topics="topics" :assigned="activePost.topic" />
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-12">
-                            <label class="font-weight-bold text-uppercase text-muted small">{{ trans.app.tags }}</label>
+                            <label class="font-weight-bold text-uppercase text-muted small">{{ trans.tags }}</label>
                             <tag-select :tags="tags" :tagged="activePost.tags" />
                         </div>
                     </div>
@@ -99,7 +96,7 @@
                         class="btn btn-link btn-block font-weight-bold text-muted text-decoration-none"
                         data-dismiss="modal"
                     >
-                        {{ trans.app.done }}
+                        {{ trans.done }}
                     </button>
                 </div>
             </div>
@@ -108,10 +105,11 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapGetters } from 'vuex';
 import TagSelect from '../TagSelect';
 import Tooltip from '../../directives/Tooltip';
 import TopicSelect from '../TopicSelect';
+import strings from "../../mixins/strings";
 import debounce from 'lodash/debounce';
 
 export default {
@@ -121,6 +119,8 @@ export default {
         TagSelect,
         TopicSelect,
     },
+
+    mixins: ['strings'],
 
     directives: {
         Tooltip,
@@ -139,13 +139,19 @@ export default {
 
     data() {
         return {
+            summary: '',
+            slug: '',
             allTags: [],
             allTopics: [],
-            trans: JSON.parse(window.Canvas.locale.translations),
         };
     },
 
-    computed: mapState(['activePost']),
+    computed: {
+        ...mapGetters({
+            activePost: 'post/activePost',
+            trans: 'settings/trans',
+        }),
+    },
 
     mounted() {
         this.allTags = this.tags;
@@ -154,12 +160,12 @@ export default {
 
     methods: {
         syncSlug() {
-            this.activePost.slug = this.slugify(this.activePost.title);
-            this.$parent.save();
+            // this.slug = strings.methods.slugify(this.title);
+            // this.$parent.save();
         },
 
         update: debounce(function () {
-            this.$parent.save();
+            // this.$parent.save();
         }, 3000),
     },
 };
