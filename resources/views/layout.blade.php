@@ -8,14 +8,14 @@
 
     <title>{{ config('app.name') }} ― Canvas</title>
 
-   @if($scripts['locale'] === 'fa' or $scripts['locale'] === 'ar')
-        <link rel="stylesheet" href="{{ mix('css/rtl.css', 'vendor/canvas') }}">
-    @endif
     <link rel="stylesheet" type="text/css" href="{{ mix('css/app.css', 'vendor/canvas') }}">
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Karla|Merriweather:400,700">
 </head>
-<body class="mb-5" @if($config['user']['darkMode']) data-theme="dark" @endif>
+<body class="mb-5"
+    @if($config['user']['darkMode']) data-theme="dark" @endif
+    @if(in_array($config['user']['locale'], ['ar', 'fa'])) data-lang="rtl" @endif
+>
 
 @if(!\Canvas\Helpers\Asset::upToDate())
     <div class="alert alert-danger border-0 text-center rounded-0 mb-0">

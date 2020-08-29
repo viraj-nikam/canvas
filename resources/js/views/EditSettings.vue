@@ -181,6 +181,12 @@ export default {
             this.$store.dispatch('settings/updateLocale', {
                 locale: this.locale,
             });
+
+            if (this.locale === 'ar' || this.locale === 'fa') {
+                document.body.setAttribute('data-lang', 'rtl');
+            } else {
+                document.body.removeAttribute('data-lang');
+            }
         },
 
         toggleDarkMode() {
