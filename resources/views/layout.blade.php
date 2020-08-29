@@ -16,6 +16,10 @@
         <link rel="stylesheet" id="highlightStylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/styles/github.min.css">
     @endif
 
+    @if($scripts['locale'] === 'fa' or $scripts['locale'] === 'ar')
+        <link rel="stylesheet" href="{{ mix('css/rtl.css', 'vendor/canvas') }}">
+    @endif
+
     <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/highlight.min.js"></script>
     <script src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 

@@ -24,6 +24,7 @@ mix.options({
 mix.setPublicPath('public')
     .setResourceRoot('../')
     .js('resources/js/app.js', 'public/js')
+    .sass('resources/sass/rtl.scss', 'public/css')
     .sass('resources/sass/app.scss', 'public/css')
     .sass('resources/sass/app-dark.scss', 'public/css')
     .copy('resources/favicon.ico', 'public')
