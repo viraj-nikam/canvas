@@ -1,14 +1,14 @@
 <p align="center">
-    <a href="https://cnvs.io">
-        <img src=".github/HEADER.png">
+    <a href="https://trycanvas.app">
+        <img src=".github/assets/header.png">
     </a>
 </p>
 
 <p align="center">
 <a href="https://github.com/austintoddj/canvas/actions"><img src="https://github.com/austintoddj/canvas/workflows/build/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/cnvs/canvas"><img src="https://poser.pugx.org/cnvs/canvas/downloads"></a>
-<a href="https://packagist.org/packages/cnvs/canvas"><img src="https://poser.pugx.org/cnvs/canvas/v/stable"></a>
-<a href="https://packagist.org/packages/cnvs/canvas"><img src="https://poser.pugx.org/cnvs/canvas/license"></a>
+<a href="https://packagist.org/packages/austintoddj/canvas"><img src="https://poser.pugx.org/austintoddj/canvas/downloads"></a>
+<a href="https://packagist.org/packages/austintoddj/canvas"><img src="https://poser.pugx.org/austintoddj/canvas/v/stable"></a>
+<a href="https://packagist.org/packages/austintoddj/canvas"><img src="https://poser.pugx.org/austintoddj/canvas/license"></a>
 </p>
 
 ## Introduction
@@ -16,7 +16,18 @@
 Canvas is a fully open source package to extend your existing [Laravel](https://laravel.com) application and get you up-and-running with a blog in 
 just a few minutes. In addition to a distraction-free writing experience, you can view monthly trends on your content, get insights into reader traffic and more!
 
-## Requirements
+## Table of Contents
+
+- [System Requirements](#system-requirements)
+- [Installation](#installation)
+- [Configuration](#configuration)
+- [Features](#features)
+- [Updates](#updates)
+- [Contributing](#contributing)
+- [License](#license)
+- [Credits](#credits)
+
+## System Requirements
 
 - PHP >= 7.2
 - Laravel >= 6.0
@@ -48,12 +59,25 @@ php artisan storage:link
 
 After publishing Canvas's assets, a primary configuration file will be located at `config/canvas.php`. This file allows you to customize various aspects of how your application uses the package.
 
-Canvas exposes its UI at `/canvas` by default. This can be changed by updating the `path` option:
+Canvas exposes its UI at `/canvas` by default. This can be changed by updating either the `path` or `domain` option:
 
 ```php
 /*
 |--------------------------------------------------------------------------
-| Base Route
+| Base Domain
+|--------------------------------------------------------------------------
+|
+| This is the subdomain where Canvas will be accessible from. If the
+| setting is null, Canvas will reside under the same domain as the
+| application. Otherwise, this will be used as the subdomain.
+|
+*/
+
+'domain' => env('CANVAS_DOMAIN', null),
+
+/*
+|--------------------------------------------------------------------------
+| Base Path
 |--------------------------------------------------------------------------
 |
 | This is the URI path where Canvas will be accessible from. You are free
@@ -82,7 +106,8 @@ If your application has a custom User model, define the fully-qualified path in 
 'user' => Illuminate\Foundation\Auth\User::class,
 ```
 
-Sometimes, you may want to apply role or permission-based access to Canvas. You can create and attach any additional middleware here:
+Sometimes, you may want to apply custom roles or permissions when accessing Canvas. You can create and attach any
+ additional middleware here:
 
 ```php
 /*
@@ -123,19 +148,20 @@ Canvas uses the storage disk for media uploads. You may configure the different 
 'upload_filesize' => env('CANVAS_UPLOAD_FILESIZE', 3145728),
 ```
 
-## Available Options
+## Features
 
 > **Note:** The following features are completely optional, you are not required to use them.
 
-### Frontend
+### Studio
 
-While Canvas does not dictate a specific design for your frontend, it does provide a basic starting point using [Bootstrap](https://getbootstrap.com) and [Vue](https://vuejs.org) that will be helpful for many applications. The scaffolding is located in the `austintoddj/studio` Composer package, which may be installed using Composer:
+**Want a beautiful, Medium.com-inspired frontend?** Run the following command to install the
+ [`austintoddj/studio`](https://github.com/austintoddj/studio) Composer package:
 
 ```bash
 composer require austintoddj/studio
 ```
 
-Once the `austintoddj/studio` package has been installed, you may install the frontend scaffolding using the `studio:install` Artisan command:
+Once Studio has been installed, you may generate the frontend scaffolding using the `studio:install` Artisan command:
 
 ```bash
 php artisan studio:install
@@ -153,7 +179,7 @@ yarn
 yarn dev
 ```
 
-### Unsplash
+### Unsplash Integration
 
 **Want access to the entire [Unsplash](https://unsplash.com) library?** Set up a new application at [https://unsplash.com/oauth/applications](https://unsplash.com/oauth/applications), grab your access key, and update `config/canvas.php`:
 
@@ -205,7 +231,10 @@ Since the weekly digest runs on [Laravel's Scheduler](https://laravel.com/docs/m
 ## Updates
 
 Canvas loosely follows [Semantic Versioning](https://semver.org/) and increments versions as `MAJOR.MINOR.PATCH` numbers
-- A major or minor version _can contain breaking changes_, so follow the [upgrade guide](.github/UPGRADE.md) for a step-by-step breakdown
+- Major versions _can contain breaking changes_, so follow the [upgrade guide](.github/UPGRADE.md) for a step-by-step
+ breakdown
+- Minor versions _can contain breaking changes_, so follow the [upgrade guide](.github/UPGRADE.md) for a step-by-step
+   breakdown
 - Patch versions will remain backwards compatible, so you can safely update the package by following the steps below:
 
 You may update your Canvas installation using composer:
@@ -228,7 +257,17 @@ php artisan canvas:publish
 
 ## Contributing
 
-Thank you for considering contributing to Canvas! You can use the [contribution guide](.github/CONTRIBUTING.md) to assist you in setting up the package for development.
+Thank you for considering contributing to Canvas!
+
+You can open a completely prebuilt, ready-to-code development environment using Gitpod.
+                                                  
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/austintoddj/canvas/tree/develop)
+                                                  
+Alternatively, you can use the [contribution guide](.github/CONTRIBUTING.md) to assist you in manually setting up an
+ environment on your own machine.
+ 
+ One of the ongoing goals for Canvas is to make it as accessible as possible. If you come across any translation
+  mistakes or issues and want to make a contribution, please [create a pull request](https://github.com/austintoddj/canvas/pulls). If you don't see your native language included in the `resources/lang` directory, feel free to add it.
 
 ## Testing
 
@@ -238,18 +277,14 @@ Run the tests with:
 composer test
 ```
 
-## Translate
-
-One of the goals for the team behind Canvas is to ensure proper localization across the app. If you come across any translation mistakes or issues and want to make a contribution, please [create a pull request](https://github.com/austintoddj/canvas/pulls). If you don't see your native language included in the `resources/lang` directory, feel free to add it.
-
 ## License
 
 Canvas is open-sourced software licensed under the [MIT license](license).
 
 ## Credits
 
-- [@austintoddj](https://github.com/austintoddj)
-- [@talvbansal](https://github.com/talvbansal)
-- [@reliq](https://github.com/reliq)
-- [@themsaid](https://github.com/themsaid)
+- [@austintoddj](https://twitter.com/austintoddj)
+- [@talvbansal](https://twitter.com/talv)
+- [@reliq](https://twitter.com/IAmReliq)
+- [@themsaid](https://twitter.com/themsaid)
 - [@NinaLimpi](https://twitter.com/NinaLimpi) 
