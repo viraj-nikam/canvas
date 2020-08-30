@@ -25,7 +25,9 @@
                 <div class="modal-body">
                     <div class="form-group row">
                         <div class="col-12">
-                            <label class="font-weight-bold text-uppercase text-muted small">{{ trans.slug }}</label>
+                            <label for="slug" class="font-weight-bold text-uppercase text-muted small">{{
+                                trans.slug
+                            }}</label>
                             <a
                                 v-tooltip="{ placement: 'right' }"
                                 v-if="activePost.title"
@@ -50,6 +52,7 @@
                             <input
                                 v-model="slug"
                                 type="text"
+                                id="slug"
                                 class="form-control border-0"
                                 name="slug"
                                 :title="trans.slug"
@@ -78,13 +81,13 @@
                     <div class="form-group row">
                         <div class="col-12">
                             <label class="font-weight-bold text-uppercase text-muted small">{{ trans.topic }}</label>
-                            <topic-select :topics="topics" :assigned="activePost.topic" />
+                            <topic-select :topics="activePost.allTopics" :assigned="activePost.selectedTopic" />
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-12">
                             <label class="font-weight-bold text-uppercase text-muted small">{{ trans.tags }}</label>
-                            <tag-select :tags="tags" :tagged="activePost.tags" />
+                            <tag-select :tags="activePost.allTags" :tagged="activePost.selectedTags" />
                         </div>
                     </div>
                 </div>
@@ -128,9 +131,12 @@ export default {
         return {
             slug: '',
             summary: '',
-            tags: [],
-            topics: [],
+            isReady: false,
         };
+    },
+
+    created() {
+        // TODO: The activePost object is available, but unable to access its properties? :sadpanda:
     },
 
     computed: {
@@ -140,16 +146,12 @@ export default {
         }),
     },
 
-    mounted() {
-        // TODO: This needs to pull both active post tags/topics as well as full data sets from the database
-        // this.tags = this.activePost.tags;
-        // this.topics = this.activePost.topics;
-    },
-
     methods: {
         syncSlug() {
-            // this.slug = strings.methods.slugify(this.title);
-            // this.$parent.save();
+            this.$store.dispatch('post/updatePost', {
+                id: this.activePost.id,
+                slug: strings.methods.slugify(this.activePost.title),
+            });
         },
 
         update: debounce(function () {

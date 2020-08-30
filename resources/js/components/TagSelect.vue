@@ -37,7 +37,7 @@ export default {
     data() {
         return {
             options: this.fetchTags(),
-            value: this.tagged ? this.tagged : [],
+            value: this.tagged || [],
         };
     },
 

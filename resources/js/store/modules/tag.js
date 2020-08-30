@@ -81,7 +81,7 @@ const mutations = {
         state.id = tag.id;
         state.name = tag.name;
         state.slug = tag.slug;
-        state.updatedAt = tag.updated_at || '';
+        state.updatedAt = tag.updated_at;
         state.errors = [];
     },
 

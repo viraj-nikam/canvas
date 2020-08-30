@@ -153,8 +153,6 @@ export default {
         return {
             uri: this.$route.params.id || 'create',
             title: '',
-            tags: [],
-            topics: [],
             isReady: false,
         };
     },
@@ -172,6 +170,10 @@ export default {
 
     created() {
         this.fetchPost();
+
+        // TODO: The activePost object is available, but unable to access its properties? :sadpanda:
+
+        this.title = this.activePost.title;
         this.isReady = true;
         NProgress.done();
     },

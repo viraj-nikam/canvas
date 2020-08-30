@@ -49,7 +49,7 @@
                                     {{ trans.name }}
                                 </label>
                                 <input
-                                    v-model="localName"
+                                    v-model="name"
                                     type="text"
                                     name="name"
                                     autofocus
@@ -66,7 +66,7 @@
                                     {{ trans.slug }}
                                 </label>
                                 <input
-                                    v-model="localSlug"
+                                    v-model="slug"
                                     type="text"
                                     name="slug"
                                     disabled
@@ -218,8 +218,8 @@ export default {
     data() {
         return {
             uri: this.$route.params.id || 'create',
-            localName: '',
-            localSlug: '',
+            name: '',
+            slug: '',
             page: 1,
             posts: [],
             isReady: false,
@@ -237,13 +237,13 @@ export default {
         },
 
         shouldDisableButton() {
-            return isEmpty(this.localSlug);
+            return isEmpty(this.slug);
         },
     },
 
     watch: {
-        localName(val) {
-            this.localSlug = !isEmpty(val) ? this.slugify(val) : '';
+        name(val) {
+            this.slug = !isEmpty(val) ? this.slugify(val) : '';
         },
 
         async $route(to) {
@@ -257,8 +257,8 @@ export default {
                 this.page = 1;
                 this.posts = [];
                 await Promise.all([this.fetchTopic(), this.fetchPosts()]);
-                this.localName = this.activeTopic.name;
-                this.localSlug = this.activeTopic.slug;
+                this.name = this.activeTopic.name;
+                this.slug = this.activeTopic.slug;
                 this.isReady = true;
                 NProgress.done();
             }
@@ -267,8 +267,8 @@ export default {
 
     async created() {
         await Promise.all([this.fetchTopic(), this.fetchPosts()]);
-        this.localName = this.activeTopic.name;
-        this.localSlug = this.activeTopic.slug;
+        this.name = this.activeTopic.name;
+        this.slug = this.activeTopic.slug;
         this.isReady = true;
         NProgress.done();
     },
@@ -308,8 +308,8 @@ export default {
         saveTopic() {
             this.$store.dispatch('topic/updateTopic', {
                 id: this.activeTopic.id,
-                name: this.localName,
-                slug: this.localSlug,
+                name: this.name,
+                slug: this.slug,
             });
 
             if (isEmpty(this.activeTopic.errors) && this.creatingTopic) {

@@ -16,9 +16,12 @@ const initialState = {
         title: '',
         canonical_link: '',
     },
-    tags: [],
-    topic: [],
+    selectedTags: [],
+    selectedTopic: [],
+    allTags: [],
+    allTopics: [],
     isSaving: false,
+    errors: [],
 };
 
 const state = { ...initialState };
@@ -28,8 +31,8 @@ const actions = {
         request.methods
             .request()
             .get(`/api/posts/${id}`)
-            .then((response) => {
-                context.commit('SET_POST', response.data.post);
+            .then(({ data }) => {
+                context.commit('SET_POST', data);
             })
             .catch(() => {
                 router.push({ name: 'posts' });
@@ -41,7 +44,7 @@ const actions = {
             .request()
             .post(`/api/posts/${payload.id}`, payload)
             .then(({ data }) => {
-                console.log(data);
+                context.commit('SET_POST', data);
             })
             .catch((error) => {
                 console.log(error);
@@ -74,7 +77,25 @@ const actions = {
 };
 
 const mutations = {
-    SET_POST(state, post) {
+    SET_POST(state, data) {
+        state.id = data.post.id;
+        state.title = data.post.title || '';
+        state.slug = data.post.slug || '';
+        state.summary = data.post.summary || '';
+        state.body = data.post.body || '';
+        state.published_at = data.post.published_at || '';
+        state.featured_image = data.post.featured_image || '';
+        state.featured_image_caption = data.post.featured_image_caption;
+        state.meta.description = data.post.meta.description || '';
+        state.meta.title = data.post.meta.title || '';
+        state.meta.canonical_link = data.post.meta.canonical_link || '';
+        state.selectedTags = data.post.tags || [];
+        state.selectedTopic = data.post.topic || [];
+        state.allTags = data.tags || [];
+        state.allTopics = data.topics || [];
+    },
+
+    UPDATE_POST(state, post) {
         state.id = post.id;
         state.title = post.title;
         state.slug = post.slug;

@@ -81,7 +81,7 @@ const mutations = {
         state.id = topic.id;
         state.name = topic.name;
         state.slug = topic.slug;
-        state.updatedAt = topic.updated_at || '';
+        state.updatedAt = topic.updated_at;
         state.errors = [];
     },
 
