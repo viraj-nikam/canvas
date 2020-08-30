@@ -19,9 +19,9 @@ github:
     # Add a "Review in Gitpod" button as a comment to pull requests (defaults to false)
     addComment: true
     # Add a "Review in Gitpod" button to the pull request's description (defaults to false)
-    addBadge: false
+    addBadge: true
     # Add a label once the prebuild is ready to pull requests (defaults to false)
-    addLabel: false
+    addLabel: true
 
 tasks:
   - init: |
