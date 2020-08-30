@@ -81,6 +81,15 @@ Clear any cached views using the `view:clear` Artisan command:
 php artisan view:clear
 ```
 
+User access has restrictions in this release, so you'll need to run the following Artisan command to upgrade at least
+ one user in your database to have admin privileges:
+ 
+ ```bash
+ php artisan canvas:admin
+ ```
+
+Once a user has been granted admin access, they'll be able to upgrade others to the same level in the UI.
+
 ## Upgrading to 5.4.0 from 5.3
 
 > **Important:** The package name has changed from `cnvs/canvas` to `austintoddj/canvas`
