@@ -55,6 +55,13 @@ Create a symbolic link to ensure file uploads are publicly accessible from the w
 php artisan storage:link
 ```
 
+Once installed, you can view Canvas in your browser. Access will be limited however until you grant admin
+ privileges to yourself or another user. To do that, simply run the `canvas:admin` Artisan command:
+ 
+ ```bash
+php artisan canvas:admin 
+```
+
 ## Configuration
 
 After publishing Canvas's assets, a primary configuration file will be located at `config/canvas.php`. This file allows you to customize various aspects of how your application uses the package.

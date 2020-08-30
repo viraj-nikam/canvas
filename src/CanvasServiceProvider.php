@@ -2,6 +2,7 @@
 
 namespace Canvas;
 
+use Canvas\Console\AdminCommand;
 use Canvas\Console\DigestCommand;
 use Canvas\Console\InstallCommand;
 use Canvas\Console\PublishCommand;
@@ -43,6 +44,7 @@ class CanvasServiceProvider extends ServiceProvider
         );
 
         $this->commands([
+            AdminCommand::class,
             DigestCommand::class,
             InstallCommand::class,
             PublishCommand::class,
