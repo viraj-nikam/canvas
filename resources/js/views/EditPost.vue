@@ -4,9 +4,9 @@
             <template slot="status">
                 <ul class="navbar-nav mr-auto flex-row float-right">
                     <li class="text-muted font-weight-bold">
-                        <div v-if="activePost" class="border-left pl-3">
+                        <div class="border-left pl-3">
                             <span v-if="isPublished(activePost.published_at)">{{ trans.published }}</span>
-                            <span v-else>{{ trans.draft }}</span>
+                            <span v-if="isDraft(activePost.published_at)">{{ trans.draft }}</span>
                         </div>
                     </li>
                 </ul>
@@ -56,7 +56,7 @@
                     <div class="dropdown-menu dropdown-menu-right">
                         <router-link
                             v-if="isPublished(activePost.published_at)"
-                            :to="{ name: 'stats-show', params: { id: uri } }"
+                            :to="{ name: 'post-stats', params: { id: uri } }"
                             class="dropdown-item"
                         >
                             {{ trans.view_stats }}
@@ -75,7 +75,7 @@
                         >
                             {{ trans.convert_to_draft }}
                         </a>
-                        <a v-if="uri !== 'create'" href="#" class="dropdown-item text-danger" @click="showDeleteModal">
+                        <a v-if="!creatingPost" href="#" class="dropdown-item text-danger" @click="showDeleteModal">
                             {{ trans.delete }}
                         </a>
                     </div>
@@ -87,7 +87,7 @@
             <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12">
                 <div class="form-group my-3">
                     <textarea-autosize
-                        v-model="activePost.title"
+                        v-model="title"
                         :placeholder="trans.title"
                         style="font-size: 42px"
                         class="w-100 form-control-lg border-0 font-serif bg-transparent px-0"
@@ -103,7 +103,7 @@
         </main>
 
         <publish-modal ref="publishModal" v-if="isReady" />
-        <settings-modal ref="settingsModal" v-if="isReady" :post="activePost" :tags="tags" :topics="topics" />
+        <settings-modal ref="settingsModal" v-if="isReady" />
         <featured-image-modal ref="featuredImageModal" v-if="isReady" />
         <seo-modal ref="seoModal" v-if="isReady" />
         <delete-modal
@@ -152,6 +152,7 @@ export default {
     data() {
         return {
             uri: this.$route.params.id || 'create',
+            title: '',
             tags: [],
             topics: [],
             isReady: false,
@@ -163,6 +164,10 @@ export default {
             activePost: 'post/activePost',
             trans: 'settings/trans',
         }),
+
+        creatingPost() {
+            return this.$route.name === 'create-post';
+        },
     },
 
     created() {

@@ -124,23 +124,12 @@ export default {
 
     mixins: [strings],
 
-    props: {
-        tags: {
-            type: Array,
-            required: false,
-        },
-        topics: {
-            type: Array,
-            required: false,
-        },
-    },
-
     data() {
         return {
-            summary: '',
             slug: '',
-            allTags: [],
-            allTopics: [],
+            summary: '',
+            tags: [],
+            topics: [],
         };
     },
 
@@ -152,8 +141,9 @@ export default {
     },
 
     mounted() {
-        this.allTags = this.tags;
-        this.allTopics = this.topics;
+        // TODO: This needs to pull both active post tags/topics as well as full data sets from the database
+        // this.tags = this.activePost.tags;
+        // this.topics = this.activePost.topics;
     },
 
     methods: {
