@@ -352,20 +352,18 @@ export default {
 <style lang="scss">
 @import '../../../sass/utilities/variables';
 @import '~quill/dist/quill.bubble.css';
+
 .ql-container {
     font-size: 1.1rem;
     line-height: 2;
     font-family: $font-family-serif;
-    margin: 0;
-    height: 100%;
-    position: relative;
-    box-sizing: border-box;
 }
 .ql-editor {
     font-family: $font-family-serif;
-    font-size: 1.1rem;
-    line-height: 2;
-    padding: 0;
+    font-size: 1.1rem !important;
+    line-height: 2 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
     overflow-y: visible;
     min-width: 100%;
     display: -webkit-box;
@@ -377,39 +375,39 @@ export default {
     flex-direction: column;
 }
 .ql-editor p {
-    margin: 1.5em 0 0 0;
+    //margin: 1.5em 0 0 0;
 }
 .ql-editor a {
-    text-decoration: underline;
+    //text-decoration: underline;
 }
 .ql-editor h1,
 h2,
 h3 {
-    margin: 1.5em 0 0 0 !important;
+    //margin: 1.5em 0 0 0 !important;
 }
 .ql-editor blockquote {
-    margin: 2em 0 1em 0 !important;
-    font-style: italic;
-    font-size: 28px;
-    border: none !important;
-    color: $gray-500;
-    padding-left: 1.5em !important;
-    line-height: 1.5;
+    //margin: 2em 0 1em 0 !important;
+    //font-style: italic;
+    //font-size: 28px;
+    //border: none !important;
+    //color: $gray-500;
+    //padding-left: 1.5em !important;
+    //line-height: 1.5;
 }
 div.embedded_image {
-    margin-top: 2em;
+    //margin-top: 2em;
 }
 div.embedded_image > img {
-    width: 100%;
-    height: auto;
-    display: block;
+    //width: 100%;
+    //height: auto;
+    //display: block;
 }
 div.embedded_image > p {
-    text-align: center;
-    color: $gray-500;
-    margin-top: 0.5em;
-    font-size: 0.9rem;
-    font-family: $font-family-sans-serif, sans-serif;
+    //text-align: center;
+    //color: $gray-500;
+    //margin-top: 0.5em;
+    //font-size: 0.9rem;
+    //font-family: $font-family-sans-serif, sans-serif;
 }
 div.ql-embed-content {
     // This is here because we have no way to control the dimensions
@@ -419,18 +417,18 @@ div.ql-embed-content {
 }
 div.embedded_image:hover img,
 div.ql-embed-content:hover {
-    cursor: pointer !important;
-    box-shadow: 0 0 0 3px $green;
+    //cursor: pointer !important;
+    //box-shadow: 0 0 0 3px $green;
 }
 div.embedded_image[data-layout='wide'] img {
-    max-width: 1024px;
-    margin: 0 auto 30px;
+    //max-width: 1024px;
+    //margin: 0 auto 30px;
 }
 div.embedded_image[data-layout='wide'] {
-    width: 100vw;
-    position: relative;
-    left: 50%;
-    margin-left: -50vw;
+    //width: 100vw;
+    //position: relative;
+    //left: 50%;
+    //margin-left: -50vw;
 }
 .ql-container hr {
     border: none;
@@ -491,23 +489,6 @@ div.embedded_image[data-layout='wide'] {
     position: relative;
     left: 50%;
     margin-left: -50vw;
-}
-div.ql-tweet {
-    display: flex;
-    justify-content: center;
-}
-div.ql-video {
-    position: relative;
-    overflow: hidden;
-    padding-top: 56.25%;
-}
-div.ql-video iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border: 0;
 }
 @media screen and (max-width: 1024px) {
     .embedded_image[data-layout='wide'] img {
