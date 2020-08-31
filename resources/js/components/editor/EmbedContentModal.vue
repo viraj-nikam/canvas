@@ -2,8 +2,8 @@
     <div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
         <div ref="modal" class="modal-dialog" role="document">
             <div class="modal-content">
-                <div class="modal-header d-flex align-items-center justify-content-between border-0">
-                    <h4 class="modal-title">{{ trans.embed_content }}</h4>
+                <div class="modal-header d-flex align-items-center justify-content-between">
+                    <h5 class="modal-title">{{ trans.embed_content }}</h5>
 
                     <button
                         type="button"
