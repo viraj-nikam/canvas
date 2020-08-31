@@ -1,9 +1,9 @@
 <template>
     <multiselect
         v-model="value"
+        :options="options"
         :placeholder="trans.select_a_topic"
         :tag-placeholder="trans.add_a_new_topic"
-        :options="options"
         :multiple="false"
         :taggable="true"
         label="name"
@@ -17,11 +17,15 @@
 <script>
 import { mapGetters, mapState } from 'vuex';
 import Multiselect from 'vue-multiselect';
+import strings from "../mixins/strings";
 
 export default {
+    name: 'topic-select',
+
     components: {
         Multiselect,
     },
+
     props: {
         topics: {
             type: Array,
@@ -34,19 +38,22 @@ export default {
     },
 
     data() {
-        const allTopics = this.topics.map((obj) => {
-            let filtered = {};
+        return {
+            options: [],
+            value: [],
+        };
+    },
 
+    mixins: [strings],
+
+    created() {
+        this.value = this.tagged;
+        this.options = this.topics.map((obj) => {
+            let filtered = {};
             filtered['name'] = obj.name;
             filtered['slug'] = obj.slug;
-
             return filtered;
         });
-
-        return {
-            options: allTopics,
-            value: this.assigned ? this.assigned : [],
-        };
     },
 
     computed: {
@@ -57,16 +64,15 @@ export default {
     },
 
     methods: {
-        onChange(value) {
-            this.$store.dispatch('setPostTopic', value);
-
-            this.update();
+        onChange(topic) {
+            this.$store.dispatch('post/setTopic', topic)
         },
 
         addTopic(searchQuery) {
-            const topic = {
+            let topic = {
                 name: searchQuery,
-                slug: this.slugify(searchQuery),
+                slug: strings.methods.slugify(searchQuery),
+                user_id: this.profile.id,
             };
 
             this.options.push(topic);
@@ -77,13 +83,7 @@ export default {
                 user_id: this.profile.id,
             };
 
-            this.$store.dispatch('setPostTopic', this.value);
-
-            this.update();
-        },
-
-        update() {
-            this.$parent.update();
+            this.$store.dispatch('post/setTopic', this.value);
         },
     },
 };

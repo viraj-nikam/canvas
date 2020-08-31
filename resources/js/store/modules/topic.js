@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import request from '../../mixins/request';
 import router from '../../router';
+import get from 'lodash/get';
 
 const initialState = {
     id: '',
@@ -72,9 +73,9 @@ const actions = {
 const mutations = {
     SET_TOPIC(state, topic) {
         state.id = topic.id;
-        state.name = topic.name || '';
-        state.slug = topic.slug || '';
-        state.updatedAt = topic.updated_at || '';
+        state.name = get(topic, 'name', '');
+        state.slug = get(topic, 'slug', '');
+        state.updatedAt = get(topic, 'updated_at', '');
     },
 
     UPDATE_TOPIC(state, topic) {

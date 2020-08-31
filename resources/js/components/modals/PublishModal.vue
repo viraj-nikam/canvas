@@ -99,11 +99,11 @@
                         </div>
                     </div>
 
-                    <p v-if="isScheduled(activePost.published_at)" class="mt-3 text-success font-italic">
+                    <p v-if="isScheduled(activePost.publishedAt)" class="mt-3 text-success font-italic">
                         {{ trans.your_post_will_publish_at }}
-                        {{ activePost.published_at }}
+                        {{ activePost.publishedAt }}
                         {{ trans.on }}
-                        {{ activePost.published_at }}.
+                        {{ activePost.publishedAt }}.
                     </p>
                 </div>
                 <div class="modal-footer">
@@ -131,7 +131,7 @@
 
                         <div class="col-lg order-lg-first px-0">
                             <button
-                                v-if="isScheduled(activePost.published_at)"
+                                v-if="isScheduled(activePost.publishedAt)"
                                 type="button"
                                 class="btn btn-link btn-block text-muted font-weight-bold text-decoration-none"
                                 data-dismiss="modal"
@@ -215,14 +215,12 @@ export default {
     },
 
     mounted() {
-        this.generateDatePicker(this.activePost.published_at || new Date());
+        this.generateDatePicker(this.activePost.publishedAt || new Date());
     },
 
     methods: {
         generateDatePicker(val) {
             let date = new Date(val);
-
-            console.log(date);
 
             // console.log(val)
             // let date = new Intl.DateTimeFormat(Canvas.locale).format(val)

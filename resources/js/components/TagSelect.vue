@@ -1,9 +1,9 @@
 <template>
     <multiselect
         v-model="value"
+        :options="options"
         :placeholder="trans.select_some_tags"
         :tag-placeholder="trans.add_a_new_tag"
-        :options="options"
         :multiple="true"
         :taggable="true"
         label="name"
@@ -17,8 +17,11 @@
 <script>
 import { mapGetters, mapState } from 'vuex';
 import Multiselect from 'vue-multiselect';
+import strings from "../mixins/strings";
 
 export default {
+    name: 'tag-select',
+
     components: {
         Multiselect,
     },
@@ -36,54 +39,45 @@ export default {
 
     data() {
         return {
-            options: this.fetchTags(),
-            value: this.tagged || [],
+            options: [],
+            value: [],
         };
     },
 
+    mixins: [strings],
+
     computed: {
-        ...mapState(['profile']),
+        ...mapState([ 'profile' ]),
         ...mapGetters({
             trans: 'settings/trans',
         }),
     },
 
+    created() {
+        this.value = this.tagged;
+        this.options = this.tags.map((obj) => {
+            let filtered = {};
+            filtered['name'] = obj.name;
+            filtered['slug'] = obj.slug;
+            return filtered;
+        });
+    },
+
     methods: {
-        fetchTags() {
-            return this.tags.map((obj) => {
-                let filtered = {};
-
-                filtered['name'] = obj.name;
-                filtered['slug'] = obj.slug;
-
-                return filtered;
-            });
-        },
-
-        onChange(value) {
-            this.$store.dispatch('setPostTags', value);
-
-            this.update();
+        onChange(tags) {
+            this.$store.dispatch('post/setTags', tags);
         },
 
         addTag(searchQuery) {
-            const tag = {
+            let tag = {
                 name: searchQuery,
-                slug: this.slugify(searchQuery),
+                slug: strings.methods.slugify(searchQuery),
                 user_id: this.profile.id,
             };
-
             this.options.push(tag);
             this.value.push(tag);
-
-            this.$store.dispatch('setPostTags', this.value);
-
-            this.update();
-        },
-
-        update() {
-            this.$parent.update();
-        },
+            this.$store.dispatch('post/setTags', this.value);
+        }
     },
 };
 </script>

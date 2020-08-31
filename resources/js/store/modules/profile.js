@@ -29,7 +29,7 @@ const mutations = {
 
 const getters = {
     isAdmin(state) {
-        return state.admin == true;
+        return state.admin === true;
     },
 };
 

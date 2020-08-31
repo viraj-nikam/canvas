@@ -97,15 +97,15 @@
                     </div>
                     <div class="form-group row">
                         <div class="col-12">
-                            <label for="canonical_link" class="font-weight-bold text-uppercase text-muted small">
+                            <label for="canonicalLink" class="font-weight-bold text-uppercase text-muted small">
                                 {{ trans.canonical_link }}
                             </label>
                             <input
                                 v-model="canonicalLink"
-                                id="canonical_link"
+                                id="canonicalLink"
                                 type="text"
                                 class="form-control border-0"
-                                name="canonical_link"
+                                name="canonicalLink"
                                 :title="trans.canonical_link"
                                 :placeholder="trans.canonical_link_placeholder"
                                 @input="update"
@@ -155,19 +155,29 @@ export default {
     },
 
     methods: {
-        update: debounce(function () {
-            // this.$parent.save();
-        }, 3000),
-
         syncTitle() {
-            // this.activePost.meta.title = this.activePost.title;
-            // this.$parent.save();
+            this.$store.dispatch('post/updatePost', {
+                id: this.activePost.id,
+                meta: {
+                    title: this.activePost.title
+                },
+            });
+            this.title = this.activePost.meta.title;
         },
 
         syncDescription() {
-            // this.activePost.meta.description = this.activePost.summary;
-            // this.$parent.save();
+            this.$store.dispatch('post/updatePost', {
+                id: this.activePost.id,
+                meta: {
+                    description: this.activePost.summary
+                },
+            });
+            this.description = this.activePost.summary;
         },
+
+        update: debounce(function () {
+            // this.$parent.save();
+        }, 3000),
     },
 };
 </script>

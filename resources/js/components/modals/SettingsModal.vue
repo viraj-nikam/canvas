@@ -137,6 +137,7 @@ export default {
 
     created() {
         // TODO: The activePost object is available, but unable to access its properties? :sadpanda:
+        // TODO: All component children that rely on this are broken too
     },
 
     computed: {
@@ -148,10 +149,12 @@ export default {
 
     methods: {
         syncSlug() {
+            let newSlug = strings.methods.slugify(this.activePost.title);
             this.$store.dispatch('post/updatePost', {
                 id: this.activePost.id,
                 slug: strings.methods.slugify(this.activePost.title),
             });
+            this.slug = newSlug;
         },
 
         update: debounce(function () {

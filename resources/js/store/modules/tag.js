@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import request from '../../mixins/request';
 import router from '../../router';
+import get from 'lodash/get';
 
 const initialState = {
     id: '',
@@ -72,9 +73,9 @@ const actions = {
 const mutations = {
     SET_TAG(state, tag) {
         state.id = tag.id;
-        state.name = tag.name || '';
-        state.slug = tag.slug || '';
-        state.updatedAt = tag.updated_at || '';
+        state.name = get(tag, 'name', '');
+        state.slug = get(tag, 'slug', '');
+        state.updatedAt = get(tag, 'updated_at', '');
     },
 
     UPDATE_TAG(state, tag) {

@@ -5,8 +5,8 @@
                 <ul class="navbar-nav mr-auto flex-row float-right">
                     <li class="text-muted font-weight-bold">
                         <div class="border-left pl-3">
-                            <span v-if="isPublished(activePost.published_at)">{{ trans.published }}</span>
-                            <span v-if="isDraft(activePost.published_at)">{{ trans.draft }}</span>
+                            <span v-if="isPublished(activePost.publishedAt)">{{ trans.published }}</span>
+                            <span v-if="isDraft(activePost.publishedAt)">{{ trans.draft }}</span>
                         </div>
                     </li>
                 </ul>
@@ -55,20 +55,20 @@
 
                     <div class="dropdown-menu dropdown-menu-right">
                         <router-link
-                            v-if="isPublished(activePost.published_at)"
+                            v-if="isPublished(activePost.publishedAt)"
                             :to="{ name: 'post-stats', params: { id: uri } }"
                             class="dropdown-item"
                         >
                             {{ trans.view_stats }}
                         </router-link>
-                        <div v-if="isPublished(activePost.published_at)" class="dropdown-divider" />
+                        <div v-if="isPublished(activePost.publishedAt)" class="dropdown-divider" />
                         <a href="#" class="dropdown-item" @click="showSettingsModal"> {{ trans.general_settings }} </a>
                         <a href="#" class="dropdown-item" @click="showFeaturedImageModal">
                             {{ trans.featured_image }}
                         </a>
                         <a href="#" class="dropdown-item" @click="showSeoModal"> {{ trans.seo_settings }} </a>
                         <a
-                            v-if="isPublished(activePost.published_at)"
+                            v-if="isPublished(activePost.publishedAt)"
                             href="#"
                             class="dropdown-item"
                             @click.prevent="convertToDraft"
@@ -92,23 +92,22 @@
                         style="font-size: 42px"
                         class="w-100 form-control-lg border-0 font-serif bg-transparent px-0"
                         rows="1"
-                        @input.native="update"
                     />
                 </div>
 
-                <div class="form-group my-4">
-                    <!--<quill-editor/>-->
+                <div class="form-group my-2">
+                    <quill-editor/>
                 </div>
             </div>
         </main>
 
-        <publish-modal ref="publishModal" v-if="isReady" />
-        <settings-modal ref="settingsModal" v-if="isReady" />
-        <featured-image-modal ref="featuredImageModal" v-if="isReady" />
-        <seo-modal ref="seoModal" v-if="isReady" />
+        <publish-modal v-if="isReady" ref="publishModal" />
+        <settings-modal v-if="isReady" ref="settingsModal" />
+        <featured-image-modal v-if="isReady" ref="featuredImageModal" />
+        <seo-modal v-if="isReady" ref="seoModal" />
         <delete-modal
-            ref="deleteModal"
             v-if="isReady"
+            ref="deleteModal"
             :header="trans.delete"
             :message="trans.deleted_posts_are_gone_forever"
             @delete="deletePost"
@@ -168,12 +167,8 @@ export default {
         },
     },
 
-    created() {
-        this.fetchPost();
-
-        // TODO: The activePost object is available, but unable to access its properties? :sadpanda:
-
-        this.title = this.activePost.title;
+    async created() {
+        await Promise.all([this.fetchPost()]);
         this.isReady = true;
         NProgress.done();
     },
@@ -237,6 +232,10 @@ export default {
         }, 3000),
 
         convertToDraft() {
+            this.$store.dispatch('post/updatePost', {
+                id: this.activePost.id,
+                publishedAt: '',
+            });
             // this.post.published_at = '';
             // this.save();
         },

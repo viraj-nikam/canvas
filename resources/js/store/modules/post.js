@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import request from '../../mixins/request';
 import router from '../../router';
+import get from 'lodash/get';
 
 const initialState = {
     id: '',
@@ -8,13 +9,13 @@ const initialState = {
     slug: '',
     summary: '',
     body: '',
-    published_at: '',
-    featured_image: '',
-    featured_image_caption: '',
+    publishedAt: '',
+    featuredImage: '',
+    featuredImageCaption: '',
     meta: {
         description: '',
         title: '',
-        canonical_link: '',
+        canonicalLink: '',
     },
     selectedTags: [],
     selectedTopic: [],
@@ -34,7 +35,8 @@ const actions = {
             .then(({ data }) => {
                 context.commit('SET_POST', data);
             })
-            .catch(() => {
+            .catch((error) => {
+                console.log(error);
                 router.push({ name: 'posts' });
             });
     },
@@ -51,11 +53,11 @@ const actions = {
             });
     },
 
-    setTags({ context, tags }) {
+    setTags(context, tags) {
         context.commit('SET_TAGS', tags);
     },
 
-    setTopic({ context, topic }) {
+    setTopic(context, topic) {
         context.commit('SET_TOPIC', topic);
     },
 
@@ -79,20 +81,20 @@ const actions = {
 const mutations = {
     SET_POST(state, data) {
         state.id = data.post.id;
-        state.title = data.post.title || '';
-        state.slug = data.post.slug || '';
-        state.summary = data.post.summary || '';
-        state.body = data.post.body || '';
-        state.published_at = data.post.published_at || '';
-        state.featured_image = data.post.featured_image || '';
-        state.featured_image_caption = data.post.featured_image_caption;
-        state.meta.description = data.post.meta.description || '';
-        state.meta.title = data.post.meta.title || '';
-        state.meta.canonical_link = data.post.meta.canonical_link || '';
-        state.selectedTags = data.post.tags || [];
-        state.selectedTopic = data.post.topic || [];
-        state.allTags = data.tags || [];
-        state.allTopics = data.topics || [];
+        state.title = get(data.post, 'title', '');
+        state.slug = get(data.post, 'slug', '');
+        state.summary = get(data.post, 'summary', '');
+        state.body = get(data.post, 'body', '');
+        state.publishedAt = get(data.post, 'published_at', '');
+        state.featuredImage = get(data.post, 'featured_image', '');
+        state.featuredImageCaption = get(data.post, 'featured_image_caption', '');
+        state.meta.description = get(data.post.meta, 'description', '');
+        state.meta.title = get(data.post.meta, 'title', '');
+        state.meta.canonicalLink = get(data.post.meta, 'canonical_link', '');
+        state.selectedTags = get(data.post, 'tags', []);
+        state.selectedTopic = get(data.post, 'topic', []);
+        state.allTags = get(data, 'tags', []);
+        state.allTopics = get(data, 'topics', []);
     },
 
     UPDATE_POST(state, post) {
@@ -101,9 +103,13 @@ const mutations = {
         state.slug = post.slug;
         state.summary = post.summary;
         state.body = post.body;
-        state.published_at = post.published_at;
-        state.featured_image = post.featured_image;
-        state.featured_image_caption = post.featured_image_caption;
+        state.publishedAt = post.published_at;
+        state.featuredImage = post.featured_image;
+        state.featuredImageCaption = post.featured_image_caption;
+    },
+
+    SET_TITLE(state, title) {
+        state.title = title;
     },
 
     SET_TAGS(state, tags) {

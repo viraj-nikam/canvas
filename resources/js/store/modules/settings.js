@@ -22,9 +22,6 @@ const actions = {
             .post(`/api/users/${context.rootState.profile.id}`, payload)
             .then(({ data }) => {
                 context.commit('UPDATE_DIGEST', data.meta);
-            })
-            .catch(() => {
-                // Add any error debugging...
             });
     },
 
@@ -34,9 +31,6 @@ const actions = {
             .post(`/api/users/${context.rootState.profile.id}`, payload)
             .then(({ data }) => {
                 context.commit('UPDATE_LOCALE', data);
-            })
-            .catch(() => {
-                // Add any error debugging...
             });
     },
 
@@ -46,9 +40,6 @@ const actions = {
             .post(`/api/users/${context.rootState.profile.id}`, payload)
             .then(({ data }) => {
                 context.commit('UPDATE_DARK_MODE', data.meta);
-            })
-            .catch(() => {
-                // Add any error debugging...
             });
     },
 };

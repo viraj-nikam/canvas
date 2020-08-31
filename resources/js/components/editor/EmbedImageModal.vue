@@ -236,7 +236,7 @@ export default {
             return {
                 url: `/${this.settings.path}/api/uploads`,
                 headers: {
-                    'X-CSRF-TOKEN': this.getToken(),
+                    'X-CSRF-TOKEN': document.head.querySelector('meta[name="csrf-token"]').content,
                 },
             };
         },

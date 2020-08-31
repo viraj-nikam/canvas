@@ -4,8 +4,7 @@
             exclude: ['toggle'],
             handler: 'handleClicksOutsideEditor',
         }"
-        v-cloak
-        class="position-relative px-4"
+        class="position-relative"
     >
         <div ref="sidebarControls" class="sidebar-controls">
             <button
@@ -220,7 +219,7 @@ export default {
         },
 
         handleEditorValue() {
-            this.editor.root.innerHTML = this.$store.getters.activePost.body;
+            this.editor.root.innerHTML = this.activePost.body;
 
             this.editor.on('text-change', () => {
                 this.controlIsActive = false;
