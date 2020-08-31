@@ -22,6 +22,7 @@ const initialState = {
     allTags: [],
     allTopics: [],
     isSaving: false,
+    isSaved: false,
     errors: [],
 };
 

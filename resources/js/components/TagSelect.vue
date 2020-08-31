@@ -17,7 +17,7 @@
 <script>
 import { mapGetters, mapState } from 'vuex';
 import Multiselect from 'vue-multiselect';
-import strings from "../mixins/strings";
+import strings from '../mixins/strings';
 
 export default {
     name: 'tag-select',
@@ -47,7 +47,7 @@ export default {
     mixins: [strings],
 
     computed: {
-        ...mapState([ 'profile' ]),
+        ...mapState(['profile']),
         ...mapGetters({
             trans: 'settings/trans',
         }),
@@ -77,7 +77,7 @@ export default {
             this.options.push(tag);
             this.value.push(tag);
             this.$store.dispatch('post/setTags', this.value);
-        }
+        },
     },
 };
 </script>

@@ -3,25 +3,29 @@
         <div ref="modal" class="modal-dialog" role="document">
             <div class="modal-content">
                 <div v-if="!selectedImageUrl" class="modal-header d-flex align-items-center justify-content-between">
-                    <div v-if="settings.unsplash" class="input-group align-items-center">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24"
-                            width="20"
-                            class="icon-search float-left position-absolute"
-                        >
-                            <circle cx="10" cy="10" r="7" class="fill-bg" />
-                            <path
-                                class="fill-light-gray"
-                                d="M16.32 14.9l1.1 1.1c.4-.02.83.13 1.14.44l3 3a1.5 1.5 0 0 1-2.12 2.12l-3-3a1.5 1.5 0 0 1-.44-1.14l-1.1-1.1a8 8 0 1 1 1.41-1.41zM10 16a6 6 0 1 0 0-12 6 6 0 0 0 0 12z"
-                            />
-                        </svg>
+                    <div v-if="settings.unsplash" class="input-group">
+                        <div class="input-group-prepend border-0">
+                            <div class="input-group-text pr-0 border-0">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 24 24"
+                                    width="20"
+                                    class="icon-search"
+                                >
+                                    <circle cx="10" cy="10" r="7" style="fill: none" />
+                                    <path
+                                        class="fill-muted"
+                                        d="M16.32 14.9l1.1 1.1c.4-.02.83.13 1.14.44l3 3a1.5 1.5 0 0 1-2.12 2.12l-3-3a1.5 1.5 0 0 1-.44-1.14l-1.1-1.1a8 8 0 1 1 1.41-1.41zM10 16a6 6 0 1 0 0-12 6 6 0 0 0 0 12z"
+                                    />
+                                </svg>
+                            </div>
+                        </div>
+
                         <input
                             v-model="searchKeyword"
                             type="text"
                             autofocus
-                            style="padding-left: 32px"
-                            class="form-control border-0 bg-transparent"
+                            class="form-control border-0"
                             :placeholder="trans.search_free_photos"
                         />
                     </div>

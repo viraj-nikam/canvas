@@ -5,28 +5,16 @@
                 <ul class="navbar-nav mr-auto flex-row float-right">
                     <li class="text-muted font-weight-bold">
                         <div class="border-left pl-3">
-                            <span v-if="isPublished(activePost.publishedAt)">{{ trans.published }}</span>
-                            <span v-if="isDraft(activePost.publishedAt)">{{ trans.draft }}</span>
+                            <div v-if="!activePost.isSaving && !activePost.isSaved">
+                                <span v-if="isPublished(activePost.publishedAt)">{{ trans.published }}</span>
+                                <span v-if="isDraft(activePost.publishedAt)">{{ trans.draft }}</span>
+                            </div>
+                            <span v-if="activePost.isSaving">{{ trans.saving }}</span>
+                            <span v-if="activePost.isSaved" class="text-success">{{ trans.saved }}</span>
                         </div>
                     </li>
                 </ul>
             </template>
-
-            <!--            <template slot="action">-->
-            <!--                <a-->
-            <!--                    v-if="isDraft(post.published_at)"-->
-            <!--                    href="#"-->
-            <!--                    class="btn btn-sm btn-outline-success font-weight-bold my-auto"-->
-            <!--                    @click="showPublishModal"-->
-            <!--                >-->
-            <!--                    <span class="d-block d-lg-none">{{ trans.publish }}</span>-->
-            <!--                    <span class="d-none d-lg-block">{{ trans.ready_to_publish }}</span>-->
-            <!--                </a>-->
-
-            <!--                <a v-else href="#" class="btn btn-sm btn-outline-success font-weight-bold my-auto" @click="save">-->
-            <!--                    {{ trans.save }}-->
-            <!--                </a>-->
-            <!--            </template>-->
 
             <template slot="options">
                 <div class="dropdown">
@@ -62,6 +50,14 @@
                             {{ trans.view_stats }}
                         </router-link>
                         <div v-if="isPublished(activePost.publishedAt)" class="dropdown-divider" />
+                        <a
+                            v-if="isDraft(activePost.publishedAt)"
+                            href="#"
+                            class="dropdown-item"
+                            @click="showPublishModal"
+                        >
+                            {{ trans.publish }}
+                        </a>
                         <a href="#" class="dropdown-item" @click="showSettingsModal"> {{ trans.general_settings }} </a>
                         <a href="#" class="dropdown-item" @click="showFeaturedImageModal">
                             {{ trans.featured_image }}
@@ -96,7 +92,7 @@
                 </div>
 
                 <div class="form-group my-2">
-                    <quill-editor/>
+                    <quill-editor />
                 </div>
             </div>
         </main>

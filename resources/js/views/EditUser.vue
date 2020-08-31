@@ -243,13 +243,14 @@ export default {
     },
 
     computed: {
-        ...mapState(['settings', 'profile', 'user']),
+        ...mapState(['settings', 'profile']),
         ...mapGetters({
             trans: 'settings/trans',
+            activeUser: 'user/activeUser',
         }),
 
         userLastUpdated() {
-            return this.user.updatedAt;
+            return this.activeUser.updatedAt;
         },
 
         isAuthUserProfile() {
@@ -283,9 +284,9 @@ export default {
             this.isReady = false;
             this.uri = to.params.id;
             await Promise.all([this.fetchUser()]);
-            this.username = this.user.username;
-            this.summary = this.user.summary;
-            this.admin = this.user.admin;
+            this.username = this.activeUser.username;
+            this.summary = this.activeUser.summary;
+            this.admin = this.activeUser.admin;
             this.isReady = true;
             NProgress.done();
         },
@@ -294,13 +295,13 @@ export default {
     async created() {
         await Promise.all([this.fetchUser()]);
 
-        // TODO: The user is not available at this point :sadpanda:
-        // console.log(this.user);
+        // TODO: The activeUser is not available at this point :sadpanda:
+        // console.log(this.activeUser);
 
         this.username = this.user.username;
-        this.summary = this.user.summary;
-        this.admin = this.user.admin;
-        this.avatar = this.user.avatar;
+        this.summary = this.activeUser.summary;
+        this.admin = this.activeUser.admin;
+        this.avatar = this.activeUser.avatar;
 
         // console.log(this.avatar);
 

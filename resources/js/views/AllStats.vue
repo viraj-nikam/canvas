@@ -4,9 +4,9 @@
 
         <main class="py-4">
             <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12">
-                <div class="d-flex justify-content-between my-3 align-items-center">
+                <div class="d-flex justify-content-between mt-2 mb-4 align-items-center">
                     <div>
-                        <h2 class="mt-3">{{ trans.stats }}</h2>
+                        <h2 class="mt-2">{{ trans.stats }}</h2>
                         <p class="mt-2 text-secondary">
                             {{ trans.click_to_see_insights }}
                         </p>
@@ -26,7 +26,7 @@
                 </div>
 
                 <div v-if="isReady && data">
-                    <div class="card-deck mt-5">
+                    <div class="card-deck mt-4 pt-2">
                         <div class="card shadow-lg">
                             <div
                                 class="card-header pb-0 bg-transparent d-flex justify-content-between align-middle border-0"

@@ -159,7 +159,7 @@ export default {
             this.$store.dispatch('post/updatePost', {
                 id: this.activePost.id,
                 meta: {
-                    title: this.activePost.title
+                    title: this.activePost.title,
                 },
             });
             this.title = this.activePost.meta.title;
@@ -169,7 +169,7 @@ export default {
             this.$store.dispatch('post/updatePost', {
                 id: this.activePost.id,
                 meta: {
-                    description: this.activePost.summary
+                    description: this.activePost.summary,
                 },
             });
             this.description = this.activePost.summary;

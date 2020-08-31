@@ -17,7 +17,7 @@
 <script>
 import { mapGetters, mapState } from 'vuex';
 import Multiselect from 'vue-multiselect';
-import strings from "../mixins/strings";
+import strings from '../mixins/strings';
 
 export default {
     name: 'topic-select',
@@ -65,7 +65,7 @@ export default {
 
     methods: {
         onChange(topic) {
-            this.$store.dispatch('post/setTopic', topic)
+            this.$store.dispatch('post/setTopic', topic);
         },
 
         addTopic(searchQuery) {

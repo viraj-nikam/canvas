@@ -113,13 +113,12 @@
             </div>
         </nav>
 
+        <embed-content-modal ref="embedContentModal" @addingEmbedContent="insertEmbedContent" />
         <embed-image-modal
             ref="embedImageModal"
             @addingEmbedImage="insertEmbedImage"
             @removingEmbedImage="removeEmbedImage"
         />
-
-        <embed-content-modal ref="embedContentModal" @addingEmbedContent="insertEmbedContent" />
     </div>
 </template>
 
@@ -146,13 +145,6 @@ export default {
     components: {
         EmbedContentModal,
         EmbedImageModal,
-    },
-
-    props: {
-        value: {
-            type: String,
-            default: '',
-        },
     },
 
     data() {
@@ -220,10 +212,9 @@ export default {
 
         handleEditorValue() {
             this.editor.root.innerHTML = this.activePost.body;
-
             this.editor.on('text-change', () => {
                 this.controlIsActive = false;
-                this.$store.dispatch('updatePostBody', this.editor.getText() ? this.editor.root.innerHTML : '');
+                // this.$store.dispatch('updatePostBody', this.editor.getText() ? this.editor.root.innerHTML : '');
             });
         },
 
@@ -233,17 +224,13 @@ export default {
 
                 if (blot instanceof EmbedImageBlot) {
                     let values = blot.value(blot.domNode)['embed-image'];
-
                     values.existingBlot = blot;
-
                     this.showEmbedImageModal(values);
                 }
 
                 if (blot instanceof EmbedContentBlot) {
                     let content = blot.value(blot.domNode)['embed-content'];
-
                     content.existingBlot = blot;
-
                     this.showEmbedContentModal(content);
                 }
             });
@@ -275,21 +262,16 @@ export default {
 
                     if (block != null && block.domNode.firstChild instanceof HTMLBRElement) {
                         let lineBounds = this.editor.getBounds(range);
-
                         sidebarControls.classList.remove('active');
-
                         sidebarControls.style.display = 'block';
-
                         sidebarControls.style.left = lineBounds.left - 50 + 'px';
                         sidebarControls.style.top = lineBounds.top - 2 + 'px';
                     } else {
                         sidebarControls.style.display = 'none';
-
                         sidebarControls.classList.remove('active');
                     }
                 } else {
                     sidebarControls.style.display = 'none';
-
                     sidebarControls.classList.remove('active');
                 }
             });
@@ -309,13 +291,11 @@ export default {
 
         showEmbedImageModal(data = null) {
             this.$emit('openingEmbedImageModal', data);
-
             $(this.$refs.embedImageModal.$el).modal('show');
         },
 
         showEmbedContentModal(data = null) {
             this.$emit('openingEmbedContentModal', data);
-
             $(this.$refs.embedContentModal.$el).modal('show');
         },
 
@@ -331,17 +311,13 @@ export default {
             }
 
             let range = this.editor.getSelection(true);
-
             this.editor.insertEmbed(range.index, 'embed-image', values, Quill.sources.USER);
-
             this.editor.setSelection(range.index + 1, Quill.sources.SILENT);
         },
 
         removeEmbedImage({ existingBlot }) {
             let range = this.editor.getSelection(true);
-
             existingBlot.remove();
-
             this.editor.setSelection(range.index - 1, Quill.sources.SILENT);
         },
 
@@ -356,16 +332,13 @@ export default {
             }
 
             this.editor.insertEmbed(range.index, 'embed-content', values, Quill.sources.USER);
-
             this.editor.setSelection(range.index + 1, Quill.sources.SILENT);
         },
 
         insertDivider() {
             let range = this.editor.getSelection(true);
-
             this.editor.insertText(range.index, '', Quill.sources.USER);
             this.editor.insertEmbed(range.index, 'divider', true, Quill.sources.USER);
-
             this.editor.setSelection(range.index + 2, Quill.sources.SILENT);
         },
 
@@ -379,7 +352,6 @@ export default {
 <style lang="scss">
 @import '../../../sass/utilities/variables';
 @import '~quill/dist/quill.bubble.css';
-
 .ql-container {
     font-size: 1.1rem;
     line-height: 2;
@@ -389,7 +361,6 @@ export default {
     position: relative;
     box-sizing: border-box;
 }
-
 .ql-editor {
     font-family: $font-family-serif;
     font-size: 1.1rem;
@@ -405,21 +376,17 @@ export default {
     -ms-flex-direction: column;
     flex-direction: column;
 }
-
 .ql-editor p {
     margin: 1.5em 0 0 0;
 }
-
 .ql-editor a {
     text-decoration: underline;
 }
-
 .ql-editor h1,
 h2,
 h3 {
     margin: 1.5em 0 0 0 !important;
 }
-
 .ql-editor blockquote {
     margin: 2em 0 1em 0 !important;
     font-style: italic;
@@ -429,17 +396,14 @@ h3 {
     padding-left: 1.5em !important;
     line-height: 1.5;
 }
-
 div.embedded_image {
     margin-top: 2em;
 }
-
 div.embedded_image > img {
     width: 100%;
     height: auto;
     display: block;
 }
-
 div.embedded_image > p {
     text-align: center;
     color: $gray-500;
@@ -447,57 +411,44 @@ div.embedded_image > p {
     font-size: 0.9rem;
     font-family: $font-family-sans-serif, sans-serif;
 }
-
 div.ql-embed-content {
     // This is here because we have no way to control the dimensions
     // of the content being embedded, so hide any overlap to avoid
     // breaking either the editor or the screen.
     overflow: hidden;
 }
-
 div.embedded_image:hover img,
 div.ql-embed-content:hover {
     cursor: pointer !important;
     box-shadow: 0 0 0 3px $green;
 }
-
 div.embedded_image[data-layout='wide'] img {
     max-width: 1024px;
     margin: 0 auto 30px;
 }
-
 div.embedded_image[data-layout='wide'] {
     width: 100vw;
     position: relative;
     left: 50%;
     margin-left: -50vw;
 }
-
 .ql-container hr {
     border: none;
     margin: 2em 0 3em 0;
     letter-spacing: 1em;
     text-align: center;
 }
-
 .ql-container hr:before {
     content: '...';
 }
-
 .ql-editor pre.ql-syntax {
     border-radius: $border-radius;
     padding: 1em;
     margin-top: 2em;
 }
-
 .ql-editor.ql-blank::before {
     left: 0 !important;
 }
-
-.ql-editor.ql-blank p {
-    /*margin: 1.5em 0 !important;*/
-}
-
 .btn-circle {
     width: 40px;
     height: 40px;
@@ -506,7 +457,6 @@ div.embedded_image[data-layout='wide'] {
     text-align: center;
     line-height: 1.42857;
 }
-
 .sidebar-controls {
     margin-top: -8px;
     top: 0;
@@ -515,52 +465,42 @@ div.embedded_image[data-layout='wide'] {
     z-index: 10;
     left: -60px;
 }
-
 .sidebar-controls button:hover {
     background-color: transparent;
 }
-
 .sidebar-controls button:focus {
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none;
     outline: none;
 }
-
 .sidebar-controls.active .controls {
     display: inline-block !important;
 }
-
 .navbar div.btn-group {
     flex: auto;
 }
-
 .navbar div.btn-group button {
     border-radius: 0;
 }
-
 div.ql-editor.ql-blank::before {
-    margin-top: 26.4px !important;
+    //margin-top: 26.4px !important;
 }
-
 div.embedded_image[data-layout='wide'] {
     width: 100vw;
     position: relative;
     left: 50%;
     margin-left: -50vw;
 }
-
 div.ql-tweet {
     display: flex;
     justify-content: center;
 }
-
 div.ql-video {
     position: relative;
     overflow: hidden;
     padding-top: 56.25%;
 }
-
 div.ql-video iframe {
     position: absolute;
     top: 0;
@@ -569,13 +509,11 @@ div.ql-video iframe {
     height: 100%;
     border: 0;
 }
-
 @media screen and (max-width: 1024px) {
     .embedded_image[data-layout='wide'] img {
         max-width: 100%;
     }
 }
-
 @media (max-width: 1200px) {
     .sidebar-controls {
         display: none !important;
