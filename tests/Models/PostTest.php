@@ -12,6 +12,11 @@ use Canvas\Models\Visit;
 use Canvas\Tests\TestCase;
 use Carbon\Carbon;
 use Illuminate\Auth\Middleware\Authorize;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Str;
@@ -139,6 +144,7 @@ class PostTest extends TestCase
 
         $post->tags()->sync($tag);
 
+        $this->assertInstanceOf(BelongsToMany::class, $post->tags());
         $this->assertInstanceOf(Tag::class, $post->tags->first());
     }
 
@@ -150,6 +156,7 @@ class PostTest extends TestCase
 
         $post->topic()->sync($topic);
 
+        $this->assertInstanceOf(BelongsToMany::class, $post->topic());
         $this->assertInstanceOf(Topic::class, $post->topic->first());
     }
 
@@ -158,6 +165,7 @@ class PostTest extends TestCase
     {
         $post = factory(Post::class)->create();
 
+        $this->assertInstanceOf(BelongsTo::class, $post->user());
         $this->assertInstanceOf(config('canvas.user'), $post->user);
     }
 
@@ -170,6 +178,7 @@ class PostTest extends TestCase
             'user_id' => $post->user->id,
         ]);
 
+        $this->assertInstanceOf(HasOneThrough::class, $post->userMeta());
         $this->assertInstanceOf(UserMeta::class, $post->userMeta);
     }
 
@@ -182,6 +191,7 @@ class PostTest extends TestCase
             'post_id' => $post->id,
         ]);
 
+        $this->assertInstanceOf(HasMany::class, $post->views());
         $this->assertInstanceOf(View::class, $post->views->first());
     }
 
@@ -194,7 +204,36 @@ class PostTest extends TestCase
             'post_id' => $post->id,
         ]);
 
+        $this->assertInstanceOf(HasMany::class, $post->visits());
         $this->assertInstanceOf(Visit::class, $post->visits->first());
+    }
+
+    /** @test */
+    public function published_scope()
+    {
+        $user = factory(config('canvas.user'))->create();
+
+        factory(Post::class)->create([
+            'user_id' => $user->id,
+            'published_at' => now()->subDay()
+        ]);
+
+        $this->assertInstanceOf(Builder::class, resolve(Post::class)->published());
+        $this->assertCount(1, Post::published()->get());
+    }
+
+    /** @test */
+    public function draft_scope()
+    {
+        $user = factory(config('canvas.user'))->create();
+
+        factory(Post::class)->create([
+            'user_id' => $user->id,
+            'published_at' => now()->addDay()
+        ]);
+
+        $this->assertInstanceOf(Builder::class, resolve(Post::class)->draft());
+        $this->assertCount(1, Post::draft()->get());
     }
 
     /** @test */
@@ -210,8 +249,9 @@ class PostTest extends TestCase
             'user_id' => $user->id,
         ]);
 
-        $this->assertSame($meta->id, $post->withUserMeta()->first()->userMeta->id);
+        $this->assertInstanceOf(Builder::class, resolve(Post::class)->draft());
         $this->assertInstanceOf(UserMeta::class, Post::all()->first()->userMeta);
+        $this->assertSame($meta->id, $post->withUserMeta()->first()->userMeta->id);
     }
 
     /** @test */

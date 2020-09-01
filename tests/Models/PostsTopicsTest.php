@@ -3,8 +3,7 @@
 namespace Canvas\Tests\Models;
 
 use Canvas\Http\Middleware\Session;
-use Canvas\Models\Post;
-use Canvas\Models\View;
+use Canvas\Models\PostsTopics;
 use Canvas\Tests\TestCase;
 use Illuminate\Auth\Middleware\Authorize;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -12,11 +11,11 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 /**
- * Class ViewTest.
+ * Class PostsTopicsTest.
  *
- * @covers \Canvas\Models\View
+ * @covers \Canvas\Models\PostsTopics
  */
-class ViewTest extends TestCase
+class PostsTopicsTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -35,17 +34,14 @@ class ViewTest extends TestCase
     }
 
     /** @test */
-    public function post_relationship()
+    public function posts_relationship()
     {
-        $post = factory(Post::class)->create();
+        $this->assertInstanceOf(BelongsTo::class, resolve(PostsTopics::class)->posts());
+    }
 
-        $view = factory(View::class)->create([
-            'post_id' => $post->id,
-        ]);
-
-        $post->views()->saveMany([$view]);
-
-        $this->assertInstanceOf(BelongsTo::class, $view->post());
-        $this->assertInstanceOf(Post::class, $view->post()->first());
+    /** @test */
+    public function topic_relationship()
+    {
+        $this->assertInstanceOf(BelongsTo::class, resolve(PostsTopics::class)->topic());
     }
 }

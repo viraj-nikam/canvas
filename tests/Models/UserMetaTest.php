@@ -6,6 +6,7 @@ use Canvas\Http\Middleware\Session;
 use Canvas\Models\UserMeta;
 use Canvas\Tests\TestCase;
 use Illuminate\Auth\Middleware\Authorize;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -53,6 +54,7 @@ class UserMetaTest extends TestCase
     {
         $meta = factory(UserMeta::class)->create();
 
+        $this->assertInstanceOf(BelongsTo::class, $meta->user());
         $this->assertInstanceOf(config('canvas.user'), $meta->user);
     }
 }

@@ -8,6 +8,9 @@ use Canvas\Models\Topic;
 use Canvas\Models\UserMeta;
 use Canvas\Tests\TestCase;
 use Illuminate\Auth\Middleware\Authorize;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Ramsey\Uuid\Uuid;
@@ -84,6 +87,7 @@ class TopicTest extends TestCase
         $post->topic()->sync($topic);
 
         $this->assertCount(1, $topic->posts);
+        $this->assertInstanceOf(BelongsToMany::class, $topic->posts());
         $this->assertInstanceOf(Post::class, $topic->posts->first());
     }
 
@@ -92,6 +96,7 @@ class TopicTest extends TestCase
     {
         $topic = factory(Topic::class)->create();
 
+        $this->assertInstanceOf(BelongsTo::class, $topic->user());
         $this->assertInstanceOf(config('canvas.user'), $topic->user);
     }
 
@@ -104,6 +109,7 @@ class TopicTest extends TestCase
             'user_id' => $topic->user->id,
         ]);
 
+        $this->assertInstanceOf(HasOneThrough::class, $topic->userMeta());
         $this->assertInstanceOf(UserMeta::class, $topic->userMeta);
     }
 

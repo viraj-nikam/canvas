@@ -7,6 +7,7 @@ use Canvas\Models\Post;
 use Canvas\Models\Visit;
 use Canvas\Tests\TestCase;
 use Illuminate\Auth\Middleware\Authorize;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -38,11 +39,13 @@ class VisitTest extends TestCase
     {
         $post = factory(Post::class)->create();
 
-        factory(Visit::class)->create([
+        $visit = factory(Visit::class)->create([
             'post_id' => $post->id,
         ]);
 
-        $this->assertCount(1, $post->visits);
-        $this->assertInstanceOf(Visit::class, $post->visits->first());
+        $post->visits()->saveMany([$visit]);
+
+        $this->assertInstanceOf(BelongsTo::class, $visit->post());
+        $this->assertInstanceOf(Post::class, $visit->post()->first());
     }
 }

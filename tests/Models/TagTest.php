@@ -8,6 +8,9 @@ use Canvas\Models\Tag;
 use Canvas\Models\UserMeta;
 use Canvas\Tests\TestCase;
 use Illuminate\Auth\Middleware\Authorize;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Ramsey\Uuid\Uuid;
@@ -84,6 +87,7 @@ class TagTest extends TestCase
         $post->tags()->sync($tag);
 
         $this->assertCount(1, $post->tags);
+        $this->assertInstanceOf(BelongsToMany::class, $tag->posts());
         $this->assertInstanceOf(Post::class, $tag->posts->first());
     }
 
@@ -92,6 +96,7 @@ class TagTest extends TestCase
     {
         $tag = factory(Tag::class)->create();
 
+        $this->assertInstanceOf(BelongsTo::class, $tag->user());
         $this->assertInstanceOf(config('canvas.user'), $tag->user);
     }
 
@@ -104,6 +109,7 @@ class TagTest extends TestCase
             'user_id' => $tag->user->id,
         ]);
 
+        $this->assertInstanceOf(HasOneThrough::class, $tag->userMeta());
         $this->assertInstanceOf(UserMeta::class, $tag->userMeta);
     }
 

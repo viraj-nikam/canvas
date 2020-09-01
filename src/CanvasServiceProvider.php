@@ -83,10 +83,6 @@ class CanvasServiceProvider extends ServiceProvider
      */
     protected function configureCommands()
     {
-        if (! $this->app->runningInConsole()) {
-            return;
-        }
-
         $this->commands([
             AdminCommand::class,
             DigestCommand::class,
@@ -114,26 +110,24 @@ class CanvasServiceProvider extends ServiceProvider
      */
     private function configurePublishing()
     {
-        if (! $this->app->runningInConsole()) {
-            return;
+        if ($this->app->runningInConsole()) {
+            $this->publishes([
+                __DIR__.'/../public' => public_path('vendor/canvas'),
+            ], 'canvas-assets');
+
+            $this->publishes([
+                __DIR__.'/../config/canvas.php' => config_path('canvas.php'),
+            ], 'canvas-config');
+
+            $this->publishes([
+                __DIR__.'/../resources/lang' => resource_path('lang/vendor/canvas'),
+            ], 'canvas-lang');
+
+            $this->publishes([
+                __DIR__.'/../resources/stubs/CanvasServiceProvider.stub' => app_path(
+                    'Providers/CanvasServiceProvider.php'
+                ),
+            ], 'canvas-provider');
         }
-
-        $this->publishes([
-            __DIR__.'/../public' => public_path('vendor/canvas'),
-        ], 'canvas-assets');
-
-        $this->publishes([
-            __DIR__.'/../config/canvas.php' => config_path('canvas.php'),
-        ], 'canvas-config');
-
-        $this->publishes([
-            __DIR__.'/../resources/lang' => resource_path('lang/vendor/canvas'),
-        ], 'canvas-lang');
-
-        $this->publishes([
-            __DIR__.'/../resources/stubs/CanvasServiceProvider.stub' => app_path(
-                'Providers/CanvasServiceProvider.php'
-            ),
-        ], 'canvas-provider');
     }
 }
