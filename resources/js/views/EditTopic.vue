@@ -32,16 +32,16 @@
             </template>
         </page-header>
 
-        <main v-if="isReady" class="py-4">
+        <main class="py-4">
             <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12">
-                <div class="my-3">
+                <div v-if="isReady" class="my-3">
                     <h2 class="mt-3">{{ creatingTopic ? trans.new_topic : trans.edit_topic }}</h2>
                     <p v-if="!creatingTopic" class="mt-2 text-secondary">
-                        {{ trans.last_updated }} {{ moment(activeTopic.updatedAt).fromNow() }}
+                        {{ trans.last_updated }} {{ moment(topic.updatedAt).fromNow() }}
                     </p>
                 </div>
 
-                <div class="mt-5 card shadow-lg">
+                <div v-if="isReady" class="mt-5 card shadow-lg">
                     <div class="card-body">
                         <div class="form-group">
                             <div class="col-12 px-0">
@@ -144,11 +144,11 @@
                                     <div class="ml-auto">
                                         <div class="d-none d-md-inline">
                                             <span class="text-secondary mr-3"
-                                                >{{ suffixedNumber(post.views_count) }}
+                                            >{{ suffixedNumber(post.views_count) }}
                                                 {{ post.views_count == 1 ? trans.view : trans.views }}</span
                                             >
                                             <span class="mr-3"
-                                                >{{ trans.created }}
+                                            >{{ trans.created }}
                                                 {{ moment(post.created_at).format('MMM D, YYYY') }}</span
                                             >
                                         </div>
@@ -189,7 +189,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapState } from 'vuex';
 import $ from 'jquery';
 import DeleteModal from '../components/modals/DeleteModal';
 import Hover from '../directives/Hover';
@@ -227,8 +227,8 @@ export default {
     },
 
     computed: {
+        ...mapState(['topic']),
         ...mapGetters({
-            activeTopic: 'topic/activeTopic',
             trans: 'settings/trans',
         }),
 
@@ -247,7 +247,7 @@ export default {
         },
 
         async $route(to) {
-            if (this.uri === 'create' && to.params.id === this.activeTopic.id) {
+            if (this.uri === 'create' && to.params.id === this.topic.id) {
                 this.uri = to.params.id;
             }
 
@@ -257,8 +257,8 @@ export default {
                 this.page = 1;
                 this.posts = [];
                 await Promise.all([this.fetchTopic(), this.fetchPosts()]);
-                this.name = this.activeTopic.name;
-                this.slug = this.activeTopic.slug;
+                this.name = this.topic.name;
+                this.slug = this.topic.slug;
                 this.isReady = true;
                 NProgress.done();
             }
@@ -267,15 +267,17 @@ export default {
 
     async created() {
         await Promise.all([this.fetchTopic(), this.fetchPosts()]);
-        this.name = this.activeTopic.name;
-        this.slug = this.activeTopic.slug;
+        this.name = this.topic.name;
+        this.slug = this.topic.slug;
         this.isReady = true;
         NProgress.done();
     },
 
     methods: {
         fetchTopic() {
+            // TODO: This is a hack to ensure we have empty form fields
             this.$store.dispatch('topic/resetState');
+
             this.$store.dispatch('topic/fetchTopic', this.uri);
             NProgress.inc();
         },
@@ -307,19 +309,19 @@ export default {
 
         saveTopic() {
             this.$store.dispatch('topic/updateTopic', {
-                id: this.activeTopic.id,
+                id: this.topic.id,
                 name: this.name,
                 slug: this.slug,
             });
 
-            if (isEmpty(this.activeTopic.errors) && this.creatingTopic) {
-                this.$router.push({ name: 'edit-topic', params: { id: this.activeTopic.id } });
+            if (isEmpty(this.topic.errors) && this.creatingTopic) {
+                this.$router.push({ name: 'edit-topic', params: { id: this.topic.id } });
                 NProgress.done();
             }
         },
 
         deleteTopic() {
-            this.$store.dispatch('topic/deleteTopic', this.activeTopic.id);
+            this.$store.dispatch('topic/deleteTopic', this.topic.id);
             $(this.$refs.deleteModal.$el).modal('hide');
         },
 

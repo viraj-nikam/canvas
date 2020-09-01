@@ -112,7 +112,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapState } from 'vuex';
 import $ from 'jquery';
 import DeleteModal from '../components/modals/DeleteModal';
 import FeaturedImageModal from '../components/modals/FeaturedImageModal';
@@ -153,8 +153,8 @@ export default {
     },
 
     computed: {
+        ...mapState(['post']),
         ...mapGetters({
-            activePost: 'post/activePost',
             trans: 'settings/trans',
         }),
 

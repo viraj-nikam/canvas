@@ -94,9 +94,7 @@ const mutations = {
 };
 
 const getters = {
-    activeTopic(state) {
-        return state;
-    },
+    //
 };
 
 export default {

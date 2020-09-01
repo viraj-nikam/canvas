@@ -32,16 +32,16 @@
             </template>
         </page-header>
 
-        <main v-if="isReady" class="py-4">
+        <main class="py-4">
             <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12">
-                <div class="my-3">
+                <div v-if="isReady" class="my-3">
                     <h2 class="mt-3">{{ creatingTag ? trans.new_tag : trans.edit_tag }}</h2>
                     <p v-if="!creatingTag" class="mt-2 text-secondary">
-                        {{ trans.last_updated }} {{ moment(activeTag.updatedAt).fromNow() }}
+                        {{ trans.last_updated }} {{ moment(tag.updatedAt).fromNow() }}
                     </p>
                 </div>
 
-                <div class="mt-5 card shadow-lg">
+                <div v-if="isReady" class="mt-5 card shadow-lg">
                     <div class="card-body">
                         <div class="form-group">
                             <div class="col-12 px-0">
@@ -189,7 +189,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapState } from 'vuex';
 import $ from 'jquery';
 import DeleteModal from '../components/modals/DeleteModal';
 import Hover from '../directives/Hover';
@@ -227,8 +227,8 @@ export default {
     },
 
     computed: {
+        ...mapState(['tag']),
         ...mapGetters({
-            activeTag: 'tag/activeTag',
             trans: 'settings/trans',
         }),
 
@@ -247,7 +247,7 @@ export default {
         },
 
         async $route(to) {
-            if (this.uri === 'create' && to.params.id === this.activeTag.id) {
+            if (this.uri === 'create' && to.params.id === this.tag.id) {
                 this.uri = to.params.id;
             }
 
@@ -257,8 +257,8 @@ export default {
                 this.page = 1;
                 this.posts = [];
                 await Promise.all([this.fetchTag(), this.fetchPosts()]);
-                this.name = this.activeTag.name;
-                this.slug = this.activeTag.slug;
+                this.name = this.tag.name;
+                this.slug = this.tag.slug;
                 this.isReady = true;
                 NProgress.done();
             }
@@ -267,15 +267,17 @@ export default {
 
     async created() {
         await Promise.all([this.fetchTag(), this.fetchPosts()]);
-        this.name = this.activeTag.name;
-        this.slug = this.activeTag.slug;
+        this.name = this.tag.name;
+        this.slug = this.tag.slug;
         this.isReady = true;
         NProgress.done();
     },
 
     methods: {
         fetchTag() {
+            // TODO: This is a hack to ensure we have empty form fields
             this.$store.dispatch('tag/resetState');
+
             this.$store.dispatch('tag/fetchTag', this.uri);
             NProgress.inc();
         },
@@ -307,19 +309,19 @@ export default {
 
         saveTag() {
             this.$store.dispatch('tag/updateTag', {
-                id: this.activeTag.id,
+                id: this.tag.id,
                 name: this.name,
                 slug: this.slug,
             });
 
-            if (isEmpty(this.activeTag.errors) && this.creatingTag) {
-                this.$router.push({ name: 'edit-tag', params: { id: this.activeTag.id } });
+            if (isEmpty(this.tag.errors) && this.creatingTag) {
+                this.$router.push({ name: 'edit-tag', params: { id: this.tag.id } });
                 NProgress.done();
             }
         },
 
         deleteTag() {
-            this.$store.dispatch('tag/deleteTag', this.activeTag.id);
+            this.$store.dispatch('tag/deleteTag', this.tag.id);
             $(this.$refs.deleteModal.$el).modal('hide');
         },
 

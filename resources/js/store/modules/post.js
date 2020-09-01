@@ -129,9 +129,7 @@ const mutations = {
 };
 
 const getters = {
-    activePost(state) {
-        return state;
-    },
+    //
 };
 
 export default {

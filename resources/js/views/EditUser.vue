@@ -8,8 +8,8 @@
                     <h2 class="mt-3">
                         {{ isAuthUserProfile ? trans.edit_profile : trans.edit_user }}
                     </h2>
-                    <p v-if="activeUser.updatedAt" class="mt-2 text-secondary">
-                        {{ trans.last_updated }} {{ moment(activeUser.updatedAt).fromNow() }}
+                    <p v-if="user.updatedAt" class="mt-2 text-secondary">
+                        {{ trans.last_updated }} {{ moment(user.updatedAt).fromNow() }}
                     </p>
                 </div>
 
@@ -25,9 +25,9 @@
                                 />
                             </div>
                             <div class="col-lg-10 align-self-center text-center text-lg-left">
-                                <p class="my-0 lead font-weight-bold">{{ activeUser.name }}</p>
+                                <p class="my-0 lead font-weight-bold">{{ user.name }}</p>
                                 <p class="text-muted mb-1">
-                                    <a :href="`mailto:${activeUser.email}`" class="text-primary">{{ activeUser.email }}</a>
+                                    <a :href="`mailto:${user.email}`" class="text-primary">{{ user.email }}</a>
                                     <span v-if="username"> ― @{{ username }}</span>
                                 </p>
                                 <p class="mb-0 text-muted">{{ summary }}</p>
@@ -66,9 +66,9 @@
 
                                     <div v-if="!isReadyToAcceptUploads" class="text-center rounded p-3">
                                         <img
-                                            :src="activeUser.avatar"
+                                            :src="user.avatar"
                                             class="rounded-circle w-75 shadow-inner"
-                                            :alt="activeUser.name"
+                                            :alt="user.name"
                                         />
 
                                         <p class="mt-3 mb-0">
@@ -179,7 +179,7 @@
                                                 type="checkbox"
                                                 class="switch"
                                                 :disabled="isAuthUserProfile"
-                                                :checked="activeUser.admin"
+                                                :checked="user.admin"
                                                 @change="toggleAdmin"
                                             />
                                             <label for="admin" class="mb-0 sr-only">
@@ -243,18 +243,17 @@ export default {
     },
 
     computed: {
-        ...mapState(['settings', 'profile']),
+        ...mapState(['settings', 'profile', 'user']),
         ...mapGetters({
             trans: 'settings/trans',
-            activeUser: 'user/activeUser',
         }),
 
         userLastUpdated() {
-            return this.activeUser.updatedAt;
+            return this.user.updatedAt;
         },
 
         isAuthUserProfile() {
-            return this.profile.id === this.activeUser.id;
+            return this.profile.id === this.user.id;
         },
 
         getServerOptions() {
@@ -284,9 +283,9 @@ export default {
             this.isReady = false;
             this.uri = to.params.id;
             await Promise.all([this.fetchUser()]);
-            this.username = this.activeUser.username;
-            this.summary = this.activeUser.summary;
-            this.admin = this.activeUser.admin;
+            this.username = this.user.username;
+            this.summary = this.user.summary;
+            this.admin = this.user.admin;
             this.isReady = true;
             NProgress.done();
         },
@@ -295,13 +294,13 @@ export default {
     async created() {
         await Promise.all([this.fetchUser()]);
 
-        // TODO: The activeUser is not available at this point :sadpanda:
-        // console.log(this.activeUser);
+        // TODO: The user is not available at this point :sadpanda:
+        // console.log(this.user);
 
-        this.username = this.activeUser.username;
-        this.summary = this.activeUser.summary;
-        this.admin = this.activeUser.admin;
-        this.avatar = this.activeUser.avatar;
+        this.username = this.user.username;
+        this.summary = this.user.summary;
+        this.admin = this.user.admin;
+        this.avatar = this.user.avatar;
 
         // console.log(this.avatar);
 
@@ -311,6 +310,7 @@ export default {
 
     methods: {
         fetchUser() {
+            this.$store.dispatch('user/resetState');
             this.$store.dispatch('user/fetchUser', this.uri);
             NProgress.inc();
         },

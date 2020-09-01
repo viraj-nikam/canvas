@@ -116,9 +116,7 @@ const mutations = {
 };
 
 const getters = {
-    activeUser(state) {
-        return state;
-    },
+    //
 };
 
 export default {
