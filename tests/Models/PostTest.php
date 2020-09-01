@@ -111,6 +111,26 @@ class PostTest extends TestCase
     }
 
     /** @test */
+    public function top_referers_attribute()
+    {
+        $post = factory(Post::class)->create();
+
+        factory(View::class, 1)->create([
+            'post_id' => $post->id,
+            'referer' => null,
+            'created_at' => now()->subHour(),
+        ]);
+
+        factory(View::class, 1)->create([
+            'post_id' => $post->id,
+            'created_at' => now()->subHours(2),
+        ]);
+
+        $this->assertCount(2, $post->topReferers);
+        $this->assertIsArray($post->topReferers);
+    }
+
+    /** @test */
     public function posts_can_share_the_same_slug_with_unique_users()
     {
         $data = [

@@ -18,14 +18,14 @@ class URL
     }
 
     /**
-     * Trim a given URL.
+     * Trim a given URL and return the base.
      *
-     * @param string $url
+     * @param string|null $url
      * @return mixed
      */
-    public static function trim(string $url)
+    public static function trim(?string $url)
     {
-        return parse_url($url)['host'];
+        return parse_url($url)['host'] ?? null;
     }
 
     /**

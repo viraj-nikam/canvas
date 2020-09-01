@@ -2,6 +2,7 @@
 
 namespace Canvas\Models;
 
+use Canvas\Helpers\URL;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -253,10 +254,10 @@ class Post extends Model
         // Filter the view data to only include referrers
         $collection = collect();
         $data->each(function ($item, $key) use ($collection) {
-            if (empty(parse_url($item->referer)['host'])) {
+            if (empty(URL::trim($item->referer))) {
                 $collection->push(trans('canvas::app.other', [], optional($this->userMeta)->locale));
             } else {
-                $collection->push(parse_url($item->referer)['host']);
+                $collection->push(URL::trim($item->referer));
             }
         });
 
