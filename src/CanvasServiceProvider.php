@@ -16,39 +16,30 @@ use Illuminate\Support\ServiceProvider;
 class CanvasServiceProvider extends ServiceProvider
 {
     /**
-     * Bootstrap any package services.
+     * Register any application services.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        $this->mergeConfigFrom(__DIR__.'/../config/canvas.php', 'canvas');
+    }
+
+    /**
+     * Bootstrap any application services.
      *
      * @return void
      * @throws BindingResolutionException
      */
     public function boot()
     {
-        $this->registerEvents();
-        $this->registerRoutes();
-        $this->registerMigrations();
-        $this->registerPublishing();
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'canvas');
         $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'canvas');
-    }
-
-    /**
-     * Register bindings in the container.
-     *
-     * @return void
-     */
-    public function register()
-    {
-        $this->mergeConfigFrom(
-            __DIR__.'/../config/canvas.php',
-            'canvas'
-        );
-
-        $this->commands([
-            AdminCommand::class,
-            DigestCommand::class,
-            InstallCommand::class,
-            PublishCommand::class,
-        ]);
+        $this->configurePublishing();
+        $this->configureRoutes();
+        $this->configureCommands();
+        $this->registerMigrations();
+        $this->registerEvents();
     }
 
     /**
@@ -76,13 +67,32 @@ class CanvasServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register the package routes.
+     * Configure the routes offered by the application.
      *
      * @return void
      */
-    private function registerRoutes()
+    private function configureRoutes()
     {
         $this->loadRoutesFrom(__DIR__.'/Http/routes.php');
+    }
+
+    /**
+     * Configure the commands offered by the application.
+     *
+     * @return void
+     */
+    protected function configureCommands()
+    {
+        if (! $this->app->runningInConsole()) {
+            return;
+        }
+
+        $this->commands([
+            AdminCommand::class,
+            DigestCommand::class,
+            InstallCommand::class,
+            PublishCommand::class,
+        ]);
     }
 
     /**
@@ -98,30 +108,32 @@ class CanvasServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register the package's publishable resources.
+     * Configure publishing for the package.
      *
      * @return void
      */
-    private function registerPublishing()
+    private function configurePublishing()
     {
-        if ($this->app->runningInConsole()) {
-            $this->publishes([
-                __DIR__.'/../public' => public_path('vendor/canvas'),
-            ], 'canvas-assets');
-
-            $this->publishes([
-                __DIR__.'/../config/canvas.php' => config_path('canvas.php'),
-            ], 'canvas-config');
-
-            $this->publishes([
-                __DIR__.'/../resources/lang' => resource_path('lang/vendor/canvas'),
-            ], 'canvas-lang');
-
-            $this->publishes([
-                __DIR__.'/../resources/stubs/CanvasServiceProvider.stub' => app_path(
-                    'Providers/CanvasServiceProvider.php'
-                ),
-            ], 'canvas-provider');
+        if (! $this->app->runningInConsole()) {
+            return;
         }
+
+        $this->publishes([
+            __DIR__.'/../public' => public_path('vendor/canvas'),
+        ], 'canvas-assets');
+
+        $this->publishes([
+            __DIR__.'/../config/canvas.php' => config_path('canvas.php'),
+        ], 'canvas-config');
+
+        $this->publishes([
+            __DIR__.'/../resources/lang' => resource_path('lang/vendor/canvas'),
+        ], 'canvas-lang');
+
+        $this->publishes([
+            __DIR__.'/../resources/stubs/CanvasServiceProvider.stub' => app_path(
+                'Providers/CanvasServiceProvider.php'
+            ),
+        ], 'canvas-provider');
     }
 }
