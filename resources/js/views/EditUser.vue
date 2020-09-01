@@ -8,13 +8,13 @@
                     <h2 class="mt-3">
                         {{ isAuthUserProfile ? trans.edit_profile : trans.edit_user }}
                     </h2>
-                    <p v-if="user.updatedAt" class="mt-2 text-secondary">
-                        {{ trans.last_updated }} {{ moment(user.updatedAt).fromNow() }}
+                    <p v-if="activeUser.updatedAt" class="mt-2 text-secondary">
+                        {{ trans.last_updated }} {{ moment(activeUser.updatedAt).fromNow() }}
                     </p>
                 </div>
 
-                <div class="mt-5 card shadow-lg">
-                    <div v-if="isReady" class="card-body">
+                <div v-if="isReady" class="mt-5 card shadow-lg">
+                    <div class="card-body">
                         <div v-if="!isAuthUserProfile" class="row">
                             <div class="col-lg-2 text-center text-lg-left">
                                 <img
@@ -25,9 +25,9 @@
                                 />
                             </div>
                             <div class="col-lg-10 align-self-center text-center text-lg-left">
-                                <p class="my-0 lead font-weight-bold">{{ user.name }}</p>
+                                <p class="my-0 lead font-weight-bold">{{ activeUser.name }}</p>
                                 <p class="text-muted mb-1">
-                                    <a :href="`mailto:${user.email}`" class="text-primary">{{ user.email }}</a>
+                                    <a :href="`mailto:${activeUser.email}`" class="text-primary">{{ activeUser.email }}</a>
                                     <span v-if="username"> ― @{{ username }}</span>
                                 </p>
                                 <p class="mb-0 text-muted">{{ summary }}</p>
@@ -66,9 +66,9 @@
 
                                     <div v-if="!isReadyToAcceptUploads" class="text-center rounded p-3">
                                         <img
-                                            :src="user.avatar"
+                                            :src="activeUser.avatar"
                                             class="rounded-circle w-75 shadow-inner"
-                                            :alt="user.name"
+                                            :alt="activeUser.name"
                                         />
 
                                         <p class="mt-3 mb-0">
@@ -179,7 +179,7 @@
                                                 type="checkbox"
                                                 class="switch"
                                                 :disabled="isAuthUserProfile"
-                                                :checked="user.admin"
+                                                :checked="activeUser.admin"
                                                 @change="toggleAdmin"
                                             />
                                             <label for="admin" class="mb-0 sr-only">
@@ -254,7 +254,7 @@ export default {
         },
 
         isAuthUserProfile() {
-            return this.profile.id === this.user.id;
+            return this.profile.id === this.activeUser.id;
         },
 
         getServerOptions() {
@@ -298,7 +298,7 @@ export default {
         // TODO: The activeUser is not available at this point :sadpanda:
         // console.log(this.activeUser);
 
-        this.username = this.user.username;
+        this.username = this.activeUser.username;
         this.summary = this.activeUser.summary;
         this.admin = this.activeUser.admin;
         this.avatar = this.activeUser.avatar;
