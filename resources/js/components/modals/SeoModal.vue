@@ -128,7 +128,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapState } from 'vuex';
 import Tooltip from '../../directives/Tooltip';
 import debounce from 'lodash/debounce';
 
@@ -148,8 +148,8 @@ export default {
     },
 
     computed: {
+        ...mapState(['post']),
         ...mapGetters({
-            activePost: 'post/activePost',
             trans: 'settings/trans',
         }),
     },
@@ -157,22 +157,22 @@ export default {
     methods: {
         syncTitle() {
             this.$store.dispatch('post/updatePost', {
-                id: this.activePost.id,
+                id: this.post.id,
                 meta: {
-                    title: this.activePost.title,
+                    title: this.post.title,
                 },
             });
-            this.title = this.activePost.meta.title;
+            this.title = this.post.meta.title;
         },
 
         syncDescription() {
             this.$store.dispatch('post/updatePost', {
-                id: this.activePost.id,
+                id: this.post.id,
                 meta: {
-                    description: this.activePost.summary,
+                    description: this.post.summary,
                 },
             });
-            this.description = this.activePost.summary;
+            this.description = this.post.summary;
         },
 
         update: debounce(function () {

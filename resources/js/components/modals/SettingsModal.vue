@@ -28,7 +28,7 @@
                             }}</label>
                             <a
                                 v-tooltip="{ placement: 'right' }"
-                                v-if="activePost.title"
+                                v-if="post.title"
                                 href="#"
                                 class="text-decoration-none"
                                 :title="trans.sync_with_post_title"
@@ -79,13 +79,13 @@
                     <div class="form-group row">
                         <div class="col-12">
                             <label class="font-weight-bold text-uppercase text-muted small">{{ trans.topic }}</label>
-                            <topic-select :topics="activePost.allTopics" :assigned="activePost.selectedTopic" />
+                            <topic-select :topics="post.allTopics" :assigned="post.selectedTopic" />
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-12">
                             <label class="font-weight-bold text-uppercase text-muted small">{{ trans.tags }}</label>
-                            <tag-select :tags="activePost.allTags" :tagged="activePost.selectedTags" />
+                            <tag-select :tags="post.allTags" :tagged="post.selectedTags" />
                         </div>
                     </div>
                 </div>
@@ -104,7 +104,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapState } from 'vuex';
 import TagSelect from '../TagSelect';
 import Tooltip from '../../directives/Tooltip';
 import TopicSelect from '../TopicSelect';
@@ -134,23 +134,23 @@ export default {
     },
 
     created() {
-        // TODO: The activePost object is available, but unable to access its properties? :sadpanda:
+        // TODO: The post object is available, but unable to access its properties? :sadpanda:
         // TODO: All component children that rely on this are broken too
     },
 
     computed: {
+        ...mapState(['post']),
         ...mapGetters({
-            activePost: 'post/activePost',
             trans: 'settings/trans',
         }),
     },
 
     methods: {
         syncSlug() {
-            let newSlug = strings.methods.slugify(this.activePost.title);
+            let newSlug = strings.methods.slugify(this.post.title);
             this.$store.dispatch('post/updatePost', {
-                id: this.activePost.id,
-                slug: strings.methods.slugify(this.activePost.title),
+                id: this.post.id,
+                slug: strings.methods.slugify(this.post.title),
             });
             this.slug = newSlug;
         },

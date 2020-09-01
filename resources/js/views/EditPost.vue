@@ -5,12 +5,12 @@
                 <ul class="navbar-nav mr-auto flex-row float-right">
                     <li class="text-muted font-weight-bold">
                         <div class="border-left pl-3">
-                            <div v-if="!activePost.isSaving && !activePost.isSaved">
-                                <span v-if="isPublished(activePost.publishedAt)">{{ trans.published }}</span>
-                                <span v-if="isDraft(activePost.publishedAt)">{{ trans.draft }}</span>
+                            <div v-if="!post.isSaving && !post.isSaved">
+                                <span v-if="isPublished(post.publishedAt)">{{ trans.published }}</span>
+                                <span v-if="isDraft(post.publishedAt)">{{ trans.draft }}</span>
                             </div>
-                            <span v-if="activePost.isSaving">{{ trans.saving }}</span>
-                            <span v-if="activePost.isSaved" class="text-success">{{ trans.saved }}</span>
+                            <span v-if="post.isSaving">{{ trans.saving }}</span>
+                            <span v-if="post.isSaved" class="text-success">{{ trans.saved }}</span>
                         </div>
                     </li>
                 </ul>
@@ -43,15 +43,15 @@
 
                     <div class="dropdown-menu dropdown-menu-right">
                         <router-link
-                            v-if="isPublished(activePost.publishedAt)"
+                            v-if="isPublished(post.publishedAt)"
                             :to="{ name: 'post-stats', params: { id: uri } }"
                             class="dropdown-item"
                         >
                             {{ trans.view_stats }}
                         </router-link>
-                        <div v-if="isPublished(activePost.publishedAt)" class="dropdown-divider" />
+                        <div v-if="isPublished(post.publishedAt)" class="dropdown-divider" />
                         <a
-                            v-if="isDraft(activePost.publishedAt)"
+                            v-if="isDraft(post.publishedAt)"
                             href="#"
                             class="dropdown-item"
                             @click="showPublishModal"
@@ -64,7 +64,7 @@
                         </a>
                         <a href="#" class="dropdown-item" @click="showSeoModal"> {{ trans.seo_settings }} </a>
                         <a
-                            v-if="isPublished(activePost.publishedAt)"
+                            v-if="isPublished(post.publishedAt)"
                             href="#"
                             class="dropdown-item"
                             @click.prevent="convertToDraft"
@@ -176,7 +176,7 @@ export default {
     //         .then((response) => {
     //             vm.$store.dispatch('setActivePost', response.data.post);
     //
-    //             vm.post = vm.$store.getters.activePost;
+    //             vm.post = vm.$store.getters.post;
     //             vm.tags = response.data.tags;
     //             vm.topics = response.data.topics;
     //             vm.isReady = true;
@@ -229,7 +229,7 @@ export default {
 
         convertToDraft() {
             this.$store.dispatch('post/updatePost', {
-                id: this.activePost.id,
+                id: this.post.id,
                 publishedAt: '',
             });
             // this.post.published_at = '';
@@ -237,7 +237,7 @@ export default {
         },
 
         deletePost() {
-            this.$store.dispatch('post/deletePost', this.activePost.id);
+            this.$store.dispatch('post/deletePost', this.post.id);
             $(this.$refs.deleteModal.$el).modal('hide');
             this.$router.push({ name: 'posts' });
             this.$toasted.show(this.trans.success, {

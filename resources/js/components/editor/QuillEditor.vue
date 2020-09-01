@@ -123,7 +123,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapState } from 'vuex';
 import $ from 'jquery';
 import Closable from '../../../js/directives/Closable';
 import DividerBlot from './DividerBlot';
@@ -155,14 +155,14 @@ export default {
     },
 
     computed: {
+        ...mapState(['post']),
         ...mapGetters({
-            activePost: 'post/activePost',
             trans: 'settings/trans',
         }),
     },
 
     watch: {
-        'activePost.body'() {
+        'post.body'() {
             // this.update();
         },
     },
@@ -211,7 +211,7 @@ export default {
         },
 
         handleEditorValue() {
-            this.editor.root.innerHTML = this.activePost.body;
+            this.editor.root.innerHTML = this.post.body;
             this.editor.on('text-change', () => {
                 this.controlIsActive = false;
                 // this.$store.dispatch('updatePostBody', this.editor.getText() ? this.editor.root.innerHTML : '');

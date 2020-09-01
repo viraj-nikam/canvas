@@ -114,11 +114,11 @@
                         </div>
                     </div>
 
-                    <p v-if="isScheduled(activePost.publishedAt)" class="mt-3 text-success font-italic">
+                    <p v-if="isScheduled(post.publishedAt)" class="mt-3 text-success font-italic">
                         {{ trans.your_post_will_publish_at }}
-                        {{ activePost.publishedAt }}
+                        {{ post.publishedAt }}
                         {{ trans.on }}
-                        {{ activePost.publishedAt }}.
+                        {{ post.publishedAt }}.
                     </p>
                 </div>
                 <div class="modal-footer">
@@ -146,7 +146,7 @@
 
                         <div class="col-lg order-lg-first px-0">
                             <button
-                                v-if="isScheduled(activePost.publishedAt)"
+                                v-if="isScheduled(post.publishedAt)"
                                 type="button"
                                 class="btn btn-link btn-block text-muted font-weight-bold text-decoration-none"
                                 data-dismiss="modal"
@@ -194,9 +194,8 @@ export default {
     },
 
     computed: {
-        ...mapState(['settings']),
+        ...mapState(['settings', 'post']),
         ...mapGetters({
-            activePost: 'post/activePost',
             trans: 'settings/trans',
         }),
 
@@ -230,7 +229,7 @@ export default {
     },
 
     mounted() {
-        this.generateDatePicker(this.activePost.publishedAt || new Date());
+        this.generateDatePicker(this.post.publishedAt || new Date());
     },
 
     methods: {
@@ -252,12 +251,12 @@ export default {
         },
 
         scheduleOrPublish() {
-            // this.activePost.published_at = this.result;
+            // this.post.published_at = this.result;
             // this.$parent.save();
         },
 
         cancelScheduling() {
-            // this.activePost.published_at = '';
+            // this.post.published_at = '';
             // this.$parent.save();
         },
     },

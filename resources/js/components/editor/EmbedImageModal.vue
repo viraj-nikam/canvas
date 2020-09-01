@@ -226,9 +226,8 @@ export default {
     },
 
     computed: {
-        ...mapState(['settings']),
+        ...mapState(['settings', 'user']),
         ...mapGetters({
-            activePost: 'post/activePost',
             trans: 'settings/trans',
         }),
 

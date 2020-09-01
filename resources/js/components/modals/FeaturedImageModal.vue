@@ -211,9 +211,8 @@ export default {
     },
 
     computed: {
-        ...mapState(['settings']),
+        ...mapState(['settings', 'post']),
         ...mapGetters({
-            activePost: 'post/activePost',
             trans: 'settings/trans',
         }),
 
@@ -260,9 +259,9 @@ export default {
     },
 
     mounted() {
-        this.selectedImageUrl = this.activePost.featured_image;
-        this.selectedImageCaption = this.activePost.featured_image_caption;
-        this.isReadyToAcceptUploads = isEmpty(this.activePost.featured_image);
+        this.selectedImageUrl = this.post.featured_image;
+        this.selectedImageCaption = this.post.featured_image_caption;
+        this.isReadyToAcceptUploads = isEmpty(this.post.featured_image);
     },
 
     methods: {
@@ -329,8 +328,8 @@ export default {
         },
 
         clickDone() {
-            this.activePost.featured_image = !isEmpty(this.selectedImageUrl) ? this.selectedImageUrl : '';
-            this.activePost.featured_image_caption = !isEmpty(this.selectedImageCaption)
+            this.post.featured_image = !isEmpty(this.selectedImageUrl) ? this.selectedImageUrl : '';
+            this.post.featured_image_caption = !isEmpty(this.selectedImageCaption)
                 ? this.selectedImageCaption
                 : '';
 
