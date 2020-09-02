@@ -6,7 +6,7 @@
             <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12 my-3">
                 <div v-if="isReady" class="my-3">
                     <h2 class="mt-3">
-                        {{ isAuthUserProfile ? trans.edit_profile : trans.edit_user }}
+                        {{ isAuthProfile ? trans.edit_profile : trans.edit_user }}
                     </h2>
                     <p v-if="user.updatedAt" class="mt-2 text-secondary">
                         {{ trans.last_updated }} {{ moment(user.updatedAt).fromNow() }}
@@ -15,7 +15,7 @@
 
                 <div v-if="isReady" class="mt-5 card shadow-lg">
                     <div class="card-body">
-                        <div v-if="!isAuthUserProfile" class="row">
+                        <div v-if="!isAuthProfile" class="row">
                             <div class="col-lg-2 text-center text-lg-left">
                                 <img
                                     :src="avatar"
@@ -34,7 +34,7 @@
                             </div>
                         </div>
 
-                        <section v-if="isAuthUserProfile">
+                        <section v-if="isAuthProfile">
                             <div class="row">
                                 <div class="col-md-4 order-md-last my-auto">
                                     <file-pond
@@ -94,10 +94,10 @@
                                                 v-model="username"
                                                 id="username"
                                                 name="username"
-                                                :disabled="!isAuthUserProfile"
+                                                :disabled="!isAuthProfile"
                                                 type="text"
                                                 class="form-control border-0"
-                                                :class="{ disabled: !isAuthUserProfile }"
+                                                :class="{ disabled: !isAuthProfile }"
                                                 title="Username"
                                                 :placeholder="trans.choose_a_username"
                                             />
@@ -116,10 +116,10 @@
                                                 id="summary"
                                                 rows="4"
                                                 name="summary"
-                                                :disabled="!isAuthUserProfile"
+                                                :disabled="!isAuthProfile"
                                                 style="resize: none"
                                                 class="form-control border-0"
-                                                :class="{ disabled: !isAuthUserProfile }"
+                                                :class="{ disabled: !isAuthProfile }"
                                                 :placeholder="trans.tell_us_about_yourself"
                                             />
                                         </div>
@@ -131,10 +131,10 @@
                                 <div class="col-md">
                                     <a
                                         href="#"
-                                        :disabled="!isAuthUserProfile"
+                                        :disabled="!isAuthProfile"
                                         onclick="this.blur()"
                                         class="btn btn-success btn-block font-weight-bold mt-0"
-                                        :class="{ disabled: !isAuthUserProfile }"
+                                        :class="{ disabled: !isAuthProfile }"
                                         aria-label="Save"
                                         @click.prevent="updateUser"
                                     >
@@ -178,7 +178,7 @@
                                                 id="admin"
                                                 type="checkbox"
                                                 class="switch"
-                                                :disabled="isAuthUserProfile"
+                                                :disabled="isAuthProfile"
                                                 :checked="user.admin"
                                                 @change="toggleAdmin"
                                             />
@@ -252,7 +252,7 @@ export default {
             return this.user.updatedAt;
         },
 
-        isAuthUserProfile() {
+        isAuthProfile() {
             return this.profile.id === this.user.id;
         },
 

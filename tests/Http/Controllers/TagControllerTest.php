@@ -128,6 +128,33 @@ class TagControllerTest extends TestCase
     }
 
     /** @test */
+    public function it_can_refresh_a_deleted_tag()
+    {
+        $user = factory(config('canvas.user'))->create();
+        $tag = factory(Tag::class)->create([
+            'id' => Uuid::uuid4()->toString(),
+            'name' => 'A deleted tag',
+            'slug' => 'a-deleted-tag',
+            'user_id' => $user->id,
+            'deleted_at' => now()
+        ]);
+
+        $data = [
+            'id' => Uuid::uuid4()->toString(),
+            'name' => $tag->name,
+            'slug' => $tag->slug,
+            'user_id' => $user->id,
+        ];
+
+        $this->actingAs($user)
+             ->postJson("canvas/api/tags/{$data['id']}", $data)
+             ->assertSuccessful()
+             ->assertJsonExactFragment($data['name'], 'name')
+             ->assertJsonExactFragment($data['slug'], 'slug')
+             ->assertJsonExactFragment($user->id, 'user_id');
+    }
+
+    /** @test */
     public function it_can_update_an_existing_tag()
     {
         $tag = factory(Tag::class)->create();
