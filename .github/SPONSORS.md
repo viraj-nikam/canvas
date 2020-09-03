@@ -4,9 +4,9 @@
  [Laravel](https://laravel.com) community. Since blog platforms dominate so much of the Internet today, it makes
  sense that there should be a simple, easy-to-use package that can drop into your application with little to no effort.
 
-**Financial contributions will never be required to maintain this project**, they are however very much appreciated. If you've ever used Canvas in your daily work, either personally or professionally, and feel that it has made your life easier, consider supporting the project by buying a cup of coffee.
-
-<iframe src="https://github.com/sponsors/austintoddj/card" title="Sponsor austintoddj" height="225" width="600" style="border: 0;"></iframe>
+**Financial contributions will never be required to maintain this project**, they are however very much appreciated
+. If you've ever used Canvas in your daily work, either personally or professionally, and feel that it has made your
+ life easier, consider [supporting the project](https://github.com/sponsors/austintoddj) for the price of coffee.
 
 If you haven't already, [star the repo](https://github.com/austintoddj/canvas/stargazers) to show your support, it makes a huge difference. Thank you in advance. :-)
 
