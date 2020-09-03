@@ -6,6 +6,7 @@ use Canvas\Http\Middleware\Session;
 use Canvas\Models\Post;
 use Canvas\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Collection;
 
 /**
  * Class SessionTest.
@@ -34,6 +35,34 @@ class SessionTest extends TestCase
     }
 
     /** @test */
+    public function it_can_get_viewed_posts_in_session()
+    {
+        $post = factory(Post::class)->create();
+
+        session()->put('viewed_posts.'.$post->id, now()->timestamp);
+
+        $response = $this->invokeMethod($this->instance, 'getViewedPostsInSession');
+
+        $this->assertInstanceOf(Collection::class, $response);
+
+        $this->assertArrayHasKey($post->id, session()->get('viewed_posts'));
+    }
+
+    /** @test */
+    public function it_can_get_visited_posts_in_session()
+    {
+        $post = factory(Post::class)->create();
+
+        session()->put('viewed_posts.'.$post->id, now()->timestamp);
+
+        $response = $this->invokeMethod($this->instance, 'getVisitedPostsInSession');
+
+        $this->assertInstanceOf(Collection::class, $response);
+
+        $this->assertArrayHasKey($post->id, session()->get('viewed_posts'));
+    }
+
+    /** @test */
     public function it_can_prune_expired_views()
     {
         $recentPost = factory(Post::class)->create();
@@ -44,7 +73,9 @@ class SessionTest extends TestCase
 
         session()->put('viewed_posts.'.$oldPost->id, now()->subHour()->subMinute()->timestamp);
 
-        $this->invokeMethod($this->instance, 'pruneExpiredViews', [collect(session()->get('viewed_posts'))]);
+        $this->invokeMethod($this->instance, 'pruneExpiredViews', [
+            collect(session()->get('viewed_posts'))
+        ]);
 
         $this->assertArrayHasKey($recentPost->id, session()->get('viewed_posts'));
         $this->assertArrayNotHasKey($oldPost->id, session()->get('viewed_posts'));
@@ -69,7 +100,9 @@ class SessionTest extends TestCase
             'ip' => $ip,
         ]);
 
-        $this->invokeMethod($this->instance, 'pruneExpiredVisits', [collect(session()->get('visited_posts'))]);
+        $this->invokeMethod($this->instance, 'pruneExpiredVisits', [
+            collect(session()->get('visited_posts'))
+        ]);
 
         $this->assertArrayHasKey($recentPost->id, session()->get('visited_posts'));
         $this->assertArrayNotHasKey($oldPost->id, session()->get('visited_posts'));

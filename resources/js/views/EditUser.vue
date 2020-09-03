@@ -286,6 +286,7 @@ export default {
             this.username = this.user.username;
             this.summary = this.user.summary;
             this.admin = this.user.admin;
+            this.avatar = this.user.avatar;
             this.isReady = true;
             NProgress.done();
         },
@@ -294,23 +295,22 @@ export default {
     async created() {
         await Promise.all([this.fetchUser()]);
 
-        // TODO: The user is not available at this point :sadpanda:
-        // console.log(this.user);
+        // TODO: this.user.* is not available at this point :sadpanda:
+        // console.log(this.user.avatar);
 
         this.username = this.user.username;
         this.summary = this.user.summary;
         this.admin = this.user.admin;
         this.avatar = this.user.avatar;
-
-        // console.log(this.avatar);
-
         this.isReady = true;
         NProgress.done();
     },
 
     methods: {
         fetchUser() {
+            // TODO: This is a hack to ensure we have empty form fields
             this.$store.dispatch('user/resetState');
+
             this.$store.dispatch('user/fetchUser', this.uri);
             NProgress.inc();
         },

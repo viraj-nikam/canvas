@@ -19,6 +19,7 @@ class UserController extends Controller
      */
     public function index(Request $request): JsonResponse
     {
+        // TODO: Join users on canvas_posts by user_id
         return response()->json(resolve(config('canvas.user', User::class))->latest()->paginate(), 200);
     }
 
