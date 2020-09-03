@@ -6,7 +6,7 @@
 
 **Financial contributions will never be required to maintain this project**, they are however very much appreciated
 . If you've ever used Canvas in your daily work, either personally or professionally, and feel that it has made your
- life easier, consider [supporting the project](https://github.com/sponsors/austintoddj) for the price of coffee.
+ life easier, consider [supporting the project](https://github.com/sponsors/austintoddj) for the price of a coffee.
 
 If you haven't already, [star the repo](https://github.com/austintoddj/canvas/stargazers) to show your support, it makes a huge difference. Thank you in advance. :-)
 
