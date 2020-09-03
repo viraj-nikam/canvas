@@ -293,5 +293,6 @@ Canvas is open-sourced software licensed under the [MIT license](license).
 - [@austintoddj](https://twitter.com/austintoddj)
 - [@talvbansal](https://twitter.com/talv)
 - [@reliq](https://twitter.com/IAmReliq)
+- [@mithicher](https://twitter.com/mithicher) 
 - [@themsaid](https://twitter.com/themsaid)
 - [@NinaLimpi](https://twitter.com/NinaLimpi) 
