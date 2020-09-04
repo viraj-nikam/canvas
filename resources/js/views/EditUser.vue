@@ -172,20 +172,20 @@
                             <div class="ml-auto pl-3">
                                 <div class="align-middle">
                                     <div class="form-group my-auto">
-                                        <span v-if="isReady" class="switch switch-sm">
-                                            <input
-                                                v-model="admin"
-                                                id="admin"
-                                                type="checkbox"
-                                                class="switch"
-                                                :disabled="isAuthProfile"
-                                                :checked="user.admin"
-                                                @change="toggleAdmin"
-                                            />
-                                            <label for="admin" class="mb-0 sr-only">
-                                                {{ trans.grant_this_user_admin_privileges }}
-                                            </label>
-                                        </span>
+<!--                                        <span v-if="isReady" class="switch switch-sm">-->
+<!--                                            <input-->
+<!--                                                v-model="admin"-->
+<!--                                                id="admin"-->
+<!--                                                type="checkbox"-->
+<!--                                                class="switch"-->
+<!--                                                :disabled="isAuthProfile"-->
+<!--                                                :checked="user.admin"-->
+<!--                                                @change="toggleAdmin"-->
+<!--                                            />-->
+<!--                                            <label for="admin" class="mb-0 sr-only">-->
+<!--                                                {{ trans.grant_this_user_admin_privileges }}-->
+<!--                                            </label>-->
+<!--                                        </span>-->
                                     </div>
                                 </div>
                             </div>
@@ -235,7 +235,7 @@ export default {
             username: '',
             summary: '',
             avatar: '',
-            admin: false,
+            role: 1,
             selectedImagesForPond: [],
             isReadyToAcceptUploads: false,
             isReady: false,
@@ -285,7 +285,7 @@ export default {
             await Promise.all([this.fetchUser()]);
             this.username = this.user.username;
             this.summary = this.user.summary;
-            this.admin = this.user.admin;
+            this.role = this.user.role;
             this.avatar = this.user.avatar;
             this.isReady = true;
             NProgress.done();
@@ -300,7 +300,7 @@ export default {
 
         this.username = this.user.username;
         this.summary = this.user.summary;
-        this.admin = this.user.admin;
+        this.role = this.user.role;
         this.avatar = this.user.avatar;
         this.isReady = true;
         NProgress.done();
@@ -340,9 +340,9 @@ export default {
             this.isReadyToAcceptUploads = true;
         },
 
-        toggleAdmin() {
-            this.$store.dispatch('user/updateAdmin', {
-                admin: this.admin,
+        selectRole() {
+            this.$store.dispatch('user/updateRole', {
+                role: this.role,
             });
         },
     },

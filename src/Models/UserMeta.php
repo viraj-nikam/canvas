@@ -4,11 +4,31 @@ namespace Canvas\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User;
 
 class UserMeta extends Model
 {
+    /**
+     * Role identifier for a Contributor.
+     *
+     * @const int
+     */
+    public const CONTRIBUTOR = 1;
+
+    /**
+     * Role identifier for an Editor.
+     *
+     * @const int
+     */
+    public const EDITOR = 2;
+
+    /**
+     * Role identifier for an Admin.
+     *
+     * @const int
+     */
+    public const ADMIN = 3;
+
     /**
      * The table associated with the model.
      *
@@ -31,7 +51,7 @@ class UserMeta extends Model
     protected $casts = [
         'digest' => 'boolean',
         'dark_mode' => 'boolean',
-        'role_id' => 'integer',
+        'role' => 'int',
     ];
 
     /**
@@ -45,12 +65,32 @@ class UserMeta extends Model
     }
 
     /**
-     * Get the role relationship.
+     * Check to see if the user is a Contributor.
      *
-     * @return HasOne
+     * @return bool
      */
-    public function role(): HasOne
+    public function getIsContributorAttribute(): bool
     {
-        return $this->hasOne(Role::class, 'id', 'role_id');
+        return $this->role === self::CONTRIBUTOR;
+    }
+
+    /**
+     * Check to see if the user is an Editor.
+     *
+     * @return bool
+     */
+    public function getIsEditorAttribute(): bool
+    {
+        return $this->role === self::EDITOR;
+    }
+
+    /**
+     * Check to see if the user is an Admin.
+     *
+     * @return bool
+     */
+    public function getIsAdminAttribute(): bool
+    {
+        return $this->role === self::ADMIN;
     }
 }

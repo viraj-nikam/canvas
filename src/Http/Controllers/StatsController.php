@@ -4,7 +4,6 @@ namespace Canvas\Http\Controllers;
 
 use Canvas\Helpers\Traffic;
 use Canvas\Models\Post;
-use Canvas\Models\Role;
 use Canvas\Models\UserMeta;
 use Canvas\Models\View;
 use Canvas\Models\Visit;
@@ -68,7 +67,7 @@ class StatsController extends Controller
     {
         $meta = UserMeta::firstWhere('user_id', $request->user()->id);
 
-        $hasAccess = in_array(optional($meta)->role_id, [Role::EDITOR, Role::ADMIN]);
+        $hasAccess = optional($meta)->isAdmin || optional($meta)->isEditor;
 
         if ($hasAccess) {
             $post = Post::find($id);

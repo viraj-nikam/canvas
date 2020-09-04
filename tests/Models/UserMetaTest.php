@@ -3,12 +3,10 @@
 namespace Canvas\Tests\Models;
 
 use Canvas\Http\Middleware\Session;
-use Canvas\Models\Role;
 use Canvas\Models\UserMeta;
 use Canvas\Tests\TestCase;
 use Illuminate\Auth\Middleware\Authorize;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -52,11 +50,11 @@ class UserMetaTest extends TestCase
     }
 
     /** @test */
-    public function role_id_is_cast_to_an_integer()
+    public function role_is_cast_to_an_integer()
     {
         $meta = factory(UserMeta::class)->create();
 
-        $this->assertIsInt($meta->role_id);
+        $this->assertIsInt($meta->role);
     }
 
     /** @test */
@@ -69,11 +67,32 @@ class UserMetaTest extends TestCase
     }
 
     /** @test */
-    public function role_relationship()
+    public function contributor_attribute()
     {
-        $meta = factory(UserMeta::class)->create();
+        $meta = factory(UserMeta::class)->create([
+            'role' => UserMeta::CONTRIBUTOR
+        ]);
 
-        $this->assertInstanceOf(HasOne::class, $meta->role());
-        $this->assertInstanceOf(Role::class, $meta->role);
+        $this->assertTrue($meta->isContributor);
+    }
+
+    /** @test */
+    public function editor_attribute()
+    {
+        $meta = factory(UserMeta::class)->create([
+            'role' => UserMeta::EDITOR
+        ]);
+
+        $this->assertTrue($meta->isEditor);
+    }
+
+    /** @test */
+    public function admin_attribute()
+    {
+        $meta = factory(UserMeta::class)->create([
+            'role' => UserMeta::ADMIN
+        ]);
+
+        $this->assertTrue($meta->isAdmin);
     }
 }

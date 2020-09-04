@@ -93,33 +93,9 @@ class CreateCanvasTables extends Migration
             $table->tinyInteger('dark_mode')->nullable();
             $table->tinyInteger('digest')->nullable();
             $table->string('locale')->nullable();
-            $table->tinyInteger('role_id')->nullable();
+            $table->tinyInteger('role')->nullable();
             $table->timestamps();
         });
-
-        Schema::create('canvas_roles', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('slug');
-            $table->string('name');
-        });
-
-        DB::table('canvas_roles')->insert([
-            [
-                'id' => Role::CONTRIBUTOR,
-                'slug' => 'contributor',
-                'name' => 'Contributor',
-            ],
-            [
-                'id' => Role::EDITOR,
-                'slug' => 'editor',
-                'name' => 'Editor',
-            ],
-            [
-                'id' => Role::ADMIN,
-                'slug' => 'admin',
-                'name' => 'Admin',
-            ],
-        ]);
     }
 
     /**
@@ -137,6 +113,5 @@ class CreateCanvasTables extends Migration
         Schema::dropIfExists('canvas_views');
         Schema::dropIfExists('canvas_visits');
         Schema::dropIfExists('canvas_user_meta');
-        Schema::dropIfExists('canvas_roles');
     }
 }

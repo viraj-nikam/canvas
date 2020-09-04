@@ -8,7 +8,7 @@ const initialState = {
     avatar: window.Canvas.user.avatar,
     username: window.Canvas.user.username,
     summary: window.Canvas.user.summary,
-    admin: window.Canvas.user.admin,
+    role: window.Canvas.user.role_id,
 };
 
 const state = { ...initialState };
@@ -28,9 +28,17 @@ const mutations = {
 };
 
 const getters = {
-    isAdmin(state) {
-        return state.admin === true;
+    isContributor(state) {
+        return state.role === 1;
     },
+
+    isEditor(state) {
+        return state.role === 2;
+    },
+
+    isAdmin(state) {
+        return state.role === 3;
+    }
 };
 
 export default {

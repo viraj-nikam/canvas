@@ -4,7 +4,6 @@ namespace Canvas\Tests\Http\Controllers;
 
 use Canvas\Http\Middleware\Session;
 use Canvas\Models\Post;
-use Canvas\Models\Role;
 use Canvas\Models\UserMeta;
 use Canvas\Tests\TestCase;
 use Illuminate\Auth\Middleware\Authorize;
@@ -102,7 +101,7 @@ class StatsControllerTest extends TestCase
     public function it_can_show_stats_for_another_users_published_post_as_an_admin()
     {
         $admin = factory(UserMeta::class)->create([
-            'role_id' => Role::ADMIN,
+            'role' => UserMeta::ADMIN,
         ]);
 
         $post = factory(Post::class)->create([
@@ -161,7 +160,7 @@ class StatsControllerTest extends TestCase
     public function it_can_show_stats_for_another_users_published_post_as_an_editor()
     {
         $editor = factory(UserMeta::class)->create([
-            'role_id' => Role::EDITOR,
+            'role' => UserMeta::EDITOR,
         ]);
 
         $post = factory(Post::class)->create([
@@ -220,7 +219,7 @@ class StatsControllerTest extends TestCase
     public function it_can_show_stats_for_a_users_published_post_as_a_contributor()
     {
         $contributor = factory(UserMeta::class)->create([
-            'role_id' => Role::CONTRIBUTOR,
+            'role' => UserMeta::CONTRIBUTOR,
         ]);
 
         $post = factory(Post::class)->create([

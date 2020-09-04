@@ -80,7 +80,7 @@ class ViewController extends Controller
             'username' => optional($meta)->username,
             'summary' => optional($meta)->summary,
             'digest' => optional($meta)->digest,
-            'role' => optional($meta)->role_id,
+            'role' => optional($meta)->role,
         ];
     }
 

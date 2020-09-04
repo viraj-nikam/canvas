@@ -4,7 +4,6 @@ namespace Canvas\Tests\Models;
 
 use Canvas\Http\Middleware\Session;
 use Canvas\Models\Post;
-use Canvas\Models\Role;
 use Canvas\Models\Tag;
 use Canvas\Models\UserMeta;
 use Canvas\Tests\TestCase;
@@ -52,7 +51,7 @@ class TagTest extends TestCase
 
         factory(UserMeta::class)->create([
             'user_id' => $tagOne->user->id,
-            'role_id' => Role::ADMIN,
+            'role' => UserMeta::ADMIN,
         ]);
 
         $response = $this->actingAs($tagOne->user)->postJson("/canvas/api/tags/{$tagOne->id}", $data);
@@ -67,7 +66,7 @@ class TagTest extends TestCase
 
         factory(UserMeta::class)->create([
             'user_id' => $tagTwo->user->id,
-            'role_id' => Role::ADMIN,
+            'role' => UserMeta::ADMIN,
         ]);
 
         $response = $this->actingAs($tagTwo->user)->postJson("/canvas/api/tags/{$tagTwo->id}", $data);

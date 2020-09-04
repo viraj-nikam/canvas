@@ -64,7 +64,7 @@ class UserController extends Controller
             'user_id' => $meta->user_id,
             'username' => $request->input('username', $meta->username ?? null),
             'summary' => $request->input('summary', $meta->summary ?? null),
-            'role_id' => $request->input('role', $meta->role_id ?? null),
+            'role' => $request->input('role', $meta->role ?? null),
         ];
 
         $rules = [

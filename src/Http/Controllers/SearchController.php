@@ -3,7 +3,6 @@
 namespace Canvas\Http\Controllers;
 
 use Canvas\Models\Post;
-use Canvas\Models\Role;
 use Canvas\Models\Tag;
 use Canvas\Models\Topic;
 use Canvas\Models\UserMeta;
@@ -24,7 +23,7 @@ class SearchController extends Controller
     {
         $meta = UserMeta::where('user_id', $request->user()->id)->first();
 
-        if (in_array(optional($meta)->role_id, [Role::EDITOR, Role::ADMIN])) {
+        if (optional($meta)->isAdmin || optional($meta)->isEditor) {
             $posts = Post::select('id', 'title')->latest()->get();
         } else {
             $posts = Post::where('user_id', $request->user()->id)->select('id', 'title')->latest()->get();
