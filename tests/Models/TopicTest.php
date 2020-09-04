@@ -4,6 +4,7 @@ namespace Canvas\Tests\Models;
 
 use Canvas\Http\Middleware\Session;
 use Canvas\Models\Post;
+use Canvas\Models\Role;
 use Canvas\Models\Topic;
 use Canvas\Models\UserMeta;
 use Canvas\Tests\TestCase;
@@ -51,7 +52,7 @@ class TopicTest extends TestCase
 
         factory(UserMeta::class)->create([
             'user_id' => $topicOne->user->id,
-            'admin' => 1,
+            'role_id' => Role::ADMIN,
         ]);
 
         $response = $this->actingAs($topicOne->user)->postJson("/canvas/api/topics/{$topicOne->id}", $data);
@@ -66,7 +67,7 @@ class TopicTest extends TestCase
 
         factory(UserMeta::class)->create([
             'user_id' => $topicTwo->user->id,
-            'admin' => 1,
+            'role_id' => Role::ADMIN,
         ]);
 
         $response = $this->actingAs($topicTwo->user)->postJson("/canvas/api/topics/{$topicTwo->id}", $data);

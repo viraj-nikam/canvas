@@ -15,6 +15,6 @@ $factory->define(\Canvas\Models\UserMeta::class, function (Faker\Generator $fake
         'dark_mode' => $faker->numberBetween(0, 1),
         'digest' => $faker->numberBetween(0, 1),
         'locale' => $faker->locale,
-        'admin' => 0,
+        'role_id' => $faker->numberBetween(1, 3),
     ];
 });

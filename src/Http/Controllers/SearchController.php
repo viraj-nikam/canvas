@@ -3,8 +3,10 @@
 namespace Canvas\Http\Controllers;
 
 use Canvas\Models\Post;
+use Canvas\Models\Role;
 use Canvas\Models\Tag;
 use Canvas\Models\Topic;
+use Canvas\Models\UserMeta;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -20,7 +22,13 @@ class SearchController extends Controller
      */
     public function showPosts(Request $request): JsonResponse
     {
-        $posts = Post::where('user_id', $request->user()->id)->select('id', 'title')->latest()->get();
+        $meta = UserMeta::where('user_id', $request->user()->id)->first();
+
+        if (in_array(optional($meta)->role_id, [Role::EDITOR, Role::ADMIN])) {
+            $posts = Post::select('id', 'title')->latest()->get();
+        } else {
+            $posts = Post::where('user_id', $request->user()->id)->select('id', 'title')->latest()->get();
+        }
 
         $posts->map(function ($post) {
             $post['name'] = $post->title;

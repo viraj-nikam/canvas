@@ -67,7 +67,7 @@ class UserControllerTest extends TestCase
         $this->assertSame($meta->summary, $response->decodeResponseJson('meta.summary'));
         $this->assertSame($meta->dark_mode, $response->decodeResponseJson('meta.dark_mode'));
         $this->assertSame($meta->locale, $response->decodeResponseJson('meta.locale'));
-        $this->assertEquals($meta->admin, $response->decodeResponseJson('meta.admin'));
+        $this->assertEquals($meta->role_id, $response->decodeResponseJson('meta.role_id'));
         $this->assertSame($meta->digest, $response->decodeResponseJson('meta.digest'));
     }
 

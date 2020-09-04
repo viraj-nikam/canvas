@@ -4,6 +4,7 @@ namespace Canvas\Http\Controllers;
 
 use Canvas\Helpers\Traffic;
 use Canvas\Models\Post;
+use Canvas\Models\Role;
 use Canvas\Models\UserMeta;
 use Canvas\Models\View;
 use Canvas\Models\Visit;
@@ -65,15 +66,15 @@ class StatsController extends Controller
      */
     public function show(Request $request, string $id): JsonResponse
     {
-        $admin = optional(UserMeta::firstWhere('user_id', $request->user()->id))->admin;
+        $meta = UserMeta::firstWhere('user_id', $request->user()->id);
 
-        $post = Post::when($admin, function ($query, $admin) use ($request) {
-            if ($admin) {
-                return $query;
-            }
+        $hasAccess = in_array(optional($meta)->role_id, [Role::EDITOR, Role::ADMIN]);
 
-            return $query->where('user_id', $request->user()->id);
-        })->find($id);
+        if ($hasAccess) {
+            $post = Post::find($id);
+        } else {
+            $post = Post::where('user_id', $request->user()->id)->find($id);
+        }
 
         if (! $post || ! $post->published) {
             return response()->json(null, 404);

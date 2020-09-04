@@ -4,6 +4,7 @@ namespace Canvas\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User;
 
 class UserMeta extends Model
@@ -30,7 +31,7 @@ class UserMeta extends Model
     protected $casts = [
         'digest' => 'boolean',
         'dark_mode' => 'boolean',
-        'admin' => 'boolean',
+        'role_id' => 'integer',
     ];
 
     /**
@@ -41,5 +42,15 @@ class UserMeta extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(config('canvas.user', User::class));
+    }
+
+    /**
+     * Get the role relationship.
+     *
+     * @return HasOne
+     */
+    public function role(): HasOne
+    {
+        return $this->hasOne(Role::class, 'id', 'role_id');
     }
 }

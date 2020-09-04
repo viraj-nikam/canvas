@@ -2,6 +2,7 @@
 
 namespace Canvas\Console;
 
+use Canvas\Models\Role;
 use Canvas\Models\UserMeta;
 use Illuminate\Console\Command;
 use Illuminate\Foundation\Auth\User;
@@ -49,13 +50,13 @@ class AdminCommand extends Command
 
         $meta = UserMeta::where('user_id', $user->id)->first() ?? new UserMeta(['user_id' => $user->id]);
 
-        if ($meta->admin) {
+        if ($meta->role_id === Role::ADMIN) {
             $this->info('User is already an admin.');
 
             return;
         }
 
-        $meta->admin = true;
+        $meta->role_id = Role::ADMIN;
 
         $meta->save();
 

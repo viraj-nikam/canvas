@@ -3,10 +3,12 @@
 namespace Canvas\Tests\Models;
 
 use Canvas\Http\Middleware\Session;
+use Canvas\Models\Role;
 use Canvas\Models\UserMeta;
 use Canvas\Tests\TestCase;
 use Illuminate\Auth\Middleware\Authorize;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -50,11 +52,28 @@ class UserMetaTest extends TestCase
     }
 
     /** @test */
+    public function role_id_is_cast_to_an_integer()
+    {
+        $meta = factory(UserMeta::class)->create();
+
+        $this->assertIsInt($meta->role_id);
+    }
+
+    /** @test */
     public function user_relationship()
     {
         $meta = factory(UserMeta::class)->create();
 
         $this->assertInstanceOf(BelongsTo::class, $meta->user());
         $this->assertInstanceOf(config('canvas.user'), $meta->user);
+    }
+
+    /** @test */
+    public function role_relationship()
+    {
+        $meta = factory(UserMeta::class)->create();
+
+        $this->assertInstanceOf(HasOne::class, $meta->role());
+        $this->assertInstanceOf(Role::class, $meta->role);
     }
 }
