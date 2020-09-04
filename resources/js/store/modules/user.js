@@ -84,7 +84,7 @@ const mutations = {
         state.avatar = get(data.meta, 'avatar') || url.methods.gravatar(data.user.email);
         state.username = get(data.meta, 'username', '');
         state.summary = get(data.meta, 'summary', '');
-        state.role = get(data.meta, 'role_id', 1);
+        state.role = get(data.meta, 'role', 1);
         state.updatedAt = get(data.meta, 'updated_at', data.user.updated_at);
     },
 
@@ -95,13 +95,13 @@ const mutations = {
         state.avatar = data.meta.avatar;
         state.username = data.meta.username;
         state.summary = data.meta.summary;
-        state.role = data.meta.role_id;
+        state.role = data.meta.role;
         state.updatedAt = data.meta.updated_at;
         state.errors = [];
     },
 
     UPDATE_ROLE(state, data) {
-        state.role = data.meta.role_id;
+        state.role = data.meta.role;
     },
 
     RESET_AVATAR(state) {

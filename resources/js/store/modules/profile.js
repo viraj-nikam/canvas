@@ -8,7 +8,7 @@ const initialState = {
     avatar: window.Canvas.user.avatar,
     username: window.Canvas.user.username,
     summary: window.Canvas.user.summary,
-    role: window.Canvas.user.role_id,
+    role: window.Canvas.user.role,
 };
 
 const state = { ...initialState };
