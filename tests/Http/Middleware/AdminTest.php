@@ -2,6 +2,7 @@
 
 namespace Canvas\Tests\Http\Middleware;
 
+use Canvas\Models\User;
 use Canvas\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -17,7 +18,7 @@ class AdminTest extends TestCase
     /**
      * @return array
      */
-    public function restrictedRoutesProvider(): array
+    public function protectedRoutesProvider(): array
     {
         return [
             ['GET', 'canvas/api/tags'],
@@ -37,13 +38,30 @@ class AdminTest extends TestCase
 
     /**
      * @test
-     * @dataProvider restrictedRoutesProvider
+     * @dataProvider protectedRoutesProvider
      * @param $method
      * @param $endpoint
      */
-    public function it_restricts_access_to_non_admins($method, $endpoint)
+    public function it_restricts_contributors_access($method, $endpoint)
     {
-        $user = factory(config('canvas.user'))->create();
+        $user = factory(User::class)->create([
+            'role' => User::CONTRIBUTOR
+        ]);
+
+        $this->actingAs($user)->call($method, $endpoint)->assertForbidden();
+    }
+
+    /**
+     * @test
+     * @dataProvider protectedRoutesProvider
+     * @param $method
+     * @param $endpoint
+     */
+    public function it_restricts_editors_access($method, $endpoint)
+    {
+        $user = factory(User::class)->create([
+            'role' => User::EDITOR
+        ]);
 
         $this->actingAs($user)->call($method, $endpoint)->assertForbidden();
     }

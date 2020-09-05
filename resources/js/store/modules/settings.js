@@ -11,6 +11,7 @@ const initialState = {
     digest: window.Canvas.user.digest,
     darkMode: window.Canvas.user.darkMode,
     locale: window.Canvas.user.locale,
+    roles: window.Canvas.roles,
 };
 
 const state = { ...initialState };

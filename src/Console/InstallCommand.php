@@ -2,7 +2,9 @@
 
 namespace Canvas\Console;
 
+use Canvas\Models\User;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 class InstallCommand extends Command
@@ -35,7 +37,27 @@ class InstallCommand extends Command
 
         $this->registerCanvasServiceProvider();
 
+        $this->createDefaultUser($email = 'email@example.com', $password = 'password');
+
         $this->info('Installation complete.');
+        $this->table(['Default Email', 'Default Password'], [[$email, $password]]);
+        $this->info('First things first, login at <info>'. route('canvas.login') . '</info> and update your credentials.');
+    }
+
+    /**
+     * Create a default user.
+     *
+     * @param string $email
+     * @param string $password
+     */
+    private function createDefaultUser(string $email, string $password)
+    {
+        User::create([
+            'name' => 'Example User',
+            'email' => $email,
+            'password' => Hash::make($password),
+            'role' => User::ADMIN
+        ]);
     }
 
     /**

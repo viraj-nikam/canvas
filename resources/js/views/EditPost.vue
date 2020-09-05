@@ -51,7 +51,7 @@
                         </router-link>
                         <div v-if="isPublished(post.publishedAt)" class="dropdown-divider" />
                         <a
-                            v-if="isDraft(post.publishedAt)"
+                            v-if="isDraft(post.publishedAt) && (isAdmin || isEditor)"
                             href="#"
                             class="dropdown-item"
                             @click="showPublishModal"
@@ -156,6 +156,8 @@ export default {
         ...mapState(['post']),
         ...mapGetters({
             trans: 'settings/trans',
+            isAdmin: 'profile/isAdmin',
+            isEditor: 'profile/isEditor'
         }),
 
         creatingPost() {

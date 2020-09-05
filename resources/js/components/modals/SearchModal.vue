@@ -107,7 +107,6 @@ export default {
     computed: {
         ...mapState(['search']),
         ...mapGetters({
-            isAdmin: 'profile/isAdmin',
             trans: 'settings/trans',
         }),
     },

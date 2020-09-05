@@ -10,7 +10,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Str;
 
@@ -124,24 +123,7 @@ class Post extends Model
      */
     public function user(): BelongsTo
     {
-        return $this->belongsTo(config('canvas.user', User::class));
-    }
-
-    /**
-     * Get the user meta relationship.
-     *
-     * @return HasOneThrough
-     */
-    public function userMeta(): HasOneThrough
-    {
-        return $this->hasOneThrough(
-            UserMeta::class,
-            config('canvas.user', User::class),
-            'id',       // Foreign key on users table...
-            'user_id',  // Foreign key on canvas_posts table...
-            'user_id',  // Local key on canvas_posts table...
-            'id'        // Local key on users table...
-        );
+        return $this->belongsTo(User::class);
     }
 
     /**
@@ -189,8 +171,8 @@ class Post extends Model
 
         return sprintf('%d %s %s',
             $minutes,
-            Str::plural(trans('canvas::app.min', [], optional($this->userMeta)->locale), $minutes),
-            trans('canvas::app.read', [], optional($this->userMeta)->locale)
+            Str::plural(trans('canvas::app.min', [], $this->user->locale), $minutes),
+            trans('canvas::app.read', [], $this->user->locale)
         );
     }
 
@@ -255,7 +237,7 @@ class Post extends Model
         $collection = collect();
         $data->each(function ($item, $key) use ($collection) {
             if (empty(URL::trim($item->referer))) {
-                $collection->push(trans('canvas::app.other', [], optional($this->userMeta)->locale));
+                $collection->push(trans('canvas::app.other', [], $this->user->locale));
             } else {
                 $collection->push(URL::trim($item->referer));
             }
@@ -293,17 +275,6 @@ class Post extends Model
     public function scopeDraft($query): Builder
     {
         return $query->where('published_at', null)->orWhere('published_at', '>', now()->toDateTimeString());
-    }
-
-    /**
-     * Scope a query to eager load user meta.
-     *
-     * @param $query
-     * @return Builder
-     */
-    public function scopeWithUserMeta($query): Builder
-    {
-        return $query->with('userMeta');
     }
 
     /**

@@ -20,7 +20,7 @@ const actions = {
                 context.commit('UPDATE_INDEX', data);
             });
 
-        if (profile.getters.isAdmin) {
+        if (context.rootGetters["profile/isAdmin"]) {
             request.methods
                 .request()
                 .get('/api/search/tags')

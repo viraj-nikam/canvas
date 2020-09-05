@@ -9,6 +9,7 @@ use Canvas\Console\PublishCommand;
 use Canvas\Events\PostViewed;
 use Canvas\Listeners\CaptureView;
 use Canvas\Listeners\CaptureVisit;
+use Canvas\Models\User;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Support\ServiceProvider;
@@ -39,6 +40,7 @@ class CanvasServiceProvider extends ServiceProvider
         $this->configureRoutes();
         $this->configureCommands();
         $this->registerMigrations();
+        $this->registerAuthDriver();
         $this->registerEvents();
     }
 
@@ -101,6 +103,24 @@ class CanvasServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
         }
+    }
+
+    /**
+     * Register the package's authentication driver.
+     *
+     * @return void
+     */
+    private function registerAuthDriver()
+    {
+        $this->app->config->set('auth.providers.canvas_users', [
+            'driver' => 'eloquent',
+            'model' => User::class,
+        ]);
+
+        $this->app->config->set('auth.guards.canvas', [
+            'driver' => 'session',
+            'provider' => 'canvas_users',
+        ]);
     }
 
     /**

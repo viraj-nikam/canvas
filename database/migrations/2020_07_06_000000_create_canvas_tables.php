@@ -64,7 +64,7 @@ class CreateCanvasTables extends Migration
         });
 
         Schema::create('canvas_views', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id('id');
             $table->uuid('post_id')->index();
             $table->string('ip')->nullable();
             $table->string('agent')->nullable();
@@ -74,7 +74,7 @@ class CreateCanvasTables extends Migration
         });
 
         Schema::create('canvas_visits', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id('id');
             $table->uuid('post_id');
             $table->string('ip')->nullable();
             $table->string('agent')->nullable();
@@ -82,17 +82,21 @@ class CreateCanvasTables extends Migration
             $table->timestamps();
         });
 
-        Schema::create('canvas_user_meta', function (Blueprint $table) {
-            $table->increments('id');
-            $table->unsignedBigInteger('user_id')->unique()->default(0);
+        Schema::create('canvas_users', function (Blueprint $table) {
+            $table->id('id');
+            $table->string('name');
+            $table->string('email')->unique();
             $table->string('username')->unique()->nullable();
+            $table->string('password');
             $table->text('summary')->nullable();
             $table->string('avatar')->nullable();
             $table->tinyInteger('dark_mode')->nullable();
             $table->tinyInteger('digest')->nullable();
             $table->string('locale')->nullable();
             $table->tinyInteger('role')->nullable();
+            $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -110,6 +114,6 @@ class CreateCanvasTables extends Migration
         Schema::dropIfExists('canvas_posts_topics');
         Schema::dropIfExists('canvas_views');
         Schema::dropIfExists('canvas_visits');
-        Schema::dropIfExists('canvas_user_meta');
+        Schema::dropIfExists('canvas_users');
     }
 }

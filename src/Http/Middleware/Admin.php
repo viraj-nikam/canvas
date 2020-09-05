@@ -2,7 +2,7 @@
 
 namespace Canvas\Http\Middleware;
 
-use Canvas\Models\UserMeta;
+use Canvas\Models\User;
 use Closure;
 use Illuminate\Http\Request;
 
@@ -17,8 +17,6 @@ class Admin
      */
     public function handle(Request $request, Closure $next)
     {
-        $meta = UserMeta::firstWhere('user_id', $request->user()->id);
-
-        return optional($meta)->isAdmin ? $next($request) : response()->json(null, 403);
+        return $request->user()->role === User::ADMIN ? $next($request) : abort(403);
     }
 }
