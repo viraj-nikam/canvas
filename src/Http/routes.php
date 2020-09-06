@@ -63,7 +63,7 @@ Route::middleware([Authorize::class])->group(function () {
         Route::prefix('users')->group(function () {
             Route::get('/', 'UserController@index')->middleware([Admin::class]);
             Route::get('{id}', 'UserController@show');
-            Route::get('{id}/posts', 'UserController@showPosts');
+            Route::get('{id}/posts', 'UserController@showPosts')->middleware([Admin::class]);
             Route::post('{id}', 'UserController@store');
             Route::delete('{id}', 'UserController@destroy')->middleware([Admin::class]);
         });

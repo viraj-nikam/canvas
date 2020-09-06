@@ -38,7 +38,6 @@ class AdminTest extends TestCase
             // User routes...
             ['GET', 'canvas/api/users'],
             ['GET', 'canvas/api/users/id/posts'],
-            ['POST', 'canvas/api/users/id'],
             ['DELETE', 'canvas/api/users/id'],
 
             // Search routes...
@@ -75,6 +74,6 @@ class AdminTest extends TestCase
             'role' => User::EDITOR,
         ]);
 
-        $this->assertAuthenticatedAs($user)->call($method, $endpoint)->assertForbidden();
+        $this->actingAs($user, 'canvas')->call($method, $endpoint)->assertForbidden();
     }
 }
