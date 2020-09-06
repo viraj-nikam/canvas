@@ -9,8 +9,10 @@ use Canvas\Console\PublishCommand;
 use Canvas\Events\PostViewed;
 use Canvas\Listeners\CaptureView;
 use Canvas\Listeners\CaptureVisit;
+use Canvas\Models\User;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Events\Dispatcher;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
 class CanvasServiceProvider extends ServiceProvider
@@ -39,6 +41,7 @@ class CanvasServiceProvider extends ServiceProvider
         $this->configureRoutes();
         $this->configureCommands();
         $this->registerMigrations();
+        $this->registerAuthDriver();
         $this->registerEvents();
     }
 
@@ -73,7 +76,13 @@ class CanvasServiceProvider extends ServiceProvider
      */
     private function configureRoutes()
     {
-        $this->loadRoutesFrom(__DIR__.'/Http/routes.php');
+        Route::namespace('Canvas\Http\Controllers')
+             ->middleware(config('canvas.middleware'))
+             ->domain(config('canvas.domain'))
+             ->prefix(config('canvas.path'))
+             ->group(function () {
+                 $this->loadRoutesFrom(__DIR__.'/Http/routes.php');
+             });
     }
 
     /**
@@ -101,6 +110,24 @@ class CanvasServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
         }
+    }
+
+    /**
+     * Register the package's authentication driver.
+     *
+     * @return void
+     */
+    private function registerAuthDriver()
+    {
+        $this->app->config->set('auth.providers.canvas_users', [
+            'driver' => 'eloquent',
+            'model' => User::class,
+        ]);
+
+        $this->app->config->set('auth.guards.canvas', [
+            'driver' => 'session',
+            'provider' => 'canvas_users',
+        ]);
     }
 
     /**

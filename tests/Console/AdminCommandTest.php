@@ -2,7 +2,7 @@
 
 namespace Canvas\Tests\Console;
 
-use Canvas\Models\UserMeta;
+use Canvas\Models\User;
 use Canvas\Tests\TestCase;
 
 /**
@@ -33,12 +33,12 @@ class AdminCommandTest extends TestCase
     /** @test */
     public function it_returns_successfully_if_user_is_already_an_admin()
     {
-        $meta = factory(UserMeta::class)->create([
-            'role' => UserMeta::ADMIN,
+        $user = factory(User::class)->create([
+            'role' => User::ADMIN,
         ]);
 
         $this->artisan('canvas:admin')
-             ->expectsQuestion('Enter the email of the user to grant admin access to', $meta->user->email)
+             ->expectsQuestion('Enter the email of the user to grant admin access to', $user->email)
              ->assertExitCode(0)
              ->expectsOutput('User is already an admin.');
     }
@@ -46,12 +46,12 @@ class AdminCommandTest extends TestCase
     /** @test */
     public function it_grants_admin_access_to_a_user()
     {
-        $meta = factory(UserMeta::class)->create([
+        $user = factory(User::class)->create([
             'role' => null,
         ]);
 
         $this->artisan('canvas:admin')
-             ->expectsQuestion('Enter the email of the user to grant admin access to', $meta->user->email)
+             ->expectsQuestion('Enter the email of the user to grant admin access to', $user->email)
              ->assertExitCode(0)
              ->expectsOutput('Access granted.');
     }

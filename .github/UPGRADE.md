@@ -67,6 +67,10 @@ For instance, I use [Sequel Pro](http://sequelpro.com). When I exported my data,
 The base path variable name in `config/canvas.php` changed to be consistent with the newly-added domain variable. 
 You'll need to make sure your `.env` file is up to date with the correct variable: `CANVAS_PATH`.
  
+ //
+ // TODO: Add notes about changes to users
+ //
+ 
 ### Assets
 
 Re-publish the assets using the `canvas:publish` Artisan command:

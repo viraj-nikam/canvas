@@ -2,8 +2,7 @@
 
 namespace Canvas\Http\Controllers;
 
-use Canvas\Models\UserMeta;
-use Illuminate\Foundation\Auth\User;
+use Canvas\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -19,8 +18,11 @@ class UserController extends Controller
      */
     public function index(Request $request): JsonResponse
     {
-        // TODO: Join users on canvas_posts by user_id
-        return response()->json(resolve(config('canvas.user', User::class))->latest()->paginate(), 200);
+        return response()->json(
+            User::latest()
+               ->withCount('posts')
+               ->paginate(), 200
+        );
     }
 
     /**
@@ -32,23 +34,22 @@ class UserController extends Controller
      */
     public function show(Request $request, $id): JsonResponse
     {
-        return response()->json([
-            'user' => resolve(config('canvas.user', User::class))->find($id),
-            'meta' => UserMeta::firstWhere('user_id', $id),
-        ]);
+        $meta = User::firstWhere('user_id', $id);
+
+        return $meta ? response()->json($meta, 200) : response()->json(null, 404);
     }
 
     /**
-     * Update the specified resource in storage.
+     * Store a newly created resource in storage.
      *
      * @param Request $request
      * @param $id
      * @return JsonResponse
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function update(Request $request, $id): JsonResponse
+    public function store(Request $request, $id): JsonResponse
     {
-        $meta = UserMeta::firstWhere('user_id', $id);
+        $meta = UserMeta::firstWhere('user_id', $id)->with('user');
 
         if (! $meta) {
             $meta = new UserMeta([
@@ -92,5 +93,21 @@ class UserController extends Controller
             'meta' => $meta->refresh(),
             'i18n' => collect(trans('canvas::app', [], $meta->locale))->toJson(),
         ], 201);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param Request $request
+     * @param $id
+     * @return mixed
+     */
+    public function destroy(Request $request, $id)
+    {
+        $meta = UserMeta::firstWhere('user_id', $id);
+
+        $meta->delete();
+
+        return response()->json(null, 204);
     }
 }

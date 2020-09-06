@@ -6,7 +6,7 @@ use Canvas\Http\Middleware\Session;
 use Canvas\Models\Post;
 use Canvas\Models\Tag;
 use Canvas\Models\Topic;
-use Canvas\Models\UserMeta;
+use Canvas\Models\User;
 use Canvas\Models\View;
 use Canvas\Models\Visit;
 use Canvas\Tests\TestCase;
@@ -16,7 +16,6 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Str;
@@ -186,20 +185,7 @@ class PostTest extends TestCase
         $post = factory(Post::class)->create();
 
         $this->assertInstanceOf(BelongsTo::class, $post->user());
-        $this->assertInstanceOf(config('canvas.user'), $post->user);
-    }
-
-    /** @test */
-    public function userMeta_relationship()
-    {
-        $post = factory(Post::class)->create();
-
-        factory(UserMeta::class)->create([
-            'user_id' => $post->user->id,
-        ]);
-
-        $this->assertInstanceOf(HasOneThrough::class, $post->userMeta());
-        $this->assertInstanceOf(UserMeta::class, $post->userMeta);
+        $this->assertInstanceOf(User::class, $post->user);
     }
 
     /** @test */
@@ -254,24 +240,6 @@ class PostTest extends TestCase
 
         $this->assertInstanceOf(Builder::class, resolve(Post::class)->draft());
         $this->assertCount(1, Post::draft()->get());
-    }
-
-    /** @test */
-    public function with_user_meta_scope()
-    {
-        $user = factory(config('canvas.user'))->create();
-
-        $post = factory(Post::class)->create([
-            'user_id' => $user->id,
-        ]);
-
-        $meta = factory(UserMeta::class)->create([
-            'user_id' => $user->id,
-        ]);
-
-        $this->assertInstanceOf(Builder::class, resolve(Post::class)->draft());
-        $this->assertInstanceOf(UserMeta::class, Post::all()->first()->userMeta);
-        $this->assertSame($meta->id, $post->withUserMeta()->first()->userMeta->id);
     }
 
     /** @test */

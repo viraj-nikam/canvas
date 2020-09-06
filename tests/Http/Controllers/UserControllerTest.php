@@ -37,19 +37,22 @@ class UserControllerTest extends TestCase
     /** @test */
     public function it_can_fetch_all_users()
     {
-        $user = factory(config('canvas.user'))->create();
+        $meta = factory(UserMeta::class)->create([
+            'role' => UserMeta::ADMIN,
+        ]);
 
-        $response = $this->actingAs($user)->getJson('canvas/api/users')->assertSuccessful();
+        $response = $this->actingAs($meta->user)->getJson('canvas/api/users')->assertSuccessful();
 
         $this->assertIsArray($response->decodeResponseJson('data'));
         $this->assertEquals(1, $response->decodeResponseJson('total'));
-        $this->assertSame($user->id, $response->decodeResponseJson('data.0.id'));
+        $this->assertSame($meta->user->id, $response->decodeResponseJson('data.0.id'));
     }
 
     /** @test */
     public function it_can_fetch_an_existing_user_with_meta_data()
     {
         $meta = factory(UserMeta::class)->create([
+            'role' => UserMeta::ADMIN,
             'locale' => 'en',
         ]);
 

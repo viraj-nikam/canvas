@@ -61,6 +61,9 @@ const actions = {
             })
             .then(({ data }) => {
                 context.commit('UPDATE_ROLE', data);
+                Vue.toasted.show(context.rootGetters['settings/trans'].saved, {
+                    className: 'bg-success',
+                });
             })
             .catch(() => {
                 // Add any error debugging...

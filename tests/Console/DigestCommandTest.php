@@ -4,7 +4,7 @@ namespace Canvas\Tests\Console;
 
 use Canvas\Mail\WeeklyDigest;
 use Canvas\Models\Post;
-use Canvas\Models\UserMeta;
+use Canvas\Models\User;
 use Canvas\Models\View;
 use Canvas\Models\Visit;
 use Canvas\Tests\TestCase;
@@ -22,10 +22,7 @@ class DigestCommandTest extends TestCase
     {
         Mail::fake();
 
-        $user = factory(config('canvas.user'))->create();
-
-        factory(UserMeta::class)->create([
-            'user_id' => $user->id,
+        $user = factory(User::class)->create([
             'digest' => 1,
         ]);
 
@@ -70,10 +67,7 @@ class DigestCommandTest extends TestCase
     {
         Mail::fake();
 
-        $user = factory(config('canvas.user'))->create();
-
-        factory(UserMeta::class)->create([
-            'user_id' => $user->id,
+        $user = factory(User::class)->create([
             'digest' => 0,
         ]);
 

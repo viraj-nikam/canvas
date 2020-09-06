@@ -5,12 +5,11 @@ namespace Canvas\Tests\Models;
 use Canvas\Http\Middleware\Session;
 use Canvas\Models\Post;
 use Canvas\Models\Topic;
-use Canvas\Models\UserMeta;
+use Canvas\Models\User;
 use Canvas\Tests\TestCase;
 use Illuminate\Auth\Middleware\Authorize;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Ramsey\Uuid\Uuid;
@@ -41,20 +40,21 @@ class TopicTest extends TestCase
     /** @test */
     public function topics_can_share_the_same_slug_with_unique_users()
     {
+        $user = factory(User::class)->create([
+            'role' => User::ADMIN,
+        ]);
+
         $data = [
             'id' => Uuid::uuid4()->toString(),
             'name' => 'A new topic',
             'slug' => 'a-new-topic',
         ];
 
-        $topicOne = factory(Topic::class)->create();
-
-        factory(UserMeta::class)->create([
-            'user_id' => $topicOne->user->id,
-            'role' => UserMeta::ADMIN,
+        $topicOne = factory(Topic::class)->create([
+            'user_id' => $user->id,
         ]);
 
-        $response = $this->actingAs($topicOne->user)->postJson("/canvas/api/topics/{$topicOne->id}", $data);
+        $response = $this->actingAs($user, 'canvas')->postJson("/canvas/api/topics/{$topicOne->id}", $data);
 
         $this->assertDatabaseHas('canvas_topics', [
             'id' => $response->decodeResponseJson('id'),
@@ -64,12 +64,7 @@ class TopicTest extends TestCase
 
         $topicTwo = factory(Topic::class)->create();
 
-        factory(UserMeta::class)->create([
-            'user_id' => $topicTwo->user->id,
-            'role' => UserMeta::ADMIN,
-        ]);
-
-        $response = $this->actingAs($topicTwo->user)->postJson("/canvas/api/topics/{$topicTwo->id}", $data);
+        $response = $this->actingAs($user, 'canvas')->postJson("/canvas/api/topics/{$topicTwo->id}", $data);
 
         $this->assertDatabaseHas('canvas_topics', [
             'id' => $response->decodeResponseJson('id'),
@@ -98,19 +93,6 @@ class TopicTest extends TestCase
 
         $this->assertInstanceOf(BelongsTo::class, $topic->user());
         $this->assertInstanceOf(config('canvas.user'), $topic->user);
-    }
-
-    /** @test */
-    public function userMeta_relationship()
-    {
-        $topic = factory(Topic::class)->create();
-
-        factory(UserMeta::class)->create([
-            'user_id' => $topic->user->id,
-        ]);
-
-        $this->assertInstanceOf(HasOneThrough::class, $topic->userMeta());
-        $this->assertInstanceOf(UserMeta::class, $topic->userMeta);
     }
 
     /** @test */
