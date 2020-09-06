@@ -14,7 +14,7 @@ class InstallCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'canvas:install';
+    protected $signature = 'canvas:install {--force : Force the operation to run when in production}';
 
     /**
      * The console command description.
@@ -33,7 +33,10 @@ class InstallCommand extends Command
         $this->callSilent('vendor:publish', ['--tag' => 'canvas-provider']);
         $this->callSilent('vendor:publish', ['--tag' => 'canvas-assets']);
         $this->callSilent('vendor:publish', ['--tag' => 'canvas-config']);
-        $this->callSilent('migrate');
+        $this->callSilent('migrate', [
+            '--path' => 'vendor/austintoddj/canvas/src/database/migrations',
+            '--force' => $this->option('force') ?? true,
+        ]);
 
         $this->registerCanvasServiceProvider();
 
@@ -70,7 +73,7 @@ class InstallCommand extends Command
         $namespace = Str::replaceLast('\\', '', $this->laravel->getNamespace());
         $appConfig = file_get_contents(config_path('app.php'));
 
-        if (Str::contains($appConfig, $namespace.'\\Providers\\CanvasServiceProvider::class')) {
+        if (Str::contains($appConfig, $namespace . '\\Providers\\CanvasServiceProvider::class')) {
             return;
         }
 
@@ -83,8 +86,8 @@ class InstallCommand extends Command
         $eol = array_keys($lineEndingCount, max($lineEndingCount))[0];
 
         file_put_contents(config_path('app.php'), str_replace(
-            "{$namespace}\\Providers\EventServiceProvider::class,".$eol,
-            "{$namespace}\\Providers\EventServiceProvider::class,".$eol."        {$namespace}\Providers\CanvasServiceProvider::class,".$eol,
+            "{$namespace}\\Providers\EventServiceProvider::class," . $eol,
+            "{$namespace}\\Providers\EventServiceProvider::class," . $eol . "        {$namespace}\Providers\CanvasServiceProvider::class," . $eol,
             $appConfig
         ));
 
