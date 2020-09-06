@@ -55,7 +55,7 @@ class AdminTest extends TestCase
     public function it_restricts_contributors_access($method, $endpoint)
     {
         $user = factory(User::class)->create([
-            'role' => User::CONTRIBUTOR
+            'role' => User::CONTRIBUTOR,
         ]);
 
         $this->actingAs($user, 'canvas')->call($method, $endpoint)->assertForbidden();
@@ -70,7 +70,7 @@ class AdminTest extends TestCase
     public function it_restricts_editors_access($method, $endpoint)
     {
         $user = factory(User::class)->create([
-            'role' => User::EDITOR
+            'role' => User::EDITOR,
         ]);
 
         $this->assertAuthenticatedAs($user)->call($method, $endpoint)->assertForbidden();

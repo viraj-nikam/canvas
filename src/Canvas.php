@@ -29,9 +29,9 @@ class Canvas
      *
      * @return array
      */
-    public static  function availableLanguageCodes(): array
+    public static function availableLanguageCodes(): array
     {
-        $locales = preg_grep('/^([^.])/', scandir(dirname(__DIR__, 1) . '/resources/lang'));
+        $locales = preg_grep('/^([^.])/', scandir(dirname(__DIR__, 1).'/resources/lang'));
         $translations = collect();
 
         foreach ($locales as $locale) {
@@ -47,7 +47,7 @@ class Canvas
      * @param $locale
      * @return string
      */
-    public static  function availableTranslations($locale): string
+    public static function availableTranslations($locale): string
     {
         return collect(trans('canvas::app', [], $locale))->toJson();
     }
@@ -57,12 +57,12 @@ class Canvas
      *
      * @return array
      */
-    public static  function availableRoles(): array
+    public static function availableRoles(): array
     {
         return [
             User::CONTRIBUTOR => 'Contributor',
             User::EDITOR => 'Editor',
-            User::ADMIN => 'Admin'
+            User::ADMIN => 'Admin',
         ];
     }
 
