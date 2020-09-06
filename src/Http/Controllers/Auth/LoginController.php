@@ -3,9 +3,13 @@
 namespace Canvas\Http\Controllers\Auth;
 
 use Illuminate\Contracts\Auth\StatefulGuard;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
@@ -15,7 +19,7 @@ class LoginController extends Controller
     /**
      * Show the application's login form.
      *
-     * @return View
+     * @return Application|Factory|View
      */
     public function showLoginForm()
     {
@@ -23,10 +27,21 @@ class LoginController extends Controller
     }
 
     /**
+     * Get the login username to be used by the controller.
+     *
+     * @return string
+     */
+    public function username()
+    {
+        return 'email';
+    }
+
+    /**
      * Handle a login request to the application.
      *
      * @param Request $request
-     * @return Response
+     * @return Response|\Symfony\Component\HttpFoundation\Response
+     * @throws ValidationException
      */
     public function login(Request $request)
     {
@@ -35,13 +50,37 @@ class LoginController extends Controller
         if ($this->attemptLogin($request)) {
             return $this->sendLoginResponse($request);
         }
+
+        return $this->sendFailedLoginResponse($request);
+    }
+
+    /**
+     * Log the user out of the application.
+     *
+     * @param Request $request
+     * @return Response
+     */
+    public function logout(Request $request)
+    {
+        $this->guard()->logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        if ($response = $this->loggedOut($request)) {
+            return $response;
+        }
+
+        return $request->wantsJson()
+            ? new Response('', 204)
+            : redirect()->route('canvas.login');
     }
 
     /**
      * Validate the user login request.
      *
      * @param Request $request
-     * @return void
      */
     protected function validateLogin(Request $request)
     {
@@ -79,7 +118,7 @@ class LoginController extends Controller
      * Send the response after the user was authenticated.
      *
      * @param Request $request
-     * @return Response
+     * @return Application|RedirectResponse|Response|Redirector|mixed
      */
     protected function sendLoginResponse(Request $request)
     {
@@ -95,22 +134,10 @@ class LoginController extends Controller
     }
 
     /**
-     * The user has been authenticated.
-     *
-     * @param Request $request
-     * @param  mixed  $user
-     * @return mixed
-     */
-    protected function authenticated(Request $request, $user)
-    {
-        //
-    }
-
-    /**
      * Get the failed login response instance.
      *
      * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return void
      *
      * @throws ValidationException
      */
@@ -122,36 +149,15 @@ class LoginController extends Controller
     }
 
     /**
-     * Get the login username to be used by the controller.
-     *
-     * @return string
-     */
-    public function username()
-    {
-        return 'email';
-    }
-
-    /**
-     * Log the user out of the application.
+     * The user has been authenticated.
      *
      * @param Request $request
-     * @return Response
+     * @param  mixed  $user
+     * @return mixed
      */
-    public function logout(Request $request)
+    protected function authenticated(Request $request, $user)
     {
-        $this->guard()->logout();
-
-        $request->session()->invalidate();
-
-        $request->session()->regenerateToken();
-
-        if ($response = $this->loggedOut($request)) {
-            return $response;
-        }
-
-        return $request->wantsJson()
-            ? new Response('', 204)
-            : redirect()->route('canvas.login');
+        //
     }
 
     /**

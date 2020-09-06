@@ -15,6 +15,10 @@ class Canvas
      */
     public static function installedVersion(): string
     {
+        if (app()->runningUnitTests()) {
+            return '';
+        }
+
         $dependencies = json_decode(file_get_contents(base_path('composer.lock')), true)['packages'];
 
         return collect($dependencies)->firstWhere('name', 'austintoddj/canvas')['version'];
@@ -69,6 +73,10 @@ class Canvas
      */
     public static function assetsUpToDate(): bool
     {
+        if (app()->runningUnitTests()) {
+            return true;
+        }
+
         $path = public_path('vendor/canvas/mix-manifest.json');
 
         $message = sprintf('%s%s.  %s',

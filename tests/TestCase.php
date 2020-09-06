@@ -3,6 +3,7 @@
 namespace Canvas\Tests;
 
 use Canvas\CanvasServiceProvider;
+use Canvas\Models\User;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\TestResponse as LegacyTestResponse;
@@ -58,6 +59,8 @@ abstract class TestCase extends OrchestraTestCase
     {
         $config = $app->get('config');
 
+        $config->set('view.paths', [dirname(__DIR__).'/resources/views']);
+
         $config->set('database.default', 'sqlite');
 
         $config->set('database.connections.sqlite', [
@@ -66,9 +69,15 @@ abstract class TestCase extends OrchestraTestCase
             'prefix' => '',
         ]);
 
-        $config->set('view.paths', [dirname(__DIR__).'/resources/views']);
+        $config->set('auth.providers.canvas_users', [
+            'driver' => 'eloquent',
+            'model' => User::class,
+        ]);
 
-        $config->set('auth.providers.users.model', config('canvas.user'));
+        $config->set('auth.guards.canvas', [
+            'driver' => 'session',
+            'provider' => 'canvas_users',
+        ]);
     }
 
     /**

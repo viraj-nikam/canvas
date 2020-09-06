@@ -41,7 +41,6 @@ return [
 
     'middleware' => [
         'web',
-        Canvas\Http\Middleware\Authorize::class,
     ],
 
     /*

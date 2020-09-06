@@ -87,6 +87,7 @@ import { mapGetters, mapState } from 'vuex';
 import $ from 'jquery';
 import SearchModal from './modals/SearchModal';
 import axios from 'axios';
+import { store } from "../store";
 
 export default {
     name: 'page-header',
@@ -96,7 +97,7 @@ export default {
     },
 
     computed: {
-        ...mapState(['profile']),
+        ...mapState(['profile', 'settings']),
         ...mapGetters({
             isAdmin: 'profile/isAdmin',
             trans: 'settings/trans',
@@ -105,8 +106,8 @@ export default {
 
     methods: {
         logout() {
-            axios.post('/logout').then(() => {
-                window.location.href = '/login';
+            axios.get(`/${this.settings.path}/logout`).then(() => {
+                window.location.href = `/${this.settings.path}/login`;
             });
         },
 

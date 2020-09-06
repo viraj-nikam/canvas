@@ -2,7 +2,7 @@
 
 namespace Canvas\Http\Controllers;
 
-use Canvas\Models\UserMeta;
+use Canvas\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -19,8 +19,8 @@ class UserController extends Controller
     public function index(Request $request): JsonResponse
     {
         return response()->json(
-            UserMeta::latest()
-               ->with('user')
+            User::latest()
+               ->withCount('posts')
                ->paginate(), 200
         );
     }
@@ -34,7 +34,7 @@ class UserController extends Controller
      */
     public function show(Request $request, $id): JsonResponse
     {
-        $meta = UserMeta::with('user')->firstWhere('user_id', $id);
+        $meta = User::firstWhere('user_id', $id);
 
         return $meta ? response()->json($meta, 200) : response()->json(null, 404);
     }
