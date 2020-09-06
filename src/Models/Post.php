@@ -168,10 +168,12 @@ class Post extends Model
         // Divide by the average number of words per minute
         $minutes = ceil($words / 250);
 
+        // The user is optional since we append this attribute
+        // to every model and we may be creating a new one
         return sprintf('%d %s %s',
             $minutes,
-            Str::plural(trans('canvas::app.min', [], $this->user->locale), $minutes),
-            trans('canvas::app.read', [], $this->user->locale)
+            Str::plural(trans('canvas::app.min', [], optional($this->user)->locale), $minutes),
+            trans('canvas::app.read', [], optional($this->user)->locale)
         );
     }
 

@@ -2,12 +2,8 @@
 
 namespace Canvas\Tests\Http\Controllers;
 
-use Canvas\Http\Middleware\Admin;
-use Canvas\Http\Middleware\Session;
-use Canvas\Models\UserMeta;
+use Canvas\Models\User;
 use Canvas\Tests\TestCase;
-use Illuminate\Auth\Middleware\Authorize;
-use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 /**
@@ -26,26 +22,33 @@ class UserControllerTest extends TestCase
     {
         parent::setUp();
 
-        $this->withoutMiddleware([
-            Authorize::class,
-            Admin::class,
-            Session::class,
-            VerifyCsrfToken::class,
-        ]);
+        $this->registerAssertJsonExactFragmentMacro();
     }
 
     /** @test */
     public function it_can_fetch_all_users()
     {
-        $meta = factory(UserMeta::class)->create([
-            'role' => UserMeta::ADMIN,
+        $user = factory(User::class)->create([
+            'role' => User::ADMIN
         ]);
 
-        $response = $this->actingAs($meta->user)->getJson('canvas/api/users')->assertSuccessful();
+        factory(User::class, 3)->create();
 
-        $this->assertIsArray($response->decodeResponseJson('data'));
-        $this->assertEquals(1, $response->decodeResponseJson('total'));
-        $this->assertSame($meta->user->id, $response->decodeResponseJson('data.0.id'));
+        $this->actingAs($user, 'canvas')
+             ->getJson('canvas/api/users')
+             ->assertSuccessful()
+             ->assertJsonExactFragment($user->id, 'data.0.id')
+             ->assertJsonExactFragment($user->name, 'data.0.name')
+             ->assertJsonExactFragment($user->email, 'data.0.email')
+             ->assertJsonExactFragment($user->username, 'data.0.username')
+             ->assertJsonExactFragment($user->summary, 'data.0.summary')
+             ->assertJsonExactFragment($user->avatar, 'data.0.avatar')
+             ->assertJsonExactFragment($user->dark_mode, 'data.0.dark_mode')
+             ->assertJsonExactFragment($user->digest, 'data.0.digest')
+             ->assertJsonExactFragment($user->locale, 'data.0.locale')
+             ->assertJsonExactFragment($user->role, 'data.0.role')
+             ->assertJsonExactFragment($user->posts->count(), 'data.0.posts_count')
+             ->assertJsonExactFragment(4, 'total');
     }
 
     /** @test */

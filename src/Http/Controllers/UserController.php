@@ -6,7 +6,6 @@ use Canvas\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
@@ -26,20 +25,6 @@ class UserController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param Request $request
-     * @param $id
-     * @return JsonResponse
-     */
-    public function show(Request $request, $id): JsonResponse
-    {
-        $meta = User::firstWhere('user_id', $id);
-
-        return $meta ? response()->json($meta, 200) : response()->json(null, 404);
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param Request $request
@@ -49,50 +34,76 @@ class UserController extends Controller
      */
     public function store(Request $request, $id): JsonResponse
     {
-        $meta = UserMeta::firstWhere('user_id', $id)->with('user');
+        $user = User::find($id);
 
-        if (! $meta) {
-            $meta = new UserMeta([
-                'user_id' => $id,
+        if (! $user) {
+            $user = new User([
+                'id' => $id,
             ]);
         }
 
         $data = [
-            'avatar' => $request->input('avatar', $meta->avatar ?? null),
-            'dark_mode' => $request->input('darkMode', $meta->dark_mode ?? false),
-            'digest' => $request->input('digest', $meta->digest ?? false),
-            'locale' => $request->input('locale', $meta->locale ?? null),
-            'user_id' => $meta->user_id,
-            'username' => $request->input('username', $meta->username ?? null),
-            'summary' => $request->input('summary', $meta->summary ?? null),
-            'role' => $request->input('role', $meta->role ?? null),
+            'name' => $request->input('name', $user->name),
+            'email' => $request->input('email', $user->email),
+            'avatar' => $request->input('avatar', $user->avatar ?? null),
+            'dark_mode' => $request->input('darkMode', $user->dark_mode ?? false),
+            'digest' => $request->input('digest', $user->digest ?? false),
+            'locale' => $request->input('locale', $user->locale ?? null),
+            'username' => $request->input('username', $user->username ?? null),
+            'summary' => $request->input('summary', $user->summary ?? null),
+            'role' => $request->input('role', $user->role ?? null),
         ];
 
         $rules = [
-            'user_id' => 'required',
-            'username' => [
-                'nullable',
-                'alpha_dash',
-                Rule::unique('canvas_user_meta')->ignore($meta->user_id, 'user_id'),
-            ],
+            'name' => 'required|string',
+            'email' => 'required|email|unique:canvas_users',
+            'password' => 'sometimes|min:8',
+            'username' => 'nullable|alpha_dash|unique:canvas_users',
         ];
 
         $messages = [
-            'required' => trans('canvas::app.validation_required', [], $meta->locale),
-            'unique' => trans('canvas::app.validation_unique', [], $meta->locale),
+            'required' => trans('canvas::app.validation_required', [], $user->locale),
+            'unique' => trans('canvas::app.validation_unique', [], $user->locale),
         ];
 
         validator($data, $rules, $messages)->validate();
 
-        $meta->fill($data);
+        $user->fill($data);
 
-        $meta->save();
+        $user->save();
 
         return response()->json([
-            'user' => $meta->user,
-            'meta' => $meta->refresh(),
-            'i18n' => collect(trans('canvas::app', [], $meta->locale))->toJson(),
+            'user' => $user->refresh(),
+            'i18n' => collect(trans('canvas::app', [], $user->locale))->toJson(),
         ], 201);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param Request $request
+     * @param $id
+     * @return JsonResponse
+     */
+    public function show(Request $request, $id): JsonResponse
+    {
+        $user = User::find($id);
+
+        return $user ? response()->json($user, 200) : response()->json(null, 404);
+    }
+
+    /**
+     * Display the specified relationship.
+     *
+     * @param Request $request
+     * @param $id
+     * @return JsonResponse
+     */
+    public function showPosts(Request $request, $id): JsonResponse
+    {
+        $user = User::with('posts')->find($id);
+
+        return $user ? response()->json($user->posts()->withCount('views')->paginate(), 200) : response()->json(null, 200);
     }
 
     /**
@@ -104,9 +115,9 @@ class UserController extends Controller
      */
     public function destroy(Request $request, $id)
     {
-        $meta = UserMeta::firstWhere('user_id', $id);
+        $user = User::find($id);
 
-        $meta->delete();
+        $user->delete();
 
         return response()->json(null, 204);
     }

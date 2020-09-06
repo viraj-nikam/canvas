@@ -2,15 +2,12 @@
 
 namespace Canvas\Tests\Models;
 
-use Canvas\Http\Middleware\Session;
 use Canvas\Models\Post;
 use Canvas\Models\Topic;
 use Canvas\Models\User;
 use Canvas\Tests\TestCase;
-use Illuminate\Auth\Middleware\Authorize;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Ramsey\Uuid\Uuid;
 
@@ -23,25 +20,11 @@ class TopicTest extends TestCase
 {
     use RefreshDatabase;
 
-    /**
-     * @return void
-     */
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        $this->withoutMiddleware([
-            Authorize::class,
-            Session::class,
-            VerifyCsrfToken::class,
-        ]);
-    }
-
     /** @test */
     public function topics_can_share_the_same_slug_with_unique_users()
     {
-        $user = factory(User::class)->create([
-            'role' => User::ADMIN,
+        $adminUserOne = factory(User::class)->create([
+            'role' => User::ADMIN
         ]);
 
         $data = [
@@ -50,11 +33,9 @@ class TopicTest extends TestCase
             'slug' => 'a-new-topic',
         ];
 
-        $topicOne = factory(Topic::class)->create([
-            'user_id' => $user->id,
-        ]);
+        $topicOne = factory(Topic::class)->create();
 
-        $response = $this->actingAs($user, 'canvas')->postJson("/canvas/api/topics/{$topicOne->id}", $data);
+        $response = $this->actingAs($adminUserOne, 'canvas')->postJson("/canvas/api/topics/{$topicOne->id}", $data);
 
         $this->assertDatabaseHas('canvas_topics', [
             'id' => $response->decodeResponseJson('id'),
@@ -62,9 +43,13 @@ class TopicTest extends TestCase
             'user_id' => $response->decodeResponseJson('user_id'),
         ]);
 
+        $adminUserTwo = factory(User::class)->create([
+            'role' => User::ADMIN
+        ]);
+
         $topicTwo = factory(Topic::class)->create();
 
-        $response = $this->actingAs($user, 'canvas')->postJson("/canvas/api/topics/{$topicTwo->id}", $data);
+        $response = $this->actingAs($adminUserTwo, 'canvas')->postJson("/canvas/api/topics/{$topicTwo->id}", $data);
 
         $this->assertDatabaseHas('canvas_topics', [
             'id' => $response->decodeResponseJson('id'),
@@ -81,7 +66,7 @@ class TopicTest extends TestCase
 
         $post->topic()->sync($topic);
 
-        $this->assertCount(1, $topic->posts);
+        $this->assertCount(1, $post->topic);
         $this->assertInstanceOf(BelongsToMany::class, $topic->posts());
         $this->assertInstanceOf(Post::class, $topic->posts->first());
     }
@@ -92,23 +77,23 @@ class TopicTest extends TestCase
         $topic = factory(Topic::class)->create();
 
         $this->assertInstanceOf(BelongsTo::class, $topic->user());
-        $this->assertInstanceOf(config('canvas.user'), $topic->user);
+        $this->assertInstanceOf(User::class, $topic->user);
     }
 
     /** @test */
     public function it_will_detach_posts_on_delete()
     {
-        $tag = factory(Topic::class)->create();
+        $topic = factory(Topic::class)->create();
         $post = factory(Post::class)->create();
 
-        $tag->posts()->sync([$post->id]);
+        $topic->posts()->sync([$post->id]);
 
-        $tag->delete();
+        $topic->delete();
 
-        $this->assertEquals(0, $tag->posts->count());
+        $this->assertEquals(0, $topic->posts->count());
         $this->assertDatabaseMissing('canvas_posts_topics', [
             'post_id' => $post->id,
-            'topic_id' => $tag->id,
+            'topic_id' => $topic->id,
         ]);
     }
 }

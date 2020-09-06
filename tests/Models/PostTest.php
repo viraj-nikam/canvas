@@ -29,52 +29,30 @@ class PostTest extends TestCase
 {
     use RefreshDatabase;
 
-    /**
-     * @return void
-     */
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        $this->withoutMiddleware([
-            Authorize::class,
-            Session::class,
-            VerifyCsrfToken::class,
-        ]);
-    }
-
     /** @test */
     public function dates_are_carbon_objects()
     {
-        $post = factory(Post::class)->create();
-
-        $this->assertInstanceOf(Carbon::class, $post->published_at);
+        $this->assertInstanceOf(Carbon::class, factory(Post::class)->create()->published_at);
     }
 
     /** @test */
     public function read_time_appends_to_the_model()
     {
-        $post = factory(Post::class)->create();
-
-        $this->assertArrayHasKey('read_time', $post->toArray());
+        $this->assertArrayHasKey('read_time', factory(Post::class)->create()->toArray());
     }
 
     /** @test */
     public function meta_is_cast_to_an_array()
     {
-        $post = factory(Post::class)->create();
-
-        $this->assertIsArray($post->meta);
+        $this->assertIsArray(factory(Post::class)->create()->meta);
     }
 
     /** @test */
     public function published_attribute()
     {
-        $post = factory(Post::class)->create([
+        $this->assertTrue(factory(Post::class)->create([
             'published_at' => now()->subDay(),
-        ]);
-
-        $this->assertTrue($post->published);
+        ])->published);
     }
 
     /** @test */
@@ -137,7 +115,7 @@ class PostTest extends TestCase
         ];
 
         $postOne = factory(Post::class)->create();
-        $response = $this->actingAs($postOne->user)->postJson("/canvas/api/posts/{$postOne->id}", $data);
+        $response = $this->actingAs($postOne->user, 'canvas')->postJson("/canvas/api/posts/{$postOne->id}", $data);
 
         $this->assertDatabaseHas('canvas_posts', [
             'id' => $response->decodeResponseJson('id'),
@@ -146,7 +124,7 @@ class PostTest extends TestCase
         ]);
 
         $postTwo = factory(Post::class)->create();
-        $response = $this->actingAs($postTwo->user)->postJson("/canvas/api/posts/{$postTwo->id}", $data);
+        $response = $this->actingAs($postTwo->user, 'canvas')->postJson("/canvas/api/posts/{$postTwo->id}", $data);
 
         $this->assertDatabaseHas('canvas_posts', [
             'id' => $response->decodeResponseJson('id'),
@@ -217,7 +195,7 @@ class PostTest extends TestCase
     /** @test */
     public function published_scope()
     {
-        $user = factory(config('canvas.user'))->create();
+        $user = factory(User::class)->create();
 
         factory(Post::class)->create([
             'user_id' => $user->id,
@@ -231,7 +209,7 @@ class PostTest extends TestCase
     /** @test */
     public function draft_scope()
     {
-        $user = factory(config('canvas.user'))->create();
+        $user = factory(User::class)->create();
 
         factory(Post::class)->create([
             'user_id' => $user->id,

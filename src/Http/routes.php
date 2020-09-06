@@ -62,7 +62,6 @@ Route::middleware([Authorize::class])->group(function () {
 
         Route::prefix('users')->group(function () {
             Route::get('/', 'UserController@index')->middleware([Admin::class]);
-            Route::get('create', 'UserController@create')->middleware([Admin::class]);
             Route::get('{id}', 'UserController@show');
             Route::get('{id}/posts', 'UserController@showPosts');
             Route::post('{id}', 'UserController@store');

@@ -80,8 +80,8 @@ class TagController extends Controller
         ];
 
         $messages = [
-            'required' => trans('canvas::app.validation_required', [], optional($tag->userMeta)->locale),
-            'unique' => trans('canvas::app.validation_unique', [], optional($tag->userMeta)->locale),
+            'required' => trans('canvas::app.validation_required', [], optional($tag->user())->locale),
+            'unique' => trans('canvas::app.validation_unique', [], optional($tag->user())->locale),
         ];
 
         validator($data, $rules, $messages)->validate();

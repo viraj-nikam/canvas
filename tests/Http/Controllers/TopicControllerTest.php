@@ -6,6 +6,7 @@ use Canvas\Http\Middleware\Admin;
 use Canvas\Http\Middleware\Session;
 use Canvas\Models\Post;
 use Canvas\Models\Topic;
+use Canvas\Models\User;
 use Canvas\Models\View;
 use Canvas\Tests\TestCase;
 use Illuminate\Auth\Middleware\Authorize;
@@ -29,22 +30,19 @@ class TopicControllerTest extends TestCase
     {
         parent::setUp();
 
-        $this->withoutMiddleware([
-            Authorize::class,
-            Admin::class,
-            Session::class,
-            VerifyCsrfToken::class,
-        ]);
-
         $this->registerAssertJsonExactFragmentMacro();
     }
 
     /** @test */
     public function it_can_fetch_topics()
     {
-        $topic = factory(Topic::class)->create();
+        $topic = factory(Topic::class)->create([
+            'user_id' => factory(User::class)->create([
+                'role' => User::ADMIN
+            ])
+        ]);
 
-        $this->actingAs($topic->user)
+        $this->actingAs($topic->user, 'canvas')
              ->getJson('canvas/api/topics')
              ->assertSuccessful()
              ->assertJsonExactFragment($topic->id, 'data.0.id')
@@ -58,9 +56,11 @@ class TopicControllerTest extends TestCase
     /** @test */
     public function it_can_fetch_a_new_topic()
     {
-        $user = factory(config('canvas.user'))->create();
+        $user = factory(User::class)->create([
+            'role' => User::ADMIN
+        ]);
 
-        $response = $this->actingAs($user)->getJson('canvas/api/topics/create')->assertSuccessful();
+        $response = $this->actingAs($user, 'canvas')->getJson('canvas/api/topics/create')->assertSuccessful();
 
         $this->assertArrayHasKey('id', $response->decodeResponseJson());
     }
@@ -68,9 +68,13 @@ class TopicControllerTest extends TestCase
     /** @test */
     public function it_can_fetch_an_existing_topic()
     {
-        $topic = factory(Topic::class)->create();
+        $topic = factory(Topic::class)->create([
+            'user_id' => factory(User::class)->create([
+                'role' => User::ADMIN
+            ])
+        ]);
 
-        $this->actingAs($topic->user)
+        $this->actingAs($topic->user, 'canvas')
              ->getJson("canvas/api/topics/{$topic->id}")
              ->assertSuccessful()
              ->assertJsonExactFragment($topic->id, 'id')
@@ -82,15 +86,21 @@ class TopicControllerTest extends TestCase
     /** @test */
     public function it_can_fetch_posts_for_an_existing_topic()
     {
-        $topic = factory(Topic::class)->create();
+        $topic = factory(Topic::class)->create([
+            'user_id' => factory(User::class)->create([
+                'role' => User::ADMIN
+            ])
+        ]);
+
         $post = factory(Post::class)->create();
+
         factory(View::class)->create([
             'post_id' => $post->id,
         ]);
 
         $topic->posts()->sync([$post->id]);
 
-        $response = $this->actingAs($topic->user)
+        $response = $this->actingAs($topic->user, 'canvas')
                          ->getJson("canvas/api/topics/{$topic->id}/posts")
                          ->assertSuccessful();
 
@@ -103,15 +113,19 @@ class TopicControllerTest extends TestCase
     /** @test */
     public function it_returns_404_if_no_topic_is_found()
     {
-        $user = factory(config('canvas.user'))->create();
+        $user = factory(User::class)->create([
+            'role' => User::ADMIN
+        ]);
 
-        $this->actingAs($user)->getJson('canvas/api/topics/not-a-topic')->assertNotFound();
+        $this->actingAs($user, 'canvas')->getJson('canvas/api/topics/not-a-topic')->assertNotFound();
     }
 
     /** @test */
     public function it_can_create_a_new_topic()
     {
-        $user = factory(config('canvas.user'))->create();
+        $user = factory(User::class)->create([
+            'role' => User::ADMIN
+        ]);
 
         $data = [
             'id' => Uuid::uuid4()->toString(),
@@ -119,7 +133,7 @@ class TopicControllerTest extends TestCase
             'slug' => 'a-new-topic',
         ];
 
-        $this->actingAs($user)
+        $this->actingAs($user, 'canvas')
              ->postJson("canvas/api/topics/{$data['id']}", $data)
              ->assertSuccessful()
              ->assertJsonExactFragment($data['name'], 'name')
@@ -130,7 +144,10 @@ class TopicControllerTest extends TestCase
     /** @test */
     public function it_can_refresh_a_deleted_tag()
     {
-        $user = factory(config('canvas.user'))->create();
+        $user = factory(User::class)->create([
+            'role' => User::ADMIN
+        ]);
+
         $topic = factory(Topic::class)->create([
             'id' => Uuid::uuid4()->toString(),
             'name' => 'A deleted tag',
@@ -146,7 +163,7 @@ class TopicControllerTest extends TestCase
             'user_id' => $user->id,
         ];
 
-        $this->actingAs($user)
+        $this->actingAs($user, 'canvas')
              ->postJson("canvas/api/topics/{$data['id']}", $data)
              ->assertSuccessful()
              ->assertJsonExactFragment($data['name'], 'name')
@@ -157,14 +174,18 @@ class TopicControllerTest extends TestCase
     /** @test */
     public function it_can_update_an_existing_topic()
     {
-        $topic = factory(Topic::class)->create();
+        $topic = factory(Topic::class)->create([
+            'user_id' => factory(User::class)->create([
+                'role' => User::ADMIN
+            ])
+        ]);
 
         $data = [
             'name' => 'An updated topic',
             'slug' => 'an-updated-topic',
         ];
 
-        $this->actingAs($topic->user)
+        $this->actingAs($topic->user, 'canvas')
              ->postJson("canvas/api/topics/{$topic->id}", $data)
              ->assertSuccessful()
              ->assertJsonExactFragment($data['name'], 'name')
@@ -175,9 +196,13 @@ class TopicControllerTest extends TestCase
     /** @test */
     public function it_will_not_store_an_invalid_slug()
     {
-        $topic = factory(Topic::class)->create();
+        $topic = factory(Topic::class)->create([
+            'user_id' => factory(User::class)->create([
+                'role' => User::ADMIN
+            ])
+        ]);
 
-        $response = $this->actingAs($topic->user)
+        $response = $this->actingAs($topic->user, 'canvas')
                          ->postJson("canvas/api/topics/{$topic->id}", [
                              'name' => 'A new topic',
                              'slug' => 'a new.slug',
@@ -193,13 +218,16 @@ class TopicControllerTest extends TestCase
         $topic = factory(Topic::class)->create([
             'name' => 'A new topic',
             'slug' => 'a-new-topic',
+            'user_id' => factory(User::class)->create([
+                'role' => User::ADMIN
+            ])
         ]);
 
-        $this->actingAs($topic->user)
+        $this->actingAs($topic->user, 'canvas')
              ->deleteJson('canvas/api/topics/not-a-topic')
              ->assertNotFound();
 
-        $this->actingAs($topic->user)
+        $this->actingAs($topic->user, 'canvas')
              ->deleteJson("canvas/api/topics/{$topic->id}")
              ->assertSuccessful()
              ->assertNoContent();
@@ -213,7 +241,11 @@ class TopicControllerTest extends TestCase
     /** @test */
     public function it_can_de_sync_the_post_relationship()
     {
-        $topic = factory(Topic::class)->create();
+        $topic = factory(Topic::class)->create([
+            'user_id' => factory(User::class)->create([
+                'role' => User::ADMIN
+            ])
+        ]);
 
         $post = factory(Post::class)->create([
             'user_id' => $topic->user->id,
@@ -229,7 +261,7 @@ class TopicControllerTest extends TestCase
 
         $this->assertCount(1, $topic->posts);
 
-        $this->actingAs($topic->user)->deleteJson("canvas/api/posts/{$post->id}")->assertSuccessful()->assertNoContent();
+        $this->actingAs($topic->user, 'canvas')->deleteJson("canvas/api/posts/{$post->id}")->assertSuccessful()->assertNoContent();
 
         $this->assertSoftDeleted('canvas_posts', [
             'id' => $post->id,

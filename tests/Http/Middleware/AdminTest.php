@@ -24,20 +24,22 @@ class AdminTest extends TestCase
             // Tag routes...
             ['GET', 'canvas/api/tags'],
             ['GET', 'canvas/api/tags/create'],
-            ['POST', 'canvas/api/tags/not-a-tag'],
-            ['DELETE', 'canvas/api/tags/not-a-tag'],
+            ['GET', 'canvas/api/tags/id/posts'],
+            ['POST', 'canvas/api/tags/id'],
+            ['DELETE', 'canvas/api/tags/id'],
 
             // Topic routes...
             ['GET', 'canvas/api/topics'],
             ['GET', 'canvas/api/topics/create'],
-            ['POST', 'canvas/api/topics/not-a-topic'],
-            ['DELETE', 'canvas/api/topics/not-a-topic'],
+            ['GET', 'canvas/api/topics/id/posts'],
+            ['POST', 'canvas/api/topics/id'],
+            ['DELETE', 'canvas/api/topics/id'],
 
             // User routes...
             ['GET', 'canvas/api/users'],
-            ['GET', 'canvas/api/users/create'],
-            ['POST', 'canvas/api/users/not-a-user'],
-            ['DELETE', 'canvas/api/users/not-a-user'],
+            ['GET', 'canvas/api/users/id/posts'],
+            ['POST', 'canvas/api/users/id'],
+            ['DELETE', 'canvas/api/users/id'],
 
             // Search routes...
             ['GET', 'canvas/api/search/tags'],

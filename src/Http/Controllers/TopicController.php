@@ -80,8 +80,8 @@ class TopicController extends Controller
         ];
 
         $messages = [
-            'required' => trans('canvas::app.validation_required', [], optional($topic->userMeta)->locale),
-            'unique' => trans('canvas::app.validation_unique', [], optional($topic->userMeta)->locale),
+            'required' => trans('canvas::app.validation_required', [], optional($topic->user())->locale),
+            'unique' => trans('canvas::app.validation_unique', [], optional($topic->user())->locale),
         ];
 
         validator($data, $rules, $messages)->validate();

@@ -5,8 +5,7 @@ namespace Canvas\Http\Controllers;
 use Canvas\Models\Post;
 use Canvas\Models\Tag;
 use Canvas\Models\Topic;
-use Canvas\Models\UserMeta;
-use Illuminate\Foundation\Auth\User;
+use Canvas\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -21,9 +20,9 @@ class SearchController extends Controller
      */
     public function showPosts(Request $request): JsonResponse
     {
-        $meta = UserMeta::where('user_id', $request->user()->id)->first();
+        $user = User::firstWhere('id', $request->user()->id);
 
-        if (optional($meta)->isAdmin || optional($meta)->isEditor) {
+        if ($user->isAdmin || $user->isEditor) {
             $posts = Post::select('id', 'title')->latest()->get();
         } else {
             $posts = Post::where('user_id', $request->user()->id)->select('id', 'title')->latest()->get();
@@ -88,7 +87,7 @@ class SearchController extends Controller
      */
     public function showUsers(Request $request): JsonResponse
     {
-        $users = resolve(config('canvas.user', User::class))->select('id', 'name')->latest()->get();
+        $users = User::select('id', 'name')->latest()->get();
 
         $users->map(function ($user) {
             $user['type'] = 'User';

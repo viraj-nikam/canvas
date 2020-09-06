@@ -27,34 +27,36 @@ class AuthorizeTest extends TestCase
             // Post routes...
             ['GET', 'canvas/api/posts'],
             ['GET', 'canvas/api/posts/create'],
-            ['GET', 'canvas/api/posts/existing-post'],
-            ['POST', 'canvas/api/posts/a-new-post'],
-            ['DELETE', 'canvas/api/posts/existing-post'],
+            ['GET', 'canvas/api/posts/id'],
+            ['POST', 'canvas/api/posts/id'],
+            ['DELETE', 'canvas/api/posts/id'],
 
             // Stat routes...
             ['GET', 'canvas/api/stats'],
-            ['GET', 'canvas/api/stats/existing-post'],
+            ['GET', 'canvas/api/stats/id'],
 
             // Tag routes...
             ['GET', 'canvas/api/tags'],
             ['GET', 'canvas/api/tags/create'],
-            ['GET', 'canvas/api/tags/existing-tag'],
-            ['POST', 'canvas/api/tags/a-new-tag'],
-            ['DELETE', 'canvas/api/tags/existing-tag'],
+            ['GET', 'canvas/api/tags/id'],
+            ['GET', 'canvas/api/tags/id/posts'],
+            ['POST', 'canvas/api/tags/id'],
+            ['DELETE', 'canvas/api/tags/id'],
 
             // Topic routes...
             ['GET', 'canvas/api/topics'],
             ['GET', 'canvas/api/topics/create'],
-            ['GET', 'canvas/api/topics/existing-topic'],
-            ['POST', 'canvas/api/topics/a-new-topic'],
-            ['DELETE', 'canvas/api/topics/existing-topic'],
+            ['GET', 'canvas/api/topics/id'],
+            ['GET', 'canvas/api/topics/id/posts'],
+            ['POST', 'canvas/api/topics/id'],
+            ['DELETE', 'canvas/api/topics/id'],
 
             // User routes...
             ['GET', 'canvas/api/users'],
-            ['GET', 'canvas/api/users/create'],
-            ['GET', 'canvas/api/users/1'],
-            ['POST', 'canvas/api/users/1'],
-            ['DELETE', 'canvas/api/users/1'],
+            ['GET', 'canvas/api/users/id'],
+            ['GET', 'canvas/api/users/id/posts'],
+            ['POST', 'canvas/api/users/id'],
+            ['DELETE', 'canvas/api/users/id'],
 
             // Search routes...
             ['GET', 'canvas/api/search/posts'],

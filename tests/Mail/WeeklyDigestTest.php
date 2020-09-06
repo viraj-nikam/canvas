@@ -19,20 +19,6 @@ class WeeklyDigestTest extends TestCase
 {
     use RefreshDatabase;
 
-    /**
-     * @return void
-     */
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        $this->withoutMiddleware([
-            Authorize::class,
-            Session::class,
-            VerifyCsrfToken::class,
-        ]);
-    }
-
     /** @test */
     public function it_can_build_a_mailable()
     {

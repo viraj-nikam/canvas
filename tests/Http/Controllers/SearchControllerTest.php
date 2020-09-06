@@ -2,14 +2,11 @@
 
 namespace Canvas\Tests\Http\Controllers;
 
-use Canvas\Http\Middleware\Session;
 use Canvas\Models\Post;
 use Canvas\Models\Tag;
 use Canvas\Models\Topic;
-use Canvas\Models\UserMeta;
+use Canvas\Models\User;
 use Canvas\Tests\TestCase;
-use Illuminate\Auth\Middleware\Authorize;
-use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 /**
@@ -28,24 +25,18 @@ class SearchControllerTest extends TestCase
     {
         parent::setUp();
 
-        $this->withoutMiddleware([
-            Authorize::class,
-            Session::class,
-            VerifyCsrfToken::class,
-        ]);
-
         $this->registerAssertJsonExactFragmentMacro();
     }
 
     /** @test */
     public function it_can_only_fetch_user_posts_for_contributors()
     {
-        $meta = factory(UserMeta::class)->create([
-            'role' => UserMeta::CONTRIBUTOR,
+        $user = factory(User::class)->create([
+            'role' => User::CONTRIBUTOR
         ]);
 
         factory(Post::class, 2)->create([
-            'user_id' => $meta->user->id,
+            'user_id' => $user->id,
         ]);
 
         factory(Post::class, 1)->create([
@@ -53,7 +44,7 @@ class SearchControllerTest extends TestCase
             'published_at' => now()->addWeek(),
         ]);
 
-        $response = $this->actingAs($meta->user)
+        $response = $this->actingAs($user, 'canvas')
                          ->getJson('canvas/api/search/posts')
                          ->assertSuccessful();
 
@@ -70,12 +61,12 @@ class SearchControllerTest extends TestCase
     /** @test */
     public function it_can_fetch_all_posts_for_editors()
     {
-        $meta = factory(UserMeta::class)->create([
-            'role' => UserMeta::EDITOR,
+        $user = factory(User::class)->create([
+            'role' => User::EDITOR
         ]);
 
         factory(Post::class, 2)->create([
-            'user_id' => $meta->user->id,
+            'user_id' => $user->id,
         ]);
 
         factory(Post::class, 1)->create([
@@ -83,7 +74,7 @@ class SearchControllerTest extends TestCase
             'published_at' => now()->addWeek(),
         ]);
 
-        $response = $this->actingAs($meta->user)
+        $response = $this->actingAs($user, 'canvas')
                          ->getJson('canvas/api/search/posts')
                          ->assertSuccessful();
 
@@ -100,12 +91,12 @@ class SearchControllerTest extends TestCase
     /** @test */
     public function it_can_fetch_all_posts_for_admins()
     {
-        $meta = factory(UserMeta::class)->create([
-            'role' => UserMeta::ADMIN,
+        $user = factory(User::class)->create([
+            'role' => User::ADMIN
         ]);
 
         factory(Post::class, 2)->create([
-            'user_id' => $meta->user->id,
+            'user_id' => $user->id,
         ]);
 
         factory(Post::class, 1)->create([
@@ -113,7 +104,7 @@ class SearchControllerTest extends TestCase
             'published_at' => now()->addWeek(),
         ]);
 
-        $response = $this->actingAs($meta->user)
+        $response = $this->actingAs($user, 'canvas')
                          ->getJson('canvas/api/search/posts')
                          ->assertSuccessful();
 
@@ -130,15 +121,15 @@ class SearchControllerTest extends TestCase
     /** @test */
     public function it_can_fetch_tags_for_an_admin_user()
     {
-        $meta = factory(UserMeta::class)->create([
-            'role' => UserMeta::ADMIN,
+        $user = factory(User::class)->create([
+            'role' => User::ADMIN
         ]);
 
         factory(Tag::class, 2)->create([
-            'user_id' => $meta->user->id,
+            'user_id' => $user->id,
         ]);
 
-        $response = $this->actingAs($meta->user)
+        $response = $this->actingAs($user, 'canvas')
                          ->getJson('canvas/api/search/tags')
                          ->assertSuccessful();
 
@@ -154,15 +145,15 @@ class SearchControllerTest extends TestCase
     /** @test */
     public function it_can_fetch_topics_for_an_admin_user()
     {
-        $meta = factory(UserMeta::class)->create([
-            'role' => UserMeta::ADMIN,
+        $user = factory(User::class)->create([
+            'role' => User::ADMIN
         ]);
 
         factory(Topic::class, 2)->create([
-            'user_id' => $meta->user->id,
+            'user_id' => $user->id,
         ]);
 
-        $response = $this->actingAs($meta->user)
+        $response = $this->actingAs($user, 'canvas')
                          ->getJson('canvas/api/search/topics')
                          ->assertSuccessful();
 
@@ -178,13 +169,13 @@ class SearchControllerTest extends TestCase
     /** @test */
     public function it_can_fetch_users_for_an_admin_user()
     {
-        $meta = factory(UserMeta::class)->create([
-            'role' => UserMeta::ADMIN,
+        $user = factory(User::class)->create([
+            'role' => User::ADMIN
         ]);
 
-        factory(config('canvas.user'), 2)->create();
+        factory(User::class, 2)->create();
 
-        $response = $this->actingAs($meta->user)
+        $response = $this->actingAs($user, 'canvas')
                          ->getJson('canvas/api/search/users')
                          ->assertSuccessful();
 

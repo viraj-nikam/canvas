@@ -3,6 +3,7 @@
 namespace Canvas\Tests\Http\Controllers;
 
 use Canvas\Http\Middleware\Session;
+use Canvas\Models\User;
 use Canvas\Tests\TestCase;
 use Illuminate\Auth\Middleware\Authorize;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
@@ -25,12 +26,6 @@ class UploadsControllerTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-
-        $this->withoutMiddleware([
-            Authorize::class,
-            Session::class,
-            VerifyCsrfToken::class,
-        ]);
     }
 
     /** @test */
@@ -38,13 +33,13 @@ class UploadsControllerTest extends TestCase
     {
         Storage::fake(config('canvas.storage_disk'));
 
-        $user = factory(config('canvas.user'))->create();
+        $user = factory(User::class)->create();
 
-        $this->actingAs($user)->postJson('canvas/api/uploads', [
+        $this->actingAs($user, 'canvas')->postJson('canvas/api/uploads', [
             null,
         ])->assertStatus(400);
 
-        $this->actingAs($user)->postJson('canvas/api/uploads', [
+        $this->actingAs($user, 'canvas')->postJson('canvas/api/uploads', [
             $file = UploadedFile::fake()->image('photo.jpg'),
         ])->assertSuccessful();
 
@@ -58,13 +53,13 @@ class UploadsControllerTest extends TestCase
     {
         Storage::fake(config('canvas.storage_disk'));
 
-        $user = factory(config('canvas.user'))->create();
+        $user = factory(User::class)->create();
 
-        $this->actingAs($user)->delete('canvas/api/uploads', [
+        $this->actingAs($user, 'canvas')->delete('canvas/api/uploads', [
             null,
         ])->assertStatus(400);
 
-        $this->actingAs($user)->deleteJson('canvas/api/uploads', [
+        $this->actingAs($user, 'canvas')->deleteJson('canvas/api/uploads', [
             $file = UploadedFile::fake()->image('photo.jpg'),
         ])->assertSuccessful();
 

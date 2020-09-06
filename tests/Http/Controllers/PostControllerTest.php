@@ -2,13 +2,11 @@
 
 namespace Canvas\Tests\Http\Controllers;
 
-use Canvas\Http\Middleware\Session;
 use Canvas\Models\Post;
 use Canvas\Models\Tag;
 use Canvas\Models\Topic;
+use Canvas\Models\User;
 use Canvas\Tests\TestCase;
-use Illuminate\Auth\Middleware\Authorize;
-use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Ramsey\Uuid\Uuid;
 
@@ -28,12 +26,6 @@ class PostControllerTest extends TestCase
     {
         parent::setUp();
 
-        $this->withoutMiddleware([
-            Authorize::class,
-            Session::class,
-            VerifyCsrfToken::class,
-        ]);
-
         $this->registerAssertJsonExactFragmentMacro();
     }
 
@@ -44,7 +36,7 @@ class PostControllerTest extends TestCase
             'published_at' => now()->subDay(),
         ]);
 
-        $this->actingAs($post->user)
+        $this->actingAs($post->user, 'canvas')
              ->getJson('canvas/api/posts')
              ->assertSuccessful()
              ->assertJsonExactFragment(1, 'posts.total')
@@ -61,7 +53,7 @@ class PostControllerTest extends TestCase
             'published_at' => now()->subDay(),
         ]);
 
-        $this->actingAs($post->user)
+        $this->actingAs($post->user, 'canvas')
              ->getJson('canvas/api/posts?type=published')
              ->assertSuccessful()
              ->assertJsonExactFragment(1, 'posts.total')
@@ -78,7 +70,7 @@ class PostControllerTest extends TestCase
             'published_at' => now()->addDay(),
         ]);
 
-        $this->actingAs($post->user)
+        $this->actingAs($post->user, 'canvas')
              ->getJson('canvas/api/posts?type=draft')
              ->assertSuccessful()
              ->assertJsonExactFragment(1, 'posts.total')
@@ -91,13 +83,13 @@ class PostControllerTest extends TestCase
     /** @test */
     public function it_fetches_user_posts_by_default()
     {
-        $user = factory(config('canvas.user'))->create();
+        $user = factory(User::class)->create();
 
         $post = factory(Post::class)->create([
             'user_id' => $user->id,
         ]);
 
-        $this->actingAs($user)
+        $this->actingAs($user, 'canvas')
              ->getJson('canvas/api/posts')
              ->assertSuccessful()
              ->assertJsonExactFragment(1, 'posts.total')
@@ -110,7 +102,7 @@ class PostControllerTest extends TestCase
     /** @test */
     public function it_can_fetch_all_posts_with_a_given_query_param()
     {
-        $user = factory(config('canvas.user'))->create();
+        $user = factory(User::class)->create();
 
         $post = factory(Post::class)->create([
             'user_id' => $user->id,
@@ -118,7 +110,7 @@ class PostControllerTest extends TestCase
 
         factory(Post::class, 3)->create();
 
-        $this->actingAs($post->user)
+        $this->actingAs($post->user, 'canvas')
              ->getJson('canvas/api/posts?scope=all')
              ->assertSuccessful()
              ->assertJsonExactFragment(4, 'posts.total')
@@ -128,7 +120,7 @@ class PostControllerTest extends TestCase
     /** @test */
     public function it_can_fetch_user_posts_with_a_given_query_param()
     {
-        $user = factory(config('canvas.user'))->create();
+        $user = factory(User::class)->create();
 
         $post = factory(Post::class)->create([
             'user_id' => $user->id,
@@ -136,7 +128,7 @@ class PostControllerTest extends TestCase
 
         factory(Post::class, 2)->create();
 
-        $this->actingAs($post->user)
+        $this->actingAs($post->user, 'canvas')
              ->getJson('canvas/api/posts?scope=user')
              ->assertSuccessful()
              ->assertJsonExactFragment(1, 'posts.total')
@@ -146,9 +138,9 @@ class PostControllerTest extends TestCase
     /** @test */
     public function it_can_fetch_data_for_a_new_post()
     {
-        $user = factory(config('canvas.user'))->create();
+        $user = factory(User::class)->create();
 
-        $response = $this->actingAs($user)->getJson('canvas/api/posts/create')->assertSuccessful();
+        $response = $this->actingAs($user, 'canvas')->getJson('canvas/api/posts/create')->assertSuccessful();
 
         $this->assertArrayHasKey('id', $response->decodeResponseJson('post'));
         $this->assertArrayHasKey('slug', $response->decodeResponseJson('post'));
@@ -162,7 +154,7 @@ class PostControllerTest extends TestCase
     {
         $post = factory(Post::class)->create();
 
-        $this->actingAs($post->user)
+        $this->actingAs($post->user, 'canvas')
              ->getJson("canvas/api/posts/{$post->id}")
              ->assertSuccessful()
              ->assertJsonExactFragment($post->id, 'post.id')
@@ -174,36 +166,36 @@ class PostControllerTest extends TestCase
     /** @test */
     public function it_returns_404_if_no_post_is_found()
     {
-        $user = factory(config('canvas.user'))->create();
+        $user = factory(User::class)->create();
 
-        $this->actingAs($user)->getJson('canvas/api/posts/not-a-post')->assertNotFound();
+        $this->actingAs($user, 'canvas')->getJson('canvas/api/posts/not-a-post')->assertNotFound();
     }
 
     /** @test */
     public function it_returns_404_if_post_belongs_to_another_user()
     {
-        $userOne = factory(config('canvas.user'))->create();
-        $userTwo = factory(config('canvas.user'))->create();
+        $userOne = factory(User::class)->create();
+        $userTwo = factory(User::class)->create();
 
         $post = factory(Post::class)->create([
             'user_id' => $userOne->id,
         ]);
 
-        $this->actingAs($userOne)->getJson("canvas/api/posts/{$post->id}")->assertSuccessful();
-        $this->actingAs($userTwo)->getJson("canvas/api/posts/{$post->id}")->assertNotFound();
+        $this->actingAs($userOne, 'canvas')->getJson("canvas/api/posts/{$post->id}")->assertSuccessful();
+        $this->actingAs($userTwo, 'canvas')->getJson("canvas/api/posts/{$post->id}")->assertNotFound();
     }
 
     /** @test */
     public function it_can_store_a_new_post()
     {
-        $user = factory(config('canvas.user'))->create();
+        $user = factory(User::class)->create();
 
         $data = [
             'id' => Uuid::uuid4()->toString(),
             'slug' => 'a-new-post',
         ];
 
-        $response = $this->actingAs($user)
+        $response = $this->actingAs($user, 'canvas')
                          ->postJson("canvas/api/posts/{$data['id']}", $data)
                          ->assertSuccessful()
                          ->assertJsonExactFragment($data['id'], 'id')
@@ -229,7 +221,7 @@ class PostControllerTest extends TestCase
             'slug' => 'updated-slug',
         ];
 
-        $response = $this->actingAs($post->user)->postJson("canvas/api/posts/{$post->id}", $data)->assertSuccessful();
+        $response = $this->actingAs($post->user, 'canvas')->postJson("canvas/api/posts/{$post->id}", $data)->assertSuccessful();
 
         $this->assertSame($data['title'], $response->decodeResponseJson('title'));
         $this->assertSame($data['slug'], $response->decodeResponseJson('slug'));
@@ -240,7 +232,7 @@ class PostControllerTest extends TestCase
     /** @test */
     public function it_can_sync_related_taxonomy()
     {
-        $user = factory(config('canvas.user'))->create();
+        $user = factory(User::class)->create();
 
         $data = [
             'id' => Uuid::uuid4()->toString(),
@@ -261,7 +253,7 @@ class PostControllerTest extends TestCase
             ],
         ];
 
-        $this->actingAs($user)
+        $this->actingAs($user, 'canvas')
              ->postJson("canvas/api/posts/{$data['id']}", $data)
              ->assertSuccessful()
              ->assertJsonExactFragment($data['id'], 'id')
@@ -286,7 +278,7 @@ class PostControllerTest extends TestCase
     {
         $post = factory(Post::class)->create();
 
-        $response = $this->actingAs($post->user)->postJson("canvas/api/posts/{$post->id}", [
+        $response = $this->actingAs($post->user, 'canvas')->postJson("canvas/api/posts/{$post->id}", [
             'slug' => 'a new.slug',
         ])->assertStatus(422);
 
@@ -296,19 +288,19 @@ class PostControllerTest extends TestCase
     /** @test */
     public function it_can_delete_a_post()
     {
-        $userOne = factory(config('canvas.user'))->create();
-        $userTwo = factory(config('canvas.user'))->create();
+        $userOne = factory(User::class)->create();
+        $userTwo = factory(User::class)->create();
 
         $post = factory(Post::class)->create([
             'user_id' => $userOne->id,
             'slug' => 'a-new-post',
         ]);
 
-        $this->actingAs($userTwo)->deleteJson("canvas/api/posts/{$post->id}")->assertNotFound();
+        $this->actingAs($userTwo, 'canvas')->deleteJson("canvas/api/posts/{$post->id}")->assertNotFound();
 
-        $this->actingAs($userOne)->deleteJson('canvas/api/posts/not-a-post')->assertNotFound();
+        $this->actingAs($userOne, 'canvas')->deleteJson('canvas/api/posts/not-a-post')->assertNotFound();
 
-        $this->actingAs($userOne)->deleteJson("canvas/api/posts/{$post->id}")->assertSuccessful()->assertNoContent();
+        $this->actingAs($userOne, 'canvas')->deleteJson("canvas/api/posts/{$post->id}")->assertSuccessful()->assertNoContent();
 
         $this->assertSoftDeleted('canvas_posts', [
             'id' => $post->id,
@@ -319,7 +311,7 @@ class PostControllerTest extends TestCase
     /** @test */
     public function it_can_de_sync_related_taxonomy()
     {
-        $user = factory(config('canvas.user'))->create();
+        $user = factory(User::class)->create();
 
         $post = factory(Post::class)->create([
             'user_id' => $user->id,
@@ -345,7 +337,7 @@ class PostControllerTest extends TestCase
             'topic_id' => $topic->id,
         ]);
 
-        $this->actingAs($user)->deleteJson("canvas/api/posts/{$post->id}")->assertSuccessful()->assertNoContent();
+        $this->actingAs($user, 'canvas')->deleteJson("canvas/api/posts/{$post->id}")->assertSuccessful()->assertNoContent();
 
         $this->assertSoftDeleted('canvas_posts', [
             'id' => $post->id,

@@ -2,6 +2,7 @@
 
 namespace Canvas\Models;
 
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -63,6 +64,43 @@ class User extends Authenticatable
         'dark_mode' => 'boolean',
         'role' => 'int',
     ];
+
+    /**
+     * The number of models to return for pagination.
+     *
+     * @var int
+     */
+    protected $perPage = 10;
+
+    /**
+     * Get the posts relationship.
+     *
+     * @return HasMany
+     */
+    public function posts(): HasMany
+    {
+        return $this->hasMany(Post::class);
+    }
+
+    /**
+     * Get the tags relationship.
+     *
+     * @return HasMany
+     */
+    public function tags(): HasMany
+    {
+        return $this->hasMany(Tag::class);
+    }
+
+    /**
+     * Get the topics relationship.
+     *
+     * @return HasMany
+     */
+    public function topics(): HasMany
+    {
+        return $this->hasMany(Topic::class);
+    }
 
     /**
      * Check to see if the user is a Contributor.
