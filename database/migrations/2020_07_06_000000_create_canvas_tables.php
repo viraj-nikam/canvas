@@ -67,7 +67,7 @@ class CreateCanvasTables extends Migration
             $table->increments('id');
             $table->uuid('post_id')->index();
             $table->string('ip')->nullable();
-            $table->string('agent')->nullable();
+            $table->text('agent')->nullable();
             $table->string('referer')->nullable();
             $table->timestamps();
             $table->index('created_at');
@@ -77,7 +77,7 @@ class CreateCanvasTables extends Migration
             $table->increments('id');
             $table->uuid('post_id');
             $table->string('ip')->nullable();
-            $table->string('agent')->nullable();
+            $table->text('agent')->nullable();
             $table->string('referer')->nullable();
             $table->timestamps();
         });
