@@ -2,9 +2,8 @@
 
 namespace Canvas\Console;
 
-use Canvas\Models\UserMeta;
+use Canvas\Models\User;
 use Illuminate\Console\Command;
-use Illuminate\Foundation\Auth\User;
 
 class AdminCommand extends Command
 {
@@ -37,9 +36,7 @@ class AdminCommand extends Command
             return;
         }
 
-        $user = resolve(config('canvas.user', User::class))
-            ->where('email', $email)
-            ->first();
+        $user = User::firstWhere('email', $email);
 
         if (! $user) {
             $this->error('Unable to find a user with that email.');
@@ -47,17 +44,15 @@ class AdminCommand extends Command
             return;
         }
 
-        $meta = UserMeta::where('user_id', $user->id)->first() ?? new UserMeta(['user_id' => $user->id]);
-
-        if ($meta->isAdmin) {
+        if ($user->isAdmin) {
             $this->info('User is already an admin.');
 
             return;
         }
 
-        $meta->role = UserMeta::ADMIN;
+        $user->role = User::ADMIN;
 
-        $meta->save();
+        $user->save();
 
         $this->info('Access granted.');
     }

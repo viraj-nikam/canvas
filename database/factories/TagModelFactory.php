@@ -7,7 +7,7 @@ $factory->define(\Canvas\Models\Tag::class, function (Faker\Generator $faker) {
         'slug' => $faker->slug,
         'name' => $faker->word,
         'user_id' => function () {
-            return factory(config('canvas.user'))->create()->id;
+            return factory(\Canvas\Models\User::class)->create()->id;
         },
     ];
 });

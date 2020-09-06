@@ -4,11 +4,10 @@ namespace Canvas\Console;
 
 use Canvas\Mail\WeeklyDigest;
 use Canvas\Models\Post;
-use Canvas\Models\UserMeta;
 use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Foundation\Auth\User;
+use Canvas\Models\User;
 use Illuminate\Support\Facades\Mail;
 
 class DigestCommand extends Command
@@ -40,9 +39,7 @@ class DigestCommand extends Command
         $recipients = User::whereIn('id', Post::published()->pluck('user_id')->unique())->get();
 
         foreach ($recipients as $user) {
-            $meta = UserMeta::firstWhere('user_id', $user->id);
-
-            if (optional($meta)->digest != true) {
+            if ($user->digest != true) {
                 continue;
             }
 
@@ -70,7 +67,7 @@ class DigestCommand extends Command
                 ],
                 'startDate' => $startDate->format('M j'),
                 'endDate' => $endDate->format('M j'),
-                'locale' => $meta->locale,
+                'locale' => $user->locale,
             ];
 
             try {
