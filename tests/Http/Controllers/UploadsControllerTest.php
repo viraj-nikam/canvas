@@ -26,7 +26,7 @@ class UploadsControllerTest extends TestCase
     }
 
     /** @test */
-    public function it_can_store_media()
+    public function it_will_not_process_empty_payloads()
     {
         Storage::fake(config('canvas.storage_disk'));
 
@@ -35,12 +35,24 @@ class UploadsControllerTest extends TestCase
         $this->actingAs($user, 'canvas')->postJson('canvas/api/uploads', [
             null,
         ])->assertStatus(400);
+    }
 
-        $this->actingAs($user, 'canvas')->postJson('canvas/api/uploads', [
+    /** @test */
+    public function it_can_store_media()
+    {
+        Storage::fake(config('canvas.storage_disk'));
+
+        $user = factory(User::class)->create();
+
+        $response = $this->actingAs($user, 'canvas')->postJson('canvas/api/uploads', [
             $file = UploadedFile::fake()->image('photo.jpg'),
         ])->assertSuccessful();
 
         $path = sprintf('%s/%s/%s', config('canvas.storage_path'), 'images', $file->hashName());
+
+        $this->assertStringContainsString($response->getContent(), Storage::disk(config('canvas.storage_disk'))->url($path));
+
+        $this->assertIsString($response->getContent());
 
         Storage::disk(config('canvas.storage_disk'))->assertExists($path);
     }
