@@ -64,7 +64,7 @@ class CreateCanvasTables extends Migration
         });
 
         Schema::create('canvas_views', function (Blueprint $table) {
-            $table->id('id');
+            $table->increments('id');
             $table->uuid('post_id')->index();
             $table->string('ip')->nullable();
             $table->text('agent')->nullable();
@@ -74,7 +74,7 @@ class CreateCanvasTables extends Migration
         });
 
         Schema::create('canvas_visits', function (Blueprint $table) {
-            $table->id('id');
+            $table->increments('id');
             $table->uuid('post_id');
             $table->string('ip')->nullable();
             $table->text('agent')->nullable();
