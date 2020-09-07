@@ -144,7 +144,7 @@ class TagControllerTest extends TestCase
             'role' => User::ADMIN,
         ]);
 
-        $tag = factory(Tag::class)->create([
+        $deletedTag = factory(Tag::class)->create([
             'id' => Uuid::uuid4()->toString(),
             'name' => 'A deleted tag',
             'slug' => 'a-deleted-tag',
@@ -154,17 +154,17 @@ class TagControllerTest extends TestCase
 
         $data = [
             'id' => Uuid::uuid4()->toString(),
-            'name' => $tag->name,
-            'slug' => $tag->slug,
+            'name' => $deletedTag->name,
+            'slug' => $deletedTag->slug,
             'user_id' => $user->id,
         ];
 
         $this->actingAs($user, 'canvas')
              ->postJson("canvas/api/tags/{$data['id']}", $data)
              ->assertSuccessful()
-             ->assertJsonExactFragment($data['name'], 'name')
-             ->assertJsonExactFragment($data['slug'], 'slug')
-             ->assertJsonExactFragment($user->id, 'user_id');
+             ->assertJsonExactFragment($deletedTag->name, 'name')
+             ->assertJsonExactFragment($deletedTag->slug, 'slug')
+             ->assertJsonExactFragment($deletedTag->user_id, 'user_id');
     }
 
     /** @test */

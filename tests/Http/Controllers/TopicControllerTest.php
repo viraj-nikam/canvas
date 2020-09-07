@@ -144,27 +144,27 @@ class TopicControllerTest extends TestCase
             'role' => User::ADMIN,
         ]);
 
-        $topic = factory(Topic::class)->create([
+        $deletedTopic = factory(Topic::class)->create([
             'id' => Uuid::uuid4()->toString(),
-            'name' => 'A deleted tag',
-            'slug' => 'a-deleted-tag',
+            'name' => 'A deleted topic',
+            'slug' => 'a-deleted-topic',
             'user_id' => $user->id,
             'deleted_at' => now(),
         ]);
 
         $data = [
             'id' => Uuid::uuid4()->toString(),
-            'name' => $topic->name,
-            'slug' => $topic->slug,
+            'name' => $deletedTopic->name,
+            'slug' => $deletedTopic->slug,
             'user_id' => $user->id,
         ];
 
         $this->actingAs($user, 'canvas')
              ->postJson("canvas/api/topics/{$data['id']}", $data)
              ->assertSuccessful()
-             ->assertJsonExactFragment($data['name'], 'name')
-             ->assertJsonExactFragment($data['slug'], 'slug')
-             ->assertJsonExactFragment($user->id, 'user_id');
+             ->assertJsonExactFragment($deletedTopic->name, 'name')
+             ->assertJsonExactFragment($deletedTopic->slug, 'slug')
+             ->assertJsonExactFragment($deletedTopic->user_id, 'user_id');
     }
 
     /** @test */

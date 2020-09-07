@@ -6,6 +6,8 @@ use Canvas\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Validation\Rule;
+use Ramsey\Uuid\Uuid;
 
 class UserController extends Controller
 {
@@ -19,9 +21,22 @@ class UserController extends Controller
     {
         return response()->json(
             User::latest()
-               ->withCount('posts')
-               ->paginate(), 200
+                ->withCount('posts')
+                ->paginate(), 200
         );
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function create(Request $request): JsonResponse
+    {
+        return response()->json(User::make([
+            'id' => Uuid::uuid4()->toString(),
+        ]), 200);
     }
 
     /**
@@ -37,14 +52,21 @@ class UserController extends Controller
         $user = User::find($id);
 
         if (! $user) {
-            $user = new User([
-                'id' => $id,
-            ]);
+            if ($user = User::onlyTrashed()->firstWhere('email', $request->email)) {
+                $user->restore();
+
+                return response()->json($user->refresh(), 201);
+            } else {
+                $user = new User([
+                    'id' => $id,
+                ]);
+            }
         }
 
         $data = [
             'name' => $request->input('name', $user->name),
             'email' => $request->input('email', $user->email),
+            'password' => $request->input('password', $user->password),
             'avatar' => $request->input('avatar', $user->avatar ?? null),
             'dark_mode' => $request->input('darkMode', $user->dark_mode ?? false),
             'digest' => $request->input('digest', $user->digest ?? false),
@@ -56,9 +78,17 @@ class UserController extends Controller
 
         $rules = [
             'name' => 'required|string',
-            'email' => 'required|email|unique:canvas_users',
+            'email' => [
+                'required',
+                'email',
+                Rule::unique('canvas_users')->ignore($id),
+            ],
             'password' => 'sometimes|min:8',
-            'username' => 'nullable|alpha_dash|unique:canvas_users',
+            'username' => [
+                'nullable',
+                'alpha_dash',
+                Rule::unique('canvas_users')->ignore($id),
+            ],
         ];
 
         $messages = [
@@ -115,7 +145,11 @@ class UserController extends Controller
      */
     public function destroy(Request $request, $id)
     {
-        $user = User::find($id);
+        if ($request->user()->id == $id) {
+            return response()->json(null, 403);
+        }
+
+        $user = User::findOrFail($id);
 
         $user->delete();
 
