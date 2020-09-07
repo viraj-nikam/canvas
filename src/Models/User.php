@@ -2,6 +2,7 @@
 
 namespace Canvas\Models;
 
+use Canvas\Helpers\URL;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -87,6 +88,16 @@ class User extends Authenticatable
     ];
 
     /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = [
+        'default_avatar',
+        'default_locale',
+    ];
+
+    /**
      * The number of models to return for pagination.
      *
      * @var int
@@ -151,5 +162,25 @@ class User extends Authenticatable
     public function getIsAdminAttribute(): bool
     {
         return $this->role === self::ADMIN;
+    }
+
+    /**
+     * Return a default user avatar.
+     *
+     * @return string
+     */
+    public function getDefaultAvatarAttribute(): string
+    {
+        return URL::gravatar($this->email ?? '');
+    }
+
+    /**
+     * Return a default user locale.
+     *
+     * @return string
+     */
+    public function getDefaultLocaleAttribute(): string
+    {
+        return config('app.locale');
     }
 }

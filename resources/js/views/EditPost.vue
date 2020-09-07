@@ -97,13 +97,13 @@
             </div>
         </main>
 
-        <publish-modal v-if="isReady" ref="publishModal" />
-        <settings-modal v-if="isReady" ref="settingsModal" />
-        <featured-image-modal v-if="isReady" ref="featuredImageModal" />
-        <seo-modal v-if="isReady" ref="seoModal" />
+        <publish-modal ref="publishModal" v-if="isReady" />
+        <settings-modal ref="settingsModal" v-if="isReady" />
+        <featured-image-modal ref="featuredImageModal" v-if="isReady" />
+        <seo-modal ref="seoModal" v-if="isReady" />
         <delete-modal
-            v-if="isReady"
             ref="deleteModal"
+            v-if="isReady"
             :header="trans.delete"
             :message="trans.deleted_posts_are_gone_forever"
             @delete="deletePost"
@@ -157,7 +157,7 @@ export default {
         ...mapGetters({
             trans: 'settings/trans',
             isAdmin: 'profile/isAdmin',
-            isEditor: 'profile/isEditor'
+            isEditor: 'profile/isEditor',
         }),
 
         creatingPost() {

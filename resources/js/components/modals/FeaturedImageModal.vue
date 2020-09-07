@@ -329,9 +329,7 @@ export default {
 
         clickDone() {
             this.post.featured_image = !isEmpty(this.selectedImageUrl) ? this.selectedImageUrl : '';
-            this.post.featured_image_caption = !isEmpty(this.selectedImageCaption)
-                ? this.selectedImageCaption
-                : '';
+            this.post.featured_image_caption = !isEmpty(this.selectedImageCaption) ? this.selectedImageCaption : '';
 
             this.$parent.save();
         },

@@ -49,8 +49,8 @@
                             </a>
                             <input
                                 v-model="slug"
-                                type="text"
                                 id="slug"
+                                type="text"
                                 class="form-control border-0"
                                 name="slug"
                                 :title="trans.slug"

@@ -84,10 +84,10 @@
 
 <script>
 import { mapGetters, mapState } from 'vuex';
+import { store } from '../store';
 import $ from 'jquery';
 import SearchModal from './modals/SearchModal';
 import axios from 'axios';
-import { store } from "../store";
 
 export default {
     name: 'page-header',

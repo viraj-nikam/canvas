@@ -1,7 +1,7 @@
 import Vue from 'vue';
+import get from 'lodash/get';
 import request from '../../mixins/request';
 import router from '../../router';
-import get from 'lodash/get';
 
 const initialState = {
     id: '',

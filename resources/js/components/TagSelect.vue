@@ -26,6 +26,8 @@ export default {
         Multiselect,
     },
 
+    mixins: [strings],
+
     props: {
         tags: {
             type: Array,
@@ -43,8 +45,6 @@ export default {
             value: [],
         };
     },
-
-    mixins: [strings],
 
     computed: {
         ...mapState(['profile']),

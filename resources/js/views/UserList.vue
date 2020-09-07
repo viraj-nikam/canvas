@@ -38,7 +38,12 @@
                                             {{ user.email }}
                                         </p>
                                     </div>
-                                    <div class="ml-auto d-none d-md-inline pl-3">
+                                    <div class="ml-auto d-none d-lg-inline pl-3">
+                                        <div class="d-none d-md-inline">
+                                            <span class="text-muted mr-3">
+                                                {{ roleName(user.role) }}
+                                            </span>
+                                        </div>
                                         <img
                                             :src="gravatar(user.email)"
                                             style="width: 57px; height: 57px"
@@ -145,6 +150,19 @@ export default {
                     .catch(() => {
                         NProgress.done();
                     });
+            }
+        },
+
+        roleName(id) {
+            switch (id) {
+                case 1:
+                    return 'Contributor';
+                case 2:
+                    return 'Editor';
+                case 3:
+                    return 'Admin';
+                default:
+                    return '';
             }
         },
     },

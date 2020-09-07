@@ -2,6 +2,7 @@
 
 namespace Canvas\Tests\Models;
 
+use Canvas\Helpers\URL;
 use Canvas\Models\Post;
 use Canvas\Models\Tag;
 use Canvas\Models\Topic;
@@ -10,6 +11,7 @@ use Canvas\Tests\TestCase;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Str;
+use Ramsey\Uuid\Uuid;
 
 /**
  * Class UserTest.
@@ -36,6 +38,18 @@ class UserTest extends TestCase
     public function role_is_cast_to_an_integer()
     {
         $this->assertIsInt(factory(User::class)->create()->role);
+    }
+
+    /** @test */
+    public function default_avatar_appends_to_the_model()
+    {
+        $this->assertArrayHasKey('default_avatar', factory(User::class)->create()->toArray());
+    }
+
+    /** @test */
+    public function default_locale_appends_to_the_model()
+    {
+        $this->assertArrayHasKey('default_locale', factory(User::class)->create()->toArray());
     }
 
     /** @test */
@@ -113,5 +127,25 @@ class UserTest extends TestCase
         $this->assertTrue(factory(User::class)->create([
             'role' => User::ADMIN,
         ])->isAdmin);
+    }
+
+    /** @test */
+    public function default_avatar_attribute()
+    {
+        $user = factory(User::class)->create([
+            'avatar' => null,
+        ]);
+
+        $this->assertSame($user->defaultAvatar, URL::gravatar($user->email));
+    }
+
+    /** @test */
+    public function default_locale_attribute()
+    {
+        $user = factory(User::class)->create([
+            'locale' => null,
+        ]);
+
+        $this->assertSame($user->defaultLocale, config('app.locale'));
     }
 }

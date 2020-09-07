@@ -87,7 +87,7 @@ class SearchController extends Controller
      */
     public function showUsers(Request $request): JsonResponse
     {
-        $users = User::select('id', 'name')->latest()->get();
+        $users = User::select('id', 'name', 'email')->latest()->get();
 
         $users->map(function ($user) {
             $user['type'] = 'User';

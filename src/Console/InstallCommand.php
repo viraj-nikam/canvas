@@ -6,6 +6,7 @@ use Canvas\Models\User;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Ramsey\Uuid\Uuid;
 
 class InstallCommand extends Command
 {
@@ -56,6 +57,7 @@ class InstallCommand extends Command
     private function createDefaultUser(string $email, string $password)
     {
         User::create([
+            'id' => Uuid::uuid4()->toString(),
             'name' => 'Example User',
             'email' => $email,
             'password' => Hash::make($password),

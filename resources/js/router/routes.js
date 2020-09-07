@@ -1,4 +1,3 @@
-import profile from "../store/modules/profile";
 import AllStats from '../views/AllStats';
 import EditPost from '../views/EditPost';
 import EditSettings from '../views/EditSettings';
@@ -10,6 +9,7 @@ import PostStats from '../views/PostStats';
 import TagList from '../views/TagList';
 import TopicList from '../views/TopicList';
 import UserList from '../views/UserList';
+import profile from '../store/modules/profile';
 
 let isAdmin = profile.state.role === 3;
 

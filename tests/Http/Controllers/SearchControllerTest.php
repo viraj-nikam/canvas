@@ -182,6 +182,7 @@ class SearchControllerTest extends TestCase
         $this->assertCount(3, $response->decodeResponseJson());
         $this->assertArrayHasKey('id', $response->decodeResponseJson()[0]);
         $this->assertArrayHasKey('name', $response->decodeResponseJson()[0]);
+        $this->assertArrayHasKey('email', $response->decodeResponseJson()[0]);
         $this->assertArrayHasKey('type', $response->decodeResponseJson()[0]);
         $this->assertSame('User', $response->decodeResponseJson('0.type'));
         $this->assertArrayHasKey('route', $response->decodeResponseJson()[0]);

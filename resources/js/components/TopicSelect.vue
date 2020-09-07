@@ -26,6 +26,8 @@ export default {
         Multiselect,
     },
 
+    mixins: [strings],
+
     props: {
         topics: {
             type: Array,
@@ -43,8 +45,6 @@ export default {
             value: [],
         };
     },
-
-    mixins: [strings],
 
     created() {
         this.value = this.tagged;

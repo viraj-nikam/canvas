@@ -20,7 +20,7 @@ const actions = {
                 context.commit('UPDATE_INDEX', data);
             });
 
-        if (context.rootGetters["profile/isAdmin"]) {
+        if (context.rootGetters['profile/isAdmin']) {
             request.methods
                 .request()
                 .get('/api/search/tags')
@@ -62,5 +62,5 @@ export default {
     state,
     actions,
     mutations,
-    getters
+    getters,
 };

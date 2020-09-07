@@ -144,11 +144,11 @@
                                     <div class="ml-auto">
                                         <div class="d-none d-md-inline">
                                             <span class="text-secondary mr-3"
-                                            >{{ suffixedNumber(post.views_count) }}
+                                                >{{ suffixedNumber(post.views_count) }}
                                                 {{ post.views_count == 1 ? trans.view : trans.views }}</span
                                             >
                                             <span class="mr-3"
-                                            >{{ trans.created }}
+                                                >{{ trans.created }}
                                                 {{ moment(post.created_at).format('MMM D, YYYY') }}</span
                                             >
                                         </div>
