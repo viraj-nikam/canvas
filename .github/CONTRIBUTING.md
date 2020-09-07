@@ -3,7 +3,7 @@
 Hi! I'm really excited that you are interested in contributing to Canvas. The following guide will help you get
  your environment set up to begin making changes.
 
-## Table of Contents
+### Table of Contents
 
 - [OS Tools](#before-you-get-started)
 - [Development Setup](#development-setup)
