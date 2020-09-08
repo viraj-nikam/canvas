@@ -21,6 +21,7 @@ just a few minutes. In addition to a distraction-free writing experience, you ca
 - [System Requirements](#system-requirements)
 - [Installation](#installation)
 - [Configuration](#configuration)
+- [Roles & Permissions](#roles--permissions)
 - [Features](#features)
 - [Updates](#updates)
 - [Contributing](#contributing)

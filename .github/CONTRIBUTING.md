@@ -63,19 +63,9 @@ DB_CONNECTION=sqlite
 
 > Note: It's assumed we're developing on Laravel 6.* since that's the current LTS
 
-From your Laravel app, create the authentication system and run the following commands:
+From your Laravel app, run the following command:
 
 ```bash
-# Require the Laravel UI package
-composer require laravel/ui
-
-# Scaffold the frontend
-php artisan ui vue --auth
-
-# Install dependencies and compile assets
-npm install
-npm run dev
-
 # Run the migrations
 php artisan migrate
 ```
@@ -110,8 +100,8 @@ Create a new class named `CanvasTrackingDataSeeder` and add this to the `run()` 
 \Illuminate\Support\Facades\DB::table('canvas_views')->truncate();
 \Illuminate\Support\Facades\DB::table('canvas_visits')->truncate();
 
-factory(\Canvas\Models\View::class, 2500)->create();
-factory(\Canvas\Models\Visit::class, 2500)->create();
+factory(\Canvas\Models\View::class, 1500)->create();
+factory(\Canvas\Models\Visit::class, 1500)->create();
 ```
 
 In the `run()` method of the `DatabaseSeeder`:

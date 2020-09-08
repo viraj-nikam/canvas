@@ -44,18 +44,6 @@ tasks:
       sed -i 's/DB_CONNECTION=mysql/DB_CONNECTION=sqlite/g' .env
       sed -i 's/DB_DATABASE=laravel/#DB_DATABASE=laravel/g' .env
 
-      # Require the Laravel UI package
-      composer require laravel/ui
-
-      # Install default user authentication
-      php artisan ui vue --auth
-
-      # Install core JS dependencies
-      yarn
-
-      # Compile assets
-      yarn dev
-
       # Run database migrations
       php artisan migrate
 
