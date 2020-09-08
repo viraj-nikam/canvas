@@ -17,16 +17,18 @@ the requirement of the `doctrine/dbal` dependency from the project.
 
 > Note: The process for migrating data will be unique based on your choice of IDE and database.
 
-The first step is to export all data in Canvas-related tables to a SQL dump. *The key here is to not allow the
- `DROP TABLE` or `CREATE TABLE` syntax into the export.* The one thing that you do need from this dump are the
- `INSERT` statements. The following tables need to be included in the export:  
+The `canvas_user_meta` table has been deprecated in v6.0.0, and a new table: `canvas_users` will take its place
+. Canvas will no longer rely on the app `users` table, or allow you to specify your own user model. This shift mimics
+ the underlying structure of WordPress and similar apps.
+
+The first step is to export all data in Canvas-related tables to a SQL dump. The following tables need to be
+ included in the export:
 
 - `canvas_posts`
 - `canvas_posts_tags`
 - `canvas_posts_topics`
 - `canvas_tags`
 - `canvas_topics`
-- `canvas_user_meta`
 - `canvas_views`
 - `canvas_visits`
 
@@ -66,6 +68,10 @@ For instance, I use [Sequel Pro](http://sequelpro.com). When I exported my data,
 
 The base path variable name in `config/canvas.php` changed to be consistent with the newly-added domain variable. 
 You'll need to make sure your `.env` file is up to date with the correct variable: `CANVAS_PATH`.
+
+Remove the `auth` line from the `middleware` block in `config/canvas.php`.
+
+Remove the entire `user` block from `config/canvas.php`.
  
  //
  // TODO: Add notes about changes to users

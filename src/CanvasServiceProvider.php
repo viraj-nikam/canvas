@@ -2,7 +2,7 @@
 
 namespace Canvas;
 
-use Canvas\Console\AdminCommand;
+use Canvas\Console\UserCommand;
 use Canvas\Console\DigestCommand;
 use Canvas\Console\InstallCommand;
 use Canvas\Console\PublishCommand;
@@ -93,7 +93,7 @@ class CanvasServiceProvider extends ServiceProvider
     protected function configureCommands()
     {
         $this->commands([
-            AdminCommand::class,
+            UserCommand::class,
             DigestCommand::class,
             InstallCommand::class,
             PublishCommand::class,
