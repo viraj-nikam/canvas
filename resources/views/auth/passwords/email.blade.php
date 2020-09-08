@@ -2,7 +2,7 @@
 
 @section('content')
     <main class="col-12 col-lg-5">
-        <div class="mb-4 text-center">
+        <div class="mb-5 text-center">
             <h1>Forgot your <span class="font-cursive">password</span>?</h1>
         </div>
         <div class="card shadow-lg w-auto">
@@ -50,6 +50,9 @@
                     </a>
                 </div>
             </div>
+        </div>
+        <div class="mt-5 text-center">
+            <p class="text-muted">Powered by <a href="https://trycanvas.app" class="text-primary text-decoration-none">Canvas</a></p>
         </div>
     </main>
 @endsection

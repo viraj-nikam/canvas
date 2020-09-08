@@ -9,7 +9,7 @@
 
     <link rel="stylesheet" type="text/css" href="{{ mix('css/app.css', 'vendor/canvas') }}">
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Karla|Caveat:700">
+    <link rel="stylesheet" href="//fonts.googleapis.com/css2?family=Karla&family=Caveat:wght@700&display=swap">
 
     <style>
         body,html{
