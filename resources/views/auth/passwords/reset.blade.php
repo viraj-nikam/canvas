@@ -1,8 +1,11 @@
 @extends('canvas::auth')
 
 @section('content')
-    <div class="row h-100 justify-content-center align-items-center">
-        <div class="card shadow-lg col-10 col-lg-5">
+    <main class="col-12 col-lg-5">
+        <div class="mb-4 text-center">
+            <h1>Please <span class="font-cursive">reset</span> your password</h1>
+        </div>
+        <div class="card shadow-lg w-auto">
             <div class="card-body">
                 <form method="POST" action="{{ route('canvas.password.update') }}" class="w-100 my-auto">
                     @csrf
@@ -71,5 +74,5 @@
                 </form>
             </div>
         </div>
-    </div>
+    </main>
 @endsection

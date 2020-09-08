@@ -1,8 +1,11 @@
 @extends('canvas::auth')
 
 @section('content')
-    <div class="row h-100 justify-content-center align-items-center">
-        <div class="card shadow-lg col-10 col-lg-5">
+    <main class="col-12 col-lg-5">
+        <div class="mb-4 text-center">
+            <h1>Forgot your <span class="font-cursive">password</span>?</h1>
+        </div>
+        <div class="card shadow-lg w-auto">
             <div class="card-body">
                 <form method="POST" action="{{ route('canvas.password.email') }}" class="w-100 my-auto">
                     @csrf
@@ -48,5 +51,5 @@
                 </div>
             </div>
         </div>
-    </div>
+    </main>
 @endsection
