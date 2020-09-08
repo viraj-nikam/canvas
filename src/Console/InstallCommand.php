@@ -35,7 +35,7 @@ class InstallCommand extends Command
         $this->callSilent('vendor:publish', ['--tag' => 'canvas-assets']);
         $this->callSilent('vendor:publish', ['--tag' => 'canvas-config']);
         $this->callSilent('migrate', [
-            '--path' => 'vendor/austintoddj/canvas/src/database/migrations',
+            '--path' => 'vendor/austintoddj/canvas/database/migrations',
             '--force' => $this->option('force') ?? true,
         ]);
 
