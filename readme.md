@@ -33,9 +33,7 @@ just a few minutes. In addition to a distraction-free writing experience, you ca
 - Laravel >= 6.0
 - One of the [four supported databases](https://laravel.com/docs/master/database#introduction) by Laravel
 
-## Installation
-
-> **Note:** Canvas requires you to have user authentication in place prior to installation. Please see the [official guide](https://laravel.com/docs/master/authentication#introduction) to get started.   
+## Installation   
 
 You may use composer to install Canvas into your Laravel project:
 
@@ -53,13 +51,6 @@ Create a symbolic link to ensure file uploads are publicly accessible from the w
 
 ```bash
 php artisan storage:link
-```
-
-Once installed, you can view Canvas in your browser. Access will be limited however until you grant admin
- privileges to yourself or another user. To do that, simply run the `canvas:admin` Artisan command:
- 
- ```bash
-php artisan canvas:admin 
 ```
 
 ## Configuration
@@ -96,23 +87,6 @@ Canvas exposes its UI at `/canvas` by default. This can be changed by updating e
 'path' => env('CANVAS_PATH_NAME', 'canvas'),
 ```
 
-If your application has a custom User model, define the fully-qualified path in the `user` option:
-
-```php
-/*
-|--------------------------------------------------------------------------
-| User Model
-|--------------------------------------------------------------------------
-|
-| Next, you may define a specific user model that your application will
-| use for authentication. This will define the relationships between
-| a user and their posts, tags, and topics that they author.
-|
-*/
-
-'user' => Illuminate\Foundation\Auth\User::class,
-```
-
 Sometimes, you may want to apply custom roles or permissions when accessing Canvas. You can create and attach any
  additional middleware here:
 
@@ -130,7 +104,6 @@ Sometimes, you may want to apply custom roles or permissions when accessing Canv
 
 'middleware' => [
     'web',
-    'auth',
 ],
 ```
 
@@ -154,6 +127,17 @@ Canvas uses the storage disk for media uploads. You may configure the different 
 
 'upload_filesize' => env('CANVAS_UPLOAD_FILESIZE', 3145728),
 ```
+
+## Roles & Permissions
+
+Canvas has 3 pre-defined roles:
+
+- **Contributor** (Somebody who can write and manage their own posts but cannot publish them)
+- **Editor** (Somebody who can publish and manage posts including the posts of other users)
+- **Admin** (Somebody who can do everything and see everything)
+
+When you install a fresh version of Canvas, you'll have a default admin user set up automatically. From there, you
+ can perform any basic CRUD actions on users, as well as assign their various roles. 
 
 ## Features
 

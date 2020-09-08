@@ -59,10 +59,29 @@ php artisan migrate
 You may now import the SQL dump that you created above into your database. Remember, your database and IDE will
  determine if you should run into any errors while performing this action. 
  
-For instance, I use [Sequel Pro](http://sequelpro.com). When I exported my data, I made sure to un-check the
- `DROP TABLE` syntax. When I ran the import, I had to ensure the **On SQL Error** was set to *Ignore and continue* since
- the dump still contained `CREATE TABLE` statements. Sequel Pro will throw errors since those tables already exist,
- however they can be ignored since the import still inserts the data properly. 
+### Setting up a user
+
+Now that we don't rely on the base Laravel `users` table, you'll need create your first user for Canvas. It's really
+ simple, just run the following Artisan command:
+ 
+```bash
+php artisan canvas:user admin --email {email} 
+```
+
+That's it! You should jump in right away and update your credentials. Now that you've given yourself Admin access
+, you can create new users from the UI. However, the `canvas:user` Artisan command is a handy little tool for
+ creating users on the fly. You can specify more options like this:
+ 
+```bash
+// Somebody who can write and manage their own posts but cannot publish them
+php artisan canvas:user contributor --email {email}
+
+// Somebody who can publish and manage posts including the posts of other users
+php artisan canvas:user editor --email {email}
+
+// Somebody who can do everything and see everything
+php artisan canvas:user admin --email {email}
+```
 
 ### Configuration
 
@@ -72,10 +91,6 @@ You'll need to make sure your `.env` file is up to date with the correct variabl
 Remove the `auth` line from the `middleware` block in `config/canvas.php`.
 
 Remove the entire `user` block from `config/canvas.php`.
- 
- //
- // TODO: Add notes about changes to users
- //
  
 ### Assets
 
