@@ -44,9 +44,6 @@ tasks:
       sed -i 's/DB_CONNECTION=mysql/DB_CONNECTION=sqlite/g' .env
       sed -i 's/DB_DATABASE=laravel/#DB_DATABASE=laravel/g' .env
 
-      # Run database migrations
-      php artisan migrate
-
       # Link Canvas to the Laravel app
       composer-link ../canvas/
       composer require austintoddj/canvas @dev

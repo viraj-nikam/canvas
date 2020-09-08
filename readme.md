@@ -235,16 +235,29 @@ You may update your Canvas installation using composer:
 composer update
 ```
 
-Run any new migrations using the `migrate` Artisan command:
+Run any new migrations using the `canvas:migrate` Artisan command:
 
 ```bash
-php artisan migrate
+php artisan canvas:migrate
 ```
 
 Re-publish the assets using the `canvas:publish` Artisan command:
 
 ```bash
 php artisan canvas:publish
+```
+
+To keep the assets up-to-date and avoid issues in future updates, you may add the `canvas:publish` command to the
+ `post-update-cmd` scripts in your application's `composer.json` file:
+ 
+```bash
+{
+    "scripts": {
+        "post-update-cmd": [
+            "@php artisan canvas:publish --ansi"
+        ]
+    }
+}
 ```
 
 ## Contributing

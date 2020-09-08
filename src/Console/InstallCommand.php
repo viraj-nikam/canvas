@@ -15,14 +15,14 @@ class InstallCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'canvas:install {--force : Force the operation to run when in production}';
+    protected $signature = 'canvas:install';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Install the resources and run migrations';
+    protected $description = 'Install all of the Canvas resources';
 
     /**
      * Execute the console command.
@@ -34,10 +34,7 @@ class InstallCommand extends Command
         $this->callSilent('vendor:publish', ['--tag' => 'canvas-provider']);
         $this->callSilent('vendor:publish', ['--tag' => 'canvas-assets']);
         $this->callSilent('vendor:publish', ['--tag' => 'canvas-config']);
-        $this->callSilent('migrate', [
-            '--path' => 'vendor/austintoddj/canvas/database/migrations',
-            '--force' => $this->option('force') ?? true,
-        ]);
+        $this->callSilent('canvas:migrate');
 
         $this->registerCanvasServiceProvider();
 
@@ -45,7 +42,7 @@ class InstallCommand extends Command
 
         $this->info('Installation complete.');
         $this->table(['Default Email', 'Default Password'], [[$email, $password]]);
-        $this->info('First things first, login at <comment>'.route('canvas.login').'</comment> and update your credentials.');
+        $this->info('First things first, head to <comment>'.route('canvas.login').'</comment> and update your credentials.');
     }
 
     /**

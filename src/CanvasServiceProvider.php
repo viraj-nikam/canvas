@@ -4,6 +4,7 @@ namespace Canvas;
 
 use Canvas\Console\DigestCommand;
 use Canvas\Console\InstallCommand;
+use Canvas\Console\MigrateCommand;
 use Canvas\Console\PublishCommand;
 use Canvas\Console\UserCommand;
 use Canvas\Events\PostViewed;
@@ -96,6 +97,7 @@ class CanvasServiceProvider extends ServiceProvider
             UserCommand::class,
             DigestCommand::class,
             InstallCommand::class,
+            MigrateCommand::class,
             PublishCommand::class,
         ]);
     }
