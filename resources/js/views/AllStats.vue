@@ -15,7 +15,7 @@
                     <select
                         v-model="scope"
                         id="scope"
-                        v-if="isReady && isAdmin"
+                        v-if="isReady && isAdmin && hasPublishedPosts"
                         name="scope"
                         class="ml-auto w-auto custom-select border-0 bg-light"
                         @change="changeScope"
@@ -25,7 +25,7 @@
                     </select>
                 </div>
 
-                <div v-if="isReady && data">
+                <div v-if="isReady && hasPublishedPosts">
                     <div class="card-deck mt-4 pt-2">
                         <div class="card shadow-lg">
                             <div
@@ -126,7 +126,7 @@
                     </div>
                 </div>
 
-                <div v-if="isReady && !data" class="card shadow mt-5">
+                <div v-if="isReady && !hasPublishedPosts" class="card shadow mt-5">
                     <div class="card-body p-0">
                         <div class="my-5">
                             <p class="lead text-center text-muted mt-5">{{ trans.you_have_no_published_posts }}</p>
@@ -180,6 +180,10 @@ export default {
             isAdmin: 'profile/isAdmin',
             trans: 'settings/trans',
         }),
+
+        hasPublishedPosts() {
+            return this.posts.length > 0;
+        },
 
         plotViewPoints() {
             return JSON.parse(this.data.traffic.views);
