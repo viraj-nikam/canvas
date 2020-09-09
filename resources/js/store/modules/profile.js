@@ -13,6 +13,8 @@ const initialState = {
     digest: window.Canvas.user.digest,
     locale: window.Canvas.user.locale || window.Canvas.user.default_locale,
     role: window.Canvas.user.role,
+    defaultAvatar: window.Canvas.user.default_avatar,
+    defaultLocale: window.Canvas.user.default_locale,
     updatedAt: window.Canvas.user.updated_at,
 };
 

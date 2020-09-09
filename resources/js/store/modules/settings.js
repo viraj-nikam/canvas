@@ -1,5 +1,3 @@
-import request from '../../mixins/request';
-
 const initialState = {
     i18n: window.Canvas.translations,
     languageCodes: window.Canvas.languageCodes,

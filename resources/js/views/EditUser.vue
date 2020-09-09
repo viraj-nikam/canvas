@@ -1,25 +1,74 @@
 <template>
     <section>
-        <page-header />
+        <page-header>
+            <template slot="options">
+                <div v-if="!creatingUser" class="dropdown">
+                    <a
+                        id="navbarDropdown"
+                        class="nav-link pr-0"
+                        href="#"
+                        role="button"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            width="25"
+                            class="icon-dots-horizontal"
+                        >
+                            <path
+                                class="fill-light-gray"
+                                fill-rule="evenodd"
+                                d="M5 14a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm7 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm7 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"
+                            />
+                        </svg>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                        <a href="#" class="dropdown-item text-danger" @click="showDeleteModal"> {{ trans.delete }} </a>
+                    </div>
+                </div>
+            </template>
+        </page-header>
 
-        <main class="py-4">
-            <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12 my-3">
-                <div v-if="isReady" class="my-3">
-                    <h2 class="mt-3">
-                        {{ isAuthProfile ? trans.edit_profile : trans.edit_user }}
-                    </h2>
-                    <p v-if="user.updatedAt" class="mt-2 text-secondary">
-                        {{ trans.last_updated }} {{ moment(user.updatedAt).fromNow() }}
-                    </p>
+        <main v-if="isReady" class="py-4">
+            <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12">
+                <div class="d-flex justify-content-between mt-2 mb-4 align-items-center">
+                    <div>
+                        <h2 class="mt-2">
+                            {{ title }}
+                        </h2>
+                        <p class="mt-2 text-secondary">
+                            {{ trans.last_updated }} {{ moment(user.updated_at).fromNow() }}
+                        </p>
+                    </div>
+                    <select
+                        v-model="user.role"
+                        id="role"
+                        :disabled="isAuthProfile"
+                        class="ml-auto w-auto custom-select border-0 bg-light"
+                        name="locale"
+                        @change="selectRole"
+                    >
+                        <option
+                            :key="`${roleId}-${name}`"
+                            v-for="(name, roleId) in settings.roles"
+                            :value="roleId"
+                            :selected="user.role === roleId"
+                        >
+                            {{ name }}
+                        </option>
+                    </select>
                 </div>
 
-                <div v-if="isReady" class="mt-5 card shadow-lg">
+                <div class="mt-5 card shadow-lg">
                     <div class="card-body">
                         <div v-if="!isAuthProfile" class="row">
                             <div class="col-lg-2 text-center text-lg-left">
                                 <img
-                                    :src="avatar"
-                                    :alt="username"
+                                    :src="user.avatar"
+                                    :alt="user.name"
                                     width="125"
                                     class="rounded-circle shadow-inner align-self-center"
                                 />
@@ -28,9 +77,9 @@
                                 <p class="my-0 lead font-weight-bold">{{ user.name }}</p>
                                 <p class="text-muted mb-1">
                                     <a :href="`mailto:${user.email}`" class="text-primary">{{ user.email }}</a>
-                                    <span v-if="username"> ― @{{ username }}</span>
+                                    <span v-if="user.username"> ― @{{ user.username }}</span>
                                 </p>
-                                <p class="mb-0 text-muted">{{ summary }}</p>
+                                <p class="mb-0 text-muted">{{ user.summary }}</p>
                             </div>
                         </div>
 
@@ -66,7 +115,7 @@
 
                                     <div v-if="!isReadyToAcceptUploads" class="text-center rounded p-3">
                                         <img
-                                            :src="user.avatar"
+                                            :src="user.avatar || user.default_avatar"
                                             class="rounded-circle w-75 shadow-inner"
                                             :alt="user.name"
                                         />
@@ -91,7 +140,7 @@
                                                 {{ trans.username }}
                                             </label>
                                             <input
-                                                v-model="username"
+                                                v-model="user.username"
                                                 id="username"
                                                 name="username"
                                                 :disabled="!isAuthProfile"
@@ -112,7 +161,7 @@
                                                 {{ trans.summary }}
                                             </label>
                                             <textarea
-                                                v-model="summary"
+                                                v-model="user.summary"
                                                 id="summary"
                                                 rows="4"
                                                 name="summary"
@@ -154,64 +203,90 @@
                     </div>
                 </div>
 
-                <div class="mt-5">
-                    <h2 class="mt-3">{{ trans.role }}</h2>
-                </div>
+                <h2 v-if="posts.length > 0" class="mt-5">{{ trans.posts }}</h2>
 
-                <div class="mt-3 card shadow-lg">
+                <div v-if="posts.length > 0" class="mt-3 card shadow-lg">
                     <div class="card-body p-0">
-                        <div class="d-flex rounded-top p-3 align-items-center">
-                            <div class="mr-auto py-1">
-                                <p class="mb-0 lead font-weight-bold">
-                                    {{ trans.admin }}
-                                </p>
-                                <p class="mb-1 d-none d-lg-block text-secondary">
-                                    {{ trans.grant_this_user_admin_privileges }}
-                                </p>
-                            </div>
-                            <div class="ml-auto pl-3">
-                                <div class="align-middle">
-                                    <div class="form-group row mt-3">
-                                        <!--                                        <span v-if="isReady" class="switch switch-sm">-->
-                                        <!--                                            <input-->
-                                        <!--                                                v-model="admin"-->
-                                        <!--                                                id="admin"-->
-                                        <!--                                                type="checkbox"-->
-                                        <!--                                                class="switch"-->
-                                        <!--                                                :disabled="isAuthProfile"-->
-                                        <!--                                                :checked="user.admin"-->
-                                        <!--                                                @change="toggleAdmin"-->
-                                        <!--                                            />-->
-                                        <!--                                            <label for="admin" class="mb-0 sr-only">-->
-                                        <!--                                                {{ trans.grant_this_user_admin_privileges }}-->
-                                        <!--                                            </label>-->
-                                        <!--                                        </span>-->
-                                        <div v-if="isReady" class="col-12">
-                                            <select
-                                                v-model="role"
-                                                id="role"
-                                                class="custom-select border-0"
-                                                name="locale"
-                                                @change="selectRole"
+                        <div :key="`${index}-${post.id}`" v-for="(post, index) in posts">
+                            <router-link
+                                :to="{
+                                    name: 'edit-post',
+                                    params: { id: post.id },
+                                }"
+                                class="text-decoration-none"
+                            >
+                                <div
+                                    v-hover="{ class: `hover-bg` }"
+                                    class="d-flex p-3 align-items-center"
+                                    :class="{
+                                        'border-top': index !== 0,
+                                        'rounded-top': index === 0,
+                                        'rounded-bottom': index === posts.length - 1,
+                                    }"
+                                >
+                                    <div class="pl-2 col-md-6 col-sm-8 col-10">
+                                        <p class="mb-0 mt-2 lead font-weight-bold text-truncate">
+                                            {{ post.title }}
+                                        </p>
+                                        <p class="text-secondary mb-2">
+                                            <span v-if="isPublished(post.published_at)">
+                                                <span class="d-none d-md-inline"> {{ post.read_time }} ― </span>
+                                                {{ trans.published }}
+                                                {{ moment(post.published_at).format('MMM D, YYYY') }}
+                                            </span>
+                                            <span v-if="isDraft(post.published_at)">
+                                                <span class="text-danger">{{ trans.draft }}</span>
+                                                <span class="d-none d-md-inline">
+                                                    ― {{ trans.updated }}
+                                                    {{ moment(post.updated_at).fromNow() }}
+                                                </span>
+                                            </span>
+                                        </p>
+                                    </div>
+                                    <div class="ml-auto">
+                                        <div class="d-none d-md-inline">
+                                            <span class="text-secondary mr-3"
+                                                >{{ suffixedNumber(post.views_count) }}
+                                                {{ post.views_count == 1 ? trans.view : trans.views }}</span
                                             >
-                                                <option
-                                                    :key="`${id}-${name}`"
-                                                    v-for="(name, id) in settings.roles"
-                                                    :value="id"
-                                                    :selected="role === id"
-                                                >
-                                                    {{ name }}
-                                                </option>
-                                            </select>
+                                            <span class="mr-3"
+                                                >{{ trans.created }}
+                                                {{ moment(post.created_at).format('MMM D, YYYY') }}</span
+                                            >
                                         </div>
+
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width="25"
+                                            viewBox="0 0 24 24"
+                                            class="icon-cheveron-right-circle"
+                                        >
+                                            <circle cx="12" cy="12" r="10" style="fill: none" />
+                                            <path
+                                                class="fill-light-gray"
+                                                d="M10.3 8.7a1 1 0 0 1 1.4-1.4l4 4a1 1 0 0 1 0 1.4l-4 4a1 1 0 0 1-1.4-1.4l3.29-3.3-3.3-3.3z"
+                                            />
+                                        </svg>
                                     </div>
                                 </div>
-                            </div>
+                            </router-link>
                         </div>
+
+                        <infinite-loading spinner="spiral" @infinite="fetchPosts">
+                            <span slot="no-more" />
+                            <div slot="no-results" />
+                        </infinite-loading>
                     </div>
                 </div>
             </div>
         </main>
+
+        <delete-modal
+            ref="deleteModal"
+            :header="trans.delete"
+            :message="trans.deleted_users_are_gone_forever"
+            @delete="deleteUser"
+        />
     </section>
 </template>
 
@@ -225,9 +300,16 @@ import FilePondPluginImageExifOrientation from 'filepond-plugin-image-exif-orien
 import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
 import FilePondPluginImageValidateSize from 'filepond-plugin-image-validate-size';
 import NProgress from 'nprogress';
+import DeleteModal from '../components/modals/DeleteModal';
 import PageHeader from '../components/PageHeader';
+import Hover from '../directives/Hover';
 import url from '../mixins/url';
+import status from '../mixins/status';
 import vueFilePond from 'vue-filepond';
+import $ from 'jquery';
+import InfiniteLoading from 'vue-infinite-loading';
+import isEmpty from 'lodash/isEmpty';
+import strings from '../mixins/strings';
 
 const FilePond = vueFilePond(
     FilePondPluginFileValidateType,
@@ -241,19 +323,25 @@ export default {
     name: 'edit-user',
 
     components: {
+        DeleteModal,
+        InfiniteLoading,
         PageHeader,
         FilePond,
     },
 
-    mixins: [url],
+    directives: {
+        Hover,
+    },
+
+    mixins: [url, status, strings],
 
     data() {
         return {
-            uri: this.$route.params.id,
-            username: '',
-            summary: '',
-            avatar: '',
-            role: 1,
+            uri: this.$route.params.id || 'create',
+            user: {},
+            posts: [],
+            page: 1,
+            errors: [],
             selectedImagesForPond: [],
             isReadyToAcceptUploads: false,
             isReady: false,
@@ -261,17 +349,17 @@ export default {
     },
 
     computed: {
-        ...mapState(['settings', 'profile', 'user']),
+        ...mapState(['settings', 'profile']),
         ...mapGetters({
             trans: 'settings/trans',
         }),
 
-        userLastUpdated() {
-            return this.user.updatedAt;
-        },
-
         isAuthProfile() {
             return this.profile.id === this.user.id;
+        },
+
+        creatingUser() {
+            return this.$route.name === 'create-user';
         },
 
         getServerOptions() {
@@ -295,75 +383,136 @@ export default {
             return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="35" class="icon-cloud-upload"><path class="fill-dark-gray" d="M18 14.97c0-.76-.3-1.51-.88-2.1l-3-3a3 3 0 0 0-4.24 0l-3 3A3 3 0 0 0 6 15a4 4 0 0 1-.99-7.88 5.5 5.5 0 0 1 10.86-.82A4.49 4.49 0 0 1 22 10.5a4.5 4.5 0 0 1-4 4.47z"/><path class="fill-dark-gray" d="M11 14.41V21a1 1 0 0 0 2 0v-6.59l1.3 1.3a1 1 0 0 0 1.4-1.42l-3-3a1 1 0 0 0-1.4 0l-3 3a1 1 0 0 0 1.4 1.42l1.3-1.3z"/></svg><br/> ${this.trans.drop_files_or_click_to_upload}`;
         },
 
-        headerText() {},
+        title() {
+            if (this.creatingUser) {
+                return this.user.name || this.trans.new_user;
+            } else {
+                return this.user.name || this.trans.edit_user;
+            }
+        },
     },
 
     watch: {
         async $route(to) {
             this.isReady = false;
             this.uri = to.params.id;
-            await Promise.all([this.fetchUser()]);
-            this.username = this.user.username;
-            this.summary = this.user.summary;
-            this.role = this.user.role;
-            this.avatar = this.user.avatar;
+            await Promise.all([this.fetchUser(), this.fetchPosts()]);
             this.isReady = true;
             NProgress.done();
         },
     },
 
     async created() {
-        await Promise.all([this.fetchUser()]);
-
-        // TODO: this.user.* is not available at this point :sadpanda:
-        // console.log(this.user.avatar);
-
-        this.username = this.user.username;
-        this.summary = this.user.summary;
-        this.role = this.user.role;
-        this.avatar = this.user.avatar;
+        await Promise.all([this.fetchUser(), this.fetchPosts()]);
         this.isReady = true;
         NProgress.done();
     },
 
     methods: {
         fetchUser() {
-            // TODO: This is a hack to ensure we have empty form fields
-            this.$store.dispatch('user/resetState');
+            this.request()
+                .get(`/api/users/${this.uri}`)
+                .then(({ data }) => {
+                    this.user = data;
+                })
+                .catch(() => {
+                    this.$router.push({ name: 'users' });
+                });
 
-            this.$store.dispatch('user/fetchUser', this.uri);
             NProgress.inc();
+        },
+
+        fetchPosts($state) {
+            return this.request()
+                .get(`/api/users/${this.uri}/posts`, {
+                    params: {
+                        page: this.page,
+                    },
+                })
+                .then(({ data }) => {
+                    if (!isEmpty(data) && !isEmpty(data.data)) {
+                        this.page += 1;
+                        this.posts.push(...data.data);
+                        $state.loaded();
+                    } else {
+                        $state.complete();
+                    }
+
+                    if (isEmpty($state)) {
+                        NProgress.inc();
+                    }
+                })
+                .catch(() => {
+                    NProgress.done();
+                });
         },
 
         processedFromFilePond() {
             this.isReadyToAcceptUploads = true;
-            this.avatar = document.getElementsByName('profileImagePond')[0].value;
+            this.user.avatar = document.getElementsByName('profileImagePond')[0].value;
         },
 
         removedFromFilePond() {
             this.isReadyToAcceptUploads = true;
-            this.avatar = null;
+            this.user.avatar = null;
             this.selectedImagesForPond = [];
         },
 
         updateUser() {
-            this.$store.dispatch('user/updateUser', {
-                id: this.uri,
-                username: this.username,
-                summary: this.summary,
-                avatar: this.avatar,
-            });
+            this.request()
+                .post(`/api/users/${this.user.id}`, {
+                    username: payload.username,
+                    summary: payload.summary,
+                    avatar: payload.avatar,
+                })
+                .then(({ data }) => {
+                    this.user = data.user;
+                    this.$toasted.show(this.trans.saved, {
+                        className: 'bg-success',
+                    });
+                })
+                .catch((error) => {
+                    this.errors = error.response.data.errors;
+                    this.$toasted.show(error.response.data.errors.username[0], {
+                        className: 'bg-danger',
+                    });
+                });
         },
 
         clearAvatar() {
-            this.$store.dispatch('user/resetAvatar');
+            this.user.avatar = this.user.default_avatar;
             this.isReadyToAcceptUploads = true;
         },
 
         selectRole() {
-            this.$store.dispatch('user/updateRole', {
-                role: this.role,
-            });
+            this.request()
+                .post(`/api/users/${this.user.id}`, {
+                    role: this.user.role,
+                })
+                .then(() => {
+                    this.$toasted.show(this.trans.saved, {
+                        className: 'bg-success',
+                    });
+                });
+        },
+
+        async deleteUser() {
+            await this.request()
+                .delete(`/api/users/${this.uri}`)
+                .then(() => {
+                    this.$store.dispatch('search/buildIndex', true);
+                    this.$toasted.show(this.trans.success, {
+                        className: 'bg-success',
+                    });
+                });
+
+            $(this.$refs.deleteModal.$el).modal('hide');
+
+            await this.$router.push({ name: 'users' });
+        },
+
+        showDeleteModal() {
+            $(this.$refs.deleteModal.$el).modal('show');
         },
     },
 };

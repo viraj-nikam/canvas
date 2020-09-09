@@ -35,9 +35,9 @@
         <main class="py-4">
             <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12">
                 <div v-if="isReady" class="my-3">
-                    <h2 class="mt-3">{{ tag.name || trans.new_tag }}</h2>
+                    <h2 class="mt-3">{{ title }}</h2>
                     <p v-if="!creatingTag" class="mt-2 text-secondary">
-                        {{ trans.last_updated }} {{ moment(tag.updatedAt).fromNow() }}
+                        {{ trans.last_updated }} {{ moment(tag.updated_at).fromNow() }}
                     </p>
                 </div>
 
@@ -103,7 +103,9 @@
                     </div>
                 </div>
 
-                <div v-if="posts.length > 0" class="mt-5 card shadow-lg">
+                <h2 v-if="posts.length > 0" class="mt-5">{{ trans.posts }}</h2>
+
+                <div v-if="posts.length > 0" class="mt-3 card shadow-lg">
                     <div class="card-body p-0">
                         <div :key="`${index}-${post.id}`" v-for="(post, index) in posts">
                             <router-link
@@ -238,6 +240,14 @@ export default {
         shouldDisableButton() {
             return isEmpty(this.tag.slug);
         },
+
+        title() {
+            if (this.creatingTag) {
+                return this.tag.name || this.trans.new_tag;
+            } else {
+                return this.tag.name || this.trans.edit_tag;
+            }
+        },
     },
 
     watch: {
@@ -335,7 +345,7 @@ export default {
 
         async deleteTag() {
             await this.request()
-                .delete(`/api/tags/${this.uri}`)
+                .delete(`/api/tags/${this.tag.id}`)
                 .then(() => {
                     this.$store.dispatch('search/buildIndex', true);
                     this.$toasted.show(this.trans.success, {

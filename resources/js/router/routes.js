@@ -106,6 +106,14 @@ export default [
         },
     },
     {
+        path: '/users/create',
+        name: 'create-user',
+        component: EditUser,
+        beforeEnter: (to, from, next) => {
+            isAdmin ? next() : next({ name: 'home' });
+        },
+    },
+    {
         path: '/users/:id/edit',
         name: 'edit-user',
         component: EditUser,
