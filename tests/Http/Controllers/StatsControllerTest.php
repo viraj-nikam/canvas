@@ -41,20 +41,20 @@ class StatsControllerTest extends TestCase
 
         $response = $this->actingAs($user, 'canvas')->getJson('canvas/api/stats')->assertSuccessful();
 
-        $this->assertArrayHasKey('posts', $response->decodeResponseJson());
-        $this->assertCount(3, $response->decodeResponseJson('posts'));
+        $this->assertArrayHasKey('posts', $response->original);
+        $this->assertCount(3, $response->original['posts']);
 
-        $this->assertArrayHasKey('totalViews', $response->decodeResponseJson());
-        $this->assertEquals(0, $response->decodeResponseJson('totalViews'));
+        $this->assertArrayHasKey('totalViews', $response->original);
+        $this->assertEquals(0, $response->original['totalViews']);
 
-        $this->assertArrayHasKey('views', $response->decodeResponseJson('traffic'));
-        $this->assertJson($response->decodeResponseJson('traffic.views'));
+        $this->assertArrayHasKey('views', $response->original['traffic']);
+        $this->assertJson($response->original['traffic']['views']);
 
-        $this->assertArrayHasKey('totalVisits', $response->decodeResponseJson());
-        $this->assertEquals(0, $response->decodeResponseJson('totalVisits'));
+        $this->assertArrayHasKey('totalVisits', $response->original);
+        $this->assertEquals(0, $response->original['totalVisits']);
 
-        $this->assertArrayHasKey('visits', $response->decodeResponseJson('traffic'));
-        $this->assertJson($response->decodeResponseJson('traffic.visits'));
+        $this->assertArrayHasKey('visits', $response->original['traffic']);
+        $this->assertJson($response->original['traffic']['visits']);
     }
 
     /** @test */
@@ -72,20 +72,20 @@ class StatsControllerTest extends TestCase
 
         $response = $this->actingAs($user, 'canvas')->getJson('canvas/api/stats?scope=all')->assertSuccessful();
 
-        $this->assertArrayHasKey('posts', $response->decodeResponseJson());
-        $this->assertCount(4, $response->decodeResponseJson('posts'));
+        $this->assertArrayHasKey('posts', $response->original);
+        $this->assertCount(4, $response->original['posts']);
 
-        $this->assertArrayHasKey('totalViews', $response->decodeResponseJson());
-        $this->assertEquals(0, $response->decodeResponseJson('totalViews'));
+        $this->assertArrayHasKey('totalViews', $response->original);
+        $this->assertEquals(0, $response->original['totalViews']);
 
-        $this->assertArrayHasKey('views', $response->decodeResponseJson('traffic'));
-        $this->assertJson($response->decodeResponseJson('traffic.views'));
+        $this->assertArrayHasKey('views', $response->original['traffic']);
+        $this->assertJson($response->original['traffic']['views']);
 
-        $this->assertArrayHasKey('totalVisits', $response->decodeResponseJson());
-        $this->assertEquals(0, $response->decodeResponseJson('totalVisits'));
+        $this->assertArrayHasKey('totalVisits', $response->original);
+        $this->assertEquals(0, $response->original['totalVisits']);
 
-        $this->assertArrayHasKey('visits', $response->decodeResponseJson('traffic'));
-        $this->assertJson($response->decodeResponseJson('traffic.visits'));
+        $this->assertArrayHasKey('visits', $response->original['traffic']);
+        $this->assertJson($response->original['traffic']['visits']);
     }
 
     /** @test */
@@ -104,47 +104,47 @@ class StatsControllerTest extends TestCase
                          ->assertSuccessful()
                          ->assertJsonExactFragment($post->id, 'post.id');
 
-        $this->assertArrayHasKey('post', $response->decodeResponseJson());
+        $this->assertArrayHasKey('post', $response->original);
 
-        $this->assertArrayHasKey('readTime', $response->decodeResponseJson());
+        $this->assertArrayHasKey('readTime', $response->original);
 
-        $this->assertArrayHasKey('popularReadingTimes', $response->decodeResponseJson());
-        $this->assertIsArray($response->decodeResponseJson('popularReadingTimes'));
+        $this->assertArrayHasKey('popularReadingTimes', $response->original);
+        $this->assertIsArray($response->original['popularReadingTimes']);
 
         $this->assertArrayHasKey('topReferers', $response);
-        $this->assertIsArray($response->decodeResponseJson('topReferers'));
+        $this->assertIsArray($response->original['topReferers']);
 
-        $this->assertArrayHasKey('monthlyViews', $response->decodeResponseJson());
-        $this->assertIsInt($response->decodeResponseJson('monthlyViews'));
-        $this->assertEquals(0, $response->decodeResponseJson('monthlyViews'));
+        $this->assertArrayHasKey('monthlyViews', $response->original);
+        $this->assertIsInt($response->original['monthlyViews']);
+        $this->assertEquals(0, $response->original['monthlyViews']);
 
-        $this->assertArrayHasKey('monthlyVisits', $response->decodeResponseJson());
-        $this->assertIsInt($response->decodeResponseJson('monthlyVisits'));
-        $this->assertEquals(0, $response->decodeResponseJson('monthlyVisits'));
+        $this->assertArrayHasKey('monthlyVisits', $response->original);
+        $this->assertIsInt($response->original['monthlyVisits']);
+        $this->assertEquals(0, $response->original['monthlyVisits']);
 
-        $this->assertArrayHasKey('totalViews', $response->decodeResponseJson());
-        $this->assertIsInt($response->decodeResponseJson('totalViews'));
-        $this->assertEquals(0, $response->decodeResponseJson('totalViews'));
+        $this->assertArrayHasKey('totalViews', $response->original);
+        $this->assertIsInt($response->original['totalViews']);
+        $this->assertEquals(0, $response->original['totalViews']);
 
-        $this->assertArrayHasKey('monthOverMonthViews', $response->decodeResponseJson());
-        $this->assertIsArray($response->decodeResponseJson('monthOverMonthViews'));
-        $this->assertArrayHasKey('direction', $response->decodeResponseJson('monthOverMonthViews'));
-        $this->assertIsString($response->decodeResponseJson('monthOverMonthViews.direction'));
-        $this->assertArrayHasKey('percentage', $response->decodeResponseJson('monthOverMonthViews'));
-        $this->assertIsString($response->decodeResponseJson('monthOverMonthViews.percentage'));
+        $this->assertArrayHasKey('monthOverMonthViews', $response->original);
+        $this->assertIsArray($response->original['monthOverMonthViews']);
+        $this->assertArrayHasKey('direction', $response->original['monthOverMonthViews']);
+        $this->assertIsString($response->original['monthOverMonthViews']['direction']);
+        $this->assertArrayHasKey('percentage', $response->original['monthOverMonthViews']);
+        $this->assertIsString($response->original['monthOverMonthViews']['percentage']);
 
-        $this->assertArrayHasKey('monthOverMonthVisits', $response->decodeResponseJson());
-        $this->assertIsArray($response->decodeResponseJson('monthOverMonthVisits'));
-        $this->assertArrayHasKey('direction', $response->decodeResponseJson('monthOverMonthVisits'));
-        $this->assertIsString($response->decodeResponseJson('monthOverMonthVisits.direction'));
-        $this->assertArrayHasKey('percentage', $response->decodeResponseJson('monthOverMonthVisits'));
-        $this->assertIsString($response->decodeResponseJson('monthOverMonthVisits.percentage'));
+        $this->assertArrayHasKey('monthOverMonthVisits', $response->original);
+        $this->assertIsArray($response->original['monthOverMonthVisits']);
+        $this->assertArrayHasKey('direction', $response->original['monthOverMonthVisits']);
+        $this->assertIsString($response->original['monthOverMonthVisits']['direction']);
+        $this->assertArrayHasKey('percentage', $response->original['monthOverMonthVisits']);
+        $this->assertIsString($response->original['monthOverMonthVisits']['percentage']);
 
-        $this->assertArrayHasKey('views', $response->decodeResponseJson('traffic'));
-        $this->assertJson($response->decodeResponseJson('traffic.views'));
+        $this->assertArrayHasKey('views', $response->original['traffic']);
+        $this->assertJson($response->original['traffic']['views']);
 
-        $this->assertArrayHasKey('visits', $response->decodeResponseJson('traffic'));
-        $this->assertJson($response->decodeResponseJson('traffic.visits'));
+        $this->assertArrayHasKey('visits', $response->original['traffic']);
+        $this->assertJson($response->original['traffic']['visits']);
     }
 
     /** @test */
@@ -163,47 +163,47 @@ class StatsControllerTest extends TestCase
                          ->assertSuccessful()
                          ->assertJsonExactFragment($post->id, 'post.id');
 
-        $this->assertArrayHasKey('post', $response->decodeResponseJson());
+        $this->assertArrayHasKey('post', $response->original);
 
-        $this->assertArrayHasKey('readTime', $response->decodeResponseJson());
+        $this->assertArrayHasKey('readTime', $response->original);
 
-        $this->assertArrayHasKey('popularReadingTimes', $response->decodeResponseJson());
-        $this->assertIsArray($response->decodeResponseJson('popularReadingTimes'));
+        $this->assertArrayHasKey('popularReadingTimes', $response->original);
+        $this->assertIsArray($response->original['popularReadingTimes']);
 
         $this->assertArrayHasKey('topReferers', $response);
-        $this->assertIsArray($response->decodeResponseJson('topReferers'));
+        $this->assertIsArray($response->original['topReferers']);
 
-        $this->assertArrayHasKey('monthlyViews', $response->decodeResponseJson());
-        $this->assertIsInt($response->decodeResponseJson('monthlyViews'));
-        $this->assertEquals(0, $response->decodeResponseJson('monthlyViews'));
+        $this->assertArrayHasKey('monthlyViews', $response->original);
+        $this->assertIsInt($response->original['monthlyViews']);
+        $this->assertEquals(0, $response->original['monthlyViews']);
 
-        $this->assertArrayHasKey('monthlyVisits', $response->decodeResponseJson());
-        $this->assertIsInt($response->decodeResponseJson('monthlyVisits'));
-        $this->assertEquals(0, $response->decodeResponseJson('monthlyVisits'));
+        $this->assertArrayHasKey('monthlyVisits', $response->original);
+        $this->assertIsInt($response->original['monthlyVisits']);
+        $this->assertEquals(0, $response->original['monthlyVisits']);
 
-        $this->assertArrayHasKey('totalViews', $response->decodeResponseJson());
-        $this->assertIsInt($response->decodeResponseJson('totalViews'));
-        $this->assertEquals(0, $response->decodeResponseJson('totalViews'));
+        $this->assertArrayHasKey('totalViews', $response->original);
+        $this->assertIsInt($response->original['totalViews']);
+        $this->assertEquals(0, $response->original['totalViews']);
 
-        $this->assertArrayHasKey('monthOverMonthViews', $response->decodeResponseJson());
-        $this->assertIsArray($response->decodeResponseJson('monthOverMonthViews'));
-        $this->assertArrayHasKey('direction', $response->decodeResponseJson('monthOverMonthViews'));
-        $this->assertIsString($response->decodeResponseJson('monthOverMonthViews.direction'));
-        $this->assertArrayHasKey('percentage', $response->decodeResponseJson('monthOverMonthViews'));
-        $this->assertIsString($response->decodeResponseJson('monthOverMonthViews.percentage'));
+        $this->assertArrayHasKey('monthOverMonthViews', $response->original);
+        $this->assertIsArray($response->original['monthOverMonthViews']);
+        $this->assertArrayHasKey('direction', $response->original['monthOverMonthViews']);
+        $this->assertIsString($response->original['monthOverMonthViews']['direction']);
+        $this->assertArrayHasKey('percentage', $response->original['monthOverMonthViews']);
+        $this->assertIsString($response->original['monthOverMonthViews']['percentage']);
 
-        $this->assertArrayHasKey('monthOverMonthVisits', $response->decodeResponseJson());
-        $this->assertIsArray($response->decodeResponseJson('monthOverMonthVisits'));
-        $this->assertArrayHasKey('direction', $response->decodeResponseJson('monthOverMonthVisits'));
-        $this->assertIsString($response->decodeResponseJson('monthOverMonthVisits.direction'));
-        $this->assertArrayHasKey('percentage', $response->decodeResponseJson('monthOverMonthVisits'));
-        $this->assertIsString($response->decodeResponseJson('monthOverMonthVisits.percentage'));
+        $this->assertArrayHasKey('monthOverMonthVisits', $response->original);
+        $this->assertIsArray($response->original['monthOverMonthVisits']);
+        $this->assertArrayHasKey('direction', $response->original['monthOverMonthVisits']);
+        $this->assertIsString($response->original['monthOverMonthVisits']['direction']);
+        $this->assertArrayHasKey('percentage', $response->original['monthOverMonthVisits']);
+        $this->assertIsString($response->original['monthOverMonthVisits']['percentage']);
 
-        $this->assertArrayHasKey('views', $response->decodeResponseJson('traffic'));
-        $this->assertJson($response->decodeResponseJson('traffic.views'));
+        $this->assertArrayHasKey('views', $response->original['traffic']);
+        $this->assertJson($response->original['traffic']['views']);
 
-        $this->assertArrayHasKey('visits', $response->decodeResponseJson('traffic'));
-        $this->assertJson($response->decodeResponseJson('traffic.visits'));
+        $this->assertArrayHasKey('visits', $response->original['traffic']);
+        $this->assertJson($response->original['traffic']['visits']);
     }
 
     /** @test */
@@ -222,47 +222,47 @@ class StatsControllerTest extends TestCase
                          ->assertSuccessful()
                          ->assertJsonExactFragment($post->id, 'post.id');
 
-        $this->assertArrayHasKey('post', $response->decodeResponseJson());
+        $this->assertArrayHasKey('post', $response->original);
 
-        $this->assertArrayHasKey('readTime', $response->decodeResponseJson());
+        $this->assertArrayHasKey('readTime', $response->original);
 
-        $this->assertArrayHasKey('popularReadingTimes', $response->decodeResponseJson());
-        $this->assertIsArray($response->decodeResponseJson('popularReadingTimes'));
+        $this->assertArrayHasKey('popularReadingTimes', $response->original);
+        $this->assertIsArray($response->original['popularReadingTimes']);
 
         $this->assertArrayHasKey('topReferers', $response);
-        $this->assertIsArray($response->decodeResponseJson('topReferers'));
+        $this->assertIsArray($response->original['topReferers']);
 
-        $this->assertArrayHasKey('monthlyViews', $response->decodeResponseJson());
-        $this->assertIsInt($response->decodeResponseJson('monthlyViews'));
-        $this->assertEquals(0, $response->decodeResponseJson('monthlyViews'));
+        $this->assertArrayHasKey('monthlyViews', $response->original);
+        $this->assertIsInt($response->original['monthlyViews']);
+        $this->assertEquals(0, $response->original['monthlyViews']);
 
-        $this->assertArrayHasKey('monthlyVisits', $response->decodeResponseJson());
-        $this->assertIsInt($response->decodeResponseJson('monthlyVisits'));
-        $this->assertEquals(0, $response->decodeResponseJson('monthlyVisits'));
+        $this->assertArrayHasKey('monthlyVisits', $response->original);
+        $this->assertIsInt($response->original['monthlyVisits']);
+        $this->assertEquals(0, $response->original['monthlyVisits']);
 
-        $this->assertArrayHasKey('totalViews', $response->decodeResponseJson());
-        $this->assertIsInt($response->decodeResponseJson('totalViews'));
-        $this->assertEquals(0, $response->decodeResponseJson('totalViews'));
+        $this->assertArrayHasKey('totalViews', $response->original);
+        $this->assertIsInt($response->original['totalViews']);
+        $this->assertEquals(0, $response->original['totalViews']);
 
-        $this->assertArrayHasKey('monthOverMonthViews', $response->decodeResponseJson());
-        $this->assertIsArray($response->decodeResponseJson('monthOverMonthViews'));
-        $this->assertArrayHasKey('direction', $response->decodeResponseJson('monthOverMonthViews'));
-        $this->assertIsString($response->decodeResponseJson('monthOverMonthViews.direction'));
-        $this->assertArrayHasKey('percentage', $response->decodeResponseJson('monthOverMonthViews'));
-        $this->assertIsString($response->decodeResponseJson('monthOverMonthViews.percentage'));
+        $this->assertArrayHasKey('monthOverMonthViews', $response->original);
+        $this->assertIsArray($response->original['monthOverMonthViews']);
+        $this->assertArrayHasKey('direction', $response->original['monthOverMonthViews']);
+        $this->assertIsString($response->original['monthOverMonthViews']['direction']);
+        $this->assertArrayHasKey('percentage', $response->original['monthOverMonthViews']);
+        $this->assertIsString($response->original['monthOverMonthViews']['percentage']);
 
-        $this->assertArrayHasKey('monthOverMonthVisits', $response->decodeResponseJson());
-        $this->assertIsArray($response->decodeResponseJson('monthOverMonthVisits'));
-        $this->assertArrayHasKey('direction', $response->decodeResponseJson('monthOverMonthVisits'));
-        $this->assertIsString($response->decodeResponseJson('monthOverMonthVisits.direction'));
-        $this->assertArrayHasKey('percentage', $response->decodeResponseJson('monthOverMonthVisits'));
-        $this->assertIsString($response->decodeResponseJson('monthOverMonthVisits.percentage'));
+        $this->assertArrayHasKey('monthOverMonthVisits', $response->original);
+        $this->assertIsArray($response->original['monthOverMonthVisits']);
+        $this->assertArrayHasKey('direction', $response->original['monthOverMonthVisits']);
+        $this->assertIsString($response->original['monthOverMonthVisits']['direction']);
+        $this->assertArrayHasKey('percentage', $response->original['monthOverMonthVisits']);
+        $this->assertIsString($response->original['monthOverMonthVisits']['percentage']);
 
-        $this->assertArrayHasKey('views', $response->decodeResponseJson('traffic'));
-        $this->assertJson($response->decodeResponseJson('traffic.views'));
+        $this->assertArrayHasKey('views', $response->original['traffic']);
+        $this->assertJson($response->original['traffic']['views']);
 
-        $this->assertArrayHasKey('visits', $response->decodeResponseJson('traffic'));
-        $this->assertJson($response->decodeResponseJson('traffic.visits'));
+        $this->assertArrayHasKey('visits', $response->original['traffic']);
+        $this->assertJson($response->original['traffic']['visits']);
     }
 
     /** @test */

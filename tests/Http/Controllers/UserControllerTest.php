@@ -63,7 +63,7 @@ class UserControllerTest extends TestCase
 
         $response = $this->actingAs($user, 'canvas')->getJson('canvas/api/users/create')->assertSuccessful();
 
-        $this->assertArrayHasKey('id', $response->decodeResponseJson());
+        $this->assertArrayHasKey('id', $response->original);
     }
 
     /** @test */
@@ -75,16 +75,16 @@ class UserControllerTest extends TestCase
 
         $response = $this->actingAs($user, 'canvas')->getJson("canvas/api/users/{$user->id}")->assertSuccessful();
 
-        $this->assertSame($user->id, $response->decodeResponseJson('id'));
-        $this->assertSame($user->name, $response->decodeResponseJson('name'));
-        $this->assertSame($user->email, $response->decodeResponseJson('email'));
-        $this->assertSame($user->username, $response->decodeResponseJson('username'));
-        $this->assertSame($user->summary, $response->decodeResponseJson('summary'));
-        $this->assertSame($user->avatar, $response->decodeResponseJson('avatar'));
-        $this->assertSame($user->dark_mode, $response->decodeResponseJson('dark_mode'));
-        $this->assertSame($user->digest, $response->decodeResponseJson('digest'));
-        $this->assertSame($user->locale, $response->decodeResponseJson('locale'));
-        $this->assertSame($user->role, $response->decodeResponseJson('role'));
+        $this->assertSame($user->id, $response->original['id']);
+        $this->assertSame($user->name, $response->original['name']);
+        $this->assertSame($user->email, $response->original['email']);
+        $this->assertSame($user->username, $response->original['username']);
+        $this->assertSame($user->summary, $response->original['summary']);
+        $this->assertSame($user->avatar, $response->original['avatar']);
+        $this->assertSame($user->dark_mode, $response->original['dark_mode']);
+        $this->assertSame($user->digest, $response->original['digest']);
+        $this->assertSame($user->locale, $response->original['locale']);
+        $this->assertSame($user->role, $response->original['role']);
     }
 
     /** @test */
@@ -104,10 +104,10 @@ class UserControllerTest extends TestCase
 
         $response = $this->actingAs($user, 'canvas')->getJson("canvas/api/users/{$user->id}/posts")->assertSuccessful();
 
-        $this->assertIsArray($response->decodeResponseJson('data'));
-        $this->assertCount(1, $response->decodeResponseJson('data'));
-        $this->assertArrayHasKey('views_count', $response->decodeResponseJson('data.0'));
-        $this->assertEquals(1, $response->decodeResponseJson('data.0.views_count'));
+        $this->assertIsArray($response->original->items());
+        $this->assertCount(1, $response->original->items());
+        $this->assertArrayHasKey('views_count', $response->original->items()[0]);
+        $this->assertEquals(1, $response->original->items()[0]['views_count']);
     }
 
     /** @test */
@@ -215,7 +215,7 @@ class UserControllerTest extends TestCase
                          ])
                          ->assertStatus(422);
 
-        $this->assertArrayHasKey('username', $response->decodeResponseJson('errors'));
+        $this->assertArrayHasKey('username', $response->original['errors']);
     }
 
     /** @test */
@@ -236,7 +236,7 @@ class UserControllerTest extends TestCase
                          ])
                          ->assertStatus(422);
 
-        $this->assertArrayHasKey('email', $response->decodeResponseJson('errors'));
+        $this->assertArrayHasKey('email', $response->original['errors']);
     }
 
     /** @test */
@@ -253,7 +253,7 @@ class UserControllerTest extends TestCase
                          ])
                          ->assertStatus(422);
 
-        $this->assertArrayHasKey('email', $response->decodeResponseJson('errors'));
+        $this->assertArrayHasKey('email', $response->original['errors']);
     }
 
     /** @test */

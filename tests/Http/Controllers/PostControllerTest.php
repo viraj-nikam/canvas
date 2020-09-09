@@ -140,13 +140,15 @@ class PostControllerTest extends TestCase
     {
         $user = factory(User::class)->create();
 
-        $response = $this->actingAs($user, 'canvas')->getJson('canvas/api/posts/create')->assertSuccessful();
+        $response = $this->actingAs($user, 'canvas')
+                         ->getJson('canvas/api/posts/create')
+                         ->assertSuccessful();
 
-        $this->assertArrayHasKey('id', $response->decodeResponseJson('post'));
-        $this->assertArrayHasKey('slug', $response->decodeResponseJson('post'));
-        $this->assertArrayHasKey('read_time', $response->decodeResponseJson('post'));
-        $this->assertArrayHasKey('tags', $response->decodeResponseJson());
-        $this->assertArrayHasKey('topics', $response->decodeResponseJson());
+        $this->assertArrayHasKey('id', $response->original['post']);
+        $this->assertArrayHasKey('slug', $response->original['post']);
+        $this->assertArrayHasKey('read_time', $response->original['post']);
+        $this->assertArrayHasKey('tags', $response->original);
+        $this->assertArrayHasKey('topics', $response->original);
     }
 
     /** @test */
@@ -223,8 +225,8 @@ class PostControllerTest extends TestCase
 
         $response = $this->actingAs($post->user, 'canvas')->postJson("canvas/api/posts/{$post->id}", $data)->assertSuccessful();
 
-        $this->assertSame($data['title'], $response->decodeResponseJson('title'));
-        $this->assertSame($data['slug'], $response->decodeResponseJson('slug'));
+        $this->assertSame($data['title'], $response->original['title']);
+        $this->assertSame($data['slug'], $response->original['slug']);
 
         $this->assertArrayHasKey('published_at', $response);
     }
@@ -282,7 +284,7 @@ class PostControllerTest extends TestCase
             'slug' => 'a new.slug',
         ])->assertStatus(422);
 
-        $this->assertArrayHasKey('slug', $response->decodeResponseJson('errors'));
+        $this->assertArrayHasKey('slug', $response->original['errors']);
     }
 
     /** @test */

@@ -115,18 +115,18 @@ class PostTest extends TestCase
         $response = $this->actingAs($postOne->user, 'canvas')->postJson("/canvas/api/posts/{$postOne->id}", $data);
 
         $this->assertDatabaseHas('canvas_posts', [
-            'id' => $response->decodeResponseJson('id'),
-            'slug' => $response->decodeResponseJson('slug'),
-            'user_id' => $response->decodeResponseJson('user_id'),
+            'id' => $response->original['id'],
+            'slug' => $response->original['slug'],
+            'user_id' => $response->original['user_id'],
         ]);
 
         $postTwo = factory(Post::class)->create();
         $response = $this->actingAs($postTwo->user, 'canvas')->postJson("/canvas/api/posts/{$postTwo->id}", $data);
 
         $this->assertDatabaseHas('canvas_posts', [
-            'id' => $response->decodeResponseJson('id'),
-            'slug' => $response->decodeResponseJson('slug'),
-            'user_id' => $response->decodeResponseJson('user_id'),
+            'id' => $response->original['id'],
+            'slug' => $response->original['slug'],
+            'user_id' => $response->original['user_id'],
         ]);
     }
 

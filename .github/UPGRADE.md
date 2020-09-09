@@ -10,6 +10,9 @@
 
 ## Upgrading to 6.0.0 from 5.4
 
+> **Important:** With the release of Laravel 8, Canvas _no longer supports_ Laravel 6 and PHP < 7.3. It will continue
+> to support Laravel 7/8 and PHP >= 7.3
+
 ### Exporting your data
 
 Exporting and re-importing your data allowed the migrations to be consolidated into one file as well as removing 

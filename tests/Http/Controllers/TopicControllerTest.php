@@ -58,7 +58,7 @@ class TopicControllerTest extends TestCase
 
         $response = $this->actingAs($user, 'canvas')->getJson('canvas/api/topics/create')->assertSuccessful();
 
-        $this->assertArrayHasKey('id', $response->decodeResponseJson());
+        $this->assertArrayHasKey('id', $response->original);
     }
 
     /** @test */
@@ -100,10 +100,10 @@ class TopicControllerTest extends TestCase
                          ->getJson("canvas/api/topics/{$topic->id}/posts")
                          ->assertSuccessful();
 
-        $this->assertIsArray($response->decodeResponseJson('data'));
-        $this->assertCount(1, $response->decodeResponseJson('data'));
-        $this->assertArrayHasKey('views_count', $response->decodeResponseJson('data.0'));
-        $this->assertEquals(1, $response->decodeResponseJson('data.0.views_count'));
+        $this->assertIsArray($response->original->items());
+        $this->assertCount(1, $response->original->items());
+        $this->assertArrayHasKey('views_count', $response->original->items()[0]);
+        $this->assertEquals(1, $response->original->items()[0]['views_count']);
     }
 
     /** @test */
@@ -205,7 +205,7 @@ class TopicControllerTest extends TestCase
                          ])
                          ->assertStatus(422);
 
-        $this->assertArrayHasKey('slug', $response->decodeResponseJson('errors'));
+        $this->assertArrayHasKey('slug', $response->original['errors']);
     }
 
     /** @test */

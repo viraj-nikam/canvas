@@ -48,14 +48,14 @@ class SearchControllerTest extends TestCase
                          ->getJson('canvas/api/search/posts')
                          ->assertSuccessful();
 
-        $this->assertCount(2, $response->decodeResponseJson());
-        $this->assertArrayHasKey('id', $response->decodeResponseJson()[0]);
-        $this->assertArrayHasKey('title', $response->decodeResponseJson()[0]);
-        $this->assertArrayHasKey('name', $response->decodeResponseJson()[0]);
-        $this->assertArrayHasKey('type', $response->decodeResponseJson()[0]);
-        $this->assertSame('Post', $response->decodeResponseJson('0.type'));
-        $this->assertArrayHasKey('route', $response->decodeResponseJson()[0]);
-        $this->assertSame('edit-post', $response->decodeResponseJson('0.route'));
+        $this->assertCount(2, $response->original);
+        $this->assertArrayHasKey('id', $response->original[0]);
+        $this->assertArrayHasKey('title', $response->original[0]);
+        $this->assertArrayHasKey('name', $response->original[0]);
+        $this->assertArrayHasKey('type', $response->original[0]);
+        $this->assertSame('Post', $response->original[0]['type']);
+        $this->assertArrayHasKey('route', $response->original[0]);
+        $this->assertSame('edit-post', $response->original[0]['route']);
     }
 
     /** @test */
@@ -78,14 +78,14 @@ class SearchControllerTest extends TestCase
                          ->getJson('canvas/api/search/posts')
                          ->assertSuccessful();
 
-        $this->assertCount(3, $response->decodeResponseJson());
-        $this->assertArrayHasKey('id', $response->decodeResponseJson()[0]);
-        $this->assertArrayHasKey('title', $response->decodeResponseJson()[0]);
-        $this->assertArrayHasKey('name', $response->decodeResponseJson()[0]);
-        $this->assertArrayHasKey('type', $response->decodeResponseJson()[0]);
-        $this->assertSame('Post', $response->decodeResponseJson('0.type'));
-        $this->assertArrayHasKey('route', $response->decodeResponseJson()[0]);
-        $this->assertSame('edit-post', $response->decodeResponseJson('0.route'));
+        $this->assertCount(3, $response->original);
+        $this->assertArrayHasKey('id', $response->original[0]);
+        $this->assertArrayHasKey('title', $response->original[0]);
+        $this->assertArrayHasKey('name', $response->original[0]);
+        $this->assertArrayHasKey('type', $response->original[0]);
+        $this->assertSame('Post', $response->original[0]['type']);
+        $this->assertArrayHasKey('route', $response->original[0]);
+        $this->assertSame('edit-post', $response->original[0]['route']);
     }
 
     /** @test */
@@ -108,14 +108,14 @@ class SearchControllerTest extends TestCase
                          ->getJson('canvas/api/search/posts')
                          ->assertSuccessful();
 
-        $this->assertCount(3, $response->decodeResponseJson());
-        $this->assertArrayHasKey('id', $response->decodeResponseJson()[0]);
-        $this->assertArrayHasKey('title', $response->decodeResponseJson()[0]);
-        $this->assertArrayHasKey('name', $response->decodeResponseJson()[0]);
-        $this->assertArrayHasKey('type', $response->decodeResponseJson()[0]);
-        $this->assertSame('Post', $response->decodeResponseJson('0.type'));
-        $this->assertArrayHasKey('route', $response->decodeResponseJson()[0]);
-        $this->assertSame('edit-post', $response->decodeResponseJson('0.route'));
+        $this->assertCount(3, $response->original);
+        $this->assertArrayHasKey('id', $response->original[0]);
+        $this->assertArrayHasKey('title', $response->original[0]);
+        $this->assertArrayHasKey('name', $response->original[0]);
+        $this->assertArrayHasKey('type', $response->original[0]);
+        $this->assertSame('Post', $response->original[0]['type']);
+        $this->assertArrayHasKey('route', $response->original[0]);
+        $this->assertSame('edit-post', $response->original[0]['route']);
     }
 
     /** @test */
@@ -133,13 +133,13 @@ class SearchControllerTest extends TestCase
                          ->getJson('canvas/api/search/tags')
                          ->assertSuccessful();
 
-        $this->assertCount(2, $response->decodeResponseJson());
-        $this->assertArrayHasKey('id', $response->decodeResponseJson()[0]);
-        $this->assertArrayHasKey('name', $response->decodeResponseJson()[0]);
-        $this->assertArrayHasKey('type', $response->decodeResponseJson()[0]);
-        $this->assertSame('Tag', $response->decodeResponseJson('0.type'));
-        $this->assertArrayHasKey('route', $response->decodeResponseJson()[0]);
-        $this->assertSame('edit-tag', $response->decodeResponseJson('0.route'));
+        $this->assertCount(2, $response->original);
+        $this->assertArrayHasKey('id', $response->original[0]);
+        $this->assertArrayHasKey('name', $response->original[0]);
+        $this->assertArrayHasKey('type', $response->original[0]);
+        $this->assertSame('Tag', $response->original[0]['type']);
+        $this->assertArrayHasKey('route', $response->original[0]);
+        $this->assertSame('edit-tag', $response->original[0]['route']);
     }
 
     /** @test */
@@ -157,13 +157,13 @@ class SearchControllerTest extends TestCase
                          ->getJson('canvas/api/search/topics')
                          ->assertSuccessful();
 
-        $this->assertCount(2, $response->decodeResponseJson());
-        $this->assertArrayHasKey('id', $response->decodeResponseJson()[0]);
-        $this->assertArrayHasKey('name', $response->decodeResponseJson()[0]);
-        $this->assertArrayHasKey('type', $response->decodeResponseJson()[0]);
-        $this->assertSame('Topic', $response->decodeResponseJson('0.type'));
-        $this->assertArrayHasKey('route', $response->decodeResponseJson()[0]);
-        $this->assertSame('edit-topic', $response->decodeResponseJson('0.route'));
+        $this->assertCount(2, $response->original);
+        $this->assertArrayHasKey('id', $response->original[0]);
+        $this->assertArrayHasKey('name', $response->original[0]);
+        $this->assertArrayHasKey('type', $response->original[0]);
+        $this->assertSame('Topic', $response->original[0]['type']);
+        $this->assertArrayHasKey('route', $response->original[0]);
+        $this->assertSame('edit-topic', $response->original[0]['route']);
     }
 
     /** @test */
@@ -179,13 +179,13 @@ class SearchControllerTest extends TestCase
                          ->getJson('canvas/api/search/users')
                          ->assertSuccessful();
 
-        $this->assertCount(3, $response->decodeResponseJson());
-        $this->assertArrayHasKey('id', $response->decodeResponseJson()[0]);
-        $this->assertArrayHasKey('name', $response->decodeResponseJson()[0]);
-        $this->assertArrayHasKey('email', $response->decodeResponseJson()[0]);
-        $this->assertArrayHasKey('type', $response->decodeResponseJson()[0]);
-        $this->assertSame('User', $response->decodeResponseJson('0.type'));
-        $this->assertArrayHasKey('route', $response->decodeResponseJson()[0]);
-        $this->assertSame('edit-user', $response->decodeResponseJson('0.route'));
+        $this->assertCount(3, $response->original);
+        $this->assertArrayHasKey('id', $response->original[0]);
+        $this->assertArrayHasKey('name', $response->original[0]);
+        $this->assertArrayHasKey('email', $response->original[0]);
+        $this->assertArrayHasKey('type', $response->original[0]);
+        $this->assertSame('User', $response->original[0]['type']);
+        $this->assertArrayHasKey('route', $response->original[0]);
+        $this->assertSame('edit-user', $response->original[0]['route']);
     }
 }
