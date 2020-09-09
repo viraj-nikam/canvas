@@ -59,17 +59,6 @@ Now update your `.env` file to reflect the new database:
 DB_CONNECTION=sqlite
 ```
 
-### Authentication
-
-> Note: It's assumed we're developing on Laravel 6.* since that's the current LTS
-
-From your Laravel app, run the following command:
-
-```bash
-# Run the migrations
-php artisan migrate
-```
-
 ### Directories
 
 From your Laravel app, link the local version of Canvas using the `composer-link()` function:
