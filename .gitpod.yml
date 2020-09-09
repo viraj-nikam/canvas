@@ -6,7 +6,9 @@ checkoutLocation: canvas
 
 vscode:
   extensions:
-    - Vetur@0.27.0
+    - octref.vetur@0.27.0:a+OljFHzmH1YrzbM13sMhQ==
+    - eamodio.gitlens@10.2.1:WIWu3zHU4VPT8r/v866LUw==
+    - esbenp.prettier-vscode@5.5.0:xcEnHt0vYXkhJ8IkBmNAuA==
 
 github:
   prebuilds:
