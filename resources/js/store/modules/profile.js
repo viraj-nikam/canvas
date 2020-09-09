@@ -24,7 +24,7 @@ const actions = {
             .request()
             .post(`/api/users/${state.id}`, payload)
             .then(({ data }) => {
-                context.commit('UPDATE_DIGEST', data);
+                context.commit('UPDATE_DIGEST', data.user);
             });
     },
 
@@ -33,7 +33,7 @@ const actions = {
             .request()
             .post(`/api/users/${state.id}`, payload)
             .then(({ data }) => {
-                context.commit('UPDATE_LOCALE', data);
+                context.commit('UPDATE_LOCALE', data.user);
                 context.dispatch('settings/updateLocale', data, { root: true });
             });
     },
@@ -43,7 +43,7 @@ const actions = {
             .request()
             .post(`/api/users/${state.id}`, payload)
             .then(({ data }) => {
-                context.commit('UPDATE_DARK_MODE', data);
+                context.commit('UPDATE_DARK_MODE', data.user);
             });
     },
 
@@ -59,8 +59,8 @@ const mutations = {
         state.digest = user.digest;
     },
 
-    UPDATE_LOCALE(state, data) {
-        state.locale = data.locale;
+    UPDATE_LOCALE(state, user) {
+        state.locale = user.locale;
     },
 
     UPDATE_DARK_MODE(state, user) {
