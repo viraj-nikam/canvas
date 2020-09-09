@@ -22,11 +22,11 @@ The `canvas_user_meta` table has been removed in v6.0.0, and a new table: `canva
 > Note: The process for migrating data will be unique based on your choice of IDE and database.
 
 The first step is to export all data in Canvas-related tables to a SQL dump. The important part of this step is to make
- sure your export does **not include** the table structure. You only want `INSERT` statements in the actual export
- . *If you do include `CREATE TABLE` statements, it'll modify the new tables when importing later*.
+ sure your export does **not include** the table structure. You only want INSERT statements in the actual export
+ . *If you do include CREATE TABLE statements, it'll modify the new tables when importing later*.
 
 For instance, I use [Sequel Pro](http://sequelpro.com/). When I exported my data, I made sure to un-check the
- **Structure** and `DROP TABLE` elements in the export selection screen.
+ Structure and DROP TABLE syntax elements in the export selection screen.
 
 The following tables need to be included in the export:
 
@@ -76,7 +76,7 @@ Since those values reflect the user ID from the default `users` table, you'll ne
  
 ### Setting up a user
 
-Now that we don't rely on the base Laravel `users` table, you'll need create your first user for Canvas. It's really
+Since we don't rely on the default `users` table anymore, you'll need create your first user for Canvas. It's really
  simple, just run the following Artisan command:
  
 ```bash
