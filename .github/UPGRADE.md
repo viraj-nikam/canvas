@@ -10,22 +10,25 @@
 
 ## Upgrading to 6.0.0 from 5.4
 
-> **Important:** With the release of Laravel 8, Canvas _no longer supports_ Laravel 6 and PHP < 7.3. It will continue
-> to support Laravel 7/8 and PHP >= 7.3
+> **Important:** With the release of Laravel 8, Canvas _no longer supports_ Laravel 6 and PHP <= 7.2. It will however
+> continue to support Laravel 7/8 and PHP >= 7.3
 
-### Exporting your data
+### Database (Export)
 
-Exporting and re-importing your data allowed the migrations to be consolidated into one file as well as removing 
-the requirement of the `doctrine/dbal` dependency from the project.
+The `canvas_user_meta` table has been removed in v6.0.0, and a new table: `canvas_users` will take its place. Canvas
+ will no longer rely on the default `users` table, or allow you to specify your own user model. This shift mimics the
+ underlying structure of WordPress and similar apps. 
 
 > Note: The process for migrating data will be unique based on your choice of IDE and database.
 
-The `canvas_user_meta` table has been deprecated in v6.0.0, and a new table: `canvas_users` will take its place
-. Canvas will no longer rely on the app `users` table, or allow you to specify your own user model. This shift mimics
- the underlying structure of WordPress and similar apps.
+The first step is to export all data in Canvas-related tables to a SQL dump. The important part of this step is to make
+ sure your export does **not include** the table structure. You only want `INSERT` statements in the actual export
+ . *If you do include `CREATE TABLE` statements, it'll modify the new tables when importing later*.
 
-The first step is to export all data in Canvas-related tables to a SQL dump. The following tables need to be
- included in the export:
+For instance, I use [Sequel Pro](http://sequelpro.com/). When I exported my data, I made sure to un-check the
+ **Structure** and `DROP TABLE` elements in the export selection screen.
+
+The following tables need to be included in the export:
 
 - `canvas_posts`
 - `canvas_posts_tags`
@@ -51,16 +54,25 @@ composer update
 
 ### Migrations
 
-Run the new migrations using the `migrate` Artisan command:
+Run the new migrations using the `canvas:migrate` Artisan command:
 
 ```bash
-php artisan migrate
+php artisan canvas:migrate
 ```
 
-### Importing your data
+### Database (Import)
 
 You may now import the SQL dump that you created above into your database. Remember, your database and IDE will
- determine if you should run into any errors while performing this action. 
+ determine if you should run into any errors while performing this action.
+ 
+Once the import is complete, the `user_id` column in the following tables will need to be addressed:
+
+- `canvas_posts`
+- `canvas_tags`
+- `canvas_topics`
+ 
+Since those values reflect the user ID from the default `users` table, you'll need to make sure you manually update
+ those to the correct user IDs when you have them established in `canvas_users`.
  
 ### Setting up a user
 
@@ -108,15 +120,6 @@ Clear any cached views using the `view:clear` Artisan command:
 ```bash
 php artisan view:clear
 ```
-
-User access has restrictions in this release, so you'll need to run the following Artisan command to upgrade at least
- one user in your database to have admin privileges:
- 
- ```bash
- php artisan canvas:admin
- ```
-
-Once a user has been granted admin access, they'll be able to upgrade others to the same level in the UI.
 
 ## Upgrading to 5.4.0 from 5.3
 

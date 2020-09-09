@@ -22,7 +22,7 @@ class CreateCanvasTables extends Migration
             $table->dateTime('published_at')->nullable();
             $table->string('featured_image')->nullable();
             $table->string('featured_image_caption')->nullable();
-            $table->unsignedBigInteger('user_id')->index();
+            $table->uuid('user_id')->index();
             $table->json('meta')->nullable();
             $table->timestamps();
             $table->softDeletes();
@@ -33,7 +33,7 @@ class CreateCanvasTables extends Migration
             $table->uuid('id')->primary();
             $table->string('slug');
             $table->string('name');
-            $table->unsignedBigInteger('user_id')->index();
+            $table->uuid('user_id')->index();
             $table->timestamps();
             $table->softDeletes();
             $table->index('created_at');
@@ -44,7 +44,7 @@ class CreateCanvasTables extends Migration
             $table->uuid('id')->primary();
             $table->string('slug');
             $table->string('name');
-            $table->unsignedBigInteger('user_id')->index();
+            $table->uuid('user_id')->index();
             $table->timestamps();
             $table->softDeletes();
             $table->index('created_at');
