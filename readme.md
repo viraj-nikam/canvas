@@ -30,9 +30,9 @@ just a few minutes. In addition to a distraction-free writing experience, you ca
 
 ## System Requirements
 
-- PHP >= 7.2
-- Laravel >= 6.0
-- One of the [four supported databases](https://laravel.com/docs/master/database#introduction) by Laravel
+- PHP >= 7.3
+- Laravel >= 7.0
+- One of the [four supported databases](https://laravel.com/docs/8.x/database#introduction) by Laravel
 
 ## Installation   
 
