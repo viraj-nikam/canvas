@@ -47,7 +47,7 @@ export default {
     },
 
     computed: {
-        ...mapState(['profile']),
+        ...mapState(['settings']),
         ...mapGetters({
             trans: 'settings/trans',
         }),
@@ -72,7 +72,7 @@ export default {
             let tag = {
                 name: searchQuery,
                 slug: strings.methods.slugify(searchQuery),
-                user_id: this.profile.id,
+                user_id: this.settings.user.id,
             };
             this.options.push(tag);
             this.value.push(tag);

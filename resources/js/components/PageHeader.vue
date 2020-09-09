@@ -31,22 +31,22 @@
                         aria-expanded="false"
                     >
                         <img
-                            :src="profile.avatar"
-                            :alt="profile.name"
+                            :src="settings.user.avatar || settings.user.default_avatar"
+                            :alt="settings.user.name"
                             class="rounded-circle my-0 shadow-inner"
                             style="width: 33px"
                         />
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                         <h6 class="dropdown-header">
-                            <strong>{{ profile.name }}</strong>
+                            <strong>{{ settings.user.name }}</strong>
                             <br />
-                            {{ profile.email }}
+                            {{ settings.user.email }}
                         </h6>
 
                         <div class="dropdown-divider" />
 
-                        <router-link :to="{ name: 'edit-user', params: { id: profile.id } }" class="dropdown-item">
+                        <router-link :to="{ name: 'edit-user', params: { id: settings.user.id } }" class="dropdown-item">
                             {{ trans.your_profile }}
                         </router-link>
                         <router-link :to="{ name: 'posts' }" class="dropdown-item">
@@ -84,7 +84,6 @@
 
 <script>
 import { mapGetters, mapState } from 'vuex';
-import { store } from '../store';
 import $ from 'jquery';
 import SearchModal from './modals/SearchModal';
 import axios from 'axios';
@@ -97,9 +96,9 @@ export default {
     },
 
     computed: {
-        ...mapState(['profile', 'settings']),
+        ...mapState(['settings']),
         ...mapGetters({
-            isAdmin: 'profile/isAdmin',
+            isAdmin: 'settings/isAdmin',
             trans: 'settings/trans',
         }),
     },

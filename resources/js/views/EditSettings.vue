@@ -28,7 +28,7 @@
                                                 id="digest"
                                                 type="checkbox"
                                                 class="switch"
-                                                :checked="profile.digest"
+                                                :checked="settings.user.digest"
                                                 @change="toggleDigest"
                                             />
                                             <label for="digest" class="mb-0 sr-only">
@@ -58,7 +58,7 @@
                                                 id="darkMode"
                                                 type="checkbox"
                                                 class="switch"
-                                                :checked="profile.darkMode"
+                                                :checked="settings.user.dark_mode"
                                                 @change="toggleDarkMode"
                                             />
                                             <label for="darkMode" class="mb-0 sr-only">
@@ -93,7 +93,7 @@
                                                     :key="code"
                                                     v-for="code in settings.languageCodes"
                                                     :value="code"
-                                                    :selected="profile.locale === code"
+                                                    :selected="settings.user.locale === code"
                                                 >
                                                     {{ getLocaleDisplayName(code) }}
                                                 </option>
@@ -143,7 +143,7 @@ export default {
     },
 
     computed: {
-        ...mapState(['settings', 'profile']),
+        ...mapState(['settings']),
         ...mapGetters({
             trans: 'settings/trans',
         }),
@@ -157,9 +157,9 @@ export default {
     },
 
     created() {
-        this.digest = this.profile.digest;
-        this.locale = this.profile.locale;
-        this.darkMode = this.profile.darkMode;
+        this.digest = this.settings.user.digest;
+        this.locale = this.settings.user.locale;
+        this.darkMode = this.settings.user.dark_mode;
         this.isReady = true;
         NProgress.done();
     },
@@ -172,13 +172,13 @@ export default {
         },
 
         toggleDigest() {
-            this.$store.dispatch('profile/updateDigest', {
+            this.$store.dispatch('settings/updateDigest', {
                 digest: this.digest,
             });
         },
 
         selectLocale() {
-            this.$store.dispatch('profile/updateLocale', {
+            this.$store.dispatch('settings/updateLocale', {
                 locale: this.locale,
             });
 
@@ -190,7 +190,7 @@ export default {
         },
 
         toggleDarkMode() {
-            this.$store.dispatch('profile/updateDarkMode', {
+            this.$store.dispatch('settings/updateDarkMode', {
                 darkMode: this.darkMode,
             });
 

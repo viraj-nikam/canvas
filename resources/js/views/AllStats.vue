@@ -177,7 +177,7 @@ export default {
 
     computed: {
         ...mapGetters({
-            isAdmin: 'profile/isAdmin',
+            isAdmin: 'settings/isAdmin',
             trans: 'settings/trans',
         }),
 
@@ -245,11 +245,13 @@ export default {
         },
 
         async changeScope() {
+            this.isReady = false;
             this.data = null;
             this.page = 1;
             this.posts = [];
             await Promise.all([this.fetchStats(), this.fetchPosts()]);
             this.infiniteId += 1;
+            this.isReady = true;
             NProgress.done();
         },
     },

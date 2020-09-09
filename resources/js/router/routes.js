@@ -9,9 +9,9 @@ import PostStats from '../views/PostStats';
 import TagList from '../views/TagList';
 import TopicList from '../views/TopicList';
 import UserList from '../views/UserList';
-import profile from '../store/modules/profile';
+import settings from '../store/modules/settings';
 
-let isAdmin = profile.state.role === 3;
+let isAdmin = settings.state.user.role === 3;
 
 export default [
     {
@@ -118,7 +118,7 @@ export default [
         name: 'edit-user',
         component: EditUser,
         beforeEnter: (to, from, next) => {
-            if (isAdmin || profile.state.id == to.params.id) {
+            if (isAdmin || settings.state.user.id == to.params.id) {
                 next();
             } else {
                 next({ name: 'home' });

@@ -349,13 +349,13 @@ export default {
     },
 
     computed: {
-        ...mapState(['settings', 'profile']),
+        ...mapState(['settings']),
         ...mapGetters({
             trans: 'settings/trans',
         }),
 
         isAuthProfile() {
-            return this.profile.id === this.user.id;
+            return this.settings.user.id === this.user.id;
         },
 
         creatingUser() {

@@ -355,13 +355,13 @@ export default {
     },
 
     computed: {
-        ...mapState(['profile']),
+        ...mapState(['settings']),
         ...mapGetters({
             trans: 'settings/trans',
         }),
 
         canEditPost() {
-            return this.profile.id == this.data.post.user_id;
+            return this.settings.user.id == this.data.post.user_id;
         },
 
         viewsAreTrendingUp() {

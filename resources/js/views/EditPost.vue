@@ -156,8 +156,8 @@ export default {
         ...mapState(['post']),
         ...mapGetters({
             trans: 'settings/trans',
-            isAdmin: 'profile/isAdmin',
-            isEditor: 'profile/isEditor',
+            isAdmin: 'settings/isAdmin',
+            isEditor: 'settings/isEditor',
         }),
 
         creatingPost() {

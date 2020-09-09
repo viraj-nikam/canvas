@@ -57,7 +57,7 @@ export default {
     },
 
     computed: {
-        ...mapState(['profile']),
+        ...mapState(['settings']),
         ...mapGetters({
             trans: 'settings/trans',
         }),
@@ -72,7 +72,7 @@ export default {
             let topic = {
                 name: searchQuery,
                 slug: strings.methods.slugify(searchQuery),
-                user_id: this.profile.id,
+                user_id: this.settings.user.id,
             };
 
             this.options.push(topic);
@@ -80,7 +80,7 @@ export default {
             this.value = {
                 name: topic.name,
                 slug: topic.slug,
-                user_id: this.profile.id,
+                user_id: this.settings.user.id,
             };
 
             this.$store.dispatch('post/setTopic', this.value);

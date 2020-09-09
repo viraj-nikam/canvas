@@ -1,4 +1,3 @@
-import profile from './profile';
 import request from '../../mixins/request';
 
 const initialState = {
@@ -20,7 +19,7 @@ const actions = {
                 context.commit('UPDATE_INDEX', data);
             });
 
-        if (context.rootGetters['profile/isAdmin']) {
+        if (context.rootGetters['settings/isAdmin']) {
             request.methods
                 .request()
                 .get('/api/search/tags')
