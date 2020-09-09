@@ -35,7 +35,7 @@
         <main class="py-4">
             <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12">
                 <div v-if="isReady" class="my-3">
-                    <h2 class="mt-3">{{ creatingTag ? trans.new_tag : trans.edit_tag }}</h2>
+                    <h2 class="mt-3">{{ tag.name || trans.new_tag }}</h2>
                     <p v-if="!creatingTag" class="mt-2 text-secondary">
                         {{ trans.last_updated }} {{ moment(tag.updatedAt).fromNow() }}
                     </p>
@@ -49,7 +49,7 @@
                                     {{ trans.name }}
                                 </label>
                                 <input
-                                    v-model="name"
+                                    v-model="tag.name"
                                     type="text"
                                     name="name"
                                     autofocus
@@ -66,7 +66,7 @@
                                     {{ trans.slug }}
                                 </label>
                                 <input
-                                    v-model="slug"
+                                    v-model="tag.slug"
                                     type="text"
                                     name="slug"
                                     disabled
@@ -189,7 +189,7 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex';
+import { mapGetters } from 'vuex';
 import $ from 'jquery';
 import DeleteModal from '../components/modals/DeleteModal';
 import Hover from '../directives/Hover';
@@ -218,16 +218,15 @@ export default {
     data() {
         return {
             uri: this.$route.params.id || 'create',
-            name: '',
-            slug: '',
+            tag: {},
             page: 1,
+            errors: [],
             posts: [],
             isReady: false,
         };
     },
 
     computed: {
-        ...mapState(['tag']),
         ...mapGetters({
             trans: 'settings/trans',
         }),
@@ -237,13 +236,13 @@ export default {
         },
 
         shouldDisableButton() {
-            return isEmpty(this.slug);
+            return isEmpty(this.tag.slug);
         },
     },
 
     watch: {
-        name(val) {
-            this.slug = !isEmpty(val) ? this.slugify(val) : '';
+        'tag.name'(val) {
+            this.tag.slug = !isEmpty(val) ? this.slugify(val) : '';
         },
 
         async $route(to) {
@@ -257,8 +256,6 @@ export default {
                 this.page = 1;
                 this.posts = [];
                 await Promise.all([this.fetchTag(), this.fetchPosts()]);
-                this.name = this.tag.name;
-                this.slug = this.tag.slug;
                 this.isReady = true;
                 NProgress.done();
             }
@@ -267,18 +264,21 @@ export default {
 
     async created() {
         await Promise.all([this.fetchTag(), this.fetchPosts()]);
-        this.name = this.tag.name;
-        this.slug = this.tag.slug;
         this.isReady = true;
         NProgress.done();
     },
 
     methods: {
         fetchTag() {
-            // TODO: This is a hack to ensure we have empty form fields
-            this.$store.dispatch('tag/resetState');
+            this.request()
+                .get(`/api/tags/${this.uri}`)
+                .then(({ data }) => {
+                    this.tag = data;
+                })
+                .catch(() => {
+                    this.$router.push({ name: 'tags' });
+                });
 
-            this.$store.dispatch('tag/fetchTag', this.uri);
             NProgress.inc();
         },
 
@@ -308,21 +308,44 @@ export default {
         },
 
         saveTag() {
-            this.$store.dispatch('tag/updateTag', {
-                id: this.tag.id,
-                name: this.name,
-                slug: this.slug,
-            });
+            this.request()
+                .post(`/api/tags/${this.tag.id}`, {
+                    name: this.tag.name,
+                    slug: this.tag.slug,
+                })
+                .then(({ data }) => {
+                    this.tag = data;
+                    this.$store.dispatch('search/buildIndex', true);
+                    this.$toasted.show(this.trans.saved, {
+                        className: 'bg-success',
+                    });
+                })
+                .catch((error) => {
+                    this.errors = error.response.data.errors;
+                    this.$toasted.show(error.response.data.errors.slug[0], {
+                        className: 'bg-danger',
+                    });
+                });
 
-            if (isEmpty(this.tag.errors) && this.creatingTag) {
+            if (isEmpty(this.errors) && this.creatingTag) {
                 this.$router.push({ name: 'edit-tag', params: { id: this.tag.id } });
                 NProgress.done();
             }
         },
 
-        deleteTag() {
-            this.$store.dispatch('tag/deleteTag', this.tag.id);
+        async deleteTag() {
+            await this.request()
+                .delete(`/api/tags/${this.uri}`)
+                .then(() => {
+                    this.$store.dispatch('search/buildIndex', true);
+                    this.$toasted.show(this.trans.success, {
+                        className: 'bg-success',
+                    });
+                });
+
             $(this.$refs.deleteModal.$el).modal('hide');
+
+            await this.$router.push({ name: 'tags' });
         },
 
         showDeleteModal() {

@@ -153,8 +153,8 @@ export default {
         }),
     },
 
-    created() {
-        this.fetchTags();
+    async created() {
+        await Promise.all([this.fetchTags()]);
         this.isReady = true;
         NProgress.done();
     },

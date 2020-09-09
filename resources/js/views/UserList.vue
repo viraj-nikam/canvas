@@ -41,7 +41,7 @@
                                     <div class="ml-auto d-none d-lg-inline pl-3">
                                         <div class="d-none d-md-inline">
                                             <span class="text-muted mr-3">
-                                                {{ roleName(user.role) }}
+                                                {{ getRoleName(user.role) }}
                                             </span>
                                         </div>
                                         <img
@@ -118,8 +118,8 @@ export default {
         }),
     },
 
-    created() {
-        this.fetchUsers();
+    async created() {
+        await Promise.all([this.fetchUsers()]);
         this.isReady = true;
         NProgress.done();
     },
@@ -153,7 +153,7 @@ export default {
             }
         },
 
-        roleName(id) {
+        getRoleName(id) {
             switch (id) {
                 case 1:
                     return 'Contributor';

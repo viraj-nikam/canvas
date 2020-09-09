@@ -155,8 +155,8 @@ export default {
         }),
     },
 
-    created() {
-        this.fetchTopics();
+    async created() {
+        await Promise.all([this.fetchTags()]);
         this.isReady = true;
         NProgress.done();
     },
