@@ -9,7 +9,6 @@ Hi! I'm really excited that you are interested in contributing to Canvas. The fo
 - [Development Setup](#development-setup)
 	- [Git](#git)
 	- [Database](#database)
-	- [Authentication](#authentication)
 	- [Directories](#directories)
 	- [Installation](#installation)
 	- [Developing](#developing)
@@ -81,56 +80,84 @@ php artisan storage:link
 ```
 
 Statistics are a core component to the app, so it's best to have a large dataset in place when developing. To
- generate some, add the following snippets to your Laravel app:
-
-Create a new class named `CanvasTrackingDataSeeder` and add this to the `run()` method:
+ generate some, add the following factories to your Laravel app:
 
 ```php
-\Illuminate\Support\Facades\DB::table('canvas_views')->truncate();
-\Illuminate\Support\Facades\DB::table('canvas_visits')->truncate();
+<?php
 
-factory(\Canvas\Models\View::class, 1500)->create();
-factory(\Canvas\Models\Visit::class, 1500)->create();
+namespace Database\Factories;
+
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+class CanvasVisitFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = \Canvas\Models\Visit::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'post_id'    => \Canvas\Models\Post::all()->pluck('id')->random(),
+            'ip'         => $this->faker->ipv4,
+            'agent'      => $this->faker->userAgent,
+            'referer'    => $this->faker->url,
+            'created_at' => today()->subDays(rand(0, 60))->toDateTimeString(),
+            'updated_at' => today()->subDays(rand(0, 60))->toDateTimeString(),
+        ];
+    }
+}
+```
+
+```php
+<?php
+
+namespace Database\Factories;
+
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+class CanvasViewFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = \Canvas\Models\View::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'post_id'    => \Canvas\Models\Post::all()->pluck('id')->random(),
+            'ip'         => $this->faker->ipv4,
+            'agent'      => $this->faker->userAgent,
+            'referer'    => $this->faker->url,
+            'created_at' => today()->subDays(rand(0, 60))->toDateTimeString(),
+            'updated_at' => today()->subDays(rand(0, 60))->toDateTimeString(),
+        ];
+    }
+}
+
 ```
 
 In the `run()` method of the `DatabaseSeeder`:
 
 ```php
-$this->call(CanvasTrackingDataSeeder::class);
-```
-
-Create a new factory named `ViewFactory` and add this definition:
-
-```php
-$factory->define(\Canvas\Models\View::class, function (\Faker\Generator $faker) {
-    $timestamp = today()->subDays(rand(0, 60))->toDateTimeString();
-
-    return [
-        'post_id'    => \Canvas\Models\Post::all()->pluck('id')->random(),
-        'ip' => $faker->ipv4,
-        'agent' => $faker->userAgent,
-        'referer' => $faker->url,
-        'created_at' => $timestamp,
-        'updated_at' => $timestamp,
-    ];
-});
-```
-
-Create a new factory named `VisitFactory` and add this definition:
-
-```php
-$factory->define(\Canvas\Models\Visit::class, function (\Faker\Generator $faker) {
-    $timestamp = today()->subDays(rand(0, 60))->toDateTimeString();
-
-    return [
-        'post_id' => \Canvas\Models\Post::all()->pluck('id')->random(),
-        'ip' => $faker->ipv4,
-        'agent' => $faker->userAgent,
-        'referer' => $faker->url,
-        'created_at' => $timestamp,
-        'updated_at' => $timestamp,
-    ];
-});
+\Database\Factories\CanvasViewFactory::new()->count(850)->create();
+\Database\Factories\CanvasVisitFactory::new()->count(500)->create();
 ```
 
 You can now run `php artisan db:seed` and you will have a substantial amount of views for each post.
