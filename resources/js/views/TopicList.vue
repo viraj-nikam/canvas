@@ -156,7 +156,7 @@ export default {
     },
 
     async created() {
-        await Promise.all([this.fetchTags()]);
+        await Promise.all([this.fetchTopics()]);
         this.isReady = true;
         NProgress.done();
     },
