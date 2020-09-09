@@ -24,7 +24,7 @@
         </exclude>
     </coverage>
     <testsuites>
-        <testsuite name="Canvas Test Suite">
+        <testsuite name="Canvas Tests">
             <directory suffix="Test.php">./tests</directory>
         </testsuite>
     </testsuites>
