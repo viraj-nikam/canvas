@@ -48,7 +48,7 @@
                                 </svg>
                             </a>
                             <input
-                                v-model="slug"
+                                v-model="post.slug"
                                 id="slug"
                                 type="text"
                                 class="form-control border-0"
@@ -65,7 +65,7 @@
                                 trans.summary
                             }}</label>
                             <textarea
-                                v-model="summary"
+                                v-model="post.summary"
                                 id="settings"
                                 rows="4"
                                 name="summary"
@@ -79,13 +79,37 @@
                     <div class="form-group row">
                         <div class="col-12">
                             <label class="font-weight-bold text-uppercase text-muted small">{{ trans.topic }}</label>
-                            <topic-select :topics="post.allTopics" :assigned="post.selectedTopic" />
+                            <multiselect
+                                v-model="post.topic"
+                                :options="topics"
+                                :placeholder="trans.select_a_topic"
+                                :tag-placeholder="trans.add_a_new_topic"
+                                :multiple="false"
+                                :taggable="true"
+                                label="name"
+                                track-by="slug"
+                                style="cursor: pointer"
+                                @input="onTopicChange"
+                                @tag="addTopic"
+                            />
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-12">
                             <label class="font-weight-bold text-uppercase text-muted small">{{ trans.tags }}</label>
-                            <tag-select :tags="post.allTags" :tagged="post.selectedTags" />
+                            <multiselect
+                                v-model="post.tags"
+                                :options="tags"
+                                :placeholder="trans.select_some_tags"
+                                :tag-placeholder="trans.add_a_new_tag"
+                                :multiple="true"
+                                :taggable="true"
+                                label="name"
+                                track-by="slug"
+                                style="cursor: pointer"
+                                @input="onTagChange"
+                                @tag="addTag"
+                            />
                         </div>
                     </div>
                 </div>
@@ -104,19 +128,34 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex';
-import TagSelect from '../TagSelect';
+import { mapGetters } from 'vuex';
 import Tooltip from '../../directives/Tooltip';
-import TopicSelect from '../TopicSelect';
+import Multiselect from 'vue-multiselect';
 import debounce from 'lodash/debounce';
 import strings from '../../mixins/strings';
 
 export default {
     name: 'settings-modal',
 
+    props: {
+        post: {
+            type: Object,
+            required: true
+        },
+
+        tags: {
+            type: Array,
+            default: []
+        },
+
+        topics: {
+            type: Array,
+            default: []
+        }
+    },
+
     components: {
-        TagSelect,
-        TopicSelect,
+        Multiselect
     },
 
     directives: {
@@ -127,8 +166,6 @@ export default {
 
     data() {
         return {
-            slug: '',
-            summary: '',
             isReady: false,
         };
     },
@@ -139,7 +176,6 @@ export default {
     },
 
     computed: {
-        ...mapState(['post']),
         ...mapGetters({
             trans: 'settings/trans',
         }),
@@ -155,8 +191,45 @@ export default {
             this.slug = newSlug;
         },
 
+        onTagChange(tags) {
+            this.$store.dispatch('post/setTags', tags);
+        },
+
+        addTag(searchQuery) {
+            let tag = {
+                name: searchQuery,
+                slug: strings.methods.slugify(searchQuery),
+                user_id: this.settings.user.id,
+            };
+            this.tags.push(tag);
+            this.post.tags.push(tag);
+            this.$store.dispatch('post/setTags', this.value);
+        },
+
+        onTopicChange(topic) {
+            this.$store.dispatch('post/setTopic', topic);
+        },
+
+        addTopic(searchQuery) {
+            let topic = {
+                name: searchQuery,
+                slug: strings.methods.slugify(searchQuery),
+                user_id: this.settings.user.id,
+            };
+
+            this.topics.push(topic);
+
+            this.value = {
+                name: topic.name,
+                slug: topic.slug,
+                user_id: this.settings.user.id,
+            };
+
+            this.$store.dispatch('post/setTopic', this.value);
+        },
+
         update: debounce(function () {
-            // this.$parent.save();
+            this.$emit('update');
         }, 3000),
     },
 };

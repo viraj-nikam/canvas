@@ -178,6 +178,13 @@ import status from '../../mixins/status';
 export default {
     name: 'publish-modal',
 
+    props: {
+        post: {
+            type: Object,
+            required: true
+        },
+    },
+
     mixins: [status],
 
     data() {
@@ -194,12 +201,13 @@ export default {
     },
 
     computed: {
-        ...mapState(['settings', 'post']),
+        ...mapState(['settings']),
         ...mapGetters({
             trans: 'settings/trans',
         }),
 
         shouldPublish() {
+            // TODO: Not sure what the check should be here yet
             return true;
         },
     },
@@ -229,7 +237,7 @@ export default {
     },
 
     mounted() {
-        this.generateDatePicker(this.post.publishedAt || new Date());
+        this.generateDatePicker(this.post.published_at || new Date());
     },
 
     methods: {
@@ -251,13 +259,13 @@ export default {
         },
 
         scheduleOrPublish() {
-            // this.post.published_at = this.result;
-            // this.$parent.save();
+            this.post.published_at = this.result;
+            this.$emit('update');
         },
 
         cancelScheduling() {
-            // this.post.published_at = '';
-            // this.$parent.save();
+            this.post.published_at = '';
+            this.$emit('update');
         },
     },
 };

@@ -129,7 +129,9 @@ const mutations = {
 };
 
 const getters = {
-    //
+    activeBody(state) {
+        return state.body;
+    }
 };
 
 export default {

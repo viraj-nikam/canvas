@@ -47,7 +47,7 @@
                                 </a>
                             </label>
                             <input
-                                v-model="title"
+                                v-model="post.meta.title"
                                 id="title"
                                 name="title"
                                 type="text"
@@ -84,7 +84,7 @@
                                 </a>
                             </label>
                             <textarea
-                                v-model="description"
+                                v-model="post.meta.description"
                                 id="description"
                                 rows="4"
                                 name="description"
@@ -101,7 +101,7 @@
                                 {{ trans.canonical_link }}
                             </label>
                             <input
-                                v-model="canonicalLink"
+                                v-model="post.meta.canonical_link"
                                 id="canonicalLink"
                                 type="text"
                                 class="form-control border-0"
@@ -128,27 +128,25 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex';
+import { mapGetters } from 'vuex';
 import Tooltip from '../../directives/Tooltip';
 import debounce from 'lodash/debounce';
 
 export default {
     name: 'seo-modal',
 
+    props: {
+        post: {
+            type: Object,
+            required: true,
+        },
+    },
+
     directives: {
         Tooltip,
     },
 
-    data() {
-        return {
-            title: '',
-            description: '',
-            canonicalLink: '',
-        };
-    },
-
     computed: {
-        ...mapState(['post']),
         ...mapGetters({
             trans: 'settings/trans',
         }),
@@ -156,27 +154,17 @@ export default {
 
     methods: {
         syncTitle() {
-            this.$store.dispatch('post/updatePost', {
-                id: this.post.id,
-                meta: {
-                    title: this.post.title,
-                },
-            });
-            this.title = this.post.meta.title;
+            this.post.meta.title = this.post.title;
+            this.update();
         },
 
         syncDescription() {
-            this.$store.dispatch('post/updatePost', {
-                id: this.post.id,
-                meta: {
-                    description: this.post.summary,
-                },
-            });
-            this.description = this.post.summary;
+            this.post.meta.description = this.post.summary;
+            this.update();
         },
 
         update: debounce(function () {
-            // this.$parent.save();
+            this.$emit('update')
         }, 3000),
     },
 };

@@ -123,7 +123,7 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex';
+import { mapGetters } from 'vuex';
 import $ from 'jquery';
 import Closable from '../../../js/directives/Closable';
 import DividerBlot from './DividerBlot';
@@ -138,6 +138,13 @@ import debounce from 'lodash/debounce';
 export default {
     name: 'quill-editor',
 
+    props: {
+        post: {
+            type: Object,
+            required: true
+        }
+    },
+
     directives: {
         Closable,
     },
@@ -151,24 +158,24 @@ export default {
         return {
             editor: null,
             controlIsActive: false,
+            isReady: false,
         };
     },
 
     computed: {
-        ...mapState(['post']),
         ...mapGetters({
             trans: 'settings/trans',
         }),
     },
 
-    watch: {
-        'post.body'() {
-            // this.update();
-        },
-    },
+    // watch: {
+    //     'post.body'() {
+    //         this.update();
+    //     },
+    // },
 
     mounted() {
-        this.editor = this.createEditor();
+        this.createEditor()
         this.handleEditorValue();
         this.handleClicksInsideEditor();
         this.initSideControls();
@@ -207,11 +214,14 @@ export default {
 
             input.dataset.link = this.trans.paste_or_type_a_link;
 
-            return quill;
+            this.editor = quill;
         },
 
         handleEditorValue() {
+            console.log(this.post.body);
+
             this.editor.root.innerHTML = this.post.body;
+
             this.editor.on('text-change', () => {
                 this.controlIsActive = false;
                 // this.$store.dispatch('updatePostBody', this.editor.getText() ? this.editor.root.innerHTML : '');
@@ -343,7 +353,7 @@ export default {
         },
 
         update: debounce(function () {
-            // this.$parent.save();
+            this.$emit('update');
         }, 3000),
     },
 };

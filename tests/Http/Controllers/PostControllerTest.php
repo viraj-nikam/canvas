@@ -146,6 +146,7 @@ class PostControllerTest extends TestCase
 
         $this->assertArrayHasKey('id', $response->original['post']);
         $this->assertArrayHasKey('slug', $response->original['post']);
+        $this->assertArrayHasKey('meta', $response->original['post']);
         $this->assertArrayHasKey('read_time', $response->original['post']);
         $this->assertArrayHasKey('tags', $response->original);
         $this->assertArrayHasKey('topics', $response->original);

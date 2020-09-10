@@ -5,12 +5,12 @@
                 <ul class="navbar-nav mr-auto flex-row float-right">
                     <li class="text-muted font-weight-bold">
                         <div class="border-left pl-3">
-                            <div v-if="!post.isSaving && !post.isSaved">
-                                <span v-if="isPublished(post.publishedAt)">{{ trans.published }}</span>
-                                <span v-if="isDraft(post.publishedAt)">{{ trans.draft }}</span>
+                            <div v-if="!isSaving && !isSaved">
+                                <span v-if="isPublished(post.published_at)">{{ trans.published }}</span>
+                                <span v-if="isDraft(post.published_at)">{{ trans.draft }}</span>
                             </div>
-                            <span v-if="post.isSaving">{{ trans.saving }}</span>
-                            <span v-if="post.isSaved" class="text-success">{{ trans.saved }}</span>
+                            <span v-if="isSaving">{{ trans.saving }}</span>
+                            <span v-if="isSaved" class="text-success">{{ trans.saved }}</span>
                         </div>
                     </li>
                 </ul>
@@ -49,31 +49,22 @@
                         >
                             {{ trans.view_stats }}
                         </router-link>
-                        <div v-if="isPublished(post.publishedAt)" class="dropdown-divider" />
+                        <div v-if="isPublished(post.publishedAt)" class="dropdown-divider"/>
                         <a
                             v-if="isDraft(post.publishedAt) && (isAdmin || isEditor)"
                             href="#"
                             class="dropdown-item"
                             @click="showPublishModal"
-                        >
-                            {{ trans.publish }}
-                        </a>
+                        > {{ trans.publish }} </a>
                         <a href="#" class="dropdown-item" @click="showSettingsModal"> {{ trans.general_settings }} </a>
-                        <a href="#" class="dropdown-item" @click="showFeaturedImageModal">
-                            {{ trans.featured_image }}
-                        </a>
-                        <a href="#" class="dropdown-item" @click="showSeoModal"> {{ trans.seo_settings }} </a>
-                        <a
-                            v-if="isPublished(post.publishedAt)"
-                            href="#"
-                            class="dropdown-item"
-                            @click.prevent="convertToDraft"
-                        >
-                            {{ trans.convert_to_draft }}
-                        </a>
-                        <a v-if="!creatingPost" href="#" class="dropdown-item text-danger" @click="showDeleteModal">
-                            {{ trans.delete }}
-                        </a>
+                        <a href="#" class="dropdown-item" @click="showFeaturedImageModal"> {{ trans.featured_image }} </a>
+                        <a href="#" class="dropdown-item" @click="showSeoModal"> {{ trans.seo_settings }} </a> <a
+                        v-if="isPublished(post.publishedAt)"
+                        href="#"
+                        class="dropdown-item"
+                        @click.prevent="convertToDraft"
+                    > {{ trans.convert_to_draft }} </a>
+                        <a v-if="!creatingPost" href="#" class="dropdown-item text-danger" @click="showDeleteModal"> {{ trans.delete }} </a>
                     </div>
                 </div>
             </template>
@@ -83,7 +74,7 @@
             <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12">
                 <div class="form-group my-3">
                     <textarea-autosize
-                        v-model="title"
+                        v-model="post.title"
                         :placeholder="trans.title"
                         style="font-size: 42px"
                         class="w-100 form-control-lg border-0 font-serif bg-transparent px-0"
@@ -92,27 +83,50 @@
                 </div>
 
                 <div class="form-group my-2">
-                    <quill-editor />
+                    <quill-editor
+                        :post="post"
+                        @update="savePost"
+                    />
                 </div>
             </div>
         </main>
 
-        <publish-modal ref="publishModal" v-if="isReady" />
-        <settings-modal ref="settingsModal" v-if="isReady" />
-        <featured-image-modal ref="featuredImageModal" v-if="isReady" />
-        <seo-modal ref="seoModal" v-if="isReady" />
-        <delete-modal
-            ref="deleteModal"
-            v-if="isReady"
-            :header="trans.delete"
-            :message="trans.deleted_posts_are_gone_forever"
-            @delete="deletePost"
-        />
+        <section v-if="isReady">
+            <publish-modal
+                :post="post"
+                ref="publishModal"
+                @update="savePost"
+            />
+            <settings-modal
+                :post="post"
+                :tags="tags"
+                :topics="topics"
+                ref="settingsModal"
+                @update="savePost"
+            />
+            <featured-image-modal
+                :post="post"
+                ref="featuredImageModal"
+                @update="savePost"
+            />
+            <seo-modal
+                v-if="post.meta"
+                :post="post"
+                ref="seoModal"
+                @update="savePost"
+            />
+            <delete-modal
+                ref="deleteModal"
+                :header="trans.delete"
+                :message="trans.deleted_posts_are_gone_forever"
+                @delete="deletePost"
+            />
+        </section>
     </section>
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex';
+import { mapGetters } from 'vuex';
 import $ from 'jquery';
 import DeleteModal from '../components/modals/DeleteModal';
 import FeaturedImageModal from '../components/modals/FeaturedImageModal';
@@ -124,7 +138,6 @@ import SeoModal from '../components/modals/SeoModal';
 import SettingsModal from '../components/modals/SettingsModal';
 import Vue from 'vue';
 import VueTextAreaAutosize from 'vue-textarea-autosize';
-import debounce from 'lodash/debounce';
 import status from '../mixins/status';
 
 Vue.use(VueTextAreaAutosize);
@@ -142,18 +155,22 @@ export default {
         SettingsModal,
     },
 
-    mixins: [status],
+    mixins: [ status ],
 
     data() {
         return {
             uri: this.$route.params.id || 'create',
-            title: '',
+            post: {},
+            tags: [],
+            topics: [],
+            errors: [],
+            isSaving: false,
+            isSaved: false,
             isReady: false,
         };
     },
 
     computed: {
-        ...mapState(['post']),
         ...mapGetters({
             trans: 'settings/trans',
             isAdmin: 'settings/isAdmin',
@@ -166,42 +183,24 @@ export default {
     },
 
     async created() {
-        await Promise.all([this.fetchPost()]);
+        await Promise.all([ this.fetchPost() ]);
         this.isReady = true;
         NProgress.done();
     },
 
-    // beforeRouteEnter(to, from, next) {
-    // next((vm) => {
-    //     vm.request()
-    //         .get(`/api/posts/${vm.id}`)
-    //         .then((response) => {
-    //             vm.$store.dispatch('setActivePost', response.data.post);
-    //
-    //             vm.post = vm.$store.getters.post;
-    //             vm.tags = response.data.tags;
-    //             vm.topics = response.data.topics;
-    //             vm.isReady = true;
-    //
-    //             NProgress.done();
-    //         })
-    //         .catch(() => {
-    //             vm.$router.push({ name: 'posts' });
-    //         });
-    // });
-    // },
-
-    // beforeRouteLeave(to, from, next) {
-    //     // Reset the form status to avoid it flashing on the next screen load
-    //     this.post.isSaving = false;
-    //     this.post.hasSuccess = false;
-    //
-    //     next();
-    // },
-
     methods: {
         fetchPost() {
-            this.$store.dispatch('post/fetchPost', this.uri);
+            this.request()
+                .get(`/api/posts/${ this.uri }`)
+                .then(({ data }) => {
+                    this.post = data.post;
+                    this.tags = data.tags;
+                    this.topics = data.topics;
+                })
+                .catch(() => {
+                    this.$router.push({ name: 'posts' });
+                });
+
             NProgress.inc();
         },
 
@@ -225,10 +224,6 @@ export default {
             // }, 3000);
         },
 
-        update: debounce(function () {
-            // this.save();
-        }, 3000),
-
         convertToDraft() {
             this.$store.dispatch('post/updatePost', {
                 id: this.post.id,
@@ -238,13 +233,19 @@ export default {
             // this.save();
         },
 
-        deletePost() {
-            this.$store.dispatch('post/deletePost', this.post.id);
+        async deletePost() {
+            await this.request()
+                .delete(`/api/posts/${this.post.id}`)
+                .then(() => {
+                    this.$store.dispatch('search/buildIndex', true);
+                    this.$toasted.show(this.trans.success, {
+                        className: 'bg-success',
+                    });
+                });
+
             $(this.$refs.deleteModal.$el).modal('hide');
-            this.$router.push({ name: 'posts' });
-            this.$toasted.show(this.trans.success, {
-                className: 'bg-success',
-            });
+
+            await this.$router.push({ name: 'posts' });
         },
 
         showPublishModal() {

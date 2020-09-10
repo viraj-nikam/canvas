@@ -189,6 +189,13 @@ const FilePond = vueFilePond(
 export default {
     name: 'featured-image-modal',
 
+    props: {
+        post: {
+            type: Object,
+            required: true
+        },
+    },
+
     components: {
         InfiniteLoading,
         FilePond,
@@ -211,7 +218,7 @@ export default {
     },
 
     computed: {
-        ...mapState(['settings', 'post']),
+        ...mapState(['settings']),
         ...mapGetters({
             trans: 'settings/trans',
         }),

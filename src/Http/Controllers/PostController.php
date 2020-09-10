@@ -60,6 +60,12 @@ class PostController extends Controller
             'post' => Post::make([
                 'id' => $uuid->toString(),
                 'slug' => "post-{$uuid->toString()}",
+                'body' => 'basic body',
+                'meta' => [
+                    'title' => '',
+                    'description' => '',
+                    'canonical_link' => '',
+                ]
             ]),
             'tags' => Tag::get(['name', 'slug']),
             'topics' => Topic::get(['name', 'slug']),
