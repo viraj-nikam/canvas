@@ -36,7 +36,9 @@
             <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12">
                 <div class="d-flex justify-content-between mt-2 mb-4 align-items-center">
                     <div>
-                        <h2 class="mt-2">
+                        <h2 class="mt-3">
+                            <router-link :to="{ name: 'users' }" class="text-decoration-none text-muted">{{ trans.users }}</router-link>
+                            <span class="text-muted"> / </span>
                             {{ title }}
                         </h2>
                         <p class="mt-2 text-secondary">

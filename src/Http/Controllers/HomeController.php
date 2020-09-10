@@ -26,9 +26,9 @@ class HomeController extends Controller
                 'path' => config('canvas.path'),
                 'roles' => Canvas::availableRoles(),
                 'timezone' => config('app.timezone'),
-                'translations' => Canvas::availableTranslations($request->user()->locale),
+                'translations' => Canvas::availableTranslations($request->user('canvas')->locale),
                 'unsplash' => config('canvas.unsplash.access_key'),
-                'user' => $request->user(),
+                'user' => $request->user('canvas'),
                 'version' => Canvas::installedVersion(),
             ],
         ]);

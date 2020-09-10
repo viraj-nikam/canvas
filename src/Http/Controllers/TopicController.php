@@ -2,6 +2,7 @@
 
 namespace Canvas\Http\Controllers;
 
+use Canvas\Http\Requests\StoreTopicRequest;
 use Canvas\Models\Topic;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -42,55 +43,33 @@ class TopicController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
+     * @param StoreTopicRequest $request
      * @param $id
      * @return JsonResponse
-     * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request, $id): JsonResponse
+    public function store(StoreTopicRequest $request, $id): JsonResponse
     {
-        $topic = Topic::find($id);
+        $data = $request->validated();
 
-        if (! $topic) {
-            if ($topic = Topic::onlyTrashed()->firstWhere('slug', $request->input('slug'))) {
-                $topic->restore();
+        $tag = Topic::find($id);
 
-                return response()->json($topic->refresh(), 201);
+        if (! $tag) {
+            if ($tag = Topic::onlyTrashed()->firstWhere('slug', $data['slug'])) {
+                $tag->restore();
+
+                return response()->json($tag->refresh(), 201);
             } else {
-                $topic = new Topic(['id' => $id]);
+                $tag = new Topic(['id' => $id]);
             }
         }
 
-        $data = [
-            'id' => $topic->id,
-            'name' => $request->input('name'),
-            'slug' => $request->input('slug'),
-            'user_id' => $request->user()->id,
-        ];
+        $tag->fill($data);
 
-        $rules = [
-            'name' => 'required',
-            'slug' => [
-                'required',
-                'alpha_dash',
-                Rule::unique('canvas_topics')->where(function ($query) use ($data) {
-                    return $query->where('slug', $data['slug'])->where('user_id', $data['user_id']);
-                })->ignore($id)->whereNull('deleted_at'),
-            ],
-        ];
+        $tag->user_id = request()->user('canvas')->id;
 
-        $messages = [
-            'required' => trans('canvas::app.validation_required', [], optional($topic->user())->locale),
-            'unique' => trans('canvas::app.validation_unique', [], optional($topic->user())->locale),
-        ];
+        $tag->save();
 
-        validator($data, $rules, $messages)->validate();
-
-        $topic->fill($data);
-
-        $topic->save();
-
-        return response()->json($topic->refresh(), 201);
+        return response()->json($tag->refresh(), 201);
     }
 
     /**

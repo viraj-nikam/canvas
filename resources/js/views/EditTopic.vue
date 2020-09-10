@@ -35,7 +35,11 @@
         <main class="py-4">
             <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12">
                 <div v-if="isReady" class="my-3">
-                    <h2 class="mt-3">{{ title }}</h2>
+                    <h2 class="mt-3">
+                        <router-link :to="{ name: 'topics' }" class="text-decoration-none text-muted">{{ trans.topics }}</router-link>
+                        <span class="text-muted"> / </span>
+                        {{ title }}
+                    </h2>
                     <p v-if="!creatingTopic" class="mt-2 text-secondary">
                         {{ trans.last_updated }} {{ moment(topic.updated_at).fromNow() }}
                     </p>

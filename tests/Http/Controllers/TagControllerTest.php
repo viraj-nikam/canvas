@@ -177,6 +177,7 @@ class TagControllerTest extends TestCase
         ]);
 
         $data = [
+            'id' => Uuid::uuid4()->toString(),
             'name' => 'An updated tag',
             'slug' => 'an-updated-tag',
         ];
@@ -184,6 +185,7 @@ class TagControllerTest extends TestCase
         $this->actingAs($tag->user, 'canvas')
              ->postJson("canvas/api/tags/{$tag->id}", $data)
              ->assertSuccessful()
+             ->assertJsonExactFragment($data['id'], 'id')
              ->assertJsonExactFragment($data['name'], 'name')
              ->assertJsonExactFragment($data['slug'], 'slug')
              ->assertJsonExactFragment($tag->user->id, 'user_id');

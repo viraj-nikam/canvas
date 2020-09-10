@@ -20,12 +20,12 @@ class SearchController extends Controller
      */
     public function showPosts(Request $request): JsonResponse
     {
-        $user = User::firstWhere('id', $request->user()->id);
+        $user = User::firstWhere('id', $request->user('canvas')->id);
 
         if ($user->isAdmin || $user->isEditor) {
             $posts = Post::select('id', 'title')->latest()->get();
         } else {
-            $posts = Post::where('user_id', $request->user()->id)->select('id', 'title')->latest()->get();
+            $posts = Post::where('user_id', $request->user('canvas')->id)->select('id', 'title')->latest()->get();
         }
 
         $posts->map(function ($post) {

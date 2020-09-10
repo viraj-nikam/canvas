@@ -27,7 +27,7 @@ class TopicTest extends TestCase
             'role' => User::ADMIN,
         ]);
 
-        $data = [
+        $topicOneData = [
             'id' => Uuid::uuid4()->toString(),
             'name' => 'A new topic',
             'slug' => 'a-new-topic',
@@ -35,7 +35,7 @@ class TopicTest extends TestCase
 
         $topicOne = factory(Topic::class)->create();
 
-        $response = $this->actingAs($adminUserOne, 'canvas')->postJson("/canvas/api/topics/{$topicOne->id}", $data);
+        $response = $this->actingAs($adminUserOne, 'canvas')->postJson("/canvas/api/topics/{$topicOne->id}", $topicOneData);
 
         $this->assertDatabaseHas('canvas_topics', [
             'id' => $response->original['id'],
@@ -47,9 +47,15 @@ class TopicTest extends TestCase
             'role' => User::ADMIN,
         ]);
 
+        $topicTwoData = [
+            'id' => Uuid::uuid4()->toString(),
+            'name' => 'A new topic',
+            'slug' => 'a-new-topic',
+        ];
+
         $topicTwo = factory(Topic::class)->create();
 
-        $response = $this->actingAs($adminUserTwo, 'canvas')->postJson("/canvas/api/topics/{$topicTwo->id}", $data);
+        $response = $this->actingAs($adminUserTwo, 'canvas')->postJson("/canvas/api/topics/{$topicTwo->id}", $topicTwoData);
 
         $this->assertDatabaseHas('canvas_topics', [
             'id' => $response->original['id'],

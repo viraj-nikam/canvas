@@ -2,12 +2,12 @@
 
 namespace Canvas\Http\Controllers;
 
+use Canvas\Http\Requests\StoreUserRequest;
 use Canvas\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rule;
 use Ramsey\Uuid\Uuid;
 
 class UserController extends Controller
@@ -43,62 +43,28 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
+     * @param StoreUserRequest $request
      * @param $id
      * @return JsonResponse
-     * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request, $id): JsonResponse
+    public function store(StoreUserRequest $request, $id): JsonResponse
     {
+        $data = $request->validated();
+
         $user = User::find($id);
 
         if (! $user) {
-            if ($user = User::onlyTrashed()->firstWhere('email', $request->email)) {
+            if ($user = User::onlyTrashed()->firstWhere('email', $data['email'])) {
                 $user->restore();
 
                 return response()->json($user->refresh(), 201);
             } else {
                 $user = new User([
                     'id' => $id,
-                    'password' => Hash::make($request->password),
+                    'password' => Hash::make($data['password']),
                 ]);
             }
         }
-
-        $data = [
-            'name' => $request->input('name', $user->name),
-            'email' => $request->input('email', $user->email),
-            'password' => $request->input('password', $user->password),
-            'avatar' => $request->input('avatar', $user->avatar ?? null),
-            'dark_mode' => $request->input('darkMode', $user->dark_mode ?? false),
-            'digest' => $request->input('digest', $user->digest ?? false),
-            'locale' => $request->input('locale', $user->locale ?? null),
-            'username' => $request->input('username', $user->username ?? null),
-            'summary' => $request->input('summary', $user->summary ?? null),
-            'role' => $request->input('role', $user->role ?? null),
-        ];
-
-        $rules = [
-            'name' => 'required|string',
-            'email' => [
-                'required',
-                'email',
-                Rule::unique('canvas_users')->ignore($id),
-            ],
-            'password' => 'sometimes|nullable|min:8',
-            'username' => [
-                'nullable',
-                'alpha_dash',
-                Rule::unique('canvas_users')->ignore($id),
-            ],
-        ];
-
-        $messages = [
-            'required' => trans('canvas::app.validation_required', [], $user->locale),
-            'unique' => trans('canvas::app.validation_unique', [], $user->locale),
-        ];
-
-        validator($data, $rules, $messages)->validate();
 
         $user->fill($data);
 
@@ -147,7 +113,7 @@ class UserController extends Controller
      */
     public function destroy(Request $request, $id)
     {
-        if ($request->user()->id == $id) {
+        if ($request->user('canvas')->id == $id) {
             return response()->json(null, 403);
         }
 

@@ -177,6 +177,7 @@ class TopicControllerTest extends TestCase
         ]);
 
         $data = [
+            'id' => Uuid::uuid4()->toString(),
             'name' => 'An updated topic',
             'slug' => 'an-updated-topic',
         ];
@@ -184,6 +185,7 @@ class TopicControllerTest extends TestCase
         $this->actingAs($topic->user, 'canvas')
              ->postJson("canvas/api/topics/{$topic->id}", $data)
              ->assertSuccessful()
+             ->assertJsonExactFragment($data['id'], 'id')
              ->assertJsonExactFragment($data['name'], 'name')
              ->assertJsonExactFragment($data['slug'], 'slug')
              ->assertJsonExactFragment($topic->user->id, 'user_id');

@@ -211,6 +211,7 @@ class UserControllerTest extends TestCase
         $response = $this->actingAs($user, 'canvas')
                          ->postJson("canvas/api/users/{$user->id}", [
                              'name' => $user->name,
+                             'email' => $user->email,
                              'username' => $contributor->username,
                          ])
                          ->assertStatus(422);

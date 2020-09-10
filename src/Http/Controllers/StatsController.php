@@ -28,7 +28,7 @@ class StatsController extends Controller
                 return $query;
             }
 
-            return $query->where('user_id', $request->user()->id);
+            return $query->where('user_id', $request->user('canvas')->id);
         })->published()->latest()->get();
 
         $views = View::select('created_at')
@@ -65,12 +65,12 @@ class StatsController extends Controller
      */
     public function show(Request $request, string $id): JsonResponse
     {
-        $user = User::firstWhere('id', $request->user()->id);
+        $user = User::firstWhere('id', $request->user('canvas')->id);
 
         if ($user->isAdmin || $user->isEditor) {
             $post = Post::find($id);
         } else {
-            $post = Post::where('user_id', $request->user()->id)->find($id);
+            $post = Post::where('user_id', $request->user('canvas')->id)->find($id);
         }
 
         if (! $post || ! $post->published) {

@@ -2,6 +2,7 @@
 
 namespace Canvas\Http\Controllers;
 
+use Canvas\Http\Requests\StoreTagRequest;
 use Canvas\Models\Tag;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -42,17 +43,18 @@ class TagController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
+     * @param StoreTagRequest $request
      * @param $id
      * @return JsonResponse
-     * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request, $id): JsonResponse
+    public function store(StoreTagRequest $request, $id): JsonResponse
     {
+        $data = $request->validated();
+
         $tag = Tag::find($id);
 
         if (! $tag) {
-            if ($tag = Tag::onlyTrashed()->firstWhere('slug', $request->input('slug'))) {
+            if ($tag = Tag::onlyTrashed()->firstWhere('slug', $data['slug'])) {
                 $tag->restore();
 
                 return response()->json($tag->refresh(), 201);
@@ -61,32 +63,9 @@ class TagController extends Controller
             }
         }
 
-        $data = [
-            'id' => $tag->id,
-            'name' => $request->input('name'),
-            'slug' => $request->input('slug'),
-            'user_id' => $request->user()->id,
-        ];
-
-        $rules = [
-            'name' => 'required',
-            'slug' => [
-                'required',
-                'alpha_dash',
-                Rule::unique('canvas_tags')->where(function ($query) use ($data) {
-                    return $query->where('slug', $data['slug'])->where('user_id', $data['user_id']);
-                })->ignore($id)->whereNull('deleted_at'),
-            ],
-        ];
-
-        $messages = [
-            'required' => trans('canvas::app.validation_required', [], optional($tag->user())->locale),
-            'unique' => trans('canvas::app.validation_unique', [], optional($tag->user())->locale),
-        ];
-
-        validator($data, $rules, $messages)->validate();
-
         $tag->fill($data);
+
+        $tag->user_id = request()->user('canvas')->id;
 
         $tag->save();
 

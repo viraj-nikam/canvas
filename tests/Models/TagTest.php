@@ -27,7 +27,7 @@ class TagTest extends TestCase
             'role' => User::ADMIN,
         ]);
 
-        $data = [
+        $tagOneData = [
             'id' => Uuid::uuid4()->toString(),
             'name' => 'A new tag',
             'slug' => 'a-new-tag',
@@ -35,7 +35,7 @@ class TagTest extends TestCase
 
         $tagOne = factory(Tag::class)->create();
 
-        $response = $this->actingAs($adminUserOne, 'canvas')->postJson("/canvas/api/tags/{$tagOne->id}", $data);
+        $response = $this->actingAs($adminUserOne, 'canvas')->postJson("/canvas/api/tags/{$tagOne->id}", $tagOneData);
 
         $this->assertDatabaseHas('canvas_tags', [
             'id' => $response->original['id'],
@@ -47,9 +47,15 @@ class TagTest extends TestCase
             'role' => User::ADMIN,
         ]);
 
+        $tagTwoData = [
+            'id' => Uuid::uuid4()->toString(),
+            'name' => 'A new tag',
+            'slug' => 'a-new-tag',
+        ];
+
         $tagTwo = factory(Tag::class)->create();
 
-        $response = $this->actingAs($adminUserTwo, 'canvas')->postJson("/canvas/api/tags/{$tagTwo->id}", $data);
+        $response = $this->actingAs($adminUserTwo, 'canvas')->postJson("/canvas/api/tags/{$tagTwo->id}", $tagTwoData);
 
         $this->assertDatabaseHas('canvas_tags', [
             'id' => $response->original['id'],

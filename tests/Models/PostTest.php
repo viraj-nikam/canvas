@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Str;
+use Ramsey\Uuid\Uuid;
 
 /**
  * Class PostTest.
@@ -108,7 +109,9 @@ class PostTest extends TestCase
     public function posts_can_share_the_same_slug_with_unique_users()
     {
         $data = [
+            'id' => Uuid::uuid4()->toString(),
             'slug' => 'a-new-post',
+            'title' => 'A new post',
         ];
 
         $postOne = factory(Post::class)->create();

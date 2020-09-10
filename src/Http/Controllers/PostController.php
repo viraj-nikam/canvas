@@ -2,6 +2,7 @@
 
 namespace Canvas\Http\Controllers;
 
+use Canvas\Http\Requests\StorePostRequest;
 use Canvas\Models\Post;
 use Canvas\Models\Tag;
 use Canvas\Models\Topic;
@@ -30,7 +31,7 @@ class PostController extends Controller
                 return $query;
             }
 
-            return $query->where('user_id', $request->user()->id);
+            return $query->where('user_id', $request->user('canvas')->id);
         })->when($type, function ($query, $type) {
             if ($type === 'draft') {
                 return $query->draft();
@@ -41,8 +42,8 @@ class PostController extends Controller
 
         return response()->json([
             'posts' => $posts,
-            'draftCount' => Post::where('user_id', $request->user()->id)->draft()->count(),
-            'publishedCount' => Post::where('user_id', $request->user()->id)->published()->count(),
+            'draftCount' => Post::where('user_id', $request->user('canvas')->id)->draft()->count(),
+            'publishedCount' => Post::where('user_id', $request->user('canvas')->id)->published()->count(),
         ], 200);
     }
 
@@ -60,12 +61,6 @@ class PostController extends Controller
             'post' => Post::make([
                 'id' => $uuid->toString(),
                 'slug' => "post-{$uuid->toString()}",
-                'body' => '',
-                'meta' => [
-                    'title' => '',
-                    'description' => '',
-                    'canonical_link' => '',
-                ],
             ]),
             'tags' => Tag::get(['name', 'slug']),
             'topics' => Topic::get(['name', 'slug']),
@@ -75,50 +70,28 @@ class PostController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
+     * @param StorePostRequest $request
      * @param $id
      * @return JsonResponse
      * @throws Exception
      */
-    public function store(Request $request, $id): JsonResponse
+    public function store(StorePostRequest $request, $id): JsonResponse
     {
-        $post = Post::where('user_id', $request->user()->id)->find($id) ?? new Post(['id' => $id]);
+        $data = $request->validated();
 
-        $data = [
-            'id' => $id,
-            'slug' => $request->input('slug', $post->slug),
-            'title' => $request->input('title', trans('canvas::app.title', [], optional($post->userMeta)->locale)),
-            'summary' => $request->input('summary', $post->summary),
-            'body' => $request->input('body', $post->body),
-            'published_at' => $request->input('published_at', $post->published_at),
-            'featured_image' => $request->input('featured_image', $post->featured_image),
-            'featured_image_caption' => $request->input('featured_image_caption', $post->featured_image_caption),
-            'meta' => [
-                'title' => $request->input('meta.title', optional($post->meta)['title']),
-                'description' => $request->input('meta.description', optional($post->meta)['description']),
-                'canonical_link' => $request->input('meta.canonical_link', optional($post->meta)['canonical_link']),
-            ],
-            'user_id' => $request->user()->id,
-        ];
+        if ($request->user('canvas')->isAdmin) {
+            $post = Post::find($id);
+        } else {
+            $post = Post::where('user_id', $request->user('canvas')->id)->find($id);
+        }
 
-        $rules = [
-            'slug' => [
-                'required',
-                'alpha_dash',
-                Rule::unique('canvas_posts')->where(function ($query) use ($request) {
-                    return $query->where('slug', $request->input('slug'))->where('user_id', $request->user()->id);
-                })->ignore($id)->whereNull('deleted_at'),
-            ],
-        ];
-
-        $messages = [
-            'required' => trans('canvas::app.validation_required', [], optional($post->userMeta)->locale),
-            'unique' => trans('canvas::app.validation_unique', [], optional($post->userMeta)->locale),
-        ];
-
-        validator($data, $rules, $messages)->validate();
+        if (! $post) {
+            $post = new Post(['id' => $id]);
+        }
 
         $post->fill($data);
+
+        $post->user_id = $request->user('canvas')->id;
 
         $post->save();
 
@@ -138,9 +111,9 @@ class PostController extends Controller
      */
     public function show(Request $request, $id): JsonResponse
     {
-        if (Post::where('user_id', $request->user()->id)->pluck('id')->contains($id)) {
+        if (Post::where('user_id', $request->user('canvas')->id)->pluck('id')->contains($id)) {
             return response()->json([
-                'post' => Post::where('user_id', $request->user()->id)->with('tags:name,slug', 'topic:name,slug')->find($id),
+                'post' => Post::where('user_id', $request->user('canvas')->id)->with('tags:name,slug', 'topic:name,slug')->find($id),
                 'tags' => Tag::get(['name', 'slug']),
                 'topics' => Topic::get(['name', 'slug']),
             ]);
@@ -158,7 +131,7 @@ class PostController extends Controller
      */
     public function destroy(Request $request, $id)
     {
-        $post = Post::where('user_id', $request->user()->id)->findOrFail($id);
+        $post = Post::where('user_id', $request->user('canvas')->id)->findOrFail($id);
 
         $post->delete();
 
@@ -185,7 +158,7 @@ class PostController extends Controller
                 'id' => $id = Uuid::uuid4()->toString(),
                 'name' => $incomingTopic['name'],
                 'slug' => $incomingTopic['slug'],
-                'user_id' => request()->user()->id,
+                'user_id' => request()->user('canvas')->id,
             ]);
         }
 
@@ -214,7 +187,7 @@ class PostController extends Controller
                     'id' => $id = Uuid::uuid4()->toString(),
                     'name' => $incomingTag['name'],
                     'slug' => $incomingTag['slug'],
-                    'user_id' => request()->user()->id,
+                    'user_id' => request()->user('canvas')->id,
                 ]);
             }
 
