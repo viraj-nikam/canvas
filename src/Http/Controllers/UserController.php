@@ -6,6 +6,7 @@ use Canvas\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 use Ramsey\Uuid\Uuid;
 
@@ -59,6 +60,7 @@ class UserController extends Controller
             } else {
                 $user = new User([
                     'id' => $id,
+                    'password' => Hash::make($request->password)
                 ]);
             }
         }
@@ -83,7 +85,7 @@ class UserController extends Controller
                 'email',
                 Rule::unique('canvas_users')->ignore($id),
             ],
-            'password' => 'sometimes|min:8',
+            'password' => 'sometimes|nullable|min:8',
             'username' => [
                 'nullable',
                 'alpha_dash',

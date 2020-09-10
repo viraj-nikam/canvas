@@ -2,7 +2,7 @@
     <section>
         <page-header>
             <template slot="options">
-                <div v-if="!creatingUser" class="dropdown">
+                <div v-if="!creatingUser && !authProfile" class="dropdown">
                     <a
                         id="navbarDropdown"
                         class="nav-link pr-0"
@@ -44,11 +44,12 @@
                         </p>
                     </div>
                     <select
+                        v-if="!creatingUser"
                         v-model="user.role"
                         id="role"
-                        :disabled="isAuthProfile"
+                        :disabled="authProfile"
                         class="ml-auto w-auto custom-select border-0 bg-light"
-                        name="locale"
+                        name="role"
                         @change="selectRole"
                     >
                         <option
@@ -64,142 +65,162 @@
 
                 <div class="mt-5 card shadow-lg">
                     <div class="card-body">
-                        <div v-if="!isAuthProfile" class="row">
-                            <div class="col-lg-2 text-center text-lg-left">
-                                <img
-                                    :src="user.avatar"
-                                    :alt="user.name"
-                                    width="125"
-                                    class="rounded-circle shadow-inner align-self-center"
-                                />
-                            </div>
-                            <div class="col-lg-10 align-self-center text-center text-lg-left">
-                                <p class="my-0 lead font-weight-bold">{{ user.name }}</p>
-                                <p class="text-muted mb-1">
-                                    <a :href="`mailto:${user.email}`" class="text-primary">{{ user.email }}</a>
-                                    <span v-if="user.username"> ― @{{ user.username }}</span>
-                                </p>
-                                <p class="mb-0 text-muted">{{ user.summary }}</p>
-                            </div>
+                        <file-pond
+                            ref="pond"
+                            v-if="isReadyToAcceptUploads"
+                            name="profileImagePond"
+                            max-files="1"
+                            :max-file-size="settings.maxUpload"
+                            :icon-remove="getRemoveIcon"
+                            :icon-retry="getRetryIcon"
+                            :label-idle="getPlaceholderLabel"
+                            class-name="w-75"
+                            accepted-file-types="image/*"
+                            image-preview-height="170"
+                            image-crop-aspect-ratio="1:1"
+                            image-resize-target-width="200"
+                            image-resize-target-height="200"
+                            style-panel-layout="compact circle"
+                            style-load-indicator-position="center bottom"
+                            style-progress-indicator-position="center bottom"
+                            style-button-process-item-position="center bottom"
+                            style-button-remove-item-position="center bottom"
+                            :server="getServerOptions"
+                            :allow-multiple="false"
+                            :files="selectedImagesForPond"
+                            @processfile="processedFromFilePond"
+                            @removefile="removedFromFilePond"
+                        />
+
+                        <div v-if="!isReadyToAcceptUploads" class="text-center rounded p-3">
+                            <img
+                                :src="user.avatar || user.default_avatar"
+                                class="rounded-circle w-25 shadow-inner"
+                                :alt="user.name"
+                            />
+
+                            <p v-if="authProfile" class="mt-3 mb-0">
+                                <a
+                                    href=""
+                                    class="text-decoration-none text-success"
+                                    @click.prevent="clearAvatar"
+                                >Clear avatar</a
+                                >
+                            </p>
                         </div>
 
-                        <section v-if="isAuthProfile">
-                            <div class="row">
-                                <div class="col-md-4 order-md-last my-auto">
-                                    <file-pond
-                                        ref="pond"
-                                        v-if="isReadyToAcceptUploads"
-                                        name="profileImagePond"
-                                        max-files="1"
-                                        :max-file-size="settings.maxUpload"
-                                        :icon-remove="getRemoveIcon"
-                                        :icon-retry="getRetryIcon"
-                                        :label-idle="getPlaceholderLabel"
-                                        class-name="w-75"
-                                        accepted-file-types="image/*"
-                                        image-preview-height="170"
-                                        image-crop-aspect-ratio="1:1"
-                                        image-resize-target-width="200"
-                                        image-resize-target-height="200"
-                                        style-panel-layout="compact circle"
-                                        style-load-indicator-position="center bottom"
-                                        style-progress-indicator-position="center bottom"
-                                        style-button-process-item-position="center bottom"
-                                        style-button-remove-item-position="center bottom"
-                                        :server="getServerOptions"
-                                        :allow-multiple="false"
-                                        :files="selectedImagesForPond"
-                                        @processfile="processedFromFilePond"
-                                        @removefile="removedFromFilePond"
-                                    />
+                        <div class="form-group">
+                            <label
+                                for="name"
+                                class="font-weight-bold text-uppercase text-muted small"
+                            >
+                                Name
+                            </label>
+                            <input
+                                v-model="user.name"
+                                id="name"
+                                name="name"
+                                type="text"
+                                required
+                                class="form-control border-0"
+                                title="Name"
+                                placeholder="Name"
+                            />
+                        </div>
+                        <div class="form-group">
+                            <label
+                                for="email"
+                                class="font-weight-bold text-uppercase text-muted small"
+                            >
+                                Email
+                            </label>
+                            <input
+                                v-model="user.email"
+                                id="email"
+                                required
+                                name="email"
+                                type="email"
+                                class="form-control border-0"
+                                title="Email"
+                                placeholder="Email"
+                            />
+                        </div>
+                        <div class="form-group">
+                            <label
+                                for="username"
+                                class="font-weight-bold text-uppercase text-muted small"
+                            >
+                                {{ trans.username }}
+                            </label>
+                            <input
+                                v-model="user.username"
+                                id="username"
+                                name="username"
+                                type="text"
+                                class="form-control border-0"
+                                title="Username"
+                                :placeholder="trans.choose_a_username"
+                            />
+                        </div>
+                        <div class="form-group">
+                            <label
+                                for="password"
+                                class="font-weight-bold text-uppercase text-muted small"
+                            >
+                                Password
+                            </label>
+                            <input
+                                v-model="user.password"
+                                id="password"
+                                :required="creatingUser"
+                                name="password"
+                                type="text"
+                                class="form-control border-0"
+                                title="Password"
+                                placeholder="Password"
+                            />
+                        </div>
+                        <div class="form-group">
+                            <label
+                                for="summary"
+                                class="font-weight-bold text-uppercase text-muted small"
+                            >
+                                {{ trans.summary }}
+                            </label>
+                            <textarea
+                                v-model="user.summary"
+                                id="summary"
+                                rows="4"
+                                name="summary"
+                                style="resize: none"
+                                class="form-control border-0"
+                                :placeholder="trans.tell_us_about_yourself"
+                            />
+                        </div>
 
-                                    <div v-if="!isReadyToAcceptUploads" class="text-center rounded p-3">
-                                        <img
-                                            :src="user.avatar || user.default_avatar"
-                                            class="rounded-circle w-75 shadow-inner"
-                                            :alt="user.name"
-                                        />
-
-                                        <p class="mt-3 mb-0">
-                                            <a
-                                                href=""
-                                                class="text-decoration-none text-success"
-                                                @click.prevent="clearAvatar"
-                                                >Clear avatar</a
-                                            >
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="col-md-8 order-md-first my-auto">
-                                    <div class="form-group row">
-                                        <div class="col-12">
-                                            <label
-                                                for="username"
-                                                class="font-weight-bold text-uppercase text-muted small"
-                                            >
-                                                {{ trans.username }}
-                                            </label>
-                                            <input
-                                                v-model="user.username"
-                                                id="username"
-                                                name="username"
-                                                :disabled="!isAuthProfile"
-                                                type="text"
-                                                class="form-control border-0"
-                                                :class="{ disabled: !isAuthProfile }"
-                                                title="Username"
-                                                :placeholder="trans.choose_a_username"
-                                            />
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="col-12">
-                                            <label
-                                                for="summary"
-                                                class="font-weight-bold text-uppercase text-muted small"
-                                            >
-                                                {{ trans.summary }}
-                                            </label>
-                                            <textarea
-                                                v-model="user.summary"
-                                                id="summary"
-                                                rows="4"
-                                                name="summary"
-                                                :disabled="!isAuthProfile"
-                                                style="resize: none"
-                                                class="form-control border-0"
-                                                :class="{ disabled: !isAuthProfile }"
-                                                :placeholder="trans.tell_us_about_yourself"
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
+                        <div class="row mt-3 mb-2">
+                            <div class="col-md">
+                                <a
+                                    href="#"
+                                    onclick="this.blur()"
+                                    :disabled="notReadyToSave"
+                                    class="btn btn-success btn-block font-weight-bold mt-0"
+                                    :class="{ disabled: notReadyToSave }"
+                                    aria-label="Save"
+                                    @click.prevent="updateUser"
+                                >
+                                    {{ trans.save }}
+                                </a>
                             </div>
-
-                            <div class="row mt-3 mb-2">
-                                <div class="col-md">
-                                    <a
-                                        href="#"
-                                        :disabled="!isAuthProfile"
-                                        onclick="this.blur()"
-                                        class="btn btn-success btn-block font-weight-bold mt-0"
-                                        :class="{ disabled: !isAuthProfile }"
-                                        aria-label="Save"
-                                        @click.prevent="updateUser"
-                                    >
-                                        {{ trans.save }}
-                                    </a>
-                                </div>
-                                <div class="col-md">
-                                    <router-link
-                                        :to="{ name: 'stats' }"
-                                        class="btn btn-link btn-block font-weight-bold text-muted text-decoration-none"
-                                    >
-                                        {{ trans.cancel }}
-                                    </router-link>
-                                </div>
+                            <div class="col-md">
+                                <router-link
+                                    :to="{ name: 'stats' }"
+                                    class="btn btn-link btn-block font-weight-bold text-muted text-decoration-none"
+                                >
+                                    {{ trans.cancel }}
+                                </router-link>
                             </div>
-                        </section>
+                        </div>
                     </div>
                 </div>
 
@@ -354,8 +375,16 @@ export default {
             trans: 'settings/trans',
         }),
 
-        isAuthProfile() {
+        authProfile() {
             return this.settings.user.id === this.user.id;
+        },
+
+        notReadyToSave() {
+            if (this.creatingUser) {
+                return isEmpty(this.user.name) || isEmpty(this.user.email) || isEmpty(this.user.password);
+            } else {
+                isEmpty(this.user.name) || isEmpty(this.user.email);
+            }
         },
 
         creatingUser() {
@@ -460,11 +489,7 @@ export default {
 
         updateUser() {
             this.request()
-                .post(`/api/users/${this.user.id}`, {
-                    username: payload.username,
-                    summary: payload.summary,
-                    avatar: payload.avatar,
-                })
+                .post(`/api/users/${this.user.id}`, this.user)
                 .then(({ data }) => {
                     this.user = data.user;
                     this.$toasted.show(this.trans.saved, {
@@ -473,10 +498,16 @@ export default {
                 })
                 .catch((error) => {
                     this.errors = error.response.data.errors;
+
                     this.$toasted.show(error.response.data.errors.username[0], {
                         className: 'bg-danger',
                     });
                 });
+
+            if (isEmpty(this.errors) && this.creatingUser) {
+                this.$router.push({ name: 'edit-user', params: { id: this.user.id } });
+                NProgress.done();
+            }
         },
 
         clearAvatar() {
