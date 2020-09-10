@@ -85,6 +85,7 @@
                 <div class="form-group my-2">
                     <quill-editor
                         :post="post"
+                        :key="post.id"
                         @update="savePost"
                     />
                 </div>
@@ -139,6 +140,7 @@ import SettingsModal from '../components/modals/SettingsModal';
 import Vue from 'vue';
 import VueTextAreaAutosize from 'vue-textarea-autosize';
 import status from '../mixins/status';
+import isEmpty from "lodash/isEmpty";
 
 Vue.use(VueTextAreaAutosize);
 
@@ -182,6 +184,22 @@ export default {
         },
     },
 
+    watch: {
+        async $route(to) {
+            if (this.uri === 'create' && to.params.id === this.post.id) {
+                this.uri = to.params.id;
+            }
+
+            if (this.uri !== to.params.id) {
+                this.isReady = false;
+                this.uri = to.params.id;
+                await Promise.all([this.fetchPost()]);
+                this.isReady = true;
+                NProgress.done();
+            }
+        },
+    },
+
     async created() {
         await Promise.all([ this.fetchPost() ]);
         this.isReady = true;
@@ -205,32 +223,24 @@ export default {
         },
 
         savePost() {
-            // this.post.errors = [];
-            // this.post.isSaving = true;
-            // this.post.hasSuccess = false;
-            //
-            // if (this.id === 'create') {
-            //     this.id = this.post.id;
-            // }
-            //
+            this.errors = [];
+            this.isSaving = true;
+            this.isSaved = false;
+
             // this.$store.dispatch('saveActivePost', {
             //     data: this.post,
             //     id: this.id,
             // });
-            //
-            // setTimeout(() => {
-            //     this.post.hasSuccess = false;
-            //     this.post.isSaving = false;
-            // }, 3000);
+
+            setTimeout(() => {
+                this.isSaved = false;
+                this.isSaving = false;
+            }, 3000);
         },
 
         convertToDraft() {
-            this.$store.dispatch('post/updatePost', {
-                id: this.post.id,
-                publishedAt: '',
-            });
-            // this.post.published_at = '';
-            // this.save();
+            this.post.published_at = '';
+            this.save();
         },
 
         async deletePost() {

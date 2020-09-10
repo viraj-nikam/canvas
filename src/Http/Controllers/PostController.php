@@ -60,7 +60,7 @@ class PostController extends Controller
             'post' => Post::make([
                 'id' => $uuid->toString(),
                 'slug' => "post-{$uuid->toString()}",
-                'body' => 'basic body',
+                'body' => '',
                 'meta' => [
                     'title' => '',
                     'description' => '',

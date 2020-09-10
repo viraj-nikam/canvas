@@ -363,9 +363,14 @@ export default {
 @import '../../../sass/utilities/variables';
 @import '~quill/dist/quill.bubble.css';
 
+//* {
+//    border: 1px solid red !important;
+//}
+
 .ql-container {
     font-size: 1.1rem;
     line-height: 2;
+    word-wrap: normal;
     font-family: $font-family-serif;
 }
 .ql-editor {
@@ -385,39 +390,39 @@ export default {
     flex-direction: column;
 }
 .ql-editor p {
-    //margin: 1.5em 0 0 0;
+    margin: 1.5em 0 0 0;
 }
 .ql-editor a {
-    //text-decoration: underline;
+    text-decoration: underline;
 }
 .ql-editor h1,
 h2,
 h3 {
-    //margin: 1.5em 0 0 0 !important;
+    margin: 1.5em 0 0 0 !important;
 }
 .ql-editor blockquote {
-    //margin: 2em 0 1em 0 !important;
-    //font-style: italic;
-    //font-size: 28px;
-    //border: none !important;
-    //color: $gray-500;
-    //padding-left: 1.5em !important;
-    //line-height: 1.5;
+    margin: 2em 0 1em 0 !important;
+    font-style: italic;
+    font-size: 28px;
+    border: none !important;
+    color: $gray-500;
+    padding-left: 1.5em !important;
+    line-height: 1.5;
 }
 div.embedded_image {
-    //margin-top: 2em;
+    margin-top: 2em;
 }
 div.embedded_image > img {
-    //width: 100%;
-    //height: auto;
-    //display: block;
+    width: 100%;
+    height: auto;
+    display: block;
 }
 div.embedded_image > p {
-    //text-align: center;
-    //color: $gray-500;
-    //margin-top: 0.5em;
-    //font-size: 0.9rem;
-    //font-family: $font-family-sans-serif, sans-serif;
+    text-align: center;
+    color: $gray-500;
+    margin-top: 0.5em;
+    font-size: 0.9rem;
+    font-family: $font-family-sans-serif, sans-serif;
 }
 div.ql-embed-content {
     // This is here because we have no way to control the dimensions
@@ -427,18 +432,18 @@ div.ql-embed-content {
 }
 div.embedded_image:hover img,
 div.ql-embed-content:hover {
-    //cursor: pointer !important;
-    //box-shadow: 0 0 0 3px $green;
+    cursor: pointer !important;
+    box-shadow: 0 0 0 3px $green;
 }
 div.embedded_image[data-layout='wide'] img {
-    //max-width: 1024px;
-    //margin: 0 auto 30px;
+    max-width: 1024px;
+    margin: 0 auto 30px;
 }
 div.embedded_image[data-layout='wide'] {
-    //width: 100vw;
-    //position: relative;
-    //left: 50%;
-    //margin-left: -50vw;
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    margin-left: -50vw;
 }
 .ql-container hr {
     border: none;
