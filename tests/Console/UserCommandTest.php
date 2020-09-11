@@ -32,6 +32,14 @@ class UserCommandTest extends TestCase
     }
 
     /** @test */
+    public function it_validates_an_invalid_role()
+    {
+        $this->artisan('canvas:user ad --email email@example.com')
+             ->assertExitCode(0)
+             ->expectsOutput('Please enter a valid role.');
+    }
+
+    /** @test */
     public function it_can_create_a_new_contributor()
     {
         $role = 'contributor';

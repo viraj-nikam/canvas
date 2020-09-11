@@ -70,11 +70,7 @@ class DigestCommand extends Command
                 'locale' => $user->locale,
             ];
 
-            try {
-                Mail::to($user->email)->send(new WeeklyDigest($data));
-            } catch (Exception $exception) {
-                logger()->error($exception->getMessage());
-            }
+            Mail::to($user->email)->send(new WeeklyDigest($data));
         }
     }
 }

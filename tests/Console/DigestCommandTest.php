@@ -8,6 +8,7 @@ use Canvas\Models\User;
 use Canvas\Models\View;
 use Canvas\Models\Visit;
 use Canvas\Tests\TestCase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Mail;
 
 /**
@@ -17,6 +18,8 @@ use Illuminate\Support\Facades\Mail;
  */
 class DigestCommandTest extends TestCase
 {
+    use RefreshDatabase;
+
     /** @test */
     public function it_can_send_the_weekly_digest()
     {
