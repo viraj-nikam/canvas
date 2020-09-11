@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Date;
 
 class Session
 {
+
     /**
      * Handle the incoming request.
      *

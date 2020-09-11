@@ -140,22 +140,22 @@ export default {
     props: {
         post: {
             type: Object,
-            required: true
+            required: true,
         },
 
         tags: {
             type: Array,
-            default: []
+            default: [],
         },
 
         topics: {
             type: Array,
-            default: []
-        }
+            default: [],
+        },
     },
 
     components: {
-        Multiselect
+        Multiselect,
     },
 
     directives: {

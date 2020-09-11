@@ -220,7 +220,7 @@
                             <div :key="`${host}-${views}`" v-for="(views, host, index) in data.topReferers">
                                 <div
                                     class="d-flex py-2 align-items-center px-2"
-                                    :class="index%2 === 0 ? 'bg-list-muted' : ''"
+                                    :class="index % 2 === 0 ? 'bg-list-muted' : ''"
                                 >
                                     <div class="mr-auto">
                                         <div v-if="host === trans.other">
@@ -304,10 +304,13 @@
                         </h5>
 
                         <div v-if="Object.keys(data.popularReadingTimes).length > 0">
-                            <div :key="`${time}-${percentage}`" v-for="(percentage, time, index) in data.popularReadingTimes">
+                            <div
+                                :key="`${time}-${percentage}`"
+                                v-for="(percentage, time, index) in data.popularReadingTimes"
+                            >
                                 <div
                                     class="d-flex py-2 align-items-center px-2"
-                                    :class="index%2 === 0 ? 'bg-list-muted' : ''"
+                                    :class="index % 2 === 0 ? 'bg-list-muted' : ''"
                                 >
                                     <div class="mr-auto">
                                         <p class="mb-0 py-1">

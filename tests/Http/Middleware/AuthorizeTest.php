@@ -2,6 +2,7 @@
 
 namespace Canvas\Tests\Http\Middleware;
 
+use Canvas\Models\User;
 use Canvas\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -76,5 +77,15 @@ class AuthorizeTest extends TestCase
     public function it_redirects_unauthenticated_users_to_login($method, $endpoint)
     {
         $this->assertGuest()->call($method, $endpoint)->assertRedirect(route('canvas.login'));
+    }
+
+    /** @test */
+    public function it_allows_authenticated_users_to_continue()
+    {
+        $user = factory(User::class)->create([
+            'role' => User::ADMIN,
+        ]);
+
+        $this->actingAs($user, 'canvas')->get(config('canvas.path'))->assertSuccessful();
     }
 }

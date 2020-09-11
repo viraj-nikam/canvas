@@ -164,7 +164,7 @@ export default {
         },
 
         update: debounce(function () {
-            this.$emit('update')
+            this.$emit('update');
         }, 3000),
     },
 };

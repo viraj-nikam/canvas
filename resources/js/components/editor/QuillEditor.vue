@@ -141,8 +141,8 @@ export default {
     props: {
         post: {
             type: Object,
-            required: true
-        }
+            required: true,
+        },
     },
 
     directives: {
@@ -175,7 +175,7 @@ export default {
     // },
 
     mounted() {
-        this.createEditor()
+        this.createEditor();
         this.handleEditorValue();
         this.handleClicksInsideEditor();
         this.initSideControls();

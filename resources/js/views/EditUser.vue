@@ -37,7 +37,9 @@
                 <div class="d-flex justify-content-between mt-2 mb-4 align-items-center">
                     <div>
                         <h3 class="mt-3">
-                            <router-link :to="{ name: 'users' }" class="text-decoration-none text-muted">{{ trans.users }}</router-link>
+                            <router-link :to="{ name: 'users' }" class="text-decoration-none text-muted">{{
+                                trans.users
+                            }}</router-link>
                             <span class="text-muted"> / </span>
                             {{ title }}
                         </h3>
@@ -102,22 +104,14 @@
                             />
 
                             <p v-if="authProfile" class="mt-3 mb-0">
-                                <a
-                                    href=""
-                                    class="text-decoration-none text-success"
-                                    @click.prevent="clearAvatar"
-                                >Clear avatar</a
+                                <a href="" class="text-decoration-none text-success" @click.prevent="clearAvatar"
+                                    >Clear avatar</a
                                 >
                             </p>
                         </div>
 
                         <div class="form-group">
-                            <label
-                                for="name"
-                                class="font-weight-bold text-uppercase text-muted small"
-                            >
-                                Name
-                            </label>
+                            <label for="name" class="font-weight-bold text-uppercase text-muted small"> Name </label>
                             <input
                                 v-model="user.name"
                                 id="name"
@@ -130,12 +124,7 @@
                             />
                         </div>
                         <div class="form-group">
-                            <label
-                                for="email"
-                                class="font-weight-bold text-uppercase text-muted small"
-                            >
-                                Email
-                            </label>
+                            <label for="email" class="font-weight-bold text-uppercase text-muted small"> Email </label>
                             <input
                                 v-model="user.email"
                                 id="email"
@@ -148,10 +137,7 @@
                             />
                         </div>
                         <div class="form-group">
-                            <label
-                                for="username"
-                                class="font-weight-bold text-uppercase text-muted small"
-                            >
+                            <label for="username" class="font-weight-bold text-uppercase text-muted small">
                                 {{ trans.username }}
                             </label>
                             <input
@@ -165,10 +151,7 @@
                             />
                         </div>
                         <div class="form-group">
-                            <label
-                                for="password"
-                                class="font-weight-bold text-uppercase text-muted small"
-                            >
+                            <label for="password" class="font-weight-bold text-uppercase text-muted small">
                                 Password
                             </label>
                             <input
@@ -183,10 +166,7 @@
                             />
                         </div>
                         <div class="form-group">
-                            <label
-                                for="summary"
-                                class="font-weight-bold text-uppercase text-muted small"
-                            >
+                            <label for="summary" class="font-weight-bold text-uppercase text-muted small">
                                 {{ trans.summary }}
                             </label>
                             <textarea

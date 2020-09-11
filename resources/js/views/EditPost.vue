@@ -49,22 +49,31 @@
                         >
                             {{ trans.view_stats }}
                         </router-link>
-                        <div v-if="isPublished(post.publishedAt)" class="dropdown-divider"/>
+                        <div v-if="isPublished(post.publishedAt)" class="dropdown-divider" />
                         <a
                             v-if="isDraft(post.publishedAt) && (isAdmin || isEditor)"
                             href="#"
                             class="dropdown-item"
                             @click="showPublishModal"
-                        > {{ trans.publish }} </a>
+                        >
+                            {{ trans.publish }}
+                        </a>
                         <a href="#" class="dropdown-item" @click="showSettingsModal"> {{ trans.general_settings }} </a>
-                        <a href="#" class="dropdown-item" @click="showFeaturedImageModal"> {{ trans.featured_image }} </a>
-                        <a href="#" class="dropdown-item" @click="showSeoModal"> {{ trans.seo_settings }} </a> <a
-                        v-if="isPublished(post.publishedAt)"
-                        href="#"
-                        class="dropdown-item"
-                        @click.prevent="convertToDraft"
-                    > {{ trans.convert_to_draft }} </a>
-                        <a v-if="!creatingPost" href="#" class="dropdown-item text-danger" @click="showDeleteModal"> {{ trans.delete }} </a>
+                        <a href="#" class="dropdown-item" @click="showFeaturedImageModal">
+                            {{ trans.featured_image }}
+                        </a>
+                        <a href="#" class="dropdown-item" @click="showSeoModal"> {{ trans.seo_settings }} </a>
+                        <a
+                            v-if="isPublished(post.publishedAt)"
+                            href="#"
+                            class="dropdown-item"
+                            @click.prevent="convertToDraft"
+                        >
+                            {{ trans.convert_to_draft }}
+                        </a>
+                        <a v-if="!creatingPost" href="#" class="dropdown-item text-danger" @click="showDeleteModal">
+                            {{ trans.delete }}
+                        </a>
                     </div>
                 </div>
             </template>
@@ -83,39 +92,16 @@
                 </div>
 
                 <div class="form-group my-2">
-                    <quill-editor
-                        :post="post"
-                        :key="post.id"
-                        @update="savePost"
-                    />
+                    <quill-editor :post="post" :key="post.id" @update="savePost" />
                 </div>
             </div>
         </main>
 
         <section v-if="isReady">
-            <publish-modal
-                :post="post"
-                ref="publishModal"
-                @update="savePost"
-            />
-            <settings-modal
-                :post="post"
-                :tags="tags"
-                :topics="topics"
-                ref="settingsModal"
-                @update="savePost"
-            />
-            <featured-image-modal
-                :post="post"
-                ref="featuredImageModal"
-                @update="savePost"
-            />
-            <seo-modal
-                v-if="post.meta"
-                :post="post"
-                ref="seoModal"
-                @update="savePost"
-            />
+            <publish-modal :post="post" ref="publishModal" @update="savePost" />
+            <settings-modal :post="post" :tags="tags" :topics="topics" ref="settingsModal" @update="savePost" />
+            <featured-image-modal :post="post" ref="featuredImageModal" @update="savePost" />
+            <seo-modal v-if="post.meta" :post="post" ref="seoModal" @update="savePost" />
             <delete-modal
                 ref="deleteModal"
                 :header="trans.delete"
@@ -140,7 +126,7 @@ import SettingsModal from '../components/modals/SettingsModal';
 import Vue from 'vue';
 import VueTextAreaAutosize from 'vue-textarea-autosize';
 import status from '../mixins/status';
-import isEmpty from "lodash/isEmpty";
+import isEmpty from 'lodash/isEmpty';
 
 Vue.use(VueTextAreaAutosize);
 
@@ -157,7 +143,7 @@ export default {
         SettingsModal,
     },
 
-    mixins: [ status ],
+    mixins: [status],
 
     data() {
         return {
@@ -201,7 +187,7 @@ export default {
     },
 
     async created() {
-        await Promise.all([ this.fetchPost() ]);
+        await Promise.all([this.fetchPost()]);
         this.isReady = true;
         NProgress.done();
     },
@@ -209,7 +195,7 @@ export default {
     methods: {
         fetchPost() {
             this.request()
-                .get(`/api/posts/${ this.uri }`)
+                .get(`/api/posts/${this.uri}`)
                 .then(({ data }) => {
                     this.post = data.post;
                     this.tags = data.tags;

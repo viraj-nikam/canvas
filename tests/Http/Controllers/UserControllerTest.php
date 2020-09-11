@@ -15,6 +15,7 @@ use Ramsey\Uuid\Uuid;
  * Class UserControllerTest.
  *
  * @covers \Canvas\Http\Controllers\UserController
+ * @covers \Canvas\Http\Requests\StoreUserRequest
  */
 class UserControllerTest extends TestCase
 {

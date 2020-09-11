@@ -14,6 +14,7 @@ use Ramsey\Uuid\Uuid;
  * Class TagControllerTest.
  *
  * @covers \Canvas\Http\Controllers\TagController
+ * @covers \Canvas\Http\Requests\StoreTagRequest
  */
 class TagControllerTest extends TestCase
 {
