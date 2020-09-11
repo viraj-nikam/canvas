@@ -33,8 +33,14 @@ class StoreUserRequest extends FormRequest
                     return $query->where('email', request('email'));
                 })->ignore(request('id'))->whereNull('deleted_at'),
             ],
+            'username' => 'nullable|alpha_dash|unique:canvas_users,username,' . request()->user('canvas')->id,
             'password' => 'sometimes|nullable|min:8',
-            'username' => 'nullable|alpha_dash|unique:canvas_users,username,'.request()->user('canvas')->id,
+            'summary' => 'nullable|string',
+            'avatar' => 'nullable|string',
+            'dark_mode' => 'nullable|bool',
+            'digest' => 'nullable|bool',
+            'local' => 'nullable|string',
+            'role' => 'nullable|integer',
         ];
     }
 

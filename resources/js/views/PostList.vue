@@ -38,7 +38,7 @@
         <main v-if="isReady" class="py-4">
             <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12">
                 <div class="d-flex justify-content-between mt-2 mb-4 align-items-end">
-                    <h2 class="mt-2">{{ trans.posts }}</h2>
+                    <h3 class="mt-2">{{ trans.posts }}</h3>
 
                     <select
                         v-model="type"

@@ -5,7 +5,7 @@
         <main class="pt-4">
             <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12 my-3">
                 <div class="my-3">
-                    <h2 class="mt-3">{{ trans.settings }}</h2>
+                    <h3 class="mt-3">{{ trans.settings }}</h3>
                 </div>
 
                 <div v-if="isReady" class="mt-5 card shadow-lg">
@@ -172,15 +172,11 @@ export default {
         },
 
         toggleDigest() {
-            this.$store.dispatch('settings/updateDigest', {
-                digest: this.digest,
-            });
+            this.$store.dispatch('settings/updateDigest', this.digest);
         },
 
         selectLocale() {
-            this.$store.dispatch('settings/updateLocale', {
-                locale: this.locale,
-            });
+            this.$store.dispatch('settings/updateLocale', this.locale);
 
             if (this.locale === 'ar' || this.locale === 'fa') {
                 document.body.setAttribute('data-lang', 'rtl');
@@ -190,9 +186,7 @@ export default {
         },
 
         toggleDarkMode() {
-            this.$store.dispatch('settings/updateDarkMode', {
-                darkMode: this.darkMode,
-            });
+            this.$store.dispatch('settings/updateDarkMode', this.darkMode);
 
             if (this.darkMode === true) {
                 document.body.setAttribute('data-theme', 'dark');

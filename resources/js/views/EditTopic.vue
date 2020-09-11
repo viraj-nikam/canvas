@@ -35,11 +35,11 @@
         <main class="py-4">
             <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12">
                 <div v-if="isReady" class="my-3">
-                    <h2 class="mt-3">
+                    <h3 class="mt-3">
                         <router-link :to="{ name: 'topics' }" class="text-decoration-none text-muted">{{ trans.topics }}</router-link>
                         <span class="text-muted"> / </span>
                         {{ title }}
-                    </h2>
+                    </h3>
                     <p v-if="!creatingTopic" class="mt-2 text-secondary">
                         {{ trans.last_updated }} {{ moment(topic.updated_at).fromNow() }}
                     </p>
@@ -323,10 +323,7 @@ export default {
 
         saveTopic() {
             this.request()
-                .post(`/api/topics/${this.topic.id}`, {
-                    name: this.topic.name,
-                    slug: this.topic.slug,
-                })
+                .post(`/api/topics/${this.topic.id}`, this.topic)
                 .then(({ data }) => {
                     this.topic = data;
                     this.$store.dispatch('search/buildIndex', true);

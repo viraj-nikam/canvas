@@ -6,7 +6,7 @@
                     <p class="mb-1 lead font-weight-bold">
                         {{ header }}
                     </p>
-                    <p class="text-secondary text-center text-lg-left">
+                    <p class="text-secondary">
                         {{ message }}
                     </p>
                 </div>

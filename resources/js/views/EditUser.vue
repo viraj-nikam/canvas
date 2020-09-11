@@ -36,11 +36,11 @@
             <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12">
                 <div class="d-flex justify-content-between mt-2 mb-4 align-items-center">
                     <div>
-                        <h2 class="mt-3">
+                        <h3 class="mt-3">
                             <router-link :to="{ name: 'users' }" class="text-decoration-none text-muted">{{ trans.users }}</router-link>
                             <span class="text-muted"> / </span>
                             {{ title }}
-                        </h2>
+                        </h3>
                         <p class="mt-2 text-secondary">
                             {{ trans.last_updated }} {{ moment(user.updated_at).fromNow() }}
                         </p>
@@ -209,7 +209,7 @@
                                     class="btn btn-success btn-block font-weight-bold mt-0"
                                     :class="{ disabled: notReadyToSave }"
                                     aria-label="Save"
-                                    @click.prevent="updateUser"
+                                    @click.prevent="saveUser"
                                 >
                                     {{ trans.save }}
                                 </a>
@@ -489,7 +489,7 @@ export default {
             this.selectedImagesForPond = [];
         },
 
-        updateUser() {
+        saveUser() {
             this.request()
                 .post(`/api/users/${this.user.id}`, this.user)
                 .then(({ data }) => {

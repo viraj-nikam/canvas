@@ -94,6 +94,10 @@ body .text-muted {
   color: #a0aec0;
 }
 
+body .bg-list-muted {
+  background-color: #f7fafc;
+}
+
 body .controls {
   background-color: #ffffff;
 }
@@ -148,6 +152,10 @@ body[data-theme=dark] a.btn {
 
 body[data-theme=dark] .text-muted {
   color: #5f717e;
+}
+
+body[data-theme=dark] .bg-list-muted {
+  background-color: #5f717e20;
 }
 
 body[data-theme=dark] .controls {

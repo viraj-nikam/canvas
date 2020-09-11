@@ -25,7 +25,6 @@ class StorePostRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required',
             'slug' => [
                 'required',
                 'alpha_dash',
@@ -33,6 +32,13 @@ class StorePostRequest extends FormRequest
                     return $query->where('slug', request('slug'))->where('user_id', request()->user('canvas')->id);
                 })->ignore(request('id'))->whereNull('deleted_at'),
             ],
+            'title' => 'required',
+            'summary' => 'nullable|string',
+            'body' => 'nullable|string',
+            'published_at' => 'nullable|date',
+            'featured_image' => 'nullable|string',
+            'featured_image_caption' => 'nullable|string',
+            'meta' => 'nullable|array',
         ];
     }
 

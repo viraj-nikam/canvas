@@ -39,7 +39,7 @@
         <main v-if="isReady" class="py-4">
             <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12">
                 <div class="my-3">
-                    <h2 class="mt-3">{{ data.post.title }}</h2>
+                    <h3 class="mt-3">{{ data.post.title }}</h3>
                     <p class="mt-2 text-secondary">
                         {{ trans.published }}
                         {{ moment(data.post.published_at).fromNow() }}
@@ -212,20 +212,23 @@
 
                 <div class="row justify-content-between">
                     <div class="col-md-6 mt-4">
-                        <h5 class="text-muted small text-uppercase font-weight-bold border-bottom pb-2">
+                        <h5 class="text-muted small text-uppercase font-weight-bold pb-2">
                             {{ trans.views_by_traffic_source }}
                         </h5>
 
                         <div v-if="Object.keys(data.topReferers).length > 0">
-                            <div :key="`${host}-${views}`" v-for="(views, host) in data.topReferers">
-                                <div class="d-flex py-2 align-items-center">
+                            <div :key="`${host}-${views}`" v-for="(views, host, index) in data.topReferers">
+                                <div
+                                    class="d-flex py-2 align-items-center px-2"
+                                    :class="index%2 === 0 ? 'bg-list-muted' : ''"
+                                >
                                     <div class="mr-auto">
                                         <div v-if="host === trans.other">
                                             <p class="mb-0 py-1">
                                                 <img
                                                     :src="getDefaultFavicon(host)"
                                                     :style="
-                                                        auth.darkMode === true
+                                                        settings.user.dark_mode === true
                                                             ? {
                                                                   filter: 'invert(100%)',
                                                               }
@@ -296,13 +299,16 @@
                     </div>
 
                     <div class="col-md-6 mt-4">
-                        <h5 class="text-muted small text-uppercase font-weight-bold border-bottom pb-2">
+                        <h5 class="text-muted small text-uppercase font-weight-bold pb-2">
                             {{ trans.popular_reading_times }}
                         </h5>
 
                         <div v-if="Object.keys(data.popularReadingTimes).length > 0">
-                            <div :key="`${time}-${percentage}`" v-for="(percentage, time) in data.popularReadingTimes">
-                                <div class="d-flex py-2 align-items-center">
+                            <div :key="`${time}-${percentage}`" v-for="(percentage, time, index) in data.popularReadingTimes">
+                                <div
+                                    class="d-flex py-2 align-items-center px-2"
+                                    :class="index%2 === 0 ? 'bg-list-muted' : ''"
+                                >
                                     <div class="mr-auto">
                                         <p class="mb-0 py-1">
                                             {{ time }}

@@ -17,6 +17,10 @@ body[data-theme='dark'] {
         color: $text--muted--dark;
     }
 
+    .bg-list-muted {
+        background-color: $list--bg-dark;
+    }
+
     .controls {
         background-color: $body--bg--dark;
     }

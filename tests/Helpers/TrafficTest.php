@@ -50,10 +50,6 @@ class TrafficTest extends TestCase
     public function it_can_calculate_month_over_month_increased_visitor_performance()
     {
         factory(Visit::class, 1)->create([
-            'created_at' => today()->subMonthWithoutOverflow()->toDateString(),
-        ]);
-
-        factory(Visit::class, 2)->create([
             'created_at' => today()->toDateString(),
         ]);
 
@@ -110,10 +106,6 @@ class TrafficTest extends TestCase
     public function it_can_calculate_month_over_month_increased_view_performance()
     {
         factory(View::class, 1)->create([
-            'created_at' => today()->subMonthWithoutOverflow()->toDateString(),
-        ]);
-
-        factory(View::class, 2)->create([
             'created_at' => today()->toDateString(),
         ]);
 

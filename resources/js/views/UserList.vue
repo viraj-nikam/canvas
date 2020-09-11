@@ -38,7 +38,7 @@
         <main class="py-4">
             <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12">
                 <div class="my-3">
-                    <h2 class="mt-3">{{ trans.users }}</h2>
+                    <h3 class="mt-3">{{ trans.users }}</h3>
                     <p class="mt-2 text-secondary">
                         {{ trans.manage_user_roles }}
                     </p>
