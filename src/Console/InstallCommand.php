@@ -36,7 +36,9 @@ class InstallCommand extends Command
         $this->callSilent('vendor:publish', ['--tag' => 'canvas-config']);
         $this->callSilent('canvas:migrate');
 
-        $this->registerCanvasServiceProvider();
+        if (! app()->runningUnitTests()) {
+            $this->registerCanvasServiceProvider();
+        }
 
         $this->createDefaultUser($email = 'email@example.com', $password = 'password');
 
