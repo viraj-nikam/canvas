@@ -1,55 +1,40 @@
-// This variable will hold the reference to document's click handler
-let handleOutsideClick;
-
 /**
  * The closable directive detects clicks outside of an element.
  *
- * @author Taha Shashtari
- * @link https://tahazsh.com/detect-outside-click-in-vue
+ * @author Michoel Samuels
+ * @link https://gist.github.com/AnalyzePlatypus/22ca31c8f953db92eedadfe930bce31f
  */
 const Closable = {
     bind(el, binding, vnode) {
-        // Here's the click/touchstart handler
-        // (it is registered below)
-        handleOutsideClick = (e) => {
-            e.stopPropagation();
-            // Get the handler method name and the exclude array
-            // from the object used in v-closable
-            const { handler, exclude } = binding.value;
+        el.eventSetDrag = function () {
+            el.setAttribute('data-dragging', 'yes');
+        }
 
-            // This variable indicates if the clicked element is excluded
-            let clickedOnExcludedEl = false;
-            exclude.forEach((refName) => {
-                // We only run this code if we haven't detected
-                // any excluded element yet
-                if (!clickedOnExcludedEl) {
-                    // Get the element using the reference name
-                    const excludedEl = vnode.context.$refs[refName];
-                    // See if this excluded element
-                    // is the same element the user just clicked on
-                    clickedOnExcludedEl = excludedEl.contains(e.target);
-                }
-            });
+        el.eventClearDrag = function () {
+            el.removeAttribute('data-dragging');
+        }
 
-            // We check to see if the clicked element is not
-            // the dialog element and not excluded
-            if (!el.contains(e.target) && !clickedOnExcludedEl) {
-                // If the clicked element is outside the dialog
-                // and not the button, then call the outside-click handler
-                // from the same component this directive is used in
-                vnode.context[handler]();
+        el.eventOnClick = function (event) {
+            let dragging = el.getAttribute('data-dragging');
+            // Check that the click was outside the el and its children, and wasn't a drag
+            if (!(el == event.target || el.contains(event.target)) && !dragging) {
+                // Call method provided in attribute value
+                vnode.context[binding.expression](event);
             }
         };
-        // Register click/touchstart event listeners on the whole page
-        document.addEventListener('click', handleOutsideClick);
-        document.addEventListener('touchstart', handleOutsideClick);
+        document.addEventListener('touchstart', el.eventClearDrag);
+        document.addEventListener('touchmove', el.eventSetDrag);
+        document.addEventListener('click', el.eventOnClick);
+        document.addEventListener('touchend', el.eventOnClick);
     },
 
-    unbind() {
-        // If the element that has v-closable is removed, then
-        // unbind click/touchstart listeners from the whole page
-        document.removeEventListener('click', handleOutsideClick);
-        document.removeEventListener('touchstart', handleOutsideClick);
+    unbind(el) {
+        document.removeEventListener('touchstart', el.eventClearDrag);
+        document.removeEventListener('touchmove', el.eventSetDrag);
+        document.removeEventListener('click', el.eventOnClick);
+        document.removeEventListener('touchend', el.eventOnClick);
+
+        el.removeAttribute('data-dragging');
     },
 };
 

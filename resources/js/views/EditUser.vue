@@ -166,6 +166,21 @@
                                     placeholder="Password"
                                 />
                             </div>
+                            <div class="form-group row">
+                                <label for="password_confirmation" class="font-weight-bold text-uppercase text-muted small">
+                                    Confirm Password
+                                </label>
+                                <input
+                                    v-model="user.password_confirmation"
+                                    id="password_confirmation"
+                                    :required="creatingUser"
+                                    name="password_confirmation"
+                                    type="text"
+                                    class="form-control border-0"
+                                    title="Confirm Password"
+                                    placeholder="Confirm Password"
+                                />
+                            </div>
                             <div v-if="!creatingUser" class="form-group row">
                                 <label for="summary" class="font-weight-bold text-uppercase text-muted small">
                                     {{ trans.summary }}

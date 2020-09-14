@@ -1,12 +1,6 @@
 <template>
-    <div
-        v-closable="{
-            exclude: ['toggle'],
-            handler: 'handleClicksOutsideEditor',
-        }"
-        class="position-relative"
-    >
-        <div ref="sidebarControls" class="sidebar-controls">
+    <div v-cloak class="position-relative">
+        <div v-closable="handleClicksOutsideEditor" ref="sidebarControls" class="sidebar-controls">
             <button
                 ref="toggle"
                 class="btn btn-outline-light btn-circle border"
@@ -218,9 +212,7 @@ export default {
         },
 
         handleEditorValue() {
-            console.log(this.post.body);
-
-            this.editor.root.innerHTML = this.post.body;
+            this.editor.root.innerHTML = this.post.body || '';
 
             this.editor.on('text-change', () => {
                 this.controlIsActive = false;
