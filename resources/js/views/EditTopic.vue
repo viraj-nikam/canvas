@@ -37,8 +37,8 @@
                 <div v-if="isReady" class="my-3">
                     <h3 class="mt-3">
                         <router-link :to="{ name: 'topics' }" class="text-decoration-none text-muted">{{
-                            trans.topics
-                        }}</router-link>
+                                trans.topics
+                                                                                                    }}</router-link>
                         <span class="text-muted"> / </span>
                         {{ title }}
                     </h3>
@@ -49,8 +49,8 @@
 
                 <div v-if="isReady" class="mt-5 card shadow-lg">
                     <div class="card-body">
-                        <div class="form-group">
-                            <div class="col-12 px-0">
+                        <div class="col-12">
+                            <div class="form-group row">
                                 <label class="font-weight-bold text-uppercase text-muted small">
                                     {{ trans.name }}
                                 </label>
@@ -67,7 +67,7 @@
                                 />
                             </div>
 
-                            <div class="col-12 mt-3 px-0">
+                            <div class="form-group row">
                                 <label class="font-weight-bold text-uppercase text-muted small">
                                     {{ trans.slug }}
                                 </label>
@@ -82,28 +82,28 @@
                                     :placeholder="trans.give_your_topic_a_name_slug"
                                 />
                             </div>
-                        </div>
 
-                        <div class="row mt-4 mb-2">
-                            <div class="col-md">
-                                <a
-                                    href="#"
-                                    onclick="this.blur()"
-                                    class="btn btn-success btn-block font-weight-bold mt-0"
-                                    :class="shouldDisableButton ? 'disabled' : ''"
-                                    aria-label="Save"
-                                    @click.prevent="saveTopic"
-                                >
-                                    {{ trans.save }}
-                                </a>
-                            </div>
-                            <div class="col-md">
-                                <router-link
-                                    :to="{ name: 'topics' }"
-                                    class="btn btn-link btn-block font-weight-bold text-muted text-decoration-none"
-                                >
-                                    {{ trans.cancel }}
-                                </router-link>
+                            <div class="form-group row mt-4 mb-2">
+                                <div class="col-md px-0">
+                                    <a
+                                        href="#"
+                                        onclick="this.blur()"
+                                        class="btn btn-success btn-block font-weight-bold mt-0"
+                                        :class="shouldDisableButton ? 'disabled' : ''"
+                                        aria-label="Save"
+                                        @click.prevent="saveTopic"
+                                    >
+                                        {{ trans.save }}
+                                    </a>
+                                </div>
+                                <div class="col-md px-0">
+                                    <router-link
+                                        :to="{ name: 'topics' }"
+                                        class="btn btn-link btn-block font-weight-bold text-muted text-decoration-none"
+                                    >
+                                        {{ trans.cancel }}
+                                    </router-link>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -152,11 +152,11 @@
                                     <div class="ml-auto">
                                         <div class="d-none d-md-inline">
                                             <span class="text-secondary mr-3"
-                                                >{{ suffixedNumber(post.views_count) }}
+                                            >{{ suffixedNumber(post.views_count) }}
                                                 {{ post.views_count == 1 ? trans.view : trans.views }}</span
                                             >
                                             <span class="mr-3"
-                                                >{{ trans.created }}
+                                            >{{ trans.created }}
                                                 {{ moment(post.created_at).format('MMM D, YYYY') }}</span
                                             >
                                         </div>

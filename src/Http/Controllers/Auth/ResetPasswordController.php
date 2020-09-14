@@ -64,7 +64,7 @@ class ResetPasswordController extends Controller
             // database. Otherwise we will parse the error and return the response.
             $this->resetPassword($user, $request->password);
         } catch (Throwable $e) {
-            return redirect()->route('canvas.password.request')->with('invalidResetToken', 'reset your dang token');
+            return redirect()->route('canvas.password.request')->with('invalidResetToken', 'Invalid token');
         }
 
         if (cache("password.reset.{$id}") != $token) {

@@ -49,8 +49,8 @@
 
                 <div v-if="isReady" class="mt-5 card shadow-lg">
                     <div class="card-body">
-                        <div class="form-group">
-                            <div class="col-12 px-0">
+                        <div class="col-12">
+                            <div class="form-group row">
                                 <label class="font-weight-bold text-uppercase text-muted small">
                                     {{ trans.name }}
                                 </label>
@@ -67,7 +67,7 @@
                                 />
                             </div>
 
-                            <div class="col-12 mt-3 px-0">
+                            <div class="form-group row">
                                 <label class="font-weight-bold text-uppercase text-muted small">
                                     {{ trans.slug }}
                                 </label>
@@ -82,28 +82,28 @@
                                     :placeholder="trans.give_your_tag_a_name_slug"
                                 />
                             </div>
-                        </div>
 
-                        <div class="row mt-4 mb-2">
-                            <div class="col-md">
-                                <a
-                                    href="#"
-                                    onclick="this.blur()"
-                                    class="btn btn-success btn-block font-weight-bold mt-0"
-                                    :class="shouldDisableButton ? 'disabled' : ''"
-                                    aria-label="Save"
-                                    @click.prevent="saveTag"
-                                >
-                                    {{ trans.save }}
-                                </a>
-                            </div>
-                            <div class="col-md">
-                                <router-link
-                                    :to="{ name: 'tags' }"
-                                    class="btn btn-link btn-block font-weight-bold text-muted text-decoration-none"
-                                >
-                                    {{ trans.cancel }}
-                                </router-link>
+                            <div class="form-group row mt-4 mb-2">
+                                <div class="col-md px-0">
+                                    <a
+                                        href="#"
+                                        onclick="this.blur()"
+                                        class="btn btn-success btn-block font-weight-bold mt-0"
+                                        :class="shouldDisableButton ? 'disabled' : ''"
+                                        aria-label="Save"
+                                        @click.prevent="saveTag"
+                                    >
+                                        {{ trans.save }}
+                                    </a>
+                                </div>
+                                <div class="col-md px-0">
+                                    <router-link
+                                        :to="{ name: 'tags' }"
+                                        class="btn btn-link btn-block font-weight-bold text-muted text-decoration-none"
+                                    >
+                                        {{ trans.cancel }}
+                                    </router-link>
+                                </div>
                             </div>
                         </div>
                     </div>

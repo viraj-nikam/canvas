@@ -43,7 +43,7 @@
                             <span class="text-muted"> / </span>
                             {{ title }}
                         </h3>
-                        <p class="mt-2 text-secondary">
+                        <p v-if="!creatingUser" class="mt-2 text-secondary">
                             {{ trans.last_updated }} {{ moment(user.updated_at).fromNow() }}
                         </p>
                     </div>
@@ -69,138 +69,140 @@
 
                 <div class="mt-5 card shadow-lg">
                     <div class="card-body">
-                        <file-pond
-                            ref="pond"
-                            v-if="isReadyToAcceptUploads"
-                            name="profileImagePond"
-                            max-files="1"
-                            :max-file-size="settings.maxUpload"
-                            :icon-remove="getRemoveIcon"
-                            :icon-retry="getRetryIcon"
-                            :label-idle="getPlaceholderLabel"
-                            class-name="w-75"
-                            accepted-file-types="image/*"
-                            image-preview-height="170"
-                            image-crop-aspect-ratio="1:1"
-                            image-resize-target-width="200"
-                            image-resize-target-height="200"
-                            style-panel-layout="compact circle"
-                            style-load-indicator-position="center bottom"
-                            style-progress-indicator-position="center bottom"
-                            style-button-process-item-position="center bottom"
-                            style-button-remove-item-position="center bottom"
-                            :server="getServerOptions"
-                            :allow-multiple="false"
-                            :files="selectedImagesForPond"
-                            @processfile="processedFromFilePond"
-                            @removefile="removedFromFilePond"
-                        />
-
-                        <div v-if="!isReadyToAcceptUploads" class="text-center rounded p-3">
-                            <img
-                                :src="user.avatar || user.default_avatar"
-                                class="rounded-circle w-25 shadow-inner"
-                                :alt="user.name"
+                        <div class="col-12">
+                            <file-pond
+                                ref="pond"
+                                v-if="isReadyToAcceptUploads"
+                                name="profileImagePond"
+                                max-files="1"
+                                :max-file-size="settings.maxUpload"
+                                :icon-remove="getRemoveIcon"
+                                :icon-retry="getRetryIcon"
+                                :label-idle="getPlaceholderLabel"
+                                class-name="w-75"
+                                accepted-file-types="image/*"
+                                image-preview-height="170"
+                                image-crop-aspect-ratio="1:1"
+                                image-resize-target-width="200"
+                                image-resize-target-height="200"
+                                style-panel-layout="compact circle"
+                                style-load-indicator-position="center bottom"
+                                style-progress-indicator-position="center bottom"
+                                style-button-process-item-position="center bottom"
+                                style-button-remove-item-position="center bottom"
+                                :server="getServerOptions"
+                                :allow-multiple="false"
+                                :files="selectedImagesForPond"
+                                @processfile="processedFromFilePond"
+                                @removefile="removedFromFilePond"
                             />
 
-                            <p v-if="authProfile" class="mt-3 mb-0">
-                                <a href="" class="text-decoration-none text-success" @click.prevent="clearAvatar"
+                            <div v-if="!isReadyToAcceptUploads && !creatingUser" class="text-center rounded p-3">
+                                <img
+                                    :src="user.avatar || user.default_avatar"
+                                    class="rounded-circle w-25 shadow-inner"
+                                    :alt="user.name"
+                                />
+
+                                <p v-if="authProfile" class="mt-3 mb-0">
+                                    <a href="" class="text-decoration-none text-success" @click.prevent="clearAvatar"
                                     >Clear avatar</a
-                                >
-                            </p>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="name" class="font-weight-bold text-uppercase text-muted small"> Name </label>
-                            <input
-                                v-model="user.name"
-                                id="name"
-                                name="name"
-                                type="text"
-                                required
-                                class="form-control border-0"
-                                title="Name"
-                                placeholder="Name"
-                            />
-                        </div>
-                        <div class="form-group">
-                            <label for="email" class="font-weight-bold text-uppercase text-muted small"> Email </label>
-                            <input
-                                v-model="user.email"
-                                id="email"
-                                required
-                                name="email"
-                                type="email"
-                                class="form-control border-0"
-                                title="Email"
-                                placeholder="Email"
-                            />
-                        </div>
-                        <div class="form-group">
-                            <label for="username" class="font-weight-bold text-uppercase text-muted small">
-                                {{ trans.username }}
-                            </label>
-                            <input
-                                v-model="user.username"
-                                id="username"
-                                name="username"
-                                type="text"
-                                class="form-control border-0"
-                                title="Username"
-                                :placeholder="trans.choose_a_username"
-                            />
-                        </div>
-                        <div class="form-group">
-                            <label for="password" class="font-weight-bold text-uppercase text-muted small">
-                                Password
-                            </label>
-                            <input
-                                v-model="user.password"
-                                id="password"
-                                :required="creatingUser"
-                                name="password"
-                                type="text"
-                                class="form-control border-0"
-                                title="Password"
-                                placeholder="Password"
-                            />
-                        </div>
-                        <div class="form-group">
-                            <label for="summary" class="font-weight-bold text-uppercase text-muted small">
-                                {{ trans.summary }}
-                            </label>
-                            <textarea
-                                v-model="user.summary"
-                                id="summary"
-                                rows="4"
-                                name="summary"
-                                style="resize: none"
-                                class="form-control border-0"
-                                :placeholder="trans.tell_us_about_yourself"
-                            />
-                        </div>
-
-                        <div class="row mt-3 mb-2">
-                            <div class="col-md">
-                                <a
-                                    href="#"
-                                    onclick="this.blur()"
-                                    :disabled="notReadyToSave"
-                                    class="btn btn-success btn-block font-weight-bold mt-0"
-                                    :class="{ disabled: notReadyToSave }"
-                                    aria-label="Save"
-                                    @click.prevent="saveUser"
-                                >
-                                    {{ trans.save }}
-                                </a>
+                                    >
+                                </p>
                             </div>
-                            <div class="col-md">
-                                <router-link
-                                    :to="{ name: 'stats' }"
-                                    class="btn btn-link btn-block font-weight-bold text-muted text-decoration-none"
-                                >
-                                    {{ trans.cancel }}
-                                </router-link>
+
+                            <div class="form-group row">
+                                <label for="name" class="font-weight-bold text-uppercase text-muted small"> Name </label>
+                                <input
+                                    v-model="user.name"
+                                    id="name"
+                                    name="name"
+                                    type="text"
+                                    required
+                                    class="form-control border-0"
+                                    title="Name"
+                                    placeholder="Name"
+                                />
+                            </div>
+                            <div class="form-group row">
+                                <label for="email" class="font-weight-bold text-uppercase text-muted small"> Email </label>
+                                <input
+                                    v-model="user.email"
+                                    id="email"
+                                    required
+                                    name="email"
+                                    type="email"
+                                    class="form-control border-0"
+                                    title="Email"
+                                    placeholder="Email"
+                                />
+                            </div>
+                            <div v-if="!creatingUser" class="form-group row">
+                                <label for="username" class="font-weight-bold text-uppercase text-muted small">
+                                    {{ trans.username }}
+                                </label>
+                                <input
+                                    v-model="user.username"
+                                    id="username"
+                                    name="username"
+                                    type="text"
+                                    class="form-control border-0"
+                                    title="Username"
+                                    :placeholder="trans.choose_a_username"
+                                />
+                            </div>
+                            <div class="form-group row">
+                                <label for="password" class="font-weight-bold text-uppercase text-muted small">
+                                    Password
+                                </label>
+                                <input
+                                    v-model="user.password"
+                                    id="password"
+                                    :required="creatingUser"
+                                    name="password"
+                                    type="text"
+                                    class="form-control border-0"
+                                    title="Password"
+                                    placeholder="Password"
+                                />
+                            </div>
+                            <div v-if="!creatingUser" class="form-group row">
+                                <label for="summary" class="font-weight-bold text-uppercase text-muted small">
+                                    {{ trans.summary }}
+                                </label>
+                                <textarea
+                                    v-model="user.summary"
+                                    id="summary"
+                                    rows="4"
+                                    name="summary"
+                                    style="resize: none"
+                                    class="form-control border-0"
+                                    :placeholder="trans.tell_us_about_yourself"
+                                />
+                            </div>
+
+                            <div class="form-group row mt-4 mb-2">
+                                <div class="col-md px-0">
+                                    <a
+                                        href="#"
+                                        onclick="this.blur()"
+                                        :disabled="notReadyToSave"
+                                        class="btn btn-success btn-block font-weight-bold mt-0"
+                                        :class="{ disabled: notReadyToSave }"
+                                        aria-label="Save"
+                                        @click.prevent="saveUser"
+                                    >
+                                        {{ trans.save }}
+                                    </a>
+                                </div>
+                                <div class="col-md px-0">
+                                    <router-link
+                                        :to="{ name: 'stats' }"
+                                        class="btn btn-link btn-block font-weight-bold text-muted text-decoration-none"
+                                    >
+                                        {{ trans.cancel }}
+                                    </router-link>
+                                </div>
                             </div>
                         </div>
                     </div>
