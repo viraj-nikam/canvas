@@ -57,7 +57,7 @@ const actions = {
     },
 
     setAvatar(context, payload) {
-        let path = isEmpty(payload) ? url.methods.gravatar(state.email) : payload;
+        let path = isEmpty(payload) ? url.methods.gravatar(state.user.email) : payload;
 
         context.commit('SET_AVATAR', path);
     },

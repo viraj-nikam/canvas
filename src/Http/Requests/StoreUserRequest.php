@@ -14,7 +14,7 @@ class StoreUserRequest extends FormRequest
      */
     public function authorize()
     {
-        return $this->user('canvas')->isAdmin;
+        return true;
     }
 
     /**
@@ -33,7 +33,7 @@ class StoreUserRequest extends FormRequest
                     return $query->where('email', request('email'));
                 })->ignore(request('id'))->whereNull('deleted_at'),
             ],
-            'username' => 'nullable|alpha_dash|unique:canvas_users,username,'.request()->user('canvas')->id,
+            'username' => 'nullable|alpha_dash|unique:canvas_users,username,'.request('id'),
             'password' => 'sometimes|nullable|min:8|confirmed',
             'summary' => 'nullable|string',
             'avatar' => 'nullable|string',

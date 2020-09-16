@@ -7,6 +7,7 @@ use Canvas\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Hash;
 use Ramsey\Uuid\Uuid;
 
@@ -37,6 +38,7 @@ class UserController extends Controller
     {
         return response()->json(User::make([
             'id' => Uuid::uuid4()->toString(),
+            'role' => User::CONTRIBUTOR
         ]), 200);
     }
 
@@ -57,16 +59,22 @@ class UserController extends Controller
             if ($user = User::onlyTrashed()->firstWhere('email', $data['email'])) {
                 $user->restore();
 
-                return response()->json($user->refresh(), 201);
+                return response()->json([
+                    'user' => $user->refresh(),
+                    'i18n' => collect(trans('canvas::app', [], $user->locale))->toJson(),
+                ], 201);
             } else {
                 $user = new User([
                     'id' => $id,
-                    'password' => Hash::make($data['password']),
                 ]);
             }
         }
 
         $user->fill($data);
+
+        if (Arr::has($data, 'password')) {
+            $user->password = Hash::make($data['password']);
+        }
 
         $user->save();
 
@@ -85,7 +93,7 @@ class UserController extends Controller
      */
     public function show(Request $request, $id): JsonResponse
     {
-        $user = User::find($id);
+        $user = User::withCount('posts')->find($id);
 
         return $user ? response()->json($user, 200) : response()->json(null, 404);
     }

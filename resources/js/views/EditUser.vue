@@ -37,11 +37,11 @@
                 <div class="d-flex justify-content-between mt-2 mb-4 align-items-center">
                     <div>
                         <h3 class="mt-3">
-                            <span v-if="settings.isAdmin">
+                            <span v-if="isAdmin">
                                 <router-link :to="{ name: 'users' }" class="text-decoration-none text-muted">
                                     {{ trans.users }}
                                 </router-link>
-                            <span class="text-muted"> / </span>
+                                <span class="text-muted"> / </span>
                             </span>
 
                             {{ title }}
@@ -68,6 +68,30 @@
                             {{ name }}
                         </option>
                     </select>
+                </div>
+
+                <div v-if="!creatingUser" class="mt-5 card shadow-lg">
+                    <div class="card-body py-4">
+                        <div class="row">
+                            <div class="col-12 col-md-3 px-0 text-center">
+                                <img
+                                    @click="showAvatarModal"
+                                    :src="user.avatar || user.default_avatar"
+                                    :alt="user.name"
+                                    class="avatar align-self-center mb-4 mb-md-0 rounded-circle"
+                                />
+                            </div>
+                            <div class="col-12 col-md-9 align-self-center px-0 text-center text-md-left">
+                                <h5 class="mt-0 mb-1 font-weight-bold">{{ user.name }}</h5>
+                                <a class="mb-1 text-primary text-decoration-none" :href="`mailto:${user.email}`">{{
+                                    user.email
+                                }}</a>
+                                <p class="text-secondary mb-0">
+                                    {{ numberOfPosts }} ― Created {{ moment(user.created_at).fromNow() }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="mt-5 card shadow-lg">
@@ -99,20 +123,6 @@
                                 @processfile="processedFromFilePond"
                                 @removefile="removedFromFilePond"
                             />
-
-                            <div v-if="!isReadyToAcceptUploads && !creatingUser" class="text-center rounded p-3">
-                                <img
-                                    :src="user.avatar || user.default_avatar"
-                                    class="rounded-circle w-25 shadow-inner"
-                                    :alt="user.name"
-                                />
-
-                                <p v-if="authProfile" class="mt-3 mb-0">
-                                    <a href="" class="text-decoration-none text-success" @click.prevent="clearAvatar"
-                                        >Clear avatar</a
-                                    >
-                                </p>
-                            </div>
 
                             <div class="form-group row">
                                 <label for="name" class="font-weight-bold text-uppercase text-muted small">
@@ -238,7 +248,7 @@
                                 </div>
                                 <div class="col-md px-0">
                                     <router-link
-                                        :to="{ name: 'stats' }"
+                                        :to="{ name: 'users' }"
                                         class="btn btn-link btn-block font-weight-bold text-muted text-decoration-none"
                                     >
                                         {{ trans.cancel }}
@@ -327,7 +337,9 @@
             </div>
         </main>
 
+        <avatar-modal v-if="isReady" ref="avatarModal" :user="user" @update="saveUser" />
         <delete-modal
+            v-if="isReady"
             ref="deleteModal"
             :header="trans.delete"
             :message="trans.deleted_users_are_gone_forever"
@@ -349,6 +361,7 @@ import NProgress from 'nprogress';
 import DeleteModal from '../components/modals/DeleteModal';
 import PageHeader from '../components/PageHeader';
 import Hover from '../directives/Hover';
+import AvatarModal from '../components/modals/AvatarModal';
 import url from '../mixins/url';
 import status from '../mixins/status';
 import vueFilePond from 'vue-filepond';
@@ -369,6 +382,7 @@ export default {
     name: 'edit-user',
 
     components: {
+        AvatarModal,
         DeleteModal,
         InfiniteLoading,
         PageHeader,
@@ -397,6 +411,7 @@ export default {
     computed: {
         ...mapState(['settings']),
         ...mapGetters({
+            isAdmin: 'settings/isAdmin',
             trans: 'settings/trans',
         }),
 
@@ -443,6 +458,13 @@ export default {
             } else {
                 return this.user.name || this.trans.edit_user;
             }
+        },
+
+        numberOfPosts() {
+            let noun = this.user.posts_count === 1 ? this.trans.post : this.trans.posts;
+            let count = this.user.posts_count || 0;
+
+            return `${count} ${noun}`;
         },
 
         invalidName() {
@@ -532,8 +554,8 @@ export default {
             NProgress.inc();
         },
 
-        fetchPosts($state) {
-            return this.request()
+        async fetchPosts($state) {
+            await this.request()
                 .get(`/api/users/${this.uri}/posts`, {
                     params: {
                         page: this.page,
@@ -575,6 +597,9 @@ export default {
                 .post(`/api/users/${this.user.id}`, this.user)
                 .then(({ data }) => {
                     this.user = data.user;
+                    if (this.authProfile) {
+                        this.$store.dispatch('settings/setAvatar', data.avatar);
+                    }
                     this.$toasted.show(this.trans.saved, {
                         className: 'bg-success',
                     });
@@ -619,6 +644,10 @@ export default {
             await this.$router.push({ name: 'users' });
         },
 
+        showAvatarModal() {
+            $(this.$refs.avatarModal.$el).modal('show');
+        },
+
         showDeleteModal() {
             $(this.$refs.deleteModal.$el).modal('show');
         },
@@ -627,12 +656,13 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.filepond--wrapper {
-    display: flex;
-    justify-content: center;
+@import '../../sass/utilities/variables';
+img {
+    width: 150px;
+    cursor: pointer;
 }
 
-.filepond--root {
-    margin-bottom: 0;
+img:hover {
+    box-shadow: 0 0 0 3px $green;
 }
 </style>

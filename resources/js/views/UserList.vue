@@ -5,7 +5,7 @@
                 <div class="dropdown">
                     <a
                         id="navbarDropdown"
-                        class="nav-link pr-1"
+                        class="nav-link pr-0"
                         href="#"
                         role="button"
                         data-toggle="dropdown"
@@ -78,7 +78,7 @@
                                             </span>
                                         </div>
                                         <img
-                                            :src="gravatar(user.email)"
+                                            :src="user.avatar || gravatar(user.email)"
                                             style="width: 57px; height: 57px"
                                             class="mr-2 ml-3 shadow-inner rounded-circle"
                                             :alt="user.name"
