@@ -79,8 +79,12 @@
                                     autocomplete="off"
                                     title="Slug"
                                     class="form-control border-0"
+                                    :class="invalidSlug.shouldShow ? 'is-invalid' : ''"
                                     :placeholder="trans.give_your_tag_a_name_slug"
                                 />
+                                <span v-if="invalidSlug.shouldShow" class="invalid-feedback" role="alert">
+                                    <strong>{{ invalidSlug.error }}</strong>
+                                </span>
                             </div>
 
                             <div class="form-group row mt-4 mb-2">
@@ -244,7 +248,7 @@ export default {
         },
 
         shouldDisableButton() {
-            return isEmpty(this.tag.slug);
+            return isEmpty(this.tag.name);
         },
 
         title() {
@@ -253,6 +257,20 @@ export default {
             } else {
                 return this.tag.name || this.trans.edit_tag;
             }
+        },
+
+        invalidSlug() {
+            if (!isEmpty(this.errors.slug) && this.errors.slug.length > 0) {
+                return {
+                    error: this.errors.slug[0],
+                    shouldShow: true,
+                };
+            }
+
+            return {
+                error: null,
+                shouldShow: false,
+            };
         },
     },
 
@@ -323,8 +341,10 @@ export default {
                 });
         },
 
-        saveTag() {
-            this.request()
+        async saveTag() {
+            this.errors = [];
+
+            await this.request()
                 .post(`/api/tags/${this.tag.id}`, this.tag)
                 .then(({ data }) => {
                     this.tag = data;
@@ -335,13 +355,10 @@ export default {
                 })
                 .catch((error) => {
                     this.errors = error.response.data.errors;
-                    this.$toasted.show(error.response.data.errors.slug[0], {
-                        className: 'bg-danger',
-                    });
                 });
 
             if (isEmpty(this.errors) && this.creatingTag) {
-                this.$router.push({ name: 'edit-tag', params: { id: this.tag.id } });
+                await this.$router.push({ name: 'edit-tag', params: { id: this.tag.id } });
                 NProgress.done();
             }
         },

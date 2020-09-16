@@ -36,17 +36,4 @@ class StoreTopicRequest extends FormRequest
             ],
         ];
     }
-
-    /**
-     * Get custom messages for validator errors.
-     *
-     * @return array
-     */
-    public function messages()
-    {
-        return [
-            'required' => trans('canvas::app.validation_required', [], optional(request()->user('canvas'))->locale),
-            'unique' => trans('canvas::app.validation_unique', [], optional(request()->user('canvas'))->locale),
-        ];
-    }
 }

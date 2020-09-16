@@ -37,11 +37,10 @@
                 <div class="d-flex justify-content-between mt-2 mb-4 align-items-center">
                     <div>
                         <h3 class="mt-3">
-                            <router-link :to="{ name: 'users' }" class="text-decoration-none text-muted">{{
-                                trans.users
-                            }}</router-link>
-                            <span class="text-muted"> / </span>
-                            {{ title }}
+                            <router-link :to="{ name: 'users' }" class="text-decoration-none text-muted"
+                                >{{ trans.users }}
+                            </router-link>
+                            <span class="text-muted"> / </span> {{ title }}
                         </h3>
                         <p v-if="!creatingUser" class="mt-2 text-secondary">
                             {{ trans.last_updated }} {{ moment(user.updated_at).fromNow() }}
@@ -106,13 +105,15 @@
 
                                 <p v-if="authProfile" class="mt-3 mb-0">
                                     <a href="" class="text-decoration-none text-success" @click.prevent="clearAvatar"
-                                    >Clear avatar</a
+                                        >Clear avatar</a
                                     >
                                 </p>
                             </div>
 
                             <div class="form-group row">
-                                <label for="name" class="font-weight-bold text-uppercase text-muted small"> Name </label>
+                                <label for="name" class="font-weight-bold text-uppercase text-muted small">
+                                    Name
+                                </label>
                                 <input
                                     v-model="user.name"
                                     id="name"
@@ -120,12 +121,18 @@
                                     type="text"
                                     required
                                     class="form-control border-0"
+                                    :class="invalidName.shouldShow ? 'is-invalid' : ''"
                                     title="Name"
                                     placeholder="Name"
                                 />
+                                <span v-if="invalidName.shouldShow" class="invalid-feedback" role="alert">
+                                    <strong>{{ invalidName.error }}</strong>
+                                </span>
                             </div>
                             <div class="form-group row">
-                                <label for="email" class="font-weight-bold text-uppercase text-muted small"> Email </label>
+                                <label for="email" class="font-weight-bold text-uppercase text-muted small">
+                                    Email
+                                </label>
                                 <input
                                     v-model="user.email"
                                     id="email"
@@ -133,9 +140,13 @@
                                     name="email"
                                     type="email"
                                     class="form-control border-0"
+                                    :class="invalidEmail.shouldShow ? 'is-invalid' : ''"
                                     title="Email"
                                     placeholder="Email"
                                 />
+                                <span v-if="invalidEmail.shouldShow" class="invalid-feedback" role="alert">
+                                    <strong>{{ invalidEmail.error }}</strong>
+                                </span>
                             </div>
                             <div v-if="!creatingUser" class="form-group row">
                                 <label for="username" class="font-weight-bold text-uppercase text-muted small">
@@ -147,9 +158,13 @@
                                     name="username"
                                     type="text"
                                     class="form-control border-0"
+                                    :class="invalidUsername.shouldShow ? 'is-invalid' : ''"
                                     title="Username"
                                     :placeholder="trans.choose_a_username"
                                 />
+                                <span v-if="invalidUsername.shouldShow" class="invalid-feedback" role="alert">
+                                    <strong>{{ invalidUsername.error }}</strong>
+                                </span>
                             </div>
                             <div class="form-group row">
                                 <label for="password" class="font-weight-bold text-uppercase text-muted small">
@@ -162,12 +177,19 @@
                                     name="password"
                                     type="text"
                                     class="form-control border-0"
+                                    :class="invalidPassword.shouldShow ? 'is-invalid' : ''"
                                     title="Password"
                                     placeholder="Password"
                                 />
+                                <span v-if="invalidPassword.shouldShow" class="invalid-feedback" role="alert">
+                                    <strong>{{ invalidPassword.error }}</strong>
+                                </span>
                             </div>
                             <div class="form-group row">
-                                <label for="password_confirmation" class="font-weight-bold text-uppercase text-muted small">
+                                <label
+                                    for="password_confirmation"
+                                    class="font-weight-bold text-uppercase text-muted small"
+                                >
                                     Confirm Password
                                 </label>
                                 <input
@@ -418,6 +440,62 @@ export default {
                 return this.user.name || this.trans.edit_user;
             }
         },
+
+        invalidName() {
+            if (!isEmpty(this.errors.name) && this.errors.name.length > 0) {
+                return {
+                    error: this.errors.name[0],
+                    shouldShow: true,
+                };
+            }
+
+            return {
+                error: null,
+                shouldShow: false,
+            };
+        },
+
+        invalidEmail() {
+            if (!isEmpty(this.errors.email) && this.errors.email.length > 0) {
+                return {
+                    error: this.errors.email[0],
+                    shouldShow: true,
+                };
+            }
+
+            return {
+                error: null,
+                shouldShow: false,
+            };
+        },
+
+        invalidUsername() {
+            if (!isEmpty(this.errors.username) && this.errors.username.length > 0) {
+                return {
+                    error: this.errors.username[0],
+                    shouldShow: true,
+                };
+            }
+
+            return {
+                error: null,
+                shouldShow: false,
+            };
+        },
+
+        invalidPassword() {
+            if (!isEmpty(this.errors.password) && this.errors.password.length > 0) {
+                return {
+                    error: this.errors.password[0],
+                    shouldShow: true,
+                };
+            }
+
+            return {
+                error: null,
+                shouldShow: false,
+            };
+        },
     },
 
     watch: {
@@ -486,8 +564,10 @@ export default {
             this.selectedImagesForPond = [];
         },
 
-        saveUser() {
-            this.request()
+        async saveUser() {
+            this.errors = [];
+
+            await this.request()
                 .post(`/api/users/${this.user.id}`, this.user)
                 .then(({ data }) => {
                     this.user = data.user;
@@ -497,14 +577,10 @@ export default {
                 })
                 .catch((error) => {
                     this.errors = error.response.data.errors;
-
-                    this.$toasted.show(error.response.data.errors.username[0], {
-                        className: 'bg-danger',
-                    });
                 });
 
             if (isEmpty(this.errors) && this.creatingUser) {
-                this.$router.push({ name: 'edit-user', params: { id: this.user.id } });
+                await this.$router.push({ name: 'edit-user', params: { id: this.user.id } });
                 NProgress.done();
             }
         },
@@ -516,9 +592,7 @@ export default {
 
         selectRole() {
             this.request()
-                .post(`/api/users/${this.user.id}`, {
-                    role: this.user.role,
-                })
+                .post(`/api/users/${this.user.id}`, this.user)
                 .then(() => {
                     this.$toasted.show(this.trans.saved, {
                         className: 'bg-success',

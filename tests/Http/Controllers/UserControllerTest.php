@@ -7,8 +7,6 @@ use Canvas\Models\User;
 use Canvas\Models\View;
 use Canvas\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
 use Ramsey\Uuid\Uuid;
 
 /**
@@ -132,15 +130,16 @@ class UserControllerTest extends TestCase
             'id' => Uuid::uuid4()->toString(),
             'name' => 'Name',
             'email' => 'email@example.com',
-            'password' => Hash::make(Str::random(60)),
+            'password' => 'password',
+            'password_confirmation' => 'password',
         ];
 
         $this->actingAs($user, 'canvas')
              ->postJson("canvas/api/users/{$data['id']}", $data)
              ->assertSuccessful()
-            ->assertJsonExactFragment($data['name'], 'user.name')
-            ->assertJsonExactFragment($data['email'], 'user.email')
-            ->assertJsonExactFragment($data['id'], 'user.id');
+             ->assertJsonExactFragment($data['name'], 'user.name')
+             ->assertJsonExactFragment($data['email'], 'user.email')
+             ->assertJsonExactFragment($data['id'], 'user.id');
     }
 
     /** @test */
@@ -153,23 +152,24 @@ class UserControllerTest extends TestCase
         $deletedUser = factory(User::class)->create([
             'id' => Uuid::uuid4()->toString(),
             'name' => 'Deleted User',
-            'email'=> 'email@example.com',
+            'email' => 'email@example.com',
             'deleted_at' => now(),
         ]);
 
         $data = [
             'id' => Uuid::uuid4()->toString(),
             'name' => 'Deleted User',
-            'email'=> 'email@example.com',
-            'password' => Hash::make(Str::random(60)),
+            'email' => 'email@example.com',
+            'password' => 'password',
+            'password_confirmation' => 'password',
         ];
 
         $this->actingAs($admin, 'canvas')
              ->postJson("canvas/api/users/{$data['id']}", $data)
              ->assertSuccessful()
-            ->assertJsonExactFragment($deletedUser->name, 'name')
-            ->assertJsonExactFragment($deletedUser->email, 'email')
-            ->assertJsonExactFragment($deletedUser->id, 'id');
+             ->assertJsonExactFragment($deletedUser->name, 'name')
+             ->assertJsonExactFragment($deletedUser->email, 'email')
+             ->assertJsonExactFragment($deletedUser->id, 'id');
     }
 
     /** @test */
@@ -182,8 +182,7 @@ class UserControllerTest extends TestCase
         $user = factory(User::class)->create([
             'id' => Uuid::uuid4()->toString(),
             'name' => 'User',
-            'email'=> 'email@example.com',
-            'password' => Hash::make(Str::random(60)),
+            'email' => 'email@example.com',
         ]);
 
         $data = [
@@ -196,6 +195,27 @@ class UserControllerTest extends TestCase
              ->assertSuccessful()
              ->assertJsonExactFragment($data['name'], 'user.name')
              ->assertJsonExactFragment($data['email'], 'user.email');
+    }
+
+    /** @test */
+    public function it_validates_incorrect_password_confirmation()
+    {
+        $user = factory(User::class)->create([
+            'role' => User::ADMIN,
+        ]);
+
+        $data = [
+            'id' => Uuid::uuid4()->toString(),
+            'name' => 'Name',
+            'email' => 'email@example.com',
+            'password' => 'password',
+            'password_confirmation' => 'not-a-match',
+        ];
+
+        $response = $this->actingAs($user, 'canvas')
+                         ->postJson("canvas/api/users/{$data['id']}", $data);
+
+        $this->assertArrayHasKey('password', $response->original['errors']);
     }
 
     /** @test */

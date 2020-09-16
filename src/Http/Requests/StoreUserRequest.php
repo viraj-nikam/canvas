@@ -34,26 +34,13 @@ class StoreUserRequest extends FormRequest
                 })->ignore(request('id'))->whereNull('deleted_at'),
             ],
             'username' => 'nullable|alpha_dash|unique:canvas_users,username,'.request()->user('canvas')->id,
-            'password' => 'sometimes|nullable|min:8',
+            'password' => 'sometimes|nullable|min:8|confirmed',
             'summary' => 'nullable|string',
             'avatar' => 'nullable|string',
             'dark_mode' => 'nullable|bool',
             'digest' => 'nullable|bool',
-            'local' => 'nullable|string',
+            'locale' => 'nullable|string',
             'role' => 'nullable|integer',
-        ];
-    }
-
-    /**
-     * Get custom messages for validator errors.
-     *
-     * @return array
-     */
-    public function messages()
-    {
-        return [
-            'required' => trans('canvas::app.validation_required', [], optional(request()->user('canvas'))->locale),
-            'unique' => trans('canvas::app.validation_unique', [], optional(request()->user('canvas'))->locale),
         ];
     }
 }

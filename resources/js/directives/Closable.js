@@ -8,11 +8,11 @@ const Closable = {
     bind(el, binding, vnode) {
         el.eventSetDrag = function () {
             el.setAttribute('data-dragging', 'yes');
-        }
+        };
 
         el.eventClearDrag = function () {
             el.removeAttribute('data-dragging');
-        }
+        };
 
         el.eventOnClick = function (event) {
             let dragging = el.getAttribute('data-dragging');

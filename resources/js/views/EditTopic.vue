@@ -37,8 +37,8 @@
                 <div v-if="isReady" class="my-3">
                     <h3 class="mt-3">
                         <router-link :to="{ name: 'topics' }" class="text-decoration-none text-muted">{{
-                                trans.topics
-                                                                                                    }}</router-link>
+                            trans.topics
+                        }}</router-link>
                         <span class="text-muted"> / </span>
                         {{ title }}
                     </h3>
@@ -79,8 +79,12 @@
                                     autocomplete="off"
                                     title="Slug"
                                     class="form-control border-0"
+                                    :class="invalidSlug.shouldShow ? 'is-invalid' : ''"
                                     :placeholder="trans.give_your_topic_a_name_slug"
                                 />
+                                <span v-if="invalidSlug.shouldShow" class="invalid-feedback" role="alert">
+                                    <strong>{{ invalidSlug.error }}</strong>
+                                </span>
                             </div>
 
                             <div class="form-group row mt-4 mb-2">
@@ -152,11 +156,11 @@
                                     <div class="ml-auto">
                                         <div class="d-none d-md-inline">
                                             <span class="text-secondary mr-3"
-                                            >{{ suffixedNumber(post.views_count) }}
+                                                >{{ suffixedNumber(post.views_count) }}
                                                 {{ post.views_count == 1 ? trans.view : trans.views }}</span
                                             >
                                             <span class="mr-3"
-                                            >{{ trans.created }}
+                                                >{{ trans.created }}
                                                 {{ moment(post.created_at).format('MMM D, YYYY') }}</span
                                             >
                                         </div>
@@ -244,7 +248,7 @@ export default {
         },
 
         shouldDisableButton() {
-            return isEmpty(this.topic.slug);
+            return isEmpty(this.topic.name);
         },
 
         title() {
@@ -253,6 +257,20 @@ export default {
             } else {
                 return this.topic.name || this.trans.edit_topic;
             }
+        },
+
+        invalidSlug() {
+            if (!isEmpty(this.errors.slug) && this.errors.slug.length > 0) {
+                return {
+                    error: this.errors.slug[0],
+                    shouldShow: true,
+                };
+            }
+
+            return {
+                error: null,
+                shouldShow: false,
+            };
         },
     },
 
@@ -323,8 +341,10 @@ export default {
                 });
         },
 
-        saveTopic() {
-            this.request()
+        async saveTopic() {
+            this.errors = [];
+
+            await this.request()
                 .post(`/api/topics/${this.topic.id}`, this.topic)
                 .then(({ data }) => {
                     this.topic = data;
@@ -335,13 +355,10 @@ export default {
                 })
                 .catch((error) => {
                     this.errors = error.response.data.errors;
-                    this.$toasted.show(error.response.data.errors.slug[0], {
-                        className: 'bg-danger',
-                    });
                 });
 
             if (isEmpty(this.errors) && this.creatingTopic) {
-                this.$router.push({ name: 'edit-topic', params: { id: this.topic.id } });
+                await this.$router.push({ name: 'edit-topic', params: { id: this.topic.id } });
                 NProgress.done();
             }
         },
