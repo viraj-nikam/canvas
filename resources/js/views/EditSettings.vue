@@ -158,7 +158,7 @@ export default {
 
     created() {
         this.digest = this.settings.user.digest;
-        this.locale = this.settings.user.locale;
+        this.locale = this.settings.user.locale || this.settings.user.default_locale;
         this.darkMode = this.settings.user.dark_mode;
         this.isReady = true;
         NProgress.done();

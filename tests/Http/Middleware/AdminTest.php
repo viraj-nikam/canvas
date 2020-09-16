@@ -38,7 +38,6 @@ class AdminTest extends TestCase
             // User routes...
             ['GET', 'canvas/api/users'],
             ['GET', 'canvas/api/users/create'],
-            ['GET', 'canvas/api/users/{id}/posts'],
             ['DELETE', 'canvas/api/users/{id}'],
 
             // Search routes...

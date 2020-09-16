@@ -37,10 +37,14 @@
                 <div class="d-flex justify-content-between mt-2 mb-4 align-items-center">
                     <div>
                         <h3 class="mt-3">
-                            <router-link :to="{ name: 'users' }" class="text-decoration-none text-muted"
-                                >{{ trans.users }}
-                            </router-link>
-                            <span class="text-muted"> / </span> {{ title }}
+                            <span v-if="settings.isAdmin">
+                                <router-link :to="{ name: 'users' }" class="text-decoration-none text-muted">
+                                    {{ trans.users }}
+                                </router-link>
+                            <span class="text-muted"> / </span>
+                            </span>
+
+                            {{ title }}
                         </h3>
                         <p v-if="!creatingUser" class="mt-2 text-secondary">
                             {{ trans.last_updated }} {{ moment(user.updated_at).fromNow() }}
