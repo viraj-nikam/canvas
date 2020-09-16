@@ -167,9 +167,9 @@ class UserControllerTest extends TestCase
         $this->actingAs($admin, 'canvas')
              ->postJson("canvas/api/users/{$data['id']}", $data)
              ->assertSuccessful()
-             ->assertJsonExactFragment($deletedUser->name, 'name')
-             ->assertJsonExactFragment($deletedUser->email, 'email')
-             ->assertJsonExactFragment($deletedUser->id, 'id');
+             ->assertJsonExactFragment($deletedUser->name, 'user.name')
+             ->assertJsonExactFragment($deletedUser->email, 'user.email')
+             ->assertJsonExactFragment($deletedUser->id, 'user.id');
     }
 
     /** @test */
