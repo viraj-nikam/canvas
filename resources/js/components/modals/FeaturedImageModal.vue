@@ -189,13 +189,6 @@ const FilePond = vueFilePond(
 export default {
     name: 'featured-image-modal',
 
-    props: {
-        post: {
-            type: Object,
-            required: true,
-        },
-    },
-
     components: {
         InfiniteLoading,
         FilePond,
@@ -218,7 +211,7 @@ export default {
     },
 
     computed: {
-        ...mapState(['settings']),
+        ...mapState(['settings', 'post']),
         ...mapGetters({
             trans: 'settings/trans',
         }),
@@ -266,9 +259,11 @@ export default {
     },
 
     mounted() {
-        this.selectedImageUrl = this.post.featured_image;
-        this.selectedImageCaption = this.post.featured_image_caption;
-        this.isReadyToAcceptUploads = isEmpty(this.post.featured_image);
+        console.log(this.post.featuredImage);
+
+        this.selectedImageUrl = this.post.featuredImage;
+        this.selectedImageCaption = this.post.featuredImageCaption;
+        this.isReadyToAcceptUploads = isEmpty(this.post.featuredImage);
     },
 
     methods: {
@@ -335,8 +330,8 @@ export default {
         },
 
         clickDone() {
-            this.post.featured_image = !isEmpty(this.selectedImageUrl) ? this.selectedImageUrl : '';
-            this.post.featured_image_caption = !isEmpty(this.selectedImageCaption) ? this.selectedImageCaption : '';
+            this.post.featuredImage = !isEmpty(this.selectedImageUrl) ? this.selectedImageUrl : '';
+            this.post.featuredImageCaption = !isEmpty(this.selectedImageCaption) ? this.selectedImageCaption : '';
 
             this.$parent.save();
         },

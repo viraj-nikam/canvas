@@ -337,7 +337,7 @@
             </div>
         </main>
 
-        <avatar-modal v-if="isReady" ref="avatarModal" :user="user" @update="saveUser" />
+        <avatar-modal v-if="isReady && user.avatar" ref="avatarModal" :user="user" @update="saveUser" />
         <delete-modal
             v-if="isReady"
             ref="deleteModal"
@@ -597,9 +597,11 @@ export default {
                 .post(`/api/users/${this.user.id}`, this.user)
                 .then(({ data }) => {
                     this.user = data.user;
+
                     if (this.authProfile) {
-                        this.$store.dispatch('settings/setAvatar', data.avatar);
+                        this.$store.dispatch('settings/setUser', data.user);
                     }
+
                     this.$toasted.show(this.trans.saved, {
                         className: 'bg-success',
                     });

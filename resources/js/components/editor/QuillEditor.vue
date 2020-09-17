@@ -117,7 +117,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapState } from 'vuex';
 import $ from 'jquery';
 import Closable from '../../../js/directives/Closable';
 import DividerBlot from './DividerBlot';
@@ -131,13 +131,6 @@ import debounce from 'lodash/debounce';
 
 export default {
     name: 'quill-editor',
-
-    props: {
-        post: {
-            type: Object,
-            required: true,
-        },
-    },
 
     directives: {
         Closable,
@@ -157,6 +150,7 @@ export default {
     },
 
     computed: {
+        ...mapState(['post']),
         ...mapGetters({
             trans: 'settings/trans',
         }),
@@ -212,11 +206,12 @@ export default {
         },
 
         handleEditorValue() {
-            this.editor.root.innerHTML = this.post.body || '';
+            this.editor.root.innerHTML = this.post.body;
 
             this.editor.on('text-change', () => {
                 this.controlIsActive = false;
-                // this.$store.dispatch('updatePostBody', this.editor.getText() ? this.editor.root.innerHTML : '');
+                let content = this.editor.getText() ? this.editor.root.innerHTML : '';
+                this.$store.dispatch('post/setBody', content);
             });
         },
 

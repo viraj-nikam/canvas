@@ -1,6 +1,4 @@
 import request from '../../mixins/request';
-import isEmpty from 'lodash/isEmpty';
-import url from '../../mixins/url';
 
 const initialState = {
     i18n: window.Canvas.translations,
@@ -56,10 +54,8 @@ const actions = {
             });
     },
 
-    setAvatar(context, payload) {
-        let path = isEmpty(payload) ? url.methods.gravatar(state.user.email) : payload;
-
-        context.commit('SET_AVATAR', path);
+    setUser(context, user) {
+        context.commit('SET_USER', user);
     },
 };
 
@@ -77,8 +73,8 @@ const mutations = {
         state.user.darkMode = user.dark_mode;
     },
 
-    SET_AVATAR(state, url) {
-        state.user.avatar = url;
+    SET_USER(state, user) {
+        state.user = user;
     },
 };
 

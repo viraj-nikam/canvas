@@ -101,7 +101,7 @@
                                 {{ trans.canonical_link }}
                             </label>
                             <input
-                                v-model="post.meta.canonical_link"
+                                v-model="post.meta.canonicalLink"
                                 id="canonicalLink"
                                 type="text"
                                 class="form-control border-0"
@@ -128,25 +128,19 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapState } from 'vuex';
 import Tooltip from '../../directives/Tooltip';
 import debounce from 'lodash/debounce';
 
 export default {
     name: 'seo-modal',
 
-    props: {
-        post: {
-            type: Object,
-            required: true,
-        },
-    },
-
     directives: {
         Tooltip,
     },
 
     computed: {
+        ...mapState(['post']),
         ...mapGetters({
             trans: 'settings/trans',
         }),
@@ -154,12 +148,12 @@ export default {
 
     methods: {
         syncTitle() {
-            this.post.meta.title = this.post.title;
+            this.title = this.post.title;
             this.update();
         },
 
         syncDescription() {
-            this.post.meta.description = this.post.summary;
+            this.description = this.post.summary;
             this.update();
         },
 

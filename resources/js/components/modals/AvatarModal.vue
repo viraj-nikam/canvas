@@ -15,12 +15,11 @@
                         accepted-file-types="image/*"
                         :server="getServerOptions"
                         :allow-multiple="false"
-                        :files="selectedImagesForPond"
                         @processfile="processedFromFilePond"
                         @removefile="removedFromFilePond"
                     />
 
-                    <div v-if="!selectedImagesForPond.length && !isReadyToAcceptUploads" class="selected-image">
+                    <div v-if="!isReadyToAcceptUploads" class="selected-image">
                         <button
                             type="button"
                             class="close"
@@ -96,7 +95,6 @@ export default {
         return {
             selectedImageUrl: null,
             isReadyToAcceptUploads: false,
-            selectedImagesForPond: [],
         };
     },
 
@@ -141,7 +139,6 @@ export default {
 
         removedFromFilePond() {
             this.isReadyToAcceptUploads = true;
-            this.selectedImagesForPond = [];
             this.user.avatar = this.user.default_avatar;
         },
 
@@ -149,7 +146,6 @@ export default {
             this.user.avatar = this.selectedImageUrl;
             this.selectedImageUrl = null;
             this.isReadyToAcceptUploads = true;
-            this.selectedImagesForPond = [];
         },
 
         save() {

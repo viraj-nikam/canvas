@@ -36,8 +36,7 @@ const actions = {
             .then(({ data }) => {
                 context.commit('SET_POST', data);
             })
-            .catch((error) => {
-                console.log(error);
+            .catch(() => {
                 router.push({ name: 'posts' });
             });
     },
@@ -52,6 +51,10 @@ const actions = {
             .catch((error) => {
                 console.log(error);
             });
+    },
+
+    setBody(context, content) {
+        context.commit('SET_BODY', content);
     },
 
     setTags(context, tags) {
@@ -109,8 +112,8 @@ const mutations = {
         state.featuredImageCaption = post.featured_image_caption;
     },
 
-    SET_TITLE(state, title) {
-        state.title = title;
+    SET_BODY(state, body) {
+        state.body = body;
     },
 
     SET_TAGS(state, tags) {
@@ -129,9 +132,7 @@ const mutations = {
 };
 
 const getters = {
-    activeBody(state) {
-        return state.body;
-    },
+    //
 };
 
 export default {

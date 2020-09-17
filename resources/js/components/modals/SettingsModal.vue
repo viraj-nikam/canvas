@@ -80,8 +80,8 @@
                         <div class="col-12">
                             <label class="font-weight-bold text-uppercase text-muted small">{{ trans.topic }}</label>
                             <multiselect
-                                v-model="post.topic"
-                                :options="topics"
+                                v-model="post.selectedTopic"
+                                :options="post.allTopics"
                                 :placeholder="trans.select_a_topic"
                                 :tag-placeholder="trans.add_a_new_topic"
                                 :multiple="false"
@@ -98,8 +98,8 @@
                         <div class="col-12">
                             <label class="font-weight-bold text-uppercase text-muted small">{{ trans.tags }}</label>
                             <multiselect
-                                v-model="post.tags"
-                                :options="tags"
+                                v-model="post.selectedTags"
+                                :options="post.allTags"
                                 :placeholder="trans.select_some_tags"
                                 :tag-placeholder="trans.add_a_new_tag"
                                 :multiple="true"
@@ -128,7 +128,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapState } from 'vuex';
 import Tooltip from '../../directives/Tooltip';
 import Multiselect from 'vue-multiselect';
 import debounce from 'lodash/debounce';
@@ -136,23 +136,6 @@ import strings from '../../mixins/strings';
 
 export default {
     name: 'settings-modal',
-
-    props: {
-        post: {
-            type: Object,
-            required: true,
-        },
-
-        tags: {
-            type: Array,
-            default: [],
-        },
-
-        topics: {
-            type: Array,
-            default: [],
-        },
-    },
 
     components: {
         Multiselect,
@@ -164,18 +147,8 @@ export default {
 
     mixins: [strings],
 
-    data() {
-        return {
-            isReady: false,
-        };
-    },
-
-    created() {
-        // TODO: The post object is available, but unable to access its properties? :sadpanda:
-        // TODO: All component children that rely on this are broken too
-    },
-
     computed: {
+        ...mapState(['post']),
         ...mapGetters({
             trans: 'settings/trans',
         }),

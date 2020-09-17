@@ -43,15 +43,15 @@
 
                     <div class="dropdown-menu dropdown-menu-right">
                         <router-link
-                            v-if="isPublished(post.publishedAt)"
+                            v-if="isPublished(post.published_at)"
                             :to="{ name: 'post-stats', params: { id: uri } }"
                             class="dropdown-item"
                         >
                             {{ trans.view_stats }}
                         </router-link>
-                        <div v-if="isPublished(post.publishedAt)" class="dropdown-divider" />
+                        <div v-if="isPublished(post.published_at)" class="dropdown-divider" />
                         <a
-                            v-if="isDraft(post.publishedAt) && (isAdmin || isEditor)"
+                            v-if="isDraft(post.published_at) && (isAdmin || isEditor)"
                             href="#"
                             class="dropdown-item"
                             @click="showPublishModal"
@@ -64,7 +64,7 @@
                         </a>
                         <a href="#" class="dropdown-item" @click="showSeoModal"> {{ trans.seo_settings }} </a>
                         <a
-                            v-if="isPublished(post.publishedAt)"
+                            v-if="isPublished(post.published_at)"
                             href="#"
                             class="dropdown-item"
                             @click.prevent="convertToDraft"
@@ -92,16 +92,16 @@
                 </div>
 
                 <div class="form-group my-2">
-                    <quill-editor :post="post" :key="post.id" @update="savePost" />
+                    <quill-editor :key="post.id" @update="savePost" />
                 </div>
             </div>
         </main>
 
         <section v-if="isReady">
-            <publish-modal :post="post" ref="publishModal" @update="savePost" />
-            <settings-modal :post="post" :tags="tags" :topics="topics" ref="settingsModal" @update="savePost" />
-            <featured-image-modal :post="post" ref="featuredImageModal" @update="savePost" />
-            <seo-modal v-if="post.meta" :post="post" ref="seoModal" @update="savePost" />
+<!--            <publish-modal ref="publishModal" @publish="publishPost" />-->
+<!--            <settings-modal ref="settingsModal" @updateSettings="updateSettings" />-->
+<!--            <featured-image-modal ref="featuredImageModal" @updateFeaturedImage="updateFeaturedImage" />-->
+<!--            <seo-modal ref="seoModal" @updateSEO="updateSEO" />-->
             <delete-modal
                 ref="deleteModal"
                 :header="trans.delete"
@@ -126,7 +126,8 @@ import SettingsModal from '../components/modals/SettingsModal';
 import Vue from 'vue';
 import VueTextAreaAutosize from 'vue-textarea-autosize';
 import status from '../mixins/status';
-import isEmpty from 'lodash/isEmpty';
+import get from "lodash/get";
+import isEmpty from "lodash/isEmpty";
 
 Vue.use(VueTextAreaAutosize);
 
@@ -148,12 +149,28 @@ export default {
     data() {
         return {
             uri: this.$route.params.id || 'create',
-            post: {},
+            post: {
+                id: null,
+                title: null,
+                slug: null,
+                summary: null,
+                body: null,
+                published_at: null,
+                featured_image: null,
+                featured_image_caption: null,
+                meta: {
+                    description: null,
+                    title: null,
+                    canonicalLink: null,
+                },
+                tags: [],
+                topic: [],
+            },
             tags: [],
             topics: [],
-            errors: [],
             isSaving: false,
             isSaved: false,
+            errors: [],
             isReady: false,
         };
     },
@@ -172,7 +189,7 @@ export default {
 
     watch: {
         async $route(to) {
-            if (this.uri === 'create' && to.params.id === this.post.id) {
+            if (this.uri === 'create' && to.params.id === this.id) {
                 this.uri = to.params.id;
             }
 
@@ -197,9 +214,22 @@ export default {
             this.request()
                 .get(`/api/posts/${this.uri}`)
                 .then(({ data }) => {
-                    this.post = data.post;
-                    this.tags = data.tags;
-                    this.topics = data.topics;
+                    this.post.id = data.post.id;
+                    this.post.title = get(data.post, 'title', '');
+                    this.post.slug = get(data.post, 'slug', '');
+                    this.post.summary = get(data.post, 'summary', '');
+                    this.post.body = get(data.post, 'body', '');
+                    this.post.published_at = get(data.post, 'published_at', '');
+                    this.post.featured_image = get(data.post, 'featured_image', '');
+                    this.post.featured_image_caption = get(data.post, 'featured_image_caption', '');
+                    this.post.meta.description = get(data.post.meta, 'description', '');
+                    this.post.meta.title = get(data.post.meta, 'title', '');
+                    this.post.meta.canonical_link = get(data.post.meta, 'canonical_link', '');
+                    this.post.tags = get(data.post, 'tags', []);
+                    this.post.topic = get(data.post, 'topic', []);
+
+                    this.tags = get(data, 'tags', []);
+                    this.topics = get(data, 'topics', []);
                 })
                 .catch(() => {
                     this.$router.push({ name: 'posts' });
@@ -208,15 +238,26 @@ export default {
             NProgress.inc();
         },
 
-        savePost() {
+        async savePost() {
             this.errors = [];
             this.isSaving = true;
             this.isSaved = false;
 
-            // this.$store.dispatch('saveActivePost', {
-            //     data: this.post,
-            //     id: this.id,
-            // });
+            await this.request()
+                .post(`/api/posts/${this.post.id}`, this.post)
+                .then(({ data }) => {
+                    this.tag = data;
+                    this.$store.dispatch('search/buildIndex', true);
+
+                })
+                .catch((error) => {
+                    this.errors = error.response.data.errors;
+                });
+
+            if (isEmpty(this.errors) && this.creatingTag) {
+                await this.$router.push({ name: 'edit-post', params: { id: this.post.id } });
+                NProgress.done();
+            }
 
             setTimeout(() => {
                 this.isSaved = false;
@@ -225,13 +266,29 @@ export default {
         },
 
         convertToDraft() {
-            this.post.published_at = '';
-            this.save();
+            this.post.published_at = null;
+            this.savePost();
+        },
+
+        publishPost() {
+
+        },
+
+        updateFeaturedImage() {
+
+        },
+
+        updateSettings() {
+
+        },
+
+        updateSEO() {
+
         },
 
         async deletePost() {
             await this.request()
-                .delete(`/api/posts/${this.post.id}`)
+                .delete(`/api/posts/${this.id}`)
                 .then(() => {
                     this.$store.dispatch('search/buildIndex', true);
                     this.$toasted.show(this.trans.success, {

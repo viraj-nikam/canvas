@@ -116,9 +116,9 @@
 
                     <p v-if="isScheduled(post.publishedAt)" class="mt-3 text-success font-italic">
                         {{ trans.your_post_will_publish_at }}
-                        {{ post.publishedAt }}
+                        {{ moment(post.publishedAt).format('h:mm A') }}
                         {{ trans.on }}
-                        {{ post.publishedAt }}.
+                        {{ moment(post.publishedAt).format('MMMM DD, YYYY') }}.
                     </p>
                 </div>
                 <div class="modal-footer">
@@ -173,17 +173,11 @@
 
 <script>
 import { mapGetters, mapState } from 'vuex';
+import moment from 'moment'
 import status from '../../mixins/status';
 
 export default {
     name: 'publish-modal',
-
-    props: {
-        post: {
-            type: Object,
-            required: true,
-        },
-    },
 
     mixins: [status],
 
@@ -205,11 +199,6 @@ export default {
         ...mapGetters({
             trans: 'settings/trans',
         }),
-
-        shouldPublish() {
-            // TODO: Not sure what the check should be here yet
-            return true;
-        },
     },
 
     watch: {
@@ -237,34 +226,44 @@ export default {
     },
 
     mounted() {
-        this.generateDatePicker(this.post.published_at || new Date());
+        this.generateDatePicker(
+            this.post.publishedAt ||
+            moment(new Date())
+                .format()
+                .slice(0, 19)
+                .replace('T', ' ')
+        )
     },
 
     methods: {
-        generateDatePicker(val) {
-            let date = new Date(val);
+        shouldPublish() {
+            return moment(this.result).isBefore(
+                moment(new Date())
+                    .format()
+                    .slice(0, 19)
+                    .replace('T', ' ')
+            )
+        },
 
-            // console.log(val)
-            // let date = new Intl.DateTimeFormat(Canvas.locale).format(val)
-            // const options = { month: "long", day: "numeric", year: "numeric" };
-            // console.log(new Intl.DateTimeFormat(Canvas.locale, options).format(date))
+        generateDatePicker(val) {
+            let date = moment(val + ' Z').utc();
 
             this.components = {
-                month: date.getMonth(),
-                day: date.getDay(),
-                year: date.getFullYear(),
-                hour: date.getHours(),
-                minute: date.getMinutes(),
-            };
+                month: date.format('MM'),
+                day: date.format('DD'),
+                year: date.format('YYYY'),
+                hour: date.format('HH'),
+                minute: date.format('mm'),
+            }
         },
 
         scheduleOrPublish() {
-            this.post.published_at = this.result;
+            this.post.publishedAt = this.result;
             this.$emit('update');
         },
 
         cancelScheduling() {
-            this.post.published_at = '';
+            this.post.publishedAt = '';
             this.$emit('update');
         },
     },
