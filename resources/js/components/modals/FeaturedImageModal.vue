@@ -266,8 +266,6 @@ export default {
     },
 
     mounted() {
-        console.log(this.post.featuredImage);
-
         this.selectedImageUrl = this.post.featuredImage;
         this.selectedImageCaption = this.post.featuredImageCaption;
         this.isReadyToAcceptUploads = isEmpty(this.post.featuredImage);

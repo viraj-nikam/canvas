@@ -61,7 +61,7 @@
             </div>
         </div>
 
-        <div ref="editor" />
+        <div ref="editor" class="mb-5" />
 
         <nav class="navbar fixed-bottom navbar-expand-sm mt-5 d-xl-none p-0 navbar-mini shadow">
             <div class="btn-group d-flex justify-content-center">
@@ -216,8 +216,8 @@ export default {
 
             this.editor.on('text-change', () => {
                 this.controlIsActive = false;
-                let content = this.editor.getText() ? this.editor.root.innerHTML : '';
-                this.$store.dispatch('post/setBody', content);
+                this.post.body = this.editor.getText() ? this.editor.root.innerHTML : '';
+                this.update();
             });
         },
 
@@ -346,7 +346,7 @@ export default {
         },
 
         update: debounce(function () {
-            this.$emit('update');
+            this.$emit('updatePost');
         }, 3000),
     },
 };
@@ -372,7 +372,7 @@ export default {
     line-height: 2 !important;
     padding-left: 0 !important;
     padding-right: 0 !important;
-    overflow-y: visible;
+    overflow-y: visible !important;
     min-width: 100%;
     display: -webkit-box;
     display: -ms-flexbox;

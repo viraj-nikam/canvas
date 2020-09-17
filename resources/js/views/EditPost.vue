@@ -6,8 +6,8 @@
                     <li class="text-muted font-weight-bold">
                         <div class="border-left pl-3">
                             <div v-if="!isSaving && !isSaved">
-                                <span v-if="isPublished(post.published_at)">{{ trans.published }}</span>
-                                <span v-if="isDraft(post.published_at)">{{ trans.draft }}</span>
+                                <span v-if="post.published_at && isPublished(post.published_at)">{{ trans.published }}</span>
+                                <span v-if="post.published_at && isDraft(post.published_at)">{{ trans.draft }}</span>
                             </div>
                             <span v-if="isSaving">{{ trans.saving }}</span>
                             <span v-if="isSaved" class="text-success">{{ trans.saved }}</span>
@@ -92,7 +92,7 @@
                 </div>
 
                 <div class="form-group my-2">
-                    <quill-editor :post="post" :key="post.id" @update="savePost" />
+                    <quill-editor :post="post" :key="post.id" @updatePost="savePost" />
                 </div>
             </div>
         </main>
@@ -264,6 +264,7 @@ export default {
             this.errors = [];
             this.isSaving = true;
             this.isSaved = false;
+            this.post.title = this.post.title || 'Title';
 
             await this.request()
                 .post(`/api/posts/${this.post.id}`, this.post)
