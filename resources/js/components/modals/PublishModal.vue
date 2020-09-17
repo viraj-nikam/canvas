@@ -173,7 +173,7 @@
 
 <script>
 import { mapGetters, mapState } from 'vuex';
-import moment from 'moment'
+import moment from 'moment';
 import status from '../../mixins/status';
 
 export default {
@@ -192,6 +192,13 @@ export default {
             },
             result: '',
         };
+    },
+
+    props: {
+        post: {
+            type: Object,
+            required: true,
+        },
     },
 
     computed: {
@@ -226,23 +233,12 @@ export default {
     },
 
     mounted() {
-        this.generateDatePicker(
-            this.post.publishedAt ||
-            moment(new Date())
-                .format()
-                .slice(0, 19)
-                .replace('T', ' ')
-        )
+        this.generateDatePicker(this.post.publishedAt || moment(new Date()).format().slice(0, 19).replace('T', ' '));
     },
 
     methods: {
         shouldPublish() {
-            return moment(this.result).isBefore(
-                moment(new Date())
-                    .format()
-                    .slice(0, 19)
-                    .replace('T', ' ')
-            )
+            return moment(this.result).isBefore(moment(new Date()).format().slice(0, 19).replace('T', ' '));
         },
 
         generateDatePicker(val) {
@@ -254,7 +250,7 @@ export default {
                 year: date.format('YYYY'),
                 hour: date.format('HH'),
                 minute: date.format('mm'),
-            }
+            };
         },
 
         scheduleOrPublish() {

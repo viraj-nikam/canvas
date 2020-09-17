@@ -117,7 +117,7 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex';
+import { mapGetters } from 'vuex';
 import $ from 'jquery';
 import Closable from '../../../js/directives/Closable';
 import DividerBlot from './DividerBlot';
@@ -141,6 +141,13 @@ export default {
         EmbedImageModal,
     },
 
+    props: {
+        post: {
+            type: Object,
+            required: true,
+        },
+    },
+
     data() {
         return {
             editor: null,
@@ -150,7 +157,6 @@ export default {
     },
 
     computed: {
-        ...mapState(['post']),
         ...mapGetters({
             trans: 'settings/trans',
         }),

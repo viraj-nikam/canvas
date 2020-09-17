@@ -128,7 +128,7 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex';
+import { mapGetters } from 'vuex';
 import Tooltip from '../../directives/Tooltip';
 import debounce from 'lodash/debounce';
 
@@ -139,8 +139,14 @@ export default {
         Tooltip,
     },
 
+    props: {
+        post: {
+            type: Object,
+            required: true,
+        },
+    },
+
     computed: {
-        ...mapState(['post']),
         ...mapGetters({
             trans: 'settings/trans',
         }),

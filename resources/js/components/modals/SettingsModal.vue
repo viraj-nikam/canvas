@@ -80,8 +80,8 @@
                         <div class="col-12">
                             <label class="font-weight-bold text-uppercase text-muted small">{{ trans.topic }}</label>
                             <multiselect
-                                v-model="post.selectedTopic"
-                                :options="post.allTopics"
+                                v-model="post.topic"
+                                :options="topics"
                                 :placeholder="trans.select_a_topic"
                                 :tag-placeholder="trans.add_a_new_topic"
                                 :multiple="false"
@@ -98,8 +98,8 @@
                         <div class="col-12">
                             <label class="font-weight-bold text-uppercase text-muted small">{{ trans.tags }}</label>
                             <multiselect
-                                v-model="post.selectedTags"
-                                :options="post.allTags"
+                                v-model="post.tags"
+                                :options="tags"
                                 :placeholder="trans.select_some_tags"
                                 :tag-placeholder="trans.add_a_new_tag"
                                 :multiple="true"
@@ -128,7 +128,7 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex';
+import { mapGetters } from 'vuex';
 import Tooltip from '../../directives/Tooltip';
 import Multiselect from 'vue-multiselect';
 import debounce from 'lodash/debounce';
@@ -148,10 +148,26 @@ export default {
     mixins: [strings],
 
     computed: {
-        ...mapState(['post']),
         ...mapGetters({
             trans: 'settings/trans',
         }),
+    },
+
+    props: {
+        post: {
+            type: Object,
+            required: true,
+        },
+
+        tags: {
+            type: Array,
+            default: [],
+        },
+
+        topics: {
+            type: Array,
+            default: [],
+        },
     },
 
     methods: {

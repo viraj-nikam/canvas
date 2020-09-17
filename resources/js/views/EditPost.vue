@@ -92,16 +92,22 @@
                 </div>
 
                 <div class="form-group my-2">
-                    <quill-editor :key="post.id" @update="savePost" />
+                    <quill-editor :post="post" :key="post.id" @update="savePost" />
                 </div>
             </div>
         </main>
 
         <section v-if="isReady">
-<!--            <publish-modal ref="publishModal" @publish="publishPost" />-->
-<!--            <settings-modal ref="settingsModal" @updateSettings="updateSettings" />-->
-<!--            <featured-image-modal ref="featuredImageModal" @updateFeaturedImage="updateFeaturedImage" />-->
-<!--            <seo-modal ref="seoModal" @updateSEO="updateSEO" />-->
+            <publish-modal :post="post" ref="publishModal" @publish="publishPost" />
+            <settings-modal
+                :post="post"
+                :tags="tags"
+                :topics="topics"
+                ref="settingsModal"
+                @updateSettings="updateSettings"
+            />
+            <featured-image-modal :post="post" ref="featuredImageModal" @updateFeaturedImage="updateFeaturedImage" />
+            <seo-modal :post="post" ref="seoModal" @updateSEO="updateSEO" />
             <delete-modal
                 ref="deleteModal"
                 :header="trans.delete"
@@ -126,8 +132,8 @@ import SettingsModal from '../components/modals/SettingsModal';
 import Vue from 'vue';
 import VueTextAreaAutosize from 'vue-textarea-autosize';
 import status from '../mixins/status';
-import get from "lodash/get";
-import isEmpty from "lodash/isEmpty";
+import get from 'lodash/get';
+import isEmpty from 'lodash/isEmpty';
 
 Vue.use(VueTextAreaAutosize);
 
@@ -238,6 +244,22 @@ export default {
             NProgress.inc();
         },
 
+        convertToDraft() {
+            this.post.published_at = null;
+            this.savePost();
+        },
+
+        publishPost(date) {
+            this.post.published_at = date;
+            this.savePost();
+        },
+
+        updateFeaturedImage() {},
+
+        updateSettings() {},
+
+        updateSEO() {},
+
         async savePost() {
             this.errors = [];
             this.isSaving = true;
@@ -246,15 +268,14 @@ export default {
             await this.request()
                 .post(`/api/posts/${this.post.id}`, this.post)
                 .then(({ data }) => {
-                    this.tag = data;
+                    this.post = data;
                     this.$store.dispatch('search/buildIndex', true);
-
                 })
                 .catch((error) => {
                     this.errors = error.response.data.errors;
                 });
 
-            if (isEmpty(this.errors) && this.creatingTag) {
+            if (isEmpty(this.errors) && this.creatingPost) {
                 await this.$router.push({ name: 'edit-post', params: { id: this.post.id } });
                 NProgress.done();
             }
@@ -263,27 +284,6 @@ export default {
                 this.isSaved = false;
                 this.isSaving = false;
             }, 3000);
-        },
-
-        convertToDraft() {
-            this.post.published_at = null;
-            this.savePost();
-        },
-
-        publishPost() {
-
-        },
-
-        updateFeaturedImage() {
-
-        },
-
-        updateSettings() {
-
-        },
-
-        updateSEO() {
-
         },
 
         async deletePost() {

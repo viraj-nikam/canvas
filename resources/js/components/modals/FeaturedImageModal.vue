@@ -210,8 +210,15 @@ export default {
         };
     },
 
+    props: {
+        post: {
+            type: Object,
+            required: true,
+        },
+    },
+
     computed: {
-        ...mapState(['settings', 'post']),
+        ...mapState(['settings']),
         ...mapGetters({
             trans: 'settings/trans',
         }),
