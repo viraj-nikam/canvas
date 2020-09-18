@@ -84,7 +84,7 @@ class PostController extends Controller
             $post = Post::with('tags', 'topic')->where('user_id', $request->user('canvas')->id)->find($id);
         }
 
-        if (! $post) {
+        if (!$post) {
             $post = new Post(['id' => $id]);
         }
 
@@ -94,9 +94,9 @@ class PostController extends Controller
 
         $post->save();
 
-        $post->topic()->sync($this->syncedTopic($request->input('topic', [])));
+        $post->topic()->sync($this->syncedTopic($request->input('topic') ?? []));
 
-        $post->tags()->sync($this->syncedTags($request->input('tags', [])));
+        $post->tags()->sync($this->syncedTags($request->input('tags') ?? []));
 
         return response()->json($post->refresh(), 201);
     }
@@ -149,22 +149,23 @@ class PostController extends Controller
             return [];
         }
 
-        $topics = Topic::get(['id', 'name', 'slug']);
+        // Since the multiselect component handles single selects differently, when we try and
+        // attach an existing topic it will enter as an object in an array. A newly created
+        // topic will come in strictly as an array with only a name and a slug.
+        $topicToAssign = empty($incomingTopic[0]) ? $incomingTopic : $incomingTopic[0];
 
-        return collect($incomingTopic)->map(function ($item) use ($topics) {
-            $topic = $topics->firstWhere('slug', $item['slug']);
+        $topic = Topic::firstWhere('slug', $topicToAssign['slug']);
 
-            if (! $topic) {
-                $topic = Topic::create([
-                    'id' => $id = Uuid::uuid4()->toString(),
-                    'name' => $item['name'],
-                    'slug' => $item['slug'],
-                    'user_id' => request()->user('canvas')->id,
-                ]);
-            }
+        if (!$topic) {
+            $topic = Topic::create([
+                'id' => $id = Uuid::uuid4()->toString(),
+                'name' => $topicToAssign['name'],
+                'slug' => $topicToAssign['slug'],
+                'user_id' => request()->user('canvas')->id,
+            ]);
+        }
 
-            return (string) $topic->id;
-        })->toArray();
+        return [ (string)$topic->id ];
     }
 
     /**
@@ -184,7 +185,7 @@ class PostController extends Controller
         return collect($incomingTags)->map(function ($item) use ($tags) {
             $tag = $tags->firstWhere('slug', $item['slug']);
 
-            if (! $tag) {
+            if (!$tag) {
                 $tag = Tag::create([
                     'id' => $id = Uuid::uuid4()->toString(),
                     'name' => $item['name'],
@@ -193,7 +194,7 @@ class PostController extends Controller
                 ]);
             }
 
-            return (string) $tag->id;
+            return (string)$tag->id;
         })->toArray();
     }
 }

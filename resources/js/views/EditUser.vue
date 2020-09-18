@@ -210,9 +210,9 @@
                                     <a
                                         href="#"
                                         onclick="this.blur()"
-                                        :disabled="notReadyToSave"
+                                        :disabled="shouldDisableSaveButton"
                                         class="btn btn-success btn-block font-weight-bold mt-0"
-                                        :class="{ disabled: notReadyToSave }"
+                                        :class="{ disabled: shouldDisableSaveButton }"
                                         aria-label="Save"
                                         @click.prevent="saveUser"
                                     >
@@ -376,7 +376,7 @@ export default {
             return this.settings.user.id === this.user.id;
         },
 
-        notReadyToSave() {
+        shouldDisableSaveButton() {
             if (this.creatingUser) {
                 return isEmpty(this.user.name) || isEmpty(this.user.email) || isEmpty(this.user.password);
             } else {

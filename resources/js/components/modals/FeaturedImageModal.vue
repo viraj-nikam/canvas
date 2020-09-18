@@ -2,7 +2,7 @@
     <div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
         <div ref="modal" class="modal-dialog" role="document">
             <div class="modal-content">
-                <div v-if="!selectedImageUrl" class="modal-header d-flex align-items-center justify-content-between">
+                <div v-if="!post.featured_image" class="modal-header d-flex align-items-center justify-content-between">
                     <div v-if="settings.unsplash" class="input-group">
                         <div class="input-group-prepend border-0">
                             <div class="input-group-text pr-0 border-0">
@@ -69,7 +69,7 @@
                         @removefile="removedFromFilePond"
                     />
 
-                    <div v-if="settings.unsplash && !selectedImageUrl">
+                    <div v-if="settings.unsplash && !post.featured_image">
                         <div v-if="unsplashImages.length" class="card-columns mt-3">
                             <div
                                 :key="index"
@@ -101,7 +101,7 @@
 
                     <div v-if="!isSearchingUnsplash && !unsplashImages.length">
                         <div
-                            v-if="selectedImageUrl && !selectedImagesForPond.length && !isReadyToAcceptUploads"
+                            v-if="post.featured_image && !selectedImagesForPond.length && !isReadyToAcceptUploads"
                             class="selected-image"
                         >
                             <button
@@ -127,16 +127,16 @@
                                     />
                                 </svg>
                             </button>
-                            <img :src="selectedImageUrl" class="w-100 rounded mb-3" />
+                            <img :src="post.featured_image" class="w-100 rounded mb-3" />
                         </div>
 
-                        <div class="col-12" :hidden="!selectedImagesForPond.length && !selectedImageUrl">
+                        <div class="col-12" :hidden="!selectedImagesForPond.length && !post.featured_image">
                             <div class="form-group row">
                                 <label for="caption" class="font-weight-bold text-uppercase text-muted small"
                                     >Caption</label
                                 >
                                 <input
-                                    v-model="selectedImageCaption"
+                                    v-model="post.featured_image_caption"
                                     id="caption"
                                     ref="caption"
                                     type="text"
@@ -210,8 +210,6 @@ export default {
             unsplashImages: [],
             infiniteId: +new Date(),
             isSearchingUnsplash: false,
-            selectedImageUrl: null,
-            selectedImageCaption: '',
             selectedImagesForPond: [],
             galleryModalClasses: ['modal-xl', 'modal-dialog-scrollable'],
         };
@@ -248,7 +246,7 @@ export default {
     watch: {
         searchKeyword: debounce(function (val) {
             if (val === '') {
-                this.isReadyToAcceptUploads = !this.selectedImageUrl;
+                this.isReadyToAcceptUploads = !this.post.featured_image;
                 this.isSearchingUnsplash = false;
                 this.unsplashPage = 1;
                 this.unsplashImages = [];
@@ -266,9 +264,7 @@ export default {
     },
 
     mounted() {
-        this.selectedImageUrl = this.post.featuredImage;
-        this.selectedImageCaption = this.post.featuredImageCaption;
-        this.isReadyToAcceptUploads = isEmpty(this.post.featuredImage);
+        this.isReadyToAcceptUploads = isEmpty(this.post.featured_image);
     },
 
     methods: {
@@ -296,9 +292,10 @@ export default {
             // https://help.unsplash.com/en/articles/2511258-guideline-triggering-a-download
             unsplash.photos.downloadPhoto(image);
 
+            this.post.featured_image = image.urls.regular;
+            this.post.featured_image_caption = this.buildImageCaption(image);
+
             this.selectedUnsplashImage = image;
-            this.selectedImageUrl = image.urls.regular;
-            this.selectedImageCaption = this.buildImageCaption(image);
             this.unsplashImages = [];
             this.unsplashPage = 1;
             this.searchKeyword = '';
@@ -325,26 +322,20 @@ export default {
 
         processedFromFilePond() {
             this.isReadyToAcceptUploads = true;
-            this.selectedImageUrl = document.getElementsByName('featuredImagePond')[0].value;
+            this.post.featured_image = document.getElementsByName('featuredImagePond')[0].value;
         },
 
         removedFromFilePond() {
             this.isReadyToAcceptUploads = true;
             this.selectedImagesForPond = [];
-            this.selectedImageUrl = null;
         },
 
         clickDone() {
-            this.post.featuredImage = !isEmpty(this.selectedImageUrl) ? this.selectedImageUrl : '';
-            this.post.featuredImageCaption = !isEmpty(this.selectedImageCaption) ? this.selectedImageCaption : '';
-
-            this.$parent.save();
+            this.$emit('updatePost');
         },
 
         clearAndResetComponent() {
             this.selectedImagesForPond = [];
-            this.selectedImageUrl = null;
-            this.selectedImageCaption = '';
             this.isReadyToAcceptUploads = true;
             this.isSearchingUnsplash = false;
             this.unsplashImages = [];

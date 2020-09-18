@@ -107,12 +107,23 @@
                 :topics="topics"
                 @syncSlug="updateSlug"
                 @addTag="addTag"
+                @addPostTag="addPostTag"
+                @addPostTopic="addPostTopic"
                 @addTopic="addTopic"
-                @updatePostTags="updatePostTags"
-                @updatePostTopic="updatePostTopic"
+                @updatePost="savePost"
             />
-            <featured-image-modal ref="featuredImageModal" :post="post" @updateFeaturedImage="updateFeaturedImage" />
-            <seo-modal ref="seoModal" :post="post" @updateSEO="updateSEO" />
+            <featured-image-modal
+                ref="featuredImageModal"
+                :post="post"
+                @updateFeaturedImage="updateFeaturedImage"
+            />
+            <seo-modal
+                ref="seoModal"
+                :post="post"
+                @syncTitle="updateMetaTitle"
+                @syncDescription="updateMetaDescription"
+                @updatePost="savePost"
+            />
             <delete-modal
                 ref="deleteModal"
                 :header="trans.delete"
@@ -265,24 +276,34 @@ export default {
         },
 
         addTag(tag) {
-            this.tags.push(...tag);
+            this.tags.push(tag);
         },
 
         addTopic(topic) {
-            this.topics.push(...topic);
+            this.topics.push([topic]);
         },
 
-        updatePostTags(tags) {
-            this.post.tags.push(...tags);
+        addPostTag(tag) {
+            this.post.tags.push(tag);
+            this.savePost();
         },
 
-        updatePostTopic(topic) {
+        addPostTopic(topic) {
             this.post.topic = [topic];
+            this.savePost();
         },
 
-        updateFeaturedImage() {},
+        updateFeaturedImage() {
+            // TODO: Finish this
+        },
 
-        updateSEO() {},
+        updateMetaTitle(title) {
+            this.post.meta.title = title;
+        },
+
+        updateMetaDescription(description) {
+            this.post.meta.description = description;
+        },
 
         updatePost: debounce(function () {
             this.savePost();

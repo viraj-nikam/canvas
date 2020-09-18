@@ -101,7 +101,7 @@
                                 {{ trans.canonical_link }}
                             </label>
                             <input
-                                v-model="post.meta.canonicalLink"
+                                v-model="post.meta.canonical_link"
                                 id="canonicalLink"
                                 type="text"
                                 class="form-control border-0"
@@ -131,6 +131,7 @@
 import { mapGetters } from 'vuex';
 import Tooltip from '../../directives/Tooltip';
 import debounce from 'lodash/debounce';
+import strings from "../../mixins/strings";
 
 export default {
     name: 'seo-modal',
@@ -154,17 +155,17 @@ export default {
 
     methods: {
         syncTitle() {
-            this.title = this.post.title;
+            this.$emit('syncTitle', this.post.title);
             this.update();
         },
 
         syncDescription() {
-            this.description = this.post.summary;
+            this.$emit('syncDescription', this.post.summary);
             this.update();
         },
 
         update: debounce(function () {
-            this.$emit('update');
+            this.$emit('updatePost');
         }, 3000),
     },
 };
