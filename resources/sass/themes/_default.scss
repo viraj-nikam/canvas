@@ -9,6 +9,19 @@ body {
         color: $body--color;
     }
 
+    textarea::placeholder,
+    textarea::-webkit-input-placeholder {
+        color: $gray-600 !important;
+    }
+
+    .ql-editor {
+        color: $body--color;
+    }
+
+    div.ql-editor.ql-blank::before {
+        color: $gray-600;
+    }
+
     .card {
         border: 1px solid $gray-200 !important;
     }

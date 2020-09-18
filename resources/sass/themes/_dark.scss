@@ -78,12 +78,29 @@ body[data-theme='dark'] {
         }
     }
 
+    textarea {
+        color: $body--color--dark;
+    }
+
+    textarea::placeholder,
+    textarea::-webkit-input-placeholder {
+        color: $gray-600 !important;
+    }
+
     .ql-editor {
         color: $body--color--dark;
     }
 
     div.ql-editor.ql-blank::before {
         color: $gray-600;
+    }
+
+    .btn-circle {
+        border-color: $gray-700 !important;
+    }
+
+    .navbar-mini .btn {
+        border-color: $gray-700 !important;
     }
 
     select.input {

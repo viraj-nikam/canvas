@@ -1,12 +1,7 @@
 <template>
     <div v-cloak class="position-relative">
         <div v-closable="handleClicksOutsideEditor" ref="sidebarControls" class="sidebar-controls">
-            <button
-                ref="toggle"
-                class="btn btn-outline-light btn-circle border"
-                type="button"
-                @click="toggleSidebarControls"
-            >
+            <button ref="toggle" class="btn btn-circle border" type="button" @click="toggleSidebarControls">
                 <span v-if="controlIsActive">
                     <svg xmlns="http://www.w3.org/2000/svg" width="26" viewBox="0 0 24 24" class="icon-close">
                         <path
@@ -27,7 +22,7 @@
                 </span>
             </button>
             <div class="controls pl-3 d-none">
-                <button class="btn btn-outline-light btn-circle border mr-1" type="button" @click="showEmbedImageModal">
+                <button class="btn btn-circle border mr-1" type="button" @click="showEmbedImageModal">
                     <svg xmlns="http://www.w3.org/2000/svg" width="26" viewBox="0 0 24 24" class="icon-camera">
                         <path
                             class="fill-body-color"
@@ -36,11 +31,7 @@
                         <path class="fill-body-color" d="M12 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
                     </svg>
                 </button>
-                <button
-                    class="btn btn-outline-light btn-circle border mr-1"
-                    type="button"
-                    @click="showEmbedContentModal"
-                >
+                <button class="btn btn-circle border mr-1" type="button" @click="showEmbedContentModal">
                     <svg xmlns="http://www.w3.org/2000/svg" width="26" viewBox="0 0 24 24" class="icon-code">
                         <rect width="18" height="18" x="3" y="3" class="fill-bg" rx="2" />
                         <path
@@ -49,7 +40,7 @@
                         />
                     </svg>
                 </button>
-                <button class="btn btn-outline-light btn-circle border mr-2" type="button" @click="insertDivider">
+                <button class="btn btn-circle border mr-2" type="button" @click="insertDivider">
                     <svg xmlns="http://www.w3.org/2000/svg" width="26" viewBox="0 0 24 24" class="icon-dots-horizontal">
                         <path
                             class="fill-body-color"
@@ -66,7 +57,7 @@
         <nav class="navbar fixed-bottom navbar-expand-sm mt-5 d-xl-none p-0 navbar-mini shadow">
             <div class="btn-group d-flex justify-content-center">
                 <button
-                    class="btn btn-outline-light border border-bottom-0 border-left-0 py-2"
+                    class="btn border border-bottom-0 border-left-0 py-2"
                     type="button"
                     @click="showEmbedImageModal"
                 >
@@ -79,7 +70,7 @@
                     </svg>
                 </button>
                 <button
-                    class="btn btn-outline-light border border-bottom-0 border-left-0 py-2"
+                    class="btn border border-bottom-0 border-left-0 py-2"
                     type="button"
                     @click="showEmbedContentModal"
                 >
@@ -91,11 +82,7 @@
                         />
                     </svg>
                 </button>
-                <button
-                    class="btn btn-outline-light border border-bottom-0 border-right-0 py-2"
-                    type="button"
-                    @click="insertDivider"
-                >
+                <button class="btn border border-bottom-0 border-right-0 py-2" type="button" @click="insertDivider">
                     <svg xmlns="http://www.w3.org/2000/svg" width="26" viewBox="0 0 24 24" class="icon-dots-horizontal">
                         <path
                             class="fill-body-color"

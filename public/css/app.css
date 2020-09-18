@@ -67,6 +67,19 @@ body a:hover {
   color: #1a202c;
 }
 
+body textarea::placeholder,
+body textarea::-webkit-input-placeholder {
+  color: #718096 !important;
+}
+
+body .ql-editor {
+  color: #1a202c;
+}
+
+body div.ql-editor.ql-blank::before {
+  color: #718096;
+}
+
 body .card {
   border: 1px solid #edf2f7 !important;
 }
@@ -215,12 +228,29 @@ body[data-theme=dark] .dropdown-menu .dropdown-divider {
   border-top: 1px solid #4a5568;
 }
 
+body[data-theme=dark] textarea {
+  color: #b2bdc4;
+}
+
+body[data-theme=dark] textarea::placeholder,
+body[data-theme=dark] textarea::-webkit-input-placeholder {
+  color: #718096 !important;
+}
+
 body[data-theme=dark] .ql-editor {
   color: #b2bdc4;
 }
 
 body[data-theme=dark] div.ql-editor.ql-blank::before {
   color: #718096;
+}
+
+body[data-theme=dark] .btn-circle {
+  border-color: #4a5568 !important;
+}
+
+body[data-theme=dark] .navbar-mini .btn {
+  border-color: #4a5568 !important;
 }
 
 body[data-theme=dark] select.input {
