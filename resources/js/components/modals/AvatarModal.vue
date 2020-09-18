@@ -80,15 +80,15 @@ const FilePond = vueFilePond(
 export default {
     name: 'avatar-modal',
 
+    components: {
+        FilePond,
+    },
+
     props: {
         user: {
             type: Object,
             required: true,
         },
-    },
-
-    components: {
-        FilePond,
     },
 
     data() {

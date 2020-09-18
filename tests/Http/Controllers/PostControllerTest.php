@@ -253,8 +253,10 @@ class PostControllerTest extends TestCase
                 ],
             ],
             'topic' => [
-                'name' => 'A new topic',
-                'slug' => 'a-new-topic',
+                [
+                    'name' => 'A new topic',
+                    'slug' => 'a-new-topic',
+                ],
             ],
         ];
 

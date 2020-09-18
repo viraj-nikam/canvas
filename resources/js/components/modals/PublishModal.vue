@@ -114,18 +114,18 @@
                         </div>
                     </div>
 
-                    <p v-if="isScheduled(post.publishedAt)" class="mt-3 text-success font-italic">
+                    <p v-if="isScheduled(post.published_at)" class="mt-3 text-success font-italic">
                         {{ trans.your_post_will_publish_at }}
-                        {{ moment(post.publishedAt).format('h:mm A') }}
+                        {{ moment(post.published_at).format('h:mm A') }}
                         {{ trans.on }}
-                        {{ moment(post.publishedAt).format('MMMM DD, YYYY') }}.
+                        {{ moment(post.published_at).format('MMMM DD, YYYY') }}.
                     </p>
                 </div>
                 <div class="modal-footer">
                     <div class="row w-100">
                         <div class="col-lg order-lg-last px-0">
                             <a
-                                v-if="shouldPublish"
+                                v-if="shouldShowPublishButton"
                                 href="#"
                                 class="btn btn-success btn-block font-weight-bold mt-0"
                                 data-dismiss="modal"
@@ -146,7 +146,7 @@
 
                         <div class="col-lg order-lg-first px-0">
                             <button
-                                v-if="isScheduled(post.publishedAt)"
+                                v-if="isScheduled(post.published_at)"
                                 type="button"
                                 class="btn btn-link btn-block text-muted font-weight-bold text-decoration-none"
                                 data-dismiss="modal"
@@ -181,6 +181,13 @@ export default {
 
     mixins: [status],
 
+    props: {
+        post: {
+            type: Object,
+            required: true,
+        },
+    },
+
     data() {
         return {
             components: {
@@ -194,18 +201,15 @@ export default {
         };
     },
 
-    props: {
-        post: {
-            type: Object,
-            required: true,
-        },
-    },
-
     computed: {
         ...mapState(['settings']),
         ...mapGetters({
             trans: 'settings/trans',
         }),
+
+        shouldShowPublishButton() {
+            return moment(this.result).isBefore(moment(new Date()).format().slice(0, 19).replace('T', ' '));
+        },
     },
 
     watch: {
@@ -215,17 +219,7 @@ export default {
 
         components: {
             handler: function () {
-                this.result =
-                    this.components.year +
-                    '-' +
-                    this.components.month +
-                    '-' +
-                    this.components.day +
-                    ' ' +
-                    this.components.hour +
-                    ':' +
-                    this.components.minute +
-                    ':00';
+                this.result = `${this.components.year}-${this.components.month}-${this.components.day} ${this.components.hour}:${this.components.minute}:00`;
             },
 
             deep: true,
@@ -233,14 +227,10 @@ export default {
     },
 
     mounted() {
-        this.generateDatePicker(this.post.publishedAt || moment(new Date()).format().slice(0, 19).replace('T', ' '));
+        this.generateDatePicker(this.post.published_at || moment(new Date()).format().slice(0, 19).replace('T', ' '));
     },
 
     methods: {
-        shouldPublish() {
-            return moment(this.result).isBefore(moment(new Date()).format().slice(0, 19).replace('T', ' '));
-        },
-
         generateDatePicker(val) {
             let date = moment(val + ' Z').utc();
 
@@ -254,13 +244,11 @@ export default {
         },
 
         scheduleOrPublish() {
-            this.post.publishedAt = this.result;
-            this.$emit('update');
+            this.$emit('publish', this.result);
         },
 
         cancelScheduling() {
-            this.post.publishedAt = '';
-            this.$emit('update');
+            this.$emit('publish', null);
         },
     },
 };

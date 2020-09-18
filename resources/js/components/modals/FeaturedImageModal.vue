@@ -194,6 +194,13 @@ export default {
         FilePond,
     },
 
+    props: {
+        post: {
+            type: Object,
+            required: true,
+        },
+    },
+
     data() {
         return {
             isReadyToAcceptUploads: true,
@@ -208,13 +215,6 @@ export default {
             selectedImagesForPond: [],
             galleryModalClasses: ['modal-xl', 'modal-dialog-scrollable'],
         };
-    },
-
-    props: {
-        post: {
-            type: Object,
-            required: true,
-        },
     },
 
     computed: {

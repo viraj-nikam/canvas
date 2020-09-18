@@ -79,9 +79,9 @@ class PostController extends Controller
         $data = $request->validated();
 
         if ($request->user('canvas')->isAdmin) {
-            $post = Post::find($id);
+            $post = Post::with('tags', 'topic')->find($id);
         } else {
-            $post = Post::where('user_id', $request->user('canvas')->id)->find($id);
+            $post = Post::with('tags', 'topic')->where('user_id', $request->user('canvas')->id)->find($id);
         }
 
         if (! $post) {
@@ -94,9 +94,9 @@ class PostController extends Controller
 
         $post->save();
 
-        $post->topic()->sync($this->syncTopic($request->input('topic', [])));
+        $post->topic()->sync($this->syncedTopic($request->input('topic', [])));
 
-        $post->tags()->sync($this->syncTags($request->input('tags', [])));
+        $post->tags()->sync($this->syncedTags($request->input('tags', [])));
 
         return response()->json($post->refresh(), 201);
     }
@@ -140,37 +140,40 @@ class PostController extends Controller
     /**
      * Sync the topic assigned to the post.
      *
-     * @param $incomingTopic
+     * @param array $incomingTopic
      * @return array
-     * @throws Exception
      */
-    private function syncTopic($incomingTopic): array
+    private function syncedTopic(array $incomingTopic): array
     {
         if (collect($incomingTopic)->isEmpty()) {
             return [];
         }
 
-        $topic = Topic::firstWhere('slug', $incomingTopic['slug']);
+        $topics = Topic::get(['id', 'name', 'slug']);
 
-        if (! $topic) {
-            $topic = Topic::create([
-                'id' => $id = Uuid::uuid4()->toString(),
-                'name' => $incomingTopic['name'],
-                'slug' => $incomingTopic['slug'],
-                'user_id' => request()->user('canvas')->id,
-            ]);
-        }
+        return collect($incomingTopic)->map(function ($item) use ($topics) {
+            $topic = $topics->firstWhere('slug', $item['slug']);
 
-        return collect((string) $topic->id)->toArray();
+            if (! $topic) {
+                $topic = Topic::create([
+                    'id' => $id = Uuid::uuid4()->toString(),
+                    'name' => $item['name'],
+                    'slug' => $item['slug'],
+                    'user_id' => request()->user('canvas')->id,
+                ]);
+            }
+
+            return (string) $topic->id;
+        })->toArray();
     }
 
     /**
      * Sync the tags assigned to the post.
      *
-     * @param $incomingTags
+     * @param array $incomingTags
      * @return array
      */
-    private function syncTags($incomingTags): array
+    private function syncedTags(array $incomingTags): array
     {
         if (collect($incomingTags)->isEmpty()) {
             return [];
@@ -178,14 +181,14 @@ class PostController extends Controller
 
         $tags = Tag::get(['id', 'name', 'slug']);
 
-        return collect($incomingTags)->map(function ($incomingTag) use ($tags) {
-            $tag = $tags->firstWhere('slug', $incomingTag['slug']);
+        return collect($incomingTags)->map(function ($item) use ($tags) {
+            $tag = $tags->firstWhere('slug', $item['slug']);
 
             if (! $tag) {
                 $tag = Tag::create([
                     'id' => $id = Uuid::uuid4()->toString(),
-                    'name' => $incomingTag['name'],
-                    'slug' => $incomingTag['slug'],
+                    'name' => $item['name'],
+                    'slug' => $item['slug'],
                     'user_id' => request()->user('canvas')->id,
                 ]);
             }

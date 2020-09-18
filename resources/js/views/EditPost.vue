@@ -88,26 +88,31 @@
                         style="font-size: 42px"
                         class="w-100 form-control-lg border-0 font-serif bg-transparent px-0"
                         rows="1"
+                        @input.native="updatePost"
                     />
                 </div>
 
                 <div class="form-group my-2">
-                    <quill-editor :post="post" :key="post.id" @updatePost="savePost" />
+                    <quill-editor :key="post.id" :post="post" @updatePost="savePost" />
                 </div>
             </div>
         </main>
 
         <section v-if="isReady">
-            <publish-modal :post="post" ref="publishModal" @publish="publishPost" />
+            <publish-modal ref="publishModal" :post="post" @publish="updatePublishedAt" />
             <settings-modal
+                ref="settingsModal"
                 :post="post"
                 :tags="tags"
                 :topics="topics"
-                ref="settingsModal"
-                @updateSettings="updateSettings"
+                @syncSlug="updateSlug"
+                @addTag="addTag"
+                @addTopic="addTopic"
+                @updatePostTags="updatePostTags"
+                @updatePostTopic="updatePostTopic"
             />
-            <featured-image-modal :post="post" ref="featuredImageModal" @updateFeaturedImage="updateFeaturedImage" />
-            <seo-modal :post="post" ref="seoModal" @updateSEO="updateSEO" />
+            <featured-image-modal ref="featuredImageModal" :post="post" @updateFeaturedImage="updateFeaturedImage" />
+            <seo-modal ref="seoModal" :post="post" @updateSEO="updateSEO" />
             <delete-modal
                 ref="deleteModal"
                 :header="trans.delete"
@@ -131,9 +136,10 @@ import SeoModal from '../components/modals/SeoModal';
 import SettingsModal from '../components/modals/SettingsModal';
 import Vue from 'vue';
 import VueTextAreaAutosize from 'vue-textarea-autosize';
-import status from '../mixins/status';
+import debounce from 'lodash/debounce';
 import get from 'lodash/get';
 import isEmpty from 'lodash/isEmpty';
+import status from '../mixins/status';
 
 Vue.use(VueTextAreaAutosize);
 
@@ -249,16 +255,38 @@ export default {
             this.savePost();
         },
 
-        publishPost(date) {
+        updatePublishedAt(date) {
             this.post.published_at = date;
             this.savePost();
         },
 
+        updateSlug(slug) {
+            this.post.slug = slug;
+        },
+
+        addTag(tag) {
+            this.tags.push(...tag);
+        },
+
+        addTopic(topic) {
+            this.topics.push(...topic);
+        },
+
+        updatePostTags(tags) {
+            this.post.tags.push(...tags);
+        },
+
+        updatePostTopic(topic) {
+            this.post.topic = [topic];
+        },
+
         updateFeaturedImage() {},
 
-        updateSettings() {},
-
         updateSEO() {},
+
+        updatePost: debounce(function () {
+            this.savePost();
+        }, 3000),
 
         async savePost() {
             this.errors = [];
@@ -291,7 +319,7 @@ export default {
 
         async deletePost() {
             await this.request()
-                .delete(`/api/posts/${this.id}`)
+                .delete(`/api/posts/${this.post.id}`)
                 .then(() => {
                     this.$store.dispatch('search/buildIndex', true);
                     this.$toasted.show(this.trans.success, {

@@ -51,9 +51,9 @@
                         </p>
                     </div>
                     <select
-                        v-if="!creatingUser"
                         v-model="user.role"
                         id="role"
+                        v-if="!creatingUser"
                         :disabled="authProfile"
                         class="ml-auto w-auto custom-select border-0 bg-light"
                         name="role"
@@ -75,10 +75,10 @@
                         <div class="row">
                             <div class="col-12 col-md-3 px-0 text-center">
                                 <img
-                                    @click="showAvatarModal"
                                     :src="user.avatar || user.default_avatar"
                                     :alt="user.name"
                                     class="avatar align-self-center mb-4 mb-md-0 rounded-circle"
+                                    @click="showAvatarModal"
                                 />
                             </div>
                             <div class="col-12 col-md-9 align-self-center px-0 text-center text-md-left">
@@ -326,17 +326,17 @@
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css';
 import 'filepond/dist/filepond.min.css';
 import { mapGetters, mapState } from 'vuex';
-import NProgress from 'nprogress';
-import DeleteModal from '../components/modals/DeleteModal';
-import PageHeader from '../components/PageHeader';
-import Hover from '../directives/Hover';
-import AvatarModal from '../components/modals/AvatarModal';
-import url from '../mixins/url';
-import status from '../mixins/status';
 import $ from 'jquery';
+import AvatarModal from '../components/modals/AvatarModal';
+import DeleteModal from '../components/modals/DeleteModal';
+import Hover from '../directives/Hover';
 import InfiniteLoading from 'vue-infinite-loading';
+import NProgress from 'nprogress';
+import PageHeader from '../components/PageHeader';
 import isEmpty from 'lodash/isEmpty';
+import status from '../mixins/status';
 import strings from '../mixins/strings';
+import url from '../mixins/url';
 
 export default {
     name: 'edit-user',
@@ -380,7 +380,7 @@ export default {
             if (this.creatingUser) {
                 return isEmpty(this.user.name) || isEmpty(this.user.email) || isEmpty(this.user.password);
             } else {
-                isEmpty(this.user.name) || isEmpty(this.user.email);
+                return isEmpty(this.user.name) || isEmpty(this.user.email);
             }
         },
 

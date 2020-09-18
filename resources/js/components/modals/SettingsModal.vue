@@ -129,8 +129,8 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import Tooltip from '../../directives/Tooltip';
 import Multiselect from 'vue-multiselect';
+import Tooltip from '../../directives/Tooltip';
 import debounce from 'lodash/debounce';
 import strings from '../../mixins/strings';
 
@@ -147,12 +147,6 @@ export default {
 
     mixins: [strings],
 
-    computed: {
-        ...mapGetters({
-            trans: 'settings/trans',
-        }),
-    },
-
     props: {
         post: {
             type: Object,
@@ -161,27 +155,35 @@ export default {
 
         tags: {
             type: Array,
-            default: [],
+            default: () => [],
         },
 
         topics: {
             type: Array,
-            default: [],
+            default: () => [],
         },
+    },
+
+    computed: {
+        ...mapGetters({
+            trans: 'settings/trans',
+        }),
     },
 
     methods: {
         syncSlug() {
-            let newSlug = strings.methods.slugify(this.post.title);
-            this.$store.dispatch('post/updatePost', {
-                id: this.post.id,
-                slug: strings.methods.slugify(this.post.title),
-            });
-            this.slug = newSlug;
+            this.$emit('syncSlug', strings.methods.slugify(this.post.title));
+            this.update();
         },
 
         onTagChange(tags) {
-            this.$store.dispatch('post/setTags', tags);
+            this.$emit('updatePostTags', tags);
+            this.update();
+        },
+
+        onTopicChange(topic) {
+            this.$emit('updatePostTopic', topic);
+            this.update();
         },
 
         addTag(searchQuery) {
@@ -190,13 +192,10 @@ export default {
                 slug: strings.methods.slugify(searchQuery),
                 user_id: this.settings.user.id,
             };
-            this.tags.push(tag);
-            this.post.tags.push(tag);
-            this.$store.dispatch('post/setTags', this.value);
-        },
 
-        onTopicChange(topic) {
-            this.$store.dispatch('post/setTopic', topic);
+            this.$emit('updatePostTags', tag);
+            this.$emit('addTag', tag);
+            this.update();
         },
 
         addTopic(searchQuery) {
@@ -206,15 +205,9 @@ export default {
                 user_id: this.settings.user.id,
             };
 
-            this.topics.push(topic);
-
-            this.value = {
-                name: topic.name,
-                slug: topic.slug,
-                user_id: this.settings.user.id,
-            };
-
-            this.$store.dispatch('post/setTopic', this.value);
+            this.$emit('updatePostTopic', topic);
+            this.$emit('addTopic', topic);
+            this.update();
         },
 
         update: debounce(function () {

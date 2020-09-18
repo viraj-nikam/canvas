@@ -217,7 +217,7 @@ export default {
             this.editor.on('text-change', () => {
                 this.controlIsActive = false;
                 this.post.body = this.editor.getText() ? this.editor.root.innerHTML : '';
-                this.update();
+                // this.update();
             });
         },
 
@@ -490,7 +490,7 @@ div.embedded_image[data-layout='wide'] {
     border-radius: 0;
 }
 div.ql-editor.ql-blank::before {
-    //margin-top: 26.4px !important;
+    margin-top: 26.4px !important;
 }
 div.embedded_image[data-layout='wide'] {
     width: 100vw;
