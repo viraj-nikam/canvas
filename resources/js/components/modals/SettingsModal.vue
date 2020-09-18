@@ -12,7 +12,7 @@
                             width="24"
                             class="icon-close-circle"
                         >
-                            <circle cx="12" cy="12" r="10" class="fill-light-gray"/>
+                            <circle cx="12" cy="12" r="10" class="fill-light-gray" />
                             <path
                                 class="fill-bg"
                                 d="M13.41 12l2.83 2.83a1 1 0 0 1-1.41 1.41L12 13.41l-2.83 2.83a1 1 0 1 1-1.41-1.41L10.59 12 7.76 9.17a1 1 0 0 1 1.41-1.41L12 10.59l2.83-2.83a1 1 0 0 1 1.41 1.41L13.41 12z"
@@ -24,44 +24,46 @@
                     <div class="form-group row">
                         <div class="col-12">
                             <label for="slug" class="font-weight-bold text-uppercase text-muted small">{{
-                                    trans.slug
-                                                                                                       }}</label> <a
-                            v-tooltip="{ placement: 'right' }"
-                            v-if="post.title"
-                            href="#"
-                            class="text-decoration-none"
-                            :title="trans.sync_with_post_title"
-                            @click.prevent="syncSlug()"
-                        >
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 24 24"
-                                class="icon-refresh"
-                                width="25"
+                                trans.slug
+                            }}</label>
+                            <a
+                                v-tooltip="{ placement: 'right' }"
+                                v-if="post.title"
+                                href="#"
+                                class="text-decoration-none"
+                                :title="trans.sync_with_post_title"
+                                @click.prevent="syncSlug()"
                             >
-                                <circle cx="12" cy="12" r="10" style="fill: none"/>
-                                <path
-                                    class="fill-light-gray"
-                                    d="M8.52 7.11a5.98 5.98 0 0 1 8.98 2.5 1 1 0 1 1-1.83.8 4 4 0 0 0-5.7-1.86l.74.74A1 1 0 0 1 10 11H7a1 1 0 0 1-1-1V7a1 1 0 0 1 1.7-.7l.82.81zm5.51 8.34l-.74-.74A1 1 0 0 1 14 13h3a1 1 0 0 1 1 1v3a1 1 0 0 1-1.7.7l-.82-.81A5.98 5.98 0 0 1 6.5 14.4a1 1 0 1 1 1.83-.8 4 4 0 0 0 5.7 1.85z"
-                                />
-                            </svg>
-                        </a> <input
-                            v-model="post.slug"
-                            id="slug"
-                            type="text"
-                            class="form-control border-0"
-                            name="slug"
-                            :title="trans.slug"
-                            :placeholder="trans.a_unique_slug"
-                            @input="update"
-                        />
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 24 24"
+                                    class="icon-refresh"
+                                    width="25"
+                                >
+                                    <circle cx="12" cy="12" r="10" style="fill: none" />
+                                    <path
+                                        class="fill-light-gray"
+                                        d="M8.52 7.11a5.98 5.98 0 0 1 8.98 2.5 1 1 0 1 1-1.83.8 4 4 0 0 0-5.7-1.86l.74.74A1 1 0 0 1 10 11H7a1 1 0 0 1-1-1V7a1 1 0 0 1 1.7-.7l.82.81zm5.51 8.34l-.74-.74A1 1 0 0 1 14 13h3a1 1 0 0 1 1 1v3a1 1 0 0 1-1.7.7l-.82-.81A5.98 5.98 0 0 1 6.5 14.4a1 1 0 1 1 1.83-.8 4 4 0 0 0 5.7 1.85z"
+                                    />
+                                </svg>
+                            </a>
+                            <input
+                                v-model="post.slug"
+                                id="slug"
+                                type="text"
+                                class="form-control border-0"
+                                name="slug"
+                                :title="trans.slug"
+                                :placeholder="trans.a_unique_slug"
+                                @input="update"
+                            />
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-12">
                             <label for="settings" class="font-weight-bold text-uppercase text-muted small">{{
-                                    trans.summary
-                                                                                                           }}</label>
+                                trans.summary
+                            }}</label>
                             <textarea
                                 v-model="post.summary"
                                 id="settings"
@@ -143,7 +145,7 @@ export default {
         Tooltip,
     },
 
-    mixins: [ strings ],
+    mixins: [strings],
 
     props: {
         post: {
@@ -163,7 +165,7 @@ export default {
     },
 
     computed: {
-        ...mapState([ 'settings' ]),
+        ...mapState(['settings']),
         ...mapGetters({
             trans: 'settings/trans',
         }),

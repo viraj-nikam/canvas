@@ -131,7 +131,7 @@
 import { mapGetters } from 'vuex';
 import Tooltip from '../../directives/Tooltip';
 import debounce from 'lodash/debounce';
-import strings from "../../mixins/strings";
+import strings from '../../mixins/strings';
 
 export default {
     name: 'seo-modal',

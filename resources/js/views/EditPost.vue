@@ -112,11 +112,7 @@
                 @addTopic="addTopic"
                 @updatePost="savePost"
             />
-            <featured-image-modal
-                ref="featuredImageModal"
-                :post="post"
-                @updateFeaturedImage="updateFeaturedImage"
-            />
+            <featured-image-modal ref="featuredImageModal" :post="post" @updateFeaturedImage="updateFeaturedImage" />
             <seo-modal
                 ref="seoModal"
                 :post="post"
