@@ -6,8 +6,8 @@
                     <li class="text-muted font-weight-bold">
                         <div class="border-left pl-3">
                             <div v-if="!isSaving && !isSaved">
-                                <span v-if="post.published_at && isPublished(post.published_at)">{{ trans.published }}</span>
-                                <span v-if="post.published_at && isDraft(post.published_at)">{{ trans.draft }}</span>
+                                <span v-if="isPublished(post.published_at)">{{ trans.published }}</span>
+                                <span v-if="isDraft(post.published_at)">{{ trans.draft }}</span>
                             </div>
                             <span v-if="isSaving">{{ trans.saving }}</span>
                             <span v-if="isSaved" class="text-success">{{ trans.saved }}</span>
@@ -269,6 +269,8 @@ export default {
             await this.request()
                 .post(`/api/posts/${this.post.id}`, this.post)
                 .then(({ data }) => {
+                    this.isSaving = false;
+                    this.isSaved = true;
                     this.post = data;
                     this.$store.dispatch('search/buildIndex', true);
                 })

@@ -383,7 +383,7 @@ export default {
     flex-direction: column;
 }
 .ql-editor p {
-    margin: 1.5em 0 0 0;
+    margin: 1.5em 0 0 0 !important;
 }
 .ql-editor a {
     text-decoration: underline;
