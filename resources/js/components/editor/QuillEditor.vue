@@ -52,7 +52,7 @@
             </div>
         </div>
 
-        <div ref="editor" class="mb-5" />
+        <div ref="editor" v-cloak class="mb-5" />
 
         <nav class="navbar fixed-bottom navbar-expand-sm mt-5 d-xl-none p-0 navbar-mini shadow">
             <div class="btn-group d-flex justify-content-center">
@@ -148,17 +148,17 @@ export default {
         }),
     },
 
-    // watch: {
-    //     'post.body'() {
-    //         this.update();
-    //     },
-    // },
+    async mounted() {
+        await Promise.all([this.createEditor(), this.handleEditorValue()]);
 
-    mounted() {
-        this.createEditor();
-        this.handleEditorValue();
         this.handleClicksInsideEditor();
         this.initSideControls();
+
+        this.editor.on('text-change', () => {
+            this.controlIsActive = false;
+            this.post.body = this.editor.getText() ? this.editor.root.innerHTML : '';
+            this.update();
+        });
     },
 
     methods: {
@@ -194,17 +194,11 @@ export default {
 
             input.dataset.link = this.trans.paste_or_type_a_link;
 
-            this.editor = quill;
+            return (this.editor = quill);
         },
 
         handleEditorValue() {
-            this.editor.root.innerHTML = this.post.body;
-
-            this.editor.on('text-change', () => {
-                this.controlIsActive = false;
-                this.post.body = this.editor.getText() ? this.editor.root.innerHTML : '';
-                this.update();
-            });
+            return (this.editor.root.innerHTML = this.post.body);
         },
 
         handleClicksInsideEditor() {
@@ -342,16 +336,13 @@ export default {
 @import '../../../sass/utilities/variables';
 @import '~quill/dist/quill.bubble.css';
 
-//* {
-//    border: 1px solid red !important;
-//}
-
 .ql-container {
     font-size: 1.1rem;
     line-height: 2;
     word-wrap: normal;
     font-family: $font-family-serif;
 }
+
 .ql-editor {
     font-family: $font-family-serif;
     font-size: 1.1rem !important;
@@ -368,17 +359,21 @@ export default {
     -ms-flex-direction: column;
     flex-direction: column;
 }
+
 .ql-editor p {
     margin: 1.5em 0 0 0 !important;
 }
+
 .ql-editor a {
     text-decoration: underline;
 }
+
 .ql-editor h1,
 h2,
 h3 {
     margin: 1.5em 0 0 0 !important;
 }
+
 .ql-editor blockquote {
     margin: 2em 0 1em 0 !important;
     font-style: italic;
@@ -388,14 +383,17 @@ h3 {
     padding-left: 1.5em !important;
     line-height: 1.5;
 }
+
 div.embedded_image {
     margin-top: 2em;
 }
+
 div.embedded_image > img {
     width: 100%;
     height: auto;
     display: block;
 }
+
 div.embedded_image > p {
     text-align: center;
     color: $gray-500;
@@ -403,44 +401,53 @@ div.embedded_image > p {
     font-size: 0.9rem;
     font-family: $font-family-sans-serif, sans-serif;
 }
+
 div.ql-embed-content {
     // This is here because we have no way to control the dimensions
     // of the content being embedded, so hide any overlap to avoid
     // breaking either the editor or the screen.
     overflow: hidden;
 }
+
 div.embedded_image:hover img,
 div.ql-embed-content:hover {
     cursor: pointer !important;
     box-shadow: 0 0 0 3px $green;
 }
+
 div.embedded_image[data-layout='wide'] img {
     max-width: 1024px;
     margin: 0 auto 30px;
 }
+
 div.embedded_image[data-layout='wide'] {
     width: 100vw;
     position: relative;
     left: 50%;
     margin-left: -50vw;
 }
+
 .ql-container hr {
     border: none;
     margin: 2em 0 3em 0;
     letter-spacing: 1em;
     text-align: center;
 }
+
 .ql-container hr:before {
     content: '...';
 }
+
 .ql-editor pre.ql-syntax {
-    border-radius: $border-radius;
-    padding: 1em;
-    margin-top: 2em;
+    border-radius: $border-radius !important;
+    padding: 1em !important;
+    margin-top: 2em !important;
 }
+
 .ql-editor.ql-blank::before {
     left: 0 !important;
 }
+
 .btn-circle {
     width: 40px;
     height: 40px;
@@ -449,6 +456,7 @@ div.embedded_image[data-layout='wide'] {
     text-align: center;
     line-height: 1.42857;
 }
+
 .sidebar-controls {
     margin-top: -8px;
     top: 0;
@@ -457,38 +465,47 @@ div.embedded_image[data-layout='wide'] {
     z-index: 10;
     left: -60px;
 }
+
 .sidebar-controls button:hover {
     background-color: transparent;
 }
+
 .sidebar-controls button:focus {
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none;
     outline: none;
 }
+
 .sidebar-controls.active .controls {
     display: inline-block !important;
 }
+
 .navbar div.btn-group {
     flex: auto;
 }
+
 .navbar div.btn-group button {
     border-radius: 0;
 }
+
 div.ql-editor.ql-blank::before {
     margin-top: 26.4px !important;
 }
+
 div.embedded_image[data-layout='wide'] {
     width: 100vw;
     position: relative;
     left: 50%;
     margin-left: -50vw;
 }
+
 @media screen and (max-width: 1024px) {
     .embedded_image[data-layout='wide'] img {
         max-width: 100%;
     }
 }
+
 @media (max-width: 1200px) {
     .sidebar-controls {
         display: none !important;

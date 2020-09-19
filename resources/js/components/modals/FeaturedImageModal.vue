@@ -127,7 +127,11 @@
                                     />
                                 </svg>
                             </button>
-                            <img :src="post.featured_image" class="w-100 rounded mb-3"  :alt="post.featured_image_caption"/>
+                            <img
+                                :src="post.featured_image"
+                                class="w-100 rounded mb-3"
+                                :alt="post.featured_image_caption"
+                            />
                         </div>
 
                         <div class="col-12" :hidden="!selectedImagesForPond.length && !post.featured_image">

@@ -328,6 +328,8 @@ export default {
                     this.isSaving = false;
                     this.isSaved = true;
                     this.post = data;
+
+                    // TODO: Check if searchable data is changing
                     this.$store.dispatch('search/buildIndex', true);
                 })
                 .catch((error) => {
