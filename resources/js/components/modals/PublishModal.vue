@@ -1,6 +1,6 @@
 <template>
     <div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div ref="modal" class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header d-flex align-items-center justify-content-between">
                     <h5 class="modal-title">{{ trans.publishing }}</h5>
@@ -245,6 +245,10 @@ export default {
 
         scheduleOrPublish() {
             this.$emit('publish', this.result);
+
+            if (this.isPublished(this.post.published_at)) {
+                this.$refs.modal.hide;
+            }
         },
 
         cancelScheduling() {
