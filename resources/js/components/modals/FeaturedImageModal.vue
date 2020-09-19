@@ -35,7 +35,7 @@
                         class="close"
                         data-dismiss="modal"
                         aria-label="Close"
-                        @click.prevent="closeModal"
+                        @click.prevent="clearModalAndClose"
                     >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -109,7 +109,7 @@
                                 class="close"
                                 data-dismiss="modal"
                                 aria-label="Close"
-                                @click.prevent="clearAndResetComponent"
+                                @click.prevent="removeFeaturedImage"
                             >
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -127,7 +127,7 @@
                                     />
                                 </svg>
                             </button>
-                            <img :src="post.featured_image" class="w-100 rounded mb-3" />
+                            <img :src="post.featured_image" class="w-100 rounded mb-3"  :alt="post.featured_image_caption"/>
                         </div>
 
                         <div class="col-12" :hidden="!selectedImagesForPond.length && !post.featured_image">
@@ -151,7 +151,7 @@
                     <button
                         class="btn btn-link btn-block text-muted font-weight-bold text-decoration-none"
                         data-dismiss="modal"
-                        @click="clickDone"
+                        @click="update"
                     >
                         {{ trans.done }}
                     </button>
@@ -330,11 +330,13 @@ export default {
             this.selectedImagesForPond = [];
         },
 
-        clickDone() {
-            this.$emit('updatePost');
+        removeFeaturedImage() {
+            this.$emit('removeFeaturedImage');
+            this.isReadyToAcceptUploads = true;
+            this.update();
         },
 
-        clearAndResetComponent() {
+        clearModalAndClose() {
             this.selectedImagesForPond = [];
             this.isReadyToAcceptUploads = true;
             this.isSearchingUnsplash = false;
@@ -342,12 +344,12 @@ export default {
             this.unsplashPage = 1;
             this.searchKeyword = '';
             this.$refs.modal.classList.remove(...this.galleryModalClasses);
-        },
-
-        closeModal() {
-            this.clearAndResetComponent();
             this.$refs.modal.hide;
         },
+
+        update: debounce(function () {
+            this.$emit('updatePost');
+        }, 3000),
     },
 };
 </script>

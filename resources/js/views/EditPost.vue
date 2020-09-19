@@ -112,7 +112,13 @@
                 @addTopic="addTopic"
                 @updatePost="savePost"
             />
-            <featured-image-modal ref="featuredImageModal" :post="post" @updateFeaturedImage="updateFeaturedImage" />
+            <featured-image-modal
+                ref="featuredImageModal"
+                :post="post"
+                @updateFeaturedImage="updateFeaturedImage"
+                @removeFeaturedImage="removeFeaturedImage"
+                @updatePost="savePost"
+            />
             <seo-modal
                 ref="seoModal"
                 :post="post"
@@ -230,7 +236,7 @@ export default {
 
     methods: {
         fetchPost() {
-            this.request()
+            return this.request()
                 .get(`/api/posts/${this.uri}`)
                 .then(({ data }) => {
                     this.post.id = data.post.id;
@@ -249,12 +255,12 @@ export default {
 
                     this.tags = get(data, 'tags', []);
                     this.topics = get(data, 'topics', []);
+
+                    NProgress.inc();
                 })
                 .catch(() => {
                     this.$router.push({ name: 'posts' });
                 });
-
-            NProgress.inc();
         },
 
         convertToDraft() {
@@ -289,8 +295,13 @@ export default {
             this.savePost();
         },
 
-        updateFeaturedImage() {
-            // TODO: Finish this
+        updateFeaturedImage(path) {
+            this.post.featured_image = path;
+        },
+
+        removeFeaturedImage() {
+            this.post.featured_image = null;
+            this.post.featured_image_caption = null;
         },
 
         updateMetaTitle(title) {

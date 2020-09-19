@@ -304,16 +304,15 @@ export default {
 
     methods: {
         fetchTopic() {
-            this.request()
+            return this.request()
                 .get(`/api/topics/${this.uri}`)
                 .then(({ data }) => {
                     this.topic = data;
+                    NProgress.inc();
                 })
                 .catch(() => {
                     this.$router.push({ name: 'topics' });
                 });
-
-            NProgress.inc();
         },
 
         fetchPosts($state) {

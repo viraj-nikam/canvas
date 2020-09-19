@@ -139,7 +139,6 @@ export default {
         return {
             editor: null,
             controlIsActive: false,
-            isReady: false,
         };
     },
 
@@ -204,7 +203,7 @@ export default {
             this.editor.on('text-change', () => {
                 this.controlIsActive = false;
                 this.post.body = this.editor.getText() ? this.editor.root.innerHTML : '';
-                // this.update();
+                this.update();
             });
         },
 

@@ -402,6 +402,7 @@ export default {
                 .get(`/api/stats/${this.id}`)
                 .then(({ data }) => {
                     this.data = data;
+                    NProgress.inc();
                 })
                 .catch(() => {
                     this.$router.push({ name: 'stats' });

@@ -304,16 +304,15 @@ export default {
 
     methods: {
         fetchTag() {
-            this.request()
+            return this.request()
                 .get(`/api/tags/${this.uri}`)
                 .then(({ data }) => {
                     this.tag = data;
+                    NProgress.inc();
                 })
                 .catch(() => {
                     this.$router.push({ name: 'tags' });
                 });
-
-            NProgress.inc();
         },
 
         fetchPosts($state) {

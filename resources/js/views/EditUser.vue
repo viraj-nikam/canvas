@@ -478,20 +478,19 @@ export default {
 
     methods: {
         fetchUser() {
-            this.request()
+            return this.request()
                 .get(`/api/users/${this.uri}`)
                 .then(({ data }) => {
                     this.user = data;
+                    NProgress.inc();
                 })
                 .catch(() => {
                     this.$router.push({ name: 'users' });
                 });
-
-            NProgress.inc();
         },
 
-        async fetchPosts($state) {
-            await this.request()
+        fetchPosts($state) {
+            return this.request()
                 .get(`/api/users/${this.uri}/posts`, {
                     params: {
                         page: this.page,
