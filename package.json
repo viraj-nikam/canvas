@@ -50,7 +50,6 @@
         "vue-template-compiler": "^2.6.11",
         "vue-textarea-autosize": "^1.1.1",
         "vue-toasted": "^1.1.28",
-        "vuex": "^3.5.1",
-        "webpack-bundle-analyzer": "^3.8.0"
+        "vuex": "^3.5.1"
     }
 }

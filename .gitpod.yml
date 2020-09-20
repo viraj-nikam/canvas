@@ -13,7 +13,7 @@ vscode:
 github:
   prebuilds:
     # Enable for the master/default branch (defaults to true)
-    master: false
+    master: true
     # Enable for all branches in this repo (defaults to false)
     branches: true
     # Enable for pull requests coming from this repo (defaults to true)
