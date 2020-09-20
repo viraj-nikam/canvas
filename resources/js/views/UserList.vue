@@ -189,11 +189,11 @@ export default {
         getRoleName(id) {
             switch (id) {
                 case 1:
-                    return 'Contributor';
+                    return this.trans.contributor;
                 case 2:
-                    return 'Editor';
+                    return this.trans.editor;
                 case 3:
-                    return 'Admin';
+                    return this.trans.admin;
                 default:
                     return '';
             }
