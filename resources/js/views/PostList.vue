@@ -215,7 +215,7 @@ export default {
                         params: {
                             page: this.page,
                             type: this.type,
-                            scope: this.isContributor ? 'user' : 'all'
+                            scope: this.isContributor ? 'user' : 'all',
                         },
                     })
                     .then(({ data }) => {
