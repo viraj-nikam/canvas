@@ -196,6 +196,7 @@ export default {
 
     computed: {
         ...mapGetters({
+            isContributor: 'settings/isContributor',
             trans: 'settings/trans',
         }),
     },
@@ -214,13 +215,14 @@ export default {
                         params: {
                             page: this.page,
                             type: this.type,
+                            scope: this.isContributor ? 'user' : 'all'
                         },
                     })
                     .then(({ data }) => {
-                        if (!isEmpty(data) && !isEmpty(data.posts.data)) {
-                            this.publishedCount = data.publishedCount;
-                            this.draftCount = data.draftCount;
+                        this.publishedCount = data.publishedCount;
+                        this.draftCount = data.draftCount;
 
+                        if (!isEmpty(data) && !isEmpty(data.posts.data)) {
                             this.page += 1;
                             this.posts.push(...data.posts.data);
 

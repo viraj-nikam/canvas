@@ -24,9 +24,10 @@ class PostController extends Controller
     {
         $type = $request->query('type', 'published');
         $scope = $request->query('scope', 'user');
+        $hasPermission = $request->user('canvas')->isAdmin || $request->user('canvas')->isEditor;
 
-        $posts = Post::when($scope, function ($query, $scope) use ($request) {
-            if ($scope === 'all') {
+        $posts = Post::when($scope, function ($query, $scope) use ($request, $hasPermission) {
+            if ($scope === 'all' && $hasPermission) {
                 return $query;
             }
 
@@ -39,10 +40,18 @@ class PostController extends Controller
             return $query->published();
         })->latest()->withCount('views')->paginate();
 
+        if ($scope === 'all' && $hasPermission) {
+            $draftCount = Post::draft()->count();
+            $publishedCount = Post::published()->count();
+        } else {
+            $draftCount = Post::where('user_id', $request->user('canvas')->id)->draft()->count();
+            $publishedCount = Post::where('user_id', $request->user('canvas')->id)->published()->count();
+        }
+
         return response()->json([
             'posts' => $posts,
-            'draftCount' => Post::where('user_id', $request->user('canvas')->id)->draft()->count(),
-            'publishedCount' => Post::where('user_id', $request->user('canvas')->id)->published()->count(),
+            'draftCount' => $draftCount,
+            'publishedCount' => $publishedCount,
         ], 200);
     }
 
@@ -110,9 +119,17 @@ class PostController extends Controller
      */
     public function show(Request $request, $id): JsonResponse
     {
-        if (Post::where('user_id', $request->user('canvas')->id)->pluck('id')->contains($id)) {
+        $hasPermission = $request->user('canvas')->isAdmin || $request->user('canvas')->isEditor;
+
+        if ($hasPermission) {
+            $post = Post::with('tags:name,slug', 'topic:name,slug')->find($id);
+        } else {
+            $post = Post::where('user_id', $request->user('canvas')->id)->with('tags:name,slug', 'topic:name,slug')->find($id);
+        }
+
+        if ($post) {
             return response()->json([
-                'post' => Post::where('user_id', $request->user('canvas')->id)->with('tags:name,slug', 'topic:name,slug')->find($id),
+                'post' => $post,
                 'tags' => Tag::get(['name', 'slug']),
                 'topics' => Topic::get(['name', 'slug']),
             ]);

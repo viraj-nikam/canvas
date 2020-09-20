@@ -103,7 +103,9 @@ class PostControllerTest extends TestCase
     /** @test */
     public function it_can_fetch_all_posts_with_a_given_query_param()
     {
-        $user = factory(User::class)->create();
+        $user = factory(User::class)->create([
+            'role' => User::ADMIN
+        ]);
 
         $post = factory(Post::class)->create([
             'user_id' => $user->id,
@@ -175,10 +177,14 @@ class PostControllerTest extends TestCase
     }
 
     /** @test */
-    public function it_returns_404_if_post_belongs_to_another_user()
+    public function it_returns_404_if_contributor_tries_to_access_a_post_that_belongs_to_another_user()
     {
-        $userOne = factory(User::class)->create();
-        $userTwo = factory(User::class)->create();
+        $userOne = factory(User::class)->create([
+            'role' => User::ADMIN
+        ]);
+        $userTwo = factory(User::class)->create([
+            'role' => User::CONTRIBUTOR
+        ]);
 
         $post = factory(Post::class)->create([
             'user_id' => $userOne->id,
