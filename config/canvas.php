@@ -4,7 +4,20 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Base Route
+    | Base Domain
+    |--------------------------------------------------------------------------
+    |
+    | This is the subdomain where Canvas will be accessible from. If the
+    | setting is null, Canvas will reside under the same domain as the
+    | application. Otherwise, this will be used as the subdomain.
+    |
+    */
+
+    'domain' => env('CANVAS_DOMAIN', null),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Base Path
     |--------------------------------------------------------------------------
     |
     | This is the URI path where Canvas will be accessible from. You are free
@@ -13,20 +26,7 @@ return [
     |
     */
 
-    'path' => env('CANVAS_PATH_NAME', 'canvas'),
-
-    /*
-    |--------------------------------------------------------------------------
-    | User Model
-    |--------------------------------------------------------------------------
-    |
-    | Next, you may define a specific user model that your application will
-    | use for authentication. This will define the relationships between
-    | a user and their posts, tags, and topics that they author.
-    |
-    */
-
-    'user' => Illuminate\Foundation\Auth\User::class,
+    'path' => env('CANVAS_PATH', 'canvas'),
 
     /*
     |--------------------------------------------------------------------------
@@ -41,7 +41,6 @@ return [
 
     'middleware' => [
         'web',
-        'auth',
     ],
 
     /*

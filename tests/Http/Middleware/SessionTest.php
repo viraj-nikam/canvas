@@ -1,12 +1,18 @@
 <?php
 
-namespace Canvas\Tests\Middleware;
+namespace Canvas\Tests\Http\Middleware;
 
 use Canvas\Http\Middleware\Session;
-use Canvas\Post;
+use Canvas\Models\Post;
 use Canvas\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Collection;
 
+/**
+ * Class SessionTest.
+ *
+ * @covers \Canvas\Http\Middleware\Session
+ */
 class SessionTest extends TestCase
 {
     use RefreshDatabase;
@@ -29,47 +35,76 @@ class SessionTest extends TestCase
     }
 
     /** @test */
-    public function prunes_expired_views_in_session()
+    public function it_can_get_viewed_posts_in_session()
     {
-        $post_1 = factory(Post::class)->create();
-        $key_1 = 'viewed_posts.'.$post_1->id;
+        $post = factory(Post::class)->create();
 
-        session()->put($key_1, now()->timestamp);
+        session()->put('viewed_posts.'.$post->id, now()->timestamp);
 
-        $post_2 = factory(Post::class)->create();
-        $key_2 = 'viewed_posts.'.$post_2->id;
+        $response = $this->invokeMethod($this->instance, 'getViewedPostsInSession');
 
-        session()->put($key_2, now()->subHours(2)->timestamp);
+        $this->assertInstanceOf(Collection::class, $response);
 
-        $this->invokeMethod($this->instance, 'pruneExpiredViews', [collect(session()->get('viewed_posts'))]);
-
-        $this->assertArrayHasKey($post_1->id, session()->get('viewed_posts'));
-        $this->assertArrayNotHasKey($post_2->id, session()->get('viewed_posts'));
+        $this->assertArrayHasKey($post->id, session()->get('viewed_posts'));
     }
 
     /** @test */
-    public function prunes_expired_visits_in_session()
+    public function it_can_get_visited_posts_in_session()
+    {
+        $post = factory(Post::class)->create();
+
+        session()->put('viewed_posts.'.$post->id, now()->timestamp);
+
+        $response = $this->invokeMethod($this->instance, 'getVisitedPostsInSession');
+
+        $this->assertInstanceOf(Collection::class, $response);
+
+        $this->assertArrayHasKey($post->id, session()->get('viewed_posts'));
+    }
+
+    /** @test */
+    public function it_can_prune_expired_views()
+    {
+        $recentPost = factory(Post::class)->create();
+
+        session()->put('viewed_posts.'.$recentPost->id, now()->timestamp);
+
+        $oldPost = factory(Post::class)->create();
+
+        session()->put('viewed_posts.'.$oldPost->id, now()->subHour()->subMinute()->timestamp);
+
+        $this->invokeMethod($this->instance, 'pruneExpiredViews', [
+            collect(session()->get('viewed_posts')),
+        ]);
+
+        $this->assertArrayHasKey($recentPost->id, session()->get('viewed_posts'));
+        $this->assertArrayNotHasKey($oldPost->id, session()->get('viewed_posts'));
+    }
+
+    /** @test */
+    public function it_can_prune_expired_visits()
     {
         $ip = '127.0.0.1';
-        $post_1 = factory(Post::class)->create();
-        $key_1 = 'visited_posts.'.$post_1->id;
 
-        session()->put($key_1, [
+        $recentPost = factory(Post::class)->create();
+
+        session()->put('visited_posts.'.$recentPost->id, [
             'timestamp' => now()->timestamp,
             'ip' => $ip,
         ]);
 
-        $post_2 = factory(Post::class)->create();
-        $key_2 = 'visited_posts.'.$post_2->id;
+        $oldPost = factory(Post::class)->create();
 
-        session()->put($key_2, [
+        session()->put('visited_posts.'.$oldPost->id, [
             'timestamp' => now()->subDay()->timestamp,
             'ip' => $ip,
         ]);
 
-        $this->invokeMethod($this->instance, 'pruneExpiredVisits', [collect(session()->get('visited_posts'))]);
+        $this->invokeMethod($this->instance, 'pruneExpiredVisits', [
+            collect(session()->get('visited_posts')),
+        ]);
 
-        $this->assertArrayHasKey($post_1->id, session()->get('visited_posts'));
-        $this->assertArrayNotHasKey($post_2->id, session()->get('visited_posts'));
+        $this->assertArrayHasKey($recentPost->id, session()->get('visited_posts'));
+        $this->assertArrayNotHasKey($oldPost->id, session()->get('visited_posts'));
     }
 }

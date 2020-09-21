@@ -2,13 +2,14 @@
 
 namespace Canvas\Http\Controllers;
 
-use Canvas\Post;
-use Canvas\Tag;
-use Canvas\Topic;
+use Canvas\Http\Requests\StorePostRequest;
+use Canvas\Models\Post;
+use Canvas\Models\Tag;
+use Canvas\Models\Topic;
 use Exception;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Illuminate\Validation\Rule;
 use Ramsey\Uuid\Uuid;
 
 class PostController extends Controller
@@ -16,180 +17,172 @@ class PostController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return JsonResponse
      */
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
     {
-        switch (request()->query('type')) {
-            case 'draft':
-                return response()->json([
-                    'posts' => Post::forCurrentUser()->draft()->latest()->withCount('views')->paginate(),
-                    'draftCount' => Post::forCurrentUser()->draft()->count(),
-                    'publishedCount' => Post::forCurrentUser()->published()->count(),
-                ], 200);
-                break;
+        $type = $request->query('type', 'published');
+        $scope = $request->query('scope', 'user');
+        $hasPermission = $request->user('canvas')->isAdmin || $request->user('canvas')->isEditor;
 
-            case 'published':
-                return response()->json([
-                    'posts' => Post::forCurrentUser()->published()->latest()->withCount('views')->paginate(),
-                    'draftCount' => Post::forCurrentUser()->draft()->count(),
-                    'publishedCount' => Post::forCurrentUser()->published()->count(),
-                ], 200);
-                break;
+        $posts = Post::when($scope, function ($query, $scope) use ($request, $hasPermission) {
+            if ($scope === 'all' && $hasPermission) {
+                return $query;
+            }
 
-            default:
-                return response()->json(null, 404);
-                break;
+            return $query->where('user_id', $request->user('canvas')->id);
+        })->when($type, function ($query, $type) {
+            if ($type === 'draft') {
+                return $query->draft();
+            }
+
+            return $query->published();
+        })->latest()->withCount('views')->paginate();
+
+        if ($scope === 'all' && $hasPermission) {
+            $draftCount = Post::draft()->count();
+            $publishedCount = Post::published()->count();
+        } else {
+            $draftCount = Post::where('user_id', $request->user('canvas')->id)->draft()->count();
+            $publishedCount = Post::where('user_id', $request->user('canvas')->id)->published()->count();
         }
+
+        return response()->json([
+            'posts' => $posts,
+            'draftCount' => $draftCount,
+            'publishedCount' => $publishedCount,
+        ], 200);
     }
 
     /**
-     * Display the specified resource.
+     * Show the form for creating a new resource.
      *
-     * @param $id
+     * @param Request $request
      * @return JsonResponse
-     * @throws Exception
      */
-    public function show($id): JsonResponse
+    public function create(Request $request): JsonResponse
     {
-        if ($this->isNewPost($id)) {
-            $uuid = Uuid::uuid4();
+        $uuid = Uuid::uuid4();
 
-            return response()->json([
-                'post' => Post::make([
-                    'id' => $uuid->toString(),
-                    'slug' => "post-{$uuid->toString()}",
-                ]),
-                'tags' => Tag::forCurrentUser()->get(['name', 'slug']),
-                'topics' => Topic::forCurrentUser()->get(['name', 'slug']),
-            ]);
-        } else {
-            if (Post::forCurrentUser()->pluck('id')->contains($id)) {
-                return response()->json([
-                    'post' => Post::forCurrentUser()->with('tags:name,slug', 'topic:name,slug')->find($id),
-                    'tags' => Tag::forCurrentUser()->get(['name', 'slug']),
-                    'topics' => Topic::forCurrentUser()->get(['name', 'slug']),
-                ]);
-            } else {
-                return response()->json(null, 404);
-            }
-        }
+        return response()->json([
+            'post' => Post::make([
+                'id' => $uuid->toString(),
+                'slug' => "post-{$uuid->toString()}",
+            ]),
+            'tags' => Tag::get(['name', 'slug']),
+            'topics' => Topic::get(['name', 'slug']),
+        ]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param string $id
+     * @param StorePostRequest $request
+     * @param $id
      * @return JsonResponse
      * @throws Exception
      */
-    public function store(string $id): JsonResponse
+    public function store(StorePostRequest $request, $id): JsonResponse
     {
-        $data = [
-            'id' => request('id'),
-            'slug' => request('slug'),
-            'title' => request('title', 'Title'),
-            'summary' => request('summary', null),
-            'body' => request('body', null),
-            'published_at' => request('published_at', null),
-            'featured_image' => request('featured_image', null),
-            'featured_image_caption' => request('featured_image_caption', null),
-            'user_id' => request()->user()->id,
-            'meta' => [
-                'description' => request('meta.description', null),
-                'title' => request('meta.title', null),
-                'canonical_link' => request('meta.canonical_link', null),
-            ],
-        ];
+        $data = $request->validated();
 
-        $messages = [
-            'required' => __('canvas::app.validation_required'),
-            'unique' => __('canvas::app.validation_unique'),
-        ];
+        if ($request->user('canvas')->isAdmin) {
+            $post = Post::with('tags', 'topic')->find($id);
+        } else {
+            $post = Post::with('tags', 'topic')->where('user_id', $request->user('canvas')->id)->find($id);
+        }
 
-        validator($data, [
-            'user_id' => 'required',
-            'slug' => [
-                'required',
-                'alpha_dash',
-                Rule::unique('canvas_posts')->where(function ($query) use ($data) {
-                    return $query->where('slug', $data['slug'])->where('user_id', $data['user_id']);
-                })->ignore($this->isNewPost($id) ? null : $id),
-            ],
-        ], $messages)->validate();
-
-        $post = $this->isNewPost($id) ? new Post(['id' => request('id')]) : Post::forCurrentUser()->find($id);
+        if (! $post) {
+            $post = new Post(['id' => $id]);
+        }
 
         $post->fill($data);
-        $post->meta = $data['meta'];
+
+        $post->user_id = $request->user('canvas')->id;
+
         $post->save();
 
-        $post->topic()->sync(
-            $this->syncTopic(request('topic'))
-        );
+        $post->topic()->sync($this->syncedTopic($request->input('topic') ?? []));
 
-        $post->tags()->sync(
-            $this->syncTags(request('tags'))
-        );
+        $post->tags()->sync($this->syncedTags($request->input('tags') ?? []));
 
         return response()->json($post->refresh(), 201);
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Display the specified resource.
      *
-     * @param string $id
-     * @return mixed
+     * @param Request $request
+     * @param $id
+     * @return JsonResponse
      */
-    public function destroy(string $id)
+    public function show(Request $request, $id): JsonResponse
     {
-        $post = Post::find($id);
+        $hasPermission = $request->user('canvas')->isAdmin || $request->user('canvas')->isEditor;
+
+        if ($hasPermission) {
+            $post = Post::with('tags:name,slug', 'topic:name,slug')->find($id);
+        } else {
+            $post = Post::where('user_id', $request->user('canvas')->id)->with('tags:name,slug', 'topic:name,slug')->find($id);
+        }
 
         if ($post) {
-            $post->delete();
-
-            return response()->json(null, 204);
+            return response()->json([
+                'post' => $post,
+                'tags' => Tag::get(['name', 'slug']),
+                'topics' => Topic::get(['name', 'slug']),
+            ]);
         } else {
             return response()->json(null, 404);
         }
     }
 
     /**
-     * Return true if the given ID is for a new post.
+     * Remove the specified resource from storage.
      *
-     * @param string $id
-     * @return bool
+     * @param Request $request
+     * @param $id
+     * @return mixed
      */
-    private function isNewPost(string $id): bool
+    public function destroy(Request $request, $id)
     {
-        return $id === 'create';
+        $post = Post::where('user_id', $request->user('canvas')->id)->findOrFail($id);
+
+        $post->delete();
+
+        return response()->json(null, 204);
     }
 
     /**
      * Sync the topic assigned to the post.
      *
-     * @param $incomingTopic
+     * @param array $incomingTopic
      * @return array
-     * @throws Exception
      */
-    private function syncTopic($incomingTopic): array
+    private function syncedTopic(array $incomingTopic): array
     {
-        if ($incomingTopic) {
-            $topic = Topic::forCurrentUser()->where('slug', $incomingTopic['slug'])->first();
-
-            if (! $topic) {
-                $topic = Topic::create([
-                    'id' => $id = Uuid::uuid4()->toString(),
-                    'name' => $incomingTopic['name'],
-                    'slug' => $incomingTopic['slug'],
-                    'user_id' => request()->user()->id,
-                ]);
-            }
-
-            return collect((string) $topic->id)->toArray();
-        } else {
+        if (collect($incomingTopic)->isEmpty()) {
             return [];
         }
+
+        // Since the multiselect component handles single selects differently, when we try and
+        // attach an existing topic it will enter as an object in an array. A newly created
+        // topic will come in strictly as an array with only a name and a slug.
+        $topicToAssign = empty($incomingTopic[0]) ? $incomingTopic : $incomingTopic[0];
+
+        $topic = Topic::firstWhere('slug', $topicToAssign['slug']);
+
+        if (! $topic) {
+            $topic = Topic::create([
+                'id' => $id = Uuid::uuid4()->toString(),
+                'name' => $topicToAssign['name'],
+                'slug' => $topicToAssign['slug'],
+                'user_id' => request()->user('canvas')->id,
+            ]);
+        }
+
+        return [(string) $topic->id];
     }
 
     /**
@@ -198,27 +191,27 @@ class PostController extends Controller
      * @param array $incomingTags
      * @return array
      */
-    private function syncTags(array $incomingTags): array
+    private function syncedTags(array $incomingTags): array
     {
-        if ($incomingTags) {
-            $tags = Tag::forCurrentUser()->get(['id', 'name', 'slug']);
-
-            return collect($incomingTags)->map(function ($incomingTag) use ($tags) {
-                $tag = $tags->where('slug', $incomingTag['slug'])->first();
-
-                if (! $tag) {
-                    $tag = Tag::create([
-                        'id' => $id = Uuid::uuid4()->toString(),
-                        'name' => $incomingTag['name'],
-                        'slug' => $incomingTag['slug'],
-                        'user_id' => request()->user()->id,
-                    ]);
-                }
-
-                return (string) $tag->id;
-            })->toArray();
-        } else {
+        if (collect($incomingTags)->isEmpty()) {
             return [];
         }
+
+        $tags = Tag::get(['id', 'name', 'slug']);
+
+        return collect($incomingTags)->map(function ($item) use ($tags) {
+            $tag = $tags->firstWhere('slug', $item['slug']);
+
+            if (! $tag) {
+                $tag = Tag::create([
+                    'id' => $id = Uuid::uuid4()->toString(),
+                    'name' => $item['name'],
+                    'slug' => $item['slug'],
+                    'user_id' => request()->user('canvas')->id,
+                ]);
+            }
+
+            return (string) $tag->id;
+        })->toArray();
     }
 }

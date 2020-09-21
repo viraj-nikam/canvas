@@ -1,6 +1,7 @@
 # Contributing Guide
 
-Hi! I'm really excited that you are interested in contributing to Canvas. The following guide will help you get your environment set up to begin making changes.
+Hi! I'm really excited that you are interested in contributing to Canvas. The following guide will help you get
+ your environment set up to begin making changes.
 
 ## Table of Contents
 
@@ -8,7 +9,6 @@ Hi! I'm really excited that you are interested in contributing to Canvas. The fo
 - [Development Setup](#development-setup)
 	- [Git](#git)
 	- [Database](#database)
-	- [Authentication](#authentication)
 	- [Directories](#directories)
 	- [Installation](#installation)
 	- [Developing](#developing)
@@ -23,6 +23,12 @@ composer-link() {composer config repositories.local '{"type": "path", "url": "'$
 ```
 
 ## Development Setup
+
+You can open a completely prebuilt, ready-to-code development environment using Gitpod.
+
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/austintoddj/canvas/tree/develop)
+
+Alternatively, see instructions below to manually setting up an environment on your own machine.
 
 ### Git
 
@@ -52,19 +58,6 @@ Now update your `.env` file to reflect the new database:
 DB_CONNECTION=sqlite
 ```
 
-### Authentication
-
-> Note: It's assumed we're developing on Laravel 6.* since that's the current LTS
-
-From your Laravel app, create the authentication system and run the following commands:
-
-```bash
-composer require laravel/ui
-
-php artisan ui vue --auth
-php artisan migrate
-```
-
 ### Directories
 
 From your Laravel app, link the local version of Canvas using the `composer-link()` function:
@@ -79,68 +72,100 @@ composer require austintoddj/canvas @dev
 Now that the projects are linked, run the following installation steps:
 
 ```bash
+# Install the Canvas package
 php artisan canvas:install
+
+# Link the storage directory
 php artisan storage:link
-php artisan canvas:ui
 ```
 
-Statistics are a core component to the app, so it's best to have a large dataset in place when developing. To generate some, add the following snippets to your Laravel app:
-
-Create a new class named `CanvasTrackingDataSeeder` and add this to the `run()` method:
+Statistics are a core component to the app, so it's best to have a large dataset in place when developing. To
+ generate some, add the following factories to your Laravel app:
 
 ```php
-\Illuminate\Support\Facades\DB::table('canvas_views')->truncate();
-\Illuminate\Support\Facades\DB::table('canvas_visits')->truncate();
+<?php
 
-factory(\Canvas\View::class, 2500)->create();
-factory(\Canvas\Visit::class, 2500)->create();
+namespace Database\Factories;
+
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+class CanvasVisitFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = \Canvas\Models\Visit::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'post_id'    => \Canvas\Models\Post::all()->pluck('id')->random(),
+            'ip'         => $this->faker->ipv4,
+            'agent'      => $this->faker->userAgent,
+            'referer'    => $this->faker->url,
+            'created_at' => today()->subDays(rand(0, 60))->toDateTimeString(),
+            'updated_at' => today()->subDays(rand(0, 60))->toDateTimeString(),
+        ];
+    }
+}
+```
+
+```php
+<?php
+
+namespace Database\Factories;
+
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+class CanvasViewFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = \Canvas\Models\View::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'post_id'    => \Canvas\Models\Post::all()->pluck('id')->random(),
+            'ip'         => $this->faker->ipv4,
+            'agent'      => $this->faker->userAgent,
+            'referer'    => $this->faker->url,
+            'created_at' => today()->subDays(rand(0, 60))->toDateTimeString(),
+            'updated_at' => today()->subDays(rand(0, 60))->toDateTimeString(),
+        ];
+    }
+}
+
 ```
 
 In the `run()` method of the `DatabaseSeeder`:
 
 ```php
-$this->call(CanvasTrackingDataSeeder::class);
-```
-
-Create a new factory named `ViewFactory` and add this definition:
-
-```php
-$factory->define(\Canvas\View::class, function (\Faker\Generator $faker) {
-    $timestamp = today()->subDays(rand(0, 60))->toDateTimeString();
-
-    return [
-        'post_id'    => \Canvas\Post::all()->pluck('id')->random(),
-        'ip' => $faker->ipv4,
-        'agent' => $faker->userAgent,
-        'referer' => $faker->url,
-        'created_at' => $timestamp,
-        'updated_at' => $timestamp,
-    ];
-});
-```
-
-Create a new factory named `VisitFactory` and add this definition:
-
-```php
-$factory->define(\Canvas\Visit::class, function (\Faker\Generator $faker) {
-    $timestamp = today()->subDays(rand(0, 60))->toDateTimeString();
-
-    return [
-        'post_id' => \Canvas\Post::all()->pluck('id')->random(),
-        'ip' => $faker->ipv4,
-        'agent' => $faker->userAgent,
-        'referer' => $faker->url,
-        'created_at' => $timestamp,
-        'updated_at' => $timestamp,
-    ];
-});
+\Database\Factories\CanvasViewFactory::new()->count(850)->create();
+\Database\Factories\CanvasVisitFactory::new()->count(500)->create();
 ```
 
 You can now run `php artisan db:seed` and you will have a substantial amount of views for each post.
 
 ### Developing
 
-Instead of making and compiling frontend changes in the package, then having to re-publish the assets in the Laravel app again and again, we can utilize a symlink: 
+Instead of making and compiling frontend changes in the package, then having to re-publish the assets in the
+ Laravel app again and again, we can utilize a symlink: 
 
 ```bash
 # remove the existing assets from the Laravel app

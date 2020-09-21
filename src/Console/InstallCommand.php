@@ -2,8 +2,11 @@
 
 namespace Canvas\Console;
 
+use Canvas\Models\User;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Ramsey\Uuid\Uuid;
 
 class InstallCommand extends Command
 {
@@ -19,7 +22,7 @@ class InstallCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Install the resources and run migrations';
+    protected $description = 'Install all of the Canvas resources';
 
     /**
      * Execute the console command.
@@ -31,11 +34,34 @@ class InstallCommand extends Command
         $this->callSilent('vendor:publish', ['--tag' => 'canvas-provider']);
         $this->callSilent('vendor:publish', ['--tag' => 'canvas-assets']);
         $this->callSilent('vendor:publish', ['--tag' => 'canvas-config']);
-        $this->callSilent('migrate');
+        $this->callSilent('canvas:migrate');
 
-        $this->registerCanvasServiceProvider();
+        if (! app()->runningUnitTests()) {
+            $this->registerCanvasServiceProvider();
+        }
+
+        $this->createDefaultUser($email = 'email@example.com', $password = 'password');
 
         $this->info('Installation complete.');
+        $this->table(['Default Email', 'Default Password'], [[$email, $password]]);
+        $this->info('First things first, head to <comment>'.route('canvas.login').'</comment> and update your credentials.');
+    }
+
+    /**
+     * Create a default user.
+     *
+     * @param string $email
+     * @param string $password
+     */
+    private function createDefaultUser(string $email, string $password)
+    {
+        User::create([
+            'id' => Uuid::uuid4()->toString(),
+            'name' => 'Example User',
+            'email' => $email,
+            'password' => Hash::make($password),
+            'role' => User::ADMIN,
+        ]);
     }
 
     /**

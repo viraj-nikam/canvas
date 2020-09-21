@@ -11,17 +11,23 @@
          stopOnError="false"
          stopOnFailure="false"
          verbose="true"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd"
 >
+    <coverage processUncoveredFiles="true">
+        <include>
+            <directory suffix=".php">./src</directory>
+        </include>
+        <exclude>
+            <directory suffix=".php">./src/database</directory>
+            <file>./src/Http/routes.php</file>
+        </exclude>
+    </coverage>
     <testsuites>
-        <testsuite name="Canvas Unit Tests">
+        <testsuite name="Canvas Tests">
             <directory suffix="Test.php">./tests</directory>
         </testsuite>
     </testsuites>
-    <filter>
-        <whitelist processUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">./src</directory>
-        </whitelist>
-    </filter>
     <php>
         <env name="APP_ENV" value="testing"/>
         <env name="APP_KEY" value="base64:cnx7anOUDil+KtEGdGiHBnY764aA05eU80oECtOqfYs="/>

@@ -1,5 +1,6 @@
 /node_modules
 /vendor
+/coverage
 /.idea
 /.vscode
 composer.lock
@@ -7,6 +8,6 @@ npm-debug.log
 yarn-error.log
 Thumbs.db
 .DS_Store
-.phpunit.xml
+phpunit.xml
 .phpunit.result.cache
 *.code-workspace

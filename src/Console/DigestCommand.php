@@ -3,25 +3,14 @@
 namespace Canvas\Console;
 
 use Canvas\Mail\WeeklyDigest;
-use Canvas\Post;
-use Canvas\Tracker;
-use Canvas\UserMeta;
-use Exception;
+use Canvas\Models\Post;
+use Canvas\Models\User;
 use Illuminate\Console\Command;
-use Illuminate\Foundation\Auth\User;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Mail;
 
 class DigestCommand extends Command
 {
-    use Tracker;
-
-    /**
-     * Number of days to see stats for.
-     *
-     * @const int
-     */
-    private const DAYS = 7;
-
     /**
      * The name and signature of the console command.
      *
@@ -43,31 +32,44 @@ class DigestCommand extends Command
      */
     public function handle()
     {
+        $startDate = today()->subDays(7)->startOfDay();
+        $endDate = today()->endOfDay();
+
         $recipients = User::whereIn('id', Post::published()->pluck('user_id')->unique())->get();
 
         foreach ($recipients as $user) {
-            if ($this->userHasEnabledMail($user)) {
-                $postIDs = Post::where('user_id', $user->id)->published()->pluck('id');
-
-                $data = collect($this->getTrackedData($postIDs->toArray(), self::DAYS));
-
-                try {
-                    Mail::to($user->email)->send(new WeeklyDigest($data->toArray()));
-                } catch (Exception $exception) {
-                    logger()->error($exception->getMessage());
-                }
+            if ($user->digest != true) {
+                continue;
             }
-        }
-    }
 
-    /**
-     * Return true if the user enabled mail.
-     *
-     * @param User $user
-     * @return bool
-     */
-    private function userHasEnabledMail(User $user): bool
-    {
-        return (bool) UserMeta::where('user_id', $user->id)->pluck('digest')->first();
+            $posts = Post::where('user_id', $user->id)
+                         ->published()
+                         ->withCount(['views' => function (Builder $query) use ($startDate, $endDate) {
+                             $query->whereBetween('created_at', [
+                                 $startDate,
+                                 $endDate,
+                             ]);
+                         }])
+                         ->withCount(['visits' => function (Builder $query) use ($startDate, $endDate) {
+                             $query->whereBetween('created_at', [
+                                 $startDate,
+                                 $endDate,
+                             ]);
+                         }])
+                         ->get();
+
+            $data = [
+                'posts' => $posts->toArray(),
+                'totals' => [
+                    'views' => $posts->sum('views_count'),
+                    'visits' => $posts->sum('visits_count'),
+                ],
+                'startDate' => $startDate->format('M j'),
+                'endDate' => $endDate->format('M j'),
+                'locale' => $user->locale,
+            ];
+
+            Mail::to($user->email)->send(new WeeklyDigest($data));
+        }
     }
 }

@@ -2,66 +2,93 @@
 
 namespace Canvas;
 
+use Canvas\Models\User;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Str;
 use RuntimeException;
 
 class Canvas
 {
     /**
-     * Build a global JavaScript object for the Vue app.
+     * Return the installed version.
      *
-     * @return array
+     * @return string
      */
-    public static function scriptVariables()
+    public static function installedVersion(): string
     {
-        $metaData = UserMeta::forCurrentUser()->first();
-        $emailHash = md5(trim(Str::lower(request()->user()->email)));
-
-        return [
-            'avatar' => optional($metaData)->avatar && ! empty(optional($metaData)->avatar) ? $metaData->avatar : "https://secure.gravatar.com/avatar/{$emailHash}?s=500",
-            'darkMode' => optional($metaData)->dark_mode,
-            'languageCodes' => self::getAvailableLanguageCodes(),
-            'locale' => optional($metaData)->locale ?? config('app.locale'),
-            'maxUpload' => config('canvas.upload_filesize'),
-            'path' => config('canvas.path'),
-            'timezone' => config('app.timezone'),
-            'translations' => collect(['app' => trans('canvas::app', [], optional($metaData)->locale)])->toJson(),
-            'unsplash' => config('canvas.unsplash.access_key'),
-            'user' => auth()->user()->only(['name', 'email']),
-        ];
-    }
-
-    /**
-     * Check that the public assets are published and up-to-date.
-     *
-     * @return bool
-     */
-    public static function assetsUpToDate(): bool
-    {
-        $path = public_path('vendor/canvas/mix-manifest.json');
-
-        if (! File::exists($path)) {
-            throw new RuntimeException(__('canvas::app.assets_are_not_up_to_date').__('canvas::app.to_update_run').' php artisan canvas:publish');
+        if (app()->runningUnitTests()) {
+            return '';
         }
 
-        return File::get($path) === File::get(__DIR__.'/../public/mix-manifest.json');
+        $dependencies = json_decode(file_get_contents(base_path('composer.lock')), true)['packages'];
+
+        return collect($dependencies)->firstWhere('name', 'austintoddj/canvas')['version'];
     }
 
     /**
-     * Return the available locales.
+     * Return a list of available language codes.
      *
      * @return array
      */
-    private static function getAvailableLanguageCodes()
+    public static function availableLanguageCodes(): array
     {
         $locales = preg_grep('/^([^.])/', scandir(dirname(__DIR__, 1).'/resources/lang'));
         $translations = collect();
 
         foreach ($locales as $locale) {
-            $translations->put($locale, Str::upper($locale));
+            $translations->push($locale);
         }
 
         return $translations->toArray();
+    }
+
+    /**
+     * Return an encoded string of app translations.
+     *
+     * @param $locale
+     * @return string
+     */
+    public static function availableTranslations($locale): string
+    {
+        return collect(trans('canvas::app', [], $locale))->toJson();
+    }
+
+    /**
+     * Return an array of available user roles.
+     *
+     * @return array
+     */
+    public static function availableRoles(): array
+    {
+        return [
+            User::CONTRIBUTOR => 'Contributor',
+            User::EDITOR => 'Editor',
+            User::ADMIN => 'Admin',
+        ];
+    }
+
+    /**
+     * Return true if the publishable assets are up to date.
+     *
+     * @return bool
+     */
+    public static function assetsUpToDate(): bool
+    {
+        if (app()->runningUnitTests()) {
+            return true;
+        }
+
+        $path = public_path('vendor/canvas/mix-manifest.json');
+
+        $message = sprintf('%s%s.  %s',
+            trans('canvas::app.assets_are_not_up_to_date'),
+            trans('canvas::app.to_update_run'),
+            'php artisan canvas:publish'
+        );
+
+        if (! File::exists($path)) {
+            throw new RuntimeException($message);
+        }
+
+        return File::get($path) === File::get(__DIR__.'/../public/mix-manifest.json');
     }
 }

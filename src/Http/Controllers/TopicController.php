@@ -2,128 +2,116 @@
 
 namespace Canvas\Http\Controllers;
 
-use Canvas\Topic;
-use Exception;
+use Canvas\Http\Requests\StoreTopicRequest;
+use Canvas\Models\Topic;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Illuminate\Validation\Rule;
 use Ramsey\Uuid\Uuid;
 
 class TopicController extends Controller
 {
     /**
-     * Get all the topics.
+     * Display a listing of the resource.
      *
+     * @param Request $request
      * @return JsonResponse
      */
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
     {
         return response()->json(
-            Topic::forCurrentUser()
-                 ->latest()
+            Topic::latest()
                  ->withCount('posts')
                  ->paginate(), 200
         );
     }
 
     /**
-     * Get a single topic or return a UUID to create one.
+     * Show the form for creating a new resource.
      *
-     * @param null $id
+     * @param Request $request
      * @return JsonResponse
-     * @throws Exception
      */
-    public function show($id = null): JsonResponse
+    public function create(Request $request): JsonResponse
     {
-        if (Topic::forCurrentUser()->pluck('id')->contains($id) || $this->isNewTopic($id)) {
-            if ($this->isNewTopic($id)) {
-                return response()->json(Topic::make([
-                    'id' => Uuid::uuid4(),
-                ]), 200);
-            } else {
-                $topic = Topic::find($id);
-
-                if ($topic) {
-                    return response()->json($topic, 200);
-                } else {
-                    return response()->json(null, 301);
-                }
-            }
-        }
+        return response()->json(Topic::make([
+            'id' => Uuid::uuid4()->toString(),
+        ]), 200);
     }
 
     /**
-     * Create or update a topic.
+     * Store a newly created resource in storage.
      *
-     * @param string $id
+     * @param StoreTopicRequest $request
+     * @param $id
      * @return JsonResponse
      */
-    public function store(string $id): JsonResponse
+    public function store(StoreTopicRequest $request, $id): JsonResponse
     {
-        $data = [
-            'id' => request('id'),
-            'name' => request('name'),
-            'slug' => request('slug'),
-            'user_id' => request()->user()->id,
-        ];
+        $data = $request->validated();
 
-        $messages = [
-            'required' => __('canvas::app.validation_required'),
-            'unique' => __('canvas::app.validation_unique'),
-        ];
+        $tag = Topic::find($id);
 
-        validator($data, [
-            'name' => 'required',
-            'slug' => [
-                'required',
-                'alpha_dash',
-                Rule::unique('canvas_topics')->where(function ($query) use ($data) {
-                    return $query->where('slug', $data['slug'])->where('user_id', $data['user_id']);
-                })->ignore($this->isNewTopic($id) ? null : $id)->whereNull('deleted_at'),
-            ],
-        ], $messages)->validate();
+        if (! $tag) {
+            if ($tag = Topic::onlyTrashed()->firstWhere('slug', $data['slug'])) {
+                $tag->restore();
 
-        if ($id !== 'create') {
-            $topic = Topic::find($id);
-        } else {
-            if ($topic = Topic::onlyTrashed()->where('slug', request('slug'))->first()) {
-                $topic->restore();
+                return response()->json($tag->refresh(), 201);
             } else {
-                $topic = new Topic(['id' => request('id')]);
+                $tag = new Topic(['id' => $id]);
             }
         }
 
-        $topic->fill($data);
-        $topic->save();
+        $tag->fill($data);
 
-        return response()->json($topic->refresh(), 201);
+        $tag->user_id = request()->user('canvas')->id;
+
+        $tag->save();
+
+        return response()->json($tag->refresh(), 201);
     }
 
     /**
-     * Delete a topic.
+     * Display the specified resource.
      *
-     * @param string $id
-     * @return mixed
+     * @param Request $request
+     * @param $id
+     * @return JsonResponse
      */
-    public function destroy(string $id)
+    public function show(Request $request, $id): JsonResponse
     {
         $topic = Topic::find($id);
 
-        if ($topic) {
-            $topic->delete();
-
-            return response()->json([], 204);
-        }
+        return $topic ? response()->json($topic, 200) : response()->json(null, 404);
     }
 
     /**
-     * Return true if we're creating a new topic.
+     * Display the specified relationship.
      *
-     * @param string $id
-     * @return bool
+     * @param Request $request
+     * @param $id
+     * @return JsonResponse
      */
-    private function isNewTopic(string $id): bool
+    public function showPosts(Request $request, $id): JsonResponse
     {
-        return $id === 'create';
+        $topic = Topic::with('posts')->find($id);
+
+        return $topic ? response()->json($topic->posts()->withCount('views')->paginate(), 200) : response()->json(null, 200);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param Request $request
+     * @param $id
+     * @return mixed
+     */
+    public function destroy(Request $request, $id)
+    {
+        $topic = Topic::findOrFail($id);
+
+        $topic->delete();
+
+        return response()->json(null, 204);
     }
 }
