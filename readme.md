@@ -265,7 +265,7 @@ Thank you for considering contributing to Canvas!
 
 You can open a completely prebuilt, ready-to-code development environment using Gitpod.
                                                   
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/austintoddj/canvas/tree/develop)
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/austintoddj/canvas/tree/master)
                                                   
 Alternatively, you can use the [contribution guide](.github/CONTRIBUTING.md) to assist you in manually setting up an
  environment on your own machine.
