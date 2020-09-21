@@ -26,7 +26,7 @@ composer-link() {composer config repositories.local '{"type": "path", "url": "'$
 
 You can open a completely prebuilt, ready-to-code development environment using Gitpod.
 
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/austintoddj/canvas/tree/develop)
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/austintoddj/canvas/tree/master)
 
 Alternatively, see instructions below to manually setting up an environment on your own machine.
 
