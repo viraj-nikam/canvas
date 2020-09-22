@@ -106,10 +106,10 @@ class CanvasVisitFactory extends Factory
     public function definition()
     {
         return [
-            'post_id'    => \Canvas\Models\Post::all()->pluck('id')->random(),
-            'ip'         => $this->faker->ipv4,
-            'agent'      => $this->faker->userAgent,
-            'referer'    => $this->faker->url,
+            'post_id' => \Canvas\Models\Post::all()->pluck('id')->random(),
+            'ip' => $this->faker->ipv4,
+            'agent' => $this->faker->userAgent,
+            'referer' => $this->faker->url,
             'created_at' => today()->subDays(rand(0, 60))->toDateTimeString(),
             'updated_at' => today()->subDays(rand(0, 60))->toDateTimeString(),
         ];
@@ -141,10 +141,10 @@ class CanvasViewFactory extends Factory
     public function definition()
     {
         return [
-            'post_id'    => \Canvas\Models\Post::all()->pluck('id')->random(),
-            'ip'         => $this->faker->ipv4,
-            'agent'      => $this->faker->userAgent,
-            'referer'    => $this->faker->url,
+            'post_id' => \Canvas\Models\Post::all()->pluck('id')->random(),
+            'ip' => $this->faker->ipv4,
+            'agent' => $this->faker->userAgent,
+            'referer' => $this->faker->url,
             'created_at' => today()->subDays(rand(0, 60))->toDateTimeString(),
             'updated_at' => today()->subDays(rand(0, 60))->toDateTimeString(),
         ];
