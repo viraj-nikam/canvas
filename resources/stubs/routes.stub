@@ -1,0 +1,17 @@
+
+Route::prefix('canvas-ui')->namespace('App\Http\Controllers')->group(function () {
+    Route::prefix('api')->group(function () {
+        Route::get('posts', 'CanvasUiController@getPosts');
+        Route::get('posts/{slug}', 'CanvasUiController@showPost')->middleware('Canvas\Http\Middleware\Session');
+
+        Route::get('tags', 'CanvasUiController@getTags');
+        Route::get('tags/{slug}', 'CanvasUiController@showTag');
+
+        Route::get('topics', 'CanvasUiController@getTopics');
+        Route::get('topics/{slug}', 'CanvasUiController@showTopic');
+
+        Route::get('users/{id}', 'CanvasUiController@showUser');
+    });
+
+    Route::get('/{view?}', 'CanvasUiController@index')->where('view', '(.*)')->name('canvas-ui');
+});

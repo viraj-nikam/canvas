@@ -6,6 +6,7 @@ use Canvas\Console\DigestCommand;
 use Canvas\Console\InstallCommand;
 use Canvas\Console\MigrateCommand;
 use Canvas\Console\PublishCommand;
+use Canvas\Console\UiCommand;
 use Canvas\Console\UserCommand;
 use Canvas\Events\PostViewed;
 use Canvas\Listeners\CaptureView;
@@ -94,11 +95,12 @@ class CanvasServiceProvider extends ServiceProvider
     protected function configureCommands()
     {
         $this->commands([
-            UserCommand::class,
             DigestCommand::class,
             InstallCommand::class,
             MigrateCommand::class,
             PublishCommand::class,
+            UiCommand::class,
+            UserCommand::class,
         ]);
     }
 
@@ -153,7 +155,7 @@ class CanvasServiceProvider extends ServiceProvider
             ], 'canvas-lang');
 
             $this->publishes([
-                __DIR__.'/../resources/stubs/CanvasServiceProvider.stub' => app_path(
+                __DIR__ . '/../resources/stubs/providers/CanvasServiceProvider.stub' => app_path(
                     'Providers/CanvasServiceProvider.php'
                 ),
             ], 'canvas-provider');

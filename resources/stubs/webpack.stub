@@ -1,0 +1,3 @@
+
+mix.js('resources/js/canvas-ui/canvas-ui.js', 'public/js')
+    .sass('resources/sass/canvas-ui.scss', 'public/css');
