@@ -112,6 +112,7 @@ class UiCommand extends Command
             'sass' => '^1.26.11',
             'sass-loader' => '^10.0.0',
             'vue' => '^2.6.11',
+            'vue-infinite-loading' => '^2.4.5',
             'vue-meta' => '^2.4.0',
             'vue-router' => '^3.4.2',
             'vue-template-compiler' => '^2.6.11',
