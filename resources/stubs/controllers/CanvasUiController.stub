@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace {{namespace}}Http\Controllers;
 
-use App\Http\Controllers\Controller;
+use {{namespace}}Http\Controllers\Controller;
 use App\Models\User;
+use Canvas\Events\PostViewed;
 use Canvas\Models\Post;
 use Canvas\Models\Tag;
 use Canvas\Models\Topic;
@@ -34,7 +35,7 @@ class CanvasUiController extends Controller
      */
     public function getPosts(Request $request): LengthAwarePaginator
     {
-        return Post::latest()->published()->with('user')->paginate();
+        return Post::latest()->published()->with('user', 'topic')->paginate();
     }
 
     /**
@@ -44,9 +45,15 @@ class CanvasUiController extends Controller
      */
     public function showPost(Request $request, $slug): JsonResponse
     {
-        $post = Post::with('user')->firstWhere('slug', $slug);
+        $post = Post::with('user', 'tags', 'topic')->firstWhere('slug', $slug);
 
-        return $post ? response()->json($post, 200) : response()->json(null, 404);
+        if ($post) {
+            event(new PostViewed($post));
+
+            return response()->json($post, 200);
+        } else {
+            return response()->json(null, 404);
+        }
     }
 
     /**
@@ -72,6 +79,18 @@ class CanvasUiController extends Controller
 
     /**
      * @param Request $request
+     * @param $slug
+     * @return JsonResponse
+     */
+    public function getPostsForTag(Request $request, $slug): JsonResponse
+    {
+        $tag = Tag::firstWhere('slug', $slug);
+
+        return $tag ? response()->json($tag->posts()->with('topic')->paginate(), 200) : response()->json(null, 200);
+    }
+
+    /**
+     * @param Request $request
      * @return LengthAwarePaginator
      */
     public function getTopics(Request $request): LengthAwarePaginator
@@ -93,6 +112,18 @@ class CanvasUiController extends Controller
 
     /**
      * @param Request $request
+     * @param $slug
+     * @return JsonResponse
+     */
+    public function getPostsForTopic(Request $request, $slug): JsonResponse
+    {
+        $topic = Topic::firstWhere('slug', $slug);
+
+        return $topic ? response()->json($topic->posts()->with('topic')->paginate(), 200) : response()->json(null, 200);
+    }
+
+    /**
+     * @param Request $request
      * @param $id
      * @return JsonResponse
      */
@@ -101,5 +132,17 @@ class CanvasUiController extends Controller
         $user = User::with('posts')->find($id);
 
         return $user ? response()->json($user, 200) : response()->json(null, 404);
+    }
+
+    /**
+     * @param Request $request
+     * @param $id
+     * @return JsonResponse
+     */
+    public function getPostsForUser(Request $request, $id): JsonResponse
+    {
+        $user = User::find($id);
+
+        return $user ? response()->json($user->posts()->with('topic')->paginate(), 200) : response()->json(null, 200);
     }
 }
