@@ -3,7 +3,7 @@
 namespace {{namespace}}Http\Controllers;
 
 use {{namespace}}Http\Controllers\Controller;
-use App\Models\User;
+use Canvas\Models\User;
 use Canvas\Events\PostViewed;
 use Canvas\Models\Post;
 use Canvas\Models\Tag;
@@ -58,11 +58,11 @@ class CanvasUiController extends Controller
 
     /**
      * @param Request $request
-     * @return LengthAwarePaginator
+     * @return string
      */
-    public function getTags(Request $request): LengthAwarePaginator
+    public function getTags(Request $request): string
     {
-        return Tag::paginate();
+        return Tag::all()->toJson();
     }
 
     /**
@@ -91,11 +91,11 @@ class CanvasUiController extends Controller
 
     /**
      * @param Request $request
-     * @return LengthAwarePaginator
+     * @return string
      */
-    public function getTopics(Request $request): LengthAwarePaginator
+    public function getTopics(Request $request): string
     {
-        return Topic::paginate();
+        return Topic::all()->toJson();
     }
 
     /**

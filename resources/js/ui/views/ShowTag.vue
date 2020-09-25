@@ -4,8 +4,8 @@
 
         <div v-if="isReady" class="mt-5">
             <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12 mt-3">
-                <h1 class="font-serif">{{ tag.name }}</h1>
-                <p class="lead text-secondary">Created {{ moment(tag.created_at).fromNow() }}</p>
+                <h3 class="my-0">Tag: {{ tag.name }}</h3>
+                <p class="text-secondary">Created {{ moment(tag.created_at).fromNow() }}</p>
 
                 <main role="main" class="mt-5">
                     <div>

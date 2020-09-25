@@ -6,6 +6,10 @@ export default {
             return window.CanvasUI;
         },
 
+        isEditor() {
+            return this.CanvasUI.user? this.CanvasUI.user.role === 2 : false;
+        },
+
         isAdmin() {
             return this.CanvasUI.user? this.CanvasUI.user.role === 3 : false;
         }

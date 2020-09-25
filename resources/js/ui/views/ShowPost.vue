@@ -1,6 +1,33 @@
 <template>
     <section>
-        <page-header/>
+        <page-header>
+            <template slot="options">
+                <div class="dropdown">
+                    <a href="#" class="nav-link pr-1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            width="25"
+                            class="icon-dots-horizontal"
+                        >
+                            <path
+                                class="fill-primary"
+                                fill-rule="evenodd"
+                                d="M5 14a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm7 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm7 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"
+                            />
+                        </svg>
+                    </a>
+                    <div v-if="isReady" class="dropdown-menu dropdown-menu-right" aria-labelledby="actionDropdownMenu">
+                        <a v-if="hasAccess" :href="`/${CanvasUI.canvasPath}/posts/${post.id}/edit`" class="dropdown-item">
+                            Edit post
+                        </a>
+                        <a :href="`/${CanvasUI.canvasPath}/stats/${post.id}`" class="dropdown-item">
+                            View stats
+                        </a>
+                    </div>
+                </div>
+            </template>
+        </page-header>
 
         <div v-if="isReady" class="mt-5">
             <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12 mt-3">
@@ -106,6 +133,12 @@ export default {
         document.querySelectorAll('pre').forEach((block) => {
             hljs.highlightBlock(block);
         });
+    },
+
+    computed: {
+        hasAccess() {
+            return this.CanvasUI.user.id === this.post.user.id || this.isAdmin || this.isEditor;
+        }
     },
 
     methods: {
