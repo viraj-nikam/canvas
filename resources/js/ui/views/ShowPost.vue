@@ -45,7 +45,7 @@
                 <div class="media pt-1 pb-5">
                     <router-link :to="{ name: 'show-user', params: { id: post.user.id } }">
                         <img
-                            :src="post.user.avatar"
+                            :src="post.user.avatar || post.user.default_avatar"
                             class="mr-3 rounded-circle shadow-inner"
                             style="width: 50px"
                             :alt="post.user.name"
