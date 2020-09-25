@@ -6,7 +6,7 @@ Hi! I'm really excited that you are interested in contributing to Canvas. The fo
 ## Table of Contents
 
 - [OS Tools](#before-you-get-started)
-- [Development Setup](#development-setup)
+- [Setup](#setup)
 	- [Git](#git)
 	- [Database](#database)
 	- [Directories](#directories)
@@ -22,7 +22,7 @@ Hi! I'm really excited that you are interested in contributing to Canvas. The fo
 composer-link() {composer config repositories.local '{"type": "path", "url": "'$1'"}' --file composer.json}
 ```
 
-## Development Setup
+## Setup
 
 You can open a completely prebuilt, ready-to-code development environment using Gitpod.
 

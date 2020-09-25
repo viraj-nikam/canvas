@@ -165,6 +165,9 @@ yarn
 yarn dev
 ```
 
+That's it! You can navigate to `/canvas-ui` and check it out for yourself. You're free to modify any aspect of it
+ that you'd like.
+
 ### Unsplash Integration
 
 **Want access to the entire [Unsplash](https://unsplash.com) library?** Set up a new application at [https://unsplash.com/oauth/applications](https://unsplash.com/oauth/applications), grab your access key, and update `config/canvas.php`:

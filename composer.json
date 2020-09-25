@@ -1,7 +1,7 @@
 {
     "name": "austintoddj/canvas",
     "description": "A Laravel publishing platform",
-    "keywords": ["canvas", "laravel", "publishing", "platform"],
+    "keywords": ["blog", "canvas", "laravel", "publishing", "platform"],
     "license": "MIT",
     "homepage": "https://trycanvas.app",
     "support": {
