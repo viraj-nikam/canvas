@@ -1,6 +1,6 @@
 <template>
     <section>
-        <page-header/>
+        <page-header />
 
         <div v-if="isReady" class="mt-5">
             <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12 mt-3">
@@ -14,7 +14,10 @@
                         </h4>
 
                         <div :key="`${index}-${post.id}`" v-for="(post, index) in posts">
-                            <router-link :to="{ name: 'show-post', params: { slug: post.slug } }" class="text-decoration-none">
+                            <router-link
+                                :to="{ name: 'show-post', params: { slug: post.slug } }"
+                                class="text-decoration-none"
+                            >
                                 <div class="card mb-4 shadow">
                                     <div class="card-body px-0">
                                         <div class="container d-lg-inline-flex align-items-center">
@@ -25,15 +28,20 @@
                                                     class="rounded w-100"
                                                 />
                                             </div>
-                                            <section class="col-12 mt-3 mt-lg-0 px-0 px-lg-3" :class="post.featured_image ? 'col-lg-9' : ''">
+                                            <section
+                                                class="col-12 mt-3 mt-lg-0 px-0 px-lg-3"
+                                                :class="post.featured_image ? 'col-lg-9' : ''"
+                                            >
                                                 <h5 class="card-title text-truncate mb-0">{{ post.title }}</h5>
                                                 <p class="card-text text-truncate">{{ post.summary }}</p>
-                                                <p class="card-text mb-0 text-secondary">{{ post.user.name }}
-                                                    <span v-if="post.topic.length">
-                                                        in {{ post.topic[0].name }}
-                                                    </span>
+                                                <p class="card-text mb-0 text-secondary">
+                                                    {{ post.user.name }}
+                                                    <span v-if="post.topic.length"> in {{ post.topic[0].name }} </span>
                                                 </p>
-                                                <p class="card-text text-secondary">{{ moment(post.published_at).format('MMM D, Y') }} — {{ post.read_time }}</p>
+                                                <p class="card-text text-secondary">
+                                                    {{ moment(post.published_at).format('MMM D, Y') }} —
+                                                    {{ post.read_time }}
+                                                </p>
                                             </section>
                                         </div>
                                     </div>
@@ -42,12 +50,10 @@
                         </div>
 
                         <infinite-loading spinner="spiral" @infinite="fetchPosts">
-                            <span slot="no-more"/>
+                            <span slot="no-more" />
                             <div slot="no-results" class="text-left">
                                 <div class="my-5">
-                                    <p class="lead text-center text-muted mt-5">
-                                        You have no published posts
-                                    </p>
+                                    <p class="lead text-center text-muted mt-5">You have no published posts</p>
                                     <p class="lead text-center text-muted mt-1">
                                         Write on the go with our mobile-ready app!
                                     </p>
@@ -62,11 +68,10 @@
 </template>
 
 <script>
-
 import InfiniteLoading from 'vue-infinite-loading';
-import PageHeader from '../components/PageHeaderComponent';
 import NProgress from 'nprogress';
-import isEmpty from "lodash/isEmpty";
+import PageHeader from '../components/PageHeaderComponent';
+import isEmpty from 'lodash/isEmpty';
 
 export default {
     name: 'all-posts',
@@ -74,6 +79,12 @@ export default {
     components: {
         InfiniteLoading,
         PageHeader,
+    },
+
+    metaInfo() {
+        return {
+            title: 'Canvas',
+        };
     },
 
     data() {
@@ -85,7 +96,7 @@ export default {
     },
 
     async created() {
-        await Promise.all([ this.fetchPosts() ]);
+        await Promise.all([this.fetchPosts()]);
         this.isReady = true;
         NProgress.done();
     },

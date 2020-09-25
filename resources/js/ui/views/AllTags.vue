@@ -1,6 +1,6 @@
 <template>
     <section>
-        <page-header/>
+        <page-header />
 
         <div v-if="isReady" class="mt-5">
             <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12 mt-3">
@@ -15,8 +15,11 @@
 
                         <div v-if="tags.length > 0">
                             <div class="row row-cols-1 row-cols-md-3 row-cols-sm-2">
-                                <div v-for="tag in tags">
-                                    <router-link :to="{ name: 'show-tag', params: { slug: tag.slug } }" class="text-decoration-none">
+                                <div :key="tag.id" v-for="tag in tags">
+                                    <router-link
+                                        :to="{ name: 'show-tag', params: { slug: tag.slug } }"
+                                        class="text-decoration-none"
+                                    >
                                         <div class="col mb-4">
                                             <div class="card mb-4 shadow-sm">
                                                 <div class="card-body">
@@ -36,14 +39,20 @@
 </template>
 
 <script>
-import PageHeader from '../components/PageHeaderComponent';
 import NProgress from 'nprogress';
+import PageHeader from '../components/PageHeaderComponent';
 
 export default {
     name: 'all-tags',
 
     components: {
         PageHeader,
+    },
+
+    metaInfo() {
+        return {
+            title: 'Canvas',
+        };
     },
 
     data() {
@@ -54,7 +63,7 @@ export default {
     },
 
     async created() {
-        await Promise.all([ this.fetchTags() ]);
+        await Promise.all([this.fetchTags()]);
         this.isReady = true;
         NProgress.done();
     },

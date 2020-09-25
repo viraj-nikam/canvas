@@ -14,7 +14,7 @@
                     </router-link>
                 </div>
 
-                <slot v-if="user" name="options"></slot>
+                <slot v-if="user" name="options" />
 
                 <div v-if="user" class="dropdown ml-3">
                     <a
@@ -36,21 +36,19 @@
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                         <h6 class="dropdown-header">
                             <strong>{{ user.name }}</strong>
-                            <br/>
+                            <br />
                             {{ user.email }}
                         </h6>
-                        <div class="dropdown-divider"/>
+                        <div class="dropdown-divider" />
                         <a :href="`/${canvasPath}/users/${user.id}/edit`" class="dropdown-item">Your profile</a>
                         <a :href="`/${canvasPath}/posts`" class="dropdown-item">Posts</a>
                         <a v-if="isAdmin" :href="`/${canvasPath}/users`" class="dropdown-item">Users</a>
                         <a v-if="isAdmin" :href="`/${canvasPath}/tags`" class="dropdown-item">Tags</a>
                         <a v-if="isAdmin" :href="`/${canvasPath}/topics`" class="dropdown-item">Topics</a>
                         <a :href="`/${canvasPath}/stats`" class="dropdown-item">Stats</a>
-                        <div class="dropdown-divider"/>
+                        <div class="dropdown-divider" />
                         <a :href="`/${canvasPath}/settings`" class="dropdown-item">Settings</a>
-                        <a href="" class="dropdown-item" @click.prevent="logout">
-                            Sign out
-                        </a>
+                        <a href="" class="dropdown-item" @click.prevent="logout"> Sign out </a>
                     </div>
                 </div>
 
@@ -68,17 +66,17 @@ export default {
 
     data() {
         return {
-            user: CanvasUI.user,
-            canvasPath: CanvasUI.canvasPath
+            user: CanvasUI.user, // eslint-disable-line no-undef
+            canvasPath: CanvasUI.canvasPath, // eslint-disable-line no-undef
         };
     },
 
     methods: {
         logout() {
-            axios.get(`/${ this.canvasPath }/logout`).then(() => {
-                window.location.href = `/${ this.canvasPath }/login`;
+            axios.get(`/${this.canvasPath}/logout`).then(() => {
+                window.location.href = `/${this.canvasPath}/login`;
             });
-        }
+        },
     },
 };
 </script>

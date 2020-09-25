@@ -1,42 +1,50 @@
+import AllPosts from './views/AllPosts';
+import AllTags from './views/AllTags';
+import AllTopics from './views/AllTopics';
+import ShowPost from './views/ShowPost';
+import ShowTag from './views/ShowTag';
+import ShowTopic from './views/ShowTopic';
+import ShowUser from './views/ShowUser';
+
 export default [
     {
         path: '/',
         name: 'posts',
-        component: require('./views/AllPosts').default,
+        component: AllPosts,
     },
     {
         path: '/posts/:slug',
         name: 'show-post',
-        component: require('./views/ShowPost').default,
+        component: ShowPost,
     },
     {
         path: '/tags',
         name: 'tags',
-        component: require('./views/AllTags').default,
+        component: AllTags,
     },
     {
         path: '/tags/:slug',
         name: 'show-tag',
-        component: require('./views/ShowTag').default,
+        component: ShowTag,
     },
     {
         path: '/topics',
         name: 'topics',
-        component: require('./views/AllTopics').default,
+        component: AllTopics,
     },
     {
         path: '/topics/:slug',
         name: 'show-topic',
-        component: require('./views/ShowTopic').default,
+        component: ShowTopic,
     },
     {
         path: '/:id',
         name: 'show-user',
-        component: require('./views/ShowUser').default,
+        component: ShowUser,
     },
     {
         path: '*',
         name: 'catch-all',
         redirect: '/canvas-ui',
     },
-]
+];

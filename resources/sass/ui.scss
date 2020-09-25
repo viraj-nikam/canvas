@@ -63,7 +63,7 @@ $text-muted: $gray-500;
     width: 100px;
     height: 100%;
     box-shadow: 0 0 10px $green, 0 0 5px $green;
-    opacity: 1.0;
+    opacity: 1;
 
     -webkit-transform: rotate(3deg) translate(0px, -4px);
     -ms-transform: rotate(3deg) translate(0px, -4px);
@@ -88,16 +88,17 @@ $text-muted: $gray-500;
 }
 
 .card {
-    transition: box-shadow .2s ease,-webkit-transform .3s cubic-bezier(.34,2,.6,1);
-    transition: transform .3s cubic-bezier(.34,2,.6,1),box-shadow .2s ease;
-    transition: transform .3s cubic-bezier(.34,2,.6,1),box-shadow .2s ease,-webkit-transform .3s cubic-bezier(.34,2,.6,1);
-    box-shadow: 0 2px 4px 0 rgba(0,0,0,.1);
+    transition: box-shadow 0.2s ease, -webkit-transform 0.3s cubic-bezier(0.34, 2, 0.6, 1);
+    transition: transform 0.3s cubic-bezier(0.34, 2, 0.6, 1), box-shadow 0.2s ease;
+    transition: transform 0.3s cubic-bezier(0.34, 2, 0.6, 1), box-shadow 0.2s ease,
+        -webkit-transform 0.3s cubic-bezier(0.34, 2, 0.6, 1);
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
 }
 
 .card:hover {
     -webkit-transform: translateY(-5px);
     transform: translateY(-5px);
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,.12),0 2px 4px 0 rgba(0,0,0,.08);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.12), 0 2px 4px 0 rgba(0, 0, 0, 0.08);
 }
 
 .post-content {
@@ -111,7 +112,6 @@ $text-muted: $gray-500;
     min-width: 100%;
     display: -webkit-box;
     display: -ms-flexbox;
-    display: flex;
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
     -ms-flex-direction: column;
@@ -152,7 +152,8 @@ h3 {
     display: block;
 }
 
-p.featured-image-caption, .embedded_image p {
+p.featured-image-caption,
+.embedded_image p {
     text-align: center;
     color: $gray-500;
     margin-top: 0.5em;

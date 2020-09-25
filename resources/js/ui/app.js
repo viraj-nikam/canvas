@@ -1,10 +1,10 @@
-import Vue from 'vue';
-import moment from 'moment';
 import NProgress from 'nprogress';
 import Router from 'vue-router';
+import Vue from 'vue';
 import VueMeta from 'vue-meta';
-import routes from './routes';
 import base from './mixins/base';
+import moment from 'moment';
+import routes from './routes';
 
 require('bootstrap');
 

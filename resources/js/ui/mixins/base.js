@@ -7,12 +7,12 @@ export default {
         },
 
         isEditor() {
-            return this.CanvasUI.user? this.CanvasUI.user.role === 2 : false;
+            return this.CanvasUI.user ? this.CanvasUI.user.role === 2 : false;
         },
 
         isAdmin() {
-            return this.CanvasUI.user? this.CanvasUI.user.role === 3 : false;
-        }
+            return this.CanvasUI.user ? this.CanvasUI.user.role === 3 : false;
+        },
     },
 
     methods: {
@@ -34,7 +34,7 @@ export default {
                 switch (error.response.status) {
                     case 401:
                     case 405:
-                        window.location.href = `/${CanvasUI.canvasPath}/logout`;
+                        window.location.href = `/${CanvasUI.canvasPath}/logout`; // eslint-disable-line no-undef
                         break;
                     default:
                         break;
@@ -87,8 +87,8 @@ export default {
                 pathname: parser.pathname,
                 search: parser.search,
                 searchObject: searchObject,
-                hash: parser.hash
+                hash: parser.hash,
             };
         },
     },
-}
+};
