@@ -31,6 +31,11 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div v-else class="my-5">
+                            <p class="lead text-center text-muted mt-5">You have no tags</p>
+                            <p class="lead text-center text-muted mt-1">Write on the go with our mobile-ready app!</p>
+                        </div>
                     </div>
                 </main>
             </div>

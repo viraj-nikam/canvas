@@ -145,22 +145,15 @@ When you install a fresh version of Canvas, you'll have a default admin user set
 
 > **Note:** The following features are completely optional, you are not required to use them.
 
-### Studio
+### Frontend
 
-**Want a beautiful, Medium.com-inspired frontend?** Run the following command to install the
- [`austintoddj/studio`](https://github.com/austintoddj/studio) Composer package:
-
-```bash
-composer require austintoddj/studio
-```
-
-Once Studio has been installed, you may generate the frontend scaffolding using the `studio:install` Artisan command:
+**Want a beautiful, Medium.com-inspired frontend?** Use the `canvas:ui` Artisan command to install the scaffolding:
 
 ```bash
-php artisan studio:install
+php artisan canvas:ui
 ```
 
-After installing the `austintoddj/studio` Composer package and generating the frontend scaffolding, your `package.json` file will include the necessary dependencies to install and compile:
+After generating the frontend scaffolding, your `package.json` file will include the necessary dependencies to install and compile:
 
 ```bash
 # Using NPM
