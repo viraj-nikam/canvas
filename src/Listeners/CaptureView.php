@@ -40,7 +40,7 @@ class CaptureView
      * @param Post $post
      * @return bool
      */
-    private function wasRecentlyViewed(Post $post): bool
+    protected function wasRecentlyViewed(Post $post): bool
     {
         $viewed = session()->get('viewed_posts', []);
 
@@ -53,7 +53,7 @@ class CaptureView
      * @param Post $post
      * @return void
      */
-    private function storeInSession(Post $post)
+    protected function storeInSession(Post $post)
     {
         session()->put("viewed_posts.{$post->id}", now()->timestamp);
     }

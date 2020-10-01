@@ -110,7 +110,7 @@ class UiCommand extends Command
      *
      * @return void
      */
-    private function exportViews()
+    protected function exportViews()
     {
         if (file_exists($view = $this->getViewPath('canvas-ui.blade.php')) && ! $this->option('force')) {
             if (! $this->confirm('The [canvas-ui.blade.php] view already exists. Do you want to replace it?')) {
@@ -126,7 +126,7 @@ class UiCommand extends Command
      *
      * @return void
      */
-    private function exportBackend()
+    protected function exportBackend()
     {
         file_put_contents(
             app_path('Http/Controllers/CanvasUiController.php'),
@@ -139,7 +139,7 @@ class UiCommand extends Command
 
         file_put_contents(
             base_path('routes/web.php'),
-            file_get_contents(dirname(__DIR__, 2).'/resources/stubs/routes.stub'),
+            file_get_contents(dirname(__DIR__, 2).'/routes/ui.php'),
             FILE_APPEND
         );
     }
@@ -181,7 +181,7 @@ class UiCommand extends Command
     {
         file_put_contents(
             base_path('webpack.mix.js'),
-            file_get_contents(dirname(__DIR__, 2).'/resources/stubs/webpack.mix.stub'),
+            file_get_contents(dirname(__DIR__, 2).'/resources/stubs/webpack.mix.js'),
             FILE_APPEND
         );
     }

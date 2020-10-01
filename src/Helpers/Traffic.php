@@ -83,7 +83,7 @@ class Traffic
      * @param int $exclusive
      * @return array
      */
-    private static function generateRange(DateTimeInterface $start_date, DateInterval $interval, int $recurrences, int $exclusive = 1): array
+    protected static function generateRange(DateTimeInterface $start_date, DateInterval $interval, int $recurrences, int $exclusive = 1): array
     {
         $period = new DatePeriod($start_date, $interval, $recurrences, $exclusive);
         $dates = collect();

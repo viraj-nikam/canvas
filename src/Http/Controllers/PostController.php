@@ -160,7 +160,7 @@ class PostController extends Controller
      * @param array $incomingTopic
      * @return array
      */
-    private function syncedTopic(array $incomingTopic): array
+    protected function syncedTopic(array $incomingTopic): array
     {
         if (collect($incomingTopic)->isEmpty()) {
             return [];
@@ -191,7 +191,7 @@ class PostController extends Controller
      * @param array $incomingTags
      * @return array
      */
-    private function syncedTags(array $incomingTags): array
+    protected function syncedTags(array $incomingTags): array
     {
         if (collect($incomingTags)->isEmpty()) {
             return [];

@@ -48,4 +48,11 @@ class CanvasTest extends TestCase
     {
         $this->assertSame(true, Canvas::assetsUpToDate());
     }
+
+    /** @test */
+    public function it_can_get_the_base_storage_path()
+    {
+        $this->assertSame(config('canvas.storage_path') . '/images', Canvas::baseStoragePath());
+        $this->assertIsString(Canvas::baseStoragePath());
+    }
 }

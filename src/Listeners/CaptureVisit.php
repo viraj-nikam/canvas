@@ -43,7 +43,7 @@ class CaptureVisit
      * @param string $ip
      * @return bool
      */
-    private function visitIsUnique(Post $post, string $ip): bool
+    protected function visitIsUnique(Post $post, string $ip): bool
     {
         $visits = session()->get('visited_posts', []);
 
@@ -63,7 +63,7 @@ class CaptureVisit
      * @param string $ip
      * @return void
      */
-    private function storeInSession(Post $post, string $ip)
+    protected function storeInSession(Post $post, string $ip)
     {
         session()->put("visited_posts.{$post->id}", [
             'timestamp' => now()->timestamp,

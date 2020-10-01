@@ -38,7 +38,7 @@ class Session
      *
      * @return Collection
      */
-    private function getViewedPostsInSession(): Collection
+    protected function getViewedPostsInSession(): Collection
     {
         return collect(session()->get('viewed_posts'));
     }
@@ -48,7 +48,7 @@ class Session
      *
      * @return Collection
      */
-    private function getVisitedPostsInSession(): Collection
+    protected function getVisitedPostsInSession(): Collection
     {
         return collect(session()->get('visited_posts'));
     }
@@ -59,7 +59,7 @@ class Session
      * @param Collection $posts
      * @return void
      */
-    private function pruneExpiredViews(Collection $posts)
+    protected function pruneExpiredViews(Collection $posts)
     {
         foreach ($posts as $key => $value) {
             if ($value < now()->subSeconds(3600)->timestamp) {
@@ -74,7 +74,7 @@ class Session
      * @param Collection $posts
      * @return void
      */
-    private function pruneExpiredVisits(Collection $posts)
+    protected function pruneExpiredVisits(Collection $posts)
     {
         foreach ($posts as $key => $value) {
             if (! Date::createFromTimestamp($value['timestamp'])->isToday()) {

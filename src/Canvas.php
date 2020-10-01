@@ -91,4 +91,14 @@ class Canvas
 
         return File::get($path) === File::get(__DIR__.'/../public/mix-manifest.json');
     }
+
+    /**
+     * Return the configured storage path url.
+     *
+     * @return string
+     */
+    public static function baseStoragePath(): string
+    {
+        return sprintf('%s/%s', config('canvas.storage_path'), 'images');
+    }
 }
