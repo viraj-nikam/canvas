@@ -2,8 +2,8 @@
 
 namespace Canvas\Listeners;
 
+use Canvas\Canvas;
 use Canvas\Events\PostViewed;
-use Canvas\Helpers\URL;
 use Canvas\Models\Post;
 
 class CaptureView
@@ -25,7 +25,7 @@ class CaptureView
                 'post_id' => $event->post->id,
                 'ip' => request()->getClientIp(),
                 'agent' => request()->header('user_agent'),
-                'referer' => URL::isValid($referer) ? URL::trim($referer) : false,
+                'referer' => Canvas::isValid($referer) ? Canvas::trim($referer) : false,
             ];
 
             $event->post->views()->create($data);

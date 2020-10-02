@@ -2,7 +2,7 @@
 
 namespace Canvas\Tests\Models;
 
-use Canvas\Helpers\URL;
+use Canvas\Canvas;
 use Canvas\Models\Post;
 use Canvas\Models\Tag;
 use Canvas\Models\Topic;
@@ -135,7 +135,7 @@ class UserTest extends TestCase
             'avatar' => null,
         ]);
 
-        $this->assertSame($user->defaultAvatar, URL::gravatar($user->email));
+        $this->assertSame($user->defaultAvatar, Canvas::gravatar($user->email));
     }
 
     /** @test */

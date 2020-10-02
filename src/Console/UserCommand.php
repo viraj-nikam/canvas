@@ -2,7 +2,7 @@
 
 namespace Canvas\Console;
 
-use Canvas\Helpers\URL;
+use Canvas\Canvas;
 use Canvas\Models\User;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Hash;
@@ -47,7 +47,7 @@ class UserCommand extends Command
             'id' => Uuid::uuid4()->toString(),
             'email' => $email,
             'password' => Hash::make($password),
-            'avatar' => URL::gravatar($email),
+            'avatar' => Canvas::gravatar($email),
         ]);
 
         switch ($this->argument('role')) {

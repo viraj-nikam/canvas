@@ -2,7 +2,7 @@
 
 namespace Canvas\Models;
 
-use Canvas\Helpers\URL;
+use Canvas\Canvas;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -171,7 +171,7 @@ class User extends Authenticatable
      */
     public function getDefaultAvatarAttribute(): string
     {
-        return URL::gravatar($this->email ?? '');
+        return Canvas::gravatar($this->email ?? '');
     }
 
     /**

@@ -41,9 +41,6 @@ class StatsControllerTest extends TestCase
 
         $response = $this->actingAs($user, 'canvas')->getJson('canvas/api/stats')->assertSuccessful();
 
-        $this->assertArrayHasKey('posts', $response->original);
-        $this->assertCount(3, $response->original['posts']);
-
         $this->assertArrayHasKey('totalViews', $response->original);
         $this->assertEquals(0, $response->original['totalViews']);
 
@@ -71,9 +68,6 @@ class StatsControllerTest extends TestCase
         ]);
 
         $response = $this->actingAs($user, 'canvas')->getJson('canvas/api/stats?scope=all')->assertSuccessful();
-
-        $this->assertArrayHasKey('posts', $response->original);
-        $this->assertCount(4, $response->original['posts']);
 
         $this->assertArrayHasKey('totalViews', $response->original);
         $this->assertEquals(0, $response->original['totalViews']);
@@ -103,8 +97,6 @@ class StatsControllerTest extends TestCase
                          ->getJson("canvas/api/stats/{$post->id}")
                          ->assertSuccessful()
                          ->assertJsonExactFragment($post->id, 'post.id');
-
-        $this->assertArrayHasKey('post', $response->original);
 
         $this->assertArrayHasKey('readTime', $response->original);
 
