@@ -5,6 +5,7 @@ const initialState = {
     languageCodes: window.Canvas.languageCodes,
     maxUpload: window.Canvas.maxUpload,
     path: window.Canvas.path,
+    domain: window.Canvas.domain,
     timezone: window.Canvas.timezone,
     unsplash: window.Canvas.unsplash,
     user: window.Canvas.user,

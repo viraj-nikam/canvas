@@ -108,8 +108,8 @@ export default {
 
     methods: {
         logout() {
-            axios.get(`/${this.settings.path}/logout`).then(() => {
-                window.location.href = `/${this.settings.path}/login`;
+            axios.get(`${this.baseDomain}/logout`).then(() => {
+                window.location.href = `${this.baseDomain}/login`;
             });
         },
 
