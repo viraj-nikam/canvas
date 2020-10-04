@@ -12,7 +12,7 @@ use DatePeriod;
 use DateTimeInterface;
 use Illuminate\Support\Collection;
 
-class StatsService
+class StatsAggregatorService
 {
     /**
      * Get aggregate statistics data for counts and chart.
@@ -22,7 +22,7 @@ class StatsService
      * @param int $days
      * @return array
      */
-    public static function aggregate(User $user, string $scope, int $days): array
+    public static function getByUserAndScope(User $user, string $scope, int $days): array
     {
         $posts = Post::when($scope, function ($query, $scope) use ($user) {
             if ($scope === 'all') {
@@ -63,7 +63,7 @@ class StatsService
      * @param int $days
      * @return array
      */
-    public static function individual(Post $post, int $days): array
+    public static function getForPost(Post $post, int $days): array
     {
         $views = View::where('post_id', $post->id)->get();
 

@@ -4,7 +4,7 @@ namespace Canvas\Http\Controllers;
 
 use Canvas\Models\Post;
 use Canvas\Models\User;
-use Canvas\Services\StatsService;
+use Canvas\Services\StatsAggregatorService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -19,9 +19,9 @@ class StatsController extends Controller
      */
     public function index(Request $request): JsonResponse
     {
-        return response()->json(StatsService::aggregate(
+        return response()->json(StatsAggregatorService::getByUserAndScope(
             $request->user('canvas'),
-            $request->query('scope', 'published'),
+            $request->query('scope', 'user'),
             30
         ));
     }
@@ -47,6 +47,6 @@ class StatsController extends Controller
             return response()->json(null, 404);
         }
 
-        return response()->json(StatsService::individual($post, 30));
+        return response()->json(StatsAggregatorService::getForPost($post, 30));
     }
 }
