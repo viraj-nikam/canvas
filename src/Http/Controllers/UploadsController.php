@@ -2,6 +2,7 @@
 
 namespace Canvas\Http\Controllers;
 
+use Canvas\Canvas;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Storage;
@@ -26,7 +27,7 @@ class UploadsController extends Controller
         // are not supported at this time
         $file = reset($payload);
 
-        $path = $file->storePublicly($this->getBaseStoragePath(), [
+        $path = $file->storePublicly(Canvas::baseStoragePath(), [
             'disk' => config('canvas.storage_disk'),
         ]);
 
@@ -47,22 +48,12 @@ class UploadsController extends Controller
 
         $file = pathinfo($request->getContent());
 
-        $storagePath = $this->getBaseStoragePath();
+        $storagePath = Canvas::baseStoragePath();
 
         $path = "{$storagePath}/{$file['basename']}";
 
         Storage::disk(config('canvas.storage_disk'))->delete($path);
 
         return response()->json([], 204);
-    }
-
-    /**
-     * Return the storage path url.
-     *
-     * @return string
-     */
-    private function getBaseStoragePath(): string
-    {
-        return sprintf('%s/%s', config('canvas.storage_path'), 'images');
     }
 }

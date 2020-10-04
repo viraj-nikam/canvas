@@ -2,8 +2,8 @@
 
 namespace Canvas\Listeners;
 
+use Canvas\Canvas;
 use Canvas\Events\PostViewed;
-use Canvas\Helpers\URL;
 use Canvas\Models\Post;
 
 class CaptureVisit
@@ -27,7 +27,7 @@ class CaptureVisit
                 'post_id' => $event->post->id,
                 'ip' => $ip,
                 'agent' => request()->header('user_agent'),
-                'referer' => URL::isValid($referer) ? URL::trim($referer) : false,
+                'referer' => Canvas::isValid($referer) ? Canvas::trim($referer) : false,
             ];
 
             $event->post->visits()->create($data);
@@ -43,7 +43,7 @@ class CaptureVisit
      * @param string $ip
      * @return bool
      */
-    private function visitIsUnique(Post $post, string $ip): bool
+    protected function visitIsUnique(Post $post, string $ip): bool
     {
         $visits = session()->get('visited_posts', []);
 
@@ -63,7 +63,7 @@ class CaptureVisit
      * @param string $ip
      * @return void
      */
-    private function storeInSession(Post $post, string $ip)
+    protected function storeInSession(Post $post, string $ip)
     {
         session()->put("visited_posts.{$post->id}", [
             'timestamp' => now()->timestamp,

@@ -53,7 +53,7 @@ class CanvasServiceProvider extends ServiceProvider
      * @return void
      * @throws BindingResolutionException
      */
-    private function registerEvents()
+    protected function registerEvents()
     {
         $events = $this->app->make(Dispatcher::class);
 
@@ -76,14 +76,14 @@ class CanvasServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    private function configureRoutes()
+    protected function configureRoutes()
     {
         Route::namespace('Canvas\Http\Controllers')
              ->middleware(config('canvas.middleware'))
              ->domain(config('canvas.domain'))
              ->prefix(config('canvas.path'))
              ->group(function () {
-                 $this->loadRoutesFrom(__DIR__.'/Http/routes.php');
+                 $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
              });
     }
 
@@ -109,7 +109,7 @@ class CanvasServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    private function registerMigrations()
+    protected function registerMigrations()
     {
         if ($this->app->runningInConsole()) {
             $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
@@ -121,7 +121,7 @@ class CanvasServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    private function registerAuthDriver()
+    protected function registerAuthDriver()
     {
         $this->app->config->set('auth.providers.canvas_users', [
             'driver' => 'eloquent',
@@ -139,7 +139,7 @@ class CanvasServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    private function configurePublishing()
+    protected function configurePublishing()
     {
         if ($this->app->runningInConsole()) {
             $this->publishes([

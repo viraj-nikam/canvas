@@ -4,7 +4,6 @@ namespace Canvas\Console;
 
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
-use Illuminate\Support\Facades\File;
 
 class UiCommand extends Command
 {
@@ -29,47 +28,61 @@ class UiCommand extends Command
      */
     public function handle()
     {
-        $this->ensureDirectoriesExist();
+        (new Filesystem)->ensureDirectoryExists(resource_path('sass/canvas-ui'));
+        (new Filesystem)->ensureDirectoryExists(resource_path('js/canvas-ui'));
+
+        // Blade layout view...
         $this->exportViews();
+
+        // Routes and controller...
         $this->exportBackend();
-        $this->updatePackages();
-        $this->exportSass();
-        $this->exportJavascript();
+
+        // NPM packages...
+        $this->updateNodePackages(function ($packages) {
+            return [
+                'axios' => '^0.19',
+                'bootstrap' => '^4.5.2',
+                'cross-env' => '^7.0',
+                'highlight.js' => '^10.2.0',
+                'jquery' => '^3.5.1',
+                'laravel-mix' => '^5.0.1',
+                'lodash' => '^4.17.19',
+                'medium-zoom' => '^1.0.6',
+                'moment' => '^2.29.0',
+                'nprogress' => '^0.2.0',
+                'popper.js' => '^1.16.1',
+                'resolve-url-loader' => '^3.1.0',
+                'sass' => '^1.26.11',
+                'sass-loader' => '^10.0.0',
+                'vue' => '^2.6.11',
+                'vue-infinite-loading' => '^2.4.5',
+                'vue-meta' => '^2.4.0',
+                'vue-router' => '^3.4.2',
+                'vue-template-compiler' => '^2.6.11',
+            ] + $packages;
+        });
+
+        // Sass configuration...
+        copy(dirname(__DIR__, 2).'/resources/sass/ui.scss', resource_path('sass/canvas-ui.scss'));
+
+        // Single page application...
+        (new Filesystem)->copyDirectory(dirname(__DIR__, 2).'/resources/js/ui', resource_path('js/canvas-ui'));
+
         $this->updateWebpackConfiguration();
-        $this->removeNodeModules();
+        $this->flushNodeModules();
 
         $this->info('Installation complete.');
         $this->comment('Please run "npm install && npm run dev" to compile your fresh scaffolding.');
     }
 
     /**
-     * Create the directories for the files.
-     *
-     * @return void
-     */
-    private function ensureDirectoriesExist()
-    {
-        $filesystem = new Filesystem;
-
-        $directories = [
-            'sass/canvas-ui',
-            'js/canvas-ui',
-        ];
-
-        foreach ($directories as $path) {
-            if (! $filesystem->isDirectory($directory = resource_path($path))) {
-                $filesystem->makeDirectory($directory, 0755, true);
-            }
-        }
-    }
-
-    /**
      * Update the "package.json" file.
      *
-     * @param bool $dev
+     * @param  callable  $callback
+     * @param  bool  $dev
      * @return void
      */
-    private function updatePackages($dev = true)
+    protected function updateNodePackages(callable $callback, $dev = true)
     {
         if (! file_exists(base_path('package.json'))) {
             return;
@@ -79,7 +92,7 @@ class UiCommand extends Command
 
         $packages = json_decode(file_get_contents(base_path('package.json')), true);
 
-        $packages[$configurationKey] = $this->updatePackageArray(
+        $packages[$configurationKey] = $callback(
             array_key_exists($configurationKey, $packages) ? $packages[$configurationKey] : [],
             $configurationKey
         );
@@ -93,62 +106,11 @@ class UiCommand extends Command
     }
 
     /**
-     * Update the given package array.
-     *
-     * @param array $packages
-     * @return array
-     */
-    private function updatePackageArray(array $packages)
-    {
-        return [
-            'axios' => '^0.19',
-            'bootstrap' => '^4.5.2',
-            'cross-env' => '^7.0',
-            'highlight.js' => '^10.2.0',
-            'jquery' => '^3.5.1',
-            'laravel-mix' => '^5.0.1',
-            'lodash' => '^4.17.19',
-            'medium-zoom' => '^1.0.6',
-            'moment' => '^2.29.0',
-            'nprogress' => '^0.2.0',
-            'popper.js' => '^1.16.1',
-            'resolve-url-loader' => '^3.1.0',
-            'sass' => '^1.26.11',
-            'sass-loader' => '^10.0.0',
-            'vue' => '^2.6.11',
-            'vue-infinite-loading' => '^2.4.5',
-            'vue-meta' => '^2.4.0',
-            'vue-router' => '^3.4.2',
-            'vue-template-compiler' => '^2.6.11',
-        ] + $packages;
-    }
-
-    /**
-     * Export the Sass file for the application.
-     *
-     * @return void
-     */
-    private function exportSass()
-    {
-        copy(dirname(__DIR__, 2).'/resources/sass/ui.scss', resource_path('sass/canvas-ui.scss'));
-    }
-
-    /**
-     * Export the single page application.
-     *
-     * @return void
-     */
-    private function exportJavascript()
-    {
-        File::copyDirectory(dirname(__DIR__, 2).'/resources/js/ui', resource_path('js/canvas-ui'));
-    }
-
-    /**
      * Export the authentication views.
      *
      * @return void
      */
-    private function exportViews()
+    protected function exportViews()
     {
         if (file_exists($view = $this->getViewPath('canvas-ui.blade.php')) && ! $this->option('force')) {
             if (! $this->confirm('The [canvas-ui.blade.php] view already exists. Do you want to replace it?')) {
@@ -160,11 +122,11 @@ class UiCommand extends Command
     }
 
     /**
-     * Export the backend controllers and routes.
+     * Export the backend controller and routes.
      *
      * @return void
      */
-    private function exportBackend()
+    protected function exportBackend()
     {
         file_put_contents(
             app_path('Http/Controllers/CanvasUiController.php'),
@@ -177,7 +139,7 @@ class UiCommand extends Command
 
         file_put_contents(
             base_path('routes/web.php'),
-            file_get_contents(dirname(__DIR__, 2).'/resources/stubs/routes.stub'),
+            file_get_contents(dirname(__DIR__, 2).'/routes/ui.php'),
             FILE_APPEND
         );
     }
@@ -188,7 +150,7 @@ class UiCommand extends Command
      * @param string $path
      * @return string
      */
-    private function getViewPath($path)
+    protected function getViewPath($path)
     {
         return implode(DIRECTORY_SEPARATOR, [
             config('view.paths')[0] ?? resource_path('views'), $path,
@@ -196,17 +158,17 @@ class UiCommand extends Command
     }
 
     /**
-     * Remove the installed Node modules.
+     * Delete the "node_modules" directory and remove the associated lock files.
      *
      * @return void
      */
-    private function removeNodeModules()
+    protected function flushNodeModules()
     {
         tap(new Filesystem, function ($files) {
             $files->deleteDirectory(base_path('node_modules'));
 
             $files->delete(base_path('yarn.lock'));
-            $files->delete(base_path('package-json.lock'));
+            $files->delete(base_path('package-lock.json'));
         });
     }
 
@@ -215,11 +177,11 @@ class UiCommand extends Command
      *
      * @return void
      */
-    private function updateWebpackConfiguration()
+    protected function updateWebpackConfiguration()
     {
         file_put_contents(
             base_path('webpack.mix.js'),
-            file_get_contents(dirname(__DIR__, 2).'/resources/stubs/webpack.stub'),
+            file_get_contents(dirname(__DIR__, 2).'/resources/stubs/webpack.mix.js'),
             FILE_APPEND
         );
     }

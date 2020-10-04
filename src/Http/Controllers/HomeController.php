@@ -24,6 +24,7 @@ class HomeController extends Controller
                 'languageCodes' => Canvas::availableLanguageCodes(),
                 'maxUpload' => config('canvas.upload_filesize'),
                 'path' => config('canvas.path'),
+                'domain' => config('canvas.domain'),
                 'roles' => Canvas::availableRoles(),
                 'timezone' => config('app.timezone'),
                 'translations' => Canvas::availableTranslations($request->user('canvas')->locale),

@@ -2,8 +2,8 @@
 
 namespace Canvas\Listeners;
 
+use Canvas\Canvas;
 use Canvas\Events\PostViewed;
-use Canvas\Helpers\URL;
 use Canvas\Models\Post;
 
 class CaptureView
@@ -25,7 +25,7 @@ class CaptureView
                 'post_id' => $event->post->id,
                 'ip' => request()->getClientIp(),
                 'agent' => request()->header('user_agent'),
-                'referer' => URL::isValid($referer) ? URL::trim($referer) : false,
+                'referer' => Canvas::isValid($referer) ? Canvas::trim($referer) : false,
             ];
 
             $event->post->views()->create($data);
@@ -40,7 +40,7 @@ class CaptureView
      * @param Post $post
      * @return bool
      */
-    private function wasRecentlyViewed(Post $post): bool
+    protected function wasRecentlyViewed(Post $post): bool
     {
         $viewed = session()->get('viewed_posts', []);
 
@@ -53,7 +53,7 @@ class CaptureView
      * @param Post $post
      * @return void
      */
-    private function storeInSession(Post $post)
+    protected function storeInSession(Post $post)
     {
         session()->put("viewed_posts.{$post->id}", now()->timestamp);
     }
