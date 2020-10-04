@@ -5,7 +5,7 @@ export default {
     computed: {
         baseDomain() {
             return store.state.settings.domain || `/${store.state.settings.path}`;
-        }
+        },
     },
 
     methods: {
