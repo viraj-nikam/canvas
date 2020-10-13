@@ -94,11 +94,11 @@
             </div>
         </nav>
 
-        <embed-content-modal ref="embedContentModal" @addingEmbedContent="insertEmbedContent" />
+        <embed-content-modal ref="embedContentModal" @adding-embed-content="insertEmbedContent" />
         <embed-image-modal
             ref="embedImageModal"
-            @addingEmbedImage="insertEmbedImage"
-            @removingEmbedImage="removeEmbedImage"
+            @adding-embed-image="insertEmbedImage"
+            @removing-embed-image="removeEmbedImage"
         />
     </div>
 </template>
