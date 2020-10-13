@@ -1,3 +1,4 @@
+# The Docker image to run the workspace in (defaults to gitpod/workspace-full)
 image:
   file: Dockerfile
 
@@ -6,9 +7,9 @@ checkoutLocation: canvas
 
 vscode:
   extensions:
-    - octref.vetur@0.27.0:a+OljFHzmH1YrzbM13sMhQ==
+    - octref.vetur@0.28.0:bW1RGNnmWYQO43JdJgK34w==
     - eamodio.gitlens@10.2.1:WIWu3zHU4VPT8r/v866LUw==
-    - esbenp.prettier-vscode@5.5.0:xcEnHt0vYXkhJ8IkBmNAuA==
+    - esbenp.prettier-vscode@5.7.1:GDba64T6G+TUi1qmc6BE3A==
 
 github:
   prebuilds:
@@ -29,21 +30,20 @@ github:
     # Add a label once the prebuild is ready to pull requests (defaults to false)
     addLabel: true
 
+# Command to start on workspace startup (optional)
 tasks:
   - init: |
-      # Initializing the Laravel app
-
-      # Reload the .bash_profile to utilize composer-link()
+      # Reload the .bash_profile to utilize the composer-link() function
       source ~/.bash_profile
 
       cd /workspace
 
-      # Create a new Laravel app
+      # Create a fresh Laravel app
       composer create-project --prefer-dist laravel/laravel laravel
 
       cd /workspace/laravel
 
-      # Create a new database
+      # Create a new in-memory database
       touch database/database.sqlite
 
       # Update the .env database configuration
@@ -54,14 +54,14 @@ tasks:
       composer-link ../canvas/
       composer require austintoddj/canvas @dev
 
-      # Install Canvas
+      # Install Canvas and its resources
       php artisan canvas:install
       php artisan storage:link
 
-      # Remove existing assets from the Laravel app
+      # Remove existing assets if any exist from the Laravel app
       rm -rf public/vendor/canvas/*
 
-      # Create a symlink to the package assets
+      # Create a symlink to the local package assets
       cd public/vendor/canvas
       ln -s ../../../../canvas/public/* .
 
@@ -102,6 +102,7 @@ tasks:
 
     openMode: split-right
 
+# Ports to expose on workspace startup (optional)
 ports:
   - port: 3306
     onOpen: ignore

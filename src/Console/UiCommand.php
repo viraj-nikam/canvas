@@ -139,7 +139,7 @@ class UiCommand extends Command
 
         file_put_contents(
             base_path('routes/web.php'),
-            file_get_contents(dirname(__DIR__, 2).'/routes/ui.php'),
+            file_get_contents(dirname(__DIR__, 2).'/resources/stubs/routes/web.stub'),
             FILE_APPEND
         );
     }
@@ -181,7 +181,7 @@ class UiCommand extends Command
     {
         file_put_contents(
             base_path('webpack.mix.js'),
-            file_get_contents(dirname(__DIR__, 2).'/resources/stubs/webpack.mix.js'),
+            file_get_contents(dirname(__DIR__, 2).'/resources/stubs/webpack.mix.stub'),
             FILE_APPEND
         );
     }

@@ -154,17 +154,17 @@ export default {
 
     methods: {
         syncTitle() {
-            this.$emit('syncTitle', this.post.title);
+            this.$emit('sync-title', this.post.title);
             this.update();
         },
 
         syncDescription() {
-            this.$emit('syncDescription', this.post.summary);
+            this.$emit('sync-description', this.post.summary);
             this.update();
         },
 
         update: debounce(function () {
-            this.$emit('updatePost');
+            this.$emit('update-post');
         }, 3000),
     },
 };

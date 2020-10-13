@@ -87,7 +87,7 @@ export default {
     methods: {
         clickDone() {
             if (!isEmpty(this.content)) {
-                this.$emit('addingEmbedContent', {
+                this.$emit('adding-embed-content', {
                     content: this.content,
                     existingBlot: this.blot,
                 });

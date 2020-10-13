@@ -335,7 +335,7 @@ export default {
         },
 
         removeFeaturedImage() {
-            this.$emit('removeFeaturedImage');
+            this.$emit('remove-featured-image');
             this.isReadyToAcceptUploads = true;
             this.update();
         },
@@ -352,7 +352,7 @@ export default {
         },
 
         update: debounce(function () {
-            this.$emit('updatePost');
+            this.$emit('update-post');
         }, 3000),
     },
 };

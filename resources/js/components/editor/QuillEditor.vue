@@ -273,12 +273,12 @@ export default {
         },
 
         showEmbedImageModal(data = null) {
-            this.$emit('openingEmbedImageModal', data);
+            this.$emit('opening-embed-image-modal', data);
             $(this.$refs.embedImageModal.$el).modal('show');
         },
 
         showEmbedContentModal(data = null) {
-            this.$emit('openingEmbedContentModal', data);
+            this.$emit('opening-embed-content-modal', data);
             $(this.$refs.embedContentModal.$el).modal('show');
         },
 
@@ -326,7 +326,7 @@ export default {
         },
 
         update: debounce(function () {
-            this.$emit('updatePost');
+            this.$emit('update-post');
         }, 3000),
     },
 };

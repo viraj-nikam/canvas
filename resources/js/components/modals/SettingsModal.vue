@@ -173,7 +173,7 @@ export default {
 
     methods: {
         syncSlug() {
-            this.$emit('syncSlug', strings.methods.slugify(this.post.title));
+            this.$emit('sync-slug', strings.methods.slugify(this.post.title));
             this.update();
         },
 
@@ -184,8 +184,8 @@ export default {
                 user_id: this.settings.user.id,
             };
 
-            this.$emit('addPostTag', tag);
-            this.$emit('addTag', tag);
+            this.$emit('add-post-tag', tag);
+            this.$emit('add-tag', tag);
             this.update();
         },
 
@@ -196,13 +196,13 @@ export default {
                 user_id: this.settings.user.id,
             };
 
-            this.$emit('addPostTopic', topic);
-            this.$emit('addTopic', topic);
+            this.$emit('add-post-topic', topic);
+            this.$emit('add-topic', topic);
             this.update();
         },
 
         update: debounce(function () {
-            this.$emit('updatePost');
+            this.$emit('update-post');
         }, 3000),
     },
 };
