@@ -274,7 +274,7 @@ export default {
     },
 
     mounted() {
-        this.$parent.$on('openingEmbedImageModal', (data) => {
+        this.$parent.$on('opening-embed-image-modal', (data) => {
             if (!isEmpty(data)) {
                 this.selectedImageCaption = isEmpty(data.caption) ? '' : data.caption;
                 this.selectedImageUrl = data.url;

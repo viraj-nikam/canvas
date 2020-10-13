@@ -93,7 +93,7 @@
                 </div>
 
                 <div class="form-group my-2">
-                    <quill-editor :key="post.id" :post="post" @updatePost="savePost" />
+                    <quill-editor :key="post.id" :post="post" @update-post="savePost" />
                 </div>
             </div>
         </main>
@@ -105,26 +105,27 @@
                 :post="post"
                 :tags="tags"
                 :topics="topics"
-                @syncSlug="updateSlug"
-                @addTag="addTag"
-                @addPostTag="addPostTag"
-                @addPostTopic="addPostTopic"
-                @addTopic="addTopic"
-                @updatePost="savePost"
+                :errors="errors"
+                @sync-slug="updateSlug"
+                @add-tag="addTag"
+                @add-post-tag="addPostTag"
+                @add-post-topic="addPostTopic"
+                @add-topic="addTopic"
+                @update-post="savePost"
             />
             <featured-image-modal
                 ref="featuredImageModal"
                 :post="post"
-                @updateFeaturedImage="updateFeaturedImage"
-                @removeFeaturedImage="removeFeaturedImage"
-                @updatePost="savePost"
+                @update-featured-image="updateFeaturedImage"
+                @remove-featured-image="removeFeaturedImage"
+                @update-post="savePost"
             />
             <seo-modal
                 ref="seoModal"
                 :post="post"
-                @syncTitle="updateMetaTitle"
-                @syncDescription="updateMetaDescription"
-                @updatePost="savePost"
+                @sync-title="updateMetaTitle"
+                @sync-description="updateMetaDescription"
+                @update-post="savePost"
             />
             <delete-modal
                 ref="deleteModal"

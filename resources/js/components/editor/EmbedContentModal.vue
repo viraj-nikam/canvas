@@ -76,7 +76,7 @@ export default {
     },
 
     mounted() {
-        this.$parent.$on('openingEmbedContentModal', (data) => {
+        this.$parent.$on('opening-embed-content-modal', (data) => {
             if (!isEmpty(data)) {
                 this.blot = data.existingBlot;
                 this.content = data.content;
