@@ -351,12 +351,12 @@ export default {
         clickDone() {
             if (!this.selectedImageUrl) {
                 if (!isEmpty(this.selectedImageBlot)) {
-                    this.$emit('removingEmbedImage', {
+                    this.$emit('removing-embed-image', {
                         existingBlot: this.selectedImageBlot,
                     });
                 }
             } else {
-                this.$emit('addingEmbedImage', {
+                this.$emit('adding-embed-image', {
                     url: this.selectedImageUrl,
                     caption: this.selectedImageCaption ?? '',
                     existingBlot: this.selectedImageBlot,

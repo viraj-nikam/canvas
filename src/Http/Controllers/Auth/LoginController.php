@@ -7,7 +7,6 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
@@ -40,7 +39,7 @@ class LoginController extends Controller
      * Handle a login request to the application.
      *
      * @param Request $request
-     * @return Response|\Symfony\Component\HttpFoundation\Response
+     * @return Application|RedirectResponse|Redirector|void
      * @throws ValidationException
      */
     public function login(Request $request)
@@ -58,7 +57,7 @@ class LoginController extends Controller
      * Log the user out of the application.
      *
      * @param Request $request
-     * @return Response
+     * @return RedirectResponse
      */
     public function logout(Request $request)
     {
@@ -68,13 +67,7 @@ class LoginController extends Controller
 
         $request->session()->regenerateToken();
 
-        if ($response = $this->loggedOut($request)) {
-            return $response;
-        }
-
-        return $request->wantsJson()
-            ? new Response('', 204)
-            : redirect()->route('canvas.login');
+        return redirect()->route('canvas.login');
     }
 
     /**
@@ -118,19 +111,13 @@ class LoginController extends Controller
      * Send the response after the user was authenticated.
      *
      * @param Request $request
-     * @return Application|RedirectResponse|Response|Redirector|mixed
+     * @return Application|RedirectResponse|Redirector
      */
     protected function sendLoginResponse(Request $request)
     {
         $request->session()->regenerate();
 
-        if ($response = $this->authenticated($request, $this->guard()->user())) {
-            return $response;
-        }
-
-        return $request->wantsJson()
-            ? new Response('', 204)
-            : redirect(config('canvas.path'));
+        return redirect(config('canvas.path'));
     }
 
     /**
@@ -146,29 +133,6 @@ class LoginController extends Controller
         throw ValidationException::withMessages([
             $this->username() => [trans('auth.failed')],
         ]);
-    }
-
-    /**
-     * The user has been authenticated.
-     *
-     * @param Request $request
-     * @param  mixed  $user
-     * @return mixed
-     */
-    protected function authenticated(Request $request, $user)
-    {
-        //
-    }
-
-    /**
-     * The user has logged out of the application.
-     *
-     * @param Request $request
-     * @return mixed
-     */
-    protected function loggedOut(Request $request)
-    {
-        //
     }
 
     /**
