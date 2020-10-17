@@ -5,7 +5,6 @@ const initialState = {
     languageCodes: window.Canvas.languageCodes,
     maxUpload: window.Canvas.maxUpload,
     path: window.Canvas.path,
-    domain: window.Canvas.domain,
     timezone: window.Canvas.timezone,
     unsplash: window.Canvas.unsplash,
     user: window.Canvas.user,
@@ -71,7 +70,7 @@ const mutations = {
     },
 
     UPDATE_DARK_MODE(state, user) {
-        state.user.darkMode = user.dark_mode;
+        state.user.dark_mode = user.dark_mode;
     },
 
     SET_USER(state, user) {

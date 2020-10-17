@@ -1,4 +1,4 @@
-import axios from 'axios';
+import request from '../../mixins/request';
 
 const initialState = {
     searchIndex: [],
@@ -12,25 +12,32 @@ const actions = {
             context.commit('RESET_STATE');
         }
 
-        // The request here was extracted from request.js since a mixin cannot be
-        // pulled into a store module in the same was it is a component. The
-        // tradeoff here is that it will not contain error modifiers.
-        let baseDomain = context.rootState['settings'].domain || `/${context.rootState['settings'].path}`;
-
-        axios.get(`${baseDomain}/api/search/posts`).then(({ data }) => {
-            context.commit('UPDATE_INDEX', data);
-        });
+        request.methods
+            .request()
+            .get('/api/search/posts')
+            .then(({ data }) => {
+                context.commit('UPDATE_INDEX', data);
+            });
 
         if (context.rootGetters['settings/isAdmin']) {
-            axios.get(`${baseDomain}/api/search/tags`).then(({ data }) => {
-                context.commit('UPDATE_INDEX', data);
-            });
-            axios.get(`${baseDomain}/api/search/topics`).then(({ data }) => {
-                context.commit('UPDATE_INDEX', data);
-            });
-            axios.get(`${baseDomain}/api/search/users`).then(({ data }) => {
-                context.commit('UPDATE_INDEX', data);
-            });
+            request.methods
+                .request()
+                .get('/api/search/tags')
+                .then(({ data }) => {
+                    context.commit('UPDATE_INDEX', data);
+                });
+            request.methods
+                .request()
+                .get('/api/search/topics')
+                .then(({ data }) => {
+                    context.commit('UPDATE_INDEX', data);
+                });
+            request.methods
+                .request()
+                .get('/api/search/users')
+                .then(({ data }) => {
+                    context.commit('UPDATE_INDEX', data);
+                });
         }
     },
 };
