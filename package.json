@@ -4,7 +4,7 @@
         "dev": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
         "format": "prettier --write \"**/*.{scss,js,vue}\"",
         "lint": "eslint --ext .js,.vue resources/js/ --fix",
-        "prod": "yarn format && cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+        "prod": "yarn lint && yarn format && cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
         "watch": "yarn dev --watch"
     },
     "dependencies": {
@@ -52,6 +52,7 @@
         "eslint-plugin-prettier": "^3.1.4",
         "eslint-plugin-sort-imports-es6-autofix": "^0.5.0",
         "eslint-plugin-vue": "^7.0.1",
-        "prettier": "^2.0.5"
+        "prettier": "^2.0.5",
+        "webpack-bundle-analyzer": "^3.9.0"
     }
 }
