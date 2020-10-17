@@ -2,12 +2,6 @@ import { store } from '../store';
 import axios from 'axios';
 
 export default {
-    computed: {
-        baseDomain() {
-            return store.state.settings.domain || `/${store.state.settings.path}`;
-        },
-    },
-
     methods: {
         request() {
             let instance = axios.create();
@@ -15,7 +9,7 @@ export default {
             instance.defaults.headers.common['X-CSRF-TOKEN'] = document.head.querySelector(
                 'meta[name="csrf-token"]'
             ).content;
-            instance.defaults.baseURL = this.baseDomain;
+            instance.defaults.baseURL = store.state.settings.path;
 
             const requestHandler = (request) => {
                 // Add any request modifiers...
@@ -27,7 +21,7 @@ export default {
                 switch (error.response.status) {
                     case 401:
                     case 405:
-                        window.location.href = `${this.baseDomain}/logout`;
+                        window.location.href = `${store.state.settings.path}/logout`;
                         break;
                     default:
                         break;

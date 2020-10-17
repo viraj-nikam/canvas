@@ -94,6 +94,16 @@ class Canvas
     }
 
     /**
+     * Return the configured public path url, prioritizing a subdomain.
+     *
+     * @return string
+     */
+    public static function basePath(): string
+    {
+        return config('canvas.domain') ?? '/' . config('canvas.path');
+    }
+
+    /**
      * Return the configured storage path url.
      *
      * @return string

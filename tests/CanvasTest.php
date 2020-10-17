@@ -5,6 +5,7 @@ namespace Canvas\Tests;
 use Canvas\Canvas;
 use Canvas\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Env;
 
 /**
  * Class CanvasTest.
@@ -47,6 +48,12 @@ class CanvasTest extends TestCase
     public function it_can_check_the_published_assets_are_up_to_date()
     {
         $this->assertSame(true, Canvas::assetsUpToDate());
+    }
+
+    /** @test */
+    public function it_can_get_the_base_path()
+    {
+        $this->assertIsString(Canvas::basePath());
     }
 
     /** @test */
