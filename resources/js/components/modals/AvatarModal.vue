@@ -106,7 +106,7 @@ export default {
 
         getServerOptions() {
             return {
-                url: `${this.baseDomain}/api/uploads`,
+                url: `${this.settings.path}/api/uploads`,
                 headers: {
                     'X-CSRF-TOKEN': document.head.querySelector('meta[name="csrf-token"]').content,
                 },
