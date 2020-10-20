@@ -12,11 +12,11 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
  |
  */
 
-mix.webpackConfig({
-    plugins: [
-        // new BundleAnalyzerPlugin(),
-    ],
-});
+// mix.webpackConfig({
+//     plugins: [
+//         new BundleAnalyzerPlugin(),
+//     ],
+// });
 
 mix.options({
     uglify: {
