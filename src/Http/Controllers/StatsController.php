@@ -24,13 +24,12 @@ class StatsController extends Controller
      */
     public function index(Request $request): JsonResponse
     {
-        $user = $request->user('canvas');
         $scope = $request->query('scope', 'user');
 
         $posts = Post::when($scope === 'all', function ($query) {
             return $query;
-        }, function ($query) use ($user) {
-            return $query->where('user_id', $user->id);
+        }, function ($query) {
+            return $query->where('user_id', request()->user('canvas')->id);
         })->published()->latest()->get();
 
         $views = View::select('created_at')
@@ -66,10 +65,8 @@ class StatsController extends Controller
      */
     public function show(Request $request, string $id): JsonResponse
     {
-        $user = $request->user('canvas');
-
-        $post = Post::when($user->isContributor, function ($query) use ($user) {
-            return $query->where('user_id', $user->id);
+        $post = Post::when(request()->user('canvas')->isContributor, function ($query) {
+            return $query->where('user_id', request()->user('canvas')->id);
         }, function ($query) {
             return $query;
         })->find($id);

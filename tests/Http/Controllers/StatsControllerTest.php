@@ -5,6 +5,7 @@ namespace Canvas\Tests\Http\Controllers;
 use Canvas\Models\Post;
 use Canvas\Models\User;
 use Canvas\Tests\TestCase;
+use Exception;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 /**
@@ -18,6 +19,7 @@ class StatsControllerTest extends TestCase
 
     /**
      * @return void
+     * @throws Exception
      */
     protected function setUp(): void
     {

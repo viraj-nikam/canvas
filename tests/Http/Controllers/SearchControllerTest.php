@@ -5,7 +5,6 @@ namespace Canvas\Tests\Http\Controllers;
 use Canvas\Models\Post;
 use Canvas\Models\Tag;
 use Canvas\Models\Topic;
-use Canvas\Models\User;
 use Canvas\Tests\TestCase;
 use Exception;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -30,23 +29,18 @@ class SearchControllerTest extends TestCase
         $this->registerAssertJsonExactFragmentMacro();
     }
 
-    /** @test */
-    public function it_can_only_fetch_user_posts_for_contributors(): void
+    public function testAContributorCanOnlySearchTheirOwnPosts(): void
     {
-        $user = factory(User::class)->create([
-            'role' => User::CONTRIBUTOR,
-        ]);
-
         factory(Post::class, 2)->create([
-            'user_id' => $user->id,
+            'user_id' => $this->contributor->id,
         ]);
 
         factory(Post::class, 1)->create([
-            'user_id' => 2,
+            'user_id' => $this->admin->id,
             'published_at' => now()->addWeek(),
         ]);
 
-        $response = $this->actingAs($user, 'canvas')
+        $response = $this->actingAs($this->contributor, 'canvas')
                          ->getJson('canvas/api/search/posts')
                          ->assertSuccessful();
 
@@ -60,23 +54,18 @@ class SearchControllerTest extends TestCase
         $this->assertSame('edit-post', $response->original[0]['route']);
     }
 
-    /** @test */
-    public function it_can_fetch_all_posts_for_editors(): void
+    public function testAnEditorCanSearchAllPosts(): void
     {
-        $user = factory(User::class)->create([
-            'role' => User::EDITOR,
-        ]);
-
         factory(Post::class, 2)->create([
-            'user_id' => $user->id,
+            'user_id' => $this->editor->id,
         ]);
 
         factory(Post::class, 1)->create([
-            'user_id' => 2,
+            'user_id' => $this->contributor->id,
             'published_at' => now()->addWeek(),
         ]);
 
-        $response = $this->actingAs($user, 'canvas')
+        $response = $this->actingAs($this->editor, 'canvas')
                          ->getJson('canvas/api/search/posts')
                          ->assertSuccessful();
 
@@ -90,23 +79,18 @@ class SearchControllerTest extends TestCase
         $this->assertSame('edit-post', $response->original[0]['route']);
     }
 
-    /** @test */
-    public function it_can_fetch_all_posts_for_admins(): void
+    public function testAnAdminCanSearchAllPosts(): void
     {
-        $user = factory(User::class)->create([
-            'role' => User::ADMIN,
-        ]);
-
         factory(Post::class, 2)->create([
-            'user_id' => $user->id,
+            'user_id' => $this->admin->id,
         ]);
 
         factory(Post::class, 1)->create([
-            'user_id' => 2,
+            'user_id' => $this->editor->id,
             'published_at' => now()->addWeek(),
         ]);
 
-        $response = $this->actingAs($user, 'canvas')
+        $response = $this->actingAs($this->admin, 'canvas')
                          ->getJson('canvas/api/search/posts')
                          ->assertSuccessful();
 
@@ -120,18 +104,13 @@ class SearchControllerTest extends TestCase
         $this->assertSame('edit-post', $response->original[0]['route']);
     }
 
-    /** @test */
-    public function it_can_fetch_tags_for_an_admin_user(): void
+    public function testAnAdminCanSearchAllTags(): void
     {
-        $user = factory(User::class)->create([
-            'role' => User::ADMIN,
-        ]);
-
         factory(Tag::class, 2)->create([
-            'user_id' => $user->id,
+            'user_id' => $this->admin->id,
         ]);
 
-        $response = $this->actingAs($user, 'canvas')
+        $response = $this->actingAs($this->admin, 'canvas')
                          ->getJson('canvas/api/search/tags')
                          ->assertSuccessful();
 
@@ -144,18 +123,13 @@ class SearchControllerTest extends TestCase
         $this->assertSame('edit-tag', $response->original[0]['route']);
     }
 
-    /** @test */
-    public function it_can_fetch_topics_for_an_admin_user(): void
+    public function testAnAdminCanSearchAllTopics(): void
     {
-        $user = factory(User::class)->create([
-            'role' => User::ADMIN,
-        ]);
-
         factory(Topic::class, 2)->create([
-            'user_id' => $user->id,
+            'user_id' => $this->admin->id,
         ]);
 
-        $response = $this->actingAs($user, 'canvas')
+        $response = $this->actingAs($this->admin, 'canvas')
                          ->getJson('canvas/api/search/topics')
                          ->assertSuccessful();
 
@@ -168,16 +142,9 @@ class SearchControllerTest extends TestCase
         $this->assertSame('edit-topic', $response->original[0]['route']);
     }
 
-    /** @test */
-    public function it_can_fetch_users_for_an_admin_user(): void
+    public function testAnAdminCanSearchAllUsers(): void
     {
-        $user = factory(User::class)->create([
-            'role' => User::ADMIN,
-        ]);
-
-        factory(User::class, 2)->create();
-
-        $response = $this->actingAs($user, 'canvas')
+        $response = $this->actingAs($this->admin, 'canvas')
                          ->getJson('canvas/api/search/users')
                          ->assertSuccessful();
 
