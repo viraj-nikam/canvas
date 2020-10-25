@@ -7,6 +7,7 @@ use Canvas\Models\Tag;
 use Canvas\Models\Topic;
 use Canvas\Models\User;
 use Canvas\Tests\TestCase;
+use Exception;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 /**
@@ -20,6 +21,7 @@ class SearchControllerTest extends TestCase
 
     /**
      * @return void
+     * @throws Exception
      */
     protected function setUp(): void
     {
@@ -29,7 +31,7 @@ class SearchControllerTest extends TestCase
     }
 
     /** @test */
-    public function it_can_only_fetch_user_posts_for_contributors()
+    public function it_can_only_fetch_user_posts_for_contributors(): void
     {
         $user = factory(User::class)->create([
             'role' => User::CONTRIBUTOR,
@@ -59,7 +61,7 @@ class SearchControllerTest extends TestCase
     }
 
     /** @test */
-    public function it_can_fetch_all_posts_for_editors()
+    public function it_can_fetch_all_posts_for_editors(): void
     {
         $user = factory(User::class)->create([
             'role' => User::EDITOR,
@@ -89,7 +91,7 @@ class SearchControllerTest extends TestCase
     }
 
     /** @test */
-    public function it_can_fetch_all_posts_for_admins()
+    public function it_can_fetch_all_posts_for_admins(): void
     {
         $user = factory(User::class)->create([
             'role' => User::ADMIN,
@@ -119,7 +121,7 @@ class SearchControllerTest extends TestCase
     }
 
     /** @test */
-    public function it_can_fetch_tags_for_an_admin_user()
+    public function it_can_fetch_tags_for_an_admin_user(): void
     {
         $user = factory(User::class)->create([
             'role' => User::ADMIN,
@@ -143,7 +145,7 @@ class SearchControllerTest extends TestCase
     }
 
     /** @test */
-    public function it_can_fetch_topics_for_an_admin_user()
+    public function it_can_fetch_topics_for_an_admin_user(): void
     {
         $user = factory(User::class)->create([
             'role' => User::ADMIN,
@@ -167,7 +169,7 @@ class SearchControllerTest extends TestCase
     }
 
     /** @test */
-    public function it_can_fetch_users_for_an_admin_user()
+    public function it_can_fetch_users_for_an_admin_user(): void
     {
         $user = factory(User::class)->create([
             'role' => User::ADMIN,

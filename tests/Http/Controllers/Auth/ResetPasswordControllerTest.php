@@ -2,7 +2,6 @@
 
 namespace Canvas\Tests\Http\Controllers\Auth;
 
-use Canvas\Models\User;
 use Canvas\Tests\TestCase;
 use Illuminate\Support\Str;
 
@@ -13,14 +12,11 @@ use Illuminate\Support\Str;
  */
 class ResetPasswordControllerTest extends TestCase
 {
-    /** @test */
-    public function it_can_show_the_reset_password_page()
+    public function testTheResetPasswordPage(): void
     {
-        $user = factory(User::class)->create([
-            'role' => User::ADMIN,
-        ]);
+        $this->withoutMix();
 
-        $this->actingAs($user, 'canvas')
+        $this->actingAs($this->admin, 'canvas')
              ->get(route('canvas.password.reset', [
                  'token' => Str::random(60),
              ]))

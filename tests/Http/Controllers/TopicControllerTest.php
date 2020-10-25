@@ -14,7 +14,7 @@ use Ramsey\Uuid\Uuid;
  * Class TopicControllerTest.
  *
  * @covers \Canvas\Http\Controllers\TopicController
- * @covers \Canvas\Http\Requests\StoreTopicRequest
+ * @covers \Canvas\Http\Requests\TopicRequest
  */
 class TopicControllerTest extends TestCase
 {

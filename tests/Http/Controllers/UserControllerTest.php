@@ -13,7 +13,7 @@ use Ramsey\Uuid\Uuid;
  * Class UserControllerTest.
  *
  * @covers \Canvas\Http\Controllers\UserController
- * @covers \Canvas\Http\Requests\StoreUserRequest
+ * @covers \Canvas\Http\Requests\UserRequest
  */
 class UserControllerTest extends TestCase
 {

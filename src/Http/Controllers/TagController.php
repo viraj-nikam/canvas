@@ -2,7 +2,7 @@
 
 namespace Canvas\Http\Controllers;
 
-use Canvas\Http\Requests\StoreTagRequest;
+use Canvas\Http\Requests\TagRequest;
 use Canvas\Models\Tag;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -42,11 +42,11 @@ class TagController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param StoreTagRequest $request
+     * @param TagRequest $request
      * @param $id
      * @return JsonResponse
      */
-    public function store(StoreTagRequest $request, $id): JsonResponse
+    public function store(TagRequest $request, $id): JsonResponse
     {
         $data = $request->validated();
 

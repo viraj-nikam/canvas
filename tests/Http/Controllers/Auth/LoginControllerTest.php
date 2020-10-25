@@ -5,6 +5,7 @@ namespace Canvas\Tests\Http\Controllers\Auth;
 use Canvas\Models\User;
 use Canvas\Tests\TestCase;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
 
 /**
  * Class LoginControllerTest.
@@ -13,9 +14,10 @@ use Illuminate\Support\Facades\Hash;
  */
 class LoginControllerTest extends TestCase
 {
-    /** @test */
-    public function it_can_show_the_login_page()
+    public function testTheLoginPage(): void
     {
+        $this->withoutMix();
+
         $this->assertGuest()
              ->get(route('canvas.login'))
              ->assertSuccessful()
@@ -23,26 +25,21 @@ class LoginControllerTest extends TestCase
     }
 
     /** @test */
-    public function it_can_validate_a_bad_login()
+    public function testLoginRequestWillValidateAnInvalidEmail()
     {
-        $user = factory(User::class)->create([
-            'role' => User::ADMIN,
-            'password' => Hash::make('password'),
-        ]);
-
-        $this->actingAs($user, 'canvas')
+        $response = $this->actingAs($this->admin, 'canvas')
              ->post(route('canvas.login'), [
                  'email' => 'wrong@example.com',
                  'password' => 'password',
              ])
              ->assertSessionHasErrors();
+
+        $this->assertInstanceOf(ValidationException::class, $response->exception);
     }
 
-    /** @test */
-    public function it_can_log_a_user_in()
+    public function testSuccessfulLogin(): void
     {
         $user = factory(User::class)->create([
-            'role' => User::ADMIN,
             'password' => Hash::make('password'),
         ]);
 
@@ -54,14 +51,9 @@ class LoginControllerTest extends TestCase
              ->assertRedirect(config('canvas.path'));
     }
 
-    /** @test */
-    public function it_can_log_a_user_out()
+    public function testSuccessfulLogout(): void
     {
-        $user = factory(User::class)->create([
-            'role' => User::ADMIN,
-        ]);
-
-        $this->actingAs($user, 'canvas')
+        $this->actingAs($this->admin, 'canvas')
              ->get(route('canvas.logout'))
              ->assertRedirect(route('canvas.login'));
     }

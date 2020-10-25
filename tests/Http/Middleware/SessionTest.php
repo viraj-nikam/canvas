@@ -5,6 +5,7 @@ namespace Canvas\Tests\Http\Middleware;
 use Canvas\Http\Middleware\Session;
 use Canvas\Models\Post;
 use Canvas\Tests\TestCase;
+use Exception;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Collection;
 
@@ -26,6 +27,7 @@ class SessionTest extends TestCase
 
     /**
      * @return void
+     * @throws Exception
      */
     protected function setUp(): void
     {
@@ -34,8 +36,7 @@ class SessionTest extends TestCase
         $this->instance = new Session();
     }
 
-    /** @test */
-    public function it_can_get_viewed_posts_in_session()
+    public function testViewedPostsCanBeFetchedFromSession(): void
     {
         $post = factory(Post::class)->create();
 
@@ -48,8 +49,7 @@ class SessionTest extends TestCase
         $this->assertArrayHasKey($post->id, session()->get('viewed_posts'));
     }
 
-    /** @test */
-    public function it_can_get_visited_posts_in_session()
+    public function testVisitedPostsCanBeFetchedFromSession(): void
     {
         $post = factory(Post::class)->create();
 
@@ -62,8 +62,7 @@ class SessionTest extends TestCase
         $this->assertArrayHasKey($post->id, session()->get('viewed_posts'));
     }
 
-    /** @test */
-    public function it_can_prune_expired_views()
+    public function testViewsCanBePrunedFromSession(): void
     {
         $recentPost = factory(Post::class)->create();
 
@@ -81,8 +80,7 @@ class SessionTest extends TestCase
         $this->assertArrayNotHasKey($oldPost->id, session()->get('viewed_posts'));
     }
 
-    /** @test */
-    public function it_can_prune_expired_visits()
+    public function testVisitsCanBePrunedFromSession(): void
     {
         $ip = '127.0.0.1';
 

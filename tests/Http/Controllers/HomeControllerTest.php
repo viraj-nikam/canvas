@@ -4,6 +4,7 @@ namespace Canvas\Tests\Http\Controllers;
 
 use Canvas\Models\User;
 use Canvas\Tests\TestCase;
+use Exception;
 
 /**
  * Class HomeControllerTest.
@@ -14,6 +15,7 @@ class HomeControllerTest extends TestCase
 {
     /**
      * @return void
+     * @throws Exception
      */
     protected function setUp(): void
     {
@@ -23,13 +25,11 @@ class HomeControllerTest extends TestCase
     }
 
     /** @test */
-    public function it_can_load_the_script_variables()
+    public function testScriptVariables(): void
     {
-        $user = factory(User::class)->create([
-            'role' => User::ADMIN,
-        ]);
+        $this->withoutMix();
 
-        $this->actingAs($user, 'canvas')
+        $this->actingAs($this->admin, 'canvas')
              ->get(config('canvas.path'))
              ->assertSuccessful()
              ->assertViewIs('canvas::layout')

@@ -4,6 +4,7 @@ namespace Canvas\Tests;
 
 use Canvas\CanvasServiceProvider;
 use Canvas\Models\User;
+use Exception;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\TestResponse as LegacyTestResponse;
@@ -18,13 +19,47 @@ abstract class TestCase extends OrchestraTestCase
     use RefreshDatabase;
 
     /**
+     * A contributor-level user for testing.
+     *
+     * @var User
+     */
+    protected $contributor;
+
+    /**
+     * An editor-level user for testing.
+     *
+     * @var User
+     */
+    protected $editor;
+
+    /**
+     * An admin-level user for testing.
+     *
+     * @var User
+     */
+    protected $admin;
+
+    /**
      * @return void
+     * @throws Exception
      */
     protected function setUp(): void
     {
         parent::setUp();
 
         $this->setUpDatabase($this->app);
+
+        $this->contributor = factory(User::class)->create([
+            'role' => User::CONTRIBUTOR,
+        ]);
+
+        $this->editor = factory(User::class)->create([
+            'role' => User::EDITOR,
+        ]);
+
+        $this->admin = factory(User::class)->create([
+            'role' => User::ADMIN,
+        ]);
     }
 
     /**
@@ -83,6 +118,7 @@ abstract class TestCase extends OrchestraTestCase
     /**
      * @param Application $app
      * @return void
+     * @throws Exception
      */
     protected function setUpDatabase($app): void
     {
@@ -131,7 +167,7 @@ abstract class TestCase extends OrchestraTestCase
             return $this;
         };
 
-        if (Application::VERSION === '7.x-dev' || version_compare(Application::VERSION, '7.0', '>=')) {
+        if ($this->app->version() === '7.x-dev' || version_compare($this->app->version(), '7.0', '>=')) {
             TestResponse::macro('assertJsonExactFragment', $assertion);
         } else {
             LegacyTestResponse::macro('assertJsonExactFragment', $assertion);

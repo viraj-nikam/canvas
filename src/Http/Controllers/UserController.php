@@ -2,7 +2,7 @@
 
 namespace Canvas\Http\Controllers;
 
-use Canvas\Http\Requests\StoreUserRequest;
+use Canvas\Http\Requests\UserRequest;
 use Canvas\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -45,11 +45,11 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param StoreUserRequest $request
+     * @param UserRequest $request
      * @param $id
      * @return JsonResponse
      */
-    public function store(StoreUserRequest $request, $id): JsonResponse
+    public function store(UserRequest $request, $id): JsonResponse
     {
         $data = $request->validated();
 

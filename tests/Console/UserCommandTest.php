@@ -15,74 +15,59 @@ class UserCommandTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
-    public function it_validates_an_empty_email()
+    public function testCanvasUserCommandWillValidateAnEmptyEmail(): void
     {
         $this->artisan('canvas:user admin')
              ->assertExitCode(0)
              ->expectsOutput('Please enter a valid email.');
     }
 
-    /** @test */
-    public function it_validates_an_invalid_email()
+    public function testCanvasUserCommandWillValidateAnInvalidEmail(): void
     {
         $this->artisan('canvas:user admin --email bad.email')
              ->assertExitCode(0)
              ->expectsOutput('Please enter a valid email.');
     }
 
-    /** @test */
-    public function it_validates_an_invalid_role()
+    public function testCanvasUserCommandWillValidateAnInvalidRole(): void
     {
         $this->artisan('canvas:user ad --email email@example.com')
              ->assertExitCode(0)
              ->expectsOutput('Please enter a valid role.');
     }
 
-    /** @test */
-    public function it_can_create_a_new_contributor()
+    public function testCanvasUserCommandCanCreateANewContributor(): void
     {
-        $role = 'contributor';
-        $email = 'contributor@example.com';
-
-        $this->artisan("canvas:user {$role} --email {$email}")
+        $this->artisan("canvas:user contributor --email contributor@example.com")
              ->assertExitCode(0)
              ->expectsOutput('New user created.');
 
         $this->assertDatabaseHas('canvas_users', [
-            'email' => $email,
+            'email' => 'contributor@example.com',
             'role' => User::CONTRIBUTOR,
         ]);
     }
 
-    /** @test */
-    public function it_can_create_a_new_editor()
+    public function testCanvasUserCommandCanCreateANewEditor(): void
     {
-        $role = 'editor';
-        $email = 'editor@example.com';
-
-        $this->artisan("canvas:user {$role} --email {$email}")
+        $this->artisan("canvas:user editor --email editor@example.com")
              ->assertExitCode(0)
              ->expectsOutput('New user created.');
 
         $this->assertDatabaseHas('canvas_users', [
-            'email' => $email,
+            'email' => 'editor@example.com',
             'role' => User::EDITOR,
         ]);
     }
 
-    /** @test */
-    public function it_can_create_a_new_admin()
+    public function testCanvasUserCommandCanCreateANewAdmin(): void
     {
-        $role = 'admin';
-        $email = 'admin@example.com';
-
-        $this->artisan("canvas:user {$role} --email {$email}")
+        $this->artisan("canvas:user admin --email admin@example.com")
              ->assertExitCode(0)
              ->expectsOutput('New user created.');
 
         $this->assertDatabaseHas('canvas_users', [
-            'email' => $email,
+            'email' => 'admin@example.com',
             'role' => User::ADMIN,
         ]);
     }

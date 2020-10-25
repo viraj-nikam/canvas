@@ -2,7 +2,7 @@
 
 namespace Canvas\Http\Controllers;
 
-use Canvas\Http\Requests\StorePostRequest;
+use Canvas\Http\Requests\PostRequest;
 use Canvas\Models\Post;
 use Canvas\Models\Tag;
 use Canvas\Models\Topic;
@@ -78,20 +78,21 @@ class PostController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param StorePostRequest $request
+     * @param PostRequest $request
      * @param $id
      * @return JsonResponse
      * @throws Exception
      */
-    public function store(StorePostRequest $request, $id): JsonResponse
+    public function store(PostRequest $request, $id): JsonResponse
     {
         $data = $request->validated();
+        $user = $request->user('canvas');
 
-        if ($request->user('canvas')->isAdmin) {
-            $post = Post::with('tags', 'topic')->find($id);
-        } else {
-            $post = Post::with('tags', 'topic')->where('user_id', $request->user('canvas')->id)->find($id);
-        }
+        $post = Post::when($request->user('canvas')->isContributor, function ($query) use ($user) {
+            return $query->where('user_id', $user->id);
+        }, function ($query) {
+            return $query;
+        })->with('tags', 'topic')->find($id);
 
         if (! $post) {
             $post = new Post(['id' => $id]);

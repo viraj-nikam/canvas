@@ -27,34 +27,29 @@ class PostTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
-    public function dates_are_carbon_objects()
+    public function testDatesAreCarbonObjects(): void
     {
         $this->assertInstanceOf(Carbon::class, factory(Post::class)->create()->published_at);
     }
 
-    /** @test */
-    public function read_time_appends_to_the_model()
+    public function testReadTimeAppendsToTheModel(): void
     {
         $this->assertArrayHasKey('read_time', factory(Post::class)->create()->toArray());
     }
 
-    /** @test */
-    public function meta_is_cast_to_an_array()
+    public function testMetaIsCastToArray(): void
     {
         $this->assertIsArray(factory(Post::class)->create()->meta);
     }
 
-    /** @test */
-    public function published_attribute()
+    public function testPublishedAttribute(): void
     {
         $this->assertTrue(factory(Post::class)->create([
             'published_at' => now()->subDay(),
         ])->published);
     }
 
-    /** @test */
-    public function read_time_attribute()
+    public function testReadTimeAttribute(): void
     {
         $post = factory(Post::class)->create();
 
@@ -66,8 +61,7 @@ class PostTest extends TestCase
         );
     }
 
-    /** @test */
-    public function popular_reading_times_attribute()
+    public function testPopularReadingTimesAttribute(): void
     {
         $post = factory(Post::class)->create();
 
@@ -85,8 +79,7 @@ class PostTest extends TestCase
         $this->assertIsArray($post->popularReadingTimes);
     }
 
-    /** @test */
-    public function top_referers_attribute()
+    public function testTopReferersAttribute(): void
     {
         $post = factory(Post::class)->create();
 
@@ -105,8 +98,7 @@ class PostTest extends TestCase
         $this->assertIsArray($post->topReferers);
     }
 
-    /** @test */
-    public function posts_can_share_the_same_slug_with_unique_users()
+    public function testPostsCanShareTheSameSlugWithUniqueUsers(): void
     {
         $data = [
             'id' => Uuid::uuid4()->toString(),
@@ -133,8 +125,7 @@ class PostTest extends TestCase
         ]);
     }
 
-    /** @test */
-    public function tags_relationship()
+    public function testTagsRelationship(): void
     {
         $post = factory(Post::class)->create();
         $tag = factory(Tag::class)->create();
@@ -145,8 +136,7 @@ class PostTest extends TestCase
         $this->assertInstanceOf(Tag::class, $post->tags->first());
     }
 
-    /** @test */
-    public function topic_relationship()
+    public function testTopicRelationship(): void
     {
         $post = factory(Post::class)->create();
         $topic = factory(Topic::class)->create();
@@ -157,8 +147,7 @@ class PostTest extends TestCase
         $this->assertInstanceOf(Topic::class, $post->topic->first());
     }
 
-    /** @test */
-    public function user_relationship()
+    public function testUserRelationship(): void
     {
         $post = factory(Post::class)->create();
 
@@ -166,8 +155,7 @@ class PostTest extends TestCase
         $this->assertInstanceOf(User::class, $post->user);
     }
 
-    /** @test */
-    public function views_relationship()
+    public function testViewsRelationship(): void
     {
         $post = factory(Post::class)->create();
 
@@ -179,8 +167,7 @@ class PostTest extends TestCase
         $this->assertInstanceOf(View::class, $post->views->first());
     }
 
-    /** @test */
-    public function visits_relationship()
+    public function testVisitsRelationship(): void
     {
         $post = factory(Post::class)->create();
 
@@ -192,13 +179,11 @@ class PostTest extends TestCase
         $this->assertInstanceOf(Visit::class, $post->visits->first());
     }
 
-    /** @test */
-    public function published_scope()
+    public function testPublishedScope(): void
     {
-        $user = factory(User::class)->create();
 
         factory(Post::class)->create([
-            'user_id' => $user->id,
+            'user_id' => $this->admin->id,
             'published_at' => now()->subDay(),
         ]);
 
@@ -206,13 +191,10 @@ class PostTest extends TestCase
         $this->assertCount(1, Post::published()->get());
     }
 
-    /** @test */
-    public function draft_scope()
+    public function testDraftScope(): void
     {
-        $user = factory(User::class)->create();
-
         factory(Post::class)->create([
-            'user_id' => $user->id,
+            'user_id' => $this->admin->id,
             'published_at' => now()->addDay(),
         ]);
 
@@ -220,8 +202,7 @@ class PostTest extends TestCase
         $this->assertCount(1, Post::draft()->get());
     }
 
-    /** @test */
-    public function it_will_detach_tags_and_topic_on_delete()
+    public function testDetachTaxonomyOnDelete(): void
     {
         $tag = factory(Tag::class)->create();
         $topic = factory(Topic::class)->create();

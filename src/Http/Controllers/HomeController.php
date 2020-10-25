@@ -14,10 +14,9 @@ class HomeController extends Controller
     /**
      * Handle the incoming request.
      *
-     * @param Request $request
      * @return Application|Factory|View
      */
-    public function index(Request $request)
+    public function index()
     {
         return view('canvas::layout')->with([
             'config' => [
@@ -26,9 +25,9 @@ class HomeController extends Controller
                 'path' => Canvas::basePath(),
                 'roles' => Canvas::availableRoles(),
                 'timezone' => config('app.timezone'),
-                'translations' => Canvas::availableTranslations($request->user('canvas')->locale),
+                'translations' => Canvas::availableTranslations(request()->user('canvas')->locale),
                 'unsplash' => config('canvas.unsplash.access_key'),
-                'user' => $request->user('canvas'),
+                'user' => request()->user('canvas'),
                 'version' => Canvas::installedVersion(),
             ],
         ]);

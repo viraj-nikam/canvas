@@ -20,8 +20,7 @@ class TagTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
-    public function tags_can_share_the_same_slug_with_unique_users()
+    public function testTagsCanShareTheSameSlugWithUniqueUsers(): void
     {
         $adminUserOne = factory(User::class)->create([
             'role' => User::ADMIN,
@@ -64,8 +63,7 @@ class TagTest extends TestCase
         ]);
     }
 
-    /** @test */
-    public function posts_relationship()
+    public function testPostsRelationship(): void
     {
         $tag = factory(Tag::class)->create();
         $post = factory(Post::class)->create();
@@ -77,8 +75,7 @@ class TagTest extends TestCase
         $this->assertInstanceOf(Post::class, $tag->posts->first());
     }
 
-    /** @test */
-    public function user_relationship()
+    public function testUserRelationship(): void
     {
         $tag = factory(Tag::class)->create();
 
@@ -86,8 +83,7 @@ class TagTest extends TestCase
         $this->assertInstanceOf(User::class, $tag->user);
     }
 
-    /** @test */
-    public function it_will_detach_posts_on_delete()
+    public function testDetachPostsOnDelete(): void
     {
         $tag = factory(Tag::class)->create();
         $post = factory(Post::class)->create();

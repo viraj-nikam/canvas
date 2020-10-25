@@ -15,26 +15,22 @@ class CanvasTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
-    public function it_can_check_the_installed_version()
+    public function testInstalledVersion(): void
     {
         $this->assertSame('', Canvas::installedVersion());
     }
 
-    /** @test */
-    public function it_can_get_the_available_language_codes()
+    public function testAvailableLanguageCodes(): void
     {
         $this->assertIsArray(Canvas::availableLanguageCodes());
     }
 
-    /** @test */
-    public function it_can_get_the_available_translations()
+    public function testAvailableTranslations(): void
     {
         $this->assertIsString(Canvas::availableTranslations(config('app.locale')));
     }
 
-    /** @test */
-    public function it_can_get_the_available_roles()
+    public function testAvailableRoles(): void
     {
         $this->assertSame([
             User::CONTRIBUTOR => 'Contributor',
@@ -43,27 +39,23 @@ class CanvasTest extends TestCase
         ], Canvas::availableRoles());
     }
 
-    /** @test */
-    public function it_can_check_the_published_assets_are_up_to_date()
+    public function testAssetsAreUpToDate(): void
     {
         $this->assertSame(true, Canvas::assetsUpToDate());
     }
 
-    /** @test */
-    public function it_can_get_the_base_path()
+    public function testBasePath(): void
     {
         $this->assertIsString(Canvas::basePath());
     }
 
-    /** @test */
-    public function it_can_get_the_base_storage_path()
+    public function testBaseStoragePath(): void
     {
         $this->assertSame(config('canvas.storage_path').'/images', Canvas::baseStoragePath());
         $this->assertIsString(Canvas::baseStoragePath());
     }
 
-    /** @test */
-    public function it_can_check_for_valid_urls()
+    public function testURLIsValid(): void
     {
         $response = Canvas::isValid('https://www.example.com');
 
@@ -74,16 +66,14 @@ class CanvasTest extends TestCase
         $this->assertFalse($response);
     }
 
-    /** @test */
-    public function it_can_trim_a_url()
+    public function testTrimURL(): void
     {
         $response = Canvas::trim('https://www.example.com?string-to-trim');
 
         $this->assertSame($response, 'www.example.com');
     }
 
-    /** @test */
-    public function it_can_generate_a_gravatar()
+    public function testGravatar(): void
     {
         $size = 80;
         $default = 'identicon';

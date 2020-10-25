@@ -2,7 +2,7 @@
 
 namespace Canvas\Http\Controllers;
 
-use Canvas\Http\Requests\StoreTopicRequest;
+use Canvas\Http\Requests\TopicRequest;
 use Canvas\Models\Topic;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -42,11 +42,11 @@ class TopicController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param StoreTopicRequest $request
+     * @param TopicRequest $request
      * @param $id
      * @return JsonResponse
      */
-    public function store(StoreTopicRequest $request, $id): JsonResponse
+    public function store(TopicRequest $request, $id): JsonResponse
     {
         $data = $request->validated();
 
