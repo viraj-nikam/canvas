@@ -2,8 +2,8 @@
 
 namespace Canvas\Tests\Http\Controllers;
 
-use Canvas\Models\User;
 use Canvas\Tests\TestCase;
+use Exception;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
@@ -19,32 +19,27 @@ class UploadsControllerTest extends TestCase
 
     /**
      * @return void
+     * @throws Exception
      */
     protected function setUp(): void
     {
         parent::setUp();
     }
 
-    /** @test */
-    public function it_will_not_process_empty_payloads()
+    public function testEmptyPayloadValidation(): void
     {
         Storage::fake(config('canvas.storage_disk'));
 
-        $user = factory(User::class)->create();
-
-        $this->actingAs($user, 'canvas')->postJson('canvas/api/uploads', [
+        $this->actingAs($this->admin, 'canvas')->postJson('canvas/api/uploads', [
             null,
         ])->assertStatus(400);
     }
 
-    /** @test */
-    public function it_can_store_media()
+    public function testProcessMediaUploadAndStore(): void
     {
         Storage::fake(config('canvas.storage_disk'));
 
-        $user = factory(User::class)->create();
-
-        $response = $this->actingAs($user, 'canvas')->postJson('canvas/api/uploads', [
+        $response = $this->actingAs($this->admin, 'canvas')->postJson('canvas/api/uploads', [
             $file = UploadedFile::fake()->image('photo.jpg'),
         ])->assertSuccessful();
 
@@ -57,18 +52,15 @@ class UploadsControllerTest extends TestCase
         Storage::disk(config('canvas.storage_disk'))->assertExists($path);
     }
 
-    /** @test */
-    public function it_can_delete_media()
+    public function testDeleteMedia(): void
     {
         Storage::fake(config('canvas.storage_disk'));
 
-        $user = factory(User::class)->create();
-
-        $this->actingAs($user, 'canvas')->delete('canvas/api/uploads', [
+        $this->actingAs($this->admin, 'canvas')->delete('canvas/api/uploads', [
             null,
         ])->assertStatus(400);
 
-        $this->actingAs($user, 'canvas')->deleteJson('canvas/api/uploads', [
+        $this->actingAs($this->admin, 'canvas')->deleteJson('canvas/api/uploads', [
             $file = UploadedFile::fake()->image('photo.jpg'),
         ])->assertSuccessful();
 

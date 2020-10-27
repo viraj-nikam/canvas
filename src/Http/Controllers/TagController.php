@@ -14,10 +14,9 @@ class TagController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param Request $request
      * @return JsonResponse
      */
-    public function index(Request $request): JsonResponse
+    public function index(): JsonResponse
     {
         return response()->json(
             Tag::latest()
@@ -29,10 +28,9 @@ class TagController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @param Request $request
      * @return JsonResponse
      */
-    public function create(Request $request): JsonResponse
+    public function create(): JsonResponse
     {
         return response()->json(Tag::make([
             'id' => Uuid::uuid4()->toString(),
@@ -74,11 +72,10 @@ class TagController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param Request $request
      * @param $id
      * @return JsonResponse
      */
-    public function show(Request $request, $id): JsonResponse
+    public function show($id): JsonResponse
     {
         $tag = Tag::find($id);
 
@@ -88,11 +85,10 @@ class TagController extends Controller
     /**
      * Display the specified relationship.
      *
-     * @param Request $request
      * @param $id
      * @return JsonResponse
      */
-    public function showPosts(Request $request, $id): JsonResponse
+    public function showPosts($id): JsonResponse
     {
         $tag = Tag::with('posts')->find($id);
 
@@ -102,11 +98,10 @@ class TagController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param Request $request
      * @param $id
      * @return mixed
      */
-    public function destroy(Request $request, $id)
+    public function destroy($id)
     {
         $tag = Tag::findOrFail($id);
 

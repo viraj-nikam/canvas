@@ -6,6 +6,7 @@ use Canvas\Models\Post;
 use Canvas\Models\User;
 use Canvas\Models\View;
 use Canvas\Tests\TestCase;
+use Exception;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Ramsey\Uuid\Uuid;
 
@@ -21,6 +22,7 @@ class UserControllerTest extends TestCase
 
     /**
      * @return void
+     * @throws Exception
      */
     protected function setUp(): void
     {
@@ -29,28 +31,40 @@ class UserControllerTest extends TestCase
         $this->registerAssertJsonExactFragmentMacro();
     }
 
-    /** @test */
-    public function it_can_fetch_users()
+    public function testAnAdminCanFetchAllUsers(): void
     {
-        $user = factory(User::class)->create([
-            'role' => User::ADMIN,
-        ]);
-
-        $this->actingAs($user, 'canvas')
+        $response = $this->actingAs($this->admin, 'canvas')
              ->getJson('canvas/api/users')
              ->assertSuccessful()
-             ->assertJsonExactFragment($user->id, 'data.0.id')
-             ->assertJsonExactFragment($user->name, 'data.0.name')
-             ->assertJsonExactFragment($user->email, 'data.0.email')
-             ->assertJsonExactFragment($user->username, 'data.0.username')
-             ->assertJsonExactFragment($user->summary, 'data.0.summary')
-             ->assertJsonExactFragment($user->avatar, 'data.0.avatar')
-             ->assertJsonExactFragment($user->dark_mode, 'data.0.dark_mode')
-             ->assertJsonExactFragment($user->digest, 'data.0.digest')
-             ->assertJsonExactFragment($user->locale, 'data.0.locale')
-             ->assertJsonExactFragment($user->role, 'data.0.role')
-             ->assertJsonExactFragment($user->posts->count(), 'data.0.posts_count')
-             ->assertJsonExactFragment(1, 'total');
+            ->assertJson([
+                'data.0.id' => $this->admin->id
+            ]);
+
+
+        dd($response['data'][0]['id']);
+//             ->assertJsonExactFragment($this->contributor->id, 'data.0.id')
+//             ->assertJsonExactFragment($this->editor->id, 'data.1.id')
+//             ->assertJsonExactFragment($this->admin->id, 'data.2.id')
+//             ->assertJsonExactFragment($user->name, 'data.0.name')
+//             ->assertJsonExactFragment($user->email, 'data.0.email')
+//             ->assertJsonExactFragment($user->username, 'data.0.username')
+//             ->assertJsonExactFragment($user->summary, 'data.0.summary')
+//             ->assertJsonExactFragment($user->avatar, 'data.0.avatar')
+//             ->assertJsonExactFragment($user->dark_mode, 'data.0.dark_mode')
+//             ->assertJsonExactFragment($user->digest, 'data.0.digest')
+//             ->assertJsonExactFragment($user->locale, 'data.0.locale')
+//             ->assertJsonExactFragment($user->role, 'data.0.role')
+//             ->assertJsonExactFragment($user->posts->count(), 'data.0.posts_count')
+//             ->assertJsonExactFragment(3, 'total');
+
+//        dd($response->original);
+//        $this->assertSame($this->contributor->id, $response->decodeResponseJson('data.0.id'));
+
+//        dd($response->decodeResponseJson('data'), [
+//            $this->contributor->id,
+//            $this->editor->id,
+//            $this->admin->id
+//        ]);
     }
 
     /** @test */

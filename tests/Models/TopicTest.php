@@ -9,7 +9,6 @@ use Canvas\Tests\TestCase;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Ramsey\Uuid\Uuid;
 
 /**
  * Class TopicTest.
@@ -23,19 +22,15 @@ class TopicTest extends TestCase
     /** @test */
     public function testTopicsCanShareTheSameSlugWithUniqueUsers(): void
     {
-        $adminUserOne = factory(User::class)->create([
-            'role' => User::ADMIN,
-        ]);
-
-        $topicOneData = [
-            'id' => Uuid::uuid4()->toString(),
+        $data = [
             'name' => 'A new topic',
             'slug' => 'a-new-topic',
         ];
 
-        $topicOne = factory(Topic::class)->create();
-
-        $response = $this->actingAs($adminUserOne, 'canvas')->postJson("/canvas/api/topics/{$topicOne->id}", $topicOneData);
+        $primaryTopic = factory(Topic::class)->create([
+            'user_id' => $this->admin->id
+        ]);
+        $response = $this->actingAs($this->admin, 'canvas')->postJson("/canvas/api/topics/{$primaryTopic->id}", $data);
 
         $this->assertDatabaseHas('canvas_topics', [
             'id' => $response->original['id'],
@@ -43,19 +38,14 @@ class TopicTest extends TestCase
             'user_id' => $response->original['user_id'],
         ]);
 
-        $adminUserTwo = factory(User::class)->create([
-            'role' => User::ADMIN,
+        $secondaryAdmin = factory(User::class)->create([
+            'role' => User::ADMIN
+        ]);
+        $secondaryTopic = factory(Topic::class)->create([
+            'user_id' => $secondaryAdmin->id
         ]);
 
-        $topicTwoData = [
-            'id' => Uuid::uuid4()->toString(),
-            'name' => 'A new topic',
-            'slug' => 'a-new-topic',
-        ];
-
-        $topicTwo = factory(Topic::class)->create();
-
-        $response = $this->actingAs($adminUserTwo, 'canvas')->postJson("/canvas/api/topics/{$topicTwo->id}", $topicTwoData);
+        $response = $this->actingAs($secondaryAdmin, 'canvas')->postJson("/canvas/api/topics/{$secondaryTopic->id}", $data);
 
         $this->assertDatabaseHas('canvas_topics', [
             'id' => $response->original['id'],

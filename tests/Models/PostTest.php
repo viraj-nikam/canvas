@@ -101,13 +101,14 @@ class PostTest extends TestCase
     public function testPostsCanShareTheSameSlugWithUniqueUsers(): void
     {
         $data = [
-            'id' => Uuid::uuid4()->toString(),
             'slug' => 'a-new-post',
             'title' => 'A new post',
         ];
 
-        $postOne = factory(Post::class)->create();
-        $response = $this->actingAs($postOne->user, 'canvas')->postJson("/canvas/api/posts/{$postOne->id}", $data);
+        $primaryPost = factory(Post::class)->create([
+            'user_id' => $this->admin->id
+        ]);
+        $response = $this->actingAs($this->admin, 'canvas')->postJson("/canvas/api/posts/{$primaryPost->id}", $data);
 
         $this->assertDatabaseHas('canvas_posts', [
             'id' => $response->original['id'],
@@ -115,8 +116,10 @@ class PostTest extends TestCase
             'user_id' => $response->original['user_id'],
         ]);
 
-        $postTwo = factory(Post::class)->create();
-        $response = $this->actingAs($postTwo->user, 'canvas')->postJson("/canvas/api/posts/{$postTwo->id}", $data);
+        $secondaryPost = factory(Post::class)->create([
+            'user_id' => $this->editor->id
+        ]);
+        $response = $this->actingAs($this->editor, 'canvas')->postJson("/canvas/api/posts/{$secondaryPost->id}", $data);
 
         $this->assertDatabaseHas('canvas_posts', [
             'id' => $response->original['id'],

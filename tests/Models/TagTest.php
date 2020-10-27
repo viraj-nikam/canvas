@@ -9,7 +9,6 @@ use Canvas\Tests\TestCase;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Ramsey\Uuid\Uuid;
 
 /**
  * Class TagTest.
@@ -22,19 +21,15 @@ class TagTest extends TestCase
 
     public function testTagsCanShareTheSameSlugWithUniqueUsers(): void
     {
-        $adminUserOne = factory(User::class)->create([
-            'role' => User::ADMIN,
-        ]);
-
-        $tagOneData = [
-            'id' => Uuid::uuid4()->toString(),
+        $data = [
             'name' => 'A new tag',
             'slug' => 'a-new-tag',
         ];
 
-        $tagOne = factory(Tag::class)->create();
-
-        $response = $this->actingAs($adminUserOne, 'canvas')->postJson("/canvas/api/tags/{$tagOne->id}", $tagOneData);
+        $primaryTag = factory(Tag::class)->create([
+            'user_id' => $this->admin->id
+        ]);
+        $response = $this->actingAs($this->admin, 'canvas')->postJson("/canvas/api/tags/{$primaryTag->id}", $data);
 
         $this->assertDatabaseHas('canvas_tags', [
             'id' => $response->original['id'],
@@ -42,19 +37,14 @@ class TagTest extends TestCase
             'user_id' => $response->original['user_id'],
         ]);
 
-        $adminUserTwo = factory(User::class)->create([
-            'role' => User::ADMIN,
+        $secondaryAdmin = factory(User::class)->create([
+            'role' => User::ADMIN
+        ]);
+        $secondaryTag = factory(Tag::class)->create([
+            'user_id' => $secondaryAdmin->id
         ]);
 
-        $tagTwoData = [
-            'id' => Uuid::uuid4()->toString(),
-            'name' => 'A new tag',
-            'slug' => 'a-new-tag',
-        ];
-
-        $tagTwo = factory(Tag::class)->create();
-
-        $response = $this->actingAs($adminUserTwo, 'canvas')->postJson("/canvas/api/tags/{$tagTwo->id}", $tagTwoData);
+        $response = $this->actingAs($secondaryAdmin, 'canvas')->postJson("/canvas/api/tags/{$secondaryTag->id}", $data);
 
         $this->assertDatabaseHas('canvas_tags', [
             'id' => $response->original['id'],

@@ -15,10 +15,9 @@ class SearchController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param Request $request
      * @return JsonResponse
      */
-    public function showPosts(Request $request): JsonResponse
+    public function showPosts(): JsonResponse
     {
         $posts = Post::when(request()->user('canvas')->isContributor, function ($query) {
             return $query->where('user_id', request()->user('canvas')->id);
@@ -40,10 +39,9 @@ class SearchController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param Request $request
      * @return JsonResponse
      */
-    public function showTags(Request $request): JsonResponse
+    public function showTags(): JsonResponse
     {
         $tags = Tag::select('id', 'name')->latest()->get();
 
@@ -60,10 +58,9 @@ class SearchController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param Request $request
      * @return JsonResponse
      */
-    public function showTopics(Request $request): JsonResponse
+    public function showTopics(): JsonResponse
     {
         $topics = Topic::select('id', 'name')->latest()->get();
 
@@ -80,10 +77,9 @@ class SearchController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param Request $request
      * @return JsonResponse
      */
-    public function showUsers(Request $request): JsonResponse
+    public function showUsers(): JsonResponse
     {
         $users = User::select('id', 'name', 'email')->latest()->get();
 

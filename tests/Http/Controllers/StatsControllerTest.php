@@ -3,7 +3,6 @@
 namespace Canvas\Tests\Http\Controllers;
 
 use Canvas\Models\Post;
-use Canvas\Models\User;
 use Canvas\Tests\TestCase;
 use Exception;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -28,20 +27,17 @@ class StatsControllerTest extends TestCase
         $this->registerAssertJsonExactFragmentMacro();
     }
 
-    /** @test */
-    public function it_can_fetch_stats_for_user_posts()
+    public function testUserPostsAreFetchedByDefault(): void
     {
-        $user = factory(User::class)->create();
-
         factory(Post::class, 3)->create([
-            'user_id' => $user->id,
+            'user_id' => $this->admin->id,
         ]);
 
         factory(Post::class, 1)->create([
-            'user_id' => 2,
+            'user_id' => $this->contributor->id,
         ]);
 
-        $response = $this->actingAs($user, 'canvas')->getJson('canvas/api/stats')->assertSuccessful();
+        $response = $this->actingAs($this->admin, 'canvas')->getJson('canvas/api/stats')->assertSuccessful();
 
         $this->assertArrayHasKey('totalViews', $response->original);
         $this->assertEquals(0, $response->original['totalViews']);
@@ -56,20 +52,17 @@ class StatsControllerTest extends TestCase
         $this->assertJson($response->original['traffic']['visits']);
     }
 
-    /** @test */
-    public function it_can_fetch_stats_for_all_posts()
+    public function testAllPostsCanBeFetchedWithAGivenQueryScope(): void
     {
-        $user = factory(User::class)->create();
-
         factory(Post::class, 3)->create([
-            'user_id' => $user->id,
+            'user_id' => $this->editor->id,
         ]);
 
         factory(Post::class, 1)->create([
-            'user_id' => 2,
+            'user_id' => $this->contributor->id,
         ]);
 
-        $response = $this->actingAs($user, 'canvas')->getJson('canvas/api/stats?scope=all')->assertSuccessful();
+        $response = $this->actingAs($this->admin, 'canvas')->getJson('canvas/api/stats?scope=all')->assertSuccessful();
 
         $this->assertArrayHasKey('totalViews', $response->original);
         $this->assertEquals(0, $response->original['totalViews']);
@@ -84,18 +77,13 @@ class StatsControllerTest extends TestCase
         $this->assertJson($response->original['traffic']['visits']);
     }
 
-    /** @test */
-    public function it_can_show_stats_for_another_users_published_post_as_an_admin()
+    public function testAnAdminCanFetchAnyPostStats(): void
     {
-        $admin = factory(User::class)->create([
-            'role' => User::ADMIN,
-        ]);
-
         $post = factory(Post::class)->create([
-            'user_id' => 123,
+            'user_id' => $this->contributor,
         ]);
 
-        $response = $this->actingAs($admin, 'canvas')
+        $response = $this->actingAs($this->admin, 'canvas')
                          ->getJson("canvas/api/stats/{$post->id}")
                          ->assertSuccessful()
                          ->assertJsonExactFragment($post->id, 'post.id');
@@ -141,18 +129,13 @@ class StatsControllerTest extends TestCase
         $this->assertJson($response->original['traffic']['visits']);
     }
 
-    /** @test */
-    public function it_can_show_stats_for_another_users_published_post_as_an_editor()
+    public function testAnEditorCanFetchAnyPostStats(): void
     {
-        $editor = factory(User::class)->create([
-            'role' => User::EDITOR,
-        ]);
-
         $post = factory(Post::class)->create([
-            'user_id' => 123,
+            'user_id' => $this->contributor,
         ]);
 
-        $response = $this->actingAs($editor, 'canvas')
+        $response = $this->actingAs($this->editor, 'canvas')
                          ->getJson("canvas/api/stats/{$post->id}")
                          ->assertSuccessful()
                          ->assertJsonExactFragment($post->id, 'post.id');
@@ -200,18 +183,13 @@ class StatsControllerTest extends TestCase
         $this->assertJson($response->original['traffic']['visits']);
     }
 
-    /** @test */
-    public function it_can_show_stats_for_a_users_published_post_as_a_contributor()
+    public function testAContributorCanFetchTheirOwnPostStats(): void
     {
-        $contributor = factory(User::class)->create([
-            'role' => User::CONTRIBUTOR,
-        ]);
-
         $post = factory(Post::class)->create([
-            'user_id' => $contributor->id,
+            'user_id' => $this->contributor->id,
         ]);
 
-        $response = $this->actingAs($contributor, 'canvas')
+        $response = $this->actingAs($this->contributor, 'canvas')
                          ->getJson("canvas/api/stats/{$post->id}")
                          ->assertSuccessful()
                          ->assertJsonExactFragment($post->id, 'post.id');
@@ -259,19 +237,26 @@ class StatsControllerTest extends TestCase
         $this->assertJson($response->original['traffic']['visits']);
     }
 
-    /** @test */
-    public function it_returns_404_if_post_is_not_published()
+    public function testDraftPostsDoNotDisplayStats(): void
+    {
+        $post = factory(Post::class)->create([
+            'published_at' => null,
+        ]);
+
+        $this->actingAs($this->admin, 'canvas')->getJson("canvas/api/stats/{$post->id}")->assertNotFound();
+    }
+
+    public function testScheduledPostsDoNotDisplayStats(): void
     {
         $post = factory(Post::class)->create([
             'published_at' => now()->addWeek(),
         ]);
 
-        $this->actingAs($post->user, 'canvas')->getJson("canvas/api/stats/{$post->id}")->assertNotFound();
+        $this->actingAs($this->admin, 'canvas')->getJson("canvas/api/stats/{$post->id}")->assertNotFound();
     }
 
-    /** @test */
-    public function it_returns_404_if_no_post_is_found()
+    public function testPostNotFound(): void
     {
-        $this->actingAs(factory(User::class)->create(), 'canvas')->getJson('canvas/api/stats/not-a-post')->assertNotFound();
+        $this->actingAs($this->admin, 'canvas')->getJson('canvas/api/stats/not-a-post')->assertNotFound();
     }
 }

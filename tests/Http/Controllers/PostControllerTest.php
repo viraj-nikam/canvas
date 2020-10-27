@@ -209,7 +209,17 @@ class PostControllerTest extends TestCase
         $this->assertArrayHasKey('published_at', $response);
     }
 
-    public function testSyncRelatedTaxonomy(): void
+    public function testSyncNewTags(): void
+    {
+
+    }
+
+    public function testSyncNewTopic(): void
+    {
+
+    }
+
+    public function testSyncExistingTags(): void
     {
         $data = [
             'id' => Uuid::uuid4()->toString(),
@@ -251,6 +261,11 @@ class PostControllerTest extends TestCase
         $this->assertDatabaseHas('canvas_posts_topics', [
             'post_id' => $post->id,
         ]);
+    }
+
+    public function testSyncExistingTopic(): void
+    {
+
     }
 
     public function testInvalidSlugsAreValidated(): void

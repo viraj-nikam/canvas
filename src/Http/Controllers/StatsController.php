@@ -19,12 +19,11 @@ class StatsController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param Request $request
      * @return JsonResponse
      */
-    public function index(Request $request): JsonResponse
+    public function index(): JsonResponse
     {
-        $scope = $request->query('scope', 'user');
+        $scope = request()->query('scope', 'user');
 
         $posts = Post::when($scope === 'all', function ($query) {
             return $query;
@@ -59,11 +58,10 @@ class StatsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param Request $request
      * @param string $id
      * @return JsonResponse
      */
-    public function show(Request $request, string $id): JsonResponse
+    public function show(string $id): JsonResponse
     {
         $post = Post::when(request()->user('canvas')->isContributor, function ($query) {
             return $query->where('user_id', request()->user('canvas')->id);
