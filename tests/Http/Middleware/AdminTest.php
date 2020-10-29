@@ -53,7 +53,9 @@ class AdminTest extends TestCase
      */
     public function testContributorAccessIsRestricted($method, $endpoint)
     {
-        $this->actingAs($this->contributor, 'canvas')->call($method, $endpoint)->assertForbidden();
+        $this->actingAs($this->contributor, 'canvas')
+             ->call($method, $endpoint)
+             ->assertForbidden();
     }
 
     /**
@@ -63,6 +65,8 @@ class AdminTest extends TestCase
      */
     public function testEditorAccessIsRestricted($method, $endpoint)
     {
-        $this->actingAs($this->editor, 'canvas')->call($method, $endpoint)->assertForbidden();
+        $this->actingAs($this->editor, 'canvas')
+             ->call($method, $endpoint)
+             ->assertForbidden();
     }
 }

@@ -5,7 +5,6 @@ namespace Canvas\Http\Controllers;
 use Canvas\Http\Requests\TopicRequest;
 use Canvas\Models\Topic;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Ramsey\Uuid\Uuid;
 
@@ -48,25 +47,25 @@ class TopicController extends Controller
     {
         $data = $request->validated();
 
-        $tag = Topic::find($id);
+        $topic = Topic::find($id);
 
-        if (! $tag) {
-            if ($tag = Topic::onlyTrashed()->firstWhere('slug', $data['slug'])) {
-                $tag->restore();
+        if (! $topic) {
+            if ($topic = Topic::onlyTrashed()->firstWhere('slug', $data['slug'])) {
+                $topic->restore();
 
-                return response()->json($tag->refresh(), 201);
+                return response()->json($topic->refresh(), 201);
             } else {
-                $tag = new Topic(['id' => $id]);
+                $topic = new Topic(['id' => $id]);
             }
         }
 
-        $tag->fill($data);
+        $topic->fill($data);
 
-        $tag->user_id = request()->user('canvas')->id;
+        $topic->user_id = $topic->user_id ?? request()->user('canvas')->id;
 
-        $tag->save();
+        $topic->save();
 
-        return response()->json($tag->refresh(), 201);
+        return response()->json($topic->refresh(), 201);
     }
 
     /**

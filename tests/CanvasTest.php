@@ -57,20 +57,16 @@ class CanvasTest extends TestCase
 
     public function testURLIsValid(): void
     {
-        $response = Canvas::isValid('https://www.example.com');
+        $this->assertTrue(Canvas::isValid('https://www.example.com'));
 
-        $this->assertTrue($response);
-
-        $response = Canvas::isValid('://www.example.c');
-
-        $this->assertFalse($response);
+        $this->assertFalse(Canvas::isValid('://www.example.c'));
     }
 
     public function testTrimURL(): void
     {
-        $response = Canvas::trim('https://www.example.com?string-to-trim');
+        $url = Canvas::trim('https://www.example.com?string-to-trim');
 
-        $this->assertSame($response, 'www.example.com');
+        $this->assertSame($url, 'www.example.com');
     }
 
     public function testGravatar(): void
@@ -78,12 +74,12 @@ class CanvasTest extends TestCase
         $size = 80;
         $default = 'identicon';
         $rating = 'pg';
-        $response = Canvas::gravatar('user@example.com', $size, $default, $rating);
+        $url = Canvas::gravatar('user@example.com', $size, $default, $rating);
 
-        $this->assertIsString($response);
-        $this->assertStringContainsString('secure.gravatar.com', $response);
-        $this->assertStringContainsString(sprintf('s=%s', $size), $response);
-        $this->assertStringContainsString(sprintf('d=%s', $default), $response);
-        $this->assertStringContainsString(sprintf('r=%s', $rating), $response);
+        $this->assertIsString($url);
+        $this->assertStringContainsString('secure.gravatar.com', $url);
+        $this->assertStringContainsString(sprintf('s=%s', $size), $url);
+        $this->assertStringContainsString(sprintf('d=%s', $default), $url);
+        $this->assertStringContainsString(sprintf('r=%s', $rating), $url);
     }
 }

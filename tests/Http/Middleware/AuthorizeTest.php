@@ -74,12 +74,16 @@ class AuthorizeTest extends TestCase
      */
     public function testUnauthenticatedUsersAreRedirectedToLogin($method, $endpoint): void
     {
-        $this->assertGuest()->call($method, $endpoint)->assertRedirect(route('canvas.login'));
+        $this->assertGuest()
+             ->call($method, $endpoint)
+             ->assertRedirect(route('canvas.login'));
     }
 
     /** @test */
     public function testAdminUsersSuccessfullyPassThroughMiddleware()
     {
-        $this->actingAs($this->admin, 'canvas')->get(config('canvas.path'))->assertSuccessful();
+        $this->actingAs($this->admin, 'canvas')
+             ->get(config('canvas.path'))
+             ->assertSuccessful();
     }
 }

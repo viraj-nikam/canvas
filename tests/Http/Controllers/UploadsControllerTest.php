@@ -3,7 +3,6 @@
 namespace Canvas\Tests\Http\Controllers;
 
 use Canvas\Tests\TestCase;
-use Exception;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
@@ -16,15 +15,6 @@ use Illuminate\Support\Facades\Storage;
 class UploadsControllerTest extends TestCase
 {
     use RefreshDatabase;
-
-    /**
-     * @return void
-     * @throws Exception
-     */
-    protected function setUp(): void
-    {
-        parent::setUp();
-    }
 
     public function testEmptyPayloadValidation(): void
     {

@@ -3,8 +3,9 @@
 namespace Canvas\Tests\Http\Controllers;
 
 use Canvas\Models\Post;
+use Canvas\Models\View;
+use Canvas\Models\Visit;
 use Canvas\Tests\TestCase;
-use Exception;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 /**
@@ -16,171 +17,138 @@ class StatsControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    /**
-     * @return void
-     * @throws Exception
-     */
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        $this->registerAssertJsonExactFragmentMacro();
-    }
-
-    public function testUserPostsAreFetchedByDefault(): void
+    public function testUserStatsAreFetchedByDefault(): void
     {
         factory(Post::class, 3)->create([
             'user_id' => $this->admin->id,
-        ]);
+        ])->each(function ($post) {
+            $post->visits()->createMany(factory(Visit::class, 2)->make()->toArray());
+            $post->views()->createMany(factory(View::class, 3)->make()->toArray());
+        });
 
-        factory(Post::class, 1)->create([
+        factory(Post::class, 2)->create([
             'user_id' => $this->contributor->id,
-        ]);
+        ])->each(function ($post) {
+            $post->visits()->createMany(factory(Visit::class, 1)->make()->toArray());
+            $post->views()->createMany(factory(View::class, 2)->make()->toArray());
+        });
 
-        $response = $this->actingAs($this->admin, 'canvas')->getJson('canvas/api/stats')->assertSuccessful();
-
-        $this->assertArrayHasKey('totalViews', $response->original);
-        $this->assertEquals(0, $response->original['totalViews']);
-
-        $this->assertArrayHasKey('views', $response->original['traffic']);
-        $this->assertJson($response->original['traffic']['views']);
-
-        $this->assertArrayHasKey('totalVisits', $response->original);
-        $this->assertEquals(0, $response->original['totalVisits']);
-
-        $this->assertArrayHasKey('visits', $response->original['traffic']);
-        $this->assertJson($response->original['traffic']['visits']);
+        $this->actingAs($this->admin, 'canvas')
+             ->getJson('canvas/api/stats')
+             ->assertSuccessful()
+             ->decodeResponseJson()
+             ->assertStructure([
+                 'totalViews',
+                 'totalVisits',
+                 'traffic' => [
+                     'views',
+                     'visits',
+                 ],
+             ])
+             ->assertFragment([
+                 'totalVisits' => 6,
+                 'totalViews' => 9,
+             ]);
     }
 
     public function testAllPostsCanBeFetchedWithAGivenQueryScope(): void
     {
         factory(Post::class, 3)->create([
-            'user_id' => $this->editor->id,
-        ]);
+            'user_id' => $this->admin->id,
+        ])->each(function ($post) {
+            $post->visits()->createMany(factory(Visit::class, 2)->make()->toArray());
+            $post->views()->createMany(factory(View::class, 3)->make()->toArray());
+        });
 
-        factory(Post::class, 1)->create([
+        factory(Post::class, 2)->create([
+            'user_id' => $this->contributor->id,
+        ])->each(function ($post) {
+            $post->visits()->createMany(factory(Visit::class, 1)->make()->toArray());
+            $post->views()->createMany(factory(View::class, 2)->make()->toArray());
+        });
+
+        $this->actingAs($this->admin, 'canvas')
+             ->getJson('canvas/api/stats?scope=all')
+             ->assertSuccessful()
+             ->decodeResponseJson()
+             ->assertStructure([
+                 'totalViews',
+                 'totalVisits',
+                 'traffic' => [
+                     'views',
+                     'visits',
+                 ],
+             ])
+             ->assertFragment([
+                 'totalVisits' => 8,
+                 'totalViews' => 13,
+             ]);
+    }
+
+    public function testAnAdminCanFetchStatsForAnyPost(): void
+    {
+        $post = factory(Post::class)->create([
             'user_id' => $this->contributor->id,
         ]);
 
-        $response = $this->actingAs($this->admin, 'canvas')->getJson('canvas/api/stats?scope=all')->assertSuccessful();
-
-        $this->assertArrayHasKey('totalViews', $response->original);
-        $this->assertEquals(0, $response->original['totalViews']);
-
-        $this->assertArrayHasKey('views', $response->original['traffic']);
-        $this->assertJson($response->original['traffic']['views']);
-
-        $this->assertArrayHasKey('totalVisits', $response->original);
-        $this->assertEquals(0, $response->original['totalVisits']);
-
-        $this->assertArrayHasKey('visits', $response->original['traffic']);
-        $this->assertJson($response->original['traffic']['visits']);
-    }
-
-    public function testAnAdminCanFetchAnyPostStats(): void
-    {
-        $post = factory(Post::class)->create([
-            'user_id' => $this->contributor,
-        ]);
-
-        $response = $this->actingAs($this->admin, 'canvas')
-                         ->getJson("canvas/api/stats/{$post->id}")
-                         ->assertSuccessful()
-                         ->assertJsonExactFragment($post->id, 'post.id');
-
-        $this->assertArrayHasKey('readTime', $response->original);
-
-        $this->assertArrayHasKey('popularReadingTimes', $response->original);
-        $this->assertIsArray($response->original['popularReadingTimes']);
-
-        $this->assertArrayHasKey('topReferers', $response);
-        $this->assertIsArray($response->original['topReferers']);
-
-        $this->assertArrayHasKey('monthlyViews', $response->original);
-        $this->assertIsInt($response->original['monthlyViews']);
-        $this->assertEquals(0, $response->original['monthlyViews']);
-
-        $this->assertArrayHasKey('monthlyVisits', $response->original);
-        $this->assertIsInt($response->original['monthlyVisits']);
-        $this->assertEquals(0, $response->original['monthlyVisits']);
-
-        $this->assertArrayHasKey('totalViews', $response->original);
-        $this->assertIsInt($response->original['totalViews']);
-        $this->assertEquals(0, $response->original['totalViews']);
-
-        $this->assertArrayHasKey('monthOverMonthViews', $response->original);
-        $this->assertIsArray($response->original['monthOverMonthViews']);
-        $this->assertArrayHasKey('direction', $response->original['monthOverMonthViews']);
-        $this->assertIsString($response->original['monthOverMonthViews']['direction']);
-        $this->assertArrayHasKey('percentage', $response->original['monthOverMonthViews']);
-        $this->assertIsString($response->original['monthOverMonthViews']['percentage']);
-
-        $this->assertArrayHasKey('monthOverMonthVisits', $response->original);
-        $this->assertIsArray($response->original['monthOverMonthVisits']);
-        $this->assertArrayHasKey('direction', $response->original['monthOverMonthVisits']);
-        $this->assertIsString($response->original['monthOverMonthVisits']['direction']);
-        $this->assertArrayHasKey('percentage', $response->original['monthOverMonthVisits']);
-        $this->assertIsString($response->original['monthOverMonthVisits']['percentage']);
-
-        $this->assertArrayHasKey('views', $response->original['traffic']);
-        $this->assertJson($response->original['traffic']['views']);
-
-        $this->assertArrayHasKey('visits', $response->original['traffic']);
-        $this->assertJson($response->original['traffic']['visits']);
+        $this->actingAs($this->admin, 'canvas')
+             ->getJson("canvas/api/stats/{$post->id}")
+             ->assertSuccessful()
+             ->decodeResponseJson()
+             ->assertStructure([
+                 'post',
+                 'readTime',
+                 'popularReadingTimes',
+                 'topReferers',
+                 'monthlyViews',
+                 'totalViews',
+                 'monthlyVisits',
+                 'monthOverMonthViews' => [
+                     'direction',
+                     'percentage',
+                 ],
+                 'monthOverMonthVisits' => [
+                     'direction',
+                     'percentage',
+                 ],
+                 'traffic' => [
+                     'views',
+                     'visits',
+                 ],
+             ]);
     }
 
     public function testAnEditorCanFetchAnyPostStats(): void
     {
         $post = factory(Post::class)->create([
-            'user_id' => $this->contributor,
+            'user_id' => $this->contributor->id,
         ]);
 
-        $response = $this->actingAs($this->editor, 'canvas')
-                         ->getJson("canvas/api/stats/{$post->id}")
-                         ->assertSuccessful()
-                         ->assertJsonExactFragment($post->id, 'post.id');
-
-        $this->assertArrayHasKey('post', $response->original);
-
-        $this->assertArrayHasKey('readTime', $response->original);
-
-        $this->assertArrayHasKey('popularReadingTimes', $response->original);
-        $this->assertIsArray($response->original['popularReadingTimes']);
-
-        $this->assertArrayHasKey('topReferers', $response);
-        $this->assertIsArray($response->original['topReferers']);
-
-        $this->assertArrayHasKey('monthlyViews', $response->original);
-        $this->assertIsInt($response->original['monthlyViews']);
-        $this->assertEquals(0, $response->original['monthlyViews']);
-
-        $this->assertArrayHasKey('monthlyVisits', $response->original);
-        $this->assertIsInt($response->original['monthlyVisits']);
-        $this->assertEquals(0, $response->original['monthlyVisits']);
-
-        $this->assertArrayHasKey('totalViews', $response->original);
-        $this->assertIsInt($response->original['totalViews']);
-        $this->assertEquals(0, $response->original['totalViews']);
-
-        $this->assertArrayHasKey('monthOverMonthViews', $response->original);
-        $this->assertIsArray($response->original['monthOverMonthViews']);
-        $this->assertArrayHasKey('direction', $response->original['monthOverMonthViews']);
-        $this->assertIsString($response->original['monthOverMonthViews']['direction']);
-        $this->assertArrayHasKey('percentage', $response->original['monthOverMonthViews']);
-        $this->assertIsString($response->original['monthOverMonthViews']['percentage']);
-
-        $this->assertArrayHasKey('monthOverMonthVisits', $response->original);
-        $this->assertIsArray($response->original['monthOverMonthVisits']);
-        $this->assertArrayHasKey('direction', $response->original['monthOverMonthVisits']);
-        $this->assertIsString($response->original['monthOverMonthVisits']['direction']);
-        $this->assertArrayHasKey('percentage', $response->original['monthOverMonthVisits']);
-        $this->assertIsString($response->original['monthOverMonthVisits']['percentage']);
-
-        $this->assertArrayHasKey('views', $response->original['traffic']);
-        $this->assertJson($response->original['traffic']['views']);
-
-        $this->assertArrayHasKey('visits', $response->original['traffic']);
-        $this->assertJson($response->original['traffic']['visits']);
+        $this->actingAs($this->editor, 'canvas')
+             ->getJson("canvas/api/stats/{$post->id}")
+             ->assertSuccessful()
+             ->decodeResponseJson()
+             ->assertStructure([
+                 'post',
+                 'readTime',
+                 'popularReadingTimes',
+                 'topReferers',
+                 'monthlyViews',
+                 'totalViews',
+                 'monthlyVisits',
+                 'monthOverMonthViews' => [
+                     'direction',
+                     'percentage',
+                 ],
+                 'monthOverMonthVisits' => [
+                     'direction',
+                     'percentage',
+                 ],
+                 'traffic' => [
+                     'views',
+                     'visits',
+                 ],
+             ]);
     }
 
     public function testAContributorCanFetchTheirOwnPostStats(): void
@@ -189,52 +157,42 @@ class StatsControllerTest extends TestCase
             'user_id' => $this->contributor->id,
         ]);
 
-        $response = $this->actingAs($this->contributor, 'canvas')
-                         ->getJson("canvas/api/stats/{$post->id}")
-                         ->assertSuccessful()
-                         ->assertJsonExactFragment($post->id, 'post.id');
+        $this->actingAs($this->contributor, 'canvas')
+             ->getJson("canvas/api/stats/{$post->id}")
+             ->assertSuccessful()
+             ->decodeResponseJson()
+             ->assertStructure([
+                 'post',
+                 'readTime',
+                 'popularReadingTimes',
+                 'topReferers',
+                 'monthlyViews',
+                 'totalViews',
+                 'monthlyVisits',
+                 'monthOverMonthViews' => [
+                     'direction',
+                     'percentage',
+                 ],
+                 'monthOverMonthVisits' => [
+                     'direction',
+                     'percentage',
+                 ],
+                 'traffic' => [
+                     'views',
+                     'visits',
+                 ],
+             ]);
+    }
 
-        $this->assertArrayHasKey('post', $response->original);
+    public function testAContributorIsUnableToAccessStatsForAnotherUser(): void
+    {
+        $post = factory(Post::class)->create([
+            'user_id' => $this->admin->id,
+        ]);
 
-        $this->assertArrayHasKey('readTime', $response->original);
-
-        $this->assertArrayHasKey('popularReadingTimes', $response->original);
-        $this->assertIsArray($response->original['popularReadingTimes']);
-
-        $this->assertArrayHasKey('topReferers', $response);
-        $this->assertIsArray($response->original['topReferers']);
-
-        $this->assertArrayHasKey('monthlyViews', $response->original);
-        $this->assertIsInt($response->original['monthlyViews']);
-        $this->assertEquals(0, $response->original['monthlyViews']);
-
-        $this->assertArrayHasKey('monthlyVisits', $response->original);
-        $this->assertIsInt($response->original['monthlyVisits']);
-        $this->assertEquals(0, $response->original['monthlyVisits']);
-
-        $this->assertArrayHasKey('totalViews', $response->original);
-        $this->assertIsInt($response->original['totalViews']);
-        $this->assertEquals(0, $response->original['totalViews']);
-
-        $this->assertArrayHasKey('monthOverMonthViews', $response->original);
-        $this->assertIsArray($response->original['monthOverMonthViews']);
-        $this->assertArrayHasKey('direction', $response->original['monthOverMonthViews']);
-        $this->assertIsString($response->original['monthOverMonthViews']['direction']);
-        $this->assertArrayHasKey('percentage', $response->original['monthOverMonthViews']);
-        $this->assertIsString($response->original['monthOverMonthViews']['percentage']);
-
-        $this->assertArrayHasKey('monthOverMonthVisits', $response->original);
-        $this->assertIsArray($response->original['monthOverMonthVisits']);
-        $this->assertArrayHasKey('direction', $response->original['monthOverMonthVisits']);
-        $this->assertIsString($response->original['monthOverMonthVisits']['direction']);
-        $this->assertArrayHasKey('percentage', $response->original['monthOverMonthVisits']);
-        $this->assertIsString($response->original['monthOverMonthVisits']['percentage']);
-
-        $this->assertArrayHasKey('views', $response->original['traffic']);
-        $this->assertJson($response->original['traffic']['views']);
-
-        $this->assertArrayHasKey('visits', $response->original['traffic']);
-        $this->assertJson($response->original['traffic']['visits']);
+        $this->actingAs($this->contributor, 'canvas')
+             ->getJson("canvas/api/stats/{$post->id}")
+             ->assertNotFound();
     }
 
     public function testDraftPostsDoNotDisplayStats(): void
@@ -243,7 +201,9 @@ class StatsControllerTest extends TestCase
             'published_at' => null,
         ]);
 
-        $this->actingAs($this->admin, 'canvas')->getJson("canvas/api/stats/{$post->id}")->assertNotFound();
+        $this->actingAs($this->admin, 'canvas')
+             ->getJson("canvas/api/stats/{$post->id}")
+             ->assertNotFound();
     }
 
     public function testScheduledPostsDoNotDisplayStats(): void
@@ -252,11 +212,15 @@ class StatsControllerTest extends TestCase
             'published_at' => now()->addWeek(),
         ]);
 
-        $this->actingAs($this->admin, 'canvas')->getJson("canvas/api/stats/{$post->id}")->assertNotFound();
+        $this->actingAs($this->admin, 'canvas')
+             ->getJson("canvas/api/stats/{$post->id}")
+             ->assertNotFound();
     }
 
     public function testPostNotFound(): void
     {
-        $this->actingAs($this->admin, 'canvas')->getJson('canvas/api/stats/not-a-post')->assertNotFound();
+        $this->actingAs($this->admin, 'canvas')
+             ->getJson('canvas/api/stats/not-a-post')
+             ->assertNotFound();
     }
 }

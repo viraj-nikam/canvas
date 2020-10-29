@@ -7,10 +7,7 @@ use Canvas\Models\User;
 use Exception;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\TestResponse as LegacyTestResponse;
-use Illuminate\Testing\TestResponse;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
-use PHPUnit\Framework\Assert as PHPUnit;
 use ReflectionClass;
 use ReflectionException;
 
@@ -49,17 +46,7 @@ abstract class TestCase extends OrchestraTestCase
 
         $this->setUpDatabase($this->app);
 
-        $this->contributor = factory(User::class)->create([
-            'role' => User::CONTRIBUTOR,
-        ]);
-
-        $this->editor = factory(User::class)->create([
-            'role' => User::EDITOR,
-        ]);
-
-        $this->admin = factory(User::class)->create([
-            'role' => User::ADMIN,
-        ]);
+        $this->createTestUsers();
     }
 
     /**
@@ -130,6 +117,26 @@ abstract class TestCase extends OrchestraTestCase
     }
 
     /**
+     * Create role-based users for testing.
+     *
+     * @void
+     */
+    protected function createTestUsers(): void
+    {
+        $this->contributor = factory(User::class)->create([
+            'role' => User::CONTRIBUTOR,
+        ]);
+
+        $this->editor = factory(User::class)->create([
+            'role' => User::EDITOR,
+        ]);
+
+        $this->admin = factory(User::class)->create([
+            'role' => User::ADMIN,
+        ]);
+    }
+
+    /**
      * Call the protected or private methods of a class.
      *
      * @param $object
@@ -145,32 +152,5 @@ abstract class TestCase extends OrchestraTestCase
         $method->setAccessible(true);
 
         return $method->invokeArgs($object, $parameters);
-    }
-
-    /**
-     * Register an exact JSON fragment assertion.
-     *
-     * @return void
-     */
-    protected function registerAssertJsonExactFragmentMacro()
-    {
-        $assertion = function ($expected, $key) {
-            $jsonResponse = $this->json();
-
-            PHPUnit::assertEquals(
-                $expected,
-                $actualValue = data_get($jsonResponse, $key),
-                "Failed asserting that [$actualValue] matches expected [$expected].".PHP_EOL.PHP_EOL.
-                json_encode($jsonResponse)
-            );
-
-            return $this;
-        };
-
-        if ($this->app->version() === '7.x-dev' || version_compare($this->app->version(), '7.0', '>=')) {
-            TestResponse::macro('assertJsonExactFragment', $assertion);
-        } else {
-            LegacyTestResponse::macro('assertJsonExactFragment', $assertion);
-        }
     }
 }

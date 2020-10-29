@@ -6,7 +6,6 @@ use Canvas\Models\Post;
 use Canvas\Models\User;
 use Canvas\Models\View;
 use Canvas\Tests\TestCase;
-use Exception;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Ramsey\Uuid\Uuid;
 
@@ -20,27 +19,17 @@ class UserControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    /**
-     * @return void
-     * @throws Exception
-     */
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        $this->registerAssertJsonExactFragmentMacro();
-    }
-
     public function testAnAdminCanFetchAllUsers(): void
     {
         $response = $this->actingAs($this->admin, 'canvas')
              ->getJson('canvas/api/users')
-             ->assertSuccessful()
-            ->assertJson([
-                'data.0.id' => $this->admin->id,
-            ]);
+             ->assertSuccessful();
+//            ->decodeResponseJson()
+//        ->assertFragment([
+            //
+//        ]);
 
-        dd($response['data'][0]['id']);
+        dd($response);
 //             ->assertJsonExactFragment($this->contributor->id, 'data.0.id')
 //             ->assertJsonExactFragment($this->editor->id, 'data.1.id')
 //             ->assertJsonExactFragment($this->admin->id, 'data.2.id')

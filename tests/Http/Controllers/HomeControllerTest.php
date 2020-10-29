@@ -3,7 +3,6 @@
 namespace Canvas\Tests\Http\Controllers;
 
 use Canvas\Tests\TestCase;
-use Exception;
 
 /**
  * Class HomeControllerTest.
@@ -12,17 +11,6 @@ use Exception;
  */
 class HomeControllerTest extends TestCase
 {
-    /**
-     * @return void
-     * @throws Exception
-     */
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        $this->registerAssertJsonExactFragmentMacro();
-    }
-
     /** @test */
     public function testScriptVariables(): void
     {
