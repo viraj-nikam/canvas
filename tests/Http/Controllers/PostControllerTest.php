@@ -6,6 +6,8 @@ use Canvas\Models\Post;
 use Canvas\Models\Tag;
 use Canvas\Models\Topic;
 use Canvas\Models\User;
+use Canvas\Models\View;
+use Canvas\Models\Visit;
 use Canvas\Tests\TestCase;
 use Exception;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -21,140 +23,244 @@ class PostControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    /**
-     * @return void
-     * @throws Exception
-     */
-    protected function setUp(): void
-    {
-        // TODO: Refactor this test class
-
-        $this->markTestSkipped();
-
-        parent::setUp();
-
-        $this->registerAssertJsonExactFragmentMacro();
-    }
-
     public function testPublishedPostsAreFetchedByDefault(): void
     {
-        $post = factory(Post::class)->create([
+        $primaryPost = factory(Post::class, 1)->create([
+            'user_id' => $this->admin->id,
             'published_at' => now()->subDay(),
-        ]);
+        ])->each(function ($post) {
+            $post->views()->createMany(factory(View::class, 3)->make()->toArray());
+        })->first();
 
-        $this->actingAs($post->user, 'canvas')
+        $secondaryPost = factory(Post::class, 1)->create([
+            'user_id' => $this->admin->id,
+            'published_at' => null,
+        ])->each(function ($post) {
+            $post->views()->createMany(factory(View::class, 3)->make()->toArray());
+        })->first();
+
+        $this->actingAs($this->admin, 'canvas')
              ->getJson('canvas/api/posts')
              ->assertSuccessful()
-             ->assertJsonExactFragment(1, 'posts.total')
-             ->assertJsonExactFragment($post->id, 'posts.data.0.id')
-             ->assertJsonExactFragment(0, 'draftCount')
-             ->assertJsonExactFragment(1, 'publishedCount')
-             ->assertJsonExactFragment(0, 'views_count');
+             ->decodeResponseJson()
+             ->assertStructure([
+                 'posts',
+                 'draftCount',
+                 'publishedCount',
+             ])
+             ->assertFragment([
+                 'id' => $primaryPost->id,
+                 'total' => $this->admin->posts()->published()->count(),
+                 'draftCount' => $this->admin->posts()->draft()->count(),
+                 'publishedCount' => $this->admin->posts()->published()->count(),
+             ])
+             ->assertMissing([
+                 'id' => $secondaryPost->id,
+             ]);
     }
 
     public function testPublishedPostsCanBeFetchedWithAGivenQueryType(): void
     {
-        $post = factory(Post::class)->create([
+        $primaryPost = factory(Post::class, 1)->create([
+            'user_id' => $this->admin->id,
             'published_at' => now()->subDay(),
-        ]);
+        ])->each(function ($post) {
+            $post->views()->createMany(factory(View::class, 3)->make()->toArray());
+        })->first();
 
-        $this->actingAs($post->user, 'canvas')
+        $secondaryPost = factory(Post::class, 1)->create([
+            'user_id' => $this->admin->id,
+            'published_at' => null,
+        ])->each(function ($post) {
+            $post->views()->createMany(factory(View::class, 3)->make()->toArray());
+        })->first();
+
+        $this->actingAs($this->admin, 'canvas')
              ->getJson('canvas/api/posts?type=published')
              ->assertSuccessful()
-             ->assertJsonExactFragment(1, 'posts.total')
-             ->assertJsonExactFragment($post->id, 'posts.data.0.id')
-             ->assertJsonExactFragment(0, 'draftCount')
-             ->assertJsonExactFragment(1, 'publishedCount')
-             ->assertJsonExactFragment(0, 'views_count');
+             ->decodeResponseJson()
+             ->assertStructure([
+                 'posts',
+                 'draftCount',
+                 'publishedCount',
+             ])
+             ->assertFragment([
+                 'id' => $primaryPost->id,
+                 'total' => $this->admin->posts()->published()->count(),
+                 'draftCount' => $this->admin->posts()->draft()->count(),
+                 'publishedCount' => $this->admin->posts()->published()->count(),
+             ])
+             ->assertMissing([
+                 'id' => $secondaryPost->id,
+             ]);
     }
 
     public function testDraftPostsCanBeFetchedWithAGivenQueryType(): void
     {
-        $post = factory(Post::class)->create([
-            'published_at' => now()->addDay(),
-        ]);
+        $primaryPost = factory(Post::class, 1)->create([
+            'user_id' => $this->admin->id,
+            'published_at' => now()->subDay(),
+        ])->each(function ($post) {
+            $post->views()->createMany(factory(View::class, 3)->make()->toArray());
+        })->first();
 
-        $this->actingAs($post->user, 'canvas')
+        $secondaryPost = factory(Post::class, 1)->create([
+            'user_id' => $this->admin->id,
+            'published_at' => null,
+        ])->each(function ($post) {
+            $post->views()->createMany(factory(View::class, 3)->make()->toArray());
+        })->first();
+
+        $this->actingAs($this->admin, 'canvas')
              ->getJson('canvas/api/posts?type=draft')
              ->assertSuccessful()
-             ->assertJsonExactFragment(1, 'posts.total')
-             ->assertJsonExactFragment($post->id, 'posts.data.0.id')
-             ->assertJsonExactFragment(1, 'draftCount')
-             ->assertJsonExactFragment(0, 'publishedCount')
-             ->assertJsonExactFragment(0, 'views_count');
+             ->decodeResponseJson()
+             ->assertStructure([
+                 'posts',
+                 'draftCount',
+                 'publishedCount',
+             ])
+             ->assertFragment([
+                 'id' => $secondaryPost->id,
+                 'total' => $this->admin->posts()->published()->count(),
+                 'draftCount' => $this->admin->posts()->draft()->count(),
+                 'publishedCount' => $this->admin->posts()->published()->count(),
+             ])
+             ->assertMissing([
+                 'id' => $primaryPost->id,
+             ]);
     }
 
     public function testUserPostsAreFetchedByDefault(): void
     {
-        factory(Post::class)->create([
+        $primaryPost = factory(Post::class, 1)->create([
             'user_id' => $this->admin->id,
-        ]);
+            'published_at' => now()->subDay(),
+        ])->each(function ($post) {
+            $post->views()->createMany(factory(View::class, 3)->make()->toArray());
+        })->first();
+
+        $secondaryPost = factory(Post::class, 1)->create([
+            'user_id' => $this->editor->id,
+            'published_at' => now()->subDay(),
+        ])->each(function ($post) {
+            $post->views()->createMany(factory(View::class, 3)->make()->toArray());
+        })->first();
 
         $this->actingAs($this->admin, 'canvas')
              ->getJson('canvas/api/posts')
              ->assertSuccessful()
-             ->assertJsonExactFragment(1, 'posts.total')
-             ->assertJsonExactFragment($this->admin->id, 'posts.data.0.user_id')
-             ->assertJsonExactFragment(0, 'draftCount')
-             ->assertJsonExactFragment(1, 'publishedCount')
-             ->assertJsonExactFragment(0, 'views_count');
+             ->decodeResponseJson()
+             ->assertStructure([
+                 'posts',
+                 'draftCount',
+                 'publishedCount',
+             ])
+             ->assertFragment([
+                 'id' => $primaryPost->id,
+                 'total' => $this->admin->posts()->published()->count(),
+                 'draftCount' => $this->admin->posts()->draft()->count(),
+                 'publishedCount' => $this->admin->posts()->published()->count(),
+             ])
+             ->assertMissing([
+                 'id' => $secondaryPost->id,
+             ]);
     }
 
     public function testAllPostsCanBeFetchedWithAGivenQueryScope(): void
     {
-        factory(Post::class)->create([
+        factory(Post::class, 2)->create([
             'user_id' => $this->admin->id,
-        ]);
+            'published_at' => now()->subDay(),
+        ])->each(function ($post) {
+            $post->views()->createMany(factory(View::class, 3)->make()->toArray());
+        })->first();
 
-        factory(Post::class, 3)->create();
+        factory(Post::class, 2)->create([
+            'user_id' => $this->admin->id,
+            'published_at' => now()->subDay(),
+        ])->each(function ($post) {
+            $post->views()->createMany(factory(View::class, 3)->make()->toArray());
+        })->first();
 
         $this->actingAs($this->admin, 'canvas')
              ->getJson('canvas/api/posts?scope=all')
              ->assertSuccessful()
-             ->assertJsonExactFragment(4, 'posts.total')
-             ->assertJsonExactFragment(0, 'views_count');
+             ->decodeResponseJson()
+             ->assertStructure([
+                 'posts',
+                 'draftCount',
+                 'publishedCount',
+             ])
+             ->assertFragment([
+                 'total' => $this->admin->posts()->count(),
+                 'draftCount' => $this->admin->posts()->draft()->count(),
+                 'publishedCount' => $this->admin->posts()->published()->count(),
+             ]);
     }
 
     /** @test */
     public function testUserPostsCanBeFetchedWithAGivenQueryScope(): void
     {
-        factory(Post::class)->create([
+        factory(Post::class, 2)->create([
             'user_id' => $this->admin->id,
-        ]);
+            'published_at' => now()->subDay(),
+        ])->each(function ($post) {
+            $post->views()->createMany(factory(View::class, 3)->make()->toArray());
+        })->first();
 
-        factory(Post::class, 2)->create();
+        factory(Post::class, 2)->create([
+            'user_id' => $this->editor->id,
+            'published_at' => now()->subDay(),
+        ])->each(function ($post) {
+            $post->views()->createMany(factory(View::class, 3)->make()->toArray());
+        })->first();
 
         $this->actingAs($this->admin, 'canvas')
              ->getJson('canvas/api/posts?scope=user')
              ->assertSuccessful()
-             ->assertJsonExactFragment(1, 'posts.total')
-             ->assertJsonExactFragment(0, 'views_count');
+             ->decodeResponseJson()
+             ->assertStructure([
+                 'posts',
+                 'draftCount',
+                 'publishedCount',
+             ])
+             ->assertFragment([
+                 'total' => $this->admin->posts()->count(),
+                 'draftCount' => $this->admin->posts()->draft()->count(),
+                 'publishedCount' => $this->admin->posts()->published()->count(),
+             ]);
     }
 
     public function testNewPostData(): void
     {
-        $response = $this->actingAs($this->admin, 'canvas')
-                         ->getJson('canvas/api/posts/create')
-                         ->assertSuccessful();
-
-        $this->assertArrayHasKey('id', $response->original['post']);
-        $this->assertArrayHasKey('slug', $response->original['post']);
-        $this->assertArrayHasKey('read_time', $response->original['post']);
-        $this->assertArrayHasKey('tags', $response->original);
-        $this->assertArrayHasKey('topics', $response->original);
+        $this->actingAs($this->admin, 'canvas')
+             ->getJson('canvas/api/posts/create')
+             ->assertSuccessful()
+             ->decodeResponseJson()
+             ->assertStructure([
+                 'post',
+                 'tags',
+                 'topics',
+             ]);
     }
 
     public function testExistingPostData(): void
     {
         $post = factory(Post::class)->create();
 
-        $this->actingAs($post->user, 'canvas')
+        $this->actingAs($this->admin, 'canvas')
              ->getJson("canvas/api/posts/{$post->id}")
              ->assertSuccessful()
-             ->assertJsonExactFragment($post->id, 'post.id')
-             ->assertJsonExactFragment($post->title, 'post.title')
-             ->assertJsonExactFragment($post->user_id, 'post.user_id')
-             ->assertJsonExactFragment($post->slug, 'post.slug');
+             ->decodeResponseJson()
+             ->assertStructure([
+                 'post',
+                 'tags',
+                 'topics',
+             ])
+             ->assertFragment([
+                 'id' => $post->id,
+             ]);
     }
 
     public function testPostNotFound(): void
@@ -170,8 +276,9 @@ class PostControllerTest extends TestCase
             'user_id' => $this->admin->id,
         ]);
 
-        $this->actingAs($this->admin, 'canvas')->getJson("canvas/api/posts/{$post->id}")->assertSuccessful();
-        $this->actingAs($this->contributor, 'canvas')->getJson("canvas/api/posts/{$post->id}")->assertNotFound();
+        $this->actingAs($this->contributor, 'canvas')
+             ->getJson("canvas/api/posts/{$post->id}")
+             ->assertNotFound();
     }
 
     public function testStoreNewPost(): void
@@ -182,51 +289,52 @@ class PostControllerTest extends TestCase
             'title' => 'A new post',
         ];
 
-        $response = $this->actingAs($this->admin, 'canvas')
-                         ->postJson("canvas/api/posts/{$data['id']}", $data)
-                         ->assertSuccessful()
-                         ->assertJsonExactFragment($data['id'], 'id')
-                         ->assertJsonExactFragment($data['slug'], 'slug')
-                         ->assertJsonExactFragment($this->admin->id, 'user_id');
-
-        $this->assertArrayHasKey('id', $response);
-        $this->assertArrayHasKey('slug', $response);
-        $this->assertArrayHasKey('title', $response);
-        $this->assertArrayHasKey('user_id', $response);
+        $this->actingAs($this->admin, 'canvas')
+             ->postJson("canvas/api/posts/{$data['id']}", $data)
+             ->assertSuccessful()
+             ->decodeResponseJson()
+             ->assertFragment([
+                 'id' => $data['id'],
+                 'slug' => $data['slug'],
+                 'title' => $data['title'],
+                 'user_id' => $this->admin->id,
+             ]);
     }
 
     public function testUpdateExistingPost(): void
     {
-        $post = factory(Post::class)->create([
-            'title' => 'Original Title',
-            'slug' => 'original-slug',
-        ]);
+        $post = factory(Post::class)->create();
 
         $data = [
             'title' => 'Updated Title',
             'slug' => 'updated-slug',
         ];
 
-        $response = $this->actingAs($post->user, 'canvas')->postJson("canvas/api/posts/{$post->id}", $data)->assertSuccessful();
-
-        $this->assertSame($data['title'], $response->original['title']);
-        $this->assertSame($data['slug'], $response->original['slug']);
-
-        $this->assertArrayHasKey('published_at', $response);
+        $this->actingAs($post->user, 'canvas')
+             ->postJson("canvas/api/posts/{$post->id}", $data)
+             ->assertSuccessful()
+             ->decodeResponseJson()
+             ->assertFragment([
+                 'id' => $post->id,
+                 'title' => $data['title'],
+                 'slug' => $data['slug'],
+             ]);
     }
 
     public function testSyncNewTags(): void
     {
-        //
+        $this->markTestSkipped();
     }
 
     public function testSyncNewTopic(): void
     {
-        //
+        $this->markTestSkipped();
     }
 
     public function testSyncExistingTags(): void
     {
+        $this->markTestSkipped();
+
         $data = [
             'id' => Uuid::uuid4()->toString(),
             'slug' => 'a-new-post',
@@ -271,35 +379,45 @@ class PostControllerTest extends TestCase
 
     public function testSyncExistingTopic(): void
     {
-        //
+        $this->markTestSkipped();
     }
 
     public function testInvalidSlugsAreValidated(): void
     {
         $post = factory(Post::class)->create();
 
-        $response = $this->actingAs($post->user, 'canvas')->postJson("canvas/api/posts/{$post->id}", [
-            'slug' => 'a new.slug',
-        ])->assertStatus(422);
-
-        $this->assertArrayHasKey('slug', $response->original['errors']);
+        $this->actingAs($this->admin, 'canvas')
+             ->postJson("canvas/api/posts/{$post->id}", [
+                 'slug' => 'a new.slug',
+             ])
+            ->assertStatus(422)
+            ->decodeResponseJson()
+            ->assertStructure([
+                'errors' => [
+                    'slug',
+                ],
+            ]);
     }
 
     public function testDeleteExistingPost(): void
     {
-        $userOne = factory(User::class)->create();
-        $userTwo = factory(User::class)->create();
-
         $post = factory(Post::class)->create([
-            'user_id' => $userOne->id,
+            'user_id' => $this->editor->id,
             'slug' => 'a-new-post',
         ]);
 
-        $this->actingAs($userTwo, 'canvas')->deleteJson("canvas/api/posts/{$post->id}")->assertNotFound();
+        $this->actingAs($this->contributor, 'canvas')
+             ->deleteJson("canvas/api/posts/{$post->id}")
+             ->assertNotFound();
 
-        $this->actingAs($userOne, 'canvas')->deleteJson('canvas/api/posts/not-a-post')->assertNotFound();
+        $this->actingAs($this->editor, 'canvas')
+             ->deleteJson('canvas/api/posts/not-a-post')
+             ->assertNotFound();
 
-        $this->actingAs($userOne, 'canvas')->deleteJson("canvas/api/posts/{$post->id}")->assertSuccessful()->assertNoContent();
+        $this->actingAs($this->admin, 'canvas')
+             ->deleteJson("canvas/api/posts/{$post->id}")
+             ->assertSuccessful()
+             ->assertNoContent();
 
         $this->assertSoftDeleted('canvas_posts', [
             'id' => $post->id,
@@ -333,7 +451,10 @@ class PostControllerTest extends TestCase
             'topic_id' => $topic->id,
         ]);
 
-        $this->actingAs($this->admin, 'canvas')->deleteJson("canvas/api/posts/{$post->id}")->assertSuccessful()->assertNoContent();
+        $this->actingAs($this->admin, 'canvas')
+             ->deleteJson("canvas/api/posts/{$post->id}")
+             ->assertSuccessful()
+             ->assertNoContent();
 
         $this->assertSoftDeleted('canvas_posts', [
             'id' => $post->id,
