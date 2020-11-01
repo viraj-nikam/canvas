@@ -21,114 +21,91 @@ class UserControllerTest extends TestCase
 
     public function testAnAdminCanFetchAllUsers(): void
     {
-        $this->markTestSkipped();
-
-        $response = $this->actingAs($this->admin, 'canvas')
+        $this->actingAs($this->admin, 'canvas')
              ->getJson('canvas/api/users')
-             ->assertSuccessful();
-//            ->decodeResponseJson()
-//        ->assertFragment([
-        //
-//        ]);
-
-        dd($response);
-//             ->assertJsonExactFragment($this->contributor->id, 'data.0.id')
-//             ->assertJsonExactFragment($this->editor->id, 'data.1.id')
-//             ->assertJsonExactFragment($this->admin->id, 'data.2.id')
-//             ->assertJsonExactFragment($user->name, 'data.0.name')
-//             ->assertJsonExactFragment($user->email, 'data.0.email')
-//             ->assertJsonExactFragment($user->username, 'data.0.username')
-//             ->assertJsonExactFragment($user->summary, 'data.0.summary')
-//             ->assertJsonExactFragment($user->avatar, 'data.0.avatar')
-//             ->assertJsonExactFragment($user->dark_mode, 'data.0.dark_mode')
-//             ->assertJsonExactFragment($user->digest, 'data.0.digest')
-//             ->assertJsonExactFragment($user->locale, 'data.0.locale')
-//             ->assertJsonExactFragment($user->role, 'data.0.role')
-//             ->assertJsonExactFragment($user->posts->count(), 'data.0.posts_count')
-//             ->assertJsonExactFragment(3, 'total');
-
-//        dd($response->original);
-//        $this->assertSame($this->contributor->id, $response->decodeResponseJson('data.0.id'));
-
-//        dd($response->decodeResponseJson('data'), [
-//            $this->contributor->id,
-//            $this->editor->id,
-//            $this->admin->id
-//        ]);
+             ->assertSuccessful()
+             ->decodeResponseJson()
+             ->assertFragment([
+                 'id' => $this->admin->id,
+                 'role' => User::ADMIN,
+                 'posts_count' => (string)$this->admin->posts()->count(),
+                 'default_avatar' => $this->admin->default_avatar,
+                 'default_locale' => $this->admin->default_locale,
+             ])
+             ->assertFragment([
+                 'id' => $this->editor->id,
+                 'role' => User::EDITOR,
+                 'posts_count' => (string)$this->editor->posts()->count(),
+                 'default_avatar' => $this->editor->default_avatar,
+                 'default_locale' => $this->editor->default_locale,
+             ])
+             ->assertFragment([
+                 'id' => $this->contributor->id,
+                 'role' => User::CONTRIBUTOR,
+                 'posts_count' => (string)$this->contributor->posts()->count(),
+                 'default_avatar' => $this->contributor->default_avatar,
+                 'default_locale' => $this->contributor->default_locale,
+             ]);
     }
 
-    /** @test */
-    public function it_can_fetch_a_new_user()
+    public function testNewPostData(): void
     {
-        $this->markTestSkipped();
+        $this->actingAs($this->admin, 'canvas')
+             ->getJson('canvas/api/users/create')
+             ->assertSuccessful()
+             ->decodeResponseJson()
+             ->assertStructure([
+                 'id',
+                 'default_avatar',
+             ])
+             ->assertFragment([
+                 'role' => User::CONTRIBUTOR,
+                 'default_locale' => config('app.locale'),
 
-        $user = factory(User::class)->create([
-            'role' => User::ADMIN,
-        ]);
-
-        $response = $this->actingAs($user, 'canvas')->getJson('canvas/api/users/create')->assertSuccessful();
-
-        $this->assertArrayHasKey('id', $response->original);
+             ]);
     }
 
-    /** @test */
-    public function it_can_fetch_an_existing_user()
+    public function testExistingPostData(): void
     {
-        $this->markTestSkipped();
-
-        $user = factory(User::class)->create([
-            'role' => User::ADMIN,
-        ]);
-
-        $response = $this->actingAs($user, 'canvas')->getJson("canvas/api/users/{$user->id}")->assertSuccessful();
-
-        $this->assertSame($user->id, $response->original['id']);
-        $this->assertSame($user->name, $response->original['name']);
-        $this->assertSame($user->email, $response->original['email']);
-        $this->assertSame($user->username, $response->original['username']);
-        $this->assertSame($user->summary, $response->original['summary']);
-        $this->assertSame($user->avatar, $response->original['avatar']);
-        $this->assertSame($user->dark_mode, $response->original['dark_mode']);
-        $this->assertSame($user->digest, $response->original['digest']);
-        $this->assertSame($user->locale, $response->original['locale']);
-        $this->assertSame($user->role, $response->original['role']);
+        $this->actingAs($this->admin, 'canvas')
+             ->getJson("canvas/api/users/{$this->contributor->id}")
+             ->assertSuccessful()
+             ->decodeResponseJson()
+             ->assertFragment([
+                 'id' => $this->contributor->id,
+                 'role' => User::CONTRIBUTOR,
+                 'posts_count' => (string)$this->contributor->posts()->count(),
+                 'default_avatar' => $this->contributor->default_avatar,
+                 'default_locale' => $this->contributor->default_locale,
+             ]);
     }
 
-    /** @test */
-    public function it_can_fetch_posts_for_an_existing_user()
+    public function testPostsCanBeFetchedForAUser(): void
     {
-        $this->markTestSkipped();
-
-        $user = factory(User::class)->create([
-            'role' => User::ADMIN,
-        ]);
-
         $post = factory(Post::class)->create([
-            'user_id' => $user->id,
+            'user_id' => $this->admin->id,
         ]);
 
         factory(View::class)->create([
             'post_id' => $post->id,
         ]);
 
-        $response = $this->actingAs($user, 'canvas')->getJson("canvas/api/users/{$user->id}/posts")->assertSuccessful();
-
-        $this->assertIsArray($response->original->items());
-        $this->assertCount(1, $response->original->items());
-        $this->assertArrayHasKey('views_count', $response->original->items()[0]);
-        $this->assertEquals(1, $response->original->items()[0]['views_count']);
+        $this->actingAs($this->admin, 'canvas')
+             ->getJson("canvas/api/users/{$this->admin->id}/posts")
+             ->assertSuccessful()
+             ->decodeResponseJson()
+             ->assertFragment([
+                 'id' => $post->id,
+                 'views_count' => (string)$post->views->count(),
+                 'total' => $this->admin->posts()->count(),
+             ]);
     }
 
-    /** @test */
-    public function it_returns_404_if_no_user_is_found()
+    public function testUserNotFound(): void
     {
-        $this->markTestSkipped();
-
-        $user = factory(User::class)->create([
-            'role' => User::ADMIN,
-        ]);
-
-        $this->actingAs($user, 'canvas')->getJson('canvas/api/users/not-a-user')->assertNotFound();
+        $this->actingAs($this->admin, 'canvas')
+             ->getJson('canvas/api/users/not-a-user')
+             ->assertNotFound();
     }
 
     /** @test */

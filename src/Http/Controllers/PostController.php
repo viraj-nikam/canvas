@@ -95,7 +95,7 @@ class PostController extends Controller
 
         $post->fill($data);
 
-        $post->user_id = $request->user('canvas')->id;
+        $post->user_id = $post->user_id ?? request()->user('canvas')->id;
 
         $post->save();
 

@@ -320,22 +320,11 @@ class PostControllerTest extends TestCase
 
     public function testSyncNewTags(): void
     {
-        $this->markTestSkipped();
-    }
-
-    public function testSyncNewTopic(): void
-    {
-        $this->markTestSkipped();
-    }
-
-    public function testSyncExistingTags(): void
-    {
-        $this->markTestSkipped();
+        $post = factory(Post::class)->create();
 
         $data = [
-            'id' => Uuid::uuid4()->toString(),
-            'slug' => 'a-new-post',
-            'title' => 'A new post',
+            'title' => $post->title,
+            'slug' => $post->slug,
             'tags' => [
                 [
                     'name' => 'A new tag',
@@ -346,32 +335,60 @@ class PostControllerTest extends TestCase
                     'slug' => 'another-tag',
                 ],
             ],
-            'topic' => [
-                [
-                    'name' => 'A new topic',
-                    'slug' => 'a-new-topic',
-                ],
-            ],
         ];
 
         $this->actingAs($this->admin, 'canvas')
-             ->postJson("canvas/api/posts/{$data['id']}", $data)
+             ->postJson("canvas/api/posts/{$post->id}", $data)
              ->assertSuccessful()
-             ->assertJsonExactFragment($data['id'], 'id')
-             ->assertJsonExactFragment($data['slug'], 'slug')
-             ->assertJsonExactFragment($this->admin->id, 'user_id');
-
-        $post = Post::find($data['id']);
+             ->decodeResponseJson()
+             ->assertFragment([
+                 'id' => $post->id,
+                 'title' => $data['title'],
+                 'slug' => $data['slug'],
+             ]);
 
         $this->assertCount(2, $post->tags);
         $this->assertDatabaseHas('canvas_posts_tags', [
             'post_id' => $post->id,
         ]);
+    }
 
-        $this->assertCount(1, $post->topic);
-        $this->assertDatabaseHas('canvas_posts_topics', [
+    public function testSyncExistingTags(): void
+    {
+        $post = factory(Post::class)->create();
+        $tag = factory(Tag::class)->create();
+
+        $data = [
+            'title' => $post->title,
+            'slug' => $post->slug,
+            'tags' => [
+                [
+                    'name' => $tag->name,
+                    'slug' => $tag->slug,
+                ]
+            ],
+        ];
+
+        $this->actingAs($this->admin, 'canvas')
+             ->postJson("canvas/api/posts/{$post->id}", $data)
+             ->assertSuccessful()
+             ->decodeResponseJson()
+             ->assertFragment([
+                 'id' => $post->id,
+                 'title' => $data['title'],
+                 'slug' => $data['slug'],
+             ]);
+
+        $this->assertCount(1, $post->tags);
+        $this->assertDatabaseHas('canvas_posts_tags', [
             'post_id' => $post->id,
+            'tag_id' => $tag->id,
         ]);
+    }
+
+    public function testSyncNewTopic(): void
+    {
+        $this->markTestSkipped();
     }
 
     public function testSyncExistingTopic(): void
@@ -387,13 +404,13 @@ class PostControllerTest extends TestCase
              ->postJson("canvas/api/posts/{$post->id}", [
                  'slug' => 'a new.slug',
              ])
-            ->assertStatus(422)
-            ->decodeResponseJson()
-            ->assertStructure([
-                'errors' => [
-                    'slug',
-                ],
-            ]);
+             ->assertStatus(422)
+             ->decodeResponseJson()
+             ->assertStructure([
+                 'errors' => [
+                     'slug',
+                 ],
+             ]);
     }
 
     public function testDeleteExistingPost(): void
