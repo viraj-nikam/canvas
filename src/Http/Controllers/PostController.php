@@ -87,11 +87,11 @@ class PostController extends Controller
     {
         $data = $request->validated();
 
-        if ($request->user('canvas')->isAdmin) {
-            $post = Post::with('tags', 'topic')->find($id);
-        } else {
-            $post = Post::with('tags', 'topic')->where('user_id', $request->user('canvas')->id)->find($id);
-        }
+        $post = Post::when($request->user('canvas')->isContributor, function ($query) {
+            return $query->where('user_id', request()->user('canvas')->id);
+        }, function ($query) {
+            return $query;
+        })->with('tags', 'topic')->find($id);
 
         if (! $post) {
             $post = new Post(['id' => $id]);
@@ -99,7 +99,7 @@ class PostController extends Controller
 
         $post->fill($data);
 
-        $post->user_id = $request->user('canvas')->id;
+        $post->user_id = $post->user_id ?? request()->user('canvas')->id;
 
         $post->save();
 
