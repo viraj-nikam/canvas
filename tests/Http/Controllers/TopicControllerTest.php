@@ -141,10 +141,10 @@ class TopicControllerTest extends TestCase
              ->assertSuccessful()
              ->decodeResponseJson()
              ->assertFragment([
-                 'id' => $deletedTopic['id'],
-                 'name' => $data['name'],
-                 'slug' => $data['slug'],
-                 'user_id' => $this->editor->id,
+                 'id' => $deletedTopic->id,
+                 'name' => $deletedTopic->name,
+                 'slug' => $deletedTopic->slug,
+                 'user_id' => $deletedTopic->user_id,
              ]);
     }
 

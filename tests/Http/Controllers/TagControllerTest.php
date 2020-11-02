@@ -141,10 +141,10 @@ class TagControllerTest extends TestCase
              ->assertSuccessful()
              ->decodeResponseJson()
              ->assertFragment([
-                 'id' => $deletedTag['id'],
-                 'name' => $data['name'],
-                 'slug' => $data['slug'],
-                 'user_id' => $this->editor->id,
+                 'id' => $deletedTag->id,
+                 'name' => $deletedTag->name,
+                 'slug' => $deletedTag->slug,
+                 'user_id' => $deletedTag->user_id,
              ]);
     }
 
