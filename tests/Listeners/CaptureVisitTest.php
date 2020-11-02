@@ -6,6 +6,7 @@ use Canvas\Events\PostViewed;
 use Canvas\Listeners\CaptureVisit;
 use Canvas\Models\Post;
 use Canvas\Tests\TestCase;
+use Exception;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 /**
@@ -26,6 +27,7 @@ class CaptureVisitTest extends TestCase
 
     /**
      * @return void
+     * @throws Exception
      */
     protected function setUp(): void
     {
@@ -34,8 +36,7 @@ class CaptureVisitTest extends TestCase
         $this->instance = new CaptureVisit();
     }
 
-    /** @test */
-    public function it_can_capture_a_visit()
+    public function testVisitsCanBeCaptured(): void
     {
         $post = factory(Post::class)->create();
 
@@ -50,8 +51,7 @@ class CaptureVisitTest extends TestCase
         ]);
     }
 
-    /** @test */
-    public function it_can_check_if_visit_is_unique()
+    public function testUniqueVisitsCanBeVerified(): void
     {
         $post = factory(Post::class)->create();
 
@@ -72,8 +72,7 @@ class CaptureVisitTest extends TestCase
         $this->assertTrue($response);
     }
 
-    /** @test */
-    public function it_can_store_post_in_session()
+    public function testPostCanBeSuccessfullyStoredInSession(): void
     {
         $post = factory(Post::class)->create();
 

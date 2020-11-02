@@ -20,8 +20,7 @@ class DigestCommandTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
-    public function it_can_send_the_weekly_digest()
+    public function testDigestCommandWillSendAnEmailToUsersWithMailEnabled(): void
     {
         Mail::fake();
 
@@ -65,8 +64,7 @@ class DigestCommandTest extends TestCase
         });
     }
 
-    /** @test */
-    public function it_will_not_send_an_email_if_digest_is_disabled()
+    public function testDigestCommandWillNotSendAnEmailToUsersWithMailDisabled(): void
     {
         Mail::fake();
 

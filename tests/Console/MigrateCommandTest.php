@@ -14,8 +14,7 @@ class MigrateCommandTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
-    public function it_can_run_canvas_migrations()
+    public function testCanvasMigrationCommand(): void
     {
         $this->artisan('canvas:migrate')
              ->assertExitCode(0)

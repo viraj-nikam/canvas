@@ -15,26 +15,22 @@ class CanvasTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
-    public function it_can_check_the_installed_version()
+    public function testInstalledVersion(): void
     {
         $this->assertSame('', Canvas::installedVersion());
     }
 
-    /** @test */
-    public function it_can_get_the_available_language_codes()
+    public function testAvailableLanguageCodes(): void
     {
         $this->assertIsArray(Canvas::availableLanguageCodes());
     }
 
-    /** @test */
-    public function it_can_get_the_available_translations()
+    public function testAvailableTranslations(): void
     {
         $this->assertIsString(Canvas::availableTranslations(config('app.locale')));
     }
 
-    /** @test */
-    public function it_can_get_the_available_roles()
+    public function testAvailableRoles(): void
     {
         $this->assertSame([
             User::CONTRIBUTOR => 'Contributor',
@@ -43,57 +39,47 @@ class CanvasTest extends TestCase
         ], Canvas::availableRoles());
     }
 
-    /** @test */
-    public function it_can_check_the_published_assets_are_up_to_date()
+    public function testAssetsAreUpToDate(): void
     {
         $this->assertSame(true, Canvas::assetsUpToDate());
     }
 
-    /** @test */
-    public function it_can_get_the_base_path()
+    public function testBasePath(): void
     {
         $this->assertIsString(Canvas::basePath());
     }
 
-    /** @test */
-    public function it_can_get_the_base_storage_path()
+    public function testBaseStoragePath(): void
     {
         $this->assertSame(config('canvas.storage_path').'/images', Canvas::baseStoragePath());
         $this->assertIsString(Canvas::baseStoragePath());
     }
 
-    /** @test */
-    public function it_can_check_for_valid_urls()
+    public function testURLIsValid(): void
     {
-        $response = Canvas::isValid('https://www.example.com');
+        $this->assertTrue(Canvas::isValid('https://www.example.com'));
 
-        $this->assertTrue($response);
-
-        $response = Canvas::isValid('://www.example.c');
-
-        $this->assertFalse($response);
+        $this->assertFalse(Canvas::isValid('://www.example.c'));
     }
 
-    /** @test */
-    public function it_can_trim_a_url()
+    public function testTrimURL(): void
     {
-        $response = Canvas::trim('https://www.example.com?string-to-trim');
+        $url = Canvas::trim('https://www.example.com?string-to-trim');
 
-        $this->assertSame($response, 'www.example.com');
+        $this->assertSame($url, 'www.example.com');
     }
 
-    /** @test */
-    public function it_can_generate_a_gravatar()
+    public function testGravatar(): void
     {
         $size = 80;
         $default = 'identicon';
         $rating = 'pg';
-        $response = Canvas::gravatar('user@example.com', $size, $default, $rating);
+        $url = Canvas::gravatar('user@example.com', $size, $default, $rating);
 
-        $this->assertIsString($response);
-        $this->assertStringContainsString('secure.gravatar.com', $response);
-        $this->assertStringContainsString(sprintf('s=%s', $size), $response);
-        $this->assertStringContainsString(sprintf('d=%s', $default), $response);
-        $this->assertStringContainsString(sprintf('r=%s', $rating), $response);
+        $this->assertIsString($url);
+        $this->assertStringContainsString('secure.gravatar.com', $url);
+        $this->assertStringContainsString(sprintf('s=%s', $size), $url);
+        $this->assertStringContainsString(sprintf('d=%s', $default), $url);
+        $this->assertStringContainsString(sprintf('r=%s', $rating), $url);
     }
 }

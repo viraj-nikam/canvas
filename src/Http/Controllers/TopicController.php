@@ -2,10 +2,9 @@
 
 namespace Canvas\Http\Controllers;
 
-use Canvas\Http\Requests\StoreTopicRequest;
+use Canvas\Http\Requests\TopicRequest;
 use Canvas\Models\Topic;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Ramsey\Uuid\Uuid;
 
@@ -14,10 +13,9 @@ class TopicController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param Request $request
      * @return JsonResponse
      */
-    public function index(Request $request): JsonResponse
+    public function index(): JsonResponse
     {
         return response()->json(
             Topic::latest()
@@ -29,10 +27,9 @@ class TopicController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @param Request $request
      * @return JsonResponse
      */
-    public function create(Request $request): JsonResponse
+    public function create(): JsonResponse
     {
         return response()->json(Topic::make([
             'id' => Uuid::uuid4()->toString(),
@@ -42,11 +39,11 @@ class TopicController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param StoreTopicRequest $request
+     * @param TopicRequest $request
      * @param $id
      * @return JsonResponse
      */
-    public function store(StoreTopicRequest $request, $id): JsonResponse
+    public function store(TopicRequest $request, $id): JsonResponse
     {
         $data = $request->validated();
 
@@ -74,11 +71,10 @@ class TopicController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param Request $request
      * @param $id
      * @return JsonResponse
      */
-    public function show(Request $request, $id): JsonResponse
+    public function show($id): JsonResponse
     {
         $topic = Topic::find($id);
 
@@ -88,11 +84,10 @@ class TopicController extends Controller
     /**
      * Display the specified relationship.
      *
-     * @param Request $request
      * @param $id
      * @return JsonResponse
      */
-    public function showPosts(Request $request, $id): JsonResponse
+    public function showPosts($id): JsonResponse
     {
         $topic = Topic::with('posts')->find($id);
 
@@ -102,11 +97,10 @@ class TopicController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param Request $request
      * @param $id
      * @return mixed
      */
-    public function destroy(Request $request, $id)
+    public function destroy($id)
     {
         $topic = Topic::findOrFail($id);
 

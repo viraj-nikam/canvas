@@ -5,12 +5,12 @@
                 <ul class="navbar-nav mr-auto flex-row float-right">
                     <li class="text-muted font-weight-bold">
                         <div class="border-left pl-3">
-                            <div v-if="!isSaving && !isSaved">
+                            <div v-if="!post.isSaving && !post.isSaved">
                                 <span v-if="isPublished(post.published_at)">{{ trans.published }}</span>
                                 <span v-if="isDraft(post.published_at)">{{ trans.draft }}</span>
                             </div>
-                            <span v-if="isSaving">{{ trans.saving }}</span>
-                            <span v-if="isSaved" class="text-success">{{ trans.saved }}</span>
+                            <span v-if="post.isSaving">{{ trans.saving }}</span>
+                            <span v-if="post.isSaved" class="text-success">{{ trans.saved }}</span>
                         </div>
                     </li>
                 </ul>
@@ -152,8 +152,10 @@ import Vue from 'vue';
 import VueTextAreaAutosize from 'vue-textarea-autosize';
 import debounce from 'lodash/debounce';
 import get from 'lodash/get';
+import { mapState } from 'vuex';
 import isEmpty from 'lodash/isEmpty';
 import status from '../mixins/status';
+import request from "../mixins/request";
 
 Vue.use(VueTextAreaAutosize);
 
@@ -175,33 +177,14 @@ export default {
     data() {
         return {
             uri: this.$route.params.id || 'create',
-            post: {
-                id: null,
-                title: null,
-                slug: null,
-                summary: null,
-                body: null,
-                published_at: null,
-                featured_image: null,
-                featured_image_caption: null,
-                meta: {
-                    description: null,
-                    title: null,
-                    canonicalLink: null,
-                },
-                tags: [],
-                topic: [],
-            },
             tags: [],
             topics: [],
-            isSaving: false,
-            isSaved: false,
-            errors: [],
             isReady: false,
         };
     },
 
     computed: {
+      ...mapState(['post']),
         ...mapGetters({
             trans: 'settings/trans',
             isAdmin: 'settings/isAdmin',
@@ -230,39 +213,62 @@ export default {
     },
 
     async created() {
-        await Promise.all([this.fetchPost()]);
+        await Promise.all([
+            this.fetchPost(),
+            this.fetchTags(),
+            this.fetchTopics()
+        ]);
         this.isReady = true;
         NProgress.done();
     },
 
     methods: {
         fetchPost() {
-            return this.request()
-                .get(`/api/posts/${this.uri}`)
-                .then(({ data }) => {
-                    this.post.id = data.post.id;
-                    this.post.title = get(data.post, 'title', '');
-                    this.post.slug = get(data.post, 'slug', '');
-                    this.post.summary = get(data.post, 'summary', '');
-                    this.post.body = get(data.post, 'body', '');
-                    this.post.published_at = get(data.post, 'published_at', '');
-                    this.post.featured_image = get(data.post, 'featured_image', '');
-                    this.post.featured_image_caption = get(data.post, 'featured_image_caption', '');
-                    this.post.meta.description = get(data.post.meta, 'description', '');
-                    this.post.meta.title = get(data.post.meta, 'title', '');
-                    this.post.meta.canonical_link = get(data.post.meta, 'canonical_link', '');
-                    this.post.tags = get(data.post, 'tags', []);
-                    this.post.topic = get(data.post, 'topic', []);
 
-                    this.tags = get(data, 'tags', []);
-                    this.topics = get(data, 'topics', []);
-
-                    NProgress.inc();
-                })
-                .catch(() => {
-                    this.$router.push({ name: 'posts' });
-                });
+            // return this.request()
+            //     .get(`/api/posts/${this.uri}`)
+            //     .then(({ data }) => {
+            //         this.post.id = data.post.id;
+            //         this.post.title = get(data.post, 'title', '');
+            //         this.post.slug = get(data.post, 'slug', '');
+            //         this.post.summary = get(data.post, 'summary', '');
+            //         this.post.body = get(data.post, 'body', '');
+            //         this.post.published_at = get(data.post, 'published_at', '');
+            //         this.post.featured_image = get(data.post, 'featured_image', '');
+            //         this.post.featured_image_caption = get(data.post, 'featured_image_caption', '');
+            //         this.post.meta.description = get(data.post.meta, 'description', '');
+            //         this.post.meta.title = get(data.post.meta, 'title', '');
+            //         this.post.meta.canonical_link = get(data.post.meta, 'canonical_link', '');
+            //         this.post.tags = get(data.post, 'tags', []);
+            //         this.post.topic = get(data.post, 'topic', []);
+            //
+            //         this.tags = get(data, 'tags', []);
+            //         this.topics = get(data, 'topics', []);
+            //
+            //         NProgress.inc();
+            //     })
+            //     .catch(() => {
+            //         this.$router.push({ name: 'posts' });
+            //     });
         },
+
+      fetchTags() {
+        request.methods
+            .request()
+            .get('/api/search/tags')
+            .then(({ data }) => {
+              this.tags = data;
+            });
+      },
+
+      fetchTopics() {
+        request.methods
+            .request()
+            .get('/api/search/topics')
+            .then(({ data }) => {
+              this.topics = data;
+            });
+      },
 
         convertToDraft() {
             this.post.published_at = null;

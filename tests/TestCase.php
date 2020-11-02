@@ -4,12 +4,10 @@ namespace Canvas\Tests;
 
 use Canvas\CanvasServiceProvider;
 use Canvas\Models\User;
+use Exception;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\TestResponse as LegacyTestResponse;
-use Illuminate\Testing\TestResponse;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
-use PHPUnit\Framework\Assert as PHPUnit;
 use ReflectionClass;
 use ReflectionException;
 
@@ -18,13 +16,37 @@ abstract class TestCase extends OrchestraTestCase
     use RefreshDatabase;
 
     /**
+     * A contributor-level user for testing.
+     *
+     * @var User
+     */
+    protected $contributor;
+
+    /**
+     * An editor-level user for testing.
+     *
+     * @var User
+     */
+    protected $editor;
+
+    /**
+     * An admin-level user for testing.
+     *
+     * @var User
+     */
+    protected $admin;
+
+    /**
      * @return void
+     * @throws Exception
      */
     protected function setUp(): void
     {
         parent::setUp();
 
         $this->setUpDatabase($this->app);
+
+        $this->createTestUsers();
     }
 
     /**
@@ -83,6 +105,7 @@ abstract class TestCase extends OrchestraTestCase
     /**
      * @param Application $app
      * @return void
+     * @throws Exception
      */
     protected function setUpDatabase($app): void
     {
@@ -91,6 +114,26 @@ abstract class TestCase extends OrchestraTestCase
         $this->loadFactoriesUsing($app, __DIR__.'/../database/factories');
 
         $this->artisan('migrate');
+    }
+
+    /**
+     * Create role-based users for testing.
+     *
+     * @void
+     */
+    protected function createTestUsers(): void
+    {
+        $this->contributor = factory(User::class)->create([
+            'role' => User::CONTRIBUTOR,
+        ]);
+
+        $this->editor = factory(User::class)->create([
+            'role' => User::EDITOR,
+        ]);
+
+        $this->admin = factory(User::class)->create([
+            'role' => User::ADMIN,
+        ]);
     }
 
     /**
@@ -109,32 +152,5 @@ abstract class TestCase extends OrchestraTestCase
         $method->setAccessible(true);
 
         return $method->invokeArgs($object, $parameters);
-    }
-
-    /**
-     * Register an exact JSON fragment assertion.
-     *
-     * @return void
-     */
-    protected function registerAssertJsonExactFragmentMacro()
-    {
-        $assertion = function ($expected, $key) {
-            $jsonResponse = $this->json();
-
-            PHPUnit::assertEquals(
-                $expected,
-                $actualValue = data_get($jsonResponse, $key),
-                "Failed asserting that [$actualValue] matches expected [$expected].".PHP_EOL.PHP_EOL.
-                json_encode($jsonResponse)
-            );
-
-            return $this;
-        };
-
-        if (Application::VERSION === '7.x-dev' || version_compare(Application::VERSION, '7.0', '>=')) {
-            TestResponse::macro('assertJsonExactFragment', $assertion);
-        } else {
-            LegacyTestResponse::macro('assertJsonExactFragment', $assertion);
-        }
     }
 }

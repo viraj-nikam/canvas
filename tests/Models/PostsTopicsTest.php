@@ -16,14 +16,12 @@ class PostsTopicsTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
-    public function posts_relationship()
+    public function testPostsRelationship(): void
     {
         $this->assertInstanceOf(BelongsTo::class, resolve(PostsTopics::class)->posts());
     }
 
-    /** @test */
-    public function topic_relationship()
+    public function testTopicRelationship(): void
     {
         $this->assertInstanceOf(BelongsTo::class, resolve(PostsTopics::class)->topic());
     }

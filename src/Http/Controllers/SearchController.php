@@ -15,18 +15,15 @@ class SearchController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param Request $request
      * @return JsonResponse
      */
-    public function showPosts(Request $request): JsonResponse
+    public function showPosts(): JsonResponse
     {
-        $user = User::firstWhere('id', $request->user('canvas')->id);
-
-        if ($user->isAdmin || $user->isEditor) {
-            $posts = Post::select('id', 'title')->latest()->get();
-        } else {
-            $posts = Post::where('user_id', $request->user('canvas')->id)->select('id', 'title')->latest()->get();
-        }
+        $posts = Post::when(request()->user('canvas')->isContributor, function ($query) {
+            return $query->where('user_id', request()->user('canvas')->id);
+        }, function ($query) {
+            return $query;
+        })->select('id', 'title')->latest()->get();
 
         $posts->map(function ($post) {
             $post['name'] = $post->title;
@@ -42,10 +39,9 @@ class SearchController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param Request $request
      * @return JsonResponse
      */
-    public function showTags(Request $request): JsonResponse
+    public function showTags(): JsonResponse
     {
         $tags = Tag::select('id', 'name')->latest()->get();
 
@@ -62,10 +58,9 @@ class SearchController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param Request $request
      * @return JsonResponse
      */
-    public function showTopics(Request $request): JsonResponse
+    public function showTopics(): JsonResponse
     {
         $topics = Topic::select('id', 'name')->latest()->get();
 
@@ -82,10 +77,9 @@ class SearchController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param Request $request
      * @return JsonResponse
      */
-    public function showUsers(Request $request): JsonResponse
+    public function showUsers(): JsonResponse
     {
         $users = User::select('id', 'name', 'email')->latest()->get();
 

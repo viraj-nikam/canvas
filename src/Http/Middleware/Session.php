@@ -59,11 +59,12 @@ class Session
      * @param Collection $posts
      * @return void
      */
-    protected function pruneExpiredViews(Collection $posts)
+    protected function pruneExpiredViews(Collection $posts): void
     {
+        // TODO: Use the collection helper methods to loop
         foreach ($posts as $key => $value) {
             if ($value < now()->subSeconds(3600)->timestamp) {
-                session()->forget('viewed_posts.'.$key);
+                session()->forget("viewed_posts.{$key}");
             }
         }
     }
@@ -74,11 +75,12 @@ class Session
      * @param Collection $posts
      * @return void
      */
-    protected function pruneExpiredVisits(Collection $posts)
+    protected function pruneExpiredVisits(Collection $posts): void
     {
+        // TODO: Use the collection helper methods to loop
         foreach ($posts as $key => $value) {
             if (! Date::createFromTimestamp($value['timestamp'])->isToday()) {
-                session()->forget('visited_posts.'.$key);
+                session()->forget("visited_posts.{$key}");
             }
         }
     }
