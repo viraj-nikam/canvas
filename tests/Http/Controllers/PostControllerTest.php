@@ -75,12 +75,12 @@ class PostControllerTest extends TestCase
         $this->actingAs($this->admin, 'canvas')
              ->getJson('canvas/api/posts?type=published')
              ->assertSuccessful()
-             ->decodeResponseJson()
-             ->assertStructure([
+             ->assertJsonStructure([
                  'posts',
                  'draftCount',
                  'publishedCount',
              ])
+             ->decodeResponseJson()
              ->assertFragment([
                  'id' => $primaryPost->id,
                  'total' => $this->admin->posts()->published()->count(),
@@ -111,12 +111,12 @@ class PostControllerTest extends TestCase
         $this->actingAs($this->admin, 'canvas')
              ->getJson('canvas/api/posts?type=draft')
              ->assertSuccessful()
-             ->decodeResponseJson()
-             ->assertStructure([
+             ->assertJsonStructure([
                  'posts',
                  'draftCount',
                  'publishedCount',
              ])
+             ->decodeResponseJson()
              ->assertFragment([
                  'id' => $secondaryPost->id,
                  'total' => $this->admin->posts()->published()->count(),
@@ -147,12 +147,12 @@ class PostControllerTest extends TestCase
         $this->actingAs($this->admin, 'canvas')
              ->getJson('canvas/api/posts')
              ->assertSuccessful()
-             ->decodeResponseJson()
-             ->assertStructure([
+             ->assertJsonStructure([
                  'posts',
                  'draftCount',
                  'publishedCount',
              ])
+             ->decodeResponseJson()
              ->assertFragment([
                  'id' => $primaryPost->id,
                  'total' => $this->admin->posts()->published()->count(),
@@ -183,12 +183,12 @@ class PostControllerTest extends TestCase
         $this->actingAs($this->admin, 'canvas')
              ->getJson('canvas/api/posts?scope=all')
              ->assertSuccessful()
-             ->decodeResponseJson()
-             ->assertStructure([
+             ->assertJsonStructure([
                  'posts',
                  'draftCount',
                  'publishedCount',
              ])
+             ->decodeResponseJson()
              ->assertFragment([
                  'total' => $this->admin->posts()->count(),
                  'draftCount' => $this->admin->posts()->draft()->count(),
@@ -216,12 +216,12 @@ class PostControllerTest extends TestCase
         $this->actingAs($this->admin, 'canvas')
              ->getJson('canvas/api/posts?scope=user')
              ->assertSuccessful()
-             ->decodeResponseJson()
-             ->assertStructure([
+             ->assertJsonStructure([
                  'posts',
                  'draftCount',
                  'publishedCount',
              ])
+             ->decodeResponseJson()
              ->assertFragment([
                  'total' => $this->admin->posts()->count(),
                  'draftCount' => $this->admin->posts()->draft()->count(),
@@ -234,8 +234,7 @@ class PostControllerTest extends TestCase
         $this->actingAs($this->admin, 'canvas')
              ->getJson('canvas/api/posts/create')
              ->assertSuccessful()
-             ->decodeResponseJson()
-             ->assertStructure([
+             ->assertJsonStructure([
                  'post',
                  'tags',
                  'topics',
@@ -249,12 +248,12 @@ class PostControllerTest extends TestCase
         $this->actingAs($this->admin, 'canvas')
              ->getJson("canvas/api/posts/{$post->id}")
              ->assertSuccessful()
-             ->decodeResponseJson()
-             ->assertStructure([
+             ->assertJsonStructure([
                  'post',
                  'tags',
                  'topics',
              ])
+             ->decodeResponseJson()
              ->assertFragment([
                  'id' => $post->id,
              ]);
@@ -405,8 +404,7 @@ class PostControllerTest extends TestCase
                  'slug' => 'a new.slug',
              ])
              ->assertStatus(422)
-             ->decodeResponseJson()
-             ->assertStructure([
+             ->assertJsonStructure([
                  'errors' => [
                      'slug',
                  ],
