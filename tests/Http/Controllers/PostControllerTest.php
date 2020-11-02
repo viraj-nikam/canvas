@@ -39,12 +39,12 @@ class PostControllerTest extends TestCase
         $this->actingAs($this->admin, 'canvas')
              ->getJson('canvas/api/posts')
              ->assertSuccessful()
-             ->decodeResponseJson()
-             ->assertStructure([
+             ->assertJsonStructure([
                  'posts',
                  'draftCount',
                  'publishedCount',
              ])
+             ->decodeResponseJson()
              ->assertFragment([
                  'id' => $primaryPost->id,
                  'total' => $this->admin->posts()->published()->count(),
