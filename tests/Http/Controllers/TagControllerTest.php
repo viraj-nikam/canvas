@@ -33,8 +33,7 @@ class TagControllerTest extends TestCase
         $this->actingAs($this->admin, 'canvas')
              ->getJson('canvas/api/tags')
              ->assertSuccessful()
-             ->decodeResponseJson()
-             ->assertFragment([
+             ->assertJsonFragment([
                  'id' => $tag->id,
                  'name' => $tag->name,
                  'user_id' => $tag->user->id,
@@ -49,8 +48,7 @@ class TagControllerTest extends TestCase
         $this->actingAs($this->admin, 'canvas')
              ->getJson('canvas/api/tags/create')
              ->assertSuccessful()
-             ->decodeResponseJson()
-             ->assertStructure([
+             ->assertJsonStructure([
                  'id',
              ]);
     }
@@ -62,8 +60,7 @@ class TagControllerTest extends TestCase
         $this->actingAs($this->admin, 'canvas')
              ->getJson("canvas/api/tags/{$tag->id}")
              ->assertSuccessful()
-             ->decodeResponseJson()
-             ->assertFragment([
+             ->assertJsonFragment([
                  'id' => $tag->id,
                  'name' => $tag->name,
                  'user_id' => $tag->user->id,
@@ -85,8 +82,7 @@ class TagControllerTest extends TestCase
         $this->actingAs($this->admin, 'canvas')
              ->getJson("canvas/api/tags/{$tag->id}/posts")
              ->assertSuccessful()
-             ->decodeResponseJson()
-             ->assertFragment([
+             ->assertJsonFragment([
                  'tag_id' => $tag->id,
                  'post_id' => $post->id,
                  'views_count' => (string) $post->views->count(),
@@ -111,8 +107,7 @@ class TagControllerTest extends TestCase
         $this->actingAs($this->admin, 'canvas')
              ->postJson("canvas/api/tags/{$data['id']}", $data)
              ->assertSuccessful()
-             ->decodeResponseJson()
-             ->assertFragment([
+             ->assertJsonFragment([
                  'id' => $data['id'],
                  'name' => $data['name'],
                  'slug' => $data['slug'],
@@ -139,8 +134,7 @@ class TagControllerTest extends TestCase
         $this->actingAs($this->admin, 'canvas')
              ->postJson("canvas/api/tags/{$data['id']}", $data)
              ->assertSuccessful()
-             ->decodeResponseJson()
-             ->assertFragment([
+             ->assertJsonFragment([
                  'id' => $deletedTag->id,
                  'name' => $deletedTag->name,
                  'slug' => $deletedTag->slug,
@@ -160,8 +154,7 @@ class TagControllerTest extends TestCase
         $this->actingAs($this->admin, 'canvas')
              ->postJson("canvas/api/tags/{$tag->id}", $data)
              ->assertSuccessful()
-             ->decodeResponseJson()
-             ->assertFragment([
+             ->assertJsonFragment([
                  'id' => $tag->id,
                  'name' => $data['name'],
                  'slug' => $data['slug'],
@@ -179,8 +172,7 @@ class TagControllerTest extends TestCase
                  'slug' => 'a new.slug',
              ])
              ->assertStatus(422)
-             ->decodeResponseJson()
-             ->assertStructure([
+             ->assertJsonStructure([
                  'errors' => [
                      'slug',
                  ],

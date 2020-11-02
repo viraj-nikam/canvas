@@ -30,8 +30,7 @@ class SearchControllerTest extends TestCase
         $response = $this->actingAs($this->contributor, 'canvas')
                          ->getJson('canvas/api/search/posts')
                          ->assertSuccessful()
-                         ->decodeResponseJson()
-                         ->assertCount(3);
+                         ->assertJsonCount(3);
 
         $this->assertArrayHasKey('id', $response[0]);
         $this->assertArrayHasKey('title', $response[0]);
@@ -55,8 +54,7 @@ class SearchControllerTest extends TestCase
         $response = $this->actingAs($this->editor, 'canvas')
                          ->getJson('canvas/api/search/posts')
                          ->assertSuccessful()
-                         ->decodeResponseJson()
-                         ->assertCount(4);
+                         ->assertJsonCount(4);
 
         $this->assertArrayHasKey('id', $response[0]);
         $this->assertArrayHasKey('title', $response[0]);
@@ -80,8 +78,7 @@ class SearchControllerTest extends TestCase
         $response = $this->actingAs($this->admin, 'canvas')
                          ->getJson('canvas/api/search/posts')
                          ->assertSuccessful()
-                         ->decodeResponseJson()
-                         ->assertCount(4);
+                         ->assertJsonCount(4);
 
         $this->assertArrayHasKey('id', $response[0]);
         $this->assertArrayHasKey('title', $response[0]);
@@ -99,8 +96,7 @@ class SearchControllerTest extends TestCase
         $response = $this->actingAs($this->admin, 'canvas')
                          ->getJson('canvas/api/search/tags')
                          ->assertSuccessful()
-                         ->decodeResponseJson()
-                         ->assertCount(2);
+                         ->assertJsonCount(2);
 
         $this->assertArrayHasKey('id', $response[0]);
         $this->assertArrayHasKey('name', $response[0]);
@@ -117,8 +113,7 @@ class SearchControllerTest extends TestCase
         $response = $this->actingAs($this->admin, 'canvas')
                          ->getJson('canvas/api/search/topics')
                          ->assertSuccessful()
-                         ->decodeResponseJson()
-                         ->assertCount(3);
+                         ->assertJsonCount(3);
 
         $this->assertArrayHasKey('id', $response[0]);
         $this->assertArrayHasKey('name', $response[0]);
@@ -133,8 +128,7 @@ class SearchControllerTest extends TestCase
         $response = $this->actingAs($this->admin, 'canvas')
                          ->getJson('canvas/api/search/users')
                          ->assertSuccessful()
-                         ->decodeResponseJson()
-                         ->assertCount(3);
+                         ->assertJsonCount(3);
 
         $this->assertArrayHasKey('id', $response[0]);
         $this->assertArrayHasKey('name', $response[0]);

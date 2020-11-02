@@ -33,8 +33,7 @@ class TopicControllerTest extends TestCase
         $this->actingAs($this->admin, 'canvas')
              ->getJson('canvas/api/topics')
              ->assertSuccessful()
-             ->decodeResponseJson()
-             ->assertFragment([
+             ->assertJsonFragment([
                  'id' => $topic->id,
                  'name' => $topic->name,
                  'user_id' => $topic->user->id,
@@ -49,8 +48,7 @@ class TopicControllerTest extends TestCase
         $this->actingAs($this->admin, 'canvas')
              ->getJson('canvas/api/topics/create')
              ->assertSuccessful()
-             ->decodeResponseJson()
-             ->assertStructure([
+             ->assertJsonStructure([
                  'id',
              ]);
     }
@@ -62,8 +60,7 @@ class TopicControllerTest extends TestCase
         $this->actingAs($this->admin, 'canvas')
              ->getJson("canvas/api/topics/{$topic->id}")
              ->assertSuccessful()
-             ->decodeResponseJson()
-             ->assertFragment([
+             ->assertJsonFragment([
                  'id' => $topic->id,
                  'name' => $topic->name,
                  'user_id' => $topic->user->id,
@@ -85,8 +82,7 @@ class TopicControllerTest extends TestCase
         $this->actingAs($this->admin, 'canvas')
              ->getJson("canvas/api/topics/{$topic->id}/posts")
              ->assertSuccessful()
-             ->decodeResponseJson()
-             ->assertFragment([
+             ->assertJsonFragment([
                  'topic_id' => $topic->id,
                  'post_id' => $post->id,
                  'views_count' => (string) $post->views->count(),
@@ -111,8 +107,7 @@ class TopicControllerTest extends TestCase
         $this->actingAs($this->admin, 'canvas')
              ->postJson("canvas/api/topics/{$data['id']}", $data)
              ->assertSuccessful()
-             ->decodeResponseJson()
-             ->assertFragment([
+             ->assertJsonFragment([
                  'id' => $data['id'],
                  'name' => $data['name'],
                  'slug' => $data['slug'],
@@ -139,8 +134,7 @@ class TopicControllerTest extends TestCase
         $this->actingAs($this->admin, 'canvas')
              ->postJson("canvas/api/topics/{$data['id']}", $data)
              ->assertSuccessful()
-             ->decodeResponseJson()
-             ->assertFragment([
+             ->assertJsonFragment([
                  'id' => $deletedTopic->id,
                  'name' => $deletedTopic->name,
                  'slug' => $deletedTopic->slug,
@@ -160,8 +154,7 @@ class TopicControllerTest extends TestCase
         $this->actingAs($this->admin, 'canvas')
              ->postJson("canvas/api/topics/{$topic->id}", $data)
              ->assertSuccessful()
-             ->decodeResponseJson()
-             ->assertFragment([
+             ->assertJsonFragment([
                  'id' => $topic->id,
                  'name' => $data['name'],
                  'slug' => $data['slug'],
@@ -179,8 +172,7 @@ class TopicControllerTest extends TestCase
                  'slug' => 'a new.slug',
              ])
              ->assertStatus(422)
-             ->decodeResponseJson()
-             ->assertStructure([
+             ->assertJsonStructure([
                  'errors' => [
                      'slug',
                  ],

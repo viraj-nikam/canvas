@@ -36,8 +36,7 @@ class StatsControllerTest extends TestCase
         $this->actingAs($this->admin, 'canvas')
              ->getJson('canvas/api/stats')
              ->assertSuccessful()
-             ->decodeResponseJson()
-             ->assertStructure([
+             ->assertJsonStructure([
                  'totalViews',
                  'totalVisits',
                  'traffic' => [
@@ -45,7 +44,7 @@ class StatsControllerTest extends TestCase
                      'visits',
                  ],
              ])
-             ->assertFragment([
+             ->assertJsonFragment([
                  'totalVisits' => 6,
                  'totalViews' => 9,
              ]);
@@ -70,8 +69,7 @@ class StatsControllerTest extends TestCase
         $this->actingAs($this->admin, 'canvas')
              ->getJson('canvas/api/stats?scope=all')
              ->assertSuccessful()
-             ->decodeResponseJson()
-             ->assertStructure([
+             ->assertJsonStructure([
                  'totalViews',
                  'totalVisits',
                  'traffic' => [
@@ -79,7 +77,7 @@ class StatsControllerTest extends TestCase
                      'visits',
                  ],
              ])
-             ->assertFragment([
+             ->assertJsonFragment([
                  'totalVisits' => 8,
                  'totalViews' => 13,
              ]);
@@ -94,8 +92,7 @@ class StatsControllerTest extends TestCase
         $this->actingAs($this->admin, 'canvas')
              ->getJson("canvas/api/stats/{$post->id}")
              ->assertSuccessful()
-             ->decodeResponseJson()
-             ->assertStructure([
+             ->assertJsonStructure([
                  'post',
                  'readTime',
                  'popularReadingTimes',
@@ -127,8 +124,7 @@ class StatsControllerTest extends TestCase
         $this->actingAs($this->editor, 'canvas')
              ->getJson("canvas/api/stats/{$post->id}")
              ->assertSuccessful()
-             ->decodeResponseJson()
-             ->assertStructure([
+             ->assertJsonStructure([
                  'post',
                  'readTime',
                  'popularReadingTimes',
@@ -160,8 +156,7 @@ class StatsControllerTest extends TestCase
         $this->actingAs($this->contributor, 'canvas')
              ->getJson("canvas/api/stats/{$post->id}")
              ->assertSuccessful()
-             ->decodeResponseJson()
-             ->assertStructure([
+             ->assertJsonStructure([
                  'post',
                  'readTime',
                  'popularReadingTimes',

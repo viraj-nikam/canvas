@@ -24,22 +24,21 @@ class UserControllerTest extends TestCase
         $this->actingAs($this->admin, 'canvas')
              ->getJson('canvas/api/users')
              ->assertSuccessful()
-             ->decodeResponseJson()
-             ->assertFragment([
+             ->assertJsonFragment([
                  'id' => $this->admin->id,
                  'role' => User::ADMIN,
                  'posts_count' => (string) $this->admin->posts()->count(),
                  'default_avatar' => $this->admin->default_avatar,
                  'default_locale' => $this->admin->default_locale,
              ])
-             ->assertFragment([
+             ->assertJsonFragment([
                  'id' => $this->editor->id,
                  'role' => User::EDITOR,
                  'posts_count' => (string) $this->editor->posts()->count(),
                  'default_avatar' => $this->editor->default_avatar,
                  'default_locale' => $this->editor->default_locale,
              ])
-             ->assertFragment([
+             ->assertJsonFragment([
                  'id' => $this->contributor->id,
                  'role' => User::CONTRIBUTOR,
                  'posts_count' => (string) $this->contributor->posts()->count(),
@@ -53,12 +52,11 @@ class UserControllerTest extends TestCase
         $this->actingAs($this->admin, 'canvas')
              ->getJson('canvas/api/users/create')
              ->assertSuccessful()
-             ->decodeResponseJson()
-             ->assertStructure([
+             ->assertJsonStructure([
                  'id',
                  'default_avatar',
              ])
-             ->assertFragment([
+             ->assertJsonFragment([
                  'role' => User::CONTRIBUTOR,
                  'default_locale' => config('app.locale'),
 
@@ -70,8 +68,7 @@ class UserControllerTest extends TestCase
         $this->actingAs($this->admin, 'canvas')
              ->getJson("canvas/api/users/{$this->contributor->id}")
              ->assertSuccessful()
-             ->decodeResponseJson()
-             ->assertFragment([
+             ->assertJsonFragment([
                  'id' => $this->contributor->id,
                  'role' => User::CONTRIBUTOR,
                  'posts_count' => (string) $this->contributor->posts()->count(),
@@ -93,8 +90,7 @@ class UserControllerTest extends TestCase
         $this->actingAs($this->admin, 'canvas')
              ->getJson("canvas/api/users/{$this->admin->id}/posts")
              ->assertSuccessful()
-             ->decodeResponseJson()
-             ->assertFragment([
+             ->assertJsonFragment([
                  'id' => $post->id,
                  'views_count' => (string) $post->views->count(),
                  'total' => $this->admin->posts()->count(),
@@ -121,12 +117,11 @@ class UserControllerTest extends TestCase
         $this->actingAs($this->admin, 'canvas')
              ->postJson("canvas/api/users/{$data['id']}", $data)
              ->assertSuccessful()
-             ->decodeResponseJson()
-             ->assertStructure([
+             ->assertJsonStructure([
                  'user',
                  'i18n',
              ])
-             ->assertFragment([
+             ->assertJsonFragment([
                  'id' => $data['id'],
                  'name' => $data['name'],
                  'email' => $data['email'],
@@ -153,8 +148,7 @@ class UserControllerTest extends TestCase
         $this->actingAs($this->admin, 'canvas')
              ->postJson("canvas/api/users/{$data['id']}", $data)
              ->assertSuccessful()
-             ->decodeResponseJson()
-             ->assertFragment([
+             ->assertJsonFragment([
                  'id' => $deletedUser->id,
                  'name' => $deletedUser->name,
                  'email' => $deletedUser->email,
@@ -173,8 +167,7 @@ class UserControllerTest extends TestCase
         $this->actingAs($this->admin, 'canvas')
              ->postJson("canvas/api/users/{$user->id}", $data)
              ->assertSuccessful()
-             ->decodeResponseJson()
-             ->assertFragment([
+             ->assertJsonFragment([
                  'id' => $user->id,
                  'name' => $data['name'],
                  'email' => $data['email'],
@@ -194,8 +187,7 @@ class UserControllerTest extends TestCase
         $this->actingAs($this->admin, 'canvas')
              ->postJson("canvas/api/users/{$data['id']}", $data)
              ->assertStatus(422)
-             ->decodeResponseJson()
-             ->assertStructure([
+             ->assertJsonStructure([
                  'errors' => [
                      'password',
                  ],
@@ -215,8 +207,7 @@ class UserControllerTest extends TestCase
         $this->actingAs($this->admin, 'canvas')
              ->postJson("canvas/api/users/{$data['id']}", $data)
              ->assertStatus(422)
-             ->decodeResponseJson()
-             ->assertStructure([
+             ->assertJsonStructure([
                  'errors' => [
                      'password',
                  ],
@@ -232,8 +223,7 @@ class UserControllerTest extends TestCase
                  'username' => $this->editor->username,
              ])
              ->assertStatus(422)
-             ->decodeResponseJson()
-             ->assertStructure([
+             ->assertJsonStructure([
                  'errors' => [
                      'username',
                  ],
@@ -248,8 +238,7 @@ class UserControllerTest extends TestCase
                  'email' => $this->editor->email,
              ])
              ->assertStatus(422)
-             ->decodeResponseJson()
-             ->assertStructure([
+             ->assertJsonStructure([
                  'errors' => [
                      'email',
                  ],
@@ -264,8 +253,7 @@ class UserControllerTest extends TestCase
                  'email' => 'not-an-email',
              ])
              ->assertStatus(422)
-             ->decodeResponseJson()
-             ->assertStructure([
+             ->assertJsonStructure([
                  'errors' => [
                      'email',
                  ],
