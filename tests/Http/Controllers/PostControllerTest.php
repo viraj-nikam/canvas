@@ -44,14 +44,13 @@ class PostControllerTest extends TestCase
                  'draftCount',
                  'publishedCount',
              ])
-             ->decodeResponseJson()
-             ->assertFragment([
+             ->assertJsonFragment([
                  'id' => $primaryPost->id,
                  'total' => $this->admin->posts()->published()->count(),
                  'draftCount' => $this->admin->posts()->draft()->count(),
                  'publishedCount' => $this->admin->posts()->published()->count(),
              ])
-             ->assertMissing([
+             ->assertJsonMissing([
                  'id' => $secondaryPost->id,
              ]);
     }
@@ -80,14 +79,13 @@ class PostControllerTest extends TestCase
                  'draftCount',
                  'publishedCount',
              ])
-             ->decodeResponseJson()
-             ->assertFragment([
+             ->assertJsonFragment([
                  'id' => $primaryPost->id,
                  'total' => $this->admin->posts()->published()->count(),
                  'draftCount' => $this->admin->posts()->draft()->count(),
                  'publishedCount' => $this->admin->posts()->published()->count(),
              ])
-             ->assertMissing([
+             ->assertJsonMissing([
                  'id' => $secondaryPost->id,
              ]);
     }
@@ -116,14 +114,13 @@ class PostControllerTest extends TestCase
                  'draftCount',
                  'publishedCount',
              ])
-             ->decodeResponseJson()
-             ->assertFragment([
+             ->assertJsonFragment([
                  'id' => $secondaryPost->id,
                  'total' => $this->admin->posts()->published()->count(),
                  'draftCount' => $this->admin->posts()->draft()->count(),
                  'publishedCount' => $this->admin->posts()->published()->count(),
              ])
-             ->assertMissing([
+             ->assertJsonMissing([
                  'id' => $primaryPost->id,
              ]);
     }
@@ -152,14 +149,13 @@ class PostControllerTest extends TestCase
                  'draftCount',
                  'publishedCount',
              ])
-             ->decodeResponseJson()
-             ->assertFragment([
+             ->assertJsonFragment([
                  'id' => $primaryPost->id,
                  'total' => $this->admin->posts()->published()->count(),
                  'draftCount' => $this->admin->posts()->draft()->count(),
                  'publishedCount' => $this->admin->posts()->published()->count(),
              ])
-             ->assertMissing([
+             ->assertJsonMissing([
                  'id' => $secondaryPost->id,
              ]);
     }
@@ -188,8 +184,7 @@ class PostControllerTest extends TestCase
                  'draftCount',
                  'publishedCount',
              ])
-             ->decodeResponseJson()
-             ->assertFragment([
+             ->assertJsonFragment([
                  'total' => $this->admin->posts()->count(),
                  'draftCount' => $this->admin->posts()->draft()->count(),
                  'publishedCount' => $this->admin->posts()->published()->count(),
@@ -221,8 +216,7 @@ class PostControllerTest extends TestCase
                  'draftCount',
                  'publishedCount',
              ])
-             ->decodeResponseJson()
-             ->assertFragment([
+             ->assertJsonFragment([
                  'total' => $this->admin->posts()->count(),
                  'draftCount' => $this->admin->posts()->draft()->count(),
                  'publishedCount' => $this->admin->posts()->published()->count(),
@@ -253,8 +247,7 @@ class PostControllerTest extends TestCase
                  'tags',
                  'topics',
              ])
-             ->decodeResponseJson()
-             ->assertFragment([
+             ->assertJsonFragment([
                  'id' => $post->id,
              ]);
     }
@@ -288,8 +281,7 @@ class PostControllerTest extends TestCase
         $this->actingAs($this->admin, 'canvas')
              ->postJson("canvas/api/posts/{$data['id']}", $data)
              ->assertSuccessful()
-             ->decodeResponseJson()
-             ->assertFragment([
+             ->assertJsonFragment([
                  'id' => $data['id'],
                  'slug' => $data['slug'],
                  'title' => $data['title'],
@@ -309,8 +301,7 @@ class PostControllerTest extends TestCase
         $this->actingAs($post->user, 'canvas')
              ->postJson("canvas/api/posts/{$post->id}", $data)
              ->assertSuccessful()
-             ->decodeResponseJson()
-             ->assertFragment([
+             ->assertJsonFragment([
                  'id' => $post->id,
                  'title' => $data['title'],
                  'slug' => $data['slug'],
@@ -339,8 +330,7 @@ class PostControllerTest extends TestCase
         $this->actingAs($this->admin, 'canvas')
              ->postJson("canvas/api/posts/{$post->id}", $data)
              ->assertSuccessful()
-             ->decodeResponseJson()
-             ->assertFragment([
+             ->assertJsonFragment([
                  'id' => $post->id,
                  'title' => $data['title'],
                  'slug' => $data['slug'],
@@ -371,8 +361,7 @@ class PostControllerTest extends TestCase
         $this->actingAs($this->admin, 'canvas')
              ->postJson("canvas/api/posts/{$post->id}", $data)
              ->assertSuccessful()
-             ->decodeResponseJson()
-             ->assertFragment([
+             ->assertJsonFragment([
                  'id' => $post->id,
                  'title' => $data['title'],
                  'slug' => $data['slug'],
