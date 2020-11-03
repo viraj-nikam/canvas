@@ -298,7 +298,28 @@ class PostControllerTest extends TestCase
             'slug' => 'updated-slug',
         ];
 
-        $this->actingAs($post->user, 'canvas')
+        $this->actingAs($this->admin, 'canvas')
+             ->postJson("canvas/api/posts/{$post->id}", $data)
+             ->assertSuccessful()
+             ->assertJsonFragment([
+                 'id' => $post->id,
+                 'title' => $data['title'],
+                 'slug' => $data['slug'],
+             ]);
+    }
+
+    public function testAContributorCanOnlyUpdateTheirOwnPost(): void
+    {
+        $post = factory(Post::class)->create([
+            'user_id' => $this->contributor->id,
+        ]);
+
+        $data = [
+            'title' => 'Updated Title',
+            'slug' => 'updated-slug',
+        ];
+
+        $this->actingAs($this->contributor, 'canvas')
              ->postJson("canvas/api/posts/{$post->id}", $data)
              ->assertSuccessful()
              ->assertJsonFragment([
@@ -376,12 +397,64 @@ class PostControllerTest extends TestCase
 
     public function testSyncNewTopic(): void
     {
-        $this->markTestSkipped();
+        $post = factory(Post::class)->create();
+
+        $data = [
+            'title' => $post->title,
+            'slug' => $post->slug,
+            'topic' => [
+                [
+                    'name' => 'A new topic',
+                    'slug' => 'a-new-topic',
+                ],
+            ],
+        ];
+
+        $this->actingAs($this->admin, 'canvas')
+             ->postJson("canvas/api/posts/{$post->id}", $data)
+             ->assertSuccessful()
+             ->assertJsonFragment([
+                 'id' => $post->id,
+                 'title' => $data['title'],
+                 'slug' => $data['slug'],
+             ]);
+
+        $this->assertCount(1, $post->topic);
+        $this->assertDatabaseHas('canvas_posts_topics', [
+            'post_id' => $post->id,
+        ]);
     }
 
     public function testSyncExistingTopic(): void
     {
-        $this->markTestSkipped();
+        $post = factory(Post::class)->create();
+        $topic = factory(Topic::class)->create();
+
+        $data = [
+            'title' => $post->title,
+            'slug' => $post->slug,
+            'topic' => [
+                [
+                    'name' => $topic->name,
+                    'slug' => $topic->slug,
+                ],
+            ],
+        ];
+
+        $this->actingAs($this->admin, 'canvas')
+             ->postJson("canvas/api/posts/{$post->id}", $data)
+             ->assertSuccessful()
+             ->assertJsonFragment([
+                 'id' => $post->id,
+                 'title' => $data['title'],
+                 'slug' => $data['slug'],
+             ]);
+
+        $this->assertCount(1, $post->topic);
+        $this->assertDatabaseHas('canvas_posts_topics', [
+            'post_id' => $post->id,
+            'topic_id' => $topic->id,
+        ]);
     }
 
     public function testInvalidSlugsAreValidated(): void

@@ -16,21 +16,21 @@ abstract class TestCase extends OrchestraTestCase
     use RefreshDatabase;
 
     /**
-     * A contributor-level user for testing.
+     * A test user with the role of Contributor.
      *
      * @var User
      */
     protected $contributor;
 
     /**
-     * An editor-level user for testing.
+     * A test user with the role of Editor.
      *
      * @var User
      */
     protected $editor;
 
     /**
-     * An admin-level user for testing.
+     * A test user with the role of Admin.
      *
      * @var User
      */

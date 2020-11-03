@@ -105,7 +105,6 @@
                 :post="post"
                 :tags="tags"
                 :topics="topics"
-                :errors="errors"
                 @sync-slug="updateSlug"
                 @add-tag="addTag"
                 @add-post-tag="addPostTag"
@@ -139,6 +138,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import { mapState } from 'vuex';
 import $ from 'jquery';
 import DeleteModal from '../components/modals/DeleteModal';
 import FeaturedImageModal from '../components/modals/FeaturedImageModal';
@@ -152,10 +152,9 @@ import Vue from 'vue';
 import VueTextAreaAutosize from 'vue-textarea-autosize';
 import debounce from 'lodash/debounce';
 import get from 'lodash/get';
-import { mapState } from 'vuex';
 import isEmpty from 'lodash/isEmpty';
+import request from '../mixins/request';
 import status from '../mixins/status';
-import request from "../mixins/request";
 
 Vue.use(VueTextAreaAutosize);
 
@@ -184,7 +183,7 @@ export default {
     },
 
     computed: {
-      ...mapState(['post']),
+        ...mapState(['post']),
         ...mapGetters({
             trans: 'settings/trans',
             isAdmin: 'settings/isAdmin',
@@ -213,62 +212,57 @@ export default {
     },
 
     async created() {
-        await Promise.all([
-            this.fetchPost(),
-            this.fetchTags(),
-            this.fetchTopics()
-        ]);
+        await Promise.all([this.fetchPost(), this.fetchTags(), this.fetchTopics()]);
         this.isReady = true;
         NProgress.done();
     },
 
     methods: {
         fetchPost() {
+            return this.request()
+                .get(`/api/posts/${this.uri}`)
+                .then(({ data }) => {
+                    this.post.id = data.post.id;
+                    this.post.title = get(data.post, 'title', '');
+                    this.post.slug = get(data.post, 'slug', '');
+                    this.post.summary = get(data.post, 'summary', '');
+                    this.post.body = get(data.post, 'body', '');
+                    this.post.published_at = get(data.post, 'published_at', '');
+                    this.post.featured_image = get(data.post, 'featured_image', '');
+                    this.post.featured_image_caption = get(data.post, 'featured_image_caption', '');
+                    this.post.meta.description = get(data.post.meta, 'description', '');
+                    this.post.meta.title = get(data.post.meta, 'title', '');
+                    this.post.meta.canonical_link = get(data.post.meta, 'canonical_link', '');
+                    this.post.tags = get(data.post, 'tags', []);
+                    this.post.topic = get(data.post, 'topic', []);
 
-            // return this.request()
-            //     .get(`/api/posts/${this.uri}`)
-            //     .then(({ data }) => {
-            //         this.post.id = data.post.id;
-            //         this.post.title = get(data.post, 'title', '');
-            //         this.post.slug = get(data.post, 'slug', '');
-            //         this.post.summary = get(data.post, 'summary', '');
-            //         this.post.body = get(data.post, 'body', '');
-            //         this.post.published_at = get(data.post, 'published_at', '');
-            //         this.post.featured_image = get(data.post, 'featured_image', '');
-            //         this.post.featured_image_caption = get(data.post, 'featured_image_caption', '');
-            //         this.post.meta.description = get(data.post.meta, 'description', '');
-            //         this.post.meta.title = get(data.post.meta, 'title', '');
-            //         this.post.meta.canonical_link = get(data.post.meta, 'canonical_link', '');
-            //         this.post.tags = get(data.post, 'tags', []);
-            //         this.post.topic = get(data.post, 'topic', []);
-            //
-            //         this.tags = get(data, 'tags', []);
-            //         this.topics = get(data, 'topics', []);
-            //
-            //         NProgress.inc();
-            //     })
-            //     .catch(() => {
-            //         this.$router.push({ name: 'posts' });
-            //     });
+                    this.tags = get(data, 'tags', []);
+                    this.topics = get(data, 'topics', []);
+
+                    NProgress.inc();
+                })
+                .catch(() => {
+                    this.$router.push({ name: 'posts' });
+                });
         },
 
-      fetchTags() {
-        request.methods
-            .request()
-            .get('/api/search/tags')
-            .then(({ data }) => {
-              this.tags = data;
-            });
-      },
+        fetchTags() {
+            request.methods
+                .request()
+                .get('/api/search/tags')
+                .then(({ data }) => {
+                    this.tags = data;
+                });
+        },
 
-      fetchTopics() {
-        request.methods
-            .request()
-            .get('/api/search/topics')
-            .then(({ data }) => {
-              this.topics = data;
-            });
-      },
+        fetchTopics() {
+            request.methods
+                .request()
+                .get('/api/search/topics')
+                .then(({ data }) => {
+                    this.topics = data;
+                });
+        },
 
         convertToDraft() {
             this.post.published_at = null;

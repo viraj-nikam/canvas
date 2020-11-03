@@ -99,9 +99,9 @@ class PostController extends Controller
 
         $post->save();
 
-        $post->tags()->sync($this->relatedTaxonomy('tags', $request->input('tags', [])));
+        $post->tags()->sync($this->syncTags($request->input('tags', [])));
 
-        $post->topic()->sync($this->relatedTaxonomy('topic', $request->input('topic', [])));
+        $post->topic()->sync($this->syncTopic($request->input('topic', [])));
 
         return response()->json($post->refresh(), 201);
     }
@@ -151,58 +151,54 @@ class PostController extends Controller
     }
 
     /**
-     * Return an array of tag or topic IDs to sync related taxonomy with a post.
+     * Sync given tags.
      *
-     * @param string $type
-     * @param array $items
-     * @return array|string[]
+     * @param array $incomingTags
+     * @return array
      */
-    protected function relatedTaxonomy(string $type, array $items = []): array
+    protected function syncTags(array $incomingTags): array
     {
-        if (collect($items)->isEmpty()) {
-            return [];
-        }
+        $tags = Tag::get(['id', 'name', 'slug']);
 
-        switch ($type) {
-            case 'tags':
-                $tags = Tag::get(['id', 'name', 'slug']);
+        return collect($incomingTags)->map(function ($item) use ($tags) {
+            $tag = $tags->firstWhere('slug', $item['slug']);
 
-                return collect($items)->map(function ($item) use ($tags) {
-                    $tag = $tags->firstWhere('slug', $item['slug']);
+            if (! $tag) {
+                $tag = Tag::create([
+                    'id' => $id = Uuid::uuid4()->toString(),
+                    'name' => $item['name'],
+                    'slug' => $item['slug'],
+                    'user_id' => request()->user('canvas')->id,
+                ]);
+            }
 
-                    if (! $tag) {
-                        $tag = Tag::create([
-                            'id' => $id = Uuid::uuid4()->toString(),
-                            'name' => $item['name'],
-                            'slug' => $item['slug'],
-                            'user_id' => request()->user('canvas')->id,
-                        ]);
-                    }
+            return (string) $tag->id;
+        })->toArray();
+    }
 
-                    return (string) $tag->id;
-                })->toArray();
+    /**
+     * Sync a given topic.
+     *
+     * @param array $incomingTopic
+     * @return array
+     */
+    protected function syncTopic(array $incomingTopic): array
+    {
+        $topics = Topic::get(['id', 'name', 'slug']);
 
-            case 'topic':
-                // Since the multiselect component handles single selects differently, when we try and
-                // attach an existing topic it will enter as an object in an array. A newly created
-                // topic will come in strictly as an array with only a name and a slug.
-                $topicToAssign = empty($incomingTopic[0]) ? $items : $incomingTopic[0];
+        return collect($incomingTopic)->map(function ($item) use ($topics) {
+            $topic = $topics->firstWhere('slug', $item['slug']);
 
-                $topic = Topic::firstWhere('slug', $topicToAssign['slug']);
+            if (! $topic) {
+                $topic = Topic::create([
+                    'id' => $id = Uuid::uuid4()->toString(),
+                    'name' => $item['name'],
+                    'slug' => $item['slug'],
+                    'user_id' => request()->user('canvas')->id,
+                ]);
+            }
 
-                if (! $topic) {
-                    $topic = Topic::create([
-                        'id' => $id = Uuid::uuid4()->toString(),
-                        'name' => $topicToAssign['name'],
-                        'slug' => $topicToAssign['slug'],
-                        'user_id' => request()->user('canvas')->id,
-                    ]);
-                }
-
-                return [(string) $topic->id];
-
-            default:
-                break;
-        }
+            return (string) $topic->id;
+        })->toArray();
     }
 }

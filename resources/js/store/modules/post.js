@@ -30,16 +30,17 @@ const actions = {
             .get(`/api/posts/${id}`)
             .then(({ data }) => {
                 context.commit('SET_POST', data);
-            }).catch(() => {
+            })
+            .catch(() => {
                 console.log('Push to /posts route...');
-        });
+            });
     },
 };
 
 const mutations = {
     SET_POST(state, data) {
         state = data;
-    }
+    },
 };
 
 const getters = {
