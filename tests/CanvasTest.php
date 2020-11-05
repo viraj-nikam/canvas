@@ -17,7 +17,7 @@ class CanvasTest extends TestCase
 
     public function testInstalledVersion(): void
     {
-        $this->assertSame('', Canvas::installedVersion());
+        $this->assertEmpty(Canvas::installedVersion());
     }
 
     public function testAvailableLanguageCodes(): void
@@ -41,7 +41,9 @@ class CanvasTest extends TestCase
 
     public function testAssetsAreUpToDate(): void
     {
-        $this->assertSame(true, Canvas::assetsUpToDate());
+        $this->withoutMix();
+
+        $this->assertTrue(Canvas::assetsUpToDate());
     }
 
     public function testBasePath(): void
@@ -51,7 +53,7 @@ class CanvasTest extends TestCase
 
     public function testBaseStoragePath(): void
     {
-        $this->assertSame(config('canvas.storage_path').'/images', Canvas::baseStoragePath());
+        $this->assertSame(config('canvas.storage_path') . '/images', Canvas::baseStoragePath());
         $this->assertIsString(Canvas::baseStoragePath());
     }
 

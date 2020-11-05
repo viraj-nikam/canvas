@@ -74,10 +74,6 @@ class Canvas
      */
     public static function assetsUpToDate(): bool
     {
-        if (app()->runningUnitTests()) {
-            return true;
-        }
-
         $path = public_path('vendor/canvas/mix-manifest.json');
 
         $message = sprintf('%s%s.  %s',
