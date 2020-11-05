@@ -41,8 +41,6 @@ class CanvasTest extends TestCase
 
     public function testAssetsAreUpToDate(): void
     {
-        $this->withoutMix();
-
         $this->assertTrue(Canvas::assetsUpToDate());
     }
 
