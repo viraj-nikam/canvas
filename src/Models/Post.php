@@ -262,7 +262,7 @@ class Post extends Model
      * @param Builder $query
      * @return Builder
      */
-    public function scopePublished($query): Builder
+    public function scopePublished(Builder $query): Builder
     {
         return $query->where('published_at', '<=', now()->toDateTimeString());
     }
@@ -273,7 +273,7 @@ class Post extends Model
      * @param Builder $query
      * @return Builder
      */
-    public function scopeDraft($query): Builder
+    public function scopeDraft(Builder $query): Builder
     {
         return $query->where('published_at', null)->orWhere('published_at', '>', now()->toDateTimeString());
     }
@@ -287,9 +287,9 @@ class Post extends Model
     {
         parent::boot();
 
-        static::deleting(function ($item) {
-            $item->tags()->detach();
-            $item->topic()->detach();
+        static::deleting(function (self $post) {
+            $post->tags()->detach();
+            $post->topic()->detach();
         });
     }
 }

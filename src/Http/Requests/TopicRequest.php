@@ -30,12 +30,9 @@ class TopicRequest extends FormRequest
             'slug' => [
                 'required',
                 'alpha_dash',
-                Rule::unique('canvas_topics')
-                    ->where(
-                        fn (Builder $query) => $query->where('slug', request('slug'))
-                                                    ->where('user_id', request()->user('canvas')->id))
-                    ->ignore(request('id'))
-                    ->whereNull('deleted_at'),
+                Rule::unique('canvas_topics')->where(function ($query) {
+                    return $query->where('slug', request('slug'))->where('user_id', request()->user('canvas')->id);
+                })->ignore(request('id'))->whereNull('deleted_at'),
             ],
         ];
     }

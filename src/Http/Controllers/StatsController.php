@@ -24,9 +24,11 @@ class StatsController extends Controller
     public function index(): JsonResponse
     {
         $posts = Post::query()
-                     ->when(request()->query('scope', 'user') === 'all',
-                         fn (Builder $query) => $query,
-                         fn (Builder $query) => $query->where('user_id', request()->user('canvas')->id))
+                     ->when(request()->query('scope', 'user') === 'all', function (Builder $query) {
+                         return $query;
+                     }, function (Builder $query) {
+                         return $query->where('user_id', request()->user('canvas')->id);
+                     })
                      ->published()
                      ->latest()
                      ->get();
@@ -64,12 +66,14 @@ class StatsController extends Controller
     public function show(string $id): JsonResponse
     {
         $post = Post::query()
-                    ->when(request()->user('canvas')->isContributor,
-                        fn (Builder $query) => $query->where('user_id', request()->user('canvas')->id),
-                        fn (Builder $query) => $query)
+                    ->when(request()->user('canvas')->isContributor, function (Builder $query) {
+                        return $query->where('user_id', request()->user('canvas')->id);
+                    }, function (Builder $query) {
+                        return $query;
+                    })
                     ->find($id);
 
-        if (! $post || ! $post->published) {
+        if (!$post || !$post->published) {
             return response()->json(null, 404);
         }
 
@@ -167,7 +171,7 @@ class StatsController extends Controller
         $dataCountLastMonth = $previous->count();
 
         if ($dataCountLastMonth != 0) {
-            $difference = (int) $dataCountThisMonth - (int) $dataCountLastMonth;
+            $difference = (int)$dataCountThisMonth - (int)$dataCountLastMonth;
             $growth = ($difference / $dataCountLastMonth) * 100;
         } else {
             $growth = $dataCountThisMonth * 100;

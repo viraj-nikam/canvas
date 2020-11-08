@@ -29,12 +29,9 @@ class PostRequest extends FormRequest
             'slug' => [
                 'required',
                 'alpha_dash',
-                Rule::unique('canvas_posts')
-                    ->where(
-                        fn (Builder $query) => $query->where('slug', request('slug'))
-                                                    ->where('user_id', request()->user('canvas')->id))
-                    ->ignore(request('id'))
-                    ->whereNull('deleted_at'),
+                Rule::unique('canvas_posts')->where(function ($query) {
+                    return $query->where('slug', request('slug'))->where('user_id', request()->user('canvas')->id);
+                })->ignore(request('id'))->whereNull('deleted_at'),
             ],
             'title' => 'required',
             'summary' => 'nullable|string',

@@ -30,10 +30,9 @@ class UserRequest extends FormRequest
             'email' => [
                 'required',
                 'email',
-                Rule::unique('canvas_users')
-                    ->where(fn (Builder $query) => $query->where('email', request('email')))
-                    ->ignore(request('id'))
-                    ->whereNull('deleted_at'),
+                Rule::unique('canvas_users')->where(function ($query) {
+                    return $query->where('email', request('email'));
+                })->ignore(request('id'))->whereNull('deleted_at'),
             ],
             'username' => 'nullable|alpha_dash|unique:canvas_users,username,'.request('id'),
             'password' => 'sometimes|nullable|min:8|confirmed',
