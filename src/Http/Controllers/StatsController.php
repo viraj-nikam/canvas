@@ -9,8 +9,8 @@ use Carbon\CarbonInterval;
 use DateInterval;
 use DatePeriod;
 use DateTimeInterface;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Collection;
 
@@ -23,13 +23,13 @@ class StatsController extends Controller
      */
     public function index(): JsonResponse
     {
-        $scope = request()->query('scope', 'user');
-
-        $posts = Post::when($scope === 'all', function ($query) {
-            return $query;
-        }, function ($query) {
-            return $query->where('user_id', request()->user('canvas')->id);
-        })->published()->latest()->get();
+        $posts = Post::query()
+                     ->when(request()->query('scope', 'user') === 'all',
+                         fn(Builder $query) => $query,
+                         fn(Builder $query) => $query->where('user_id', request()->user('canvas')->id))
+                     ->published()
+                     ->latest()
+                     ->get();
 
         $views = View::select('created_at')
                      ->whereIn('post_id', $posts->pluck('id'))
@@ -63,41 +63,37 @@ class StatsController extends Controller
      */
     public function show(string $id): JsonResponse
     {
-        $post = Post::when(request()->user('canvas')->isContributor, function ($query) {
-            return $query->where('user_id', request()->user('canvas')->id);
-        }, function ($query) {
-            return $query;
-        })->find($id);
+        $post = Post::query()
+                    ->when(request()->user('canvas')->isContributor,
+                        fn(Builder $query) => $query->where('user_id', request()->user('canvas')->id),
+                        fn(Builder $query) => $query)
+                    ->find($id);
 
-        if (! $post || ! $post->published) {
+        if (!$post || !$post->published) {
             return response()->json(null, 404);
         }
 
-        $views = View::where('post_id', $post->id)->get();
-
-        $previousMonthlyViews = $views->whereBetween('created_at', [
+        $previousMonthlyViews = $post->views->whereBetween('created_at', [
             today()->subMonth()->startOfMonth()->startOfDay()->toDateTimeString(),
             today()->subMonth()->endOfMonth()->endOfDay()->toDateTimeString(),
         ]);
 
-        $currentMonthlyViews = $views->whereBetween('created_at', [
+        $currentMonthlyViews = $post->views->whereBetween('created_at', [
             today()->startOfMonth()->startOfDay()->toDateTimeString(),
             today()->endOfMonth()->endOfDay()->toDateTimeString(),
         ]);
 
-        $lastThirtyDays = $views->whereBetween('created_at', [
+        $lastThirtyDays = $post->views->whereBetween('created_at', [
             today()->subDays(30)->startOfDay()->toDateTimeString(),
             today()->endOfDay()->toDateTimeString(),
         ]);
 
-        $visits = Visit::where('post_id', $post->id)->get();
-
-        $previousMonthlyVisits = $visits->whereBetween('created_at', [
+        $previousMonthlyVisits = $post->visits->whereBetween('created_at', [
             today()->subMonth()->startOfMonth()->startOfDay()->toDateTimeString(),
             today()->subMonth()->endOfMonth()->endOfDay()->toDateTimeString(),
         ]);
 
-        $currentMonthlyVisits = $visits->whereBetween('created_at', [
+        $currentMonthlyVisits = $post->visits->whereBetween('created_at', [
             today()->startOfMonth()->startOfDay()->toDateTimeString(),
             today()->endOfMonth()->endOfDay()->toDateTimeString(),
         ]);
@@ -108,13 +104,13 @@ class StatsController extends Controller
             'popularReadingTimes' => $post->popular_reading_times,
             'topReferers' => $post->top_referers,
             'monthlyViews' => $currentMonthlyViews->count(),
-            'totalViews' => $views->count(),
+            'totalViews' => $post->views->count(),
             'monthlyVisits' => $currentMonthlyVisits->count(),
             'monthOverMonthViews' => $this->compareMonthOverMonth($currentMonthlyViews, $previousMonthlyViews),
             'monthOverMonthVisits' => $this->compareMonthOverMonth($currentMonthlyVisits, $previousMonthlyVisits),
             'traffic' => [
                 'views' => $this->calculateTotalForDays($lastThirtyDays, 30)->toJson(),
-                'visits' => $this->calculateTotalForDays($visits, 30)->toJson(),
+                'visits' => $this->calculateTotalForDays($post->visits, 30)->toJson(),
             ],
         ]);
     }
@@ -171,7 +167,7 @@ class StatsController extends Controller
         $dataCountLastMonth = $previous->count();
 
         if ($dataCountLastMonth != 0) {
-            $difference = (int) $dataCountThisMonth - (int) $dataCountLastMonth;
+            $difference = (int)$dataCountThisMonth - (int)$dataCountLastMonth;
             $growth = ($difference / $dataCountLastMonth) * 100;
         } else {
             $growth = $dataCountThisMonth * 100;

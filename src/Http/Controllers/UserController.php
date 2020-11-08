@@ -4,6 +4,7 @@ namespace Canvas\Http\Controllers;
 
 use Canvas\Http\Requests\UserRequest;
 use Canvas\Models\User;
+use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Arr;
@@ -20,7 +21,8 @@ class UserController extends Controller
     public function index(): JsonResponse
     {
         return response()->json(
-            User::latest()
+            User::query()
+                ->latest()
                 ->withCount('posts')
                 ->paginate(), 200
         );
@@ -50,7 +52,7 @@ class UserController extends Controller
     {
         $data = $request->validated();
 
-        $user = User::find($id);
+        $user = User::query()->find($id);
 
         if (! $user) {
             if ($user = User::onlyTrashed()->firstWhere('email', $data['email'])) {
@@ -89,7 +91,7 @@ class UserController extends Controller
      */
     public function show($id): JsonResponse
     {
-        $user = User::withCount('posts')->find($id);
+        $user = User::query()->withCount('posts')->find($id);
 
         return $user ? response()->json($user, 200) : response()->json(null, 404);
     }
@@ -102,7 +104,7 @@ class UserController extends Controller
      */
     public function showPosts($id): JsonResponse
     {
-        $user = User::with('posts')->find($id);
+        $user = User::query()->with('posts')->find($id);
 
         return $user ? response()->json($user->posts()->withCount('views')->paginate(), 200) : response()->json(null, 200);
     }
@@ -112,6 +114,7 @@ class UserController extends Controller
      *
      * @param $id
      * @return mixed
+     * @throws Exception
      */
     public function destroy($id)
     {
@@ -120,7 +123,7 @@ class UserController extends Controller
             return response()->json(null, 403);
         }
 
-        $user = User::findOrFail($id);
+        $user = User::query()->findOrFail($id);
 
         $user->delete();
 

@@ -4,8 +4,8 @@ namespace Canvas\Http\Controllers;
 
 use Canvas\Http\Requests\TagRequest;
 use Canvas\Models\Tag;
+use Exception;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Ramsey\Uuid\Uuid;
 
@@ -19,7 +19,8 @@ class TagController extends Controller
     public function index(): JsonResponse
     {
         return response()->json(
-            Tag::latest()
+            Tag::query()
+               ->latest()
                ->withCount('posts')
                ->paginate(), 200
         );
@@ -48,7 +49,7 @@ class TagController extends Controller
     {
         $data = $request->validated();
 
-        $tag = Tag::find($id);
+        $tag = Tag::query()->find($id);
 
         if (! $tag) {
             if ($tag = Tag::onlyTrashed()->firstWhere('slug', $data['slug'])) {
@@ -77,7 +78,7 @@ class TagController extends Controller
      */
     public function show($id): JsonResponse
     {
-        $tag = Tag::find($id);
+        $tag = Tag::query()->find($id);
 
         return $tag ? response()->json($tag, 200) : response()->json(null, 404);
     }
@@ -90,7 +91,7 @@ class TagController extends Controller
      */
     public function showPosts($id): JsonResponse
     {
-        $tag = Tag::with('posts')->find($id);
+        $tag = Tag::query()->with('posts')->find($id);
 
         return $tag ? response()->json($tag->posts()->withCount('views')->paginate(), 200) : response()->json(null, 200);
     }
@@ -100,10 +101,11 @@ class TagController extends Controller
      *
      * @param $id
      * @return mixed
+     * @throws Exception
      */
     public function destroy($id)
     {
-        $tag = Tag::findOrFail($id);
+        $tag = Tag::query()->findOrFail($id);
 
         $tag->delete();
 

@@ -4,6 +4,7 @@ namespace Canvas\Http\Controllers;
 
 use Canvas\Http\Requests\TopicRequest;
 use Canvas\Models\Topic;
+use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
 use Ramsey\Uuid\Uuid;
@@ -18,7 +19,8 @@ class TopicController extends Controller
     public function index(): JsonResponse
     {
         return response()->json(
-            Topic::latest()
+            Topic::query()
+                 ->latest()
                  ->withCount('posts')
                  ->paginate(), 200
         );
@@ -47,7 +49,7 @@ class TopicController extends Controller
     {
         $data = $request->validated();
 
-        $topic = Topic::find($id);
+        $topic = Topic::query()->find($id);
 
         if (! $topic) {
             if ($topic = Topic::onlyTrashed()->firstWhere('slug', $data['slug'])) {
@@ -76,7 +78,7 @@ class TopicController extends Controller
      */
     public function show($id): JsonResponse
     {
-        $topic = Topic::find($id);
+        $topic = Topic::query()->find($id);
 
         return $topic ? response()->json($topic, 200) : response()->json(null, 404);
     }
@@ -89,7 +91,7 @@ class TopicController extends Controller
      */
     public function showPosts($id): JsonResponse
     {
-        $topic = Topic::with('posts')->find($id);
+        $topic = Topic::query()->with('posts')->find($id);
 
         return $topic ? response()->json($topic->posts()->withCount('views')->paginate(), 200) : response()->json(null, 200);
     }
@@ -99,10 +101,11 @@ class TopicController extends Controller
      *
      * @param $id
      * @return mixed
+     * @throws Exception
      */
     public function destroy($id)
     {
-        $topic = Topic::findOrFail($id);
+        $topic = Topic::query()->findOrFail($id);
 
         $topic->delete();
 

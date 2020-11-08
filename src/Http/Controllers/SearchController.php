@@ -6,8 +6,8 @@ use Canvas\Models\Post;
 use Canvas\Models\Tag;
 use Canvas\Models\Topic;
 use Canvas\Models\User;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
 class SearchController extends Controller
@@ -19,11 +19,13 @@ class SearchController extends Controller
      */
     public function showPosts(): JsonResponse
     {
-        $posts = Post::when(request()->user('canvas')->isContributor, function ($query) {
-            return $query->where('user_id', request()->user('canvas')->id);
-        }, function ($query) {
-            return $query;
-        })->select('id', 'title')->latest()->get();
+        $posts = Post::query()
+                     ->when(request()->user('canvas')->isContributor,
+                         fn(Builder $query) => $query->where('user_id', request()->user('canvas')->id),
+                         fn(Builder $query) => $query)
+                     ->select('id', 'title')
+                     ->latest()
+                     ->get();
 
         $posts->map(function ($post) {
             $post['name'] = $post->title;
@@ -43,7 +45,10 @@ class SearchController extends Controller
      */
     public function showTags(): JsonResponse
     {
-        $tags = Tag::select('id', 'name')->latest()->get();
+        $tags = Tag::query()
+                   ->select('id', 'name')
+                   ->latest()
+                   ->get();
 
         $tags->map(function ($tag) {
             $tag['type'] = 'Tag';
@@ -62,7 +67,10 @@ class SearchController extends Controller
      */
     public function showTopics(): JsonResponse
     {
-        $topics = Topic::select('id', 'name')->latest()->get();
+        $topics = Topic::query()
+                       ->select('id', 'name')
+                       ->latest()
+                       ->get();
 
         $topics->map(function ($topic) {
             $topic['type'] = 'Topic';
@@ -81,7 +89,10 @@ class SearchController extends Controller
      */
     public function showUsers(): JsonResponse
     {
-        $users = User::select('id', 'name', 'email')->latest()->get();
+        $users = User::query()
+                     ->select('id', 'name', 'email')
+                     ->latest()
+                     ->get();
 
         $users->map(function ($user) {
             $user['type'] = 'User';

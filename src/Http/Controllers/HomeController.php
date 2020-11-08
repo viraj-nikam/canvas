@@ -5,7 +5,6 @@ namespace Canvas\Http\Controllers;
 use Canvas\Canvas;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
-use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\View\View;
 
