@@ -32,6 +32,9 @@ class AuthenticatedSessionControllerTest extends TestCase
             'password' => 'password',
         ])->assertSessionHas('errors');
 
+        dd($response);
+        dd($response->assertSessionHas('errors'));
+
         $this->assertInstanceOf(ValidationException::class, $response->exception);
     }
 
