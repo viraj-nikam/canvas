@@ -32,6 +32,6 @@ class CaptureVisitTest extends TestCase
             'post_id' => $post->id,
         ]);
 
-        $this->assertDatabaseCount('canvas_visits', 1);
+        $this->assertCount(1, $post->visits);
     }
 }
