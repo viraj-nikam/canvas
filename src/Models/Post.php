@@ -237,10 +237,10 @@ class Post extends Model
         // Filter the view data to only include referrers
         $collection = collect();
         $data->each(function ($item, $key) use ($collection) {
-            if (empty(Canvas::trim($item->referer))) {
+            if (empty(Canvas::trimUrl($item->referer))) {
                 $collection->push(trans('canvas::app.other', [], $this->user->locale));
             } else {
-                $collection->push(Canvas::trim($item->referer));
+                $collection->push(Canvas::trimUrl($item->referer));
             }
         });
 

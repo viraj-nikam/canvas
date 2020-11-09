@@ -57,14 +57,14 @@ class CanvasTest extends TestCase
 
     public function testURLIsValid(): void
     {
-        $this->assertTrue(Canvas::isValid('https://www.example.com'));
+        $this->assertTrue(Canvas::isValidUrl('https://www.example.com'));
 
-        $this->assertFalse(Canvas::isValid('://www.example.c'));
+        $this->assertFalse(Canvas::isValidUrl('://www.example.c'));
     }
 
     public function testTrimURL(): void
     {
-        $url = Canvas::trim('https://www.example.com?string-to-trim');
+        $url = Canvas::trimUrl('https://www.example.com?string-to-trim');
 
         $this->assertSame($url, 'www.example.com');
     }

@@ -7,6 +7,11 @@ use Canvas\Models\Post;
 use Canvas\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
+/**
+ * Class PostViewedEventTest
+ *
+ * @covers \Canvas\Events\PostViewed
+ */
 class PostViewedEventTest extends TestCase
 {
     use RefreshDatabase;

@@ -5,7 +5,6 @@ namespace Canvas\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Date;
 
 class Session
@@ -19,69 +18,25 @@ class Session
      */
     public function handle(Request $request, Closure $next)
     {
-        $viewedPosts = $this->getViewedPostsInSession();
-        $visitedPosts = $this->getVisitedPostsInSession();
+        $viewedPosts = collect(session()->get('viewed_posts'));
+        $visitedPosts = collect(session()->get('visited_posts'));
 
         if ($viewedPosts->isNotEmpty()) {
-            $this->pruneExpiredViews($viewedPosts);
+            $viewedPosts->each(function ($timestamp, $id) {
+                if ($timestamp < now()->subSeconds(3600)->timestamp) {
+                    session()->forget("viewed_posts.{$id}");
+                }
+            });
         }
 
         if ($visitedPosts->isNotEmpty()) {
-            $this->pruneExpiredVisits($visitedPosts);
+            $visitedPosts->each(function ($item, $id) {
+                if (!Date::createFromTimestamp($item['timestamp'])->isToday()) {
+                    session()->forget("visited_posts.{$id}");
+                }
+            });
         }
 
         return $next($request);
-    }
-
-    /**
-     * Get the viewed posts in session.
-     *
-     * @return Collection
-     */
-    protected function getViewedPostsInSession(): Collection
-    {
-        return collect(session()->get('viewed_posts'));
-    }
-
-    /**
-     * Get the visited posts in session.
-     *
-     * @return Collection
-     */
-    protected function getVisitedPostsInSession(): Collection
-    {
-        return collect(session()->get('visited_posts'));
-    }
-
-    /**
-     * Prune expired views from the session.
-     *
-     * @param Collection $posts
-     * @return void
-     */
-    protected function pruneExpiredViews(Collection $posts): void
-    {
-        // TODO: Use the collection helper methods to loop
-        foreach ($posts as $key => $value) {
-            if ($value < now()->subSeconds(3600)->timestamp) {
-                session()->forget("viewed_posts.{$key}");
-            }
-        }
-    }
-
-    /**
-     * Prune expired visits from the session.
-     *
-     * @param Collection $posts
-     * @return void
-     */
-    protected function pruneExpiredVisits(Collection $posts): void
-    {
-        // TODO: Use the collection helper methods to loop
-        foreach ($posts as $key => $value) {
-            if (! Date::createFromTimestamp($value['timestamp'])->isToday()) {
-                session()->forget("visited_posts.{$key}");
-            }
-        }
     }
 }
