@@ -54,7 +54,7 @@ class NewPasswordControllerTest extends TestCase
             'email' => 'not-an-email',
             'password' => 'password',
             'password_confirmation' => 'password',
-        ])->assertSessionHasErrors();
+        ])->assertSessionHas('errors');
 
         $this->assertInstanceOf(ValidationException::class, $response->exception);
     }
