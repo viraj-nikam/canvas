@@ -10,7 +10,7 @@
                 <form method="POST" action="{{ route('canvas.password.update') }}" class="w-100 my-auto">
                     @csrf
 
-                    <input type="hidden" name="token" value="{{ $token }}">
+                    <input type="hidden" name="token" value="{{ $request->route('token') }}">
 
                     <div class="form-group row">
                         <div class="col-12">

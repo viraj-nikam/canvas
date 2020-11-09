@@ -8,11 +8,12 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 
 /**
- * Class LoginControllerTest.
+ * Class AuthenticatedSessionControllerTest.
  *
- * @covers \Canvas\Http\Controllers\Auth\LoginController
+ * @covers \Canvas\Http\Controllers\Auth\AuthenticatedSessionController
+ * @covers \Canvas\Http\Requests\LoginRequest
  */
-class LoginControllerTest extends TestCase
+class AuthenticatedSessionControllerTest extends TestCase
 {
     public function testTheLoginPage(): void
     {
@@ -24,15 +25,12 @@ class LoginControllerTest extends TestCase
              ->assertSeeText('Please sign in');
     }
 
-    /** @test */
-    public function testLoginRequestWillValidateAnInvalidEmail()
+    public function testLoginRequestWillValidateAnInvalidEmail(): void
     {
-        $response = $this->actingAs($this->admin, 'canvas')
-             ->post(route('canvas.login'), [
-                 'email' => 'wrong@example.com',
-                 'password' => 'password',
-             ])
-             ->assertSessionHasErrors();
+        $response = $this->post('/canvas/login', [
+            'email' => 'wrong@example.com',
+            'password' => 'password',
+        ])->assertSessionHasErrors();
 
         $this->assertInstanceOf(ValidationException::class, $response->exception);
     }
@@ -43,12 +41,10 @@ class LoginControllerTest extends TestCase
             'password' => Hash::make('password'),
         ]);
 
-        $this->actingAs($user, 'canvas')
-             ->post(route('canvas.login'), [
-                 'email' => $user->email,
-                 'password' => 'password',
-             ])
-             ->assertRedirect(config('canvas.path'));
+        $this->post('/canvas/login', [
+            'email' => $user->email,
+            'password' => 'password',
+        ])->assertRedirect(config('canvas.path'));
     }
 
     public function testSuccessfulLogout(): void

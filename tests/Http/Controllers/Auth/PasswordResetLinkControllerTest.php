@@ -5,33 +5,41 @@ namespace Canvas\Tests\Http\Controllers\Auth;
 use Canvas\Mail\ResetPassword;
 use Canvas\Tests\TestCase;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Validation\ValidationException;
 
 /**
- * Class ForgotPasswordControllerTest.
+ * Class PasswordResetLinkControllerTest.
  *
- * @covers \Canvas\Http\Controllers\Auth\ForgotPasswordController
+ * @covers \Canvas\Http\Controllers\Auth\PasswordResetLinkController
  */
-class ForgotPasswordControllerTest extends TestCase
+class PasswordResetLinkControllerTest extends TestCase
 {
     public function testTheForgotPasswordPage(): void
     {
         $this->withoutMix();
 
-        $this->actingAs($this->admin, 'canvas')
-             ->get(route('canvas.password.request'))
+        $this->get(route('canvas.password.request'))
              ->assertSuccessful()
              ->assertViewIs('canvas::auth.passwords.email')
              ->assertSeeText('Send Password Reset Link');
+    }
+
+    public function testForgotPasswordLinkRequestWillValidateAnInvalidEmail(): void
+    {
+        $response = $this->post(route('canvas.password.email'), [
+            'email' => 'not-an-email',
+        ])->assertSessionHasErrors();
+
+        $this->assertInstanceOf(ValidationException::class, $response->exception);
     }
 
     public function testThePasswordResetLinkCanBeSent(): void
     {
         Mail::fake();
 
-        $this->actingAs($this->admin, 'canvas')
-             ->post(route('canvas.password.email'), [
-                 'email' => $this->admin->email,
-             ])
+        $this->post(route('canvas.password.email'), [
+            'email' => $this->admin->email,
+        ])
              ->assertRedirect(route('canvas.password.request'));
 
         Mail::assertSent(ResetPassword::class, function ($mail) {

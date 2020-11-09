@@ -1,8 +1,8 @@
 <?php
 
-use Canvas\Http\Controllers\Auth\ForgotPasswordController;
-use Canvas\Http\Controllers\Auth\LoginController;
-use Canvas\Http\Controllers\Auth\ResetPasswordController;
+use Canvas\Http\Controllers\Auth\AuthenticatedSessionController;
+use Canvas\Http\Controllers\Auth\NewPasswordController;
+use Canvas\Http\Controllers\Auth\PasswordResetLinkController;
 use Canvas\Http\Controllers\HomeController;
 use Canvas\Http\Controllers\PostController;
 use Canvas\Http\Controllers\SearchController;
@@ -17,19 +17,31 @@ use Illuminate\Support\Facades\Route;
 
 // Authentication routes...
 Route::namespace('Auth')->group(function () {
-    Route::prefix('login')->group(function () {
-        Route::get('/', 'LoginController@showLoginForm')->name('canvas.login');
-        Route::post('/', 'LoginController@login');
-    });
+    Route::get('login', [AuthenticatedSessionController::class, 'create'])
+         ->middleware('guest')
+         ->name('canvas.login');
 
-    Route::prefix('password')->group(function () {
-        Route::get('reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('canvas.password.request');
-        Route::post('email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('canvas.password.email');
-        Route::get('reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('canvas.password.reset');
-        Route::post('reset', [ResetPasswordController::class, 'reset'])->name('canvas.password.update');
-    });
+    Route::post('login', [AuthenticatedSessionController::class, 'store'])
+         ->middleware('guest');
 
-    Route::get('logout', [LoginController::class, 'logout'])->name('canvas.logout');
+    Route::get('forgot-password', [PasswordResetLinkController::class, 'create'])
+         ->middleware('guest')
+         ->name('canvas.password.request');
+
+    Route::post('forgot-password', [PasswordResetLinkController::class, 'store'])
+         ->middleware(['guest'])
+         ->name('canvas.password.email');
+
+    Route::get('reset-password/{token}', [NewPasswordController::class, 'create'])
+         ->middleware(['guest'])
+         ->name('canvas.password.reset');
+
+    Route::post('reset-password', [NewPasswordController::class, 'store'])
+         ->middleware(['guest'])
+         ->name('canvas.password.update');
+
+    Route::get('logout', [AuthenticatedSessionController::class, 'destroy'])
+         ->name('canvas.logout');
 });
 
 // API routes...
@@ -89,5 +101,7 @@ Route::middleware([Authorize::class])->group(function () {
     });
 
     // Catch-all route...
-    Route::get('/{view?}', [HomeController::class, 'index'])->where('view', '(.*)')->name('canvas');
+    Route::get('/{view?}', [HomeController::class, 'index'])
+         ->where('view', '(.*)')
+         ->name('canvas');
 });

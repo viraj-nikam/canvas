@@ -50,7 +50,7 @@ class StatsControllerTest extends TestCase
              ]);
     }
 
-    public function testAllPostsCanBeFetchedWithAGivenQueryScope(): void
+    public function testAllPostStatsCanBeFetchedWithAGivenQueryScope(): void
     {
         factory(Post::class, 3)->create([
             'user_id' => $this->admin->id,
@@ -89,6 +89,16 @@ class StatsControllerTest extends TestCase
             'user_id' => $this->contributor->id,
         ]);
 
+        factory(View::class)->create([
+            'post_id' => $post->id,
+            'created_at' => now()->subMonth(),
+        ]);
+
+        factory(Visit::class)->create([
+            'post_id' => $post->id,
+            'created_at' => now()->subMonth(),
+        ]);
+
         $this->actingAs($this->admin, 'canvas')
              ->getJson("canvas/api/stats/{$post->id}")
              ->assertSuccessful()
@@ -100,17 +110,21 @@ class StatsControllerTest extends TestCase
                  'monthlyViews',
                  'totalViews',
                  'monthlyVisits',
-                 'monthOverMonthViews' => [
-                     'direction',
-                     'percentage',
-                 ],
-                 'monthOverMonthVisits' => [
-                     'direction',
-                     'percentage',
-                 ],
                  'traffic' => [
                      'views',
                      'visits',
+                 ],
+             ])
+             ->assertJsonFragment([
+                 'monthOverMonthViews' => [
+                     'direction' => 'down',
+                     'percentage' => '100',
+                 ],
+             ])
+             ->assertJsonFragment([
+                 'monthOverMonthVisits' => [
+                     'direction' => 'down',
+                     'percentage' => '100',
                  ],
              ]);
     }
