@@ -30,8 +30,9 @@ class AuthenticatedSessionControllerTest extends TestCase
         $response = $this->post('/canvas/login', [
             'email' => 'not-an-email',
             'password' => 'password',
-        ])->assertSessionHas('errors');
+        ]);
 
+        dd($response->exception);
         $this->assertInstanceOf(ValidationException::class, $response->exception);
     }
 
