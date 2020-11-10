@@ -19,21 +19,28 @@ class AuthenticatedSessionControllerTest extends TestCase
     {
         $this->withoutMix();
 
-        $this->assertGuest()
-             ->get(route('canvas.login'))
+        $this->get(route('canvas.login'))
              ->assertSuccessful()
+             ->assertViewIs('canvas::auth.login')
              ->assertSeeText('Please sign in');
     }
 
     public function testLoginRequestWillValidateAnInvalidEmail(): void
     {
         $response = $this->post('/canvas/login', [
-            'email' => 'wrong@example.com',
+            'email' => 'not-an-email',
             'password' => 'password',
-        ])->assertSessionHas('errors');
+        ]);
 
-        dd($response);
-        dd($response->assertSessionHas('errors'));
+        $this->assertInstanceOf(ValidationException::class, $response->exception);
+    }
+
+    public function testLoginRequestWillValidateAnEmailNotInTheDatabase(): void
+    {
+        $response = $this->post('/canvas/login', [
+            'email' => 'email@example.com',
+            'password' => 'password',
+        ]);
 
         $this->assertInstanceOf(ValidationException::class, $response->exception);
     }

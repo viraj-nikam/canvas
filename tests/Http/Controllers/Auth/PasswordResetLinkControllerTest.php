@@ -28,7 +28,7 @@ class PasswordResetLinkControllerTest extends TestCase
     {
         $response = $this->post(route('canvas.password.email'), [
             'email' => 'not-an-email',
-        ])->assertSessionHasErrors();
+        ]);
 
         $this->assertInstanceOf(ValidationException::class, $response->exception);
     }
