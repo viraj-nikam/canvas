@@ -4,6 +4,7 @@ namespace Canvas\Tests\Http\Controllers\Auth;
 
 use Canvas\Tests\TestCase;
 use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
 
 /**
  * Class NewPasswordControllerTest.
@@ -55,7 +56,7 @@ class NewPasswordControllerTest extends TestCase
             'password_confirmation' => 'password',
         ]);
 
-        $this->assertSame('The given data was invalid.', $response->exception->getMessage());
+        $this->assertInstanceOf(ValidationException::class, $response->exception);
     }
 
     public function testNewPasswordRequestWillValidateUnconfirmedPasswords(): void
@@ -69,7 +70,7 @@ class NewPasswordControllerTest extends TestCase
             'password_confirmation' => 'secret',
         ]);
 
-        $this->assertSame('The given data was invalid.', $response->exception->getMessage());
+        $this->assertInstanceOf(ValidationException::class, $response->exception);
     }
 
     public function testNewPasswordRequestWillValidateBadTokens(): void

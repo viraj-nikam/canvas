@@ -5,6 +5,7 @@ namespace Canvas\Tests\Http\Controllers\Auth;
 use Canvas\Models\User;
 use Canvas\Tests\TestCase;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
 
 /**
  * Class AuthenticatedSessionControllerTest.
@@ -31,7 +32,7 @@ class AuthenticatedSessionControllerTest extends TestCase
             'password' => 'password',
         ])->assertRedirect(route('canvas.login'));
 
-        $this->assertSame('The given data was invalid.', $response->exception->getMessage());
+        $this->assertInstanceOf(ValidationException::class, $response->exception);
     }
 
     public function testSuccessfulLogin(): void
