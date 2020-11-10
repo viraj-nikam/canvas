@@ -48,24 +48,28 @@ class NewPasswordControllerTest extends TestCase
     {
         $token = encrypt($this->admin->id.'|'.Str::random());
 
-        $this->post(route('canvas.password.update'), [
+        $response = $this->post(route('canvas.password.update'), [
             'token' => $token,
             'email' => 'not-an-email',
             'password' => 'password',
             'password_confirmation' => 'password',
-        ])->assertRedirect(route('canvas.password.update'));
+        ]);
+
+        $this->assertSame('The given data was invalid.', $response->exception->getMessage());
     }
 
     public function testNewPasswordRequestWillValidateUnconfirmedPasswords(): void
     {
         $token = encrypt($this->admin->id.'|'.Str::random());
 
-        $this->post(route('canvas.password.update'), [
+        $response = $this->post(route('canvas.password.update'), [
             'token' => $token,
             'email' => $this->admin->email,
             'password' => 'password',
             'password_confirmation' => 'secret',
-        ])->assertRedirect(route('canvas.password.update'));
+        ]);
+
+        $this->assertSame('The given data was invalid.', $response->exception->getMessage());
     }
 
     public function testNewPasswordRequestWillValidateBadTokens(): void

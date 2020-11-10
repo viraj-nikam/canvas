@@ -30,18 +30,7 @@ class AuthenticatedSessionControllerTest extends TestCase
             'email' => 'not-an-email',
             'password' => 'password',
         ])->assertRedirect(route('canvas.login'));
-        dd($response->exception);
-        $this->assertSame('The given data was invalid.', $response->exception->getMessage());
-    }
 
-    public function testLoginRequestWillValidateAnEmailNotInTheDatabase(): void
-    {
-        $response = $this->post('/canvas/login', [
-            'email' => 'email@example.com',
-            'password' => 'password',
-        ]);
-//        ])->assertRedirect(route('canvas.login'));
-        dd($response->exception);
         $this->assertSame('The given data was invalid.', $response->exception->getMessage());
     }
 
