@@ -35,6 +35,16 @@ class AuthenticatedSessionControllerTest extends TestCase
         $this->assertInstanceOf(ValidationException::class, $response->exception);
     }
 
+    public function testLoginRequestWillValidateAnUnknownPassword(): void
+    {
+        $response = $this->post('/canvas/login', [
+            'email' => $this->admin->email,
+            'password' => 'what-is-my-password',
+        ])->assertSessionHasErrors();
+
+        $this->assertInstanceOf(ValidationException::class, $response->exception);
+    }
+
     public function testSuccessfulLogin(): void
     {
         $user = factory(User::class)->create([
