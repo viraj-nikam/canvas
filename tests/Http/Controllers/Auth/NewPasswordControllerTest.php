@@ -29,7 +29,7 @@ class NewPasswordControllerTest extends TestCase
     {
         $this->withoutMix();
 
-        $token = encrypt($this->admin->id.'|'.Str::random());
+        $token = encrypt($this->admin->id . '|' . Str::random());
 
         cache(["password.reset.{$this->admin->id}" => $token],
             now()->addMinutes(60)
@@ -47,30 +47,26 @@ class NewPasswordControllerTest extends TestCase
 
     public function testNewPasswordRequestWillValidateAnInvalidEmail(): void
     {
-        $token = encrypt($this->admin->id.'|'.Str::random());
+        $token = encrypt($this->admin->id . '|' . Str::random());
 
-        $response = $this->post(route('canvas.password.update'), [
+        $this->post(route('canvas.password.update'), [
             'token' => $token,
             'email' => 'not-an-email',
             'password' => 'password',
             'password_confirmation' => 'password',
-        ]);
-
-        $this->assertInstanceOf(ValidationException::class, $response->exception);
+        ])->assertRedirect(route('canvas.password.update'));
     }
 
     public function testNewPasswordRequestWillValidateUnconfirmedPasswords(): void
     {
-        $token = encrypt($this->admin->id.'|'.Str::random());
+        $token = encrypt($this->admin->id . '|' . Str::random());
 
-        $response = $this->post(route('canvas.password.update'), [
+        $this->post(route('canvas.password.update'), [
             'token' => $token,
             'email' => $this->admin->email,
             'password' => 'password',
             'password_confirmation' => 'secret',
-        ]);
-
-        $this->assertInstanceOf(ValidationException::class, $response->exception);
+        ])->assertRedirect(route('canvas.password.update'));
     }
 
     public function testNewPasswordRequestWillValidateBadTokens(): void

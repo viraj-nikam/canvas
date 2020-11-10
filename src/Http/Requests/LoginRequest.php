@@ -28,6 +28,8 @@ class LoginRequest extends FormRequest
      */
     public function rules()
     {
+        $this->redirect = route('canvas.login');
+
         return [
             'email' => 'required|string|email',
             'password' => 'required|string',
@@ -39,7 +41,7 @@ class LoginRequest extends FormRequest
      *
      * @return void
      *
-     * @throws \Illuminate\Validation\ValidationException
+     * @throws ValidationException
      */
     public function authenticate()
     {
@@ -61,7 +63,7 @@ class LoginRequest extends FormRequest
      *
      * @return void
      *
-     * @throws \Illuminate\Validation\ValidationException
+     * @throws ValidationException
      */
     public function ensureIsNotRateLimited()
     {

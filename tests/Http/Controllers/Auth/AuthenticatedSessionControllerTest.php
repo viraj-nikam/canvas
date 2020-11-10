@@ -5,7 +5,6 @@ namespace Canvas\Tests\Http\Controllers\Auth;
 use Canvas\Models\User;
 use Canvas\Tests\TestCase;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\ValidationException;
 
 /**
  * Class AuthenticatedSessionControllerTest.
@@ -30,9 +29,9 @@ class AuthenticatedSessionControllerTest extends TestCase
         $response = $this->post('/canvas/login', [
             'email' => 'not-an-email',
             'password' => 'password',
-        ]);
-
-        $this->assertInstanceOf(ValidationException::class, $response->exception);
+        ])->assertRedirect(route('canvas.login'));
+        dd($response->exception);
+        $this->assertSame('The given data was invalid.', $response->exception->getMessage());
     }
 
     public function testLoginRequestWillValidateAnEmailNotInTheDatabase(): void
@@ -41,8 +40,9 @@ class AuthenticatedSessionControllerTest extends TestCase
             'email' => 'email@example.com',
             'password' => 'password',
         ]);
-
-        $this->assertInstanceOf(ValidationException::class, $response->exception);
+//        ])->assertRedirect(route('canvas.login'));
+dd($response->exception);
+        $this->assertSame('The given data was invalid.', $response->exception->getMessage());
     }
 
     public function testSuccessfulLogin(): void
