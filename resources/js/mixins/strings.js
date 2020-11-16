@@ -31,6 +31,7 @@ export default {
                 { to: 'i', from: '[ÌÍÎÏĨĪĮİỈỊ]' },
                 { to: 'j', from: '[Ĵ]' },
                 { to: 'ij', from: '[Ĳ]' },
+                { to: 'k', from: '[Ķ]' },
                 { to: 'l', from: '[ĹĻĽŁ]' },
                 { to: 'm', from: '[Ḿ]' },
                 { to: 'n', from: '[ÑŃŅŇ]' },
