@@ -70,10 +70,7 @@ class UserController extends Controller
             }
         }
 
-        if (
-            ! isset($data['locale'])
-            || ! in_array($data['locale'], Canvas::availableLanguageCodes())
-        ) {
+        if (! in_array($data['locale'], Canvas::availableLanguageCodes())) {
             $data['locale'] = 'en';
         }
 
