@@ -2,6 +2,7 @@
 
 namespace Canvas\Http\Controllers;
 
+use Canvas\Canvas;
 use Canvas\Http\Requests\UserRequest;
 use Canvas\Models\User;
 use Exception;
@@ -67,6 +68,13 @@ class UserController extends Controller
                     'id' => $id,
                 ]);
             }
+        }
+
+        if (
+            ! Arr::has($data, 'locale')
+            || ! Arr::has(Canvas::availableLanguageCodes(), $data['locale'])
+        ) {
+            $data['locale'] = 'en';
         }
 
         $user->fill($data);
