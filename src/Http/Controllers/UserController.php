@@ -71,7 +71,7 @@ class UserController extends Controller
         }
 
         if (! Arr::has($data, 'locale') || ! Arr::has(Canvas::availableLanguageCodes(), $data['locale'])) {
-            $data['locale'] = 'en';
+            $data['locale'] = config('app.fallback_locale');
         }
 
         $user->fill($data);
