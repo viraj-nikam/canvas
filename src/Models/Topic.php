@@ -82,8 +82,8 @@ class Topic extends Model
     {
         parent::boot();
 
-        static::deleting(function ($item) {
-            $item->posts()->detach();
+        static::deleting(function (self $topic) {
+            $topic->posts()->detach();
         });
     }
 }

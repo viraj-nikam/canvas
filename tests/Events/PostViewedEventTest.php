@@ -7,17 +7,22 @@ use Canvas\Models\Post;
 use Canvas\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
+/**
+ * Class PostViewedEventTest.
+ *
+ * @covers \Canvas\Events\PostViewed
+ */
 class PostViewedEventTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
-    public function it_can_create_a_new_event()
+    public function testInstantiation(): void
     {
         $post = factory(Post::class)->create();
 
         $event = new PostViewed($post);
 
+        $this->assertInstanceOf(PostViewed::class, $event);
         $this->assertSame($post, $event->post);
     }
 }

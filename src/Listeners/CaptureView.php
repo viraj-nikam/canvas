@@ -9,9 +9,9 @@ use Canvas\Models\Post;
 class CaptureView
 {
     /**
-     * A view is captured when a user loads a post for the first time
-     * in a given hour. The ID of the post is stored in session to
-     * be validated against until it "expires" and is pruned.
+     * A view is captured when a user loads a post for the first time in a given
+     * hour. The ID of the post is stored in session to be validated against
+     * until it "expires" and is pruned by the Session middleware class.
      *
      * @param PostViewed $event
      * @return void
@@ -25,7 +25,7 @@ class CaptureView
                 'post_id' => $event->post->id,
                 'ip' => request()->getClientIp(),
                 'agent' => request()->header('user_agent'),
-                'referer' => Canvas::isValid($referer) ? Canvas::trim($referer) : false,
+                'referer' => Canvas::isValidUrl($referer) ? Canvas::trimUrl($referer) : false,
             ];
 
             $event->post->views()->create($data);

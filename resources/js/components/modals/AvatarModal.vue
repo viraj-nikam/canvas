@@ -2,7 +2,7 @@
     <div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
         <div ref="modal" class="modal-dialog" role="document">
             <div class="modal-content">
-                <div class="modal-body pb-0">
+                <div class="modal-body">
                     <file-pond
                         ref="pond"
                         v-if="isReadyToAcceptUploads"
@@ -122,7 +122,10 @@ export default {
         },
 
         getPlaceholderLabel() {
-            return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="35" class="icon-cloud-upload mr-3"><path class="fill-dark-gray" d="M18 14.97c0-.76-.3-1.51-.88-2.1l-3-3a3 3 0 0 0-4.24 0l-3 3A3 3 0 0 0 6 15a4 4 0 0 1-.99-7.88 5.5 5.5 0 0 1 10.86-.82A4.49 4.49 0 0 1 22 10.5a4.5 4.5 0 0 1-4 4.47z"/><path class="fill-dark-gray" d="M11 14.41V21a1 1 0 0 0 2 0v-6.59l1.3 1.3a1 1 0 0 0 1.4-1.42l-3-3a1 1 0 0 0-1.4 0l-3 3a1 1 0 0 0 1.4 1.42l1.3-1.3z"/></svg> Drop files or click here to upload';
+            return (
+                '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="35" class="icon-cloud-upload mr-3"><path class="fill-dark-gray" d="M18 14.97c0-.76-.3-1.51-.88-2.1l-3-3a3 3 0 0 0-4.24 0l-3 3A3 3 0 0 0 6 15a4 4 0 0 1-.99-7.88 5.5 5.5 0 0 1 10.86-.82A4.49 4.49 0 0 1 22 10.5a4.5 4.5 0 0 1-4 4.47z"/><path class="fill-dark-gray" d="M11 14.41V21a1 1 0 0 0 2 0v-6.59l1.3 1.3a1 1 0 0 0 1.4-1.42l-3-3a1 1 0 0 0-1.4 0l-3 3a1 1 0 0 0 1.4 1.42l1.3-1.3z"/></svg>' +
+                this.trans.drop_files_or_click_to_upload
+            );
         },
     },
 
@@ -134,16 +137,16 @@ export default {
     methods: {
         processedFromFilePond() {
             this.isReadyToAcceptUploads = true;
-            this.user.avatar = document.getElementsByName('avatarPond')[0].value;
+            this.$emit('update-avatar', document.getElementsByName('avatarPond')[0].value);
         },
 
         removedFromFilePond() {
             this.isReadyToAcceptUploads = true;
-            this.user.avatar = this.user.default_avatar;
+            this.$emit('update-avatar', this.user.default_avatar);
         },
 
         clearAndResetComponent() {
-            this.user.avatar = this.selectedImageUrl;
+            this.$emit('update-avatar', this.selectedImageUrl);
             this.selectedImageUrl = null;
             this.isReadyToAcceptUploads = true;
         },

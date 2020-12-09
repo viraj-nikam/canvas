@@ -16,8 +16,7 @@ class ResetPasswordTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
-    public function it_can_build_a_mailable()
+    public function testInstantiation(): void
     {
         $token = Str::random(60);
 

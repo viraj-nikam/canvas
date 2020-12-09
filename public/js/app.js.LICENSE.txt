@@ -22,7 +22,7 @@
  */
 
 /*!
- * FilePond 4.21.1
+ * FilePond 4.23.1
  * Licensed under MIT, https://opensource.org/licenses/MIT/
  * Please visit https://pqina.nl/filepond/ for details.
  */
@@ -140,6 +140,8 @@
  * license : MIT
  * http://adamwdraper.github.com/Numeral-js/
  */
+
+/*! ieee754. BSD-3-Clause License. Feross Aboukhadijeh <https://feross.org/opensource> */
 
 /**!
  * @fileOverview Kickass library to create and place poppers near their reference elements.

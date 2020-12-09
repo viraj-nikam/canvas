@@ -99,7 +99,7 @@
                         <div class="col-12">
                             <div class="form-group row">
                                 <label for="name" class="font-weight-bold text-uppercase text-muted small">
-                                    Name
+                                    {{ trans.name }}
                                 </label>
                                 <input
                                     v-model="user.name"
@@ -109,8 +109,8 @@
                                     required
                                     class="form-control border-0"
                                     :class="invalidName.shouldShow ? 'is-invalid' : ''"
-                                    title="Name"
-                                    placeholder="Name"
+                                    :title="trans.name"
+                                    :placeholder="trans.name"
                                 />
                                 <span v-if="invalidName.shouldShow" class="invalid-feedback" role="alert">
                                     <strong>{{ invalidName.error }}</strong>
@@ -311,7 +311,7 @@
         </main>
 
         <section v-if="isReady">
-            <avatar-modal ref="avatarModal" :user="user" @update="saveUser" />
+            <avatar-modal ref="avatarModal" :user="user" @update-avatar="updateAvatar" @update="saveUser" />
             <delete-modal
                 ref="deleteModal"
                 :header="trans.delete"
@@ -543,6 +543,10 @@ export default {
         clearAvatar() {
             this.user.avatar = this.user.default_avatar;
             this.isReadyToAcceptUploads = true;
+        },
+
+        updateAvatar(url) {
+            this.user.avatar = url;
         },
 
         selectRole() {

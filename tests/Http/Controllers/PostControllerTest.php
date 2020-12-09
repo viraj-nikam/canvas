@@ -5,7 +5,7 @@ namespace Canvas\Tests\Http\Controllers;
 use Canvas\Models\Post;
 use Canvas\Models\Tag;
 use Canvas\Models\Topic;
-use Canvas\Models\User;
+use Canvas\Models\View;
 use Canvas\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Ramsey\Uuid\Uuid;
@@ -14,216 +14,304 @@ use Ramsey\Uuid\Uuid;
  * Class PostControllerTest.
  *
  * @covers \Canvas\Http\Controllers\PostController
- * @covers \Canvas\Http\Requests\StorePostRequest
+ * @covers \Canvas\Http\Requests\PostRequest
  */
 class PostControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    /**
-     * @return void
-     */
-    protected function setUp(): void
+    public function testPublishedPostsAreFetchedByDefault(): void
     {
-        parent::setUp();
-
-        $this->registerAssertJsonExactFragmentMacro();
-    }
-
-    /** @test */
-    public function it_fetches_published_posts_by_default()
-    {
-        $post = factory(Post::class)->create([
+        $primaryPost = factory(Post::class, 1)->create([
+            'user_id' => $this->admin->id,
             'published_at' => now()->subDay(),
-        ]);
+        ])->each(function ($post) {
+            $post->views()->createMany(factory(View::class, 3)->make()->toArray());
+        })->first();
 
-        $this->actingAs($post->user, 'canvas')
+        $secondaryPost = factory(Post::class, 1)->create([
+            'user_id' => $this->admin->id,
+            'published_at' => null,
+        ])->each(function ($post) {
+            $post->views()->createMany(factory(View::class, 3)->make()->toArray());
+        })->first();
+
+        $this->actingAs($this->admin, 'canvas')
              ->getJson('canvas/api/posts')
              ->assertSuccessful()
-             ->assertJsonExactFragment(1, 'posts.total')
-             ->assertJsonExactFragment($post->id, 'posts.data.0.id')
-             ->assertJsonExactFragment(0, 'draftCount')
-             ->assertJsonExactFragment(1, 'publishedCount')
-             ->assertJsonExactFragment(0, 'views_count');
+             ->assertJsonStructure([
+                 'posts',
+                 'draftCount',
+                 'publishedCount',
+             ])
+             ->assertJsonFragment([
+                 'id' => $primaryPost->id,
+                 'total' => $this->admin->posts()->published()->count(),
+                 'draftCount' => $this->admin->posts()->draft()->count(),
+                 'publishedCount' => $this->admin->posts()->published()->count(),
+             ])
+             ->assertJsonMissing([
+                 'id' => $secondaryPost->id,
+             ]);
     }
 
-    /** @test */
-    public function it_can_fetch_published_posts_with_a_given_query_param()
+    public function testPublishedPostsCanBeFetchedWithAGivenQueryType(): void
     {
-        $post = factory(Post::class)->create([
+        $primaryPost = factory(Post::class, 1)->create([
+            'user_id' => $this->admin->id,
             'published_at' => now()->subDay(),
-        ]);
+        ])->each(function ($post) {
+            $post->views()->createMany(factory(View::class, 3)->make()->toArray());
+        })->first();
 
-        $this->actingAs($post->user, 'canvas')
+        $secondaryPost = factory(Post::class, 1)->create([
+            'user_id' => $this->admin->id,
+            'published_at' => null,
+        ])->each(function ($post) {
+            $post->views()->createMany(factory(View::class, 3)->make()->toArray());
+        })->first();
+
+        $this->actingAs($this->admin, 'canvas')
              ->getJson('canvas/api/posts?type=published')
              ->assertSuccessful()
-             ->assertJsonExactFragment(1, 'posts.total')
-             ->assertJsonExactFragment($post->id, 'posts.data.0.id')
-             ->assertJsonExactFragment(0, 'draftCount')
-             ->assertJsonExactFragment(1, 'publishedCount')
-             ->assertJsonExactFragment(0, 'views_count');
+             ->assertJsonStructure([
+                 'posts',
+                 'draftCount',
+                 'publishedCount',
+             ])
+             ->assertJsonFragment([
+                 'id' => $primaryPost->id,
+                 'total' => $this->admin->posts()->published()->count(),
+                 'draftCount' => $this->admin->posts()->draft()->count(),
+                 'publishedCount' => $this->admin->posts()->published()->count(),
+             ])
+             ->assertJsonMissing([
+                 'id' => $secondaryPost->id,
+             ]);
     }
 
-    /** @test */
-    public function it_can_fetch_draft_posts_with_a_given_query_param()
+    public function testDraftPostsCanBeFetchedWithAGivenQueryType(): void
     {
-        $post = factory(Post::class)->create([
-            'published_at' => now()->addDay(),
-        ]);
+        $primaryPost = factory(Post::class, 1)->create([
+            'user_id' => $this->admin->id,
+            'published_at' => now()->subDay(),
+        ])->each(function ($post) {
+            $post->views()->createMany(factory(View::class, 3)->make()->toArray());
+        })->first();
 
-        $this->actingAs($post->user, 'canvas')
+        $secondaryPost = factory(Post::class, 1)->create([
+            'user_id' => $this->admin->id,
+            'published_at' => null,
+        ])->each(function ($post) {
+            $post->views()->createMany(factory(View::class, 3)->make()->toArray());
+        })->first();
+
+        $this->actingAs($this->admin, 'canvas')
              ->getJson('canvas/api/posts?type=draft')
              ->assertSuccessful()
-             ->assertJsonExactFragment(1, 'posts.total')
-             ->assertJsonExactFragment($post->id, 'posts.data.0.id')
-             ->assertJsonExactFragment(1, 'draftCount')
-             ->assertJsonExactFragment(0, 'publishedCount')
-             ->assertJsonExactFragment(0, 'views_count');
+             ->assertJsonStructure([
+                 'posts',
+                 'draftCount',
+                 'publishedCount',
+             ])
+             ->assertJsonFragment([
+                 'id' => $secondaryPost->id,
+                 'total' => $this->admin->posts()->published()->count(),
+                 'draftCount' => $this->admin->posts()->draft()->count(),
+                 'publishedCount' => $this->admin->posts()->published()->count(),
+             ])
+             ->assertJsonMissing([
+                 'id' => $primaryPost->id,
+             ]);
     }
 
-    /** @test */
-    public function it_fetches_user_posts_by_default()
+    public function testUserPostsAreFetchedByDefault(): void
     {
-        $user = factory(User::class)->create();
+        $primaryPost = factory(Post::class, 1)->create([
+            'user_id' => $this->admin->id,
+            'published_at' => now()->subDay(),
+        ])->each(function ($post) {
+            $post->views()->createMany(factory(View::class, 3)->make()->toArray());
+        })->first();
 
-        $post = factory(Post::class)->create([
-            'user_id' => $user->id,
-        ]);
+        $secondaryPost = factory(Post::class, 1)->create([
+            'user_id' => $this->editor->id,
+            'published_at' => now()->subDay(),
+        ])->each(function ($post) {
+            $post->views()->createMany(factory(View::class, 3)->make()->toArray());
+        })->first();
 
-        $this->actingAs($user, 'canvas')
+        $this->actingAs($this->admin, 'canvas')
              ->getJson('canvas/api/posts')
              ->assertSuccessful()
-             ->assertJsonExactFragment(1, 'posts.total')
-             ->assertJsonExactFragment($post->user_id, 'posts.data.0.user_id')
-             ->assertJsonExactFragment(0, 'draftCount')
-             ->assertJsonExactFragment(1, 'publishedCount')
-             ->assertJsonExactFragment(0, 'views_count');
+             ->assertJsonStructure([
+                 'posts',
+                 'draftCount',
+                 'publishedCount',
+             ])
+             ->assertJsonFragment([
+                 'id' => $primaryPost->id,
+                 'total' => $this->admin->posts()->published()->count(),
+                 'draftCount' => $this->admin->posts()->draft()->count(),
+                 'publishedCount' => $this->admin->posts()->published()->count(),
+             ])
+             ->assertJsonMissing([
+                 'id' => $secondaryPost->id,
+             ]);
     }
 
-    /** @test */
-    public function it_can_fetch_all_posts_with_a_given_query_param()
+    public function testAllPostsCanBeFetchedWithAGivenQueryScope(): void
     {
-        $user = factory(User::class)->create([
-            'role' => User::ADMIN,
-        ]);
+        factory(Post::class, 2)->create([
+            'user_id' => $this->admin->id,
+            'published_at' => now()->subDay(),
+        ])->each(function ($post) {
+            $post->views()->createMany(factory(View::class, 3)->make()->toArray());
+        })->first();
 
-        $post = factory(Post::class)->create([
-            'user_id' => $user->id,
-        ]);
+        factory(Post::class, 2)->create([
+            'user_id' => $this->admin->id,
+            'published_at' => now()->subDay(),
+        ])->each(function ($post) {
+            $post->views()->createMany(factory(View::class, 3)->make()->toArray());
+        })->first();
 
-        factory(Post::class, 3)->create();
-
-        $this->actingAs($post->user, 'canvas')
+        $this->actingAs($this->admin, 'canvas')
              ->getJson('canvas/api/posts?scope=all')
              ->assertSuccessful()
-             ->assertJsonExactFragment(4, 'posts.total')
-             ->assertJsonExactFragment(0, 'views_count');
+             ->assertJsonStructure([
+                 'posts',
+                 'draftCount',
+                 'publishedCount',
+             ])
+             ->assertJsonFragment([
+                 'total' => $this->admin->posts()->count(),
+                 'draftCount' => $this->admin->posts()->draft()->count(),
+                 'publishedCount' => $this->admin->posts()->published()->count(),
+             ]);
     }
 
     /** @test */
-    public function it_can_fetch_user_posts_with_a_given_query_param()
+    public function testUserPostsCanBeFetchedWithAGivenQueryScope(): void
     {
-        $user = factory(User::class)->create();
+        factory(Post::class, 2)->create([
+            'user_id' => $this->admin->id,
+            'published_at' => now()->subDay(),
+        ])->each(function ($post) {
+            $post->views()->createMany(factory(View::class, 3)->make()->toArray());
+        })->first();
 
-        $post = factory(Post::class)->create([
-            'user_id' => $user->id,
-        ]);
+        factory(Post::class, 2)->create([
+            'user_id' => $this->editor->id,
+            'published_at' => now()->subDay(),
+        ])->each(function ($post) {
+            $post->views()->createMany(factory(View::class, 3)->make()->toArray());
+        })->first();
 
-        factory(Post::class, 2)->create();
-
-        $this->actingAs($post->user, 'canvas')
+        $this->actingAs($this->admin, 'canvas')
              ->getJson('canvas/api/posts?scope=user')
              ->assertSuccessful()
-             ->assertJsonExactFragment(1, 'posts.total')
-             ->assertJsonExactFragment(0, 'views_count');
+             ->assertJsonStructure([
+                 'posts',
+                 'draftCount',
+                 'publishedCount',
+             ])
+             ->assertJsonFragment([
+                 'total' => $this->admin->posts()->count(),
+                 'draftCount' => $this->admin->posts()->draft()->count(),
+                 'publishedCount' => $this->admin->posts()->published()->count(),
+             ]);
     }
 
-    /** @test */
-    public function it_can_fetch_data_for_a_new_post()
+    public function testNewPostData(): void
     {
-        $user = factory(User::class)->create();
-
-        $response = $this->actingAs($user, 'canvas')
-                         ->getJson('canvas/api/posts/create')
-                         ->assertSuccessful();
-
-        $this->assertArrayHasKey('id', $response->original['post']);
-        $this->assertArrayHasKey('slug', $response->original['post']);
-        $this->assertArrayHasKey('read_time', $response->original['post']);
-        $this->assertArrayHasKey('tags', $response->original);
-        $this->assertArrayHasKey('topics', $response->original);
+        $this->actingAs($this->admin, 'canvas')
+             ->getJson('canvas/api/posts/create')
+             ->assertSuccessful()
+             ->assertJsonStructure([
+                 'post',
+                 'tags',
+                 'topics',
+             ]);
     }
 
-    /** @test */
-    public function it_can_fetch_an_existing_post()
+    public function testExistingPostData(): void
     {
         $post = factory(Post::class)->create();
 
-        $this->actingAs($post->user, 'canvas')
+        $this->actingAs($this->admin, 'canvas')
              ->getJson("canvas/api/posts/{$post->id}")
              ->assertSuccessful()
-             ->assertJsonExactFragment($post->id, 'post.id')
-             ->assertJsonExactFragment($post->title, 'post.title')
-             ->assertJsonExactFragment($post->user_id, 'post.user_id')
-             ->assertJsonExactFragment($post->slug, 'post.slug');
+             ->assertJsonStructure([
+                 'post',
+                 'tags',
+                 'topics',
+             ])
+             ->assertJsonFragment([
+                 'id' => $post->id,
+             ]);
     }
 
-    /** @test */
-    public function it_returns_404_if_no_post_is_found()
+    public function testPostNotFound(): void
     {
-        $user = factory(User::class)->create();
-
-        $this->actingAs($user, 'canvas')->getJson('canvas/api/posts/not-a-post')->assertNotFound();
+        $this->actingAs($this->admin, 'canvas')
+             ->getJson('canvas/api/posts/not-a-post')
+             ->assertNotFound();
     }
 
-    /** @test */
-    public function it_returns_404_if_contributor_tries_to_access_a_post_that_belongs_to_another_user()
+    public function testContributorAccessRestricted(): void
     {
-        $userOne = factory(User::class)->create([
-            'role' => User::ADMIN,
-        ]);
-        $userTwo = factory(User::class)->create([
-            'role' => User::CONTRIBUTOR,
-        ]);
-
         $post = factory(Post::class)->create([
-            'user_id' => $userOne->id,
+            'user_id' => $this->admin->id,
         ]);
 
-        $this->actingAs($userOne, 'canvas')->getJson("canvas/api/posts/{$post->id}")->assertSuccessful();
-        $this->actingAs($userTwo, 'canvas')->getJson("canvas/api/posts/{$post->id}")->assertNotFound();
+        $this->actingAs($this->contributor, 'canvas')
+             ->getJson("canvas/api/posts/{$post->id}")
+             ->assertNotFound();
     }
 
-    /** @test */
-    public function it_can_store_a_new_post()
+    public function testStoreNewPost(): void
     {
-        $user = factory(User::class)->create();
-
         $data = [
             'id' => Uuid::uuid4()->toString(),
             'slug' => 'a-new-post',
             'title' => 'A new post',
         ];
 
-        $response = $this->actingAs($user, 'canvas')
-                         ->postJson("canvas/api/posts/{$data['id']}", $data)
-                         ->assertSuccessful()
-                         ->assertJsonExactFragment($data['id'], 'id')
-                         ->assertJsonExactFragment($data['slug'], 'slug')
-                         ->assertJsonExactFragment($user->id, 'user_id');
-
-        $this->assertArrayHasKey('id', $response);
-        $this->assertArrayHasKey('slug', $response);
-        $this->assertArrayHasKey('title', $response);
-        $this->assertArrayHasKey('user_id', $response);
+        $this->actingAs($this->admin, 'canvas')
+             ->postJson("canvas/api/posts/{$data['id']}", $data)
+             ->assertSuccessful()
+             ->assertJsonFragment([
+                 'id' => $data['id'],
+                 'slug' => $data['slug'],
+                 'title' => $data['title'],
+                 'user_id' => $this->admin->id,
+             ]);
     }
 
-    /** @test */
-    public function it_can_update_an_existing_post()
+    public function testUpdateExistingPost(): void
+    {
+        $post = factory(Post::class)->create();
+
+        $data = [
+            'title' => 'Updated Title',
+            'slug' => 'updated-slug',
+        ];
+
+        $this->actingAs($this->admin, 'canvas')
+             ->postJson("canvas/api/posts/{$post->id}", $data)
+             ->assertSuccessful()
+             ->assertJsonFragment([
+                 'id' => $post->id,
+                 'title' => $data['title'],
+                 'slug' => $data['slug'],
+             ]);
+    }
+
+    public function testAContributorCanOnlyUpdateTheirOwnPost(): void
     {
         $post = factory(Post::class)->create([
-            'title' => 'Original Title',
-            'slug' => 'original-slug',
+            'user_id' => $this->contributor->id,
         ]);
 
         $data = [
@@ -231,23 +319,23 @@ class PostControllerTest extends TestCase
             'slug' => 'updated-slug',
         ];
 
-        $response = $this->actingAs($post->user, 'canvas')->postJson("canvas/api/posts/{$post->id}", $data)->assertSuccessful();
-
-        $this->assertSame($data['title'], $response->original['title']);
-        $this->assertSame($data['slug'], $response->original['slug']);
-
-        $this->assertArrayHasKey('published_at', $response);
+        $this->actingAs($this->contributor, 'canvas')
+             ->postJson("canvas/api/posts/{$post->id}", $data)
+             ->assertSuccessful()
+             ->assertJsonFragment([
+                 'id' => $post->id,
+                 'title' => $data['title'],
+                 'slug' => $data['slug'],
+             ]);
     }
 
-    /** @test */
-    public function it_can_sync_related_taxonomy()
+    public function testSyncNewTags(): void
     {
-        $user = factory(User::class)->create();
+        $post = factory(Post::class)->create();
 
         $data = [
-            'id' => Uuid::uuid4()->toString(),
-            'slug' => 'a-new-post',
-            'title' => 'A new post',
+            'title' => $post->title,
+            'slug' => $post->slug,
             'tags' => [
                 [
                     'name' => 'A new tag',
@@ -258,6 +346,62 @@ class PostControllerTest extends TestCase
                     'slug' => 'another-tag',
                 ],
             ],
+        ];
+
+        $this->actingAs($this->admin, 'canvas')
+             ->postJson("canvas/api/posts/{$post->id}", $data)
+             ->assertSuccessful()
+             ->assertJsonFragment([
+                 'id' => $post->id,
+                 'title' => $data['title'],
+                 'slug' => $data['slug'],
+             ]);
+
+        $this->assertCount(2, $post->tags);
+        $this->assertDatabaseHas('canvas_posts_tags', [
+            'post_id' => $post->id,
+        ]);
+    }
+
+    public function testSyncExistingTags(): void
+    {
+        $post = factory(Post::class)->create();
+        $tag = factory(Tag::class)->create();
+
+        $data = [
+            'title' => $post->title,
+            'slug' => $post->slug,
+            'tags' => [
+                [
+                    'name' => $tag->name,
+                    'slug' => $tag->slug,
+                ],
+            ],
+        ];
+
+        $this->actingAs($this->admin, 'canvas')
+             ->postJson("canvas/api/posts/{$post->id}", $data)
+             ->assertSuccessful()
+             ->assertJsonFragment([
+                 'id' => $post->id,
+                 'title' => $data['title'],
+                 'slug' => $data['slug'],
+             ]);
+
+        $this->assertCount(1, $post->tags);
+        $this->assertDatabaseHas('canvas_posts_tags', [
+            'post_id' => $post->id,
+            'tag_id' => $tag->id,
+        ]);
+    }
+
+    public function testSyncNewTopic(): void
+    {
+        $post = factory(Post::class)->create();
+
+        $data = [
+            'title' => $post->title,
+            'slug' => $post->slug,
             'topic' => [
                 [
                     'name' => 'A new topic',
@@ -266,19 +410,14 @@ class PostControllerTest extends TestCase
             ],
         ];
 
-        $this->actingAs($user, 'canvas')
-             ->postJson("canvas/api/posts/{$data['id']}", $data)
+        $this->actingAs($this->admin, 'canvas')
+             ->postJson("canvas/api/posts/{$post->id}", $data)
              ->assertSuccessful()
-             ->assertJsonExactFragment($data['id'], 'id')
-             ->assertJsonExactFragment($data['slug'], 'slug')
-             ->assertJsonExactFragment($user->id, 'user_id');
-
-        $post = Post::find($data['id']);
-
-        $this->assertCount(2, $post->tags);
-        $this->assertDatabaseHas('canvas_posts_tags', [
-            'post_id' => $post->id,
-        ]);
+             ->assertJsonFragment([
+                 'id' => $post->id,
+                 'title' => $data['title'],
+                 'slug' => $data['slug'],
+             ]);
 
         $this->assertCount(1, $post->topic);
         $this->assertDatabaseHas('canvas_posts_topics', [
@@ -286,34 +425,73 @@ class PostControllerTest extends TestCase
         ]);
     }
 
-    /** @test */
-    public function it_will_not_store_an_invalid_slug()
+    public function testSyncExistingTopic(): void
+    {
+        $post = factory(Post::class)->create();
+        $topic = factory(Topic::class)->create();
+
+        $data = [
+            'title' => $post->title,
+            'slug' => $post->slug,
+            'topic' => [
+                [
+                    'name' => $topic->name,
+                    'slug' => $topic->slug,
+                ],
+            ],
+        ];
+
+        $this->actingAs($this->admin, 'canvas')
+             ->postJson("canvas/api/posts/{$post->id}", $data)
+             ->assertSuccessful()
+             ->assertJsonFragment([
+                 'id' => $post->id,
+                 'title' => $data['title'],
+                 'slug' => $data['slug'],
+             ]);
+
+        $this->assertCount(1, $post->topic);
+        $this->assertDatabaseHas('canvas_posts_topics', [
+            'post_id' => $post->id,
+            'topic_id' => $topic->id,
+        ]);
+    }
+
+    public function testInvalidSlugsAreValidated(): void
     {
         $post = factory(Post::class)->create();
 
-        $response = $this->actingAs($post->user, 'canvas')->postJson("canvas/api/posts/{$post->id}", [
-            'slug' => 'a new.slug',
-        ])->assertStatus(422);
-
-        $this->assertArrayHasKey('slug', $response->original['errors']);
+        $this->actingAs($this->admin, 'canvas')
+             ->postJson("canvas/api/posts/{$post->id}", [
+                 'slug' => 'a new.slug',
+             ])
+             ->assertStatus(422)
+             ->assertJsonStructure([
+                 'errors' => [
+                     'slug',
+                 ],
+             ]);
     }
 
-    /** @test */
-    public function it_can_delete_a_post()
+    public function testDeleteExistingPost(): void
     {
-        $userOne = factory(User::class)->create();
-        $userTwo = factory(User::class)->create();
-
         $post = factory(Post::class)->create([
-            'user_id' => $userOne->id,
+            'user_id' => $this->editor->id,
             'slug' => 'a-new-post',
         ]);
 
-        $this->actingAs($userTwo, 'canvas')->deleteJson("canvas/api/posts/{$post->id}")->assertNotFound();
+        $this->actingAs($this->contributor, 'canvas')
+             ->deleteJson("canvas/api/posts/{$post->id}")
+             ->assertNotFound();
 
-        $this->actingAs($userOne, 'canvas')->deleteJson('canvas/api/posts/not-a-post')->assertNotFound();
+        $this->actingAs($this->editor, 'canvas')
+             ->deleteJson('canvas/api/posts/not-a-post')
+             ->assertNotFound();
 
-        $this->actingAs($userOne, 'canvas')->deleteJson("canvas/api/posts/{$post->id}")->assertSuccessful()->assertNoContent();
+        $this->actingAs($this->admin, 'canvas')
+             ->deleteJson("canvas/api/posts/{$post->id}")
+             ->assertSuccessful()
+             ->assertNoContent();
 
         $this->assertSoftDeleted('canvas_posts', [
             'id' => $post->id,
@@ -321,13 +499,10 @@ class PostControllerTest extends TestCase
         ]);
     }
 
-    /** @test */
-    public function it_can_de_sync_related_taxonomy()
+    public function testDeSyncRelatedTaxonomy(): void
     {
-        $user = factory(User::class)->create();
-
         $post = factory(Post::class)->create([
-            'user_id' => $user->id,
+            'user_id' => $this->admin->id,
             'slug' => 'a-new-post',
         ]);
 
@@ -350,7 +525,10 @@ class PostControllerTest extends TestCase
             'topic_id' => $topic->id,
         ]);
 
-        $this->actingAs($user, 'canvas')->deleteJson("canvas/api/posts/{$post->id}")->assertSuccessful()->assertNoContent();
+        $this->actingAs($this->admin, 'canvas')
+             ->deleteJson("canvas/api/posts/{$post->id}")
+             ->assertSuccessful()
+             ->assertNoContent();
 
         $this->assertSoftDeleted('canvas_posts', [
             'id' => $post->id,

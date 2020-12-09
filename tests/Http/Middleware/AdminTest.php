@@ -2,7 +2,6 @@
 
 namespace Canvas\Tests\Http\Middleware;
 
-use Canvas\Models\User;
 use Canvas\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -48,32 +47,26 @@ class AdminTest extends TestCase
     }
 
     /**
-     * @test
      * @dataProvider protectedRoutesProvider
      * @param $method
      * @param $endpoint
      */
-    public function it_restricts_contributors_access($method, $endpoint)
+    public function testContributorAccessIsRestricted($method, $endpoint)
     {
-        $user = factory(User::class)->create([
-            'role' => User::CONTRIBUTOR,
-        ]);
-
-        $this->actingAs($user, 'canvas')->call($method, $endpoint)->assertForbidden();
+        $this->actingAs($this->contributor, 'canvas')
+             ->call($method, $endpoint)
+             ->assertForbidden();
     }
 
     /**
-     * @test
      * @dataProvider protectedRoutesProvider
      * @param $method
      * @param $endpoint
      */
-    public function it_restricts_editors_access($method, $endpoint)
+    public function testEditorAccessIsRestricted($method, $endpoint)
     {
-        $user = factory(User::class)->create([
-            'role' => User::EDITOR,
-        ]);
-
-        $this->actingAs($user, 'canvas')->call($method, $endpoint)->assertForbidden();
+        $this->actingAs($this->editor, 'canvas')
+             ->call($method, $endpoint)
+             ->assertForbidden();
     }
 }

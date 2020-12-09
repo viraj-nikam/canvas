@@ -2,10 +2,11 @@
 
 namespace Canvas\Http\Controllers;
 
-use Canvas\Http\Requests\StoreUserRequest;
+use Canvas\Canvas;
+use Canvas\Http\Requests\UserRequest;
 use Canvas\Models\User;
+use Exception;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Hash;
@@ -16,13 +17,13 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param Request $request
      * @return JsonResponse
      */
-    public function index(Request $request): JsonResponse
+    public function index(): JsonResponse
     {
         return response()->json(
-            User::latest()
+            User::query()
+                ->latest()
                 ->withCount('posts')
                 ->paginate(), 200
         );
@@ -31,10 +32,9 @@ class UserController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @param Request $request
      * @return JsonResponse
      */
-    public function create(Request $request): JsonResponse
+    public function create(): JsonResponse
     {
         return response()->json(User::make([
             'id' => Uuid::uuid4()->toString(),
@@ -45,15 +45,15 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param StoreUserRequest $request
+     * @param UserRequest $request
      * @param $id
      * @return JsonResponse
      */
-    public function store(StoreUserRequest $request, $id): JsonResponse
+    public function store(UserRequest $request, $id): JsonResponse
     {
         $data = $request->validated();
 
-        $user = User::find($id);
+        $user = User::query()->find($id);
 
         if (! $user) {
             if ($user = User::onlyTrashed()->firstWhere('email', $data['email'])) {
@@ -68,6 +68,10 @@ class UserController extends Controller
                     'id' => $id,
                 ]);
             }
+        }
+
+        if (! Arr::has($data, 'locale') || ! Arr::has(Canvas::availableLanguageCodes(), $data['locale'])) {
+            $data['locale'] = config('app.fallback_locale');
         }
 
         $user->fill($data);
@@ -87,13 +91,12 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param Request $request
      * @param $id
      * @return JsonResponse
      */
-    public function show(Request $request, $id): JsonResponse
+    public function show($id): JsonResponse
     {
-        $user = User::withCount('posts')->find($id);
+        $user = User::query()->withCount('posts')->find($id);
 
         return $user ? response()->json($user, 200) : response()->json(null, 404);
     }
@@ -101,13 +104,12 @@ class UserController extends Controller
     /**
      * Display the specified relationship.
      *
-     * @param Request $request
      * @param $id
      * @return JsonResponse
      */
-    public function showPosts(Request $request, $id): JsonResponse
+    public function showPosts($id): JsonResponse
     {
-        $user = User::with('posts')->find($id);
+        $user = User::query()->with('posts')->find($id);
 
         return $user ? response()->json($user->posts()->withCount('views')->paginate(), 200) : response()->json(null, 200);
     }
@@ -115,17 +117,18 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param Request $request
      * @param $id
      * @return mixed
+     * @throws Exception
      */
-    public function destroy(Request $request, $id)
+    public function destroy($id)
     {
-        if ($request->user('canvas')->id == $id) {
+        // Prevent a user from deleting their own account
+        if (request()->user('canvas')->id == $id) {
             return response()->json(null, 403);
         }
 
-        $user = User::findOrFail($id);
+        $user = User::query()->findOrFail($id);
 
         $user->delete();
 

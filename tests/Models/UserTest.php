@@ -21,115 +21,89 @@ class UserTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
-    public function digest_is_cast_to_a_boolean()
+    public function testDigestIsCastToBoolean(): void
     {
         $this->assertIsBool(factory(User::class)->create()->digest);
     }
 
-    /** @test */
-    public function dark_mode_is_cast_to_a_boolean()
+    public function testDarkModeIsCastToBoolean(): void
     {
         $this->assertIsBool(factory(User::class)->create()->dark_mode);
     }
 
-    /** @test */
-    public function role_is_cast_to_an_integer()
+    public function testRoleIsCastToInteger(): void
     {
         $this->assertIsInt(factory(User::class)->create()->role);
     }
 
-    /** @test */
-    public function default_avatar_appends_to_the_model()
+    public function testDefaultAvatarAppendsToTheModel(): void
     {
         $this->assertArrayHasKey('default_avatar', factory(User::class)->create()->toArray());
     }
 
-    /** @test */
-    public function default_locale_appends_to_the_model()
+    public function testDefaultLocaleAppendsToTheModel(): void
     {
         $this->assertArrayHasKey('default_locale', factory(User::class)->create()->toArray());
     }
 
-    /** @test */
-    public function password_is_hidden_for_arrays()
+    public function testPasswordIsHiddenForArrays(): void
     {
         $this->assertArrayNotHasKey('password', factory(User::class)->create()->toArray());
     }
 
-    /** @test */
-    public function remember_token_is_hidden_for_arrays()
+    public function testRememberTokenIsHiddenForArrays(): void
     {
         $this->assertArrayNotHasKey('remember_token', factory(User::class)->create([
             'remember_token' => Str::random(60),
         ])->toArray());
     }
 
-    /** @test */
-    public function posts_relationship()
+    public function testPostsRelationship(): void
     {
-        $user = factory(User::class)->create();
-
         factory(Post::class)->create([
-            'user_id' => $user->id,
+            'user_id' => $this->admin->id,
         ]);
 
-        $this->assertInstanceOf(HasMany::class, $user->posts());
-        $this->assertInstanceOf(Post::class, $user->posts->first());
+        $this->assertInstanceOf(HasMany::class, $this->admin->posts());
+        $this->assertInstanceOf(Post::class, $this->admin->posts->first());
     }
 
-    /** @test */
-    public function tags_relationship()
+    public function testTagsRelationship(): void
     {
-        $user = factory(User::class)->create();
-
         factory(Tag::class)->create([
-            'user_id' => $user->id,
+            'user_id' => $this->admin->id,
         ]);
 
-        $this->assertInstanceOf(HasMany::class, $user->tags());
-        $this->assertInstanceOf(Tag::class, $user->tags->first());
+        $this->assertInstanceOf(HasMany::class, $this->admin->tags());
+        $this->assertInstanceOf(Tag::class, $this->admin->tags->first());
     }
 
-    /** @test */
-    public function topics_relationship()
+    public function testTopicsRelationship(): void
     {
-        $user = factory(User::class)->create();
-
         factory(Topic::class)->create([
-            'user_id' => $user->id,
+            'user_id' => $this->admin->id,
         ]);
 
-        $this->assertInstanceOf(HasMany::class, $user->topics());
-        $this->assertInstanceOf(Topic::class, $user->topics->first());
+        $this->assertInstanceOf(HasMany::class, $this->admin->topics());
+        $this->assertInstanceOf(Topic::class, $this->admin->topics->first());
     }
 
-    /** @test */
-    public function contributor_attribute()
+    public function testContributorAttribute(): void
     {
-        $this->assertTrue(factory(User::class)->create([
-            'role' => User::CONTRIBUTOR,
-        ])->isContributor);
+        $this->assertTrue($this->contributor->isContributor);
     }
 
-    /** @test */
-    public function editor_attribute()
+    public function testEditorAttribute(): void
     {
-        $this->assertTrue(factory(User::class)->create([
-            'role' => User::EDITOR,
-        ])->isEditor);
+        $this->assertTrue($this->editor->isEditor);
     }
 
-    /** @test */
-    public function admin_attribute()
+    public function testAdminAttribute(): void
     {
-        $this->assertTrue(factory(User::class)->create([
-            'role' => User::ADMIN,
-        ])->isAdmin);
+        $this->assertTrue($this->admin->isAdmin);
     }
 
-    /** @test */
-    public function default_avatar_attribute()
+    public function testDefaultAvatarAttribute(): void
     {
         $user = factory(User::class)->create([
             'avatar' => null,
@@ -138,8 +112,7 @@ class UserTest extends TestCase
         $this->assertSame($user->defaultAvatar, Canvas::gravatar($user->email));
     }
 
-    /** @test */
-    public function default_locale_attribute()
+    public function testDefaultLocaleAttribute(): void
     {
         $user = factory(User::class)->create([
             'locale' => null,

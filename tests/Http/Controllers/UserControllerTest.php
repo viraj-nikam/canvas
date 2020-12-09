@@ -13,119 +13,99 @@ use Ramsey\Uuid\Uuid;
  * Class UserControllerTest.
  *
  * @covers \Canvas\Http\Controllers\UserController
- * @covers \Canvas\Http\Requests\StoreUserRequest
+ * @covers \Canvas\Http\Requests\UserRequest
  */
 class UserControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    /**
-     * @return void
-     */
-    protected function setUp(): void
+    public function testAnAdminCanFetchAllUsers(): void
     {
-        parent::setUp();
-
-        $this->registerAssertJsonExactFragmentMacro();
-    }
-
-    /** @test */
-    public function it_can_fetch_users()
-    {
-        $user = factory(User::class)->create([
-            'role' => User::ADMIN,
-        ]);
-
-        $this->actingAs($user, 'canvas')
+        $this->actingAs($this->admin, 'canvas')
              ->getJson('canvas/api/users')
              ->assertSuccessful()
-             ->assertJsonExactFragment($user->id, 'data.0.id')
-             ->assertJsonExactFragment($user->name, 'data.0.name')
-             ->assertJsonExactFragment($user->email, 'data.0.email')
-             ->assertJsonExactFragment($user->username, 'data.0.username')
-             ->assertJsonExactFragment($user->summary, 'data.0.summary')
-             ->assertJsonExactFragment($user->avatar, 'data.0.avatar')
-             ->assertJsonExactFragment($user->dark_mode, 'data.0.dark_mode')
-             ->assertJsonExactFragment($user->digest, 'data.0.digest')
-             ->assertJsonExactFragment($user->locale, 'data.0.locale')
-             ->assertJsonExactFragment($user->role, 'data.0.role')
-             ->assertJsonExactFragment($user->posts->count(), 'data.0.posts_count')
-             ->assertJsonExactFragment(1, 'total');
+             ->assertJsonFragment([
+                 'id' => $this->admin->id,
+                 'role' => User::ADMIN,
+                 'posts_count' => (string) $this->admin->posts()->count(),
+                 'default_avatar' => $this->admin->default_avatar,
+                 'default_locale' => $this->admin->default_locale,
+             ])
+             ->assertJsonFragment([
+                 'id' => $this->editor->id,
+                 'role' => User::EDITOR,
+                 'posts_count' => (string) $this->editor->posts()->count(),
+                 'default_avatar' => $this->editor->default_avatar,
+                 'default_locale' => $this->editor->default_locale,
+             ])
+             ->assertJsonFragment([
+                 'id' => $this->contributor->id,
+                 'role' => User::CONTRIBUTOR,
+                 'posts_count' => (string) $this->contributor->posts()->count(),
+                 'default_avatar' => $this->contributor->default_avatar,
+                 'default_locale' => $this->contributor->default_locale,
+             ]);
     }
 
-    /** @test */
-    public function it_can_fetch_a_new_user()
+    public function testNewPostData(): void
     {
-        $user = factory(User::class)->create([
-            'role' => User::ADMIN,
-        ]);
+        $this->actingAs($this->admin, 'canvas')
+             ->getJson('canvas/api/users/create')
+             ->assertSuccessful()
+             ->assertJsonStructure([
+                 'id',
+                 'default_avatar',
+             ])
+             ->assertJsonFragment([
+                 'role' => User::CONTRIBUTOR,
+                 'default_locale' => config('app.locale'),
 
-        $response = $this->actingAs($user, 'canvas')->getJson('canvas/api/users/create')->assertSuccessful();
-
-        $this->assertArrayHasKey('id', $response->original);
+             ]);
     }
 
-    /** @test */
-    public function it_can_fetch_an_existing_user()
+    public function testExistingPostData(): void
     {
-        $user = factory(User::class)->create([
-            'role' => User::ADMIN,
-        ]);
-
-        $response = $this->actingAs($user, 'canvas')->getJson("canvas/api/users/{$user->id}")->assertSuccessful();
-
-        $this->assertSame($user->id, $response->original['id']);
-        $this->assertSame($user->name, $response->original['name']);
-        $this->assertSame($user->email, $response->original['email']);
-        $this->assertSame($user->username, $response->original['username']);
-        $this->assertSame($user->summary, $response->original['summary']);
-        $this->assertSame($user->avatar, $response->original['avatar']);
-        $this->assertSame($user->dark_mode, $response->original['dark_mode']);
-        $this->assertSame($user->digest, $response->original['digest']);
-        $this->assertSame($user->locale, $response->original['locale']);
-        $this->assertSame($user->role, $response->original['role']);
+        $this->actingAs($this->admin, 'canvas')
+             ->getJson("canvas/api/users/{$this->contributor->id}")
+             ->assertSuccessful()
+             ->assertJsonFragment([
+                 'id' => $this->contributor->id,
+                 'role' => User::CONTRIBUTOR,
+                 'posts_count' => (string) $this->contributor->posts()->count(),
+                 'default_avatar' => $this->contributor->default_avatar,
+                 'default_locale' => $this->contributor->default_locale,
+             ]);
     }
 
-    /** @test */
-    public function it_can_fetch_posts_for_an_existing_user()
+    public function testPostsCanBeFetchedForAUser(): void
     {
-        $user = factory(User::class)->create([
-            'role' => User::ADMIN,
-        ]);
-
         $post = factory(Post::class)->create([
-            'user_id' => $user->id,
+            'user_id' => $this->admin->id,
         ]);
 
         factory(View::class)->create([
             'post_id' => $post->id,
         ]);
 
-        $response = $this->actingAs($user, 'canvas')->getJson("canvas/api/users/{$user->id}/posts")->assertSuccessful();
-
-        $this->assertIsArray($response->original->items());
-        $this->assertCount(1, $response->original->items());
-        $this->assertArrayHasKey('views_count', $response->original->items()[0]);
-        $this->assertEquals(1, $response->original->items()[0]['views_count']);
+        $this->actingAs($this->admin, 'canvas')
+             ->getJson("canvas/api/users/{$this->admin->id}/posts")
+             ->assertSuccessful()
+             ->assertJsonFragment([
+                 'id' => $post->id,
+                 'views_count' => (string) $post->views->count(),
+                 'total' => $this->admin->posts()->count(),
+             ]);
     }
 
-    /** @test */
-    public function it_returns_404_if_no_user_is_found()
+    public function testUserNotFound(): void
     {
-        $user = factory(User::class)->create([
-            'role' => User::ADMIN,
-        ]);
-
-        $this->actingAs($user, 'canvas')->getJson('canvas/api/users/not-a-user')->assertNotFound();
+        $this->actingAs($this->admin, 'canvas')
+             ->getJson('canvas/api/users/not-a-user')
+             ->assertNotFound();
     }
 
-    /** @test */
-    public function it_can_create_a_new_user()
+    public function testStoreNewUser(): void
     {
-        $user = factory(User::class)->create([
-            'role' => User::ADMIN,
-        ]);
-
         $data = [
             'id' => Uuid::uuid4()->toString(),
             'name' => 'Name',
@@ -134,21 +114,22 @@ class UserControllerTest extends TestCase
             'password_confirmation' => 'password',
         ];
 
-        $this->actingAs($user, 'canvas')
+        $this->actingAs($this->admin, 'canvas')
              ->postJson("canvas/api/users/{$data['id']}", $data)
              ->assertSuccessful()
-             ->assertJsonExactFragment($data['name'], 'user.name')
-             ->assertJsonExactFragment($data['email'], 'user.email')
-             ->assertJsonExactFragment($data['id'], 'user.id');
+             ->assertJsonStructure([
+                 'user',
+                 'i18n',
+             ])
+             ->assertJsonFragment([
+                 'id' => $data['id'],
+                 'name' => $data['name'],
+                 'email' => $data['email'],
+             ]);
     }
 
-    /** @test */
-    public function it_can_refresh_a_deleted_user()
+    public function testADeletedUserCanBeRefreshed(): void
     {
-        $admin = factory(User::class)->create([
-            'role' => User::ADMIN,
-        ]);
-
         $deletedUser = factory(User::class)->create([
             'id' => Uuid::uuid4()->toString(),
             'name' => 'Deleted User',
@@ -164,46 +145,37 @@ class UserControllerTest extends TestCase
             'password_confirmation' => 'password',
         ];
 
-        $this->actingAs($admin, 'canvas')
+        $this->actingAs($this->admin, 'canvas')
              ->postJson("canvas/api/users/{$data['id']}", $data)
              ->assertSuccessful()
-             ->assertJsonExactFragment($deletedUser->name, 'user.name')
-             ->assertJsonExactFragment($deletedUser->email, 'user.email')
-             ->assertJsonExactFragment($deletedUser->id, 'user.id');
+             ->assertJsonFragment([
+                 'id' => $deletedUser->id,
+                 'name' => $deletedUser->name,
+                 'email' => $deletedUser->email,
+             ]);
     }
 
-    /** @test */
-    public function it_can_update_an_existing_user()
+    public function testUpdateExistingUser(): void
     {
-        $admin = factory(User::class)->create([
-            'role' => User::ADMIN,
-        ]);
-
-        $user = factory(User::class)->create([
-            'id' => Uuid::uuid4()->toString(),
-            'name' => 'User',
-            'email' => 'email@example.com',
-        ]);
+        $user = factory(User::class)->create();
 
         $data = [
             'name' => 'New name',
             'email' => 'new-email@example.com',
         ];
 
-        $this->actingAs($admin, 'canvas')
+        $this->actingAs($this->admin, 'canvas')
              ->postJson("canvas/api/users/{$user->id}", $data)
              ->assertSuccessful()
-             ->assertJsonExactFragment($data['name'], 'user.name')
-             ->assertJsonExactFragment($data['email'], 'user.email');
+             ->assertJsonFragment([
+                 'id' => $user->id,
+                 'name' => $data['name'],
+                 'email' => $data['email'],
+             ]);
     }
 
-    /** @test */
-    public function it_validates_incorrect_password_confirmation()
+    public function testInvalidPasswordCombinationsAreValidated(): void
     {
-        $user = factory(User::class)->create([
-            'role' => User::ADMIN,
-        ]);
-
         $data = [
             'id' => Uuid::uuid4()->toString(),
             'name' => 'Name',
@@ -212,103 +184,105 @@ class UserControllerTest extends TestCase
             'password_confirmation' => 'not-a-match',
         ];
 
-        $response = $this->actingAs($user, 'canvas')
-                         ->postJson("canvas/api/users/{$data['id']}", $data);
-
-        $this->assertArrayHasKey('password', $response->original['errors']);
+        $this->actingAs($this->admin, 'canvas')
+             ->postJson("canvas/api/users/{$data['id']}", $data)
+             ->assertStatus(422)
+             ->assertJsonStructure([
+                 'errors' => [
+                     'password',
+                 ],
+             ]);
     }
 
-    /** @test */
-    public function it_will_not_store_a_duplicate_username()
+    public function testShortPasswordsAreValidated(): void
     {
-        $user = factory(User::class)->create([
-            'role' => User::ADMIN,
-        ]);
+        $data = [
+            'id' => Uuid::uuid4()->toString(),
+            'name' => 'Name',
+            'email' => 'email@example.com',
+            'password' => 'pass',
+            'password_confirmation' => 'pass',
+        ];
 
-        $contributor = factory(User::class)->create([
-            'role' => User::CONTRIBUTOR,
-        ]);
-
-        $response = $this->actingAs($user, 'canvas')
-                         ->postJson("canvas/api/users/{$user->id}", [
-                             'name' => $user->name,
-                             'email' => $user->email,
-                             'username' => $contributor->username,
-                         ])
-                         ->assertStatus(422);
-
-        $this->assertArrayHasKey('username', $response->original['errors']);
+        $this->actingAs($this->admin, 'canvas')
+             ->postJson("canvas/api/users/{$data['id']}", $data)
+             ->assertStatus(422)
+             ->assertJsonStructure([
+                 'errors' => [
+                     'password',
+                 ],
+             ]);
     }
 
-    /** @test */
-    public function it_will_not_store_a_duplicate_email()
+    public function testDuplicateUsernamesAreValidated(): void
     {
-        $user = factory(User::class)->create([
-            'role' => User::ADMIN,
-        ]);
-
-        $contributor = factory(User::class)->create([
-            'role' => User::CONTRIBUTOR,
-        ]);
-
-        $response = $this->actingAs($user, 'canvas')
-                         ->postJson("canvas/api/users/{$user->id}", [
-                             'name' => $user->name,
-                             'email' => $contributor->email,
-                         ])
-                         ->assertStatus(422);
-
-        $this->assertArrayHasKey('email', $response->original['errors']);
+        $this->actingAs($this->admin, 'canvas')
+             ->postJson("canvas/api/users/{$this->admin->id}", [
+                 'name' => $this->admin->name,
+                 'email' => $this->admin->email,
+                 'username' => $this->editor->username,
+             ])
+             ->assertStatus(422)
+             ->assertJsonStructure([
+                 'errors' => [
+                     'username',
+                 ],
+             ]);
     }
 
-    /** @test */
-    public function it_will_not_store_an_invalid_email()
+    public function testDuplicateEmailsAreValidated(): void
     {
-        $user = factory(User::class)->create([
-            'role' => User::ADMIN,
-        ]);
-
-        $response = $this->actingAs($user, 'canvas')
-                         ->postJson("canvas/api/users/{$user->id}", [
-                             'name' => 'Name',
-                             'email' => 'not-an-email',
-                         ])
-                         ->assertStatus(422);
-
-        $this->assertArrayHasKey('email', $response->original['errors']);
+        $this->actingAs($this->admin, 'canvas')
+             ->postJson("canvas/api/users/{$this->admin->id}", [
+                 'name' => $this->admin->name,
+                 'email' => $this->editor->email,
+             ])
+             ->assertStatus(422)
+             ->assertJsonStructure([
+                 'errors' => [
+                     'email',
+                 ],
+             ]);
     }
 
-    /** @test */
-    public function it_will_not_allow_users_to_delete_themselves()
+    public function testInvalidEmailsAreValidated(): void
     {
-        $user = factory(User::class)->create([
-            'role' => User::ADMIN,
-        ]);
+        $this->actingAs($this->admin, 'canvas')
+             ->postJson("canvas/api/users/{$this->admin->id}", [
+                 'name' => $this->admin->name,
+                 'email' => 'not-an-email',
+             ])
+             ->assertStatus(422)
+             ->assertJsonStructure([
+                 'errors' => [
+                     'email',
+                 ],
+             ]);
+    }
 
-        $this->actingAs($user, 'canvas')
-             ->deleteJson("canvas/api/users/{$user->id}")
+    public function testAUserCannotDeleteTheirOwnAccount(): void
+    {
+        $this->actingAs($this->admin, 'canvas')
+             ->deleteJson("canvas/api/users/{$this->admin->id}")
              ->assertForbidden();
     }
 
-    /** @test */
-    public function it_can_delete_a_user()
+    public function testDeleteExistingUser(): void
     {
-        $user = factory(User::class)->create([
-            'role' => User::ADMIN,
-        ]);
+        $user = factory(User::class)->create();
 
-        $contributor = factory(User::class)->create([
-            'role' => User::CONTRIBUTOR,
-        ]);
+        $this->actingAs($this->admin, 'canvas')
+             ->deleteJson('canvas/api/users/not-a-user')
+             ->assertNotFound();
 
-        $this->actingAs($user, 'canvas')
-             ->deleteJson("canvas/api/users/{$contributor->id}")
+        $this->actingAs($this->admin, 'canvas')
+             ->deleteJson("canvas/api/users/{$user->id}")
              ->assertSuccessful()
              ->assertNoContent();
 
         $this->assertSoftDeleted('canvas_users', [
-            'id' => $contributor->id,
-            'email' => $contributor->email,
+            'id' => $user->id,
+            'email' => $user->email,
         ]);
     }
 }

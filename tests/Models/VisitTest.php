@@ -17,8 +17,7 @@ class VisitTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
-    public function post_relationship()
+    public function testPostRelationship(): void
     {
         $post = factory(Post::class)->create();
 
