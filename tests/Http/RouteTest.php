@@ -18,59 +18,36 @@ class RouteTest extends TestCase
 
     public function testRouteWithDefaultBasePath(): void
     {
-        $this->markTestSkipped();
-
         $this->actingAs($this->admin)
-             ->get(sprintf('%s', config('canvas.path')))
+             ->get(route('canvas'))
              ->assertRedirect(route('canvas.login'))
              ->assertLocation('http://laravel.test/canvas/login');
 
-        $this->assertSame(Canvas::basePath(), '/'.config('canvas.path'));
+        $this->assertSame(Canvas::basePath(), '/canvas');
     }
 
     public function testRouteWithSubdomainAndDefaultBasePath(): void
     {
-        $this->markTestSkipped();
-
         Config::set('canvas.domain', 'http://canvas.laravel.test');
 
         $this->actingAs($this->admin)
-             ->get(sprintf('%s/%s', config('canvas.domain'), config('canvas.path')))
+             ->get(config('canvas.domain') . '/canvas')
              ->assertRedirect(route('canvas.login'))
              ->assertLocation('http://canvas.laravel.test/canvas/login');
 
-        $this->assertSame(Canvas::basePath(), '/'.config('canvas.path'));
+        $this->assertSame(Canvas::basePath(), '/canvas');
     }
 
     public function testRouteWithSubdomainAndNullBasePath(): void
     {
-        $this->markTestSkipped();
-
         Config::set('canvas.path', null);
 
         Config::set('canvas.domain', 'http://canvas.laravel.test');
 
         $this->actingAs($this->admin)
-             ->get(config('canvas.domain'))
-             ->assertRedirect(route('canvas.login'))
-             ->assertLocation('http://canvas.laravel.test/login');
+             ->get(config('canvas.domain') . '/canvas')
+             ->assertRedirect(route('canvas.login'));
 
         $this->assertSame(Canvas::basePath(), '/');
-    }
-
-    public function testBasePathWithSubdomain(): void
-    {
-        $this->markTestSkipped();
-
-        Config::set('canvas.path', 'admin');
-
-        Config::set('canvas.domain', 'http://canvas.laravel.test');
-
-        $this->actingAs($this->admin)
-             ->get(sprintf('%s/%s', config('canvas.domain'), config('canvas.path')))
-             ->assertRedirect(route('canvas.login'))
-             ->assertLocation('http://canvas.laravel.test/blog/login');
-
-        $this->assertSame(Canvas::basePath(), '/admin');
     }
 }

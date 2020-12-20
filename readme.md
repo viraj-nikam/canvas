@@ -81,8 +81,8 @@ Canvas exposes its UI at `/canvas` by default. This can be changed by updating e
 |--------------------------------------------------------------------------
 |
 | This is the URI where Canvas will be accessible from. If the path
-| is set to null, Canvas will reside under the path name as the 
-| application. Otherwise, this will be used as the base path.
+| is set to null, Canvas will reside under the same path name as 
+| the application. Otherwise, this is used as the base path.
 |
 */
 

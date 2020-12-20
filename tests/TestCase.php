@@ -44,7 +44,17 @@ abstract class TestCase extends OrchestraTestCase
 
         $this->setUpDatabase($this->app);
 
-        $this->createTestUsers();
+        $this->contributor = factory(User::class)->create([
+            'role' => User::CONTRIBUTOR,
+        ]);
+
+        $this->editor = factory(User::class)->create([
+            'role' => User::EDITOR,
+        ]);
+
+        $this->admin = factory(User::class)->create([
+            'role' => User::ADMIN,
+        ]);
     }
 
     /**
@@ -112,25 +122,5 @@ abstract class TestCase extends OrchestraTestCase
         $this->loadFactoriesUsing($app, __DIR__.'/../database/factories');
 
         $this->artisan('migrate');
-    }
-
-    /**
-     * Create role-based users for testing.
-     *
-     * @void
-     */
-    protected function createTestUsers(): void
-    {
-        $this->contributor = factory(User::class)->create([
-            'role' => User::CONTRIBUTOR,
-        ]);
-
-        $this->editor = factory(User::class)->create([
-            'role' => User::EDITOR,
-        ]);
-
-        $this->admin = factory(User::class)->create([
-            'role' => User::ADMIN,
-        ]);
     }
 }
