@@ -20,8 +20,7 @@ export default {
         slugify(str) {
             let text = str.toString().toLowerCase().trim();
 
-            const sets = {}
-            sets.default = [
+            const sets = [
                 { to: 'a', from: '[ÀÁÂÃÄÅÆĀĂĄẠẢẤẦẨẪẬẮẰẲẴẶ]' },
                 { to: 'c', from: '[ÇĆĈČ]' },
                 { to: 'd', from: '[ÐĎĐÞ]' },
@@ -49,87 +48,7 @@ export default {
                 { to: '-', from: "[·/_,:;']" },
             ];
 
-            /**
-             * russian
-             */
-            sets.ru = [
-                { to: 'a', from: '[А]' },
-                { to: 'b', from: '[Б]' },
-                { to: 'v', from: '[В]' },
-                { to: 'g', from: '[Г]' },
-                { to: 'd', from: '[Д]' },
-                { to: 'e', from: '[ЕЭ]' },
-                { to: 'yo', from: '[Ё]' },
-                { to: 'zh', from: '[Ж]' },
-                { to: 'z', from: '[З]' },
-                { to: 'i', from: '[И]' },
-                { to: 'j', from: '[Й]' },
-                { to: 'k', from: '[К]' },
-                { to: 'l', from: '[Л]' },
-                { to: 'm', from: '[М]' },
-                { to: 'n', from: '[Н]' },
-                { to: 'o', from: '[О]' },
-                { to: 'p', from: '[П]' },
-                { to: 'r', from: '[Р]' },
-                { to: 's', from: '[С]' },
-                { to: 't', from: '[Т]' },
-                { to: 'u', from: '[У]' },
-                { to: 'f', from: '[Ф]' },
-                { to: 'h', from: '[Х]' },
-                { to: 'c', from: '[Ц]' },
-                { to: 'ch', from: '[Ч]' },
-                { to: 'sh', from: '[Ш]' },
-                { to: 'shch', from: '[Щ]' },
-                { to: 'y', from: '[Ы]' },
-                { to: 'yu', from: '[Ю]' },
-                { to: 'ya', from: '[Я]' },
-            ];
-
-            /**
-             * bulgarian
-             */
-            sets.bg = [
-                { to: 'a', from: '[А]' },
-                { to: 'b', from: '[Б]' },
-                { to: 'v', from: '[В]' },
-                { to: 'g', from: '[Г]' },
-                { to: 'd', from: '[Д]' },
-                { to: 'e', from: '[ЕЭ]' },
-                { to: 'zh', from: '[Ж]' },
-                { to: 'z', from: '[З]' },
-                { to: 'i', from: '[И]' },
-                { to: 'y', from: '[Й]' },
-                { to: 'k', from: '[К]' },
-                { to: 'l', from: '[Л]' },
-                { to: 'm', from: '[М]' },
-                { to: 'n', from: '[Н]' },
-                { to: 'o', from: '[О]' },
-                { to: 'p', from: '[П]' },
-                { to: 'r', from: '[Р]' },
-                { to: 's', from: '[С]' },
-                { to: 't', from: '[Т]' },
-                { to: 'u', from: '[У]' },
-                { to: 'f', from: '[Ф]' },
-                { to: 'h', from: '[Х]' },
-                { to: 'ts', from: '[Ц]' },
-                { to: 'ch', from: '[Ч]' },
-                { to: 'sh', from: '[Ш]' },
-                { to: 'sht', from: '[Щ]' },
-                { to: 'a', from: '[Ъ]' },
-                { to: 'y', from: '[Ь]' },
-                { to: 'yu', from: '[Ю]' },
-                { to: 'ya', from: '[Я]' },
-            ];
-
-            // first try user locale's sets
-            if(Canvas.user.locale in sets){
-                sets[Canvas.user.locale].forEach((set) => {
-                    text = text.replace(new RegExp(set.from, 'gi'), set.to);
-                });
-            }
-
-            // after that use detault sets
-            sets.default.forEach((set) => {
+            sets.forEach((set) => {
                 text = text.replace(new RegExp(set.from, 'gi'), set.to);
             });
 
