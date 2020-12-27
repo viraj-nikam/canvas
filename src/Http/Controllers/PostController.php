@@ -138,8 +138,8 @@ class PostController extends Controller
         if ($post) {
             return response()->json([
                 'post' => $post,
-                'tags' => Tag::query()->get(['name', 'slug']),
-                'topics' => Topic::query()->get(['name', 'slug']),
+                'tags' => Tag::query()->get(['name', 'slug']), // TODO: Is this necessary anymore since we already join tags above?
+                'topics' => Topic::query()->get(['name', 'slug']), // TODO: Is this necessary anymore since we already join the topic above?
             ]);
         } else {
             return response()->json(null, 404);

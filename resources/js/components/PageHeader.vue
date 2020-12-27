@@ -107,7 +107,7 @@ export default {
 
     methods: {
         logout() {
-          window.location.href = '/logout';
+            window.location.href = '/logout';
         },
 
         showSearchModal() {
