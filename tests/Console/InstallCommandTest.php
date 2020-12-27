@@ -15,8 +15,7 @@ class InstallCommandTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
-    public function it_can_install_all_of_the_canvas_resources()
+    public function testCanvasInstallationCommand(): void
     {
         $this->artisan('canvas:install')
              ->assertExitCode(0)

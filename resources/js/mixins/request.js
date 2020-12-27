@@ -9,6 +9,7 @@ export default {
             instance.defaults.headers.common['X-CSRF-TOKEN'] = document.head.querySelector(
                 'meta[name="csrf-token"]'
             ).content;
+
             instance.defaults.baseURL = store.state.settings.path;
 
             const requestHandler = (request) => {
@@ -21,7 +22,7 @@ export default {
                 switch (error.response.status) {
                     case 401:
                     case 405:
-                        window.location.href = `${store.state.settings.path}/logout`;
+                        window.location.href = '/logout';
                         break;
                     default:
                         break;

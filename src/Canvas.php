@@ -33,13 +33,10 @@ class Canvas
     public static function availableLanguageCodes(): array
     {
         $locales = preg_grep('/^([^.])/', scandir(dirname(__DIR__, 1).'/resources/lang'));
-        $translations = collect();
 
-        foreach ($locales as $locale) {
-            $translations->push($locale);
-        }
-
-        return $translations->toArray();
+        return collect($locales)->each(function ($code) {
+            return $code;
+        })->toArray();
     }
 
     /**
@@ -94,13 +91,13 @@ class Canvas
     }
 
     /**
-     * Return the configured public path url, prioritizing a subdomain.
+     * Return the configured base path url.
      *
      * @return string
      */
     public static function basePath(): string
     {
-        return config('canvas.domain') ?? '/'.config('canvas.path');
+        return sprintf('/%s', config('canvas.path'));
     }
 
     /**
@@ -110,7 +107,7 @@ class Canvas
      */
     public static function baseStoragePath(): string
     {
-        return sprintf('%s/%s', config('canvas.storage_path'), 'images');
+        return sprintf('%s/images', config('canvas.storage_path'));
     }
 
     /**
@@ -119,7 +116,7 @@ class Canvas
      * @param string|null $url
      * @return bool
      */
-    public static function isValid(?string $url): bool
+    public static function isValidUrl(?string $url): bool
     {
         return filter_var($url, FILTER_VALIDATE_URL) ? true : false;
     }
@@ -130,7 +127,7 @@ class Canvas
      * @param string|null $url
      * @return mixed
      */
-    public static function trim(?string $url)
+    public static function trimUrl(?string $url)
     {
         return parse_url($url)['host'] ?? null;
     }

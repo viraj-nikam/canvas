@@ -89,7 +89,6 @@
 import { mapGetters, mapState } from 'vuex';
 import $ from 'jquery';
 import SearchModal from './modals/SearchModal';
-import axios from 'axios';
 
 export default {
     name: 'page-header',
@@ -108,9 +107,7 @@ export default {
 
     methods: {
         logout() {
-            axios.get(`${this.settings.path}/logout`).then(() => {
-                window.location.href = `${this.settings.path}/login`;
-            });
+            window.location.href = '/logout';
         },
 
         showSearchModal() {

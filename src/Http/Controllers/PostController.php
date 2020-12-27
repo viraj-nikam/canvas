@@ -2,13 +2,13 @@
 
 namespace Canvas\Http\Controllers;
 
-use Canvas\Http\Requests\StorePostRequest;
+use Canvas\Http\Requests\PostRequest;
 use Canvas\Models\Post;
 use Canvas\Models\Tag;
 use Canvas\Models\Topic;
 use Exception;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Ramsey\Uuid\Uuid;
 
@@ -17,36 +17,42 @@ class PostController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param Request $request
      * @return JsonResponse
      */
-    public function index(Request $request): JsonResponse
+    public function index(): JsonResponse
     {
-        $type = $request->query('type', 'published');
-        $scope = $request->query('scope', 'user');
-        $hasPermission = $request->user('canvas')->isAdmin || $request->user('canvas')->isEditor;
+        $posts = Post::query()
+                     ->when(request()->user('canvas')->isContributor || request()->query('scope', 'user') != 'all', function (Builder $query) {
+                         return $query->where('user_id', request()->user('canvas')->id);
+                     }, function (Builder $query) {
+                         return $query;
+                     })
+                     ->when(request()->query('type', 'published') != 'draft', function (Builder $query) {
+                         return $query->published();
+                     }, function (Builder $query) {
+                         return $query->draft();
+                     })
+                     ->latest()
+                     ->withCount('views')
+                     ->paginate();
 
-        $posts = Post::when($scope, function ($query, $scope) use ($request, $hasPermission) {
-            if ($scope === 'all' && $hasPermission) {
-                return $query;
-            }
+        $draftCount = Post::query()
+                          ->when(request()->user('canvas')->isContributor || request()->query('scope', 'user') != 'all', function (Builder $query) {
+                              return $query->where('user_id', request()->user('canvas')->id);
+                          }, function (Builder $query) {
+                              return $query;
+                          })
+                          ->draft()
+                          ->count();
 
-            return $query->where('user_id', $request->user('canvas')->id);
-        })->when($type, function ($query, $type) {
-            if ($type === 'draft') {
-                return $query->draft();
-            }
-
-            return $query->published();
-        })->latest()->withCount('views')->paginate();
-
-        if ($scope === 'all' && $hasPermission) {
-            $draftCount = Post::draft()->count();
-            $publishedCount = Post::published()->count();
-        } else {
-            $draftCount = Post::where('user_id', $request->user('canvas')->id)->draft()->count();
-            $publishedCount = Post::where('user_id', $request->user('canvas')->id)->published()->count();
-        }
+        $publishedCount = Post::query()
+                              ->when(request()->user('canvas')->isContributor || request()->query('scope', 'user') != 'all', function (Builder $query) {
+                                  return $query->where('user_id', request()->user('canvas')->id);
+                              }, function (Builder $query) {
+                                  return $query;
+                              })
+                              ->published()
+                              ->count();
 
         return response()->json([
             'posts' => $posts,
@@ -58,10 +64,9 @@ class PostController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @param Request $request
      * @return JsonResponse
      */
-    public function create(Request $request): JsonResponse
+    public function create(): JsonResponse
     {
         $uuid = Uuid::uuid4();
 
@@ -78,20 +83,23 @@ class PostController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param StorePostRequest $request
+     * @param PostRequest $request
      * @param $id
      * @return JsonResponse
      * @throws Exception
      */
-    public function store(StorePostRequest $request, $id): JsonResponse
+    public function store(PostRequest $request, $id): JsonResponse
     {
         $data = $request->validated();
 
-        $post = Post::when($request->user('canvas')->isContributor, function ($query) {
-            return $query->where('user_id', request()->user('canvas')->id);
-        }, function ($query) {
-            return $query;
-        })->with('tags', 'topic')->find($id);
+        $post = Post::query()
+                    ->when($request->user('canvas')->isContributor, function (Builder $query) {
+                        return $query->where('user_id', request()->user('canvas')->id);
+                    }, function (Builder $query) {
+                        return $query;
+                    })
+                    ->with('tags', 'topic')
+                    ->find($id);
 
         if (! $post) {
             $post = new Post(['id' => $id]);
@@ -103,9 +111,9 @@ class PostController extends Controller
 
         $post->save();
 
-        $post->topic()->sync($this->syncedTopic($request->input('topic') ?? []));
+        $post->tags()->sync($this->syncTags($request->input('tags', [])));
 
-        $post->tags()->sync($this->syncedTags($request->input('tags') ?? []));
+        $post->topic()->sync($this->syncTopic($request->input('topic', [])));
 
         return response()->json($post->refresh(), 201);
     }
@@ -113,25 +121,25 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param Request $request
      * @param $id
      * @return JsonResponse
      */
-    public function show(Request $request, $id): JsonResponse
+    public function show($id): JsonResponse
     {
-        $hasPermission = $request->user('canvas')->isAdmin || $request->user('canvas')->isEditor;
-
-        if ($hasPermission) {
-            $post = Post::with('tags:name,slug', 'topic:name,slug')->find($id);
-        } else {
-            $post = Post::where('user_id', $request->user('canvas')->id)->with('tags:name,slug', 'topic:name,slug')->find($id);
-        }
+        $post = Post::query()
+                    ->when(request()->user('canvas')->isContributor, function (Builder $query) {
+                        return $query->where('user_id', request()->user('canvas')->id);
+                    }, function (Builder $query) {
+                        return $query;
+                    })
+                    ->with('tags:name,slug', 'topic:name,slug')
+                    ->find($id);
 
         if ($post) {
             return response()->json([
                 'post' => $post,
-                'tags' => Tag::get(['name', 'slug']),
-                'topics' => Topic::get(['name', 'slug']),
+                'tags' => Tag::query()->get(['name', 'slug']), // TODO: Is this necessary anymore since we already join tags above?
+                'topics' => Topic::query()->get(['name', 'slug']), // TODO: Is this necessary anymore since we already join the topic above?
             ]);
         } else {
             return response()->json(null, 404);
@@ -141,13 +149,19 @@ class PostController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param Request $request
      * @param $id
      * @return mixed
+     * @throws Exception
      */
-    public function destroy(Request $request, $id)
+    public function destroy($id)
     {
-        $post = Post::where('user_id', $request->user('canvas')->id)->findOrFail($id);
+        $post = Post::query()
+                    ->when(request()->user('canvas')->isContributor, function (Builder $query) {
+                        return $query->where('user_id', request()->user('canvas')->id);
+                    }, function (Builder $query) {
+                        return $query;
+                    })
+                    ->findOrFail($id);
 
         $post->delete();
 
@@ -155,49 +169,14 @@ class PostController extends Controller
     }
 
     /**
-     * Sync the topic assigned to the post.
-     *
-     * @param array $incomingTopic
-     * @return array
-     */
-    protected function syncedTopic(array $incomingTopic): array
-    {
-        if (collect($incomingTopic)->isEmpty()) {
-            return [];
-        }
-
-        // Since the multiselect component handles single selects differently, when we try and
-        // attach an existing topic it will enter as an object in an array. A newly created
-        // topic will come in strictly as an array with only a name and a slug.
-        $topicToAssign = empty($incomingTopic[0]) ? $incomingTopic : $incomingTopic[0];
-
-        $topic = Topic::firstWhere('slug', $topicToAssign['slug']);
-
-        if (! $topic) {
-            $topic = Topic::create([
-                'id' => $id = Uuid::uuid4()->toString(),
-                'name' => $topicToAssign['name'],
-                'slug' => $topicToAssign['slug'],
-                'user_id' => request()->user('canvas')->id,
-            ]);
-        }
-
-        return [(string) $topic->id];
-    }
-
-    /**
-     * Sync the tags assigned to the post.
+     * Sync given tags.
      *
      * @param array $incomingTags
      * @return array
      */
-    protected function syncedTags(array $incomingTags): array
+    protected function syncTags(array $incomingTags): array
     {
-        if (collect($incomingTags)->isEmpty()) {
-            return [];
-        }
-
-        $tags = Tag::get(['id', 'name', 'slug']);
+        $tags = Tag::query()->get(['id', 'name', 'slug']);
 
         return collect($incomingTags)->map(function ($item) use ($tags) {
             $tag = $tags->firstWhere('slug', $item['slug']);
@@ -212,6 +191,32 @@ class PostController extends Controller
             }
 
             return (string) $tag->id;
+        })->toArray();
+    }
+
+    /**
+     * Sync a given topic.
+     *
+     * @param array $incomingTopic
+     * @return array
+     */
+    protected function syncTopic(array $incomingTopic): array
+    {
+        $topics = Topic::query()->get(['id', 'name', 'slug']);
+
+        return collect($incomingTopic)->map(function ($item) use ($topics) {
+            $topic = $topics->firstWhere('slug', $item['slug']);
+
+            if (! $topic) {
+                $topic = Topic::create([
+                    'id' => $id = Uuid::uuid4()->toString(),
+                    'name' => $item['name'],
+                    'slug' => $item['slug'],
+                    'user_id' => request()->user('canvas')->id,
+                ]);
+            }
+
+            return (string) $topic->id;
         })->toArray();
     }
 }

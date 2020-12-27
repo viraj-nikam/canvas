@@ -2,7 +2,6 @@
 
 namespace Canvas\Tests\Http\Controllers;
 
-use Canvas\Models\User;
 use Canvas\Tests\TestCase;
 
 /**
@@ -12,24 +11,12 @@ use Canvas\Tests\TestCase;
  */
 class HomeControllerTest extends TestCase
 {
-    /**
-     * @return void
-     */
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        $this->registerAssertJsonExactFragmentMacro();
-    }
-
     /** @test */
-    public function it_can_load_the_script_variables()
+    public function testScriptVariables(): void
     {
-        $user = factory(User::class)->create([
-            'role' => User::ADMIN,
-        ]);
+        $this->withoutMix();
 
-        $this->actingAs($user, 'canvas')
+        $this->actingAs($this->admin, 'canvas')
              ->get(config('canvas.path'))
              ->assertSuccessful()
              ->assertViewIs('canvas::layout')

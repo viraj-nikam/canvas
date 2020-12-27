@@ -11,8 +11,7 @@ use Canvas\Tests\TestCase;
  */
 class PublishCommandTest extends TestCase
 {
-    /** @test */
-    public function it_can_publish_canvas_assets()
+    public function testCanvasPublishCommand(): void
     {
         // No idea why this prints out 3 times here... ¯\_(ツ)_/¯
         $this->artisan('canvas:publish')

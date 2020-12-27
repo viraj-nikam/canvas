@@ -82,8 +82,8 @@ class Tag extends Model
     {
         parent::boot();
 
-        static::deleting(function ($item) {
-            $item->posts()->detach();
+        static::deleting(function (self $tag) {
+            $tag->posts()->detach();
         });
     }
 }

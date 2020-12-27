@@ -2,10 +2,10 @@
 
 namespace Canvas\Http\Controllers;
 
-use Canvas\Http\Requests\StoreTagRequest;
+use Canvas\Http\Requests\TagRequest;
 use Canvas\Models\Tag;
+use Exception;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Ramsey\Uuid\Uuid;
 
@@ -14,13 +14,13 @@ class TagController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param Request $request
      * @return JsonResponse
      */
-    public function index(Request $request): JsonResponse
+    public function index(): JsonResponse
     {
         return response()->json(
-            Tag::latest()
+            Tag::query()
+               ->latest()
                ->withCount('posts')
                ->paginate(), 200
         );
@@ -29,10 +29,9 @@ class TagController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @param Request $request
      * @return JsonResponse
      */
-    public function create(Request $request): JsonResponse
+    public function create(): JsonResponse
     {
         return response()->json(Tag::make([
             'id' => Uuid::uuid4()->toString(),
@@ -42,15 +41,15 @@ class TagController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param StoreTagRequest $request
+     * @param TagRequest $request
      * @param $id
      * @return JsonResponse
      */
-    public function store(StoreTagRequest $request, $id): JsonResponse
+    public function store(TagRequest $request, $id): JsonResponse
     {
         $data = $request->validated();
 
-        $tag = Tag::find($id);
+        $tag = Tag::query()->find($id);
 
         if (! $tag) {
             if ($tag = Tag::onlyTrashed()->firstWhere('slug', $data['slug'])) {
@@ -74,13 +73,12 @@ class TagController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param Request $request
      * @param $id
      * @return JsonResponse
      */
-    public function show(Request $request, $id): JsonResponse
+    public function show($id): JsonResponse
     {
-        $tag = Tag::find($id);
+        $tag = Tag::query()->find($id);
 
         return $tag ? response()->json($tag, 200) : response()->json(null, 404);
     }
@@ -88,13 +86,12 @@ class TagController extends Controller
     /**
      * Display the specified relationship.
      *
-     * @param Request $request
      * @param $id
      * @return JsonResponse
      */
-    public function showPosts(Request $request, $id): JsonResponse
+    public function showPosts($id): JsonResponse
     {
-        $tag = Tag::with('posts')->find($id);
+        $tag = Tag::query()->with('posts')->find($id);
 
         return $tag ? response()->json($tag->posts()->withCount('views')->paginate(), 200) : response()->json(null, 200);
     }
@@ -102,13 +99,13 @@ class TagController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param Request $request
      * @param $id
      * @return mixed
+     * @throws Exception
      */
-    public function destroy(Request $request, $id)
+    public function destroy($id)
     {
-        $tag = Tag::findOrFail($id);
+        $tag = Tag::query()->findOrFail($id);
 
         $tag->delete();
 
