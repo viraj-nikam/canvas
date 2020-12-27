@@ -101,7 +101,7 @@ class PostController extends Controller
                     ->with('tags', 'topic')
                     ->find($id);
 
-        if (! $post) {
+        if (!$post) {
             $post = new Post(['id' => $id]);
         }
 
@@ -111,9 +111,42 @@ class PostController extends Controller
 
         $post->save();
 
-        $post->tags()->sync($this->syncTags($request->input('tags', [])));
+        $tags = Tag::query()->get(['id', 'name', 'slug']);
+        $topics = Topic::query()->get(['id', 'name', 'slug']);
 
-        $post->topic()->sync($this->syncTopic($request->input('topic', [])));
+        $tagsToSync = collect($request->input('tags', []))->map(function ($item) use ($tags) {
+            $tag = $tags->firstWhere('slug', $item['slug']);
+
+            if (!$tag) {
+                $tag = Tag::create([
+                    'id' => $id = Uuid::uuid4()->toString(),
+                    'name' => $item['name'],
+                    'slug' => $item['slug'],
+                    'user_id' => request()->user('canvas')->id,
+                ]);
+            }
+
+            return (string)$tag->id;
+        })->toArray();
+
+        $topicToSync = collect($request->input('topic', []))->map(function ($item) use ($topics) {
+            $topic = $topics->firstWhere('slug', $item['slug']);
+
+            if (!$topic) {
+                $topic = Topic::create([
+                    'id' => $id = Uuid::uuid4()->toString(),
+                    'name' => $item['name'],
+                    'slug' => $item['slug'],
+                    'user_id' => request()->user('canvas')->id,
+                ]);
+            }
+
+            return (string)$topic->id;
+        })->toArray();
+
+        $post->tags()->sync($tagsToSync);
+
+        $post->topic()->sync($topicToSync);
 
         return response()->json($post->refresh(), 201);
     }
@@ -138,8 +171,8 @@ class PostController extends Controller
         if ($post) {
             return response()->json([
                 'post' => $post,
-                'tags' => Tag::query()->get(['name', 'slug']), // TODO: Is this necessary anymore since we already join tags above?
-                'topics' => Topic::query()->get(['name', 'slug']), // TODO: Is this necessary anymore since we already join the topic above?
+                'tags' => Tag::query()->get(['name', 'slug']),
+                'topics' => Topic::query()->get(['name', 'slug']),
             ]);
         } else {
             return response()->json(null, 404);
@@ -166,57 +199,5 @@ class PostController extends Controller
         $post->delete();
 
         return response()->json(null, 204);
-    }
-
-    /**
-     * Sync given tags.
-     *
-     * @param array $incomingTags
-     * @return array
-     */
-    protected function syncTags(array $incomingTags): array
-    {
-        $tags = Tag::query()->get(['id', 'name', 'slug']);
-
-        return collect($incomingTags)->map(function ($item) use ($tags) {
-            $tag = $tags->firstWhere('slug', $item['slug']);
-
-            if (! $tag) {
-                $tag = Tag::create([
-                    'id' => $id = Uuid::uuid4()->toString(),
-                    'name' => $item['name'],
-                    'slug' => $item['slug'],
-                    'user_id' => request()->user('canvas')->id,
-                ]);
-            }
-
-            return (string) $tag->id;
-        })->toArray();
-    }
-
-    /**
-     * Sync a given topic.
-     *
-     * @param array $incomingTopic
-     * @return array
-     */
-    protected function syncTopic(array $incomingTopic): array
-    {
-        $topics = Topic::query()->get(['id', 'name', 'slug']);
-
-        return collect($incomingTopic)->map(function ($item) use ($topics) {
-            $topic = $topics->firstWhere('slug', $item['slug']);
-
-            if (! $topic) {
-                $topic = Topic::create([
-                    'id' => $id = Uuid::uuid4()->toString(),
-                    'name' => $item['name'],
-                    'slug' => $item['slug'],
-                    'user_id' => request()->user('canvas')->id,
-                ]);
-            }
-
-            return (string) $topic->id;
-        })->toArray();
     }
 }
