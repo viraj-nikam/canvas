@@ -143,6 +143,6 @@ class CanvasUiController extends Controller
     {
         $user = User::find($id);
 
-        return $user ? response()->json($user->posts()->whereNotNull('published_at')->with('topic')->paginate(), 200) : response()->json(null, 200);
+        return $user ? response()->json($user->posts()->published()->with('topic')->paginate(), 200) : response()->json(null, 200);
     }
 }
