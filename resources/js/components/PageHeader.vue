@@ -89,6 +89,7 @@
 import { mapGetters, mapState } from 'vuex';
 import $ from 'jquery';
 import SearchModal from './modals/SearchModal';
+import { store } from '../store';
 
 export default {
     name: 'page-header',
@@ -107,7 +108,11 @@ export default {
 
     methods: {
         logout() {
-            window.location.href = '/logout';
+            if (store.state.settings.path === '/') {
+                window.location.href = `/logout`;
+            } else {
+                window.location.href = `${store.state.settings.path}/logout`;
+            }
         },
 
         showSearchModal() {

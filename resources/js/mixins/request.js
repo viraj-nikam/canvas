@@ -22,7 +22,12 @@ export default {
                 switch (error.response.status) {
                     case 401:
                     case 405:
-                        window.location.href = '/logout';
+                        if (store.state.settings.path === '/') {
+                            window.location.href = `/logout`;
+                        } else {
+                            window.location.href = `${instance.defaults.baseURL}/logout`;
+                        }
+
                         break;
                     default:
                         break;
