@@ -2,7 +2,7 @@
 image:
   file: Dockerfile
 
-workspaceLocation: canvas/canvas.code-workspace
+workspaceLocation: canvas/gitpod.code-workspace
 checkoutLocation: canvas
 
 vscode:
