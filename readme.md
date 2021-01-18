@@ -1,6 +1,6 @@
 <p align="center">
     <a href="https://trycanvas.app">
-        <img src=".github/assets/header.png" alt="Canvas">
+        <img src=".github/assets/header.png" alt="Canvas homepage">
     </a>
 </p>
 
