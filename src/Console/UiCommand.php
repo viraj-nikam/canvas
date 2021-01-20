@@ -41,21 +41,19 @@ class UiCommand extends Command
         $this->updateNodePackages(function ($packages) {
             return [
                 'axios' => '^0.21.1',
-                'bootstrap' => '^4.5.3',
-                'cross-env' => '^7.0.3',
+                'bootstrap' => '^4.6.0',
                 'highlight.js' => '^10.5.0',
                 'jquery' => '^3.5.1',
-                'laravel-mix' => '^5.0.7',
-                'lodash' => '^4.17.20',
                 'medium-zoom' => '^1.0.6',
                 'moment' => '^2.29.1',
                 'nprogress' => '^0.2.0',
                 'popper.js' => '^1.16.1',
                 'resolve-url-loader' => '^3.1.2',
-                'sass' => '^1.32.0',
-                'sass-loader' => '^10.1.0',
+                'sass' => '^1.32.4',
+                'sass-loader' => '^10.1.1',
                 'vue' => '^2.6.12',
                 'vue-infinite-loading' => '^2.4.5',
+                'vue-loader' => '^15.9.5',
                 'vue-meta' => '^2.4.0',
                 'vue-router' => '^3.4.9',
                 'vue-template-compiler' => '^2.6.12',
@@ -78,8 +76,8 @@ class UiCommand extends Command
     /**
      * Update the "package.json" file.
      *
-     * @param  callable  $callback
-     * @param  bool  $dev
+     * @param callable $callback
+     * @param bool $dev
      * @return void
      */
     protected function updateNodePackages(callable $callback, $dev = true)

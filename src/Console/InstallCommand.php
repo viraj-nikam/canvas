@@ -25,6 +25,20 @@ class InstallCommand extends Command
     protected $description = 'Install the Canvas components and resources';
 
     /**
+     * Create a new console command instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        parent::__construct();
+
+        if (file_exists(config_path('canvas.php'))) {
+            $this->setHidden(true);
+        }
+    }
+
+    /**
      * Execute the console command.
      *
      * @return void
