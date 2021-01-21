@@ -219,10 +219,10 @@ Since the weekly digest runs on [Laravel's Scheduler](https://laravel.com/docs/m
 
 ## Updates
 
-Canvas loosely follows [Semantic Versioning](https://semver.org/) and increments versions as `MAJOR.MINOR.PATCH` numbers
-- Major and minor versions _can contain breaking changes_, so follow the [upgrade guide](.github/UPGRADE.md) for a
+Canvas follows [Semantic Versioning](https://semver.org) and increments versions as `MAJOR.MINOR.PATCH` numbers.
+- Major versions **will** contain breaking changes, so follow the [upgrade guide](.github/UPGRADE.md) for a
  step-by-step breakdown
-- Patch versions will remain backwards compatible, so you can safely update the package by following the steps below:
+- Minor and patch versions should **never** contain breaking changes, so you can safely update the package by following the steps below:
 
 You may update your Canvas installation using composer:
 
