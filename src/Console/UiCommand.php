@@ -70,7 +70,7 @@ class UiCommand extends Command
         $this->flushNodeModules();
 
         $this->info('Installation complete.');
-        $this->comment('Please run "npm install && npm run dev" to compile your fresh scaffolding.');
+        $this->comment('Please run "npm install && npm run dev" to build your assets.');
     }
 
     /**
