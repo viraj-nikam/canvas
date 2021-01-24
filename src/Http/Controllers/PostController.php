@@ -22,6 +22,7 @@ class PostController extends Controller
     public function index(): JsonResponse
     {
         $posts = Post::query()
+                    ->select('id', 'title', 'summary', 'featured_image', 'published_at', 'created_at', 'updated_at')
                      ->when(request()->user('canvas')->isContributor || request()->query('scope', 'user') != 'all', function (Builder $query) {
                          return $query->where('user_id', request()->user('canvas')->id);
                      }, function (Builder $query) {
