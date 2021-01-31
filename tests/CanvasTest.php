@@ -85,4 +85,17 @@ class CanvasTest extends TestCase
         $this->assertStringContainsString(sprintf('d=%s', $default), $url);
         $this->assertStringContainsString(sprintf('r=%s', $rating), $url);
     }
+
+    public function testEnabledDarkMode(): void
+    {
+        $this->assertTrue(Canvas::enabledDarkMode(1));
+        $this->assertFalse(Canvas::enabledDarkMode(0));
+    }
+
+    public function testUsingRightToLeftLanguage(): void
+    {
+        $this->assertTrue(Canvas::usingRightToLeftLanguage('ar'));
+        $this->assertTrue(Canvas::usingRightToLeftLanguage('fa'));
+        $this->assertFalse(Canvas::usingRightToLeftLanguage('en'));
+    }
 }

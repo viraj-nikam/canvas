@@ -20,7 +20,7 @@ class HomeControllerTest extends TestCase
              ->get(config('canvas.path'))
              ->assertSuccessful()
              ->assertViewIs('canvas::layout')
-             ->assertViewHas('config')
+             ->assertViewHas('jsVars')
              ->assertSee('canvas');
     }
 }
