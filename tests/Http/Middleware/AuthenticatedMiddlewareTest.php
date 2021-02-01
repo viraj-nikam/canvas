@@ -8,9 +8,9 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 /**
  * Class AuthorizeTest.
  *
- * @covers \Canvas\Http\Middleware\Authorize
+ * @covers \Canvas\Http\Middleware\AuthenticatedMiddleware
  */
-class AuthorizeTest extends TestCase
+class AuthenticatedMiddlewareTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -20,6 +20,9 @@ class AuthorizeTest extends TestCase
     public function protectedRoutesProvider(): array
     {
         return [
+            // Base route...
+            ['GET', 'canvas'],
+
             // Upload routes...
             ['POST', 'canvas/api/uploads'],
             ['DELETE', 'canvas/api/uploads'],
@@ -80,10 +83,10 @@ class AuthorizeTest extends TestCase
     }
 
     /** @test */
-    public function testAdminUsersSuccessfullyPassThroughMiddleware()
+    public function testAuthenticatedUsersAreRedirectedToCanvas()
     {
         $this->actingAs($this->admin, 'canvas')
-             ->get(config('canvas.path'))
-             ->assertSuccessful();
+             ->get(route('canvas.login'))
+             ->assertRedirect(config('canvas.path'));
     }
 }

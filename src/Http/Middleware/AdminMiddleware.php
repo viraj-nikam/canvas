@@ -5,7 +5,7 @@ namespace Canvas\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 
-class Admin
+class AdminMiddleware
 {
     /**
      * Handle the incoming request.
