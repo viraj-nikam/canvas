@@ -18,7 +18,7 @@ class HomeController extends Controller
     public function index()
     {
         return view('canvas::layout')->with([
-            'config' => [
+            'jsVars' => [
                 'languageCodes' => Canvas::availableLanguageCodes(),
                 'maxUpload' => config('canvas.upload_filesize'),
                 'path' => Canvas::basePath(),

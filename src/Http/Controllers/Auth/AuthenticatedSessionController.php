@@ -17,10 +17,14 @@ class AuthenticatedSessionController extends Controller
     /**
      * Display the login view.
      *
-     * @return Application|Factory|View
+     * @return Application|Factory|View|RedirectResponse
      */
     public function create()
     {
+        if (Auth::guard('canvas')->check()) {
+            return redirect()->route('canvas');
+        }
+
         return view('canvas::auth.login');
     }
 

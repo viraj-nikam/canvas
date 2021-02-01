@@ -147,4 +147,26 @@ class Canvas
 
         return "https://secure.gravatar.com/avatar/{$hash}?s={$size}&d={$default}&r={$rating}";
     }
+
+    /**
+     * Return true if dark mode is enabled.
+     *
+     * @param int $enabled
+     * @return bool
+     */
+    public static function enabledDarkMode(int $enabled): bool
+    {
+        return (bool) $enabled ?: false;
+    }
+
+    /**
+     * Return true if the app is configured to use Arabic or Farsi.
+     *
+     * @param string $locale
+     * @return bool
+     */
+    public static function usingRightToLeftLanguage(string $locale): bool
+    {
+        return in_array($locale, ['ar', 'fa']);
+    }
 }

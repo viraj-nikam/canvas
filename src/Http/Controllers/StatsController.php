@@ -24,6 +24,7 @@ class StatsController extends Controller
     public function index(): JsonResponse
     {
         $posts = Post::query()
+                     ->select('id')
                      ->when(request()->query('scope', 'user') === 'all', function (Builder $query) {
                          return $query;
                      }, function (Builder $query) {
@@ -33,14 +34,16 @@ class StatsController extends Controller
                      ->latest()
                      ->get();
 
-        $views = View::select('created_at')
+        $views = View::query()
+                     ->select('created_at')
                      ->whereIn('post_id', $posts->pluck('id'))
                      ->whereBetween('created_at', [
                          today()->subDays(30)->startOfDay()->toDateTimeString(),
                          today()->endOfDay()->toDateTimeString(),
                      ])->get();
 
-        $visits = Visit::select('created_at')
+        $visits = Visit::query()
+                       ->select('created_at')
                        ->whereIn('post_id', $posts->pluck('id'))
                        ->whereBetween('created_at', [
                            today()->subDays(30)->startOfDay()->toDateTimeString(),
