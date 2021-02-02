@@ -20,6 +20,7 @@ class TagController extends Controller
     {
         return response()->json(
             Tag::query()
+               ->select('id', 'name', 'slug')
                ->latest()
                ->withCount('posts')
                ->paginate(), 200
@@ -51,7 +52,7 @@ class TagController extends Controller
 
         $tag = Tag::query()->find($id);
 
-        if (! $tag) {
+        if (!$tag) {
             if ($tag = Tag::onlyTrashed()->firstWhere('slug', $data['slug'])) {
                 $tag->restore();
 
