@@ -20,6 +20,7 @@ class TopicController extends Controller
     {
         return response()->json(
             Topic::query()
+                 ->select('id', 'name', 'created_at')
                  ->latest()
                  ->withCount('posts')
                  ->paginate(), 200

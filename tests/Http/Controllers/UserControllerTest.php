@@ -7,6 +7,7 @@ use Canvas\Models\User;
 use Canvas\Models\View;
 use Canvas\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Ramsey\Uuid\Uuid;
 
 /**
@@ -19,65 +20,38 @@ class UserControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function testAnAdminCanFetchAllUsers(): void
+    public function testListAllUsers(): void
     {
-        $this->actingAs($this->admin, 'canvas')
-             ->getJson('canvas/api/users')
-             ->assertSuccessful()
-             ->assertJsonFragment([
-                 'id' => $this->admin->id,
-                 'role' => User::ADMIN,
-                 'posts_count' => (string) $this->admin->posts()->count(),
-                 'default_avatar' => $this->admin->default_avatar,
-                 'default_locale' => $this->admin->default_locale,
-             ])
-             ->assertJsonFragment([
-                 'id' => $this->editor->id,
-                 'role' => User::EDITOR,
-                 'posts_count' => (string) $this->editor->posts()->count(),
-                 'default_avatar' => $this->editor->default_avatar,
-                 'default_locale' => $this->editor->default_locale,
-             ])
-             ->assertJsonFragment([
-                 'id' => $this->contributor->id,
-                 'role' => User::CONTRIBUTOR,
-                 'posts_count' => (string) $this->contributor->posts()->count(),
-                 'default_avatar' => $this->contributor->default_avatar,
-                 'default_locale' => $this->contributor->default_locale,
-             ]);
+        $response = $this->actingAs($this->admin, 'canvas')
+                         ->getJson('canvas/api/users')
+                         ->assertSuccessful();
+
+        $this->assertInstanceOf(User::class, $response->getOriginalContent()->first());
+
+        $this->assertInstanceOf(LengthAwarePaginator::class, $response->getOriginalContent());
+
+        $this->assertCount(3, $response->getOriginalContent());
     }
 
-    public function testNewPostData(): void
+    public function testCreateDataForUser(): void
     {
-        $this->actingAs($this->admin, 'canvas')
-             ->getJson('canvas/api/users/create')
-             ->assertSuccessful()
-             ->assertJsonStructure([
-                 'id',
-                 'default_avatar',
-             ])
-             ->assertJsonFragment([
-                 'role' => User::CONTRIBUTOR,
-                 'default_locale' => config('app.locale'),
+        $response = $this->actingAs($this->admin, 'canvas')
+                         ->getJson('canvas/api/users/create')
+                         ->assertSuccessful();
 
-             ]);
+        $this->assertInstanceOf(User::class, $response->getOriginalContent());
     }
 
-    public function testExistingPostData(): void
+    public function testExistingUserData(): void
     {
-        $this->actingAs($this->admin, 'canvas')
-             ->getJson("canvas/api/users/{$this->contributor->id}")
-             ->assertSuccessful()
-             ->assertJsonFragment([
-                 'id' => $this->contributor->id,
-                 'role' => User::CONTRIBUTOR,
-                 'posts_count' => (string) $this->contributor->posts()->count(),
-                 'default_avatar' => $this->contributor->default_avatar,
-                 'default_locale' => $this->contributor->default_locale,
-             ]);
+        $response = $this->actingAs($this->admin, 'canvas')
+                         ->getJson("canvas/api/users/{$this->contributor->id}")
+                         ->assertSuccessful();
+
+        $this->assertTrue($this->contributor->is($response->getOriginalContent()));
     }
 
-    public function testPostsCanBeFetchedForAUser(): void
+    public function testListPostsForUser(): void
     {
         $post = factory(Post::class)->create([
             'user_id' => $this->admin->id,
@@ -87,14 +61,15 @@ class UserControllerTest extends TestCase
             'post_id' => $post->id,
         ]);
 
-        $this->actingAs($this->admin, 'canvas')
-             ->getJson("canvas/api/users/{$this->admin->id}/posts")
-             ->assertSuccessful()
-             ->assertJsonFragment([
-                 'id' => $post->id,
-                 'views_count' => (string) $post->views->count(),
-                 'total' => $this->admin->posts()->count(),
-             ]);
+        $response = $this->actingAs($this->admin, 'canvas')
+                         ->getJson("canvas/api/users/{$this->admin->id}/posts")
+                         ->assertSuccessful();
+
+        $this->assertInstanceOf(Post::class, $response->getOriginalContent()->first());
+
+        $this->assertInstanceOf(LengthAwarePaginator::class, $response->getOriginalContent());
+
+        $this->assertCount(1, $response->getOriginalContent());
     }
 
     public function testUserNotFound(): void
@@ -114,21 +89,16 @@ class UserControllerTest extends TestCase
             'password_confirmation' => 'password',
         ];
 
-        $this->actingAs($this->admin, 'canvas')
-             ->postJson("canvas/api/users/{$data['id']}", $data)
-             ->assertSuccessful()
-             ->assertJsonStructure([
-                 'user',
-                 'i18n',
-             ])
-             ->assertJsonFragment([
-                 'id' => $data['id'],
-                 'name' => $data['name'],
-                 'email' => $data['email'],
-             ]);
+        $response = $this->actingAs($this->admin, 'canvas')
+                         ->postJson("canvas/api/users/{$data['id']}", $data)
+                         ->assertSuccessful();
+
+        $this->assertInstanceOf(User::class, $response->getOriginalContent()['user']);
+
+        $this->assertSame($data['id'], $response->getOriginalContent()['user']->id);
     }
 
-    public function testADeletedUserCanBeRefreshed(): void
+    public function testDeletedUsersCanBeRefreshed(): void
     {
         $deletedUser = factory(User::class)->create([
             'id' => Uuid::uuid4()->toString(),
@@ -145,14 +115,13 @@ class UserControllerTest extends TestCase
             'password_confirmation' => 'password',
         ];
 
-        $this->actingAs($this->admin, 'canvas')
-             ->postJson("canvas/api/users/{$data['id']}", $data)
-             ->assertSuccessful()
-             ->assertJsonFragment([
-                 'id' => $deletedUser->id,
-                 'name' => $deletedUser->name,
-                 'email' => $deletedUser->email,
-             ]);
+        $response = $this->actingAs($this->admin, 'canvas')
+                         ->postJson("canvas/api/users/{$data['id']}", $data)
+                         ->assertSuccessful();
+
+        $this->assertInstanceOf(User::class, $response->getOriginalContent()['user']);
+
+        $this->assertSame($deletedUser['id'], $response->getOriginalContent()['user']->id);
     }
 
     public function testUpdateExistingUser(): void
@@ -164,14 +133,18 @@ class UserControllerTest extends TestCase
             'email' => 'new-email@example.com',
         ];
 
-        $this->actingAs($this->admin, 'canvas')
-             ->postJson("canvas/api/users/{$user->id}", $data)
-             ->assertSuccessful()
-             ->assertJsonFragment([
-                 'id' => $user->id,
-                 'name' => $data['name'],
-                 'email' => $data['email'],
-             ]);
+        $response = $this->actingAs($this->admin, 'canvas')
+                         ->postJson("canvas/api/users/{$user->id}", $data)
+                         ->assertSuccessful()
+                         ->assertJsonFragment([
+                             'id' => $user->id,
+                             'name' => $data['name'],
+                             'email' => $data['email'],
+                         ]);
+
+        $this->assertInstanceOf(User::class, $response->getOriginalContent()['user']);
+
+        $this->assertSame($data['email'], $response->getOriginalContent()['user']->email);
     }
 
     public function testInvalidPasswordCombinationsAreValidated(): void
@@ -260,7 +233,7 @@ class UserControllerTest extends TestCase
              ]);
     }
 
-    public function testAUserCannotDeleteTheirOwnAccount(): void
+    public function testUsersCannotDeleteTheirOwnAccount(): void
     {
         $this->actingAs($this->admin, 'canvas')
              ->deleteJson("canvas/api/users/{$this->admin->id}")

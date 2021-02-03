@@ -23,6 +23,7 @@ class UserController extends Controller
     {
         return response()->json(
             User::query()
+                ->select('id', 'name', 'email', 'avatar', 'role')
                 ->latest()
                 ->withCount('posts')
                 ->paginate(), 200

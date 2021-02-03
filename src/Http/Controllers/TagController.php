@@ -20,6 +20,7 @@ class TagController extends Controller
     {
         return response()->json(
             Tag::query()
+               ->select('id', 'name', 'created_at')
                ->latest()
                ->withCount('posts')
                ->paginate(), 200

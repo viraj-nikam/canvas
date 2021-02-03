@@ -16,43 +16,47 @@ class UploadsControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function testEmptyPayloadValidation(): void
+    public function testEmptyUploadIsValidated(): void
     {
         Storage::fake(config('canvas.storage_disk'));
 
-        $this->actingAs($this->admin, 'canvas')->postJson('canvas/api/uploads', [
-            null,
-        ])->assertStatus(400);
+        $this->actingAs($this->admin, 'canvas')
+             ->postJson('canvas/api/uploads', [null])
+             ->assertStatus(400);
     }
 
-    public function testProcessMediaUploadAndStore(): void
+    public function testUploadedImageCanBeStored(): void
     {
         Storage::fake(config('canvas.storage_disk'));
 
-        $response = $this->actingAs($this->admin, 'canvas')->postJson('canvas/api/uploads', [
-            $file = UploadedFile::fake()->image('photo.jpg'),
-        ])->assertSuccessful();
+        $response = $this->actingAs($this->admin, 'canvas')
+                         ->postJson('canvas/api/uploads', [$file = UploadedFile::fake()->image('1.jpg')])
+                         ->assertSuccessful();
 
         $path = sprintf('%s/%s/%s', config('canvas.storage_path'), 'images', $file->hashName());
 
-        $this->assertStringContainsString($response->getContent(), Storage::disk(config('canvas.storage_disk'))->url($path));
+        $this->assertSame(
+            $response->getOriginalContent(),
+            Storage::disk(config('canvas.storage_disk'))->url($path)
+        );
 
         $this->assertIsString($response->getContent());
 
         Storage::disk(config('canvas.storage_disk'))->assertExists($path);
     }
 
-    public function testDeleteMedia(): void
+    public function testDeleteUploadedImage(): void
     {
         Storage::fake(config('canvas.storage_disk'));
 
-        $this->actingAs($this->admin, 'canvas')->delete('canvas/api/uploads', [
-            null,
-        ])->assertStatus(400);
+        $this->actingAs($this->admin, 'canvas')
+             ->delete('canvas/api/uploads', [
+                 null,
+             ])->assertStatus(400);
 
-        $this->actingAs($this->admin, 'canvas')->deleteJson('canvas/api/uploads', [
-            $file = UploadedFile::fake()->image('photo.jpg'),
-        ])->assertSuccessful();
+        $this->actingAs($this->admin, 'canvas')
+             ->deleteJson('canvas/api/uploads', [$file = UploadedFile::fake()->image('1.jpg')])
+             ->assertSuccessful();
 
         $path = sprintf('%s/%s/%s', config('canvas.storage_path'), 'images', $file->hashName());
 
