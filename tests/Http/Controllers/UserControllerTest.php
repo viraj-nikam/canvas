@@ -19,7 +19,7 @@ class UserControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function testAnAdminCanFetchAllUsers(): void
+    public function testListAllUsers(): void
     {
         $this->actingAs($this->admin, 'canvas')
              ->getJson('canvas/api/users')

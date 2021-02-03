@@ -4,10 +4,10 @@ namespace Canvas\Tests\Http\Controllers;
 
 use Canvas\Models\Post;
 use Canvas\Models\Topic;
-use Canvas\Models\User;
 use Canvas\Models\View;
 use Canvas\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Ramsey\Uuid\Uuid;
 
 /**
@@ -20,55 +20,42 @@ class TopicControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function testAnAdminCanFetchAllTopics(): void
+    public function testListAllTopics(): void
     {
-        $topic = factory(Topic::class)->create([
-            'user_id' => factory(User::class)->create([
-                'role' => User::ADMIN,
-            ]),
-        ]);
+        factory(Topic::class, 2)->create();
 
-        factory(Topic::class, 4)->create();
+        $response = $this->actingAs($this->admin, 'canvas')
+                         ->getJson('canvas/api/topics')
+                         ->assertSuccessful();
 
-        $this->actingAs($this->admin, 'canvas')
-             ->getJson('canvas/api/topics')
-             ->assertSuccessful()
-             ->assertJsonFragment([
-                 'id' => $topic->id,
-                 'name' => $topic->name,
-                 'user_id' => $topic->user->id,
-                 'slug' => $topic->slug,
-                 'posts_count' => (string) $topic->posts->count(),
-                 'total' => 5,
-             ]);
+        $this->assertInstanceOf(Topic::class, $response->getOriginalContent()->first());
+
+        $this->assertInstanceOf(LengthAwarePaginator::class, $response->getOriginalContent());
+
+        $this->assertCount(2, $response->getOriginalContent());
     }
 
-    public function testNewPostData(): void
+    public function testCreateDataForTopic(): void
     {
-        $this->actingAs($this->admin, 'canvas')
-             ->getJson('canvas/api/topics/create')
-             ->assertSuccessful()
-             ->assertJsonStructure([
-                 'id',
-             ]);
+        $response = $this->actingAs($this->admin, 'canvas')
+                         ->getJson('canvas/api/topics/create')
+                         ->assertSuccessful();
+
+        $this->assertInstanceOf(Topic::class, $response->getOriginalContent());
     }
 
-    public function testExistingPostData(): void
+    public function testExistingTopicData(): void
     {
         $topic = factory(Topic::class)->create();
 
-        $this->actingAs($this->admin, 'canvas')
-             ->getJson("canvas/api/topics/{$topic->id}")
-             ->assertSuccessful()
-             ->assertJsonFragment([
-                 'id' => $topic->id,
-                 'name' => $topic->name,
-                 'user_id' => $topic->user->id,
-                 'slug' => $topic->slug,
-             ]);
+        $response = $this->actingAs($this->admin, 'canvas')
+                         ->getJson("canvas/api/topics/{$topic->id}")
+                         ->assertSuccessful();
+
+        $this->assertInstanceOf(Topic::class, $response->getOriginalContent());
     }
 
-    public function testPostsCanBeFetchedForATopic(): void
+    public function testListPostsForTopic(): void
     {
         $topic = factory(Topic::class)->create();
         $post = factory(Post::class)->create();
@@ -79,14 +66,15 @@ class TopicControllerTest extends TestCase
 
         $topic->posts()->sync([$post->id]);
 
-        $this->actingAs($this->admin, 'canvas')
-             ->getJson("canvas/api/topics/{$topic->id}/posts")
-             ->assertSuccessful()
-             ->assertJsonFragment([
-                 'topic_id' => $topic->id,
-                 'post_id' => $post->id,
-                 'views_count' => (string) $post->views->count(),
-             ]);
+        $response = $this->actingAs($this->admin, 'canvas')
+                         ->getJson("canvas/api/topics/{$topic->id}/posts")
+                         ->assertSuccessful();
+
+        $this->assertInstanceOf(Post::class, $response->getOriginalContent()->first());
+
+        $this->assertInstanceOf(LengthAwarePaginator::class, $response->getOriginalContent());
+
+        $this->assertCount(1, $response->getOriginalContent());
     }
 
     public function testTopicNotFound(): void
@@ -104,18 +92,16 @@ class TopicControllerTest extends TestCase
             'slug' => 'a-new-topic',
         ];
 
-        $this->actingAs($this->admin, 'canvas')
-             ->postJson("canvas/api/topics/{$data['id']}", $data)
-             ->assertSuccessful()
-             ->assertJsonFragment([
-                 'id' => $data['id'],
-                 'name' => $data['name'],
-                 'slug' => $data['slug'],
-                 'user_id' => $this->admin->id,
-             ]);
+        $response = $this->actingAs($this->admin, 'canvas')
+                         ->postJson("canvas/api/topics/{$data['id']}", $data)
+                         ->assertSuccessful();
+
+        $this->assertInstanceOf(Topic::class, $response->getOriginalContent()->first());
+
+        $this->assertSame($data['id'], $response->getOriginalContent()->id);
     }
 
-    public function testADeletedTopicCanBeRefreshed(): void
+    public function testDeletedTopicsCanBeRefreshed(): void
     {
         $deletedTopic = factory(Topic::class)->create([
             'id' => Uuid::uuid4()->toString(),
@@ -131,15 +117,13 @@ class TopicControllerTest extends TestCase
             'slug' => $deletedTopic->slug,
         ];
 
-        $this->actingAs($this->admin, 'canvas')
-             ->postJson("canvas/api/topics/{$data['id']}", $data)
-             ->assertSuccessful()
-             ->assertJsonFragment([
-                 'id' => $deletedTopic->id,
-                 'name' => $deletedTopic->name,
-                 'slug' => $deletedTopic->slug,
-                 'user_id' => $deletedTopic->user_id,
-             ]);
+        $response = $this->actingAs($this->admin, 'canvas')
+                         ->postJson("canvas/api/topics/{$data['id']}", $data)
+                         ->assertSuccessful();
+
+        $this->assertInstanceOf(Topic::class, $response->getOriginalContent()->first());
+
+        $this->assertSame($deletedTopic['id'], $response->getOriginalContent()->id);
     }
 
     public function testUpdateExistingTopic(): void
@@ -151,15 +135,13 @@ class TopicControllerTest extends TestCase
             'slug' => 'an-updated-topic',
         ];
 
-        $this->actingAs($this->admin, 'canvas')
-             ->postJson("canvas/api/topics/{$topic->id}", $data)
-             ->assertSuccessful()
-             ->assertJsonFragment([
-                 'id' => $topic->id,
-                 'name' => $data['name'],
-                 'slug' => $data['slug'],
-                 'user_id' => $topic->user->id,
-             ]);
+        $response = $this->actingAs($this->admin, 'canvas')
+                         ->postJson("canvas/api/topics/{$topic->id}", $data)
+                         ->assertSuccessful();
+
+        $this->assertInstanceOf(Topic::class, $response->getOriginalContent()->first());
+
+        $this->assertSame($data['slug'], $response->getOriginalContent()->slug);
     }
 
     public function testInvalidSlugsAreValidated(): void

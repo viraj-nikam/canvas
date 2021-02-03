@@ -20,7 +20,7 @@ class TopicController extends Controller
     {
         return response()->json(
             Topic::query()
-                 ->select('id', 'name', 'slug')
+                 ->select('id', 'name', 'created_at')
                  ->latest()
                  ->withCount('posts')
                  ->paginate(), 200
@@ -52,7 +52,7 @@ class TopicController extends Controller
 
         $topic = Topic::query()->find($id);
 
-        if (! $topic) {
+        if (!$topic) {
             if ($topic = Topic::onlyTrashed()->firstWhere('slug', $data['slug'])) {
                 $topic->restore();
 
