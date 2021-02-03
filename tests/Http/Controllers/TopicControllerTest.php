@@ -52,7 +52,7 @@ class TopicControllerTest extends TestCase
                          ->getJson("canvas/api/topics/{$topic->id}")
                          ->assertSuccessful();
 
-        $this->assertInstanceOf(Topic::class, $response->getOriginalContent());
+        $this->assertTrue($topic->is($response->getOriginalContent()));
     }
 
     public function testListPostsForTopic(): void

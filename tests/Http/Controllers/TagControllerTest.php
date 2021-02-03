@@ -52,7 +52,7 @@ class TagControllerTest extends TestCase
                          ->getJson("canvas/api/tags/{$tag->id}")
                          ->assertSuccessful();
 
-        $this->assertInstanceOf(Tag::class, $response->getOriginalContent());
+        $this->assertTrue($tag->is($response->getOriginalContent()));
     }
 
     public function testListPostsForTag(): void
