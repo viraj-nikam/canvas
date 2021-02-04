@@ -187,7 +187,7 @@ export default {
                 meta: {
                     description: null,
                     title: null,
-                    canonicalLink: null,
+                    canonical_link: null,
                 },
                 tags: [],
                 topic: [],
