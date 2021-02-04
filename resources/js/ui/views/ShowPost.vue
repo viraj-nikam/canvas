@@ -174,6 +174,15 @@ export default {
 
     async created() {
         await Promise.all([this.fetchPost()]);
+
+        // Hack since vue-meta doesn't seem to like canonical tags
+        if (this.post?.meta?.canonical_link != null) {
+            let link = document.createElement('link');
+            link.rel = 'canonical';
+            link.href = this.post.meta.canonical_link;
+            document.head.appendChild(link);
+        }
+
         this.isReady = true;
         NProgress.done();
     },
@@ -186,6 +195,12 @@ export default {
         document.querySelectorAll('pre').forEach((block) => {
             hljs.highlightBlock(block);
         });
+    },
+
+    beforeRouteLeave(to, from, next) {
+        // Hack to remove the canonical tag when you navigate away
+        document.querySelector('link[rel="canonical"]').remove();
+        next();
     },
 
     methods: {
