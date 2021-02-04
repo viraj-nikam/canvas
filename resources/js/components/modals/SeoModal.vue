@@ -97,15 +97,15 @@
                     </div>
                     <div class="form-group row">
                         <div class="col-12">
-                            <label for="canonicalLink" class="font-weight-bold text-uppercase text-muted small">
+                            <label for="canonical_link" class="font-weight-bold text-uppercase text-muted small">
                                 {{ trans.canonical_link }}
                             </label>
                             <input
                                 v-model="post.meta.canonical_link"
-                                id="canonicalLink"
+                                id="canonical_link"
                                 type="text"
                                 class="form-control border-0"
-                                name="canonicalLink"
+                                name="canonical_link"
                                 :title="trans.canonical_link"
                                 :placeholder="trans.canonical_link_placeholder"
                                 @input="update"

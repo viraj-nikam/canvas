@@ -139,16 +139,16 @@ export default {
 
     metaInfo() {
         return {
-            title: this.post ? this.post.title : 'Canvas',
+            title: this.post?.meta?.title,
             meta: [
-                { name: 'description', content: this.post ? this.post.summary : '' },
-                { property: 'og:title', content: this.post ? this.post.title : '' },
-                { property: 'og:image', content: this.post ? this.post.featured_image : '' },
-                { property: 'og:description', content: this.post ? this.post.summary : '' },
+                { name: 'description', content: this.post?.meta?.description },
+                { property: 'og:title', content: this.post?.meta?.title },
+                { property: 'og:image', content: this.post?.featured_image },
+                { property: 'og:description', content: this.post?.meta?.description },
                 { name: 'twitter:card', content: 'summary' },
-                { name: 'twitter:title', content: this.post ? this.post.meta.title : '' },
-                { name: 'twitter:description', content: this.post ? this.post.summary : '' },
-                { name: 'twitter:image', content: this.post ? this.post.featured_image : '' },
+                { name: 'twitter:title', content: this.post?.meta?.title },
+                { name: 'twitter:description', content: this.post?.meta?.description },
+                { name: 'twitter:image', content: this.post?.featured_image },
             ],
         };
     },
