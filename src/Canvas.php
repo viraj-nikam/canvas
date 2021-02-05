@@ -151,10 +151,10 @@ class Canvas
     /**
      * Return true if dark mode is enabled.
      *
-     * @param int $enabled
+     * @param int|null $enabled
      * @return bool
      */
-    public static function enabledDarkMode(int $enabled): bool
+    public static function enabledDarkMode(?int $enabled): bool
     {
         return (bool) $enabled ?: false;
     }
@@ -162,10 +162,10 @@ class Canvas
     /**
      * Return true if the app is configured to use Arabic or Farsi.
      *
-     * @param string $locale
+     * @param string|null $locale
      * @return bool
      */
-    public static function usingRightToLeftLanguage(string $locale): bool
+    public static function usingRightToLeftLanguage(?string $locale): bool
     {
         return in_array($locale, ['ar', 'fa']);
     }

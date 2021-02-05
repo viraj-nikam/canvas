@@ -67,9 +67,9 @@ class CanvasTest extends TestCase
 
     public function testTrimURL(): void
     {
-        $url = Canvas::trimUrl('https://www.example.com?string-to-trim');
+        $this->assertSame(Canvas::trimUrl('https://www.example.com?string-to-trim'), 'www.example.com');
 
-        $this->assertSame($url, 'www.example.com');
+        $this->assertNull(Canvas::trimUrl(null));
     }
 
     public function testGravatar(): void
@@ -90,6 +90,7 @@ class CanvasTest extends TestCase
     {
         $this->assertTrue(Canvas::enabledDarkMode(1));
         $this->assertFalse(Canvas::enabledDarkMode(0));
+        $this->assertFalse(Canvas::enabledDarkMode(null));
     }
 
     public function testUsingRightToLeftLanguage(): void
@@ -97,5 +98,6 @@ class CanvasTest extends TestCase
         $this->assertTrue(Canvas::usingRightToLeftLanguage('ar'));
         $this->assertTrue(Canvas::usingRightToLeftLanguage('fa'));
         $this->assertFalse(Canvas::usingRightToLeftLanguage('en'));
+        $this->assertFalse(Canvas::usingRightToLeftLanguage(null));
     }
 }
