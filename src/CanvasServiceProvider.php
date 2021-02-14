@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Canvas;
 
 use Canvas\Console\DigestCommand;
@@ -17,14 +19,14 @@ use Illuminate\Events\Dispatcher;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
-class CanvasServiceProvider extends ServiceProvider
+final class CanvasServiceProvider extends ServiceProvider
 {
     /**
      * Register any application services.
      *
      * @return void
      */
-    public function register()
+    public function register(): void
     {
         $this->mergeConfigFrom(__DIR__.'/../config/canvas.php', 'canvas');
     }
@@ -35,7 +37,7 @@ class CanvasServiceProvider extends ServiceProvider
      * @return void
      * @throws BindingResolutionException
      */
-    public function boot()
+    public function boot(): void
     {
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'canvas');
         $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'canvas');
@@ -53,16 +55,16 @@ class CanvasServiceProvider extends ServiceProvider
      * @return void
      * @throws BindingResolutionException
      */
-    protected function registerEvents()
+    private function registerEvents(): void
     {
-        $events = $this->app->make(Dispatcher::class);
-
         $mappings = [
             PostViewed::class => [
                 CaptureView::class,
                 CaptureVisit::class,
             ],
         ];
+
+        $events = $this->app->make(Dispatcher::class);
 
         foreach ($mappings as $event => $listeners) {
             foreach ($listeners as $listener) {
@@ -76,7 +78,7 @@ class CanvasServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function configureRoutes()
+    private function configureRoutes(): void
     {
         Route::namespace('Canvas\Http\Controllers')
              ->middleware(config('canvas.middleware'))
@@ -92,7 +94,7 @@ class CanvasServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function configureCommands()
+    private function configureCommands(): void
     {
         $this->commands([
             DigestCommand::class,
@@ -109,7 +111,7 @@ class CanvasServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function registerMigrations()
+    private function registerMigrations(): void
     {
         if ($this->app->runningInConsole()) {
             $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
@@ -121,7 +123,7 @@ class CanvasServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function registerAuthDriver()
+    private function registerAuthDriver(): void
     {
         $this->app->config->set('auth.providers.canvas_users', [
             'driver' => 'eloquent',
@@ -139,7 +141,7 @@ class CanvasServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function configurePublishing()
+    private function configurePublishing(): void
     {
         if ($this->app->runningInConsole()) {
             $this->publishes([

@@ -34,4 +34,22 @@ class CaptureVisitTest extends TestCase
 
         $this->assertCount(1, $post->visits);
     }
+
+    public function testVisitsAreCountedByIpInSessionOncePerDay(): void
+    {
+        $post = factory(Post::class)->create();
+
+        $event = new PostViewed($post);
+
+        $listener = new CaptureVisit();
+
+        $listener->handle($event);
+        $listener->handle($event);
+
+        $this->assertDatabaseHas('canvas_visits', [
+            'post_id' => $post->id,
+        ]);
+
+        $this->assertCount(1, $post->visits);
+    }
 }

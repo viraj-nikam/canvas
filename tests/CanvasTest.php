@@ -58,20 +58,6 @@ class CanvasTest extends TestCase
         $this->assertIsString(Canvas::baseStoragePath());
     }
 
-    public function testURLIsValid(): void
-    {
-        $this->assertTrue(Canvas::isValidUrl('https://www.example.com'));
-
-        $this->assertFalse(Canvas::isValidUrl('://www.example.c'));
-    }
-
-    public function testTrimURL(): void
-    {
-        $this->assertSame(Canvas::trimUrl('https://www.example.com?string-to-trim'), 'www.example.com');
-
-        $this->assertNull(Canvas::trimUrl(null));
-    }
-
     public function testGravatar(): void
     {
         $size = 80;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Canvas;
 
 use Canvas\Models\User;
@@ -7,7 +9,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use RuntimeException;
 
-class Canvas
+final class Canvas
 {
     /**
      * Return the installed version.
@@ -32,7 +34,7 @@ class Canvas
      */
     public static function availableLanguageCodes(): array
     {
-        $locales = preg_grep('/^([^.])/', scandir(dirname(__DIR__, 1).'/resources/lang'));
+        $locales = preg_grep('/^([^.])/', scandir(dirname(__DIR__, 1) . '/resources/lang'));
 
         return collect($locales)->each(function ($code) {
             return $code;
@@ -83,11 +85,11 @@ class Canvas
             'php artisan canvas:publish'
         );
 
-        if (! File::exists($path)) {
+        if (!File::exists($path)) {
             throw new RuntimeException($message);
         }
 
-        return File::get($path) === File::get(__DIR__.'/../public/mix-manifest.json');
+        return File::get($path) === File::get(__DIR__ . '/../public/mix-manifest.json');
     }
 
     /**
@@ -110,26 +112,13 @@ class Canvas
         return sprintf('%s/images', config('canvas.storage_path'));
     }
 
-    /**
-     * Check if a given URL is valid.
-     *
-     * @param string|null $url
-     * @return bool
-     */
-    public static function isValidUrl(?string $url): bool
+    public static function parseReferer(?string $url): ?string
     {
-        return filter_var($url, FILTER_VALIDATE_URL) ? true : false;
-    }
+        if (filter_var($url, FILTER_VALIDATE_URL)) {
+            return parse_url($url)['host'];
+        }
 
-    /**
-     * Trim a given URL and return the base.
-     *
-     * @param string|null $url
-     * @return mixed
-     */
-    public static function trimUrl(?string $url)
-    {
-        return parse_url($url)['host'] ?? null;
+        return null;
     }
 
     /**
@@ -141,7 +130,12 @@ class Canvas
      * @param string $rating
      * @return string
      */
-    public static function gravatar(string $email, int $size = 200, string $default = 'retro', string $rating = 'g'): string
+    public static function gravatar(
+        string $email,
+        int $size = 200,
+        string $default = 'retro',
+        string $rating = 'g'
+    ): string
     {
         $hash = md5(trim(Str::lower($email)));
 
@@ -156,7 +150,7 @@ class Canvas
      */
     public static function enabledDarkMode(?int $enabled): bool
     {
-        return (bool) $enabled ?: false;
+        return (bool)$enabled ?: false;
     }
 
     /**
