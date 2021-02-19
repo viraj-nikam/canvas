@@ -7,7 +7,7 @@ use Canvas\Tests\TestCase;
 /**
  * Class HomeControllerTest.
  *
- * @covers \Canvas\Http\Controllers\HomeController
+ * @covers \Canvas\Http\Controllers\ViewController
  */
 class HomeControllerTest extends TestCase
 {

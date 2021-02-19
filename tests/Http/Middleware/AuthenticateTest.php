@@ -8,9 +8,9 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 /**
  * Class AuthorizeTest.
  *
- * @covers \Canvas\Http\Middleware\AuthenticatedMiddleware
+ * @covers \Canvas\Http\Middleware\Authenticate
  */
-class AuthenticatedMiddlewareTest extends TestCase
+class AuthenticateTest extends TestCase
 {
     use RefreshDatabase;
 

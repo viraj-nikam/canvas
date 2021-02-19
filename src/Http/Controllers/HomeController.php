@@ -2,33 +2,36 @@
 
 namespace Canvas\Http\Controllers;
 
-use Canvas\Canvas;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\View\Factory;
+use Canvas\Models\Post;
+use Canvas\Services\StatsAggregator;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
-use Illuminate\View\View;
 
 class HomeController extends Controller
 {
     /**
-     * Handle the incoming request.
+     * Display a listing of the resource.
      *
-     * @return Application|Factory|View
+     * @return JsonResponse
      */
-    public function index()
+    public function __invoke(): JsonResponse
     {
-        return view('canvas::layout')->with([
-            'jsVars' => [
-                'languageCodes' => Canvas::availableLanguageCodes(),
-                'maxUpload' => config('canvas.upload_filesize'),
-                'path' => Canvas::basePath(),
-                'roles' => Canvas::availableRoles(),
-                'timezone' => config('app.timezone'),
-                'translations' => Canvas::availableTranslations(request()->user('canvas')->locale),
-                'unsplash' => config('canvas.unsplash.access_key'),
-                'user' => request()->user('canvas'),
-                'version' => Canvas::installedVersion(),
-            ],
-        ]);
+        $posts = Post::query()
+                     ->select('id')
+                     ->when(request()->query('scope', 'user') === 'all', function (Builder $query) {
+                         return $query;
+                     }, function (Builder $query) {
+                         return $query->where('user_id', request()->user('canvas')->id);
+                     })
+                     ->published()
+                     ->latest()
+                     ->get();
+
+        $statistics = new StatsAggregator($posts);
+
+        $results = $statistics->calculateForPosts();
+
+        return response()->json($results->toArray());
     }
 }

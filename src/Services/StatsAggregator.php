@@ -1,38 +1,39 @@
 <?php
 
-namespace Canvas\Http\Controllers;
+namespace Canvas\Services;
 
-use Canvas\Models\Post;
 use Canvas\Models\View;
 use Canvas\Models\Visit;
 use Carbon\CarbonInterval;
 use DateInterval;
 use DatePeriod;
 use DateTimeInterface;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Routing\Controller;
 use Illuminate\Support\Collection;
 
-class StatsController extends Controller
+class StatsAggregator
 {
     /**
-     * Display a listing of the resource.
+     * The posts to calculate statistics for.
      *
-     * @return JsonResponse
+     * @var array
      */
-    public function index(): JsonResponse
+    private $posts;
+
+    /**
+     * Create a new service instance.
+     *
+     * @param array $posts
+     * @return void
+     */
+    public function __construct(array $posts)
     {
-        $posts = Post::query()
-                     ->select('id')
-                     ->when(request()->query('scope', 'user') === 'all', function (Builder $query) {
-                         return $query;
-                     }, function (Builder $query) {
-                         return $query->where('user_id', request()->user('canvas')->id);
-                     })
-                     ->published()
-                     ->latest()
-                     ->get();
+        $this->posts = $posts;
+    }
+
+    public function calculateForPosts(): Collection
+    {
+        // TODO: Fix this
+
 
         $views = View::query()
                      ->select('created_at')
@@ -49,36 +50,6 @@ class StatsController extends Controller
                            today()->subDays(30)->startOfDay()->toDateTimeString(),
                            today()->endOfDay()->toDateTimeString(),
                        ])->get();
-
-        return response()->json([
-            'totalViews' => $views->count(),
-            'totalVisits' => $visits->count(),
-            'traffic' => [
-                'views' => self::calculateTotalForDays($views, 30)->toJson(),
-                'visits' => self::calculateTotalForDays($visits, 30)->toJson(),
-            ],
-        ]);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param string $id
-     * @return JsonResponse
-     */
-    public function show(string $id): JsonResponse
-    {
-        $post = Post::query()
-                    ->when(request()->user('canvas')->isContributor, function (Builder $query) {
-                        return $query->where('user_id', request()->user('canvas')->id);
-                    }, function (Builder $query) {
-                        return $query;
-                    })
-                    ->find($id);
-
-        if (! $post || ! $post->published) {
-            return response()->json(null, 404);
-        }
 
         $previousMonthlyViews = $post->views->whereBetween('created_at', [
             today()->subMonth()->startOfMonth()->startOfDay()->toDateTimeString(),
@@ -104,22 +75,30 @@ class StatsController extends Controller
             today()->startOfMonth()->startOfDay()->toDateTimeString(),
             today()->endOfMonth()->endOfDay()->toDateTimeString(),
         ]);
+//        [
+//            'totalViews' => $views->count(),
+//            'totalVisits' => $visits->count(),
+//            'traffic' => [
+//                'views' => self::calculateTotalForDays($views, 30)->toJson(),
+//                'visits' => self::calculateTotalForDays($visits, 30)->toJson(),
+//            ],
+//        ]
 
-        return response()->json([
-            'post' => $post,
-            'readTime' => $post->read_time,
-            'popularReadingTimes' => $post->popular_reading_times,
-            'topReferers' => $post->top_referers,
-            'monthlyViews' => $currentMonthlyViews->count(),
-            'totalViews' => $post->views->count(),
-            'monthlyVisits' => $currentMonthlyVisits->count(),
-            'monthOverMonthViews' => $this->compareMonthOverMonth($currentMonthlyViews, $previousMonthlyViews),
-            'monthOverMonthVisits' => $this->compareMonthOverMonth($currentMonthlyVisits, $previousMonthlyVisits),
-            'traffic' => [
-                'views' => $this->calculateTotalForDays($lastThirtyDays, 30)->toJson(),
-                'visits' => $this->calculateTotalForDays($post->visits, 30)->toJson(),
-            ],
-        ]);
+//        [
+//            'post' => $post,
+//            'readTime' => $post->read_time,
+//            'popularReadingTimes' => $post->popular_reading_times,
+//            'topReferers' => $post->top_referers,
+//            'monthlyViews' => $currentMonthlyViews->count(),
+//            'totalViews' => $post->views->count(),
+//            'monthlyVisits' => $currentMonthlyVisits->count(),
+//            'monthOverMonthViews' => $this->compareMonthOverMonth($currentMonthlyViews, $previousMonthlyViews),
+//            'monthOverMonthVisits' => $this->compareMonthOverMonth($currentMonthlyVisits, $previousMonthlyVisits),
+//            'traffic' => [
+//                'views' => $this->calculateTotalForDays($lastThirtyDays, 30)->toJson(),
+//                'visits' => $this->calculateTotalForDays($post->visits, 30)->toJson(),
+//            ],
+//        ]
     }
 
     /**

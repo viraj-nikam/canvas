@@ -34,7 +34,7 @@ class TagController extends Controller
      */
     public function create(): JsonResponse
     {
-        return response()->json(Tag::make([
+        return response()->json(Tag::query()->make([
             'id' => Uuid::uuid4()->toString(),
         ]), 200);
     }
@@ -79,9 +79,9 @@ class TagController extends Controller
      */
     public function show($id): JsonResponse
     {
-        $tag = Tag::query()->find($id);
+        $tag = Tag::query()->findOrFail($id);
 
-        return $tag ? response()->json($tag, 200) : response()->json(null, 404);
+        return response()->json($tag, 200);
     }
 
     /**
@@ -90,11 +90,11 @@ class TagController extends Controller
      * @param $id
      * @return JsonResponse
      */
-    public function showPosts($id): JsonResponse
+    public function posts($id): JsonResponse
     {
-        $tag = Tag::query()->with('posts')->find($id);
+        $tag = Tag::query()->with('posts')->findOrFail($id);
 
-        return $tag ? response()->json($tag->posts()->withCount('views')->paginate(), 200) : response()->json(null, 200);
+        return response()->json($tag->posts()->withCount('views')->paginate(), 200);
     }
 
     /**

@@ -8,9 +8,9 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 /**
  * Class AdminTest.
  *
- * @covers \Canvas\Http\Middleware\AdminMiddleware
+ * @covers \Canvas\Http\Middleware\Admin
  */
-class AdminMiddlewareTest extends TestCase
+class AdminTest extends TestCase
 {
     use RefreshDatabase;
 
