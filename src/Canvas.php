@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Canvas;
 
 use Canvas\Models\User;
@@ -9,7 +7,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use RuntimeException;
 
-final class Canvas
+class Canvas
 {
     /**
      * Return the installed version.
@@ -112,6 +110,12 @@ final class Canvas
         return sprintf('%s/images', config('canvas.storage_path'));
     }
 
+    /**
+     * Return a valid host URL or null.
+     *
+     * @param string|null $url
+     * @return string|null
+     */
     public static function parseReferer(?string $url): ?string
     {
         if (filter_var($url, FILTER_VALIDATE_URL)) {
