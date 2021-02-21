@@ -2,6 +2,7 @@
 
 namespace Canvas\Services;
 
+use Canvas\Models\Post;
 use Canvas\Models\View;
 use Canvas\Models\Visit;
 use Carbon\CarbonInterval;
@@ -13,27 +14,13 @@ use Illuminate\Support\Collection;
 class StatsAggregator
 {
     /**
-     * The posts to calculate statistics for.
+     * Get monthly insights on a given set of posts.
      *
-     * @var array
+     * @param Collection $posts
+     * @return array
      */
-    private $posts;
-
-    /**
-     * Create a new service instance.
-     *
-     * @param array $posts
-     * @return void
-     */
-    public function __construct(array $posts)
+    public function getTotalMonthlyInsightsForPosts(Collection $posts): array
     {
-        $this->posts = $posts;
-    }
-
-    public function calculateForPosts(): Collection
-    {
-        // TODO: Fix this
-
         $views = View::query()
                      ->select('created_at')
                      ->whereIn('post_id', $posts->pluck('id'))
@@ -50,54 +37,59 @@ class StatsAggregator
                            today()->endOfDay()->toDateTimeString(),
                        ])->get();
 
-        $previousMonthlyViews = $post->views->whereBetween('created_at', [
-            today()->subMonth()->startOfMonth()->startOfDay()->toDateTimeString(),
-            today()->subMonth()->endOfMonth()->endOfDay()->toDateTimeString(),
-        ]);
+        return [
+            'views' => $views->count(),
+            'visits' => $visits->count(),
+            'graph' => [
+                'views' => $this->calculateTotalForDays($views, 30)->toJson(),
+                'visits' => $this->calculateTotalForDays($visits, 30)->toJson(),
+            ],
+        ];
+    }
 
-        $currentMonthlyViews = $post->views->whereBetween('created_at', [
-            today()->startOfMonth()->startOfDay()->toDateTimeString(),
-            today()->endOfMonth()->endOfDay()->toDateTimeString(),
-        ]);
-
-        $lastThirtyDays = $post->views->whereBetween('created_at', [
+    /**
+     * Get total insights on a given post.
+     *
+     * @param Post $post
+     * @return array
+     */
+    public function getTotalInsightsForPost(Post $post): array
+    {
+        $currentViews = $post->views()->whereBetween('created_at', [
             today()->subDays(30)->startOfDay()->toDateTimeString(),
             today()->endOfDay()->toDateTimeString(),
-        ]);
+        ])->get();
 
-        $previousMonthlyVisits = $post->visits->whereBetween('created_at', [
+        $currentVisits = $post->visits()->whereBetween('created_at', [
+            today()->subDays(30)->startOfDay()->toDateTimeString(),
+            today()->endOfDay()->toDateTimeString(),
+        ])->get();
+
+        $previousViews = $post->views->whereBetween('created_at', [
             today()->subMonth()->startOfMonth()->startOfDay()->toDateTimeString(),
             today()->subMonth()->endOfMonth()->endOfDay()->toDateTimeString(),
         ]);
 
-        $currentMonthlyVisits = $post->visits->whereBetween('created_at', [
-            today()->startOfMonth()->startOfDay()->toDateTimeString(),
-            today()->endOfMonth()->endOfDay()->toDateTimeString(),
+        $previousVisits = $post->visits->whereBetween('created_at', [
+            today()->subMonth()->startOfMonth()->startOfDay()->toDateTimeString(),
+            today()->subMonth()->endOfMonth()->endOfDay()->toDateTimeString(),
         ]);
-//        [
-//            'totalViews' => $views->count(),
-//            'totalVisits' => $visits->count(),
-//            'traffic' => [
-//                'views' => self::calculateTotalForDays($views, 30)->toJson(),
-//                'visits' => self::calculateTotalForDays($visits, 30)->toJson(),
-//            ],
-//        ]
 
-//        [
-//            'post' => $post,
-//            'readTime' => $post->read_time,
-//            'popularReadingTimes' => $post->popular_reading_times,
-//            'topReferers' => $post->top_referers,
-//            'monthlyViews' => $currentMonthlyViews->count(),
-//            'totalViews' => $post->views->count(),
-//            'monthlyVisits' => $currentMonthlyVisits->count(),
-//            'monthOverMonthViews' => $this->compareMonthOverMonth($currentMonthlyViews, $previousMonthlyViews),
-//            'monthOverMonthVisits' => $this->compareMonthOverMonth($currentMonthlyVisits, $previousMonthlyVisits),
-//            'traffic' => [
-//                'views' => $this->calculateTotalForDays($lastThirtyDays, 30)->toJson(),
-//                'visits' => $this->calculateTotalForDays($post->visits, 30)->toJson(),
-//            ],
-//        ]
+        return [
+            'post' => $post,
+            'readTime' => $post->read_time,
+            'popularReadingTimes' => $post->popular_reading_times,
+            'topReferers' => $post->top_referers,
+            'monthlyViews' => $currentViews->count(),
+            'totalViews' => $post->views->count(),
+            'monthlyVisits' => $currentVisits->count(),
+            'monthOverMonthViews' => $this->compareMonthOverMonth($currentViews, $previousViews),
+            'monthOverMonthVisits' => $this->compareMonthOverMonth($currentVisits, $previousVisits),
+            'graph' => [
+                'views' => $this->calculateTotalForDays($currentViews, 30)->toJson(),
+                'visits' => $this->calculateTotalForDays($currentVisits, 30)->toJson(),
+            ],
+        ];
     }
 
     /**
@@ -113,7 +105,8 @@ class StatsAggregator
     protected function calculateTotalForDays(Collection $data, int $days = 30): Collection
     {
         // Filter the data to only include created_at date strings
-        $filtered = collect();
+        $filtered = new Collection();
+
         $data->sortBy('created_at')->each(function ($item) use ($filtered) {
             $filtered->push($item->created_at->toDateString());
         });
@@ -122,20 +115,20 @@ class StatsAggregator
         $unique = array_count_values($filtered->toArray());
 
         // Create a day range to hold the default date values
-        $period = $this->generateRange(today()->subDays($days), CarbonInterval::day(), $days);
+        $period = $this->generateDateRange(today()->subDays($days), CarbonInterval::day(), $days);
 
         // Compare the data and date range arrays, assigning counts where applicable
-        $total = collect();
+        $results = new Collection();
 
         foreach ($period as $date) {
             if (array_key_exists($date, $unique)) {
-                $total->put($date, $unique[$date]);
+                $results->put($date, $unique[$date]);
             } else {
-                $total->put($date, 0);
+                $results->put($date, 0);
             }
         }
 
-        return $total;
+        return $results;
     }
 
     /**
@@ -152,7 +145,7 @@ class StatsAggregator
         $dataCountLastMonth = $previous->count();
 
         if ($dataCountLastMonth != 0) {
-            $difference = (int) $dataCountThisMonth - (int) $dataCountLastMonth;
+            $difference = (int)$dataCountThisMonth - (int)$dataCountLastMonth;
             $growth = ($difference / $dataCountLastMonth) * 100;
         } else {
             $growth = $dataCountThisMonth * 100;
@@ -173,10 +166,15 @@ class StatsAggregator
      * @param int $exclusive
      * @return array
      */
-    protected function generateRange(DateTimeInterface $start_date, DateInterval $interval, int $recurrences, int $exclusive = 1): array
+    protected function generateDateRange(
+        DateTimeInterface $start_date,
+        DateInterval $interval,
+        int $recurrences,
+        int $exclusive = 1
+    ): array
     {
         $period = new DatePeriod($start_date, $interval, $recurrences, $exclusive);
-        $dates = collect();
+        $dates = new Collection();
 
         foreach ($period as $date) {
             $dates->push($date->format('Y-m-d'));

@@ -18,20 +18,20 @@ class HomeController extends Controller
     public function __invoke(): JsonResponse
     {
         $posts = Post::query()
-                     ->select('id')
                      ->when(request()->query('scope', 'user') === 'all', function (Builder $query) {
                          return $query;
                      }, function (Builder $query) {
                          return $query->where('user_id', request()->user('canvas')->id);
                      })
+                     ->withCount('views', 'visits')
                      ->published()
                      ->latest()
                      ->get();
 
-        $statistics = new StatsAggregator($posts);
+        $stats = new StatsAggregator();
 
-        $results = $statistics->calculateForPosts();
+        $results = $stats->getTotalMonthlyInsightsForPosts($posts);
 
-        return response()->json($results->toArray());
+        return response()->json($results);
     }
 }

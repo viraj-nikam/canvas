@@ -38,6 +38,8 @@ class PostController extends Controller
                      ->withCount('views')
                      ->paginate();
 
+        // TODO: The count() queries here are duplicated
+
         $draftCount = Post::query()
                           ->when(request()->user('canvas')->isContributor || request()->query('scope', 'user') != 'all', function (Builder $query) {
                               return $query->where('user_id', request()->user('canvas')->id);
@@ -194,11 +196,11 @@ class PostController extends Controller
                     ->published()
                     ->findOrFail($id);
 
-        $statistics = new StatsAggregator([$post]);
+        $stats = new StatsAggregator();
 
-        $results = $statistics->calculateForPosts();
+        $results = $stats->getTotalInsightsForPost($post);
 
-        return response()->json($results->toArray());
+        return response()->json($results);
     }
 
     /**

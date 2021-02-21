@@ -20,8 +20,9 @@ class AuthenticateTest extends TestCase
     public function protectedRoutesProvider(): array
     {
         return [
-            // Base route...
+            // Base routes...
             ['GET', 'canvas'],
+            ['GET', 'canvas/api'],
 
             // Upload routes...
             ['POST', 'canvas/api/uploads'],
@@ -31,12 +32,9 @@ class AuthenticateTest extends TestCase
             ['GET', 'canvas/api/posts'],
             ['GET', 'canvas/api/posts/create'],
             ['GET', 'canvas/api/posts/{id}'],
+            ['GET', 'canvas/api/posts/{id}/stats'],
             ['POST', 'canvas/api/posts/{id}'],
             ['DELETE', 'canvas/api/posts/{id}'],
-
-            // Stat routes...
-            ['GET', 'canvas/api/stats'],
-            ['GET', 'canvas/api/stats/{id}'],
 
             // Tag routes...
             ['GET', 'canvas/api/tags'],

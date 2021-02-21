@@ -23,12 +23,10 @@ class AdminTest extends TestCase
             // Tag routes...
             ['GET', 'canvas/api/tags'],
             ['GET', 'canvas/api/tags/create'],
-            ['GET', 'canvas/api/tags/{id}/posts'],
 
             // Topic routes...
             ['GET', 'canvas/api/topics'],
             ['GET', 'canvas/api/topics/create'],
-            ['GET', 'canvas/api/topics/{id}/posts'],
 
             // User routes...
             ['GET', 'canvas/api/users'],

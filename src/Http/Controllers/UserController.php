@@ -108,7 +108,7 @@ class UserController extends Controller
      * @param $id
      * @return JsonResponse
      */
-    public function showPosts($id): JsonResponse
+    public function posts($id): JsonResponse
     {
         $user = User::query()->with('posts')->find($id);
 

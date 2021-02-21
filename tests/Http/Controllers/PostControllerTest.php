@@ -6,6 +6,7 @@ use Canvas\Models\Post;
 use Canvas\Models\Tag;
 use Canvas\Models\Topic;
 use Canvas\Models\View;
+use Canvas\Models\Visit;
 use Canvas\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Ramsey\Uuid\Uuid;
@@ -250,6 +251,149 @@ class PostControllerTest extends TestCase
              ->assertJsonFragment([
                  'id' => $post->id,
              ]);
+    }
+
+    public function testAnAdminCanFetchStatsForAnyPost(): void
+    {
+        $post = factory(Post::class)->create([
+            'user_id' => $this->contributor->id,
+        ]);
+
+        factory(View::class)->create([
+            'post_id' => $post->id,
+            'created_at' => now()->subMonth(),
+        ]);
+
+        factory(Visit::class)->create([
+            'post_id' => $post->id,
+            'created_at' => now()->subMonth(),
+        ]);
+
+        $this->actingAs($this->admin, 'canvas')
+             ->getJson("canvas/api/posts/{$post->id}/stats")
+             ->assertSuccessful()
+             ->assertJsonStructure([
+                 'post',
+                 'readTime',
+                 'popularReadingTimes',
+                 'topReferers',
+                 'monthlyViews',
+                 'totalViews',
+                 'monthlyVisits',
+                 'graph' => [
+                     'views',
+                     'visits',
+                 ],
+             ])
+             ->assertJsonFragment([
+                 'monthOverMonthViews' => [
+                     'direction' => 'down',
+                     'percentage' => '100',
+                 ],
+             ])
+             ->assertJsonFragment([
+                 'monthOverMonthVisits' => [
+                     'direction' => 'down',
+                     'percentage' => '100',
+                 ],
+             ]);
+    }
+
+    public function testAnEditorCanFetchAnyPostStats(): void
+    {
+        $post = factory(Post::class)->create([
+            'user_id' => $this->contributor->id,
+        ]);
+
+        $this->actingAs($this->editor, 'canvas')
+             ->getJson("canvas/api/posts/{$post->id}/stats")
+             ->assertSuccessful()
+             ->assertJsonStructure([
+                 'post',
+                 'readTime',
+                 'popularReadingTimes',
+                 'topReferers',
+                 'monthlyViews',
+                 'totalViews',
+                 'monthlyVisits',
+                 'monthOverMonthViews' => [
+                     'direction',
+                     'percentage',
+                 ],
+                 'monthOverMonthVisits' => [
+                     'direction',
+                     'percentage',
+                 ],
+                 'graph' => [
+                     'views',
+                     'visits',
+                 ],
+             ]);
+    }
+
+    public function testAContributorCanFetchTheirOwnPostStats(): void
+    {
+        $post = factory(Post::class)->create([
+            'user_id' => $this->contributor->id,
+        ]);
+
+        $this->actingAs($this->contributor, 'canvas')
+             ->getJson("canvas/api/posts/{$post->id}/stats")
+             ->assertSuccessful()
+             ->assertJsonStructure([
+                 'post',
+                 'readTime',
+                 'popularReadingTimes',
+                 'topReferers',
+                 'monthlyViews',
+                 'totalViews',
+                 'monthlyVisits',
+                 'monthOverMonthViews' => [
+                     'direction',
+                     'percentage',
+                 ],
+                 'monthOverMonthVisits' => [
+                     'direction',
+                     'percentage',
+                 ],
+                 'graph' => [
+                     'views',
+                     'visits',
+                 ],
+             ]);
+    }
+
+    public function testAContributorIsUnableToAccessStatsForAnotherUser(): void
+    {
+        $post = factory(Post::class)->create([
+            'user_id' => $this->admin->id,
+        ]);
+
+        $this->actingAs($this->contributor, 'canvas')
+             ->getJson("canvas/api/posts/{$post->id}/stats")
+             ->assertNotFound();
+    }
+
+    public function testDraftPostsDoNotDisplayStats(): void
+    {
+        $post = factory(Post::class)->create([
+            'published_at' => null,
+        ]);
+
+        $this->actingAs($this->admin, 'canvas')
+             ->getJson("canvas/api/posts/{$post->id}/stats")
+             ->assertNotFound();
+    }
+
+    public function testScheduledPostsDoNotDisplayStats(): void
+    {
+        $post = factory(Post::class)->create([
+            'published_at' => now()->addWeek(),
+        ]);
+
+        $this->actingAs($this->admin, 'canvas')
+             ->getJson("canvas/api/posts/{$post->id}/stats")
+             ->assertNotFound();
     }
 
     public function testPostNotFound(): void

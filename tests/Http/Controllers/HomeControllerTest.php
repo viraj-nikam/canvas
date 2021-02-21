@@ -2,25 +2,84 @@
 
 namespace Canvas\Tests\Http\Controllers;
 
+use Canvas\Models\Post;
+use Canvas\Models\View;
+use Canvas\Models\Visit;
 use Canvas\Tests\TestCase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 /**
  * Class HomeControllerTest.
  *
- * @covers \Canvas\Http\Controllers\ViewController
+ * @covers \Canvas\Http\Controllers\HomeController
  */
 class HomeControllerTest extends TestCase
 {
-    /** @test */
-    public function testScriptVariables(): void
+    use RefreshDatabase;
+
+    public function testUserStatsAreFetchedByDefault(): void
     {
-        $this->withoutMix();
+        factory(Post::class, 3)->create([
+            'user_id' => $this->admin->id,
+        ])->each(function ($post) {
+            $post->visits()->createMany(factory(Visit::class, 2)->make()->toArray());
+            $post->views()->createMany(factory(View::class, 3)->make()->toArray());
+        });
+
+        factory(Post::class, 2)->create([
+            'user_id' => $this->contributor->id,
+        ])->each(function ($post) {
+            $post->visits()->createMany(factory(Visit::class, 1)->make()->toArray());
+            $post->views()->createMany(factory(View::class, 2)->make()->toArray());
+        });
 
         $this->actingAs($this->admin, 'canvas')
-             ->get(config('canvas.path'))
+             ->getJson('canvas/api')
              ->assertSuccessful()
-             ->assertViewIs('canvas::layout')
-             ->assertViewHas('jsVars')
-             ->assertSee('canvas');
+             ->assertJsonStructure([
+                 'views',
+                 'visits',
+                 'graph' => [
+                     'views',
+                     'visits',
+                 ],
+             ])
+             ->assertJsonFragment([
+                 'views' => 9,
+                 'visits' => 6,
+             ]);
+    }
+
+    public function testAllPostStatsCanBeFetchedWithAGivenQueryScope(): void
+    {
+        factory(Post::class, 3)->create([
+            'user_id' => $this->admin->id,
+        ])->each(function ($post) {
+            $post->visits()->createMany(factory(Visit::class, 2)->make()->toArray());
+            $post->views()->createMany(factory(View::class, 3)->make()->toArray());
+        });
+
+        factory(Post::class, 2)->create([
+            'user_id' => $this->contributor->id,
+        ])->each(function ($post) {
+            $post->visits()->createMany(factory(Visit::class, 1)->make()->toArray());
+            $post->views()->createMany(factory(View::class, 2)->make()->toArray());
+        });
+
+        $this->actingAs($this->admin, 'canvas')
+             ->getJson('canvas/api?scope=all')
+             ->assertSuccessful()
+             ->assertJsonStructure([
+                 'views',
+                 'visits',
+                 'graph' => [
+                     'views',
+                     'visits',
+                 ],
+             ])
+             ->assertJsonFragment([
+                 'views' => 13,
+                 'visits' => 8,
+             ]);
     }
 }

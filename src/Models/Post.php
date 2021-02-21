@@ -275,7 +275,7 @@ class Post extends Model
      */
     public function scopeDraft(Builder $query): Builder
     {
-        return $query->where('published_at', null)->orWhere('published_at', '>', now()->toDateTimeString());
+        return $query->where('published_at', '=', null)->orWhere('published_at', '>', now()->toDateTimeString());
     }
 
     /**
