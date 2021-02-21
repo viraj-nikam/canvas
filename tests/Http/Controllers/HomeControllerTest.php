@@ -12,6 +12,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
  * Class HomeControllerTest.
  *
  * @covers \Canvas\Http\Controllers\HomeController
+ * @covers \Canvas\Services\StatsAggregator
  */
 class HomeControllerTest extends TestCase
 {

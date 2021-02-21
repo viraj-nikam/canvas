@@ -58,6 +58,13 @@ class CanvasTest extends TestCase
         $this->assertIsString(Canvas::baseStoragePath());
     }
 
+    public function testParseReferer(): void
+    {
+        $this->assertSame(Canvas::parseReferer('https://www.example.com'), 'www.example.com');
+        $this->assertNull(Canvas::parseReferer(null));
+        $this->assertNull(Canvas::parseReferer('://www.example.c'));
+    }
+
     public function testGravatar(): void
     {
         $size = 80;

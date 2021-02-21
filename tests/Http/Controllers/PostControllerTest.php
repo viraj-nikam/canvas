@@ -16,6 +16,7 @@ use Ramsey\Uuid\Uuid;
  *
  * @covers \Canvas\Http\Controllers\PostController
  * @covers \Canvas\Http\Requests\PostRequest
+ * @covers \Canvas\Services\StatsAggregator
  */
 class PostControllerTest extends TestCase
 {

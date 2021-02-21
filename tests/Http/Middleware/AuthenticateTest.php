@@ -86,5 +86,9 @@ class AuthenticateTest extends TestCase
         $this->actingAs($this->admin, 'canvas')
              ->get(route('canvas.login'))
              ->assertRedirect(config('canvas.path'));
+
+        $this->actingAs($this->admin, 'canvas')
+             ->get('canvas/api')
+             ->assertSuccessful();
     }
 }
