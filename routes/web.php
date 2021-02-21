@@ -23,8 +23,8 @@ Route::namespace('Auth')->group(function () {
 
 Route::middleware([Authenticate::class])->group(function () {
     Route::prefix('api')->group(function () {
-        // Home routes...
-        Route::get('/', 'HomeController');
+        // Stats routes...
+        Route::get('stats', 'StatsController');
 
         // Upload routes...
         Route::prefix('uploads')->group(function () {

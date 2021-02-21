@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
 
-class HomeController extends Controller
+class StatsController extends Controller
 {
     /**
      * Display a listing of the resource.

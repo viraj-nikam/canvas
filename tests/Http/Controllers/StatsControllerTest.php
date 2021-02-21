@@ -11,10 +11,10 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 /**
  * Class HomeControllerTest.
  *
- * @covers \Canvas\Http\Controllers\HomeController
+ * @covers \Canvas\Http\Controllers\StatsController
  * @covers \Canvas\Services\StatsAggregator
  */
-class HomeControllerTest extends TestCase
+class StatsControllerTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -35,7 +35,7 @@ class HomeControllerTest extends TestCase
         });
 
         $this->actingAs($this->admin, 'canvas')
-             ->getJson('canvas/api')
+             ->getJson('canvas/api/stats')
              ->assertSuccessful()
              ->assertJsonStructure([
                  'views',
@@ -68,7 +68,7 @@ class HomeControllerTest extends TestCase
         });
 
         $this->actingAs($this->admin, 'canvas')
-             ->getJson('canvas/api?scope=all')
+             ->getJson('canvas/api/stats?scope=all')
              ->assertSuccessful()
              ->assertJsonStructure([
                  'views',
