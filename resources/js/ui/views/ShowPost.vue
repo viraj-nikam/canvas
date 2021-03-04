@@ -199,7 +199,7 @@ export default {
 
     beforeRouteLeave(to, from, next) {
         // Hack to remove the canonical tag when you navigate away
-        document.querySelector('link[rel="canonical"]').remove();
+        document.querySelector('link[rel="canonical"]')?.remove();
         next();
     },
 
