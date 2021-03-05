@@ -207,10 +207,10 @@ class StatsAggregator
     /**
      * Get the human-friendly estimated reading time of a given text.
      *
-     * @param string $text
+     * @param null|string $text
      * @return string
      */
-    protected function calculateReadTime(string $text): string
+    protected function calculateReadTime(?string $text): string
     {
         // Only count words in our estimation
         $words = str_word_count(strip_tags($text));
