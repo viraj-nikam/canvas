@@ -77,15 +77,6 @@ class Post extends Model
     ];
 
     /**
-     * The accessors to append to the model's array form.
-     *
-     * @var array
-     */
-    protected $appends = [
-        'read_time',
-    ];
-
-    /**
      * Get the tags relationship.
      *
      * @return BelongsToMany
@@ -107,6 +98,8 @@ class Post extends Model
      */
     public function topic(): BelongsToMany
     {
+        // TODO: This should be a belongsTo() relationship?
+
         return $this->belongsToMany(
             Topic::class,
             'canvas_posts_topics',
@@ -153,107 +146,6 @@ class Post extends Model
     public function getPublishedAttribute(): bool
     {
         return ! is_null($this->published_at) && $this->published_at <= now()->toDateTimeString();
-    }
-
-    /**
-     * Get the human-friendly estimated reading time of a post.
-     *
-     * @return string
-     */
-    public function getReadTimeAttribute(): string
-    {
-        // Only count words in our estimation
-        $words = str_word_count(strip_tags($this->body));
-
-        // Divide by the average number of words per minute
-        $minutes = ceil($words / 250);
-
-        // The user is optional since we append this attribute
-        // to every model and we may be creating a new one
-        return sprintf('%d %s %s',
-            $minutes,
-            Str::plural(trans('canvas::app.min', [], optional($this->user)->locale), $minutes),
-            trans('canvas::app.read', [], optional($this->user)->locale)
-        );
-    }
-
-    /**
-     * Get the 10 most popular reading times rounded to the nearest 30 minutes.
-     *
-     * @return array
-     */
-    public function getPopularReadingTimesAttribute(): array
-    {
-        // Get the views associated with the post
-        $data = $this->views;
-
-        // Filter the view data to only include hours:minutes
-        $collection = collect();
-        $data->each(function ($item, $key) use ($collection) {
-            $collection->push($item->created_at->minute(0)->format('H:i'));
-        });
-
-        // Count the unique values and assign to their respective keys
-        $filtered = array_count_values($collection->toArray());
-
-        $popularReadingTimes = collect();
-        foreach ($filtered as $key => $value) {
-            // Use each given time to create a 60 min range
-            $start = Date::createFromTimeString($key);
-            $end = $start->copy()->addMinutes(60);
-
-            // Find the percentage based on the value
-            $percentage = number_format($value / $data->count() * 100, 2);
-
-            // Get a human-readable hour range and floating percentage
-            $popularReadingTimes->put(
-                sprintf('%s - %s', $start->format('g:i A'), $end->format('g:i A')),
-                $percentage
-            );
-        }
-
-        // Cast the collection to an array
-        $array = $popularReadingTimes->toArray();
-
-        // Only return the top 5 reading times and percentages
-        $sliced = array_slice($array, 0, 5, true);
-
-        // Sort the array in a descending order
-        arsort($sliced);
-
-        return $sliced;
-    }
-
-    /**
-     * Get the top referring websites for a post.
-     *
-     * @return array
-     */
-    public function getTopReferersAttribute(): array
-    {
-        // Get the views associated with the post
-        $data = $this->views;
-
-        // Filter the view data to only include referrers
-        $collection = collect();
-        $data->each(function ($item, $key) use ($collection) {
-            if (empty(Canvas::parseReferer($item->referer))) {
-                $collection->push(trans('canvas::app.other', [], $this->user->locale));
-            } else {
-                $collection->push(Canvas::parseReferer($item->referer));
-            }
-        });
-
-        // Count the unique values and assign to their respective keys
-        $array = array_count_values($collection->toArray());
-
-        // Only return the top N referrers with their view count
-        $sliced = array_slice($array, 0, 10, true);
-
-        // Sort the array in a descending order
-        arsort($sliced);
-
-        return $sliced;
     }
 
     /**

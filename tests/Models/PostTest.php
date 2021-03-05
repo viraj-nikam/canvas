@@ -15,7 +15,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Str;
 
 /**
  * Class PostTest.
@@ -31,11 +30,6 @@ class PostTest extends TestCase
         $this->assertInstanceOf(Carbon::class, factory(Post::class)->create()->published_at);
     }
 
-    public function testReadTimeAppendsToTheModel(): void
-    {
-        $this->assertArrayHasKey('read_time', factory(Post::class)->create()->toArray());
-    }
-
     public function testMetaIsCastToArray(): void
     {
         $this->assertIsArray(factory(Post::class)->create()->meta);
@@ -46,55 +40,6 @@ class PostTest extends TestCase
         $this->assertTrue(factory(Post::class)->create([
             'published_at' => now()->subDay(),
         ])->published);
-    }
-
-    public function testReadTimeAttribute(): void
-    {
-        $post = factory(Post::class)->create();
-
-        $minutes = ceil(str_word_count($post->body) / 250);
-
-        $this->assertEquals(
-            $post->readTime,
-            sprintf('%d %s %s', $minutes, Str::plural(trans('canvas::app.min'), $minutes), trans('canvas::app.read'))
-        );
-    }
-
-    public function testPopularReadingTimesAttribute(): void
-    {
-        $post = factory(Post::class)->create();
-
-        factory(View::class, 1)->create([
-            'post_id' => $post->id,
-            'created_at' => now()->subHour(),
-        ]);
-
-        factory(View::class, 1)->create([
-            'post_id' => $post->id,
-            'created_at' => now()->addHour(),
-        ]);
-
-        $this->assertCount(2, $post->popularReadingTimes);
-        $this->assertIsArray($post->popularReadingTimes);
-    }
-
-    public function testTopReferersAttribute(): void
-    {
-        $post = factory(Post::class)->create();
-
-        factory(View::class, 1)->create([
-            'post_id' => $post->id,
-            'referer' => null,
-            'created_at' => now()->subHour(),
-        ]);
-
-        factory(View::class, 1)->create([
-            'post_id' => $post->id,
-            'created_at' => now()->subHours(2),
-        ]);
-
-        $this->assertCount(2, $post->topReferers);
-        $this->assertIsArray($post->topReferers);
     }
 
     public function testPostsCanShareTheSameSlugWithUniqueUsers(): void

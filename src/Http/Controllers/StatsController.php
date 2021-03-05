@@ -28,9 +28,9 @@ class StatsController extends Controller
                      ->latest()
                      ->get();
 
-        $stats = new StatsAggregator();
+        $stats = new StatsAggregator(request()->user('canvas'));
 
-        $results = $stats->getTotalMonthlyInsightsForPosts($posts);
+        $results = $stats->getStatsForPosts($posts, 30);
 
         return response()->json($results);
     }

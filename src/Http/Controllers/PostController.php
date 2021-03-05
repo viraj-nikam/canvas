@@ -196,9 +196,9 @@ class PostController extends Controller
                     ->published()
                     ->findOrFail($id);
 
-        $stats = new StatsAggregator();
+        $stats = new StatsAggregator(request()->user('canvas'));
 
-        $results = $stats->getTotalInsightsForPost($post);
+        $results = $stats->getStatsForPost($post);
 
         return response()->json($results);
     }

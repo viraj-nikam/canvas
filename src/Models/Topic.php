@@ -60,6 +60,8 @@ class Topic extends Model
      */
     public function posts(): BelongsToMany
     {
+        // TODO: This should be a hasMany() relationship?
+
         return $this->belongsToMany(Post::class, 'canvas_posts_topics', 'topic_id', 'post_id');
     }
 
