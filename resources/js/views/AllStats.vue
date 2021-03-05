@@ -39,7 +39,7 @@
                                 </p>
                             </div>
                             <div class="card-body pt-0 pb-2">
-                                <p class="card-text display-4">{{ suffixedNumber(data.totalViews) }}</p>
+                                <p class="card-text display-4">{{ suffixedNumber(data.views) }}</p>
                             </div>
                         </div>
                         <div class="card shadow-lg">
@@ -54,7 +54,7 @@
                                 </p>
                             </div>
                             <div class="card-body pt-0 pb-2">
-                                <p class="card-text display-4">{{ suffixedNumber(data.totalVisits) }}</p>
+                                <p class="card-text display-4">{{ suffixedNumber(data.visits) }}</p>
                             </div>
                         </div>
                     </div>
@@ -186,11 +186,11 @@ export default {
         },
 
         plotViewPoints() {
-            return JSON.parse(this.data.traffic.views);
+            return JSON.parse(this.data.graph.views);
         },
 
         plotVisitPoints() {
-            return JSON.parse(this.data.traffic.visits);
+            return JSON.parse(this.data.graph.visits);
         },
     },
 

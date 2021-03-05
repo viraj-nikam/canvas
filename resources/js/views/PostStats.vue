@@ -382,11 +382,11 @@ export default {
         },
 
         plotViewPoints() {
-            return JSON.parse(this.data.traffic.views);
+            return JSON.parse(this.data.graph.views);
         },
 
         plotVisitPoints() {
-            return JSON.parse(this.data.traffic.visits);
+            return JSON.parse(this.data.graph.visits);
         },
     },
 
@@ -399,7 +399,7 @@ export default {
     methods: {
         fetchStats() {
             return this.request()
-                .get(`/api/stats/${this.id}`)
+                .get(`/api/posts/${this.id}/stats`)
                 .then(({ data }) => {
                     this.data = data;
                     NProgress.inc();

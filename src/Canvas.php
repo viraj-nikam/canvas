@@ -111,25 +111,18 @@ class Canvas
     }
 
     /**
-     * Check if a given URL is valid.
+     * Return a valid host URL or null.
      *
      * @param string|null $url
-     * @return bool
+     * @return string|null
      */
-    public static function isValidUrl(?string $url): bool
+    public static function parseReferer(?string $url): ?string
     {
-        return filter_var($url, FILTER_VALIDATE_URL) ? true : false;
-    }
+        if (filter_var($url, FILTER_VALIDATE_URL)) {
+            return parse_url($url)['host'];
+        }
 
-    /**
-     * Trim a given URL and return the base.
-     *
-     * @param string|null $url
-     * @return mixed
-     */
-    public static function trimUrl(?string $url)
-    {
-        return parse_url($url)['host'] ?? null;
+        return null;
     }
 
     /**
@@ -141,8 +134,12 @@ class Canvas
      * @param string $rating
      * @return string
      */
-    public static function gravatar(string $email, int $size = 200, string $default = 'retro', string $rating = 'g'): string
-    {
+    public static function gravatar(
+        string $email,
+        int $size = 200,
+        string $default = 'retro',
+        string $rating = 'g'
+    ): string {
         $hash = md5(trim(Str::lower($email)));
 
         return "https://secure.gravatar.com/avatar/{$hash}?s={$size}&d={$default}&r={$rating}";

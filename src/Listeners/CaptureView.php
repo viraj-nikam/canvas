@@ -16,16 +16,14 @@ class CaptureView
      * @param PostViewed $event
      * @return void
      */
-    public function handle(PostViewed $event)
+    public function handle(PostViewed $event): void
     {
         if (! $this->wasRecentlyViewed($event->post)) {
-            $referer = request()->header('referer');
-
             $data = [
                 'post_id' => $event->post->id,
                 'ip' => request()->getClientIp(),
                 'agent' => request()->header('user_agent'),
-                'referer' => Canvas::isValidUrl($referer) ? Canvas::trimUrl($referer) : false,
+                'referer' => Canvas::parseReferer(request()->header('referer')),
             ];
 
             $event->post->views()->create($data);
@@ -40,7 +38,7 @@ class CaptureView
      * @param Post $post
      * @return bool
      */
-    protected function wasRecentlyViewed(Post $post): bool
+    private function wasRecentlyViewed(Post $post): bool
     {
         $viewed = session()->get('viewed_posts', []);
 
@@ -53,7 +51,7 @@ class CaptureView
      * @param Post $post
      * @return void
      */
-    protected function storeInSession(Post $post)
+    private function storeInSession(Post $post): void
     {
         session()->put("viewed_posts.{$post->id}", now()->timestamp);
     }

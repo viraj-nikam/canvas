@@ -20,10 +20,10 @@ class TopicController extends Controller
     {
         return response()->json(
             Topic::query()
-                 ->select('id', 'name', 'created_at')
-                 ->latest()
-                 ->withCount('posts')
-                 ->paginate(), 200
+               ->select('id', 'name', 'created_at')
+               ->latest()
+               ->withCount('posts')
+               ->paginate(), 200
         );
     }
 
@@ -34,7 +34,7 @@ class TopicController extends Controller
      */
     public function create(): JsonResponse
     {
-        return response()->json(Topic::make([
+        return response()->json(Topic::query()->make([
             'id' => Uuid::uuid4()->toString(),
         ]), 200);
     }
@@ -79,9 +79,9 @@ class TopicController extends Controller
      */
     public function show($id): JsonResponse
     {
-        $topic = Topic::query()->find($id);
+        $topic = Topic::query()->findOrFail($id);
 
-        return $topic ? response()->json($topic, 200) : response()->json(null, 404);
+        return response()->json($topic, 200);
     }
 
     /**
@@ -90,11 +90,11 @@ class TopicController extends Controller
      * @param $id
      * @return JsonResponse
      */
-    public function showPosts($id): JsonResponse
+    public function posts($id): JsonResponse
     {
-        $topic = Topic::query()->with('posts')->find($id);
+        $topic = Topic::query()->with('posts')->findOrFail($id);
 
-        return $topic ? response()->json($topic->posts()->withCount('views')->paginate(), 200) : response()->json(null, 200);
+        return response()->json($topic->posts()->withCount('views')->paginate(), 200);
     }
 
     /**

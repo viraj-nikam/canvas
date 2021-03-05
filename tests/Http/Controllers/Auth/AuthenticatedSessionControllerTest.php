@@ -57,6 +57,13 @@ class AuthenticatedSessionControllerTest extends TestCase
         ])->assertRedirect(config('canvas.path'));
     }
 
+    public function testAuthenticatedUserWillRedirectToCanvas(): void
+    {
+        $this->actingAs($this->admin, 'canvas')
+             ->get('canvas/login')
+             ->assertRedirect(config('canvas.path'));
+    }
+
     public function testSuccessfulLogout(): void
     {
         $this->actingAs($this->admin, 'canvas')

@@ -30,5 +30,25 @@ class CaptureViewTest extends TestCase
         $this->assertDatabaseHas('canvas_views', [
             'post_id' => $post->id,
         ]);
+
+        $this->assertCount(1, $post->views);
+    }
+
+    public function testViewsAreCountedInSessionOncePerHour(): void
+    {
+        $post = factory(Post::class)->create();
+
+        $event = new PostViewed($post);
+
+        $listener = new CaptureView();
+
+        $listener->handle($event);
+        $listener->handle($event);
+
+        $this->assertDatabaseHas('canvas_views', [
+            'post_id' => $post->id,
+        ]);
+
+        $this->assertCount(1, $post->views);
     }
 }

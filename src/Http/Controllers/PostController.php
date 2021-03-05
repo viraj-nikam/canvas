@@ -6,6 +6,7 @@ use Canvas\Http\Requests\PostRequest;
 use Canvas\Models\Post;
 use Canvas\Models\Tag;
 use Canvas\Models\Topic;
+use Canvas\Services\StatsAggregator;
 use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
@@ -36,6 +37,8 @@ class PostController extends Controller
                      ->latest()
                      ->withCount('views')
                      ->paginate();
+
+        // TODO: The count() queries here are duplicated
 
         $draftCount = Post::query()
                           ->when(request()->user('canvas')->isContributor || request()->query('scope', 'user') != 'all', function (Builder $query) {
@@ -72,12 +75,12 @@ class PostController extends Controller
         $uuid = Uuid::uuid4();
 
         return response()->json([
-            'post' => Post::make([
+            'post' => Post::query()->make([
                 'id' => $uuid->toString(),
                 'slug' => "post-{$uuid->toString()}",
             ]),
-            'tags' => Tag::get(['name', 'slug']),
-            'topics' => Topic::get(['name', 'slug']),
+            'tags' => Tag::query()->get(['name', 'slug']),
+            'topics' => Topic::query()->get(['name', 'slug']),
         ]);
     }
 
@@ -167,17 +170,37 @@ class PostController extends Controller
                         return $query;
                     })
                     ->with('tags:name,slug', 'topic:name,slug')
-                    ->find($id);
+                    ->findOrFail($id);
 
-        if ($post) {
-            return response()->json([
-                'post' => $post,
-                'tags' => Tag::query()->get(['name', 'slug']),
-                'topics' => Topic::query()->get(['name', 'slug']),
-            ]);
-        } else {
-            return response()->json(null, 404);
-        }
+        return response()->json([
+            'post' => $post,
+            'tags' => Tag::query()->get(['name', 'slug']),
+            'topics' => Topic::query()->get(['name', 'slug']),
+        ]);
+    }
+
+    /**
+     * Display stats for the specified resource.
+     *
+     * @param string $id
+     * @return JsonResponse
+     */
+    public function stats(string $id): JsonResponse
+    {
+        $post = Post::query()
+                    ->when(request()->user('canvas')->isContributor, function (Builder $query) {
+                        return $query->where('user_id', request()->user('canvas')->id);
+                    }, function (Builder $query) {
+                        return $query;
+                    })
+                    ->published()
+                    ->findOrFail($id);
+
+        $stats = new StatsAggregator(request()->user('canvas'));
+
+        $results = $stats->getStatsForPost($post);
+
+        return response()->json($results);
     }
 
     /**
