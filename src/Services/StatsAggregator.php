@@ -88,13 +88,13 @@ class StatsAggregator
         ]);
 
         $previousViews = $post->views->whereBetween('created_at', [
-            today()->subMonth()->startOfMonth()->startOfDay()->toDateTimeString(),
-            today()->subMonth()->endOfMonth()->endOfDay()->toDateTimeString(),
+            today()->subMonthNoOverflow()->startOfMonth()->startOfDay()->toDateTimeString(),
+            today()->subMonthNoOverflow()->endOfMonth()->endOfDay()->toDateTimeString(),
         ]);
 
         $previousVisits = $post->visits->whereBetween('created_at', [
-            today()->subMonth()->startOfMonth()->startOfDay()->toDateTimeString(),
-            today()->subMonth()->endOfMonth()->endOfDay()->toDateTimeString(),
+            today()->subMonthNoOverflow()->startOfMonth()->startOfDay()->toDateTimeString(),
+            today()->subMonthNoOverflow()->endOfMonth()->endOfDay()->toDateTimeString(),
         ]);
 
         return [
