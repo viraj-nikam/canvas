@@ -240,7 +240,8 @@ To return a single post, you'll likely want to find it by a given slug, as well 
 $post = Canvas\Models\Post::with('user', 'tags', 'topic')->firstWhere('slug', $slug);
 ```
 
-> **Important:** In the same method that returns a post, make sure you fire the `PostViewed` event, or else a view/visit will not be recorded.
+> **Important:** In the same method that returns a post, make sure you include the `PostViewed` event, or else a 
+> view/visit will not be recorded.
 
 ```php
 event(new Canvas\Events\PostViewed($post));
@@ -262,6 +263,8 @@ Users can be retrieved by their `id`, `username`, or `email`:
 
 ```php
 $user = Canvas\Models\User::find($id);
+$user = Canvas\Models\User::firstWhere('username', $username);
+$user = Canvas\Models\User::firstWhere('email', $email);
 ```
 
 Additionally, you can return the users' published posts with their associated topic:
