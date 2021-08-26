@@ -7,9 +7,12 @@ checkoutLocation: canvas
 
 vscode:
   extensions:
-    - octref.vetur@0.28.0:bW1RGNnmWYQO43JdJgK34w==
-    - eamodio.gitlens@10.2.1:WIWu3zHU4VPT8r/v866LUw==
-    - esbenp.prettier-vscode@5.7.1:GDba64T6G+TUi1qmc6BE3A==
+    - equinusocio.vsc-community-material-theme
+    - equinusocio.vsc-material-theme
+    - equinusocio.vsc-material-theme-icons
+    - esbenp.prettier-vscode
+    - octref.vetur
+    - eamodio.gitlens
 
 github:
   prebuilds:
@@ -64,12 +67,6 @@ tasks:
       # Create a symlink to the local package assets
       cd public/vendor/canvas
       ln -s ../../../../canvas/public/* .
-
-      cd /workspace/laravel
-
-      # Trust any proxy in a chain of proxies
-      php artisan vendor:publish --provider="Fideloper\Proxy\TrustedProxyServiceProvider"
-      sed -Ei "s|'proxies' => null|'proxies' => '**'|g" config/trustedproxy.php
 
     command: |
       cd /workspace/laravel
