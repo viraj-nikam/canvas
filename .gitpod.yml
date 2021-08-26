@@ -72,10 +72,12 @@ tasks:
       cd /workspace/laravel
 
       # Write the local app URL to the .env file
-      export url=$(gp url 8000); sed -Ei "s|APP_URL=http://localhost|APP_URL=${url}|g" .env
+      sed -i "s|APP_URL=|APP_URL=${GITPOD_WORKSPACE_URL}|g" .env
+      sed -i "s|APP_URL=https://|APP_URL=https://8000-|g" .env
 
       # Write the local asset URL to the .env file
-      export url=$(gp url 8000); sed -Ei "1i\ASSET_URL=${url}" .env
+      sed -i "s|ASSET_URL=|ASSET_URL=${GITPOD_WORKSPACE_URL}|g" .env
+      sed -i "s|ASSET_URL=https://|ASSET_URL=https://8000-|g" .env
 
       # Clear and cache the app configuration
       php artisan config:clear
