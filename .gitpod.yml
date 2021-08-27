@@ -78,7 +78,7 @@ tasks:
 
       # Trust any proxy in a chain of proxies
       export url=$(gp url 8000); sed -Ei "s|APP_URL=http://localhost|APP_URL=${url}|g" .env
-      sed -Ei "s|$proxies|$proxies = '*'|g" app/Http/Middleware/TrustProxies.php
+      sed -Ei "s|\\\$proxies|\\\$proxies = '*'|g" app/Http/Middleware/TrustProxies.php
 
       # Clear and cache the app configuration
       php artisan config:clear
