@@ -76,6 +76,10 @@ tasks:
       # Write the local asset URL to the .env file
       export url=$(gp url 8000); sed -Ei "1i\ASSET_URL=${url}" .env
 
+      # Trust any proxy in a chain of proxies
+      export url=$(gp url 8000); sed -Ei "s|APP_URL=http://localhost|APP_URL=${url}|g" .env
+      sed -Ei "s|$proxies|$proxies = '*'|g" app/Http/Middleware/TrustProxies.php
+
       # Clear and cache the app configuration
       php artisan config:clear
       php artisan cache:clear
