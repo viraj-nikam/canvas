@@ -50,8 +50,7 @@ tasks:
       touch database/database.sqlite
 
       # Write the database configuration to the .env file
-      sed -i 's/DB_CONNECTION=mysql/DB_CONNECTION=sqlite/g' .env
-      sed -i 's/DB_DATABASE=laravel/#DB_DATABASE=laravel/g' .env
+      sed -i 's/DB_CONNECTION=mysql/DB_CONNECTION=sqlite/g' .env && sed -i 's/DB_DATABASE=laravel/#DB_DATABASE=laravel/g' .env
 
       # Link Canvas to the Laravel app
       composer-link ../canvas/
@@ -72,12 +71,10 @@ tasks:
       cd /workspace/laravel
 
       # Write the local app URL to the .env file
-      sed -i "s|APP_URL=|APP_URL=${GITPOD_WORKSPACE_URL}|g" .env
-      sed -i "s|APP_URL=https://|APP_URL=https://8000-|g" .env
+      export url=$(gp url 8000); sed -Ei "s|APP_URL=http://localhost|APP_URL=${url}|g" .env
 
       # Write the local asset URL to the .env file
-      sed -i "s|ASSET_URL=|ASSET_URL=${GITPOD_WORKSPACE_URL}|g" .env
-      sed -i "s|ASSET_URL=https://|ASSET_URL=https://8000-|g" .env
+      export url=$(gp url 8000); sed -Ei "1i\ASSET_URL=${url}" .env
 
       # Clear and cache the app configuration
       php artisan config:clear
