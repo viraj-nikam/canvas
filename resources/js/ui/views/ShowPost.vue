@@ -73,7 +73,7 @@
                             </span>
                         </p>
                         <span class="text-secondary"
-                            >{{ moment(post.published_at).format('MMM D, Y') }} — {{ post.read_time }}</span
+                        >{{ moment(post.published_at).format('MMM D, Y') }} — {{ post.read_time }}</span
                         >
                     </div>
                 </div>
@@ -115,8 +115,8 @@
                     <p class="text-center font-italic mb-5">
                         This post was originally published on
                         <a :href="post.meta.canonical_link" target="_blank" rel="noopener">{{
-                            parseURL(post.meta.canonical_link).host
-                        }}</a>
+                                parseURL(post.meta.canonical_link).host
+                                                                                           }}</a>
                     </p>
                 </div>
             </div>
@@ -141,14 +141,14 @@ export default {
         return {
             title: this.post?.meta?.title,
             meta: [
-                { name: 'description', content: this.post?.meta?.description },
-                { property: 'og:title', content: this.post?.meta?.title },
-                { property: 'og:image', content: this.post?.featured_image },
-                { property: 'og:description', content: this.post?.meta?.description },
+                { name: 'description', content: this.post?.meta?.description || null },
+                { property: 'og:title', content: this.post?.meta?.title || null },
+                { property: 'og:image', content: this.post?.featured_image || null },
+                { property: 'og:description', content: this.post?.meta?.description || null },
                 { name: 'twitter:card', content: 'summary' },
-                { name: 'twitter:title', content: this.post?.meta?.title },
-                { name: 'twitter:description', content: this.post?.meta?.description },
-                { name: 'twitter:image', content: this.post?.featured_image },
+                { name: 'twitter:title', content: this.post?.meta?.title || null },
+                { name: 'twitter:description', content: this.post?.meta?.description || null },
+                { name: 'twitter:image', content: this.post?.featured_image || null },
             ],
         };
     },
@@ -212,7 +212,7 @@ export default {
                     NProgress.inc();
                 })
                 .catch(() => {
-                    NProgress.done();
+                    this.$router.push({ name: 'posts' });
                 });
         },
     },
