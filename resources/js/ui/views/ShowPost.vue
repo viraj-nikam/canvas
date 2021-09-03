@@ -73,7 +73,7 @@
                             </span>
                         </p>
                         <span class="text-secondary"
-                        >{{ moment(post.published_at).format('MMM D, Y') }} — {{ post.read_time }}</span
+                            >{{ moment(post.published_at).format('MMM D, Y') }} — {{ post.read_time }}</span
                         >
                     </div>
                 </div>
@@ -115,8 +115,8 @@
                     <p class="text-center font-italic mb-5">
                         This post was originally published on
                         <a :href="post.meta.canonical_link" target="_blank" rel="noopener">{{
-                                parseURL(post.meta.canonical_link).host
-                                                                                           }}</a>
+                            parseURL(post.meta.canonical_link).host
+                        }}</a>
                     </p>
                 </div>
             </div>
