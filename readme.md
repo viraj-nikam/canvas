@@ -15,34 +15,6 @@
 
 Canvas is a fully open source package to extend your existing [Laravel](https://laravel.com) application and get you up-and-running with a blog in just a few minutes. In addition to a distraction-free writing experience, you can view monthly trends on your content, get insights into reader traffic and more!
 
-**Prologue**
-
-- [Release Notes](https://github.com/austintoddj/canvas/releases)
-- [Upgrade Guide](https://github.com/austintoddj/canvas/blob/master/.github/UPGRADE.md)
-- [Contributing Guide](https://github.com/austintoddj/canvas/blob/master/.github/CONTRIBUTING.md)
-
-**Getting Started**
-
-- [System Requirements](#system-requirements)
-- [Installation](#installation)
-- [Configuration](#configuration)
-
-**The Basics**
-
-- [Roles & Permissions](#roles--permissions)
-- [Canvas UI](#canvas-ui)
-- [Unsplash](#unsplash-integration)
-- [Email](#e-mail-notifications)
-
-**Digging Deeper**
-
-- [API](#api)
-- [Updates](#updates)
-- [Testing](#testing)
-- [Troubleshooting](#troubleshooting)
-- [License](#license)
-- [Credits](#credits)
-
 ## System Requirements
 
 - PHP >= 7.3
@@ -317,6 +289,10 @@ To keep the assets up-to-date and avoid issues in future updates, you may add th
     }
 }
 ```
+
+## Contributing
+
+Thank you for considering contributing to Canvas! The [contribution guide can be found here](https://github.com/austintoddj/canvas/blob/master/.github/CONTRIBUTING.md).
 
 ## Testing
 
