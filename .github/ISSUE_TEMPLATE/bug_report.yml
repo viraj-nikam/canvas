@@ -37,13 +37,9 @@ body:
     label: Environment
     description: |
       examples:
-        - **PHP**: 8.0.0
-        - **Laravel**: 9.0.0
-        - **Database**: MySQL 5.7
-    value: |
-        - PHP:
-        - Laravel:
-        - Database:
+        - **PHP Version**: #.#.#
+        - **Laravel Version**: #.#.#
+        - **Database Driver & Version**:
     render: markdown
   validations:
     required: false
