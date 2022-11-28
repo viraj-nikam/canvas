@@ -28,7 +28,7 @@
  */
 
 /*!
- * FilePondPluginFileValidateSize 2.2.7
+ * FilePondPluginFileValidateSize 2.2.8
  * Licensed under MIT, https://opensource.org/licenses/MIT/
  * Please visit https://pqina.nl/filepond/ for details.
  */
@@ -92,7 +92,7 @@
  */
 
 /*!
- * Vue.js v2.7.13
+ * Vue.js v2.7.14
  * (c) 2014-2022 Evan You
  * Released under the MIT License.
  */
