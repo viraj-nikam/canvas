@@ -19,15 +19,15 @@ jobs:
         laravel: [6, 7, 8, 9, 10]
         include:
           - laravel: 6
-            testbench: 4.0
+            testbench: ^4.0
           - laravel: 7
-            testbench: 5.0
+            testbench: ^5.0
           - laravel: 8
-            testbench: 6.0
+            testbench: ^6.0
           - laravel: 9
-            testbench: 7.0
+            testbench: ^7.0
           - laravel: 10
-            testbench: 8.0
+            testbench: ^8.0
         exclude:
           - php: 7.3
             laravel: 9
@@ -64,7 +64,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          composer require "laravel/framework=${{ matrix.laravel }}" "orchestra/testbench=${{ matrix.testbench }}" --dev --no-update
+          composer require "laravel/framework=${{ matrix.laravel }}" "orchestra/testbench=${{ matrix.testbench }}" --no-update
           composer update --prefer-dist --no-interaction --no-progress
 
       - name: Run tests
