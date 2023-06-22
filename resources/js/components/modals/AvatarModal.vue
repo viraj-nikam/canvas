@@ -106,7 +106,6 @@ export default {
         }),
 
         getServerOptions() {
-
             return {
                 url: this.settings.path !== '/' ? `${this.settings.path}/api/uploads` : '/api/uploads',
                 headers: {
