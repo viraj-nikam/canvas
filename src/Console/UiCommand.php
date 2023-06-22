@@ -44,6 +44,7 @@ class UiCommand extends Command
                 'bootstrap' => '^4.6.0',
                 'highlight.js' => '^10.5.0',
                 'jquery' => '^3.5.1',
+                'laravel-mix' => '^6.0.49',
                 'medium-zoom' => '^1.0.6',
                 'moment' => '^2.29.1',
                 'nprogress' => '^0.2.0',
@@ -60,17 +61,24 @@ class UiCommand extends Command
             ] + $packages;
         });
 
+        $this->updateNodeScripts(function ($scripts) {
+            return [
+                'canvas.ui.dev' => 'mix',
+                'canvas.ui.prod' => 'mix --production'
+            ] + $scripts;
+        });
+
         // Sass configuration...
-        copy(dirname(__DIR__, 2).'/resources/sass/ui.scss', resource_path('sass/canvas-ui.scss'));
+        copy(dirname(__DIR__, 2) . '/resources/sass/ui.scss', resource_path('sass/canvas-ui.scss'));
 
         // Single page application...
-        (new Filesystem)->copyDirectory(dirname(__DIR__, 2).'/resources/js/ui', resource_path('js/canvas-ui'));
+        (new Filesystem)->copyDirectory(dirname(__DIR__, 2) . '/resources/js/ui', resource_path('js/canvas-ui'));
 
         $this->updateWebpackConfiguration();
         $this->flushNodeModules();
 
         $this->info('Installation complete.');
-        $this->comment('Please run "npm install && npm run dev" to build your assets.');
+        $this->comment('Please run "npm install && npm run canvas.ui.dev" to build your assets.');
     }
 
     /**
@@ -82,7 +90,7 @@ class UiCommand extends Command
      */
     protected function updateNodePackages(callable $callback, $dev = true)
     {
-        if (! file_exists(base_path('package.json'))) {
+        if (!file_exists(base_path('package.json'))) {
             return;
         }
 
@@ -99,7 +107,37 @@ class UiCommand extends Command
 
         file_put_contents(
             base_path('package.json'),
-            json_encode($packages, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT).PHP_EOL
+            json_encode($packages, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) . PHP_EOL
+        );
+    }
+
+    /**
+     * Update the "package.json" scripts.
+     *
+     * @param  callable  $callback
+     * @param  bool  $dev
+     * @return void
+     */
+    protected function updateNodeScripts(callable $callback)
+    {
+        if (!file_exists(base_path('package.json'))) {
+            return;
+        }
+
+        $configurationKey = 'scripts';
+
+        $packages = json_decode(file_get_contents(base_path('package.json')), true);
+
+        $packages[$configurationKey] = $callback(
+            array_key_exists($configurationKey, $packages) ? $packages[$configurationKey] : [],
+            $configurationKey
+        );
+
+        ksort($packages[$configurationKey]);
+
+        file_put_contents(
+            base_path('package.json'),
+            json_encode($packages, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) . PHP_EOL
         );
     }
 
@@ -110,13 +148,13 @@ class UiCommand extends Command
      */
     protected function exportViews()
     {
-        if (file_exists($view = $this->getViewPath('canvas-ui.blade.php')) && ! $this->option('force')) {
-            if (! $this->confirm('The [canvas-ui.blade.php] view already exists. Do you want to replace it?')) {
+        if (file_exists($view = $this->getViewPath('canvas-ui.blade.php')) && !$this->option('force')) {
+            if (!$this->confirm('The [canvas-ui.blade.php] view already exists. Do you want to replace it?')) {
                 return;
             }
         }
 
-        copy(dirname(__DIR__, 2).'/resources/views/ui.blade.php', $view);
+        copy(dirname(__DIR__, 2) . '/resources/views/ui.blade.php', $view);
     }
 
     /**
@@ -131,13 +169,13 @@ class UiCommand extends Command
             str_replace(
                 '{{namespace}}',
                 $this->laravel->getNamespace(),
-                file_get_contents(dirname(__DIR__, 2).'/resources/stubs/controllers/CanvasUiController.stub')
+                file_get_contents(dirname(__DIR__, 2) . '/resources/stubs/controllers/CanvasUiController.stub')
             )
         );
 
         file_put_contents(
             base_path('routes/web.php'),
-            file_get_contents(dirname(__DIR__, 2).'/resources/stubs/routes/web.stub'),
+            file_get_contents(dirname(__DIR__, 2) . '/resources/stubs/routes/web.stub'),
             FILE_APPEND
         );
     }
@@ -179,7 +217,7 @@ class UiCommand extends Command
     {
         file_put_contents(
             base_path('webpack.mix.js'),
-            file_get_contents(dirname(__DIR__, 2).'/resources/stubs/webpack.mix.stub'),
+            file_get_contents(dirname(__DIR__, 2) . '/resources/stubs/webpack.mix.stub'),
             FILE_APPEND
         );
     }
