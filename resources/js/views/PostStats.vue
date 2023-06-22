@@ -225,19 +225,17 @@
                                     <div class="mr-auto">
                                         <div v-if="host === trans.other">
                                             <p class="mb-0 py-1">
-                                                <img
-                                                    :src="getDefaultFavicon(host)"
-                                                    :style="
-                                                        settings.user.dark_mode === true
-                                                            ? {
-                                                                  filter: 'invert(100%)',
-                                                              }
-                                                            : ''
+                                                <i 
+                                                    class="bi bi-globe mr-1"
+                                                    :style="settings.user.dark_mode === true
+                                                        ? {
+                                                            filter: 'invert(100%)',
+                                                        }
+                                                        : ''
                                                     "
                                                     :alt="host"
                                                     width="15"
-                                                    height="15"
-                                                    class="mr-1"
+                                                    height="15" 
                                                 />
                                                 <a
                                                     v-tooltip="{
@@ -268,15 +266,20 @@
                                         </div>
                                         <div v-else>
                                             <p class="mb-0 py-1">
-                                                <img
-                                                    :src="getDefaultFavicon(host)"
+                                                <i 
+                                                    class="bi bi-globe mr-1"
+                                                    :style="settings.user.dark_mode === true
+                                                        ? {
+                                                            filter: 'invert(100%)',
+                                                        }
+                                                        : ''
+                                                        "
                                                     :alt="host"
                                                     width="15"
                                                     height="15"
-                                                    class="mr-1"
                                                 />
                                                 <a
-                                                    :href="'http://' + host"
+                                                    :href="'https://' + host"
                                                     class="text-decoration-none text-primary"
                                                     target="_blank"
                                                 >
@@ -408,11 +411,7 @@ export default {
                     this.$router.push({ name: 'stats' });
                     NProgress.done();
                 });
-        },
-
-        getDefaultFavicon(host) {
-            return `https://favicons.githubusercontent.com/${host}`;
-        },
+        }
     },
 };
 </script>
