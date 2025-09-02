@@ -29,7 +29,8 @@ class UploadsController extends Controller
             'disk' => config('canvas.storage_disk'),
         ]);
 
-        return Storage::disk(config('canvas.storage_disk'))->url($path);
+        //return Storage::disk(config('canvas.storage_disk'))->url($path);
+        return url(Storage::disk(config('canvas.storage_disk'))->url($path));
     }
 
     /**
