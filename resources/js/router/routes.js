@@ -5,7 +5,9 @@ import EditTag from '../views/EditTag';
 import EditTopic from '../views/EditTopic';
 import EditUser from '../views/EditUser';
 import PostList from '../views/PostList';
+import NoteList from '../views/NoteList';
 import PostStats from '../views/PostStats';
+import EditNote from '../views/EditNote';
 import TagList from '../views/TagList';
 import TopicList from '../views/TopicList';
 import UserList from '../views/UserList';
@@ -30,9 +32,19 @@ export default [
         component: PostList,
     },
     {
+        path: '/notes',
+        name: 'notes',
+        component: NoteList,
+    },
+    {
         path: '/posts/create',
         name: 'create-post',
         component: EditPost,
+    },
+    {
+        path: '/notes/create',
+        name: 'create-note',
+        component: EditNote,
     },
     {
         path: '/posts/:id/stats',
@@ -43,6 +55,11 @@ export default [
         path: '/posts/:id/edit',
         name: 'edit-post',
         component: EditPost,
+    },
+    {
+        path: '/notes/:id/edit',
+        name: 'edit-note',
+        component: EditNote,
     },
     {
         path: '/tags',

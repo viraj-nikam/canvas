@@ -1,5 +1,5 @@
 {
-    "name": "austintoddj/canvas",
+    "name": "viraj-nikam/canvas",
     "description": "A Laravel publishing platform",
     "keywords": [
         "blog",
@@ -50,6 +50,9 @@
                 "Canvas\\CanvasServiceProvider"
             ]
         }
+    },
+    "replace": {
+        "austintoddj/canvas": "*"
     },
     "config": {
         "sort-packages": true

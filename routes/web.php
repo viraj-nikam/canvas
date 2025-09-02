@@ -42,6 +42,15 @@ Route::middleware([Authenticate::class])->group(function () {
             Route::delete('{id}', 'PostController@destroy');
         });
 
+        // Note routes...
+        Route::prefix('notes')->group(function () {
+            Route::get('/', 'NoteController@index');
+            Route::get('create', 'NoteController@create');
+            Route::get('{id}', 'NoteController@show');
+            Route::post('{id}', 'NoteController@store');
+            Route::delete('{id}', 'NoteController@destroy');
+        });
+
         // Tag routes...
         Route::prefix('tags')->middleware([Admin::class])->group(function () {
             Route::get('/', 'TagController@index');
