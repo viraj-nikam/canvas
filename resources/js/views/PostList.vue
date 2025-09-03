@@ -39,17 +39,24 @@
             <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12">
                 <div class="d-flex justify-content-between mt-2 mb-4 align-items-end">
                     <h3 class="mt-2">{{ trans.posts }}</h3>
+                    <div class="d-flex align-items-center">
+                        <router-link :to="{ name: 'create-post' }" class="btn btn-outline-secondary mr-4">
+                            {{ trans.new_post }}
+                        </router-link>
 
-                    <select
-                        v-model="type"
-                        id=""
-                        name=""
-                        class="ml-auto w-auto custom-select border-0"
-                        @change="changeType"
-                    >
-                        <option value="published">{{ trans.published }} ({{ suffixedNumber(publishedCount) }})</option>
-                        <option value="draft">{{ trans.draft }} ({{ suffixedNumber(draftCount) }})</option>
-                    </select>
+                        <select
+                            v-model="type"
+                            id=""
+                            name=""
+                            class="ml-auto w-auto custom-select border-0"
+                            @change="changeType"
+                        >
+                            <option value="published">
+                                {{ trans.published }} ({{ suffixedNumber(publishedCount) }})
+                            </option>
+                            <option value="draft">{{ trans.draft }} ({{ suffixedNumber(draftCount) }})</option>
+                        </select>
+                    </div>
                 </div>
 
                 <div class="mt-5 card shadow-lg">

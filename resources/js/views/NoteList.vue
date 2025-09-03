@@ -35,8 +35,9 @@
 
         <main v-if="isReady" class="py-4">
             <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12">
-                <div class="d-flex justify-content-between mt-2 mb-4 align-items-end">
+                <div class="d-flex justify-content-between mt-2 mb-4 align-items-center">
                     <h3 class="mt-2">Notes</h3>
+                    <router-link :to="{ name: 'create-note' }" class="btn btn-outline-secondary">New note</router-link>
                 </div>
 
                 <div class="mt-5 card shadow-lg">

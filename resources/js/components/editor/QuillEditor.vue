@@ -54,7 +54,7 @@
 
         <div ref="editor" v-cloak class="mb-5" />
 
-        <nav class="navbar fixed-bottom navbar-expand-sm mt-5 d-xl-none p-0 navbar-mini shadow">
+        <nav class="navbar fixed-bottom navbar-expand-sm mt-5 d-xl-none px-0 py-2 navbar-mini shadow">
             <div class="btn-group d-flex justify-content-center">
                 <button
                     class="btn border border-bottom-0 border-left-0 py-2"
