@@ -29,6 +29,14 @@ class CreateCanvasTables extends Migration
             $table->unique(['slug', 'user_id']);
         });
 
+        Schema::create('canvas_notes', function (Blueprint $table) {
+            $table->uuid('id')->primary();
+            $table->text('body')->nullable();
+            $table->uuid('user_id')->index();
+            $table->timestamps();
+            $table->softDeletes();
+        });
+
         Schema::create('canvas_tags', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('slug');
@@ -57,10 +65,24 @@ class CreateCanvasTables extends Migration
             $table->unique(['post_id', 'tag_id']);
         });
 
+
+
+        Schema::create('canvas_notes_tags', function (Blueprint $table) {
+            $table->uuid('note_id');
+            $table->uuid('tag_id');
+            $table->unique(['note_id', 'tag_id']);
+        });
+
         Schema::create('canvas_posts_topics', function (Blueprint $table) {
             $table->uuid('post_id');
             $table->uuid('topic_id');
             $table->unique(['post_id', 'topic_id']);
+        });
+
+        Schema::create('canvas_notes_topics', function (Blueprint $table) {
+            $table->uuid('note_id');
+            $table->uuid('topic_id');
+            $table->unique(['note_id', 'topic_id']);
         });
 
         Schema::create('canvas_views', function (Blueprint $table) {
@@ -108,10 +130,13 @@ class CreateCanvasTables extends Migration
     public function down()
     {
         Schema::dropIfExists('canvas_posts');
+        Schema::dropIfExists('canvas_notes');
         Schema::dropIfExists('canvas_tags');
         Schema::dropIfExists('canvas_topics');
         Schema::dropIfExists('canvas_posts_tags');
+        Schema::dropIfExists('canvas_notes_tags');
         Schema::dropIfExists('canvas_posts_topics');
+        Schema::dropIfExists('canvas_notes_topics');
         Schema::dropIfExists('canvas_views');
         Schema::dropIfExists('canvas_visits');
         Schema::dropIfExists('canvas_users');
