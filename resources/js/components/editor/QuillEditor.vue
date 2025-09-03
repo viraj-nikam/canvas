@@ -133,6 +133,10 @@ export default {
             type: Object,
             required: true,
         },
+        placeholderText: {
+            type: String,
+            default: null,
+        },
     },
 
     data() {
@@ -181,7 +185,7 @@ export default {
                 },
                 theme: 'bubble',
                 scrollingContainer: 'html, body',
-                placeholder: this.trans.tell_your_story,
+                placeholder: this.placeholderText || this.trans.tell_your_story,
             });
 
             /**

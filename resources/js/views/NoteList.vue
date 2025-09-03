@@ -60,8 +60,14 @@
                                             {{ snippet(note.body) }}
                                         </p>
                                         <p class="text-secondary mt-1 mb-0">
+                                            <span>
+                                                {{ trans.created }}
+                                                {{ moment(note.created_at).fromNow() }}
+                                            </span>
+
                                             <span class="d-none d-md-inline">
-                                                — Updated {{ moment(note.updated_at).fromNow() }}
+                                                — {{ trans.updated }}
+                                                {{ moment(note.updated_at).fromNow() }}
                                             </span>
                                         </p>
                                     </div>

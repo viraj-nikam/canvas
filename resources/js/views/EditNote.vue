@@ -27,6 +27,9 @@
                     </a>
 
                     <div class="dropdown-menu dropdown-menu-right">
+                        <a href="#" class="dropdown-item" @click.prevent="saveNote">
+                            {{ trans.save }}
+                        </a>
                         <a v-if="!creatingNote" href="#" class="dropdown-item text-danger" @click="showDeleteModal">
                             {{ trans.delete }}
                         </a>
@@ -38,7 +41,12 @@
         <main v-if="isReady" class="py-4">
             <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12">
                 <div class="form-group my-2">
-                    <quill-editor :key="note.id" :post="note" @update-post="saveNote" />
+                    <quill-editor
+                        :key="note.id"
+                        :post="note"
+                        placeholder-text="What's on your mind?"
+                        @update-post="saveNote"
+                    />
                 </div>
             </div>
         </main>

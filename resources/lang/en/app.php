@@ -75,6 +75,7 @@ return [
     'post_scheduling_format' => 'Post scheduling uses a 24-hour time format and is utilizing the',
     'post' => 'Post',
     'posts' => 'Posts',
+    'notes' => 'Notes',
     'publish' => 'Publish',
     'publish_now' => 'Publish now',
     'published' => 'Published',

@@ -52,11 +52,11 @@
                         >
                             {{ trans.your_profile }}
                         </router-link>
+                        <router-link :to="{ name: 'notes' }" class="dropdown-item">
+                            <span>{{ trans.notes }}</span>
+                        </router-link>
                         <router-link :to="{ name: 'posts' }" class="dropdown-item">
                             <span>{{ trans.posts }}</span>
-                        </router-link>
-                        <router-link :to="{ name: 'notes' }" class="dropdown-item">
-                            <span>Notes</span>
                         </router-link>
                         <router-link v-if="isAdmin" :to="{ name: 'users' }" class="dropdown-item">
                             <span>{{ trans.users }}</span>
