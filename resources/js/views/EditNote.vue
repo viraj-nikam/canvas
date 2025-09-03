@@ -27,6 +27,9 @@
                     </a>
 
                     <div class="dropdown-menu dropdown-menu-right">
+                        <a href="#" class="dropdown-item" @click.prevent="showSettingsModal">
+                            {{ trans.general_settings }}
+                        </a>
                         <a href="#" class="dropdown-item" @click.prevent="saveNote">
                             {{ trans.save }}
                         </a>
@@ -52,6 +55,17 @@
         </main>
 
         <section v-if="isReady">
+            <note-settings-modal
+                ref="noteSettingsModal"
+                :note="note"
+                :tags="tags"
+                :topics="topics"
+                @add-tag="addTag"
+                @add-topic="addTopic"
+                @add-note-tag="addNoteTag"
+                @add-note-topic="addNoteTopic"
+                @update-note="saveNote"
+            />
             <delete-modal
                 ref="deleteModal"
                 :header="trans.delete"
@@ -69,6 +83,7 @@ import DeleteModal from '../components/modals/DeleteModal';
 import NProgress from 'nprogress';
 import PageHeader from '../components/PageHeader';
 import QuillEditor from '../components/editor/QuillEditor';
+import NoteSettingsModal from '../components/modals/NoteSettingsModal';
 import debounce from 'lodash/debounce';
 import get from 'lodash/get';
 import isEmpty from 'lodash/isEmpty';
@@ -80,6 +95,7 @@ export default {
         DeleteModal,
         QuillEditor,
         PageHeader,
+        NoteSettingsModal,
     },
 
     data() {
@@ -150,6 +166,24 @@ export default {
                 });
         },
 
+        addTag(tag) {
+            this.tags.push(tag);
+        },
+
+        addTopic(topic) {
+            this.topics.push([topic]);
+        },
+
+        addNoteTag(tag) {
+            this.note.tags.push(tag);
+            this.saveNote();
+        },
+
+        addNoteTopic(topic) {
+            this.note.topic = [topic];
+            this.saveNote();
+        },
+
         async saveNote() {
             this.errors = [];
             this.isSaving = true;
@@ -192,6 +226,10 @@ export default {
 
         showDeleteModal() {
             $(this.$refs.deleteModal.$el).modal('show');
+        },
+
+        showSettingsModal() {
+            $(this.$refs.noteSettingsModal.$el).modal('show');
         },
     },
 };
