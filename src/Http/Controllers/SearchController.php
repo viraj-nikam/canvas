@@ -3,6 +3,7 @@
 namespace Canvas\Http\Controllers;
 
 use Canvas\Models\Post;
+use Canvas\Models\Note;
 use Canvas\Models\Tag;
 use Canvas\Models\Topic;
 use Canvas\Models\User;
@@ -40,6 +41,36 @@ class SearchController extends Controller
         });
 
         return response()->json(collect($posts)->toArray(), 200);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @return JsonResponse
+     */
+    public function notes(): JsonResponse
+    {
+        $notes = Note::query()
+            ->select('id', 'body')
+            ->when(request()->user('canvas')->isContributor, function (Builder $query) {
+                return $query->where('user_id', request()->user('canvas')->id);
+            }, function (Builder $query) {
+                return $query;
+            })
+            ->latest()
+            ->get();
+
+        $notes->map(function ($note) {
+            // Use a plain-text snippet for searching and display
+            $text = trim(strip_tags((string) $note->body));
+            $note['name'] = mb_strimwidth($text, 0, 140, '…');
+            $note['type'] = 'Note';
+            $note['route'] = 'edit-note';
+
+            return $note;
+        });
+
+        return response()->json(collect($notes)->toArray(), 200);
     }
 
     /**

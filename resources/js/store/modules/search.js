@@ -19,6 +19,14 @@ const actions = {
                 context.commit('UPDATE_INDEX', data);
             });
 
+        // Include Notes in search index
+        request.methods
+            .request()
+            .get('/api/search/notes')
+            .then(({ data }) => {
+                context.commit('UPDATE_INDEX', data);
+            });
+
         if (context.rootGetters['settings/isAdmin']) {
             request.methods
                 .request()

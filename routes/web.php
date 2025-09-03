@@ -84,6 +84,7 @@ Route::middleware([Authenticate::class])->group(function () {
         // Search routes...
         Route::prefix('search')->group(function () {
             Route::get('posts', 'SearchController@posts');
+            Route::get('notes', 'SearchController@notes');
             Route::get('tags', 'SearchController@tags')->middleware([Admin::class]);
             Route::get('topics', 'SearchController@topics')->middleware([Admin::class]);
             Route::get('users', 'SearchController@users')->middleware([Admin::class]);

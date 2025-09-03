@@ -6,10 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Laravel\Scout\Searchable;
 
 class Note extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, Searchable;
 
     /**
      * The table associated with the model.
@@ -100,5 +101,27 @@ class Note extends Model
             $note->topic()->detach();
         });
     }
-}
 
+    /**
+     * Determine if the model should be searchable.
+     */
+    public function shouldBeSearchable(): bool
+    {
+        return true;
+    }
+
+    /**
+     * Fields to be indexed by Scout/Typesense.
+     */
+    public function toSearchableArray(): array
+    {
+        $text = trim(strip_tags((string) $this->body));
+
+        return [
+            'id' => $this->id,
+            'body' => $text,
+            'created_at' => optional($this->created_at)->timestamp,
+            'updated_at' => optional($this->updated_at)->timestamp,
+        ];
+    }
+}
