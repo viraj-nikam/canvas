@@ -56,7 +56,7 @@
                                     }"
                                 >
                                     <div class="pl-2 col-md-10 col-sm-10 col-10 py-1">
-                                        <p class="text-truncate font-weight-bold lead my-1">
+                                        <p class="my-1">
                                             {{ snippet(note.body) }}
                                         </p>
                                         <p class="text-secondary mt-1 mb-0">
