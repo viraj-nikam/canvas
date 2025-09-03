@@ -1,6 +1,40 @@
 <template>
     <section>
-        <page-header />
+        <page-header>
+            <template slot="options">
+                <div class="dropdown">
+                    <a
+                        id="navbarDropdown"
+                        class="nav-link pr-1"
+                        href="#"
+                        role="button"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            width="25"
+                            class="icon-dots-horizontal"
+                        >
+                            <path
+                                class="fill-light-gray"
+                                fill-rule="evenodd"
+                                d="M5 14a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm7 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm7 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"
+                            />
+                        </svg>
+                    </a>
+
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <router-link :to="{ name: 'create-note' }" class="dropdown-item"> New note </router-link>
+                        <router-link :to="{ name: 'create-post' }" class="dropdown-item">
+                            {{ trans.new_post }}
+                        </router-link>
+                    </div>
+                </div>
+            </template>
+        </page-header>
 
         <main class="py-4">
             <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12">

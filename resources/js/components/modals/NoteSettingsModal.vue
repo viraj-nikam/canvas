@@ -6,9 +6,17 @@
                     <h5 class="modal-title">{{ trans.general_settings }}</h5>
 
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" class="icon-close-circle">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            width="24"
+                            class="icon-close-circle"
+                        >
                             <circle cx="12" cy="12" r="10" class="fill-light-gray" />
-                            <path class="fill-bg" d="M13.41 12l2.83 2.83a1 1 0 0 1-1.41 1.41L12 13.41l-2.83 2.83a1 1 0 1 1-1.41-1.41L10.59 12 7.76 9.17a1 1 0 0 1 1.41-1.41L12 10.59l2.83-2.83a1 1 0 0 1 1.41 1.41L13.41 12z" />
+                            <path
+                                class="fill-bg"
+                                d="M13.41 12l2.83 2.83a1 1 0 0 1-1.41 1.41L12 13.41l-2.83 2.83a1 1 0 1 1-1.41-1.41L10.59 12 7.76 9.17a1 1 0 0 1 1.41-1.41L12 10.59l2.83-2.83a1 1 0 0 1 1.41 1.41L13.41 12z"
+                            />
                         </svg>
                     </button>
                 </div>
@@ -52,7 +60,11 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-link btn-block font-weight-bold text-muted text-decoration-none" data-dismiss="modal">
+                    <button
+                        type="button"
+                        class="btn btn-link btn-block font-weight-bold text-muted text-decoration-none"
+                        data-dismiss="modal"
+                    >
                         {{ trans.done }}
                     </button>
                 </div>
@@ -106,4 +118,3 @@ export default {
     },
 };
 </script>
-
