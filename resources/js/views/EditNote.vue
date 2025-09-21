@@ -43,6 +43,16 @@
 
         <main v-if="isReady" class="py-4">
             <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12">
+                <div class="form-group my-3">
+                    <textarea-autosize
+                        v-model="note.title"
+                        :placeholder="trans.title"
+                        style="font-size: 42px"
+                        class="w-100 form-control-lg border-0 font-serif bg-transparent px-0"
+                        rows="1"
+                        @input.native="updateNote"
+                    />
+                </div>
                 <div class="form-group my-2">
                     <quill-editor
                         :key="note.id"
@@ -84,9 +94,13 @@ import NProgress from 'nprogress';
 import PageHeader from '../components/PageHeader';
 import QuillEditor from '../components/editor/QuillEditor';
 import NoteSettingsModal from '../components/modals/NoteSettingsModal';
+import Vue from 'vue';
+import VueTextAreaAutosize from 'vue-textarea-autosize';
 import debounce from 'lodash/debounce';
 import get from 'lodash/get';
 import isEmpty from 'lodash/isEmpty';
+
+Vue.use(VueTextAreaAutosize);
 
 export default {
     name: 'edit-note',
@@ -103,6 +117,7 @@ export default {
             uri: this.$route.params.id || 'create',
             note: {
                 id: null,
+                title: null,
                 body: null,
                 tags: [],
                 topic: [],
@@ -149,11 +164,15 @@ export default {
     },
 
     methods: {
+        updateNote: debounce(function () {
+            this.saveNote();
+        }, 3000),
         fetchNote() {
             return this.request()
                 .get(`/api/notes/${this.uri}`)
                 .then(({ data }) => {
                     this.note.id = data.note.id;
+                    this.note.title = get(data.note, 'title', null);
                     this.note.body = get(data.note, 'body', '');
                     this.note.tags = get(data.note, 'tags', []);
                     this.note.topic = get(data.note, 'topic', []);

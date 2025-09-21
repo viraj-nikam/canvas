@@ -24,6 +24,7 @@ class NoteRequest extends FormRequest
     public function rules()
     {
         return [
+            'title' => 'nullable|string|max:255',
             'body' => 'nullable|string',
             // Tags and topic are optional and handled similarly to posts
             'tags' => 'nullable|array',
@@ -31,4 +32,3 @@ class NoteRequest extends FormRequest
         ];
     }
 }
-

@@ -51,7 +51,7 @@ class SearchController extends Controller
     public function notes(): JsonResponse
     {
         $notes = Note::query()
-            ->select('id', 'body')
+            ->select('id', 'title', 'body')
             ->when(request()->user('canvas')->isContributor, function (Builder $query) {
                 return $query->where('user_id', request()->user('canvas')->id);
             }, function (Builder $query) {
@@ -61,9 +61,9 @@ class SearchController extends Controller
             ->get();
 
         $notes->map(function ($note) {
-            // Use a plain-text snippet for searching and display
+            // Prefer title when available, otherwise a plain-text snippet
             $text = trim(strip_tags((string) $note->body));
-            $note['name'] = mb_strimwidth($text, 0, 140, '…');
+            $note['name'] = $note->title ?: mb_strimwidth($text, 0, 140, '…');
             $note['type'] = 'Note';
             $note['route'] = 'edit-note';
 

@@ -119,6 +119,7 @@ class Note extends Model
 
         return [
             'id' => $this->id,
+            'title' => $this->title,
             'body' => $text,
             'created_at' => optional($this->created_at)->timestamp,
             'updated_at' => optional($this->updated_at)->timestamp,

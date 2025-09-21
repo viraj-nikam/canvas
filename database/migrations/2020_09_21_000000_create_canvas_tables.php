@@ -31,6 +31,7 @@ class CreateCanvasTables extends Migration
 
         Schema::create('canvas_notes', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->string('title')->nullable();
             $table->text('body')->nullable();
             $table->uuid('user_id')->index();
             $table->timestamps();

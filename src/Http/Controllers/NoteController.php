@@ -22,7 +22,7 @@ class NoteController extends Controller
     public function index(): JsonResponse
     {
         $notes = Note::query()
-            ->select('id', 'body', 'created_at', 'updated_at')
+            ->select('id', 'title', 'body', 'created_at', 'updated_at')
             ->when(request()->user('canvas')->isContributor || request()->query('scope', 'user') != 'all', function (Builder $query) {
                 return $query->where('user_id', request()->user('canvas')->id);
             }, function (Builder $query) {
@@ -48,6 +48,7 @@ class NoteController extends Controller
         return response()->json([
             'note' => Note::query()->make([
                 'id' => $uuid->toString(),
+                'title' => null,
                 'body' => null,
             ]),
             'tags' => Tag::query()->get(['name', 'slug']),
@@ -82,6 +83,7 @@ class NoteController extends Controller
         }
 
         // Only update permitted attributes since the table is body-only
+        $note->title = $data['title'] ?? $note->title;
         $note->body = $data['body'] ?? $note->body;
         $note->user_id = $note->user_id ?? request()->user('canvas')->id;
         $note->save();
@@ -172,4 +174,3 @@ class NoteController extends Controller
         return response()->json(null, 204);
     }
 }
-

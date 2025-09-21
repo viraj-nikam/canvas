@@ -57,7 +57,10 @@
                                     }"
                                 >
                                     <div class="pl-2 col-md-10 col-sm-10 col-10 py-1">
-                                        <p class="my-1">
+                                        <p class="text-truncate lead font-weight-bold mb-0">
+                                            {{ note.title || snippet(note.body) }}
+                                        </p>
+                                        <p v-if="note.title" class="text-truncate text-secondary my-1">
                                             {{ snippet(note.body) }}
                                         </p>
                                         <p class="text-secondary mt-1 mb-0">
