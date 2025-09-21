@@ -37,7 +37,17 @@
             <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12">
                 <div class="d-flex justify-content-between mt-2 mb-4 align-items-center">
                     <h3 class="mt-2">Notes</h3>
-                    <router-link :to="{ name: 'create-note' }" class="btn btn-outline-secondary">New note</router-link>
+                    <div class="d-flex align-items-center">
+                        <select
+                            v-model="selectedTag"
+                            class="ml-auto w-auto custom-select border-0 mr-2"
+                            @change="changeTag"
+                        >
+                            <option value="all">All Tags</option>
+                            <option v-for="tag in tags" :key="tag.slug" :value="tag.slug">{{ capitalize(tag.name) }}</option>
+                        </select>
+                        <router-link :to="{ name: 'create-note' }" class="btn btn-outline-secondary">New note</router-link>
+                    </div>
                 </div>
 
                 <div class="mt-5 card shadow-lg">
@@ -135,6 +145,8 @@ export default {
         return {
             page: 1,
             notes: [],
+            tags: [],
+            selectedTag: 'all',
             infiniteId: +new Date(),
             isReady: false,
         };
@@ -154,6 +166,10 @@ export default {
     },
 
     methods: {
+        capitalize(text) {
+            if (!text || typeof text !== 'string') return '';
+            return text.charAt(0).toUpperCase() + text.slice(1);
+        },
         snippet(text) {
             if (!text) return '(empty)';
             const clean = text.replace(/<[^>]+>/g, '').trim();
@@ -167,9 +183,13 @@ export default {
                         params: {
                             page: this.page,
                             scope: this.isContributor ? 'user' : 'all',
+                            tag: this.selectedTag,
                         },
                     })
                     .then(({ data }) => {
+                        if (Array.isArray(data.tags)) {
+                            this.tags = data.tags;
+                        }
                         if (!isEmpty(data) && !isEmpty(data.notes.data)) {
                             this.page += 1;
                             this.notes.push(...data.notes.data);
@@ -186,6 +206,12 @@ export default {
                         NProgress.done();
                     });
             }
+        },
+
+        changeTag() {
+            this.page = 1;
+            this.notes = [];
+            this.infiniteId += 1;
         },
     },
 };

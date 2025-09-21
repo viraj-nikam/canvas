@@ -21,18 +21,37 @@ class NoteController extends Controller
      */
     public function index(): JsonResponse
     {
+        $tag = request()->query('tag', 'all');
+        $scopedToUser = request()->user('canvas')->isContributor || request()->query('scope', 'user') != 'all';
+
         $notes = Note::query()
             ->select('id', 'title', 'body', 'created_at', 'updated_at')
-            ->when(request()->user('canvas')->isContributor || request()->query('scope', 'user') != 'all', function (Builder $query) {
+            ->when($scopedToUser, function (Builder $query) {
                 return $query->where('user_id', request()->user('canvas')->id);
             }, function (Builder $query) {
                 return $query;
             })
+            ->when($tag && $tag !== 'all', function (Builder $query) use ($tag) {
+                return $query->whereHas('tags', function (Builder $q) use ($tag) {
+                    $q->where('slug', $tag);
+                });
+            })
             ->latest()
             ->paginate();
 
+        $tags = Tag::query()
+            ->select('name', 'slug')
+            ->whereHas('notes', function (Builder $q) use ($scopedToUser) {
+                if ($scopedToUser) {
+                    $q->where('user_id', request()->user('canvas')->id);
+                }
+            })
+            ->orderBy('name')
+            ->get();
+
         return response()->json([
             'notes' => $notes,
+            'tags' => $tags,
         ], 200);
     }
 

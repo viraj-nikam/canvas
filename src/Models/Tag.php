@@ -64,6 +64,16 @@ class Tag extends Model
     }
 
     /**
+     * Get the notes relationship.
+     *
+     * @return BelongsToMany
+     */
+    public function notes(): BelongsToMany
+    {
+        return $this->belongsToMany(Note::class, 'canvas_notes_tags', 'tag_id', 'note_id');
+    }
+
+    /**
      * Get the user relationship.
      *
      * @return BelongsTo
