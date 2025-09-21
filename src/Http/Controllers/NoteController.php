@@ -31,6 +31,10 @@ class NoteController extends Controller
             }, function (Builder $query) {
                 return $query;
             })
+            // In the default "all" state, show only untagged notes
+            ->when($tag === 'all', function (Builder $query) {
+                return $query->doesntHave('tags');
+            })
             ->when($tag && $tag !== 'all', function (Builder $query) use ($tag) {
                 return $query->whereHas('tags', function (Builder $q) use ($tag) {
                     $q->where('slug', $tag);

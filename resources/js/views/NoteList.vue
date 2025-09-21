@@ -43,7 +43,7 @@
                             class="ml-auto w-auto custom-select border-0 mr-2"
                             @change="changeTag"
                         >
-                            <option value="all">All Tags</option>
+                            <option value="all">Untagged</option>
                             <option v-for="tag in tags" :key="tag.slug" :value="tag.slug">
                                 {{ capitalize(tag.name) }}
                             </option>
