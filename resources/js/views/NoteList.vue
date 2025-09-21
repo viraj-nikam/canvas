@@ -44,9 +44,13 @@
                             @change="changeTag"
                         >
                             <option value="all">All Tags</option>
-                            <option v-for="tag in tags" :key="tag.slug" :value="tag.slug">{{ capitalize(tag.name) }}</option>
+                            <option v-for="tag in tags" :key="tag.slug" :value="tag.slug">
+                                {{ capitalize(tag.name) }}
+                            </option>
                         </select>
-                        <router-link :to="{ name: 'create-note' }" class="btn btn-outline-secondary">New note</router-link>
+                        <router-link :to="{ name: 'create-note' }" class="btn btn-outline-secondary"
+                            >New note</router-link
+                        >
                     </div>
                 </div>
 
