@@ -207,6 +207,7 @@ export default {
                         ['bold', 'italic', 'code', 'link'],
                         [{ header: '2' }, { header: '3' }],
                         ['blockquote', 'code-block'],
+                        [{ list: 'ordered' }, { list: 'bullet' }, { list: 'check' }],
                     ],
                 },
                 theme: 'bubble',
