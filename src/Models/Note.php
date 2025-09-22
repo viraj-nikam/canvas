@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Scout\Searchable;
+use Illuminate\Support\Facades\Crypt;
 
 class Note extends Model
 {
@@ -124,5 +125,36 @@ class Note extends Model
             'created_at' => optional($this->created_at)->timestamp,
             'updated_at' => optional($this->updated_at)->timestamp,
         ];
+    }
+
+    /**
+     * Encrypt the note body before saving to the database.
+     */
+    public function setBodyAttribute($value): void
+    {
+        if ($value === null) {
+            $this->attributes['body'] = null;
+            return;
+        }
+
+        $this->attributes['body'] = Crypt::encryptString($value);
+    }
+
+    /**
+     * Decrypt the note body when retrieving from the database.
+     * Falls back to the raw value if it's not encrypted (for backward compatibility).
+     */
+    public function getBodyAttribute($value)
+    {
+        if ($value === null) {
+            return null;
+        }
+
+        try {
+            return Crypt::decryptString($value);
+        } catch (\Throwable $e) {
+            // Value appears to be plaintext from older records; return as-is.
+            return $value;
+        }
     }
 }

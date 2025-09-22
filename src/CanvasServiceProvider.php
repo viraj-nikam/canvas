@@ -4,6 +4,7 @@ namespace Canvas;
 
 use Canvas\Console\DigestCommand;
 use Canvas\Console\InstallCommand;
+use Canvas\Console\EncryptNotesCommand;
 use Canvas\Console\MigrateCommand;
 use Canvas\Console\PublishCommand;
 use Canvas\Console\UiCommand;
@@ -103,6 +104,7 @@ class CanvasServiceProvider extends ServiceProvider
             PublishCommand::class,
             UiCommand::class,
             UserCommand::class,
+            EncryptNotesCommand::class,
         ]);
     }
 
