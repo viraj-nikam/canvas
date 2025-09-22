@@ -49,6 +49,19 @@
                         />
                     </svg>
                 </button>
+                <button class="btn btn-circle border" type="button" @click="insertChecklist">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="26" viewBox="0 0 24 24" class="icon-checklist">
+                        <rect width="18" height="18" x="3" y="3" class="fill-bg" rx="2" />
+                        <path
+                            class="fill-body-color"
+                            d="M8 7h8a1 1 0 0 1 0 2H8a1 1 0 0 1 0-2zm0 8h8a1 1 0 1 1 0 2H8a1 1 0 1 1 0-2zm0-4h8a1 1 0 1 1 0 2H8a1 1 0 1 1 0-2z"
+                        />
+                        <path
+                            class="fill-body-color"
+                            d="M6 7.5a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5zm0 4a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5zm0 4a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5z"
+                        />
+                    </svg>
+                </button>
             </div>
         </div>
 
@@ -82,12 +95,25 @@
                         />
                     </svg>
                 </button>
-                <button class="btn border border-bottom-0 border-right-0 py-2" type="button" @click="insertDivider">
+                <button class="btn border border-bottom-0 border-left-0 py-2" type="button" @click="insertDivider">
                     <svg xmlns="http://www.w3.org/2000/svg" width="26" viewBox="0 0 24 24" class="icon-dots-horizontal">
                         <path
                             class="fill-body-color"
                             fill-rule="evenodd"
                             d="M5 14a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm7 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm7 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"
+                        />
+                    </svg>
+                </button>
+                <button class="btn border border-bottom-0 border-right-0 py-2" type="button" @click="insertChecklist">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="26" viewBox="0 0 24 24" class="icon-checklist">
+                        <rect width="18" height="18" x="3" y="3" class="fill-bg" rx="2" />
+                        <path
+                            class="fill-body-color"
+                            d="M8 7h8a1 1 0 0 1 0 2H8a1 1 0 0 1 0-2zm0 8h8a1 1 0 1 1 0 2H8a1 1 0 1 1 0-2zm0-4h8a1 1 0 1 1 0 2H8a1 1 0 1 1 0-2z"
+                        />
+                        <path
+                            class="fill-body-color"
+                            d="M6 7.5a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5zm0 4a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5zm0 4a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5z"
                         />
                     </svg>
                 </button>
@@ -329,6 +355,33 @@ export default {
             this.editor.setSelection(range.index + 2, Quill.sources.SILENT);
         },
 
+        insertChecklist() {
+            // Insert or transform current line into an unchecked checklist item
+            const range = this.editor.getSelection(true);
+            if (!range) return;
+
+            // If selection length is zero, just format current line
+            if (range.length === 0) {
+                this.editor.formatLine(range.index, 1, 'list', 'unchecked');
+                // Ensure cursor is at end of line to continue checklist on Enter
+                const [line, offset] = this.editor.getLine(range.index);
+                const lineLength = line ? line.length() : 1;
+                this.editor.setSelection(range.index + (lineLength - offset), Quill.sources.SILENT);
+                return;
+            }
+
+            // If a block selection, apply checklist to all covered lines
+            let index = range.index;
+            let remaining = range.length;
+            while (remaining > 0) {
+                const [line, lineOffset] = this.editor.getLine(index);
+                const len = line ? line.length() : 1;
+                this.editor.formatLine(index, 1, 'list', 'unchecked');
+                index += len;
+                remaining -= len;
+            }
+        },
+
         update: debounce(function () {
             this.$emit('update-post');
         }, 3000),
@@ -450,6 +503,50 @@ div.embedded_image[data-layout='wide'] {
 
 .ql-editor.ql-blank::before {
     left: 0 !important;
+}
+
+/* Checklist: larger checkbox matching line-height with thicker border */
+.ql-container.ql-bubble .ql-editor ul[data-checked] > li {
+    position: relative;
+    padding-left: 1.8em; /* space for compact checkbox */
+}
+
+/* Enlarge and restyle the checkbox marker */
+.ql-container.ql-bubble .ql-editor ul[data-checked='true'] > li::before,
+.ql-container.ql-bubble .ql-editor ul[data-checked='false'] > li::before {
+    content: '' !important;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1.1em; /* ~30% smaller than before */
+    height: 1.1em;
+    border: 2px solid currentColor; /* thick but refined border */
+    border-radius: 4px;
+    background: transparent;
+    pointer-events: all;
+    cursor: pointer;
+    margin: 0 !important; /* neutralize Quill default negative margins */
+}
+
+/* Remove default negative margin behavior by using absolute positioning */
+
+/* Draw the check mark for checked items */
+.ql-container.ql-bubble .ql-editor ul[data-checked='true'] > li::after {
+    content: '';
+    position: absolute;
+    left: 0.42em; /* keep inside the box */
+    top: 50%;
+    transform: translateY(-55%) rotate(45deg);
+    width: 0.3em;
+    height: 0.6em;
+    border-right: 0.15em solid currentColor;
+    border-bottom: 0.15em solid currentColor;
+}
+
+/* Strike through checked list items' text */
+.ql-container.ql-bubble .ql-editor ul[data-checked='true'] > li {
+    text-decoration: line-through;
 }
 
 .btn-circle {
