@@ -161,9 +161,23 @@ export default {
             trans: 'settings/trans',
             isContributor: 'settings/isContributor',
         }),
+        userId() {
+            return this.$store.state.settings.user && this.$store.state.settings.user.id;
+        },
     },
 
     created() {
+        // Load the last selected tag (persisted per user) before initial fetch
+        try {
+            const key = this.storageKey();
+            const saved = key ? localStorage.getItem(key) : null;
+            if (saved) {
+                this.selectedTag = saved;
+            }
+        } catch (e) {
+            // Ignore storage errors and fall back to default
+        }
+
         this.fetchNotes();
         this.isReady = true;
         NProgress.done();
@@ -216,6 +230,19 @@ export default {
             this.page = 1;
             this.notes = [];
             this.infiniteId += 1;
+            // Persist selection for subsequent sessions (per user)
+            try {
+                const key = this.storageKey();
+                if (key) {
+                    localStorage.setItem(key, this.selectedTag);
+                }
+            } catch (e) {
+                // Ignore storage errors
+            }
+        },
+
+        storageKey() {
+            return this.userId ? `canvas:notes:selectedTag:${this.userId}` : null;
         },
     },
 };
