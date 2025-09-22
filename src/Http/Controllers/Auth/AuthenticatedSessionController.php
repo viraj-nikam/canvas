@@ -42,7 +42,8 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->route('canvas');
+        // Redirect to the originally requested URL if present, otherwise Canvas home
+        return redirect()->intended(route('canvas'));
     }
 
     /**
