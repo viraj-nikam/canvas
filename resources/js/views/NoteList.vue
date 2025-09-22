@@ -188,10 +188,59 @@ export default {
             if (!text || typeof text !== 'string') return '';
             return text.charAt(0).toUpperCase() + text.slice(1);
         },
-        snippet(text) {
-            if (!text) return '(empty)';
-            const clean = text.replace(/<[^>]+>/g, '').trim();
-            return clean.length > 140 ? clean.substring(0, 140) + '…' : clean;
+        snippet(html) {
+            if (!html) return '(empty)';
+            // Parse HTML and preserve semantic hints for lists/checkboxes in plain text
+            const container = document.createElement('div');
+            container.innerHTML = html;
+
+            const parts = [];
+            const maxItemsPerList = 3; // keep snippets compact
+
+            const processNode = (node) => {
+                if (node.nodeType === Node.TEXT_NODE) {
+                    const t = node.textContent.replace(/\s+/g, ' ').trim();
+                    if (t) parts.push(t);
+                    return;
+                }
+                if (node.nodeType !== Node.ELEMENT_NODE) return;
+
+                const tag = node.tagName.toUpperCase();
+                if (tag === 'UL' || tag === 'OL') {
+                    const isOrdered = tag === 'OL';
+                    const isChecklist = node.hasAttribute('data-checked');
+                    const checked = node.getAttribute('data-checked') === 'true';
+                    const items = Array.from(node.children).filter(
+                        (c) => c.tagName && c.tagName.toUpperCase() === 'LI'
+                    );
+                    items.slice(0, maxItemsPerList).forEach((li, i) => {
+                        const text = li.textContent.replace(/\s+/g, ' ').trim();
+                        if (!text) return;
+                        let prefix = ' ';
+                        if (isChecklist) {
+                            prefix = checked ? '[x] ' : '[ ] ';
+                        } else if (isOrdered) {
+                            prefix = `${i + 1}. `;
+                        }
+                        parts.push(prefix + text);
+                    });
+                    return;
+                }
+
+                if (['P', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'BLOCKQUOTE', 'PRE'].includes(tag)) {
+                    const t = node.textContent.replace(/\s+/g, ' ').trim();
+                    if (t) parts.push(t);
+                    return;
+                }
+
+                Array.from(node.childNodes).forEach(processNode);
+            };
+
+            Array.from(container.childNodes).forEach(processNode);
+
+            let summary = parts.join('  ').replace(/\s+/g, ' ').trim();
+            if (summary.length > 140) summary = summary.substring(0, 140) + '…';
+            return summary || '(empty)';
         },
 
         fetchNotes($state) {
