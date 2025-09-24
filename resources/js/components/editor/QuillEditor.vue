@@ -50,15 +50,63 @@
                     </svg>
                 </button>
                 <button class="btn btn-circle border" type="button" @click="insertChecklist">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="26" viewBox="0 0 24 24" class="icon-checklist">
-                        <rect width="18" height="18" x="3" y="3" class="fill-bg" rx="2" />
-                        <path
-                            class="fill-body-color"
-                            d="M8 7h8a1 1 0 0 1 0 2H8a1 1 0 0 1 0-2zm0 8h8a1 1 0 1 1 0 2H8a1 1 0 1 1 0-2zm0-4h8a1 1 0 1 1 0 2H8a1 1 0 1 1 0-2z"
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="26"
+                        viewBox="0 0 18 18"
+                        aria-hidden="true"
+                        class="stroke-body-color"
+                    >
+                        <line
+                            x1="9"
+                            x2="15"
+                            y1="4"
+                            y2="4"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="square"
+                            fill="none"
                         />
-                        <path
-                            class="fill-body-color"
-                            d="M6 7.5a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5zm0 4a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5zm0 4a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5z"
+                        <polyline
+                            points="3 4 4 5 6 3"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="square"
+                            fill="none"
+                        />
+                        <line
+                            x1="9"
+                            x2="15"
+                            y1="14"
+                            y2="14"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="square"
+                            fill="none"
+                        />
+                        <polyline
+                            points="3 14 4 15 6 13"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="square"
+                            fill="none"
+                        />
+                        <line
+                            x1="9"
+                            x2="15"
+                            y1="9"
+                            y2="9"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="square"
+                            fill="none"
+                        />
+                        <polyline
+                            points="3 9 4 10 6 8"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="square"
+                            fill="none"
                         />
                     </svg>
                 </button>
@@ -105,15 +153,63 @@
                     </svg>
                 </button>
                 <button class="btn border border-bottom-0 border-right-0 py-2" type="button" @click="insertChecklist">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="26" viewBox="0 0 24 24" class="icon-checklist">
-                        <rect width="18" height="18" x="3" y="3" class="fill-bg" rx="2" />
-                        <path
-                            class="fill-body-color"
-                            d="M8 7h8a1 1 0 0 1 0 2H8a1 1 0 0 1 0-2zm0 8h8a1 1 0 1 1 0 2H8a1 1 0 1 1 0-2zm0-4h8a1 1 0 1 1 0 2H8a1 1 0 1 1 0-2z"
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="26"
+                        viewBox="0 0 18 18"
+                        aria-hidden="true"
+                        class="stroke-body-color"
+                    >
+                        <line
+                            x1="9"
+                            x2="15"
+                            y1="4"
+                            y2="4"
+                            stroke="currentColor"
+                            stroke-width="1"
+                            stroke-linecap="square"
+                            fill="none"
                         />
-                        <path
-                            class="fill-body-color"
-                            d="M6 7.5a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5zm0 4a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5zm0 4a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5z"
+                        <polyline
+                            points="3 4 4 5 6 3"
+                            stroke="currentColor"
+                            stroke-width="1"
+                            stroke-linecap="square"
+                            fill="none"
+                        />
+                        <line
+                            x1="9"
+                            x2="15"
+                            y1="14"
+                            y2="14"
+                            stroke="currentColor"
+                            stroke-width="1"
+                            stroke-linecap="square"
+                            fill="none"
+                        />
+                        <polyline
+                            points="3 14 4 15 6 13"
+                            stroke="currentColor"
+                            stroke-width="1"
+                            stroke-linecap="square"
+                            fill="none"
+                        />
+                        <line
+                            x1="9"
+                            x2="15"
+                            y1="9"
+                            y2="9"
+                            stroke="currentColor"
+                            stroke-width="1"
+                            stroke-linecap="square"
+                            fill="none"
+                        />
+                        <polyline
+                            points="3 9 4 10 6 8"
+                            stroke="currentColor"
+                            stroke-width="1"
+                            stroke-linecap="square"
+                            fill="none"
                         />
                     </svg>
                 </button>

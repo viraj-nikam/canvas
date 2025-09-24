@@ -183,4 +183,10 @@ body[data-theme='dark'] {
     .fill-muted {
         fill: $text--muted--dark;
     }
+
+    .stroke-body-color line,
+    .stroke-body-color polyline,
+    .stroke-body-color path {
+        stroke: $body--color--dark;
+    }
 }

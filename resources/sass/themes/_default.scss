@@ -83,6 +83,12 @@ body {
         fill: $body--color;
     }
 
+    .stroke-body-color line,
+    .stroke-body-color polyline,
+    .stroke-body-color path {
+        stroke: $body--color;
+    }
+
     .fill-muted {
         fill: $text--muted;
     }
