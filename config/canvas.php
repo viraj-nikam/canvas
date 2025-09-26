@@ -4,6 +4,19 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Canvas Name
+    |--------------------------------------------------------------------------
+    |
+    | This value is the name of your canvas dashboard. This value is used when the
+    | framework needs to place the canvas dashboard's name in a notification or
+    | any other location as required by the application or its packages.
+    |
+    */
+
+    'name' => env('CANVAS_NAME', 'Canvas'),
+
+    /*
+    |--------------------------------------------------------------------------
     | Base Domain
     |--------------------------------------------------------------------------
     |
