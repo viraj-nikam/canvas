@@ -196,4 +196,39 @@ class NoteController extends Controller
 
         return response()->json(null, 204);
     }
+
+    /**
+     * Duplicate the specified resource and return the new note.
+     *
+     * @param  string  $id
+     * @return JsonResponse
+     */
+    public function duplicate(string $id): JsonResponse
+    {
+        $original = Note::query()
+            ->when(request()->user('canvas')->isContributor, function (Builder $query) {
+                return $query->where('user_id', request()->user('canvas')->id);
+            }, function (Builder $query) {
+                return $query;
+            })
+            ->with('tags:id', 'topic:id')
+            ->findOrFail($id);
+
+        $newId = Uuid::uuid4()->toString();
+
+        $duplicate = new Note([
+            'id' => $newId,
+        ]);
+
+        $duplicate->title = 'Copy of ' . $original->title;
+        $duplicate->body = $original->body;
+        $duplicate->user_id = request()->user('canvas')->id;
+        $duplicate->save();
+
+        // Sync relationships
+        $duplicate->tags()->sync($original->tags->pluck('id')->toArray());
+        $duplicate->topic()->sync($original->topic->pluck('id')->toArray());
+
+        return response()->json($duplicate->fresh(['tags:name,slug', 'topic:name,slug']), 201);
+    }
 }

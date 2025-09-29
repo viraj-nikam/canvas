@@ -33,6 +33,9 @@
                         <a href="#" class="dropdown-item" @click.prevent="saveNote">
                             {{ trans.save }}
                         </a>
+                        <a v-if="!creatingNote" href="#" class="dropdown-item" @click.prevent="duplicateNote">
+                            Duplicate
+                        </a>
                         <a v-if="!creatingNote" href="#" class="dropdown-item text-danger" @click="showDeleteModal">
                             {{ trans.delete }}
                         </a>
@@ -229,6 +232,17 @@ export default {
                 this.isSaved = false;
                 this.isSaving = false;
             }, 1500);
+        },
+
+        async duplicateNote() {
+            try {
+                const { data } = await this.request().post(`/api/notes/${this.note.id}/duplicate`);
+                this.$toasted && this.$toasted.show('Note duplicated', { className: 'bg-success' });
+                await this.$router.push({ name: 'edit-note', params: { id: data.id } });
+                NProgress.done();
+            } catch (e) {
+                this.$toasted && this.$toasted.show('Failed to duplicate', { className: 'bg-danger' });
+            }
         },
 
         async deleteNote() {

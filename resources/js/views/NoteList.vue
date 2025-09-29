@@ -56,7 +56,7 @@
 
                 <div class="mt-5 card shadow-lg">
                     <div class="card-body p-0">
-                        <div :key="`${index}-${note.id}`" v-for="(note, index) in notes">
+                        <div :key="`${index}-${note.id}`" v-for="(note, index) in notes" class="position-relative">
                             <router-link
                                 :to="{ name: 'edit-note', params: { id: note.id } }"
                                 class="text-decoration-none"
@@ -89,19 +89,61 @@
                                             </span>
                                         </p>
                                     </div>
-                                    <div class="ml-auto pr-2">
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            width="24"
-                                            height="24"
-                                            viewBox="0 0 24 24"
-                                        >
-                                            <circle cx="12" cy="12" r="10" style="fill: none" />
-                                            <path
-                                                class="fill-light-gray"
-                                                d="M10.3 8.7a1 1 0 0 1 1.4-1.4l4 4a1 1 0 0 1 0 1.4l-4 4a1 1 0 0 1-1.4-1.4l3.29-3.3-3.3-3.3z"
-                                            />
-                                        </svg>
+                                    <div class="ml-auto d-flex align-items-center">
+                                        <!-- Item actions dropdown (left of arrow) -->
+                                        <div class="dropdown mr-2" @click.prevent>
+                                            <a
+                                                class="nav-link p-0"
+                                                id="navbarDropdown"
+                                                role="button"
+                                                tabindex="0"
+                                                data-toggle="dropdown"
+                                                aria-haspopup="true"
+                                                aria-expanded="false"
+                                                href="#"
+                                            >
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    viewBox="0 0 24 24"
+                                                    width="25"
+                                                    class="icon-dots-horizontal"
+                                                >
+                                                    <path
+                                                        class="fill-light-gray"
+                                                        fill-rule="evenodd"
+                                                        d="M5 14a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm7 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm7 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"
+                                                    />
+                                                </svg>
+                                            </a>
+                                            <div class="dropdown-menu dropdown-menu-right">
+                                                <a href="#" class="dropdown-item" @click.prevent="duplicateNote(note)"
+                                                    >Duplicate</a
+                                                >
+                                                <a
+                                                    href="#"
+                                                    class="dropdown-item text-danger"
+                                                    @click.prevent="showDeleteModal(note, index)"
+                                                >
+                                                    {{ trans.delete || 'Delete' }}
+                                                </a>
+                                            </div>
+                                        </div>
+
+                                        <!-- Navigate arrow -->
+                                        <div class="pr-2">
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                width="24"
+                                                height="24"
+                                                viewBox="0 0 24 24"
+                                            >
+                                                <circle cx="12" cy="12" r="10" style="fill: none" />
+                                                <path
+                                                    class="fill-light-gray"
+                                                    d="M10.3 8.7a1 1 0 0 1 1.4-1.4l4 4a1 1 0 0 1 0 1.4l-4 4a1 1 0 0 1-1.4-1.4l3.29-3.3-3.3-3.3z"
+                                                />
+                                            </svg>
+                                        </div>
                                     </div>
                                 </div>
                             </router-link>
@@ -122,6 +164,14 @@
                 </div>
             </div>
         </main>
+        <section v-if="isReady">
+            <delete-modal
+                ref="deleteModal"
+                :header="trans.delete"
+                message="Are you sure you want to delete this note?"
+                @delete="deleteNote"
+            />
+        </section>
     </section>
 </template>
 
@@ -132,6 +182,8 @@ import InfiniteLoading from 'vue-infinite-loading';
 import NProgress from 'nprogress';
 import PageHeader from '../components/PageHeader';
 import isEmpty from 'lodash/isEmpty';
+import DeleteModal from '../components/modals/DeleteModal';
+import $ from 'jquery';
 
 export default {
     name: 'note-list',
@@ -139,6 +191,7 @@ export default {
     components: {
         InfiniteLoading,
         PageHeader,
+        DeleteModal,
     },
 
     directives: {
@@ -153,6 +206,8 @@ export default {
             selectedTag: 'all',
             infiniteId: +new Date(),
             isReady: false,
+            pendingDeleteNote: null,
+            pendingDeleteIndex: null,
         };
     },
 
@@ -184,6 +239,38 @@ export default {
     },
 
     methods: {
+        async duplicateNote(note) {
+            try {
+                const { data } = await this.request().post(`/api/notes/${note.id}/duplicate`);
+                this.$toasted && this.$toasted.show('Note duplicated', { className: 'bg-success' });
+                // Navigate to the duplicated note for immediate editing
+                this.$router.push({ name: 'edit-note', params: { id: data.id } });
+            } catch (e) {
+                this.$toasted && this.$toasted.show('Failed to duplicate', { className: 'bg-danger' });
+            }
+        },
+
+        showDeleteModal(note, index) {
+            this.pendingDeleteNote = note;
+            this.pendingDeleteIndex = index;
+            $(this.$refs.deleteModal.$el).modal('show');
+        },
+        async deleteNote() {
+            const note = this.pendingDeleteNote;
+            const index = this.pendingDeleteIndex;
+            if (!note || index === null || index === undefined) return;
+            try {
+                await this.request().delete(`/api/notes/${note.id}`);
+                this.notes.splice(index, 1);
+                this.$toasted && this.$toasted.show(this.trans.success || 'Deleted', { className: 'bg-success' });
+            } catch (e) {
+                this.$toasted && this.$toasted.show('Failed to delete', { className: 'bg-danger' });
+            } finally {
+                $(this.$refs.deleteModal.$el).modal('hide');
+                this.pendingDeleteNote = null;
+                this.pendingDeleteIndex = null;
+            }
+        },
         capitalize(text) {
             if (!text || typeof text !== 'string') return '';
             return text.charAt(0).toUpperCase() + text.slice(1);
