@@ -181,6 +181,24 @@ export default {
                     this.note.topic = get(data.note, 'topic', []);
                     this.tags = get(data, 'tags', []);
                     this.topics = get(data, 'topics', []);
+                    // If creating a new note while a tag filter is selected,
+                    // preselect that tag for the new note.
+                    const selectedTag = this.$route.query && this.$route.query.tag;
+                    if (
+                        this.creatingNote &&
+                        selectedTag &&
+                        selectedTag !== 'all' &&
+                        (!this.note.tags || this.note.tags.length === 0)
+                    ) {
+                        let match = this.tags.find((t) => t.slug === selectedTag);
+                        if (!match) {
+                            // Create a lightweight tag entry if it doesn't exist in options
+                            const pretty = selectedTag.replace(/[-_]+/g, ' ').replace(/\b\w/g, (m) => m.toUpperCase());
+                            match = { name: pretty, slug: selectedTag };
+                            this.tags.push(match);
+                        }
+                        this.note.tags = [match];
+                    }
                     NProgress.inc();
                 })
                 .catch(() => {

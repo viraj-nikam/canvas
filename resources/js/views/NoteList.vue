@@ -27,7 +27,7 @@
                     </a>
 
                     <div class="dropdown-menu dropdown-menu-right">
-                        <router-link :to="{ name: 'create-note' }" class="dropdown-item"> New note </router-link>
+                        <router-link :to="createNoteRoute()" class="dropdown-item"> New note </router-link>
                     </div>
                 </div>
             </template>
@@ -48,9 +48,7 @@
                                 {{ capitalize(tag.name) }}
                             </option>
                         </select>
-                        <router-link :to="{ name: 'create-note' }" class="btn btn-outline-secondary"
-                            >New note</router-link
-                        >
+                        <router-link :to="createNoteRoute()" class="btn btn-outline-secondary">New note</router-link>
                     </div>
                 </div>
 
@@ -239,6 +237,10 @@ export default {
     },
 
     methods: {
+        createNoteRoute() {
+            const query = this.selectedTag && this.selectedTag !== 'all' ? { tag: this.selectedTag } : {};
+            return { name: 'create-note', query };
+        },
         async duplicateNote(note) {
             try {
                 const { data } = await this.request().post(`/api/notes/${note.id}/duplicate`);
