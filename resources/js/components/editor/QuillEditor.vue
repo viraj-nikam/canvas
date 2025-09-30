@@ -605,17 +605,22 @@ div.embedded_image[data-layout='wide'] {
 /* Checklist: larger checkbox matching line-height with thicker border */
 .ql-container.ql-bubble .ql-editor ul[data-checked] > li {
     position: relative;
+    align-content: flex-start;
+    align-items: flex-start; /* ensure content starts at top for multi-line */
+    display: flex;
+    flex: 1;
     padding-left: 1.8em; /* space for compact checkbox */
 }
 
 /* Enlarge and restyle the checkbox marker */
 .ql-container.ql-bubble .ql-editor ul[data-checked='true'] > li::before,
 .ql-container.ql-bubble .ql-editor ul[data-checked='false'] > li::before {
+    flex: 1;
     content: '' !important;
     position: absolute;
     left: 0;
-    top: 50%;
-    transform: translateY(-50%);
+    top: 0.45em; /* top align checkbox with first line */
+    transform: none;
     width: 1.1em; /* ~30% smaller than before */
     height: 1.1em;
     border: 2px solid currentColor; /* thick but refined border */
@@ -633,8 +638,8 @@ div.embedded_image[data-layout='wide'] {
     content: '';
     position: absolute;
     left: 0.42em; /* keep inside the box */
-    top: 50%;
-    transform: translateY(-55%) rotate(45deg);
+    top: 0.65em; /* position check mark within top-aligned box */
+    transform: rotate(45deg);
     width: 0.3em;
     height: 0.6em;
     border-right: 0.15em solid currentColor;
