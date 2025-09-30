@@ -26,3 +26,21 @@ new Vue({
     router,
     store,
 });
+
+// Dynamic document title per route/component
+const appName = (window.Canvas && (window.Canvas.canvasName || window.Canvas.appName)) || 'Life';
+function setDocTitle(prefix) {
+    if (prefix && typeof prefix === 'string' && prefix.trim()) {
+        document.title = `${prefix} - ${appName}`;
+    } else {
+        document.title = appName;
+    }
+}
+
+router.afterEach((to) => {
+    const title = (to.meta && to.meta.title) || '';
+    setDocTitle(title);
+});
+
+// Expose helper for components to set more specific titles (e.g., entity names)
+Vue.prototype.$setDocTitle = setDocTitle;

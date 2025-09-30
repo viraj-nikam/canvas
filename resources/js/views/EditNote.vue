@@ -172,6 +172,8 @@ export default {
 
     methods: {
         updateNote: debounce(function () {
+            const t = (this.note.title && this.note.title.trim()) || 'Note';
+            this.$setDocTitle && this.$setDocTitle(t);
             this.saveNote();
         }, 3000),
         fetchNote() {
@@ -186,6 +188,8 @@ export default {
                     this.isFavourite = !!get(data.note, 'is_favorite', false);
                     this.tags = get(data, 'tags', []);
                     this.topics = get(data, 'topics', []);
+                    const titleText = (this.note.title && this.note.title.trim()) || 'Note';
+                    this.$setDocTitle && this.$setDocTitle(titleText);
                     // If creating a new note while a tag filter is selected,
                     // preselect that tag for the new note.
                     const selectedTag = this.$route.query && this.$route.query.tag;

@@ -257,6 +257,9 @@ export default {
                     this.tags = get(data, 'tags', []);
                     this.topics = get(data, 'topics', []);
 
+                    // Set document title using post title or default 'Post'
+                    const t = (this.post.title && this.post.title.trim()) || 'Post';
+                    this.$setDocTitle && this.$setDocTitle(t);
                     NProgress.inc();
                 })
                 .catch(() => {
@@ -314,6 +317,8 @@ export default {
         },
 
         updatePost: debounce(function () {
+            const t = (this.post.title && this.post.title.trim()) || 'Post';
+            this.$setDocTitle && this.$setDocTitle(t);
             this.savePost();
         }, 3000),
 

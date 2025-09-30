@@ -308,6 +308,8 @@ export default {
                 .get(`/api/topics/${this.uri}`)
                 .then(({ data }) => {
                     this.topic = data;
+                    const t = (this.topic && this.topic.name && this.topic.name.trim()) || 'Topic';
+                    this.$setDocTitle && this.$setDocTitle(t);
                     NProgress.inc();
                 })
                 .catch(() => {

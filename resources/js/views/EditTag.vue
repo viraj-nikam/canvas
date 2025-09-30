@@ -308,6 +308,8 @@ export default {
                 .get(`/api/tags/${this.uri}`)
                 .then(({ data }) => {
                     this.tag = data;
+                    const t = (this.tag && this.tag.name && this.tag.name.trim()) || 'Tag';
+                    this.$setDocTitle && this.$setDocTitle(t);
                     NProgress.inc();
                 })
                 .catch(() => {

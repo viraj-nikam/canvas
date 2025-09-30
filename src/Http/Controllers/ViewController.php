@@ -24,6 +24,8 @@ class ViewController extends Controller
                 'path' => Canvas::basePath(),
                 'roles' => Canvas::availableRoles(),
                 'timezone' => config('app.timezone'),
+                'canvasName' => config('canvas.name'),
+                'appName' => config('app.name'),
                 'translations' => Canvas::availableTranslations(request()->user('canvas')->locale),
                 'unsplash' => config('canvas.unsplash.access_key'),
                 'user' => request()->user('canvas'),
