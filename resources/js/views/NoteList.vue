@@ -52,9 +52,134 @@
                     </div>
                 </div>
 
+                <!-- Starred section -->
+                <div v-if="starredNotes.length" class="mt-4 mb-2">
+                    <h5 class="mb-3">Starred</h5>
+                    <div class="card shadow-lg">
+                        <div class="card-body p-0">
+                            <div
+                                :key="`star-${i}-${note.id}`"
+                                v-for="(note, i) in starredNotes"
+                                class="position-relative"
+                            >
+                                <router-link
+                                    :to="{ name: 'edit-note', params: { id: note.id } }"
+                                    class="text-decoration-none"
+                                >
+                                    <div
+                                        v-hover="{ class: `hover-bg` }"
+                                        class="d-flex p-3 align-items-center"
+                                        :class="{
+                                            'border-top': i !== 0,
+                                            'rounded-top': i === 0,
+                                            'rounded-bottom': i === starredNotes.length - 1,
+                                        }"
+                                    >
+                                        <div class="pl-2 col-md-10 col-sm-10 col-10 py-1">
+                                            <p class="text-truncate lead font-weight-bold mb-0">
+                                                {{ note.title || snippet(note.body) }}
+                                            </p>
+                                            <p v-if="note.title" class="text-truncate text-secondary my-1">
+                                                {{ snippet(note.body) }}
+                                            </p>
+                                            <p class="text-secondary mt-1 mb-0">
+                                                <span>
+                                                    {{ trans.created }}
+                                                    {{ moment(note.created_at).fromNow() }}
+                                                </span>
+
+                                                <span class="d-none d-md-inline">
+                                                    — {{ trans.updated }}
+                                                    {{ moment(note.updated_at).fromNow() }}
+                                                </span>
+                                            </p>
+                                        </div>
+                                        <div class="ml-auto d-flex align-items-center">
+                                            <!-- Item actions dropdown (left of arrow) -->
+                                            <div class="dropdown mr-2" @click.prevent>
+                                                <a
+                                                    class="nav-link p-0"
+                                                    id="navbarDropdown"
+                                                    role="button"
+                                                    tabindex="0"
+                                                    data-toggle="dropdown"
+                                                    aria-haspopup="true"
+                                                    aria-expanded="false"
+                                                    href="#"
+                                                >
+                                                    <svg
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                        viewBox="0 0 24 24"
+                                                        width="25"
+                                                        class="icon-dots-horizontal"
+                                                    >
+                                                        <path
+                                                            class="fill-light-gray"
+                                                            fill-rule="evenodd"
+                                                            d="M5 14a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm7 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm7 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"
+                                                        />
+                                                    </svg>
+                                                </a>
+                                                <div class="dropdown-menu dropdown-menu-right">
+                                                    <a
+                                                        href="#"
+                                                        class="dropdown-item"
+                                                        @click.prevent="duplicateNote(note)"
+                                                    >
+                                                        Duplicate
+                                                    </a>
+                                                    <a
+                                                        href="#"
+                                                        class="dropdown-item"
+                                                        @click.prevent="toggleFavourite(note)"
+                                                    >
+                                                        {{
+                                                            isFavourite(note)
+                                                                ? 'Remove from Favourites'
+                                                                : 'Add to Favourites'
+                                                        }}
+                                                    </a>
+                                                    <a
+                                                        href="#"
+                                                        class="dropdown-item text-danger"
+                                                        @click.prevent="showDeleteModal(note, getNoteIndex(note))"
+                                                    >
+                                                        {{ trans.delete || 'Delete' }}
+                                                    </a>
+                                                </div>
+                                            </div>
+
+                                            <!-- Navigate arrow -->
+                                            <div class="pr-2">
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    width="24"
+                                                    height="24"
+                                                    viewBox="0 0 24 24"
+                                                >
+                                                    <circle cx="12" cy="12" r="10" style="fill: none" />
+                                                    <path
+                                                        class="fill-light-gray"
+                                                        d="M10.3 8.7a1 1 0 0 1 1.4-1.4l4 4a1 1 0 0 1 0 1.4l-4 4a1 1 0 0 1-1.4-1.4l3.29-3.3-3.3-3.3z"
+                                                    />
+                                                </svg>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </router-link>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Regular notes section -->
                 <div class="mt-5 card shadow-lg">
                     <div class="card-body p-0">
-                        <div :key="`${index}-${note.id}`" v-for="(note, index) in notes" class="position-relative">
+                        <div
+                            :key="`note-${index}-${note.id}`"
+                            v-for="(note, index) in regularNotes"
+                            class="position-relative"
+                        >
                             <router-link
                                 :to="{ name: 'edit-note', params: { id: note.id } }"
                                 class="text-decoration-none"
@@ -65,7 +190,7 @@
                                     :class="{
                                         'border-top': index !== 0,
                                         'rounded-top': index === 0,
-                                        'rounded-bottom': index === notes.length - 1,
+                                        'rounded-bottom': index === regularNotes.length - 1,
                                     }"
                                 >
                                     <div class="pl-2 col-md-10 col-sm-10 col-10 py-1">
@@ -114,13 +239,24 @@
                                                 </svg>
                                             </a>
                                             <div class="dropdown-menu dropdown-menu-right">
-                                                <a href="#" class="dropdown-item" @click.prevent="duplicateNote(note)"
-                                                    >Duplicate</a
+                                                <a href="#" class="dropdown-item" @click.prevent="duplicateNote(note)">
+                                                    Duplicate
+                                                </a>
+                                                <a
+                                                    href="#"
+                                                    class="dropdown-item"
+                                                    @click.prevent="toggleFavourite(note)"
                                                 >
+                                                    {{
+                                                        isFavourite(note)
+                                                            ? 'Remove from Favourites'
+                                                            : 'Add to Favourites'
+                                                    }}
+                                                </a>
                                                 <a
                                                     href="#"
                                                     class="dropdown-item text-danger"
-                                                    @click.prevent="showDeleteModal(note, index)"
+                                                    @click.prevent="showDeleteModal(note, getNoteIndex(note))"
                                                 >
                                                     {{ trans.delete || 'Delete' }}
                                                 </a>
@@ -206,6 +342,7 @@ export default {
             isReady: false,
             pendingDeleteNote: null,
             pendingDeleteIndex: null,
+            favouriteIds: [],
         };
     },
 
@@ -216,6 +353,15 @@ export default {
         }),
         userId() {
             return this.$store.state.settings.user && this.$store.state.settings.user.id;
+        },
+        favouritesSet() {
+            return new Set(this.favouriteIds);
+        },
+        starredNotes() {
+            return this.notes.filter((n) => this.favouritesSet.has(n.id));
+        },
+        regularNotes() {
+            return this.notes.filter((n) => !this.favouritesSet.has(n.id));
         },
     },
 
@@ -230,6 +376,10 @@ export default {
         } catch (e) {
             // Ignore storage errors and fall back to default
         }
+
+        // Load favourites (backend > local fallback) and starred list
+        this.loadFavourites();
+        this.fetchStarred();
 
         this.fetchNotes();
         this.isReady = true;
@@ -377,10 +527,80 @@ export default {
             } catch (e) {
                 // Ignore storage errors
             }
+            // Refresh starred list for the new filter
+            this.fetchStarred();
         },
 
         storageKey() {
             return this.userId ? `canvas:notes:selectedTag:${this.userId}` : null;
+        },
+
+        favouritesKey() {
+            return this.userId ? `canvas:notes:favourites:${this.userId}` : null;
+        },
+        loadFavourites() {
+            try {
+                const key = this.favouritesKey();
+                if (!key) return;
+                const raw = localStorage.getItem(key);
+                this.favouriteIds = raw ? JSON.parse(raw) : [];
+            } catch (e) {
+                this.favouriteIds = [];
+            }
+        },
+        saveFavourites() {
+            try {
+                const key = this.favouritesKey();
+                if (!key) return;
+                localStorage.setItem(key, JSON.stringify(this.favouriteIds));
+            } catch (e) {
+                // ignore
+            }
+        },
+        isFavourite(note) {
+            const id = typeof note === 'object' ? note.id : note;
+            return this.favouritesSet.has(id);
+        },
+        async toggleFavourite(note) {
+            const id = typeof note === 'object' ? note.id : note;
+            const isFav = this.isFavourite(id);
+            try {
+                if (isFav) {
+                    await this.request().delete(`/api/notes/${id}/favorite`);
+                } else {
+                    await this.request().post(`/api/notes/${id}/favorite`);
+                }
+                // Update local state
+                const idx = this.favouriteIds.indexOf(id);
+                if (idx >= 0) {
+                    this.favouriteIds.splice(idx, 1);
+                } else {
+                    this.favouriteIds.push(id);
+                }
+                this.saveFavourites();
+            } catch (e) {
+                this.$toasted && this.$toasted.show('Failed to update favourites', { className: 'bg-danger' });
+            }
+        },
+        getNoteIndex(note) {
+            const id = typeof note === 'object' ? note.id : note;
+            return this.notes.findIndex((n) => n.id === id);
+        },
+        async fetchStarred() {
+            try {
+                const { data } = await this.request().get('/api/notes/starred', {
+                    params: {
+                        scope: this.isContributor ? 'user' : 'all',
+                        tag: this.selectedTag,
+                    },
+                });
+                if (Array.isArray(data.notes)) {
+                    this.favouriteIds = data.notes.map((n) => n.id);
+                    this.saveFavourites();
+                }
+            } catch (e) {
+                // fallback: keep local favourites
+            }
         },
     },
 };

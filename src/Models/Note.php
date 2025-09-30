@@ -5,6 +5,7 @@ namespace Canvas\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany as ManyToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Scout\Searchable;
 use Illuminate\Support\Facades\Crypt;
@@ -79,6 +80,19 @@ class Note extends Model
     }
 
     /**
+     * Users who marked this note as favorite.
+     */
+    public function favorites(): ManyToMany
+    {
+        return $this->belongsToMany(
+            User::class,
+            'canvas_notes_favorites',
+            'note_id',
+            'user_id'
+        )->withTimestamps();
+    }
+
+    /**
      * Get the user relationship.
      *
      * @return BelongsTo
@@ -100,6 +114,7 @@ class Note extends Model
         static::deleting(function (self $note) {
             $note->tags()->detach();
             $note->topic()->detach();
+            $note->favorites()->detach();
         });
     }
 

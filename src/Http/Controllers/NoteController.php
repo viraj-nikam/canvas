@@ -167,6 +167,12 @@ class NoteController extends Controller
             ->with('tags:name,slug', 'topic:name,slug')
             ->findOrFail($id);
 
+        $user = request()->user('canvas');
+        $isFavorite = $note->favorites()->where('canvas_notes_favorites.user_id', $user->id)->exists();
+
+        // Attach is_favorite attribute without mutating the model's table
+        $note->setAttribute('is_favorite', $isFavorite);
+
         return response()->json([
             'note' => $note,
             'tags' => Tag::query()->get(['name', 'slug']),
@@ -230,5 +236,64 @@ class NoteController extends Controller
         $duplicate->topic()->sync($original->topic->pluck('id')->toArray());
 
         return response()->json($duplicate->fresh(['tags:name,slug', 'topic:name,slug']), 201);
+    }
+
+    /**
+     * Return the current user's starred notes filtered by tag/scope.
+     */
+    public function starred(): JsonResponse
+    {
+        $user = request()->user('canvas');
+        $tag = request()->query('tag', 'all');
+        $scopedToUser = $user->isContributor || request()->query('scope', 'user') != 'all';
+
+        $query = Note::query()
+            ->select('canvas_notes.id', 'title', 'body', 'canvas_notes.created_at', 'canvas_notes.updated_at')
+            ->join('canvas_notes_favorites as fav', 'fav.note_id', '=', 'canvas_notes.id')
+            ->where('fav.user_id', $user->id)
+            ->when($scopedToUser, function (Builder $q) use ($user) {
+                return $q->where('canvas_notes.user_id', $user->id);
+            }, function (Builder $q) {
+                return $q;
+            })
+            ->when($tag === 'all', function (Builder $q) {
+                return $q->doesntHave('tags');
+            })
+            ->when($tag && $tag !== 'all', function (Builder $q) use ($tag) {
+                return $q->whereHas('tags', function (Builder $qq) use ($tag) {
+                    $qq->where('slug', $tag);
+                });
+            })
+            ->latest();
+
+        $notes = $query->get();
+
+        return response()->json([
+            'notes' => $notes,
+        ], 200);
+    }
+
+    /**
+     * Mark a note as favorite for the current user.
+     */
+    public function favorite(string $id): JsonResponse
+    {
+        $user = request()->user('canvas');
+        $note = Note::query()->findOrFail($id);
+        $note->favorites()->syncWithoutDetaching([$user->id]);
+
+        return response()->json(['status' => 'ok'], 200);
+    }
+
+    /**
+     * Remove a note from favorites for the current user.
+     */
+    public function unfavorite(string $id): JsonResponse
+    {
+        $user = request()->user('canvas');
+        $note = Note::query()->findOrFail($id);
+        $note->favorites()->detach([$user->id]);
+
+        return response()->json(['status' => 'ok'], 200);
     }
 }

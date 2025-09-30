@@ -3,6 +3,7 @@
 namespace Canvas\Models;
 
 use Canvas\Canvas;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -132,6 +133,19 @@ class User extends Authenticatable
     public function topics(): HasMany
     {
         return $this->hasMany(Topic::class);
+    }
+
+    /**
+     * Notes this user has marked as favorite.
+     */
+    public function favoriteNotes(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            Note::class,
+            'canvas_notes_favorites',
+            'user_id',
+            'note_id'
+        )->withTimestamps();
     }
 
     /**

@@ -45,9 +45,12 @@ Route::middleware([Authenticate::class])->group(function () {
         // Note routes...
         Route::prefix('notes')->group(function () {
             Route::get('/', 'NoteController@index');
+            Route::get('starred', 'NoteController@starred');
             Route::get('create', 'NoteController@create');
             Route::get('{id}', 'NoteController@show');
             Route::post('{id}/duplicate', 'NoteController@duplicate');
+            Route::post('{id}/favorite', 'NoteController@favorite');
+            Route::delete('{id}/favorite', 'NoteController@unfavorite');
             Route::post('{id}', 'NoteController@store');
             Route::delete('{id}', 'NoteController@destroy');
         });

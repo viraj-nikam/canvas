@@ -33,6 +33,9 @@
                         <a href="#" class="dropdown-item" @click.prevent="saveNote">
                             {{ trans.save }}
                         </a>
+                        <a v-if="!creatingNote" href="#" class="dropdown-item" @click.prevent="toggleFavourite">
+                            {{ isFavourite ? 'Remove from Favourites' : 'Add to Favourites' }}
+                        </a>
                         <a v-if="!creatingNote" href="#" class="dropdown-item" @click.prevent="duplicateNote">
                             Duplicate
                         </a>
@@ -131,6 +134,7 @@ export default {
             isSaved: false,
             errors: [],
             isReady: false,
+            isFavourite: false,
         };
     },
 
@@ -179,6 +183,7 @@ export default {
                     this.note.body = get(data.note, 'body', '');
                     this.note.tags = get(data.note, 'tags', []);
                     this.note.topic = get(data.note, 'topic', []);
+                    this.isFavourite = !!get(data.note, 'is_favorite', false);
                     this.tags = get(data, 'tags', []);
                     this.topics = get(data, 'topics', []);
                     // If creating a new note while a tag filter is selected,
@@ -281,6 +286,22 @@ export default {
 
         showSettingsModal() {
             $(this.$refs.noteSettingsModal.$el).modal('show');
+        },
+
+        async toggleFavourite() {
+            if (!this.note.id) return;
+            try {
+                if (this.isFavourite) {
+                    await this.request().delete(`/api/notes/${this.note.id}/favorite`);
+                    this.isFavourite = false;
+                } else {
+                    await this.request().post(`/api/notes/${this.note.id}/favorite`);
+                    this.isFavourite = true;
+                }
+                this.$toasted && this.$toasted.show('Updated favourites', { className: 'bg-success' });
+            } catch (e) {
+                this.$toasted && this.$toasted.show('Failed to update favourites', { className: 'bg-danger' });
+            }
         },
     },
 };
